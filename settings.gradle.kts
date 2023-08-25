@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google()
         mavenCentral()
@@ -17,8 +18,6 @@ dependencyResolutionManagement {
         create("libs") { from(files("libs.versions.toml")) }
     }
 }
-
-includeBuild("build-logic")
 
 rootProject.name = "Practicum-Android-Diploma"
 include(":app")
