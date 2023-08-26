@@ -10,7 +10,7 @@ import ru.practicum.android.diploma.root.RootViewModel
 @Module
 interface ViewModelModule {
     @IntoMap
-    @StringKey("RootViewModel")
+    @ViewModelKey(RootViewModel::class)
     @Binds
     fun bindRootViewModel(rootViewModel: RootViewModel): ViewModel
 }
