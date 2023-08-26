@@ -3,4 +3,5 @@
     <string name="main_menu"                        >Main</string>
     <string name="favorites"                        >Favorites</string>
     <string name="team_menu"                        >Team</string>
+    <string name="image"                            >Image</string>
 </resources>
