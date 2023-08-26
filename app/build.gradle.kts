@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
+    id("kotlin-kapt")
     id("ru.practicum.android.diploma.plugins.developproperties")
 }
 
@@ -60,7 +61,8 @@ dependencies {
     implementation(libs.bundles.room)
     implementation(libs.dagger)
     implementation(libs.glide)
-    ksp(libs.dagger.compiler)
+//    ksp(libs.dagger.compiler)
+    kapt(libs.dagger.compiler)
     ksp(libs.glide.compiler)
     ksp(libs.room.compiler)
 
