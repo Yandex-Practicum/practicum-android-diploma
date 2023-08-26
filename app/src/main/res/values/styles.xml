@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="font_bold_32">
+        <item name="android:textSize">@dimen/font_size_32</item>
+        <item name="android:fontFamily">@font/ys_display_bold</item>
+        <item name="fontWeight">700</item>
+    </style>
+
+    <style name="font_medium_22">
+        <item name="android:textSize">@dimen/font_size_22</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="fontWeight">500</item>
+    </style>
+
+    <style name="font_medium_16">
+        <item name="android:textSize">@dimen/font_size_16</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="fontWeight">500</item>
+    </style>
+
+    <style name="font_regular_16">
+        <item name="android:textSize">@dimen/font_size_16</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="fontWeight">400</item>
+    </style>
+
+    <style name="font_regular_12">
+        <item name="android:textSize">@dimen/font_size_12</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="fontWeight">400</item>
+    </style>
+
+</resources>
