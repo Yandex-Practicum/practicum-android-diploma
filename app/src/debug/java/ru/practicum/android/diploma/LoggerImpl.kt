@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma
 
 import android.util.Log
-import ru.practicum.android.diploma.di.ApplicationScope
 import javax.inject.Inject
 
 

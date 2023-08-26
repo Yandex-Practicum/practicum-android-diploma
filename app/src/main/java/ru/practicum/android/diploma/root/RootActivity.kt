@@ -14,7 +14,8 @@ import javax.inject.Inject
 class RootActivity : AppCompatActivity() {
     private val component by lazy {
         (application as App).component
-
+            .activityComponentFactory()
+            .create(123)
     }
 
     @Inject
@@ -23,10 +24,9 @@ class RootActivity : AppCompatActivity() {
     private val viewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[RootViewModel::class.java]
     }
+    @Inject
+     lateinit var logger: Logger
 
-    private val logger: Logger by lazy {
-        component.provideLogger()
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         component.inject(this)
         super.onCreate(savedInstanceState)

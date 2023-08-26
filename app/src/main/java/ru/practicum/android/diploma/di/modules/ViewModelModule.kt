@@ -1,10 +1,10 @@
-package ru.practicum.android.diploma.di
+package ru.practicum.android.diploma.di.modules
 
 import androidx.lifecycle.ViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
-import dagger.multibindings.StringKey
+import ru.practicum.android.diploma.di.annotations.ViewModelKey
 import ru.practicum.android.diploma.root.RootViewModel
 
 @Module

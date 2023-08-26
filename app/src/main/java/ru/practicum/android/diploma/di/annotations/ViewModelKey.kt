@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.di
+package ru.practicum.android.diploma.di.annotations
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey
