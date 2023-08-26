@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.app.App
 import ru.practicum.android.diploma.root.RootActivity
 
 @ApplicationScope
-@Component(modules = [LoggerModule::class])
+@Component(modules = [LoggerModule::class, ViewModelModule::class])
 interface AppComponent {
     fun inject(app: App)
     fun inject(rootActivity: RootActivity)
