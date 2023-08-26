@@ -1,4 +1,6 @@
 <resources>
-    <string name="app_name">JobSearchEngine</string>
-    <string name="favourite">Избранное</string>
+    <string name="app_name" translatable="false"    >Job Search Engine</string>
+    <string name="main_menu"                        >Main</string>
+    <string name="favorites"                        >Favorites</string>
+    <string name="team_menu"                        >Team</string>
 </resources>
