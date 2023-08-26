@@ -1,22 +1,22 @@
 package ru.practicum.android.diploma
 
 import android.app.Application
-import android.content.Context
-import org.koin.core.context.startKoin
 import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
+import ru.practicum.android.diploma.di.dataModule
+import ru.practicum.android.diploma.di.domainModule
+import ru.practicum.android.diploma.di.uiModule
 
 class App: Application() {
     override fun onCreate() {
         super.onCreate()
-        context = applicationContext
 
-        startKoin{
+        startKoin {
+            androidLogger(Level.DEBUG)
             androidContext(this@App)
-            modules()
+            modules(listOf(uiModule, domainModule, dataModule))
         }
-    }
-
-    companion object {
-        lateinit var context: Context
     }
 }
