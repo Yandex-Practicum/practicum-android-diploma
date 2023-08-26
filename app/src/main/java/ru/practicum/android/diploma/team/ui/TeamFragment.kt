@@ -6,15 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.databinding.FragmentTeamBinding
+import ru.practicum.android.diploma.util.viewBinding
 
-class TeamFragment : Fragment() {
+class TeamFragment : Fragment(R.layout.fragment_team) {
+private val binding by viewBinding<FragmentTeamBinding>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_team, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
-
 }

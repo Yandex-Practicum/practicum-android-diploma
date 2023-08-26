@@ -11,14 +11,14 @@ import ru.practicum.android.diploma.databinding.ActivityRootBinding
 import ru.practicum.android.diploma.util.thisName
 
 class RootActivity : AppCompatActivity() {
-    private val binding by lazy{ActivityRootBinding.inflate(layoutInflater)}
+    private val binding by lazy { ActivityRootBinding.inflate(layoutInflater) }
 
     private val logger = LoggerImpl()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        logger.log(thisName,"onCreate()")
+        logger.log(thisName, "onCreate()")
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.rootFragmentContainerView) as NavHostFragment
