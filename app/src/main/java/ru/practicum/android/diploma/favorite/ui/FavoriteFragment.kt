@@ -10,7 +10,10 @@ import ru.practicum.android.diploma.databinding.FragmentFavoriteBinding
 import ru.practicum.android.diploma.util.viewBinding
 
 class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
- private val binding by viewBinding<FragmentFavoriteBinding>()
+
+    private val binding by viewBinding<FragmentFavoriteBinding>()
+    //private val viewModel: FavoriteViewModel by inject()
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
