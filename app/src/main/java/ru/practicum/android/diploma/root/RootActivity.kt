@@ -2,10 +2,12 @@ package ru.practicum.android.diploma.root
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.app.App
+import ru.practicum.android.diploma.di.ViewModelFactory
 import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
 
@@ -16,7 +18,11 @@ class RootActivity : AppCompatActivity() {
     }
 
     @Inject
-    lateinit var viewModel: RootViewModel
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[RootViewModel::class.java]
+    }
 
     private val logger: Logger by lazy {
         component.provideLogger()
