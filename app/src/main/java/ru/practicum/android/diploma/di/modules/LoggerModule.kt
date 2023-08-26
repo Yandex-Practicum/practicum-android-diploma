@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.di.annotations.ApplicationScope
 
 @Module
 interface LoggerModule {
-    @ApplicationScope
+
     @Binds
     fun bindLogger(impl: LoggerImpl): Logger
 }

@@ -10,6 +10,7 @@ class App: Application() {
 
     @Inject
     lateinit var logger: Logger
+
     val component by lazy {
         DaggerAppComponent.factory()
             .create(this)

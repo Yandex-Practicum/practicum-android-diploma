@@ -13,4 +13,5 @@ interface ViewModelModule {
     @ViewModelKey(RootViewModel::class)
     @Binds
     fun bindRootViewModel(rootViewModel: RootViewModel): ViewModel
+
 }

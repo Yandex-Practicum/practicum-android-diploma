@@ -12,7 +12,7 @@ interface ActivityComponent {
     @Subcomponent.Factory
     interface Factory{
         fun create(
-            @BindsInstance @IdQualifier id: Int
+//            @BindsInstance @IdQualifier id: Int
         ): ActivityComponent
     }
 }
