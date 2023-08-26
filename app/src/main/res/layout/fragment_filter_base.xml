@@ -32,9 +32,7 @@
     <FrameLayout
         android:id="@+id/settings_sharing_btn"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/size_60dp"
-
-        >
+        android:layout_height="@dimen/size_60dp">
 
         <TextView
             android:layout_width="wrap_content"
