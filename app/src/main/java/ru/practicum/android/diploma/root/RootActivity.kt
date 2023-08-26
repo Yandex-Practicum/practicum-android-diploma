@@ -14,6 +14,7 @@ import javax.inject.Inject
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import ru.practicum.android.diploma.BuildConfig
+import ru.practicum.android.diploma.LoggerImpl
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.ActivityRootBinding
 
@@ -23,30 +24,28 @@ class RootActivity : AppCompatActivity() {
             .activityComponentFactory()
             .create()
     }
-
-
-    lateinit var logger: Logger
-
+//    lateinit var logger: Logger
+    private val logger = LoggerImpl()
+    private val binding by lazy { ActivityRootBinding.inflate(layoutInflater) }
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-
     private val viewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[RootViewModel::class.java]
     }
-    private val binding by lazy { ActivityRootBinding.inflate(layoutInflater) }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        logger = (application as App).logger
-
+        //logger = (application as App).logger
         component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         logger.log(thisName, "onCreate() -> Unit $logger")
+
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.rootFragmentContainerView) as NavHostFragment
         val navController = navHostFragment.navController
         binding.bottomNavigationView.setupWithNavController(navController)
+
         navController.addOnDestinationChangedListener { _, destination, _ ->
             logger.log(
                 thisName,

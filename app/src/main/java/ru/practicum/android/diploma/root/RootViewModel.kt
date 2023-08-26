@@ -5,7 +5,10 @@ import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
 
-class RootViewModel @Inject constructor(private val exampleUseCase: ExampleUseCase, private val logger: Logger) : ViewModel() {
+class RootViewModel @Inject constructor(
+    private val exampleUseCase: ExampleUseCase,
+    private val logger: Logger
+) : ViewModel() {
 
     fun doSmth(text: String) {
         exampleUseCase.printSmth(text)
