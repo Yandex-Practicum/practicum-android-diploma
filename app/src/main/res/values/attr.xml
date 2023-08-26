@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="favorite_btn_color" format="reference"/>
+    <attr name="hint_background_color" format="reference"/>
+    <attr name="hint_text_color" format="reference"/>
+</resources>
