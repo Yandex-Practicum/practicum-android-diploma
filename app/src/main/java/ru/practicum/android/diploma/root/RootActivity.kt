@@ -24,11 +24,12 @@ class RootActivity : AppCompatActivity() {
             .create()
     }
 
-    @Inject
+
     lateinit var logger: Logger
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+
     private val viewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[RootViewModel::class.java]
     }
@@ -36,6 +37,8 @@ class RootActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        logger = (application as App).logger
+
         component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)

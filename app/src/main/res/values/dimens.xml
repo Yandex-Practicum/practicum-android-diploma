@@ -6,7 +6,9 @@
     <dimen name="margin_16dp">16dp</dimen>
     <dimen name="margin_24dp">24dp</dimen>
     <dimen name="margin_64dp">64dp</dimen>
+
     <dimen name="size_20dp">20dp</dimen>
+    <dimen name="size_64dp">64dp</dimen>
 
     <dimen name="text_size_12sp">12sp</dimen>
     <dimen name="text_size_16sp">16sp</dimen>

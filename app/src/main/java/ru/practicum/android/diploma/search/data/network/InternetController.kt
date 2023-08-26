@@ -23,6 +23,7 @@ class InternetController(
                 capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> return true
                 capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> return true
                 capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> return true
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) -> return true
             }
         }
         return false
