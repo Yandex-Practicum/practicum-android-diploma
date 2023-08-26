@@ -3,4 +3,6 @@
     <string name="main_menu"                        >Главная</string>
     <string name="favorites_menu"                   >Избранное</string>
     <string name="team_menu"                        >Команда</string>
+    <string name="filter_settings"                  >Настройки фильтрации</string>
+    <string name="place_of_work"                    >Место работы</string>
 </resources>
