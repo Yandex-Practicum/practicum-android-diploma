@@ -5,6 +5,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import ru.practicum.android.diploma.di.annotations.ViewModelKey
+import ru.practicum.android.diploma.favorite.ui.FavoriteViewModel
 import ru.practicum.android.diploma.root.RootViewModel
 
 @Module
@@ -13,5 +14,10 @@ interface ViewModelModule {
     @ViewModelKey(RootViewModel::class)
     @Binds
     fun bindRootViewModel(rootViewModel: RootViewModel): ViewModel
+
+    @IntoMap
+    @ViewModelKey(FavoriteViewModel::class)
+    @Binds
+    fun bindFavoriteViewModel(favoriteViewModel: FavoriteViewModel): ViewModel
 
 }
