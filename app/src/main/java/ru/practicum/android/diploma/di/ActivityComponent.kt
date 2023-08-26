@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.di
 
 import dagger.BindsInstance
 import dagger.Subcomponent
+import ru.practicum.android.diploma.di.annotations.IdQualifier
 import ru.practicum.android.diploma.di.modules.ViewModelModule
 import ru.practicum.android.diploma.root.RootActivity
 
@@ -11,7 +12,7 @@ interface ActivityComponent {
     @Subcomponent.Factory
     interface Factory{
         fun create(
-            @BindsInstance id: Int
+            @BindsInstance @IdQualifier id: Int
         ): ActivityComponent
     }
 }
