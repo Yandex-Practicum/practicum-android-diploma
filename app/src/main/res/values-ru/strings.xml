@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_menu"                        >Главная</string>
+    <string name="favorites_menu"                   >Избранное</string>
+    <string name="team_menu"                        >Команда</string>
+</resources>
