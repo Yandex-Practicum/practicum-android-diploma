@@ -28,6 +28,7 @@ class RootActivity : AppCompatActivity() {
         binding.bottomNavigationView.setupWithNavController(navController)
     
         navController.addOnDestinationChangedListener { _, destination, _ ->
+            logger.log(thisName, "addOnDestinationChangedListener { destination = ${destination.label} }")
             when (destination.id) {
     
                 R.id.filterBaseFragment -> hideBottomNav()
