@@ -40,7 +40,41 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:listitem="@layout/item_description"
         tools:visibility="visible"
-        tools:itemCount="25"/>
+        tools:itemCount="2"/>
 
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_16dp"
+        android:layout_marginEnd="@dimen/margin_16dp"
+        android:background="@drawable/ic_dummy"
+        android:contentDescription="@string/image"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:gravity="center_horizontal"
+        android:fontFamily="@font/ys_display_medium"
+        android:text="@string/favorites"
+        android:textColor="?attr/colorOnPrimary"
+        android:textSize="@dimen/text_size_22sp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/dummy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="image,text"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout >
