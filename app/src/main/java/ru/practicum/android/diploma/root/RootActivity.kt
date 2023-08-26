@@ -29,22 +29,29 @@ class RootActivity : AppCompatActivity() {
     
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-            
-                R.id.filterBaseFragment -> binding.bottomNavigationView.visibility = View.GONE
-                R.id.detailsFragment -> binding.bottomNavigationView.visibility = View.GONE
-            
-                else -> {
-                    binding.bottomNavigationView.visibility = View.VISIBLE
-                }
+    
+                R.id.filterBaseFragment -> hideBottomNav()
+                R.id.detailsFragment -> hideBottomNav()
+    
+                else -> showBottomNav()
             }
         }
     
         // Пример использования access token для HeadHunter API
         networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
     }
-
+    
     private fun networkRequestExample(accessToken: String) {
         // ...
     }
-
+    
+    private fun hideBottomNav() {
+        logger.log(thisName, "hideBottomNav()")
+        binding.bottomNavigationView.visibility = View.GONE
+    }
+    
+    private fun showBottomNav() {
+        logger.log(thisName, "showBottomNav()")
+        binding.bottomNavigationView.visibility = View.VISIBLE
+    }
 }
