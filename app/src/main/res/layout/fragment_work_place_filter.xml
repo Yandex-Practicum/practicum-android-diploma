@@ -11,6 +11,7 @@
         android:id="@+id/filter_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:layout_marginBottom="@dimen/margin_16dp"
         app:navigationIcon="@drawable/back_btn">
 
         <TextView
@@ -24,10 +25,7 @@
         style="@style/FilterCardViewStyle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_60dp"
-        android:layout_marginStart="@dimen/margin_16dp"
-        android:layout_marginTop="@dimen/margin_6dp"
-        android:layout_marginEnd="@dimen/margin_4dp"
-        android:layout_marginBottom="@dimen/margin_6dp">
+     >
 
         <TextView
             android:id="@+id/county_hint"
