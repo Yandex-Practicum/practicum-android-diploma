@@ -15,4 +15,5 @@
     <string name="country"                           >Country</string>
     <string name="empty_list">Empty list</string>
     <string name="work_place_choose">Choose work place</string>
+    <string name="region">Region</string>
 </resources>
