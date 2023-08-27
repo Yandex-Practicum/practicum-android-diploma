@@ -13,6 +13,14 @@
         <item name="android:fontWeight">400</item>
     </style>
 
+    <style name="vacancy_recycler">
+        <item name="android:layout_marginTop">@dimen/margin_16dp</item>
+        <item name="android:layout_marginStart">@dimen/margin_16dp</item>
+        <item name="android:layout_marginEnd">@dimen/margin_16dp</item>
+        <item name="layout_constraintVertical_bias">0.0</item>
+        <item name="layout_constrainedHeight">true</item>
+    </style>
+
     <style name="FilterFrameLayoutSettings" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
         <item name="android:paddingStart">@dimen/margin_16dp</item>
         <item name="android:paddingTop">@dimen/margin_8dp</item>
@@ -52,4 +60,5 @@
         <item name="android:fontFamily">@font/ys_display_regular</item>
         <item name="android:layout_gravity">center_vertical</item>
     </style>
+
 </resources>

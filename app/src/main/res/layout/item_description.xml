@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/margin_8dp"
+    android:paddingBottom="@dimen/margin_8dp">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="@dimen/size_48dp"
+        android:layout_height="@dimen/size_48dp"
+        android:src="@drawable/ic_placeholder"
+        android:contentDescription="@string/image" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_12dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/colorOnPrimary"
+            android:fontFamily="@font/ys_display_medium"
+            android:textSize="@dimen/text_size_22sp"
+            tools:text="Андроид разработчик, Москва"/>
+        <TextView
+            android:id="@+id/company"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_3dp"
+            android:gravity="center_vertical"
+            android:textColor="?attr/colorOnPrimary"
+            android:fontFamily="@font/ys_display_regular"
+            android:textSize="@dimen/text_size_16sp"
+            tools:text="Amazon"/>
+        <TextView
+            android:id="@+id/value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_3dp"
+            android:gravity="center_vertical"
+            android:textColor="?attr/colorOnPrimary"
+            android:fontFamily="@font/ys_display_regular"
+            android:textSize="@dimen/text_size_16sp"
+            tools:text="от 100 000 Р"/>
+    </LinearLayout>
+
+</LinearLayout>
