@@ -60,7 +60,7 @@
         android:layout_marginTop="@dimen/margin_16dp"
         android:gravity="center_horizontal"
         android:fontFamily="@font/ys_display_medium"
-        android:text="@string/favorites"
+        android:text="@string/empty_list"
         android:textColor="?attr/colorOnPrimary"
         android:textSize="@dimen/text_size_22sp"
 
