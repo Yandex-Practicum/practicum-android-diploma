@@ -5,7 +5,6 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 
-import androidx.lifecycle.ViewModelProvider
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.app.App
 import ru.practicum.android.diploma.di.ViewModelFactory
@@ -26,12 +25,9 @@ class RootActivity : AppCompatActivity() {
     }
     @Inject
     lateinit var logger: Logger
-
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-
     private val viewModel: RootViewModel by viewModels { viewModelFactory }
-
     private val binding by lazy { ActivityRootBinding.inflate(layoutInflater) }
 
 
