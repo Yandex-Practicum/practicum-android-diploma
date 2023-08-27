@@ -8,6 +8,11 @@ android {
     namespace = "ru.practicum.android.diploma"
     compileSdk = 33
 
+    buildFeatures {
+        viewBinding = true
+    }
+
+
     defaultConfig {
         applicationId = "ru.practicum.android.diploma"
         minSdk = 26
