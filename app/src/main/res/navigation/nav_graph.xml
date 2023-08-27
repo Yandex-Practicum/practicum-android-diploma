@@ -14,7 +14,11 @@
         android:id="@+id/favoriteFragment"
         android:name="ru.practicum.android.diploma.favorite.ui.FavoriteFragment"
         android:label="fragment_favorite"
-        tools:layout="@layout/fragment_favorite" />
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_favoriteFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/filterBaseFragment"
         android:name="ru.practicum.android.diploma.filter.ui.FilterBaseFragment"
@@ -30,4 +34,9 @@
         android:name="ru.practicum.android.diploma.team.ui.TeamFragment"
         android:label="fragment_team"
         tools:layout="@layout/fragment_team" />
+    <fragment
+        android:id="@+id/countryFilterFragment"
+        android:name="ru.practicum.android.diploma.filter.ui.CountryFilterFragment"
+        android:label="fragment_country_filter"
+        tools:layout="@layout/fragment_country_filter" />
 </navigation>

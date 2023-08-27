@@ -11,6 +11,8 @@ interface ActivityComponent {
     fun inject(rootActivity: RootActivity)
     fun inject(favoriteFragment: FavoriteFragment)
 
+
+
     @Subcomponent.Factory
     interface Factory{
         fun create(

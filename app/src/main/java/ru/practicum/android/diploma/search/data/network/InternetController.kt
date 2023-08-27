@@ -1,20 +1,20 @@
 package ru.practicum.android.diploma.search.data.network
 
-import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.util.thisName
+import javax.inject.Inject
 
-class InternetController(
-    private val appContext: Application,
+class InternetController @Inject constructor(
+    private val context: Context,
     private val logger: Logger,
 ) {
 
     fun isInternetAvailable(): Boolean {
         logger.log(thisName,"isInternetAvailable(): Boolean")
-        val connectivityManager = appContext.getSystemService(
+        val connectivityManager = context.getSystemService(
             Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
 
