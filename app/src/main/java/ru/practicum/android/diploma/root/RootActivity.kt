@@ -4,13 +4,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-
-import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.app.App
 import ru.practicum.android.diploma.di.ViewModelFactory
 import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
-
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import ru.practicum.android.diploma.BuildConfig
