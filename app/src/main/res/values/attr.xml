@@ -6,4 +6,5 @@
     <attr name="bottom_menu_color" format="reference"/>
     <attr name="filter_text_color" format="reference"/>
     <attr name="edittext_color" format="reference"/>
+    <attr name="image_in_card_view_color" format="reference"/>
 </resources>
