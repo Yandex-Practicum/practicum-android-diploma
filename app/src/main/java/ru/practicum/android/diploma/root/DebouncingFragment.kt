@@ -1,28 +1,29 @@
-package ru.practicum.android.diploma.util
+package ru.practicum.android.diploma.root
 
+import android.os.Handler
+import android.os.Looper
 import android.view.View
-import kotlinx.coroutines.CoroutineScope
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.util.DELAY_800
+import javax.inject.Inject
 
-class Debouncer(
-    private val coroutineScope: CoroutineScope,
-){
 
-    private var job: Job? = null
+class Debouncer @Inject constructor() {
+
+    private val handler = Handler(Looper.getMainLooper())
     private var available = true
-    private val delay: Long = DELAY_800
 
     fun onClick(action: () -> Unit) {
         if (available) {
             available = false
-            job?.cancel()
-            job = coroutineScope.launch {
+            handler.postDelayed({
                 action()
-                delay(delay)
                 available = true
-            }
+            }, DELAY_800)
         }
     }
 }
