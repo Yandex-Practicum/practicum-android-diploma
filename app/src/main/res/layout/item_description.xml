@@ -11,7 +11,7 @@
         android:id="@+id/image"
         android:layout_width="@dimen/size_48dp"
         android:layout_height="@dimen/size_48dp"
-        android:src="@drawable/ic_placeholder"
+        android:src="@drawable/ic_placeholder_company"
         android:contentDescription="@string/image" />
 
     <LinearLayout
