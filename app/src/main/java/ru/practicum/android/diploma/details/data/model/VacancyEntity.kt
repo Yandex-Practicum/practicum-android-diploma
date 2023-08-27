@@ -11,6 +11,7 @@ data class VacancyEntity(
     val title: String = "",
     val company: String = "",
     val salary: String = "",
+    val date: Long
 )
 
 
