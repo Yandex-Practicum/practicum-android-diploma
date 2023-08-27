@@ -22,16 +22,16 @@
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.cardview.widget.CardView
-        style="@style/FilterCardViewStyle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_60dp"
-     >
+        android:background="?android:attr/selectableItemBackground">
 
         <TextView
             android:id="@+id/county_hint"
             style="@style/FilterLesserTextStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:visibility="gone"
             android:text="@string/country" />
 
         <TextView
@@ -49,8 +49,6 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-
-        style="@style/FilterCardViewStyle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_60dp">
 
@@ -59,6 +57,7 @@
             style="@style/FilterLesserTextStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:visibility="gone"
             android:text="@string/region" />
 
         <TextView
