@@ -9,12 +9,12 @@ val dataModule = module {
     factory { Gson() }
 
     //TODO "add name interface Api":
-    // single<iTunesSearchAPITO> {
+    // single<name interface> {
         Retrofit.Builder()
-            .baseUrl("https://itunes.apple.com")
+            .baseUrl("https://api.hh.ru/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     //TODO "add name interface Api":
-    // .create(iTunesSearchAPI::class.java)
+    // .create(name interface::class.java)
     // }
 }
