@@ -7,8 +7,10 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.di.annotations.ApplicationScope
+import ru.practicum.android.diploma.di.annotations.BaseUrl
 import ru.practicum.android.diploma.search.data.network.HhApiService
-
+import ru.practicum.android.diploma.search.data.network.NetworkClient
+import ru.practicum.android.diploma.search.data.network.RetrofitClient
 
 @Module
 class NetworkDataModule {
@@ -19,12 +21,18 @@ class NetworkDataModule {
     }
 
     @Provides
+    fun bindNetworkClient(retrofitClient: RetrofitClient): NetworkClient{
+        return retrofitClient
+    }
+
+    @Provides
     fun provideRetrofit(
         okHttpClient: OkHttpClient,
-        gsonConverterFactory: GsonConverterFactory
+        gsonConverterFactory: GsonConverterFactory,
+        @BaseUrl baseUrl: String
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(baseUrl)
             .addConverterFactory(gsonConverterFactory)
             .client(okHttpClient)
             .build()
@@ -48,6 +56,6 @@ class NetworkDataModule {
     }
 }
 
-private const val BASE_URL = ""
+private const val BASE_URL = "https://itunes.apple.com"
 
 
