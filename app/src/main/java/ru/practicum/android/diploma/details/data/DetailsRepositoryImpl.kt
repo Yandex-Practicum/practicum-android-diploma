@@ -1,20 +1,31 @@
 package ru.practicum.android.diploma.details.data
 
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
+import ru.practicum.android.diploma.details.data.db.FavoriteDao
+import ru.practicum.android.diploma.details.data.db.FavoriteVacanciesDb
+import ru.practicum.android.diploma.details.data.model.VacancyConverter
 import ru.practicum.android.diploma.details.domain.DetailsRepository
 import ru.practicum.android.diploma.search.domain.Vacancy
 import javax.inject.Inject
 
-class DetailsRepositoryImpl @Inject constructor(): DetailsRepository {
-    override fun getFavoriteVacancies(): Flow<List<Vacancy>> {
-        TODO("Not yet implemented")
+class DetailsRepositoryImpl @Inject constructor(
+    database: FavoriteVacanciesDb,
+    private val converter: VacancyConverter
+) : DetailsRepository {
+    private val dao = database.getDao()
+    override  fun getFavoriteVacancies(): Flow<List<Vacancy>> {
+        return dao.getFavorites().map {listOfEntities ->
+            converter.mapToVacancies(listOfEntities)
+        }
     }
 
-    override fun removeVacancyFromFavorite(id: Long): Flow<Int> {
-        TODO("Not yet implemented")
+    override suspend fun removeVacancyFromFavorite(id: Long): Flow<Int> {
+        return flowOf( dao.delete(id))
     }
 
-    override fun addVacancyToFavorite(vacancy: Vacancy) {
-        TODO("Not yet implemented")
+    override suspend fun addVacancyToFavorite(vacancy: Vacancy): Flow<Long> {
+        return flowOf( dao.insert(converter.toEntity(vacancy)))
     }
 }
