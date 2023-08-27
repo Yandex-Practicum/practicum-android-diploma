@@ -12,17 +12,6 @@
     <string name="dont_show_without_salary"         >Do not show without salary</string>
     <string name="vacancy"                          >Vacancy</string>
     <string name="similar_vacancy"                  >Similar vacancies</string>
-    <string name="app_name" translatable="false"    >Job Search Engine</string>
-    <string name="main_menu"                        >Main</string>
-    <string name="favorites"                        >Favorites</string>
-    <string name="team_menu"                        >Team</string>
-    <string name="image"                            >Image</string>
-    <string name="filter_settings"                  >Filter Settings</string>
-    <string name="work_place"                       >Work Place</string>
-    <string name="department"                       >Department</string>
-    <string name="expected_salary"                  >Expected salary</string>
-    <string name="enter_the_amount"                 >Enter the amount</string>
-    <string name="dont_show_without_salary"         >Do not show without salary</string>
     <string name="choose_country"                   >Choose country</string>
     <string name="base_url" translatable="false"    >https://itunes.apple.com</string>
     <string name="country"                          >Country</string>

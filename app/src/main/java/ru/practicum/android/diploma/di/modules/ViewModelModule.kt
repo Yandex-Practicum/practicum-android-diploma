@@ -5,7 +5,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import ru.practicum.android.diploma.di.annotations.ViewModelKey
-import ru.practicum.android.diploma.favorite.ui.FavoriteViewModel
+import ru.practicum.android.diploma.favorite.domain.FavoriteViewModel
 import ru.practicum.android.diploma.root.RootViewModel
 import ru.practicum.android.diploma.search.ui.SearchViewModel
 
