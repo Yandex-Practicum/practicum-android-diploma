@@ -65,7 +65,7 @@ dependencies {
     kapt(libs.dagger.compiler)
     ksp(libs.glide.compiler)
     ksp(libs.room.compiler)
-
+ 
     // LeakCanary
     //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.8.1'
 }

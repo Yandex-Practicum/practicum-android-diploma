@@ -70,15 +70,16 @@
         style="@style/FilterFrameLayoutSettings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:hint="@string/expected_salary">
+        android:layout_marginTop="@dimen/margin_24dp"
+        app:placeholderText="@string/enter_the_amount"
+        android:hint="@string/expected_salary" >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/amount_text"
             style="@style/EditTextStyle"
+
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/enter_the_amount" />
+            android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
 

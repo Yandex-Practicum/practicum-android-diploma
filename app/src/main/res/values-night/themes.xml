@@ -17,5 +17,6 @@
         <item name="hint_text_color">@color/white</item>
         <item name="bottom_menu_color">@color/gray</item>
         <item name="filter_text_color">@color/gray</item>
+        <item name="edittext_color">@color/black</item>
     </style>
 </resources>
