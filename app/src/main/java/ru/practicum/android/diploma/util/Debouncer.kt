@@ -8,11 +8,11 @@ import kotlinx.coroutines.launch
 
 class Debouncer(
     private val coroutineScope: CoroutineScope,
-    private val delay: Long = DELAY_800,
 ){
 
     private var job: Job? = null
     private var available = true
+    private val delay: Long = DELAY_800
 
     fun onClick(action: () -> Unit) {
         if (available) {

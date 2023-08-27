@@ -37,7 +37,7 @@ class ViewBindingDelegate<T : ViewBinding>(
             viewLifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
                 override fun onDestroy(owner: LifecycleOwner) {
                     super.onDestroy(owner)
-                    logger.log(thisName,"${binding.thisName} = null")
+                    logger.log("ViewBindingDelegate","${binding.thisName} = null")
                     this@ViewBindingDelegate.binding = null
                 }
             })
