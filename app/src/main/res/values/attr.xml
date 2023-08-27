@@ -4,4 +4,5 @@
     <attr name="hint_background_color" format="reference"/>
     <attr name="hint_text_color" format="reference"/>
     <attr name="bottom_menu_color" format="reference"/>
+    <attr name="filter_text_color" format="reference"/>
 </resources>

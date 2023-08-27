@@ -13,6 +13,7 @@
         <item name="android:fontWeight">400</item>
     </style>
 
+<<<<<<< HEAD
     <style name="vacancy_recycler">
         <item name="android:layout_marginTop">@dimen/margin_16dp</item>
         <item name="android:layout_marginStart">@dimen/margin_16dp</item>
@@ -21,4 +22,26 @@
         <item name="layout_constrainedHeight">true</item>
     </style>
 
+=======
+    <style name="FilterFrameLayoutSettings">
+        <item name="android:paddingStart">@dimen/margin_16dp</item>
+        <item name="android:paddingTop">@dimen/margin_8dp</item>
+        <item name="android:paddingEnd">@dimen/margin_16dp</item>
+        <item name="android:paddingBottom">@dimen/margin_8dp</item>
+    </style>
+
+    <style name="ToolBarStyle">
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textSize">@dimen/text_size_22sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="FilterText">
+        <item name="android:textColor">?attr/filter_text_color</item>
+        <item name="android:textSize">@dimen/text_size_16sp</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+>>>>>>> a269052e63a1ffc1a77c220dc1898b95cbeba46b
 </resources>
