@@ -10,7 +10,7 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(private val retrofitClient: NetworkClient, logger: Logger): BaseViewModel(logger) {
     init {
         viewModelScope.launch {
-            retrofitClient.doRequest("pink")
+            retrofitClient.doRequest("nirvana")
         }
     }
 }
