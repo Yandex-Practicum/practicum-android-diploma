@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.root
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 
 import androidx.lifecycle.ViewModelProvider
@@ -18,27 +19,23 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.ActivityRootBinding
 
 class RootActivity : AppCompatActivity() {
-    private val component by lazy {
+    val component by lazy {
         (application as App).component
             .activityComponentFactory()
             .create()
     }
-
-
+    @Inject
     lateinit var logger: Logger
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private val viewModel by lazy {
-        ViewModelProvider(this, viewModelFactory)[RootViewModel::class.java]
-    }
+    private val viewModel: RootViewModel by viewModels { viewModelFactory }
+
     private val binding by lazy { ActivityRootBinding.inflate(layoutInflater) }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        logger = (application as App).logger
-
         component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
