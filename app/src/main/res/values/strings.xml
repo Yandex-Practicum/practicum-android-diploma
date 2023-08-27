@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">EmployMe</string>
+    <string name="main">Главная</string>
+    <string name="favourites">Избранное</string>
+    <string name="team">Команда</string>
 </resources>
