@@ -10,4 +10,6 @@
     <string name="expected_salary"                  >Expected salary</string>
     <string name="enter_the_amount"                 >Enter the amount</string>
     <string name="dont_show_without_salary"         >Do not show without salary</string>
+    <string name="vacancy"                          >Vacancy</string>
+    <string name="similar_vacancy"                  >Similar vacancies</string>
 </resources>

@@ -10,4 +10,6 @@
     <string name="expected_salary"                  >Ожидаемая ЗП</string>
     <string name="enter_the_amount"                 >Введите сумму</string>
     <string name="dont_show_without_salary"         >Не показывать без зарплаты</string>
+    <string name="vacancy"                          >Вакансия</string>
+    <string name="similar_vacancy"                  >Похожие вакансии</string>
 </resources>
