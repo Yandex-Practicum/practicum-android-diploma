@@ -21,28 +21,51 @@
         <item name="layout_constrainedHeight">true</item>
     </style>
 
-    <style name="FilterFrameLayoutSettings" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
+    <style name="FilterFrameLayoutSettings" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="android:paddingStart">@dimen/margin_16dp</item>
         <item name="android:paddingTop">@dimen/margin_8dp</item>
         <item name="android:paddingEnd">@dimen/margin_16dp</item>
         <item name="android:paddingBottom">@dimen/margin_8dp</item>
-        <item name="android:textColor">?attr/hint_text_color</item>
-        <item name="android:textColorHint">?attr/hint_text_color</item>
+
         <item name="boxCornerRadiusBottomEnd">@dimen/size_12dp</item>
         <item name="boxCornerRadiusBottomStart">@dimen/size_12dp</item>
         <item name="boxCornerRadiusTopEnd">@dimen/size_12dp</item>
         <item name="boxCornerRadiusTopStart">@dimen/size_12dp</item>
-        <item name="hintTextColor">?attr/hint_text_color</item>
+
+        <item name="android:textColorHint">@color/hint_text_color</item>
+        <item name="hintTextAppearance">@style/HintTextStyle</item>
+
+        <item name="boxCollapsedPaddingTop">@dimen/margin_8dp</item>
+        <item name="placeholderTextAppearance">@style/PlaceholderTextStyle</item>
+        <item name="placeholderTextColor">?attr/hint_text_color</item>
+        <item name="expandedHintEnabled">false</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+    </style>
+
+    <style name="PlaceholderTextStyle" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/text_size_16sp</item>
+        <item name="android:fontWeight">400</item>
+        <item name="android:textAlignment">viewStart</item>
+    </style>
+
+    <style name="HintTextStyle" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/text_size_12sp</item>
+        <item name="android:fontWeight">400</item>
+        <item name="android:textAlignment">viewStart</item>
     </style>
 
     <style name="EditTextStyle">
+        <item name="android:backgroundTint">?attr/hint_background_color</item>
         <item name="android:fontFamily">@font/ys_display_regular</item>
-        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textColor">?attr/edittext_color</item>
         <item name="android:textSize">@dimen/text_size_16sp</item>
+        <item name="android:fontWeight">400</item>
         <item name="android:textAlignment">viewStart</item>
-
         <item name="android:imeOptions">actionDone|flagNoExtractUi</item>
-        <item name="android:inputType">textNoSuggestions</item>
+        <item name="android:inputType">number</item>
         <item name="android:maxLines">1</item>
         <item name="android:singleLine">true</item>
     </style>
@@ -52,8 +75,9 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:textColor">?attr/colorOnPrimary</item>
         <item name="android:textSize">@dimen/text_size_22sp</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:fontWeight">500</item>
     </style>
+
     <style name="FilterText">
         <item name="android:textColor">?attr/filter_text_color</item>
         <item name="android:textSize">@dimen/text_size_16sp</item>
