@@ -27,7 +27,7 @@
         <item name="android:textColorHint">@color/hint_text_color</item>
         <item name="hintTextAppearance">@style/HintTextStyle</item>
 
-        <item name="boxCollapsedPaddingTop">8dp</item>
+        <item name="boxCollapsedPaddingTop">@dimen/margin_8dp</item>
         <item name="placeholderTextAppearance">@style/PlaceholderTextStyle</item>
         <item name="placeholderTextColor">?attr/hint_text_color</item>
         <item name="expandedHintEnabled">false</item>
