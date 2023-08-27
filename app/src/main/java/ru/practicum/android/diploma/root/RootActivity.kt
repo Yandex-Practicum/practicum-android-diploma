@@ -15,7 +15,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.ActivityRootBinding
 
 class RootActivity : AppCompatActivity() {
-    val component by lazy {
+    val component by lazy(LazyThreadSafetyMode.NONE) {
         (application as App).component
             .activityComponentFactory()
             .create()
@@ -23,8 +23,8 @@ class RootActivity : AppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     private val viewModel: RootViewModel by viewModels { viewModelFactory }
-    private val binding by lazy { ActivityRootBinding.inflate(layoutInflater) }
 
+    private val binding by lazy(LazyThreadSafetyMode.NONE) { ActivityRootBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         component.inject(this)
