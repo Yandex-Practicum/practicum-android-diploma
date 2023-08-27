@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.search.di
 
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -12,9 +11,9 @@ import ru.practicum.android.diploma.search.data.network.HhApiService
 
 
 @Module
-interface NetworkDataModule {
+class NetworkDataModule {
     @ApplicationScope
-    @Binds
+    @Provides
     fun createApiService(retrofit: Retrofit): HhApiService {
         return retrofit.create(HhApiService::class.java)
     }
