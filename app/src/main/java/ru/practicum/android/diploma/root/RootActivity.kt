@@ -4,13 +4,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-
-import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.app.App
 import ru.practicum.android.diploma.di.ViewModelFactory
 import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
-
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import ru.practicum.android.diploma.BuildConfig
@@ -23,29 +20,23 @@ class RootActivity : AppCompatActivity() {
             .activityComponentFactory()
             .create()
     }
-
-    @Inject
-    lateinit var logger: Logger
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-
-
     private val viewModel: RootViewModel by viewModels { viewModelFactory }
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) { ActivityRootBinding.inflate(layoutInflater) }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        logger.log(thisName, "onCreate() -> Unit $logger")
+        viewModel.log(thisName, "onCreate() -> Unit")
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.rootFragmentContainerView) as NavHostFragment
         val navController = navHostFragment.navController
         binding.bottomNavigationView.setupWithNavController(navController)
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            logger.log(
+            viewModel.log(
                 thisName,
                 "addOnDestinationChangedListener { destination = ${destination.label} }"
             )
@@ -68,12 +59,12 @@ class RootActivity : AppCompatActivity() {
     }
 
     private fun hideBottomNav() {
-        logger.log(thisName, "hideBottomNav()")
+        viewModel.log(thisName, "hideBottomNav()")
         binding.bottomNavigationView.visibility = View.GONE
     }
 
     private fun showBottomNav() {
-        logger.log(thisName, "showBottomNav()")
+        viewModel.log(thisName, "showBottomNav()")
         binding.bottomNavigationView.visibility = View.VISIBLE
     }
 
