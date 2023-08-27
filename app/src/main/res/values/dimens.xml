@@ -14,4 +14,6 @@
     <dimen name="text_size_22sp">22sp</dimen>
     <dimen name="text_size_32sp">32sp</dimen>
     <dimen name="size_60dp">60dp</dimen>
+    <dimen name="size_24dp">24dp</dimen>
+    <dimen name="size_48dp">48dp</dimen>
 </resources>
