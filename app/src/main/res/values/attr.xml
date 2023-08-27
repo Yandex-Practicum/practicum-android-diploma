@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="black_to_white_color" format="reference" />
+    <attr name="light_gray_to_gray_color" format="reference" />
+    <attr name="gray_to_white_color" format="reference" />
+    <attr name="red_to_white_color" format="reference" />
+
+</resources>
