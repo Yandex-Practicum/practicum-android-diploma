@@ -10,4 +10,6 @@
     <string name="expected_salary"                  >Expected salary</string>
     <string name="enter_the_amount"                 >Enter the amount</string>
     <string name="dont_show_without_salary"         >Do not show without salary</string>
+    <string name="base_url" translatable="false"    >https://itunes.apple.com</string>
+
 </resources>
