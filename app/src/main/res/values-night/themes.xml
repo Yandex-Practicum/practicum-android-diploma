@@ -8,6 +8,7 @@
         <item name="gray_to_white_color">@color/white</item>
         <item name="light_gray_to_gray_color">@color/gray</item>
         <item name="red_to_white_color">@color/white</item>
+        <item name="white_to_black_color">@color/black</item>
 
     </style>
 
