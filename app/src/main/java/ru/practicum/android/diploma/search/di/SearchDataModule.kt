@@ -13,7 +13,7 @@ import ru.practicum.android.diploma.search.data.network.NetworkClient
 import ru.practicum.android.diploma.search.data.network.RetrofitClient
 
 @Module
-class NetworkDataModule {
+class SearchDataModule {
     @ApplicationScope
     @Provides
     fun createApiService(retrofit: Retrofit): HhApiService {

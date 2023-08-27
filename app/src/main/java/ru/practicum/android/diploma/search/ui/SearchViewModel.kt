@@ -7,7 +7,10 @@ import ru.practicum.android.diploma.root.BaseViewModel
 import ru.practicum.android.diploma.search.domain.SearchVacanciesUseCase
 import javax.inject.Inject
 
-class SearchViewModel @Inject constructor(private val searchVacanciesUseCase: SearchVacanciesUseCase, logger: Logger): BaseViewModel(logger) {
+class SearchViewModel @Inject constructor(
+    private val searchVacanciesUseCase: SearchVacanciesUseCase,
+    logger: Logger
+) : BaseViewModel(logger) {
     init {
         viewModelScope.launch {
             searchVacanciesUseCase.search("nirvana")
