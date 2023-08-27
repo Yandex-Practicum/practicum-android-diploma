@@ -19,6 +19,7 @@
         <item name="android:layout_marginEnd">@dimen/margin_16dp</item>
         <item name="layout_constraintVertical_bias">0.0</item>
         <item name="layout_constrainedHeight">true</item>
+        <item name="layoutManager">androidx.recyclerview.widget.LinearLayoutManager</item>
     </style>
 
     <style name="FilterFrameLayoutSettings" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
@@ -57,7 +58,7 @@
         <item name="android:textAlignment">viewStart</item>
     </style>
 
-    <style name="EditTextStyle">
+    <style name="FilterEditTextStyle">
         <item name="android:backgroundTint">?attr/hint_background_color</item>
         <item name="android:fontFamily">@font/ys_display_regular</item>
         <item name="android:textColor">?attr/edittext_color</item>
@@ -66,6 +67,20 @@
         <item name="android:textAlignment">viewStart</item>
         <item name="android:imeOptions">actionDone|flagNoExtractUi</item>
         <item name="android:inputType">number</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="SearchEditTextStyle">
+        <item name="android:backgroundTint">@android:color/transparent</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textColor">?attr/edittext_color</item>
+        <item name="android:textColorHint">?attr/hint_text_color</item>
+        <item name="android:textSize">@dimen/text_size_16sp</item>
+        <item name="android:fontWeight">400</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:imeOptions">actionDone|flagNoExtractUi</item>
+        <item name="android:inputType">textCapSentences</item>
         <item name="android:maxLines">1</item>
         <item name="android:singleLine">true</item>
     </style>
@@ -83,6 +98,14 @@
         <item name="android:textSize">@dimen/text_size_16sp</item>
         <item name="android:fontFamily">@font/ys_display_regular</item>
         <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <style name="FabSearchJobText" parent="FilterText">
+        <item name="android:background">@drawable/shape_edittext_search</item>
+        <item name="android:backgroundTint">?attr/colorSecondary</item>
+        <item name="android:paddingHorizontal">@dimen/margin_12dp</item>
+        <item name="android:paddingVertical">@dimen/margin_4dp</item>
+        <item name="android:textColor">?attr/colorOnSecondary</item>
     </style>
 
 </resources>

@@ -10,11 +10,11 @@
     <string name="expected_salary"                  >Expected salary</string>
     <string name="enter_the_amount"                 >Enter the amount</string>
     <string name="dont_show_without_salary"         >Do not show without salary</string>
-    <string name="choose_country"                  >Choose country</string>
-    <string name="Russia"                          >Russia</string>
+    <string name="choose_country"                   >Choose country</string>
+    <string name="Russia"                           >Russia</string>
     <string name="base_url" translatable="false"    >https://itunes.apple.com</string>
-
-
-
-    <string name="empty_list"                      >Empty list</string>
+    <string name="search_title"                     >Job search</string>
+    <string name="empty_list"                       >Empty list</string>
+    <string name="search_hint"                      >Enter a request</string>
+    <string name="placeholder_image" translatable="false">placeholder image</string>
 </resources>
