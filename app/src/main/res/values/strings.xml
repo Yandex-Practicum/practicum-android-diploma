@@ -11,7 +11,6 @@
     <string name="enter_the_amount">Enter the amount</string>
     <string name="dont_show_without_salary">Do not show without salary</string>
     <string name="choose_country">Choose country</string>
-    <string name="Russia">Russia</string>
     <string name="base_url" translatable="false">https://itunes.apple.com</string>
     <string name="country"                           >Country</string>
     <string name="empty_list">Empty list</string>
