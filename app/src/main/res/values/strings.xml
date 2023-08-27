@@ -3,6 +3,7 @@
     <string name="main_menu"                        >Main</string>
     <string name="favorites"                        >Favorites</string>
     <string name="team_menu"                        >Team</string>
+    <string name="image"                            >Image</string>
     <string name="filter_settings"                  >Filter Settings</string>
     <string name="work_place"                       >Work Place</string>
     <string name="department"                       >Department</string>
