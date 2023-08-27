@@ -1,8 +1,6 @@
 package ru.practicum.android.diploma.filter.data
 
 import android.content.SharedPreferences
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.filter.domain.SharedPrefsStorage
 import ru.practicum.android.diploma.util.thisName
