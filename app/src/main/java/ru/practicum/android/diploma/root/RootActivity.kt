@@ -23,11 +23,15 @@ class RootActivity : AppCompatActivity() {
             .activityComponentFactory()
             .create()
     }
+
     @Inject
     lateinit var logger: Logger
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+
+
     private val viewModel: RootViewModel by viewModels { viewModelFactory }
+
     private val binding by lazy { ActivityRootBinding.inflate(layoutInflater) }
 
 
