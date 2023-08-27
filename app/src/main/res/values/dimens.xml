@@ -4,6 +4,7 @@
     <dimen name="margin_4dp">4dp</dimen>
     <dimen name="margin_6dp">6dp</dimen>
     <dimen name="margin_8dp">8dp</dimen>
+    <dimen name="margin_11dp">11dp</dimen>
     <dimen name="margin_12dp">12dp</dimen>
     <dimen name="margin_16dp">16dp</dimen>
     <dimen name="margin_20dp">20dp</dimen>
@@ -23,6 +24,5 @@
     <dimen name="text_size_16sp">16sp</dimen>
     <dimen name="text_size_22sp">22sp</dimen>
     <dimen name="text_size_32sp">32sp</dimen>
-
 
 </resources>
