@@ -11,40 +11,105 @@
         android:id="@+id/filter_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/back_btn">
 
         <TextView
-
+            style="@style/ToolBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:fontFamily="@font/ys_display_medium"
-            android:gravity="center_vertical"
-            android:text="@string/filter_settings"
-            android:textColor="?attr/colorOnPrimary"
-            android:textSize="@dimen/text_size_22sp"
-            android:textStyle="bold" />
+            android:text="@string/filter_settings" />
 
     </androidx.appcompat.widget.Toolbar>
 
     <FrameLayout
-        android:id="@+id/settings_sharing_btn"
+        android:id="@+id/work_place_container"
+        style="@style/FilterFrameLayoutSettings"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/size_60dp">
+        android:layout_height="@dimen/size_60dp"
+        android:layout_marginTop="@dimen/margin_16dp">
 
         <TextView
+            android:id="@+id/work_place_text"
+            style="@style/FilterText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text = "@string/place_of_work"/>
+            android:text="@string/work_place" />
 
         <ImageView
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             app:srcCompat="@drawable/leading_icon" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/department_container"
+        style="@style/FilterFrameLayoutSettings"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_60dp"
+        android:layout_marginTop="@dimen/margin_16dp">
+
+        <TextView
+            android:id="@+id/department_text"
+            style="@style/FilterText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/department" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            app:srcCompat="@drawable/leading_icon" />
+
+    </FrameLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/amount_text_layout"
+        style="@style/FilterFrameLayoutSettings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:hint="@string/expected_salary"
+        android:textColorHint="?attr/hint_text_color"
+        app:boxCornerRadiusBottomEnd="@dimen/size_12dp"
+        app:boxCornerRadiusBottomStart="@dimen/size_12dp"
+        app:boxCornerRadiusTopEnd="@dimen/size_12dp"
+        app:boxCornerRadiusTopStart="@dimen/size_12dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/amount_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_the_amount"
+            android:textAlignment="viewStart"
+            android:textSize="@dimen/text_size_16sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <FrameLayout
+        android:id="@+id/show_salary_container"
+        style="@style/FilterFrameLayoutSettings"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_60dp"
+        android:layout_marginTop="@dimen/margin_16dp">
+
+        <TextView
+            android:id="@+id/show_salary_text"
+            style="@style/FilterText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dont_show_without_salary" />
+
+        <CheckBox
+            android:id="@+id/filter_salary_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:buttonTint="@color/blue"
+
+            />
 
     </FrameLayout>
 </LinearLayout>

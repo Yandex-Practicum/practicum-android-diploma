@@ -4,5 +4,9 @@
     <string name="favorites_menu"                   >Favorites</string>
     <string name="team_menu"                        >Team</string>
     <string name="filter_settings"                  >Filter Settings</string>
-    <string name="place_of_work"                    >Place of work</string>
+    <string name="work_place"                       >Work Place</string>
+    <string name="department"                       >Department</string>
+    <string name="expected_salary"                  >Expected salary</string>
+    <string name="enter_the_amount"                 >Enter the amount</string>
+    <string name="dont_show_without_salary"         >Do not show without salary</string>
 </resources>

@@ -4,5 +4,9 @@
     <string name="favorites_menu"                   >Избранное</string>
     <string name="team_menu"                        >Команда</string>
     <string name="filter_settings"                  >Настройки фильтрации</string>
-    <string name="place_of_work"                    >Место работы</string>
+    <string name="work_place"                       >Место работы</string>
+    <string name="department"                       >Отрасль</string>
+    <string name="expected_salary"                  >Ожидаемая ЗП</string>
+    <string name="enter_the_amount"                 >Введите сумму</string>
+    <string name="dont_show_without_salary"         >Не показывать без зарплаты</string>
 </resources>
