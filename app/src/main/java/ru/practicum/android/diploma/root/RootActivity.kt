@@ -2,52 +2,41 @@ package ru.practicum.android.diploma.root
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-
-import androidx.lifecycle.ViewModelProvider
-import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.app.App
 import ru.practicum.android.diploma.di.ViewModelFactory
 import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
-
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import ru.practicum.android.diploma.BuildConfig
-import ru.practicum.android.diploma.LoggerImpl
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.ActivityRootBinding
 
 class RootActivity : AppCompatActivity() {
-    private val component by lazy {
+    val component by lazy {
         (application as App).component
             .activityComponentFactory()
             .create()
     }
-//    lateinit var logger: Logger
-    private val logger = LoggerImpl()
-    private val binding by lazy { ActivityRootBinding.inflate(layoutInflater) }
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    private val viewModel by lazy {
-        ViewModelProvider(this, viewModelFactory)[RootViewModel::class.java]
-    }
+    private val viewModel: RootViewModel by viewModels { viewModelFactory }
+    private val binding by lazy { ActivityRootBinding.inflate(layoutInflater) }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        //logger = (application as App).logger
         component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        logger.log(thisName, "onCreate() -> Unit $logger")
-
+        viewModel.log(thisName, "onCreate() -> Unit")
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.rootFragmentContainerView) as NavHostFragment
         val navController = navHostFragment.navController
         binding.bottomNavigationView.setupWithNavController(navController)
-
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            logger.log(
+            viewModel.log(
                 thisName,
                 "addOnDestinationChangedListener { destination = ${destination.label} }"
             )
@@ -70,13 +59,12 @@ class RootActivity : AppCompatActivity() {
     }
 
     private fun hideBottomNav() {
-        logger.log(thisName, "hideBottomNav()")
+        viewModel.log(thisName, "hideBottomNav()")
         binding.bottomNavigationView.visibility = View.GONE
     }
 
     private fun showBottomNav() {
-        logger.log(thisName, "showBottomNav()")
+        viewModel.log(thisName, "showBottomNav()")
         binding.bottomNavigationView.visibility = View.VISIBLE
     }
-
 }

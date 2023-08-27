@@ -16,26 +16,25 @@ import javax.inject.Inject
 
 class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
 
-    private val logger = LoggerImpl()
     private val binding by viewBinding<FragmentFavoriteBinding>()
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    private val viewModel by lazy {
+    private val viewModel by lazy (LazyThreadSafetyMode.NONE) {
         ViewModelProvider(this, viewModelFactory)[FavoriteViewModel::class.java]
     }
-//    private val component by lazy {
-//        (requireActivity().application as App).component
-//            .activityComponentFactory()
-//            .create()
-//    }
+    private val component by lazy {
+        (requireActivity().application as App).component
+            .activityComponentFactory()
+            .create()
+    }
 
-//    @Inject
-//    lateinit var logger: Logger
+    @Inject
+    lateinit var logger: Logger
 
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        //component.inject(this)
+        component.inject(this)
         super.onViewCreated(view, savedInstanceState)
         logger.log(thisName, "onViewCreated()")
     }

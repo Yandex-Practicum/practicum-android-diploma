@@ -28,11 +28,8 @@
         android:id="@+id/recycler"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_16dp"
-        android:layout_marginStart="@dimen/margin_16dp"
-        android:layout_marginEnd="@dimen/margin_16dp"
-        app:layout_constraintVertical_bias="0.0"
-        app:layout_constrainedHeight="true"
+        style="@style/vacancy_recycler"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 
         app:layout_constraintTop_toBottomOf="@id/title"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -43,12 +40,12 @@
         tools:itemCount="2"/>
 
     <ImageView
-        android:id="@+id/image"
+        android:id="@+id/placeHolderImage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_16dp"
         android:layout_marginEnd="@dimen/margin_16dp"
-        android:background="@drawable/ic_dummy"
+        android:src="@drawable/ic_dummy"
         android:contentDescription="@string/image"
 
         app:layout_constraintTop_toTopOf="parent"
@@ -57,7 +54,7 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
-        android:id="@+id/text"
+        android:id="@+id/placeHolderText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_16dp"
@@ -69,12 +66,12 @@
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/image" />
+        app:layout_constraintTop_toBottomOf="@id/placeHolderImage" />
 
     <androidx.constraintlayout.widget.Group
-        android:id="@+id/dummy"
+        android:id="@+id/placeHolder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="image,text"/>
+        app:constraint_referenced_ids="placeHolderImage,placeHolderText"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout >

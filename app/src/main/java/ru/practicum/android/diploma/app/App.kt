@@ -8,15 +8,15 @@ import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
 
 class App: Application() {
+    @Inject
+    lateinit var logger: Logger
 
-    private val logger = LoggerImpl()
     val component by lazy {
-        DaggerAppComponent.factory().create(this)
+        DaggerAppComponent.factory()
+            .create(this)
     }
-    //    @Inject
-//    lateinit var logger: Logger
     override fun onCreate() {
-        //component.inject(this)
+        component.inject(this)
         super.onCreate()
         logger.log(thisName, "onCreate() $logger")
     }
