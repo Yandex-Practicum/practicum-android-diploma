@@ -11,7 +11,7 @@ class App: Application() {
     @Inject
     lateinit var logger: Logger
 
-    val component by lazy {
+    val component by lazy(LazyThreadSafetyMode.NONE) {
         DaggerAppComponent.factory()
             .create(this)
     }

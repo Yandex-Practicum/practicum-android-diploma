@@ -3,14 +3,11 @@
     <string name="main_menu"                        >Main</string>
     <string name="favorites"                        >Favorites</string>
     <string name="team_menu"                        >Team</string>
-<<<<<<< HEAD
     <string name="image"                            >Image</string>
-=======
     <string name="filter_settings"                  >Filter Settings</string>
     <string name="work_place"                       >Work Place</string>
     <string name="department"                       >Department</string>
     <string name="expected_salary"                  >Expected salary</string>
     <string name="enter_the_amount"                 >Enter the amount</string>
     <string name="dont_show_without_salary"         >Do not show without salary</string>
->>>>>>> a269052e63a1ffc1a77c220dc1898b95cbeba46b
 </resources>

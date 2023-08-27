@@ -3,14 +3,11 @@
     <string name="main_menu"                        >Главная</string>
     <string name="favorites"                        >Избранное</string>
     <string name="team_menu"                        >Команда</string>
-<<<<<<< HEAD
     <string name="image"                            >Картинка</string>
-=======
     <string name="filter_settings"                  >Настройки фильтрации</string>
     <string name="work_place"                       >Место работы</string>
     <string name="department"                       >Отрасль</string>
     <string name="expected_salary"                  >Ожидаемая ЗП</string>
     <string name="enter_the_amount"                 >Введите сумму</string>
     <string name="dont_show_without_salary"         >Не показывать без зарплаты</string>
->>>>>>> a269052e63a1ffc1a77c220dc1898b95cbeba46b
 </resources>
