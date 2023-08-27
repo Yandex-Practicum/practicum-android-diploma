@@ -4,7 +4,13 @@ import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.root.BaseViewModel
 import javax.inject.Inject
 
-class FavoriteViewModel @Inject constructor(logger: Logger) : BaseViewModel(logger) {
+class FavoriteViewModel @Inject constructor(
+    logger: Logger
+) : BaseViewModel(logger) {
+
+    fun removeVacancy() {
+        /*Todo*/
+    }
 }
 
 
