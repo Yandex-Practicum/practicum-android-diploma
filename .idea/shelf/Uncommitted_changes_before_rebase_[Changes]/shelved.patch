@@ -1,0 +1,702 @@
+Index: app/src/main/java/ru/practicum/android/diploma/root/RootActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.root\r\n\r\nimport android.os.Bundle\r\nimport android.view.View\r\nimport androidx.activity.viewModels\r\nimport androidx.appcompat.app.AppCompatActivity\r\n\r\nimport ru.practicum.android.diploma.Logger\r\nimport ru.practicum.android.diploma.app.App\r\nimport ru.practicum.android.diploma.di.ViewModelFactory\r\nimport ru.practicum.android.diploma.util.thisName\r\nimport javax.inject.Inject\r\n\r\nimport androidx.navigation.fragment.NavHostFragment\r\nimport androidx.navigation.ui.setupWithNavController\r\nimport ru.practicum.android.diploma.BuildConfig\r\nimport ru.practicum.android.diploma.R\r\nimport ru.practicum.android.diploma.databinding.ActivityRootBinding\r\n\r\nclass RootActivity : AppCompatActivity() {\r\n    val component by lazy(LazyThreadSafetyMode.NONE) {\r\n        (application as App).component\r\n            .activityComponentFactory()\r\n            .create()\r\n    }\r\n\r\n    @Inject\r\n    lateinit var logger: Logger\r\n    @Inject\r\n    lateinit var viewModelFactory: ViewModelFactory\r\n\r\n\r\n    private val viewModel: RootViewModel by viewModels { viewModelFactory }\r\n\r\n    private val binding by lazy(LazyThreadSafetyMode.NONE) { ActivityRootBinding.inflate(layoutInflater) }\r\n\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        component.inject(this)\r\n        super.onCreate(savedInstanceState)\r\n        setContentView(binding.root)\r\n        logger.log(thisName, \"onCreate() -> Unit $logger\")\r\n        val navHostFragment =\r\n            supportFragmentManager.findFragmentById(R.id.rootFragmentContainerView) as NavHostFragment\r\n        val navController = navHostFragment.navController\r\n        binding.bottomNavigationView.setupWithNavController(navController)\r\n        navController.addOnDestinationChangedListener { _, destination, _ ->\r\n            logger.log(\r\n                thisName,\r\n                \"addOnDestinationChangedListener { destination = ${destination.label} }\"\r\n            )\r\n            when (destination.id) {\r\n\r\n                R.id.filterBaseFragment -> hideBottomNav()\r\n                R.id.detailsFragment -> hideBottomNav()\r\n\r\n                else -> showBottomNav()\r\n            }\r\n        }\r\n\r\n        // Пример использования access token для HeadHunter API\r\n        networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)\r\n        viewModel.doSmth(\"hello From Activity $viewModel\")\r\n    }\r\n\r\n    private fun networkRequestExample(accessToken: String) {\r\n        // ...\r\n    }\r\n\r\n    private fun hideBottomNav() {\r\n        logger.log(thisName, \"hideBottomNav()\")\r\n        binding.bottomNavigationView.visibility = View.GONE\r\n    }\r\n\r\n    private fun showBottomNav() {\r\n        logger.log(thisName, \"showBottomNav()\")\r\n        binding.bottomNavigationView.visibility = View.VISIBLE\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/root/RootActivity.kt b/app/src/main/java/ru/practicum/android/diploma/root/RootActivity.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/root/RootActivity.kt	(revision 913ce58237649552d4518def0e941d72a3ee514c)
++++ b/app/src/main/java/ru/practicum/android/diploma/root/RootActivity.kt	(date 1693139886498)
+@@ -4,13 +4,10 @@
+ import android.view.View
+ import androidx.activity.viewModels
+ import androidx.appcompat.app.AppCompatActivity
+-
+-import ru.practicum.android.diploma.Logger
+ import ru.practicum.android.diploma.app.App
+ import ru.practicum.android.diploma.di.ViewModelFactory
+ import ru.practicum.android.diploma.util.thisName
+ import javax.inject.Inject
+-
+ import androidx.navigation.fragment.NavHostFragment
+ import androidx.navigation.ui.setupWithNavController
+ import ru.practicum.android.diploma.BuildConfig
+@@ -23,29 +20,23 @@
+             .activityComponentFactory()
+             .create()
+     }
+-
+-    @Inject
+-    lateinit var logger: Logger
+     @Inject
+     lateinit var viewModelFactory: ViewModelFactory
+-
+-
+     private val viewModel: RootViewModel by viewModels { viewModelFactory }
+ 
+     private val binding by lazy(LazyThreadSafetyMode.NONE) { ActivityRootBinding.inflate(layoutInflater) }
+ 
+-
+     override fun onCreate(savedInstanceState: Bundle?) {
+         component.inject(this)
+         super.onCreate(savedInstanceState)
+         setContentView(binding.root)
+-        logger.log(thisName, "onCreate() -> Unit $logger")
++        viewModel.log(thisName, "onCreate() -> Unit")
+         val navHostFragment =
+             supportFragmentManager.findFragmentById(R.id.rootFragmentContainerView) as NavHostFragment
+         val navController = navHostFragment.navController
+         binding.bottomNavigationView.setupWithNavController(navController)
+         navController.addOnDestinationChangedListener { _, destination, _ ->
+-            logger.log(
++            viewModel.log(
+                 thisName,
+                 "addOnDestinationChangedListener { destination = ${destination.label} }"
+             )
+@@ -68,12 +59,12 @@
+     }
+ 
+     private fun hideBottomNav() {
+-        logger.log(thisName, "hideBottomNav()")
++        viewModel.log(thisName, "hideBottomNav()")
+         binding.bottomNavigationView.visibility = View.GONE
+     }
+ 
+     private fun showBottomNav() {
+-        logger.log(thisName, "showBottomNav()")
++        viewModel.log(thisName, "showBottomNav()")
+         binding.bottomNavigationView.visibility = View.VISIBLE
+     }
+ 
+Index: app/src/main/java/ru/practicum/android/diploma/search/data/network/InternetController.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.search.data.network\r\n\r\nimport android.app.Application\r\nimport android.content.Context\r\nimport android.net.ConnectivityManager\r\nimport android.net.NetworkCapabilities\r\nimport ru.practicum.android.diploma.Logger\r\nimport ru.practicum.android.diploma.util.thisName\r\n\r\nclass InternetController(\r\n    private val appContext: Application,\r\n    private val logger: Logger,\r\n) {\r\n\r\n    fun isInternetAvailable(): Boolean {\r\n        logger.log(thisName,\"isInternetAvailable(): Boolean\")\r\n        val connectivityManager = appContext.getSystemService(\r\n            Context.CONNECTIVITY_SERVICE) as ConnectivityManager\r\n        val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)\r\n\r\n        if (capabilities != null) {\r\n            when {\r\n                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> return true\r\n                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> return true\r\n                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> return true\r\n                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) -> return true\r\n            }\r\n        }\r\n        return false\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/search/data/network/InternetController.kt b/app/src/main/java/ru/practicum/android/diploma/search/data/network/InternetController.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/search/data/network/InternetController.kt	(revision 913ce58237649552d4518def0e941d72a3ee514c)
++++ b/app/src/main/java/ru/practicum/android/diploma/search/data/network/InternetController.kt	(date 1693139886499)
+@@ -1,20 +1,20 @@
+ package ru.practicum.android.diploma.search.data.network
+ 
+-import android.app.Application
+ import android.content.Context
+ import android.net.ConnectivityManager
+ import android.net.NetworkCapabilities
+ import ru.practicum.android.diploma.Logger
+ import ru.practicum.android.diploma.util.thisName
++import javax.inject.Inject
+ 
+-class InternetController(
+-    private val appContext: Application,
++class InternetController @Inject constructor(
++    private val context: Context,
+     private val logger: Logger,
+ ) {
+ 
+     fun isInternetAvailable(): Boolean {
+         logger.log(thisName,"isInternetAvailable(): Boolean")
+-        val connectivityManager = appContext.getSystemService(
++        val connectivityManager = context.getSystemService(
+             Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+         val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+ 
+Index: app/src/main/java/ru/practicum/android/diploma/search/ui/SearchViewModel.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/search/ui/SearchViewModel.kt b/app/src/main/java/ru/practicum/android/diploma/search/ui/SearchViewModel.kt
+new file mode 100644
+--- /dev/null	(date 1693139886502)
++++ b/app/src/main/java/ru/practicum/android/diploma/search/ui/SearchViewModel.kt	(date 1693139886502)
+@@ -0,0 +1,19 @@
++package ru.practicum.android.diploma.search.ui
++
++import androidx.lifecycle.viewModelScope
++import kotlinx.coroutines.launch
++import ru.practicum.android.diploma.Logger
++import ru.practicum.android.diploma.root.BaseViewModel
++import ru.practicum.android.diploma.search.domain.SearchVacanciesUseCase
++import javax.inject.Inject
++
++class SearchViewModel @Inject constructor(
++    private val searchVacanciesUseCase: SearchVacanciesUseCase,
++    logger: Logger
++) : BaseViewModel(logger) {
++    init {
++        viewModelScope.launch {
++            searchVacanciesUseCase.search("nirvana")
++        }
++    }
++}
+\ No newline at end of file
+Index: app/src/main/java/ru/practicum/android/diploma/search/di/SearchDataModule.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/search/di/SearchDataModule.kt b/app/src/main/java/ru/practicum/android/diploma/search/di/SearchDataModule.kt
+new file mode 100644
+--- /dev/null	(date 1693139886500)
++++ b/app/src/main/java/ru/practicum/android/diploma/search/di/SearchDataModule.kt	(date 1693139886500)
+@@ -0,0 +1,59 @@
++package ru.practicum.android.diploma.search.di
++
++import dagger.Module
++import dagger.Provides
++import okhttp3.OkHttpClient
++import okhttp3.logging.HttpLoggingInterceptor
++import retrofit2.Retrofit
++import retrofit2.converter.gson.GsonConverterFactory
++import ru.practicum.android.diploma.di.annotations.ApplicationScope
++import ru.practicum.android.diploma.di.annotations.BaseUrl
++import ru.practicum.android.diploma.search.data.network.HhApiService
++import ru.practicum.android.diploma.search.data.network.NetworkClient
++import ru.practicum.android.diploma.search.data.network.RetrofitClient
++
++@Module
++class SearchDataModule {
++    @ApplicationScope
++    @Provides
++    fun createApiService(retrofit: Retrofit): HhApiService {
++        return retrofit.create(HhApiService::class.java)
++    }
++
++    @Provides
++    fun bindNetworkClient(retrofitClient: RetrofitClient): NetworkClient{
++        return retrofitClient
++    }
++
++    @Provides
++    fun provideRetrofit(
++        okHttpClient: OkHttpClient,
++        gsonConverterFactory: GsonConverterFactory,
++        @BaseUrl baseUrl: String
++    ): Retrofit {
++        return Retrofit.Builder()
++            .baseUrl(baseUrl)
++            .addConverterFactory(gsonConverterFactory)
++            .client(okHttpClient)
++            .build()
++    }
++
++    @Provides
++    fun provideConverterFactory(): GsonConverterFactory {
++        return GsonConverterFactory.create()
++    }
++
++    @Provides
++    fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
++        return OkHttpClient.Builder()
++            .addInterceptor(httpLoggingInterceptor)
++            .build()
++    }
++
++    @Provides
++    fun provideLoggingInterceptor(): HttpLoggingInterceptor {
++        return HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
++    }
++}
++
++
+Index: app/src/main/java/ru/practicum/android/diploma/search/di/SearchDomainModule.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/search/di/SearchDomainModule.kt b/app/src/main/java/ru/practicum/android/diploma/search/di/SearchDomainModule.kt
+new file mode 100644
+--- /dev/null	(date 1693139886501)
++++ b/app/src/main/java/ru/practicum/android/diploma/search/di/SearchDomainModule.kt	(date 1693139886501)
+@@ -0,0 +1,16 @@
++package ru.practicum.android.diploma.search.di
++
++import dagger.Binds
++import dagger.Module
++import ru.practicum.android.diploma.search.data.RemoteRepositoryImpl
++import ru.practicum.android.diploma.search.domain.RemoteRepository
++import ru.practicum.android.diploma.search.domain.SearchVacanciesUseCase
++import ru.practicum.android.diploma.search.domain.impl.SearchVacanciesUseCaseImpl
++
++@Module
++interface SearchDomainModule {
++    @Binds
++    fun bindRemoteRepository(remoteRepositoryImpl: RemoteRepositoryImpl): RemoteRepository
++    @Binds
++    fun bindSearchVacanciesUseCase(searchVacanciesUseCaseImpl: SearchVacanciesUseCaseImpl): SearchVacanciesUseCase
++}
+\ No newline at end of file
+Index: app/src/main/java/ru/practicum/android/diploma/search/domain/SearchVacanciesUseCase.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/search/domain/SearchVacanciesUseCase.kt b/app/src/main/java/ru/practicum/android/diploma/search/domain/SearchVacanciesUseCase.kt
+new file mode 100644
+--- /dev/null	(date 1693139886501)
++++ b/app/src/main/java/ru/practicum/android/diploma/search/domain/SearchVacanciesUseCase.kt	(date 1693139886501)
+@@ -0,0 +1,5 @@
++package ru.practicum.android.diploma.search.domain
++
++interface SearchVacanciesUseCase {
++    suspend fun search(query: String)
++}
+\ No newline at end of file
+Index: app/src/main/java/ru/practicum/android/diploma/search/domain/RemoteRepository.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/search/domain/RemoteRepository.kt b/app/src/main/java/ru/practicum/android/diploma/search/domain/RemoteRepository.kt
+new file mode 100644
+--- /dev/null	(date 1693139886501)
++++ b/app/src/main/java/ru/practicum/android/diploma/search/domain/RemoteRepository.kt	(date 1693139886501)
+@@ -0,0 +1,5 @@
++package ru.practicum.android.diploma.search.domain
++
++interface RemoteRepository {
++    suspend fun search(query: String)
++}
+\ No newline at end of file
+Index: app/src/main/java/ru/practicum/android/diploma/search/data/network/test/TrackSearchResponse.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/search/data/network/test/TrackSearchResponse.kt b/app/src/main/java/ru/practicum/android/diploma/search/data/network/test/TrackSearchResponse.kt
+new file mode 100644
+--- /dev/null	(date 1693139886500)
++++ b/app/src/main/java/ru/practicum/android/diploma/search/data/network/test/TrackSearchResponse.kt	(date 1693139886500)
+@@ -0,0 +1,8 @@
++package ru.practicum.android.diploma.search.data.network.test
++
++import com.google.gson.annotations.SerializedName
++import ru.practicum.android.diploma.di.annotations.TestClass
++import ru.practicum.android.diploma.search.data.network.Response
++
++@TestClass
++class TracksSearchResponse(@SerializedName("results") var results: ArrayList<TrackDto>): Response()
+\ No newline at end of file
+Index: app/src/main/java/ru/practicum/android/diploma/search/ui/SearchFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.search.ui\r\n\r\nimport android.os.Bundle\r\nimport androidx.fragment.app.Fragment\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport ru.practicum.android.diploma.R\r\nimport ru.practicum.android.diploma.databinding.FragmentSearchBinding\r\nimport ru.practicum.android.diploma.util.viewBinding\r\n\r\n\r\nclass SearchFragment : Fragment(R.layout.fragment_search) {\r\nprivate val binding by viewBinding<FragmentSearchBinding>()\r\n\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/search/ui/SearchFragment.kt b/app/src/main/java/ru/practicum/android/diploma/search/ui/SearchFragment.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/search/ui/SearchFragment.kt	(revision 913ce58237649552d4518def0e941d72a3ee514c)
++++ b/app/src/main/java/ru/practicum/android/diploma/search/ui/SearchFragment.kt	(date 1693139886501)
+@@ -2,18 +2,21 @@
+ 
+ import android.os.Bundle
+ import androidx.fragment.app.Fragment
+-import android.view.LayoutInflater
+ import android.view.View
+-import android.view.ViewGroup
++import androidx.fragment.app.viewModels
+ import ru.practicum.android.diploma.R
+ import ru.practicum.android.diploma.databinding.FragmentSearchBinding
++import ru.practicum.android.diploma.root.RootActivity
++import ru.practicum.android.diploma.util.thisName
+ import ru.practicum.android.diploma.util.viewBinding
+ 
+ 
+ class SearchFragment : Fragment(R.layout.fragment_search) {
+-private val binding by viewBinding<FragmentSearchBinding>()
++    private val viewModel: SearchViewModel by viewModels { (activity as RootActivity).viewModelFactory }
++    private val binding by viewBinding<FragmentSearchBinding>()
+ 
+     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+         super.onViewCreated(view, savedInstanceState)
++        viewModel.log(thisName, "onViewCreated   $viewModel")
+     }
+ }
+\ No newline at end of file
+Index: app/src/main/java/ru/practicum/android/diploma/di/annotations/IdQualifier.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/di/annotations/IdQualifier.kt b/app/src/main/java/ru/practicum/android/diploma/di/annotations/Qualifiers.kt
+rename from app/src/main/java/ru/practicum/android/diploma/di/annotations/IdQualifier.kt
+rename to app/src/main/java/ru/practicum/android/diploma/di/annotations/Qualifiers.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/di/annotations/IdQualifier.kt	(revision 913ce58237649552d4518def0e941d72a3ee514c)
++++ b/app/src/main/java/ru/practicum/android/diploma/di/annotations/Qualifiers.kt	(date 1693139886498)
+@@ -1,7 +1,6 @@
+ package ru.practicum.android.diploma.di.annotations
+ 
+ import javax.inject.Qualifier
+-//пример qulifier для каких то входных параметров для viewmodel
+ @Qualifier
+ @Retention(AnnotationRetention.RUNTIME)
+-annotation class IdQualifier
++annotation class BaseUrl
+\ No newline at end of file
+Index: app/src/main/java/ru/practicum/android/diploma/app/App.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.app\r\n\r\nimport android.app.Application\r\nimport ru.practicum.android.diploma.Logger\r\nimport ru.practicum.android.diploma.LoggerImpl\r\nimport ru.practicum.android.diploma.di.DaggerAppComponent\r\nimport ru.practicum.android.diploma.util.thisName\r\nimport javax.inject.Inject\r\n\r\nclass App: Application() {\r\n    @Inject\r\n    lateinit var logger: Logger\r\n\r\n    val component by lazy(LazyThreadSafetyMode.NONE) {\r\n        DaggerAppComponent.factory()\r\n            .create(this)\r\n    }\r\n    override fun onCreate() {\r\n        component.inject(this)\r\n        super.onCreate()\r\n        logger.log(thisName, \"onCreate() $logger\")\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/app/App.kt b/app/src/main/java/ru/practicum/android/diploma/app/App.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/app/App.kt	(revision 913ce58237649552d4518def0e941d72a3ee514c)
++++ b/app/src/main/java/ru/practicum/android/diploma/app/App.kt	(date 1693139886497)
+@@ -2,6 +2,7 @@
+ 
+ import android.app.Application
+ import ru.practicum.android.diploma.Logger
++import ru.practicum.android.diploma.R
+ import ru.practicum.android.diploma.LoggerImpl
+ import ru.practicum.android.diploma.di.DaggerAppComponent
+ import ru.practicum.android.diploma.util.thisName
+@@ -10,11 +11,14 @@
+ class App: Application() {
+     @Inject
+     lateinit var logger: Logger
+-
+     val component by lazy(LazyThreadSafetyMode.NONE) {
+         DaggerAppComponent.factory()
+-            .create(this)
++            .create(
++                context = this,
++                baseUrl = resources.getString(R.string.base_url)
++            )
+     }
++
+     override fun onCreate() {
+         component.inject(this)
+         super.onCreate()
+Index: app/src/main/java/ru/practicum/android/diploma/search/domain/impl/SearchVacanciesUseCaseImpl.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/search/domain/impl/SearchVacanciesUseCaseImpl.kt b/app/src/main/java/ru/practicum/android/diploma/search/domain/impl/SearchVacanciesUseCaseImpl.kt
+new file mode 100644
+--- /dev/null	(date 1693139886501)
++++ b/app/src/main/java/ru/practicum/android/diploma/search/domain/impl/SearchVacanciesUseCaseImpl.kt	(date 1693139886501)
+@@ -0,0 +1,11 @@
++package ru.practicum.android.diploma.search.domain.impl
++
++import ru.practicum.android.diploma.search.domain.RemoteRepository
++import ru.practicum.android.diploma.search.domain.SearchVacanciesUseCase
++import javax.inject.Inject
++
++class SearchVacanciesUseCaseImpl @Inject constructor(private val repository: RemoteRepository): SearchVacanciesUseCase {
++    override suspend fun search(query: String) {
++        repository.search(query)
++    }
++}
+\ No newline at end of file
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\r\n    <string name=\"app_name\" translatable=\"false\"    >Job Search Engine</string>\r\n    <string name=\"main_menu\"                        >Main</string>\r\n    <string name=\"favorites\"                       >Favorites</string>\r\n    <string name=\"team_menu\"                       >Team</string>\r\n    <string name=\"image\"                           >Image</string>\r\n    <string name=\"filter_settings\"                 >Filter Settings</string>\r\n    <string name=\"work_place\"                      >Work Place</string>\r\n    <string name=\"department\"                      >Department</string>\r\n    <string name=\"expected_salary\"                 >Expected salary</string>\r\n    <string name=\"enter_the_amount\"                >Enter the amount</string>\r\n    <string name=\"dont_show_without_salary\"        >Do not show without salary</string>\r\n    <string name=\"choose_country\"                  >Choose country</string>\r\n    <string name=\"Russia\"                          >Russia</string>\r\n\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+--- a/app/src/main/res/values/strings.xml	(revision 913ce58237649552d4518def0e941d72a3ee514c)
++++ b/app/src/main/res/values/strings.xml	(date 1693140030413)
+@@ -1,16 +1,16 @@
+ <resources>
+     <string name="app_name" translatable="false"    >Job Search Engine</string>
+     <string name="main_menu"                        >Main</string>
+-    <string name="favorites"                       >Favorites</string>
+-    <string name="team_menu"                       >Team</string>
+-    <string name="image"                           >Image</string>
+-    <string name="filter_settings"                 >Filter Settings</string>
+-    <string name="work_place"                      >Work Place</string>
+-    <string name="department"                      >Department</string>
+-    <string name="expected_salary"                 >Expected salary</string>
+-    <string name="enter_the_amount"                >Enter the amount</string>
+-    <string name="dont_show_without_salary"        >Do not show without salary</string>
++    <string name="favorites"                        >Favorites</string>
++    <string name="team_menu"                        >Team</string>
++    <string name="image"                            >Image</string>
++    <string name="filter_settings"                  >Filter Settings</string>
++    <string name="work_place"                       >Work Place</string>
++    <string name="department"                       >Department</string>
++    <string name="expected_salary"                  >Expected salary</string>
++    <string name="enter_the_amount"                 >Enter the amount</string>
++    <string name="dont_show_without_salary"         >Do not show without salary</string>
++    <string name="base_url" translatable="false"    >https://itunes.apple.com</string>
+     <string name="choose_country"                  >Choose country</string>
+     <string name="Russia"                          >Russia</string>
+-
+ </resources>
+\ No newline at end of file
+Index: app/src/main/java/ru/practicum/android/diploma/di/annotations/TestClass.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/di/annotations/TestClass.kt b/app/src/main/java/ru/practicum/android/diploma/di/annotations/TestClass.kt
+new file mode 100644
+--- /dev/null	(date 1693139886498)
++++ b/app/src/main/java/ru/practicum/android/diploma/di/annotations/TestClass.kt	(date 1693139886498)
+@@ -0,0 +1,10 @@
++package ru.practicum.android.diploma.di.annotations
++
++/*
++эта аннотация значит, что класс создан просто для теста,
++ в дальнейшем все такие классы удалятся или заменятся на актуальные
++ например для теста ретрофита использую TrackDto из ITunesApi
++ */
++@TestClass
++annotation class TestClass
++
+Index: app/src/main/java/ru/practicum/android/diploma/di/AppComponent.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.di\r\n\r\nimport android.content.Context\r\nimport dagger.BindsInstance\r\nimport dagger.Component\r\nimport ru.practicum.android.diploma.app.App\r\nimport ru.practicum.android.diploma.di.annotations.ApplicationScope\r\nimport ru.practicum.android.diploma.di.modules.LoggerModule\r\n\r\n@ApplicationScope\r\n@Component(modules = [LoggerModule::class])\r\ninterface AppComponent {\r\n    fun inject(app: App)\r\n    fun activityComponentFactory(): ActivityComponent.Factory\r\n    @Component.Factory\r\n    interface AppComponentFactory{\r\n      fun create(@BindsInstance context: Context): AppComponent\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/di/AppComponent.kt b/app/src/main/java/ru/practicum/android/diploma/di/AppComponent.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/di/AppComponent.kt	(revision 913ce58237649552d4518def0e941d72a3ee514c)
++++ b/app/src/main/java/ru/practicum/android/diploma/di/AppComponent.kt	(date 1693139886498)
+@@ -5,15 +5,22 @@
+ import dagger.Component
+ import ru.practicum.android.diploma.app.App
+ import ru.practicum.android.diploma.di.annotations.ApplicationScope
++import ru.practicum.android.diploma.di.annotations.BaseUrl
+ import ru.practicum.android.diploma.di.modules.LoggerModule
++import ru.practicum.android.diploma.search.di.SearchDataModule
++import ru.practicum.android.diploma.search.di.SearchDomainModule
+ 
+ @ApplicationScope
+-@Component(modules = [LoggerModule::class])
++@Component(modules = [LoggerModule::class, SearchDataModule::class, SearchDomainModule::class])
+ interface AppComponent {
+     fun inject(app: App)
+     fun activityComponentFactory(): ActivityComponent.Factory
++
+     @Component.Factory
+-    interface AppComponentFactory{
+-      fun create(@BindsInstance context: Context): AppComponent
++    interface AppComponentFactory {
++        fun create(
++            @BindsInstance context: Context,
++            @BindsInstance @BaseUrl baseUrl: String
++        ): AppComponent
+     }
+ }
+\ No newline at end of file
+Index: app/src/main/java/ru/practicum/android/diploma/search/data/network/HhApiService.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/search/data/network/HhApiService.kt b/app/src/main/java/ru/practicum/android/diploma/search/data/network/HhApiService.kt
+new file mode 100644
+--- /dev/null	(date 1693139886499)
++++ b/app/src/main/java/ru/practicum/android/diploma/search/data/network/HhApiService.kt	(date 1693139886499)
+@@ -0,0 +1,12 @@
++package ru.practicum.android.diploma.search.data.network
++
++import retrofit2.http.GET
++import retrofit2.http.Query
++import ru.practicum.android.diploma.search.data.network.test.TracksSearchResponse
++
++
++interface HhApiService {
++    @GET("/search?entity=song")
++    suspend fun search(@Query("term") text: String) : TracksSearchResponse
++}
++
+Index: app/src/main/java/ru/practicum/android/diploma/search/data/network/NetworkClient.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/search/data/network/NetworkClient.kt b/app/src/main/java/ru/practicum/android/diploma/search/data/network/NetworkClient.kt
+new file mode 100644
+--- /dev/null	(date 1693139886499)
++++ b/app/src/main/java/ru/practicum/android/diploma/search/data/network/NetworkClient.kt	(date 1693139886499)
+@@ -0,0 +1,5 @@
++package ru.practicum.android.diploma.search.data.network
++
++interface NetworkClient {
++    suspend fun doRequest(any: Any): Response
++}
+\ No newline at end of file
+Index: app/src/main/java/ru/practicum/android/diploma/di/ActivityComponent.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.di\r\n\r\nimport dagger.Subcomponent\r\nimport ru.practicum.android.diploma.di.modules.ViewModelModule\r\nimport ru.practicum.android.diploma.favorite.ui.FavoriteFragment\r\nimport ru.practicum.android.diploma.root.RootActivity\r\n\r\n\r\n@Subcomponent(modules = [ViewModelModule::class])\r\ninterface ActivityComponent {\r\n    fun inject(rootActivity: RootActivity)\r\n    fun inject(favoriteFragment: FavoriteFragment)\r\n\r\n    @Subcomponent.Factory\r\n    interface Factory{\r\n        fun create(\r\n//            @BindsInstance @IdQualifier id: Int\r\n        ): ActivityComponent\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/di/ActivityComponent.kt b/app/src/main/java/ru/practicum/android/diploma/di/ActivityComponent.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/di/ActivityComponent.kt	(revision 913ce58237649552d4518def0e941d72a3ee514c)
++++ b/app/src/main/java/ru/practicum/android/diploma/di/ActivityComponent.kt	(date 1693139886498)
+@@ -11,6 +11,8 @@
+     fun inject(rootActivity: RootActivity)
+     fun inject(favoriteFragment: FavoriteFragment)
+ 
++
++
+     @Subcomponent.Factory
+     interface Factory{
+         fun create(
+Index: app/src/main/java/ru/practicum/android/diploma/search/data/RemoteRepositoryImpl.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/search/data/RemoteRepositoryImpl.kt b/app/src/main/java/ru/practicum/android/diploma/search/data/RemoteRepositoryImpl.kt
+new file mode 100644
+--- /dev/null	(date 1693139886499)
++++ b/app/src/main/java/ru/practicum/android/diploma/search/data/RemoteRepositoryImpl.kt	(date 1693139886499)
+@@ -0,0 +1,11 @@
++package ru.practicum.android.diploma.search.data
++
++import ru.practicum.android.diploma.search.data.network.NetworkClient
++import ru.practicum.android.diploma.search.domain.RemoteRepository
++import javax.inject.Inject
++
++class RemoteRepositoryImpl @Inject constructor(private val networkClient: NetworkClient): RemoteRepository {
++    override suspend fun search(query: String) {
++        networkClient.doRequest(query)
++    }
++}
+\ No newline at end of file
+Index: app/src/main/java/ru/practicum/android/diploma/di/modules/ViewModelModule.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.di.modules\r\n\r\nimport androidx.lifecycle.ViewModel\r\nimport dagger.Binds\r\nimport dagger.Module\r\nimport dagger.multibindings.IntoMap\r\nimport ru.practicum.android.diploma.di.annotations.ViewModelKey\r\nimport ru.practicum.android.diploma.favorite.ui.FavoriteViewModel\r\nimport ru.practicum.android.diploma.root.RootViewModel\r\n\r\n@Module\r\ninterface ViewModelModule {\r\n    @IntoMap\r\n    @ViewModelKey(RootViewModel::class)\r\n    @Binds\r\n    fun bindRootViewModel(rootViewModel: RootViewModel): ViewModel\r\n\r\n    @IntoMap\r\n    @ViewModelKey(FavoriteViewModel::class)\r\n    @Binds\r\n    fun bindFavoriteViewModel(favoriteViewModel: FavoriteViewModel): ViewModel\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/di/modules/ViewModelModule.kt b/app/src/main/java/ru/practicum/android/diploma/di/modules/ViewModelModule.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/di/modules/ViewModelModule.kt	(revision 913ce58237649552d4518def0e941d72a3ee514c)
++++ b/app/src/main/java/ru/practicum/android/diploma/di/modules/ViewModelModule.kt	(date 1693139886498)
+@@ -7,6 +7,7 @@
+ import ru.practicum.android.diploma.di.annotations.ViewModelKey
+ import ru.practicum.android.diploma.favorite.ui.FavoriteViewModel
+ import ru.practicum.android.diploma.root.RootViewModel
++import ru.practicum.android.diploma.search.ui.SearchViewModel
+ 
+ @Module
+ interface ViewModelModule {
+@@ -20,4 +21,9 @@
+     @Binds
+     fun bindFavoriteViewModel(favoriteViewModel: FavoriteViewModel): ViewModel
+ 
++    @IntoMap
++    @ViewModelKey(SearchViewModel::class)
++    @Binds
++    fun bindSearchViewModel(searchViewModel: SearchViewModel): ViewModel
++
+ }
+\ No newline at end of file
+Index: app/src/main/java/ru/practicum/android/diploma/search/data/network/Response.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/search/data/network/Response.kt b/app/src/main/java/ru/practicum/android/diploma/search/data/network/Response.kt
+new file mode 100644
+--- /dev/null	(date 1693139886499)
++++ b/app/src/main/java/ru/practicum/android/diploma/search/data/network/Response.kt	(date 1693139886499)
+@@ -0,0 +1,6 @@
++package ru.practicum.android.diploma.search.data.network
++
++open class Response {
++    var resultCode = 0
++    var errorMessage = ""
++}
+\ No newline at end of file
+Index: app/src/main/java/ru/practicum/android/diploma/search/data/network/test/TrackDto.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/search/data/network/test/TrackDto.kt b/app/src/main/java/ru/practicum/android/diploma/search/data/network/test/TrackDto.kt
+new file mode 100644
+--- /dev/null	(date 1693139886500)
++++ b/app/src/main/java/ru/practicum/android/diploma/search/data/network/test/TrackDto.kt	(date 1693139886500)
+@@ -0,0 +1,31 @@
++package ru.practicum.android.diploma.search.data.network.test
++
++import com.google.gson.annotations.SerializedName
++import ru.practicum.android.diploma.di.annotations.TestClass
++import java.io.Serializable
++
++@TestClass
++data class TrackDto(
++    val trackId: Long,
++    val trackName: String? = "",
++    val artistName: String? = "",
++    @SerializedName("trackTimeMillis") val trackTime: String? = "",
++    @SerializedName("artworkUrl100") val image: String? = "",
++    @SerializedName("collectionName") val album: String? = "",
++    @SerializedName("releaseDate") val year: String? = "",
++    @SerializedName("primaryGenreName") val genre: String? = "",
++    val country: String? = "",
++    val previewUrl: String? = ""
++) : Serializable {
++    override fun equals(other: Any?): Boolean {
++        return if (other !is TrackDto) {
++            false
++        } else {
++            other.trackId == trackId
++        }
++    }
++
++    override fun hashCode(): Int {
++        return trackId.toInt()
++    }
++}
+\ No newline at end of file
+Index: app/src/main/java/ru/practicum/android/diploma/search/data/network/RetrofitClient.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/search/data/network/RetrofitClient.kt b/app/src/main/java/ru/practicum/android/diploma/search/data/network/RetrofitClient.kt
+new file mode 100644
+--- /dev/null	(date 1693139886500)
++++ b/app/src/main/java/ru/practicum/android/diploma/search/data/network/RetrofitClient.kt	(date 1693139886500)
+@@ -0,0 +1,15 @@
++package ru.practicum.android.diploma.search.data.network
++
++import android.util.Log
++import javax.inject.Inject
++
++class RetrofitClient @Inject constructor(
++    private val hhApiService: HhApiService,
++    private val internetController: InternetController
++) : NetworkClient {
++    override suspend fun doRequest(any: Any): Response {
++        val response = hhApiService.search(any as String)
++        Log.e("TAG", "doRequest: ${response.results}", )
++        return Response()
++    }
++}
+\ No newline at end of file
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\">\r\n\r\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\r\n    <uses-permission android:name=\"android.permission.POST_NOTIFICATIONS\" />\r\n\r\n    <application\r\n        android:name=\".app.App\"\r\n        android:allowBackup=\"true\"\r\n        android:dataExtractionRules=\"@xml/data_extraction_rules\"\r\n        android:fullBackupContent=\"@xml/backup_rules\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.PracticumAndroidDiploma\"\r\n        tools:targetApi=\"31\">\r\n        <activity\r\n            android:name=\".root.RootActivity\"\r\n            android:windowSoftInputMode=\"adjustNothing\"\r\n            android:exported=\"true\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+--- a/app/src/main/AndroidManifest.xml	(revision 913ce58237649552d4518def0e941d72a3ee514c)
++++ b/app/src/main/AndroidManifest.xml	(date 1693139886497)
+@@ -2,6 +2,7 @@
+ <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:tools="http://schemas.android.com/tools">
+ 
++    <uses-permission android:name="android.permission.INTERNET" />
+     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+ 
