@@ -12,7 +12,12 @@
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/settingFilters"
-        android:name="ru.practicum.android.diploma.filters.ui.FragmentSettingFilters"
+        android:name="ru.practicum.android.diploma.filters.ui.fragment.FragmentSettingFilters"
         android:label="fragment_setting_filters"
         tools:layout="@layout/fragment_setting_filters" />
+    <fragment
+        android:id="@+id/fragmentChooseFilter"
+        android:name="ru.practicum.android.diploma.filters.ui.fragment.FragmentChooseFilter"
+        android:label="fragment_choose_filter"
+        tools:layout="@layout/fragment_choose_filter" />
 </navigation>

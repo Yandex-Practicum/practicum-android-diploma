@@ -3,6 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context = "ru.practicum.android.diploma.filters.ui.fragment.FragmentSettingFilters">
+    tools:context= "ru.practicum.android.diploma.filters.ui.fragment.FragmentChooseFilter">
 
 </androidx.constraintlayout.widget.ConstraintLayout>
