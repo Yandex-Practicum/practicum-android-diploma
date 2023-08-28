@@ -3,12 +3,7 @@ package ru.practicum.android.diploma.root
 import android.os.Handler
 import android.os.Looper
 import android.view.View
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.util.DELAY_800
+import ru.practicum.android.diploma.util.DELAY_800_MILLIS
 import javax.inject.Inject
 
 
@@ -23,7 +18,7 @@ class Debouncer @Inject constructor() {
             handler.postDelayed({
                 action()
                 available = true
-            }, DELAY_800)
+            }, DELAY_800_MILLIS)
         }
     }
 }

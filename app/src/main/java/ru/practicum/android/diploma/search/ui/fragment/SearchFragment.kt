@@ -3,7 +3,6 @@ package ru.practicum.android.diploma.search.ui.fragment
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -48,7 +47,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     
     private fun initViewModelObserver() {
         viewLifecycleOwner.lifecycle.coroutineScope.launch {
-            viewModel.contentState.collect { screenState -> render(screenState) }
+            viewModel.uiState.collect { screenState -> render(screenState) }
         }
     }
     
@@ -72,7 +71,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         searchAdapter?.onClick = { vacancy ->
             viewModel.log(thisName, "onClickWithDebounce $vacancy")
             findNavController().navigate(
-                resId = R.id.action_searchFragment_to_detailsFragment,
+                resId = R.id.action_searchFragment_to_filterBaseFragment,
                 //args = bundleOf("KEY_DETAILS" to vacancy)
             )
         }
@@ -117,7 +116,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             textFabSearch.text = getString(R.string.update)
             
             textFabSearch.setOnClickListener {
-            //    viewModel.loadJobList(searchEditText.text.toString())
+            //viewModel.loadJobList(searchEditText.text.toString())
                 textFabSearch.setOnClickListener(null)
             }
             

@@ -19,20 +19,20 @@ class SearchViewModel @Inject constructor(
     logger: Logger
 ) : BaseViewModel(logger) {
     
-    private val _contentState: MutableStateFlow<SearchScreenState> =
+    private val _uitState: MutableStateFlow<SearchScreenState> =
         MutableStateFlow(SearchScreenState.Default)
-    val contentState: StateFlow<SearchScreenState> = _contentState
+    val uiState: StateFlow<SearchScreenState> = _uitState
     
     private var latestSearchQuery: String? = null
     private var searchJob: Job? = null
     
-    private val onSearchDebounce = delayedAction<String>(delayMillis = SEARCH_DELAY_MILLIS,
+    private val onSearchDebounce = delayedAction<String>(
         coroutineScope = viewModelScope,
         action = { query -> loadJobList(query) })
     
     fun onSearchQueryChanged(query: String?) {
         if (query.isNullOrEmpty()) {
-            _contentState.value = SearchScreenState.Default
+            _uitState.value = SearchScreenState.Default
         } else {
             if (latestSearchQuery == query) return
         
@@ -43,7 +43,7 @@ class SearchViewModel @Inject constructor(
     
     private fun loadJobList(query: String) {
     
-        _contentState.value = SearchScreenState.Loading
+        _uitState.value = SearchScreenState.Loading
     
         searchJob = viewModelScope.launch(Dispatchers.IO) {
             searchVacanciesUseCase
@@ -57,16 +57,12 @@ class SearchViewModel @Inject constructor(
     private fun processResult(result: FetchResult) {
         when {
             result.error != null -> {
-                _contentState.value = SearchScreenState.Error(result.error)
+                _uitState.value = SearchScreenState.Error(result.error)
             }
             
             result.data != null -> {
-                _contentState.value = SearchScreenState.Content(result.data)
+                _uitState.value = SearchScreenState.Content(result.data)
             }
         }
-    }
-    
-    companion object {
-        private const val SEARCH_DELAY_MILLIS = 2000L
     }
 }
