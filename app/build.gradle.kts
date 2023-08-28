@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
     id("kotlin-kapt")
+    id("kotlin-parcelize")
     id("ru.practicum.android.diploma.plugins.developproperties")
 }
 

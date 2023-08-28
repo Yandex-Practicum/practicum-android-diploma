@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
+import ru.practicum.android.diploma.details.view_model.DetailsViewModel
 import ru.practicum.android.diploma.di.annotations.ViewModelKey
 import ru.practicum.android.diploma.favorite.domain.FavoriteViewModel
 import ru.practicum.android.diploma.root.RootViewModel
@@ -25,5 +26,10 @@ interface ViewModelModule {
     @ViewModelKey(SearchViewModel::class)
     @Binds
     fun bindSearchViewModel(searchViewModel: SearchViewModel): ViewModel
+
+    @IntoMap
+    @ViewModelKey(DetailsViewModel::class)
+    @Binds
+    fun bindDetailsViewModel(detailsViewModel: DetailsViewModel): ViewModel
 
 }
