@@ -3,7 +3,7 @@ package ru.practicum.android.diploma.details.domain.impl
 import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.details.domain.DetailsRepository
 import ru.practicum.android.diploma.details.domain.DetailsInteractor
-import ru.practicum.android.diploma.search.domain.Vacancy
+import ru.practicum.android.diploma.search.domain.models.Vacancy
 import javax.inject.Inject
 
 class DetailsInteractorImpl@Inject constructor(private val repository: DetailsRepository): DetailsInteractor {

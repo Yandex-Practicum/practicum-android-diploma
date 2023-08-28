@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.util
 
-import ru.practicum.android.diploma.search.domain.Vacancy
+import ru.practicum.android.diploma.search.domain.models.Vacancy
 import kotlin.random.Random
 
 fun getMockVacancy(): Vacancy {

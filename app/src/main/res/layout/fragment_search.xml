@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorPrimaryVariant"
-    tools:context=".search.ui.SearchFragment">
+    tools:context=".search.ui.fragment.SearchFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/searchAppBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
+        android:nestedScrollingEnabled="true"
         app:elevation="0dp">
 
         <androidx.appcompat.widget.Toolbar
@@ -34,7 +35,7 @@
                 android:layout_gravity="end"
                 android:layout_marginEnd="@dimen/margin_8dp"
                 android:contentDescription="@string/filter_settings"
-                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_filter" />
         </androidx.appcompat.widget.Toolbar>
 
@@ -85,7 +86,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvSearch"
+        android:id="@+id/recycler"
         style="@style/vacancy_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

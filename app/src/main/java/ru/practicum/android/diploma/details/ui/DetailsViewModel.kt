@@ -6,7 +6,7 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.details.domain.DetailsInteractor
 import ru.practicum.android.diploma.root.BaseViewModel
-import ru.practicum.android.diploma.search.domain.Vacancy
+import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
 

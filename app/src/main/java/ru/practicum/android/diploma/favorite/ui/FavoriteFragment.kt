@@ -14,8 +14,8 @@ import ru.practicum.android.diploma.favorite.ui.FavoritesScreenState.Content
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFavoriteBinding
 import ru.practicum.android.diploma.root.RootActivity
-import ru.practicum.android.diploma.search.domain.Vacancy
-import ru.practicum.android.diploma.search.ui.SearchAdapter
+import ru.practicum.android.diploma.search.domain.models.Vacancy
+import ru.practicum.android.diploma.search.ui.fragment.SearchAdapter
 import ru.practicum.android.diploma.util.thisName
 import ru.practicum.android.diploma.util.viewBinding
 import javax.inject.Inject

@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.search.domain
+package ru.practicum.android.diploma.search.domain.models
 
 import kotlin.random.Random
 

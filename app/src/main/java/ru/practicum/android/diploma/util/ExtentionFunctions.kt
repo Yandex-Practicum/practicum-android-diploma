@@ -5,14 +5,14 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-const val DELAY_800 = 800L
-const val DELAY_1500 = 1500L
+const val DELAY_800_MILLIS = 800L
+const val DELAY_2000_MILLIS = 2000L
 
 val <T> T.thisName: String
     get() = this!!::class.simpleName ?: "Unknown class"
 
 fun <T> delayedAction(
-    delayMillis: Long = DELAY_1500,
+    delayMillis: Long = DELAY_2000_MILLIS,
     coroutineScope: CoroutineScope,
     deferredUsing: Boolean = false,
     action: (T) -> Unit,
