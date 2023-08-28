@@ -25,4 +25,8 @@
     <string name="empty_search_error"               >There are no such vacancies</string>
     <string name="loading_message"                  >Loading…</string>
     <string name="update"                           >Update</string>
+    <string name="choose_region"                    >Choose Region</string>
+    <string name="choose_department"                >Choose Department</string>
+    <string name="enter_region"                     >Enter Region</string>
+    <string name="enter_department"                 >Enter Department</string>
 </resources>
