@@ -8,8 +8,9 @@ import ru.practicum.android.diploma.details.di.DetailsDataModule
 import ru.practicum.android.diploma.details.di.DetailsDomainModule
 import ru.practicum.android.diploma.di.annotations.ApplicationScope
 import ru.practicum.android.diploma.di.annotations.BaseUrl
-import ru.practicum.android.diploma.di.modules.InteractorModule
+import ru.practicum.android.diploma.favorite.di.FavoriteDomainModule
 import ru.practicum.android.diploma.di.modules.LoggerModule
+import ru.practicum.android.diploma.favorite.di.FavoritesDataModule
 import ru.practicum.android.diploma.search.di.SearchDataModule
 import ru.practicum.android.diploma.search.di.SearchDomainModule
 
@@ -21,7 +22,8 @@ import ru.practicum.android.diploma.search.di.SearchDomainModule
     SearchDomainModule::class,
     DetailsDataModule::class,
     DetailsDomainModule::class,
-    InteractorModule::class
+    FavoriteDomainModule::class,
+    FavoritesDataModule::class
 ])
 
 interface AppComponent {

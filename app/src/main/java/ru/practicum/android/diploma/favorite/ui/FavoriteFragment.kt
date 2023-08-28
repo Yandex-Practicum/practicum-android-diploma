@@ -13,7 +13,6 @@ import ru.practicum.android.diploma.favorite.ui.FavoritesScreenState.Empty
 import ru.practicum.android.diploma.favorite.ui.FavoritesScreenState.Content
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFavoriteBinding
-import ru.practicum.android.diploma.favorite.domain.FavoriteViewModel
 
 import ru.practicum.android.diploma.root.RootActivity
 import ru.practicum.android.diploma.search.domain.Vacancy
