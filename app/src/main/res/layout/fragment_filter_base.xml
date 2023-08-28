@@ -20,50 +20,64 @@
             android:text="@string/filter_settings" />
 
     </androidx.appcompat.widget.Toolbar>
-
-    <FrameLayout
+    <androidx.cardview.widget.CardView
         android:id="@+id/work_place_container"
-        style="@style/FilterFrameLayoutSettings"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_60dp"
-        android:layout_marginTop="@dimen/margin_16dp">
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:background="?android:attr/selectableItemBackground">
+
+        <TextView
+            android:id="@+id/work_place_hint"
+            style="@style/FilterLesserTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:text="@string/work_place" />
 
         <TextView
             android:id="@+id/work_place_text"
-            style="@style/FilterText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/FilterGreaterTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:text="@string/work_place" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
+            android:layout_gravity="center_vertical|end"
             app:srcCompat="@drawable/leading_icon" />
+    </androidx.cardview.widget.CardView>
 
-    </FrameLayout>
-
-    <FrameLayout
+    <androidx.cardview.widget.CardView
         android:id="@+id/department_container"
-        style="@style/FilterFrameLayoutSettings"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_60dp"
-        android:layout_marginTop="@dimen/margin_16dp">
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:background="?android:attr/selectableItemBackground">
+
+        <TextView
+            android:id="@+id/department_text_hint"
+            style="@style/FilterLesserTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:text="@string/department" />
 
         <TextView
             android:id="@+id/department_text"
-            style="@style/FilterText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/FilterGreaterTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:text="@string/department" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
+            android:layout_gravity="center_vertical|end"
             app:srcCompat="@drawable/leading_icon" />
+    </androidx.cardview.widget.CardView>
 
-    </FrameLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/amount_text_layout"
