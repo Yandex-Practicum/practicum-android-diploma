@@ -20,4 +20,8 @@
     <string name="country"                          >Страна</string>
     <string name="work_place_choose"                >Выбор места работы</string>
     <string name="region"                           >Регион</string>
+    <string name="choose_region"                    >Выбор региона</string>
+    <string name="choose_department"                >Выбор отрасли</string>
+    <string name="enter_region"                     >Введите регион</string>
+    <string name="enter_department"                 >Введите отрасль</string>
 </resources>
