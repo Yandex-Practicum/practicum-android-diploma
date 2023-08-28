@@ -49,15 +49,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         }
     }
     
-    private fun render(screenState: SearchScreenState) {
-        when (screenState) {
-            SearchScreenState.Empty -> TODO()
-            SearchScreenState.Loading -> TODO()
-            is SearchScreenState.Content -> TODO()
-            is SearchScreenState.Error -> TODO()
-        }
-    }
-    
     private fun initListeners() {
         with(binding) {
             filterBtnToolbar.setOnClickListener {
@@ -69,6 +60,37 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
     
     private fun initAdapter() {
+        binding.rvSearch.adapter = searchAdapter
+        searchAdapter?.onClick = { vacancy ->
+            findNavController().navigate(
+                resId = R.id.action_searchFragment_to_detailsFragment,
+                //args = bundleOf("KEY_DETAILS" to vacancy)
+            )
+        }
+    }
+    
+    private fun render(screenState: SearchScreenState) {
+        when (screenState) {
+            SearchScreenState.Empty -> showEmpty()
+            SearchScreenState.Loading -> showLoading()
+            is SearchScreenState.Content -> showContent()
+            is SearchScreenState.Error -> showError()
+        }
+    }
+    
+    private fun showError() {
+        TODO("Not yet implemented")
+    }
+    
+    private fun showContent() {
+        TODO("Not yet implemented")
+    }
+    
+    private fun showLoading() {
+        TODO("Not yet implemented")
+    }
+    
+    private fun showEmpty() {
         TODO("Not yet implemented")
     }
 }
