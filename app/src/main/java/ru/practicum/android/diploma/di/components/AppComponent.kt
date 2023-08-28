@@ -8,12 +8,22 @@ import ru.practicum.android.diploma.details.di.DetailsDataModule
 import ru.practicum.android.diploma.details.di.DetailsDomainModule
 import ru.practicum.android.diploma.di.annotations.ApplicationScope
 import ru.practicum.android.diploma.di.annotations.BaseUrl
+import ru.practicum.android.diploma.di.modules.InteractorModule
 import ru.practicum.android.diploma.di.modules.LoggerModule
 import ru.practicum.android.diploma.search.di.SearchDataModule
 import ru.practicum.android.diploma.search.di.SearchDomainModule
 
 @ApplicationScope
-@Component(modules = [LoggerModule::class, SearchDataModule::class, SearchDomainModule::class, DetailsDataModule::class, DetailsDomainModule::class])
+
+@Component(modules = [
+    LoggerModule::class,
+    SearchDataModule::class,
+    SearchDomainModule::class,
+    DetailsDataModule::class,
+    DetailsDomainModule::class,
+    InteractorModule::class
+])
+
 interface AppComponent {
     fun inject(app: App)
     fun activityComponentFactory(): ActivityComponent.Factory

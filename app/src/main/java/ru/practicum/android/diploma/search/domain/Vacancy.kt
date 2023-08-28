@@ -1,5 +1,7 @@
 package ru.practicum.android.diploma.search.domain
 
+import kotlin.random.Random
+
 data class Vacancy(
     val id: Long,
     val iconUri: String = "",
@@ -8,3 +10,6 @@ data class Vacancy(
     val salary: String = "",
     val date : Long = 0L
 )
+
+
+

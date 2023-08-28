@@ -10,7 +10,7 @@
         <item name="colorSecondaryVariant">@color/blue</item>
         <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:statusBarColor">@color/blue</item>
         <!-- Customize your theme here. -->
         <item name="favorite_btn_color">@color/red</item>
         <item name="hint_background_color">@color/light_gray</item>

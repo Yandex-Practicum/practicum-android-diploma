@@ -76,7 +76,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/amount_text"
-            style="@style/EditTextStyle"
+            style="@style/FilterEditTextStyle"
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

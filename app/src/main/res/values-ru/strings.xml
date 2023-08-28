@@ -12,11 +12,12 @@
     <string name="dont_show_without_salary"         >Не показывать без зарплаты</string>
     <string name="vacancy"                          >Вакансия</string>
     <string name="similar_vacancy"                  >Похожие вакансии</string>
-
     <string name="choose_country"                   >Выбор страны</string>
+    <string name="Russia"                           >Россия</string>
+    <string name="search_title"                     >Поиск вакансий</string>
+    <string name="empty_list"                       >Список пуст</string>
+    <string name="search_hint"                      >Введите запрос</string>
     <string name="country"                          >Страна</string>
-
-    <string name="empty_list"                      >Список пуст</string>
-    <string name="work_place_choose"               >Выбор места работы</string>
-    <string name="region"                          >Регион</string>
+    <string name="work_place_choose"                >Выбор места работы</string>
+    <string name="region"                           >Регион</string>
 </resources>

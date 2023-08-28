@@ -3,11 +3,19 @@ package ru.practicum.android.diploma.search.ui
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.databinding.ItemDescriptionBinding
+import ru.practicum.android.diploma.root.Debouncer
+import ru.practicum.android.diploma.root.debounceClickListener
 import ru.practicum.android.diploma.search.domain.Vacancy
+import javax.inject.Inject
 
 
-class SearchAdapter () : RecyclerView.Adapter<SearchViewHolder>() {
+class SearchAdapter @Inject constructor (
+    private val logger: Logger,
+    private val debouncer: Debouncer,
+) : RecyclerView.Adapter<SearchViewHolder>() {
+
     var list = listOf<Vacancy>()
     var onClick: ((Vacancy) -> Unit)? = null
     var onLongClick: ((Vacancy) -> Unit)? = null
@@ -23,9 +31,14 @@ class SearchAdapter () : RecyclerView.Adapter<SearchViewHolder>() {
     override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
         val pos = holder.adapterPosition
         val item = list[pos]
-        holder.itemView.setOnClickListener {
+        holder.bind(item)
+        holder.itemView.debounceClickListener(debouncer) {
+        logger.log("Adapter", "onClick()")
             onClick?.invoke(item)
         }
-        holder.itemView.setOnLongClickListener { onLongClick?.invoke(item); true }
+        holder.itemView.setOnLongClickListener {
+            logger.log("Adapter", "onLongClick()")
+            onLongClick?.invoke(item); true
+        }
     }
 }
