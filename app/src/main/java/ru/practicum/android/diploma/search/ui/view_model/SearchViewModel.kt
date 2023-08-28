@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.root.BaseViewModel
 import ru.practicum.android.diploma.search.domain.api.SearchVacanciesUseCase
+import ru.practicum.android.diploma.search.domain.models.FetchResult
 import ru.practicum.android.diploma.search.ui.models.SearchScreenState
 import ru.practicum.android.diploma.util.delayedAction
 import javax.inject.Inject
@@ -18,35 +19,50 @@ class SearchViewModel @Inject constructor(
     logger: Logger
 ) : BaseViewModel(logger) {
     
-    /*  init {
-         viewModelScope.launch {
-             searchVacanciesUseCase.search("nirvana")
-         }
-     } */
-    
-    private val _contentState = MutableStateFlow(SearchScreenState.Default)
+    private val _contentState: MutableStateFlow<SearchScreenState> =
+        MutableStateFlow(SearchScreenState.Default)
     val contentState: StateFlow<SearchScreenState> = _contentState
     
     private var latestSearchQuery: String? = null
     private var searchJob: Job? = null
     
-    private val onSearchDebaunce = delayedAction<String>(
-        delayMillis = SEARCH_DELAY_MILLIS,
+    private val onSearchDebounce = delayedAction<String>(delayMillis = SEARCH_DELAY_MILLIS,
         coroutineScope = viewModelScope,
-        action = { query ->
-            loadJobList(query)
-        })
+        action = { query -> loadJobList(query) })
     
     fun onSearchQueryChanged(query: String?) {
         if (query.isNullOrEmpty()) {
+            _contentState.value = SearchScreenState.Default
+        } else {
+            if (latestSearchQuery == query) return
         
+            latestSearchQuery = query
+            onSearchDebounce(query)
         }
-    
     }
     
     private fun loadJobList(query: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            searchVacanciesUseCase.search(query)
+    
+        _contentState.value = SearchScreenState.Loading
+    
+        searchJob = viewModelScope.launch(Dispatchers.IO) {
+            searchVacanciesUseCase
+                .search(query)
+                .collect { result ->
+                    processResult(result)
+                }
+        }
+    }
+    
+    private fun processResult(result: FetchResult) {
+        when {
+            result.error != null -> {
+                _contentState.value = SearchScreenState.Error(result.error)
+            }
+            
+            result.data != null -> {
+                _contentState.value = SearchScreenState.Content(result.data)
+            }
         }
     }
     

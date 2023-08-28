@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.flowOf
 import ru.practicum.android.diploma.details.data.db.FavoriteVacanciesDb
 import ru.practicum.android.diploma.details.data.model.VacancyConverter
 import ru.practicum.android.diploma.details.domain.DetailsRepository
-import ru.practicum.android.diploma.search.domain.Vacancy
+import ru.practicum.android.diploma.search.domain.models.Vacancy
 import javax.inject.Inject
 
 class DetailsRepositoryImpl @Inject constructor(

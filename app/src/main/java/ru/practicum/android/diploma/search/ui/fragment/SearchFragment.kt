@@ -57,7 +57,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
     
             searchEditText.doOnTextChanged { text, _,_,_ ->
-                
                 viewModel.onSearchQueryChanged(text.toString())
             }
         }

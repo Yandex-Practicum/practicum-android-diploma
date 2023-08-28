@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.details.data.model
 
-import ru.practicum.android.diploma.search.domain.Vacancy
+import ru.practicum.android.diploma.search.domain.models.Vacancy
 import javax.inject.Inject
 
 class VacancyConverter @Inject constructor() {

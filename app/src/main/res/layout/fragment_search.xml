@@ -35,7 +35,7 @@
                 android:layout_gravity="end"
                 android:layout_marginEnd="@dimen/margin_8dp"
                 android:contentDescription="@string/filter_settings"
-                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_filter" />
         </androidx.appcompat.widget.Toolbar>
 
