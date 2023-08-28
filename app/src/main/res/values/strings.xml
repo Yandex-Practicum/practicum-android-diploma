@@ -3,4 +3,7 @@
     <string name="main">Главная</string>
     <string name="favourites">Избранное</string>
     <string name="team">Команда</string>
+    <string name="to">до</string>
+    <string name="from">от</string>
+    <string name="no_salary">ЗП не указана</string>
 </resources>
