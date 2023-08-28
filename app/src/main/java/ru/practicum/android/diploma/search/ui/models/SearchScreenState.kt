@@ -10,9 +10,9 @@ sealed interface SearchScreenState {
     
     data class Content(
         val jobList: List<Vacancy>,
-    )
+    ) : SearchScreenState
     
     data class Error(
         val error: NetworkError,
-    )
+    ) : SearchScreenState
 }
