@@ -28,7 +28,8 @@
         android:id="@+id/searchFragment"
         android:name="ru.practicum.android.diploma.search.ui.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+    </fragment>
     <fragment
         android:id="@+id/teamFragment"
         android:name="ru.practicum.android.diploma.team.ui.TeamFragment"
@@ -39,4 +40,9 @@
         android:name="ru.practicum.android.diploma.filter.ui.CountryFilterFragment"
         android:label="fragment_country_filter"
         tools:layout="@layout/fragment_country_filter" />
+    <fragment
+        android:id="@+id/workPlaceFilterFragment"
+        android:name="ru.practicum.android.diploma.filter.ui.WorkPlaceFilterFragment"
+        android:label="fragment_work_place_filter"
+        tools:layout="@layout/fragment_work_place_filter" />
 </navigation>
