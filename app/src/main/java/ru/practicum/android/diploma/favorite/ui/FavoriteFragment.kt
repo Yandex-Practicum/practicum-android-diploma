@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.favorite.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -27,12 +28,14 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
     private val viewModel: FavoriteViewModel by viewModels { (activity as RootActivity).viewModelFactory }
     private val binding by viewBinding<FragmentFavoriteBinding>()
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (activity as RootActivity).component.inject(this)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as RootActivity).component.inject(this)
         viewModel.log(thisName, "onViewCreated()")
-
         binding.recycler.adapter = vacancyAdapter
         initListeners()
 
