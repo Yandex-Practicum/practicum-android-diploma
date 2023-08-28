@@ -13,7 +13,6 @@ import ru.practicum.android.diploma.favorite.ui.FavoritesScreenState.Empty
 import ru.practicum.android.diploma.favorite.ui.FavoritesScreenState.Content
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFavoriteBinding
-
 import ru.practicum.android.diploma.root.RootActivity
 import ru.practicum.android.diploma.search.domain.Vacancy
 import ru.practicum.android.diploma.search.ui.SearchAdapter
@@ -50,6 +49,7 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
     }
 
     private fun showContent(list: List<Vacancy>) {
+        viewModel.log(thisName, "showContent(list: size=${list.size})")
         binding.placeHolder.visibility = View.INVISIBLE
         binding.recycler.visibility = View.VISIBLE
         vacancyAdapter?.list = list
@@ -57,6 +57,7 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
     }
 
     private fun showPlaceholder() {
+        viewModel.log(thisName, "showPlaceholder()")
         binding.placeHolder.visibility = View.VISIBLE
         binding.recycler.visibility = View.INVISIBLE
     }
