@@ -17,13 +17,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            style="@style/Text_Medium_22_500"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/ys_display_medium"
             android:text="@string/search_vacancies"
-            android:textColor="?attr/black_to_white_color"
-            android:textFontWeight="500"
-            android:textSize="@dimen/text_22" />
+            android:textColor="?attr/black_to_white_color" />
 
         <ImageView
             android:id="@+id/filter_icon"
@@ -36,12 +34,12 @@
 
     <EditText
         android:id="@+id/search_edit_text"
+        style="@style/Text_Regular_16_400"
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_56"
         android:layout_marginTop="@dimen/margin_8"
         android:background="@drawable/field_for_search_edit_text"
         android:drawableEnd="@drawable/search"
-        android:fontFamily="@font/ys_display_regular"
         android:hint="@string/enter_request"
         android:inputType="textNoSuggestions"
         android:maxLines="1"
@@ -50,8 +48,6 @@
         android:textColor="@color/black"
         android:textColorHint="?attr/gray_to_white_color"
         android:textCursorDrawable="@drawable/cursor"
-        android:textFontWeight="400"
-        android:textSize="@dimen/text_16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
@@ -68,17 +64,15 @@
 
     <TextView
         android:id="@+id/search_result"
+        style="@style/Text_Regular_16_400"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_12"
         android:background="@drawable/field_for_result_text"
-        android:fontFamily="@font/ys_display_regular"
         android:paddingHorizontal="@dimen/margin_12"
         android:paddingVertical="@dimen/margin_4"
         android:text="@string/no_vacancies"
         android:textColor="@color/white"
-        android:textFontWeight="400"
-        android:textSize="@dimen/text_16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_edit_text" />
