@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.Logger
-import ru.practicum.android.diploma.favorite.domain.FavoritesInteractor
+import ru.practicum.android.diploma.favorite.domain.api.FavoritesInteractor
 import ru.practicum.android.diploma.root.BaseViewModel
 import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
