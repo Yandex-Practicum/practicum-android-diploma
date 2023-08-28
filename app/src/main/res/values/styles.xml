@@ -31,4 +31,13 @@
         <item name="fontWeight">400</item>
     </style>
 
+    <style name="image_buttons">
+        <item name="android:layout_width">@dimen/image_button_dimens</item>
+        <item name="android:layout_height">@dimen/image_button_dimens</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:layout_marginHorizontal">4dp</item>
+        <item name="android:layout_marginVertical">8dp</item>
+        <item name="tint">?attr/colorOnPrimary</item>
+    </style>
+
 </resources>

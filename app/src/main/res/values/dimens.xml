@@ -4,4 +4,5 @@
     <dimen name="font_size_22">22sp</dimen>
     <dimen name="font_size_16">16sp</dimen>
     <dimen name="font_size_12">12sp</dimen>
+    <dimen name="image_button_dimens">48dp</dimen>
 </resources>

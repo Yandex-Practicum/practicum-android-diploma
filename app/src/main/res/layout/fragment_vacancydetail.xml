@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?attr/colorPrimary"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <ImageButton
+        android:id="@+id/returnArrow"
+        style="@style/image_buttons"
+        android:contentDescription="@string/arrow_back"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/screenTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/font_medium_22"
+        android:text="@string/vacancy"
+        android:textColor="?attr/colorOnPrimary"
+        app:layout_constraintStart_toEndOf="@id/returnArrow"
+        app:layout_constraintTop_toTopOf="@id/returnArrow"
+        app:layout_constraintBottom_toBottomOf="@id/returnArrow"/>
+
+    <ImageButton
+        android:id="@+id/shareButton"
+        style="@style/image_buttons"
+        android:contentDescription="@string/share_icon"
+        android:src="@drawable/ic_sharing"
+        app:layout_constraintTop_toTopOf="@id/returnArrow"
+        app:layout_constraintBottom_toBottomOf="@id/returnArrow"
+        app:layout_constraintEnd_toStartOf="@id/favButton"/>
+
+    <ImageButton
+        android:id="@+id/favButton"
+        style="@style/image_buttons"
+        android:contentDescription="@string/favorites_icon"
+        android:src="@drawable/ic_favorites_off"
+        app:layout_constraintTop_toTopOf="@id/returnArrow"
+        app:layout_constraintBottom_toBottomOf="@id/returnArrow"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
