@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.search.ui
+package ru.practicum.android.diploma.search.ui.fragment
 
 import android.os.Bundle
 import android.view.View
@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.root.RootActivity
+import ru.practicum.android.diploma.search.ui.view_model.SearchViewModel
 import ru.practicum.android.diploma.util.thisName
 import ru.practicum.android.diploma.util.viewBinding
 import javax.inject.Inject
@@ -21,6 +22,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.log(thisName, "onViewCreated   $viewModel")
+        
+        
 
 
         searchAdapter?.onClick = { vacancy ->

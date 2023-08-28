@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.search.ui
+package ru.practicum.android.diploma.search.ui.fragment
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,7 +7,7 @@ import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.databinding.ItemDescriptionBinding
 import ru.practicum.android.diploma.root.Debouncer
 import ru.practicum.android.diploma.root.debounceClickListener
-import ru.practicum.android.diploma.search.domain.Vacancy
+import ru.practicum.android.diploma.search.domain.models.Vacancy
 import javax.inject.Inject
 
 
