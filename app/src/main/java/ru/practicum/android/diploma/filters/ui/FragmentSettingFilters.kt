@@ -9,7 +9,7 @@ import ru.practicum.android.diploma.databinding.FragmentSettingFiltersBinding
 import ru.practicum.android.diploma.filters.presentation.FiltersViewModel
 import ru.practicum.android.diploma.util.BindingFragment
 
-class SettingFilters:BindingFragment<FragmentSettingFiltersBinding>() {
+class FragmentSettingFilters:BindingFragment<FragmentSettingFiltersBinding>() {
 
     val viewModel by viewModel<FiltersViewModel>()
 
