@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.di
+package ru.practicum.android.diploma.di.components
 
 import dagger.Subcomponent
 import ru.practicum.android.diploma.di.modules.ViewModelModule

@@ -114,7 +114,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             textFabSearch.text = getString(R.string.update)
             
             textFabSearch.setOnClickListener {
-                viewModel.loadJobList(searchEditText.text.toString())
+            //    viewModel.loadJobList(searchEditText.text.toString())
                 textFabSearch.setOnClickListener(null)
             }
             

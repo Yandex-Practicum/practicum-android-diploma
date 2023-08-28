@@ -2,8 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.kapt)
     alias(libs.plugins.ksp)
-    id("kotlin-kapt")
     id("ru.practicum.android.diploma.plugins.developproperties")
 }
 
@@ -47,13 +47,10 @@ android {
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.10.1")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.9.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation(libs.core.ktx)
+    implementation(libs.appcompat)
+    implementation(libs.material)
+    implementation(libs.constraintlayout)
     implementation(libs.bundles.navigation.component)
     implementation(libs.bundles.serialization)
     implementation(libs.coroutines.android)
@@ -61,10 +58,14 @@ dependencies {
     implementation(libs.bundles.room)
     implementation(libs.dagger)
     implementation(libs.glide)
-//    ksp(libs.dagger.compiler)
     kapt(libs.dagger.compiler)
     ksp(libs.glide.compiler)
     ksp(libs.room.compiler)
+
+    // Test
+    implementation(libs.junit)
+    implementation(libs.androidx.junit)
+    implementation(libs.test.espresso.core)
  
     // LeakCanary
     //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.8.1'

@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.favorite.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -12,8 +13,6 @@ import ru.practicum.android.diploma.favorite.ui.FavoritesScreenState.Empty
 import ru.practicum.android.diploma.favorite.ui.FavoritesScreenState.Content
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFavoriteBinding
-import ru.practicum.android.diploma.favorite.domain.FavoriteViewModel
-
 import ru.practicum.android.diploma.root.RootActivity
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.ui.fragment.SearchAdapter
@@ -27,12 +26,14 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
     private val viewModel: FavoriteViewModel by viewModels { (activity as RootActivity).viewModelFactory }
     private val binding by viewBinding<FragmentFavoriteBinding>()
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (activity as RootActivity).component.inject(this)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as RootActivity).component.inject(this)
         viewModel.log(thisName, "onViewCreated()")
-
         binding.recycler.adapter = vacancyAdapter
         initListeners()
 
@@ -48,6 +49,7 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
     }
 
     private fun showContent(list: List<Vacancy>) {
+        viewModel.log(thisName, "showContent(list: size=${list.size})")
         binding.placeHolder.visibility = View.INVISIBLE
         binding.recycler.visibility = View.VISIBLE
         vacancyAdapter?.list = list
@@ -55,6 +57,7 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
     }
 
     private fun showPlaceholder() {
+        viewModel.log(thisName, "showPlaceholder()")
         binding.placeHolder.visibility = View.VISIBLE
         binding.recycler.visibility = View.INVISIBLE
     }
