@@ -3,4 +3,7 @@
     <string name="main">Главная</string>
     <string name="favourites">Избранное</string>
     <string name="team">Команда</string>
+    <string name="search_vacancies">Поиск вакансий</string>
+    <string name="enter_request">Введите запрос</string>
+    <string name="no_vacancies">Таких вакансий нет</string>
 </resources>
