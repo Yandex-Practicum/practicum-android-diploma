@@ -14,7 +14,7 @@ class VacancyViewHolder(parentView: ViewGroup) : RecyclerView.ViewHolder(
     LayoutInflater.from(parentView.context)
         .inflate(R.layout.vacancy_view, parentView, false)
 ) {
-    private val logoUrl240: ImageView = itemView.findViewById(R.id.logo_url_240)
+    private val logoUrl: ImageView = itemView.findViewById(R.id.logo_url_240)
     private val name: TextView = itemView.findViewById(R.id.vacancy_name)
     private val employerName: TextView = itemView.findViewById(R.id.employer_name)
     private val salary: TextView = itemView.findViewById(R.id.salary)
@@ -27,11 +27,14 @@ class VacancyViewHolder(parentView: ViewGroup) : RecyclerView.ViewHolder(
             .load(model.employerLogoUrl)
             .placeholder(R.drawable.placeholder)
             .centerCrop()
-            .into(logoUrl240)
+            .into(logoUrl)
     }
 
     private fun getSalary(model: VacancyDto, context: Context): String {
         return when {
+            (model.salaryCurrency == null) ->
+                context.getString(R.string.no_salary)
+
             (model.salaryTo == null && model.salaryFrom == null) ->
                 context.getString(R.string.no_salary)
 
