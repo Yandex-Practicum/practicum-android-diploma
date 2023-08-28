@@ -5,8 +5,8 @@ import ru.practicum.android.diploma.search.domain.models.Vacancy
 
 sealed interface SearchScreenState {
     
+    object Default : SearchScreenState
     object Loading : SearchScreenState
-    object Empty : SearchScreenState
     
     data class Content(
         val jobList: List<Vacancy>,

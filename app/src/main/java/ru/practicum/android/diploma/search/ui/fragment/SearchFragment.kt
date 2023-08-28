@@ -2,6 +2,8 @@ package ru.practicum.android.diploma.search.ui.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.widget.doAfterTextChanged
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
@@ -10,6 +12,8 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.root.RootActivity
+import ru.practicum.android.diploma.search.domain.models.NetworkError
+import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.ui.models.SearchScreenState
 import ru.practicum.android.diploma.search.ui.view_model.SearchViewModel
 import ru.practicum.android.diploma.util.thisName
@@ -29,11 +33,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         initViewModelObserver()
         initListeners()
         initAdapter()
-    
-    
-        searchAdapter?.onClick = { vacancy ->
-            viewModel.log(thisName, "onClickWithDebounce $vacancy")
-        }
     }
     
     override fun onDestroyView() {
@@ -56,12 +55,19 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                     R.id.action_searchFragment_to_filterBaseFragment
                 )
             }
+    
+            searchEditText.doOnTextChanged { text, _,_,_ ->
+                
+                viewModel.onSearchQueryChanged(text.toString())
+            }
         }
     }
     
     private fun initAdapter() {
         binding.rvSearch.adapter = searchAdapter
+    
         searchAdapter?.onClick = { vacancy ->
+            viewModel.log(thisName, "onClickWithDebounce $vacancy")
             findNavController().navigate(
                 resId = R.id.action_searchFragment_to_detailsFragment,
                 //args = bundleOf("KEY_DETAILS" to vacancy)
@@ -71,26 +77,106 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     
     private fun render(screenState: SearchScreenState) {
         when (screenState) {
-            SearchScreenState.Empty -> showEmpty()
+            SearchScreenState.Default -> showDefault()
             SearchScreenState.Loading -> showLoading()
-            is SearchScreenState.Content -> showContent()
-            is SearchScreenState.Error -> showError()
+            is SearchScreenState.Content -> showContent(screenState.jobList)
+            is SearchScreenState.Error -> showError(screenState.error)
         }
     }
     
-    private fun showError() {
-        TODO("Not yet implemented")
+    private fun showDefault() {
+        
+        refreshJobList(emptyList())
+        isScrollingEnabled(false)
+        
+        with(binding) {
+            textFabSearch.visibility = View.GONE
+            rvSearch.visibility = View.GONE
+            placeholderImage.visibility = View.VISIBLE
+            progressBar.visibility = View.GONE
+        }
     }
     
-    private fun showContent() {
-        TODO("Not yet implemented")
+    private fun showError(error: NetworkError) {
+        
+        when (error) {
+            NetworkError.SEARCH_ERROR -> showEmpty()
+            NetworkError.CONNECTION_ERROR -> showConnectionError()
+        }
+    }
+    
+    private fun showConnectionError() {
+        refreshJobList(emptyList())
+        isScrollingEnabled(false)
+        
+        with(binding) {
+            
+            textFabSearch.text = getString(R.string.update)
+            
+            textFabSearch.setOnClickListener {
+                viewModel.loadJobList(searchEditText.text.toString())
+                textFabSearch.setOnClickListener(null)
+            }
+            
+            textFabSearch.visibility = View.VISIBLE
+            rvSearch.visibility = View.GONE
+            placeholderImage.visibility = View.GONE
+            progressBar.visibility = View.VISIBLE
+        }
+    }
+    
+    private fun showContent(jobList: List<Vacancy>) {
+        refreshJobList(jobList)
+        isScrollingEnabled(true)
+        
+        with(binding) {
+            
+            textFabSearch.text = getString(R.string.loading_message)
+            
+            textFabSearch.visibility = View.VISIBLE
+            rvSearch.visibility = View.GONE
+            placeholderImage.visibility = View.GONE
+            progressBar.visibility = View.VISIBLE
+        }
     }
     
     private fun showLoading() {
-        TODO("Not yet implemented")
+        refreshJobList(emptyList())
+        isScrollingEnabled(false)
+        
+        with(binding) {
+            
+            textFabSearch.text = getString(R.string.loading_message)
+            
+            textFabSearch.visibility = View.VISIBLE
+            rvSearch.visibility = View.GONE
+            placeholderImage.visibility = View.GONE
+            progressBar.visibility = View.VISIBLE
+        }
     }
     
     private fun showEmpty() {
-        TODO("Not yet implemented")
+        
+        refreshJobList(emptyList())
+        isScrollingEnabled(false)
+        
+        with(binding) {
+            
+            textFabSearch.text = getString(R.string.empty_search_error)
+            
+            textFabSearch.visibility = View.VISIBLE
+            rvSearch.visibility = View.GONE
+            placeholderImage.visibility = View.VISIBLE
+            progressBar.visibility = View.GONE
+        }
+    }
+    
+    private fun refreshJobList(list: List<Vacancy>) {
+        searchAdapter?.list = list
+        searchAdapter?.notifyDataSetChanged()
+    }
+    
+    private fun isScrollingEnabled(flag: Boolean) {
+        binding.searchAppBarLayout.isNestedScrollingEnabled = flag
     }
 }

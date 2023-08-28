@@ -20,4 +20,7 @@
     <string name="country"                          >Страна</string>
     <string name="work_place_choose"                >Выбор места работы</string>
     <string name="region"                           >Регион</string>
+    <string name="empty_search_error"               >Таких вакансий нет</string>
+    <string name="loading_message"                  >Идет загрузка…</string>
+    <string name="update"                           >Обновить</string>
 </resources>

@@ -22,4 +22,7 @@
     <string name="country"                          >Country</string>
     <string name="work_place_choose"                >Choose work place</string>
     <string name="region"                           >Region</string>
+    <string name="empty_search_error"               >There are no such vacancies</string>
+    <string name="loading_message"                  >Loading…</string>
+    <string name="update"                           >Update</string>
 </resources>
