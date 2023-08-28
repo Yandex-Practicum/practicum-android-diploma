@@ -13,7 +13,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
         inflater: LayoutInflater,
         container: ViewGroup?,
     ): FragmentSearchBinding {
-        return FragmentSearchBinding.inflate(layoutInflater, container, false)
+        return FragmentSearchBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
