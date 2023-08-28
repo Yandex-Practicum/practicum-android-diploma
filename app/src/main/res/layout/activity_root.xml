@@ -26,8 +26,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
 
+        android:backgroundTint="@color/design_default_color_background"
+        app:itemIconTint="@color/tab_bar_items_colors_selector"
+        app:itemTextColor="@color/tab_bar_items_colors_selector"
+        app:itemRippleColor="@color/design_default_color_background"
         app:guidelineUseRtl="false"
-        app:itemIconSize="20dp"
+        app:itemIconSize="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
