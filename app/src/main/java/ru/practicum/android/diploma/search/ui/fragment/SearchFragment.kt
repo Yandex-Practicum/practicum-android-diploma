@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.search.ui.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.core.widget.doAfterTextChanged
@@ -25,6 +26,11 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     @Inject @JvmField var searchAdapter: SearchAdapter? = null
     private val viewModel: SearchViewModel by viewModels { (activity as RootActivity).viewModelFactory }
     private val binding by viewBinding<FragmentSearchBinding>()
+    
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (activity as RootActivity).component.inject(this)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,9 +48,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     
     private fun initViewModelObserver() {
         viewLifecycleOwner.lifecycle.coroutineScope.launch {
-            viewModel.contentState.collect { screenState ->
-                render(screenState)
-            }
+            viewModel.contentState.collect { screenState -> render(screenState) }
         }
     }
     
@@ -52,7 +56,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         with(binding) {
             filterBtnToolbar.setOnClickListener {
                 findNavController().navigate(
-                    R.id.action_searchFragment_to_filterBaseFragment
+                    resId = R.id.action_searchFragment_to_filterBaseFragment
                 )
             }
     
@@ -63,7 +67,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
     
     private fun initAdapter() {
-        binding.rvSearch.adapter = searchAdapter
+        binding.recycler.adapter = searchAdapter
     
         searchAdapter?.onClick = { vacancy ->
             viewModel.log(thisName, "onClickWithDebounce $vacancy")
@@ -76,8 +80,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     
     private fun render(screenState: SearchScreenState) {
         when (screenState) {
-            SearchScreenState.Default -> showDefault()
-            SearchScreenState.Loading -> showLoading()
+            is SearchScreenState.Default -> showDefault()
+            is SearchScreenState.Loading -> showLoading()
             is SearchScreenState.Content -> showContent(screenState.jobList)
             is SearchScreenState.Error -> showError(screenState.error)
         }
@@ -90,7 +94,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         
         with(binding) {
             textFabSearch.visibility = View.GONE
-            rvSearch.visibility = View.GONE
+            recycler.visibility = View.GONE
             placeholderImage.visibility = View.VISIBLE
             progressBar.visibility = View.GONE
         }
@@ -118,7 +122,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
             
             textFabSearch.visibility = View.VISIBLE
-            rvSearch.visibility = View.GONE
+            recycler.visibility = View.GONE
             placeholderImage.visibility = View.GONE
             progressBar.visibility = View.VISIBLE
         }
@@ -133,7 +137,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             textFabSearch.text = getString(R.string.loading_message)
             
             textFabSearch.visibility = View.VISIBLE
-            rvSearch.visibility = View.GONE
+            recycler.visibility = View.GONE
             placeholderImage.visibility = View.GONE
             progressBar.visibility = View.VISIBLE
         }
@@ -148,7 +152,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             textFabSearch.text = getString(R.string.loading_message)
             
             textFabSearch.visibility = View.VISIBLE
-            rvSearch.visibility = View.GONE
+            recycler.visibility = View.GONE
             placeholderImage.visibility = View.GONE
             progressBar.visibility = View.VISIBLE
         }
@@ -164,7 +168,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             textFabSearch.text = getString(R.string.empty_search_error)
             
             textFabSearch.visibility = View.VISIBLE
-            rvSearch.visibility = View.GONE
+            recycler.visibility = View.GONE
             placeholderImage.visibility = View.VISIBLE
             progressBar.visibility = View.GONE
         }
