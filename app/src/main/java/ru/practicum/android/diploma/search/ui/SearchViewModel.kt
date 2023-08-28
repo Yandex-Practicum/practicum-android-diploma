@@ -13,7 +13,7 @@ class SearchViewModel @Inject constructor(
 ) : BaseViewModel(logger) {
     init {
         viewModelScope.launch {
-            searchVacanciesUseCase.search("nirvana")
+//            searchVacanciesUseCase.search("nirvana")
         }
     }
 }
