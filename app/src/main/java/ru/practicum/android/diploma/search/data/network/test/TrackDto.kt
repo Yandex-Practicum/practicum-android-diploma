@@ -1,10 +1,10 @@
 package ru.practicum.android.diploma.search.data.network.test
 
 import com.google.gson.annotations.SerializedName
-import ru.practicum.android.diploma.di.annotations.TestClass
 import java.io.Serializable
 
-@TestClass
+
+@kotlinx.serialization.Serializable
 data class TrackDto(
     val trackId: Long,
     val trackName: String? = "",
