@@ -9,5 +9,6 @@
     <string name="to">до</string>
     <string name="from">от</string>
     <string name="no_salary">ЗП не указана</string>
+    <string name="list_empty">Список пуст</string>
 
 </resources>
