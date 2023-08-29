@@ -30,7 +30,4 @@ class DetailsDataModule {
             .fallbackToDestructiveMigration()
             .build()
     }
-    companion object {
-
-    }
 }
