@@ -1,9 +1,9 @@
-package ru.practicum.android.diploma.adapter
+package ru.practicum.android.diploma.util.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ru.practicum.android.diploma.data.dto.models.VacancyDto
-import ru.practicum.android.diploma.viewholder.VacancyViewHolder
+import ru.practicum.android.diploma.search.data.dto.VacancyDto
+import ru.practicum.android.diploma.util.viewholder.VacancyViewHolder
 
 class VacancyAdapter(private val vacancies: ArrayList<VacancyDto>) :
     RecyclerView.Adapter<VacancyViewHolder>() {

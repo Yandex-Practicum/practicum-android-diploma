@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.viewholder
+package ru.practicum.android.diploma.util.viewholder
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.data.dto.models.VacancyDto
+import ru.practicum.android.diploma.search.data.dto.VacancyDto
 
 class VacancyViewHolder(parentView: ViewGroup) : RecyclerView.ViewHolder(
     LayoutInflater.from(parentView.context)

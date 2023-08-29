@@ -1,6 +1,6 @@
-package ru.practicum.android.diploma.data.dto.models
+package ru.practicum.android.diploma.search.domain.models
 
-data class VacancyDto (
+data class Vacancy(
     val id: String,
     val name: String,
     val city: String?,
