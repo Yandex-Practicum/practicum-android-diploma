@@ -136,9 +136,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             textFabSearch.text = getString(R.string.loading_message)
             
             textFabSearch.visibility = View.VISIBLE
-            recycler.visibility = View.GONE
+            recycler.visibility = View.VISIBLE
             placeholderImage.visibility = View.GONE
-            progressBar.visibility = View.VISIBLE
+            progressBar.visibility = View.GONE
         }
     }
     

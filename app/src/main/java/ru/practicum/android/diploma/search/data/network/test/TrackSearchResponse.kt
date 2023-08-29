@@ -1,8 +1,9 @@
 package ru.practicum.android.diploma.search.data.network.test
 
 import com.google.gson.annotations.SerializedName
-import ru.practicum.android.diploma.di.annotations.TestClass
+import kotlinx.serialization.Serializable
 import ru.practicum.android.diploma.search.data.network.Response
 
-@TestClass
+
+@Serializable
 class TracksSearchResponse(@SerializedName("results") var results: ArrayList<TrackDto>): Response()

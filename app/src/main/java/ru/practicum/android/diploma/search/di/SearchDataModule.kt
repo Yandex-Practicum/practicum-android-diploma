@@ -1,11 +1,14 @@
 package ru.practicum.android.diploma.search.di
 
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
+import kotlinx.serialization.json.Json
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Converter
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.di.annotations.ApplicationScope
 import ru.practicum.android.diploma.di.annotations.BaseUrl
 import ru.practicum.android.diploma.search.data.network.HhApiService
@@ -28,19 +31,20 @@ class SearchDataModule {
     @Provides
     fun provideRetrofit(
         okHttpClient: OkHttpClient,
-        gsonConverterFactory: GsonConverterFactory,
+        converterFactory: Converter.Factory,
         @BaseUrl baseUrl: String
     ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
-            .addConverterFactory(gsonConverterFactory)
+            .addConverterFactory(converterFactory)
             .client(okHttpClient)
             .build()
     }
 
     @Provides
-    fun provideConverterFactory(): GsonConverterFactory {
-        return GsonConverterFactory.create()
+    fun provideConverterFactory(): Converter.Factory {
+        val contentType = "application/json".toMediaType()
+        return Json{ignoreUnknownKeys = true}.asConverterFactory(contentType)
     }
 
     @Provides
