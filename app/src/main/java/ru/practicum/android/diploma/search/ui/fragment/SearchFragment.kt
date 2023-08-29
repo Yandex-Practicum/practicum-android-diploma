@@ -71,7 +71,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         searchAdapter?.onClick = { vacancy ->
             viewModel.log(thisName, "onClickWithDebounce $vacancy")
             findNavController().navigate(
-                resId = R.id.action_searchFragment_to_filterBaseFragment,
+                resId = R.id.action_searchFragment_to_detailsFragment
                 //args = bundleOf("KEY_DETAILS" to vacancy)
             )
         }
