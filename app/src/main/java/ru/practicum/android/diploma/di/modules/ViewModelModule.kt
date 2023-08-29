@@ -7,6 +7,7 @@ import dagger.multibindings.IntoMap
 import ru.practicum.android.diploma.details.ui.DetailsViewModel
 import ru.practicum.android.diploma.di.annotations.ViewModelKey
 import ru.practicum.android.diploma.favorite.ui.FavoriteViewModel
+import ru.practicum.android.diploma.filter.ui.view_models.BaseFilterViewModel
 import ru.practicum.android.diploma.root.RootViewModel
 import ru.practicum.android.diploma.search.ui.view_model.SearchViewModel
 
@@ -32,4 +33,9 @@ interface ViewModelModule {
     @Binds
     fun bindDetailsViewModel(detailsViewModel: DetailsViewModel): ViewModel
 
+
+    @IntoMap
+    @ViewModelKey(BaseFilterViewModel::class)
+    @Binds
+    fun bindBaseFilterViewModel(baseFilterViewModel: BaseFilterViewModel): ViewModel
 }

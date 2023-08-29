@@ -29,4 +29,5 @@
     <string name="choose_department"                >Choose Department</string>
     <string name="enter_region"                     >Enter Region</string>
     <string name="enter_department"                 >Enter Department</string>
+    <string name="app_preferences">app_preferences</string>
 </resources>

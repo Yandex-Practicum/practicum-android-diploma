@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.filter.ui
+package ru.practicum.android.diploma.filter.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
