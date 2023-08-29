@@ -2,7 +2,6 @@ package ru.practicum.android.diploma.filter.data
 
 import android.content.SharedPreferences
 import ru.practicum.android.diploma.Logger
-import ru.practicum.android.diploma.filter.domain.SharedPrefsStorage
 import ru.practicum.android.diploma.util.thisName
 import java.util.concurrent.locks.ReentrantReadWriteLock
 import kotlin.concurrent.read
