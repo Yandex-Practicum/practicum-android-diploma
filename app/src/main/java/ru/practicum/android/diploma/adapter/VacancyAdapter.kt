@@ -2,13 +2,13 @@ package ru.practicum.android.diploma.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ru.practicum.android.diploma.data.dto.models.VacancyDto
+import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.viewholder.VacancyViewHolder
 
-class VacancyAdapter(private val vacancies: ArrayList<VacancyDto>) :
+class VacancyAdapter(private val vacancies: ArrayList<Vacancy>) :
     RecyclerView.Adapter<VacancyViewHolder>() {
 
-    var itemClickListener: ((Int, VacancyDto) -> Unit)? = null
+    var itemClickListener: ((Int, Vacancy) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VacancyViewHolder {
         return VacancyViewHolder(parent)
@@ -26,7 +26,7 @@ class VacancyAdapter(private val vacancies: ArrayList<VacancyDto>) :
         }
     }
 
-    fun setVacancies(newVacancy: List<VacancyDto>?) {
+    fun setVacancies(newVacancy: List<Vacancy>?) {
         vacancies.clear()
         if (!newVacancy.isNullOrEmpty()) {
             vacancies.addAll(newVacancy)
