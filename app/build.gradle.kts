@@ -66,6 +66,8 @@ dependencies {
     implementation(libs.junit)
     implementation(libs.androidx.junit)
     implementation(libs.test.espresso.core)
+
+    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")
  
     // LeakCanary
     //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.8.1'
