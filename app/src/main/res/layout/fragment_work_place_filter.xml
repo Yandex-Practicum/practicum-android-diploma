@@ -24,7 +24,8 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_60dp"
-        android:background="?android:attr/selectableItemBackground">
+        android:background="?android:attr/selectableItemBackground"
+        app:cardElevation="0dp">
 
         <TextView
             android:id="@+id/county_hint"
@@ -50,7 +51,8 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/size_60dp">
+        android:layout_height="@dimen/size_60dp"
+        app:cardElevation="0dp">
 
         <TextView
             android:id="@+id/region_hint"
