@@ -1,10 +1,10 @@
 package ru.practicum.android.diploma.search.data.network.test
 
 import com.google.gson.annotations.SerializedName
-import java.io.Serializable
+import kotlinx.serialization.Serializable
 
 
-@kotlinx.serialization.Serializable
+@Serializable
 data class TrackDto(
     val trackId: Long,
     val trackName: String? = "",
@@ -16,7 +16,7 @@ data class TrackDto(
     @SerializedName("primaryGenreName") val genre: String? = "",
     val country: String? = "",
     val previewUrl: String? = ""
-) : Serializable {
+) {
     override fun equals(other: Any?): Boolean {
         return if (other !is TrackDto) {
             false
