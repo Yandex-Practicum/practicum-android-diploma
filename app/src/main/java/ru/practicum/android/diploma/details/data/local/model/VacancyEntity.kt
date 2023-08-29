@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.details.data.model
+package ru.practicum.android.diploma.details.data.local.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
