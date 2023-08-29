@@ -6,4 +6,11 @@
     <string name="SettingFilters">Настройки фильтрации</string>
     <string name="country">Страна</string>
     <string name="place_of_work">Место работы</string>
+    <string name="search_vacancies">Поиск вакансий</string>
+    <string name="enter_request">Введите запрос</string>
+    <string name="no_vacancies">Таких вакансий нет</string>
+    <string name="to">до</string>
+    <string name="from">от</string>
+    <string name="no_salary">ЗП не указана</string>
+
 </resources>
