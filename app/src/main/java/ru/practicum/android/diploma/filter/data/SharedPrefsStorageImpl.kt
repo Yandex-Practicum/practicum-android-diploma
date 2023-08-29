@@ -2,16 +2,18 @@ package ru.practicum.android.diploma.filter.data
 
 import android.content.SharedPreferences
 import ru.practicum.android.diploma.Logger
+import ru.practicum.android.diploma.filter.data.local_storage.LocalStorage
 import ru.practicum.android.diploma.util.thisName
 import java.util.concurrent.locks.ReentrantReadWriteLock
+import javax.inject.Inject
 import kotlin.concurrent.read
 import kotlin.concurrent.write
 
-class SharedPrefsStorageImpl(
+class SharedPrefsStorageImpl @Inject constructor(
     private val converter: DataConverter,
     private val preferences: SharedPreferences,
     private val logger: Logger
-): SharedPrefsStorage {
+): LocalStorage {
 
     private val lock = ReentrantReadWriteLock()
     override fun <T> writeData(key: String, data: T) {
