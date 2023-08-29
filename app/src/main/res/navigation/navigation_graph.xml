@@ -20,4 +20,9 @@
         android:name="ru.practicum.android.diploma.filters.ui.fragment.FragmentChooseFilter"
         android:label="fragment_choose_filter"
         tools:layout="@layout/fragment_choose_filter" />
+    <fragment
+        android:id="@+id/fragmentFavourite"
+        android:name="ru.practicum.android.diploma.favourite.ui.FragmentFavourite"
+        android:label="fragment_favourite"
+        tools:layout="@layout/fragment_favourite" />
 </navigation>
