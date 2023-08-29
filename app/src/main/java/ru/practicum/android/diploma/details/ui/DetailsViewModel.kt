@@ -14,7 +14,10 @@ class DetailsViewModel @Inject constructor(
     logger: Logger,
     private val detailsInteractor: DetailsInteractor
 ) : BaseViewModel(logger) {
-
+//добавил для теста, можно удалить инит блок
+    init {
+        getFullVacancyInfo(883909830L)
+    }
     fun addToFavorites(vacancy: Vacancy){
         viewModelScope.launch(Dispatchers.IO) {
             log(thisName, "addToFavorites   }")
@@ -27,6 +30,14 @@ class DetailsViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             detailsInteractor.removeVacancyFromFavorite(id).collect{
                 log(thisName,"$id was removed")
+            }
+        }
+    }
+
+    fun getFullVacancyInfo(id: Long){
+        viewModelScope.launch(Dispatchers.IO){
+            detailsInteractor.getFullVacancyInfo(id).collect{
+
             }
         }
     }
