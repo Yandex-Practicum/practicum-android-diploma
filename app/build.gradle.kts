@@ -54,7 +54,7 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.bundles.navigation.component)
     implementation(libs.bundles.serialization)
-    //implementation(libs.coroutines.android)
+    implementation(libs.coroutines.android)
     implementation(libs.coroutines.core)
     implementation(libs.bundles.retrofit2)
     implementation(libs.bundles.room)
