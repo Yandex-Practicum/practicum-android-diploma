@@ -9,4 +9,5 @@
     <string name="vacancy">Вакансия</string>
     <string name="share_icon">Share Icon</string>
     <string name="favorites_icon">Favorites Icon</string>
+    <string name="logo_image">Logo image</string>
 </resources>
