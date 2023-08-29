@@ -1,11 +1,11 @@
-package ru.practicum.android.diploma.details.data.db
+package ru.practicum.android.diploma.details.data.local.db
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
-import ru.practicum.android.diploma.details.data.model.VacancyEntity
+import ru.practicum.android.diploma.details.data.local.model.VacancyEntity
 
 @Dao
 interface FavoriteDao {
