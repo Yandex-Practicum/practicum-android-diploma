@@ -10,4 +10,12 @@
     <string name="share_icon">Share Icon</string>
     <string name="favorites_icon">Favorites Icon</string>
     <string name="logo_image">Logo image</string>
+    <string name="experience_required">Требуемый опыт</string>
+    <string name="vacancy_description">Описание вакансии</string>
+    <string name="duties">Обязанности</string>
+    <string name="requirements">Требования</string>
+    <string name="key_skills">Ключевые навыки</string>
+    <string name="contacts">Контакты</string>
+    <string name="email">E-mail</string>
+    <string name="phone">Телефон</string>
 </resources>
