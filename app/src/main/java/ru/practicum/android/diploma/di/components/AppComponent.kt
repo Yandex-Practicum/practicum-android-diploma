@@ -11,20 +11,26 @@ import ru.practicum.android.diploma.di.annotations.BaseUrl
 import ru.practicum.android.diploma.favorite.di.FavoriteDomainModule
 import ru.practicum.android.diploma.di.modules.LoggerModule
 import ru.practicum.android.diploma.favorite.di.FavoritesDataModule
+import ru.practicum.android.diploma.filter.di.FilterDataModule
+import ru.practicum.android.diploma.filter.di.FilterDomainModule
 import ru.practicum.android.diploma.search.di.SearchDataModule
 import ru.practicum.android.diploma.search.di.SearchDomainModule
 
 @ApplicationScope
 
-@Component(modules = [
-    LoggerModule::class,
-    SearchDataModule::class,
-    SearchDomainModule::class,
-    DetailsDataModule::class,
-    DetailsDomainModule::class,
-    FavoriteDomainModule::class,
-    FavoritesDataModule::class
-])
+@Component(
+    modules = [
+        LoggerModule::class,
+        SearchDataModule::class,
+        SearchDomainModule::class,
+        DetailsDataModule::class,
+        DetailsDomainModule::class,
+        FavoriteDomainModule::class,
+        FavoritesDataModule::class,
+        FilterDomainModule::class,
+        FilterDataModule::class,
+    ]
+)
 
 interface AppComponent {
     fun inject(app: App)
