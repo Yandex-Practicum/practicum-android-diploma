@@ -10,10 +10,9 @@ class FavoritesInteractorImpl @Inject constructor(private val repository: Favori
     FavoritesInteractor {
     override suspend fun getFavorites(): Flow<List<Vacancy>> {
         return repository.getFavsVacancies()
-//        return flow { emit(List(15) { getMockVacancy() }) }
     }
 
-//    override fun removeVacancy(id: Int) {
-//
-//    }
+    override suspend fun removeVacancy(id: Long): Flow<Int> {
+        return repository.removeVacancy(id)
+    }
 }

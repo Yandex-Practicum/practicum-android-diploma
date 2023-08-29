@@ -12,8 +12,8 @@ import javax.inject.Inject
 class RemoteRepositoryImpl @Inject constructor(private val networkClient: NetworkClient):
     RemoteRepository {
     override suspend fun search(query: String): Flow<FetchResult> {
-       // networkClient.doRequest(query)
-       return flowOf(FetchResult.Success(getMockJobList()))
+        return networkClient.doRequest(query)
+//       return flowOf(FetchResult.Success(getMockJobList()))
     }
     
     private fun getMockJobList(): List<Vacancy> {

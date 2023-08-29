@@ -5,5 +5,5 @@ import ru.practicum.android.diploma.search.domain.models.Vacancy
 
 interface FavoritesInteractor {
    suspend fun getFavorites(): Flow<List<Vacancy>>
-//   suspend fun removeVacancy(id: Int)
+   suspend fun removeVacancy(id: Long):Flow<Int>
 }
