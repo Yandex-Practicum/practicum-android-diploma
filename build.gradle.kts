@@ -7,6 +7,12 @@ plugins {
     alias(libs.plugins.ksp) apply false
 }
 
+buildscript {
+    dependencies {
+        classpath(libs.coroutines.core)
+    }
+}
+
 dependencies {
     implementation(libs.android.gradle.plugin)
     implementation(libs.kotlin.gradle.plugin)
