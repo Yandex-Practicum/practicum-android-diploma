@@ -15,7 +15,7 @@ class App: Application() {
             .create(
                 context = this,
                 baseUrl = resources.getString(R.string.base_url),
-                prefsKey = "app_preferences"
+                prefsKey = getString(R.string.app_preferences)
             )
     }
 
