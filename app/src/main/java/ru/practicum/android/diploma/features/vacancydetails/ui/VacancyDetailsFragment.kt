@@ -8,6 +8,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.FragmentVacancydetailsBinding
+import ru.practicum.android.diploma.features.vacancydetails.presentation.VacancyDetailsViewModel
 
 class VacancyDetailsFragment: Fragment() {
     private val viewModel by viewModel<VacancyDetailsViewModel>()
