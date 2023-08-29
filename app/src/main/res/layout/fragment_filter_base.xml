@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".filter.ui.FilterBaseFragment">
+    tools:context=".filter.ui.fragments.FilterBaseFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/filter_toolbar"
@@ -25,7 +25,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_60dp"
         android:layout_marginTop="@dimen/margin_16dp"
-        android:background="?android:attr/selectableItemBackground">
+        android:background="?android:attr/selectableItemBackground"
+        app:cardElevation="0dp">
 
         <TextView
             android:id="@+id/work_place_hint"
@@ -54,7 +55,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_60dp"
         android:layout_marginTop="@dimen/margin_16dp"
-        android:background="?android:attr/selectableItemBackground">
+        android:background="?android:attr/selectableItemBackground"
+        app:cardElevation="0dp">
 
         <TextView
             android:id="@+id/department_text_hint"

@@ -1,8 +1,9 @@
 package ru.practicum.android.diploma.filter.data
 
 import com.google.gson.Gson
+import javax.inject.Inject
 
-class GsonDataConverter(
+class GsonDataConverter @Inject constructor(
     private val gson: Gson,
 ) : DataConverter {
 

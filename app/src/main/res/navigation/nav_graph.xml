@@ -26,7 +26,7 @@
     </fragment>
     <fragment
         android:id="@+id/filterBaseFragment"
-        android:name="ru.practicum.android.diploma.filter.ui.FilterBaseFragment"
+        android:name="ru.practicum.android.diploma.filter.ui.fragments.FilterBaseFragment"
         android:label="fragment_filter_base"
         tools:layout="@layout/fragment_filter_base" />
     <fragment
@@ -42,6 +42,14 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_searchFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment"
+
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/teamFragment"
@@ -50,12 +58,12 @@
         tools:layout="@layout/fragment_team" />
     <fragment
         android:id="@+id/countryFilterFragment"
-        android:name="ru.practicum.android.diploma.filter.ui.CountryFilterFragment"
+        android:name="ru.practicum.android.diploma.filter.ui.fragments.CountryFilterFragment"
         android:label="fragment_country_filter"
         tools:layout="@layout/fragment_country_filter" />
     <fragment
         android:id="@+id/workPlaceFilterFragment"
-        android:name="ru.practicum.android.diploma.filter.ui.WorkPlaceFilterFragment"
+        android:name="ru.practicum.android.diploma.filter.ui.fragments.WorkPlaceFilterFragment"
         android:label="fragment_work_place_filter"
         tools:layout="@layout/fragment_work_place_filter" />
 </navigation>
