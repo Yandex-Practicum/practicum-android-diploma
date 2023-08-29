@@ -17,17 +17,17 @@ import ru.practicum.android.diploma.filter.domain.api.FilterRepository
 @Module
 class FilterDataModule {
     @Provides
-    fun provideFilterRepository(filterRepositoryImpl: FilterRepositoryImpl): FilterRepository{
+    fun provideFilterRepository(filterRepositoryImpl: FilterRepositoryImpl): FilterRepository {
         return filterRepositoryImpl
     }
 
     @Provides
-    fun provideLocalStorage(sharedPreferences: SharedPrefsStorageImpl): LocalStorage{
+    fun provideLocalStorage(sharedPreferences: SharedPrefsStorageImpl): LocalStorage {
         return sharedPreferences
     }
 
     @Provides
-    fun provideDataConverter( gsonDataConverter: GsonDataConverter): DataConverter{
+    fun provideDataConverter(gsonDataConverter: GsonDataConverter): DataConverter {
         return gsonDataConverter
     }
 
@@ -35,10 +35,11 @@ class FilterDataModule {
     fun provideGson(): Gson {
         return Gson()
     }
+
     @Provides
-    fun provideSharedPreferences(@PrefsKey prefsKey : String, context: Context): SharedPreferences{
+    fun provideSharedPreferences(@PrefsKey prefsKey: String, context: Context): SharedPreferences {
         return context
-            .getSharedPreferences( prefsKey, Context.MODE_PRIVATE)
+            .getSharedPreferences(prefsKey, Context.MODE_PRIVATE)
     }
 
 }

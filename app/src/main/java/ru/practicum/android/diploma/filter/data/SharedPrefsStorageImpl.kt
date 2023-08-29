@@ -13,7 +13,7 @@ class SharedPrefsStorageImpl @Inject constructor(
     private val converter: DataConverter,
     private val preferences: SharedPreferences,
     private val logger: Logger
-): LocalStorage {
+) : LocalStorage {
 
     private val lock = ReentrantReadWriteLock()
     override fun <T> writeData(key: String, data: T) {
@@ -27,6 +27,7 @@ class SharedPrefsStorageImpl @Inject constructor(
             }
         }
     }
+
     @Suppress("UNCHECKED_CAST")
     override fun <T> readData(key: String, defaultValue: T): T {
         logger.log(thisName, "readData(key: $key, defaultValue: T): T")
@@ -39,10 +40,11 @@ class SharedPrefsStorageImpl @Inject constructor(
             }
         }
     }
+
     private fun <T> SharedPreferences.getObject(key: String, defaultValue: T): T {
         logger.log(thisName, "getObject(key: $key, defaultValue: T): T")
         val json = this.getString(key, null)
-        return  if (json == null || json == "null")
+        return if (json == null || json == "null")
             defaultValue
         else
             converter.dataFromJson(json, defaultValue!!::class.java)
