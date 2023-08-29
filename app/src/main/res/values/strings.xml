@@ -3,4 +3,7 @@
     <string name="main">Главная</string>
     <string name="favourites">Избранное</string>
     <string name="team">Команда</string>
+    <string name="SettingFilters">Настройки фильтрации</string>
+    <string name="country">Страна</string>
+    <string name="place_of_work">Место работы</string>
 </resources>

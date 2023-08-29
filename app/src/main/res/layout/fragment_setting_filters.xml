@@ -3,6 +3,85 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context = "ru.practicum.android.diploma.filters.ui.fragment.FragmentSettingFilters">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="ru.practicum.android.diploma.filters.ui.fragment.FragmentSettingFilters"
+    >
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftBorder"
+        style="@style/guideline"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightBorder"
+        style="@style/guideline"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp" />
+
+    <ImageView
+        android:id="@+id/arrowback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/arrow_back"
+        app:layout_constraintStart_toStartOf="@+id/leftBorder"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="12dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        style="@style/Text_Medium_22"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:text="@string/SettingFilters"
+        android:textColor="?attr/black_to_white_color"
+        app:layout_constraintStart_toEndOf="@+id/arrowback"
+        app:layout_constraintTop_toTopOf="@+id/arrowback" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/arrowback"
+        android:layout_marginTop="16dp"
+        android:enabled="false"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/Text_Regular_16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:hint="@string/place_of_work"
+            android:textColorHint="@color/gray" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="20dp"
+
+
+        android:src="@drawable/arrow_forward"
+        app:layout_constraintBottom_toBottomOf="@+id/editText"
+        app:layout_constraintEnd_toStartOf="@+id/rightBorder"
+        app:layout_constraintTop_toTopOf="@+id/editText" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
