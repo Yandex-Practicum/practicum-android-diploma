@@ -33,7 +33,7 @@
 
     <TextView
         android:id="@+id/textView2"
-        style="@style/Text_Medium_22"
+        style="@style/Text_Medium_22_500"
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,10 +47,10 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editText"
+        android:id="@+id/place_of_work"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintEnd_toStartOf="@+id/place_of_work_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/arrowback"
         android:layout_marginTop="16dp"
@@ -58,30 +58,62 @@
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
         >
-
         <com.google.android.material.textfield.TextInputEditText
-            style="@style/Text_Regular_16"
+            style="@style/Text_Regular_16_400"
+            android:textColor="@color/black_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:backgroundTint="?attr/white2_to_black2_color"
             android:hint="@string/place_of_work"
-            android:textColorHint="@color/gray" />
+            android:textColorHint="@color/gray"
+            tools:text="Россия"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/industry"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
 
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/place_of_work"
+        app:layout_constraintEnd_toStartOf="@+id/industry_button"
+
+        android:enabled="false"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/Text_Regular_16_400"
+            android:textColor="@color/black_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="?attr/white2_to_black2_color"
+            android:hint="@string/industry"
+            android:textColorHint="@color/gray"
+            tools:text="IT"/>
     </com.google.android.material.textfield.TextInputLayout>
 
 
+
+
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/place_of_work_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingStart="20dp"
-
-
         android:src="@drawable/arrow_forward"
-        app:layout_constraintBottom_toBottomOf="@+id/editText"
+        app:layout_constraintBottom_toBottomOf="@+id/place_of_work"
         app:layout_constraintEnd_toStartOf="@+id/rightBorder"
-        app:layout_constraintTop_toTopOf="@+id/editText" />
+        app:layout_constraintTop_toTopOf="@+id/place_of_work" />
+    <ImageView
+        android:id="@+id/industry_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="20dp"
+        android:src="@drawable/arrow_forward"
+        app:layout_constraintBottom_toBottomOf="@+id/industry"
+        app:layout_constraintEnd_toStartOf="@+id/rightBorder"
+        app:layout_constraintTop_toTopOf="@+id/industry" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
