@@ -14,7 +14,7 @@ class App: Application() {
         DaggerAppComponent.factory()
             .create(
                 context = this,
-                baseUrl = resources.getString(R.string.base_url),
+                baseUrl = getString(R.string.base_url),
                 prefsKey = getString(R.string.app_preferences)
             )
     }
