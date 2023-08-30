@@ -33,8 +33,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         (activity as RootActivity).component.inject(this)
     }
     
-    
     override fun onResume() {
+        viewModel.log(thisName, "onResume  $viewModel")
         super.onResume()
 //        TODO("Сделать запрос в SharedPrefs на наличие текущих филтров." +
 //                "Далее если фильтры есть и строка поиска не пустая -> сделать запрос в сеть и обновить список" +
@@ -46,15 +46,16 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.log(thisName, "onViewCreated   $viewModel")
     
-        initViewModelObserver()
         initListeners()
         initAdapter()
+        initViewModelObserver()
+        
     }
     
     override fun onDestroyView() {
         super.onDestroyView()
         viewModel.log(thisName, "onDestroyView $viewModel")
-        searchAdapter = null
+        //searchAdapter = null
     }
     
     private fun initViewModelObserver() {
@@ -73,7 +74,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 )
             }
     
-            searchEditText.doOnTextChanged { text, _,_,_ ->
+            searchEditText.doOnTextChanged { text, _, _, _ ->
                 viewModel.onSearchQueryChanged(text.toString())
             }
         }
