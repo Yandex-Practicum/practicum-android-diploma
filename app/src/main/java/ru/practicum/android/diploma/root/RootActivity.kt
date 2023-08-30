@@ -49,6 +49,7 @@ class RootActivity : AppCompatActivity() {
 
                 R.id.filterBaseFragment -> hideBottomNav()
                 R.id.detailsFragment -> hideBottomNav()
+                R.id.similarsVacancyFragment -> hideBottomNav()
 
                 else -> showBottomNav()
             }

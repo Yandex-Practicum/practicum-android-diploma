@@ -13,6 +13,7 @@ import ru.practicum.android.diploma.filter.ui.view_models.RegionViewModel
 import ru.practicum.android.diploma.filter.ui.view_models.WorkPlaceViewModel
 import ru.practicum.android.diploma.root.RootViewModel
 import ru.practicum.android.diploma.search.ui.view_model.SearchViewModel
+import ru.practicum.android.diploma.similars.SimilarVacanciesViewModel
 
 @Module
 interface ViewModelModule {
@@ -56,4 +57,9 @@ interface ViewModelModule {
     @ViewModelKey(WorkPlaceViewModel::class)
     @Binds
     fun bindWorkPlaceViewModel(baseFilterViewModel: BaseFilterViewModel): ViewModel
+
+    @IntoMap
+    @ViewModelKey(SimilarVacanciesViewModel::class)
+    @Binds
+    fun bindSimilarVacanciesViewModel(similarVacanciesViewModel: SimilarVacanciesViewModel): ViewModel
 }

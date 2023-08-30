@@ -9,7 +9,16 @@
         android:id="@+id/detailsFragment"
         android:name="ru.practicum.android.diploma.details.ui.DetailsFragment"
         android:label="fragment_details"
-        tools:layout="@layout/fragment_details" />
+        tools:layout="@layout/fragment_details" >
+        <action
+            android:id="@+id/action_detailsFragment_to_similarsVacancyFragment"
+            app:destination="@id/similarsVacancyFragment"
+
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="ru.practicum.android.diploma.favorite.ui.FavoriteFragment"
@@ -66,4 +75,13 @@
         android:name="ru.practicum.android.diploma.filter.ui.fragments.WorkPlaceFilterFragment"
         android:label="fragment_work_place_filter"
         tools:layout="@layout/fragment_work_place_filter" />
+    <fragment
+        android:id="@+id/similarsVacancyFragment"
+        android:name="ru.practicum.android.diploma.similars.SimilarVacanciesFragment"
+        android:label="fragment_similars_vacancy"
+        tools:layout="@layout/fragment_similars_vacancy" >
+        <action
+            android:id="@+id/action_similarsVacancyFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
 </navigation>
