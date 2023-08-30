@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        tools:context="ru.practicum.android.diploma.details.presentation.ui.VacancyFragment"
+        android:paddingHorizontal="@dimen/margin_16"
+        android:paddingBottom="@dimen/margin_24"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_64"
+            app:contentInsetStart="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/back_icon"
+                android:contentDescription="back_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:src="@drawable/arrow_back"/>
+
+            <TextView
+                style="@style/Text_Medium_22_500"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:text="@string/vacancy"
+                android:textColor="?attr/black_to_white_color" />
+
+            <ImageView
+                android:id="@+id/favourites_icon"
+                android:contentDescription="favourites_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/margin_4"
+                android:src="@drawable/favorites_off" />
+
+            <ImageView
+                android:id="@+id/sharing_icon"
+                android:contentDescription="sharing_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:src="@drawable/sharing" />
+        </androidx.appcompat.widget.Toolbar>
+
+        <TextView
+            android:id="@+id/vacancy_name"
+            style="@style/Text_Bold_32_700"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Android-разработчик"
+            android:textColor="?attr/black_to_white_color"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            android:layout_marginTop="@dimen/margin_24" />
+
+        <TextView
+            android:id="@+id/salary"
+            style="@style/Text_Medium_22_500"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="от 100 000 ₽"
+            android:textColor="?attr/black_to_white_color"
+            app:layout_constraintTop_toBottomOf="@id/vacancy_name" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/employer_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/salary"
+            android:layout_marginTop="@dimen/margin_24"
+            android:padding="@dimen/margin_16"
+            android:background="@drawable/employer_card_grey_rectangle">
+
+            <ImageView
+                android:id="@+id/employer_image"
+                android:contentDescription="employer_image"
+                android:layout_width="@dimen/margin_48"
+                android:layout_height="@dimen/margin_48"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:src="@drawable/placeholder" />
+
+            <TextView
+                android:id="@+id/employer_name"
+                style="@style/Text_Medium_22_500"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="от 100 000 ₽"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/employer_image"
+                android:layout_marginStart="@dimen/margin_8" />
+
+            <TextView
+                android:id="@+id/city"
+                style="@style/Text_Regular_16_400"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Москва"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toBottomOf="@id/employer_name"
+                app:layout_constraintStart_toStartOf="@id/employer_name" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/required_experience_field"
+            style="@style/Text_Medium_16_500"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/required_experience"
+            android:textColor="?attr/black_to_white_color"
+            app:layout_constraintTop_toBottomOf="@id/employer_card"
+            android:layout_marginTop="@dimen/margin_24"/>
+
+        <TextView
+            android:id="@+id/required_experience_value"
+            style="@style/Text_Regular_16_400"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="От 1 года до 3 лет"
+            android:textColor="?attr/black_to_white_color"
+            app:layout_constraintTop_toBottomOf="@id/required_experience_field"
+            android:layout_marginTop="@dimen/margin_4"/>
+
+        <TextView
+            android:id="@+id/schedule_value"
+            style="@style/Text_Regular_16_400"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Полная занятость, Удаленная работа"
+            android:textColor="?attr/black_to_white_color"
+            app:layout_constraintTop_toBottomOf="@id/required_experience_value"
+            android:layout_marginTop="@dimen/margin_8"/>
+
+        <TextView
+            android:id="@+id/vacancy_description"
+            style="@style/Text_Medium_22_500"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/vacancy_description"
+            android:textColor="?attr/black_to_white_color"
+            app:layout_constraintTop_toBottomOf="@id/schedule_value"
+            android:layout_marginTop="@dimen/margin_32"/>
+
+        <TextView
+            android:id="@+id/vacancy_duties_field"
+            style="@style/Text_Medium_16_500"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/vacancy_duties"
+            android:textColor="?attr/black_to_white_color"
+            app:layout_constraintTop_toBottomOf="@id/vacancy_description"
+            android:layout_marginTop="@dimen/margin_16"/>
+
+        <TextView
+            android:id="@+id/vacancy_duties_value"
+            style="@style/Text_Regular_16_400"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Разрабатывать новую функциональность приложения\nПомогать с интеграцией нашего SDK в другие приложения\nПроектировать большие новые модули\nПисать UI- и unit-тесты\nСледить за работоспособностью сервиса и устранять технический долг"
+            android:textColor="?attr/black_to_white_color"
+            app:layout_constraintTop_toBottomOf="@id/vacancy_duties_field"
+            android:layout_marginTop="@dimen/margin_4"/>
+
+        <TextView
+            android:id="@+id/vacancy_requirements"
+            style="@style/Text_Medium_16_500"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/vacancy_requirements"
+            android:textColor="?attr/black_to_white_color"
+            app:layout_constraintTop_toBottomOf="@id/vacancy_duties_value"
+            android:layout_marginTop="@dimen/margin_16"/>
+
+        <TextView
+            android:id="@+id/vacancy_requirements_value"
+            style="@style/Text_Regular_16_400"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="100% Kotlin\nWebRTC\nCI по модели Trunk Based Development"
+            android:textColor="?attr/black_to_white_color"
+            app:layout_constraintTop_toBottomOf="@id/vacancy_requirements"
+            android:layout_marginTop="@dimen/margin_4"/>
+
+        <TextView
+            android:id="@+id/vacancy_conditions"
+            style="@style/Text_Medium_16_500"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/vacancy_conditions"
+            android:textColor="?attr/black_to_white_color"
+            app:layout_constraintTop_toBottomOf="@id/vacancy_requirements_value"
+            android:layout_marginTop="@dimen/margin_16"/>
+
+        <TextView
+            android:id="@+id/vacancy_conditions_value"
+            style="@style/Text_Regular_16_400"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cильная команда, с которой можно расти\nВозможность влиять на процесс и результат\nРасширенная программа ДМС: стоматология, обследования, вызов врача на дом и многое другое"
+            android:textColor="?attr/black_to_white_color"
+            app:layout_constraintTop_toBottomOf="@id/vacancy_conditions"
+            android:layout_marginTop="@dimen/margin_4"/>
+
+        <TextView
+            android:id="@+id/vacancy_key_skills"
+            style="@style/Text_Medium_22_500"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/vacancy_key_skills"
+            android:textColor="?attr/black_to_white_color"
+            app:layout_constraintTop_toBottomOf="@id/vacancy_conditions_value"
+            android:layout_marginTop="@dimen/margin_24"/>
+
+        <TextView
+            android:id="@+id/vacancy_key_skills_value"
+            style="@style/Text_Regular_16_400"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Знание классических алгоритмов и структуры данных\nПрограммирование для Android больше одного года\nЗнание WebRTC"
+            android:textColor="?attr/black_to_white_color"
+            app:layout_constraintTop_toBottomOf="@id/vacancy_key_skills"
+            android:layout_marginTop="@dimen/margin_16"/>
+
+        <TextView
+            android:id="@+id/vacancy_contacts"
+            style="@style/Text_Medium_22_500"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/vacancy_contacts"
+            android:textColor="?attr/black_to_white_color"
+            app:layout_constraintTop_toBottomOf="@id/vacancy_key_skills_value"
+            android:layout_marginTop="@dimen/margin_24"/>
+
+        <TextView
+            android:id="@+id/vacancy_contact_person"
+            style="@style/Text_Medium_16_500"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/vacancy_contact_person"
+            android:textColor="?attr/black_to_white_color"
+            app:layout_constraintTop_toBottomOf="@id/vacancy_contacts"
+            android:layout_marginTop="@dimen/margin_16"/>
+
+        <TextView
+            android:id="@+id/vacancy_contact_person_value"
+            style="@style/Text_Regular_16_400"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ирина"
+            android:textColor="?attr/black_to_white_color"
+            app:layout_constraintTop_toBottomOf="@id/vacancy_contact_person"
+            android:layout_marginTop="@dimen/margin_4"/>
+
+        <TextView
+            android:id="@+id/vacancy_contact_email"
+            style="@style/Text_Medium_16_500"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/vacancy_contact_email"
+            android:textColor="?attr/black_to_white_color"
+            app:layout_constraintTop_toBottomOf="@id/vacancy_contact_person_value"
+            android:layout_marginTop="@dimen/margin_16"/>
+
+        <TextView
+            android:id="@+id/vacancy_contact_email_value"
+            style="@style/Text_Regular_16_400"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="i.lozgkina@yandex.ru"
+            android:textColor="@color/blue"
+            app:layout_constraintTop_toBottomOf="@id/vacancy_contact_email"
+            android:layout_marginTop="@dimen/margin_4"/>
+
+        <TextView
+            android:id="@+id/vacancy_contact_phone"
+            style="@style/Text_Medium_16_500"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/vacancy_contact_phone"
+            android:textColor="?attr/black_to_white_color"
+            app:layout_constraintTop_toBottomOf="@id/vacancy_contact_email_value"
+            android:layout_marginTop="@dimen/margin_16"/>
+
+        <TextView
+            android:id="@+id/vacancy_contact_phone_value"
+            style="@style/Text_Regular_16_400"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="+7 (904) 329-27-71"
+            android:textColor="@color/blue"
+            app:layout_constraintTop_toBottomOf="@id/vacancy_contact_phone"
+            android:layout_marginTop="@dimen/margin_4"/>
+
+        <TextView
+            android:id="@+id/vacancy_contact_phone_2"
+            style="@style/Text_Medium_16_500"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/vacancy_contact_phone"
+            android:textColor="?attr/black_to_white_color"
+            app:layout_constraintTop_toBottomOf="@id/vacancy_contact_phone_value"
+            android:layout_marginTop="@dimen/margin_16"/>
+
+        <TextView
+            android:id="@+id/vacancy_contact_phone_2_value"
+            style="@style/Text_Regular_16_400"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Заполнить анкету по форме можно на нашем сайте"
+            android:textColor="?attr/black_to_white_color"
+            app:layout_constraintTop_toBottomOf="@id/vacancy_contact_phone_2"
+            android:layout_marginTop="@dimen/margin_4"/>
+
+        <TextView
+            android:id="@+id/similar_vacancies_button"
+            style="@style/Text_Medium_16_500"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_59"
+            android:background="@drawable/field_for_result_text"
+            android:text="@string/similar_vacancies"
+            android:textColor="@color/white"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/vacancy_contact_phone_2_value"
+            android:layout_marginTop="@dimen/margin_24" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

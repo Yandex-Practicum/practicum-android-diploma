@@ -5,11 +5,23 @@
     <string name="team">Команда</string>
     <string name="search_vacancies">Поиск вакансий</string>
     <string name="enter_request">Введите запрос</string>
+    <string name="vacancy">Вакансия</string>
     <string name="no_vacancies">Таких вакансий нет</string>
     <string name="to">до</string>
     <string name="from">от</string>
     <string name="no_salary">ЗП не указана</string>
     <string name="list_empty">Список пуст</string>
     <string name="company_logo">Логотип компании</string>
+    <string name="required_experience">Требуемый опыт</string>
+    <string name="vacancy_description">Описание вакансии</string>
+    <string name="vacancy_duties">Обязанности</string>
+    <string name="vacancy_requirements">Требования</string>
+    <string name="vacancy_conditions">Условия</string>
+    <string name="vacancy_key_skills">Ключевые навыки</string>
+    <string name="vacancy_contacts">Контакты</string>
+    <string name="vacancy_contact_person">Контактное лицо</string>
+    <string name="vacancy_contact_email">E-mail</string>
+    <string name="vacancy_contact_phone">Телефон</string>
+    <string name="similar_vacancies">Похожие вакансии</string>
 
 </resources>

@@ -5,8 +5,13 @@
     <dimen name="margin_8">8dp</dimen>
     <dimen name="margin_12">12dp</dimen>
     <dimen name="margin_16">16dp</dimen>
+    <dimen name="margin_24">24dp</dimen>
+    <dimen name="margin_32">32dp</dimen>
+    <dimen name="margin_48">48dp</dimen>
     <dimen name="margin_56">56dp</dimen>
+    <dimen name="margin_59">59dp</dimen>
     <dimen name="margin_64">64dp</dimen>
+    <dimen name="margin_80">80dp</dimen>
     <dimen name="logo_padding_8">8dp</dimen>
     <dimen name="weight_height_logo">48dp</dimen>
     <dimen name="radius_12">12dp</dimen>
