@@ -26,7 +26,7 @@ class VacancyDbConverter {
             name = vacancy.name,
             city = vacancy.city,
             employerName = vacancy.employerName,
-            employerLogoUrl = vacancy.employerLogoUrl,
+            employerLogoUrl = null,
             salaryCurrency = vacancy.salaryCurrency,
             salaryFrom = vacancy.salaryFrom,
             salaryTo = vacancy.salaryTo,
