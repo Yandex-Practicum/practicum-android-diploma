@@ -32,24 +32,26 @@ class SearchViewModel @Inject constructor(
         action = { query -> loadJobList(query) })
     
     fun onSearchQueryChanged(query: String?) {
+        log(thisName, "onSearchQueryChanged -> $query")
         if (query.isNullOrEmpty()) {
             _uitState.value = SearchScreenState.Default
         } else {
             if (latestSearchQuery == query) return
-        
+            log(thisName, "latestSearchQuery -> $latestSearchQuery")
             latestSearchQuery = query
             onSearchDebounce(query)
         }
     }
     
     private fun loadJobList(query: String) {
-    
+        log(thisName, "loadJobList -> $query")
         _uitState.value = SearchScreenState.Loading
     
         searchJob = viewModelScope.launch(Dispatchers.IO) {
             searchVacanciesUseCase
                 .search(query)
                 .collect { result ->
+                    log(thisName, "loadJobList result -> $result")
                     processResult(result)
                 }
         }

@@ -28,6 +28,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        viewModel.log(thisName, "onAttach $viewModel")
         (activity as RootActivity).component.inject(this)
     }
 
@@ -42,16 +43,19 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     
     override fun onDestroyView() {
         super.onDestroyView()
+        viewModel.log(thisName, "onDestroyView $viewModel")
         searchAdapter = null
     }
     
     private fun initViewModelObserver() {
+        viewModel.log(thisName, "initViewModelObserver $viewModel")
         viewLifecycleOwner.lifecycle.coroutineScope.launch {
             viewModel.uiState.collect { screenState -> render(screenState) }
         }
     }
     
     private fun initListeners() {
+        viewModel.log(thisName, "initListeners $viewModel")
         with(binding) {
             filterBtnToolbar.setOnClickListener {
                 findNavController().navigate(
@@ -66,6 +70,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
     
     private fun initAdapter() {
+        viewModel.log(thisName, "initAdapter $viewModel")
         binding.recycler.adapter = searchAdapter
     
         searchAdapter?.onClick = { vacancy ->
@@ -88,6 +93,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
     
     private fun showDefault() {
+        viewModel.log(thisName, "showDefault $viewModel")
         
         refreshJobList(emptyList())
         isScrollingEnabled(false)
@@ -101,7 +107,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
     
     private fun showError(error: NetworkError) {
-        
+        viewModel.log(thisName, "showError -> $error")
         when (error) {
             NetworkError.SEARCH_ERROR -> showEmpty()
             NetworkError.CONNECTION_ERROR -> showConnectionError()
@@ -109,6 +115,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
     
     private fun showConnectionError() {
+        viewModel.log(thisName, "showConnectionError $viewModel")
         refreshJobList(emptyList())
         isScrollingEnabled(false)
         
@@ -129,6 +136,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
     
     private fun showContent(jobList: List<Vacancy>) {
+        viewModel.log(thisName, "showContent -> $jobList")
         refreshJobList(jobList)
         isScrollingEnabled(true)
         
@@ -144,6 +152,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
     
     private fun showLoading() {
+        viewModel.log(thisName, "showLoading $viewModel")
         refreshJobList(emptyList())
         isScrollingEnabled(false)
         
@@ -159,7 +168,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
     
     private fun showEmpty() {
-        
+        viewModel.log(thisName, "showEmpty $viewModel")
         refreshJobList(emptyList())
         isScrollingEnabled(false)
         
@@ -176,11 +185,13 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     
     private fun refreshJobList(list: List<Vacancy>) {
         viewModel.log(thisName, "refreshJobList -> ${list.size}")
+        viewModel.log(thisName, "refreshJobList -> $list")
         searchAdapter?.list = list
         searchAdapter?.notifyDataSetChanged()
     }
     
     private fun isScrollingEnabled(flag: Boolean) {
+        viewModel.log(thisName, "isScrollingEnabled -> $flag")
         binding.searchAppBarLayout.isNestedScrollingEnabled = flag
     }
 }
