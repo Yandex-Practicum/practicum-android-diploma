@@ -50,4 +50,11 @@
     <string name="meister"                          >Belykh Igor</string>
     <string name="bitwise"                          >Yazykov Danila</string>
 
+    <string name="found"                            >Found</string>
+
+    <plurals name="vacancies">
+        <item quantity="one"                        >%1$d vacancy</item>
+        <item quantity="other"                      >%1$d vacancies</item>
+    </plurals>
+
     </resources>

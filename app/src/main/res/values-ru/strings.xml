@@ -45,4 +45,14 @@
     <string name="flash"                            >Костин Олег</string>
     <string name="meister"                          >Белых Игорь</string>
     <string name="bitwise"                          >Языков Данила</string>
+
+    <string name="found"                            >Найдено</string>
+
+    <plurals name="vacancies">
+        <item quantity="one"                        >%1$d вакансия</item>
+        <item quantity="few"                        >%1$d вакансии</item>
+        <item quantity="many"                       >%1$d вакансий</item>
+        <item quantity="other"                      >%1$d вакансий</item>
+    </plurals>
+
 </resources>
