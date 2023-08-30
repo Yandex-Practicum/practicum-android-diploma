@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.appbar.AppBarLayout
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
@@ -198,8 +199,34 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         searchAdapter?.notifyDataSetChanged()
     }
     
-    private fun isScrollingEnabled(flag: Boolean) {
-        viewModel.log(thisName, "isScrollingEnabled -> $flag")
-        binding.searchAppBarLayout.isNestedScrollingEnabled = flag
+    private fun isScrollingEnabled(isEnable: Boolean) {
+        viewModel.log(thisName, "isScrollingEnabled -> $isEnable")
+        
+        with(binding) {
+    
+            val searchLayoutParams: AppBarLayout.LayoutParams =
+                searchContainer.layoutParams as AppBarLayout.LayoutParams
+            val toolbarLayoutParams: AppBarLayout.LayoutParams =
+                searchToolbar.layoutParams as AppBarLayout.LayoutParams
+            val textLayoutParams: AppBarLayout.LayoutParams =
+                textFabSearch.layoutParams as AppBarLayout.LayoutParams
+    
+            if (!isEnable) {
+                searchLayoutParams.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_NO_SCROLL
+                toolbarLayoutParams.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_NO_SCROLL
+                textLayoutParams.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_NO_SCROLL
+            } else {
+                searchLayoutParams.scrollFlags =
+                    AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
+                toolbarLayoutParams.scrollFlags =
+                    AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
+                textLayoutParams.scrollFlags =
+                    AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
+            }
+    
+            searchContainer.layoutParams = searchLayoutParams
+            searchToolbar.layoutParams = toolbarLayoutParams
+            textFabSearch.layoutParams = textLayoutParams
+        }
     }
 }

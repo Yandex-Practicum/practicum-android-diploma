@@ -29,12 +29,17 @@ class RootActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         component.inject(this)
         super.onCreate(savedInstanceState)
+        
         setContentView(binding.root)
+        
         viewModel.log(thisName, "onCreate() -> Unit")
+        
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.rootFragmentContainerView) as NavHostFragment
         val navController = navHostFragment.navController
+        
         binding.bottomNavigationView.setupWithNavController(navController)
+        
         navController.addOnDestinationChangedListener { _, destination, _ ->
             viewModel.log(
                 thisName,
@@ -67,5 +72,4 @@ class RootActivity : AppCompatActivity() {
         viewModel.log(thisName, "showBottomNav()")
         binding.bottomNavigationView.visibility = View.VISIBLE
     }
-
 }
