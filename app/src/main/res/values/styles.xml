@@ -41,6 +41,10 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+    <style name="MyCheckBox" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@android:color/holo_blue_dark</item>
+        <item name="colorControlActivated">@android:color/holo_blue_light</item>
+    </style>
 
 
 </resources>

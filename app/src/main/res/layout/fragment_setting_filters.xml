@@ -42,6 +42,7 @@
         android:paddingBottom="8dp"
         android:text="@string/SettingFilters"
         android:textColor="?attr/black_to_white_color"
+        app:layout_constraintBottom_toBottomOf="@+id/arrowback"
         app:layout_constraintStart_toEndOf="@+id/arrowback"
         app:layout_constraintTop_toTopOf="@+id/arrowback" />
 
@@ -60,12 +61,12 @@
         >
         <com.google.android.material.textfield.TextInputEditText
             style="@style/Text_Regular_16_400"
-            android:textColor="@color/black_2"
+            android:textColor="?attr/black_to_white_color"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="?attr/white2_to_black2_color"
             android:hint="@string/place_of_work"
-            android:textColorHint="@color/gray"
+            android:textColorHint="?attr/gray_to_white_color"
             tools:text="Россия"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -84,17 +85,38 @@
         >
         <com.google.android.material.textfield.TextInputEditText
             style="@style/Text_Regular_16_400"
-            android:textColor="@color/black_2"
+            android:textColor="?attr/black_to_white_color"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="?attr/white2_to_black2_color"
             android:hint="@string/industry"
-            android:textColorHint="@color/gray"
+            android:textColorHint="?attr/gray_to_white_color"
             tools:text="IT"/>
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/salary_edit_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        app:boxStrokeWidth="0dp"
+        android:layout_marginTop="24dp"
 
+        app:boxStrokeWidthFocused="0dp"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        app:layout_constraintStart_toStartOf="@id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@+id/industry">
 
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/Text_Regular_16_400"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_for_search_edit_text"
+            android:hint="@string/expected_salary"
+            android:textColor="?attr/gray_to_white_color"
+            android:textColorHint="?attr/gray_to_white_color"
+            android:text="@string/enter_salary" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <ImageView
         android:id="@+id/place_of_work_button"
@@ -114,6 +136,34 @@
         app:layout_constraintBottom_toBottomOf="@+id/industry"
         app:layout_constraintEnd_toStartOf="@+id/rightBorder"
         app:layout_constraintTop_toTopOf="@+id/industry" />
+
+    <TextView
+        android:id="@+id/no_without_sallary"
+        style="@style/Text_Regular_16_400"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44.5dp"
+        android:text="@string/not_show_without_sallary"
+        android:textColor="?attr/black_to_white_color"
+        app:layout_constraintEnd_toStartOf="@+id/sallary_checkbox"
+        app:layout_constraintStart_toStartOf="@+id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@+id/salary_edit_text"
+        />
+
+    <CheckBox
+        android:id="@+id/sallary_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/blue"
+        android:buttonTint="@color/blue"
+        android:theme="@style/MyCheckBox"
+        app:layout_constraintBottom_toBottomOf="@+id/no_without_sallary"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintEnd_toStartOf="@id/rightBorder"
+        app:layout_constraintTop_toTopOf="@+id/no_without_sallary" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
