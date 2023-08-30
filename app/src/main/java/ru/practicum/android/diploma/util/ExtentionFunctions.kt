@@ -1,5 +1,9 @@
 package ru.practicum.android.diploma.util
 
+import android.widget.ImageView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -29,4 +33,22 @@ fun <T> delayedAction(
             }
         }
     }
+}
+
+fun ImageView.setImage(url: String, placeholder: Int, cornerRadius: Int) {
+    Glide
+        .with(this.context)
+        .load(url)
+        .placeholder(placeholder)
+        .transform(CenterCrop(), RoundedCorners(cornerRadius))
+        .into(this)
+}
+
+fun ImageView.setImage(url: String, placeholder: Int) {
+    Glide
+        .with(this.context)
+        .load(url)
+        .placeholder(placeholder)
+        .transform(CenterCrop())
+        .into(this)
 }

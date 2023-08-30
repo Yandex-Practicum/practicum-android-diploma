@@ -28,7 +28,17 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        viewModel.log(thisName, "onAttach $viewModel")
         (activity as RootActivity).component.inject(this)
+    }
+    
+    
+    override fun onResume() {
+        super.onResume()
+//        TODO("Сделать запрос в SharedPrefs на наличие текущих филтров." +
+//                "Далее если фильтры есть и строка поиска не пустая -> сделать запрос в сеть и обновить список" +
+//            "Если фильтрые есть, но строка поиска пустая -> просто применить фильтр без запроса в сеть"
+//                )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,16 +52,19 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     
     override fun onDestroyView() {
         super.onDestroyView()
+        viewModel.log(thisName, "onDestroyView $viewModel")
         searchAdapter = null
     }
     
     private fun initViewModelObserver() {
+        viewModel.log(thisName, "initViewModelObserver $viewModel")
         viewLifecycleOwner.lifecycle.coroutineScope.launch {
             viewModel.uiState.collect { screenState -> render(screenState) }
         }
     }
     
     private fun initListeners() {
+        viewModel.log(thisName, "initListeners $viewModel")
         with(binding) {
             filterBtnToolbar.setOnClickListener {
                 findNavController().navigate(
@@ -66,6 +79,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
     
     private fun initAdapter() {
+        viewModel.log(thisName, "initAdapter $viewModel")
         binding.recycler.adapter = searchAdapter
     
         searchAdapter?.onClick = { vacancy ->
@@ -78,6 +92,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
     
     private fun render(screenState: SearchScreenState) {
+        viewModel.log(thisName, "render -> ${screenState}")
         when (screenState) {
             is SearchScreenState.Default -> showDefault()
             is SearchScreenState.Loading -> showLoading()
@@ -87,6 +102,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
     
     private fun showDefault() {
+        viewModel.log(thisName, "showDefault $viewModel")
         
         refreshJobList(emptyList())
         isScrollingEnabled(false)
@@ -100,7 +116,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
     
     private fun showError(error: NetworkError) {
-        
+        viewModel.log(thisName, "showError -> $error")
         when (error) {
             NetworkError.SEARCH_ERROR -> showEmpty()
             NetworkError.CONNECTION_ERROR -> showConnectionError()
@@ -108,6 +124,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
     
     private fun showConnectionError() {
+        viewModel.log(thisName, "showConnectionError $viewModel")
         refreshJobList(emptyList())
         isScrollingEnabled(false)
         
@@ -128,6 +145,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
     
     private fun showContent(jobList: List<Vacancy>) {
+        viewModel.log(thisName, "showContent -> ${jobList.size}")
         refreshJobList(jobList)
         isScrollingEnabled(true)
         
@@ -135,7 +153,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             
             textFabSearch.text = getString(R.string.loading_message)
             
-            textFabSearch.visibility = View.VISIBLE
+            textFabSearch.visibility = View.GONE
             recycler.visibility = View.VISIBLE
             placeholderImage.visibility = View.GONE
             progressBar.visibility = View.GONE
@@ -143,6 +161,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
     
     private fun showLoading() {
+        viewModel.log(thisName, "showLoading $viewModel")
         refreshJobList(emptyList())
         isScrollingEnabled(false)
         
@@ -158,7 +177,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
     
     private fun showEmpty() {
-        
+        viewModel.log(thisName, "showEmpty $viewModel")
         refreshJobList(emptyList())
         isScrollingEnabled(false)
         
@@ -174,11 +193,13 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
     
     private fun refreshJobList(list: List<Vacancy>) {
+        viewModel.log(thisName, "refreshJobList -> ${list.size}")
         searchAdapter?.list = list
         searchAdapter?.notifyDataSetChanged()
     }
     
     private fun isScrollingEnabled(flag: Boolean) {
+        viewModel.log(thisName, "isScrollingEnabled -> $flag")
         binding.searchAppBarLayout.isNestedScrollingEnabled = flag
     }
 }

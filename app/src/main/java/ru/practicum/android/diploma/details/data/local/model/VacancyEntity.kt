@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.details.data.model
+package ru.practicum.android.diploma.details.data.local.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -11,6 +11,7 @@ data class VacancyEntity(
     val title: String = "",
     val company: String = "",
     val salary: String = "",
+    val area: String = "",
     val date: Long
 )
 

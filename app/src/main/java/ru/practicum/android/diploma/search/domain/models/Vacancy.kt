@@ -9,6 +9,7 @@ data class Vacancy(
     val title: String = "",
     val company: String = "",
     val salary: String = "",
+    val area: String = "",
     val date : Long = 0L
 )
 @TestClass
@@ -19,6 +20,7 @@ fun TrackDto.toVacancy(): Vacancy{
             title = trackName?:"",
             company = artistName?:"",
             salary = year.toString()?:"",
+            area = genre?:"",
             date = 0L
             )
     }

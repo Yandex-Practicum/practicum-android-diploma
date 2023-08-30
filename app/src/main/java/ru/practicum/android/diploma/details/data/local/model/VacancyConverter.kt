@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.details.data.model
+package ru.practicum.android.diploma.details.data.local.model
 
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import javax.inject.Inject
@@ -13,6 +13,7 @@ class VacancyConverter @Inject constructor() {
                 title = title,
                 company = company,
                 salary = salary,
+                area = area,
                 date = date
             )
         }
@@ -25,6 +26,7 @@ class VacancyConverter @Inject constructor() {
                 title = title,
                 company = company,
                 salary = salary,
+                area = area,
                 date = date
             )
         }

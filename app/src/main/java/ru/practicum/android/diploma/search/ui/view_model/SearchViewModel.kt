@@ -12,6 +12,7 @@ import ru.practicum.android.diploma.search.domain.api.SearchVacanciesUseCase
 import ru.practicum.android.diploma.search.domain.models.FetchResult
 import ru.practicum.android.diploma.search.ui.models.SearchScreenState
 import ru.practicum.android.diploma.util.delayedAction
+import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
 
 class SearchViewModel @Inject constructor(
@@ -19,9 +20,9 @@ class SearchViewModel @Inject constructor(
     logger: Logger
 ) : BaseViewModel(logger) {
     
-    private val _uitState: MutableStateFlow<SearchScreenState> =
+    private val _uiState: MutableStateFlow<SearchScreenState> =
         MutableStateFlow(SearchScreenState.Default)
-    val uiState: StateFlow<SearchScreenState> = _uitState
+    val uiState: StateFlow<SearchScreenState> = _uiState
     
     private var latestSearchQuery: String? = null
     private var searchJob: Job? = null
@@ -31,19 +32,20 @@ class SearchViewModel @Inject constructor(
         action = { query -> loadJobList(query) })
     
     fun onSearchQueryChanged(query: String?) {
+        log(thisName, "onSearchQueryChanged -> $query")
         if (query.isNullOrEmpty()) {
-            _uitState.value = SearchScreenState.Default
+            _uiState.value = SearchScreenState.Default
         } else {
             if (latestSearchQuery == query) return
-        
+            log(thisName, "latestSearchQuery -> $latestSearchQuery")
             latestSearchQuery = query
             onSearchDebounce(query)
         }
     }
     
     private fun loadJobList(query: String) {
-    
-        _uitState.value = SearchScreenState.Loading
+        log(thisName, "loadJobList -> $query")
+        _uiState.value = SearchScreenState.Loading
     
         searchJob = viewModelScope.launch(Dispatchers.IO) {
             searchVacanciesUseCase
@@ -55,13 +57,14 @@ class SearchViewModel @Inject constructor(
     }
     
     private fun processResult(result: FetchResult) {
+        log(thisName, "processResult -> $result")
         when {
             result.error != null -> {
-                _uitState.value = SearchScreenState.Error(result.error)
+                _uiState.value = SearchScreenState.Error(result.error)
             }
             
             result.data != null -> {
-                _uitState.value = SearchScreenState.Content(result.data)
+                _uiState.value = SearchScreenState.Content(result.data)
             }
         }
     }
