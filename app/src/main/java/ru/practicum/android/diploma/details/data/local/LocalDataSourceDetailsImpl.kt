@@ -7,7 +7,10 @@ import ru.practicum.android.diploma.details.data.local.model.VacancyConverter
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import javax.inject.Inject
 
-class LocalDataSourceDetailsImpl@Inject constructor(private val dao: FavoriteDao, private val converter: VacancyConverter): LocalDataSource {
+class LocalDataSourceDetailsImpl@Inject constructor(
+    private val dao: FavoriteDao,
+    private val converter: VacancyConverter
+): LocalDataSource {
     override suspend fun removeVacancyFromFavorite(id: Long): Flow<Int> {
         return flowOf(dao.delete(id))
     }
