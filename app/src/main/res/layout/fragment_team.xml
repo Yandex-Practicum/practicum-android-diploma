@@ -41,7 +41,7 @@
 
     <TextView
         android:id="@+id/lead"
-        style="@style/developers"
+        style="@style/Developers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/lead"
@@ -52,7 +52,7 @@
 
     <TextView
         android:id="@+id/oldwise"
-        style="@style/developers"
+        style="@style/Developers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/oldwise"
@@ -63,7 +63,7 @@
 
     <TextView
         android:id="@+id/flash"
-        style="@style/developers"
+        style="@style/Developers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/flash"
@@ -74,7 +74,7 @@
 
     <TextView
         android:id="@+id/meister"
-        style="@style/developers"
+        style="@style/Developers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/meister"
@@ -85,7 +85,7 @@
 
     <TextView
         android:id="@+id/bitwise"
-        style="@style/developers"
+        style="@style/Developers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/bitwise"
