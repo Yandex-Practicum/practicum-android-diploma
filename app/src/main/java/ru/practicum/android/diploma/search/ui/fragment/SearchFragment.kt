@@ -27,12 +27,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private val viewModel: SearchViewModel by viewModels { (activity as RootActivity).viewModelFactory }
     private val binding by viewBinding<FragmentSearchBinding>()
     
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        viewModel.log(thisName, "onAttach $viewModel")
-        (activity as RootActivity).component.inject(this)
-    }
-    
     override fun onResume() {
         viewModel.log(thisName, "onResume  $viewModel")
         super.onResume()
@@ -55,7 +49,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     override fun onDestroyView() {
         super.onDestroyView()
         viewModel.log(thisName, "onDestroyView $viewModel")
-        //searchAdapter = null
+        searchAdapter = null
     }
     
     private fun initViewModelObserver() {
@@ -82,12 +76,14 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     
     private fun initAdapter() {
         viewModel.log(thisName, "initAdapter $viewModel")
+        
+        (activity as RootActivity).component.inject(this)
         binding.recycler.adapter = searchAdapter
     
         searchAdapter?.onClick = { vacancy ->
             viewModel.log(thisName, "onClickWithDebounce $vacancy")
             findNavController().navigate(
-                resId = R.id.action_searchFragment_to_detailsFragment
+                resId = R.id.action_searchFragment_to_detailsFragment,
                 //args = bundleOf("KEY_DETAILS" to vacancy)
             )
         }
