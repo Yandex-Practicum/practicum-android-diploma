@@ -7,6 +7,6 @@ import javax.inject.Inject
 
 class LoggerImpl @Inject constructor(): Logger {
     override fun log(className: String, method: String) {
-        Log.d("debug", "$className -> $method")
+        Log.d("MyLog", "$className -> $method")
     }
 }
