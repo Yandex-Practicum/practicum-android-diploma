@@ -63,7 +63,7 @@
             style="@style/Text_Bold_32_700"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Android-разработчик"
+            tools:text="Android-разработчик"
             android:textColor="?attr/black_to_white_color"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
             android:layout_marginTop="@dimen/margin_24" />
@@ -73,7 +73,7 @@
             style="@style/Text_Medium_22_500"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="от 100 000 ₽"
+            tools:text="от 100 000 ₽"
             android:textColor="?attr/black_to_white_color"
             app:layout_constraintTop_toBottomOf="@id/vacancy_name" />
 
@@ -100,7 +100,7 @@
                 style="@style/Text_Medium_22_500"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="от 100 000 ₽"
+                tools:text="от 100 000 ₽"
                 android:textColor="@color/black"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toEndOf="@id/employer_image"
@@ -111,7 +111,7 @@
                 style="@style/Text_Regular_16_400"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Москва"
+                tools:text="Москва"
                 android:textColor="@color/black"
                 app:layout_constraintTop_toBottomOf="@id/employer_name"
                 app:layout_constraintStart_toStartOf="@id/employer_name" />
@@ -133,7 +133,7 @@
             style="@style/Text_Regular_16_400"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="От 1 года до 3 лет"
+            tools:text="От 1 года до 3 лет"
             android:textColor="?attr/black_to_white_color"
             app:layout_constraintTop_toBottomOf="@id/required_experience_field"
             android:layout_marginTop="@dimen/margin_4"/>
@@ -143,7 +143,7 @@
             style="@style/Text_Regular_16_400"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Полная занятость, Удаленная работа"
+            tools:text="Полная занятость, Удаленная работа"
             android:textColor="?attr/black_to_white_color"
             app:layout_constraintTop_toBottomOf="@id/required_experience_value"
             android:layout_marginTop="@dimen/margin_8"/>
@@ -173,7 +173,7 @@
             style="@style/Text_Regular_16_400"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Разрабатывать новую функциональность приложения\nПомогать с интеграцией нашего SDK в другие приложения\nПроектировать большие новые модули\nПисать UI- и unit-тесты\nСледить за работоспособностью сервиса и устранять технический долг"
+            tools:text="Разрабатывать новую функциональность приложения\nПомогать с интеграцией нашего SDK в другие приложения\nПроектировать большие новые модули\nПисать UI- и unit-тесты\nСледить за работоспособностью сервиса и устранять технический долг"
             android:textColor="?attr/black_to_white_color"
             app:layout_constraintTop_toBottomOf="@id/vacancy_duties_field"
             android:layout_marginTop="@dimen/margin_4"/>
@@ -193,7 +193,7 @@
             style="@style/Text_Regular_16_400"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="100% Kotlin\nWebRTC\nCI по модели Trunk Based Development"
+            tools:text="100% Kotlin\nWebRTC\nCI по модели Trunk Based Development"
             android:textColor="?attr/black_to_white_color"
             app:layout_constraintTop_toBottomOf="@id/vacancy_requirements"
             android:layout_marginTop="@dimen/margin_4"/>
@@ -213,7 +213,7 @@
             style="@style/Text_Regular_16_400"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cильная команда, с которой можно расти\nВозможность влиять на процесс и результат\nРасширенная программа ДМС: стоматология, обследования, вызов врача на дом и многое другое"
+            tools:text="Cильная команда, с которой можно расти\nВозможность влиять на процесс и результат\nРасширенная программа ДМС: стоматология, обследования, вызов врача на дом и многое другое"
             android:textColor="?attr/black_to_white_color"
             app:layout_constraintTop_toBottomOf="@id/vacancy_conditions"
             android:layout_marginTop="@dimen/margin_4"/>
@@ -233,7 +233,7 @@
             style="@style/Text_Regular_16_400"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Знание классических алгоритмов и структуры данных\nПрограммирование для Android больше одного года\nЗнание WebRTC"
+            tools:text="Знание классических алгоритмов и структуры данных\nПрограммирование для Android больше одного года\nЗнание WebRTC"
             android:textColor="?attr/black_to_white_color"
             app:layout_constraintTop_toBottomOf="@id/vacancy_key_skills"
             android:layout_marginTop="@dimen/margin_16"/>
@@ -263,7 +263,7 @@
             style="@style/Text_Regular_16_400"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ирина"
+            tools:text="Ирина"
             android:textColor="?attr/black_to_white_color"
             app:layout_constraintTop_toBottomOf="@id/vacancy_contact_person"
             android:layout_marginTop="@dimen/margin_4"/>
@@ -283,7 +283,7 @@
             style="@style/Text_Regular_16_400"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="i.lozgkina@yandex.ru"
+            tools:text="i.lozgkina@yandex.ru"
             android:textColor="@color/blue"
             app:layout_constraintTop_toBottomOf="@id/vacancy_contact_email"
             android:layout_marginTop="@dimen/margin_4"/>
@@ -303,7 +303,7 @@
             style="@style/Text_Regular_16_400"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="+7 (904) 329-27-71"
+            tools:text="+7 (904) 329-27-71"
             android:textColor="@color/blue"
             app:layout_constraintTop_toBottomOf="@id/vacancy_contact_phone"
             android:layout_marginTop="@dimen/margin_4"/>
@@ -323,7 +323,7 @@
             style="@style/Text_Regular_16_400"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Заполнить анкету по форме можно на нашем сайте"
+            tools:text="Заполнить анкету по форме можно на нашем сайте"
             android:textColor="?attr/black_to_white_color"
             app:layout_constraintTop_toBottomOf="@id/vacancy_contact_phone_2"
             android:layout_marginTop="@dimen/margin_4"/>
