@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.di
 
+import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -33,6 +34,10 @@ val dataModule = module {
 
     single<NetworkSearch> {
         RetrofitNetworkClient(api = get(), context = get())
+    }
+
+    single<Gson> {
+        Gson()
     }
 
     single<VacancyDetailsMapper>  {
