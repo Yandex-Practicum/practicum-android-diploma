@@ -27,7 +27,7 @@ class DetailsViewModel @Inject constructor(
 ) : BaseViewModel(logger) {
 
     private val _uiState = MutableStateFlow<DetailsScreenState>(DetailsScreenState.Empty)
-    val uiState: StateFlow<DetailsScreenState> = _uiState.asStateFlow()
+    val uiState: StateFlow<DetailsScreenState> = _uiState
 
     /** Добавление вакансии в избранное */
     fun addToFavorites(vacancy: Vacancy) {
