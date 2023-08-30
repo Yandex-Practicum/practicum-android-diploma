@@ -218,72 +218,24 @@
             app:layout_constraintTop_toBottomOf="@id/employment" />
 
         <TextView
-            android:id="@+id/duties"
-            style="@style/font_medium_16"
+            android:id="@+id/vacancyDescription"
+            style="@style/font_regular_16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:ellipsize="end"
-            android:maxLines="1"
             android:text="@string/duties"
             android:textColor="?attr/colorOnPrimary"
             app:layout_constrainedWidth="true"
             app:layout_constraintEnd_toEndOf="@id/right_guideline"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="@id/left_guideline"
-            app:layout_constraintTop_toBottomOf="@id/descriptionTitle" />
-
-        <TextView
-            android:id="@+id/vacancyDescription"
-            style="@style/font_regular_16"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:ellipsize="end"
-            android:textColor="?attr/colorOnPrimary"
-            app:layout_constrainedWidth="true"
-            app:layout_constraintEnd_toEndOf="@id/right_guideline"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="@id/left_guideline"
-            app:layout_constraintTop_toBottomOf="@id/duties"
-            tools:text=" • Разрабатывать новую функциональность приложения\n
- • Помогать с интеграцией нашего SDK в другие приложения\n
- • Проектировать большие новые модули\n
- • Писать UI- и unit-тесты\n
- • Следить за работоспособностью сервиса и устранять технический долг" />
-
-        <TextView
-            android:id="@+id/requirementsTitle"
-            style="@style/font_medium_16"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="@string/requirements"
-            android:textColor="?attr/colorOnPrimary"
-            app:layout_constrainedWidth="true"
-            app:layout_constraintEnd_toEndOf="@id/right_guideline"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="@id/left_guideline"
-            app:layout_constraintTop_toBottomOf="@id/vacancyDescription" />
-
-        <TextView
-            android:id="@+id/requirements"
-            style="@style/font_regular_16"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:ellipsize="end"
-            android:textColor="?attr/colorOnPrimary"
-            app:layout_constrainedWidth="true"
-            app:layout_constraintEnd_toEndOf="@id/right_guideline"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="@id/left_guideline"
-            app:layout_constraintTop_toBottomOf="@id/requirementsTitle"
-            tools:text=" • Разрабатывать новую функциональность приложения\n
- • Помогать с интеграцией нашего SDK в другие приложения\n
- • Проектировать большие новые модули" />
+            app:layout_constraintTop_toBottomOf="@id/descriptionTitle"
+        tools:text=" • Разрабатывать новую функциональность приложения\n
+        • Помогать с интеграцией нашего SDK в другие приложения\n
+        • Проектировать большие новые модули\n
+        • Писать UI- и unit-тесты\n
+        • Следить за работоспособностью сервиса и устранять технический долг" />
 
         <TextView
             android:id="@+id/keySkillsTitle"
@@ -299,7 +251,7 @@
             app:layout_constraintEnd_toEndOf="@id/right_guideline"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="@id/left_guideline"
-            app:layout_constraintTop_toBottomOf="@id/requirements" />
+            app:layout_constraintTop_toBottomOf="@id/vacancyDescription" />
 
         <TextView
             android:id="@+id/keySkills"
@@ -342,7 +294,7 @@
             android:layout_marginTop="16dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@string/contacts"
+            android:text="@string/contacts_person"
             android:textColor="?attr/colorOnPrimary"
             app:layout_constrainedWidth="true"
             app:layout_constraintEnd_toEndOf="@id/right_guideline"
@@ -475,6 +427,7 @@
             android:textColor="@color/yp_white"
             app:backgroundTint="@color/yp_blue"
             app:cornerRadius="12dp"
+            app:layout_constraintTop_toBottomOf="@id/applyInfo"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/right_guideline"
             app:layout_constraintStart_toStartOf="@id/left_guideline" />
