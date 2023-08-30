@@ -16,7 +16,7 @@
         android:layout_width="@dimen/weight_height_logo"
         android:layout_height="@dimen/weight_height_logo"
         app:cardElevation="0dp"
-        app:cardCornerRadius="12dp"
+        app:cardCornerRadius="@dimen/radius_12"
         android:layout_marginEnd="@dimen/margin_12">
 
         <ImageView
@@ -25,7 +25,8 @@
             android:layout_height="match_parent"
             android:background="@drawable/corner_rectangle_bottomsheet"
             android:src="@drawable/placeholder"
-            tools:src="@tools:sample/avatars"/>
+            tools:src="@tools:sample/avatars"
+            android:contentDescription="@string/company_logo" />
     </androidx.cardview.widget.CardView>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -38,17 +39,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="?attr/black_to_white_color"
-            android:fontFamily="@font/ys_display_medium"
             android:maxLines="3"
             android:ellipsize="end"
-            style="Text_Medium_22"
+            style="@style/Text_Medium_22_500"
             tools:text="Разработчик на С++ в команду внутренних сервисов, Москва"/>
 
         <TextView
             android:id="@+id/employer_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Text_Regular_16_400"
+            style="@style/Text_Medium_16_500"
             android:textColor="?attr/black_to_white_color"
             android:maxLines="1"
             android:ellipsize="end"
@@ -58,7 +58,7 @@
             android:id="@+id/salary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Text_Regular_16_400"
+            style="@style/Text_Medium_16_500"
             android:textColor="?attr/black_to_white_color"
             android:maxLines="1"
             android:ellipsize="end"
