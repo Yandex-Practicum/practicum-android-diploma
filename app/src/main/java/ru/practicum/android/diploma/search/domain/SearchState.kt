@@ -4,12 +4,12 @@ import ru.practicum.android.diploma.search.domain.models.Vacancy
 
 sealed interface SearchState {
     object Loading : SearchState
-    data class TrackContent(
-        val tracks: List<Vacancy>,
+    data class VacancyContent(
+        val vacancies: List<Vacancy>,
     ) : SearchState
 
     data class HistroryContent(
-        val historyTrack: List<Vacancy>,
+        val historyVacancies: List<Vacancy>,
     ) : SearchState
 
     data class Error(

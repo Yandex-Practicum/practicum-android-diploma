@@ -5,7 +5,6 @@ import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.search.data.dto.SearchRequest
 import ru.practicum.android.diploma.search.data.dto.SearchResponse
-import ru.practicum.android.diploma.search.data.dto.VacancyDto
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.domain.SearchRepository
 import ru.practicum.android.diploma.util.Resource
@@ -35,7 +34,7 @@ class SearchRepositoryImpl(
 
     }
 
-    private fun mapVacanciesListFromDto(list: List<VacancyDto>): List<Vacancy> {
+    private fun mapVacanciesListFromDto(list: List<ru.practicum.android.diploma.search.data.dto.VacancyDto>): List<Vacancy> {
         return list.map {
             Vacancy(
                 it.id, it.name, it.city, it.employerName, it.employerLogoUrl,
@@ -44,9 +43,9 @@ class SearchRepositoryImpl(
         }
     }
 
-    private fun mapVacancyListToDto(list: List<Vacancy>): List<VacancyDto> {
+    private fun mapVacancyListToDto(list: List<Vacancy>): List<ru.practicum.android.diploma.search.data.dto.VacancyDto> {
         return list.map {
-            VacancyDto(
+            ru.practicum.android.diploma.search.data.dto.VacancyDto(
                 it.id, it.name, it.city, it.employerName, it.employerLogoUrl,
                 it.salaryCurrency, it.salaryFrom, it.salaryTo
             )

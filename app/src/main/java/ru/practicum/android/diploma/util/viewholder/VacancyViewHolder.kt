@@ -8,7 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.search.data.dto.VacancyDto
+import ru.practicum.android.diploma.search.domain.models.Vacancy
+
 
 class VacancyViewHolder(parentView: ViewGroup) : RecyclerView.ViewHolder(
     LayoutInflater.from(parentView.context)
@@ -19,7 +20,7 @@ class VacancyViewHolder(parentView: ViewGroup) : RecyclerView.ViewHolder(
     private val employerName: TextView = itemView.findViewById(R.id.employer_name)
     private val salary: TextView = itemView.findViewById(R.id.salary)
 
-    fun bind(model: VacancyDto) {
+    fun bind(model: Vacancy) {
         name.text = model.name
         employerName.text = model.employerName
         salary.text = getSalary(model, salary.context)
@@ -30,7 +31,7 @@ class VacancyViewHolder(parentView: ViewGroup) : RecyclerView.ViewHolder(
             .into(logoUrl)
     }
 
-    private fun getSalary(model: VacancyDto, context: Context): String {
+    private fun getSalary(model: Vacancy, context: Context): String {
         return when {
             (model.salaryCurrency == null) ->
                 context.getString(R.string.no_salary)
