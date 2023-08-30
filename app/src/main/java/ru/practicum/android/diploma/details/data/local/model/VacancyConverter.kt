@@ -13,6 +13,7 @@ class VacancyConverter @Inject constructor() {
                 title = title,
                 company = company,
                 salary = salary,
+                area = area,
                 date = date
             )
         }
@@ -25,6 +26,7 @@ class VacancyConverter @Inject constructor() {
                 title = title,
                 company = company,
                 salary = salary,
+                area = area,
                 date = date
             )
         }
