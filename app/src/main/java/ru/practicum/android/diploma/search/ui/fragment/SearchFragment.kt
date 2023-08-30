@@ -152,9 +152,14 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         
         with(binding) {
             
-            textFabSearch.text = getString(R.string.loading_message)
+            val fabText = StringBuilder()
+            fabText.append(getString(R.string.found))
+            fabText.append(" ")
+            fabText.append(resources.getQuantityString(R.plurals.vacancies, jobList.size, jobList.size))
             
-            textFabSearch.visibility = View.GONE
+            textFabSearch.text = fabText.toString()
+            
+            textFabSearch.visibility = View.VISIBLE
             recycler.visibility = View.VISIBLE
             placeholderImage.visibility = View.GONE
             progressBar.visibility = View.GONE
