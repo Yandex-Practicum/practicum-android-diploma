@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.details.data.local.LocalDataSource
 import ru.practicum.android.diploma.details.data.network.RemoteDataSource
 import ru.practicum.android.diploma.details.domain.DetailsRepository
@@ -15,7 +16,8 @@ import javax.inject.Inject
 
 class DetailsRepositoryImpl @Inject constructor(
     private val localDataSource: LocalDataSource,
-    private val remoteDataSource: RemoteDataSource
+    private val remoteDataSource: RemoteDataSource,
+    private val logger: Logger
 ) : DetailsRepository {
     private val latestFullVacancyFullInfoMutex = Mutex()
     private var latestFullVacancyFullInfo: Vacancy? = null
@@ -29,12 +31,12 @@ class DetailsRepositoryImpl @Inject constructor(
        if (latestFullVacancyFullInfo?.id != id) {
             remoteDataSource.getVacancyFullInfo(id).collect {
                 latestFullVacancyFullInfoMutex.withLock {
-                    Log.e(thisName, "getFullVacancyInfo: LOADED FROM INTERNET = ${it.data?.first()}", )
+                    logger.log(thisName, "getFullVacancyInfo: LOADED FROM INTERNET = ${it.data?.first()}")
                     this.latestFullVacancyFullInfo = it.data?.first()
                 }
             }
         }else{
-           Log.e(thisName, "getFullVacancyInfo: LOADED FROM CACHE = $latestFullVacancyFullInfo", )
+            logger.log(thisName, "getFullVacancyInfo: LOADED FROM CACHE = $latestFullVacancyFullInfo" )
        }
         return latestFullVacancyFullInfoMutex.withLock {
             flowOf(FetchResult.Success(listOf(this.latestFullVacancyFullInfo!!)))
