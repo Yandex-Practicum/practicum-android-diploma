@@ -50,105 +50,200 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <TextView
-        android:id="@+id/tv_name_of_vacancy"
-        style="@style/DetailsVacancyText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_16dp"
-        android:layout_marginTop="@dimen/margin_24dp"
-        android:layout_marginEnd="@dimen/margin_16dp"
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vacancy_toolbar"
-        tools:text="Android-разработчик" />
-
-    <TextView
-        android:id="@+id/tv_salary"
-        style="@style/ToolBarStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_4dp"
-        app:layout_constraintEnd_toEndOf="@+id/tv_name_of_vacancy"
-        app:layout_constraintStart_toStartOf="@+id/tv_name_of_vacancy"
-        app:layout_constraintTop_toBottomOf="@+id/tv_name_of_vacancy"
-        tools:text="от 100 000 руб." />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_16dp"
-        android:layout_marginTop="@dimen/margin_24dp"
-        android:layout_marginEnd="@dimen/margin_16dp"
-        android:backgroundTint="?attr/image_in_card_view_color"
-        app:cardCornerRadius="@dimen/size_12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_salary">
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_16dp"
-            android:layout_marginTop="@dimen/margin_16dp"
-            android:layout_marginBottom="@dimen/margin_16dp"
-            android:src="@drawable/ic_placeholder_company"
-            app:tint="?attr/bottom_menu_color" />
-
-        <TextView
-            android:id="@+id/tv_name_of_company"
-            style="@style/NameCompanyStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/size_72dp"
-            android:layout_marginTop="@dimen/margin_16dp"
-            android:layout_marginEnd="@dimen/margin_16dp"
-            tools:text="Еда" />
-
-        <TextView
-            android:id="@+id/tv_description"
-            style="@style/CityStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/size_72dp"
-            android:layout_marginTop="@dimen/size_44dp"
-            android:layout_marginEnd="@dimen/margin_16dp"
-
-            tools:text="Text" />
-
-    </androidx.cardview.widget.CardView>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="@dimen/margin_16dp"
-        android:layout_marginTop="@dimen/margin_24dp"
-        android:layout_marginEnd="@dimen/margin_16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView">
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginStart="@dimen/margin_16dp"
+            android:layout_marginTop="@dimen/margin_24dp"
+            android:layout_marginEnd="@dimen/margin_16dp"
             android:orientation="vertical">
 
-            <WebView
-                android:id="@+id/webView"
+            <TextView
+                android:id="@+id/tv_name_of_vacancy"
+                style="@style/DetailsVacancyText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_24dp"
-                android:backgroundTint="?attr/colorPrimaryVariant"
-                android:textColor="?attr/colorOnPrimary" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/vacancy_toolbar"
+                tools:text="Android-разработчик" />
+
+            <TextView
+                android:id="@+id/tv_salary"
+                style="@style/ToolBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_4dp"
+                app:layout_constraintEnd_toEndOf="@+id/tv_name_of_vacancy"
+                app:layout_constraintStart_toStartOf="@+id/tv_name_of_vacancy"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name_of_vacancy"
+                tools:text="от 100 000 руб." />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_24dp"
+                android:backgroundTint="?attr/image_in_card_view_color"
+                app:cardCornerRadius="@dimen/size_12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_salary">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_16dp"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:layout_marginBottom="@dimen/margin_16dp"
+                    android:src="@drawable/ic_placeholder_company"
+                    app:tint="?attr/bottom_menu_color" />
+
+                <TextView
+                    android:id="@+id/tv_name_of_company"
+                    style="@style/NameCompanyStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_72dp"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:layout_marginEnd="@dimen/margin_16dp"
+                    tools:text="Еда" />
+
+                <TextView
+                    android:id="@+id/tv_area"
+                    style="@style/CityStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_72dp"
+                    android:layout_marginTop="@dimen/size_44dp"
+                    android:layout_marginEnd="@dimen/margin_16dp"
+
+                    tools:text="Text" />
+
+            </androidx.cardview.widget.CardView>
+
+
+            <TextView
+                style="@style/Html_h1_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_24dp"
+                android:text="@string/required_experience" />
+
+            <TextView
+                android:id="@+id/tv_experience"
+                style="@style/Html_h2_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/no_info" />
+
+            <TextView
+                android:id="@+id/tv_schedule_employment"
+                style="@style/Html_h2_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/no_info" />
+
+            <TextView
+                style="@style/Html_title_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin_24dp"
+                android:text="@string/vacancy_description" />
+
+            <TextView
+                android:id="@+id/tv_description"
+                style="@style/Html_h2_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin_16dp"
+                android:text="@string/no_info" />
+
+            <TextView
+                android:id="@+id/tv_key_skills_title"
+                style="@style/Html_title_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin_24dp"
+                android:text="@string/key_skills" />
+
+            <TextView
+                android:id="@+id/tv_key_skills"
+                style="@style/Html_h2_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin_16dp"
+                android:text="@string/no_info" />
+
+            <TextView
+                android:id="@+id/tv_contacts_title"
+                style="@style/Html_title_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin_24dp"
+                android:text="@string/contacts" />
+
+            <TextView
+                style="@style/Html_h1_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin_16dp"
+                android:text="@string/contact_person" />
+
+            <TextView
+                android:id="@+id/tv_contacts_name"
+                style="@style/Html_h1_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/no_info"
+                android:textColor="?attr/colorSecondary" />
+
+            <TextView
+                style="@style/Html_h1_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin_16dp"
+                android:text="@string/e_mail" />
+
+            <TextView
+                android:id="@+id/tv_contacts_email"
+                style="@style/Html_h1_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/no_info"
+                android:textColor="?attr/colorSecondary" />
+
+            <TextView
+                style="@style/Html_h1_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin_16dp"
+                android:text="@string/phone" />
+
+            <TextView
+                android:id="@+id/tv_contacts_phone"
+                style="@style/Html_h1_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/no_info"
+                android:textColor="?attr/colorSecondary" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button_same_vacancy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
+                android:layout_marginTop="@dimen/margin_16dp"
                 android:layout_marginBottom="@dimen/size_24dp"
                 android:background="@drawable/bt_round_drawable"
                 android:fontFamily="@font/ys_display_medium"
@@ -157,6 +252,10 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_size_16sp"
                 app:cornerRadius="@dimen/size_12dp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_24dp"/>
         </LinearLayout>
 
     </ScrollView>

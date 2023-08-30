@@ -27,4 +27,13 @@
     <string name="choose_department"                >Выбор отрасли</string>
     <string name="enter_region"                     >Введите регион</string>
     <string name="enter_department"                 >Введите отрасль</string>
+    <string name="required_experience"              >Требуемый опыт</string>
+    <string name="vacancy_description"              >Описание вакансии</string>
+    <string name="key_skills"                       >Ключевые навыки</string>
+    <string name="contacts"                         >Контакты</string>
+    <string name="contact_person"                   >Контактное лицо</string>
+    <string name="phone"                            >Телефон</string>
+    <string name="e_mail"                           >E-mail</string>
+    <string name="no_info"                          >Информация отсутствует</string>
+
 </resources>
