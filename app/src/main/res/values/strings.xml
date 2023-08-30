@@ -30,5 +30,16 @@
     <string name="vacancy_contact_email">E-mail</string>
     <string name="vacancy_contact_phone">Телефон</string>
     <string name="similar_vacancies">Похожие вакансии</string>
+    <string name="choose_place_of_work">Выбор места работы</string>
+    <string name="choose_of_country">Выбор страны</string>
+    <string name="choose_of_region">Выбор региона</string>
+    <string name="choose_of_industry">Выбор отрасли</string>
+    <string name="enter_region">Выбор региона</string>
+    <string name="enter_industry">Введите отрасль</string>
+    <string name="region">Регион</string>
+    <string name="reset">Сбросить</string>
+    <string name="apply">Применить</string>
+    <string name="choose">Выбрать</string>
+
 
 </resources>

@@ -3,6 +3,154 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context= "ru.practicum.android.diploma.filters.ui.fragment.FragmentChooseFilter">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="ru.practicum.android.diploma.filters.ui.fragment.FragmentChooseFilter">
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftBorder"
+        style="@style/guideline"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightBorder"
+        style="@style/guideline"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp" />
+
+    <ImageView
+        android:id="@+id/arrowback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/arrow_back"
+        app:layout_constraintStart_toStartOf="@+id/leftBorder"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="12dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp" />
+
+    <TextView
+        android:id="@+id/choose_textview"
+        style="@style/Text_Medium_22_500"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:text="@string/choose_place_of_work"
+        android:textColor="?attr/black_to_white_color"
+        app:layout_constraintBottom_toBottomOf="@+id/arrowback"
+        app:layout_constraintStart_toEndOf="@+id/arrowback"
+        app:layout_constraintTop_toTopOf="@+id/arrowback" />
+
+    <EditText
+        android:id="@+id/search_edit_text"
+        style="@style/Text_Regular_16_400"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_56"
+        android:background="@drawable/field_for_search_edit_text"
+        android:drawableEnd="@drawable/search"
+        android:hint="@string/choose_of_country"
+        android:inputType="textNoSuggestions"
+        android:maxLines="1"
+        android:paddingHorizontal="@dimen/margin_16"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textColorHint="?attr/gray_to_white_color"
+        android:textCursorDrawable="@drawable/cursor"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        android:layout_marginTop="@dimen/margin_8"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@+id/choose_textview"
+        android:visibility="gone"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_8"
+        app:layout_constraintStart_toStartOf="@+id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@+id/search_edit_text"
+        android:visibility="gone"/>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/country"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/weight_height_60"
+        android:layout_marginTop="35dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/choose_textview"
+        app:layout_constraintEnd_toStartOf="@+id/country_button"
+        android:textColorHint="?attr/gray_to_white_color"
+        android:enabled="false"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/Text_Regular_16_400"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="?attr/white2_to_black2_color"
+            android:hint="@string/country"
+            android:textColor="?attr/gray_to_white_color" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/country_button"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:paddingStart="20dp"
+        android:src="@drawable/arrow_forward"
+        app:layout_constraintBottom_toBottomOf="@+id/country"
+        app:layout_constraintEnd_toStartOf="@+id/rightBorder"
+        app:layout_constraintTop_toTopOf="@+id/country" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/region"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/weight_height_60"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/country"
+        app:layout_constraintEnd_toStartOf="@+id/region_button"
+        android:textColorHint="?attr/gray_to_white_color"
+        android:enabled="false"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/Text_Regular_16_400"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/gray_to_white_color"
+            android:backgroundTint="?attr/white2_to_black2_color"
+            android:hint="@string/region" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <ImageView
+        android:id="@+id/region_button"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/weight_height_60"
+        android:paddingStart="20dp"
+        android:src="@drawable/arrow_forward"
+        app:layout_constraintBottom_toBottomOf="@+id/region"
+        app:layout_constraintEnd_toStartOf="@+id/rightBorder"
+        app:layout_constraintTop_toTopOf="@+id/region" />
+
+    <TextView
+        android:id="@id/button_apply"
+        style="@style/Text_Medium_16_500"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/field_for_result_text"
+        android:gravity="center"
+        android:text="@string/choose"
+        android:textColor="@color/white_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/rightBorder"
+        app:layout_constraintStart_toStartOf="@+id/leftBorder" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

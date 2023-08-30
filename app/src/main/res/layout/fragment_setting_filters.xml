@@ -42,6 +42,7 @@
         android:paddingBottom="8dp"
         android:text="@string/SettingFilters"
         android:textColor="?attr/black_to_white_color"
+        app:layout_constraintBottom_toBottomOf="@+id/arrowback"
         app:layout_constraintStart_toEndOf="@+id/arrowback"
         app:layout_constraintTop_toTopOf="@+id/arrowback" />
 
@@ -49,7 +50,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/place_of_work"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/weight_height_60"
         app:layout_constraintEnd_toStartOf="@+id/place_of_work_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/arrowback"
@@ -57,7 +58,7 @@
         android:enabled="false"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
-        android:textColorHint="?attr/gray_to_white_color"
+        android:textColorHint="@color/gray"
         >
         <com.google.android.material.textfield.TextInputEditText
             style="@style/Text_Regular_16_400"
@@ -72,12 +73,12 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/industry"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/weight_height_60"
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/place_of_work"
         app:layout_constraintEnd_toStartOf="@+id/industry_button"
-        android:textColorHint="?attr/gray_to_white_color"
+        android:textColorHint="@color/gray"
         android:enabled="false"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
@@ -99,7 +100,7 @@
     <ImageView
         android:id="@+id/place_of_work_button"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/weight_height_60"
         android:paddingStart="20dp"
         android:src="@drawable/arrow_forward"
         app:layout_constraintBottom_toBottomOf="@+id/place_of_work"
@@ -108,7 +109,7 @@
     <ImageView
         android:id="@+id/industry_button"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/weight_height_60"
         android:paddingStart="20dp"
         android:src="@drawable/arrow_forward"
         app:layout_constraintBottom_toBottomOf="@+id/industry"
@@ -161,6 +162,33 @@
 
         app:layout_constraintEnd_toStartOf="@id/rightBorder"
         app:layout_constraintTop_toTopOf="@+id/no_without_sallary" />
+
+    <TextView
+        android:id="@+id/button_apply"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/weight_height_60"
+        android:gravity="center"
+        android:text="@string/apply"
+        style="@style/Text_Medium_16_500"
+        android:textColor="@color/white_2"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toStartOf="@+id/rightBorder"
+        app:layout_constraintStart_toStartOf="@+id/leftBorder"
+        android:background="@drawable/field_for_result_text"/>
+
+    <TextView
+        android:id="@+id/textView"
+        style="@style/Text_Medium_16_500"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:text="@string/reset"
+        android:textColor="?attr/red_to_white_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/rightBorder"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/leftBorder" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
