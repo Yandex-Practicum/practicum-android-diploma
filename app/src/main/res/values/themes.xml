@@ -13,6 +13,7 @@
         <item name="android:statusBarColor">@color/blue</item>
         <!-- Customize your theme here. -->
         <item name="favorite_btn_color">@color/red</item>
+        <item name="cancel_btn_filter">@color/red</item>
         <item name="hint_background_color">@color/light_gray</item>
         <item name="hint_text_color">@color/gray</item>
         <item name="bottom_menu_color">@color/gray</item>

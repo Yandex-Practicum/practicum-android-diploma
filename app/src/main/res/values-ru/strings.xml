@@ -37,7 +37,9 @@
     <string name="phone"                            >Телефон</string>
     <string name="e_mail"                           >E-mail</string>
     <string name="no_info"                          >Информация отсутствует</string>
-
+    <string name="apply"                            >Применить</string>
+    <string name="cancel"                           >Сбросить</string>
+    <string name="choose"                           >Выбрать</string>
     <string name="lead"                             >Старкова Маргарита</string>
     <string name="oldwise"                          >Гнесный Петр</string>
     <string name="flash"                            >Костин Олег</string>

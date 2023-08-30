@@ -29,7 +29,6 @@
     <string name="choose_department"                >Choose Department</string>
     <string name="enter_region"                     >Enter Region</string>
     <string name="enter_department"                 >Enter Department</string>
-    <string name="app_preferences" translatable="false">app_preferences</string>
     <string name="required_experience"              >Required experience</string>
     <string name="vacancy_description"              >Vacancy description</string>
     <string name="key_skills"                       >Key skills</string>
@@ -40,6 +39,10 @@
     <string name="no_info"                          >No information</string>
     <string name="team"                             >Team</string>
     <string name="description"                      >We worked on the application</string>
+    <string name="apply"                            >Apply</string>
+    <string name="cancel"                           >Cancel</string>
+    <string name="choose"                           >Choose</string>
+<!--    <string name="app_preferences" translatable="false">app_preferences</string>-->
 
     <string name="lead"                             >Starkova Margarita</string>
     <string name="oldwise"                          >Gnesny Petr</string>

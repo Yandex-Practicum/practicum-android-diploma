@@ -6,8 +6,9 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.di.components.DaggerAppComponent
 import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
-
+private const val APP_PREFERENCES = "app_preferences"
 class App: Application() {
+
     @Inject
     lateinit var logger: Logger
     val component by lazy(LazyThreadSafetyMode.NONE) {
@@ -15,7 +16,7 @@ class App: Application() {
             .create(
                 context = this,
                 baseUrl = getString(R.string.base_url),
-                prefsKey = getString(R.string.app_preferences)
+                prefsKey = APP_PREFERENCES
             )
     }
 
