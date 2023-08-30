@@ -31,4 +31,8 @@
         <item name="fontWeight">400</item>
     </style>
 
+    <style name="rounded_square_12">
+        <item name="cornerSize">12%</item>
+    </style>
+
 </resources>

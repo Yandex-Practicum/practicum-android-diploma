@@ -1,13 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".features.search.presentation.ui.SearchFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="search_fragment" />
+    <TextView style="@style/font_medium_22"
+        android:id="@+id/vacancy_search_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/vacancy_search"
+        android:textColor="@color/yp_black"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
-</FrameLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/vacancy_feed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        app:layout_constraintTop_toTopOf="@id/search_edit_field"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/filter_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"/>
+
+    <EditText style="@style/font_regular_16"
+        android:id="@+id/search_edit_field"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/rounded_search_editor"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:lines="1"
+        android:maxLength="15"
+        android:singleLine="true"
+        android:textColor="@color/yp_black"
+        android:textColorHint="@color/yp_gray"
+        android:textCursorDrawable="@drawable/cursor_color"
+        android:hint="@string/vacancy_search_field_hint"
+        android:layout_marginTop="28dp"
+        android:layout_marginHorizontal="16dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="24dp"
+        app:layout_constraintTop_toBottomOf="@id/vacancy_search_label" />
+
+    <ImageView
+        android:id="@+id/search_cancel_active"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/search_cancel_icon"
+        app:layout_constraintTop_toTopOf="@id/search_edit_field"
+        app:layout_constraintEnd_toEndOf="@id/search_edit_field"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/search_cancel_inactive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/search_lens_icon"
+        app:layout_constraintTop_toTopOf="@id/search_edit_field"
+        app:layout_constraintEnd_toEndOf="@id/search_edit_field"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:src="@drawable/search_placeholder"
+        app:layout_constraintTop_toBottomOf="@id/search_edit_field"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="156dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_searh_chip"
+        tools:text="Найдено мильён вакансий"
+        android:textColor="@color/yp_white"
+        android:fontFamily="@font/ys_display_regular"
+        android:textSize="@dimen/font_size_16"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="4dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/search_edit_field"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:indeterminateTint="@color/yp_blue"
+        app:layout_constraintTop_toBottomOf="@id/search_edit_field"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
