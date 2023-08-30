@@ -32,6 +32,7 @@ android {
             signingConfig = signingConfigs.getByName("debug")
         }
         debug {
+            isMinifyEnabled = false
             signingConfig = signingConfigs.getByName("debug")
         }
     }
@@ -54,6 +55,7 @@ dependencies {
     implementation(libs.bundles.navigation.component)
     implementation(libs.bundles.serialization)
     implementation(libs.coroutines.android)
+    implementation(libs.coroutines.core)
     implementation(libs.bundles.retrofit2)
     implementation(libs.bundles.room)
     implementation(libs.dagger)

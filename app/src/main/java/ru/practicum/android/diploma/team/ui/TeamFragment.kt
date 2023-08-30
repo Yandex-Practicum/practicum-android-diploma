@@ -10,7 +10,8 @@ import ru.practicum.android.diploma.databinding.FragmentTeamBinding
 import ru.practicum.android.diploma.util.viewBinding
 
 class TeamFragment : Fragment(R.layout.fragment_team) {
-private val binding by viewBinding<FragmentTeamBinding>()
+
+    private val binding by viewBinding<FragmentTeamBinding>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

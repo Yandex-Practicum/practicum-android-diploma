@@ -27,6 +27,8 @@
     <string name="choose_department"                >Выбор отрасли</string>
     <string name="enter_region"                     >Введите регион</string>
     <string name="enter_department"                 >Введите отрасль</string>
+    <string name="team"                             >Команда</string>
+    <string name="description"                      >Над приложением работали</string>
     <string name="required_experience"              >Требуемый опыт</string>
     <string name="vacancy_description"              >Описание вакансии</string>
     <string name="key_skills"                       >Ключевые навыки</string>
@@ -35,5 +37,12 @@
     <string name="phone"                            >Телефон</string>
     <string name="e_mail"                           >E-mail</string>
     <string name="no_info"                          >Информация отсутствует</string>
-
+    <string name="apply"                            >Применить</string>
+    <string name="cancel"                           >Сбросить</string>
+    <string name="choose"                           >Выбрать</string>
+    <string name="lead"                             >Старкова Маргарита</string>
+    <string name="oldwise"                          >Гнесный Петр</string>
+    <string name="flash"                            >Костин Олег</string>
+    <string name="meister"                          >Белых Игорь</string>
+    <string name="bitwise"                          >Языков Данила</string>
 </resources>

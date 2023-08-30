@@ -169,5 +169,21 @@
         <item name="android:layout_marginEnd">@dimen/margin_4dp</item>
         <item name="android:layout_marginBottom">@dimen/margin_6dp</item>
     </style>
+    <style name="FilterBottomButtonsStyle">
+        <item name="android:layout_marginHorizontal">@dimen/margin_16dp</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">@dimen/text_size_16sp</item>
+    </style>
+
+    <style name="Developers">
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/text_size_16sp</item>
+        <item name="android:paddingHorizontal">@dimen/margin_16dp</item>
+        <item name="android:layout_marginTop">@dimen/margin_16dp</item>
+
+    </style>
 
 </resources>

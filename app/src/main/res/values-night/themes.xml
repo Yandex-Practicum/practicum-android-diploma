@@ -11,7 +11,7 @@
         <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/black</item>
-        <!-- Customize your theme here. -->
+        <item name="cancel_btn_filter">@color/white</item>
         <item name="favorite_btn_color">@color/red</item>
         <item name="hint_background_color">@color/gray</item>
         <item name="hint_text_color">@color/white</item>
