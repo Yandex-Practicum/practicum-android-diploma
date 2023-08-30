@@ -26,8 +26,8 @@ class DetailsViewModel @Inject constructor(
     private val detailsInteractor: DetailsInteractor
 ) : BaseViewModel(logger) {
 
-    private val uiStateMutable = MutableStateFlow<DetailsScreenState>(DetailsScreenState.Empty)
-    val uiState: StateFlow<DetailsScreenState> = uiStateMutable.asStateFlow()
+    private val _uiStateMutable = MutableStateFlow<DetailsScreenState>(DetailsScreenState.Empty)
+    val uiState: StateFlow<DetailsScreenState> = _uiStateMutable.asStateFlow()
 
     /** Добавление вакансии в избранное */
     fun addToFavorites(vacancy: Vacancy) {
@@ -63,7 +63,7 @@ class DetailsViewModel @Inject constructor(
             /*detailsInteractor.getFullVacancyInfo(id).collect {
 
             }*/
-            uiStateMutable.emit(DetailsScreenState.Content(mokData()))
+            _uiStateMutable.emit(DetailsScreenState.Content(mokData()))
         }
     }
 
