@@ -12,6 +12,7 @@ import ru.practicum.android.diploma.search.domain.api.SearchVacanciesUseCase
 import ru.practicum.android.diploma.search.domain.models.FetchResult
 import ru.practicum.android.diploma.search.ui.models.SearchScreenState
 import ru.practicum.android.diploma.util.delayedAction
+import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
 
 class SearchViewModel @Inject constructor(
@@ -55,6 +56,7 @@ class SearchViewModel @Inject constructor(
     }
     
     private fun processResult(result: FetchResult) {
+        log(thisName, "processResult -> $result")
         when {
             result.error != null -> {
                 _uitState.value = SearchScreenState.Error(result.error)
