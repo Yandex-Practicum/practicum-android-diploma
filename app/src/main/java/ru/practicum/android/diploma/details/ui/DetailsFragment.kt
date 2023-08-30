@@ -6,7 +6,6 @@ import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.bumptech.glide.Glide
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
@@ -55,32 +54,41 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
     }
 
     /** Функция для отображения(отрисовки) описания вакансии, опыта, графика работы, ключевых навыков, контактов */
-    private fun showDescription(vacancy: VacancyFullInfoModel) = with(binding) {
-        viewModel.log(thisName, "showDescription()")
-        tvExperience.text = vacancy.experience?.name
-        val tvSchedule = vacancy.employment?.name + ". " + vacancy.schedule?.name
-        tvScheduleEmployment.text = tvSchedule
-        val formattedDescription = HtmlCompat.fromHtml(vacancy.description!!, HtmlCompat.FROM_HTML_MODE_LEGACY)
-        tvDescription.text = formattedDescription
-        val tvKeySkillsList = vacancy.keySkills?.mapIndexed { _, skill -> "• ${skill.name}" }?.joinToString("\n")
-        tvKeySkills.text = tvKeySkillsList
-        tvContactsName.text = vacancy.contacts?.name
-        tvContactsEmail.text = vacancy.contacts?.email
-        val phoneList = vacancy.contacts?.phones?.mapIndexed { _, phone -> "+" + phone.country +
-                " (${phone.city}) " + phone.number }?.joinToString("\n")
-        tvContactsPhone.text = phoneList
+    private fun showDescription(vacancy: VacancyFullInfoModel) {
+        with(binding) {
+            viewModel.log(thisName, "showDescription()")
+            val tvSchedule = vacancy.employment?.name + ". " + vacancy.schedule?.name
+            val formattedDescription =
+                HtmlCompat.fromHtml(vacancy.description!!, HtmlCompat.FROM_HTML_MODE_LEGACY)
+            val tvKeySkillsList =
+                vacancy.keySkills?.mapIndexed { _, skill -> "• ${skill.name}" }?.joinToString("\n")
+            val phoneList = vacancy.contacts?.phones?.mapIndexed { _, phone ->
+                "+" + phone.country +
+                        " (${phone.city}) " + phone.number
+            }?.joinToString("\n")
+
+            tvExperience.text = vacancy.experience?.name
+            tvScheduleEmployment.text = tvSchedule
+            tvDescription.text = formattedDescription
+            tvKeySkills.text = tvKeySkillsList
+            tvContactsName.text = vacancy.contacts?.name
+            tvContactsEmail.text = vacancy.contacts?.email
+            tvContactsPhone.text = phoneList
+        }
     }
 
 
     /** Функция для отображения(отрисовки) заголовка, зарплаты, формы. Информацию получаем из bundle */
-    private fun drawMainInfo() = with(binding) {
-        viewModel.log(thisName, "drawMainInfo()")
-        vacancy?.let {
-            tvNameOfVacancy.text = it.title
-            tvSalary.text = it.salary
-            tvNameOfCompany.text = it.company
-            tvArea.text = it.area
-            imageView.setImage(it.iconUri, R.drawable.ic_placeholder_company)
+    private fun drawMainInfo() {
+        with(binding) {
+            viewModel.log(thisName, "drawMainInfo()")
+            vacancy?.let {
+                tvNameOfVacancy.text = it.title
+                tvSalary.text = it.salary
+                tvNameOfCompany.text = it.company
+                tvArea.text = it.area
+                imageView.setImage(it.iconUri, R.drawable.ic_placeholder_company)
+            }
         }
     }
 
