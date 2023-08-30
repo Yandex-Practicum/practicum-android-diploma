@@ -17,14 +17,14 @@ class RemoteRepositoryImpl @Inject constructor(
 ) : RemoteRepository {
     
     override suspend fun search(query: String): Flow<FetchResult> {
-        logger.log(thisName, "search -> $query")
+        logger.log(thisName, "fun search($query: String): Flow<FetchResult>")
         val request = VacancyRequest.SearchVacanciesRequest(query)
         return networkClient.doRequest(request)
     }
     
     private fun getMockJobList(): List<Vacancy> {
         val list = List(20) { getMockVacancy() }
-        logger.log(thisName, "getMockJobList -> $list")
+        logger.log(thisName, "getMockJobList(): List<Vacancy> -> $list")
         return list
     }
 }

@@ -31,6 +31,15 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         viewModel.log(thisName, "onAttach $viewModel")
         (activity as RootActivity).component.inject(this)
     }
+    
+    
+    override fun onResume() {
+        super.onResume()
+        TODO("Сделать запрос в SharedPrefs на наличие текущих филтров." +
+                "Далее если фильтры есть и строка поиска не пустая -> сделать запрос в сеть и обновить список" +
+            "Если фильтрые есть, но строка поиска пустая -> просто применить фильтр без запроса в сеть"
+                )
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -136,7 +145,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
     
     private fun showContent(jobList: List<Vacancy>) {
-        viewModel.log(thisName, "showContent -> $jobList")
+        viewModel.log(thisName, "showContent -> ${jobList.size}")
         refreshJobList(jobList)
         isScrollingEnabled(true)
         
@@ -185,7 +194,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     
     private fun refreshJobList(list: List<Vacancy>) {
         viewModel.log(thisName, "refreshJobList -> ${list.size}")
-        viewModel.log(thisName, "refreshJobList -> $list")
         searchAdapter?.list = list
         searchAdapter?.notifyDataSetChanged()
     }

@@ -15,7 +15,7 @@ class SearchVacanciesUseCaseImpl @Inject constructor(
     SearchVacanciesUseCase {
     
     override suspend fun search(query: String): Flow<FetchResult> {
-        logger.log(thisName, "search -> $query")
+        logger.log(thisName, "fun search($query: String): Flow<FetchResult>")
         return repository.search(query)
     }
 }

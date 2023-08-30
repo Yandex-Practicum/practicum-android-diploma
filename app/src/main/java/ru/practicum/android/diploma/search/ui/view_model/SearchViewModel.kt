@@ -20,9 +20,9 @@ class SearchViewModel @Inject constructor(
     logger: Logger
 ) : BaseViewModel(logger) {
     
-    private val _uitState: MutableStateFlow<SearchScreenState> =
+    private val _uiState: MutableStateFlow<SearchScreenState> =
         MutableStateFlow(SearchScreenState.Default)
-    val uiState: StateFlow<SearchScreenState> = _uitState
+    val uiState: StateFlow<SearchScreenState> = _uiState
     
     private var latestSearchQuery: String? = null
     private var searchJob: Job? = null
@@ -34,7 +34,7 @@ class SearchViewModel @Inject constructor(
     fun onSearchQueryChanged(query: String?) {
         log(thisName, "onSearchQueryChanged -> $query")
         if (query.isNullOrEmpty()) {
-            _uitState.value = SearchScreenState.Default
+            _uiState.value = SearchScreenState.Default
         } else {
             if (latestSearchQuery == query) return
             log(thisName, "latestSearchQuery -> $latestSearchQuery")
@@ -45,13 +45,12 @@ class SearchViewModel @Inject constructor(
     
     private fun loadJobList(query: String) {
         log(thisName, "loadJobList -> $query")
-        _uitState.value = SearchScreenState.Loading
+        _uiState.value = SearchScreenState.Loading
     
         searchJob = viewModelScope.launch(Dispatchers.IO) {
             searchVacanciesUseCase
                 .search(query)
                 .collect { result ->
-                    log(thisName, "loadJobList result -> $result")
                     processResult(result)
                 }
         }
@@ -61,11 +60,11 @@ class SearchViewModel @Inject constructor(
         log(thisName, "processResult -> $result")
         when {
             result.error != null -> {
-                _uitState.value = SearchScreenState.Error(result.error)
+                _uiState.value = SearchScreenState.Error(result.error)
             }
             
             result.data != null -> {
-                _uitState.value = SearchScreenState.Content(result.data)
+                _uiState.value = SearchScreenState.Content(result.data)
             }
         }
     }
