@@ -13,8 +13,5 @@
     <string name="from">от</string>
     <string name="no_salary">ЗП не указана</string>
     <string name="industry">Отрасль</string>
-    <string name="expected_salary">Ожидаемая ЗП</string>
-    <string name="enter_salary">Введите сумму</string>
-    <string name="not_show_without_sallary">Не показывать без ЗП</string>
 
 </resources>
