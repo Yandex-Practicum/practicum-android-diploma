@@ -15,6 +15,7 @@ import ru.practicum.android.diploma.databinding.FragmentDetailsBinding
 import ru.practicum.android.diploma.root.RootActivity
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.domain.models.VacancyFullInfoModel
+import ru.practicum.android.diploma.util.setImage
 import ru.practicum.android.diploma.util.thisName
 import ru.practicum.android.diploma.util.viewBinding
 
@@ -79,10 +80,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
             tvSalary.text = it.salary
             tvNameOfCompany.text = it.company
             tvArea.text = it.area
-            Glide.with(this@DetailsFragment)
-                .load(it.iconUri)
-                .placeholder(R.drawable.ic_placeholder_company)
-                .into(imageView)
+            imageView.setImage(it.iconUri, R.drawable.ic_placeholder_company)
         }
     }
 

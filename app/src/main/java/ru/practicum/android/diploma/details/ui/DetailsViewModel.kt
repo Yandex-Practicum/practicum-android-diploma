@@ -22,7 +22,7 @@ import javax.inject.Inject
 
 /** ViewModel для экрана деталей вакансии */
 class DetailsViewModel @Inject constructor(
-    val logger: Logger,
+    logger: Logger,
     private val detailsInteractor: DetailsInteractor
 ) : BaseViewModel(logger) {
 
@@ -59,7 +59,7 @@ class DetailsViewModel @Inject constructor(
     /** Получение вакансии по ID. Пока что моковые данные без запроса к серверу */
     fun getVacancyByID(id: Long) {
         viewModelScope.launch(Dispatchers.IO) {
-            logger.log(thisName, "getVacancyByID()")
+            log(thisName, "getVacancyByID()")
             /*detailsInteractor.getFullVacancyInfo(id).collect {
 
             }*/
