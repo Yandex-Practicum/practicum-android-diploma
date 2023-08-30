@@ -6,7 +6,7 @@ data class VacancyDetailsDto(
 
     @SerializedName("id") val vacancyId: String,
     @SerializedName("name") val vacancyName: String,
-    @SerializedName("salary") val salary: Salary?,
+    @SerializedName("salary") val salary: SalaryDto?,
     @SerializedName("employer") val employer: Employer?,
     @SerializedName("area") val vacancyArea: VacancyArea,
     @SerializedName("experience") val experienceDescription: Experience?,
@@ -17,6 +17,7 @@ data class VacancyDetailsDto(
     @SerializedName("key_skills") val keySkills: List<String>,
     @SerializedName("contacts") val contacts: Contacts?,
     @SerializedName("response_url") val responseUrl: String?
+
 ) {
 
     data class Contacts(
@@ -25,10 +26,9 @@ data class VacancyDetailsDto(
         @SerializedName("phones") val phones: List<Phone>?,
     )
 
-    data class Salary(
+    data class SalaryDto(
         @SerializedName("currency") val currency: String?,
         @SerializedName("from") val from: Int?,
-        @SerializedName("gross") val isGross: Boolean?,
         @SerializedName("to") val to: Int?
     )
 
