@@ -9,6 +9,5 @@
     <dimen name="margin_64">64dp</dimen>
     <dimen name="logo_padding_8">8dp</dimen>
     <dimen name="weight_height_logo">48dp</dimen>
-    <dimen name="margin_12">12dp</dimen>
-
+    <dimen name="radius_12">12dp</dimen>
 </resources>
