@@ -1,6 +1,8 @@
 package ru.practicum.android.diploma.search.data.network.test
 
-import com.google.gson.annotations.SerializedName
+
+
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 
@@ -9,11 +11,11 @@ data class TrackDto(
     val trackId: Long,
     val trackName: String? = "",
     val artistName: String? = "",
-    @SerializedName("trackTimeMillis") val trackTime: String? = "",
-    @SerializedName("artworkUrl100") val image: String? = "",
-    @SerializedName("collectionName") val album: String? = "",
-    @SerializedName("releaseDate") val year: String? = "",
-    @SerializedName("primaryGenreName") val genre: String? = "",
+    @SerialName("trackTimeMillis") val trackTime: Long? = 0L,
+    @SerialName("artworkUrl100") val image: String? = "",
+    @SerialName("collectionName") val album: String? = "",
+    @SerialName("releaseDate") val year: String? = "",
+    @SerialName("primaryGenreName") val genre: String? = "",
     val country: String? = "",
     val previewUrl: String? = ""
 ) {
