@@ -73,9 +73,11 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
         binding.progressBarForLoad.visibility = View.GONE
         binding.progressBarInEnd.visibility = View.GONE
 
-        adapter.setVacancies(vacancy)
         hideKeyBoard()
+        adapter.setVacancies(vacancy)
         adapter.notifyDataSetChanged()
+
+        setSearchIconForEditText()
     }
 
     /* private fun showHistory(historyTrack: List<Track>) {
@@ -111,10 +113,18 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
 
     private fun changeIconInEditText(s: CharSequence?) {
         return if (s.isNullOrEmpty()) {
-            binding.editTextImage.setImageDrawable(resources.getDrawable(R.drawable.search))
+            setSearchIconForEditText()
         } else {
-            binding.editTextImage.setImageDrawable(resources.getDrawable(R.drawable.close))
+            setCloseIconForEditText()
         }
+    }
+
+    private fun setCloseIconForEditText() {
+        binding.editTextImage.setImageDrawable(resources.getDrawable(R.drawable.close))
+    }
+
+    private fun setSearchIconForEditText() {
+        binding.editTextImage.setImageDrawable(resources.getDrawable(R.drawable.search))
     }
 
     /* private fun removeHistory() {

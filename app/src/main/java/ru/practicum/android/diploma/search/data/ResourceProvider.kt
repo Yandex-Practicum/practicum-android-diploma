@@ -1,5 +1,5 @@
 package ru.practicum.android.diploma.search.data
 
 interface ResourceProvider {
-    fun getString(strRres: Int): String
+    fun getString(stringResource: Int): String
 }

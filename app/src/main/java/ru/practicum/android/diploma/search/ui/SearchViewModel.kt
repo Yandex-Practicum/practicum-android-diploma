@@ -90,32 +90,36 @@ class SearchViewModel(
             viewModelScope.launch {
                 interactor.loadVacancies(newSearchText)
                     .collect { pair ->
-                        val vacancies = mutableListOf<Vacancy>()
-                        if (pair.first != null) {
-                            vacancies.addAll(pair.first!!)
-                        }
-                        when {
-                            pair.second != null -> {
-                                renderState(
-                                    SearchState.Error(
-                                        errorMessage = resourceProvider.getString(R.string.no_connection)
-                                    )
-                                )
-                            }
-
-                            vacancies.isEmpty() -> {
-                                renderState(
-                                    SearchState.Empty(
-                                        message = resourceProvider.getString(R.string.nothing_found)
-                                    )
-                                )
-                            }
-
-                            else -> {
-                                renderState(SearchState.VacancyContent(vacancies = vacancies))
-                            }
-                        }
+                        processResult(pair.first, pair.second)
                     }
+            }
+        }
+    }
+
+    private fun processResult(foundVacancies: List<Vacancy>?, errorMessage: String?) {
+        val vacancies = mutableListOf<Vacancy>()
+        if (foundVacancies != null) {
+            vacancies.addAll(foundVacancies)
+        }
+        when {
+            errorMessage != null -> {
+                renderState(
+                    SearchState.Error(
+                        errorMessage = resourceProvider.getString(R.string.no_connection)
+                    )
+                )
+            }
+
+            vacancies.isEmpty() -> {
+                renderState(
+                    SearchState.Empty(
+                        message = resourceProvider.getString(R.string.nothing_found)
+                    )
+                )
+            }
+
+            else -> {
+                renderState(SearchState.VacancyContent(vacancies = vacancies))
             }
         }
     }

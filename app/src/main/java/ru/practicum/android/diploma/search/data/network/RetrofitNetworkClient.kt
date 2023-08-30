@@ -21,17 +21,15 @@ class RetrofitNetworkClient(private val api: Api, private val context: Context) 
         if (dto !is SearchRequest) {
             return Response().apply { resultCode = 400 }
         }
-        return withContext(Dispatchers.IO){
+        return withContext(Dispatchers.IO) {
             try {
-                val responce = api.search(dto.expression)
-                responce.apply { resultCode = 200 }
+                val response = api.search(dto.expression)
+                response.apply { resultCode = 200 }
             } catch (e: Throwable) {
                 Response().apply { resultCode = 500 }
 
             }
         }
-
-
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -49,9 +47,4 @@ class RetrofitNetworkClient(private val api: Api, private val context: Context) 
         }
         return false
     }
-    companion object{
-        const val BASE_URL = "https://api.hh.ru"
-    }
-
-
 }

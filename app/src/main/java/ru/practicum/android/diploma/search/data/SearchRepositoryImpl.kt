@@ -13,8 +13,8 @@ class SearchRepositoryImpl(
     private val networkClient: NetworkClient,
     private val resourceProvider: ResourceProvider,
 ) : SearchRepository {
-    override fun searchVacancies(expression: String): Flow<Resource<List<Vacancy>>> = flow {
-        val response = networkClient.doRequest(SearchRequest(expression))
+    override fun searchVacancies(query: String): Flow<Resource<List<Vacancy>>> = flow {
+        val response = networkClient.doRequest(SearchRequest(query))
         when (response.resultCode) {
             ERROR -> {
                 emit(Resource.Error(resourceProvider.getString(R.string.check_connection)))
