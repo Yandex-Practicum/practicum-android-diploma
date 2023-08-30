@@ -5,7 +5,6 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.features.vacancydetails.data.models.VacancyDetailsRequest
 import ru.practicum.android.diploma.root.data.network.models.NetworkResultCode
 import ru.practicum.android.diploma.root.data.network.models.Response
@@ -23,10 +22,7 @@ class RetrofitNetworkClient(
 
         return withContext(Dispatchers.IO) {
             try {
-                val response = api.getVacancyById(
-                    applicationToken = BuildConfig.HH_ACCESS_TOKEN,
-                    vacancyId = dto.id
-                )
+                val response = api.getVacancyById(vacancyId = dto.id)
                 response.apply { resultCode = NetworkResultCode.SUCCESS }
             } catch (e: Throwable) {
                 Response().apply { resultCode = NetworkResultCode.SERVER_ERROR }
