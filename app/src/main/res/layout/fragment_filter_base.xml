@@ -20,6 +20,7 @@
             android:text="@string/filter_settings" />
 
     </androidx.appcompat.widget.Toolbar>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/work_place_container"
         android:layout_width="match_parent"
@@ -33,8 +34,8 @@
             style="@style/FilterLesserTextStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
-            android:text="@string/work_place" />
+            android:text="@string/work_place"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/work_place_text"
@@ -63,8 +64,8 @@
             style="@style/FilterLesserTextStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
-            android:text="@string/department" />
+            android:text="@string/department"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/department_text"
@@ -121,4 +122,43 @@
             android:buttonTint="?attr/colorSecondary" />
 
     </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/apply_filter_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_16dp"
+            android:layout_marginBottom="@dimen/margin_8dp"
+            android:background="@drawable/bt_round_drawable"
+            android:fontFamily="@font/ys_display_medium"
+            android:text="@string/apply"
+            android:textAllCaps="false"
+            android:textColor="?attr/colorOnSecondary"
+            android:textSize="@dimen/text_size_16sp"
+            app:cornerRadius="@dimen/size_12dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/cancel_filter_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_16dp"
+            android:layout_marginBottom="@dimen/margin_24dp"
+            android:background="?attr/colorPrimaryVariant"
+            android:fontFamily="@font/ys_display_medium"
+            android:text="@string/cancel"
+            android:textAllCaps="false"
+            android:textColor="?attr/cancel_btn_filter"
+            android:textSize="@dimen/text_size_16sp" />
+    </LinearLayout>
 </LinearLayout>

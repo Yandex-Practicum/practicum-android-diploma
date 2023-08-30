@@ -40,7 +40,8 @@
     <string name="no_info"                          >No information</string>
     <string name="team"                             >Team</string>
     <string name="description"                      >We worked on the application</string>
-
+    <string name="apply"                            >Apply</string>
+    <string name="cancel"                           >Cancel</string>
     <string name="lead"                             >Starkova Margarita</string>
     <string name="oldwise"                          >Gnesny Petr</string>
     <string name="flash"                            >Kostin Oleg</string>
