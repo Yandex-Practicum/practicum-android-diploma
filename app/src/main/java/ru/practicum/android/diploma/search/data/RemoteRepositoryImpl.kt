@@ -1,8 +1,8 @@
 package ru.practicum.android.diploma.search.data
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
 import ru.practicum.android.diploma.search.data.network.NetworkClient
+import ru.practicum.android.diploma.search.data.network.VacancyRequest
 import ru.practicum.android.diploma.search.domain.api.RemoteRepository
 import ru.practicum.android.diploma.search.domain.models.FetchResult
 import ru.practicum.android.diploma.search.domain.models.Vacancy
@@ -12,8 +12,8 @@ import javax.inject.Inject
 class RemoteRepositoryImpl @Inject constructor(private val networkClient: NetworkClient):
     RemoteRepository {
     override suspend fun search(query: String): Flow<FetchResult> {
-        return networkClient.doRequest(query)
-//       return flowOf(FetchResult.Success(getMockJobList()))
+        val request = VacancyRequest.SearchVacanciesRequest(query)
+        return networkClient.doRequest(request)
     }
     
     private fun getMockJobList(): List<Vacancy> {

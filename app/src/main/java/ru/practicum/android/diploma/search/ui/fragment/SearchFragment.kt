@@ -78,6 +78,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
     
     private fun render(screenState: SearchScreenState) {
+        viewModel.log(thisName, "render -> ${screenState}")
         when (screenState) {
             is SearchScreenState.Default -> showDefault()
             is SearchScreenState.Loading -> showLoading()
@@ -135,7 +136,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             
             textFabSearch.text = getString(R.string.loading_message)
             
-            textFabSearch.visibility = View.VISIBLE
+            textFabSearch.visibility = View.GONE
             recycler.visibility = View.VISIBLE
             placeholderImage.visibility = View.GONE
             progressBar.visibility = View.GONE
@@ -174,6 +175,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
     
     private fun refreshJobList(list: List<Vacancy>) {
+        viewModel.log(thisName, "refreshJobList -> ${list.size}")
         searchAdapter?.list = list
         searchAdapter?.notifyDataSetChanged()
     }
