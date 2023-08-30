@@ -28,9 +28,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        vacancy = requireArguments()
-            .getString(VACANCY_KEY)
-            ?.let { Json.decodeFromString<Vacancy>(it) }
+        vacancy = requireArguments().getString(VACANCY_KEY)?.let { Json.decodeFromString<Vacancy>(it) }
 
         viewModel.log(thisName, "onViewCreated()")
         drawMainInfo()

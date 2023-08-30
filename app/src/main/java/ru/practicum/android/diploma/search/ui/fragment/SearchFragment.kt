@@ -3,14 +3,18 @@ package ru.practicum.android.diploma.search.ui.fragment
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.launch
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
+import ru.practicum.android.diploma.details.ui.DetailsFragment
 import ru.practicum.android.diploma.root.RootActivity
 import ru.practicum.android.diploma.search.domain.models.NetworkError
 import ru.practicum.android.diploma.search.domain.models.Vacancy
@@ -35,10 +39,10 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     
     override fun onResume() {
         super.onResume()
-        TODO("Сделать запрос в SharedPrefs на наличие текущих филтров." +
+   /*     TODO("Сделать запрос в SharedPrefs на наличие текущих филтров." +
                 "Далее если фильтры есть и строка поиска не пустая -> сделать запрос в сеть и обновить список" +
             "Если фильтрые есть, но строка поиска пустая -> просто применить фильтр без запроса в сеть"
-                )
+                )*/
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -85,8 +89,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         searchAdapter?.onClick = { vacancy ->
             viewModel.log(thisName, "onClickWithDebounce $vacancy")
             findNavController().navigate(
-                resId = R.id.action_searchFragment_to_detailsFragment
-                //args = bundleOf("KEY_DETAILS" to vacancy)
+                resId = R.id.action_searchFragment_to_detailsFragment,
+                args = bundleOf(DetailsFragment.VACANCY_KEY to Json.encodeToString(vacancy))
             )
         }
     }

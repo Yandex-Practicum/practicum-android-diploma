@@ -1,8 +1,10 @@
 package ru.practicum.android.diploma.search.domain.models
 
+import kotlinx.serialization.Serializable
 import ru.practicum.android.diploma.di.annotations.TestClass
 import ru.practicum.android.diploma.search.data.network.test.TrackDto
 
+@Serializable
 data class Vacancy(
     val id: Long,
     val iconUri: String = "",
