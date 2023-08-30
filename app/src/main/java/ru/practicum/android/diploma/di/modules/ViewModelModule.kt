@@ -8,6 +8,9 @@ import ru.practicum.android.diploma.details.ui.DetailsViewModel
 import ru.practicum.android.diploma.di.annotations.ViewModelKey
 import ru.practicum.android.diploma.favorite.ui.FavoriteViewModel
 import ru.practicum.android.diploma.filter.ui.view_models.BaseFilterViewModel
+import ru.practicum.android.diploma.filter.ui.view_models.CountryViewModel
+import ru.practicum.android.diploma.filter.ui.view_models.RegionViewModel
+import ru.practicum.android.diploma.filter.ui.view_models.WorkPlaceViewModel
 import ru.practicum.android.diploma.root.RootViewModel
 import ru.practicum.android.diploma.search.ui.view_model.SearchViewModel
 
@@ -38,4 +41,19 @@ interface ViewModelModule {
     @ViewModelKey(BaseFilterViewModel::class)
     @Binds
     fun bindBaseFilterViewModel(baseFilterViewModel: BaseFilterViewModel): ViewModel
+
+    @IntoMap
+    @ViewModelKey(CountryViewModel::class)
+    @Binds
+    fun bindCountryViewModel(baseFilterViewModel: BaseFilterViewModel): ViewModel
+
+    @IntoMap
+    @ViewModelKey(RegionViewModel::class)
+    @Binds
+    fun bindRegionViewModel(baseFilterViewModel: BaseFilterViewModel): ViewModel
+
+    @IntoMap
+    @ViewModelKey(WorkPlaceViewModel::class)
+    @Binds
+    fun bindWorkPlaceViewModel(baseFilterViewModel: BaseFilterViewModel): ViewModel
 }
