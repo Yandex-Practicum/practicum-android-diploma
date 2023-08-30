@@ -47,7 +47,7 @@
     <string name="bitwise"                          >Языков Данила</string>
 
     <string name="found"                            >Найдено</string>
-    <string name="similar_vacancies">Похожие вакансии</string>
+    <string name="similar_vacancies"                >Похожие вакансии</string>
 
     <plurals name="vacancies">
         <item quantity="one"                        >%1$d вакансия</item>
