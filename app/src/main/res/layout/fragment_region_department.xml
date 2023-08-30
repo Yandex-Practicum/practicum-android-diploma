@@ -53,6 +53,8 @@
             android:visibility="visible" />
     </LinearLayout>
 
+    >
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/county_filter_recycler"
         android:layout_width="match_parent"
@@ -60,7 +62,26 @@
         android:layout_marginTop="@dimen/margin_8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toBottomOf="@id/title"
-        tools:itemCount="2"
+        tools:itemCount="3"
         tools:listitem="@layout/region_depart_filter_item"
         tools:visibility="visible" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/apply_filter_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16dp"
+        android:layout_marginBottom="@dimen/margin_8dp"
+        android:background="@drawable/bt_round_drawable"
+        android:fontFamily="@font/ys_display_medium"
+        android:text="@string/choose"
+        android:textAllCaps="false"
+        android:textColor="?attr/colorOnSecondary"
+        android:textSize="@dimen/text_size_16sp"
+        app:cornerRadius="@dimen/size_12dp" />
 </LinearLayout>
