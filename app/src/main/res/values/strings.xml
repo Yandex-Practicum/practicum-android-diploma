@@ -38,5 +38,13 @@
     <string name="phone"                            >Phone</string>
     <string name="e_mail"                           >E-mail</string>
     <string name="no_info"                          >No information</string>
-    </resources>
+    <string name="team"                             >Team</string>
+    <string name="description"                      >We worked on the application</string>
 
+    <string name="lead"                             >Starkova Margarita</string>
+    <string name="oldwise"                          >Gnesny Petr</string>
+    <string name="flash"                            >Kostin Oleg</string>
+    <string name="meister"                          >Belykh Igor</string>
+    <string name="bitwise"                          >Yazykov Danila</string>
+
+    </resources>
