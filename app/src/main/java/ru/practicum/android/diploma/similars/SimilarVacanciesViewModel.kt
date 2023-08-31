@@ -8,7 +8,6 @@ import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
 
-/** ViewModel для экрана похожих вакансий */
 class SimilarVacanciesViewModel @Inject constructor(
     logger: Logger
 ) : BaseViewModel(logger) {
@@ -16,8 +15,6 @@ class SimilarVacanciesViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<SimilarVacanciesState>(SimilarVacanciesState.Empty)
     val uiState: StateFlow<SimilarVacanciesState> = _uiState
 
-
-    /** Получить список похожих вакансий */
     fun getSimilarVacancies(vacancyId: Long) {
         log(thisName, "getSimilarVacancies(vacancyId: $vacancyId)")
         mok()

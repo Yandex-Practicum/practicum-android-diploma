@@ -2,7 +2,6 @@ package ru.practicum.android.diploma.similars
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.core.os.bundleOf
@@ -20,6 +19,8 @@ import ru.practicum.android.diploma.details.ui.DetailsFragment
 import ru.practicum.android.diploma.root.RootActivity
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.ui.fragment.SearchAdapter
+import ru.practicum.android.diploma.similars.SimilarVacanciesState.Empty.showContent
+import ru.practicum.android.diploma.similars.SimilarVacanciesState.Empty.showPlaceholder
 import ru.practicum.android.diploma.util.thisName
 import ru.practicum.android.diploma.util.viewBinding
 import javax.inject.Inject
@@ -46,28 +47,30 @@ class SimilarVacanciesFragment : Fragment(R.layout.fragment_similars_vacancy)  {
         viewModel.getSimilarVacancies(vacancy?.id ?: 0)
     }
 
-    /** Функция для сбора данных из viewModel */
     private fun collector() {
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
             viewModel.uiState.collect { state ->
                 viewModel.log(thisName, "uiState.collect { state -> ${state.thisName}")
-                Log.e("SimilarVacanciesState", "state = $state")
                 when (state) {
-                    is SimilarVacanciesState.Empty -> { showPlaceholder() }
-                    is SimilarVacanciesState.Content -> { showContent(state.list) }
+                    is SimilarVacanciesState.Empty -> { showPlaceholder(binding, viewModel) }
+                    is SimilarVacanciesState.Content -> {
+                        showContent(binding, viewModel)
+                        vacancyAdapter?.list = state.list
+                        vacancyAdapter?.notifyDataSetChanged()
+                    }
                 }
             }
         }
     }
 
-    /** Инициализируем адаптер и передаём данные */
     private fun initAdapter() {
+        viewModel.log(thisName, "initAdapter()")
         binding.recycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recycler.adapter = vacancyAdapter
     }
 
-    /** Функция для инициализации слушателей */
     private fun initListeners() {
+        viewModel.log(thisName, "initListeners()")
         vacancyAdapter?.onClick = { vacancy ->
             findNavController().navigate(
                 resId = R.id.action_similarsVacancyFragment_to_detailsFragment,
@@ -76,25 +79,4 @@ class SimilarVacanciesFragment : Fragment(R.layout.fragment_similars_vacancy)  {
         }
     }
 
-    /** Функция для отображения(отрисовки) списка похожих вакансий */
-    private fun showContent(list: List<Vacancy>) {
-        viewModel.log(thisName, "showContent(list: size=${list.size})")
-        binding.placeHolder.visibility = View.GONE
-        binding.recycler.visibility = View.VISIBLE
-        vacancyAdapter?.list = list
-        vacancyAdapter?.notifyDataSetChanged()
-    }
-
-    /** Функция для отображения(отрисовки) плейсхолдера */
-    private fun showPlaceholder() {
-        viewModel.log(thisName, "showPlaceholder()")
-        binding.placeHolder.visibility = View.VISIBLE
-        binding.recycler.visibility = View.GONE
-    }
-
-    override fun onDestroyView() {
-        viewModel.log(thisName, "onDestroyView()")
-        super.onDestroyView()
-        vacancyAdapter = null
-    }
 }
