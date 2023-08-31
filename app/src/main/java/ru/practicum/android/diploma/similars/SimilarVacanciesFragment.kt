@@ -44,7 +44,7 @@ class SimilarVacanciesFragment : Fragment(R.layout.fragment_similars_vacancy)  {
     private fun collector() {
         viewModel.log(thisName, "collector()")
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
-            viewModel.uiState.collect { state -> state.render(binding, vacancyAdapter) }
+            viewModel.uiState.collect { state -> state.render(binding) }
         }
     }
 
