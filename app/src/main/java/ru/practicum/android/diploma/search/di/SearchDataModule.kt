@@ -35,7 +35,7 @@ class SearchDataModule {
         @BaseUrl baseUrl: String
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(baseUrl)
+            .baseUrl("https://hh.ru")
             .addConverterFactory(converterFactory)
             .client(okHttpClient)
             .build()
