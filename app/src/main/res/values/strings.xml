@@ -3,8 +3,11 @@
     <string name="general">Главная</string>
     <string name="favorites">Избранное</string>
     <string name="team">Команда</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="vacancy_search">Поиск вакансий</string>
+    <string name="vacancy_search_field_hint">Введите запрос</string>
+    <string name="from">от</string>
+    <string name="to">до</string>
+    <string name="no_salary">ЗП не указана</string>
     <string name="arrow_back">Arrow Back</string>
     <string name="vacancy">Вакансия</string>
     <string name="share_icon">Share Icon</string>
