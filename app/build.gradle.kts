@@ -2,6 +2,8 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("ru.practicum.android.diploma.plugins.developproperties")
+    id ("kotlin-kapt")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -78,5 +80,10 @@ dependencies {
 
     //ViewModel
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
-}
 
+    //Room
+    val room_version = "2.5.2"
+    implementation("androidx.room:room-runtime:$room_version")
+    ksp("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
+}
