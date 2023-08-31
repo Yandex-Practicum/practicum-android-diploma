@@ -12,7 +12,6 @@ sealed interface SimilarVacanciesState {
         override fun render(binding: FragmentSimilarsVacancyBinding, adapter: SearchAdapter?) {
             binding.placeHolder.visibility = View.VISIBLE
             binding.recycler.visibility = View.GONE
-
         }
     }
 
@@ -22,7 +21,6 @@ sealed interface SimilarVacanciesState {
             binding.recycler.visibility = View.VISIBLE
             adapter?.list = list
             adapter?.notifyDataSetChanged()
-
         }
     }
 }
