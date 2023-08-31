@@ -2,12 +2,15 @@ package ru.practicum.android.diploma.details.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentDetailsBinding
@@ -28,14 +31,13 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        vacancy = requireArguments()
-            .getString(VACANCY_KEY)
-            ?.let { Json.decodeFromString<Vacancy>(it) }
+        vacancy = requireArguments().getString(VACANCY_KEY)?.let { Json.decodeFromString<Vacancy>(it) }
 
         viewModel.log(thisName, "onViewCreated()")
         drawMainInfo()
         viewModel.getVacancyByID(vacancy?.id ?: 0)
         collector()
+        pressSimilarVacanciesButton()
     }
 
     /** Функция для сбора данных из viewModel */
@@ -77,6 +79,16 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         }
     }
 
+    /** Переход на фрагмент с похожими вакансиями */
+    private fun pressSimilarVacanciesButton() {
+        binding.buttonSameVacancy.setOnClickListener {
+            viewModel.log(thisName, "buttonSameVacancy.setOnClickListener { }")
+            findNavController().navigate(
+                resId = R.id.action_detailsFragment_to_similarsVacancyFragment,
+                args = bundleOf(VACANCY_KEY to Json.encodeToString(vacancy))
+            )
+        }
+    }
 
     /** Функция для отображения(отрисовки) заголовка, зарплаты, формы. Информацию получаем из bundle */
     private fun drawMainInfo() {
