@@ -123,16 +123,32 @@
 
     </FrameLayout>
 
-    <LinearLayout
+    <View
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_weight="1" />
 
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/choose_base_filter_btn"
+        style="@style/FilterBottomButtonsStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_8dp"
+        android:background="@drawable/bt_round_drawable"
+        android:text="@string/choose"
+        android:textColor="?attr/colorOnSecondary"
+        android:visibility="gone"
+        app:cornerRadius="@dimen/size_12dp" />
+
+
     <LinearLayout
+        android:id="@+id/bottom_container_to_apply"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/apply_filter_btn"
@@ -156,4 +172,5 @@
             android:text="@string/cancel"
             android:textColor="?attr/cancel_btn_filter" />
     </LinearLayout>
+
 </LinearLayout>

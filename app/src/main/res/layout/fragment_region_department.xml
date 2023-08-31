@@ -70,7 +70,7 @@
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/apply_filter_btn"
+        android:id="@+id/apply_region_filter_btn"
         style="@style/FilterBottomButtonsStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -79,6 +79,7 @@
         android:background="@drawable/bt_round_drawable"
         android:text="@string/choose"
         android:textColor="?attr/colorOnSecondary"
+        android:visibility="gone"
         app:cornerRadius="@dimen/size_12dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
