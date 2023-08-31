@@ -42,7 +42,7 @@
     <string name="apply"                            >Apply</string>
     <string name="cancel"                           >Cancel</string>
     <string name="choose"                           >Choose</string>
-<!--    <string name="app_preferences" translatable="false">app_preferences</string>-->
+    <!--    <string name="app_preferences" translatable="false">app_preferences</string>-->
 
     <string name="lead"                             >Starkova Margarita</string>
     <string name="oldwise"                          >Gnesny Petr</string>
@@ -56,5 +56,6 @@
         <item quantity="one"                        >%1$d vacancy</item>
         <item quantity="other"                      >%1$d vacancies</item>
     </plurals>
+    <string name="similar_vacancies"                >Похожие вакансии</string>
 
-    </resources>
+</resources>
