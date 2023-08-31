@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.features.vacancydetails.presentation.Vacancy
 val uiModule = module {
 
     viewModel<VacancyDetailsViewModel>{
-        VacancyDetailsViewModel()
+        VacancyDetailsViewModel(sharingInteractor = get())
     }
 
 }
