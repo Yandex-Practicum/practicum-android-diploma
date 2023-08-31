@@ -32,8 +32,8 @@
             style="@style/FilterLesserTextStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
-            android:text="@string/country" />
+            android:text="@string/country"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/country_text"
@@ -59,8 +59,8 @@
             style="@style/FilterLesserTextStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
-            android:text="@string/region" />
+            android:text="@string/region"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/region_text"
@@ -75,4 +75,21 @@
             android:layout_gravity="center_vertical|end"
             app:srcCompat="@drawable/leading_icon" />
     </androidx.cardview.widget.CardView>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/choose_wp_filter_btn"
+        style="@style/FilterBottomButtonsStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_8dp"
+        android:background="@drawable/bt_round_drawable"
+        android:text="@string/choose"
+        android:textColor="?attr/colorOnSecondary"
+        android:visibility="gone"
+        app:cornerRadius="@dimen/size_12dp" />
 </LinearLayout>
