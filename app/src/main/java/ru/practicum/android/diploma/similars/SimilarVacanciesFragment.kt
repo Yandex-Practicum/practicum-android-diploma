@@ -19,8 +19,6 @@ import ru.practicum.android.diploma.details.ui.DetailsFragment
 import ru.practicum.android.diploma.root.RootActivity
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.ui.fragment.SearchAdapter
-import ru.practicum.android.diploma.similars.SimilarVacanciesState.Empty.showContent
-import ru.practicum.android.diploma.similars.SimilarVacanciesState.Empty.showPlaceholder
 import ru.practicum.android.diploma.util.thisName
 import ru.practicum.android.diploma.util.viewBinding
 import javax.inject.Inject
@@ -48,29 +46,18 @@ class SimilarVacanciesFragment : Fragment(R.layout.fragment_similars_vacancy)  {
     }
 
     private fun collector() {
+        viewModel.log(thisName, "collector()")
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
-            viewModel.uiState.collect { state ->
-                viewModel.log(thisName, "uiState.collect { state -> ${state.thisName}")
-                when (state) {
-                    is SimilarVacanciesState.Empty -> { showPlaceholder(binding, viewModel) }
-                    is SimilarVacanciesState.Content -> {
-                        showContent(binding, viewModel)
-                        vacancyAdapter?.list = state.list
-                        vacancyAdapter?.notifyDataSetChanged()
-                    }
-                }
-            }
+            viewModel.uiState.collect { state -> state.render(binding, vacancyAdapter) }
         }
     }
 
     private fun initAdapter() {
-        viewModel.log(thisName, "initAdapter()")
         binding.recycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recycler.adapter = vacancyAdapter
     }
 
     private fun initListeners() {
-        viewModel.log(thisName, "initListeners()")
         vacancyAdapter?.onClick = { vacancy ->
             findNavController().navigate(
                 resId = R.id.action_similarsVacancyFragment_to_detailsFragment,
