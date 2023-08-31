@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.team.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,5 +16,10 @@ class TeamFragment : Fragment(R.layout.fragment_team) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.description.setOnClickListener {
+            val intent = Intent(activity, TestActivity::class.java)
+            startActivity(intent)
+
+        }
     }
 }
