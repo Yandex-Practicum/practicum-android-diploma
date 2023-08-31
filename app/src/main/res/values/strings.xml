@@ -8,4 +8,19 @@
     <string name="from">от</string>
     <string name="to">до</string>
     <string name="no_salary">ЗП не указана</string>
+    <string name="arrow_back">Arrow Back</string>
+    <string name="vacancy">Вакансия</string>
+    <string name="share_icon">Share Icon</string>
+    <string name="favorites_icon">Favorites Icon</string>
+    <string name="logo_image">Logo image</string>
+    <string name="experience_required">Требуемый опыт</string>
+    <string name="vacancy_description">Описание вакансии</string>
+    <string name="duties">Обязанности</string>
+    <string name="requirements">Требования</string>
+    <string name="key_skills">Ключевые навыки</string>
+    <string name="contacts">Контакты</string>
+    <string name="email">E-mail</string>
+    <string name="phone">Телефон</string>
+    <string name="similar_vacancies">Похожие вакансии</string>
+    <string name="contacts_person">Контактное лицо</string>
 </resources>

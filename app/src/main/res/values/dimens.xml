@@ -4,4 +4,7 @@
     <dimen name="font_size_22">22sp</dimen>
     <dimen name="font_size_16">16sp</dimen>
     <dimen name="font_size_12">12sp</dimen>
+    <dimen name="vac_detail_image_dimens">48dp</dimen>
+    <dimen name="vac_detail_horizontal_margin">16dp</dimen>
+    <dimen name="vac_detail_card_text_margin">8dp</dimen>
 </resources>
