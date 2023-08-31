@@ -30,10 +30,11 @@ class VacancyAdapter(
 
     fun updateItems(items: ArrayList<VacancyScreenModel>) {
         vacancyList.clear()
-        vacancyList.addAll(items)
+        addItems(items)
     }
 
     fun addItems(items: ArrayList<VacancyScreenModel>) {
         vacancyList.addAll(items)
+        this.notifyDataSetChanged()
     }
 }
