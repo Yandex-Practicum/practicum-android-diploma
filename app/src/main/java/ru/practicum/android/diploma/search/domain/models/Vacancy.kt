@@ -1,9 +1,13 @@
 package ru.practicum.android.diploma.search.domain.models
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 import ru.practicum.android.diploma.di.annotations.TestClass
 import ru.practicum.android.diploma.search.data.network.test.TrackDto
 
+
+@Parcelize
 @Serializable
 data class Vacancy(
     val id: Long,
@@ -13,7 +17,8 @@ data class Vacancy(
     val salary: String = "",
     val area: String = "",
     val date : Long = 0L
-)
+) : Parcelable
+
 @TestClass
 fun TrackDto.toVacancy(): Vacancy{
     return with(this) {
