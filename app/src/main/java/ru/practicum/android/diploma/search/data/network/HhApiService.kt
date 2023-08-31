@@ -6,7 +6,7 @@ import ru.practicum.android.diploma.search.data.network.test.TracksSearchRespons
 
 
 interface HhApiService {
-    @GET("/search?entity=song")
+     @GET("/search?entity=song")
     suspend fun search(@Query("term") text: String) : TracksSearchResponse
 }
 
