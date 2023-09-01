@@ -3,20 +3,16 @@ package ru.practicum.android.diploma.favorite.ui
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import ru.practicum.android.diploma.favorite.ui.FavoritesScreenState.Empty
 import ru.practicum.android.diploma.favorite.ui.FavoritesScreenState.Content
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFavoriteBinding
-import ru.practicum.android.diploma.details.ui.DetailsFragment
 import ru.practicum.android.diploma.root.RootActivity
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.ui.fragment.SearchAdapter
@@ -68,12 +64,15 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
 
     private fun initListeners() {
         vacancyAdapter?.onClick = { vacancy ->
-            findNavController().navigate(
-                resId = R.id.action_favoriteFragment_to_detailsFragment,
-                args = bundleOf(DetailsFragment.VACANCY_KEY to Json.encodeToString(vacancy))
-            )
+            navigateToDetails(vacancy)
         }
         vacancyAdapter?.onLongClick = { viewModel.removeVacancy(0) }
+    }
+
+    private fun navigateToDetails(vacancy: Vacancy) {
+        findNavController().navigate(
+            FavoriteFragmentDirections.actionFavoriteFragmentToDetailsFragment(vacancy)
+        )
     }
 
     override fun onDestroyView() {

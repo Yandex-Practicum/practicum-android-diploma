@@ -4,18 +4,15 @@ import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
-import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSimilarsVacancyBinding
-import ru.practicum.android.diploma.details.ui.DetailsFragment
 import ru.practicum.android.diploma.root.RootActivity
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.ui.fragment.SearchAdapter
@@ -28,7 +25,7 @@ class SimilarVacanciesFragment : Fragment(R.layout.fragment_similars_vacancy)  {
     @Inject @JvmField var vacancyAdapter: SearchAdapter? = null
     private val viewModel: SimilarVacanciesViewModel by viewModels { (activity as RootActivity).viewModelFactory }
     private val binding by viewBinding<FragmentSimilarsVacancyBinding>()
-    private var vacancy: Vacancy? = null
+    private val args by navArgs<SimilarVacanciesFragmentArgs>()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -38,17 +35,16 @@ class SimilarVacanciesFragment : Fragment(R.layout.fragment_similars_vacancy)  {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.log(thisName, "onViewCreated()")
-        vacancy = requireArguments().getString(DetailsFragment.VACANCY_KEY)?.let { Json.decodeFromString<Vacancy>(it) }
         initAdapter()
         initListeners()
         collector()
-        viewModel.getSimilarVacancies(vacancy?.id ?: 0)
+        viewModel.getSimilarVacancies(args.vacancy.id )
     }
 
     private fun collector() {
         viewModel.log(thisName, "collector()")
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
-            viewModel.uiState.collect { state -> state.render(binding, vacancyAdapter) }
+            viewModel.uiState.collect { state -> state.render(binding) }
         }
     }
 
@@ -59,11 +55,14 @@ class SimilarVacanciesFragment : Fragment(R.layout.fragment_similars_vacancy)  {
 
     private fun initListeners() {
         vacancyAdapter?.onClick = { vacancy ->
-            findNavController().navigate(
-                resId = R.id.action_similarsVacancyFragment_to_detailsFragment,
-                args = bundleOf(DetailsFragment.VACANCY_KEY to Json.encodeToString(vacancy))
-            )
+            navigateToDetails(vacancy)
         }
+    }
+
+    private fun navigateToDetails(vacancy: Vacancy) {
+        findNavController().navigate(
+            SimilarVacanciesFragmentDirections.actionSimilarsVacancyFragmentToDetailsFragment(vacancy)
+        )
     }
 
 }

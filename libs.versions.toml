@@ -19,6 +19,7 @@ dagger = "2.46.1"
 coroutines = "1.7.3"
 ksp = "1.8.10-1.0.9"
 kotlinx_retrofit = "1.0.0"
+nav_safe_args = "2.5.3"
 
 
 [libraries]
@@ -81,3 +82,4 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 kotlin-android =       { id = "org.jetbrains.kotlin.android",              version.ref = "kotlin"  }
 ksp =                  { id = "com.google.devtools.ksp",                   version.ref = "ksp"}
 kapt =                 { id = "org.jetbrains.kotlin.kapt",                 version.ref = "kotlin"}
+safe-args =            { id = "androidx.navigation.safeargs",              version.ref = "nav_safe_args"}

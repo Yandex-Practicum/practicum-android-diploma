@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.kapt)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.safe.args)
+    id("org.jetbrains.kotlin.plugin.parcelize")
     id("ru.practicum.android.diploma.plugins.developproperties")
 }
 
@@ -69,7 +71,6 @@ dependencies {
     implementation(libs.junit)
     implementation(libs.androidx.junit)
     implementation(libs.test.espresso.core)
-
  
     // LeakCanary
     //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.8.1'
