@@ -96,7 +96,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         when (screenState) {
             is SearchScreenState.Default -> showDefault()
             is SearchScreenState.Loading -> showLoading()
-            is SearchScreenState.Content -> showContent(screenState.jobList)
+            is SearchScreenState.Content -> showContent(screenState.jobList, screenState.count)
             is SearchScreenState.Error -> showError(screenState.error)
         }
     }
@@ -144,7 +144,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         }
     }
     
-    private fun showContent(jobList: List<Vacancy>) {
+    private fun showContent(jobList: List<Vacancy>, count: Int) {
         viewModel.log(thisName, "showContent -> ${jobList.size}")
         refreshJobList(jobList)
         isScrollingEnabled(true)
@@ -154,7 +154,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             val fabText = StringBuilder()
             fabText.append(getString(R.string.found))
             fabText.append(" ")
-            fabText.append(resources.getQuantityString(R.plurals.vacancies, jobList.size, jobList.size))
+            fabText.append(resources.getQuantityString(R.plurals.vacancies, count, count))
             
             textFabSearch.text = fabText.toString()
             

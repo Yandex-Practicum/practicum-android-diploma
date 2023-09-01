@@ -20,6 +20,7 @@ import ru.practicum.android.diploma.search.data.network.NetworkClient
 import ru.practicum.android.diploma.search.data.network.RetrofitClient
 import ru.practicum.android.diploma.search.data.network.cache.CacheInterceptor
 import ru.practicum.android.diploma.search.data.network.cache.ForceCacheInterceptor
+import ru.practicum.android.diploma.search.data.network.converter.VacancyModelConverter
 import java.io.File
 import javax.inject.Named
 
@@ -72,8 +73,6 @@ class SearchDataModule {
             .addInterceptor(httpLoggingInterceptor)
             .build()
     }
-
-
 
     @Provides
     fun provideLoggingInterceptor(): HttpLoggingInterceptor {

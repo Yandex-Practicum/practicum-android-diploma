@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Branding(
-    val tariff: String = "",
-    val type: String = "",
+    val tariff: String? = "",
+    val type: String? = "",
 )
