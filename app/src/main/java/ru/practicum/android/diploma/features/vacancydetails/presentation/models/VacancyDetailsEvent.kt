@@ -6,8 +6,6 @@ sealed class VacancyDetailsEvent {
 
     data class ComposeEmail(val email: Email) : VacancyDetailsEvent()
 
-    data class DialNumber(val phoneNumber: String) : VacancyDetailsEvent()
-
     data class ShareVacancy(val sharingText: String) : VacancyDetailsEvent()
 
 }

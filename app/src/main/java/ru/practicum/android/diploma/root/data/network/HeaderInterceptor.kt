@@ -10,8 +10,7 @@ class HeaderInterceptor: Interceptor {
             request()
                 .newBuilder()
                 .addHeader("Authorization", "Bearer ${BuildConfig.HH_ACCESS_TOKEN}")
-                .removeHeader("User-Agent")
-                .addHeader("HH-User-Agent", "MyApp/1.0 (my-app-feedback@example.com)")
+                .addHeader("HH-User-Agent", "VacancyHunter (pogorelskayanat@yandex.ru)")
                 .build()
         )
     }

@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentVacancydetailsBinding
@@ -19,10 +21,9 @@ import ru.practicum.android.diploma.features.vacancydetails.presentation.models.
 import ru.practicum.android.diploma.features.vacancydetails.presentation.models.VacancyDetailsState
 import ru.practicum.android.diploma.features.vacancydetails.presentation.models.VacancyDetailsUiModel
 
-class VacancyDetailsFragment(
-    private val externalNavigator: ExternalNavigator,
-) : Fragment() {
+class VacancyDetailsFragment : Fragment() {
     private val viewModel by viewModel<VacancyDetailsViewModel>()
+    private val externalNavigator: ExternalNavigator by inject()
 
     private var _binding: FragmentVacancydetailsBinding? = null
     private val binding get() = _binding!!
@@ -46,7 +47,8 @@ class VacancyDetailsFragment(
         viewModel.screenState.observe(viewLifecycleOwner) {
             when (it) {
                 is VacancyDetailsState.Content -> render(it.vacancy)
-                else -> Unit
+                is VacancyDetailsState.Error -> renderError()
+                is VacancyDetailsState.Loading -> renderLoading()
             }
         }
 
@@ -55,13 +57,22 @@ class VacancyDetailsFragment(
                 when (action) {
                     is VacancyDetailsEvent.ComposeEmail -> composeEmail(action.email)
                     is VacancyDetailsEvent.ShareVacancy -> shareVacancy(action.sharingText)
-                    else -> Unit
                 }
             }
         }
 
         setClickListeners()
 
+    }
+
+    private fun renderLoading() {
+        binding.progressBar.isVisible = true
+//        binding.details.isVisible = false
+    }
+
+    private fun renderError() {
+        showMessage(getString(R.string.something_went_wrong))
+        findNavController().navigateUp()
     }
 
     private fun setClickListeners() {
@@ -71,22 +82,22 @@ class VacancyDetailsFragment(
             generateShareText()
         }
 
-        binding.favButton.setOnClickListener {  }
+        binding.favButton.setOnClickListener { }
 
-        binding.similarVacanciesButton.setOnClickListener {  }
+        binding.similarVacanciesButton.setOnClickListener { }
 
-        if (vacancy.contactsEmail.isNotEmpty()) {
-            binding.email.setOnClickListener {
-                viewModel.composeEmail(vacancy.contactsEmail, vacancy.vacancyName)
-            }
+
+        binding.email.setOnClickListener {
+            viewModel.composeEmail(vacancy.contactsEmail, vacancy.vacancyName)
         }
+
 
     }
 
     private fun render(model: VacancyDetailsUiModel) {
         vacancy = model
         binding.apply {
-
+            vacancyName.text = vacancy.vacancyName
         }
     }
 
@@ -136,8 +147,8 @@ class VacancyDetailsFragment(
         ).show()
     }
 
-    private fun getIdFromArgs(): String? {
-        return requireArguments().getString(ARGS_VACANCY_ID)
+    private fun getIdFromArgs(): String {
+        return requireArguments().getString(ARGS_VACANCY_ID) ?: ""
     }
 
     companion object {
