@@ -11,7 +11,7 @@ import ru.practicum.android.diploma.details.data.local.model.VacancyEntity
 interface FavoriteDao {
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(vacancyEntity: VacancyEntity): Long
+    fun insert(vacancyEntity: VacancyEntity)
     
     @Query("DELETE FROM favorite_vacancies WHERE id =:id")
     suspend fun delete(id: String): Int

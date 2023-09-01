@@ -15,7 +15,7 @@ class LocalDataSourceDetailsImpl@Inject constructor(
     override suspend fun removeVacancyFromFavorite(id: String): Flow<Int> {
         return flowOf(dao.delete(id))
     }
-    override suspend fun addVacancyToFavorite(vacancy: Vacancy): Flow<Long> {
+    override suspend fun addVacancyToFavorite(vacancy: Vacancy): Flow<Unit> {
         return flowOf(dao.insert(converter.toEntity(vacancy)))
     }
 }

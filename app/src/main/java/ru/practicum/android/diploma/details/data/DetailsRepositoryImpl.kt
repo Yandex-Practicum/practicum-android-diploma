@@ -26,7 +26,7 @@ class DetailsRepositoryImpl @Inject constructor(
         return localDataSource.removeVacancyFromFavorite(id)
     }
     
-    override suspend fun addVacancyToFavorite(vacancy: Vacancy): Flow<Long> {
+    override suspend fun addVacancyToFavorite(vacancy: Vacancy): Flow<Unit> {
         return localDataSource.addVacancyToFavorite(vacancy)
     }
     
