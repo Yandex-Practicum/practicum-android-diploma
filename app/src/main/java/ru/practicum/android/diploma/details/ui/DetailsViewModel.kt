@@ -29,11 +29,17 @@ class DetailsViewModel @Inject constructor(
 
     private var isInFavorites = false
 
-    fun handleAddToFavsButton(){
+    fun handleAddToFavsButton(vacancy: Vacancy){
         isInFavorites = !isInFavorites
         val message = when (isInFavorites) {
-            true -> "vacancy added to favs"
-            else -> "vacancy removed from favs"
+            true -> {
+                addToFavorites(vacancy)
+                "vacancy added to favs"
+            }
+            else -> {
+                deleteVacancy(vacancy.id)
+                "vacancy removed from favs"
+            }
         }
         log(thisName, "handleAddToFavsButton $message")
         _uiState.value = DetailsScreenState.PlayHeartAnimation(isInFavorites, viewModelScope)
@@ -41,18 +47,16 @@ class DetailsViewModel @Inject constructor(
 
    private fun addToFavorites(vacancy: Vacancy) {
         viewModelScope.launch(Dispatchers.IO) {
-            log(thisName, "addToFavorites   }")
             detailsInteractor.addVacancyToFavorites(vacancy).collect {
-                log(thisName, "id inserted= $it")
+                log("DetailsViewModel", "${vacancy.id} inserted")
             }
         }
     }
 
-    fun deleteVacancy(id: String) {
-
+    private fun deleteVacancy(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
             detailsInteractor.removeVacancyFromFavorite(id).collect {
-                log(thisName, "$id was removed")
+                log("DetailsViewModel", "$id was removed")
             }
         }
     }
