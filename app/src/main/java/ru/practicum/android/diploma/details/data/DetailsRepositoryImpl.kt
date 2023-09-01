@@ -19,8 +19,8 @@ class DetailsRepositoryImpl @Inject constructor(
     private val logger: Logger
 ) : DetailsRepository {
     
-    private val latestFullVacancyFullInfoMutex = Mutex()
-    private var latestFullVacancyFullInfo: Vacancy? = null
+    private val latestVacancyFullInfoMutex = Mutex()
+    private var latestVacancyFullInfo: Vacancy? = null
     
     override suspend fun removeVacancyFromFavorite(id: String): Flow<Int> {
         return localDataSource.removeVacancyFromFavorite(id)
@@ -32,30 +32,30 @@ class DetailsRepositoryImpl @Inject constructor(
     
     override suspend fun getFullVacancyInfo(id: String): Flow<FetchResult> {
         
-        if (latestFullVacancyFullInfo?.id != id) {
+        if (latestVacancyFullInfo?.id != id) {
             
             remoteDataSource
                 .getVacancyFullInfo(id)
                 .collect {
-                    latestFullVacancyFullInfoMutex.withLock {
+                    latestVacancyFullInfoMutex.withLock {
                         
                         logger.log(
                             thisName,
                             "getFullVacancyInfo: LOADED FROM INTERNET = ${it.data?.first()}"
                         )
                         
-                        this.latestFullVacancyFullInfo = it.data?.first()
+                        this.latestVacancyFullInfo = it.data?.first()
                     }
                 }
             
         } else {
             logger.log(
                 thisName,
-                "getFullVacancyInfo: LOADED FROM CACHE = $latestFullVacancyFullInfo"
+                "getFullVacancyInfo: LOADED FROM CACHE = $latestVacancyFullInfo"
             )
         }
-        return latestFullVacancyFullInfoMutex.withLock {
-            flowOf(FetchResult.Success(listOf(this.latestFullVacancyFullInfo!!)))
+        return latestVacancyFullInfoMutex.withLock {
+            flowOf(FetchResult.Success(listOf(this.latestVacancyFullInfo!!)))
         }
     }
 }
