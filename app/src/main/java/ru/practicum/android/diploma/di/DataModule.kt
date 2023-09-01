@@ -35,10 +35,6 @@ val dataModule = module {
             .create(HeadHunterApi::class.java)
     }
 
-    single<Gson> {
-        Gson()
-    }
-
     single<NetworkSearch> {
         RetrofitNetworkClient(api = get(), context = get())
     }
