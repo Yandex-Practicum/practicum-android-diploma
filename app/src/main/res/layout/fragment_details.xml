@@ -39,8 +39,8 @@
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lottie_heart"
-                android:layout_width="@dimen/size_24dp"
-                android:layout_height="@dimen/size_24dp"
+                android:layout_width="@dimen/size_30dp"
+                android:layout_height="@dimen/size_30dp"
                 android:layout_marginEnd="@dimen/margin_20dp"
                 app:lottie_rawRes="@raw/heart"
                 android:layout_gravity="center_vertical"/>
