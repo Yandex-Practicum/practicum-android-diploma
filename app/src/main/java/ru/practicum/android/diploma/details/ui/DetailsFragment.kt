@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import kotlinx.coroutines.Dispatchers
@@ -37,11 +35,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
 
     private fun initAddToFavorite(){
         binding.lottieHeart.setOnClickListener {heartButton ->
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED){
-                    viewModel.handleAddToFavsButton()
-                }
-            }
+                    viewModel.handleAddToFavsButton(args.vacancy)
         }
     }
 
