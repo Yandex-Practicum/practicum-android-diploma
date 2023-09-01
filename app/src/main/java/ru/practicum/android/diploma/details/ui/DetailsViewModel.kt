@@ -4,7 +4,6 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.details.domain.DetailsInteractor
@@ -20,7 +19,6 @@ import ru.practicum.android.diploma.search.domain.models.assistants.Schedule
 import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
 
-/** ViewModel для экрана деталей вакансии */
 class DetailsViewModel @Inject constructor(
     logger: Logger,
     private val detailsInteractor: DetailsInteractor
@@ -29,8 +27,19 @@ class DetailsViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<DetailsScreenState>(DetailsScreenState.Empty)
     val uiState: StateFlow<DetailsScreenState> = _uiState
 
-    /** Добавление вакансии в избранное */
-    fun addToFavorites(vacancy: Vacancy) {
+    private var isInFavorites = false
+
+    fun handleAddToFavsButton(){
+        isInFavorites = !isInFavorites
+        val message = when (isInFavorites) {
+            true -> "vacancy added to favs"
+            else -> "vacancy removed from favs"
+        }
+        log(thisName, "handleAddToFavsButton $message")
+        _uiState.value = DetailsScreenState.PlayHeartAnimation(isInFavorites, viewModelScope)
+    }
+
+   private fun addToFavorites(vacancy: Vacancy) {
         viewModelScope.launch(Dispatchers.IO) {
             log(thisName, "addToFavorites   }")
             detailsInteractor.addVacancyToFavorites(vacancy).collect {
@@ -39,8 +48,7 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
-    /** Удаление вакансии из избранного */
-    fun deleteVacancy(id: Long) {
+   private fun deleteVacancy(id: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             detailsInteractor.removeVacancyFromFavorite(id).collect {
                 log(thisName, "$id was removed")
@@ -48,15 +56,12 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
-    /** Удаление вакансии из избранного */
     fun removeFromFavorites(id: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             log(thisName, "removeFromFavorites   }")
         }
     }
 
-
-    /** Получение вакансии по ID. Пока что моковые данные без запроса к серверу */
     fun getVacancyByID(id: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             log(thisName, "getVacancyByID()")
@@ -68,7 +73,6 @@ class DetailsViewModel @Inject constructor(
     }
 
 
-    /** Моковые данные. После подключения репозитория будут удалены */
     private fun mokData(): VacancyFullInfoModel {
         return VacancyFullInfoModel(
             id = "85773787",
