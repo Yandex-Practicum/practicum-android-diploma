@@ -3,38 +3,18 @@ package ru.practicum.android.diploma.search.domain.models
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
-import ru.practicum.android.diploma.di.annotations.TestClass
-import ru.practicum.android.diploma.search.data.network.test.TrackDto
-
 
 @Parcelize
 @Serializable
 data class Vacancy(
-    val id: Long,
+    val id: String,
     val iconUri: String = "",
     val title: String = "",
     val company: String = "",
     val salary: String = "",
     val area: String = "",
-    val date : Long = 0L
+    val date : String = "",
 ) : Parcelable
 
-@TestClass
-fun TrackDto.toVacancy(): Vacancy{
-    return with(this) {
-        Vacancy(id = trackId,
-            iconUri = image?:"",
-            title = trackName?:"",
-            company = artistName?:"",
-            salary = year.toString()?:"",
-            area = genre?:"",
-            date = 0L
-            )
-    }
-}
-@TestClass
-fun mapTracksToVacancies(tracks: List<TrackDto>): List<Vacancy>{
-    return tracks.map { it.toVacancy() }
-}
 
 

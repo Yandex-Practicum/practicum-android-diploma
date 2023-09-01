@@ -5,8 +5,8 @@ import ru.practicum.android.diploma.search.domain.models.FetchResult
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 
 interface DetailsRepository {
-    suspend fun removeVacancyFromFavorite(id: Long): Flow<Int>
+    suspend fun removeVacancyFromFavorite(id: String): Flow<Int>
     suspend fun addVacancyToFavorite(vacancy: Vacancy): Flow<Long>
-    suspend fun getFullVacancyInfo(id: Long): Flow<FetchResult>
+    suspend fun getFullVacancyInfo(id: String): Flow<FetchResult>
 
 }

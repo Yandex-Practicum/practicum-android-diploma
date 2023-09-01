@@ -15,7 +15,7 @@ class SimilarVacanciesViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<SimilarVacanciesState>(SimilarVacanciesState.Empty)
     val uiState: StateFlow<SimilarVacanciesState> = _uiState
 
-    fun getSimilarVacancies(vacancyId: Long) {
+    fun getSimilarVacancies(vacancyId: String) {
         log(thisName, "getSimilarVacancies(vacancyId: $vacancyId)")
         mok()
     }
@@ -23,13 +23,13 @@ class SimilarVacanciesViewModel @Inject constructor(
     /** Моковые данные */
     private fun mok() {
         val similarVacancies = Vacancy(
-            id = 1,
+            id = "1",
             area = "Москва",
             title = "Менеджер по продажам",
             salary = "от 50 000 руб.",
             company = "ООО «Рога и копыта»",
             iconUri = "",
-            date = 3L)
+            date = "01.01.01")
 
         _uiState.value = SimilarVacanciesState.Content(listOf(similarVacancies))
     }

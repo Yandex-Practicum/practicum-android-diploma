@@ -48,7 +48,8 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
-   private fun deleteVacancy(id: Long) {
+    fun deleteVacancy(id: String) {
+
         viewModelScope.launch(Dispatchers.IO) {
             detailsInteractor.removeVacancyFromFavorite(id).collect {
                 log(thisName, "$id was removed")
@@ -56,13 +57,11 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
-    fun removeFromFavorites(id: Long) {
-        viewModelScope.launch(Dispatchers.IO) {
-            log(thisName, "removeFromFavorites   }")
-        }
-    }
+  
 
-    fun getVacancyByID(id: Long) {
+
+    fun getVacancyByID(id: String) {
+
         viewModelScope.launch(Dispatchers.IO) {
             log(thisName, "getVacancyByID()")
             /*detailsInteractor.getFullVacancyInfo(id).collect {

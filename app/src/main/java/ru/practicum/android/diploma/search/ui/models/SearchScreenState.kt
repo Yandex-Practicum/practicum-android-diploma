@@ -9,6 +9,7 @@ sealed interface SearchScreenState {
     object Loading : SearchScreenState
     
     data class Content(
+        val count: Int,
         val jobList: List<Vacancy>,
     ) : SearchScreenState
     

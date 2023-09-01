@@ -6,13 +6,13 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "favorite_vacancies")
 data class VacancyEntity(
     @PrimaryKey
-    val id: Long,
+    val id: String,
     val iconUri: String = "",
     val title: String = "",
     val company: String = "",
     val salary: String = "",
     val area: String = "",
-    val date: Long
+    val date: String = "",
 )
 
 

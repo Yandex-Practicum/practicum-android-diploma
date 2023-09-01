@@ -36,7 +36,7 @@ class FavoriteViewModel @Inject constructor(
 
         }
     }
-    fun removeVacancy(id: Long) {
+    fun removeVacancy(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
             favoritesInteractor.removeVacancy(id).collect() {
                 log(thisName, "removeVacancy() -> vacancy id=$id was removed from favorites")
