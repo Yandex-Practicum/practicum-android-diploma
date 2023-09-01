@@ -31,6 +31,10 @@
         <item name="fontWeight">400</item>
     </style>
 
+    <style name="rounded_square_12">
+        <item name="cornerSize">12%</item>
+    </style>
+
     <style name="image_buttons">
         <item name="android:layout_width">@dimen/vac_detail_image_dimens</item>
         <item name="android:layout_height">@dimen/vac_detail_image_dimens</item>

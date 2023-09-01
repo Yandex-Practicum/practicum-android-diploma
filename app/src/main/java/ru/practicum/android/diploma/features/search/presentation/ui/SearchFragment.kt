@@ -6,9 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
+import ru.practicum.android.diploma.features.search.presentation.viewModel.SearchViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchFragment : Fragment() {
     private var binding: FragmentSearchBinding? = null
+    private val viewModel by viewModel<SearchViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,

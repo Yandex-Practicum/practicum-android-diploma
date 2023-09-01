@@ -43,6 +43,10 @@ val dataModule = module {
         RetrofitNetworkClient(api = get(), context = get())
     }
 
+    single<Gson> {
+        Gson()
+    }
+
     single<VacancyDetailsMapper>  {
         VacancyDetailsMapper()
     }
