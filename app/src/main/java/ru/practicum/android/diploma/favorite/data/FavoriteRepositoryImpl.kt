@@ -9,14 +9,18 @@ import ru.practicum.android.diploma.favorite.domain.api.FavoriteRepository
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import javax.inject.Inject
 
-class FavoriteRepositoryImpl@Inject constructor(favoriteVacanciesDb: FavoriteVacanciesDb, private val converter: VacancyConverter):
-    FavoriteRepository {
+class FavoriteRepositoryImpl @Inject constructor(
+    favoriteVacanciesDb: FavoriteVacanciesDb,
+    private val converter: VacancyConverter
+) : FavoriteRepository {
+    
     private val dao = favoriteVacanciesDb.getDao()
+    
     override suspend fun getFavsVacancies(): Flow<List<Vacancy>> {
         return dao.getFavorites().map { converter.mapToVacancies(it) }
     }
 
-    override suspend fun removeVacancy(id: Long): Flow<Int> {
+    override suspend fun removeVacancy(id: String): Flow<Int> {
         return flowOf( dao.delete(id))
     }
 }

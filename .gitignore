@@ -9,7 +9,7 @@ out/
 
 # Local configuration file (sdk path, etc)
 local.properties
-.build-logic/develop-properties/
+develop.properties
 
 # Gradle-profiler data
 profile-out*/

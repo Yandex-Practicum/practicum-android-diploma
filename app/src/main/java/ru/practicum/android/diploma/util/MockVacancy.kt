@@ -5,13 +5,13 @@ import kotlin.random.Random
 
 fun getMockVacancy(): Vacancy {
     return Vacancy(
-        id = Random.nextLong(),
+        id = "0000",
         iconUri = "https://cs8.pikabu.ru/avatars/2404/x2404686-1153049926.png",
         title =  titles.random(),
         company = companies.random(),
         salary = Random.nextInt(200000, 400000).toString(),
         area = areas.random(),
-        date = System.currentTimeMillis()
+        date = "01/01/01"
         )
 }
 private val companies = listOf("Ynadex", "Google", "Tinkoff", "Sber", "Gazprom")

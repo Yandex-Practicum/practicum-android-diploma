@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Counters(
-    val responses: Int = 0,
+    val responses: Int? = 0,
 )

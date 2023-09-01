@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Snippet(
-    val requirement: String = "",
-    val responsibility: String = "",
+    val requirement: String? = "",
+    val responsibility: String? = "",
 )

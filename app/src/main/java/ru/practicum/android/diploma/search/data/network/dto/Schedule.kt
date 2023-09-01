@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Schedule(
-    val id: String = "",
-    val name: String = "",
+    val id: String? = "",
+    val name: String? = "",
 )

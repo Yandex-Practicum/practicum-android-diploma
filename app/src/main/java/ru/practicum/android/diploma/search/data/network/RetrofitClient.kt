@@ -1,18 +1,7 @@
 package ru.practicum.android.diploma.search.data.network
 
-
-import android.net.http.HttpException
-import android.os.Build
-import androidx.annotation.RequiresExtension
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.withContext
-import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.Logger
-import ru.practicum.android.diploma.search.domain.models.FetchResult
-import ru.practicum.android.diploma.search.domain.models.NetworkError
-import ru.practicum.android.diploma.search.domain.models.mapTracksToVacancies
+import ru.practicum.android.diploma.search.data.network.converter.VacancyModelConverter
 import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
 
@@ -22,36 +11,27 @@ class RetrofitClient @Inject constructor(
     private val logger: Logger,
 ) : NetworkClient {
     
-    override suspend fun doRequest(any: Any): Flow<FetchResult> {
-    
-        logger.log(thisName, "doRequest -> ${any::class}")
-    
-                val response = hhApiService.search(
-                    text = "Курьер"
-                )
-                logger.log(thisName, "doRequest -> ${response.code()} ")
+    override suspend fun doRequest(any: Any): Response {
+        logger.log(thisName, "doRequest -> ${any::class} ")
+        
+        if (any !is VacancyRequest || !internetController.isInternetAvailable()) {
+            return Response().apply { resultCode = -1 }
             
-     
-           return  flowOf(FetchResult.Error(NetworkError.SEARCH_ERROR))
-        
-    
-        
-        /*  logger.log(thisName, "doRequest -> ${any::class} ")
-        return if (any !is VacancyRequest ){
-            flowOf(FetchResult.Error(NetworkError.SEARCH_ERROR))
-        }else{
+        } else {
             val query = when (any) {
-                is VacancyRequest.FullInfoRequest -> {
-                    any.id.toString()
-                }
-                is VacancyRequest.SearchVacanciesRequest -> {
-                    any.query
-                }
+                is VacancyRequest.FullInfoRequest -> { any.id }
+                is VacancyRequest.SearchVacanciesRequest -> { any.query }
             }
-            logger.log(thisName, "doRequest -> $query ")
-            val response = hhApiService.search(query)
-            logger.log(thisName, "doRequest -> ${response.results.toList()} ")
-            return flowOf(FetchResult.Success(data = mapTracksToVacancies(response.results.toList())))
-        } */
+            
+            val result = try {
+                hhApiService.search(query)
+            } catch (e: Exception) {
+                null
+            }
+            
+            return result
+                ?.body()
+                ?.apply { resultCode = result.code() } ?: Response().apply { resultCode = 400 }
+        }
     }
 }

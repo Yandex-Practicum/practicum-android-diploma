@@ -40,7 +40,7 @@ class DetailsViewModel @Inject constructor(
     }
 
     /** Удаление вакансии из избранного */
-    fun deleteVacancy(id: Long) {
+    fun deleteVacancy(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
             detailsInteractor.removeVacancyFromFavorite(id).collect {
                 log(thisName, "$id was removed")
@@ -49,7 +49,7 @@ class DetailsViewModel @Inject constructor(
     }
 
     /** Удаление вакансии из избранного */
-    fun removeFromFavorites(id: Long) {
+    fun removeFromFavorites(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
             log(thisName, "removeFromFavorites   }")
         }
@@ -57,7 +57,7 @@ class DetailsViewModel @Inject constructor(
 
 
     /** Получение вакансии по ID. Пока что моковые данные без запроса к серверу */
-    fun getVacancyByID(id: Long) {
+    fun getVacancyByID(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
             log(thisName, "getVacancyByID()")
             /*detailsInteractor.getFullVacancyInfo(id).collect {

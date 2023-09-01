@@ -65,7 +65,10 @@ class SearchViewModel @Inject constructor(
             }
             
             result.data != null -> {
-                _uiState.value = SearchScreenState.Content(result.data)
+                _uiState.value = SearchScreenState.Content(
+                    count = result.count ?: 0,
+                    jobList = result.data,
+                )
             }
         }
     }

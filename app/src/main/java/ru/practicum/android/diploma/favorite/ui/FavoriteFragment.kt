@@ -66,7 +66,7 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
         vacancyAdapter?.onClick = { vacancy ->
             navigateToDetails(vacancy)
         }
-        vacancyAdapter?.onLongClick = { viewModel.removeVacancy(0) }
+        vacancyAdapter?.onLongClick = { viewModel.removeVacancy("0") }
     }
 
     private fun navigateToDetails(vacancy: Vacancy) {

@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Contacts(
-    val email: String = "",
-    val name: String = "",
-    val phones: List<Phone> = emptyList(),
+    val email: String? = "",
+    val name: String? = "",
+    val phones: List<Phone?>? = emptyList(),
 )
