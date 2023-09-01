@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.team.ui
 
 import android.annotation.SuppressLint
+import android.content.Context.LAYOUT_INFLATER_SERVICE
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -36,4 +37,12 @@ class SwipeAdapter(
         imageViewCard.setImageResource(mData[position])
         return convertView
     }
+//    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+//        val inflater = parent?.context?.getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
+//        val cardView = convertView ?: inflater.inflate(R.layout.card_items, parent, false)
+//        val imageView = cardView.findViewById<ImageView>(R.id.imageView)
+//        imageView.setImageResource(mData[position])
+//
+//        return cardView
+//    }
 }
