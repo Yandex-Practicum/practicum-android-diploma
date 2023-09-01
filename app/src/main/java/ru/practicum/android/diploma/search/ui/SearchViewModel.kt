@@ -96,6 +96,29 @@ class SearchViewModel(
         }
     }
 
+  /*  fun getVacancies(newSearchText: String) {
+        if (newSearchText.isNotEmpty()) {
+            renderState(SearchState.Loading)
+            viewModelScope.launch {
+
+                val options: HashMap<String, String> = HashMap()
+                options["searchRequest"] = searchRequest
+                if (page.isNotEmpty()) options["page"] = page
+                if (perPage.isNotEmpty()) options["per_page"] = perPage //20
+                if (area.isNotEmpty()) options["area"] = area
+                if (industry.isNotEmpty()) options["industry"] = industry
+                if (salary.isNotEmpty()) options["salary"] = salary
+                if (onlyWithSalary.isNotEmpty()) options["only_with_salary"] = onlyWithSalary
+
+                //   SearchService(options).execute()
+                interactor.getVacancies(options)
+                    .collect { pair ->
+                        processResult(pair.first, pair.second)
+                    }
+            }
+        }
+    }*/
+
     private fun processResult(foundVacancies: List<Vacancy>?, errorMessage: String?) {
         val vacancies = mutableListOf<Vacancy>()
         if (foundVacancies != null) {

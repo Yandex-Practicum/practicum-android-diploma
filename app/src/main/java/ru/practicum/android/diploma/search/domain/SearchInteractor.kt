@@ -5,4 +5,5 @@ import ru.practicum.android.diploma.search.domain.models.Vacancy
 
 interface SearchInteractor {
     fun loadVacancies(query: String):  Flow<Pair<List<Vacancy>?, String?>>
+    fun getVacancies(options: HashMap<String,String>):  Flow<Pair<List<Vacancy>?, String?>>
 }

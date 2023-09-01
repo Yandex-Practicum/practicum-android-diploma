@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.util
 
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 
+/*
 fun convertVacancyDtoToVacancy(vacancyDto: ru.practicum.android.diploma.search.data.dto.VacancyDto): Vacancy {
     return Vacancy(
         id = vacancyDto.id,
@@ -13,4 +14,4 @@ fun convertVacancyDtoToVacancy(vacancyDto: ru.practicum.android.diploma.search.d
         salaryFrom = vacancyDto.salaryFrom,
         salaryTo = vacancyDto.salaryTo
     )
-}
+}*/
