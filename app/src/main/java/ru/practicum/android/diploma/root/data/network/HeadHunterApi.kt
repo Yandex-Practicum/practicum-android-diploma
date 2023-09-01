@@ -1,9 +1,12 @@
 package ru.practicum.android.diploma.root.data.network
 
+import retrofit2.http.GET
+import retrofit2.http.Path
+import ru.practicum.android.diploma.features.vacancydetails.data.models.VacancyDetailsDto
+
 interface HeadHunterApi {
 
-// waiting for token. далее использовать в формате Authorization: Bearer ACCESS_TOKEN,
-// передавая токен в методы текущего класса в качестве первого параметра в формате
-//    (@Header("Authorization") token: String, ...)
+    @GET("/vacancies/{vacancy_id}")
+    suspend fun getVacancyById(@Path("vacancy_id") vacancyId: String): VacancyDetailsDto
 
 }
