@@ -37,13 +37,21 @@
                 android:src="@drawable/ic_share"
                 app:tint="?attr/colorOnPrimary" />
 
-            <ImageView
-                android:id="@+id/add_to_favourite_button"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottie_heart"
+                android:layout_width="@dimen/size_24dp"
+                android:layout_height="@dimen/size_24dp"
                 android:layout_marginEnd="@dimen/margin_20dp"
-                android:src="@drawable/ic_favourite_empty_body"
-                app:tint="?attr/colorOnPrimary" />
+                app:lottie_rawRes="@raw/heart"
+                android:layout_gravity="center_vertical"/>
+
+<!--            <ImageView-->
+<!--                android:id="@+id/add_to_favourite_button"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_marginEnd="@dimen/margin_20dp"-->
+<!--                android:src="@drawable/ic_favourite_empty_body"-->
+<!--                app:tint="?attr/colorOnPrimary" />-->
 
         </LinearLayout>
 
