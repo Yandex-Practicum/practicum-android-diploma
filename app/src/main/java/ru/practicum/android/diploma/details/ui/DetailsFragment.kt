@@ -38,9 +38,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
     private fun initAddToFavorite(){
         binding.lottieHeart.setOnClickListener {heartButton ->
             viewLifecycleOwner.lifecycleScope.launch {
-                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED){
                     viewModel.handleAddToFavsButton()
-                }
             }
         }
     }
