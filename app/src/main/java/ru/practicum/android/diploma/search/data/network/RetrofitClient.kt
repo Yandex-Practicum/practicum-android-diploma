@@ -40,11 +40,11 @@ class RetrofitClient @Inject constructor(
         return if (any !is VacancyRequest ){
             flowOf(FetchResult.Error(NetworkError.SEARCH_ERROR))
         }else{
-            val query = when(any){
-                is VacancyRequest.FullInfoRequest ->{
+            val query = when (any) {
+                is VacancyRequest.FullInfoRequest -> {
                     any.id.toString()
                 }
-                is VacancyRequest.SearchVacanciesRequest ->{
+                is VacancyRequest.SearchVacanciesRequest -> {
                     any.query
                 }
             }
