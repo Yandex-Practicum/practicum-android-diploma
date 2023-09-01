@@ -23,4 +23,8 @@
     <string name="phone">Телефон</string>
     <string name="similar_vacancies">Похожие вакансии</string>
     <string name="contacts_person">Контактное лицо</string>
+    <string name="no_app_found">No application for this action found on your device</string>
+    <string name="share_to">Поделиться вакансией через:</string>
+    <string name="empty_share_text">Can\'t share empty text</string>
+    <string name="something_went_wrong">Something went wrong</string>
 </resources>

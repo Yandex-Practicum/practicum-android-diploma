@@ -5,6 +5,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import ru.practicum.android.diploma.features.vacancydetails.data.models.VacancyDetailsDto
 import ru.practicum.android.diploma.features.vacancydetails.data.models.VacancyDetailsRequest
 import ru.practicum.android.diploma.root.data.network.models.NetworkResultCode
 import ru.practicum.android.diploma.root.data.network.models.Response
@@ -14,18 +15,18 @@ class RetrofitNetworkClient(
     private val context: Context
 ) : NetworkSearch {
 
-    override suspend fun getVacancyById(dto: VacancyDetailsRequest): Response {
+    override suspend fun getVacancyById(dto: VacancyDetailsRequest): Response<VacancyDetailsDto> {
 
         if (isConnected() == false) {
-            return Response().apply { resultCode = NetworkResultCode.CONNECTION_ERROR }
+            return Response(resultCode = NetworkResultCode.CONNECTION_ERROR, data = null)
         }
 
         return withContext(Dispatchers.IO) {
             try {
                 val response = api.getVacancyById(vacancyId = dto.id)
-                response.apply { resultCode = NetworkResultCode.SUCCESS }
+                Response(resultCode = NetworkResultCode.SUCCESS, response )
             } catch (e: Throwable) {
-                Response().apply { resultCode = NetworkResultCode.SERVER_ERROR }
+                Response(resultCode = NetworkResultCode.SERVER_ERROR, data = null)
             }
         }
     }
