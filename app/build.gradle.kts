@@ -71,7 +71,8 @@ dependencies {
     implementation(libs.junit)
     implementation(libs.androidx.junit)
     implementation(libs.test.espresso.core)
- 
+    implementation(libs.lottie)
+
     // LeakCanary
     //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.8.1'
 }
