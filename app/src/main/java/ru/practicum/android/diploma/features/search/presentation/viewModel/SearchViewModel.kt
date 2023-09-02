@@ -10,16 +10,18 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.App
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.features.search.domain.model.Filter
+import ru.practicum.android.diploma.features.filters.domain.models.Filter
 import ru.practicum.android.diploma.features.search.domain.model.QueryError
 import ru.practicum.android.diploma.features.search.domain.model.ResponseModel
 import ru.practicum.android.diploma.features.search.domain.repository.SearchVacancyRepository
 import ru.practicum.android.diploma.features.search.presentation.SearchScreenState
 import ru.practicum.android.diploma.features.search.presentation.SearchingCleanerState
+import ru.practicum.android.diploma.root.domain.repository.FilterRepository
 import ru.practicum.android.diploma.root.presentation.model.VacancyScreenModel
 
 class SearchViewModel(
     private val vacancyRepository: SearchVacancyRepository,
+    private val filterRepository: FilterRepository,
     private val context: Context
 ) : ViewModel() {
     private var previousSearchingRequest = ""
@@ -45,7 +47,8 @@ class SearchViewModel(
         if (text == previousSearchingRequest || text.isEmpty()) return
         previousSearchingRequest = text
 
-        runSearching(App.CLICK_DEBOUNCE_DELAY_MILLIS,text, Filter(""))
+        val filter = filterRepository.getFilter()
+        runSearching(App.CLICK_DEBOUNCE_DELAY_MILLIS,text, filter)
     }
 
     fun onSearchingFieldClean() {
