@@ -18,7 +18,7 @@
             android:layout_gravity="center"
             android:layout_marginStart="4dp"
             android:background="@android:color/transparent"
-            android:src="@drawable/filter_icon"
+            android:src="@drawable/ic_arrow_back"
             app:tint="?attr/colorOnPrimary"/>
 
         <TextView
