@@ -26,4 +26,14 @@
     <string name="something_went_wrong">Что-то пошло не так</string>
     <string name="no_such_vacancies">Таких вакансий нет</string>
     <string name="found">Найдено</string>
+    <string name="no_app_found">No application for this action found on your device</string>
+    <string name="share_to">Поделиться вакансией через:</string>
+    <string name="empty_share_text">Can\'t share empty text</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="work_place">Место работы</string>
+    <string name="industry">Отрасль</string>
+    <string name="do_not_show_without_salary">Не показывать без ЗП</string>
+    <string name="enter_sum">Введите сумму</string>
+    <string name="expected_salary">Ожидаемая ЗП</string>
+    <string name="filters_settings">Настройки фильтрации</string>
 </resources>

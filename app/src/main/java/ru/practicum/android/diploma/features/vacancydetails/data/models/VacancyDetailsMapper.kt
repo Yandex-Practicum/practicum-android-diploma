@@ -3,28 +3,32 @@ package ru.practicum.android.diploma.features.vacancydetails.data.models
 import ru.practicum.android.diploma.features.vacancydetails.domain.models.Salary
 import ru.practicum.android.diploma.features.vacancydetails.domain.models.VacancyDetails
 
-class VacancyDetailsMapper : (VacancyDetailsResponse) -> VacancyDetails {
+class VacancyDetailsMapper : (VacancyDetailsDto) -> VacancyDetails {
 
-    override fun invoke(response: VacancyDetailsResponse): VacancyDetails {
-        return with(response.searchResult) {
-            VacancyDetails(
-                vacancyId = this.vacancyId,
-                vacancyName = this.vacancyName,
-                salary = getSalary(this.salary),
-                logoUrl = this.employer?.logoUrls?.logoUrl90 ?: "",
-                employerName = this.employer?.employerName ?: "",
-                employerArea = this.vacancyArea.area,
-                experienceReq = this.experience?.experience ?: "",
-                employmentType = this.employmentType?.employmentTypeName ?: "",
-                scheduleType = this.scheduleType?.scheduleTypeName ?: "",
-                vacancyDescription = this.vacancyDesc,
-                vacancyBrandedDesc = this.vacancyBrandedDesc ?: "",
-                keySkills = this.keySkills,
-                contactsName = this.contacts?.contactsName ?: "",
-                contactsEmail = this.contacts?.contactsEmail ?: "",
-                contactsPhones = getPhones(this.contacts?.phones),
-                responseUrl = this.responseUrl ?: ""
-            )
+    override fun invoke(dto: VacancyDetailsDto): VacancyDetails {
+        return VacancyDetails(
+            vacancyId = dto.vacancyId,
+            vacancyName = dto.vacancyName ?: "",
+            salary = getSalary(dto.salary),
+            logoUrl = dto.employer?.logoUrls?.logoUrl90 ?: "",
+            employerName = dto.employer?.employerName ?: "",
+            employerArea = dto.vacancyArea?.area ?: "",
+            experienceReq = dto.experience?.experience ?: "",
+            employmentType = dto.employmentType?.employmentTypeName ?: "",
+            scheduleType = dto.scheduleType?.scheduleTypeName ?: "",
+            vacancyDescription = dto.vacancyDesc ?: "",
+            vacancyBrandedDesc = dto.vacancyBrandedDesc ?: "",
+            keySkills = getSkillsList(dto.keySkills),
+            contactsName = dto.contacts?.contactsName ?: "",
+            contactsEmail = dto.contacts?.contactsEmail ?: "",
+            contactsPhones = getPhones(dto.contacts?.phones),
+            responseUrl = dto.responseUrl ?: ""
+        )
+    }
+
+    private fun getSkillsList(keySkills: List<VacancyDetailsDto.KeySkill>): List<String> {
+        return keySkills.map {
+            it.skillName
         }
     }
 
