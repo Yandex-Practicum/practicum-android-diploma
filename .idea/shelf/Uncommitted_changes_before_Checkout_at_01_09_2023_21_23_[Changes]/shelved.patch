@@ -1,0 +1,22 @@
+Index: app/build.gradle.kts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>plugins {\r\n    id(\"com.android.application\")\r\n    id(\"org.jetbrains.kotlin.android\")\r\n    id(\"ru.practicum.android.diploma.plugins.developproperties\")\r\n    id (\"kotlin-kapt\")\r\n}\r\n\r\nandroid {\r\n    namespace = \"ru.practicum.android.diploma\"\r\n    compileSdk = 33\r\n\r\n    buildFeatures {\r\n        viewBinding = true\r\n    }\r\n\r\n\r\n    defaultConfig {\r\n        applicationId = \"ru.practicum.android.diploma\"\r\n        minSdk = 26\r\n        targetSdk = 33\r\n        versionCode = 1\r\n        versionName = \"1.0\"\r\n\r\n        testInstrumentationRunner = \"androidx.test.runner.AndroidJUnitRunner\"\r\n\r\n        buildConfigField(type = \"String\", name = \"HH_ACCESS_TOKEN\", value = \"\\\"${developProperties.hhAccessToken}\\\"\")\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            isMinifyEnabled = false\r\n            proguardFiles(getDefaultProguardFile(\"proguard-android-optimize.txt\"), \"proguard-rules.pro\")\r\n        }\r\n    }\r\n    compileOptions {\r\n        sourceCompatibility = JavaVersion.VERSION_1_8\r\n        targetCompatibility = JavaVersion.VERSION_1_8\r\n    }\r\n    kotlinOptions {\r\n        jvmTarget = \"1.8\"\r\n    }\r\n\r\n    buildFeatures {\r\n        buildConfig = true\r\n    }\r\n}\r\n\r\ndependencies {\r\n\r\n    implementation(\"androidx.core:core-ktx:1.10.1\")\r\n    implementation(\"androidx.appcompat:appcompat:1.6.1\")\r\n    implementation(\"com.google.android.material:material:1.9.0\")\r\n    implementation(\"androidx.constraintlayout:constraintlayout:2.1.4\")\r\n\r\n    testImplementation(\"junit:junit:4.13.2\")\r\n    androidTestImplementation(\"androidx.test.ext:junit:1.1.5\")\r\n    androidTestImplementation(\"androidx.test.espresso:espresso-core:3.5.1\")\r\n\r\n    //Koin\r\n    implementation(\"io.insert-koin:koin-android:3.4.2\")\r\n\r\n    //Gson\r\n    implementation(\"com.google.code.gson:gson:2.9.0\")\r\n\r\n    //NavigationGraph\r\n    implementation(\"androidx.navigation:navigation-fragment-ktx:2.6.0\")\r\n    implementation(\"androidx.navigation:navigation-ui-ktx:2.6.0\")\r\n\r\n    //Fragment\r\n    implementation (\"androidx.fragment:fragment-ktx:1.6.1\")\r\n\r\n    //Retrofit\r\n    implementation(\"com.squareup.retrofit2:retrofit:2.9.0\")\r\n    implementation(\"com.squareup.retrofit2:converter-gson:2.9.0\")\r\n\r\n\r\n    //Glide\r\n    implementation(\"com.github.bumptech.glide:glide:4.15.1\")\r\n\r\n    //ViewModel\r\n    implementation (\"androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1\")\r\n\r\n    //Room\r\n    val room_version = \"2.5.2\"\r\n    implementation(\"androidx.room:room-runtime:$room_version\")\r\n    kapt(\"androidx.room:room-compiler:$room_version\")\r\n    implementation(\"androidx.room:room-ktx:$room_version\")\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/build.gradle.kts b/app/build.gradle.kts
+--- a/app/build.gradle.kts	
++++ b/app/build.gradle.kts	
+@@ -82,7 +82,7 @@
+ 
+     //Room
+     val room_version = "2.5.2"
+-    implementation("androidx.room:room-runtime:$room_version")
+-    kapt("androidx.room:room-compiler:$room_version")
+-    implementation("androidx.room:room-ktx:$room_version")
++    implementation("androidx.room:room-runtime:2.5.2")
++    kapt("androidx.room:room-compiler:2.5.2")
++    implementation("androidx.room:room-ktx:2.5.2")
+ }
+\ No newline at end of file
