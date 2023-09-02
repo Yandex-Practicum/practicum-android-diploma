@@ -76,7 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_marginBottom="@dimen/margin_8dp"
-        android:background="@drawable/bt_round_drawable"
+        android:gravity="center"
         android:text="@string/choose"
         android:textColor="?attr/colorOnSecondary"
         android:visibility="gone"
