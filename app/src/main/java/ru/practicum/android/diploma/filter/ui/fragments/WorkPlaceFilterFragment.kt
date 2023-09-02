@@ -17,18 +17,20 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
     }
 
     private fun initListeners() {
-        binding.filterToolbar.setNavigationOnClickListener {
-            findNavController().popBackStack()
-        }
-        binding.countryContainer.setOnClickListener {
-            findNavController().navigate(
-                resId = R.id.action_workPlaceFilterFragment_to_countryFilterFragment
-            )
-        }
-        binding.regionContainer.setOnClickListener {
-            findNavController().navigate(
-                resId = R.id.action_workPlaceFilterFragment_to_regionFragment
-            )
+        with(binding) {
+            filterToolbar.setNavigationOnClickListener {
+                findNavController().popBackStack()
+            }
+            countryContainer.setOnClickListener {
+                findNavController().navigate(
+                    resId = R.id.action_workPlaceFilterFragment_to_countryFilterFragment
+                )
+            }
+            regionContainer.setOnClickListener {
+                findNavController().navigate(
+                    resId = R.id.action_workPlaceFilterFragment_to_regionFragment
+                )
+            }
         }
     }
 }
