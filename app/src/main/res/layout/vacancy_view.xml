@@ -4,18 +4,36 @@
     android:id="@+id/vacancy_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
     android:background="?attr/white_to_black_color"
+    android:orientation="horizontal"
+    android:paddingVertical="@dimen/margin_9"
     android:theme="@style/Base.Theme.PracticumAndroidDiploma">
 
     <ImageView
-        android:id="@+id/logo_url_240"
+        android:id="@+id/logo_url"
         android:layout_width="@dimen/weight_height_logo"
         android:layout_height="@dimen/weight_height_logo"
-        android:padding="@dimen/logo_padding_8"
-        android:background="@drawable/corner_rectangle_bottomsheet"
-        android:src="@drawable/placeholder"
-        android:layout_marginEnd="@dimen/margin_12"/>
+        android:layout_marginEnd="@dimen/margin_12"
+        android:background="@drawable/field_for_image_in_recycler_view"
+
+        android:padding="@dimen/margin_8"
+        android:scaleType="centerCrop"
+        android:cropToPadding="true"
+
+        android:src="@drawable/placeholder" />
+
+    <ImageView
+        android:id="@+id/field"
+        android:layout_width="@dimen/weight_height_logo"
+        android:layout_height="@dimen/weight_height_logo"
+        android:layout_marginEnd="@dimen/margin_12"
+        android:background="@drawable/field_for_image_in_recycler_view"
+
+        android:padding="@dimen/margin_8"
+        android:scaleType="centerCrop"
+        android:cropToPadding="true"
+
+        android:src="@drawable/placeholder" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -24,33 +42,33 @@
 
         <TextView
             android:id="@+id/vacancy_name"
+            style="@style/Text_Medium_22_500"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="?attr/black_to_white_color"
+            android:ellipsize="end"
             android:fontFamily="@font/ys_display_medium"
             android:maxLines="3"
-            android:ellipsize="end"
-            style="Text_Medium_22"
-            tools:text="Разработчик на С++ в команду внутренних сервисов, Москва"/>
+            android:textColor="?attr/black_to_white_color"
+            tools:text="Разработчик на С++ в команду внутренних сервисов, Москва" />
 
         <TextView
             android:id="@+id/employer_name"
+            style="@style/Text_Regular_16_400"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Text_Medium_16_500"
-            android:textColor="?attr/black_to_white_color"
-            android:maxLines="1"
             android:ellipsize="end"
-            tools:text="Авто.ру"/>
+            android:maxLines="1"
+            android:textColor="?attr/black_to_white_color"
+            tools:text="Авто.ру" />
 
         <TextView
             android:id="@+id/salary"
+            style="@style/Text_Regular_16_400"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Text_Medium_16_500"
-            android:textColor="?attr/black_to_white_color"
-            android:maxLines="1"
             android:ellipsize="end"
-            tools:text="от 40 000 до 80 000 ₽"/>
+            android:maxLines="1"
+            android:textColor="?attr/black_to_white_color"
+            tools:text="от 40 000 до 80 000 ₽" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </LinearLayout>

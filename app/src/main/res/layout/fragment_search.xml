@@ -35,10 +35,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_8"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_edit_text"
-        tools:listitem="@layout/vacancy_view" />
+        app:layout_constraintTop_toBottomOf="@id/search_result"
+        tools:listitem="@layout/item_view" />
 
     <EditText
         android:id="@+id/search_edit_text"
@@ -63,11 +64,22 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <ImageView
-        android:id="@+id/edit_text_image"
+        android:id="@+id/edit_text_search_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_16"
         android:src="@drawable/search"
+        app:layout_constraintBottom_toBottomOf="@id/search_edit_text"
+        app:layout_constraintEnd_toEndOf="@id/search_edit_text"
+        app:layout_constraintTop_toTopOf="@id/search_edit_text" />
+
+    <ImageView
+        android:id="@+id/edit_text_close_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:src="@drawable/close"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/search_edit_text"
         app:layout_constraintEnd_toEndOf="@id/search_edit_text"
         app:layout_constraintTop_toTopOf="@id/search_edit_text" />
@@ -100,15 +112,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_12"
         android:background="@drawable/field_for_result_text"
+        android:gravity="center"
         android:paddingHorizontal="@dimen/margin_12"
         android:paddingVertical="@dimen/margin_4"
-        android:text="@string/no_vacancies"
         android:textColor="@color/white"
-        android:gravity="center"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_edit_text" />
+        app:layout_constraintTop_toBottomOf="@id/search_edit_text"
+        tools:text="@string/no_vacancies" />
 
     <ProgressBar
         android:id="@+id/progress_bar_in_end"

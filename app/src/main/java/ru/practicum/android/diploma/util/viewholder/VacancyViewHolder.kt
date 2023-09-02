@@ -13,15 +13,15 @@ import ru.practicum.android.diploma.search.domain.models.Vacancy
 
 class VacancyViewHolder(parentView: ViewGroup) : RecyclerView.ViewHolder(
     LayoutInflater.from(parentView.context)
-        .inflate(R.layout.vacancy_view, parentView, false)
+        .inflate(R.layout.item_view, parentView, false)
 ) {
-    private val logoUrl: ImageView = itemView.findViewById(R.id.logo_url_240)
+    private val logoUrl: ImageView = itemView.findViewById(R.id.logo_url)
     private val name: TextView = itemView.findViewById(R.id.vacancy_name)
     private val employerName: TextView = itemView.findViewById(R.id.employer_name)
     private val salary: TextView = itemView.findViewById(R.id.salary)
 
     fun bind(model: Vacancy) {
-        name.text = model.name
+        name.text = "${model.name}, ${model.city}"
         employerName.text = model.employerName
         salary.text = getSalary(model, salary.context)
         Glide.with(itemView)
@@ -29,6 +29,7 @@ class VacancyViewHolder(parentView: ViewGroup) : RecyclerView.ViewHolder(
             .placeholder(R.drawable.placeholder)
             .centerCrop()
             .into(logoUrl)
+        if (model.employerLogoUrl != null) logoUrl.setPadding(3, 3, 3, 3)
     }
 
     private fun getSalary(model: Vacancy, context: Context): String {

@@ -13,7 +13,6 @@ import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.search.domain.SearchState
 import ru.practicum.android.diploma.search.domain.models.Vacancy
@@ -30,19 +29,6 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
 
     private lateinit var vacancySearchDebounce: (String) -> Unit
 
-    /* val startForResult =
-         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-             if (result.resultCode == Activity.RESULT_OK) {
-
-                 if (inputEditText.text.isNotEmpty()) {
-                     refresh(inputEditText.text)
-                     viewModel.getHistoryTracks()
-                 } else {
-                     viewModel.getHistoryTracks()
-                 }
-             }
-         }*/
-
     private val viewModel by viewModel<SearchViewModel>()
 
     override fun createBinding(
@@ -56,42 +42,32 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.observeState().observe(requireActivity()) { render(it) }
-        // viewModel.getHistoryTracks()
         adapter = VacancyAdapter(ArrayList<Vacancy>())
         binding.searchRecyclerView.adapter = adapter
         binding.searchRecyclerView.layoutManager = LinearLayoutManager(requireActivity())
 
+        viewModel.iconStateLiveData.observe(viewLifecycleOwner) { state ->
+            changeIconInEditText(state)
+        }
+
         listener()
-        editTextRequestFocus()
     }
 
-    private fun showVacanciesList(vacancy: List<Vacancy>) {
+    private fun showVacanciesList(vacancies: List<Vacancy>, foundValue: Int) {
 
         binding.searchResult.visibility = View.VISIBLE
+        binding.searchResult.text = "Найдено $foundValue вакансий"
         binding.searchRecyclerView.visibility = View.VISIBLE
         binding.placeholderImage.visibility = View.GONE
         binding.progressBarForLoad.visibility = View.GONE
         binding.progressBarInEnd.visibility = View.GONE
 
         hideKeyBoard()
-        adapter.setVacancies(vacancy)
+        adapter.setVacancies(vacancies)
         adapter.notifyDataSetChanged()
 
-        setSearchIconForEditText()
+        binding.searchEditText.clearFocus()
     }
-
-    /* private fun showHistory(historyTrack: List<Track>) {
-
-         if (inputEditText.text.isEmpty() && historyTrack.isNotEmpty() && inputEditText.hasFocus()) {
-             progressBar.visibility = View.GONE
-             recyclerView.visibility = View.VISIBLE
-             history.visibility = View.VISIBLE
-             removeButton.visibility = View.VISIBLE
-             adapter.track.clear()
-             adapter.track.addAll(historyTrack.toMutableList())
-             adapter.notifyDataSetChanged()
-         }
-     }*/
 
     private fun showError(errorMessage: String) {
         binding.searchResult.text = errorMessage
@@ -111,52 +87,29 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
         binding.progressBarInEnd.visibility = View.GONE
     }
 
-    private fun changeIconInEditText(s: CharSequence?) {
-        return if (s.isNullOrEmpty()) {
-            setSearchIconForEditText()
-        } else {
-            setCloseIconForEditText()
+    private fun changeIconInEditText(state: IconState) {
+        when (state) {
+            IconState.CloseIcon -> setCloseIconForEditText()
+            IconState.SearchIcon -> setSearchIconForEditText()
         }
     }
 
-    private fun setCloseIconForEditText() {
-        binding.editTextImage.setImageDrawable(resources.getDrawable(R.drawable.close))
+      private fun setCloseIconForEditText() {
+        binding.editTextSearchImage.visibility = View.GONE
+        binding.editTextCloseImage.visibility = View.VISIBLE
     }
 
     private fun setSearchIconForEditText() {
-        binding.editTextImage.setImageDrawable(resources.getDrawable(R.drawable.search))
+        binding.editTextCloseImage.visibility = View.GONE
+        binding.editTextSearchImage.visibility = View.VISIBLE
     }
-
-    /* private fun removeHistory() {
-         viewModel.removeTrackHistory()
-         recyclerView.visibility = View.GONE
-         history.visibility = View.GONE
-         removeButton.visibility = View.GONE
-         adapter.notifyDataSetChanged()
-     }*/
-
-    private fun refresh(s: CharSequence?) {
-        viewModel.refreshSearchTrack(s?.toString() ?: "")
-    }
-
-    private fun editTextRequestFocus() {
-        binding.searchEditText.postDelayed({ binding.searchEditText.requestFocus() }, 500)
-    }
-
-   /* @SuppressLint("RestrictedApi")
-    private fun hideKeyBoard() {
-        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-        val focusedView = activity?.currentFocus
-        if (focusedView != null) {
-            imm?.hideSoftInputFromWindow(focusedView.windowToken, 0)
-        }
-//        ViewUtils.hideKeyboard(requireActivity().currentFocus ?: View(requireContext()))
-    }*/
 
     private fun hideKeyBoard() {
         val inputMethodManager =
             requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
         inputMethodManager?.hideSoftInputFromWindow(binding.searchEditText.windowToken, 0)
+        binding.searchEditText.clearFocus()
+
     }
 
     private fun showLoading() {
@@ -168,11 +121,10 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
         binding.progressBarInEnd.visibility = View.GONE
     }
 
-    fun render(state: SearchState) {
+    private fun render(state: SearchState) {
         when (state) {
             is SearchState.Loading -> showLoading()
-            is SearchState.VacancyContent -> showVacanciesList(state.vacancies)
-            is SearchState.HistroryContent -> {}
+            is SearchState.VacancyContent -> showVacanciesList(state.vacancies, state.foundValue)
             is SearchState.Error -> showError(state.errorMessage)
             is SearchState.Empty -> showEmpty(state.message)
         }
@@ -181,7 +133,6 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
     private fun clearInputEditText() {
         binding.searchEditText.setText("")
         viewModel.clearInputEditText()
-        editTextRequestFocus()
 
         binding.searchResult.visibility = View.GONE
         binding.searchRecyclerView.visibility = View.GONE
@@ -192,23 +143,6 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
         adapter.notifyDataSetChanged()
     }
 
-   /* private fun focusedViewCheck(s: CharSequence?) {
-   //     val focusedView = activity?.currentFocus
-        vacancySearchDebounce = debounce<String>(
-            SEARCH_DEBOUNCE_DELAY,
-            viewLifecycleOwner.lifecycleScope,
-            true
-        ) { text ->
-            //loadTracks(text) }
-
-        //    if (focusedView != null) {
-       //         viewModel.onSearchTextChanged(changedText = s?.toString() ?: "")
-       //     } else {
-                viewModel.searchVacancy(text)
-            }
-        }
-  //  }*/
-
     @SuppressLint("RestrictedApi", "CommitPrefEdits")
     private fun listener() {
 
@@ -217,30 +151,22 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
             viewLifecycleOwner.lifecycleScope,
             true
         ) { text ->
-            //loadTracks(text) }
-
-            //    if (focusedView != null) {
-            //         viewModel.onSearchTextChanged(changedText = s?.toString() ?: "")
-            //     } else {
             viewModel.searchVacancy(text)
         }
 
-        binding.searchEditText.setOnFocusChangeListener { view, hasFocus ->
+        binding.searchEditText.setOnFocusChangeListener { _, hasFocus ->
             viewModel.setOnFocus(binding.searchEditText.text.toString(), hasFocus)
         }
+
         binding.searchEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
+            override fun beforeTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                changeIconInEditText(s)
                 vacancySearchDebounce(s.toString())
-           //     focusedViewCheck(s)
+               viewModel.setOnFocus(s.toString(), binding.searchEditText.hasFocus())
             }
 
-            override fun afterTextChanged(s: Editable?) {
-       //         focusedViewCheck(s)
-            }
+            override fun afterTextChanged(s: Editable?) {}
         })
 
         binding.searchEditText.setOnEditorActionListener { _, actionId, _ ->
@@ -251,19 +177,13 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
             false
         }
 
-        /* refreshButton.setOnClickListener {
-             refresh(inputEditText.text)
-         }
-         removeButton.setOnClickListener {
-             removeHistory()
-         }*/
-        binding.editTextImage.setOnClickListener {
+        binding.editTextCloseImage.setOnClickListener {
             clearInputEditText()
         }
+
         adapter.itemClickListener = { position, vacancy ->
             onVacancyClickDebounce(vacancy)
         }
-
 
         onVacancyClickDebounce = debounce<Vacancy>(
             CLICK_DEBOUNCE_DELAY,

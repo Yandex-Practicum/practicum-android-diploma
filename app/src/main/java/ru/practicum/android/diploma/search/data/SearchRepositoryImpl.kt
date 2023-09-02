@@ -7,9 +7,14 @@ import ru.practicum.android.diploma.search.data.dto.SearchRequest
 import ru.practicum.android.diploma.search.data.dto.SearchRequestOptions
 import ru.practicum.android.diploma.search.data.dto.SearchResponse
 import ru.practicum.android.diploma.search.data.dto.VacancyDto
-import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.domain.SearchRepository
+import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.util.Resource
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.text.NumberFormat
+import java.util.Locale
+
 
 class SearchRepositoryImpl(
     private val networkClient: NetworkClient,
@@ -24,8 +29,7 @@ class SearchRepositoryImpl(
 
             SUCCESS -> {
                 with(response as SearchResponse) {
-
-                    val vacanciesList = items.map { mapVacancyFromDto(it) }
+                    val vacanciesList = items.map { mapVacancyFromDto(it, found) }
                     emit(Resource.Success(vacanciesList))
                 }
 
@@ -48,9 +52,9 @@ class SearchRepositoryImpl(
 
                 SUCCESS -> {
                     with(response as SearchResponse) {
-                        val vacanciesList = items.map { mapVacancyFromDto(it) }
-                        emit(Resource.Success(vacanciesList))
-                        // emit(Resource.Success(mapVacanciesListFromDto(results)))
+                        //   Заготовка для фильтров
+                        //    val vacanciesList = items.map { mapVacancyFromDto(it) }
+                        //   emit(Resource.Success(vacanciesList,))
                     }
 
                 }
@@ -61,36 +65,46 @@ class SearchRepositoryImpl(
             }
         }
 
-    /* private fun mapVacanciesListFromDto(list: List<VacancyDto>): List<Vacancy> {
-         return list.map {
-             Vacancy(
-                 it.id, it.name, it.city?="", it.employerName, it.employerLogoUrl,
-                 it.salaryCurrency, it.salaryFrom, it.salaryTo
-             )
-         }
-     }*/
-
-    private fun mapVacancyFromDto(vacancyDto: VacancyDto): Vacancy {
+    private fun mapVacancyFromDto(vacancyDto: VacancyDto, foundValue: Int): Vacancy {
         return Vacancy(
             vacancyDto.id,
             vacancyDto.name,
             vacancyDto.area.name,
             vacancyDto.employer.name,
-            vacancyDto.employer.vacancies_url ?: "",
-            vacancyDto.salary?.currency ?: "",
-            vacancyDto.salary?.from ?: 0,
-            vacancyDto.salary?.to ?: 0,
+            found = foundValue,
+            vacancyDto.employer.logo_urls?.original,
+            getSymbol(vacancyDto.salary?.currency),
+            createValue(vacancyDto.salary?.from),
+            createValue(vacancyDto.salary?.to),
         )
     }
 
-   /* private fun mapVacancyListToDto(list: List<Vacancy>): List<VacancyDto> {
-        return list.map {
-            VacancyDto(
-                it.id, it.name, it.city, it.employerName, it.employerLogoUrl,
-                it.salaryCurrency, it.salaryFrom, it.salaryTo
-            )
+    private fun createValue(salary: Int?): String? {
+        if (salary == null) {
+            return null
+        } else {
+            val formatter: DecimalFormat = NumberFormat.getInstance(Locale.US) as DecimalFormat
+            val symbols: DecimalFormatSymbols = formatter.getDecimalFormatSymbols()
+            symbols.setGroupingSeparator(' ')
+            formatter.setDecimalFormatSymbols(symbols)
+            return (formatter.format(salary))
         }
-    }*/
+    }
+
+    private fun getSymbol(currency: String?): String? {
+        var symbol: String? = null
+        if (currency == "AZN") symbol = "₼"
+        if (currency == "BYR") symbol = "Br"
+        if (currency == "EUR") symbol = "€"
+        if (currency == "GEL") symbol = "₾"
+        if (currency == "KGS") symbol = "с"
+        if (currency == "KZT") symbol = "₸"
+        if (currency == "RUR") symbol = "₽"
+        if (currency == "UAH") symbol = "₴"
+        if (currency == "USD") symbol = "$"
+        if (currency == "UZS") symbol = "UZS"
+        return symbol
+    }
 
     companion object {
         const val ERROR = -1

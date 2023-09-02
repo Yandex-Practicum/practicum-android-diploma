@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.search.data.ResourceProvider
@@ -18,106 +17,70 @@ class SearchViewModel(
 ) : ViewModel() {
 
     private var lastSearchText: String? = null
-    /*  private var debounceJob: Job? = null
-      private var searchJob: Job? = null
-      private var getHistoryTracksJob: Job? = null*/
 
     private val stateLiveData = MutableLiveData<SearchState>()
+
+    private var _iconStateLiveData = MutableLiveData<IconState>()
+    val iconStateLiveData: LiveData<IconState> = _iconStateLiveData
 
     fun observeState(): LiveData<SearchState> = stateLiveData
     private fun renderState(state: SearchState) {
         stateLiveData.postValue(state)
     }
 
-    fun onSearchTextChanged(changedText: String) {
-
-        if (changedText.isNullOrEmpty()) {
-            /*       debounceJob?.cancel()
-                   searchJob?.cancel()*/
-            lastSearchText = null
-            //  renderState(SearchState.HistroryContent(historyVacancies = trackHistory))
-        } else {
-            searchDebounce(changedText)
-        }
-    }
-
-    fun searchDebounce(changedText: String) {
-
-        if (lastSearchText == changedText) {
-            return
-        } else {
-            lastSearchText = changedText
-            //     debounceJob?.cancel()
-            //      debounceJob =
-            viewModelScope.launch {
-                //          delay(SEARCH_DEBOUNCE_DELAY)
-                searchVacancy(changedText)
-            }
-
-        }
-    }
-
-    fun refreshSearchTrack(newSearchText: String) {
-        searchVacancy(newSearchText)
-    }
-
-    fun loadTrackList(editText: String?) {
-        if (editText.isNullOrEmpty()) {
-            // renderState(SearchState.HistroryContent(historyVacancies = trackHistory))
-        }
-    }
-
     fun clearInputEditText() {
-        /*    debounceJob?.cancel()
-            searchJob?.cancel()*/
         lastSearchText = null
-        //    renderState(SearchState.HistroryContent(historyVacancies = trackHistory))
     }
 
     fun setOnFocus(editText: String?, hasFocus: Boolean) {
-        if (hasFocus && editText.isNullOrEmpty()
-        //  && trackHistory.isNotEmpty()
-        ) {
-            //   renderState(SearchState.HistroryContent(historyVacancies = trackHistory))
-        }
+        if (hasFocus && editText.isNullOrEmpty()) _iconStateLiveData.postValue(IconState.SearchIcon)
+        if (hasFocus && editText!!.isNotEmpty()) _iconStateLiveData.postValue(IconState.CloseIcon)
+        if (!hasFocus && editText!!.isNotEmpty()) _iconStateLiveData.postValue(IconState.SearchIcon)
+        if (!hasFocus && editText.isNullOrEmpty()) _iconStateLiveData.postValue(IconState.SearchIcon)
     }
 
-    fun searchVacancy(newSearchText: String) {
-        if (newSearchText.isNotEmpty()) {
-            renderState(SearchState.Loading)
+    fun searchVacancy(searchText: String) {
+        if (lastSearchText == searchText) {
+            return
+        } else {
+            lastSearchText = searchText
+            if (searchText.isNotEmpty()) {
+                renderState(SearchState.Loading)
 
-            //   searchJob =
-            viewModelScope.launch {
-                interactor.loadVacancies(newSearchText)
-                    .collect { pair ->
-                        processResult(pair.first, pair.second)
-                    }
+                viewModelScope.launch {
+                    interactor.loadVacancies(searchText)
+                        .collect { pair ->
+                            processResult(pair.first, pair.second)
+                        }
+                }
             }
         }
     }
 
-  /*  fun getVacancies(newSearchText: String) {
-        if (newSearchText.isNotEmpty()) {
-            renderState(SearchState.Loading)
-            viewModelScope.launch {
+    /*  Заготовка для фильтров
 
-                val options: HashMap<String, String> = HashMap()
-                options["searchRequest"] = searchRequest
-                if (page.isNotEmpty()) options["page"] = page
-                if (perPage.isNotEmpty()) options["per_page"] = perPage //20
-                if (area.isNotEmpty()) options["area"] = area
-                if (industry.isNotEmpty()) options["industry"] = industry
-                if (salary.isNotEmpty()) options["salary"] = salary
-                if (onlyWithSalary.isNotEmpty()) options["only_with_salary"] = onlyWithSalary
+    fun getVacancies(newSearchText: String) {
+          if (newSearchText.isNotEmpty()) {
+              renderState(SearchState.Loading)
+              viewModelScope.launch {
 
-                //   SearchService(options).execute()
-                interactor.getVacancies(options)
-                    .collect { pair ->
-                        processResult(pair.first, pair.second)
-                    }
-            }
-        }
-    }*/
+                  val options: HashMap<String, String> = HashMap()
+                  options["searchRequest"] = searchRequest
+                  if (page.isNotEmpty()) options["page"] = page
+                  if (perPage.isNotEmpty()) options["per_page"] = perPage //20
+                  if (area.isNotEmpty()) options["area"] = area
+                  if (industry.isNotEmpty()) options["industry"] = industry
+                  if (salary.isNotEmpty()) options["salary"] = salary
+                  if (onlyWithSalary.isNotEmpty()) options["only_with_salary"] = onlyWithSalary
+
+                  //   SearchService(options).execute()
+                  interactor.getVacancies(options)
+                      .collect { pair ->
+                          processResult(pair.first, pair.second)
+                      }
+              }
+          }
+      }*/
 
     private fun processResult(foundVacancies: List<Vacancy>?, errorMessage: String?) {
         val vacancies = mutableListOf<Vacancy>()
@@ -136,18 +99,19 @@ class SearchViewModel(
             vacancies.isEmpty() -> {
                 renderState(
                     SearchState.Empty(
-                        message = resourceProvider.getString(R.string.nothing_found)
+                        message = resourceProvider.getString(R.string.no_vacancies)
                     )
                 )
             }
 
             else -> {
-                renderState(SearchState.VacancyContent(vacancies = vacancies))
+                renderState(
+                    SearchState.VacancyContent(
+                        vacancies = vacancies,
+                        foundValue = vacancies[0].found
+                    )
+                )
             }
         }
-    }
-
-    companion object {
-        //     const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
 }

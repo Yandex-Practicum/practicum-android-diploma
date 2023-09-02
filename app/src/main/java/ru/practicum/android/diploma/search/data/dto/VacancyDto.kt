@@ -4,15 +4,6 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 import java.util.Objects
 
-/* val id: String?,
-   val name: String?,
-   val city: String?,
-   val employerName: String?,
-   val employerLogoUrl: String?,
-   val salaryCurrency: String?,
-   val salaryFrom: Int?,
-   val salaryTo: Int?,*/
-
 @Parcelize
 data class VacancyDto(
     val accept_incomplete_resumes: Boolean,

@@ -6,10 +6,7 @@ sealed interface SearchState {
     object Loading : SearchState
     data class VacancyContent(
         val vacancies: List<Vacancy>,
-    ) : SearchState
-
-    data class HistroryContent(
-        val historyVacancies: List<Vacancy>,
+        val foundValue: Int,
     ) : SearchState
 
     data class Error(
