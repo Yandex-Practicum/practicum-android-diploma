@@ -10,6 +10,8 @@ import ru.practicum.android.diploma.search.data.dto.VacancyDto
 import ru.practicum.android.diploma.search.domain.SearchRepository
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.util.Resource
+import ru.practicum.android.diploma.util.app.App
+import ru.practicum.android.diploma.util.createValue
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.text.NumberFormat
@@ -79,17 +81,7 @@ class SearchRepositoryImpl(
         )
     }
 
-    private fun createValue(salary: Int?): String? {
-        if (salary == null) {
-            return null
-        } else {
-            val formatter: DecimalFormat = NumberFormat.getInstance(Locale.US) as DecimalFormat
-            val symbols: DecimalFormatSymbols = formatter.getDecimalFormatSymbols()
-            symbols.setGroupingSeparator(' ')
-            formatter.setDecimalFormatSymbols(symbols)
-            return (formatter.format(salary))
-        }
-    }
+
 
     private fun getSymbol(currency: String?): String? {
         var symbol: String? = null

@@ -80,7 +80,6 @@ dependencies {
 
     //ViewModel
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
-}
 
     //Room
     val room_version = "2.5.2"

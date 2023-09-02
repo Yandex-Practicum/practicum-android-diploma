@@ -2,21 +2,23 @@ package ru.practicum.android.diploma.db.data.converter
 
 import android.annotation.SuppressLint
 import ru.practicum.android.diploma.db.data.entity.VacancyEntity
-import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.search.domain.models.Vacancy
+import ru.practicum.android.diploma.util.createValue
 import java.text.SimpleDateFormat
 import java.util.Date
 
 class VacancyDbConverter {
-    fun map(vacancyEntity: VacancyEntity): Vacancy{
+    fun map(vacancyEntity: VacancyEntity): Vacancy {
         return Vacancy(
             id = vacancyEntity.id,
             name = vacancyEntity.name,
-            city = vacancyEntity.city,
+            city = vacancyEntity.city?:"",
             employerName = vacancyEntity.employerName,
             employerLogoUrl = vacancyEntity.employerLogoUrl,
             salaryCurrency = vacancyEntity.salaryCurrency,
-            salaryFrom = vacancyEntity.salaryFrom,
-            salaryTo = vacancyEntity.salaryTo
+            salaryFrom = createValue(vacancyEntity.salaryFrom),
+            salaryTo = createValue(vacancyEntity.salaryTo),
+            found = 0
         )
     }
 
@@ -28,8 +30,8 @@ class VacancyDbConverter {
             employerName = vacancy.employerName,
             employerLogoUrl = null,
             salaryCurrency = vacancy.salaryCurrency,
-            salaryFrom = vacancy.salaryFrom,
-            salaryTo = vacancy.salaryTo,
+            salaryFrom = vacancy.salaryFrom?.toInt(),
+            salaryTo = vacancy.salaryTo?.toInt(),
             getCurrentDate()
         )
     }
