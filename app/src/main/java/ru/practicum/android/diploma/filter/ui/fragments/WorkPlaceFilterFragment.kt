@@ -23,12 +23,12 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
             }
             countryContainer.setOnClickListener {
                 findNavController().navigate(
-                    resId = R.id.action_workPlaceFilterFragment_to_countryFilterFragment
+                    WorkPlaceFilterFragmentDirections.actionWorkPlaceFilterFragmentToCountryFilterFragment()
                 )
             }
             regionContainer.setOnClickListener {
                 findNavController().navigate(
-                    resId = R.id.action_workPlaceFilterFragment_to_regionFragment
+                    WorkPlaceFilterFragmentDirections.actionWorkPlaceFilterFragmentToRegionFragment()
                 )
             }
         }

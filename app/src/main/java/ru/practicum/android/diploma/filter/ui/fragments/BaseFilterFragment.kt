@@ -33,14 +33,14 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
             }
             workPlaceContainer.setOnClickListener {
                 findNavController().navigate(
-                    resId = R.id.action_filterBaseFragment_to_workPlaceFilterFragment
+                    BaseFilterFragmentDirections.actionFilterBaseFragmentToWorkPlaceFilterFragment()
                 )
             }
             amountText.doOnTextChanged { _, _, _, count ->
                 if (count == 0)
-                    viewModel.changeToEmptyState()
+                    viewModel.setEmptyScreenState()
                 else
-                    viewModel.changeToApplyState()
+                    viewModel.setApplyScreenState()
             }
         }
     }
