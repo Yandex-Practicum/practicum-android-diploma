@@ -13,13 +13,13 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.features.search.domain.model.Filter
 import ru.practicum.android.diploma.features.search.domain.model.QueryError
 import ru.practicum.android.diploma.features.search.domain.model.ResponseModel
-import ru.practicum.android.diploma.features.search.domain.repository.VacancyRepository
+import ru.practicum.android.diploma.features.search.domain.repository.SearchVacancyRepository
 import ru.practicum.android.diploma.features.search.presentation.SearchScreenState
 import ru.practicum.android.diploma.features.search.presentation.SearchingCleanerState
 import ru.practicum.android.diploma.root.presentation.model.VacancyScreenModel
 
 class SearchViewModel(
-    private val vacancyRepository: VacancyRepository,
+    private val vacancyRepository: SearchVacancyRepository,
     private val context: Context
 ) : ViewModel() {
     private var previousSearchingRequest = ""
