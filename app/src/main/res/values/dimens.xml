@@ -16,4 +16,7 @@
     <dimen name="weight_height_logo">48dp</dimen>
     <dimen name="radius_12">12dp</dimen>
     <dimen name="weight_height_60">60dp</dimen>
+    <dimen name="weight_height_25">25dp</dimen>
+    <dimen name="logo_padding_20">20dp</dimen>
+    <dimen name="margin_35">35dp</dimen>
 </resources>

@@ -64,24 +64,27 @@
         android:visibility="gone"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="wrap_content"
+        android:id="@+id/recyclerViewFilters"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_8"
+        android:visibility="visible"
+        app:layout_constraintEnd_toStartOf="@+id/rightBorder"
         app:layout_constraintStart_toStartOf="@+id/leftBorder"
-        app:layout_constraintTop_toBottomOf="@+id/search_edit_text"
-        android:visibility="gone"/>
+        app:layout_constraintTop_toBottomOf="@+id/search_edit_text" />
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/country"
+        android:id="@+id/textViewChoose"
         android:layout_width="0dp"
         android:layout_height="@dimen/weight_height_60"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="@dimen/margin_35"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/choose_textview"
-        app:layout_constraintEnd_toStartOf="@+id/country_button"
+        app:layout_constraintEnd_toStartOf="@+id/choose_country_bottom"
         android:textColorHint="?attr/gray_to_white_color"
         android:enabled="false"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
+        android:visibility="gone"
         >
 
         <com.google.android.material.textfield.TextInputEditText
@@ -94,14 +97,15 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <ImageView
-        android:id="@+id/country_button"
+        android:id="@+id/choose_country_bottom"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/weight_height_60"
-        android:paddingStart="20dp"
+        android:paddingStart="@dimen/logo_padding_20"
         android:src="@drawable/arrow_forward"
-        app:layout_constraintBottom_toBottomOf="@+id/country"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewChoose"
         app:layout_constraintEnd_toStartOf="@+id/rightBorder"
-        app:layout_constraintTop_toTopOf="@+id/country" />
+        app:layout_constraintTop_toTopOf="@+id/textViewChoose"
+        android:visibility="gone"/>
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -110,12 +114,13 @@
         android:layout_height="@dimen/weight_height_60"
 
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/country"
+        app:layout_constraintTop_toBottomOf="@+id/textViewChoose"
         app:layout_constraintEnd_toStartOf="@+id/region_button"
         android:textColorHint="?attr/gray_to_white_color"
         android:enabled="false"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
+        android:visibility="gone"
         >
         <com.google.android.material.textfield.TextInputEditText
             style="@style/Text_Regular_16_400"
@@ -129,18 +134,19 @@
         android:id="@+id/region_button"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/weight_height_60"
-        android:paddingStart="20dp"
+        android:paddingStart="@dimen/logo_padding_20"
         android:src="@drawable/arrow_forward"
         app:layout_constraintBottom_toBottomOf="@+id/region"
         app:layout_constraintEnd_toStartOf="@+id/rightBorder"
-        app:layout_constraintTop_toTopOf="@+id/region" />
+        app:layout_constraintTop_toTopOf="@+id/region"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@id/button_apply"
         style="@style/Text_Medium_16_500"
         android:layout_width="0dp"
         android:layout_height="@dimen/weight_height_60"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="@dimen/margin_24"
         android:background="@drawable/field_for_result_text"
         android:gravity="center"
         android:text="@string/choose"
