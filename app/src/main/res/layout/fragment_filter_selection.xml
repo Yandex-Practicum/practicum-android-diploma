@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="ru.practicum.android.diploma.filters.ui.fragment.FragmentChooseFilter">
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftBorder"
+        style="@style/guideline"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightBorder"
+        style="@style/guideline"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp" />
+
+    <ImageView
+        android:id="@+id/arrowback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/arrow_back"
+        app:layout_constraintStart_toStartOf="@+id/leftBorder"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/margin_12"
+        android:paddingEnd="@dimen/logo_padding_8"
+        android:paddingVertical="@dimen/logo_padding_8"
+         />
+
+    <TextView
+        android:id="@+id/choose_textview"
+        style="@style/Text_Medium_22_500"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/logo_padding_8"
+        android:paddingVertical="@dimen/logo_padding_8"
+        android:text="@string/choose_place_of_work"
+        android:textColor="?attr/black_to_white_color"
+        app:layout_constraintBottom_toBottomOf="@+id/arrowback"
+        app:layout_constraintStart_toEndOf="@+id/arrowback"
+        app:layout_constraintTop_toTopOf="@+id/arrowback" />
+
+    <EditText
+        android:id="@+id/search_edit_text"
+        style="@style/Text_Regular_16_400"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_56"
+        android:background="@drawable/field_for_search_edit_text"
+        android:drawableEnd="@drawable/search"
+        android:hint="@string/choose_of_country"
+        android:inputType="textNoSuggestions"
+        android:maxLines="1"
+        android:paddingHorizontal="@dimen/margin_16"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textColorHint="?attr/gray_to_white_color"
+        android:textCursorDrawable="@drawable/cursor"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        android:layout_marginTop="@dimen/margin_8"
+        app:layout_constraintStart_toStartOf="@id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@+id/choose_textview"
+        android:visibility="gone"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewFilters"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_8"
+        android:visibility="visible"
+        app:layout_constraintEnd_toStartOf="@+id/rightBorder"
+        app:layout_constraintStart_toStartOf="@+id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@+id/search_edit_text" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textViewChoose"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/weight_height_60"
+        android:layout_marginTop="@dimen/margin_35"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/choose_textview"
+        app:layout_constraintEnd_toStartOf="@+id/choose_country_bottom"
+        android:textColorHint="?attr/gray_to_white_color"
+        android:enabled="false"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        android:visibility="gone"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/Text_Regular_16_400"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="?attr/white2_to_black2_color"
+            android:hint="@string/country"
+            android:textColor="?attr/gray_to_white_color" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/choose_country_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/weight_height_60"
+        android:paddingStart="@dimen/logo_padding_20"
+        android:src="@drawable/arrow_forward"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewChoose"
+        app:layout_constraintEnd_toStartOf="@+id/rightBorder"
+        app:layout_constraintTop_toTopOf="@+id/textViewChoose"
+        android:visibility="gone"/>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/region"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/weight_height_60"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewChoose"
+        app:layout_constraintEnd_toStartOf="@+id/region_button"
+        android:textColorHint="?attr/gray_to_white_color"
+        android:enabled="false"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        android:visibility="gone"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/Text_Regular_16_400"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/gray_to_white_color"
+            android:backgroundTint="?attr/white2_to_black2_color"
+            android:hint="@string/region" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <ImageView
+        android:id="@+id/region_button"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/weight_height_60"
+        android:paddingStart="@dimen/logo_padding_20"
+        android:src="@drawable/arrow_forward"
+        app:layout_constraintBottom_toBottomOf="@+id/region"
+        app:layout_constraintEnd_toStartOf="@+id/rightBorder"
+        app:layout_constraintTop_toTopOf="@+id/region"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@id/button_apply"
+        style="@style/Text_Medium_16_500"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/weight_height_60"
+        android:layout_marginBottom="@dimen/margin_24"
+        android:background="@drawable/field_for_result_text"
+        android:gravity="center"
+        android:text="@string/choose"
+        android:textColor="@color/white_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/rightBorder"
+        app:layout_constraintStart_toStartOf="@+id/leftBorder" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

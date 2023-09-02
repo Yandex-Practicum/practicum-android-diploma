@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
     app:startDestination="@id/searchFragment">
-
     <fragment
         android:id="@+id/searchFragment"
         android:name="ru.practicum.android.diploma.search.ui.SearchFragment"
@@ -19,5 +18,24 @@
         android:id="@+id/fragmentChooseFilter"
         android:name="ru.practicum.android.diploma.filters.ui.fragment.FragmentChooseFilter"
         android:label="fragment_choose_filter"
-        tools:layout="@layout/fragment_choose_filter" />
+        tools:layout="@layout/fragment_filter_selection" />
+    <fragment
+        android:id="@+id/fragmentFavourite"
+        android:name="ru.practicum.android.diploma.favourite.ui.FragmentFavourite"
+        android:label="fragment_favourite"
+        tools:layout="@layout/fragment_favourite" />
+    <fragment
+        android:id="@+id/vacancyFragment"
+        android:name="ru.practicum.android.diploma.details.presentation.ui.VacancyFragment"
+        android:label="fragment_vacancy"
+        tools:layout="@layout/fragment_vacancy" >
+        <action
+            android:id="@+id/action_vacancyFragment_to_similarVacancyFragment"
+            app:destination="@id/similarVacancyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/similarVacancyFragment"
+        android:name="ru.practicum.android.diploma.details.presentation.ui.SimilarVacancyFragment"
+        android:label="fragment_similar_vacancy"
+        tools:layout="@layout/fragment_similar_vacancy" />
 </navigation>

@@ -3,8 +3,12 @@
     <string name="main">Главная</string>
     <string name="favourites">Избранное</string>
     <string name="team">Команда</string>
+    <string name="SettingFilters">Настройки фильтрации</string>
+    <string name="country">Страна</string>
+    <string name="place_of_work">Место работы</string>
     <string name="search_vacancies">Поиск вакансий</string>
     <string name="enter_request">Введите запрос</string>
+    <string name="vacancy">Вакансия</string>
     <string name="no_vacancies">Таких вакансий нет</string>
     <string name="to">до</string>
     <string name="from">от</string>
@@ -13,5 +17,33 @@
     <string name="server_error">Ошибка сервера</string>
     <string name="no_connection">Проблемы со связью\n\nЗагрузка не удалась. Проверьте подключение к интернету</string>
     <string name="nothing_found">Ничего не нашлось</string>
+    <string name="industry">Отрасль</string>
+    <string name="list_empty">Список пуст</string>
+    <string name="company_logo">Логотип компании</string>
+    <string name="expected_salary">Ожидаемая ЗП</string>
+    <string name="enter_salary">Введите сумму</string>
+    <string name="not_show_without_sallary">Не показывать без ЗП</string>
+    <string name="required_experience">Требуемый опыт</string>
+    <string name="vacancy_description">Описание вакансии</string>
+    <string name="vacancy_duties">Обязанности</string>
+    <string name="vacancy_requirements">Требования</string>
+    <string name="vacancy_conditions">Условия</string>
+    <string name="vacancy_key_skills">Ключевые навыки</string>
+    <string name="vacancy_contacts">Контакты</string>
+    <string name="vacancy_contact_person">Контактное лицо</string>
+    <string name="vacancy_contact_email">E-mail</string>
+    <string name="vacancy_contact_phone">Телефон</string>
+    <string name="similar_vacancies">Похожие вакансии</string>
+    <string name="choose_place_of_work">Выбор места работы</string>
+    <string name="choose_of_country">Выбор страны</string>
+    <string name="choose_of_region">Выбор региона</string>
+    <string name="choose_of_industry">Выбор отрасли</string>
+    <string name="enter_region">Выбор региона</string>
+    <string name="enter_industry">Введите отрасль</string>
+    <string name="region">Регион</string>
+    <string name="reset">Сбросить</string>
+    <string name="apply">Применить</string>
+    <string name="choose">Выбрать</string>
+
 
 </resources>

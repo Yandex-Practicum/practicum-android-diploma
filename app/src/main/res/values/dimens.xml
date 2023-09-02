@@ -6,11 +6,20 @@
     <dimen name="margin_12">12dp</dimen>
     <dimen name="margin_16">16dp</dimen>
     <dimen name="margin_40">40dp</dimen>
+    <dimen name="margin_24">24dp</dimen>
+    <dimen name="margin_32">32dp</dimen>
+    <dimen name="margin_48">48dp</dimen>
     <dimen name="margin_56">56dp</dimen>
+    <dimen name="margin_59">59dp</dimen>
     <dimen name="margin_64">64dp</dimen>
+    <dimen name="margin_80">80dp</dimen>
     <dimen name="logo_padding_8">8dp</dimen>
     <dimen name="weight_height_logo">48dp</dimen>
     <dimen name="margin_9">9dp</dimen>
-    <dimen name="margin_48">48dp</dimen>
 
+    <dimen name="radius_12">12dp</dimen>
+    <dimen name="weight_height_60">60dp</dimen>
+    <dimen name="weight_height_25">25dp</dimen>
+    <dimen name="logo_padding_20">20dp</dimen>
+    <dimen name="margin_35">35dp</dimen>
 </resources>
