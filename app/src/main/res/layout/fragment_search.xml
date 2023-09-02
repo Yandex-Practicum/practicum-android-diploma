@@ -54,7 +54,7 @@
         app:layout_constraintTop_toBottomOf="@id/vacancy_search_label" />
 
     <ImageView
-        android:id="@+id/search_cancel_active"
+        android:id="@+id/searching_cleaner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/search_cancel_icon"
@@ -63,7 +63,7 @@
         android:visibility="gone"/>
 
     <ImageView
-        android:id="@+id/search_cancel_inactive"
+        android:id="@+id/searching_cleaner_placeholder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/search_lens_icon"
@@ -71,6 +71,7 @@
         app:layout_constraintEnd_toEndOf="@id/search_edit_field"/>
 
     <ImageView
+        android:id="@+id/feed_placeholder"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:src="@drawable/search_placeholder"
@@ -80,6 +81,7 @@
         android:layout_marginVertical="156dp"/>
 
     <TextView
+        android:id="@+id/chip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_searh_chip"

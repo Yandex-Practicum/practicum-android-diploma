@@ -23,4 +23,7 @@
     <string name="phone">Телефон</string>
     <string name="similar_vacancies">Похожие вакансии</string>
     <string name="contacts_person">Контактное лицо</string>
+    <string name="something_went_wrong">Что-то пошло не так</string>
+    <string name="no_such_vacancies">Таких вакансий нет</string>
+    <string name="found">Найдено</string>
 </resources>
