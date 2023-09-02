@@ -11,13 +11,13 @@
         android:id="@+id/leftBorder"
         style="@style/guideline"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="16dp" />
+        app:layout_constraintGuide_begin="@dimen/margin_16" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/rightBorder"
         style="@style/guideline"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="16dp" />
+        app:layout_constraintGuide_end="@dimen/margin_16" />
 
     <ImageView
         android:id="@+id/arrowback"
@@ -26,7 +26,7 @@
         android:src="@drawable/arrow_back"
         app:layout_constraintStart_toStartOf="@+id/leftBorder"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="@dimen/margin_12"
         android:paddingVertical="@dimen/logo_padding_8"
         android:paddingEnd="@dimen/logo_padding_8"
          />
@@ -53,7 +53,7 @@
         app:layout_constraintEnd_toStartOf="@+id/place_of_work_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/arrowback"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/margin_16"
         android:enabled="false"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
@@ -100,7 +100,7 @@
         android:id="@+id/place_of_work_button"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/weight_height_60"
-        android:paddingStart="20dp"
+        android:paddingStart="@dimen/logo_padding_20"
         android:src="@drawable/arrow_forward"
         app:layout_constraintBottom_toBottomOf="@+id/place_of_work"
         app:layout_constraintEnd_toStartOf="@+id/rightBorder"
@@ -109,7 +109,7 @@
         android:id="@+id/industry_button"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/weight_height_60"
-        android:paddingStart="20dp"
+        android:paddingStart="@dimen/logo_padding_20"
         android:src="@drawable/arrow_forward"
         app:layout_constraintBottom_toBottomOf="@+id/industry"
         app:layout_constraintEnd_toStartOf="@+id/rightBorder"
@@ -120,7 +120,7 @@
         android:layout_height="wrap_content"
         android:enabled="false"
         app:boxStrokeWidth="0dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="@dimen/margin_24"
         android:textColorHint="?attr/gray_to_white_color"
         app:boxStrokeWidthFocused="0dp"
         app:layout_constraintEnd_toEndOf="@id/rightBorder"
@@ -145,13 +145,13 @@
         android:layout_marginTop="44.5dp"
         android:text="@string/not_show_without_sallary"
         android:textColor="?attr/black_to_white_color"
-        app:layout_constraintEnd_toStartOf="@+id/sallary_checkbox"
+        app:layout_constraintEnd_toStartOf="@+id/filter_checkbox"
         app:layout_constraintStart_toStartOf="@+id/leftBorder"
         app:layout_constraintTop_toBottomOf="@+id/salary_edit_text"
         />
 
     <CheckBox
-        android:id="@+id/sallary_checkbox"
+        android:id="@+id/filter_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/blue"
@@ -179,7 +179,7 @@
         style="@style/Text_Medium_16_500"
         android:layout_width="0dp"
         android:layout_height="@dimen/weight_height_60"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="@dimen/margin_24"
         android:gravity="center"
         android:text="@string/reset"
         android:textColor="?attr/red_to_white_color"
