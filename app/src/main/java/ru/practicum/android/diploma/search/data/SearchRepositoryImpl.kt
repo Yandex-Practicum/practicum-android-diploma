@@ -1,11 +1,13 @@
 package ru.practicum.android.diploma.search.data
 
+import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.search.data.network.NetworkClient
 import ru.practicum.android.diploma.search.data.network.VacancyRequest
 import ru.practicum.android.diploma.search.data.network.converter.VacancyModelConverter
+import ru.practicum.android.diploma.search.data.network.dto.CountryDto
 import ru.practicum.android.diploma.search.data.network.dto.VacanciesSearchResponse
 import ru.practicum.android.diploma.search.domain.api.SearchRepository
 import ru.practicum.android.diploma.search.domain.models.FetchResult
@@ -45,5 +47,13 @@ class SearchRepositoryImpl @Inject constructor(
                 flowOf(FetchResult.Error(NetworkError.CONNECTION_ERROR))
             }
         }
+    }
+
+    override suspend fun getCountries(): Flow<CountryDto> {
+
+        val response = networkClient.doCountryRequest()
+        Log.d("TAG", ":response ${response.resultCode} ")
+      return   flowOf(response as CountryDto)
+
     }
 }

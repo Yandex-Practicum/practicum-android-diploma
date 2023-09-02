@@ -84,7 +84,7 @@ class SearchDataModule {
     fun providesAuthInterceptor(): Interceptor {
         return Interceptor { chain ->
             val request = chain.request().newBuilder()
-             //   .addHeader("Authorization", "Bearer APPLJCKJ5U2MQ474O3J0O6A5A3GQ008I23AF5N11Q032U8554VU8E6PTV4GVSNEO")
+                .addHeader("Authorization", "Bearer APPLJCKJ5U2MQ474O3J0O6A5A3GQ008I23AF5N11Q032U8554VU8E6PTV4GVSNEO")
                 .build()
             
             chain.proceed(request)

@@ -32,9 +32,10 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
                 findNavController().popBackStack()
             }
             workPlaceContainer.setOnClickListener {
-                findNavController().navigate(
-                    BaseFilterFragmentDirections.actionFilterBaseFragmentToWorkPlaceFilterFragment()
-                )
+                viewModel.getCountries()
+//                findNavController().navigate(
+//                    BaseFilterFragmentDirections.actionFilterBaseFragmentToWorkPlaceFilterFragment()
+//                )
             }
             amountText.doOnTextChanged { _, _, _, count ->
                 if (count == 0)

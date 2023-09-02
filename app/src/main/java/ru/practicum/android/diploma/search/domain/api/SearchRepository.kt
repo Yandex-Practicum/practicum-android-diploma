@@ -1,8 +1,11 @@
 package ru.practicum.android.diploma.search.domain.api
 
 import kotlinx.coroutines.flow.Flow
+import ru.practicum.android.diploma.search.data.network.dto.CountryDto
 import ru.practicum.android.diploma.search.domain.models.FetchResult
 
 interface SearchRepository {
     suspend fun search(query: String): Flow<FetchResult>
+
+    suspend fun getCountries(): Flow<CountryDto>
 }
