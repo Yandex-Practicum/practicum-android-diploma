@@ -33,7 +33,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/title"
             tools:itemCount="2"
-            tools:listitem="@layout/country_filter_item"
+            tools:listitem="@layout/item_country_filter"
             tools:visibility="visible" />
 
         <LinearLayout

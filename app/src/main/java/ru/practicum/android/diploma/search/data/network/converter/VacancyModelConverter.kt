@@ -14,7 +14,7 @@ class VacancyModelConverter @Inject constructor() {
         return with(this) {
             Vacancy(
                 id = id ?: "",
-                iconUri = employer?.logo_urls?.`90` ?: "",
+                iconUri = employer?.logo_urls?.`240` ?: "",
                 title = name ?: "",
                 company = employer?.name ?: "",
                 salary = salary?.currency ?: "ЗП не указана",

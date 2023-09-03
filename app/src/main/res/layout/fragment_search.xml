@@ -92,7 +92,7 @@
         android:visibility="visible"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:itemCount="10"
-        tools:listitem="@layout/item_description" />
+        tools:listitem="@layout/item_search" />
 
     <ImageView
         android:id="@+id/placeholderImage"
