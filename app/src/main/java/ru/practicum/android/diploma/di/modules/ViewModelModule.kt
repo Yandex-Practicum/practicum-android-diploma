@@ -46,17 +46,17 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(CountryViewModel::class)
     @Binds
-    fun bindCountryViewModel(baseFilterViewModel: BaseFilterViewModel): ViewModel
+    fun bindCountryViewModel(countryViewModel: CountryViewModel): ViewModel
 
     @IntoMap
     @ViewModelKey(RegionViewModel::class)
     @Binds
-    fun bindRegionViewModel(baseFilterViewModel: BaseFilterViewModel): ViewModel
+    fun bindRegionViewModel(regionViewModel: RegionViewModel): ViewModel
 
     @IntoMap
     @ViewModelKey(WorkPlaceViewModel::class)
     @Binds
-    fun bindWorkPlaceViewModel(baseFilterViewModel: BaseFilterViewModel): ViewModel
+    fun bindWorkPlaceViewModel(workPlaceViewModel: WorkPlaceViewModel): ViewModel
 
     @IntoMap
     @ViewModelKey(SimilarVacanciesViewModel::class)
