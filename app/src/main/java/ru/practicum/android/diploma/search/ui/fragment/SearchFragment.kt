@@ -45,13 +45,31 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     
     private fun initViewModelObserver() {
         viewModel.log(thisName, "initViewModelObserver $viewModel")
-        viewLifecycleOwner.lifecycle.coroutineScope.launch {
-            viewModel.uiState.collect { screenState -> screenState.render(binding) }
+    
+        with(viewModel) {
+            viewLifecycleOwner.lifecycle.coroutineScope.launch {
+                uiState.collect { screenState -> screenState.render(binding) }
+            }
+            viewLifecycleOwner.lifecycle.coroutineScope.launch {
+                iconClearState.collect { screenState ->
+                    screenState.render(binding)
+                    when {
+                        screenState.query.isNullOrEmpty() -> {
+                            closeListener()
+                        }
+                    
+                        else -> {
+                            addListener()
+                        }
+                    }
+                }
+            }
         }
     }
     
     private fun initListeners() {
         viewModel.log(thisName, "initListeners $viewModel")
+    
         with(binding) {
             filterBtnToolbar.setOnClickListener {
                 findNavController().navigate(
@@ -71,15 +89,32 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     
         binding.recycler.adapter = searchAdapter
     
-        searchAdapter?.onClick = { vacancy ->
+        searchAdapter.onClick = { vacancy ->
             viewModel.log(thisName, "onClickWithDebounce $vacancy")
             navigateToDetails(vacancy)
         }
     }
-
+    
     private fun navigateToDetails(vacancy: Vacancy) {
         findNavController().navigate(
             SearchFragmentDirections.actionSearchFragmentToDetailsFragment(vacancy)
         )
+    }
+    
+    private fun addListener() {
+        with(binding) {
+            searchIcon.isClickable = true
+            searchIcon.setOnClickListener {
+                searchEditText.setText("")
+                viewModel.clearBtnClicked()
+            }
+        }
+    }
+    
+    private fun closeListener() {
+        with(binding) {
+            searchIcon.setOnClickListener(null)
+            searchIcon.isClickable = false
+        }
     }
 }
