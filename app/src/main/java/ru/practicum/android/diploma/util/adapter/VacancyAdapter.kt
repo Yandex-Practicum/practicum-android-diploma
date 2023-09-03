@@ -9,6 +9,7 @@ class VacancyAdapter(private val vacancies: ArrayList<Vacancy>) :
     RecyclerView.Adapter<VacancyViewHolder>() {
 
     var itemClickListener: ((Int, Vacancy) -> Unit)? = null
+    var itemLongClickListener: ((Int, Vacancy) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VacancyViewHolder {
         return VacancyViewHolder(parent)
@@ -23,6 +24,11 @@ class VacancyAdapter(private val vacancies: ArrayList<Vacancy>) :
         holder.bind(vacancy)
         holder.itemView.setOnClickListener() {
             itemClickListener?.invoke(position, vacancy)
+        }
+
+        holder.itemView.setOnLongClickListener(){
+            itemLongClickListener?.invoke(position, vacancy)
+            return@setOnLongClickListener true
         }
     }
 

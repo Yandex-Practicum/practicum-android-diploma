@@ -44,6 +44,9 @@
     <string name="reset">Сбросить</string>
     <string name="apply">Применить</string>
     <string name="choose">Выбрать</string>
+    <string name="delete_vacancy">Хотите удалить вакансию?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
 
 
 </resources>
