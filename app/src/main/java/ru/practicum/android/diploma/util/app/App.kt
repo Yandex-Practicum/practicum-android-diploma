@@ -10,13 +10,18 @@ import ru.practicum.android.diploma.di.dataModule
 import ru.practicum.android.diploma.di.interactorModule
 import ru.practicum.android.diploma.di.repositoryModule
 import ru.practicum.android.diploma.di.viewModelModule
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.text.NumberFormat
+import java.util.Locale
+import java.util.Properties
 
 class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
 
-        startKoin{
+        startKoin {
             androidContext(this@App)
             modules(dataModule, repositoryModule, interactorModule, viewModelModule)
         }
@@ -35,7 +40,8 @@ class App : Application() {
     }
 
     private fun isDarkMode(context: Context): Boolean {
-        val darkModeFlag = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        val darkModeFlag =
+            context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         return darkModeFlag == Configuration.UI_MODE_NIGHT_YES
     }
 }

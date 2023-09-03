@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/vacancy_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/white_to_black_color"
+    android:paddingVertical="@dimen/margin_9"
+    android:theme="@style/Base.Theme.PracticumAndroidDiploma">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card"
+        android:layout_width="@dimen/margin_48"
+        android:layout_height="@dimen/margin_48"
+        android:layout_marginEnd="@dimen/margin_12"
+        android:foreground="@drawable/field_for_image_in_recycler_view"
+        app:cardCornerRadius="@dimen/margin_12"
+        app:cardElevation="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/logo_url"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/margin_8"
+            android:scaleType="centerCrop"
+            android:src="@drawable/placeholder"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/vacancy_name"
+        style="@style/Text_Medium_22_500"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_12"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:textColor="?attr/black_to_white_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/card"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Разработчик на С++ в команду внутренних сервисов, Москва" />
+
+    <TextView
+        android:id="@+id/employer_name"
+        style="@style/Text_Regular_16_400"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_12"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="?attr/black_to_white_color"
+        app:layout_constraintStart_toEndOf="@id/card"
+        app:layout_constraintTop_toBottomOf="@id/vacancy_name"
+        tools:text="Авто.ру" />
+
+    <TextView
+        android:id="@+id/salary"
+        style="@style/Text_Regular_16_400"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_12"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="?attr/black_to_white_color"
+        app:layout_constraintStart_toEndOf="@id/card"
+        app:layout_constraintTop_toBottomOf="@id/employer_name"
+        tools:text="от 40 000 до 80 000 ₽" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

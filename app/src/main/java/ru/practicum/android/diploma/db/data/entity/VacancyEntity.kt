@@ -8,7 +8,7 @@ data class VacancyEntity(
     @PrimaryKey
     val id: String,
     val name: String,
-    val city: String?,
+    val city: String,
     val employerName: String,
     val employerLogoUrl: String?,
     val salaryCurrency: String?,

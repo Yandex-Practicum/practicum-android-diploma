@@ -10,7 +10,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
 import ru.practicum.android.diploma.details.presentation.VacancyViewModel
-import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.util.BindingFragment
 
 class VacancyFragment: BindingFragment<FragmentVacancyBinding>() {
@@ -34,8 +34,9 @@ class VacancyFragment: BindingFragment<FragmentVacancyBinding>() {
             employerName = "text",
             employerLogoUrl = "text",
             salaryCurrency = "text",
-            salaryFrom = 0,
-            salaryTo = 0
+            salaryFrom = "0",
+            salaryTo = "0",
+            found = 0
         )
 
         binding.similarVacanciesButton.setOnClickListener{

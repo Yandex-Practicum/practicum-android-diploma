@@ -19,6 +19,7 @@
         <activity
             android:name=".ui.root.RootActivity"
             android:exported="true"
+            android:windowSoftInputMode="adjustNothing"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden">
             <intent-filter>

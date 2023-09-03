@@ -3,7 +3,7 @@ package ru.practicum.android.diploma.db.domain.impl
 import ru.practicum.android.diploma.db.data.converter.VacancyDbConverter
 import ru.practicum.android.diploma.db.domain.api.VacancyDbInteractor
 import ru.practicum.android.diploma.db.domain.api.VacancyDbRepository
-import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.search.domain.models.Vacancy
 
 class VacancyDbInteractorImpl(
     private val vacancyDbRepository: VacancyDbRepository,

@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import ru.practicum.android.diploma.adapter.VacancyAdapter
 import ru.practicum.android.diploma.databinding.FragmentFavouriteBinding
-import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.favourite.presentation.models.FavoriteStateInterface
 import ru.practicum.android.diploma.favourite.presentation.viewvodel.FavouriteViewModel
 import ru.practicum.android.diploma.util.BindingFragment
+import ru.practicum.android.diploma.util.adapter.VacancyAdapter
 
 class FragmentFavourite : BindingFragment<FragmentFavouriteBinding>() {
 

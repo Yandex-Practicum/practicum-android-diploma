@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("ru.practicum.android.diploma.plugins.developproperties")
+    id ("kotlin-parcelize")
     id ("kotlin-kapt")
     id("com.google.devtools.ksp")
 }
@@ -73,7 +74,6 @@ dependencies {
     //Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-
 
     //Glide
     implementation("com.github.bumptech.glide:glide:4.15.1")

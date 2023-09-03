@@ -13,6 +13,10 @@
     <string name="to">до</string>
     <string name="from">от</string>
     <string name="no_salary">ЗП не указана</string>
+    <string name="check_connection">Проверьте подключение к интернету</string>
+    <string name="server_error">Ошибка сервера</string>
+    <string name="no_connection">Проблемы со связью\n\nЗагрузка не удалась. Проверьте подключение к интернету</string>
+    <string name="nothing_found">Ничего не нашлось</string>
     <string name="industry">Отрасль</string>
     <string name="list_empty">Список пуст</string>
     <string name="company_logo">Логотип компании</string>
