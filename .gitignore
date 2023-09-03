@@ -10,7 +10,7 @@ out/
 # Local configuration file (sdk path, etc)
 local.properties
 develop.properties
-app/schemas
+app/schemas/
 
 # Gradle-profiler data
 profile-out*/
@@ -21,7 +21,6 @@ gradle-user-home/
 captures/
 .externalNativeBuild/
 .cxx/
-output.json
 
 # Built application files
 *.apk
