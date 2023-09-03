@@ -82,20 +82,21 @@ class SearchRepositoryImpl(
     }
 
 
-
     private fun getSymbol(currency: String?): String? {
-        var symbol: String? = null
-        if (currency == "AZN") symbol = "₼"
-        if (currency == "BYR") symbol = "Br"
-        if (currency == "EUR") symbol = "€"
-        if (currency == "GEL") symbol = "₾"
-        if (currency == "KGS") symbol = "с"
-        if (currency == "KZT") symbol = "₸"
-        if (currency == "RUR") symbol = "₽"
-        if (currency == "UAH") symbol = "₴"
-        if (currency == "USD") symbol = "$"
-        if (currency == "UZS") symbol = "UZS"
-        return symbol
+
+        return when (currency) {
+            "AZN" -> "₼"
+            "BYR" -> "Br"
+            "EUR" -> "€"
+            "GEL" -> "₾"
+            "KGS" -> "с"
+            "KZT" -> "₸"
+            "RUR" -> "₽"
+            "UAH" -> "₴"
+            "USD" -> "$"
+            "UZS" -> "UZS"
+            else -> null
+        }
     }
 
     companion object {

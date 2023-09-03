@@ -22,8 +22,8 @@
 
         <ImageView
             android:id="@+id/logo_url"
-            android:layout_width="@dimen/margin_48"
-            android:layout_height="@dimen/margin_48"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:padding="@dimen/margin_8"
             android:scaleType="centerCrop"
             android:src="@drawable/placeholder"

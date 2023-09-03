@@ -12,7 +12,7 @@ class VacancyDbConverter {
         return Vacancy(
             id = vacancyEntity.id,
             name = vacancyEntity.name,
-            city = vacancyEntity.city?:"",
+            city = vacancyEntity.city,
             employerName = vacancyEntity.employerName,
             employerLogoUrl = vacancyEntity.employerLogoUrl,
             salaryCurrency = vacancyEntity.salaryCurrency,
