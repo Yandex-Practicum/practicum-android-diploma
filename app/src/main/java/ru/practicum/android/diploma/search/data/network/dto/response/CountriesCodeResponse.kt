@@ -6,5 +6,5 @@ import ru.practicum.android.diploma.search.data.network.dto.CountryDto
 
 @Serializable
 data class CountriesCodeResponse(
-    val results: List<CountryDto>
+    var results: List<CountryDto>
 ) : CodeResponse()

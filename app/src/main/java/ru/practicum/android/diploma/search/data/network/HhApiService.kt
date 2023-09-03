@@ -8,8 +8,7 @@ import ru.practicum.android.diploma.search.data.network.dto.response.VacanciesSe
 
 interface HhApiService {
     @GET("/vacancies")
-    suspend fun search(
-        @Query("text") text: String): Response<VacanciesSearchCodeResponse>
+    suspend fun search(@Query("text") text: String): Response<VacanciesSearchCodeResponse>
 
     @GET("/areas/countries")
     suspend fun getCountries(): Response<List<CountryDto>>

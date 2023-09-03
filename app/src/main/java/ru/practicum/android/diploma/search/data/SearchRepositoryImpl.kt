@@ -3,9 +3,10 @@ package ru.practicum.android.diploma.search.data
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import ru.practicum.android.diploma.Logger
+import ru.practicum.android.diploma.filter.data.Filter
 import ru.practicum.android.diploma.filter.domain.models.Country
 import ru.practicum.android.diploma.search.data.network.NetworkClient
-import ru.practicum.android.diploma.search.data.network.VacancyRequest
+import ru.practicum.android.diploma.search.data.network.Vacancy
 import ru.practicum.android.diploma.search.data.network.converter.VacancyModelConverter
 import ru.practicum.android.diploma.search.data.network.dto.response.VacanciesSearchCodeResponse
 import ru.practicum.android.diploma.search.data.network.dto.response.CountriesCodeResponse
@@ -24,7 +25,7 @@ class SearchRepositoryImpl @Inject constructor(
     override suspend fun search(query: String): Flow<FetchResult> {
         logger.log(thisName, "fun search($query: String): Flow<FetchResult>")
 
-        val request = VacancyRequest.SearchVacanciesRequest(query)
+        val request = Vacancy.SearchRequest(query)
         val response = networkClient.doRequest(request)
 
         return when (response.resultCode) {
@@ -50,10 +51,10 @@ class SearchRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getCountries(): Flow<List<Country>> {
+        logger.log(thisName, "getCountries(): Flow<List<Country>>")
 
-        val response = networkClient.doCountryRequest()
-        logger.log(thisName, "getCountries resultCode: ${response.resultCode}")
-
+        val request = Filter.CountryRequest
+        val response = networkClient.doRequest(request)
         return if (response.resultCode == 200) {
             flowOf((response as CountriesCodeResponse).results.map {
                 Country(

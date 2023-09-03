@@ -3,7 +3,7 @@ package ru.practicum.android.diploma.details.data.network
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import ru.practicum.android.diploma.search.data.network.NetworkClient
-import ru.practicum.android.diploma.search.data.network.VacancyRequest
+import ru.practicum.android.diploma.search.data.network.Vacancy
 import ru.practicum.android.diploma.search.data.network.converter.VacancyModelConverter
 import ru.practicum.android.diploma.search.data.network.dto.response.VacanciesSearchCodeResponse
 import ru.practicum.android.diploma.search.domain.models.FetchResult
@@ -16,7 +16,7 @@ class RemoteDataSourceImpl @Inject constructor(
 ) : RemoteDataSource {
     
     override suspend fun getVacancyFullInfo(id: String): Flow<FetchResult> {
-        val request = VacancyRequest.FullInfoRequest(id)
+        val request = Vacancy.FullInfoRequest(id)
         
         //поменять на свои данные!!!
         val result = (networkClient.doRequest(request) as VacanciesSearchCodeResponse).items

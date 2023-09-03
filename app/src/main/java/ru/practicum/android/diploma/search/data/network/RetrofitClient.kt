@@ -1,7 +1,7 @@
 package ru.practicum.android.diploma.search.data.network
 
 import ru.practicum.android.diploma.Logger
-import ru.practicum.android.diploma.search.data.network.dto.response.CountriesCodeResponse
+import ru.practicum.android.diploma.filter.data.Filter
 import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
 
@@ -18,49 +18,46 @@ class RetrofitClient @Inject constructor(
             return CodeResponse().apply { resultCode = -1 }
         }
 
-        val query = when (request) {
-            is VacancyRequest.FullInfoRequest -> {
-                logger.log(thisName, "is FullInfoRequest -> ${request.id}")
-                request.id
+        val result = when (request) {
+            is Vacancy.FullInfoRequest -> {
+                logger.log(thisName, "is Vacancy.FullInfoRequest -> ${request.id}")
+                hhApiService.search(request.id)
             }
-            is VacancyRequest.SearchVacanciesRequest -> {
-                logger.log(thisName, "is SearchVacanciesRequest -> ${request.query}")
-                request.query
+            is Vacancy.SearchRequest -> {
+                logger.log(thisName, "is Vacancy.SearchRequest -> ${request.query}")
+                hhApiService.search(request.query)
             }
-            //is Olegs search -> {request.query}
-            else -> { return CodeResponse().apply { resultCode = 400 } }
+            is Filter.CountryRequest -> {
+                logger.log(thisName, "is Filter.CountryRequest -> hhApiService.getCountries()")
+                hhApiService.getCountries()
+            }
+//            is Filter.CityRequest -> {
+//                logger.log(thisName, "is Filter.CityRequest -> hhApiService.getCities()")
+//                hhApiService.getCities()
+//            }
+            else -> {
+                logger.log(thisName, "else -> resultCode = 400")
+                return CodeResponse().apply { resultCode = 400 }
+            }
         }
 
+        return result.body()?.apply {
+            logger.log("RetrofitClient", "resultCode = ${result.code()}")
+            (this as CodeResponse).resultCode = result.code()
+        } as CodeResponse
 
-        val result = try {
-            logger.log(thisName, "hhApiService.search($query)")
-            hhApiService.search(query)
-        } catch (e:Exception) {
-            logger.log(thisName, "hhApiService.search(query) return null")
-            null
-        }
-
-        return result?.body()
-            ?.apply {
-                logger.log(thisName, "resultCode = ${result.code()}")
-                resultCode = result.code()
-            }
-            ?: CodeResponse().apply {
-                logger.log(thisName, "resultCode = ${result?.code() ?: 400}")
-                resultCode = result?.code() ?: 400
-            }
 
 }
 
-    override suspend fun doCountryRequest(): CodeResponse {
-        logger.log(thisName, "doCountryRequest(): Response")
-        if (!internetController.isInternetAvailable()) {
-            return CodeResponse().apply { resultCode = -1 }
-        }
-        val response = hhApiService.getCountries()
-        val result = CountriesCodeResponse(response?.body() ?: emptyList())
-        result.resultCode = response?.code()!!
-        return result
-    }
+//    override suspend fun doCountryRequest(): CodeResponse {
+//        logger.log(thisName, "doCountryRequest(): Response")
+//        if (!internetController.isInternetAvailable()) {
+//            return CodeResponse().apply { resultCode = -1 }
+//        }
+//        val response = hhApiService.getCountries()
+//        val result = CountriesCodeResponse(response?.body() ?: emptyList())
+//        result.resultCode = response?.code()
+//        return result
+//    }
 }
 
