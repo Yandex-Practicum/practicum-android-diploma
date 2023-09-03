@@ -12,7 +12,7 @@ class RetrofitClient @Inject constructor(
 ) : NetworkClient {
 
     override suspend fun doRequest(any: Any): Response {
-        logger.log(thisName, "doRequest -> ${any::class} ")
+        logger.log(thisName, "doRequest: ${any.thisName} ")
 
         if (any !is VacancyRequest || !internetController.isInternetAvailable()) {
             return Response().apply { resultCode = -1 }

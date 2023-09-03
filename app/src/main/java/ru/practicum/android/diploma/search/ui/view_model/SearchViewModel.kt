@@ -57,7 +57,7 @@ class SearchViewModel @Inject constructor(
     }
     
     private fun processResult(result: FetchResult) {
-        log(thisName, "processResult -> $result")
+        log(thisName, "processResult: $result")
         when {
             result.error != null -> {
                 _uiState.value = SearchScreenState.Error(result.error)

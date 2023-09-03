@@ -30,12 +30,15 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         viewModel.getVacancyByID(args.vacancy.id)
         collector()
         pressSimilarVacanciesButton()
-        initAddToFavorite()
+        initListeners()
     }
 
-    private fun initAddToFavorite(){
+    private fun initListeners() {
         binding.lottieHeart.setOnClickListener {heartButton ->
-                    viewModel.handleAddToFavsButton(args.vacancy)
+            viewModel.handleAddToFavsButton(args.vacancy)
+        }
+        binding.vacancyToolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
         }
     }
 
