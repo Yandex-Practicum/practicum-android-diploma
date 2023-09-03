@@ -33,4 +33,17 @@ val dataModule = module {
     single {
         Room.databaseBuilder(androidContext(), AppDataBase::class.java, "database.db").build()
     }
+    //TODO "add name interface Api":
+    // single<name interface> {
+    Retrofit.Builder()
+        .baseUrl("https://api.hh.ru/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+    //TODO "add name interface Api":
+    // .create(name interface::class.java)
+    // }
+
+    single {
+        Room.databaseBuilder(androidContext(), AppDataBase::class.java, "database.db").build()
+    }
 }
