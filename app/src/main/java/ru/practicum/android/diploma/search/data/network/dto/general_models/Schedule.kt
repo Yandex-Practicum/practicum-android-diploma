@@ -1,10 +1,9 @@
-package ru.practicum.android.diploma.search.data.network.dto
+package ru.practicum.android.diploma.search.data.network.dto.general_models
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Area(
+data class Schedule(
     val id: String? = "",
     val name: String? = "",
-    val url: String? = "",
 )

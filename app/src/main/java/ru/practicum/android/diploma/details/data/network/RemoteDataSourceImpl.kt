@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.flowOf
 import ru.practicum.android.diploma.search.data.network.NetworkClient
 import ru.practicum.android.diploma.search.data.network.VacancyRequest
 import ru.practicum.android.diploma.search.data.network.converter.VacancyModelConverter
-import ru.practicum.android.diploma.search.data.network.dto.VacanciesSearchResponse
+import ru.practicum.android.diploma.search.data.network.dto.response.VacanciesSearchResponse
 import ru.practicum.android.diploma.search.domain.models.FetchResult
 import ru.practicum.android.diploma.search.domain.models.NetworkError
 import javax.inject.Inject

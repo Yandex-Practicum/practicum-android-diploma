@@ -8,4 +8,4 @@ data class CountryDto(
     val url: String? = "",
     val id: String? = "",
     var name: String? = "",
-) : Response()
+)
