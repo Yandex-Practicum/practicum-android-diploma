@@ -29,7 +29,6 @@ class SearchViewModel @Inject constructor(
     
     private val onSearchDebounce = delayedAction<String>(
         coroutineScope = viewModelScope,
-        deferredUsing = true,
         action = { query -> loadJobList(query) })
     
     fun onSearchQueryChanged(query: String?) {

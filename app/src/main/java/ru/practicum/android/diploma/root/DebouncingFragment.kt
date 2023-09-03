@@ -15,8 +15,8 @@ class Debouncer @Inject constructor() {
     fun onClick(action: () -> Unit) {
         if (available) {
             available = false
+            action()
             handler.postDelayed({
-                action()
                 available = true
             }, DELAY_800_MILLIS)
         }
