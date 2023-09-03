@@ -11,7 +11,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterBaseBinding
-import ru.practicum.android.diploma.filter.domain.models.Country
 import ru.practicum.android.diploma.filter.ui.view_models.BaseFilterViewModel
 import ru.practicum.android.diploma.root.RootActivity
 import ru.practicum.android.diploma.util.thisName
@@ -35,7 +34,7 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
             workPlaceContainer.setOnClickListener {
                 findNavController().navigate(
                     BaseFilterFragmentDirections.actionFilterBaseFragmentToWorkPlaceFilterFragment(
-                        Country()
+              null
                     )
                 )
             }

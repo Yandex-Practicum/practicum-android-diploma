@@ -17,7 +17,7 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initListeners()
-        renderScreen(args.country)
+        args.country?.let { renderScreen(it) }
     }
 
     private fun renderScreen(country: Country) {

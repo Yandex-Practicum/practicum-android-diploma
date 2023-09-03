@@ -95,7 +95,8 @@
             app:destination="@id/regionFragment" />
         <argument
             android:name="country"
-            app:argType="ru.practicum.android.diploma.filter.domain.models.Country" />
+            app:argType="ru.practicum.android.diploma.filter.domain.models.Country"
+            app:nullable="true" />
 
     </fragment>
     <fragment
