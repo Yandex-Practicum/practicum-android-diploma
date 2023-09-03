@@ -54,13 +54,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 iconClearState.collect { screenState ->
                     screenState.render(binding)
                     when {
-                        screenState.query.isNullOrEmpty() -> {
-                            closeListener()
-                        }
+                        screenState.query.isNullOrEmpty() -> { closeListener() }
                     
-                        else -> {
-                            addListener()
-                        }
+                        else -> { addListener() }
                     }
                 }
             }
