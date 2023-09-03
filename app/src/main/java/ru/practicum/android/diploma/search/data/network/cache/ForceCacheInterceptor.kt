@@ -18,6 +18,6 @@ class ForceCacheInterceptor@Inject constructor(
         logger.log(thisName, "intercept(chain: Interceptor.Chain): Response")
         val builder: Request.Builder = chain.request().newBuilder()
         builder.cacheControl(CacheControl.FORCE_CACHE)
-        return chain.proceed(builder.build());
+        return chain.proceed(builder.build())
     }
 }

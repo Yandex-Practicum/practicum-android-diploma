@@ -33,8 +33,9 @@ class SearchViewModel @Inject constructor(
 
     fun onSearchQueryChanged(query: String) {
         log(thisName, "onSearchQueryChanged($query: String)")
-        if (query.isEmpty())
+        if (query.isEmpty()) {
             _uiState.value = SearchScreenState.Default
+        }
         else if (latestSearchQuery != query) {
             latestSearchQuery = query
             onSearchDebounce(query)
