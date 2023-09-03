@@ -17,9 +17,12 @@ class CountryViewModel @Inject constructor(
 ) : BaseViewModel(logger) {
 
     private val _uiState: MutableStateFlow<CountryFilterScreenState> =
-        MutableStateFlow(CountryFilterScreenState.Empty)
+        MutableStateFlow(CountryFilterScreenState.Default)
     val uiState: StateFlow<CountryFilterScreenState> = _uiState
 
+    init {
+        getCountries()
+    }
 
     fun getCountries() {
         viewModelScope.launch(Dispatchers.IO) {

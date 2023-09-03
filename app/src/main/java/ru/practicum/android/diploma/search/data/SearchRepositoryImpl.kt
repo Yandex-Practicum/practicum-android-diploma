@@ -53,7 +53,8 @@ class SearchRepositoryImpl @Inject constructor(
     override suspend fun getCountries(): Flow<List<Country>> {
 
         val response = networkClient.doCountryRequest()
-        Log.d("TAG", "getCountries: ${response.resultCode}")
+        logger.log(thisName, "getCountries resultCode: ${response.resultCode}")
+
         return if (response.resultCode == 200) {
             flowOf((response as CountriesResponse).results.map {
                 Country(

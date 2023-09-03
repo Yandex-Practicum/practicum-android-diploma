@@ -10,6 +10,13 @@ sealed interface CountryFilterScreenState {
 
     fun render(binding: FragmentCountryFilterBinding)
 
+    object Default: CountryFilterScreenState{
+        override fun render(binding: FragmentCountryFilterBinding) {
+            binding.countryPlaceholderContainer.visibility = View.GONE
+            binding.countyFilterRecycler.visibility = View.GONE
+        }
+
+    }
     object Empty : CountryFilterScreenState {
         override fun render(binding: FragmentCountryFilterBinding) {
             binding.countryPlaceholderContainer.visibility = View.VISIBLE
