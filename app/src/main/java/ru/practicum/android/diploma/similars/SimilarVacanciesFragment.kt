@@ -57,6 +57,9 @@ class SimilarVacanciesFragment : Fragment(R.layout.fragment_similars_vacancy)  {
         vacancyAdapter?.onClick = { vacancy ->
             navigateToDetails(vacancy)
         }
+        binding.similarVacancyToolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     private fun navigateToDetails(vacancy: Vacancy) {
