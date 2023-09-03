@@ -10,6 +10,7 @@ out/
 # Local configuration file (sdk path, etc)
 local.properties
 develop.properties
+app/schemas/
 
 # Gradle-profiler data
 profile-out*/
@@ -38,3 +39,5 @@ google-services.json
 # OS specific
 .DS_Store
 *.log
+
+
