@@ -33,7 +33,9 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
             }
             workPlaceContainer.setOnClickListener {
                 findNavController().navigate(
-                    BaseFilterFragmentDirections.actionFilterBaseFragmentToWorkPlaceFilterFragment()
+                    BaseFilterFragmentDirections.actionFilterBaseFragmentToWorkPlaceFilterFragment(
+              null
+                    )
                 )
             }
             amountText.doOnTextChanged { _, _, _, count ->

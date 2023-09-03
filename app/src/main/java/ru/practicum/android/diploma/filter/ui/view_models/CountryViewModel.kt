@@ -24,15 +24,17 @@ class CountryViewModel @Inject constructor(
         getCountries()
     }
 
+
     fun getCountries() {
         viewModelScope.launch(Dispatchers.IO) {
             filterInteractor
                 .getCountries()
                 .collect { result ->
-                    if (result.isEmpty())
+                    if (result.isEmpty()) {
                         _uiState.value = CountryFilterScreenState.Empty
-                    else
+                    } else {
                         _uiState.value = CountryFilterScreenState.Content(result)
+                    }
                 }
         }
     }
