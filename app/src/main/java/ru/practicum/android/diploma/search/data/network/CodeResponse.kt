@@ -1,5 +1,5 @@
 package ru.practicum.android.diploma.search.data.network
 
-open class Response {
+open class CodeResponse {
     var resultCode = 0
 }

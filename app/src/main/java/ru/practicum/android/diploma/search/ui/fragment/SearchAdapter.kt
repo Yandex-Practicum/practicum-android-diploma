@@ -35,11 +35,11 @@ class SearchAdapter @Inject constructor (
         val item = list[pos]
         holder.bind(item)
         holder.itemView.debounceClickListener(debouncer) {
-        logger.log("Adapter", "onClick()")
+        logger.log("Adapter", "onClick($item)")
             onClick?.invoke(item)
         }
         holder.itemView.setOnLongClickListener {
-            logger.log("Adapter", "onLongClick()")
+            logger.log("Adapter", "onLongClick($item)")
             onLongClick?.invoke(item); true
         }
     }

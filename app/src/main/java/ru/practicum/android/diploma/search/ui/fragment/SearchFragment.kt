@@ -19,14 +19,13 @@ import javax.inject.Inject
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
 
-    @Inject
-    lateinit var searchAdapter: SearchAdapter
+    @Inject lateinit var searchAdapter: SearchAdapter
     private val viewModel: SearchViewModel by viewModels { (activity as RootActivity).viewModelFactory }
     private val binding by viewBinding<FragmentSearchBinding>()
     
     override fun onResume() {
-        viewModel.log(thisName, "onResume  $viewModel")
         super.onResume()
+        viewModel.log(thisName, "onResume()")
 //        TODO("Сделать запрос в SharedPrefs на наличие текущих филтров." +
 //                "Далее если фильтры есть и строка поиска не пустая -> сделать запрос в сеть и обновить список" +
 //            "Если фильтрые есть, но строка поиска пустая -> просто применить фильтр без запроса в сеть"
@@ -35,7 +34,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.log(thisName, "onViewCreated   $viewModel")
+        viewModel.log(thisName, "onViewCreated(view: View, savedInstanceState: Bundle?)")
     
         initListeners()
         initAdapter()
@@ -44,8 +43,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
     
     private fun initViewModelObserver() {
-        viewModel.log(thisName, "initViewModelObserver $viewModel")
-    
         with(viewModel) {
             viewLifecycleOwner.lifecycle.coroutineScope.launch {
                 uiState.collect { screenState -> screenState.render(binding) }
@@ -61,33 +58,30 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
         }
     }
-    
+
     private fun initListeners() {
-        viewModel.log(thisName, "initListeners $viewModel")
-    
+        viewModel.log(thisName, "initListeners()")
+
         with(binding) {
             filterBtnToolbar.setOnClickListener {
                 findNavController().navigate(
                     resId = R.id.action_searchFragment_to_filterBaseFragment
                 )
             }
-    
+
             searchEditText.doOnTextChanged { text, _, _, _ ->
+                viewModel.log(thisName, "$text")
                 viewModel.onSearchQueryChanged(text.toString())
             }
         }
     }
     
     private fun initAdapter() {
-        viewModel.log(thisName, "initAdapter $viewModel")
-        (activity as RootActivity).component.inject(this)
+        viewModel.log(thisName, "initAdapter()")
+        (activity as RootActivity).component.inject(this) // Почему не в onAttach??????
     
         binding.recycler.adapter = searchAdapter
-    
-        searchAdapter.onClick = { vacancy ->
-            viewModel.log(thisName, "onClickWithDebounce $vacancy")
-            navigateToDetails(vacancy)
-        }
+        searchAdapter.onClick = { vacancy -> navigateToDetails(vacancy) }
     }
     
     private fun navigateToDetails(vacancy: Vacancy) {

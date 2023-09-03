@@ -1,7 +1,7 @@
 package ru.practicum.android.diploma.search.data.network
 
 interface NetworkClient {
-    suspend fun doRequest(any: Any): Response
+    suspend fun doRequest(request: Any): CodeResponse
 
-    suspend fun doCountryRequest(): Response
+    //suspend fun doCountryRequest(): CodeResponse
 }

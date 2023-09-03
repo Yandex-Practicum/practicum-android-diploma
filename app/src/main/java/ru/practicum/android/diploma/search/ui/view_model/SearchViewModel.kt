@@ -35,18 +35,16 @@ class SearchViewModel @Inject constructor(
     private val onSearchDebounce = delayedAction<String>(
         coroutineScope = viewModelScope,
         action = { query -> loadJobList(query) })
-    
-    fun onSearchQueryChanged(query: String?) {
-        log(thisName, "onSearchQueryChanged -> $query")
-        
+
+    fun onSearchQueryChanged(query: String) {
+        log(thisName, "onSearchQueryChanged($query: String)")
         _iconClearState.value = IconClearState(query)
-        
-        if (query.isNullOrEmpty()) {
+
+        if (query.isEmpty()) {
             _uiState.value = SearchScreenState.Default
             searchJob?.cancel()
-        } else {
-            if (latestSearchQuery == query) return
-            log(thisName, "latestSearchQuery -> $latestSearchQuery")
+        }
+        else if (latestSearchQuery != query) {
             latestSearchQuery = query
             onSearchDebounce(query)
         }
@@ -57,7 +55,7 @@ class SearchViewModel @Inject constructor(
     }
     
     private fun loadJobList(query: String) {
-        log(thisName, "loadJobList -> $query")
+        log(thisName, "loadJobList($query: String)")
         _uiState.value = SearchScreenState.Loading
     
         searchJob = viewModelScope.launch(Dispatchers.IO) {
@@ -70,7 +68,7 @@ class SearchViewModel @Inject constructor(
     }
     
     private fun processResult(result: FetchResult) {
-        log(thisName, "processResult: $result")
+        log(thisName, "processResult(${result.thisName}: FetchResult)")
         when {
             result.error != null -> {
                 _uiState.value = SearchScreenState.Error(result.error)
