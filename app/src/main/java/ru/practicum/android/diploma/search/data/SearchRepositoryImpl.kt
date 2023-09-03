@@ -7,8 +7,8 @@ import ru.practicum.android.diploma.filter.domain.models.Country
 import ru.practicum.android.diploma.search.data.network.NetworkClient
 import ru.practicum.android.diploma.search.data.network.VacancyRequest
 import ru.practicum.android.diploma.search.data.network.converter.VacancyModelConverter
-import ru.practicum.android.diploma.search.data.network.dto.response.VacanciesSearchResponse
-import ru.practicum.android.diploma.search.data.network.dto.response.CountriesResponse
+import ru.practicum.android.diploma.search.data.network.dto.response.VacanciesSearchCodeResponse
+import ru.practicum.android.diploma.search.data.network.dto.response.CountriesCodeResponse
 import ru.practicum.android.diploma.search.domain.api.SearchRepository
 import ru.practicum.android.diploma.search.domain.models.FetchResult
 import ru.practicum.android.diploma.search.domain.models.NetworkError
@@ -29,7 +29,7 @@ class SearchRepositoryImpl @Inject constructor(
 
         return when (response.resultCode) {
             in 100..399 -> {
-                val resultList = (response as VacanciesSearchResponse).items
+                val resultList = (response as VacanciesSearchCodeResponse).items
                 if (resultList.isNullOrEmpty()) {
                     flowOf(FetchResult.Error(NetworkError.SEARCH_ERROR))
                 } else {
@@ -55,7 +55,7 @@ class SearchRepositoryImpl @Inject constructor(
         logger.log(thisName, "getCountries resultCode: ${response.resultCode}")
 
         return if (response.resultCode == 200) {
-            flowOf((response as CountriesResponse).results.map {
+            flowOf((response as CountriesCodeResponse).results.map {
                 Country(
                     url = it.url,
                     id = it.id,

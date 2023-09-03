@@ -11,13 +11,16 @@ import javax.inject.Inject
 
 
 class ForceCacheInterceptor@Inject constructor(
+    private val internetController: InternetController,
     private val logger: Logger
 ) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        logger.log(thisName, "intercept(chain: Interceptor.Chain): Response")
         val builder: Request.Builder = chain.request().newBuilder()
-        builder.cacheControl(CacheControl.FORCE_CACHE)
+        if (!internetController.isInternetAvailable()) {
+            logger.log(thisName, "intercept(chain: Interceptor.Chain): return cash!!!")
+            builder.cacheControl(CacheControl.FORCE_CACHE)
+        }
         return chain.proceed(builder.build())
     }
 }
