@@ -27,14 +27,6 @@ class BaseFilterViewModel @Inject constructor(
         _uiState.value = BaseFilterScreenState.Empty
     }
 
-    fun getCountries(){
-      viewModelScope.launch(Dispatchers.IO) {
-     filterInteractor
-                .getCountries()
-                .collect { result ->
-                 result
-                }
-        }
-    }
+
 
 }

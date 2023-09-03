@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.search.data.network
 
 import android.util.Log
 import ru.practicum.android.diploma.Logger
+import ru.practicum.android.diploma.search.data.network.dto.response.CountriesResponse
 import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
 
@@ -41,16 +42,17 @@ class RetrofitClient @Inject constructor(
     }
 
     override suspend fun doCountryRequest(): Response {
-        Log.e("TAG", "doCountryRequest: ", )
+        Log.e("TAG", "doCountryRequest:  1", )
         val response =
             hhApiService.getCountries()
-
-        response?.apply {
-            resultCode = 200
-            results = results
-        }
-        Log.e("TAG", "doCountryRequest:${response.results} ", )
-        return response
+        Log.e("TAG", "doCountryRequest:${response.body()} ", )
+return CountriesResponse(response.body()!!)
+//        response?.apply {
+//            resultCode = 200
+//            results = results
+//        }
+//        Log.e("TAG", "doCountryRequest:${response.results} ", )
+//        return response
     }
 }
 

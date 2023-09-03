@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.search.data.network
 
+import kotlinx.serialization.json.JsonArray
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -13,7 +14,7 @@ interface HhApiService {
         @Query("text") text: String): Response<VacanciesSearchResponse>
 
     @GET("/areas/countries")
-    suspend fun getCountries(): CountriesResponse
+    suspend fun getCountries(): Response<List<CountryDto>>
 
 }
 
