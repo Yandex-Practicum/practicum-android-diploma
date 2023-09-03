@@ -6,12 +6,12 @@
         android:title="@string/main" />
 
     <item
-        android:id="@+id/libraryFragment"
+        android:id="@+id/fragmentFavourite"
         android:icon="@drawable/favorites_on"
         android:title="@string/favourites" />
 
     <item
-        android:id="@+id/settingsFragment"
+        android:id="@+id/teamFragment"
         android:icon="@drawable/team"
         android:title="@string/team" />
 </menu>
