@@ -18,25 +18,37 @@ class RetrofitClient @Inject constructor(
             return CodeResponse().apply { resultCode = -1 }
         }
 
-        logger.log(thisName, "21++++++++")
         val query = when (request) {
-            is VacancyRequest.FullInfoRequest -> { request.id }
-            is VacancyRequest.SearchVacanciesRequest -> {request.query}
+            is VacancyRequest.FullInfoRequest -> {
+                logger.log(thisName, "is FullInfoRequest -> ${request.id}")
+                request.id
+            }
+            is VacancyRequest.SearchVacanciesRequest -> {
+                logger.log(thisName, "is SearchVacanciesRequest -> ${request.query}")
+                request.query
+            }
             //is Olegs search -> {request.query}
             else -> { return CodeResponse().apply { resultCode = 400 } }
         }
 
 
         val result = try {
-            logger.log(thisName, "start search")
+            logger.log(thisName, "hhApiService.search($query)")
             hhApiService.search(query)
         } catch (e:Exception) {
-            logger.log(thisName, "null")
+            logger.log(thisName, "hhApiService.search(query) return null")
             null
         }
-        logger.log(thisName, "val result = ${result?.body()}")
-        return result?.body()?.apply { resultCode = result.code() }
-            ?: CodeResponse().apply { resultCode = result?.code() ?: 400 }
+
+        return result?.body()
+            ?.apply {
+                logger.log(thisName, "resultCode = ${result.code()}")
+                resultCode = result.code()
+            }
+            ?: CodeResponse().apply {
+                logger.log(thisName, "resultCode = ${result?.code() ?: 400}")
+                resultCode = result?.code() ?: 400
+            }
 
 }
 
