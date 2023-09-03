@@ -8,7 +8,6 @@ import ru.practicum.android.diploma.filter.domain.models.Country
 import ru.practicum.android.diploma.search.data.network.NetworkClient
 import ru.practicum.android.diploma.search.data.network.VacancyRequest
 import ru.practicum.android.diploma.search.data.network.converter.VacancyModelConverter
-import ru.practicum.android.diploma.search.data.network.dto.CountryDto
 import ru.practicum.android.diploma.search.data.network.dto.VacanciesSearchResponse
 import ru.practicum.android.diploma.search.data.network.dto.response.CountriesResponse
 import ru.practicum.android.diploma.search.domain.api.SearchRepository
@@ -22,13 +21,13 @@ class SearchRepositoryImpl @Inject constructor(
     private val converter: VacancyModelConverter,
     private val logger: Logger,
 ) : SearchRepository {
-    
+
     override suspend fun search(query: String): Flow<FetchResult> {
         logger.log(thisName, "fun search($query: String): Flow<FetchResult>")
-        
+
         val request = VacancyRequest.SearchVacanciesRequest(query)
         val response = networkClient.doRequest(request)
-        
+
         return when (response.resultCode) {
             in 100..399 -> {
                 val resultList = (response as VacanciesSearchResponse).items
@@ -40,11 +39,11 @@ class SearchRepositoryImpl @Inject constructor(
                     return flowOf(FetchResult.Success(data = vacancies, count = count))
                 }
             }
-            
+
             in 400..499 -> {
                 flowOf(FetchResult.Error(NetworkError.SEARCH_ERROR))
             }
-            
+
             else -> {
                 flowOf(FetchResult.Error(NetworkError.CONNECTION_ERROR))
             }
@@ -54,10 +53,15 @@ class SearchRepositoryImpl @Inject constructor(
     override suspend fun getCountries(): Flow<List<Country>> {
 
         val response = networkClient.doCountryRequest()
-        Log.d("TAG", ":response ${response.resultCode} ")
-      return   flowOf((response as CountriesResponse).results.map { Country(url = it.url,
-          id = it.id,
-          name =  it.name) })
-
+        Log.d("TAG", "getCountries: ${response.resultCode}")
+        return if (response.resultCode == 200) {
+            flowOf((response as CountriesResponse).results.map {
+                Country(
+                    url = it.url,
+                    id = it.id,
+                    name = it.name
+                )
+            })
+        } else flowOf(emptyList())
     }
 }

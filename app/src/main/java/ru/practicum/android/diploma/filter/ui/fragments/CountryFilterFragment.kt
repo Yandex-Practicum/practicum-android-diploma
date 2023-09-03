@@ -22,6 +22,7 @@ import javax.inject.Inject
 
 class CountryFilterFragment : Fragment(R.layout.fragment_country_filter) {
     private val binding by viewBinding<FragmentCountryFilterBinding>()
+
     @Inject
     lateinit var countryAdapter: CountryFilterAdapter
     private val viewModel: CountryViewModel by viewModels { (activity as RootActivity).viewModelFactory }
@@ -33,12 +34,13 @@ class CountryFilterFragment : Fragment(R.layout.fragment_country_filter) {
         viewLifecycleOwner.lifecycle.coroutineScope.launch {
 
             viewModel.uiState.collect { screenState ->
-          when(screenState){
-             is CountryFilterScreenState.Empty -> {}
-              is CountryFilterScreenState.Content ->{
-                  Log.d("TAG", "onViewCreated:  ${screenState.list}")
-                  screenState.render(binding)}
-          }
+                when (screenState) {
+                    is CountryFilterScreenState.Empty -> {}
+                    is CountryFilterScreenState.Content -> {
+                        Log.d("TAG", "onViewCreated:  ${screenState.list}")
+                        screenState.render(binding)
+                    }
+                }
 
             }
         }
@@ -55,12 +57,14 @@ class CountryFilterFragment : Fragment(R.layout.fragment_country_filter) {
             findNavController().popBackStack()
         }
 
-      countryAdapter.onItemClick = {
+        countryAdapter.onItemClick = {
 
-      }
+        }
     }
+
     private fun initAdapter() {
-        binding.countyFilterRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.countyFilterRecycler.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.countyFilterRecycler.adapter = countryAdapter
     }
 
