@@ -42,6 +42,10 @@
     <string name="apply"                            >Apply</string>
     <string name="cancel"                           >Cancel</string>
     <string name="choose"                           >Choose</string>
+    <!--Internet-->
+    <string name="error"                            >Check your internet connection</string>
+    <string name="server_error"                     >Server error</string>
+
     <!--    <string name="app_preferences" translatable="false">app_preferences</string>-->
 
     <string name="lead"                             >Starkova Margarita</string>
@@ -60,5 +64,6 @@
         <item quantity="other"                      >%1$d vacancies</item>
     </plurals>
     <string name="similar_vacancies"                >Похожие вакансии</string>
+
 
 </resources>

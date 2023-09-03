@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.filter.data
 
 import android.content.SharedPreferences
 import ru.practicum.android.diploma.Logger
+import ru.practicum.android.diploma.filter.data.converter.DataConverter
 import ru.practicum.android.diploma.filter.data.local_storage.LocalStorage
 import ru.practicum.android.diploma.util.thisName
 import java.util.concurrent.locks.ReentrantReadWriteLock

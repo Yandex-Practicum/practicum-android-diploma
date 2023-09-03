@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentCountryFilterBinding
 import ru.practicum.android.diploma.filter.ui.fragments.adapters.CountryFilterAdapter
-import ru.practicum.android.diploma.filter.ui.models.CountryFilterScreenState
+import ru.practicum.android.diploma.filter.ui.models.FilterScreenState
 import ru.practicum.android.diploma.filter.ui.view_models.CountryViewModel
 import ru.practicum.android.diploma.root.RootActivity
 import ru.practicum.android.diploma.util.thisName
@@ -39,16 +39,23 @@ class CountryFilterFragment : Fragment(R.layout.fragment_country_filter) {
             viewModel.uiState.collect { screenState ->
                 viewModel.log(thisName, "screenState ${screenState.thisName}")
                 when (screenState) {
-                    is CountryFilterScreenState.Empty -> {
+                    is FilterScreenState.NoData -> {
                         screenState.render(binding)
                     }
 
-                    is CountryFilterScreenState.Content -> {
+                    is FilterScreenState.Content -> {
                         screenState.render(binding)
                     }
 
-                    CountryFilterScreenState.Default -> {
+                    FilterScreenState.Default -> {
                         screenState.render(binding)
+                    }
+
+                    is FilterScreenState.Error -> {
+                        //TODO snackBar
+                    }
+                    is FilterScreenState.Loading -> {
+                        //TODO progressBar
                     }
                 }
 

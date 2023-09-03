@@ -1,7 +1,7 @@
 package ru.practicum.android.diploma.search.data.network
 
 import ru.practicum.android.diploma.Logger
-import ru.practicum.android.diploma.filter.data.Filter
+import ru.practicum.android.diploma.filter.data.model.Filter
 import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
 
@@ -46,18 +46,7 @@ class RetrofitClient @Inject constructor(
             (this as CodeResponse).resultCode = result.code()
         } as CodeResponse
 
+    }
 
-}
-
-//    override suspend fun doCountryRequest(): CodeResponse {
-//        logger.log(thisName, "doCountryRequest(): Response")
-//        if (!internetController.isInternetAvailable()) {
-//            return CodeResponse().apply { resultCode = -1 }
-//        }
-//        val response = hhApiService.getCountries()
-//        val result = CountriesCodeResponse(response?.body() ?: emptyList())
-//        result.resultCode = response?.code()
-//        return result
-//    }
 }
 

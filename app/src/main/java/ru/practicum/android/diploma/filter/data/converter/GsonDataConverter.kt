@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.filter.data
+package ru.practicum.android.diploma.filter.data.converter
 
 import com.google.gson.Gson
 import javax.inject.Inject
