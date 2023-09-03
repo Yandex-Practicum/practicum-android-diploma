@@ -55,7 +55,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                     screenState.render(binding)
                     when {
                         screenState.query.isNullOrEmpty() -> { closeListener() }
-                    
                         else -> { addListener() }
                     }
                 }
