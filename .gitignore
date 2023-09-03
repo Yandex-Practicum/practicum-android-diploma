@@ -20,7 +20,7 @@ gradle-user-home/
 captures/
 .externalNativeBuild/
 .cxx/
-output.json
+*.json
 
 # Built application files
 *.apk
