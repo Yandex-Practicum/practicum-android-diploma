@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.FragmentFilterSelectionBinding
@@ -14,12 +15,14 @@ import ru.practicum.android.diploma.filters.domain.models.Region
 import ru.practicum.android.diploma.filters.presentation.FiltersViewModel
 import ru.practicum.android.diploma.filters.ui.adapter.FilterSelectionClickListener
 import ru.practicum.android.diploma.filters.ui.adapter.FiltersAdapter
+import ru.practicum.android.diploma.filters.ui.fragment.FragmentSettingFilters.Companion.SCREEN
 import ru.practicum.android.diploma.util.BindingFragment
 
 class FragmentChooseFilter:BindingFragment<FragmentFilterSelectionBinding>() {
 
     private val viewModel by viewModel<FiltersViewModel>()
     private var adapter:FiltersAdapter? = null
+    private var screen:Int? =null
 
     override fun createBinding(
         inflater: LayoutInflater,
@@ -30,6 +33,8 @@ class FragmentChooseFilter:BindingFragment<FragmentFilterSelectionBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        screen = arguments?.getInt(SCREEN)
+        Log.d("myLog", screen.toString())
         initAdapter()
         binding.recyclerViewFilters.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewFilters.adapter = adapter
@@ -46,4 +51,10 @@ class FragmentChooseFilter:BindingFragment<FragmentFilterSelectionBinding>() {
             }
         })
     }
+    private fun back(){
+        binding.arrowback.setOnClickListener {
+            findNavController().navigateUp()
+        }
+    }
+
 }

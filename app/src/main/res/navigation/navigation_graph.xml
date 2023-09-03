@@ -13,7 +13,11 @@
         android:id="@+id/settingFilters"
         android:name="ru.practicum.android.diploma.filters.ui.fragment.FragmentSettingFilters"
         android:label="fragment_setting_filters"
-        tools:layout="@layout/fragment_setting_filters" />
+        tools:layout="@layout/fragment_setting_filters" >
+        <action
+            android:id="@+id/action_settingFilters_to_fragmentChooseFilter"
+            app:destination="@id/fragmentChooseFilter" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentChooseFilter"
         android:name="ru.practicum.android.diploma.filters.ui.fragment.FragmentChooseFilter"
@@ -28,5 +32,14 @@
         android:id="@+id/vacancyFragment"
         android:name="ru.practicum.android.diploma.details.presentation.ui.VacancyFragment"
         android:label="fragment_vacancy"
-        tools:layout="@layout/fragment_vacancy" />
+        tools:layout="@layout/fragment_vacancy" >
+        <action
+            android:id="@+id/action_vacancyFragment_to_similarVacancyFragment"
+            app:destination="@id/similarVacancyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/similarVacancyFragment"
+        android:name="ru.practicum.android.diploma.details.presentation.ui.SimilarVacancyFragment"
+        android:label="fragment_similar_vacancy"
+        tools:layout="@layout/fragment_similar_vacancy" />
 </navigation>
