@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.search.data
 
-import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import ru.practicum.android.diploma.Logger
@@ -8,7 +7,7 @@ import ru.practicum.android.diploma.filter.domain.models.Country
 import ru.practicum.android.diploma.search.data.network.NetworkClient
 import ru.practicum.android.diploma.search.data.network.VacancyRequest
 import ru.practicum.android.diploma.search.data.network.converter.VacancyModelConverter
-import ru.practicum.android.diploma.search.data.network.dto.VacanciesSearchResponse
+import ru.practicum.android.diploma.search.data.network.dto.response.VacanciesSearchResponse
 import ru.practicum.android.diploma.search.data.network.dto.response.CountriesResponse
 import ru.practicum.android.diploma.search.domain.api.SearchRepository
 import ru.practicum.android.diploma.search.domain.models.FetchResult

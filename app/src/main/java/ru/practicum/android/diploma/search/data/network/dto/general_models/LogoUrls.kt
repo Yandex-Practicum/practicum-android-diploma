@@ -1,10 +1,11 @@
-package ru.practicum.android.diploma.search.data.network.dto
+package ru.practicum.android.diploma.search.data.network.dto.general_models
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class LogoUrls(
-    val `240`: String? = "",
-    val `90`: String? = "",
+    @SerialName("240")
+    val url240: String? = "",
     val original: String? = "",
 )

@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.search.data.network.dto
+package ru.practicum.android.diploma.search.data.network.dto.general_models
 
 import kotlinx.serialization.Serializable
 

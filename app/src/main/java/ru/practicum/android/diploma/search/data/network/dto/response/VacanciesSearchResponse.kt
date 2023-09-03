@@ -1,7 +1,8 @@
-package ru.practicum.android.diploma.search.data.network.dto
+package ru.practicum.android.diploma.search.data.network.dto.response
 
 import kotlinx.serialization.Serializable
 import ru.practicum.android.diploma.search.data.network.Response
+import ru.practicum.android.diploma.search.data.network.dto.VacancyDto
 
 @Serializable
 data class VacanciesSearchResponse(
