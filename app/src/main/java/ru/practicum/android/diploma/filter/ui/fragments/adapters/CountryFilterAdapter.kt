@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.Logger
-import ru.practicum.android.diploma.databinding.CountryFilterItemBinding
+import ru.practicum.android.diploma.databinding.ItemCountryFilterBinding
 import ru.practicum.android.diploma.filter.domain.models.Country
 import ru.practicum.android.diploma.root.Debouncer
 import ru.practicum.android.diploma.root.debounceClickListener
@@ -18,7 +18,7 @@ class CountryFilterAdapter @Inject constructor(
     var onItemClick: ((Country) -> Unit)? = null
     var countriesList: List<Country> = ArrayList<Country>()
 
-    class CountryViewHolder(private val binding: CountryFilterItemBinding) :
+    class CountryViewHolder(private val binding: ItemCountryFilterBinding) :
         RecyclerView.ViewHolder(
             binding.root
         ) {
@@ -30,7 +30,7 @@ class CountryFilterAdapter @Inject constructor(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         CountryViewHolder(
-            CountryFilterItemBinding.inflate(
+            ItemCountryFilterBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
