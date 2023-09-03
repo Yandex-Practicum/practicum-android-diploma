@@ -62,8 +62,11 @@ class CountryFilterFragment : Fragment(R.layout.fragment_country_filter) {
             findNavController().popBackStack()
         }
 
-        countryAdapter.onItemClick = {
+        countryAdapter.onItemClick = { country ->
 
+            findNavController().navigate(
+            CountryFilterFragmentDirections.actionCountryFilterFragmentToWorkPlaceFilterFragment(country)
+            )
         }
     }
     private fun initAdapter() {
