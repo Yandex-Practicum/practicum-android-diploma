@@ -1,6 +1,6 @@
 # IntelliJ
 *.iml
-.idea/
+.idea
 
 # Gradle files
 .gradle/
@@ -10,6 +10,7 @@ out/
 # Local configuration file (sdk path, etc)
 local.properties
 develop.properties
+app/schemas
 
 # Gradle-profiler data
 profile-out*/
