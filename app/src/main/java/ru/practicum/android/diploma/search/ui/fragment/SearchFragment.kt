@@ -19,8 +19,7 @@ import javax.inject.Inject
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
 
-    @Inject
-    lateinit var searchAdapter: SearchAdapter
+    @Inject lateinit var searchAdapter: SearchAdapter
     private val viewModel: SearchViewModel by viewModels { (activity as RootActivity).viewModelFactory }
     private val binding by viewBinding<FragmentSearchBinding>()
     
@@ -60,6 +59,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
     
             searchEditText.doOnTextChanged { text, _, _, _ ->
+                viewModel.log(thisName, "$text")
                 viewModel.onSearchQueryChanged(text.toString())
             }
         }
@@ -71,7 +71,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     
         binding.recycler.adapter = searchAdapter
     
-        searchAdapter?.onClick = { vacancy ->
+        searchAdapter.onClick = { vacancy ->
             viewModel.log(thisName, "onClickWithDebounce $vacancy")
             navigateToDetails(vacancy)
         }

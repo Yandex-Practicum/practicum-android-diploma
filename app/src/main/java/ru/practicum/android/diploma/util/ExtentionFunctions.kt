@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.util
 
+import android.health.connect.changelog.ChangeLogsResponse.DeletedLog
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -21,7 +22,7 @@ val <T> T.thisName: String
 fun <T> delayedAction(
     delayMillis: Long = DELAY_2000_MILLIS,
     coroutineScope: CoroutineScope,
-    deferredUsing: Boolean = false,
+    deferredUsing: Boolean = true,
     action: (T) -> Unit,
 ): (T) -> Unit {
     var debounceJob: Job? = null
