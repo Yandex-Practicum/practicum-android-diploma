@@ -22,7 +22,7 @@ class RemoteDataSourceImpl @Inject constructor(
 ) : RemoteDataSource {
 
     override suspend fun getVacancyFullInfo(id: String): Flow<NetworkResponse<VacancyFullInfo>> = flow {
-        logger.log(thisName, "getVacancyFullInfo($id: String): Flow<FetchResultDetails>")
+        logger.log(thisName, "getVacancyFullInfo($id: String): Flow<NetworkResponse<VacancyFullInfo>>")
         val request = Vacancy.FullInfoRequest(id)
         val response = (networkClient.doRequest(request) as VacancyFullInfoModelDto)
 
