@@ -88,6 +88,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_24dp"
+        android:focusableInTouchMode="true"
         android:hint="@string/expected_salary"
         app:placeholderText="@string/enter_the_amount">
 
@@ -96,6 +97,7 @@
             style="@style/FilterEditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusable="true"
             android:drawableRight="@drawable/close_btn"
         />
 
