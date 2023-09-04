@@ -5,16 +5,16 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.databinding.FragmentTeam2Binding
+import ru.practicum.android.diploma.databinding.FragmentTeamBinding
 import ru.practicum.android.diploma.root.RootActivity
 import ru.practicum.android.diploma.team.ui.model.TeamMember
 import ru.practicum.android.diploma.util.thisName
 import ru.practicum.android.diploma.util.viewBinding
 import javax.inject.Inject
 
-class TeamFragment : Fragment(R.layout.fragment_team2), SwipeStack.SwipeStackListener {
+class TeamFragment : Fragment(R.layout.fragment_team), SwipeStack.SwipeStackListener {
 
-    private val binding by viewBinding<FragmentTeam2Binding>()
+    private val binding by viewBinding<FragmentTeamBinding>()
     @Inject lateinit var swipeAdapter: SwipeAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

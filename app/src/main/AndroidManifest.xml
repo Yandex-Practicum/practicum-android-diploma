@@ -18,9 +18,6 @@
         android:theme="@style/Theme.PracticumAndroidDiploma"
         tools:targetApi="34">
         <activity
-            android:name=".team.ui.TestActivity"
-            android:exported="false" />
-        <activity
             android:name=".root.RootActivity"
             android:exported="true"
             android:screenOrientation="portrait"

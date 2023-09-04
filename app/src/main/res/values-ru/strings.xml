@@ -47,10 +47,11 @@
     <string name="bitwise"                          >Языков Данила</string>
     <string name="error"                            >Проверьте подключение к интернету</string>
     <string name="server_error"                     >Ошибка сервера</string>
+    <string name="similar_vacancies"                >Похожие вакансии</string>
+    <string name="alba_description"                 >Все знаю, все умею, за бесплатно не работаю!\n telegram -@GoldenAlbatross</string>
 
 
     <string name="found"                            >Найдено</string>
-    <string name="similar_vacancies"                >Похожие вакансии</string>
     <string name="from"                             >от</string>
     <string name="to"                               >до</string>
     <string name="empty_salary"                     >ЗП не указана</string>
@@ -61,6 +62,5 @@
         <item quantity="many"                       >%1$d вакансий</item>
         <item quantity="other"                      >%1$d вакансий</item>
     </plurals>
-    <string name="alba_description">Give me coding</string>
 
 </resources>

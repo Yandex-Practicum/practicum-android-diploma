@@ -44,6 +44,8 @@
     <string name="choose"                           >Choose</string>
     <string name="error"                            >Check your internet connection</string>
     <string name="server_error"                     >Server error</string>
+    <string name="similar_vacancies"                >SimilarVacancies</string>
+    <string name="alba_description"                 >Give me coding</string>
 
     <!--TeamCard-->
     <string name="lead"                             >Starkova Margarita</string>
@@ -51,8 +53,6 @@
     <string name="flash"                            >Kostin Oleg</string>
     <string name="meister"                          >Belykh Igor</string>
     <string name="bitwise"                          >Yazykov Danila</string>
-    <string name="similar_vacancies"                >Похожие вакансии</string>
-    <string name="alba_description"                 >Все знаю, все умею, за бесплатно не работаю!\n telegram -@GoldenAlbatross</string>
 
 
 
