@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.search.data.network
 
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.filter.data.model.Filter
+import ru.practicum.android.diploma.search.data.network.dto.response.CountriesCodeResponse
 import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
 
@@ -23,13 +24,19 @@ class RetrofitClient @Inject constructor(
                 logger.log(thisName, "is Vacancy.FullInfoRequest -> ${request.id}")
                 hhApiService.searchDetails(request.id)
             }
+
             is Vacancy.SearchRequest -> {
                 logger.log(thisName, "is Vacancy.SearchRequest -> ${request.query}")
                 hhApiService.search(request.query)
             }
+
             is Filter.CountryRequest -> {
                 logger.log(thisName, "is Filter.CountryRequest -> hhApiService.getCountries()")
-                hhApiService.getCountries()
+                val response =
+                    hhApiService.getCountries()
+                val result = CountriesCodeResponse(response.body() ?: emptyList())
+                result.resultCode = response.code()
+                return result
             }
 //            is Filter.CityRequest -> {
 //                logger.log(thisName, "is Filter.CityRequest -> hhApiService.getCities()")
@@ -47,6 +54,17 @@ class RetrofitClient @Inject constructor(
         } as CodeResponse
 
     }
+
+//    override suspend fun doCountryRequest(): Response {
+//        if (!internetController.isInternetAvailable()) {
+//            return Response().apply { resultCode = -1 }
+//        }
+//        val response =
+//            hhApiService.getCountries()
+//        val result = CountriesResponse(response.body() ?: emptyList())
+//        result.resultCode = response.code()
+//        return result
+//    }
 
 }
 
