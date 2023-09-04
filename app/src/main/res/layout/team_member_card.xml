@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="#81C7FF"
+    card_view:cardCornerRadius="@dimen/corner_radius"
+    card_view:cardElevation="@dimen/elevation">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:src="@drawable/albatross"/>
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_64dp"
+            android:fontFamily="@font/ys_display_medium"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="@dimen/margin_24dp"
+            android:textColor="?attr/colorOnPrimary"
+            android:textSize="@dimen/text_size_22sp"
+            android:text="@string/oldwise" />
+
+        <TextView
+            android:id="@+id/description"
+            style="@style/Developers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/alba_description" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.cardview.widget.CardView>

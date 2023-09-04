@@ -42,17 +42,19 @@
     <string name="apply"                            >Apply</string>
     <string name="cancel"                           >Cancel</string>
     <string name="choose"                           >Choose</string>
-    <!--Internet-->
     <string name="error"                            >Check your internet connection</string>
     <string name="server_error"                     >Server error</string>
+    <string name="similar_vacancies"                >SimilarVacancies</string>
+    <string name="alba_description"                 >Give me coding</string>
 
-    <!--    <string name="app_preferences" translatable="false">app_preferences</string>-->
-
+    <!--TeamCard-->
     <string name="lead"                             >Starkova Margarita</string>
     <string name="oldwise"                          >Gnesny Petr</string>
     <string name="flash"                            >Kostin Oleg</string>
     <string name="meister"                          >Belykh Igor</string>
     <string name="bitwise"                          >Yazykov Danila</string>
+
+
 
     <string name="found"                            >Found</string>
     <string name="from"                             >from</string>
@@ -60,10 +62,7 @@
     <string name="empty_salary"                     >Salary not specified</string>
 
     <plurals name="vacancies">
-        <item quantity="one"                        >%1$d vacancy</item>
-        <item quantity="other"                      >%1$d vacancies</item>
+        <item quantity="one">%1$d vacancy</item>
+        <item quantity="other">%1$d vacancies</item>
     </plurals>
-    <string name="similar_vacancies"                >Похожие вакансии</string>
-
-
 </resources>

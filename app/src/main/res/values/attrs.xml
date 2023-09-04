@@ -8,4 +8,17 @@
     <attr name="edittext_color" format="reference"/>
     <attr name="image_in_card_view_color" format="reference"/>
     <attr name="cancel_btn_filter" format="reference"/>
+
+
+    <declare-styleable name="SwipeStack">
+        <attr name="animation_duration" format="integer"/>
+        <attr name="stack_size" format="integer"/>
+        <attr name="stack_spacing" format="dimension"/>
+        <attr name="stack_rotation" format="integer"/>
+        <attr name="swipe_rotation" format="float"/>
+        <attr name="swipe_opacity" format="float"/>
+        <attr name="scale_factor" format="float"/>
+        <attr name="disable_hw_acceleration" format="boolean"/>
+    </declare-styleable>
+
 </resources>

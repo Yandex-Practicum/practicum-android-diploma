@@ -19,9 +19,9 @@
         tools:targetApi="34">
         <activity
             android:name=".root.RootActivity"
-            android:windowSoftInputMode="adjustNothing"
+            android:exported="true"
             android:screenOrientation="portrait"
-            android:exported="true">
+            android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

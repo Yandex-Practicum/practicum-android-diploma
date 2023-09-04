@@ -1,12 +1,12 @@
 package ru.practicum.android.diploma.util
 
-import android.health.connect.changelog.ChangeLogsResponse.DeletedLog
+import android.os.Build
+import android.os.Bundle
+import android.os.Parcelable
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CenterInside
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
-import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -54,4 +54,13 @@ fun ImageView.setImage(url: String, placeholder: Int) {
         .placeholder(placeholder)
         .transform(CenterCrop())
         .into(this)
+}
+
+fun <T : Parcelable?> Bundle.getParcelableFromBundle(key: String, clazz: Class<T>): T? {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+        getParcelable(key, clazz)
+    else {
+        @Suppress("DEPRECATION")
+        getParcelable<T>(key)
+    }
 }
