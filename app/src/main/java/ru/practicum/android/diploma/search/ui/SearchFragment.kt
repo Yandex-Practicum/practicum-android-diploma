@@ -11,9 +11,13 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.Gson
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
+import ru.practicum.android.diploma.details.presentation.ui.VacancyFragment
 import ru.practicum.android.diploma.search.domain.SearchState
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.util.BindingFragment
@@ -94,7 +98,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
         }
     }
 
-      private fun setCloseIconForEditText() {
+    private fun setCloseIconForEditText() {
         binding.editTextSearchImage.visibility = View.GONE
         binding.editTextCloseImage.visibility = View.VISIBLE
     }
@@ -163,7 +167,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
 
             override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 vacancySearchDebounce(s.toString())
-               viewModel.setOnFocus(s.toString(), binding.searchEditText.hasFocus())
+                viewModel.setOnFocus(s.toString(), binding.searchEditText.hasFocus())
             }
 
             override fun afterTextChanged(s: Editable?) {}
@@ -196,12 +200,10 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
 
     private fun openVacancy(vacancy: Vacancy) {
 
-        /* Проверить переход на экран DetailsFragment!!!
-
         findNavController().navigate(
-             R.id.action_searchFragment_to_vacancyFragment,
-             VacancyFragment.createArgs(vacancy)
-         )*/
+            R.id.action_searchFragment_to_vacancyFragment,
+            VacancyFragment.createArgs(Gson().toJson(vacancy))
+        )
     }
 
     companion object {
