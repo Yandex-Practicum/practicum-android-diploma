@@ -60,19 +60,19 @@ class DetailsViewModel @Inject constructor(
             detailsInteractor.getFullVacancyInfo(id).collect { result ->
                 when (result) {
                     is NetworkResponse.Success -> {
-                        log(thisName, "getVacancyByID() -> ${result.data}")
+                        log(thisName, "NetworkResponse.Success -> ${result.data}")
                         _uiState.value = DetailsScreenState.Content(result.data)
                     }
                     is NetworkResponse.Error -> {
-                        log(thisName, "getVacancyByID() -> ${result.message}")
+                        log(thisName, "NetworkResponse.Error -> ${result.message}")
                         _uiState.value = DetailsScreenState.Error(result.message)
                     }
                     is NetworkResponse.Offline -> {
-                        log(thisName, "getVacancyByID() -> ${result.message}")
+                        log(thisName, "NetworkResponse.Offline-> ${result.message}")
                         _uiState.value = DetailsScreenState.Offline(result.message)
                     }
                     is NetworkResponse.NoData -> {
-                        log(thisName, "getVacancyByID() -> ${result.message}")
+                        log(thisName, "NetworkResponse.NoData -> ${result.message}")
                       //  _uiState.value = DetailsScreenState.NoData(result.message)
                     }
                 }
