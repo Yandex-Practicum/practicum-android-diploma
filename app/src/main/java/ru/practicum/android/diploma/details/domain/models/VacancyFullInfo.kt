@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Serializable
-data class VacancyFullInfoModel(
+data class VacancyFullInfo(
     val id: String,
     val experience: String = "",
     val employment: String = "",

@@ -4,7 +4,7 @@ import android.content.Context
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.details.data.dto.VacancyFullInfoModelDto
 import ru.practicum.android.diploma.details.data.dto.assistants.KeySkillDto
-import ru.practicum.android.diploma.details.domain.models.VacancyFullInfoModel
+import ru.practicum.android.diploma.details.domain.models.VacancyFullInfo
 import ru.practicum.android.diploma.search.data.network.dto.VacancyDto
 import ru.practicum.android.diploma.search.data.network.dto.general_models.Phone
 import ru.practicum.android.diploma.search.data.network.dto.general_models.Salary
@@ -54,13 +54,13 @@ class VacancyModelConverter @Inject constructor(
         return result.toString()
     }
 
-    fun mapDetails(details: VacancyFullInfoModelDto): VacancyFullInfoModel {
+    fun mapDetails(details: VacancyFullInfoModelDto): VacancyFullInfo {
         return details.mapToDetails()
     }
 
-    private fun VacancyFullInfoModelDto.mapToDetails(): VacancyFullInfoModel {
+    private fun VacancyFullInfoModelDto.mapToDetails(): VacancyFullInfo {
         return with(this) {
-            VacancyFullInfoModel(
+            VacancyFullInfo(
                 id = id,
                 description = description ?: "",
                 experience = experience?.name ?: "",

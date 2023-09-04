@@ -6,7 +6,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentDetailsBinding
-import ru.practicum.android.diploma.details.domain.models.VacancyFullInfoModel
+import ru.practicum.android.diploma.details.domain.models.VacancyFullInfo
 import ru.practicum.android.diploma.util.setImage
 
 sealed interface DetailsScreenState {
@@ -14,7 +14,7 @@ sealed interface DetailsScreenState {
     object Empty : DetailsScreenState{
         override fun render(binding: FragmentDetailsBinding) = Unit
     }
-    data class Content(val vacancy: VacancyFullInfoModel) : DetailsScreenState{
+    data class Content(val vacancy: VacancyFullInfo) : DetailsScreenState{
         override fun render(binding: FragmentDetailsBinding) {
             with(binding) {
                 val tvSchedule = vacancy.employment + ". " + vacancy.schedule
