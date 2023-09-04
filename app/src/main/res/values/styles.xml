@@ -169,7 +169,7 @@
         <item name="android:layout_marginEnd">@dimen/margin_4dp</item>
         <item name="android:layout_marginBottom">@dimen/margin_6dp</item>
     </style>
-    <style name="FilterBottomButtonsStyle">
+    <style name="FilterBottomButtonsStyle" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:layout_marginHorizontal">@dimen/margin_16dp</item>
         <item name="android:fontFamily">@font/ys_display_medium</item>
         <item name="android:textAllCaps">false</item>

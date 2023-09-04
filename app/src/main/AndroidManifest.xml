@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PracticumAndroidDiploma"
-        tools:targetApi="31">
+        tools:targetApi="34">
         <activity
             android:name=".team.ui.TestActivity"
             android:exported="false" />

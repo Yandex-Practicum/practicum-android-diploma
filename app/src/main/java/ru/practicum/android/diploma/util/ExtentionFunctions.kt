@@ -6,6 +6,7 @@ import android.os.Parcelable
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.CenterInside
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -21,7 +22,7 @@ val <T> T.thisName: String
 fun <T> delayedAction(
     delayMillis: Long = DELAY_2000_MILLIS,
     coroutineScope: CoroutineScope,
-    deferredUsing: Boolean = false,
+    deferredUsing: Boolean = true,
     action: (T) -> Unit,
 ): (T) -> Unit {
     var debounceJob: Job? = null
@@ -43,10 +44,9 @@ fun ImageView.setImage(url: String, placeholder: Int, cornerRadius: Int) {
         .with(this.context)
         .load(url)
         .placeholder(placeholder)
-        .transform(CenterCrop(), RoundedCorners(cornerRadius))
+        .transform(CenterInside(), RoundedCorners(cornerRadius))
         .into(this)
 }
-
 fun ImageView.setImage(url: String, placeholder: Int) {
     Glide
         .with(this.context)

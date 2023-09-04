@@ -1,62 +1,68 @@
 <resources>
-    <string name="app_name" translatable="false">Job Search Engine</string>
-    <string name="main_menu">Main</string>
-    <string name="favorites">Favorites</string>
-    <string name="team_menu">Team</string>
-    <string name="image">Image</string>
-    <string name="filter_settings">Filter Settings</string>
-    <string name="work_place">Work Place</string>
-    <string name="department">Department</string>
-    <string name="expected_salary">Expected salary</string>
-    <string name="enter_the_amount">Enter the amount</string>
-    <string name="dont_show_without_salary">Do not show without salary</string>
-    <string name="choose_country">Choose country</string>
-    <string name="Russia">Russia</string>
-    <string name="base_url" translatable="false">https://itunes.apple.com</string>
-    <string name="search_title">Job search</string>
-    <string name="empty_list">Empty list</string>
-    <string name="search_hint">Enter a request</string>
+    <string name="app_name" translatable="false"    >Job Search Engine</string>
+    <string name="main_menu"                        >Main</string>
+    <string name="favorites"                        >Favorites</string>
+    <string name="team_menu"                        >Team</string>
+    <string name="image"                            >Image</string>
+    <string name="filter_settings"                  >Filter Settings</string>
+    <string name="work_place"                       >Work Place</string>
+    <string name="department"                       >Department</string>
+    <string name="expected_salary"                  >Expected salary</string>
+    <string name="enter_the_amount"                 >Enter the amount</string>
+    <string name="dont_show_without_salary"         >Do not show without salary</string>
+    <string name="choose_country"                   >Choose country</string>
+    <string name="Russia"                           >Russia</string>
+    <string name="base_url" translatable="false"    >https://api.hh.ru</string>
+    <string name="search_title"                     >Job search</string>
+    <string name="empty_list"                       >Empty list</string>
+    <string name="search_hint"                      >Enter a request</string>
     <string name="placeholder_image" translatable="false">placeholder image</string>
-    <string name="vacancy">Vacancy</string>
-    <string name="similar_vacancy">Similar vacancies</string>
-    <string name="country">Country</string>
-    <string name="work_place_choose">Choose work place</string>
-    <string name="region">Region</string>
-    <string name="empty_search_error">There are no such vacancies</string>
-    <string name="loading_message">Loading…</string>
-    <string name="update">Update</string>
-    <string name="choose_region">Choose Region</string>
-    <string name="choose_department">Choose Department</string>
-    <string name="enter_region">Enter Region</string>
-    <string name="enter_department">Enter Department</string>
-    <string name="required_experience">Required experience</string>
-    <string name="vacancy_description">Vacancy description</string>
-    <string name="key_skills">Key skills</string>
-    <string name="contacts">Contacts</string>
-    <string name="contact_person">Contact person</string>
-    <string name="phone">Phone</string>
-    <string name="e_mail">E-mail</string>
-    <string name="no_info">No information</string>
-    <string name="team">Team</string>
-    <string name="description">We worked on the application</string>
-    <string name="apply">Apply</string>
-    <string name="cancel">Cancel</string>
-    <string name="choose">Choose</string>
-    <!--    <string name="app_preferences" translatable="false">app_preferences</string>-->
+    <string name="vacancy"                          >Vacancy</string>
+    <string name="similar_vacancy"                  >Similar vacancies</string>
+    <string name="country"                          >Country</string>
+    <string name="work_place_choose"                >Choose work place</string>
+    <string name="region"                           >Region</string>
+    <string name="empty_search_error"               >There are no such vacancies</string>
+    <string name="loading_message"                  >Loading…</string>
+    <string name="update"                           >Update</string>
+    <string name="choose_region"                    >Choose Region</string>
+    <string name="choose_department"                >Choose Department</string>
+    <string name="enter_region"                     >Enter Region</string>
+    <string name="enter_department"                 >Enter Department</string>
+    <string name="required_experience"              >Required experience</string>
+    <string name="vacancy_description"              >Vacancy description</string>
+    <string name="key_skills"                       >Key skills</string>
+    <string name="contacts"                         >Contacts</string>
+    <string name="contact_person"                   >Contact person</string>
+    <string name="phone"                            >Phone</string>
+    <string name="e_mail"                           >E-mail</string>
+    <string name="no_info"                          >No information</string>
+    <string name="team"                             >Team</string>
+    <string name="description"                      >We worked on the application</string>
+    <string name="apply"                            >Apply</string>
+    <string name="cancel"                           >Cancel</string>
+    <string name="choose"                           >Choose</string>
+    <string name="error"                            >Check your internet connection</string>
+    <string name="server_error"                     >Server error</string>
 
-    <string name="lead">Starkova Margarita</string>
-    <string name="oldwise">Gnesny Petr</string>
-    <string name="flash">Kostin Oleg</string>
-    <string name="meister">Belykh Igor</string>
-    <string name="bitwise">Yazykov Danila</string>
+    <!--TeamCard-->
+    <string name="lead"                             >Starkova Margarita</string>
+    <string name="oldwise"                          >Gnesny Petr</string>
+    <string name="flash"                            >Kostin Oleg</string>
+    <string name="meister"                          >Belykh Igor</string>
+    <string name="bitwise"                          >Yazykov Danila</string>
+    <string name="similar_vacancies"                >Похожие вакансии</string>
+    <string name="alba_description"                 >Все знаю, все умею, за бесплатно не работаю!\n telegram -@GoldenAlbatross</string>
 
-    <string name="found">Found</string>
+
+
+    <string name="found"                            >Found</string>
+    <string name="from"                             >from</string>
+    <string name="to"                               >to</string>
+    <string name="empty_salary"                     >Salary not specified</string>
 
     <plurals name="vacancies">
         <item quantity="one">%1$d vacancy</item>
         <item quantity="other">%1$d vacancies</item>
     </plurals>
-    <string name="similar_vacancies">Похожие вакансии</string>
-    <string name="alba_description"                       >Все знаю, все умею, за бесплатно не работаю!\n telegram -@GoldenAlbatross</string>
-
 </resources>

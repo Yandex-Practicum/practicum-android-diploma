@@ -18,10 +18,11 @@
             style="@style/ToolBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/choose_country" />
+            android:text="@string/work_place_choose" />
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/country_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_60dp"
         android:background="?android:attr/selectableItemBackground"
@@ -43,6 +44,7 @@
             android:text="@string/country" />
 
         <ImageView
+            android:id="@+id/country_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|end"
@@ -50,6 +52,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/region_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_60dp"
         app:cardElevation="0dp">

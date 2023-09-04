@@ -1,15 +1,15 @@
 package ru.practicum.android.diploma.details.data
 
-import android.util.Log
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.details.data.local.LocalDataSource
 import ru.practicum.android.diploma.details.data.network.RemoteDataSource
 import ru.practicum.android.diploma.details.domain.DetailsRepository
-import ru.practicum.android.diploma.search.domain.models.FetchResult
+import ru.practicum.android.diploma.details.domain.models.VacancyFullInfo
+import ru.practicum.android.diploma.filter.data.model.NetworkResponse
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
@@ -19,27 +19,37 @@ class DetailsRepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val logger: Logger
 ) : DetailsRepository {
-    private val latestFullVacancyFullInfoMutex = Mutex()
-    private var latestFullVacancyFullInfo: Vacancy? = null
-    override suspend fun removeVacancyFromFavorite(id: Long): Flow<Int> {
-        return  localDataSource.removeVacancyFromFavorite(id)
+    
+    private val latestVacancyFullInfoMutex = Mutex()
+    private var latestVacancyFullInfo: VacancyFullInfo? = null
+    
+    override suspend fun removeVacancyFromFavorite(id: String): Flow<Int> {
+        return localDataSource.removeVacancyFromFavorite(id)
     }
-    override suspend fun addVacancyToFavorite(vacancy: Vacancy): Flow<Long> {
+    
+    override suspend fun addVacancyToFavorite(vacancy: Vacancy): Flow<Unit> {
         return localDataSource.addVacancyToFavorite(vacancy)
     }
-    override suspend fun getFullVacancyInfo(id: Long): Flow<FetchResult> {
-       if (latestFullVacancyFullInfo?.id != id) {
-            remoteDataSource.getVacancyFullInfo(id).collect {
-                latestFullVacancyFullInfoMutex.withLock {
-                    logger.log(thisName, "getFullVacancyInfo: LOADED FROM INTERNET = ${it.data?.first()}")
-                    this.latestFullVacancyFullInfo = it.data?.first()
+    
+    override suspend fun getFullVacancyInfo(id: String): Flow<NetworkResponse<VacancyFullInfo>> = flow {
+        if (latestVacancyFullInfo?.id != id) {
+           remoteDataSource
+                .getVacancyFullInfo(id)
+                .collect {
+                    latestVacancyFullInfoMutex.withLock {
+                        logger.log(
+                            thisName,
+                            "getFullVacancyInfo: LOADED FROM INTERNET = ${it}"
+                        )
+                        emit (it)
+                    }
                 }
-            }
-        }else{
-            logger.log(thisName, "getFullVacancyInfo: LOADED FROM CACHE = $latestFullVacancyFullInfo" )
-       }
-        return latestFullVacancyFullInfoMutex.withLock {
-            flowOf(FetchResult.Success(listOf(this.latestFullVacancyFullInfo!!)))
+            
+        } else {
+            logger.log(
+                thisName,
+                "getFullVacancyInfo: LOADED FROM CACHE = $latestVacancyFullInfo"
+            )
         }
     }
 }

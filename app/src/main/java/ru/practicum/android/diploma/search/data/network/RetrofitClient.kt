@@ -1,12 +1,8 @@
 package ru.practicum.android.diploma.search.data.network
 
-
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
 import ru.practicum.android.diploma.Logger
-import ru.practicum.android.diploma.search.domain.models.FetchResult
-import ru.practicum.android.diploma.search.domain.models.NetworkError
-import ru.practicum.android.diploma.search.domain.models.mapTracksToVacancies
+import ru.practicum.android.diploma.filter.data.model.Filter
+import ru.practicum.android.diploma.search.data.network.dto.response.CountriesCodeResponse
 import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
 
@@ -15,24 +11,60 @@ class RetrofitClient @Inject constructor(
     private val internetController: InternetController,
     private val logger: Logger,
 ) : NetworkClient {
-    
-    override suspend fun doRequest(any: Any): Flow<FetchResult> {
-        logger.log(thisName, "doRequest -> ${any::class} ")
-        return if (any !is VacancyRequest ){
-            flowOf(FetchResult.Error(NetworkError.SEARCH_ERROR))
-        }else{
-            val query = when(any){
-                is VacancyRequest.FullInfoRequest ->{
-                    any.id.toString()
-                }
-                is VacancyRequest.SearchVacanciesRequest ->{
-                    any.query
-                }
-            }
-            logger.log(thisName, "doRequest -> $query ")
-            val response = hhApiService.search(query)
-            logger.log(thisName, "doRequest -> ${response.results.toList()} ")
-            return flowOf(FetchResult.Success(data = mapTracksToVacancies(response.results.toList())))
+
+    override suspend fun doRequest(request: Any): CodeResponse {
+        logger.log(thisName, "doRequest: ${request.thisName} ")
+
+        if (!internetController.isInternetAvailable()) {
+            return CodeResponse().apply { resultCode = -1 }
         }
+
+        val result = when (request) {
+            is Vacancy.FullInfoRequest -> {
+                logger.log(thisName, "is Vacancy.FullInfoRequest -> ${request.id}")
+                hhApiService.searchDetails(request.id)
+            }
+
+            is Vacancy.SearchRequest -> {
+                logger.log(thisName, "is Vacancy.SearchRequest -> ${request.query}")
+                hhApiService.search(request.query)
+            }
+
+            is Filter.CountryRequest -> {
+                logger.log(thisName, "is Filter.CountryRequest -> hhApiService.getCountries()")
+                val response =
+                    hhApiService.getCountries()
+                val result = CountriesCodeResponse(response.body() ?: emptyList())
+                result.resultCode = response.code()
+                return result
+            }
+//            is Filter.CityRequest -> {
+//                logger.log(thisName, "is Filter.CityRequest -> hhApiService.getCities()")
+//                hhApiService.getCities()
+//            }
+            else -> {
+                logger.log(thisName, "else -> resultCode = 400")
+                return CodeResponse().apply { resultCode = 400 }
+            }
+        }
+
+        return result.body()?.apply {
+            logger.log("RetrofitClient", "resultCode = ${result.code()}")
+            (this as CodeResponse).resultCode = result.code()
+        } as CodeResponse
+
     }
+
+//    override suspend fun doCountryRequest(): Response {
+//        if (!internetController.isInternetAvailable()) {
+//            return Response().apply { resultCode = -1 }
+//        }
+//        val response =
+//            hhApiService.getCountries()
+//        val result = CountriesResponse(response.body() ?: emptyList())
+//        result.resultCode = response.code()
+//        return result
+//    }
+
 }
+

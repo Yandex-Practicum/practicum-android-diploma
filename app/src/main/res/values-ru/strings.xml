@@ -45,9 +45,15 @@
     <string name="flash"                            >Костин Олег</string>
     <string name="meister"                          >Белых Игорь</string>
     <string name="bitwise"                          >Языков Данила</string>
+    <string name="error"                            >Проверьте подключение к интернету</string>
+    <string name="server_error"                     >Ошибка сервера</string>
+
 
     <string name="found"                            >Найдено</string>
     <string name="similar_vacancies"                >Похожие вакансии</string>
+    <string name="from"                             >от</string>
+    <string name="to"                               >до</string>
+    <string name="empty_salary"                     >ЗП не указана</string>
 
     <plurals name="vacancies">
         <item quantity="one"                        >%1$d вакансия</item>

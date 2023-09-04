@@ -23,6 +23,6 @@ class App: Application() {
     override fun onCreate() {
         component.inject(this)
         super.onCreate()
-        logger.log(thisName, "onCreate() $logger")
+        logger.log(thisName, "onCreate()")
     }
 }
