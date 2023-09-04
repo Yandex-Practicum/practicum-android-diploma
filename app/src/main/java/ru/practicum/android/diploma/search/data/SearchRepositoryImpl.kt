@@ -9,12 +9,14 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.filter.data.model.Filter
 import ru.practicum.android.diploma.filter.data.model.NetworkResponse
 import ru.practicum.android.diploma.filter.domain.models.Country
+import ru.practicum.android.diploma.filter.domain.models.Region
 import ru.practicum.android.diploma.search.data.network.CodeResponse
 import ru.practicum.android.diploma.search.data.network.NetworkClient
 import ru.practicum.android.diploma.search.data.network.Vacancy
 import ru.practicum.android.diploma.search.data.network.converter.VacancyModelConverter
 import ru.practicum.android.diploma.search.data.network.dto.response.VacanciesSearchCodeResponse
 import ru.practicum.android.diploma.search.data.network.dto.response.CountriesCodeResponse
+import ru.practicum.android.diploma.search.data.network.dto.response.RegionCodeResponse
 import ru.practicum.android.diploma.search.domain.api.SearchRepository
 import ru.practicum.android.diploma.search.domain.models.FetchResult
 import ru.practicum.android.diploma.search.domain.models.NetworkError
@@ -61,18 +63,44 @@ class SearchRepositoryImpl @Inject constructor(
         val request = Filter.CountryRequest
         val response = networkClient.doRequest(request)
 
-        emit (when (response.resultCode) {
-            200 -> checkData(response)
-            -1 -> NetworkResponse.Offline(message = context.getString(R.string.error))
-            in (400..500) -> NetworkResponse.NoData(message = context.getString(R.string.empty_list))
-            else -> NetworkResponse.Error(message = context.getString(R.string.server_error))
+        emit(
+            when (response.resultCode) {
+                200 -> checkCountryData(response)
+                -1 -> NetworkResponse.Offline(message = context.getString(R.string.error))
+                else -> NetworkResponse.Error(message = context.getString(R.string.server_error))
 
-        })
+            }
+        )
     }
 
-    private fun checkData(response: CodeResponse): NetworkResponse<List<Country>> {
+    override suspend fun getRegions(query: String): Flow<NetworkResponse<List<Region>>> = flow {
+        logger.log(thisName, "getRegions(): Flow<NetworkResponse<List<Region>>>")
+        val request = Filter.RegionRequest(query)
+        val response = networkClient.doRequest(request)
+
+        emit(
+            when (response.resultCode) {
+                200 -> checkRegionData(response)
+                -1 -> NetworkResponse.Offline(message = context.getString(R.string.error))
+                else -> NetworkResponse.Error(message = context.getString(R.string.server_error))
+
+            }
+        )
+    }
+
+    private fun checkCountryData(response: CodeResponse): NetworkResponse<List<Country>> {
         val list = (response as CountriesCodeResponse).results.map {
             Country(url = it.url, id = it.id, name = it.name)
+        }
+        return if (list.isEmpty())
+            NetworkResponse.NoData(message = context.getString(R.string.empty_list))
+        else
+            NetworkResponse.Success(list)
+    }
+
+    private fun checkRegionData(response: CodeResponse): NetworkResponse<List<Region>> {
+        val list = (response as RegionCodeResponse).results.map {
+            Region(name = it.name, area = it.area)
         }
         return if (list.isEmpty())
             NetworkResponse.NoData(message = context.getString(R.string.empty_list))
