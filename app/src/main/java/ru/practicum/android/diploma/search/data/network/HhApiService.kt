@@ -2,7 +2,9 @@ package ru.practicum.android.diploma.search.data.network
 
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
+import ru.practicum.android.diploma.details.data.dto.VacancyFullInfoModelDto
 import ru.practicum.android.diploma.search.data.network.dto.CountryDto
 import ru.practicum.android.diploma.search.data.network.dto.response.VacanciesSearchCodeResponse
 
@@ -12,6 +14,13 @@ interface HhApiService {
 
     @GET("/areas/countries")
     suspend fun getCountries(): Response<List<CountryDto>>
+
+    @GET("/vacancies/{id}")
+    suspend fun searchDetails(@Path("id") id: String): Response<VacancyFullInfoModelDto>
+
+/** https://api.hh.ru/vacancies/{vacancy_id}/similar_vacancies
+    @GET("/vacancies/{vacancy_id}/similar_vacancies")
+    suspend fun getSimilarVacancies(@Path("vacancy_id") vacancyId: String): Response<SimilarVacanciesResponse>*/
 
 }
 
