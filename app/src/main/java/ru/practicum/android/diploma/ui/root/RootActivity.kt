@@ -24,7 +24,7 @@ class RootActivity : AppCompatActivity() {
 
         binding.bottomNavigationView.setupWithNavController(navController)
 
-        //initNavController()
+        initNavController()
 
         // Пример использования access token для HeadHunter API
         networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
@@ -37,15 +37,12 @@ class RootActivity : AppCompatActivity() {
 
         binding.bottomNavigationView.setupWithNavController(navController)
 
-        navController.addOnDestinationChangedListener() { _, destination, _ ->
+        navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.searchFragment, R.id.fragmentFavourite, R.id.teamFragment -> {
+                R.id.searchFragment, R.id.fragmentFavourite, R.id.teamFragment ->
                     binding.bottomNavigationView.visibility = View.VISIBLE
-                }
+                else -> binding.bottomNavigationView.visibility = View.GONE
 
-                else -> {
-                    binding.bottomNavigationView.visibility = View.GONE
-                }
             }
         }
     }
