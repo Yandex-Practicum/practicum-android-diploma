@@ -6,6 +6,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 import ru.practicum.android.diploma.details.data.dto.VacancyFullInfoModelDto
 import ru.practicum.android.diploma.search.data.network.dto.CountryDto
+import ru.practicum.android.diploma.search.data.network.dto.response.RegionCodeResponse
 import ru.practicum.android.diploma.search.data.network.dto.response.VacanciesSearchCodeResponse
 
 interface HhApiService {
@@ -16,7 +17,7 @@ interface HhApiService {
     suspend fun getCountries(): Response<List<CountryDto>>
 
     @GET ("/areas/{area_id}")
-    suspend fun getRegionInfo(@Path("area_id") areaId: String): Response<List<CountryDto>>
+    suspend fun getRegionInfo(@Path("area_id") areaId: String): Response<RegionCodeResponse>
 
     @GET("/vacancies/{id}")
     suspend fun searchDetails(@Path("id") id: String): Response<VacancyFullInfoModelDto>

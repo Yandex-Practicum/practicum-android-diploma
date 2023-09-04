@@ -38,10 +38,10 @@ class RetrofitClient @Inject constructor(
                 result.resultCode = response.code()
                 return result
             }
-//            is Filter.CityRequest -> {
-//                logger.log(thisName, "is Filter.CityRequest -> hhApiService.getCities()")
-//                hhApiService.getCities()
-//            }
+            is Filter.RegionRequest -> {
+                logger.log(thisName, "is Filter.CityRequest -> hhApiService.getRegionInfo()")
+                hhApiService.getRegionInfo(request.query)
+            }
             else -> {
                 logger.log(thisName, "else -> resultCode = 400")
                 return CodeResponse().apply { resultCode = 400 }
@@ -54,17 +54,6 @@ class RetrofitClient @Inject constructor(
         } as CodeResponse
 
     }
-
-//    override suspend fun doCountryRequest(): Response {
-//        if (!internetController.isInternetAvailable()) {
-//            return Response().apply { resultCode = -1 }
-//        }
-//        val response =
-//            hhApiService.getCountries()
-//        val result = CountriesResponse(response.body() ?: emptyList())
-//        result.resultCode = response.code()
-//        return result
-//    }
 
 }
 
