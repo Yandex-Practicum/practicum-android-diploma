@@ -108,7 +108,7 @@ class SwipeHelper(
             .setDuration(duration.toLong())
             .setListener(object : AnimationUtils.AnimationEndListener() {
                 override fun onAnimationEnd(animation: Animator) {
-                    mSwipeStack.onViewSwipeToLeft()
+                    mSwipeStack.onViewSwipedToLeft()
                 }
             })
     }
@@ -123,7 +123,7 @@ class SwipeHelper(
             .setDuration(duration.toLong())
             .setListener(object : AnimationUtils.AnimationEndListener() {
                 override fun onAnimationEnd(animation: Animator) {
-                    mSwipeStack.onViewSwipeToRight()
+                    mSwipeStack.onViewSwipedToRight()
                 }
             })
     }
