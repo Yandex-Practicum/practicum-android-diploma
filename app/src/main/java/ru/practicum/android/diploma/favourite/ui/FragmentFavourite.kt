@@ -4,19 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFavouriteBinding
-import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.favourite.presentation.models.FavoriteStateInterface
 import ru.practicum.android.diploma.favourite.presentation.viewvodel.FavouriteViewModel
+import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.util.BindingFragment
 import ru.practicum.android.diploma.util.adapter.VacancyAdapter
 
 class FragmentFavourite : BindingFragment<FragmentFavouriteBinding>() {
 
-    lateinit var vacancyAdapter: VacancyAdapter
+    private lateinit var vacancyAdapter: VacancyAdapter
+    private lateinit var confirmDialogDeleteFavouriteVacancy: MaterialAlertDialogBuilder
 
     private val favouriteViewModel: FavouriteViewModel by viewModel()
+    //private val vacancyId: Int? = null
 
 
     override fun createBinding(
@@ -36,6 +40,8 @@ class FragmentFavourite : BindingFragment<FragmentFavouriteBinding>() {
         favouriteViewModel.observeStateFavourite().observe(viewLifecycleOwner){
             renderStateFavouriteVacancies(it)
         }
+
+        //showConfirmDialog()
     }
 
     private fun initAdapter() {
@@ -46,6 +52,10 @@ class FragmentFavourite : BindingFragment<FragmentFavouriteBinding>() {
     private fun setListeners() {
         vacancyAdapter.itemClickListener = {position, vacancy ->
 
+        }
+
+        vacancyAdapter.itemLongClickListener = { position, vacancy ->
+            showConfirmDialog(vacancy)
         }
     }
 
@@ -66,5 +76,17 @@ class FragmentFavourite : BindingFragment<FragmentFavouriteBinding>() {
         binding.placeholderFavourite.visibility = View.GONE
         binding.recyclerView.visibility = View.VISIBLE
         vacancyAdapter.setVacancies(vacancies)
+    }
+
+    private fun showConfirmDialog(vacancy: Vacancy){
+        confirmDialogDeleteFavouriteVacancy = MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.delete_vacancy)
+            .setMessage("")
+            .setPositiveButton(R.string.yes) { dialog, which ->
+                favouriteViewModel.deleteTrack(vacancy)
+            }
+            .setNegativeButton(R.string.no) { dialog, which -> }
+
+        confirmDialogDeleteFavouriteVacancy.show()
     }
 }

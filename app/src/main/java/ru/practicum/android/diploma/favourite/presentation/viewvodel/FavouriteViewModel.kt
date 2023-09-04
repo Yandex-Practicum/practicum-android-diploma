@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.db.domain.api.VacancyDbInteractor
 import ru.practicum.android.diploma.favourite.presentation.models.FavoriteStateInterface
+import ru.practicum.android.diploma.search.domain.models.Vacancy
 
 class FavouriteViewModel(private val favouriteVacancyDbInteractor: VacancyDbInteractor) :
     ViewModel() {
@@ -29,6 +30,12 @@ class FavouriteViewModel(private val favouriteVacancyDbInteractor: VacancyDbInte
 
             if (favouriteVacancies.isEmpty()) renderStateFavourite(FavoriteStateInterface.FavoriteVacanciesIsEmpty)
             else renderStateFavourite(FavoriteStateInterface.FavoriteVacancies(favouriteVacancies))
+        }
+    }
+
+    fun deleteTrack(vacancy: Vacancy) {
+        viewModelScope.launch {
+            favouriteVacancyDbInteractor.deleteVacancy(vacancy)
         }
     }
 }
