@@ -12,7 +12,6 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentDetailsBinding
 import ru.practicum.android.diploma.root.RootActivity
-import ru.practicum.android.diploma.util.setImage
 import ru.practicum.android.diploma.util.thisName
 import ru.practicum.android.diploma.util.viewBinding
 
@@ -26,7 +25,6 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.log(thisName, "onViewCreated()")
-        drawMainInfo()
         viewModel.getVacancyByID(args.vacancy.id)
         collector()
         pressSimilarVacanciesButton()
@@ -34,7 +32,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
     }
 
     private fun initListeners() {
-        binding.lottieHeart.setOnClickListener {heartButton ->
+        binding.lottieHeart.setOnClickListener { heartButton ->
             viewModel.handleAddToFavsButton(args.vacancy)
         }
         binding.vacancyToolbar.setNavigationOnClickListener {
@@ -62,18 +60,5 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         findNavController().navigate(
             DetailsFragmentDirections.actionDetailsFragmentToSimilarsVacancyFragment(args.vacancy)
         )
-    }
-
-    private fun drawMainInfo() {
-        with(binding) {
-            viewModel.log(thisName, "drawMainInfo()")
-            with(args.vacancy){
-                tvNameOfVacancy.text = title
-                tvSalary.text = salary
-                tvNameOfCompany.text = company
-                tvArea.text = area
-                imageView.setImage(iconUri, R.drawable.ic_placeholder_company)
-            }
-        }
     }
 }

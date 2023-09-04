@@ -2,7 +2,11 @@ package ru.practicum.android.diploma.search.data.network.converter
 
 import android.content.Context
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.details.data.dto.VacancyFullInfoModelDto
+import ru.practicum.android.diploma.details.data.dto.assistants.KeySkillDto
+import ru.practicum.android.diploma.details.domain.models.VacancyFullInfoModel
 import ru.practicum.android.diploma.search.data.network.dto.VacancyDto
+import ru.practicum.android.diploma.search.data.network.dto.general_models.Phone
 import ru.practicum.android.diploma.search.data.network.dto.general_models.Salary
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import javax.inject.Inject
@@ -10,11 +14,11 @@ import javax.inject.Inject
 class VacancyModelConverter @Inject constructor(
     private val context: Context,
 ) {
-    
+
     fun mapList(list: List<VacancyDto>): List<Vacancy> {
         return list.map { it.map() }
     }
-    
+
     private fun VacancyDto.map(): Vacancy {
         return with(this) {
             Vacancy(
@@ -28,7 +32,7 @@ class VacancyModelConverter @Inject constructor(
             )
         }
     }
-    
+
     private fun createSalary(salary: Salary?): String? {
         if (salary == null) return null
         val result = StringBuilder()
@@ -43,6 +47,55 @@ class VacancyModelConverter @Inject constructor(
             result.append(" ")
             result.append(salary.to)
         }
+        if (salary.currency != null) {
+            result.append(" ")
+            result.append(salary.currency)
+        }
         return result.toString()
     }
+
+    fun mapDetails(details: VacancyFullInfoModelDto): VacancyFullInfoModel {
+        return details.mapToDetails()
+    }
+
+    private fun VacancyFullInfoModelDto.mapToDetails(): VacancyFullInfoModel {
+        return with(this) {
+            VacancyFullInfoModel(
+                id = id,
+                description = description ?: "",
+                experience = experience?.name ?: "",
+                employment = employment?.name ?: "",
+                schedule = schedule?.name ?: "",
+                area = area?.name ?: "",
+                salary = createSalary(salary) ?: context.getString(R.string.empty_salary),
+                company = employer?.name ?: "",
+                logo = employer?.logo_urls?.url240 ?: "",
+                title = name ?: "",
+                contactEmail = contacts?.email ?: context.getString(R.string.no_info),
+                contactName = contacts?.name ?: context.getString(R.string.no_info),
+                keySkills = keySkillsToString(key_skills),
+                contactPhones = createPhones(contacts?.phones)
+            )
+        }
+    }
+
+    private fun keySkillsToString(keySkills: List<KeySkillDto>?): String {
+        if (keySkills != null) {
+            return keySkills.map { "• ${it.name}" }
+                .joinToString("\n")
+        }
+        return ""
+    }
+
+    private fun createPhones(phones: List<Phone?>?): List<String> {
+        if (phones == null) return emptyList()
+        val phoneList = mutableListOf<String>()
+        repeat(phones.size) { pho ->
+            val number: String = "+" + phones[pho]?.country +
+                    " (${phones[pho]?.city}) " + phones[pho]?.number
+            phoneList.add(pho, number)
+        }
+        return phoneList
+    }
+
 }

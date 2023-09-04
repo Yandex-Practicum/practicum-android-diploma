@@ -21,7 +21,7 @@ class RetrofitClient @Inject constructor(
         val result = when (request) {
             is Vacancy.FullInfoRequest -> {
                 logger.log(thisName, "is Vacancy.FullInfoRequest -> ${request.id}")
-                hhApiService.search(request.id)
+                hhApiService.searchDetails(request.id)
             }
             is Vacancy.SearchRequest -> {
                 logger.log(thisName, "is Vacancy.SearchRequest -> ${request.query}")

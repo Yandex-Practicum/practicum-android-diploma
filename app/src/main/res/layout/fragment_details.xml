@@ -114,8 +114,7 @@
                     android:layout_marginStart="@dimen/margin_16dp"
                     android:layout_marginTop="@dimen/margin_16dp"
                     android:layout_marginBottom="@dimen/margin_16dp"
-                    android:src="@drawable/ic_placeholder_company"
-                    app:tint="?attr/bottom_menu_color" />
+                    android:src="@drawable/ic_placeholder_company" />
 
                 <TextView
                     android:id="@+id/tv_name_of_company"
@@ -125,6 +124,8 @@
                     android:layout_marginStart="@dimen/size_72dp"
                     android:layout_marginTop="@dimen/margin_16dp"
                     android:layout_marginEnd="@dimen/margin_16dp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     tools:text="Еда" />
 
                 <TextView
@@ -135,7 +136,8 @@
                     android:layout_marginStart="@dimen/size_72dp"
                     android:layout_marginTop="@dimen/size_44dp"
                     android:layout_marginEnd="@dimen/margin_16dp"
-
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     tools:text="Text" />
 
             </androidx.cardview.widget.CardView>
@@ -182,7 +184,6 @@
                 style="@style/Html_title_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/margin_24dp"
                 android:text="@string/key_skills" />
 
             <TextView

@@ -3,7 +3,8 @@ package ru.practicum.android.diploma.details.domain.impl
 import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.details.domain.DetailsRepository
 import ru.practicum.android.diploma.details.domain.DetailsInteractor
-import ru.practicum.android.diploma.search.domain.models.FetchResult
+import ru.practicum.android.diploma.details.domain.models.VacancyFullInfoModel
+import ru.practicum.android.diploma.filter.data.model.NetworkResponse
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import javax.inject.Inject
 
@@ -19,7 +20,7 @@ class DetailsInteractorImpl@Inject constructor(
         return repository.removeVacancyFromFavorite(id)
     }
 
-    override suspend fun getFullVacancyInfo(id: String): Flow<FetchResult> {
+    override suspend fun getFullVacancyInfo(id: String): Flow<NetworkResponse<VacancyFullInfoModel>> {
         return repository.getFullVacancyInfo(id)
     }
 }

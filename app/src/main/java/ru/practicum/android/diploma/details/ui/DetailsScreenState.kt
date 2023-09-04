@@ -1,39 +1,52 @@
 package ru.practicum.android.diploma.details.ui
 
+import android.widget.Toast
 import androidx.core.text.HtmlCompat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentDetailsBinding
-import ru.practicum.android.diploma.search.domain.models.VacancyFullInfoModel
+import ru.practicum.android.diploma.details.domain.models.VacancyFullInfoModel
+import ru.practicum.android.diploma.util.setImage
 
 sealed interface DetailsScreenState {
     fun render(binding: FragmentDetailsBinding)
     object Empty : DetailsScreenState{
-        override fun render(binding: FragmentDetailsBinding) {
-            TODO("Not yet implemented")
-        }
+        override fun render(binding: FragmentDetailsBinding) = Unit
     }
     data class Content(val vacancy: VacancyFullInfoModel) : DetailsScreenState{
         override fun render(binding: FragmentDetailsBinding) {
             with(binding) {
-                val tvSchedule = vacancy.employment?.name + ". " + vacancy.schedule?.name
+                val tvSchedule = vacancy.employment + ". " + vacancy.schedule
                 val formattedDescription =
-                    HtmlCompat.fromHtml(vacancy.description!!, HtmlCompat.FROM_HTML_MODE_LEGACY)
-                val tvKeySkillsList =
-                    vacancy.keySkills?.mapIndexed { _, skill -> "• ${skill.name}" }
-                        ?.joinToString("\n")
-                val phoneList = vacancy.contacts?.phones?.mapIndexed { _, phone ->
-                    "+" + phone.country +
-                            " (${phone.city}) " + phone.number
-                }?.joinToString("\n")
-                tvExperience.text = vacancy.experience?.name
+                    HtmlCompat.fromHtml(vacancy.description, HtmlCompat.FROM_HTML_MODE_LEGACY)
+                tvKeySkills.text = vacancy.keySkills
+                tvContactsName.text = vacancy.contactName
+                tvContactsEmail.text = vacancy.contactEmail
+                tvContactsPhone.text =
+                    if (vacancy.contactPhones.isEmpty()) { binding.root.context.getString(R.string.no_info) }
+                    else { vacancy.contactPhones.joinToString("\n") }
+                tvExperience.text = vacancy.experience
                 tvScheduleEmployment.text = tvSchedule
                 tvDescription.text = formattedDescription
-                tvKeySkills.text = tvKeySkillsList
-                tvContactsName.text = vacancy.contacts?.name
-                tvContactsEmail.text = vacancy.contacts?.email
-                tvContactsPhone.text = phoneList
+                tvNameOfVacancy.text = vacancy.title
+                tvSalary.text = vacancy.salary
+                tvNameOfCompany.text = vacancy.company
+                tvArea.text = vacancy.area
+                imageView.setImage(vacancy.logo, R.drawable.ic_placeholder_company)
             }
+        }
+    }
+
+    data class Offline(val message: String) : DetailsScreenState {
+        override fun render(binding: FragmentDetailsBinding) {
+            Toast.makeText(binding.root.context, message, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    data class Error(val message: String) : DetailsScreenState {
+        override fun render(binding: FragmentDetailsBinding) {
+            Toast.makeText(binding.root.context, message, Toast.LENGTH_SHORT).show()
         }
     }
 
