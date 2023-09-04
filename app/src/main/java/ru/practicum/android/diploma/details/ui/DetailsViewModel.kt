@@ -60,7 +60,7 @@ class DetailsViewModel @Inject constructor(
             detailsInteractor.getFullVacancyInfo(id).collect { result ->
                 when (result) {
                     is NetworkResponse.Success -> {
-                        log(thisName, "NetworkResponse.Success -> ${result.data}")
+                        log(thisName, "NetworkResponse.Success -> ${result.thisName}")
                         _uiState.value = DetailsScreenState.Content(result.data)
                     }
                     is NetworkResponse.Error -> {
