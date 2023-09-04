@@ -14,15 +14,15 @@ import retrofit2.Converter
 import retrofit2.Retrofit
 import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.di.annotations.ApplicationScope
-import ru.practicum.android.diploma.di.annotations.BaseUrl
 import ru.practicum.android.diploma.search.data.network.HhApiService
 import ru.practicum.android.diploma.search.data.network.NetworkClient
 import ru.practicum.android.diploma.search.data.network.RetrofitClient
 import ru.practicum.android.diploma.search.data.network.cache.CacheInterceptor
 import ru.practicum.android.diploma.search.data.network.cache.ForceCacheInterceptor
-import ru.practicum.android.diploma.search.data.network.converter.VacancyModelConverter
 import java.io.File
 import javax.inject.Named
+
+private const val BASE_URL = "https://api.hh.ru"
 
 @Module
 class SearchDataModule {
@@ -31,7 +31,7 @@ class SearchDataModule {
     fun createApiService(retrofit: Retrofit): HhApiService {
         return retrofit.create(HhApiService::class.java)
     }
-
+    
     @Provides
     fun bindNetworkClient(retrofitClient: RetrofitClient): NetworkClient{
         return retrofitClient
@@ -41,10 +41,10 @@ class SearchDataModule {
     fun provideRetrofit(
         okHttpClient: OkHttpClient,
         converterFactory: Converter.Factory,
-        @BaseUrl baseUrl: String
     ): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl("https://api.hh.ru")
+        return Retrofit
+            .Builder()
+            .baseUrl(BASE_URL)
             .addConverterFactory(converterFactory)
             .client(okHttpClient)
             .build()
@@ -83,7 +83,10 @@ class SearchDataModule {
     @Provides
     fun providesAuthInterceptor(): Interceptor {
         return Interceptor { chain ->
-            val request = chain.request().newBuilder()
+            val request = chain
+                .request()
+                .newBuilder()
+                .addHeader("Bearer", BuildConfig.HH_ACCESS_TOKEN)
                 .build()
             
             chain.proceed(request)
