@@ -6,6 +6,7 @@ import ru.practicum.android.diploma.favorite.ui.FavoriteFragment
 import ru.practicum.android.diploma.root.RootActivity
 import ru.practicum.android.diploma.search.ui.fragment.SearchFragment
 import ru.practicum.android.diploma.similars.SimilarVacanciesFragment
+import ru.practicum.android.diploma.team.ui.TeamFragment
 
 @Subcomponent(modules = [ViewModelModule::class])
 interface ActivityComponent {
@@ -13,6 +14,7 @@ interface ActivityComponent {
     fun inject(favoriteFragment: FavoriteFragment)
     fun inject(searchFragment: SearchFragment)
     fun inject(similarVacanciesFragment: SimilarVacanciesFragment)
+    fun inject(teamFragment: TeamFragment)
 
     @Subcomponent.Factory
     interface Factory{

@@ -57,5 +57,6 @@
         <item quantity="other">%1$d vacancies</item>
     </plurals>
     <string name="similar_vacancies">Похожие вакансии</string>
+    <string name="alba_description"                       >Все знаю, все умею, за бесплатно не работаю!\n telegram -@GoldenAlbatross</string>
 
 </resources>

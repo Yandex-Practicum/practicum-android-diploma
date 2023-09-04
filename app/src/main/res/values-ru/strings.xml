@@ -55,5 +55,6 @@
         <item quantity="many"                       >%1$d вакансий</item>
         <item quantity="other"                      >%1$d вакансий</item>
     </plurals>
+    <string name="alba_description">Give me coding</string>
 
 </resources>

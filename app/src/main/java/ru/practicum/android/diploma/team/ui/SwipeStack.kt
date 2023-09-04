@@ -11,23 +11,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Adapter
 import android.widget.FrameLayout
-import org.jetbrains.annotations.Nullable
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.util.getParcelableFromBundle
+import ru.practicum.android.diploma.util.thisName
 import java.util.Random
 import kotlin.math.pow
-
 
 class SwipeStack @JvmOverloads constructor(
     context: Context?,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : ViewGroup(context,attrs, defStyleAttr) {
+) : ViewGroup(context, attrs, defStyleAttr) {
 
     private var mAdapter: Adapter? = null
     private var mRandom: Random? = null
-
-    var allowedSwipeDirections = 0
     private var mAnimationDuration = 0
     private var mCurrentViewIndex = 0
     private var mNumberOfStackedViews = 0
@@ -39,6 +35,10 @@ class SwipeStack @JvmOverloads constructor(
     private var mDisableHwAcceleration = false
     private var mIsFirstLayout = true
 
+    /**
+     * Get the view from the top of the stack.
+     * @return The view if the stack is not empty or null otherwise.
+     */
     var topView: View? = null
         private set
     private var mSwipeHelper: SwipeHelper? = null
@@ -47,19 +47,14 @@ class SwipeStack @JvmOverloads constructor(
     private var mProgressListener: SwipeProgressListener? = null
 
     init {
-        Log.e("MyLog", "SwipeStack -> init {}")
         readAttributes(attrs)
         initialize()
+        Log.d("MyLog", "$thisName -> init {} mCurrentViewIndex=$mCurrentViewIndex")
     }
 
     private fun readAttributes(attributeSet: AttributeSet?) {
-        Log.e("MyLog", "SwipeStack -> readAttributes(attributeSet: AttributeSet?)")
         val attrs = context.obtainStyledAttributes(attributeSet, R.styleable.SwipeStack)
         try {
-            allowedSwipeDirections = attrs.getInt(
-                R.styleable.SwipeStack_allowed_swipe_directions,
-                SWIPE_DIRECTION_BOTH
-            )
             mAnimationDuration = attrs.getInt(
                 R.styleable.SwipeStack_animation_duration,
                 DEFAULT_ANIMATION_DURATION
@@ -70,27 +65,26 @@ class SwipeStack @JvmOverloads constructor(
                 R.styleable.SwipeStack_stack_spacing,
                 resources.getDimensionPixelSize(R.dimen.default_stack_spacing)
             )
-            mViewRotation = attrs.getInt(
-                R.styleable.SwipeStack_stack_rotation, DEFAULT_STACK_ROTATION)
-            mSwipeRotation = attrs.getFloat(
-                R.styleable.SwipeStack_swipe_rotation, DEFAULT_SWIPE_ROTATION)
-            mSwipeOpacity = attrs.getFloat(
-                R.styleable.SwipeStack_swipe_opacity, DEFAULT_SWIPE_OPACITY)
-            mScaleFactor = attrs.getFloat(
-                R.styleable.SwipeStack_scale_factor, DEFAULT_SCALE_FACTOR)
+            mViewRotation =
+                attrs.getInt(R.styleable.SwipeStack_stack_rotation, DEFAULT_STACK_ROTATION)
+            mSwipeRotation =
+                attrs.getFloat(R.styleable.SwipeStack_swipe_rotation, DEFAULT_SWIPE_ROTATION)
+            mSwipeOpacity =
+                attrs.getFloat(R.styleable.SwipeStack_swipe_opacity, DEFAULT_SWIPE_OPACITY)
+            mScaleFactor = attrs.getFloat(R.styleable.SwipeStack_scale_factor, DEFAULT_SCALE_FACTOR)
             mDisableHwAcceleration = attrs.getBoolean(
-                R.styleable.SwipeStack_disable_hw_acceleration, DEFAULT_DISABLE_HW_ACCELERATION )
+                R.styleable.SwipeStack_disable_hw_acceleration,
+                DEFAULT_DISABLE_HW_ACCELERATION
+            )
         } finally {
             attrs.recycle()
         }
     }
 
     private fun initialize() {
-        Log.e("MyLog", "SwipeStack -> initialize()")
         mRandom = Random()
         clipToPadding = false
         clipChildren = false
-
         mSwipeHelper = SwipeHelper(this)
         mSwipeHelper!!.setAnimationDuration(mAnimationDuration)
         mSwipeHelper!!.setRotation(mSwipeRotation)
@@ -104,14 +98,14 @@ class SwipeStack @JvmOverloads constructor(
         }
     }
 
-    override fun onSaveInstanceState(): Parcelable? {
+    public override fun onSaveInstanceState(): Parcelable {
         val bundle = Bundle()
         bundle.putParcelable(KEY_SUPER_STATE, super.onSaveInstanceState())
-        bundle.putInt(KEY_CURRENT_INDEX, mCurrentViewIndex - childCount)
-        return bundle
+        bundle.putInt(KEY_CURRENT_INDEX, 0)
+        return bundle // for new list
     }
 
-    override fun onRestoreInstanceState(state: Parcelable?) {
+    public override fun onRestoreInstanceState(state: Parcelable) {
         var state: Parcelable? = state
         if (state is Bundle) {
             val bundle = state
@@ -121,7 +115,7 @@ class SwipeStack @JvmOverloads constructor(
         super.onRestoreInstanceState(state)
     }
 
-    override fun onLayout(p0: Boolean, p1: Int, p2: Int, p3: Int, p4: Int) {
+    override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
         if (mAdapter == null || mAdapter!!.isEmpty) {
             mCurrentViewIndex = 0
             removeAllViewsInLayout()
@@ -138,7 +132,7 @@ class SwipeStack @JvmOverloads constructor(
 
     private fun addNextView() {
         if (mCurrentViewIndex < mAdapter!!.count) {
-            val bottomView = mAdapter!!.getView(mCurrentViewIndex, this, this)
+            val bottomView = mAdapter!!.getView(mCurrentViewIndex, null, this)
             bottomView.setTag(R.id.new_view, true)
             if (!mDisableHwAcceleration) {
                 bottomView.setLayerType(LAYER_TYPE_HARDWARE, null)
@@ -164,12 +158,9 @@ class SwipeStack @JvmOverloads constructor(
             if (params.height == LayoutParams.MATCH_PARENT) {
                 measureSpecHeight = MeasureSpec.EXACTLY
             }
-            bottomView.measure(
-                measureSpecWidth or width,
-                measureSpecHeight or height)
+            bottomView.measure(measureSpecWidth or width, measureSpecHeight or height)
             addViewInLayout(bottomView, 0, params, true)
             mCurrentViewIndex++
-
         }
     }
 
@@ -184,13 +175,12 @@ class SwipeStack @JvmOverloads constructor(
                 newPositionX,
                 paddingTop,
                 newPositionX + childView.measuredWidth,
-                paddingTop + childView.minimumHeight
+                paddingTop + childView.measuredHeight
             )
-            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP) {
-                childView.translationZ = x.toFloat()
-            }
+            childView.translationZ = x.toFloat()
             val isNewView = childView.getTag(R.id.new_view) as Boolean
-            val scaleFactor = mScaleFactor.toDouble().pow((childCount - x).toDouble()).toFloat()
+            val scaleFactor =
+                mScaleFactor.toDouble().pow((childCount - x).toDouble()).toFloat()
             if (x == topViewIndex) {
                 mSwipeHelper!!.unregisterObservedView()
                 topView = childView
@@ -243,72 +233,149 @@ class SwipeStack @JvmOverloads constructor(
     }
 
     fun onSwipeProgress(progress: Float) {
-        if (mProgressListener != null) mProgressListener!!.onSwipeProgress(currentPosition, progress)
+        if (mProgressListener != null) mProgressListener!!.onSwipeProgress(
+            currentPosition,
+            progress
+        )
     }
 
     fun onSwipeEnd() {
         if (mProgressListener != null) mProgressListener!!.onSwipeEnd(currentPosition)
     }
 
-    fun onViewSwipeToLeft() {
+    fun onViewSwipedToLeft() {
         if (mListener != null) mListener!!.onViewSwipedToLeft(currentPosition)
         removeTopView()
     }
 
-    fun onViewSwipeToRight() {
+    fun onViewSwipedToRight() {
         if (mListener != null) mListener!!.onViewSwipedToRight(currentPosition)
         removeTopView()
     }
 
     val currentPosition: Int
+        /**
+         * Returns the current adapter position.
+         *
+         * @return The current position.
+         */
         get() = mCurrentViewIndex - childCount
     var adapter: Adapter?
+        /**
+         * Returns the adapter currently in use in this SwipeStack.
+         *
+         * @return The adapter currently used to display data in this SwipeStack.
+         */
         get() = mAdapter
+        /**
+         * Sets the data behind this SwipeView.
+         *
+         * @param adapter The Adapter which is responsible for maintaining the
+         * data backing this list and for producing a view to represent an
+         * item in that data set.
+         * @see .getAdapter
+         */
         set(adapter) {
             if (mAdapter != null) mAdapter!!.unregisterDataSetObserver(mDataObserver)
             mAdapter = adapter
             mAdapter!!.registerDataSetObserver(mDataObserver)
         }
 
+    /**
+     * Register a callback to be invoked when the user has swiped the top view
+     * left / right or when the stack gets empty.
+     *
+     * @param listener The callback that will run
+     */
     fun setListener(listener: SwipeStackListener?) {
         mListener = listener
     }
 
+    /**
+     * Register a callback to be invoked when the user starts / stops interacting
+     * with the top view of the stack.
+     *
+     * @param listener The callback that will run
+     */
     fun setSwipeProgressListener(listener: SwipeProgressListener?) {
         mProgressListener = listener
     }
 
+    /**
+     * Programmatically dismiss the top view to the right.
+     */
     fun swipeTopViewToRight() {
-        if(childCount == 0) return
+        if (childCount == 0) return
         mSwipeHelper!!.swipeViewToRight()
     }
 
+    /**
+     * Programmatically dismiss the top view to the left.
+     */
     fun swipeTopViewToLeft() {
-        if(childCount == 0) return
+        if (childCount == 0) return
         mSwipeHelper!!.swipeViewToLeft()
     }
 
+    /**
+     * Resets the current adapter position and repopulates the stack.
+     */
     fun resetStack() {
         mCurrentViewIndex = 0
         removeAllViewsInLayout()
         requestLayout()
     }
 
+    /**
+     * Interface definition for a callback to be invoked when the top view was
+     * swiped to the left / right or when the stack gets empty.
+     */
     interface SwipeStackListener {
+        /**
+         * Called when a view has been dismissed to the left.
+         * @param position The position of the view in the adapter currently in use.
+         */
         fun onViewSwipedToLeft(position: Int)
+
+        /**
+         * Called when a view has been dismissed to the right.
+         * @param position The position of the view in the adapter currently in use.
+         */
         fun onViewSwipedToRight(position: Int)
+
+        /**
+         * Called when the last view has been dismissed.
+         */
         fun onStackEmpty()
     }
+
+    /**
+     * Interface definition for a callback to be invoked when the user
+     * starts / stops interacting with the top view of the stack.
+     */
     interface SwipeProgressListener {
+        /**
+         * Called when the user starts interacting with the top view of the stack.
+         * @param position The position of the view in the currently set adapter.
+         */
         fun onSwipeStart(position: Int)
+
+        /**
+         * Called when the user is dragging the top view of the stack.
+         * @param position The position of the view in the currently set adapter.
+         * @param progress Represents the horizontal dragging position in relation to
+         * the start position of the drag.
+         */
         fun onSwipeProgress(position: Int, progress: Float)
+
+        /**
+         * Called when the user has stopped interacting with the top view of the stack.
+         * @param position The position of the view in the currently set adapter.
+         */
         fun onSwipeEnd(position: Int)
     }
 
     companion object {
-        const val SWIPE_DIRECTION_BOTH = 0
-        const val SWIPE_DIRECTION_ONLY_LEFT = 1
-        const val SWIPE_DIRECTION_ONLY_RIGHT = 1
         const val DEFAULT_ANIMATION_DURATION = 300
         const val DEFAULT_STACK_SIZE = 3
         const val DEFAULT_STACK_ROTATION = 8
@@ -319,5 +386,4 @@ class SwipeStack @JvmOverloads constructor(
         private const val KEY_SUPER_STATE = "superState"
         private const val KEY_CURRENT_INDEX = "currentIndex"
     }
-
 }
