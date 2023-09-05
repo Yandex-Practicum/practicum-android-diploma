@@ -26,5 +26,4 @@ abstract class BindingFragment<T : ViewBinding> : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

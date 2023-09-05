@@ -31,7 +31,11 @@
         android:id="@+id/fragmentFavourite"
         android:name="ru.practicum.android.diploma.favourite.ui.FragmentFavourite"
         android:label="fragment_favourite"
-        tools:layout="@layout/fragment_favourite" />
+        tools:layout="@layout/fragment_favourite" >
+        <action
+            android:id="@+id/action_fragmentFavourite_to_vacancyFragment"
+            app:destination="@id/vacancyFragment" />
+    </fragment>
     <fragment
         android:id="@+id/vacancyFragment"
         android:name="ru.practicum.android.diploma.details.presentation.ui.VacancyFragment"

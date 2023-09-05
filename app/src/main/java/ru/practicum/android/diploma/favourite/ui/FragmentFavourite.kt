@@ -4,15 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.gson.Gson
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFavouriteBinding
+import ru.practicum.android.diploma.details.presentation.ui.VacancyFragment
 import ru.practicum.android.diploma.favourite.presentation.models.FavoriteStateInterface
 import ru.practicum.android.diploma.favourite.presentation.viewvodel.FavouriteViewModel
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.util.BindingFragment
 import ru.practicum.android.diploma.util.adapter.VacancyAdapter
+import ru.practicum.android.diploma.util.debounce
 
 class FragmentFavourite : BindingFragment<FragmentFavouriteBinding>() {
 
@@ -50,8 +55,10 @@ class FragmentFavourite : BindingFragment<FragmentFavouriteBinding>() {
     }
 
     private fun setListeners() {
-        vacancyAdapter.itemClickListener = {position, vacancy ->
-
+        vacancyAdapter.itemClickListener = { position, vacancy ->
+            debounce<Vacancy>(CLICK_DEBOUNCE_DELAY_MILLIS, lifecycleScope, false) {
+                sendToDetail(vacancy)
+            }
         }
 
         vacancyAdapter.itemLongClickListener = { position, vacancy ->
@@ -88,5 +95,16 @@ class FragmentFavourite : BindingFragment<FragmentFavouriteBinding>() {
             .setNegativeButton(R.string.no) { dialog, which -> }
 
         confirmDialogDeleteFavouriteVacancy.show()
+    }
+
+    private fun sendToDetail(vacancy: Vacancy) {
+        findNavController().navigate(
+            R.id.action_fragmentFavourite_to_vacancyFragment,
+            VacancyFragment.createArgs(Gson().toJson(vacancy))
+        )
+    }
+
+    companion object {
+        private const val CLICK_DEBOUNCE_DELAY_MILLIS = 1000L
     }
 }
