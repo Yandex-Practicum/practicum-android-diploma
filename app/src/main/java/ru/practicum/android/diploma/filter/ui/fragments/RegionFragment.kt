@@ -2,31 +2,30 @@ package ru.practicum.android.diploma.filter.ui.fragments
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.widget.doOnTextChanged
-import androidx.navigation.fragment.findNavController
-import ru.practicum.android.diploma.filter.domain.models.Country
+import androidx.fragment.app.viewModels
 import ru.practicum.android.diploma.filter.domain.models.Region
+import ru.practicum.android.diploma.filter.ui.view_models.RegionViewModel
+import ru.practicum.android.diploma.root.RootActivity
 import ru.practicum.android.diploma.root.debounceClickListener
-import ru.practicum.android.diploma.util.thisName
 
 
 class RegionFragment : CountryFilterFragment() {
 
-    override val holder = "Region"
+    override val fragment = "Region"
+    override val viewModel: RegionViewModel by viewModels { (activity as RootActivity).viewModelFactory }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.editText.doOnTextChanged { text, _, _, _ ->
-            viewModel.log(thisName, "$text")
-            viewModel.onSearchQueryChanged(text.toString())
+        binding.applyBtn.debounceClickListener(debouncer) {
+            val country = viewModel.country
+            val region = viewModel.region
+            RegionFragmentDirections.actionRegionFragmentToWorkPlaceFilterFragment(country, region)
         }
-
     }
-
     override fun initAdapterListener() {
         filterAdapter.onClickRegion = { region ->
-            viewModel.regionArgs = region
+            viewModel.saveRegion(region)
             binding.applyBtn.visibility = View.VISIBLE
             // сделать в Item колечко кружочком
         }

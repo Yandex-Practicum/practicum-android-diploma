@@ -41,7 +41,7 @@ class TeamFragment : Fragment(R.layout.fragment_team), SwipeStack.SwipeStackList
             description = getString(R.string.alba_description)
         ))
         list.add(TeamMember(
-            photo = R.drawable.albatross,
+            photo = R.drawable.flash,
             name = getString(R.string.flash),
             description = getString(R.string.alba_description)
         ))

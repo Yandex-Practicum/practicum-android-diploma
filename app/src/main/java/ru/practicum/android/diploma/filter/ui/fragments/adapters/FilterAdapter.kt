@@ -18,7 +18,7 @@ class FilterAdapter @Inject constructor(
     private val debouncer: Debouncer,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var holderKind: String = ""
+    var fragment: String = ""
     var onClickCountry: ((Country) -> Unit)? = null
     var onClickRegion: ((Region) -> Unit)? = null
 
@@ -26,7 +26,7 @@ class FilterAdapter @Inject constructor(
     var regionList = listOf<Region>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when (holderKind) {
+        return when (fragment) {
             "Country" -> {
                 CountryViewHolder(ItemCountryFilterBinding.inflate(
                     LayoutInflater.from(parent.context),
@@ -49,7 +49,7 @@ class FilterAdapter @Inject constructor(
 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holderKind == "Country") {
+        if (fragment == "Country") {
             val pos = holder.adapterPosition
             val item = countryList[pos]
             holder as CountryViewHolder
@@ -59,7 +59,7 @@ class FilterAdapter @Inject constructor(
                 onClickCountry?.invoke(item)
             }
         }
-        if (holderKind == "Region") {
+        if (fragment == "Region") {
             val pos = holder.adapterPosition
             val item = regionList[pos]
             holder as RegionViewHolder

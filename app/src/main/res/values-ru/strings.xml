@@ -48,7 +48,7 @@
     <string name="error"                            >Проверьте подключение к интернету</string>
     <string name="server_error"                     >Ошибка сервера</string>
     <string name="similar_vacancies"                >Похожие вакансии</string>
-    <string name="alba_description"                 >"Каков орел - таковы и горы."\n telegram - @GoldenAlbatross</string>
+    <string name="alba_description"                 >"\"Каков орел - таковы и горы."\" \n   telegram - @GoldenAlbatross</string>
 
 
     <string name="found"                            >Найдено</string>

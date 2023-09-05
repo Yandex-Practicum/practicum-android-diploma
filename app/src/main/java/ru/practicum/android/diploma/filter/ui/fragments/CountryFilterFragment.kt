@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.filter.ui.fragments
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
@@ -24,11 +25,11 @@ import javax.inject.Inject
 
 open class CountryFilterFragment : Fragment(R.layout.fragment_region_department) {
 
-    protected open val holder = "Country"
+    protected open val fragment = "Country"
     protected val binding by viewBinding<FragmentRegionDepartmentBinding>()
     @Inject lateinit var filterAdapter: FilterAdapter
     @Inject lateinit var debouncer: Debouncer
-    protected val viewModel: CountryViewModel by viewModels { (activity as RootActivity).viewModelFactory }
+    protected open val viewModel: CountryViewModel by viewModels { (activity as RootActivity).viewModelFactory }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -39,9 +40,14 @@ open class CountryFilterFragment : Fragment(R.layout.fragment_region_department)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (holder == "Country") viewModel.getCountries() else viewModel.getRegions()
+        viewModel.hasUserData(fragment)
         initListeners()
         initAdapter()
+
+        binding.editText.doOnTextChanged { text, _, _, _ ->
+            viewModel.log(thisName, "$text")
+            viewModel.onSearchQueryChanged(text.toString())
+        }
 
         viewLifecycleOwner.lifecycle.coroutineScope.launch {
             viewModel.uiState.collect { state ->
@@ -97,6 +103,7 @@ open class CountryFilterFragment : Fragment(R.layout.fragment_region_department)
 
     protected open fun initAdapterListener() {
         filterAdapter.onClickCountry = { country ->
+            viewModel.saveCountry(country)
             findNavController().navigate(
                 CountryFilterFragmentDirections.actionCountryFilterFragmentToWorkPlaceFilterFragment(
                     country,
@@ -112,7 +119,7 @@ open class CountryFilterFragment : Fragment(R.layout.fragment_region_department)
     }
 
     private fun initAdapter() {
-        filterAdapter.holderKind = holder
+        filterAdapter.fragment = fragment
         binding.recycler.adapter = filterAdapter
     }
 

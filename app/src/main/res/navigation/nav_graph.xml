@@ -55,7 +55,7 @@
             app:nullable="true" />
         <argument
             android:name="region"
-            app:argType="ru.practicum.android.diploma.filter.domain.models.Country"
+            app:argType="ru.practicum.android.diploma.filter.domain.models.Region"
             app:nullable="true" />
     </fragment>
 
@@ -125,7 +125,7 @@
             app:nullable="true" />
         <argument
             android:name="region"
-            app:argType="ru.practicum.android.diploma.filter.domain.models.Country"
+            app:argType="ru.practicum.android.diploma.filter.domain.models.Region"
             app:nullable="true" />
     </fragment>
 
