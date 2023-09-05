@@ -18,20 +18,19 @@ sealed interface DetailsScreenState {
     data class Content(val vacancy: VacancyFullInfo) : DetailsScreenState{
         override fun render(binding: FragmentDetailsBinding) {
             with(binding) {
+                hideContactsIfEmpty(binding)
+                showKeySkills(binding)
                 val tvSchedule = vacancy.employment + ". " + vacancy.schedule
                 val formattedDescription = HtmlCompat.fromHtml(vacancy.description, HtmlCompat.FROM_HTML_MODE_LEGACY)
-                if (vacancy.keySkills.isEmpty()) {
-                    tvKeySkillsTitle.visibility = View.GONE
-                    tvKeySkills.visibility = View.GONE
-                } else {
-                   tvKeySkills.text = vacancy.keySkills
-                }
+
                 if (vacancy.logo.isNotEmpty()) imageView.imageTintList = null
-                tvContactsName.text = vacancy.contactName
-                tvContactsEmail.text = vacancy.contactEmail
+
                 tvContactsPhone.text =
                     if (vacancy.contactPhones.isEmpty()) { binding.root.context.getString(R.string.no_info) }
                     else { vacancy.contactPhones.joinToString("\n") }
+
+                tvContactsName.text = vacancy.contactName
+                tvContactsEmail.text = vacancy.contactEmail
                 tvExperience.text = vacancy.experience
                 tvScheduleEmployment.text = tvSchedule
                 tvDescription.text = formattedDescription
@@ -39,10 +38,35 @@ sealed interface DetailsScreenState {
                 tvSalary.text = vacancy.salary
                 tvNameOfCompany.text = vacancy.company
                 tvArea.text = vacancy.area
-                imageView.setImage(
-                    vacancy.logo,
-                    R.drawable.ic_placeholder_company,
-                    binding.root.context.resources.getDimensionPixelSize(R.dimen.size_12dp))
+                imageView.setImage(vacancy.logo, R.drawable.ic_placeholder_company, binding.root.context.resources.getDimensionPixelSize(R.dimen.size_12dp))
+            }
+        }
+
+        private fun showKeySkills(binding: FragmentDetailsBinding) {
+            with(binding) {
+                if (vacancy.keySkills.isEmpty()) {
+                    tvKeySkillsTitle.visibility = View.GONE
+                    tvKeySkills.visibility = View.GONE
+                } else {
+                    tvKeySkills.text = vacancy.keySkills
+                }
+            }
+        }
+
+        private fun hideContactsIfEmpty(binding: FragmentDetailsBinding) {
+            with(binding) {
+                if (vacancy.contactName.isEmpty() &&
+                    vacancy.contactEmail.isEmpty() &&
+                    vacancy.contactPhones.isEmpty()
+                ) {
+                    tvContactsName.visibility = View.GONE
+                    tvContactsEmail.visibility = View.GONE
+                    tvContactsPhone.visibility = View.GONE
+                    tvContactsTitle.visibility = View.GONE
+                    tvEmail.visibility = View.GONE
+                    tvPhone.visibility = View.GONE
+                    tvContactsPerson.visibility = View.GONE
+                }
             }
         }
     }
