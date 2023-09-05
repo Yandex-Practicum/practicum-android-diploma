@@ -23,4 +23,5 @@ data class VacancyFullInfo(
     val contactEmail: String = "",
     val contactName: String = "",
     val contactPhones: List<String> = emptyList(),
+    @SerializedName("alternate_url") val alternateUrl: String? = ""
 ) : Parcelable

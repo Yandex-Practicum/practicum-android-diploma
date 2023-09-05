@@ -83,7 +83,8 @@ class VacancyModelConverter @Inject constructor(
                 contactEmail = contacts?.email ?: context.getString(R.string.no_info),
                 contactName = contacts?.name ?: context.getString(R.string.no_info),
                 keySkills = keySkillsToString(key_skills),
-                contactPhones = createPhones(contacts?.phones)
+                contactPhones = createPhones(contacts?.phones),
+                alternateUrl = alternate_url ?: "",
             )
         }
     }
