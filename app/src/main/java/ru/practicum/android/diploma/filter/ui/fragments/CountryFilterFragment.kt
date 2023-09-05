@@ -2,10 +2,7 @@ package ru.practicum.android.diploma.filter.ui.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
@@ -13,74 +10,67 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.databinding.FragmentCountryFilterBinding
+import ru.practicum.android.diploma.databinding.FragmentRegionDepartmentBinding
 import ru.practicum.android.diploma.filter.domain.models.Country
-import ru.practicum.android.diploma.filter.ui.fragments.adapters.CountryFilterAdapter
+import ru.practicum.android.diploma.filter.ui.fragments.adapters.FilterAdapter
 import ru.practicum.android.diploma.filter.ui.models.FilterScreenState
 import ru.practicum.android.diploma.filter.ui.view_models.CountryViewModel
+import ru.practicum.android.diploma.root.Debouncer
 import ru.practicum.android.diploma.root.RootActivity
 import ru.practicum.android.diploma.util.thisName
 import ru.practicum.android.diploma.util.viewBinding
 import javax.inject.Inject
 
 
-open class CountryFilterFragment : Fragment(R.layout.fragment_country_filter) {
+open class CountryFilterFragment : Fragment(R.layout.fragment_region_department) {
 
-    protected open var _binding: FragmentCountryFilterBinding? = null
-    private val binding get() = _binding
-    @Inject lateinit var countryAdapter: CountryFilterAdapter
-    private val viewModel: CountryViewModel by viewModels { (activity as RootActivity).viewModelFactory }
+    protected open val holder = "Country"
+    protected val binding by viewBinding<FragmentRegionDepartmentBinding>()
+    @Inject lateinit var filterAdapter: FilterAdapter
+    @Inject lateinit var debouncer: Debouncer
+    protected val viewModel: CountryViewModel by viewModels { (activity as RootActivity).viewModelFactory }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (activity as RootActivity).component.inject(this)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentCountryFilterBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (holder == "Country") viewModel.getCountries() else viewModel.getRegions()
         initListeners()
         initAdapter()
-        initAdapterListeners()
 
         viewLifecycleOwner.lifecycle.coroutineScope.launch {
             viewModel.uiState.collect { state ->
                 viewModel.log(thisName, "state ${state.thisName}")
                 when (state) {
-                    is FilterScreenState.Default -> renderDefault()
-                    is FilterScreenState.Loading -> showProgressBar()
-                    is FilterScreenState.Content -> renderContent(state.list)
-                    is FilterScreenState.Offline -> showMessage(state.message)
-                    is FilterScreenState.NoData  -> renderNoData(state.message)
-                    is FilterScreenState.Error   -> showMessage(state.message)
+                    is FilterScreenState.Default    -> renderDefault()
+                    is FilterScreenState.Loading    -> showProgressBar()
+                    is FilterScreenState.Content<*> -> renderContent(state.list)
+                    is FilterScreenState.Offline    -> showMessage(state.message)
+                    is FilterScreenState.NoData<*>  -> renderNoData(state.message)
+                    is FilterScreenState.Error      -> showMessage(state.message)
                 }
             }
         }
     }
 
-    protected open fun renderContent(list: List<Country>) {
+    private fun renderContent(list: List<Any?>) {
         binding.placeholderContainer.visibility = View.GONE
         binding.recycler.visibility = View.VISIBLE
-        countryAdapter.countriesList = list
-        countryAdapter.notifyDataSetChanged()
+        refreshList(list)
+        filterAdapter.notifyItemRangeChanged(0, filterAdapter.itemCount)
     }
 
-    protected open fun renderDefault() {
+    private fun renderDefault() {
         binding.placeholderContainer.visibility = View.GONE
         binding.recycler.visibility = View.GONE
     }
 
-    protected open fun renderNoData(message: String) {
+    private fun renderNoData(message: String) {
         showMessage(message)
         binding.placeholderContainer.visibility = View.VISIBLE
         binding.recycler.visibility = View.GONE
@@ -102,10 +92,11 @@ open class CountryFilterFragment : Fragment(R.layout.fragment_country_filter) {
         binding.filterToolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
+        initAdapterListener()
     }
 
-    protected open fun initAdapterListeners() {
-        countryAdapter.onItemClick = { country ->
+    protected open fun initAdapterListener() {
+        filterAdapter.onClickCountry = { country ->
             findNavController().navigate(
                 CountryFilterFragmentDirections.actionCountryFilterFragmentToWorkPlaceFilterFragment(
                     country,
@@ -115,8 +106,14 @@ open class CountryFilterFragment : Fragment(R.layout.fragment_country_filter) {
         }
     }
 
+    @Suppress("UNCHECKED_CAST")
+    protected open fun refreshList(list: List<Any?>) {
+        filterAdapter.countryList = list as List<Country>
+    }
+
     private fun initAdapter() {
-        binding.recycler.adapter = countryAdapter
+        filterAdapter.holderKind = holder
+        binding.recycler.adapter = filterAdapter
     }
 
 }

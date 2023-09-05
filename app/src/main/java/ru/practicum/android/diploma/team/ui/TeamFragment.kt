@@ -31,7 +31,7 @@ class TeamFragment : Fragment(R.layout.fragment_team), SwipeStack.SwipeStackList
     private fun getImgData(): List<TeamMember> {
         val list = mutableListOf<TeamMember>()
         list.add(TeamMember(
-            photo = R.drawable.albatross,
+            photo = R.drawable.lead,
             name = getString(R.string.lead),
             description = getString(R.string.alba_description)
         ))

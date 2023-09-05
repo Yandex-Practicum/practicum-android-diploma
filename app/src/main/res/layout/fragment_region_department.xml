@@ -31,11 +31,12 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_16dp"
             android:layout_marginTop="@dimen/margin_16dp"
+            android:visibility="gone"
             android:background="@drawable/shape_edittext_search"
             app:layout_scrollFlags="scroll|enterAlways">
 
             <EditText
-                android:id="@+id/searchFilter"
+                android:id="@+id/editText"
                 style="@style/SearchEditTextStyle"
                 android:layout_width="0dp"
                 android:layout_height="56dp"
@@ -100,7 +101,7 @@
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/apply_region_filter_btn"
+        android:id="@+id/apply_btn"
         style="@style/FilterBottomButtonsStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

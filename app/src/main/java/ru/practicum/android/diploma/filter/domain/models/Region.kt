@@ -7,6 +7,6 @@ import ru.practicum.android.diploma.search.data.network.dto.RegionArea
 @Parcelize
 @Serializable
 data class Region(
-    val name: String?,
-    val area: RegionArea?,
+    val name: String? = "Vjcrdf",
+    val area: RegionArea? = RegionArea(),
 ): Parcelable
