@@ -1,7 +1,7 @@
 package ru.practicum.android.diploma.search.domain.api
 
 import kotlinx.coroutines.flow.Flow
-import ru.practicum.android.diploma.filter.data.model.NetworkResponse
+import ru.practicum.android.diploma.filter.domain.models.NetworkResponse
 import ru.practicum.android.diploma.filter.domain.models.Country
 import ru.practicum.android.diploma.filter.domain.models.Region
 import ru.practicum.android.diploma.search.domain.models.FetchResult

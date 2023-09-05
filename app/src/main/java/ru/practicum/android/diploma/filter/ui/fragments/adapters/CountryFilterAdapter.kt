@@ -13,15 +13,14 @@ import javax.inject.Inject
 class CountryFilterAdapter @Inject constructor(
     private val logger: Logger,
     private val debouncer: Debouncer,
-) :
-    RecyclerView.Adapter<CountryFilterAdapter.CountryViewHolder>() {
-    var onItemClick: ((Country) -> Unit)? = null
-    var countriesList: List<Country> = ArrayList<Country>()
+) : RecyclerView.Adapter<CountryFilterAdapter.CountryViewHolder>() {
 
-    class CountryViewHolder(private val binding: ItemCountryFilterBinding) :
-        RecyclerView.ViewHolder(
-            binding.root
-        ) {
+    var onItemClick: ((Country) -> Unit)? = null
+    var countriesList = listOf<Country>()
+
+    class CountryViewHolder(
+        private val binding: ItemCountryFilterBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(model: Country) {
             binding.countryName.text = model.name

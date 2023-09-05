@@ -58,7 +58,7 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/county_filter_recycler"
+            android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_8dp"
@@ -67,6 +67,36 @@
             tools:itemCount="2"
             tools:listitem="@layout/item_region_depart_filter"
             tools:visibility="visible" />
+
+        <LinearLayout
+            android:id="@+id/placeholder_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <ImageView
+                android:id="@+id/placeHolderImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16dp"
+                android:layout_marginEnd="@dimen/margin_16dp"
+                android:contentDescription="@string/image"
+                android:src="@drawable/ic_dummy" />
+
+            <TextView
+                android:id="@+id/placeHolderText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:fontFamily="@font/ys_display_medium"
+                android:text="@string/empty_list"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="@dimen/text_size_22sp" />
+        </LinearLayout>
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -80,6 +110,7 @@
         android:text="@string/choose"
         android:textColor="?attr/colorOnSecondary"
         android:visibility="gone"
-        app:cornerRadius="@dimen/size_12dp" />
+        app:cornerRadius="@dimen/size_12dp"
+        tools:visibility="visible"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

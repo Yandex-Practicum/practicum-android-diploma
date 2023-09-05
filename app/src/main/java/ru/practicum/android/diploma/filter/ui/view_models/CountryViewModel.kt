@@ -6,12 +6,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.Logger
-import ru.practicum.android.diploma.filter.data.model.NetworkResponse
+import ru.practicum.android.diploma.filter.domain.models.NetworkResponse
 import ru.practicum.android.diploma.filter.domain.api.FilterInteractor
-import ru.practicum.android.diploma.filter.domain.models.Country
 import ru.practicum.android.diploma.filter.ui.models.FilterScreenState
 import ru.practicum.android.diploma.root.BaseViewModel
-import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
 
 class CountryViewModel @Inject constructor(
@@ -24,7 +22,6 @@ class CountryViewModel @Inject constructor(
     val uiState: StateFlow<FilterScreenState> = _uiState
 
     init { getCountries() }
-
 
     private fun getCountries() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -47,12 +44,10 @@ class CountryViewModel @Inject constructor(
 
                     is NetworkResponse.NoData -> {
                         log("CountryViewModel", "NetworkResponse.NoData -> []")
-                        _uiState.value = FilterScreenState.NoData(emptyList())
+                        _uiState.value = FilterScreenState.NoData(emptyList(), message = state.message)
                     }
                 }
             }
         }
     }
-
-
 }
