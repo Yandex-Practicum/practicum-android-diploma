@@ -9,4 +9,5 @@ data class RegionArea(
     val id: String? = "",
     val parent_id: String? = "",
     val name: String? = "",
+    val areas: List<RegionArea?>
 ): Parcelable

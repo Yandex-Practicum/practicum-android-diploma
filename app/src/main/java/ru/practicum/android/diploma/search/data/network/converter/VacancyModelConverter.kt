@@ -5,6 +5,8 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.details.data.dto.VacancyFullInfoModelDto
 import ru.practicum.android.diploma.details.data.dto.assistants.KeySkillDto
 import ru.practicum.android.diploma.details.domain.models.VacancyFullInfo
+import ru.practicum.android.diploma.filter.domain.models.Country
+import ru.practicum.android.diploma.search.data.network.dto.CountryDto
 import ru.practicum.android.diploma.search.data.network.dto.VacancyDto
 import ru.practicum.android.diploma.search.data.network.dto.general_models.Phone
 import ru.practicum.android.diploma.search.data.network.dto.general_models.Salary
@@ -105,6 +107,12 @@ class VacancyModelConverter @Inject constructor(
             phoneList.add(pho, number)
         }
         return phoneList
+    }
+
+     fun countryDtoToCountry( list : List<CountryDto>): List<Country>{
+
+         list.forEach{ it.areas.flatMap { it?.areas ?: emptyList() }}
+    return    list.map { Country(id = it.id, name = it.name, area = it.areas ) }
     }
 
 }
