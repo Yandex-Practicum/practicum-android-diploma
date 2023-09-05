@@ -55,8 +55,8 @@ sealed interface DetailsScreenState {
 
         private fun hideContactsIfEmpty(binding: FragmentDetailsBinding) {
             with(binding) {
-                if (vacancy.contactName == binding.root.context.getString(R.string.no_info) &&
-                    vacancy.contactEmail == binding.root.context.getString(R.string.no_info) &&
+                if (vacancy.contactName.isEmpty() &&
+                    vacancy.contactEmail.isEmpty() &&
                     vacancy.contactPhones.isEmpty()
                 ) {
                     tvContactsName.visibility = View.GONE
