@@ -47,6 +47,8 @@
     <string name="delete_vacancy">Хотите удалить вакансию?</string>
     <string name="yes">Да</string>
     <string name="no">Нет</string>
+    <string name="repeat_loading">Повторить загрузку</string>
+    <string name="no_data">Нет данных</string>
 
 
 </resources>
