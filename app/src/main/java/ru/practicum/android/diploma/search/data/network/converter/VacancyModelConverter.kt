@@ -47,9 +47,18 @@ class VacancyModelConverter @Inject constructor(
             result.append(" ")
             result.append(salary.to)
         }
-        if (salary.currency != null) {
-            result.append(" ")
-            result.append(salary.currency)
+        when (salary.currency) {
+            "AZN" -> result.append(" ₼")
+            "BYR" -> result.append(" Br")
+            "EUR" -> result.append(" €")
+            "GEL" -> result.append(" ₾")
+            "KGS" -> result.append(" сом")
+            "KZT" -> result.append(" ₸")
+            "RUR" -> result.append(" ₽")
+            "UAH" -> result.append(" ₴")
+            "USD" -> result.append(" $")
+            "UZS" -> result.append(" so'm")
+            else -> result.append(salary.currency)
         }
         return result.toString()
     }

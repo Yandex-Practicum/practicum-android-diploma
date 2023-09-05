@@ -5,6 +5,7 @@
     android:id="@+id/fragment_similars_vacancy"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorPrimaryVariant"
     tools:context=".details.ui.DetailsFragment">
 
     <androidx.appcompat.widget.Toolbar
