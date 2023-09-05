@@ -49,6 +49,11 @@
     <string name="no">Нет</string>
     <string name="repeat_loading">Повторить загрузку</string>
     <string name="no_data">Нет данных</string>
+    <string name="text_team_fragment">Над приложением работали</string>
+    <string name="rinat">Ринат Рашидович Гиниятуллин</string>
+    <string name="dmitriy">Дмитрий Сергеевич Харакшинов</string>
+    <string name="german">Герман Романович Заговенко</string>
+    <string name="aleksey">Алексей Михайлович Путилов</string>
 
 
 </resources>

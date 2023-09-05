@@ -9,7 +9,7 @@ import ru.practicum.android.diploma.search.data.dto.SearchRequest
 import ru.practicum.android.diploma.search.data.dto.SearchRequestDetails
 import ru.practicum.android.diploma.search.data.dto.SearchRequestOptions
 import ru.practicum.android.diploma.search.data.dto.SearchResponse
-import ru.practicum.android.diploma.search.data.dto.VacancyDto
+import ru.practicum.android.diploma.search.data.dto.models.VacancyDto
 import ru.practicum.android.diploma.search.domain.SearchRepository
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.util.Resource

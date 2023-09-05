@@ -1,8 +1,7 @@
-package ru.practicum.android.diploma.search.data.dto
+package ru.practicum.android.diploma.search.data.dto.models
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
-import java.util.Objects
 
 @Parcelize
 data class VacancyDto(

@@ -17,6 +17,9 @@ class SearchViewModel(
 ) : ViewModel() {
 
     private var lastSearchText: String? = null
+    private var currentPage: Int = 0
+    private var maxPages: Int = 1
+    private val vacanciesList = mutableListOf<Vacancy>()
 
     private val stateLiveData = MutableLiveData<SearchState>()
 
@@ -47,11 +50,13 @@ class SearchViewModel(
             if (searchText.isNotEmpty()) {
                 renderState(SearchState.Loading)
 
-                viewModelScope.launch {
-                    interactor.loadVacancies(searchText)
-                        .collect { pair ->
-                            processResult(pair.first, pair.second)
-                        }
+                if (currentPage < maxPages) {
+                    viewModelScope.launch {
+                        interactor.loadVacancies(searchText)
+                            .collect { pair ->
+                                processResult(pair.first, pair.second)
+                            }
+                    }
                 }
             }
         }
@@ -83,9 +88,8 @@ class SearchViewModel(
       }*/
 
     private fun processResult(foundVacancies: List<Vacancy>?, errorMessage: String?) {
-        val vacancies = mutableListOf<Vacancy>()
         if (foundVacancies != null) {
-            vacancies.addAll(foundVacancies)
+            vacanciesList.addAll(foundVacancies)
         }
         when {
             errorMessage != null -> {
@@ -96,7 +100,7 @@ class SearchViewModel(
                 )
             }
 
-            vacancies.isEmpty() -> {
+            vacanciesList.isEmpty() -> {
                 renderState(
                     SearchState.Empty(
                         message = resourceProvider.getString(R.string.no_vacancies)
@@ -107,8 +111,8 @@ class SearchViewModel(
             else -> {
                 renderState(
                     SearchState.VacancyContent(
-                        vacancies = vacancies,
-                        foundValue = vacancies[0].found
+                        vacancies = vacanciesList,
+                        foundValue = vacanciesList[0].found
                     )
                 )
             }
