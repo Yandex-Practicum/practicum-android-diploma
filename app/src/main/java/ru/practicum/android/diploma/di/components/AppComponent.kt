@@ -16,6 +16,7 @@ import ru.practicum.android.diploma.filter.di.FilterDataModule
 import ru.practicum.android.diploma.filter.di.FilterDomainModule
 import ru.practicum.android.diploma.search.di.SearchDataModule
 import ru.practicum.android.diploma.search.di.SearchDomainModule
+import ru.practicum.android.diploma.sharing.di.SharingModule
 
 @ApplicationScope
 
@@ -30,6 +31,7 @@ import ru.practicum.android.diploma.search.di.SearchDomainModule
         FavoritesDataModule::class,
         FilterDomainModule::class,
         FilterDataModule::class,
+        SharingModule::class
     ]
 )
 

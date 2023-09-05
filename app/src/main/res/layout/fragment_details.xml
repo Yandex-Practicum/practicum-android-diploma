@@ -208,6 +208,7 @@
                 android:text="@string/contacts" />
 
             <TextView
+                android:id="@+id/tv_contacts_person"
                 style="@style/Html_h1_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -223,6 +224,7 @@
                 android:textColor="?attr/colorSecondary" />
 
             <TextView
+                android:id="@+id/tv_email"
                 style="@style/Html_h1_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -238,6 +240,7 @@
                 android:textColor="?attr/colorSecondary" />
 
             <TextView
+                android:id="@+id/tv_phone"
                 style="@style/Html_h1_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
