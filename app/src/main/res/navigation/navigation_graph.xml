@@ -46,4 +46,9 @@
         android:name="ru.practicum.android.diploma.details.presentation.ui.SimilarVacancyFragment"
         android:label="fragment_similar_vacancy"
         tools:layout="@layout/fragment_similar_vacancy" />
+    <fragment
+        android:id="@+id/teamFragment"
+        android:name="ru.practicum.android.diploma.team.ui.TeamFragment"
+        android:label="fragment_team"
+        tools:layout="@layout/fragment_team" />
 </navigation>
