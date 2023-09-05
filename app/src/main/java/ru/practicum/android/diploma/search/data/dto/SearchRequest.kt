@@ -9,4 +9,6 @@ data class SearchRequest(val expression: String) : Parcelable
 @Parcelize
 data class SearchRequestOptions(val options: HashMap<String, String>) : Parcelable
 
+@Parcelize
+data class SearchRequestDetails(val vacancyId: String) : Parcelable
 
