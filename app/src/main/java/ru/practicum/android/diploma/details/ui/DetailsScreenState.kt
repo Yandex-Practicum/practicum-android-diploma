@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.details.ui
 
+import android.view.View
 import android.widget.Toast
 import androidx.core.text.HtmlCompat
 import kotlinx.coroutines.CoroutineScope
@@ -18,9 +19,14 @@ sealed interface DetailsScreenState {
         override fun render(binding: FragmentDetailsBinding) {
             with(binding) {
                 val tvSchedule = vacancy.employment + ". " + vacancy.schedule
-                val formattedDescription =
-                    HtmlCompat.fromHtml(vacancy.description, HtmlCompat.FROM_HTML_MODE_LEGACY)
-                tvKeySkills.text = vacancy.keySkills
+                val formattedDescription = HtmlCompat.fromHtml(vacancy.description, HtmlCompat.FROM_HTML_MODE_LEGACY)
+                if (vacancy.keySkills.isEmpty()) {
+                    tvKeySkillsTitle.visibility = View.GONE
+                    tvKeySkills.visibility = View.GONE
+                } else {
+                   tvKeySkills.text = vacancy.keySkills
+                }
+                if (vacancy.logo.isNotEmpty()) imageView.imageTintList = null
                 tvContactsName.text = vacancy.contactName
                 tvContactsEmail.text = vacancy.contactEmail
                 tvContactsPhone.text =
@@ -33,7 +39,10 @@ sealed interface DetailsScreenState {
                 tvSalary.text = vacancy.salary
                 tvNameOfCompany.text = vacancy.company
                 tvArea.text = vacancy.area
-                imageView.setImage(vacancy.logo, R.drawable.ic_placeholder_company)
+                imageView.setImage(
+                    vacancy.logo,
+                    R.drawable.ic_placeholder_company,
+                    binding.root.context.resources.getDimensionPixelSize(R.dimen.size_12dp))
             }
         }
     }
