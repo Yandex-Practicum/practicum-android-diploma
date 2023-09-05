@@ -5,6 +5,8 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.details.data.dto.VacancyFullInfoModelDto
 import ru.practicum.android.diploma.details.data.dto.assistants.KeySkillDto
 import ru.practicum.android.diploma.details.domain.models.VacancyFullInfo
+import ru.practicum.android.diploma.filter.domain.models.Country
+import ru.practicum.android.diploma.search.data.network.dto.CountryDto
 import ru.practicum.android.diploma.search.data.network.dto.VacancyDto
 import ru.practicum.android.diploma.search.data.network.dto.general_models.Phone
 import ru.practicum.android.diploma.search.data.network.dto.general_models.Salary
@@ -47,9 +49,18 @@ class VacancyModelConverter @Inject constructor(
             result.append(" ")
             result.append(salary.to)
         }
-        if (salary.currency != null) {
-            result.append(" ")
-            result.append(salary.currency)
+        when (salary.currency) {
+            "AZN" -> result.append(" ₼")
+            "BYR" -> result.append(" Br")
+            "EUR" -> result.append(" €")
+            "GEL" -> result.append(" ₾")
+            "KGS" -> result.append(" сом")
+            "KZT" -> result.append(" ₸")
+            "RUR" -> result.append(" ₽")
+            "UAH" -> result.append(" ₴")
+            "USD" -> result.append(" $")
+            "UZS" -> result.append(" so'm")
+            else -> result.append(salary.currency)
         }
         return result.toString()
     }
@@ -71,10 +82,11 @@ class VacancyModelConverter @Inject constructor(
                 company = employer?.name ?: "",
                 logo = employer?.logo_urls?.url240 ?: "",
                 title = name ?: "",
-                contactEmail = contacts?.email ?: context.getString(R.string.no_info),
-                contactName = contacts?.name ?: context.getString(R.string.no_info),
+                contactEmail = contacts?.email ?: "",
+                contactName = contacts?.name ?: "",
                 keySkills = keySkillsToString(key_skills),
-                contactPhones = createPhones(contacts?.phones)
+                contactPhones = createPhones(contacts?.phones),
+                alternateUrl = alternate_url ?: "",
             )
         }
     }
@@ -96,6 +108,12 @@ class VacancyModelConverter @Inject constructor(
             phoneList.add(pho, number)
         }
         return phoneList
+    }
+
+     fun countryDtoToCountry( list : List<CountryDto>): List<Country>{
+
+         list.forEach{ it.areas.flatMap { it?.areas ?: emptyList() }}
+    return    list.map { Country(id = it.id, name = it.name, area = it.areas ) }
     }
 
 }

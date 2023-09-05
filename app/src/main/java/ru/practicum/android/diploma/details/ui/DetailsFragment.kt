@@ -29,6 +29,9 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         collector()
         pressSimilarVacanciesButton()
         initListeners()
+        sendVacancy()
+        writeEmail()
+        makeCall()
     }
 
     private fun initListeners() {
@@ -46,6 +49,27 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
                 viewModel.log(thisName, "uiState.collect { state -> ${state.thisName}")
                 state.render(binding)
             }
+        }
+    }
+
+    private fun sendVacancy() {
+        binding.shareButton.setOnClickListener {
+            viewModel.log(thisName, "buttonSendVacancy.setOnClickListener { }")
+            viewModel.sendVacancy()
+        }
+    }
+
+    private fun writeEmail() {
+        binding.tvContactsEmail.setOnClickListener {
+            viewModel.log(thisName, "buttonWriteEmail.setOnClickListener { }")
+            viewModel.writeEmail(requireContext())
+        }
+    }
+
+    private fun makeCall() {
+        binding.tvContactsPhone.setOnClickListener {
+            viewModel.log(thisName, "buttonMakeCall.setOnClickListener { }")
+            viewModel.makeCall()
         }
     }
 

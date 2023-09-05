@@ -86,7 +86,7 @@ class SearchDataModule {
             val request = chain
                 .request()
                 .newBuilder()
-                .addHeader("Bearer", BuildConfig.HH_ACCESS_TOKEN)
+                .addHeader("Authorization", "Bearer ${BuildConfig.HH_ACCESS_TOKEN}")
                 .build()
             
             chain.proceed(request)

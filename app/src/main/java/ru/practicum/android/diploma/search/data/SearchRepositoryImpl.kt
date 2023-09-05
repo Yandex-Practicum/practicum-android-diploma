@@ -85,9 +85,7 @@ class SearchRepositoryImpl @Inject constructor(
     }
 
     private fun checkCountryData(response: CodeResponse): NetworkResponse<List<Country>> {
-        val list = (response as CountriesCodeResponse).results.map {
-            Country(url = it.url, id = it.id, name = it.name)
-        }
+        val list = converter.countryDtoToCountry((response as CountriesCodeResponse).results)
         return if (list.isEmpty())
             NetworkResponse.NoData(message = context.getString(R.string.empty_list))
         else

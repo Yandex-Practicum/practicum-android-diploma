@@ -24,10 +24,10 @@ class RemoteDataSourceImpl @Inject constructor(
     override suspend fun getVacancyFullInfo(id: String): Flow<NetworkResponse<VacancyFullInfo>> = flow {
         logger.log(thisName, "getVacancyFullInfo($id: String): Flow<NetworkResponse<VacancyFullInfo>>")
         val request = Vacancy.FullInfoRequest(id)
-        val response = (networkClient.doRequest(request) as VacancyFullInfoModelDto)
+        val response = (networkClient.doRequest(request) as? VacancyFullInfoModelDto)
 
         emit(
-            when (response.resultCode) {
+            when (response?.resultCode) {
                 200 -> NetworkResponse.Success(converter.mapDetails(response))
                 -1 -> NetworkResponse.Offline(message = context.getString(R.string.error))
                 else -> NetworkResponse.Error(message = context.getString(R.string.server_error))

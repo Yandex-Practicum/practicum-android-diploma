@@ -24,4 +24,5 @@ data class VacancyFullInfoModelDto(
     val salary: Salary?,
     val name: String?,
     val employer: Employer?,
+    val alternate_url: String?,
     ) : CodeResponse()

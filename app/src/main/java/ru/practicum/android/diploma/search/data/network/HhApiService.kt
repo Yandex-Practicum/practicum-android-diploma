@@ -13,8 +13,9 @@ interface HhApiService {
     @GET("/vacancies")
     suspend fun search(@Query("text") text: String): Response<VacanciesSearchCodeResponse>
 
-    @GET("/areas/countries")
+    @GET("/areas")
     suspend fun getCountries(): Response<List<CountryDto>>
+
 
     @GET ("/areas/{area_id}")
     suspend fun getRegionInfo(@Path("area_id") areaId: String): Response<RegionCodeResponse>
