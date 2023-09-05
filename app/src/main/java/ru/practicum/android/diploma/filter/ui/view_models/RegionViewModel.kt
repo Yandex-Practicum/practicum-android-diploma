@@ -23,6 +23,7 @@ class RegionViewModel @Inject constructor(
     var region: Region? = null
 
     override fun getData() {
+        log("RegionViewModel", "getData()")
         viewModelScope.launch(Dispatchers.IO) {
             filterInteractor.getRegions().collect { state ->
                 when (state) {
@@ -51,6 +52,7 @@ class RegionViewModel @Inject constructor(
     }
 
     private fun getRegions(query: String) {
+        log("RegionViewModel", "getRegions($query: String)")
         viewModelScope.launch(Dispatchers.IO) {
             filterInteractor.getRegions(query).collect { state ->
                 when (state) {
@@ -81,6 +83,7 @@ class RegionViewModel @Inject constructor(
     override fun hasUserData(fragment: String) {
         if (fragment == REGION_KEY) {
             getCountryFromSharedPref()
+            log("RegionViewModel", "country == $country")
             if (country == null) getData()
             else getRegions(country?.id!!)
         }

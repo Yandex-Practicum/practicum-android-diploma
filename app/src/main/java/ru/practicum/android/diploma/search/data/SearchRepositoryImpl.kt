@@ -84,6 +84,19 @@ class SearchRepositoryImpl @Inject constructor(
         )
     }
 
+    override suspend fun getRegions(): Flow<NetworkResponse<List<Region>>> = flow {
+//        logger.log(thisName, "getRegions(): Flow<NetworkResponse<List<Region>>>")
+//        val request = Filter.RegionRequest()
+//        val response = networkClient.doRequest(request)
+//        emit(
+//            when (response.resultCode) {
+//                200  -> checkRegionData(response)
+//                -1   -> NetworkResponse.Offline(message = context.getString(R.string.error))
+//                else -> NetworkResponse.Error(message = context.getString(R.string.server_error))
+//            }
+//        )
+    }
+
     private fun checkCountryData(response: CodeResponse): NetworkResponse<List<Country>> {
         val list = converter.countryDtoToCountry((response as CountriesCodeResponse).results)
         return if (list.isEmpty())

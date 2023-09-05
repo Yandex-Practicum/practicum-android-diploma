@@ -51,7 +51,7 @@ open class CountryFilterFragment : Fragment(R.layout.fragment_region_department)
 
         viewLifecycleOwner.lifecycle.coroutineScope.launch {
             viewModel.uiState.collect { state ->
-                viewModel.log(thisName, "state ${state.thisName}")
+                viewModel.log("CountryFilterFragment", "state ${state.thisName}")
                 when (state) {
                     is FilterScreenState.Default    -> renderDefault()
                     is FilterScreenState.Loading    -> showProgressBar()
@@ -65,6 +65,7 @@ open class CountryFilterFragment : Fragment(R.layout.fragment_region_department)
     }
 
     private fun renderContent(list: List<Any?>) {
+        viewModel.log(thisName, "renderContent(${list.size}: List<Any?>)")
         binding.placeholderContainer.visibility = View.GONE
         binding.recycler.visibility = View.VISIBLE
         refreshList(list)
@@ -72,11 +73,13 @@ open class CountryFilterFragment : Fragment(R.layout.fragment_region_department)
     }
 
     private fun renderDefault() {
+        viewModel.log(thisName, "renderDefault()")
         binding.placeholderContainer.visibility = View.GONE
         binding.recycler.visibility = View.GONE
     }
 
     private fun renderNoData(message: String) {
+        viewModel.log(thisName, "renderNoData($message: String)")
         showMessage(message)
         binding.placeholderContainer.visibility = View.VISIBLE
         binding.recycler.visibility = View.GONE

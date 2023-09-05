@@ -28,25 +28,26 @@ open class CountryViewModel @Inject constructor(
 
     protected open fun getData() {
         viewModelScope.launch(Dispatchers.IO) {
+            log("CountryViewModel", "filterInteractor.getCountries()")
             filterInteractor.getCountries().collect { state ->
                 when (state) {
                     is NetworkResponse.Error -> {
-                        log(this@CountryViewModel.thisName, "NetworkResponse.Error -> ${state.message}")
+                        log("CountryViewModel", "NetworkResponse.Error -> ${state.message}")
                         _uiState.value = FilterScreenState.Error(message = state.message)
                     }
 
                     is NetworkResponse.Offline -> {
-                        log(this@CountryViewModel.thisName, "NetworkResponse.Offline -> ${state.message}")
+                        log("CountryViewModel", "NetworkResponse.Offline -> ${state.message}")
                         _uiState.value = FilterScreenState.Error(message = state.message)
                     }
 
                     is NetworkResponse.Success -> {
-                        log(this@CountryViewModel.thisName, "NetworkResponse.Success -> [${state.data.size}]")
+                        log("CountryViewModel", "NetworkResponse.Success -> [${state.data.size}]")
                         _uiState.value = FilterScreenState.Content(state.data)
                     }
 
                     is NetworkResponse.NoData -> {
-                        log(this@CountryViewModel.thisName, "NetworkResponse.NoData -> []")
+                        log("CountryViewModel", "NetworkResponse.NoData -> []")
                         _uiState.value = FilterScreenState.NoData(emptyList<Country>(), message = state.message)
                     }
                 }

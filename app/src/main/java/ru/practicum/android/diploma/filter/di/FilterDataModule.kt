@@ -37,8 +37,7 @@ class FilterDataModule {
 
     @Provides
     fun provideSharedPreferences(@PrefsKey prefsKey: String, context: Context): SharedPreferences {
-        return context
-            .getSharedPreferences(prefsKey, Context.MODE_PRIVATE)
+        return context.getSharedPreferences(prefsKey, Context.MODE_PRIVATE)
     }
 
 }
