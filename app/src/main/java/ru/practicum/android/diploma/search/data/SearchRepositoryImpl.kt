@@ -6,16 +6,11 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.search.data.dto.SearchRequest
 import ru.practicum.android.diploma.search.data.dto.SearchRequestOptions
 import ru.practicum.android.diploma.search.data.dto.SearchResponse
-import ru.practicum.android.diploma.search.data.dto.VacancyDto
+import ru.practicum.android.diploma.search.data.dto.models.VacancyDto
 import ru.practicum.android.diploma.search.domain.SearchRepository
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.util.Resource
-import ru.practicum.android.diploma.util.app.App
 import ru.practicum.android.diploma.util.createValue
-import java.text.DecimalFormat
-import java.text.DecimalFormatSymbols
-import java.text.NumberFormat
-import java.util.Locale
 
 
 class SearchRepositoryImpl(

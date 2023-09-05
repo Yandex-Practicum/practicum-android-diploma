@@ -47,6 +47,11 @@
     <string name="delete_vacancy">Хотите удалить вакансию?</string>
     <string name="yes">Да</string>
     <string name="no">Нет</string>
+    <string name="text_team_fragment">Над приложением работали</string>
+    <string name="rinat">Ринат Рашидович Гиниятуллин</string>
+    <string name="dmitriy">Дмитрий Сергеевич Харакшинов</string>
+    <string name="german">Герман Романович Заговенко</string>
+    <string name="aleksey">Алексей Михайлович Путилов</string>
 
 
 </resources>
