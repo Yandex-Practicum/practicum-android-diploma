@@ -19,15 +19,9 @@ sealed interface DetailsScreenState {
         override fun render(binding: FragmentDetailsBinding) {
             with(binding) {
                 hideContactsIfEmpty(binding)
+                showKeySkills(binding)
                 val tvSchedule = vacancy.employment + ". " + vacancy.schedule
                 val formattedDescription = HtmlCompat.fromHtml(vacancy.description, HtmlCompat.FROM_HTML_MODE_LEGACY)
-
-                if (vacancy.keySkills.isEmpty()) {
-                    tvKeySkillsTitle.visibility = View.GONE
-                    tvKeySkills.visibility = View.GONE
-                } else {
-                   tvKeySkills.text = vacancy.keySkills
-                }
 
                 if (vacancy.logo.isNotEmpty()) imageView.imageTintList = null
 
@@ -45,6 +39,17 @@ sealed interface DetailsScreenState {
                 tvNameOfCompany.text = vacancy.company
                 tvArea.text = vacancy.area
                 imageView.setImage(vacancy.logo, R.drawable.ic_placeholder_company, binding.root.context.resources.getDimensionPixelSize(R.dimen.size_12dp))
+            }
+        }
+
+        private fun showKeySkills(binding: FragmentDetailsBinding) {
+            with(binding) {
+                if (vacancy.keySkills.isEmpty()) {
+                    tvKeySkillsTitle.visibility = View.GONE
+                    tvKeySkills.visibility = View.GONE
+                } else {
+                    tvKeySkills.text = vacancy.keySkills
+                }
             }
         }
 
