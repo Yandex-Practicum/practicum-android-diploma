@@ -25,6 +25,11 @@ class RetrofitClient @Inject constructor(
                 hhApiService.searchDetails(request.id)
             }
 
+            is Vacancy.SimilarVacanciesRequest -> {
+                logger.log(thisName, "is Vacancy.SimilarVacanciesRequest -> ${request.id}")
+                hhApiService.getSimilarVacancies(request.id)
+            }
+
             is Vacancy.SearchRequest -> {
                 logger.log(thisName, "is Vacancy.SearchRequest -> ${request.query}")
                 hhApiService.search(request.query)

@@ -7,6 +7,20 @@
     android:background="?attr/colorPrimaryVariant"
     tools:context=".details.ui.DetailsFragment">
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/iw_anim"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/scrollView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vacancy_toolbar"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/searching" />
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/vacancy_toolbar"
         android:layout_width="match_parent"
@@ -276,6 +290,40 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <ImageView
+        android:id="@+id/placeHolderImage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_16dp"
+        android:layout_marginEnd="@dimen/margin_16dp"
+        android:contentDescription="@string/image"
+        android:src="@drawable/ic_dummy"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/placeHolderText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:fontFamily="@font/ys_display_medium"
+        android:gravity="center_horizontal"
+        android:text="@string/empty_list"
+        android:textColor="?attr/colorOnPrimary"
+        android:textSize="@dimen/text_size_22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/placeHolderImage" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/placeHolder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="placeHolderImage,placeHolderText" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
