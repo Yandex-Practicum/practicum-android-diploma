@@ -23,7 +23,8 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
     private val binding by viewBinding<FragmentWorkPlaceFilterBinding>()
     private val viewModel: WorkPlaceViewModel by viewModels { (activity as RootActivity).viewModelFactory }
     private val args by navArgs<WorkPlaceFilterFragmentArgs>()
-    @Inject lateinit var debouncer: Debouncer
+    @Inject
+    lateinit var debouncer: Debouncer
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -43,7 +44,8 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
             with(binding) {
                 countyHint.visibility = View.VISIBLE
                 countryText.text = args.country?.name
-                countryItem.setImageResource(R.drawable.close_btn)
+                countryItem.visibility = View.GONE
+                countryCancelItem.visibility = View.VISIBLE
                 countryText.setTextColor(requireActivity().getColor(R.color.black))
             }
         }
@@ -61,7 +63,6 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
             binding.chooseBtn.visibility = View.VISIBLE
         }
     }
-
 
 
     private fun initListeners() {
