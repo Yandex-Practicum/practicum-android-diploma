@@ -18,6 +18,9 @@ sealed interface DetailsScreenState {
     data class Content(val vacancy: VacancyFullInfo) : DetailsScreenState{
         override fun render(binding: FragmentDetailsBinding) {
             with(binding) {
+                scrollView.visibility = View.VISIBLE
+                placeHolder.visibility = View.GONE
+                iwAnim.visibility = View.GONE
                 hideContactsIfEmpty(binding)
                 showKeySkills(binding)
                 val tvSchedule = vacancy.employment + ". " + vacancy.schedule
@@ -55,17 +58,23 @@ sealed interface DetailsScreenState {
 
         private fun hideContactsIfEmpty(binding: FragmentDetailsBinding) {
             with(binding) {
+                if (vacancy.contactName.isEmpty()) {
+                    tvContactsName.visibility = View.GONE
+                    tvContactsPerson.visibility = View.GONE
+                }
+                if (vacancy.contactEmail.isEmpty()) {
+                    tvContactsEmail.visibility = View.GONE
+                    tvEmail.visibility = View.GONE
+                }
+                if (vacancy.contactPhones.isEmpty()) {
+                    tvContactsPhone.visibility = View.GONE
+                    tvPhone.visibility = View.GONE
+                }
                 if (vacancy.contactName.isEmpty() &&
                     vacancy.contactEmail.isEmpty() &&
                     vacancy.contactPhones.isEmpty()
                 ) {
-                    tvContactsName.visibility = View.GONE
-                    tvContactsEmail.visibility = View.GONE
-                    tvContactsPhone.visibility = View.GONE
                     tvContactsTitle.visibility = View.GONE
-                    tvEmail.visibility = View.GONE
-                    tvPhone.visibility = View.GONE
-                    tvContactsPerson.visibility = View.GONE
                 }
             }
         }
@@ -73,13 +82,24 @@ sealed interface DetailsScreenState {
 
     data class Offline(val message: String) : DetailsScreenState {
         override fun render(binding: FragmentDetailsBinding) {
-            Toast.makeText(binding.root.context, message, Toast.LENGTH_SHORT).show()
+            binding.scrollView.visibility = View.GONE
+            binding.placeHolderText.text = message
+            binding.placeHolder.visibility = View.VISIBLE
         }
     }
 
     data class Error(val message: String) : DetailsScreenState {
         override fun render(binding: FragmentDetailsBinding) {
-            Toast.makeText(binding.root.context, message, Toast.LENGTH_SHORT).show()
+            binding.scrollView.visibility = View.GONE
+            binding.placeHolderText.text = message
+            binding.placeHolder.visibility = View.VISIBLE
+        }
+    }
+
+    object Loading : DetailsScreenState {
+        override fun render(binding: FragmentDetailsBinding) {
+            binding.scrollView.visibility = View.GONE
+            binding.iwAnim.visibility = View.VISIBLE
         }
     }
 

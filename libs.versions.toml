@@ -20,7 +20,7 @@ coroutines = "1.7.3"
 ksp = "1.8.10-1.0.9"
 kotlinx_retrofit = "1.0.0"
 nav_safe_args = "2.5.3"
-lottie = "3.4.0"
+lottie = "6.0.0"
 
 
 [libraries]

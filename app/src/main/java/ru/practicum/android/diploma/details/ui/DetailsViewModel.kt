@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -99,6 +100,7 @@ class DetailsViewModel @Inject constructor(
 
     fun getVacancyByID(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
+            _uiState.value = DetailsScreenState.Loading
             detailsInteractor.getFullVacancyInfo(id).collect { result ->
                 when (result) {
                     is NetworkResponse.Success -> {
@@ -115,7 +117,6 @@ class DetailsViewModel @Inject constructor(
                     }
                     is NetworkResponse.NoData -> {
                         log(thisName, "NetworkResponse.NoData -> ${result.message}")
-                      //  _uiState.value = DetailsScreenState.NoData(result.message)
                     }
                 }
             }
