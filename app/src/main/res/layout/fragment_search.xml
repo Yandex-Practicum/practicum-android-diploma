@@ -44,6 +44,7 @@
             style="@style/SearchInputEditTextStyle"
             android:layout_marginStart="@dimen/margin_16dp"
             android:layout_marginEnd="@dimen/margin_16dp"
+            android:layout_marginTop="@dimen/margin_16dp"
             android:hint="@string/search_hint"
             app:hintAnimationEnabled="false"
             app:layout_scrollFlags="scroll|enterAlways">
