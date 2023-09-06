@@ -76,8 +76,8 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
         with(binding) {
             countyHint.visibility = View.VISIBLE
             countryText.text = viewModel.country
-            countryItem.setImageResource(R.drawable.close_btn)
-            countryText.setTextColor(requireActivity().getColor(R.color.black))
+            countryCancelItem.visibility = View.VISIBLE
+            countryItem.visibility = View.GONE
         }
     }
 
