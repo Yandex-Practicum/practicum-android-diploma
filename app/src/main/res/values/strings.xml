@@ -46,6 +46,7 @@
     <string name="server_error"                     >Server error</string>
     <string name="similar_vacancies"                >SimilarVacancies</string>
     <string name="alba_description"                 >"\"As you sow, so shall you reap."\"</string>
+    <string name="bitwise_description"              >"\"It's not a bug, it's a feature."\"</string>
 
     <!--TeamCard-->
     <string name="lead"                             >Starkova Margarita</string>
