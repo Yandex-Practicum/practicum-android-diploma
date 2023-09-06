@@ -27,6 +27,7 @@
         android:layout_height="@dimen/size_60dp"
         android:layout_marginTop="@dimen/margin_16dp"
         android:background="?android:attr/selectableItemBackground"
+        android:backgroundTint="@android:color/transparent"
         app:cardElevation="0dp">
 
         <TextView
@@ -57,6 +58,7 @@
         android:layout_height="@dimen/size_60dp"
         android:layout_marginTop="@dimen/margin_16dp"
         android:background="?android:attr/selectableItemBackground"
+        android:backgroundTint="@android:color/transparent"
         app:cardElevation="0dp">
 
         <TextView
