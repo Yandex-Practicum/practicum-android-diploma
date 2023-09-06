@@ -38,37 +38,24 @@
                 android:src="@drawable/ic_filter" />
         </androidx.appcompat.widget.Toolbar>
 
-        <LinearLayout
-            android:id="@+id/searchContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_16dp"
-            android:layout_marginTop="@dimen/margin_16dp"
-            android:background="@drawable/shape_edittext_search"
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/search_input_layout"
+            style="@style/SearchInputEditTextStyle"
+            android:layout_marginStart="@dimen/margin_16dp"
+            android:layout_marginEnd="@dimen/margin_16dp"
+            android:hint="@string/search_hint"
+            app:hintAnimationEnabled="false"
             app:layout_scrollFlags="scroll|enterAlways">
 
-            <EditText
-                android:id="@+id/searchEditText"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/iet_search"
                 style="@style/SearchEditTextStyle"
-                android:layout_width="0dp"
-                android:layout_height="56dp"
-                android:layout_weight="1"
-                android:hint="@string/search_hint"
-                android:importantForAutofill="no"
-                android:paddingStart="@dimen/margin_16dp"
-                tools:ignore="RtlSymmetry,TextContrastCheck" />
-
-            <ImageView
-                android:id="@+id/searchIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|center_vertical"
-                android:layout_marginEnd="@dimen/margin_8dp"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/search_title"
-                android:src="@drawable/ic_search"
-                android:visibility="visible" />
-        </LinearLayout>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="text"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/textFabSearch"
