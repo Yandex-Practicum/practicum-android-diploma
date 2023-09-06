@@ -2,17 +2,13 @@ package ru.practicum.android.diploma.similars
 
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.details.domain.DetailsInteractor
-import ru.practicum.android.diploma.details.ui.DetailsScreenState
-import ru.practicum.android.diploma.filter.data.model.NetworkResponse
+import ru.practicum.android.diploma.filter.domain.models.NetworkResponse
 import ru.practicum.android.diploma.root.BaseViewModel
-import ru.practicum.android.diploma.search.domain.models.Vacancy
-import ru.practicum.android.diploma.search.ui.models.SearchScreenState
 import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
 

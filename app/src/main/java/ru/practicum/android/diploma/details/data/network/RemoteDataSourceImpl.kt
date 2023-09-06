@@ -7,7 +7,6 @@ import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.details.data.dto.VacancyFullInfoModelDto
 import ru.practicum.android.diploma.details.domain.models.VacancyFullInfo
-import ru.practicum.android.diploma.filter.data.model.NetworkResponse
 import ru.practicum.android.diploma.filter.domain.models.NetworkResponse
 import ru.practicum.android.diploma.search.data.network.NetworkClient
 import ru.practicum.android.diploma.search.data.network.converter.VacancyModelConverter
