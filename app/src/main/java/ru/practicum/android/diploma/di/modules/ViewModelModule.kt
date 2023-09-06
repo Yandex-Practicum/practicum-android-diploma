@@ -9,6 +9,7 @@ import ru.practicum.android.diploma.di.annotations.ViewModelKey
 import ru.practicum.android.diploma.favorite.ui.FavoriteViewModel
 import ru.practicum.android.diploma.filter.ui.view_models.BaseFilterViewModel
 import ru.practicum.android.diploma.filter.ui.view_models.CountryViewModel
+import ru.practicum.android.diploma.filter.ui.view_models.DepartmentViewModel
 import ru.practicum.android.diploma.filter.ui.view_models.RegionViewModel
 import ru.practicum.android.diploma.filter.ui.view_models.WorkPlaceViewModel
 import ru.practicum.android.diploma.root.RootViewModel
@@ -62,4 +63,9 @@ interface ViewModelModule {
     @ViewModelKey(SimilarVacanciesViewModel::class)
     @Binds
     fun bindSimilarVacanciesViewModel(similarVacanciesViewModel: SimilarVacanciesViewModel): ViewModel
+
+    @IntoMap
+    @ViewModelKey(DepartmentViewModel::class)
+    @Binds
+    fun bindDepartmentViewModel(departmentViewModel: DepartmentViewModel): ViewModel
 }
