@@ -29,7 +29,7 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
     private fun initListeners() {
         with(binding) {
             filterToolbar.setNavigationOnClickListener {
-                findNavController().popBackStack()
+                findNavController().navigateUp()
             }
             workPlaceContainer.setOnClickListener {
                 findNavController().navigate(

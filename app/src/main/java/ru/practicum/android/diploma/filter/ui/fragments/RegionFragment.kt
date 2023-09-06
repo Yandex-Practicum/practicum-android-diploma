@@ -19,7 +19,7 @@ class RegionFragment : CountryFilterFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.applyBtn.debounceClickListener(debouncer) {
-            findNavController().popBackStack()
+            findNavController().navigateUp()
         }
     }
     override fun initAdapterListener() {

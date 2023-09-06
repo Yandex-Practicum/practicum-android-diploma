@@ -101,7 +101,7 @@ open class CountryFilterFragment : Fragment(R.layout.fragment_region_department)
 
     private fun initListeners() {
         binding.filterToolbar.setNavigationOnClickListener {
-            findNavController().popBackStack()
+            findNavController().navigateUp()
         }
         initAdapterListener()
     }
@@ -109,7 +109,7 @@ open class CountryFilterFragment : Fragment(R.layout.fragment_region_department)
     protected open fun initAdapterListener() {
         filterAdapter.onClickCountry = { country ->
             viewModel.saveCountry(country.name)
-            findNavController().popBackStack()
+            findNavController().navigateUp()
         }
     }
 
