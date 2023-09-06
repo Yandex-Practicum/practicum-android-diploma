@@ -32,7 +32,7 @@ class TeamFragment : Fragment(R.layout.fragment_team), SwipeStack.SwipeStackList
         list.add(TeamMember(
             photo = R.drawable.lead,
             name = getString(R.string.lead),
-            description = getString(R.string.alba_description)
+            description = ""
         ))
         list.add(TeamMember(
             photo = R.drawable.albatross,
@@ -42,12 +42,12 @@ class TeamFragment : Fragment(R.layout.fragment_team), SwipeStack.SwipeStackList
         list.add(TeamMember(
             photo = R.drawable.flash,
             name = getString(R.string.flash),
-            description = getString(R.string.alba_description)
+            description = ""
         ))
         list.add(TeamMember(
-            photo = R.drawable.albatross,
+            photo = R.drawable.meister,
             name = getString(R.string.meister),
-            description = getString(R.string.alba_description)
+            description = ""
         ))
         list.add(TeamMember(
             photo = R.drawable.bitwise,
