@@ -85,7 +85,7 @@
         android:layout_weight="1" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/choose_wp_filter_btn"
+        android:id="@+id/choose_btn"
         style="@style/FilterBottomButtonsStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -94,5 +94,6 @@
         android:text="@string/choose"
         android:textColor="?attr/colorOnSecondary"
         android:visibility="gone"
-        app:cornerRadius="@dimen/size_12dp" />
+        app:cornerRadius="@dimen/size_12dp"
+        tools:visibility="visible"/>
 </LinearLayout>

@@ -48,7 +48,8 @@
     <string name="error"                            >Проверьте подключение к интернету</string>
     <string name="server_error"                     >Ошибка сервера</string>
     <string name="similar_vacancies"                >Похожие вакансии</string>
-    <string name="alba_description"                 >Все знаю, все умею, за бесплатно не работаю!\n telegram -@GoldenAlbatross</string>
+    <string name="alba_description"                 >"\"Каков орел - таковы и горы."\"</string>
+    <string name="bitwise_description"              >"\"Быстро откаченное выложенным не считается."\"</string>
 
 
     <string name="found"                            >Найдено</string>

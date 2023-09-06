@@ -25,13 +25,12 @@ class TeamFragment : Fragment(R.layout.fragment_team), SwipeStack.SwipeStackList
         swipeAdapter.mData.addAll(list)
         binding.swipeStack.adapter = swipeAdapter
         binding.swipeStack.setListener(this)
-
     }
 
     private fun getImgData(): List<TeamMember> {
         val list = mutableListOf<TeamMember>()
         list.add(TeamMember(
-            photo = R.drawable.albatross,
+            photo = R.drawable.lead,
             name = getString(R.string.lead),
             description = getString(R.string.alba_description)
         ))
@@ -41,7 +40,7 @@ class TeamFragment : Fragment(R.layout.fragment_team), SwipeStack.SwipeStackList
             description = getString(R.string.alba_description)
         ))
         list.add(TeamMember(
-            photo = R.drawable.albatross,
+            photo = R.drawable.flash,
             name = getString(R.string.flash),
             description = getString(R.string.alba_description)
         ))
@@ -51,9 +50,9 @@ class TeamFragment : Fragment(R.layout.fragment_team), SwipeStack.SwipeStackList
             description = getString(R.string.alba_description)
         ))
         list.add(TeamMember(
-            photo = R.drawable.albatross,
+            photo = R.drawable.bitwise,
             name = getString(R.string.bitwise),
-            description = getString(R.string.alba_description)
+            description = getString(R.string.bitwise_description)
         ))
         Log.d("MyLog", "$thisName -> getImgData(): List<TeamMember>.size = ${list.size}")
         return list

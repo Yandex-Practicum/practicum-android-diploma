@@ -2,23 +2,39 @@ package ru.practicum.android.diploma.filter.ui.fragments
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.databinding.FragmentRegionDepartmentBinding
-import ru.practicum.android.diploma.util.viewBinding
+import androidx.fragment.app.viewModels
+import ru.practicum.android.diploma.filter.domain.models.Region
+import ru.practicum.android.diploma.filter.ui.view_models.RegionViewModel
+import ru.practicum.android.diploma.root.RootActivity
+import ru.practicum.android.diploma.root.debounceClickListener
 
 
-class RegionFragment : Fragment(R.layout.fragment_region_department) {
-    private val binding by viewBinding<FragmentRegionDepartmentBinding>()
+class RegionFragment : CountryFilterFragment() {
+
+    override val fragment = "Region"
+    override val viewModel: RegionViewModel by viewModels { (activity as RootActivity).viewModelFactory }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initListeners()
-    }
 
-    private fun initListeners() {
-        binding.filterToolbar.setNavigationOnClickListener {
-            findNavController().popBackStack()
+        binding.applyBtn.debounceClickListener(debouncer) {
+            val country = viewModel.country
+            val region = viewModel.region
+            RegionFragmentDirections.actionRegionFragmentToWorkPlaceFilterFragment(country, region)
         }
     }
+    override fun initAdapterListener() {
+        filterAdapter.onClickRegion = { region ->
+            viewModel.saveRegion(region)
+            binding.applyBtn.visibility = View.VISIBLE
+            // сделать в Item колечко кружочком
+        }
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    override fun refreshList(list: List<Any?>) {
+        binding.searchContainer.visibility = View.VISIBLE
+        filterAdapter.regionList = list as List<Region>
+    }
+
 }

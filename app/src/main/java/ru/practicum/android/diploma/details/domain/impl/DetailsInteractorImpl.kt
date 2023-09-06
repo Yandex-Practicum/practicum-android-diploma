@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.details.domain.DetailsRepository
 import ru.practicum.android.diploma.details.domain.DetailsInteractor
 import ru.practicum.android.diploma.details.domain.models.VacancyFullInfo
-import ru.practicum.android.diploma.filter.data.model.NetworkResponse
+import ru.practicum.android.diploma.filter.domain.models.NetworkResponse
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import javax.inject.Inject
 
