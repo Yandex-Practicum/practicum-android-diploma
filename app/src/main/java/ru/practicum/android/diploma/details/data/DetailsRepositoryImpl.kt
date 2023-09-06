@@ -1,7 +1,9 @@
 package ru.practicum.android.diploma.details.data
 
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import ru.practicum.android.diploma.Logger
@@ -51,5 +53,14 @@ class DetailsRepositoryImpl @Inject constructor(
                 "getFullVacancyInfo: LOADED FROM CACHE = $latestVacancyFullInfo"
             )
         }
-    }
+    }.flowOn(Dispatchers.IO)
+
+    override suspend fun getSimilarVacancies(id: String): Flow<NetworkResponse<List<Vacancy>>> = flow {
+        remoteDataSource
+            .getSimilarVacancies(id)
+            .collect {
+                logger.log(thisName, "getSimilarVacancies: LOADED FROM INTERNET = ${it}")
+                emit(it)
+            }
+    }.flowOn(Dispatchers.IO)
 }

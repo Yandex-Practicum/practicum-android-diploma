@@ -23,4 +23,8 @@ class DetailsInteractorImpl@Inject constructor(
     override suspend fun getFullVacancyInfo(id: String): Flow<NetworkResponse<VacancyFullInfo>> {
         return repository.getFullVacancyInfo(id)
     }
+
+    override suspend fun getSimilarVacancies(id: String): Flow<NetworkResponse<List<Vacancy>>> {
+        return repository.getSimilarVacancies(id)
+    }
 }

@@ -23,9 +23,8 @@ interface HhApiService {
     @GET("/vacancies/{id}")
     suspend fun searchDetails(@Path("id") id: String): Response<VacancyFullInfoModelDto>
 
-/** https://api.hh.ru/vacancies/{vacancy_id}/similar_vacancies
     @GET("/vacancies/{vacancy_id}/similar_vacancies")
-    suspend fun getSimilarVacancies(@Path("vacancy_id") vacancyId: String): Response<SimilarVacanciesResponse>*/
+    suspend fun getSimilarVacancies(@Path("vacancy_id") vacancyId: String): Response<VacanciesSearchCodeResponse>
 
 }
 
