@@ -10,7 +10,7 @@
     android:paddingBottom="@dimen/margin_6dp">
 
     <TextView
-        android:id="@+id/country_name"
+        android:id="@+id/country"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"

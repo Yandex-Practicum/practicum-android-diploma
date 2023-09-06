@@ -1,6 +1,10 @@
 package ru.practicum.android.diploma.filter.data.converter
 
+import ru.practicum.android.diploma.filter.domain.models.Country
+import java.lang.reflect.Type
+
 interface DataConverter {
+
     fun <T> dataToJson(data: T): String
-    fun <T> dataFromJson(json: String, type: Class<T>): T
+    fun <T> dataFromJson(json: String, type: Type): T
 }

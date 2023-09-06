@@ -29,8 +29,8 @@
     <dimen name="text_size_32sp">32sp</dimen>
 
     <!--For team cards -->
-    <dimen name="default_stack_spacing">14dp</dimen>
+    <dimen name="default_stack_spacing">12dp</dimen>
     <dimen name="elevation">4dp</dimen>
-    <dimen name="corner_radius">8dp</dimen>
+    <dimen name="corner_radius">4dp</dimen>
 
 </resources>

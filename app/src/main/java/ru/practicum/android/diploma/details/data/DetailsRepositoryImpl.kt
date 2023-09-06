@@ -11,7 +11,7 @@ import ru.practicum.android.diploma.details.data.local.LocalDataSource
 import ru.practicum.android.diploma.details.data.network.RemoteDataSource
 import ru.practicum.android.diploma.details.domain.DetailsRepository
 import ru.practicum.android.diploma.details.domain.models.VacancyFullInfo
-import ru.practicum.android.diploma.filter.data.model.NetworkResponse
+import ru.practicum.android.diploma.filter.domain.models.NetworkResponse
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject

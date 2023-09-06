@@ -4,6 +4,8 @@ import dagger.Subcomponent
 import ru.practicum.android.diploma.di.modules.ViewModelModule
 import ru.practicum.android.diploma.favorite.ui.FavoriteFragment
 import ru.practicum.android.diploma.filter.ui.fragments.CountryFilterFragment
+import ru.practicum.android.diploma.filter.ui.fragments.RegionFragment
+import ru.practicum.android.diploma.filter.ui.fragments.WorkPlaceFilterFragment
 import ru.practicum.android.diploma.root.RootActivity
 import ru.practicum.android.diploma.search.ui.fragment.SearchFragment
 import ru.practicum.android.diploma.similars.SimilarVacanciesFragment
@@ -17,6 +19,8 @@ interface ActivityComponent {
     fun inject(similarVacanciesFragment: SimilarVacanciesFragment)
     fun inject(teamFragment: TeamFragment)
     fun inject(countryFilterFragment: CountryFilterFragment)
+    fun inject(workPlaceFilterFragment: WorkPlaceFilterFragment)
+    fun inject(regionFragment: RegionFragment)
 
     @Subcomponent.Factory
     interface Factory{
