@@ -22,27 +22,27 @@ sealed interface SearchScreenState {
         
         with(binding) {
             
-            val searchLayoutParams: AppBarLayout.LayoutParams =
-                searchContainer.layoutParams as AppBarLayout.LayoutParams
+//            val searchLayoutParams: AppBarLayout.LayoutParams =
+//                searchContainer.layoutParams as AppBarLayout.LayoutParams
             val toolbarLayoutParams: AppBarLayout.LayoutParams =
                 searchToolbar.layoutParams as AppBarLayout.LayoutParams
             val textLayoutParams: AppBarLayout.LayoutParams =
                 textFabSearch.layoutParams as AppBarLayout.LayoutParams
             
             if (!isEnable) {
-                searchLayoutParams.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_NO_SCROLL
+//                searchLayoutParams.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_NO_SCROLL
                 toolbarLayoutParams.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_NO_SCROLL
                 textLayoutParams.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_NO_SCROLL
             } else {
-                searchLayoutParams.scrollFlags =
-                    AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
+//                searchLayoutParams.scrollFlags =
+//                    AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
                 toolbarLayoutParams.scrollFlags =
                     AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
                 textLayoutParams.scrollFlags =
                     AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
             }
             
-            searchContainer.layoutParams = searchLayoutParams
+//            searchContainer.layoutParams = searchLayoutParams
             searchToolbar.layoutParams = toolbarLayoutParams
             textFabSearch.layoutParams = textLayoutParams
         }

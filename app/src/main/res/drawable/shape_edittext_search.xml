@@ -5,6 +5,6 @@
     <solid android:color="?attr/hint_background_color"/>
     <!-- rounded corners -->
     <corners android:radius="@dimen/size_12dp" />
-    <stroke android:width="0.6dp"
+    <stroke android:width="@dimen/size_0.6dp"
         android:color="?attr/hint_text_color" />
 </shape>

@@ -1,12 +1,15 @@
 package ru.practicum.android.diploma.search.ui.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
@@ -22,7 +25,12 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     @Inject lateinit var searchAdapter: SearchAdapter
     private val viewModel: SearchViewModel by viewModels { (activity as RootActivity).viewModelFactory }
     private val binding by viewBinding<FragmentSearchBinding>()
-    
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (activity as RootActivity).component.inject(this)
+    }
+
     override fun onResume() {
         super.onResume()
         viewModel.log(thisName, "onResume()")
@@ -47,15 +55,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             viewLifecycleOwner.lifecycle.coroutineScope.launch {
                 uiState.collect { screenState -> screenState.render(binding) }
             }
-            viewLifecycleOwner.lifecycle.coroutineScope.launch {
-                iconClearState.collect { screenState ->
-                    screenState.render(binding)
-                    when {
-                        screenState.query.isNullOrEmpty() -> { closeListener() }
-                        else -> { addListener() }
-                    }
-                }
-            }
         }
     }
 
@@ -69,18 +68,26 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                     args = null
                 )
             }
-
-            searchEditText.doOnTextChanged { text, _, _, _ ->
-                viewModel.log(thisName, "$text")
+            searchInputLayout.endIconDrawable =
+                AppCompatResources.getDrawable(requireContext(), R.drawable.ic_search)
+            searchInputLayout.isHintEnabled = false
+            ietSearch.doOnTextChanged { text, _, _, _ ->
                 viewModel.onSearchQueryChanged(text.toString())
+                if (text.isNullOrEmpty()) {
+                    searchInputLayout.endIconMode = TextInputLayout.END_ICON_NONE
+                    searchInputLayout.endIconDrawable =
+                        AppCompatResources.getDrawable(requireContext(), R.drawable.ic_search)
+                } else {
+                    searchInputLayout.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
+                    searchInputLayout.endIconDrawable =
+                        AppCompatResources.getDrawable(requireContext(), R.drawable.ic_clear)
+                }
             }
         }
     }
     
     private fun initAdapter() {
         viewModel.log(thisName, "initAdapter()")
-        (activity as RootActivity).component.inject(this) // Почему не в onAttach??????
-    
         binding.recycler.adapter = searchAdapter
         searchAdapter.onClick = { vacancy -> navigateToDetails(vacancy) }
     }
@@ -89,22 +96,5 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         findNavController().navigate(
             SearchFragmentDirections.actionSearchFragmentToDetailsFragment(vacancy)
         )
-    }
-    
-    private fun addListener() {
-        with(binding) {
-            searchIcon.isClickable = true
-            searchIcon.setOnClickListener {
-                searchEditText.setText("")
-                viewModel.clearBtnClicked()
-            }
-        }
-    }
-    
-    private fun closeListener() {
-        with(binding) {
-            searchIcon.setOnClickListener(null)
-            searchIcon.isClickable = false
-        }
     }
 }
