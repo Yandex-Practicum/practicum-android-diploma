@@ -6,9 +6,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.Logger
-import ru.practicum.android.diploma.filter.domain.models.NetworkResponse
 import ru.practicum.android.diploma.filter.domain.api.FilterInteractor
 import ru.practicum.android.diploma.filter.domain.models.Country
+import ru.practicum.android.diploma.filter.domain.models.NetworkResponse
 import ru.practicum.android.diploma.filter.ui.models.FilterScreenState
 import ru.practicum.android.diploma.root.BaseViewModel
 import ru.practicum.android.diploma.util.thisName
@@ -17,9 +17,8 @@ import javax.inject.Inject
 open class CountryViewModel @Inject constructor(
     private val filterInteractor: FilterInteractor,
     logger: Logger
-) : BaseViewModel(logger) {
+): BaseViewModel(logger)  {
 
-    var countryArgs: Country? = null
     protected val _uiState: MutableStateFlow<FilterScreenState> =
         MutableStateFlow(FilterScreenState.Default)
     val uiState: StateFlow<FilterScreenState> = _uiState
@@ -55,9 +54,7 @@ open class CountryViewModel @Inject constructor(
     }
 
     open fun hasUserData(fragment: String) {
-        if (fragment == COUNTRY_KEY) {
-            getData()
-        }
+        if (fragment == COUNTRY_KEY) getData()
     }
 
     fun saveCountry(country: String) {

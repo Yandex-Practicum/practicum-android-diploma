@@ -53,6 +53,7 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
         }
     }
 
+
     private fun renderFull() {
         viewModel.log(thisName, "renderFull()")
         renderCountry()
@@ -79,7 +80,6 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
             countryText.setTextColor(requireActivity().getColor(R.color.black))
         }
     }
-
 
     private fun initListeners() {
         with(binding) {
