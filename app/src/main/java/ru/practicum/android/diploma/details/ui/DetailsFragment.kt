@@ -35,7 +35,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
     }
 
     private fun initListeners() {
-        binding.lottieHeart.setOnClickListener { heartButton ->
+        binding.lottieHeart.setOnClickListener {
             viewModel.handleAddToFavsButton(args.vacancy)
         }
         binding.vacancyToolbar.setNavigationOnClickListener {

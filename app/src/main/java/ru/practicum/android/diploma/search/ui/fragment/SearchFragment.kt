@@ -67,7 +67,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                     resId = R.id.action_searchFragment_to_filterBaseFragment
                 )
             }
-
+            searchInputLayout.endIconDrawable =
+                AppCompatResources.getDrawable(requireContext(), R.drawable.ic_search)
             searchInputLayout.isHintEnabled = false
             ietSearch.doOnTextChanged { text, _, _, _ ->
                 viewModel.onSearchQueryChanged(text.toString())

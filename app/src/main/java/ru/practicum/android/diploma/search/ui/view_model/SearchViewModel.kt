@@ -35,6 +35,7 @@ class SearchViewModel @Inject constructor(
         log(thisName, "onSearchQueryChanged($query: String)")
         if (query.isEmpty()) {
             _uiState.value = SearchScreenState.Default
+            onSearchDebounce("")
             searchJob?.cancel()
         }
         else if (latestSearchQuery != query) {
@@ -43,6 +44,7 @@ class SearchViewModel @Inject constructor(
         }
     }
     private fun loadJobList(query: String) {
+        if(query.isEmpty()) return
         log(thisName, "loadJobList($query: String)")
         _uiState.value = SearchScreenState.Loading
     
