@@ -30,7 +30,7 @@ class VacancyModelConverter @Inject constructor(
                 company = employer?.name ?: "",
                 salary = createSalary(salary) ?: context.getString(R.string.empty_salary),
                 area = area?.name ?: "",
-                date = published_at ?: "",
+                date = publishedAt ?: "",
             )
         }
     }
@@ -111,9 +111,8 @@ class VacancyModelConverter @Inject constructor(
     }
 
      fun countryDtoToCountry( list : List<CountryDto>): List<Country>{
-
-         list.forEach{ it.areas.flatMap { it?.areas ?: emptyList() }}
-    return    list.map { Country(id = it.id, name = it.name, area = it.areas ) }
+         list.forEach{ item -> item.areas.flatMap { it?.areas ?: emptyList() }}
+         return list.map { Country(id = it.id ?: "", name = it.name ?: "", area = it.areas ) }
     }
 
 }

@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.search.data.network.dto.response
 
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 import ru.practicum.android.diploma.search.data.network.CodeResponse
 import ru.practicum.android.diploma.search.data.network.dto.VacancyDto
@@ -10,5 +11,5 @@ data class VacanciesSearchCodeResponse(
     val items: List<VacancyDto>? = emptyList(),
     val page: Int? = 0,
     val pages: Int? = 0,
-    val per_page: Int? = 0,
+    @SerializedName("per_page") val perPage: Int? = 0,
 ) : CodeResponse()

@@ -24,7 +24,7 @@ class RegionFragment : CountryFilterFragment() {
     }
     override fun initAdapterListener() {
         filterAdapter.onClickRegion = { region ->
-            viewModel.saveRegion(region.name!!)
+            viewModel.saveRegion(region.name)
             binding.applyBtn.visibility = View.VISIBLE
             // сделать в Item колечко кружочком
         }

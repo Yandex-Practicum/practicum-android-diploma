@@ -74,7 +74,7 @@ open class CountryFilterFragment : Fragment(R.layout.fragment_region_department)
 
     private fun renderDefault() {
         viewModel.log(thisName, "renderDefault()")
-        binding.placeholderContainer.visibility = View.VISIBLE
+        binding.placeholderContainer.visibility = View.GONE
         binding.recycler.visibility = View.GONE
     }
 
@@ -108,7 +108,7 @@ open class CountryFilterFragment : Fragment(R.layout.fragment_region_department)
 
     protected open fun initAdapterListener() {
         filterAdapter.onClickCountry = { country ->
-            viewModel.saveCountry(country.name!!)
+            viewModel.saveCountry(country.name)
             findNavController().popBackStack()
         }
     }

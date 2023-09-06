@@ -9,7 +9,7 @@ import ru.practicum.android.diploma.search.data.network.dto.RegionArea
 @Serializable
 data class Country(
 
-    val id: String? = "",
-    var name: String? = "",
-    var area : List<RegionArea?>
+    val id: String = "-1",
+    val name: String = "",
+    val area : List<RegionArea?>
 ): Parcelable
