@@ -6,7 +6,6 @@ import ru.practicum.android.diploma.search.data.network.dto.RegionDto
 
 
 @Serializable
-class RegionCodeResponse (
-    var results: List<RegionDto>
-) : CodeResponse(){
-}
+data class RegionCodeResponse (
+    val results: List<RegionDto>
+) : CodeResponse()

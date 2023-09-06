@@ -5,10 +5,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentWorkPlaceFilterBinding
+import ru.practicum.android.diploma.filter.ui.models.FilterScreenState
+import ru.practicum.android.diploma.filter.ui.models.FilterUiState
 import ru.practicum.android.diploma.filter.ui.view_models.WorkPlaceViewModel
 import ru.practicum.android.diploma.root.Debouncer
 import ru.practicum.android.diploma.root.RootActivity
@@ -22,9 +26,7 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
 
     private val binding by viewBinding<FragmentWorkPlaceFilterBinding>()
     private val viewModel: WorkPlaceViewModel by viewModels { (activity as RootActivity).viewModelFactory }
-    private val args by navArgs<WorkPlaceFilterFragmentArgs>()
-    @Inject
-    lateinit var debouncer: Debouncer
+    @Inject lateinit var debouncer: Debouncer
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -34,41 +36,55 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        renderScreen()
         initListeners()
-    }
+        viewModel.getUserDataFromPrefs()
 
-    private fun renderScreen() {
-        if (args.country != null) {
-            viewModel.log(thisName, "renderScreen() args.country != null")
-            with(binding) {
-                countyHint.visibility = View.VISIBLE
-                countryText.text = args.country?.name
-                countryItem.visibility = View.GONE
-                countryCancelItem.visibility = View.VISIBLE
-                countryText.setTextColor(requireActivity().getColor(R.color.black))
+        viewLifecycleOwner.lifecycle.coroutineScope.launch {
+            viewModel.uiState.collect { state ->
+                viewModel.log("CountryFilterFragment", "state ${state.thisName}")
+                when (state) {
+                    is FilterUiState.Default  -> {}
+                    is FilterUiState.Country  -> renderCountry()
+                    is FilterUiState.Region   -> renderRegion()
+                    is FilterUiState.FullData -> renderFull()
+                    is FilterUiState.Empty   -> {}
+                }
             }
-        }
-        if (args.region != null) {
-            viewModel.log(thisName, "renderScreen() args.region != null")
-            with(binding) {
-                countyHint.visibility = View.VISIBLE
-                countryText.text = args.country?.name
-                countryItem.setImageResource(R.drawable.close_btn)
-                countryText.setTextColor(requireActivity().getColor(R.color.black))
-            }
-        }
-        if (args.region != null || args.country != null) {
-            viewModel.log(thisName, "renderScreen() btn.VISIBLE")
-            binding.chooseBtn.visibility = View.VISIBLE
         }
     }
 
+
+    private fun renderFull() {
+        viewModel.log(thisName, "renderFull()")
+        renderCountry()
+        renderRegion()
+        binding.chooseBtn.visibility = View.VISIBLE
+    }
+
+    private fun renderRegion() {
+        viewModel.log(thisName, "renderRegion(${viewModel.region}: String)")
+        with(binding) {
+            countyHint.visibility = View.VISIBLE
+            countryText.text = viewModel.region
+            countryItem.setImageResource(R.drawable.close_btn)
+            countryText.setTextColor(requireActivity().getColor(R.color.black))
+        }
+    }
+
+    private fun renderCountry() {
+        viewModel.log(thisName, "renderCountry(${viewModel.country}: String)")
+        with(binding) {
+            countyHint.visibility = View.VISIBLE
+            countryText.text = viewModel.country
+            countryCancelItem.visibility = View.VISIBLE
+            countryItem.visibility = View.GONE
+        }
+    }
 
     private fun initListeners() {
         with(binding) {
             filterToolbar.setNavigationOnClickListener {
-                findNavController().popBackStack()
+                findNavController().navigateUp()
             }
             countryContainer.debounceClickListener(debouncer) {
                 findNavController().navigate(
@@ -83,8 +99,8 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
             chooseBtn.debounceClickListener(debouncer) {
                 findNavController().navigate(
                     WorkPlaceFilterFragmentDirections.actionWorkPlaceFilterFragmentToFilterBaseFragment(
-                        args.country,
-                        args.region
+                        viewModel.country,
+                        viewModel.region
                     )
                 )
             }

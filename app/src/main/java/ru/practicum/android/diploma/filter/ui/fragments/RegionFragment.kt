@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.filter.ui.fragments
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.filter.domain.models.Region
 import ru.practicum.android.diploma.filter.ui.view_models.RegionViewModel
 import ru.practicum.android.diploma.root.RootActivity
@@ -18,14 +19,12 @@ class RegionFragment : CountryFilterFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.applyBtn.debounceClickListener(debouncer) {
-            val country = viewModel.country
-            val region = viewModel.region
-            RegionFragmentDirections.actionRegionFragmentToWorkPlaceFilterFragment(country, region)
+            findNavController().navigateUp()
         }
     }
     override fun initAdapterListener() {
         filterAdapter.onClickRegion = { region ->
-            viewModel.saveRegion(region)
+            viewModel.saveRegion(region.name)
             binding.applyBtn.visibility = View.VISIBLE
             // сделать в Item колечко кружочком
         }

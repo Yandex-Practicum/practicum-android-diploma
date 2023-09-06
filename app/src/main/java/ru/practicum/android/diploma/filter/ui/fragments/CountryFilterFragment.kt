@@ -86,10 +86,12 @@ open class CountryFilterFragment : Fragment(R.layout.fragment_region_department)
     }
 
     private fun showProgressBar() {
+        viewModel.log(thisName, "showProgressBar()")
         //TODO("Not yet implemented")
     }
 
     private fun showMessage(message: String) {
+        viewModel.log(thisName, "showMessage($message: String)")
         Snackbar
             .make(requireActivity(), binding.root, message, Snackbar.LENGTH_LONG)
             .setBackgroundTint(requireActivity().getColor(R.color.blue))
@@ -99,20 +101,15 @@ open class CountryFilterFragment : Fragment(R.layout.fragment_region_department)
 
     private fun initListeners() {
         binding.filterToolbar.setNavigationOnClickListener {
-            findNavController().popBackStack()
+            findNavController().navigateUp()
         }
         initAdapterListener()
     }
 
     protected open fun initAdapterListener() {
         filterAdapter.onClickCountry = { country ->
-            viewModel.saveCountry(country)
-            findNavController().navigate(
-                CountryFilterFragmentDirections.actionCountryFilterFragmentToWorkPlaceFilterFragment(
-                    country,
-                    null
-                )
-            )
+            viewModel.saveCountry(country.name)
+            findNavController().navigateUp()
         }
     }
 

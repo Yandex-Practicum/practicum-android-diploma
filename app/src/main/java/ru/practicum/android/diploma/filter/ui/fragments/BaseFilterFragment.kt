@@ -29,11 +29,11 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
     private fun initListeners() {
         with(binding) {
             filterToolbar.setNavigationOnClickListener {
-                findNavController().popBackStack()
+                findNavController().navigateUp()
             }
             workPlaceContainer.setOnClickListener {
                 findNavController().navigate(
-                    BaseFilterFragmentDirections.actionFilterBaseFragmentToWorkPlaceFilterFragment(null,null)
+                    BaseFilterFragmentDirections.actionFilterBaseFragmentToWorkPlaceFilterFragment()
                 )
             }
             amountText.doOnTextChanged { _, _, _, count ->

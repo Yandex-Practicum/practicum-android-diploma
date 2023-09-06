@@ -51,12 +51,10 @@
         </action>
         <argument
             android:name="country"
-            app:argType="ru.practicum.android.diploma.filter.domain.models.Country"
-            app:nullable="true" />
+            app:argType="string" />
         <argument
             android:name="region"
-            app:argType="ru.practicum.android.diploma.filter.domain.models.Region"
-            app:nullable="true" />
+            app:argType="string" />
     </fragment>
 
 
@@ -119,14 +117,6 @@
         <action
             android:id="@+id/action_workPlaceFilterFragment_to_filterBaseFragment"
             app:destination="@id/filterBaseFragment" />
-        <argument
-            android:name="country"
-            app:argType="ru.practicum.android.diploma.filter.domain.models.Country"
-            app:nullable="true" />
-        <argument
-            android:name="region"
-            app:argType="ru.practicum.android.diploma.filter.domain.models.Region"
-            app:nullable="true" />
     </fragment>
 
 

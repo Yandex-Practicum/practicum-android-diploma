@@ -5,10 +5,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.filter.domain.api.FilterInteractor
-import ru.practicum.android.diploma.filter.domain.models.Country
 import ru.practicum.android.diploma.filter.domain.models.NetworkResponse
 import ru.practicum.android.diploma.filter.domain.models.Region
-import ru.practicum.android.diploma.filter.ui.fragments.adapters.CountryViewHolder
 import ru.practicum.android.diploma.filter.ui.models.FilterScreenState
 import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
@@ -19,7 +17,7 @@ class RegionViewModel @Inject constructor(
 ) : CountryViewModel(filterInteractor, logger) {
 
 
-    var country: Country? = null
+    var country: String = ""
     var region: Region? = null
 
     override fun getData() {
@@ -84,27 +82,27 @@ class RegionViewModel @Inject constructor(
         if (fragment == REGION_KEY) {
             getCountryFromSharedPref()
             log("RegionViewModel", "country == $country")
-            if (country == null) getData()
-            else getRegions(country?.id!!)
+            if (country.isEmpty()) getData()
+            else getRegions(country)
         }
     }
 
     private fun getCountryFromSharedPref() {
         log(thisName, "getCountryFromSharedPref()")
         viewModelScope.launch {
-            country = filterInteractor.getCountry(COUNTRY_KEY)
+            country = filterInteractor.getCountryFromPrefs(COUNTRY_KEY)
         }
     }
 
     private fun getRegionFromSharedPref() {
         log(thisName, "getRegionFromSharedPref()")
         viewModelScope.launch {
-            country = filterInteractor.getCountry(COUNTRY_KEY)
+            country = filterInteractor.getCountryFromPrefs(COUNTRY_KEY)
         }
     }
 
-    fun saveRegion(region: Region) {
-        log(thisName, "saveRegion(region: Region)")
+    fun saveRegion(region: String) {
+        log(thisName, "saveRegion($region: String)")
         viewModelScope.launch {
             filterInteractor.saveRegion(REGION_KEY, region)
         }

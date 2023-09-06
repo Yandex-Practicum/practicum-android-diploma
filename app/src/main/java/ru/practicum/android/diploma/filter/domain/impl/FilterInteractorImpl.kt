@@ -1,9 +1,7 @@
 package ru.practicum.android.diploma.filter.domain.impl
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.Logger
-import ru.practicum.android.diploma.filter.data.model.DataType
 import ru.practicum.android.diploma.filter.domain.models.NetworkResponse
 import ru.practicum.android.diploma.filter.domain.api.FilterInteractor
 import ru.practicum.android.diploma.filter.domain.api.FilterRepository
@@ -35,18 +33,25 @@ class FilterInteractorImpl @Inject constructor(
         return searchRepository.getRegions(query)
     }
 
-    override suspend fun getCountry(key: String): Country? {
-        logger.log(thisName, "getCountry($key: String): Country?")
-        return filterRepository.getCountry(key = key)
+    // ==============================Shared preferences=============================================
+
+    override suspend fun getCountryFromPrefs(key: String): String {
+        logger.log(thisName, "getCountriesFromPrefs($key: String): String?")
+        return filterRepository.getStringFromPrefs(key = key)
     }
 
-    override suspend fun saveRegion(key: String, region: Region) {
-        logger.log(thisName, "saveRegion($key: String, region: Region)")
-        filterRepository.saveRegion(key = key, data = region)
+    override suspend fun getRegionFromPrefs(key: String): String {
+        logger.log(thisName, "getRegionFromPrefs($key: String): String?")
+        return filterRepository.getStringFromPrefs(key = key)
     }
 
-    override suspend fun saveCountry(key: String, country: Country) {
-        logger.log(thisName, "saveCountry($key: String, country: Country)")
+    override suspend fun saveRegion(key: String, region: String) {
+        logger.log(thisName, "saveRegion($key: String, $region: Region)")
+        filterRepository.saveString(key = key, data = region)
+    }
+
+    override suspend fun saveCountry(key: String, country: String) {
+        logger.log(thisName, "saveCountry($key: String, $country: String)")
         filterRepository.saveCountry(key = key, data = country)
     }
 }

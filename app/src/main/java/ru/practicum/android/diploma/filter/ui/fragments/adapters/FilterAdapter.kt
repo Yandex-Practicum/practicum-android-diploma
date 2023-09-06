@@ -49,23 +49,22 @@ class FilterAdapter @Inject constructor(
 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val pos = holder.adapterPosition
         if (fragment == "Country") {
-            val pos = holder.adapterPosition
             val item = countryList[pos]
             holder as CountryViewHolder
             holder.bind(item)
             holder.itemView.debounceClickListener(debouncer) {
-                logger.log("FilterAdapter", "onClickCountry")
+                logger.log("FilterAdapter", "onClickCountry: country = $item")
                 onClickCountry?.invoke(item)
             }
         }
         if (fragment == "Region") {
-            val pos = holder.adapterPosition
             val item = regionList[pos]
             holder as RegionViewHolder
             holder.bind(item)
             holder.itemView.debounceClickListener(debouncer) {
-                logger.log("FilterAdapter", "onClickRegion")
+                logger.log("FilterAdapter", "onClickRegion: region = $item")
                 onClickRegion?.invoke(item)
             }
         }

@@ -19,7 +19,6 @@ open class CountryViewModel @Inject constructor(
     logger: Logger
 ): BaseViewModel(logger)  {
 
-    var countryArgs: Country? = null
     protected val _uiState: MutableStateFlow<FilterScreenState> =
         MutableStateFlow(FilterScreenState.Default)
     val uiState: StateFlow<FilterScreenState> = _uiState
@@ -27,7 +26,7 @@ open class CountryViewModel @Inject constructor(
 
     protected open fun getData() {
         viewModelScope.launch(Dispatchers.IO) {
-            log("CountryViewModel", "filterInteractor.getCountries()")
+            log("CountryViewModel", "getData()")
             filterInteractor.getCountries().collect { state ->
                 when (state) {
                     is NetworkResponse.Error -> {
@@ -55,13 +54,11 @@ open class CountryViewModel @Inject constructor(
     }
 
     open fun hasUserData(fragment: String) {
-        if (fragment == COUNTRY_KEY) {
-            getData()
-        }
+        if (fragment == COUNTRY_KEY) getData()
     }
 
-    fun saveCountry(country: Country) {
-        log(thisName, "saveCountry(country: Country)")
+    fun saveCountry(country: String) {
+        log(thisName, "saveCountry($country: Country)")
         viewModelScope.launch {
             filterInteractor.saveCountry(COUNTRY_KEY, country)
         }
