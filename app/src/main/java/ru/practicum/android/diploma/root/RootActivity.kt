@@ -32,8 +32,6 @@ class RootActivity : AppCompatActivity() {
         
         setContentView(binding.root)
         
-        currentFocus
-        
         viewModel.log(thisName, "onCreate() -> Unit")
         
         val navHostFragment =
