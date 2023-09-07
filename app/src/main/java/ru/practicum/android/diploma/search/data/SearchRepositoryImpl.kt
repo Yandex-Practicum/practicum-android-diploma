@@ -6,12 +6,14 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.di.annotations.NewResponse
 import ru.practicum.android.diploma.filter.data.converter.countryDtoToCountry
 import ru.practicum.android.diploma.filter.data.converter.mapRegionCodeResponseToRegionList
 import ru.practicum.android.diploma.filter.data.model.Filter
 import ru.practicum.android.diploma.filter.domain.models.NetworkResponse
 import ru.practicum.android.diploma.filter.domain.models.Country
 import ru.practicum.android.diploma.filter.domain.models.Region
+import ru.practicum.android.diploma.search.data.network.AlternativeRemoteDataSource
 import ru.practicum.android.diploma.search.data.network.CodeResponse
 import ru.practicum.android.diploma.search.data.network.NetworkClient
 import ru.practicum.android.diploma.search.data.network.Vacancy
@@ -22,6 +24,9 @@ import ru.practicum.android.diploma.search.data.network.dto.response.RegionCodeR
 import ru.practicum.android.diploma.search.domain.api.SearchRepository
 import ru.practicum.android.diploma.search.domain.models.FetchResult
 import ru.practicum.android.diploma.search.domain.models.NetworkError
+import ru.practicum.android.diploma.util.functional.Either
+import ru.practicum.android.diploma.util.functional.Failure
+import ru.practicum.android.diploma.util.functional.flatMap
 import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
 
@@ -30,7 +35,15 @@ class SearchRepositoryImpl @Inject constructor(
     private val converter: VacancyModelConverter,
     private val logger: Logger,
     private val context: Context,
+    @NewResponse private val apiHelper: AlternativeRemoteDataSource
 ) : SearchRepository {
+
+    @NewResponse
+    override suspend fun searchVacancies(query: String): Either<Failure, List<ru.practicum.android.diploma.search.domain.models.Vacancy>> {
+        return apiHelper.getVacancies(query).flatMap {
+            Either.Right(converter.mapList(it.items))
+        }
+    }
 
     override suspend fun search(query: String): Flow<FetchResult> {
         logger.log(thisName, "fun search($query: String): Flow<FetchResult>")
