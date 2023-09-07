@@ -10,5 +10,5 @@ data class RegionArea(
     val id: String? = "",
     @SerializedName("parent_id") val parentId: String? = "",
     val name: String? = "",
-    val areas: List<RegionArea?>
+    val areas: List<RegionArea?>? = null
 ): Parcelable

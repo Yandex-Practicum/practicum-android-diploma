@@ -96,13 +96,14 @@ class SearchRepositoryImpl @Inject constructor(
     }
 
     private fun checkRegionData(response: CodeResponse): NetworkResponse<List<Region>> {
-        logger.log(thisName, "checkRegionData(response: CodeResponse): NetworkResponse<List<Region>>")
-        val list = (response as RegionCodeResponse).results.map {
-            Region(name = it.name ?: "", area = it.area)
-        }
-        return if (list.isEmpty())
-            NetworkResponse.NoData(message = context.getString(R.string.empty_list))
-        else
-            NetworkResponse.Success(list)
+//        logger.log(thisName, "checkRegionData(response: CodeResponse): NetworkResponse<List<Region>>")
+//        val list = (response as RegionCodeResponse).areas.map {
+//            Region(name = it?.name ?: "", area = it?.areas)
+//        }
+//        return if (list.isEmpty())
+//            NetworkResponse.NoData(message = context.getString(R.string.empty_list))
+//        else
+//            NetworkResponse.Success(list)
+        return  NetworkResponse.NoData(message = context.getString(R.string.empty_list))
     }
 }

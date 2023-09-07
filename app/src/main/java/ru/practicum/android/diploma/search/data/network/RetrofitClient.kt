@@ -43,8 +43,8 @@ class RetrofitClient @Inject constructor(
                 return result
             }
             is Filter.RegionRequest -> {
-                logger.log(thisName, "is Filter.RegionRequest -> hhApiService.getRegionInfo()")
-                hhApiService.getRegionInfo(request.query)
+               logger.log(thisName, "is Filter.RegionRequest -> hhApiService.getRegionInfo()")
+                hhApiService.getRegionInfo(request.query).also {                 logger.log(thisName, "is Filter.RegionRequest -> hhApiService.getRegionInfo(${request.query})") }
             }
             else -> {
                 logger.log(thisName, "else -> resultCode = 400")
@@ -54,7 +54,7 @@ class RetrofitClient @Inject constructor(
 
         return result.body()?.apply {
             logger.log("RetrofitClient", "resultCode = ${result.code()}")
-            resultCode = result.code()
+          resultCode = result.code()
         } as CodeResponse
 
     }
