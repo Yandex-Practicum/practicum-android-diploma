@@ -25,7 +25,7 @@
         android:id="@+id/country_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_60dp"
-        android:background="?android:attr/selectableItemBackground"
+        android:foreground="?android:attr/selectableItemBackground"
         android:backgroundTint="@android:color/transparent"
         app:cardElevation="0dp">
 
@@ -65,7 +65,7 @@
         android:id="@+id/region_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_60dp"
-        android:background="?android:attr/selectableItemBackground"
+        android:foreground="?android:attr/selectableItemBackground"
         android:backgroundTint="@android:color/transparent"
         app:cardElevation="0dp">
 

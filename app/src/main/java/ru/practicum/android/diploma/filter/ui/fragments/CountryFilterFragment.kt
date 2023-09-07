@@ -27,8 +27,10 @@ open class CountryFilterFragment : Fragment(R.layout.fragment_region_department)
 
     protected open val fragment = COUNTRY
     protected val binding by viewBinding<FragmentRegionDepartmentBinding>()
+
     @Inject
     lateinit var filterAdapter: FilterAdapter
+
     @Inject
     lateinit var debouncer: Debouncer
     protected open val viewModel: CountryViewModel by viewModels { (activity as RootActivity).viewModelFactory }
@@ -65,6 +67,7 @@ open class CountryFilterFragment : Fragment(R.layout.fragment_region_department)
         viewModel.log(thisName, "renderContent(${list.size}: List<Any?>)")
         binding.placeholderContainer.visibility = View.GONE
         binding.recycler.visibility = View.VISIBLE
+        binding.progressBar.visibility = View.GONE
         refreshList(list)
         filterAdapter.notifyItemRangeChanged(0, filterAdapter.itemCount)
     }
@@ -79,6 +82,7 @@ open class CountryFilterFragment : Fragment(R.layout.fragment_region_department)
                 title.text = getString(R.string.choose_region)
             placeholderContainer.visibility = View.GONE
             recycler.visibility = View.GONE
+            binding.progressBar.visibility = View.VISIBLE
         }
     }
 
@@ -91,7 +95,6 @@ open class CountryFilterFragment : Fragment(R.layout.fragment_region_department)
 
     private fun showProgressBar() {
         viewModel.log(thisName, "showProgressBar()")
-        //TODO("Not yet implemented")
     }
 
     private fun showMessage(message: String) {
