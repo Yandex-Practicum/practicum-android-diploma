@@ -1,9 +1,9 @@
 package ru.practicum.android.diploma.filter.domain.api
 
-import ru.practicum.android.diploma.filter.ui.models.SelectedData
+import ru.practicum.android.diploma.filter.ui.models.SelectedFilter
 
 interface FilterRepository {
 
-    suspend fun saveSelectedData(key: String, selectedData: SelectedData)
-    suspend fun getSelectedData(key: String): SelectedData
+    suspend fun saveSavedFilterSettings(key: String, selectedFilter: SelectedFilter)
+    suspend fun getSaveFilterSettings(key: String): SelectedFilter
 }

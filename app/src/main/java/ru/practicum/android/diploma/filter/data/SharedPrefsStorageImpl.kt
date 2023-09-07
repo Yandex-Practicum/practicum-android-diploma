@@ -6,7 +6,7 @@ import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.filter.data.converter.DataConverter
 import ru.practicum.android.diploma.filter.data.local_storage.LocalStorage
 import ru.practicum.android.diploma.filter.data.model.DataType
-import ru.practicum.android.diploma.filter.ui.models.SelectedData
+import ru.practicum.android.diploma.filter.ui.models.SelectedFilter
 import ru.practicum.android.diploma.util.thisName
 import java.util.concurrent.locks.ReentrantReadWriteLock
 import javax.inject.Inject
@@ -48,8 +48,8 @@ class SharedPrefsStorageImpl @Inject constructor(
     private fun <T> SharedPreferences.getSelectedData(key: String): T {
         logger.log(thisName, "getSelectedData($key: String): T")
         return getString(key, null)
-            ?.let { converter.dataFromJson(it, type<SelectedData>()) }
-            ?: SelectedData() as T
+            ?.let { converter.dataFromJson(it, type<SelectedFilter>()) }
+            ?: SelectedFilter() as T
     }
 
     private inline fun <reified T> type() = object: TypeToken<T>() {}.type
