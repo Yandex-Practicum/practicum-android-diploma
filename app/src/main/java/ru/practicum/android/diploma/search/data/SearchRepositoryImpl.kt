@@ -24,6 +24,7 @@ import ru.practicum.android.diploma.search.data.network.dto.response.RegionCodeR
 import ru.practicum.android.diploma.search.domain.api.SearchRepository
 import ru.practicum.android.diploma.search.domain.models.FetchResult
 import ru.practicum.android.diploma.search.domain.models.NetworkError
+import ru.practicum.android.diploma.search.domain.models.Vacancies
 import ru.practicum.android.diploma.util.functional.Either
 import ru.practicum.android.diploma.util.functional.Failure
 import ru.practicum.android.diploma.util.functional.flatMap
@@ -39,9 +40,9 @@ class SearchRepositoryImpl @Inject constructor(
 ) : SearchRepository {
 
     @NewResponse
-    override suspend fun searchVacancies(query: String): Either<Failure, List<ru.practicum.android.diploma.search.domain.models.Vacancy>> {
+    override suspend fun searchVacancies(query: String): Either<Failure, Vacancies> {
         return apiHelper.getVacancies(query).flatMap {
-            Either.Right(converter.mapList(it.items))
+            Either.Right(converter.vacanciesResponseToVacancies(it))
         }
     }
 
