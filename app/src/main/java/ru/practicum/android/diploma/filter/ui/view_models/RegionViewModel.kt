@@ -21,7 +21,7 @@ class RegionViewModel @Inject constructor(
 
     override fun getData() {
         viewModelScope.launch(Dispatchers.IO) {
-            val countryId = filterInteractor.getSavedFilterSettings(FILTER_KEY).country!!.name
+            val countryId = filterInteractor.getSavedFilterSettings(FILTER_KEY).country!!.id
             filterInteractor.getRegions(countryId).collect { state ->
                 log("RegionViewModel", "getRegions(query).collect { state -> ${state.thisName}")
                 _uiState.value = when (state) {
