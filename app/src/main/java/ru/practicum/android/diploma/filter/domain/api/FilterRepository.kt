@@ -4,6 +4,6 @@ import ru.practicum.android.diploma.filter.ui.models.SelectedData
 
 interface FilterRepository {
 
-    suspend fun saveCountry(key: String, selectedData: SelectedData)
+    suspend fun saveSelectedData(key: String, selectedData: SelectedData)
     suspend fun getSelectedData(key: String): SelectedData
 }

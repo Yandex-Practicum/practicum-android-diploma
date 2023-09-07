@@ -10,7 +10,7 @@ class FilterRepositoryImpl @Inject constructor(
     private val sharedPrefsStorage: LocalStorage
 ) : FilterRepository {
 
-    override suspend fun saveCountry(key: String, selectedData: SelectedData) {
+    override suspend fun saveSelectedData(key: String, selectedData: SelectedData) {
         sharedPrefsStorage.writeData(key = key, data = selectedData)
     }
 

@@ -40,7 +40,7 @@ class FilterInteractorImpl @Inject constructor(
         val pair = Pair(region.name, region.area?.id ?: "")
         val stored = filterRepository.getSelectedData(key = key)
         val data = stored.copy(region = pair)
-        filterRepository.saveCountry(key = key, selectedData = data)
+        filterRepository.saveSelectedData(key = key, selectedData = data)
         logger.log(thisName, "saveRegion($key: String, $pair: Region)")
     }
 
@@ -48,7 +48,7 @@ class FilterInteractorImpl @Inject constructor(
         val pair = Pair(country.name, country.id)
         val stored = filterRepository.getSelectedData(key = key)
         val data = stored.copy(country = pair)
-        filterRepository.saveCountry(key = key, selectedData = data)
+        filterRepository.saveSelectedData(key = key, selectedData = data)
         logger.log(thisName, "saveCountry($key: String, $pair: Country)")
     }
 }
