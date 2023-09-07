@@ -64,7 +64,7 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
         viewModel.log(thisName, "renderRegion()")
         with(binding) {
             countyHint.visibility = View.VISIBLE
-            countryText.text = viewModel.selectedFilter.region?.first
+            countryText.text = viewModel.selectedFilter.region?.name
             countryItem.setImageResource(R.drawable.close_btn)
             countryText.setTextColor(requireActivity().getColor(R.color.black))
             binding.chooseBtn.visibility = View.VISIBLE

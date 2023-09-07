@@ -24,9 +24,9 @@ class FilterInteractorImpl @Inject constructor(
         return searchRepository.getCountries()
     }
 
-    override suspend fun getRegions(query: String): Flow<NetworkResponse<List<Region>>> {
-        logger.log(thisName, "getRegions($query: String): Flow<NetworkResponse<List<Region>>>")
-        return searchRepository.getRegions(query)
+    override suspend fun getRegions(countryId: String): Flow<NetworkResponse<List<Region>>> {
+        logger.log(thisName, "getRegions($countryId: String): Flow<NetworkResponse<List<Region>>>")
+        return searchRepository.getRegionsById(countryId)
     }
 
     // ==============================Shared preferences=============================================
@@ -38,11 +38,10 @@ class FilterInteractorImpl @Inject constructor(
     }
 
     override suspend fun saveRegion(key: String, region: Region) {
-        val pair = Pair(region.name, region.area?.id ?: "")
         val stored = filterRepository.getSaveFilterSettings(key = key)
-        val data = stored.copy(region = pair)
+        val data = stored.copy(region = region)
         filterRepository.saveSavedFilterSettings(key = key, selectedFilter = data)
-        logger.log(thisName, "saveRegion($key: String, $pair: Region)")
+        logger.log(thisName, "saveRegion($key: String, $region: Region)")
     }
 
     override suspend fun saveCountry(key: String, country: Country) {

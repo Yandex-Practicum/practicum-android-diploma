@@ -7,9 +7,11 @@ import ru.practicum.android.diploma.details.data.dto.assistants.KeySkillDto
 import ru.practicum.android.diploma.details.domain.models.VacancyFullInfo
 import ru.practicum.android.diploma.filter.data.model.CountryDto
 import ru.practicum.android.diploma.filter.domain.models.Country
+import ru.practicum.android.diploma.filter.domain.models.Region
 import ru.practicum.android.diploma.search.data.network.dto.VacancyDto
 import ru.practicum.android.diploma.search.data.network.dto.general_models.Phone
 import ru.practicum.android.diploma.search.data.network.dto.general_models.Salary
+import ru.practicum.android.diploma.search.data.network.dto.response.RegionCodeResponse
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import javax.inject.Inject
 
@@ -109,12 +111,4 @@ class VacancyModelConverter @Inject constructor(
         }
         return phoneList
     }
-
-    fun countryDtoToCountry(list: List<CountryDto>): List<Country> {
-        return list
-            .map { Country(id = it.id ?: "", name = it.name ?: "") }
-            .sortedWith(compareBy({ it.name == OTHER }, { it.name }))
-    }
-
-    companion object { private const val OTHER = "Другие регионы" }
 }
