@@ -32,6 +32,8 @@ class RootActivity : AppCompatActivity() {
         
         setContentView(binding.root)
         
+        currentFocus
+        
         viewModel.log(thisName, "onCreate() -> Unit")
         
         val navHostFragment =
@@ -57,16 +59,8 @@ class RootActivity : AppCompatActivity() {
                 else -> showBottomNav()
             }
         }
-
-        // Пример использования access token для HeadHunter API
-        networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
-        viewModel.doSmth("hello From Activity $viewModel")
     }
-
-    private fun networkRequestExample(accessToken: String) {
-        // ...
-    }
-
+    
     private fun hideBottomNav() {
         viewModel.log(thisName, "hideBottomNav()")
         binding.bottomNavigationView.visibility = View.GONE

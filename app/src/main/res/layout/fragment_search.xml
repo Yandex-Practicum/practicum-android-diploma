@@ -102,4 +102,16 @@
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/searching" />
 
+<com.google.android.material.button.MaterialButton
+    android:id="@+id/btnUpdate"
+    style="@style/FilterBottomButtonsStyle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_16dp"
+    android:layout_gravity="bottom|center"
+    android:background="@drawable/bt_round_drawable"
+    android:textColor="?attr/colorOnSecondary"
+    app:cornerRadius="@dimen/size_12dp"
+    android:text="@string/update"/>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

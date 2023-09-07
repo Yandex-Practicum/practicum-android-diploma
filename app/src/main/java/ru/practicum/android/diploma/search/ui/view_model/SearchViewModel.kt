@@ -43,7 +43,8 @@ class SearchViewModel @Inject constructor(
             onSearchDebounce(query)
         }
     }
-    private fun loadJobList(query: String) {
+    
+    fun loadJobList(query: String) {
         if(query.isEmpty()) return
         log(thisName, "loadJobList($query: String)")
         _uiState.value = SearchScreenState.Loading

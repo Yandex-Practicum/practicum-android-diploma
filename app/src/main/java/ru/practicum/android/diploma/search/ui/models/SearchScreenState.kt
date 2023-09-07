@@ -1,6 +1,8 @@
 package ru.practicum.android.diploma.search.ui.models
 
+import android.content.Context
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import com.google.android.material.appbar.AppBarLayout
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
@@ -9,7 +11,6 @@ import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.ui.fragment.SearchAdapter
 
 sealed interface SearchScreenState {
-    
     fun render(binding: FragmentSearchBinding)
     
     private fun refreshJobList(binding: FragmentSearchBinding, list: List<Vacancy>) {
@@ -21,7 +22,6 @@ sealed interface SearchScreenState {
     private fun isScrollingEnabled(binding: FragmentSearchBinding, isEnable: Boolean) {
         
         with(binding) {
-            
             val toolbarLayoutParams: AppBarLayout.LayoutParams =
                 searchToolbar.layoutParams as AppBarLayout.LayoutParams
             
@@ -37,7 +37,6 @@ sealed interface SearchScreenState {
     }
     
     object Default : SearchScreenState {
-        
         override fun render(binding: FragmentSearchBinding) {
             super.refreshJobList(binding, emptyList())
             super.isScrollingEnabled(binding, false)
@@ -47,13 +46,13 @@ sealed interface SearchScreenState {
                 recycler.visibility = View.GONE
                 placeholderImage.visibility = View.VISIBLE
                 progressBar.visibility = View.GONE
+                btnUpdate.visibility = View.GONE
             }
         }
         
     }
     
     object Loading : SearchScreenState {
-        
         override fun render(binding: FragmentSearchBinding) {
             super.refreshJobList(binding, emptyList())
             super.isScrollingEnabled(binding, false)
@@ -66,6 +65,7 @@ sealed interface SearchScreenState {
                 recycler.visibility = View.GONE
                 placeholderImage.visibility = View.GONE
                 progressBar.visibility = View.VISIBLE
+                btnUpdate.visibility = View.GONE
             }
         }
         
@@ -98,6 +98,7 @@ sealed interface SearchScreenState {
                 recycler.visibility = View.VISIBLE
                 placeholderImage.visibility = View.GONE
                 progressBar.visibility = View.GONE
+                btnUpdate.visibility = View.GONE
             }
         }
         
@@ -121,12 +122,15 @@ sealed interface SearchScreenState {
             
             with(binding) {
                 val context = textFabSearch.context
-                textFabSearch.text = context.getString(R.string.update)
+                textFabSearch.text = context.getString(R.string.no_internet_message)
                 
                 textFabSearch.visibility = View.VISIBLE
                 recycler.visibility = View.GONE
                 placeholderImage.visibility = View.GONE
                 progressBar.visibility = View.VISIBLE
+                btnUpdate.visibility = View.VISIBLE
+    
+                hideKeyboard(ietSearch)
             }
         }
         
@@ -140,7 +144,14 @@ sealed interface SearchScreenState {
                 recycler.visibility = View.GONE
                 placeholderImage.visibility = View.VISIBLE
                 progressBar.visibility = View.GONE
+                btnUpdate.visibility = View.GONE
+               
             }
+        }
+        private fun hideKeyboard(view: View) {
+            val inputMethodManager =
+                view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+            inputMethodManager?.hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
 }
