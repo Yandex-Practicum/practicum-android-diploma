@@ -23,7 +23,7 @@ class RegionViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val countryId = filterInteractor.getSavedFilterSettings(FILTER_KEY).country!!.id
             filterInteractor.getRegions(countryId).collect { state ->
-                log("RegionViewModel", "getRegions(query).collect { state -> ${state.thisName}")
+                log("RegionViewModel", "getRegions($countryId).collect { state -> ${state.thisName}")
                 _uiState.value = when (state) {
                     is Error   -> FilterScreenState.Error(message = state.message)
                     is Offline -> FilterScreenState.Error(message = state.message)

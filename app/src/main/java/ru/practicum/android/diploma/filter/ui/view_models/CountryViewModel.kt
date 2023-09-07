@@ -30,10 +30,10 @@ open class CountryViewModel @Inject constructor(
             filterInteractor.getCountries().collect { state ->
                 log("CountryViewModel", "getCountries().collect { state -> ${state.thisName}")
                 _uiState.value = when (state) {
-                    is Error -> FilterScreenState.Error(message = state.message)
+                    is Error   -> FilterScreenState.Error(message = state.message)
                     is Offline -> FilterScreenState.Error(message = state.message)
                     is Success -> FilterScreenState.Content(state.data)
-                    is NoData -> FilterScreenState.NoData(emptyList<Country>(), message = state.message)
+                    is NoData  -> FilterScreenState.NoData(emptyList<Country>(), message = state.message)
                 }
             }
         }
