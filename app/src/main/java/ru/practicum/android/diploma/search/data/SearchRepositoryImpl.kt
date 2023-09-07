@@ -6,6 +6,8 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.filter.data.converter.countryDtoToCountry
+import ru.practicum.android.diploma.filter.data.converter.mapRegionCodeResponseToRegionList
 import ru.practicum.android.diploma.filter.data.model.Filter
 import ru.practicum.android.diploma.filter.domain.models.NetworkResponse
 import ru.practicum.android.diploma.filter.domain.models.Country
@@ -71,9 +73,9 @@ class SearchRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun getRegions(query: String): Flow<NetworkResponse<List<Region>>> = flow {
-        logger.log(thisName, "getRegions(query: String): Flow<NetworkResponse<List<Region>>>")
-        val request = Filter.RegionRequest(query)
+    override suspend fun getRegionsById(countryId: String): Flow<NetworkResponse<List<Region>>> = flow {
+        logger.log(thisName, "getRegions($countryId: String): Flow<NetworkResponse<List<Region>>>")
+        val request = Filter.RegionRequest(countryId)
         val response = networkClient.doRequest(request)
         emit(
             when (response.resultCode) {
@@ -86,7 +88,7 @@ class SearchRepositoryImpl @Inject constructor(
 
 
     private fun checkCountryData(response: CodeResponse): NetworkResponse<List<Country>> {
-        val list = converter.countryDtoToCountry((response as CountriesCodeResponse).results)
+        val list = countryDtoToCountry((response as CountriesCodeResponse).results)
         return if (list.isEmpty())
             NetworkResponse.NoData(message = context.getString(R.string.empty_list))
         else
@@ -96,14 +98,11 @@ class SearchRepositoryImpl @Inject constructor(
     }
 
     private fun checkRegionData(response: CodeResponse): NetworkResponse<List<Region>> {
-//        logger.log(thisName, "checkRegionData(response: CodeResponse): NetworkResponse<List<Region>>")
-//        val list = (response as RegionCodeResponse).areas.map {
-//            Region(name = it?.name ?: "", area = it?.areas)
-//        }
-//        return if (list.isEmpty())
-//            NetworkResponse.NoData(message = context.getString(R.string.empty_list))
-//        else
-//            NetworkResponse.Success(list)
-        return  NetworkResponse.NoData(message = context.getString(R.string.empty_list))
+        logger.log(thisName, "checkRegionData(response: CodeResponse): NetworkResponse<List<Region>>")
+        val list = mapRegionCodeResponseToRegionList(response as RegionCodeResponse)
+        return if (list.isEmpty())
+            NetworkResponse.NoData(message = context.getString(R.string.empty_list))
+        else
+            NetworkResponse.Success(list)
     }
 }

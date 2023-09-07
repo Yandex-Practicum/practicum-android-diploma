@@ -10,7 +10,7 @@ import ru.practicum.android.diploma.filter.ui.models.SelectedFilter
 interface FilterInteractor {
 
     suspend fun getCountries(): Flow<NetworkResponse<List<Country>>>
-    suspend fun getRegions(query: String): Flow<NetworkResponse<List<Region>>>
+    suspend fun getRegions(countryId: String): Flow<NetworkResponse<List<Region>>>
 
 
     suspend fun getSavedFilterSettings(key: String): SelectedFilter
