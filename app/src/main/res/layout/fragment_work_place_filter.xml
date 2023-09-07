@@ -44,7 +44,7 @@
         android:id="@+id/region_container"
         style="@style/FilterStyle"
         android:layout_marginTop="@dimen/margin_16dp"
-        android:hint="@string/country"
+        android:hint="@string/region"
         app:hintAnimationEnabled="true"
         app:layout_scrollFlags="scroll|enterAlways">
 
