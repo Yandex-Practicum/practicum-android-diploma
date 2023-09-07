@@ -27,8 +27,10 @@ open class CountryFilterFragment : Fragment(R.layout.fragment_region_department)
 
     protected open val fragment = COUNTRY
     protected val binding by viewBinding<FragmentRegionDepartmentBinding>()
-    @Inject lateinit var filterAdapter: FilterAdapter
-    @Inject lateinit var debouncer: Debouncer
+    @Inject
+    lateinit var filterAdapter: FilterAdapter
+    @Inject
+    lateinit var debouncer: Debouncer
     protected open val viewModel: CountryViewModel by viewModels { (activity as RootActivity).viewModelFactory }
 
     override fun onAttach(context: Context) {
@@ -48,12 +50,12 @@ open class CountryFilterFragment : Fragment(R.layout.fragment_region_department)
             viewModel.uiState.collect { state ->
                 viewModel.log("CountryFilterFragment", "state ${state.thisName}")
                 when (state) {
-                    is FilterScreenState.Default    -> renderDefault()
-                    is FilterScreenState.Loading    -> showProgressBar()
+                    is FilterScreenState.Default -> renderDefault()
+                    is FilterScreenState.Loading -> showProgressBar()
                     is FilterScreenState.Content<*> -> renderContent(state.list)
-                    is FilterScreenState.Offline    -> showMessage(state.message)
-                    is FilterScreenState.NoData<*>  -> renderNoData(state.message)
-                    is FilterScreenState.Error      -> showMessage(state.message)
+                    is FilterScreenState.Offline -> showMessage(state.message)
+                    is FilterScreenState.NoData<*> -> renderNoData(state.message)
+                    is FilterScreenState.Error -> showMessage(state.message)
                 }
             }
         }
@@ -69,8 +71,15 @@ open class CountryFilterFragment : Fragment(R.layout.fragment_region_department)
 
     private fun renderDefault() {
         viewModel.log(thisName, "renderDefault()")
-        binding.placeholderContainer.visibility = View.GONE
-        binding.recycler.visibility = View.GONE
+
+        with(binding) {
+            if (fragment == COUNTRY)
+                title.text = getString(R.string.choose_country)
+            else
+                title.text = getString(R.string.choose_region)
+            placeholderContainer.visibility = View.GONE
+            recycler.visibility = View.GONE
+        }
     }
 
     private fun renderNoData(message: String) {
@@ -118,5 +127,7 @@ open class CountryFilterFragment : Fragment(R.layout.fragment_region_department)
         binding.recycler.adapter = filterAdapter
     }
 
-    companion object { const val COUNTRY = "Country" }
+    companion object {
+        const val COUNTRY = "Country"
+    }
 }
