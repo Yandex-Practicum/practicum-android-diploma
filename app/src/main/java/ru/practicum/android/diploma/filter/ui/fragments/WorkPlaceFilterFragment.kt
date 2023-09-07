@@ -54,7 +54,7 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
         viewModel.log(thisName, "renderCountry()")
         with(binding) {
             countyHint.visibility = View.VISIBLE
-            countryText.text = viewModel.selectedData.country?.first
+            countryText.text = viewModel.selectedData.country?.name
             countryCancelItem.visibility = View.VISIBLE
             countryItem.visibility = View.GONE
         }

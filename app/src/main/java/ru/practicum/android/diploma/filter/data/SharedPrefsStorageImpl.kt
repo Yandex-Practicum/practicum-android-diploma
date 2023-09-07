@@ -46,7 +46,7 @@ class SharedPrefsStorageImpl @Inject constructor(
     }
 
     private fun <T> SharedPreferences.getSelectedData(key: String): T {
-        logger.log(thisName, "getCountry($key: String): T")
+        logger.log(thisName, "getSelectedData($key: String): T")
         return getString(key, null)
             ?.let { converter.dataFromJson(it, type<SelectedData>()) }
             ?: SelectedData() as T

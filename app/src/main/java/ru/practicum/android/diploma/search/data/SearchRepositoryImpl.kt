@@ -90,7 +90,9 @@ class SearchRepositoryImpl @Inject constructor(
         return if (list.isEmpty())
             NetworkResponse.NoData(message = context.getString(R.string.empty_list))
         else
-            NetworkResponse.Success(list)
+            NetworkResponse.Success(list).also {
+                logger.log(thisName, "List<Country> = $list")
+            }
     }
 
     private fun checkRegionData(response: CodeResponse): NetworkResponse<List<Region>> {

@@ -9,7 +9,6 @@ import ru.practicum.android.diploma.databinding.ItemRegionDepartFilterBinding
 import ru.practicum.android.diploma.filter.domain.models.Country
 import ru.practicum.android.diploma.filter.domain.models.Region
 import ru.practicum.android.diploma.filter.ui.fragments.CountryFilterFragment.Companion.COUNTRY
-import ru.practicum.android.diploma.filter.ui.fragments.RegionFragment
 import ru.practicum.android.diploma.filter.ui.fragments.RegionFragment.Companion.REGION
 import ru.practicum.android.diploma.root.Debouncer
 import ru.practicum.android.diploma.root.debounceClickListener

@@ -1,7 +1,5 @@
 package ru.practicum.android.diploma.filter.ui.models
 
-import ru.practicum.android.diploma.filter.domain.models.Country
-
 sealed interface FilterScreenState {
 
     object Default: FilterScreenState

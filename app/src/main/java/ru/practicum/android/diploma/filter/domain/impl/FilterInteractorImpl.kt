@@ -18,6 +18,7 @@ class FilterInteractorImpl @Inject constructor(
     private val logger: Logger
 ) : FilterInteractor {
 
+    // ================================Network======================================================
     override suspend fun getCountries(): Flow<NetworkResponse<List<Country>>> {
         logger.log(thisName, "getCountries(): Flow<NetworkResponse<List<Country>>>")
         return searchRepository.getCountries()
@@ -45,10 +46,9 @@ class FilterInteractorImpl @Inject constructor(
     }
 
     override suspend fun saveCountry(key: String, country: Country) {
-        val pair = Pair(country.name, country.id)
         val stored = filterRepository.getSelectedData(key = key)
-        val data = stored.copy(country = pair)
+        val data = stored.copy(country = country)
         filterRepository.saveSelectedData(key = key, selectedData = data)
-        logger.log(thisName, "saveCountry($key: String, $pair: Country)")
+        logger.log(thisName, "saveCountry($key: String, $country: Country)")
     }
 }

@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.filter.data.converter
 
-import ru.practicum.android.diploma.filter.domain.models.Country
 import java.lang.reflect.Type
 
 interface DataConverter {

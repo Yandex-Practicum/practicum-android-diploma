@@ -3,7 +3,6 @@ package ru.practicum.android.diploma.filter.ui.fragments
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
