@@ -1,15 +1,16 @@
 package ru.practicum.android.diploma.filter.ui.view_models
 
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.filter.domain.api.FilterInteractor
-import ru.practicum.android.diploma.filter.ui.models.FilterScreenState
-import ru.practicum.android.diploma.filter.ui.models.FilterUiState
+import ru.practicum.android.diploma.filter.ui.models.PlaceUiState
+import ru.practicum.android.diploma.filter.ui.models.SelectedData
+import ru.practicum.android.diploma.filter.ui.view_models.BaseFilterViewModel.Companion.FILTER_KEY
 import ru.practicum.android.diploma.root.BaseViewModel
-import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
 
 class WorkPlaceViewModel @Inject constructor(
@@ -17,29 +18,18 @@ class WorkPlaceViewModel @Inject constructor(
     logger: Logger
 ) : BaseViewModel(logger) {
 
-    var country: String = ""
-    var region: String = ""
+    var selectedData = SelectedData()
+        private val _uiState: MutableStateFlow<PlaceUiState> = MutableStateFlow(PlaceUiState.Default)
+    val uiState: StateFlow<PlaceUiState> = _uiState
 
-    private val _uiState: MutableStateFlow<FilterUiState> =
-        MutableStateFlow(FilterUiState.Default)
-    val uiState: StateFlow<FilterUiState> = _uiState
 
-    private fun refreshUI() {
-        log(thisName, "refreshUI()")
-        if (country.isNotEmpty() && region.isNotEmpty()) _uiState.value = FilterUiState.FullData
-        else if (country.isNotEmpty()) _uiState.value = FilterUiState.Country
-        else if (region.isNotEmpty()) _uiState.value = FilterUiState.Region
-        else _uiState.value = FilterUiState.Empty
-    }
-
-    fun getUserDataFromPrefs() {
-        viewModelScope.launch {
-            country = filterInteractor.getCountryFromPrefs(CountryViewModel.COUNTRY_KEY)
-            region = filterInteractor.getRegionFromPrefs(RegionViewModel.REGION_KEY)
-            log("WorkPlaceViewModel", "getUserDataFromPrefs() country: $country, region: $region")
-            refreshUI()
+    fun refreshUI() {
+        viewModelScope.launch(Dispatchers.IO) {
+            selectedData = filterInteractor.getSelectedData(FILTER_KEY)
+            if (selectedData.country != null) _uiState.value = PlaceUiState.Country
+            if (selectedData.region != null) _uiState.value = PlaceUiState.Region
+            log("WorkPlaceViewModel", "refreshUI() selectedData=$selectedData")
         }
     }
-
 
 }

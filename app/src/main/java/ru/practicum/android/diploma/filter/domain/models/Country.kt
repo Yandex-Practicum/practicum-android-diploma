@@ -8,8 +8,7 @@ import ru.practicum.android.diploma.search.data.network.dto.RegionArea
 @Parcelize
 @Serializable
 data class Country(
-
-    val id: String = "-1",
+    val id: String = "",
     val name: String = "",
     val area : List<RegionArea?>
 ): Parcelable

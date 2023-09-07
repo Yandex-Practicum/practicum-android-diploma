@@ -72,7 +72,7 @@ class SearchRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getRegions(query: String): Flow<NetworkResponse<List<Region>>> = flow {
-        logger.log(thisName, "getRegions(): Flow<NetworkResponse<List<Region>>>")
+        logger.log(thisName, "getRegions(query: String): Flow<NetworkResponse<List<Region>>>")
         val request = Filter.RegionRequest(query)
         val response = networkClient.doRequest(request)
         emit(
@@ -84,18 +84,6 @@ class SearchRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun getRegions(): Flow<NetworkResponse<List<Region>>> = flow {
-//        logger.log(thisName, "getRegions(): Flow<NetworkResponse<List<Region>>>")
-//        val request = Filter.RegionRequest()
-//        val response = networkClient.doRequest(request)
-//        emit(
-//            when (response.resultCode) {
-//                200  -> checkRegionData(response)
-//                -1   -> NetworkResponse.Offline(message = context.getString(R.string.error))
-//                else -> NetworkResponse.Error(message = context.getString(R.string.server_error))
-//            }
-//        )
-    }
 
     private fun checkCountryData(response: CodeResponse): NetworkResponse<List<Country>> {
         val list = converter.countryDtoToCountry((response as CountriesCodeResponse).results)
@@ -106,7 +94,8 @@ class SearchRepositoryImpl @Inject constructor(
     }
 
     private fun checkRegionData(response: CodeResponse): NetworkResponse<List<Region>> {
-        val list = (response as RegionCodeResponse).results.map {
+        logger.log(thisName, "checkRegionData(response: CodeResponse): NetworkResponse<List<Region>>")
+        val list = (response as RegionCodeResponse).result.map {
             Region(name = it.name ?: "", area = it.area)
         }
         return if (list.isEmpty())

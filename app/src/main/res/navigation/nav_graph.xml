@@ -66,7 +66,6 @@
         <action
             android:id="@+id/action_searchFragment_to_filterBaseFragment"
             app:destination="@id/filterBaseFragment"
-
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -74,7 +73,6 @@
         <action
             android:id="@+id/action_searchFragment_to_detailsFragment"
             app:destination="@id/detailsFragment"
-
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -87,7 +85,6 @@
         android:name="ru.practicum.android.diploma.team.ui.TeamFragment"
         android:label="fragment_team"
         tools:layout="@layout/fragment_team">
-
     </fragment>
 
 
@@ -96,11 +93,6 @@
         android:name="ru.practicum.android.diploma.filter.ui.fragments.CountryFilterFragment"
         android:label="fragment_country_filter"
         tools:layout="@layout/fragment_country_filter" >
-        <action
-            android:id="@+id/action_countryFilterFragment_to_workPlaceFilterFragment"
-            app:destination="@id/workPlaceFilterFragment">
-
-        </action>
     </fragment>
 
     <fragment
@@ -112,11 +104,8 @@
             android:id="@+id/action_workPlaceFilterFragment_to_countryFilterFragment"
             app:destination="@id/countryFilterFragment" />
         <action
-            android:id="@+id/action_workPlaceFilterFragment_to_regionFilterFragment"
+            android:id="@+id/action_workPlaceFragment_to_regionFragment"
             app:destination="@id/regionFragment" />
-        <action
-            android:id="@+id/action_workPlaceFilterFragment_to_filterBaseFragment"
-            app:destination="@id/filterBaseFragment" />
     </fragment>
 
 
@@ -139,8 +128,5 @@
         android:name="ru.practicum.android.diploma.filter.ui.fragments.RegionFragment"
         android:label="fragment_region_department"
         tools:layout="@layout/fragment_region_department" >
-        <action
-            android:id="@+id/action_regionFragment_to_workPlaceFilterFragment"
-            app:destination="@id/workPlaceFilterFragment" />
     </fragment>
 </navigation>

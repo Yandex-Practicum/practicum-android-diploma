@@ -8,6 +8,9 @@ import ru.practicum.android.diploma.databinding.ItemCountryFilterBinding
 import ru.practicum.android.diploma.databinding.ItemRegionDepartFilterBinding
 import ru.practicum.android.diploma.filter.domain.models.Country
 import ru.practicum.android.diploma.filter.domain.models.Region
+import ru.practicum.android.diploma.filter.ui.fragments.CountryFilterFragment.Companion.COUNTRY
+import ru.practicum.android.diploma.filter.ui.fragments.RegionFragment
+import ru.practicum.android.diploma.filter.ui.fragments.RegionFragment.Companion.REGION
 import ru.practicum.android.diploma.root.Debouncer
 import ru.practicum.android.diploma.root.debounceClickListener
 import ru.practicum.android.diploma.util.thisName
@@ -27,14 +30,14 @@ class FilterAdapter @Inject constructor(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (fragment) {
-            "Country" -> {
+            COUNTRY -> {
                 CountryViewHolder(ItemCountryFilterBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false)
                 )
             }
-            "Region" -> {
+            REGION -> {
                 RegionViewHolder(ItemRegionDepartFilterBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,

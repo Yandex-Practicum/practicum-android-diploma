@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.search.data.network.dto
 
 import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import ru.practicum.android.diploma.search.data.network.dto.general_models.Area
 import ru.practicum.android.diploma.search.data.network.dto.general_models.Contacts
@@ -17,7 +18,7 @@ data class VacancyDto(
     val contacts: Contacts? = Contacts(),
     val department: Department? = Department(),
     val employer: Employer? = Employer(),
-    @SerializedName("published_at") val publishedAt: String? = "",
+    @SerialName("published_at") val publishedAt: String? = "",
     val salary: Salary? = Salary(),
     val schedule: Schedule? = Schedule(),
 )

@@ -28,5 +28,6 @@ class BaseFilterViewModel @Inject constructor(
     }
 
 
+    companion object { const val FILTER_KEY = "filter" }
 
 }
