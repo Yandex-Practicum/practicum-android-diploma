@@ -1,11 +1,9 @@
 package ru.practicum.android.diploma.filter.domain.api
 
+import ru.practicum.android.diploma.filter.ui.models.SelectedFilter
+
 interface FilterRepository {
 
-    fun filter()
-    suspend fun getStringFromPrefs(key: String): String
-
-    suspend fun saveString(key: String, data: String)
-
-    suspend fun saveCountry(key: String, data: String)
+    suspend fun saveSavedFilterSettings(key: String, selectedFilter: SelectedFilter)
+    suspend fun getSaveFilterSettings(key: String): SelectedFilter
 }

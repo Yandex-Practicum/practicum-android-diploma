@@ -5,8 +5,8 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.details.data.dto.VacancyFullInfoModelDto
 import ru.practicum.android.diploma.details.data.dto.assistants.KeySkillDto
 import ru.practicum.android.diploma.details.domain.models.VacancyFullInfo
+import ru.practicum.android.diploma.filter.data.model.CountryDto
 import ru.practicum.android.diploma.filter.domain.models.Country
-import ru.practicum.android.diploma.search.data.network.dto.CountryDto
 import ru.practicum.android.diploma.search.data.network.dto.VacancyDto
 import ru.practicum.android.diploma.search.data.network.dto.general_models.Phone
 import ru.practicum.android.diploma.search.data.network.dto.general_models.Salary
@@ -110,9 +110,11 @@ class VacancyModelConverter @Inject constructor(
         return phoneList
     }
 
-     fun countryDtoToCountry( list : List<CountryDto>): List<Country>{
-         list.forEach{ item -> item.areas.flatMap { it?.areas ?: emptyList() }}
-         return list.map { Country(id = it.id ?: "", name = it.name ?: "", area = it.areas ) }
+    fun countryDtoToCountry(list: List<CountryDto>): List<Country> {
+        return list
+            .map { Country(id = it.id ?: "", name = it.name ?: "") }
+            .sortedWith(compareBy({ it.name == OTHER }, { it.name }))
     }
 
+    companion object { private const val OTHER = "Другие регионы" }
 }

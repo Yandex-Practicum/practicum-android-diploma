@@ -11,5 +11,4 @@ interface SearchRepository {
 
     suspend fun getCountries(): Flow<NetworkResponse<List<Country>>>
     suspend fun getRegions(query: String): Flow<NetworkResponse<List<Region>>>
-    suspend fun getRegions(): Flow<NetworkResponse<List<Region>>>
 }

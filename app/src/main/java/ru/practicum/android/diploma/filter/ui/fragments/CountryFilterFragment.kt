@@ -3,12 +3,12 @@ package ru.practicum.android.diploma.filter.ui.fragments
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentRegionDepartmentBinding
@@ -25,7 +25,7 @@ import javax.inject.Inject
 
 open class CountryFilterFragment : Fragment(R.layout.fragment_region_department) {
 
-    protected open val fragment = "Country"
+    protected open val fragment = COUNTRY
     protected val binding by viewBinding<FragmentRegionDepartmentBinding>()
     @Inject lateinit var filterAdapter: FilterAdapter
     @Inject lateinit var debouncer: Debouncer
@@ -40,16 +40,11 @@ open class CountryFilterFragment : Fragment(R.layout.fragment_region_department)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.hasUserData(fragment)
+        viewModel.getData()
         initListeners()
         initAdapter()
 
-        binding.editText.doOnTextChanged { text, _, _, _ ->
-            viewModel.log(thisName, "$text")
-            viewModel.onSearchQueryChanged(text.toString())
-        }
-
-        viewLifecycleOwner.lifecycle.coroutineScope.launch {
+        viewLifecycleOwner.lifecycle.coroutineScope.launch(Dispatchers.Main) {
             viewModel.uiState.collect { state ->
                 viewModel.log("CountryFilterFragment", "state ${state.thisName}")
                 when (state) {
@@ -108,7 +103,7 @@ open class CountryFilterFragment : Fragment(R.layout.fragment_region_department)
 
     protected open fun initAdapterListener() {
         filterAdapter.onClickCountry = { country ->
-            viewModel.saveCountry(country.name)
+            viewModel.saveCountry(country)
             findNavController().navigateUp()
         }
     }
@@ -123,4 +118,5 @@ open class CountryFilterFragment : Fragment(R.layout.fragment_region_department)
         binding.recycler.adapter = filterAdapter
     }
 
+    companion object { const val COUNTRY = "Country" }
 }

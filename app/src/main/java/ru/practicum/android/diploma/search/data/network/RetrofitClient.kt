@@ -37,8 +37,7 @@ class RetrofitClient @Inject constructor(
 
             is Filter.CountryRequest -> {
                 logger.log(thisName, "is Filter.CountryRequest -> hhApiService.getCountries()")
-                val response =
-                    hhApiService.getCountries()
+                val response = hhApiService.getCountries()
                 val result = CountriesCodeResponse(response.body() ?: emptyList())
                 result.resultCode = response.code()
                 return result
