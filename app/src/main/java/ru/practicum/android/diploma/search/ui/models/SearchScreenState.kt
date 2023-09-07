@@ -70,30 +70,30 @@ sealed interface SearchScreenState {
         }
         
     }
-    
+
     data class Content(
-        val count: Int,
-        val jobList: List<Vacancy>,
+        private val found: Int,
+        private val jobList: List<Vacancy>
     ) : SearchScreenState {
-        
+
         override fun render(binding: FragmentSearchBinding) {
             super.refreshJobList(binding, jobList)
             super.isScrollingEnabled(binding, true)
-            
+
             with(binding) {
                 val context = textFabSearch.context
-                
+
                 val fabText = StringBuilder()
                 fabText.append(context.getString(R.string.found))
                 fabText.append(" ")
                 fabText.append(
                     context.resources.getQuantityString(
-                        R.plurals.vacancies, count, count
+                        R.plurals.vacancies, found, found
                     )
                 )
-                
+
                 textFabSearch.text = fabText.toString()
-                
+
                 textFabSearch.visibility = View.VISIBLE
                 recycler.visibility = View.VISIBLE
                 placeholderImage.visibility = View.GONE
