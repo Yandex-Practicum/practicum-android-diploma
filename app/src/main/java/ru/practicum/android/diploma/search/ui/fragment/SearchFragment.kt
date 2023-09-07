@@ -34,6 +34,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     override fun onResume() {
         super.onResume()
         viewModel.log(thisName, "onResume()")
+        viewModel.onResume()
 //        TODO("Сделать запрос в SharedPrefs на наличие текущих филтров." +
 //                "Далее если фильтры есть и строка поиска не пустая -> сделать запрос в сеть и обновить список" +
 //            "Если фильтрые есть, но строка поиска пустая -> просто применить фильтр без запроса в сеть"
@@ -43,7 +44,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.log(thisName, "onViewCreated(view: View, savedInstanceState: Bundle?)")
-    
+
         initListeners()
         initAdapter()
         initViewModelObserver()
