@@ -15,6 +15,7 @@ import retrofit2.Retrofit
 import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.di.annotations.ApplicationScope
+import ru.practicum.android.diploma.di.annotations.NewResponse
 import ru.practicum.android.diploma.search.data.network.AlternativeRemoteDataSource
 import ru.practicum.android.diploma.search.data.network.ApiHelper
 import ru.practicum.android.diploma.search.data.network.HhApiService
@@ -96,6 +97,7 @@ class SearchDataModule {
             chain.proceed(request)
         }
     }
+    @NewResponse
     @Provides
     fun provideAlternativeRemoteDataSource(apiHelper: ApiHelper): AlternativeRemoteDataSource =
         apiHelper
