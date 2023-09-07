@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.search.data.network.dto
 
-import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import ru.practicum.android.diploma.search.data.network.dto.general_models.Area

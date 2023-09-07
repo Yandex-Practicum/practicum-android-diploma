@@ -25,7 +25,7 @@ class WorkPlaceViewModel @Inject constructor(
 
     fun refreshUI() {
         viewModelScope.launch(Dispatchers.IO) {
-            selectedData = filterInteractor.getSelectedData(FILTER_KEY)
+            selectedData = filterInteractor.getSavedFilterSettings(FILTER_KEY)
             if (selectedData.country != null) _uiState.value = PlaceUiState.Country
             if (selectedData.region != null) _uiState.value = PlaceUiState.Region
             log("WorkPlaceViewModel", "refreshUI() selectedData=$selectedData")

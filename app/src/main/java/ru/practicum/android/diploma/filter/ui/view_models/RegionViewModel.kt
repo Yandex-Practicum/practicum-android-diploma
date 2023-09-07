@@ -7,7 +7,6 @@ import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.filter.domain.api.FilterInteractor
 import ru.practicum.android.diploma.filter.domain.models.NetworkResponse.*
 import ru.practicum.android.diploma.filter.domain.models.Region
-import ru.practicum.android.diploma.filter.ui.fragments.RegionFragment.Companion.REGION
 import ru.practicum.android.diploma.filter.ui.models.FilterScreenState
 import ru.practicum.android.diploma.filter.ui.view_models.BaseFilterViewModel.Companion.FILTER_KEY
 import ru.practicum.android.diploma.util.thisName
@@ -22,7 +21,7 @@ class RegionViewModel @Inject constructor(
 
     override fun getData() {
         viewModelScope.launch(Dispatchers.IO) {
-            val countryId = filterInteractor.getSelectedData(FILTER_KEY).country!!.name
+            val countryId = filterInteractor.getSavedFilterSettings(FILTER_KEY).country!!.name
             filterInteractor.getRegions(countryId).collect { state ->
                 log("RegionViewModel", "getRegions(query).collect { state -> ${state.thisName}")
                 _uiState.value = when (state) {

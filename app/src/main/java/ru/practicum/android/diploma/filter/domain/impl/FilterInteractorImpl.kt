@@ -31,7 +31,7 @@ class FilterInteractorImpl @Inject constructor(
 
     // ==============================Shared preferences=============================================
 
-    override suspend fun getSelectedData(key: String): SelectedData {
+    override suspend fun getSavedFilterSettings(key: String): SelectedData {
         return filterRepository.getSelectedData(key = key).also {
             logger.log(thisName, "getSelectedData($key: String): SelectedData=$it")
         }
