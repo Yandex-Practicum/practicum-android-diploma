@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentWorkPlaceFilterBinding
 import ru.practicum.android.diploma.filter.ui.models.PlaceUiState.*
+import ru.practicum.android.diploma.filter.ui.models.SelectedFilter
 import ru.practicum.android.diploma.filter.ui.view_models.WorkPlaceViewModel
 import ru.practicum.android.diploma.root.Debouncer
 import ru.practicum.android.diploma.root.RootActivity
@@ -36,41 +37,27 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
         super.onViewCreated(view, savedInstanceState)
 
         initListeners()
-        viewModel.refreshUI()
+        viewModel.checkSavedFilterData()
 
         viewLifecycleOwner.lifecycle.coroutineScope.launch(Dispatchers.Main) {
-            viewModel.uiState.collect { state ->
-                viewModel.log("CountryFilterFragment", "state ${state.thisName}")
-                when (state) {
-                    Default -> { /* ignore */ }
-                    Country -> renderCountry()
-                    Region  -> renderRegion()
-                }
+            viewModel.uiState.collect { state -> render(state)
+                viewModel.log("CountryFilterFragment", "uiState.collect { $state")
             }
         }
     }
 
-    private fun renderCountry() {
-        viewModel.log(thisName, "renderCountry()")
+    private fun render(data: SelectedFilter) {
+        viewModel.log(thisName,"render($data: SelectedFilter)")
         with(binding) {
             countyHint.visibility = View.VISIBLE
-            countryText.text = viewModel.selectedFilter.country?.name
+            countryText.text = data.country?.name ?: requireActivity().getString(R.string.region)
             countryCancelItem.visibility = View.VISIBLE
             countryItem.visibility = View.GONE
-        }
-    }
-
-    private fun renderRegion() {
-        viewModel.log(thisName, "renderRegion()")
-        with(binding) {
-            countyHint.visibility = View.VISIBLE
-            countryText.text = viewModel.selectedFilter.region?.name
+            regionText.text = data.region?.name ?: requireActivity().getString(R.string.region)
             countryItem.setImageResource(R.drawable.close_btn)
-            countryText.setTextColor(requireActivity().getColor(R.color.black))
             binding.chooseBtn.visibility = View.VISIBLE
         }
     }
-
 
     private fun initListeners() {
         with(binding) {
@@ -78,11 +65,13 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
                 findNavController().navigateUp()
             }
             countryContainer.debounceClickListener(debouncer) {
+                viewModel.saveRegion(null)
                 findNavController().navigate(
                     WorkPlaceFilterFragmentDirections.actionWorkPlaceFilterFragmentToCountryFilterFragment()
                 )
             }
             regionContainer.debounceClickListener(debouncer) {
+                viewModel.saveRegion(null)
                 findNavController().navigate(
                     WorkPlaceFilterFragmentDirections.actionWorkPlaceFragmentToRegionFragment()
                 )

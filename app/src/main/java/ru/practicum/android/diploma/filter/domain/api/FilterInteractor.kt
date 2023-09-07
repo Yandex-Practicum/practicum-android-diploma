@@ -14,6 +14,6 @@ interface FilterInteractor {
 
 
     suspend fun getSavedFilterSettings(key: String): SelectedFilter
-    suspend fun saveRegion(key: String, region: Region)
+    suspend fun saveRegion(key: String, region: Region?)
     suspend fun saveCountry(key: String, country: Country)
 }

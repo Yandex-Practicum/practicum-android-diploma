@@ -37,7 +37,7 @@ class FilterInteractorImpl @Inject constructor(
         }
     }
 
-    override suspend fun saveRegion(key: String, region: Region) {
+    override suspend fun saveRegion(key: String, region: Region?) {
         val stored = filterRepository.getSaveFilterSettings(key = key)
         val data = stored.copy(region = region)
         filterRepository.saveSavedFilterSettings(key = key, selectedFilter = data)
