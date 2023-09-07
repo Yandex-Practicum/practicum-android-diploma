@@ -18,6 +18,7 @@
             app:navigationIcon="@drawable/back_btn">
 
             <TextView
+                android:id="@+id/title"
                 style="@style/ToolBarStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -31,8 +32,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_16dp"
             android:layout_marginTop="@dimen/margin_16dp"
-            android:visibility="gone"
             android:background="@drawable/shape_edittext_search"
+            android:visibility="gone"
             app:layout_scrollFlags="scroll|enterAlways">
 
             <EditText
@@ -71,9 +72,9 @@
 
         <LinearLayout
             android:id="@+id/placeholder_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:orientation="vertical"
             android:visibility="gone"
             tools:visibility="visible">
@@ -100,6 +101,17 @@
         </LinearLayout>
     </LinearLayout>
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/searching" />
+
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/apply_btn"
         style="@style/FilterBottomButtonsStyle"
@@ -112,6 +124,6 @@
         android:textColor="?attr/colorOnSecondary"
         android:visibility="gone"
         app:cornerRadius="@dimen/size_12dp"
-        tools:visibility="visible"/>
+        tools:visibility="visible" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
