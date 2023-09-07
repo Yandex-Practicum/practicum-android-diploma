@@ -4,9 +4,9 @@ import android.view.View
 import com.google.android.material.appbar.AppBarLayout
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
-import ru.practicum.android.diploma.search.domain.models.NetworkError
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.ui.fragment.SearchAdapter
+import ru.practicum.android.diploma.util.functional.Failure
 
 sealed interface SearchScreenState {
     
@@ -104,16 +104,16 @@ sealed interface SearchScreenState {
     }
     
     data class Error(
-        val error: NetworkError,
+        val failure: Failure
     ) : SearchScreenState {
         
         override fun render(binding: FragmentSearchBinding) {
             super.refreshJobList(binding, emptyList())
             super.isScrollingEnabled(binding, false)
-            
-            when (error) {
-                NetworkError.SEARCH_ERROR -> showEmpty(binding)
-                NetworkError.CONNECTION_ERROR -> showConnectionError(binding)
+            when (failure){
+                is Failure.NetworkConnection -> showConnectionError(binding)
+                is Failure.ServerError -> showEmpty(binding)
+                is Failure.AppFailure -> {}
             }
         }
         
