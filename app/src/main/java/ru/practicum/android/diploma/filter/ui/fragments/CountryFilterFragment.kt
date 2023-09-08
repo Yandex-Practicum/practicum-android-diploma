@@ -11,7 +11,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.databinding.FragmentRegionDepartmentBinding
+import ru.practicum.android.diploma.databinding.FragmentAreasBinding
 import ru.practicum.android.diploma.filter.domain.models.Country
 import ru.practicum.android.diploma.filter.ui.fragments.adapters.FilterAdapter
 import ru.practicum.android.diploma.filter.ui.models.FilterScreenState
@@ -23,16 +23,12 @@ import ru.practicum.android.diploma.util.viewBinding
 import javax.inject.Inject
 
 
-open class CountryFilterFragment : Fragment(R.layout.fragment_region_department) {
+open class CountryFilterFragment : Fragment(R.layout.fragment_areas) {
 
     protected open val fragment = COUNTRY
-    protected val binding by viewBinding<FragmentRegionDepartmentBinding>()
-
-    @Inject
-    lateinit var filterAdapter: FilterAdapter
-
-    @Inject
-    lateinit var debouncer: Debouncer
+    @Inject lateinit var filterAdapter: FilterAdapter
+    @Inject lateinit var debouncer: Debouncer
+    protected val binding by viewBinding<FragmentAreasBinding>()
     protected open val viewModel: CountryViewModel by viewModels { (activity as RootActivity).viewModelFactory }
 
     override fun onAttach(context: Context) {
@@ -65,7 +61,7 @@ open class CountryFilterFragment : Fragment(R.layout.fragment_region_department)
 
     private fun renderContent(list: List<Any?>) {
         viewModel.log(thisName, "renderContent(${list.size}: List<Any?>)")
-        binding.placeholderContainer.visibility = View.GONE
+        binding.placeholder.visibility = View.GONE
         binding.recycler.visibility = View.VISIBLE
         binding.progressBar.visibility = View.GONE
         refreshList(list)
@@ -77,10 +73,10 @@ open class CountryFilterFragment : Fragment(R.layout.fragment_region_department)
 
         with(binding) {
             if (fragment == COUNTRY)
-                title.text = getString(R.string.choose_country)
+                toolbar.title = getString(R.string.choose_country)
             else
-                title.text = getString(R.string.choose_region)
-            placeholderContainer.visibility = View.GONE
+                toolbar.title = getString(R.string.choose_region)
+            placeholder.visibility = View.GONE
             recycler.visibility = View.GONE
             binding.progressBar.visibility = View.VISIBLE
         }
@@ -89,7 +85,7 @@ open class CountryFilterFragment : Fragment(R.layout.fragment_region_department)
     private fun renderNoData(message: String) {
         viewModel.log(thisName, "renderNoData($message: String)")
         showMessage(message)
-        binding.placeholderContainer.visibility = View.VISIBLE
+        binding.placeholder.visibility = View.VISIBLE
         binding.recycler.visibility = View.GONE
     }
 
@@ -107,7 +103,7 @@ open class CountryFilterFragment : Fragment(R.layout.fragment_region_department)
     }
 
     private fun initListeners() {
-        binding.filterToolbar.setNavigationOnClickListener {
+        binding.toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
         initAdapterListener()

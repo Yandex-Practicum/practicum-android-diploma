@@ -119,6 +119,19 @@
         <item name="android:fontWeight">500</item>
     </style>
 
+    <style name="toolbar">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="titleTextColor">?attr/colorOnPrimary</item>
+        <item name="titleTextAppearance">@style/ya.medium</item>
+        <item name="navigationIcon">@drawable/back_btn</item>
+    </style>
+    <style name="ya.medium" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="fontFamily">@font/ys_display_medium</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/text_size_22sp</item>
+    </style>
+
     <style name="FilterText">
         <item name="android:textColor">?attr/filter_text_color</item>
         <item name="android:textSize">@dimen/text_size_16sp</item>
@@ -224,9 +237,10 @@
         <item name="android:inputType">textCapSentences</item>
         <item name="android:maxLines">1</item>
         <item name="android:singleLine">true</item>
+        <item name="errorEnabled">false</item>
 
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">56dp</item>
+        <item name="android:layout_height">@dimen/size_60dp</item>
         <item name="endIconDrawable">@drawable/leading_icon</item>
         <item name="endIconMode">custom</item>
         <item name="endIconTint">@color/black</item>

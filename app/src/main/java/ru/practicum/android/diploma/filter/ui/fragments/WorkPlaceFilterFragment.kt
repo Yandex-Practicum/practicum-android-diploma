@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.filter.ui.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -12,6 +13,7 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentWorkPlaceFilterBinding
 import ru.practicum.android.diploma.filter.ui.models.PlaceUiState.*
+import ru.practicum.android.diploma.filter.ui.models.SelectedFilter
 import ru.practicum.android.diploma.filter.ui.view_models.WorkPlaceViewModel
 import ru.practicum.android.diploma.root.Debouncer
 import ru.practicum.android.diploma.root.RootActivity
@@ -36,52 +38,41 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
         super.onViewCreated(view, savedInstanceState)
 
         initListeners()
-        viewModel.refreshUI()
-
+        viewModel.checkSavedFilterData()
         viewLifecycleOwner.lifecycle.coroutineScope.launch(Dispatchers.Main) {
-            viewModel.uiState.collect { state ->
-                viewModel.log("CountryFilterFragment", "state ${state.thisName}")
-                when (state) {
-                    Default -> { /* ignore */ }
-                    Country -> renderCountry()
-                    Region  -> renderRegion()
-                }
+            viewModel.uiState.collect { state -> render(state)
+                viewModel.log("CountryFilterFragment", "uiState.collect { $state")
             }
         }
     }
 
-    private fun renderCountry() {
-        viewModel.log(thisName, "renderCountry()")
+    private fun render(data: SelectedFilter) {
+        viewModel.log(thisName,"render($data: SelectedFilter)")
         with(binding) {
-
-     //       countryText.text = viewModel.selectedFilter.country?.name
-
+            countryText.setText(data.country?.name ?: "")
+            regionText.setText(data.region?.name ?: "")
+            showButton(countryText.text)
         }
     }
 
-    private fun renderRegion() {
-        viewModel.log(thisName, "renderRegion()")
-        with(binding) {
-
-       //     countryText.text = viewModel.selectedFilter.region?.name
-
-            countryText.setTextColor(requireActivity().getColor(R.color.black))
-            binding.chooseBtn.visibility = View.VISIBLE
-        }
+    private fun showButton(country: Editable?) {
+        if (country.isNullOrEmpty()) binding.chooseBtn.visibility = View.GONE
+        else binding.chooseBtn.visibility = View.VISIBLE
     }
-
 
     private fun initListeners() {
         with(binding) {
-            filterToolbar.setNavigationOnClickListener {
+            toolbar.setNavigationOnClickListener {
                 findNavController().navigateUp()
             }
-            countryContainer.debounceClickListener(debouncer) {
+            country.debounceClickListener(debouncer) {
+                viewModel.saveRegion(null)
                 findNavController().navigate(
-                    WorkPlaceFilterFragmentDirections.actionWorkPlaceFilterFragmentToCountryFilterFragment()
+                    WorkPlaceFilterFragmentDirections.actionWorkPlaceFragmentToCountryFragment()
                 )
             }
-            regionContainer.debounceClickListener(debouncer) {
+            region.debounceClickListener(debouncer) {
+                viewModel.saveRegion(null)
                 findNavController().navigate(
                     WorkPlaceFilterFragmentDirections.actionWorkPlaceFragmentToRegionFragment()
                 )

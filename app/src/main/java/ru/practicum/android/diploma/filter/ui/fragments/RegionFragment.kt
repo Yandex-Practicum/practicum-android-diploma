@@ -23,7 +23,7 @@ class RegionFragment : CountryFilterFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.applyBtn.debounceClickListener(debouncer) { findNavController().navigateUp() }
-        binding.editText.doOnTextChanged { text, _, _, _ ->
+        binding.search.doOnTextChanged { text, _, _, _ ->
             viewModel.log(thisName, "$text")
             viewModel.onSearchQueryChanged(text.toString())
         }
@@ -39,7 +39,7 @@ class RegionFragment : CountryFilterFragment() {
 
     @Suppress("UNCHECKED_CAST")
     override fun refreshList(list: List<Any?>) {
-        binding.searchContainer.visibility = View.VISIBLE
+        binding.inputLayout.visibility = View.VISIBLE
         filterAdapter.regionList = list as List<Region>
     }
 

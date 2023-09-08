@@ -1,80 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:focusableInTouchMode="true"
     android:orientation="vertical"
     tools:context=".filter.ui.fragments.WorkPlaceFilterFragment">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/filter_toolbar"
-        android:layout_width="match_parent"
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
-        android:layout_marginBottom="@dimen/margin_16dp"
-        app:navigationIcon="@drawable/back_btn">
+        style="@style/toolbar"
+        android:theme="@style/ToolbarRipple"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/work_place_choose" />
 
-        <TextView
-            style="@style/ToolBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/work_place_choose" />
-    </androidx.appcompat.widget.Toolbar>
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/country_container"
         style="@style/FilterStyle"
         android:layout_marginTop="@dimen/margin_16dp"
         android:hint="@string/country"
         app:hintAnimationEnabled="true"
-        app:layout_scrollFlags="scroll|enterAlways">
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/country_text"
             style="@style/SearchEditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="text"
-
-            />
+            android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+        android:id="@+id/country"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/ripple"
+        app:layout_constraintTop_toTopOf="@id/country_container"
+        app:layout_constraintBottom_toBottomOf="@id/country_container" />
 
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/region_container"
         style="@style/FilterStyle"
-        android:layout_marginTop="@dimen/margin_16dp"
         android:hint="@string/region"
         app:hintAnimationEnabled="true"
-        app:layout_scrollFlags="scroll|enterAlways">
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/country_container">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/region_text"
             style="@style/SearchEditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="text"
-
-        />
+            android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
-
-
     <View
-        android:layout_width="0dp"
+        android:id="@+id/region"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:background="@drawable/ripple"
+        app:layout_constraintTop_toTopOf="@id/region_container"
+        app:layout_constraintBottom_toBottomOf="@id/region_container" />
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/choose_btn"
         style="@style/FilterBottomButtonsStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_8dp"
+        android:layout_marginBottom="@dimen/margin_24dp"
         android:background="@drawable/bt_round_drawable"
         android:text="@string/choose"
         android:textColor="?attr/colorOnSecondary"
         android:visibility="gone"
         app:cornerRadius="@dimen/size_12dp"
-        tools:visibility="visible" />
-</LinearLayout>
+        tools:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
