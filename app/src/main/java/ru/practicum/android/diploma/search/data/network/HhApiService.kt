@@ -5,11 +5,17 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 import ru.practicum.android.diploma.details.data.dto.VacancyFullInfoModelDto
+import ru.practicum.android.diploma.di.annotations.NewResponse
 import ru.practicum.android.diploma.filter.data.model.CountryDto
 import ru.practicum.android.diploma.search.data.network.dto.response.RegionCodeResponse
+import ru.practicum.android.diploma.search.data.network.dto.response.VacanciesResponse
 import ru.practicum.android.diploma.search.data.network.dto.response.VacanciesSearchCodeResponse
 
 interface HhApiService {
+    @NewResponse
+    @GET("/vacancies")
+    suspend fun searchVacancies(@Query("text") text: String): Response<VacanciesResponse>
+
     @GET("/vacancies")
     suspend fun search(@Query("text") text: String): Response<VacanciesSearchCodeResponse>
 

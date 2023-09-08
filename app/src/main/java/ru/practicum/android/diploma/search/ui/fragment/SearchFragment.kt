@@ -34,6 +34,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     override fun onResume() {
         super.onResume()
         viewModel.log(thisName, "onResume()")
+        viewModel.onResume()
 //        TODO("Сделать запрос в SharedPrefs на наличие текущих филтров." +
 //                "Далее если фильтры есть и строка поиска не пустая -> сделать запрос в сеть и обновить список" +
 //            "Если фильтрые есть, но строка поиска пустая -> просто применить фильтр без запроса в сеть"
@@ -43,6 +44,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.log(thisName, "onViewCreated(view: View, savedInstanceState: Bundle?)")
+
         initListeners()
         initAdapter()
         initViewModelObserver()
@@ -67,11 +69,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                     args = null
                 )
             }
-            
             searchInputLayout.endIconDrawable =
                 AppCompatResources.getDrawable(requireContext(), R.drawable.ic_search)
             searchInputLayout.isHintEnabled = false
-            
             ietSearch.doOnTextChanged { text, _, _, _ ->
                 viewModel.onSearchQueryChanged(text.toString())
                 if (text.isNullOrEmpty()) {
@@ -86,7 +86,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
             
             btnUpdate.setOnClickListener {
-                viewModel.loadJobList(ietSearch.text.toString())
+                viewModel.onSearchQueryChanged(ietSearch.text.toString())
             }
         }
     }

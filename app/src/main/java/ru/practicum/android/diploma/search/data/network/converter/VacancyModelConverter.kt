@@ -5,6 +5,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.details.data.dto.VacancyFullInfoModelDto
 import ru.practicum.android.diploma.details.data.dto.assistants.KeySkillDto
 import ru.practicum.android.diploma.details.domain.models.VacancyFullInfo
+import ru.practicum.android.diploma.di.annotations.NewResponse
 import ru.practicum.android.diploma.filter.data.model.CountryDto
 import ru.practicum.android.diploma.filter.domain.models.Country
 import ru.practicum.android.diploma.filter.domain.models.Region
@@ -12,6 +13,8 @@ import ru.practicum.android.diploma.search.data.network.dto.VacancyDto
 import ru.practicum.android.diploma.search.data.network.dto.general_models.Phone
 import ru.practicum.android.diploma.search.data.network.dto.general_models.Salary
 import ru.practicum.android.diploma.search.data.network.dto.response.RegionCodeResponse
+import ru.practicum.android.diploma.search.data.network.dto.response.VacanciesResponse
+import ru.practicum.android.diploma.search.domain.models.Vacancies
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import javax.inject.Inject
 
@@ -33,6 +36,19 @@ class VacancyModelConverter @Inject constructor(
                 salary = createSalary(salary) ?: context.getString(R.string.empty_salary),
                 area = area?.name ?: "",
                 date = publishedAt ?: "",
+            )
+        }
+    }
+
+    @NewResponse
+    fun vacanciesResponseToVacancies(vacanciesResponse: VacanciesResponse) : Vacancies{
+        return with(vacanciesResponse) {
+            Vacancies(
+                found = found,
+                items = mapList(items),
+                page = page,
+                pages = pages,
+                per_page = per_page,
             )
         }
     }

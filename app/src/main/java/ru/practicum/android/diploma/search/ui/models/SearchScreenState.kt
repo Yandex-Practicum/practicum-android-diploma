@@ -1,14 +1,16 @@
 package ru.practicum.android.diploma.search.ui.models
 
+import android.util.Log
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.google.android.material.appbar.AppBarLayout
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
-import ru.practicum.android.diploma.search.domain.models.NetworkError
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.ui.fragment.SearchAdapter
+import ru.practicum.android.diploma.util.functional.Failure
+import ru.practicum.android.diploma.util.thisName
 
 sealed interface SearchScreenState {
     fun render(binding: FragmentSearchBinding)
@@ -70,30 +72,30 @@ sealed interface SearchScreenState {
         }
         
     }
-    
+
     data class Content(
-        val count: Int,
-        val jobList: List<Vacancy>,
+        private val found: Int,
+        private val jobList: List<Vacancy>
     ) : SearchScreenState {
-        
+
         override fun render(binding: FragmentSearchBinding) {
             super.refreshJobList(binding, jobList)
             super.isScrollingEnabled(binding, true)
-            
+
             with(binding) {
                 val context = textFabSearch.context
-                
+
                 val fabText = StringBuilder()
                 fabText.append(context.getString(R.string.found))
                 fabText.append(" ")
                 fabText.append(
                     context.resources.getQuantityString(
-                        R.plurals.vacancies, count, count
+                        R.plurals.vacancies, found, found
                     )
                 )
-                
+
                 textFabSearch.text = fabText.toString()
-                
+
                 textFabSearch.visibility = View.VISIBLE
                 recycler.visibility = View.VISIBLE
                 placeholderImage.visibility = View.GONE
@@ -105,25 +107,25 @@ sealed interface SearchScreenState {
     }
     
     data class Error(
-        val error: NetworkError,
+        val failure: Failure
     ) : SearchScreenState {
         
         override fun render(binding: FragmentSearchBinding) {
             super.refreshJobList(binding, emptyList())
             super.isScrollingEnabled(binding, false)
-            
-            when (error) {
-                NetworkError.SEARCH_ERROR -> showEmpty(binding)
-                NetworkError.CONNECTION_ERROR -> showConnectionError(binding)
+            Log.d(thisName, "render: $failure")
+            when (failure) {
+                is Failure.NetworkConnection -> showConnectionError(binding)
+                is Failure.ServerError -> showEmpty(binding)
+                is Failure.NotFound -> showEmpty(binding)
+                is Failure.AppFailure -> showEmpty(binding)
             }
         }
         
         private fun showConnectionError(binding: FragmentSearchBinding) {
-            
             with(binding) {
                 val context = textFabSearch.context
                 textFabSearch.text = context.getString(R.string.no_internet_message)
-                
                 textFabSearch.visibility = View.VISIBLE
                 recycler.visibility = View.GONE
                 placeholderImage.visibility = View.GONE
