@@ -30,11 +30,6 @@ class RetrofitClient @Inject constructor(
                 hhApiService.getSimilarVacancies(request.id)
             }
 
-            is Vacancy.SearchRequest -> {
-                logger.log(thisName, "is Vacancy.SearchRequest -> ${request.query}")
-                hhApiService.search(request.query)
-            }
-
             is Filter.CountryRequest -> {
                 logger.log(thisName, "is Filter.CountryRequest -> hhApiService.getCountries()")
                 val response = hhApiService.getCountries()

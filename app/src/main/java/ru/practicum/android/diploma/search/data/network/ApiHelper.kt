@@ -35,7 +35,7 @@ class ApiHelper @Inject constructor(
                     logger.log(thisName, "responseHandle: FAILURE code= ${response.code()}")
                     Either.Left(Failure.ServerError(response.code()))
                 } else {
-                    logger.log(thisName, "responseHandle: NOT CONNECTED code= ${response.code()}")
+                    logger.log(thisName, "responseHandle: NOT CONNECTED")
                     Either.Left(Failure.NetworkConnection())
                 }
             }
@@ -48,7 +48,7 @@ class ApiHelper @Inject constructor(
                 try {
                     responseHandle(request(), default, true)
                 } catch (exception: Throwable) {
-                    Either.Left(Failure.UnknownError())
+                    Either.Left(Failure.AppFailure())
                 }
             }
             false -> responseHandle(request(), default, false)

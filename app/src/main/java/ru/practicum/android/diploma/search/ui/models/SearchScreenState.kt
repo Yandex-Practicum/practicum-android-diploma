@@ -119,7 +119,6 @@ sealed interface SearchScreenState {
                 is Failure.ServerError -> showEmpty(binding)
                 is Failure.NotFound -> showEmpty(binding)
                 is Failure.AppFailure -> showEmpty(binding)
-                is Failure.UnknownError -> showEmpty(binding)
             }
         }
         
