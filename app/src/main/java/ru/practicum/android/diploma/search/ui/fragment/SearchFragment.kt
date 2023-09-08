@@ -15,6 +15,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.root.RootActivity
 import ru.practicum.android.diploma.search.domain.models.Vacancy
+import ru.practicum.android.diploma.search.ui.models.SearchUiState
 import ru.practicum.android.diploma.search.ui.view_model.SearchViewModel
 import ru.practicum.android.diploma.util.thisName
 import ru.practicum.android.diploma.util.viewBinding
@@ -34,7 +35,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     override fun onResume() {
         super.onResume()
         viewModel.log(thisName, "onResume()")
-        viewModel.onResume()
 //        TODO("Сделать запрос в SharedPrefs на наличие текущих филтров." +
 //                "Далее если фильтры есть и строка поиска не пустая -> сделать запрос в сеть и обновить список" +
 //            "Если фильтрые есть, но строка поиска пустая -> просто применить фильтр без запроса в сеть"
@@ -54,7 +54,15 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private fun initViewModelObserver() {
         with(viewModel) {
             viewLifecycleOwner.lifecycle.coroutineScope.launch {
-                uiState.collect { screenState -> screenState.render(binding) }
+                uiState.collect { screenState ->
+                    val painter = SearchScreenPainter(binding)
+                    when(screenState) {
+                        is SearchUiState.Content -> { painter.showContent(screenState.list, screenState.found) }
+                        is SearchUiState.Default -> { painter.showDefault() }
+                        is SearchUiState.Error -> { painter.renderError(screenState.error) }
+                        is SearchUiState.Loading -> { painter.showLoading() }
+                    }
+                }
             }
         }
     }
@@ -69,11 +77,14 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                     args = null
                 )
             }
+            
             searchInputLayout.endIconDrawable =
                 AppCompatResources.getDrawable(requireContext(), R.drawable.ic_search)
             searchInputLayout.isHintEnabled = false
+            
             ietSearch.doOnTextChanged { text, _, _, _ ->
                 viewModel.onSearchQueryChanged(text.toString())
+                
                 if (text.isNullOrEmpty()) {
                     searchInputLayout.endIconMode = TextInputLayout.END_ICON_NONE
                     searchInputLayout.endIconDrawable =
@@ -86,7 +97,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
             
             btnUpdate.setOnClickListener {
-                viewModel.onSearchQueryChanged(ietSearch.text.toString())
+                viewModel.searchVacancies(ietSearch.text.toString())
             }
         }
     }
