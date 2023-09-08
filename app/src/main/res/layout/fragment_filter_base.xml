@@ -11,15 +11,9 @@
         android:id="@+id/filter_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:navigationIcon="@drawable/back_btn">
-
-        <TextView
-            style="@style/ToolBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/filter_settings" />
-
-    </androidx.appcompat.widget.Toolbar>
+        style="@style/toolbar"
+        android:theme="@style/ToolbarRipple"
+        app:title="@string/filter_settings" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/work_place_container"

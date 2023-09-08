@@ -62,6 +62,7 @@
     <string name="from"                             >from</string>
     <string name="to"                               >to</string>
     <string name="empty_salary"                     >Salary not specified</string>
+    <string name="share" translatable="false"       >share</string>
 
     <plurals name="vacancies">
         <item quantity="one">%1$d vacancy</item>
