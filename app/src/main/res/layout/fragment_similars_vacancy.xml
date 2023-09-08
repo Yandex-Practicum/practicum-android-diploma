@@ -12,18 +12,13 @@
         android:id="@+id/similar_vacancy_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        style="@style/toolbar"
+        android:theme="@style/ToolbarRipple"
+        app:title="@string/similar_vacancies"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/back_btn">
-
-        <TextView
-            style="@style/ToolBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/similar_vacancies" />
-
-    </androidx.appcompat.widget.Toolbar>
+        app:navigationIcon="@drawable/back_btn"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"

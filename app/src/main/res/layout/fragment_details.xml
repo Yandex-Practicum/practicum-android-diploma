@@ -111,8 +111,7 @@
                     android:layout_marginTop="@dimen/margin_16dp"
                     android:layout_marginBottom="@dimen/margin_16dp"
                     app:tint="?attr/filter_text_color"
-                    android:src="@drawable/ic_placeholder_company"
-                    />
+                    android:src="@drawable/ic_placeholder_company" />
 
                 <TextView
                     android:id="@+id/tv_name_of_company"
@@ -137,9 +136,7 @@
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:text="@string/no_info" />
-
             </androidx.cardview.widget.CardView>
-
 
             <TextView
                 style="@style/Html_h1_style"
@@ -305,6 +302,4 @@
         android:layout_height="wrap_content"
         android:visibility="gone"
         app:constraint_referenced_ids="placeHolderImage,placeHolderText" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

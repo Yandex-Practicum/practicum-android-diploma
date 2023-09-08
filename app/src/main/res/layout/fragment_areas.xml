@@ -14,7 +14,6 @@
         android:background="@android:color/transparent"
         app:elevation="0dp">
 
-
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -22,8 +21,7 @@
             style="@style/toolbar"
             android:theme="@style/ToolbarRipple"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:title="@string/work_place_choose" >
-        </androidx.appcompat.widget.Toolbar>
+            app:title="@string/work_place_choose" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_layout"
@@ -33,6 +31,7 @@
             android:hint="@string/search_hint"
             app:hintAnimationEnabled="false"
             app:layout_scrollFlags="scroll|enterAlways">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/search"
                 style="@style/SearchEditTextStyle"

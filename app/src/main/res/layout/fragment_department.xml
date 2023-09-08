@@ -17,8 +17,7 @@ tools:context=".filter.ui.fragments.DepartmentFragment">
         android:layout_height="?attr/actionBarSize"
         style="@style/toolbar"
         android:theme="@style/ToolbarRipple"
-        app:title="@string/choose_department" >
-    </androidx.appcompat.widget.Toolbar>
+        app:title="@string/choose_department" />
 
     <LinearLayout
         android:id="@+id/searchContainer"
