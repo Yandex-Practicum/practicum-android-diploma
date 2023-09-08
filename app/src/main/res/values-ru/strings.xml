@@ -51,6 +51,7 @@
     <string name="no_data"                          >Данные отсутствуют</string>
     <string name="alba_description"                 >"\"Каков орел - таковы и горы."\"</string>
     <string name="bitwise_description"              >"\"Быстро откаченное выложенным не считается."\"</string>
+    <string name="no_internet_message"              >Упс…кажется, нет интернета</string>
 
 
     <string name="found"                            >Найдено</string>

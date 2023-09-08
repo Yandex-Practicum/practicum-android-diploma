@@ -67,9 +67,11 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                     args = null
                 )
             }
+            
             searchInputLayout.endIconDrawable =
                 AppCompatResources.getDrawable(requireContext(), R.drawable.ic_search)
             searchInputLayout.isHintEnabled = false
+            
             ietSearch.doOnTextChanged { text, _, _, _ ->
                 viewModel.onSearchQueryChanged(text.toString())
                 if (text.isNullOrEmpty()) {
@@ -81,6 +83,10 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                     searchInputLayout.endIconDrawable =
                         AppCompatResources.getDrawable(requireContext(), R.drawable.ic_clear)
                 }
+            }
+            
+            btnUpdate.setOnClickListener {
+                viewModel.loadJobList(ietSearch.text.toString())
             }
         }
     }

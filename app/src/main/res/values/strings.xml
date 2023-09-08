@@ -48,6 +48,7 @@
     <string name="no_data"                          >No data</string>
     <string name="alba_description"                 >"\"As you sow, so shall you reap."\"</string>
     <string name="bitwise_description"              >"\"It's not a bug, it's a feature."\"</string>
+    <string name="no_internet_message"              >Oops…there seems to be no internet</string>
 
     <!--TeamCard-->
     <string name="lead"                             >Starkova Margarita</string>
