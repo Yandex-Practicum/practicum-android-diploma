@@ -13,6 +13,7 @@
     <string name="choose_country"                   >Choose country</string>
     <string name="Russia"                           >Russia</string>
     <string name="base_url" translatable="false"    >https://api.hh.ru</string>
+    <string name="app_email" translatable="false"    >margo.ivi@yandex.ru</string>
     <string name="search_title"                     >Job search</string>
     <string name="empty_list"                       >Empty list</string>
     <string name="search_hint"                      >Enter a request</string>
