@@ -28,6 +28,7 @@ class SearchViewModel @Inject constructor(
     private var latestSearchQuery: String? = null
     private var searchJob: Job? = null
     private val currentVacancyList = mutableListOf <Vacancy>()
+    private var found: Int = 0
     private val onSearchDebounce = delayedAction<String>(
         coroutineScope = viewModelScope,
         action = { query ->
@@ -46,7 +47,7 @@ class SearchViewModel @Inject constructor(
     fun onResume(){
         if (currentVacancyList.isNotEmpty()){
             _uiState.value = SearchScreenState.Content(
-                found = 0,
+                found = found,
                 jobList = currentVacancyList
             )
         }
@@ -72,11 +73,11 @@ class SearchViewModel @Inject constructor(
 
     @NewResponse
     private fun handleSuccess(vacancies: Vacancies) {
-        log(thisName, "handleSuccessVacancyResponse vacancies found = (${vacancies.found} )")
         _uiState.value = SearchScreenState.Content(
             found = vacancies.found,
             jobList = vacancies.items
         )
+        found = vacancies.found
         currentVacancyList.clear()
         currentVacancyList.addAll(vacancies.items)
     }
