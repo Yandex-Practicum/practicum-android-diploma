@@ -9,6 +9,7 @@ import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.filter.domain.api.FilterInteractor
 import ru.practicum.android.diploma.filter.domain.models.Country
 import ru.practicum.android.diploma.filter.domain.models.NetworkResponse.*
+import ru.practicum.android.diploma.filter.domain.models.Region
 import ru.practicum.android.diploma.filter.ui.models.FilterScreenState
 import ru.practicum.android.diploma.filter.ui.view_models.BaseFilterViewModel.Companion.FILTER_KEY
 import ru.practicum.android.diploma.root.BaseViewModel
@@ -25,6 +26,13 @@ open class CountryViewModel @Inject constructor(
         log(thisName, "saveCountry(country: Country)")
         viewModelScope.launch(Dispatchers.IO) {
             filterInteractor.saveCountry(FILTER_KEY, country)
+        }
+    }
+
+    fun saveRegion(region: Region?) {
+        log(thisName, "saveRegion(region: String)")
+        viewModelScope.launch(Dispatchers.IO) {
+            filterInteractor.saveRegion(FILTER_KEY, region)
         }
     }
 }
