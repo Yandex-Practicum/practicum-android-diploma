@@ -3,7 +3,6 @@ package ru.practicum.android.diploma.search.data
 import android.content.Context
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOf
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.di.annotations.NewResponse
@@ -16,14 +15,10 @@ import ru.practicum.android.diploma.filter.domain.models.Region
 import ru.practicum.android.diploma.search.data.network.AlternativeRemoteDataSource
 import ru.practicum.android.diploma.search.data.network.CodeResponse
 import ru.practicum.android.diploma.search.data.network.NetworkClient
-import ru.practicum.android.diploma.search.data.network.Vacancy
 import ru.practicum.android.diploma.search.data.network.converter.VacancyModelConverter
-import ru.practicum.android.diploma.search.data.network.dto.response.VacanciesSearchCodeResponse
 import ru.practicum.android.diploma.search.data.network.dto.response.CountriesCodeResponse
 import ru.practicum.android.diploma.search.data.network.dto.response.RegionCodeResponse
 import ru.practicum.android.diploma.search.domain.api.SearchRepository
-import ru.practicum.android.diploma.search.domain.models.FetchResult
-import ru.practicum.android.diploma.search.domain.models.NetworkError
 import ru.practicum.android.diploma.search.domain.models.Vacancies
 import ru.practicum.android.diploma.util.functional.Either
 import ru.practicum.android.diploma.util.functional.Failure
@@ -42,37 +37,16 @@ class SearchRepositoryImpl @Inject constructor(
     @NewResponse
     override suspend fun searchVacancies(query: String): Either<Failure, Vacancies> {
         return apiHelper.getVacancies(query).flatMap {
-            Either.Right(converter.vacanciesResponseToVacancies(it))
-        }
-    }
-
-    override suspend fun search(query: String): Flow<FetchResult> {
-        logger.log(thisName, "fun search($query: String): Flow<FetchResult>")
-
-        val request = Vacancy.SearchRequest(query)
-        val response = networkClient.doRequest(request)
-
-        return when (response.resultCode) {
-            in 100..399 -> {
-                val resultList = (response as VacanciesSearchCodeResponse).items
-                if (resultList.isNullOrEmpty()) {
-                    flowOf(FetchResult.Error(NetworkError.SEARCH_ERROR))
-                } else {
-                    val vacancies = converter.mapList(resultList)
-                    val count = response.found ?: 0
-                    return flowOf(FetchResult.Success(data = vacancies, count = count))
-                }
-            }
-
-            in 400..499 -> {
-                flowOf(FetchResult.Error(NetworkError.SEARCH_ERROR))
-            }
-
-            else -> {
-                flowOf(FetchResult.Error(NetworkError.CONNECTION_ERROR))
+            if (it.found == 0){
+                logger.log(thisName, "searchVacancies: NOTHING FOUND")
+                Either.Left(Failure.NotFound())
+            }else{
+                logger.log(thisName, "searchVacancies: FOUND = ${it.found}")
+                Either.Right(converter.vacanciesResponseToVacancies(it))
             }
         }
     }
+
 
     override suspend fun getCountries(): Flow<NetworkResponse<List<Country>>> = flow {
         logger.log(thisName, "getCountries(): Flow<NetworkResponse<List<Country>>>")
