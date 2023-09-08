@@ -44,11 +44,11 @@ sealed interface DetailsScreenState {
 
         private fun showKeySkills(binding: FragmentDetailsBinding) {
             with(binding) {
-                if (vacancy.key_skills.isEmpty()) {
+                if (vacancy.keySkills.isEmpty()) {
                     tvKeySkillsTitle.visibility = View.GONE
                     tvKeySkills.visibility = View.GONE
                 } else {
-                    tvKeySkills.text = vacancy.key_skills
+                    tvKeySkills.text = vacancy.keySkills
                 }
             }
         }

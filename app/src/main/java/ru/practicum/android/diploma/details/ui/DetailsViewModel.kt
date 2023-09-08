@@ -64,9 +64,9 @@ class DetailsViewModel @Inject constructor(
         log(thisName, "sendVacancy()")
         _uiState.value.let { state ->
             if (state is DetailsScreenState.Content) {
-                Log.e("DetailsViewModel", "sendVacancy() -> ${state.vacancy.alternate_url}")
-                state.vacancy.alternate_url
-                sharingInteractor.sendVacancy(state.vacancy.alternate_url)
+                Log.e("DetailsViewModel", "sendVacancy() -> ${state.vacancy.alternateUrl}")
+                state.vacancy.alternateUrl
+                sharingInteractor.sendVacancy(state.vacancy.alternateUrl)
             } else {
                 return
             }

@@ -12,7 +12,7 @@ data class VacancyFullInfo(
     val employment: String = "",
     val schedule: String = "",
     val description: String = "",
-    val key_skills: String = "",
+    val keySkills: String = "",
     val area: String = "",
     val salary: String = "",
     val date: String = "",
@@ -23,5 +23,5 @@ data class VacancyFullInfo(
     val contactName: String = "",
     val contactComment: String = "",
     val contactPhones: List<String> = emptyList(),
-    val alternate_url: String? = ""
+    val alternateUrl: String? = ""
 ) : Parcelable

@@ -98,10 +98,10 @@ class VacancyModelConverter @Inject constructor(
                 title = name ?: "",
                 contactEmail = contacts?.email ?: "",
                 contactName = contacts?.name ?: "",
-                key_skills = keySkillsToString(key_skills),
+                keySkills = keySkillsToString(key_skills),
                 contactPhones = createPhones(contacts?.phones),
                 contactComment = contacts?.phones?.get(0)?.comment ?: "",
-                alternate_url = alternate_url ?: "",
+                alternateUrl = alternate_url ?: "",
             )
         }
     }
