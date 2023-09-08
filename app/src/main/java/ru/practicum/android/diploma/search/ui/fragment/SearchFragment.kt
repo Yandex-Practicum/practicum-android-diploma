@@ -84,6 +84,10 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                         AppCompatResources.getDrawable(requireContext(), R.drawable.ic_clear)
                 }
             }
+            
+            btnUpdate.setOnClickListener {
+                viewModel.loadJobList(ietSearch.text.toString())
+            }
         }
     }
     

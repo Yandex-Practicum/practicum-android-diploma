@@ -27,8 +27,12 @@ open class CountryFilterFragment : Fragment(R.layout.fragment_region_department)
 
     protected open val fragment = COUNTRY
     protected val binding by viewBinding<FragmentRegionDepartmentBinding>()
-    @Inject lateinit var filterAdapter: FilterAdapter
-    @Inject lateinit var debouncer: Debouncer
+
+    @Inject
+    lateinit var filterAdapter: FilterAdapter
+
+    @Inject
+    lateinit var debouncer: Debouncer
     protected open val viewModel: CountryViewModel by viewModels { (activity as RootActivity).viewModelFactory }
 
     override fun onAttach(context: Context) {

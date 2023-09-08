@@ -53,19 +53,18 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
     private fun renderCountry() {
         viewModel.log(thisName, "renderCountry()")
         with(binding) {
-            countyHint.visibility = View.VISIBLE
-            countryText.text = viewModel.selectedFilter.country?.name
-            countryCancelItem.visibility = View.VISIBLE
-            countryItem.visibility = View.GONE
+
+     //       countryText.text = viewModel.selectedFilter.country?.name
+
         }
     }
 
     private fun renderRegion() {
         viewModel.log(thisName, "renderRegion()")
         with(binding) {
-            countyHint.visibility = View.VISIBLE
-            countryText.text = viewModel.selectedFilter.region?.name
-            countryItem.setImageResource(R.drawable.close_btn)
+
+       //     countryText.text = viewModel.selectedFilter.region?.name
+
             countryText.setTextColor(requireActivity().getColor(R.color.black))
             binding.chooseBtn.visibility = View.VISIBLE
         }

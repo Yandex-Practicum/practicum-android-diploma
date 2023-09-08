@@ -18,6 +18,7 @@
             app:navigationIcon="@drawable/back_btn">
 
             <TextView
+                android:id="@+id/title"
                 style="@style/ToolBarStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -31,6 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_16dp"
             android:layout_marginTop="@dimen/margin_16dp"
+            android:background="@drawable/shape_edittext_search"
             android:visibility="gone"
             android:background="@drawable/shape_edittext_search"
             app:layout_scrollFlags="scroll|enterAlways">
@@ -99,6 +101,17 @@
                 android:textSize="@dimen/text_size_22sp" />
         </LinearLayout>
     </LinearLayout>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/searching" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/apply_btn"
