@@ -91,8 +91,8 @@
     <fragment
         android:id="@+id/countryFilterFragment"
         android:name="ru.practicum.android.diploma.filter.ui.fragments.CountryFilterFragment"
-        android:label="fragment_country_filter"
-        tools:layout="@layout/fragment_country_filter" >
+        android:label="fragment_areas"
+        tools:layout="@layout/fragment_areas" >
     </fragment>
 
     <fragment
@@ -126,7 +126,7 @@
     <fragment
         android:id="@+id/regionFragment"
         android:name="ru.practicum.android.diploma.filter.ui.fragments.RegionFragment"
-        android:label="fragment_region_department"
-        tools:layout="@layout/fragment_region_department" >
+        android:label="fragment_areas"
+        tools:layout="@layout/fragment_areas" >
     </fragment>
 </navigation>

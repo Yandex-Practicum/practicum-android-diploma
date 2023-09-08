@@ -5,14 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorPrimaryVariant"
-    tools:context=".search.ui.fragment.SearchFragment">
+    tools:context=".filter.ui.fragments.RegionFragment">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/searchAppBarLayout"
+        android:id="@+id/AppBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         app:elevation="0dp">
+
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -25,7 +26,7 @@
         </androidx.appcompat.widget.Toolbar>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/search"
+            android:id="@+id/input_layout"
             style="@style/SearchInputEditTextStyle"
             android:layout_marginHorizontal="@dimen/margin_16dp"
             android:layout_marginTop="@dimen/margin_16dp"
@@ -33,7 +34,7 @@
             app:hintAnimationEnabled="false"
             app:layout_scrollFlags="scroll|enterAlways">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/iet_search"
+                android:id="@+id/search"
                 style="@style/SearchEditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -51,15 +52,33 @@
         tools:itemCount="10"
         tools:listitem="@layout/item_region_depart_filter" />
 
-    <ImageView
-        android:id="@+id/placeholderImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:contentDescription="@string/placeholder_image"
-        android:src="@drawable/placeholder_search"
+    <LinearLayout
+        android:id="@+id/placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
         android:visibility="gone"
-        tools:visibility="visible"/>
+        tools:visibility="visible">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16dp"
+            android:layout_marginEnd="@dimen/margin_16dp"
+            android:contentDescription="@string/image"
+            android:src="@drawable/ic_dummy" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_16dp"
+            android:fontFamily="@font/ys_display_medium"
+            android:text="@string/empty_list"
+            android:textColor="?attr/colorOnPrimary"
+            android:textSize="@dimen/text_size_22sp" />
+    </LinearLayout>
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/progressBar"
@@ -72,5 +91,18 @@
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/searching"
         tools:visibility="visible"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/apply_btn"
+        style="@style/FilterBottomButtonsStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16dp"
+        android:layout_marginBottom="@dimen/margin_24dp"
+        android:layout_gravity="bottom|center"
+        android:background="@drawable/bt_round_drawable"
+        android:textColor="?attr/colorOnSecondary"
+        app:cornerRadius="@dimen/size_12dp"
+        android:text="@string/choose"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
