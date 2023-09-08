@@ -40,8 +40,8 @@ class SearchViewModel @Inject constructor(
         _uiState.value = SearchScreenState.Default
         if (latestSearchQuery != query) {
             latestSearchQuery = query
-            onSearchDebounce(query)
         }
+            onSearchDebounce(query)
     }
 
     fun onResume(){
