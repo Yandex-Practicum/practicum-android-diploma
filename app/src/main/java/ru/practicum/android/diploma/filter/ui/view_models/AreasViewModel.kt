@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.filter.ui.view_models
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -25,6 +26,7 @@ abstract class AreasViewModel(
     open fun getData() {
         viewModelScope.launch(Dispatchers.IO) {
             filterInteractor.getCountries().collect { state ->
+                delay(600)
                 log("CountryViewModel", "getCountries().collect { state -> ${state.thisName}")
                 _uiState.value = when (state) {
                     is Success -> UiState.Content(state.data)
@@ -38,7 +40,5 @@ abstract class AreasViewModel(
 
     open fun onSearchQueryChanged(text: String) { /* ignore */ }
 
-    fun log(name: String, text: String) {
-        logger.log(name, text)
-    }
+    fun log(name: String, text: String) = logger.log(name, text)
 }

@@ -6,13 +6,15 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentAreasBinding
-import ru.practicum.android.diploma.filter.domain.models.Country
 import ru.practicum.android.diploma.filter.ui.fragments.adapters.FilterAdapter
 import ru.practicum.android.diploma.root.model.UiState.*
 import ru.practicum.android.diploma.filter.ui.view_models.AreasViewModel
@@ -43,7 +45,7 @@ open class ChooseFragment : Fragment(R.layout.fragment_areas) {
 
         viewLifecycleOwner.lifecycle.coroutineScope.launch(Dispatchers.Main) {
             viewModel.uiState.collect { state ->
-                viewModel.log("CountryFilterFragment", "state ${state.thisName}")
+                viewModel.log(thisName, "uiState.collect { state -> ${state.thisName}")
                 when (state) {
                     is Loading    -> showLoadingScreen()
                     is Content<*> -> renderContent(state.list)
@@ -56,36 +58,27 @@ open class ChooseFragment : Fragment(R.layout.fragment_areas) {
     }
 
     protected open fun showLoadingScreen() {
-        val fragment = binding.thisName
-        val context = binding.root.context
-        with(binding) {
-            if (fragment == thisName) toolbar.title = context.getString(R.string.choose_region)
-            else toolbar.title = context.getString(R.string.choose_country)
-            placeholder.visibility = View.GONE
-            progressBar.visibility = View.VISIBLE
-        }
+        binding.progressBar.visibility = View.VISIBLE
     }
 
-    @Suppress("UNCHECKED_CAST")
     protected open fun renderContent(list: List<Any?>) {
-        viewModel.log("CountryFragment", "renderContent: list.size = ${list.size})")
         with(binding) {
             placeholder.visibility = View.GONE
             progressBar.visibility = View.GONE
         }
-        filterAdapter.countryList = list as List<Country>
-        filterAdapter.notifyItemRangeChanged(0, filterAdapter.itemCount)
     }
 
-    protected open fun showNoData(message: String) {
+    private fun showNoData(message: String) {
         showMessage(message)
     }
 
-    protected open fun showOffline(message: String) {
+    private fun showOffline(message: String) {
+        showPlaceholder()
         showMessage(message)
     }
 
-    protected open fun showError(message: String) {
+    private fun showError(message: String) {
+        showPlaceholder()
         showMessage(message)
     }
 
@@ -107,7 +100,10 @@ open class ChooseFragment : Fragment(R.layout.fragment_areas) {
             .setBackgroundTint(context.getColor(R.color.blue))
             .setTextColor(context.getColor(R.color.white))
             .show()
-        binding.placeholder.visibility = View.VISIBLE
+    }
+
+    private fun showPlaceholder() {
         binding.recycler.visibility = View.GONE
+        binding.placeholder.visibility = View.VISIBLE
     }
 }

@@ -2,19 +2,23 @@ package ru.practicum.android.diploma.filter.ui.fragments.painters
 
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentAreasBinding
+import ru.practicum.android.diploma.filter.ui.fragments.RegionFragment.Companion.REGION
 import ru.practicum.android.diploma.util.thisName
 
 
 class CountryPainter(private val binding: FragmentAreasBinding) {
 
     fun showLoadingScreen() {
-        val fragment = binding.thisName
         val context = binding.root.context
         with(binding) {
-            if (fragment == "RegionFragment") toolbar.title = context.getString(R.string.choose_region)
-            else toolbar.title = context.getString(R.string.choose_country)
+            toolbar.title = context.getString(R.string.choose_country)
             inputLayout.visibility = View.GONE
             applyBtn.visibility = View.GONE
             placeholder.visibility = View.GONE
