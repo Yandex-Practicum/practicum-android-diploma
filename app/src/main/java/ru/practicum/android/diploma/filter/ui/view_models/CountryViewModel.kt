@@ -18,26 +18,8 @@ import javax.inject.Inject
 open class CountryViewModel @Inject constructor(
     private val filterInteractor: FilterInteractor,
     logger: Logger
-): BaseViewModel(logger)  {
+): AreasViewModel(logger, filterInteractor)  {
 
-    protected val _uiState: MutableStateFlow<FilterScreenState> =
-        MutableStateFlow(FilterScreenState.Default)
-    val uiState: StateFlow<FilterScreenState> = _uiState
-
-
-    open fun getData() {
-        viewModelScope.launch(Dispatchers.IO) {
-            filterInteractor.getCountries().collect { state ->
-                log("CountryViewModel", "getCountries().collect { state -> ${state.thisName}")
-                _uiState.value = when (state) {
-                    is Error   -> FilterScreenState.Error(message = state.message)
-                    is Offline -> FilterScreenState.Error(message = state.message)
-                    is Success -> FilterScreenState.Content(state.data)
-                    is NoData  -> FilterScreenState.NoData(emptyList<Country>(), message = state.message)
-                }
-            }
-        }
-    }
 
     fun saveCountry(country: Country) {
         log(thisName, "saveCountry(country: Country)")
@@ -45,6 +27,4 @@ open class CountryViewModel @Inject constructor(
             filterInteractor.saveCountry(FILTER_KEY, country)
         }
     }
-
-    fun onSearchQueryChanged(text: String) { /* ignore */ }
 }

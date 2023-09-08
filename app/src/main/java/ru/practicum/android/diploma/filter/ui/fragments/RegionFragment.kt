@@ -14,7 +14,7 @@ import ru.practicum.android.diploma.root.debounceClickListener
 import ru.practicum.android.diploma.util.thisName
 
 
-class RegionFragment : CountryFilterFragment() {
+class RegionFragment : AreasFragment() {
 
     override val fragment = REGION
     override val viewModel: RegionViewModel by viewModels { (activity as RootActivity).viewModelFactory }
@@ -29,7 +29,7 @@ class RegionFragment : CountryFilterFragment() {
         }
     }
 
-    override fun initAdapterListener() {
+    fun initAdapterListener() {
         filterAdapter.onClickRegion = { region ->
             viewModel.saveRegion(region)
             binding.applyBtn.visibility = View.VISIBLE
@@ -37,11 +37,5 @@ class RegionFragment : CountryFilterFragment() {
         }
     }
 
-    @Suppress("UNCHECKED_CAST")
-    override fun refreshList(list: List<Any?>) {
-        binding.inputLayout.visibility = View.VISIBLE
-        filterAdapter.regionList = list as List<Region>
-    }
-
-    companion object { const val REGION = "Region" }
+    companion object { const val REGION = "RegionFragment" }
 }

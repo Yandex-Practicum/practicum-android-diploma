@@ -12,7 +12,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentWorkPlaceFilterBinding
-import ru.practicum.android.diploma.filter.ui.models.PlaceUiState.*
 import ru.practicum.android.diploma.filter.ui.models.SelectedFilter
 import ru.practicum.android.diploma.filter.ui.view_models.WorkPlaceViewModel
 import ru.practicum.android.diploma.root.Debouncer
