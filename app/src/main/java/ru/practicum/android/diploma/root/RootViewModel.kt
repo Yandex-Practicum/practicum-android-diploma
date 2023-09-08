@@ -5,12 +5,7 @@ import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
 
-class RootViewModel @Inject constructor(private val exampleUseCase: ExampleUseCase, logger: Logger) : BaseViewModel(logger) {
-
-    fun doSmth(text: String) {
-        exampleUseCase.printSmth(text)
-        log(thisName, "doSmth()")
-    }
+class RootViewModel @Inject constructor(logger: Logger) : BaseViewModel(logger) {
 
     override fun onCleared() {
         super.onCleared()
