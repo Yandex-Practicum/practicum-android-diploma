@@ -6,6 +6,9 @@ import javax.inject.Qualifier
 annotation class BaseUrl
 @Qualifier
 @Retention(AnnotationRetention.RUNTIME)
+annotation class AppEmail
+@Qualifier
+@Retention(AnnotationRetention.RUNTIME)
 annotation class PrefsKey
 
 @Qualifier
