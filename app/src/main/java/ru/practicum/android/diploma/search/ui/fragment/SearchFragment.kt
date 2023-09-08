@@ -86,7 +86,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
             
             btnUpdate.setOnClickListener {
-                viewModel.loadJobList(ietSearch.text.toString())
+                viewModel.onSearchQueryChanged(ietSearch.text.toString())
             }
         }
     }
