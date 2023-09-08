@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.search.ui.models
 
+import android.util.Log
 import android.view.View
 import com.google.android.material.appbar.AppBarLayout
 import ru.practicum.android.diploma.R
@@ -7,6 +8,7 @@ import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.ui.fragment.SearchAdapter
 import ru.practicum.android.diploma.util.functional.Failure
+import ru.practicum.android.diploma.util.thisName
 
 sealed interface SearchScreenState {
     
@@ -110,19 +112,20 @@ sealed interface SearchScreenState {
         override fun render(binding: FragmentSearchBinding) {
             super.refreshJobList(binding, emptyList())
             super.isScrollingEnabled(binding, false)
-            when (failure){
+            Log.d(thisName, "render: $failure")
+            when (failure) {
                 is Failure.NetworkConnection -> showConnectionError(binding)
                 is Failure.ServerError -> showEmpty(binding)
-                is Failure.AppFailure -> {}
+                is Failure.NotFound -> showEmpty(binding)
+                is Failure.AppFailure -> showEmpty(binding)
+                is Failure.UnknownError -> showEmpty(binding)
             }
         }
         
         private fun showConnectionError(binding: FragmentSearchBinding) {
-            
             with(binding) {
                 val context = textFabSearch.context
                 textFabSearch.text = context.getString(R.string.update)
-                
                 textFabSearch.visibility = View.VISIBLE
                 recycler.visibility = View.GONE
                 placeholderImage.visibility = View.GONE
