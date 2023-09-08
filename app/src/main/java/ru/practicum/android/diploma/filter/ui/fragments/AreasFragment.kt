@@ -11,10 +11,9 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentAreasBinding
 import ru.practicum.android.diploma.filter.domain.models.Country
+import ru.practicum.android.diploma.filter.ui.AreasPainter
 import ru.practicum.android.diploma.filter.ui.fragments.adapters.FilterAdapter
-import ru.practicum.android.diploma.filter.ui.models.AreasUiState
 import ru.practicum.android.diploma.filter.ui.models.AreasUiState.*
-import ru.practicum.android.diploma.filter.ui.models.FilterScreenState
 import ru.practicum.android.diploma.filter.ui.view_models.AreasViewModel
 import ru.practicum.android.diploma.root.Debouncer
 import ru.practicum.android.diploma.root.RootActivity
@@ -36,6 +35,7 @@ open class AreasFragment : Fragment(R.layout.fragment_areas) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val painter = AreasPainter()
 
         initListeners()
         initAdapter()
@@ -45,14 +45,22 @@ open class AreasFragment : Fragment(R.layout.fragment_areas) {
             viewModel.uiState.collect { state ->
                 viewModel.log("CountryFilterFragment", "state ${state.thisName}")
                 when (state) {
-                    is Loading    -> state.render(binding)
+                    is Loading    -> painter.showLoadingScreen(binding)
                     is Content<*> -> renderContent(state.list)
-                    is NoData     -> state.render(binding)
-                    is Offline    -> state.render(binding)
-                    is Error      -> state.render(binding)
+                    is NoData     -> painter.showNoData(binding, state.message)
+                    is Offline    -> painter.showOffline(binding, state.message)
+                    is Error      -> painter.showError(binding, state.message)
                 }
             }
         }
+    }
+    @Suppress("UNCHECKED_CAST")
+    protected open fun renderContent(list: List<Any?>) {
+        viewModel.log("CountryFragment", "renderContent: list.size = ${list.size})")
+        binding.placeholder.visibility = View.GONE
+        binding.progressBar.visibility = View.GONE
+        filterAdapter.countryList = list as List<Country>
+        filterAdapter.notifyItemRangeChanged(0, filterAdapter.itemCount)
     }
 
     protected open fun initListeners() {
@@ -61,15 +69,6 @@ open class AreasFragment : Fragment(R.layout.fragment_areas) {
 
     protected open fun initAdapter() {
         //TODO("Not yet implemented")
-    }
-
-    @Suppress("UNCHECKED_CAST")
-    protected open fun renderContent(list: List<Any?>) {
-        viewModel.log("CountryFragment", "renderContent: list.size = ${list.size})")
-        binding.placeholder.visibility = View.GONE
-        binding.progressBar.visibility = View.GONE
-        filterAdapter.countryList = list as List<Country>
-        filterAdapter.notifyItemRangeChanged(0, filterAdapter.itemCount)
     }
 
 }
