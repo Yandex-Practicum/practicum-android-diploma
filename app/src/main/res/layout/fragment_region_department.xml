@@ -33,7 +33,7 @@
             android:layout_marginHorizontal="@dimen/margin_16dp"
             android:layout_marginTop="@dimen/margin_16dp"
             android:background="@drawable/shape_edittext_search"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_scrollFlags="scroll|enterAlways">
 
             <EditText
@@ -112,7 +112,7 @@
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/searching" />
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+    <!--com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/apply_btn"
         style="@style/FilterBottomButtonsStyle"
         android:layout_width="match_parent"
@@ -124,6 +124,28 @@
         android:textColor="?attr/colorOnSecondary"
         android:visibility="gone"
         app:cornerRadius="@dimen/size_12dp"
-        tools:visibility="visible" />
+        tools:visibility="visible" /-->
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/extended_fab"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_margin="16dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:backgroundTint="@color/blue"
+    android:elevation="4dp"
+    android:insetTop="0dp"
+    android:insetBottom="0dp"
+    android:insetRight="0dp"
+    android:insetLeft="0dp"
+    android:radius="4dp"
+    android:text="Your Text"
+
+    app:strokeWidth="2dp"
+    app:textColor="@android:color/white"
+    app:textSize="14sp" />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

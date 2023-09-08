@@ -21,18 +21,15 @@ import ru.practicum.android.diploma.root.RootActivity
 import ru.practicum.android.diploma.util.thisName
 import ru.practicum.android.diploma.util.viewBinding
 import javax.inject.Inject
+import kotlin.concurrent.timer
 
 
 open class CountryFilterFragment : Fragment(R.layout.fragment_region_department) {
 
     protected open val fragment = COUNTRY
+    @Inject lateinit var filterAdapter: FilterAdapter
+    @Inject lateinit var debouncer: Debouncer
     protected val binding by viewBinding<FragmentRegionDepartmentBinding>()
-
-    @Inject
-    lateinit var filterAdapter: FilterAdapter
-
-    @Inject
-    lateinit var debouncer: Debouncer
     protected open val viewModel: CountryViewModel by viewModels { (activity as RootActivity).viewModelFactory }
 
     override fun onAttach(context: Context) {
@@ -77,9 +74,9 @@ open class CountryFilterFragment : Fragment(R.layout.fragment_region_department)
 
         with(binding) {
             if (fragment == COUNTRY)
-                title.text = getString(R.string.choose_country)
+                toolbar.title = getString(R.string.choose_country)
             else
-                title.text = getString(R.string.choose_region)
+                toolbar.title = getString(R.string.choose_region)
             placeholderContainer.visibility = View.GONE
             recycler.visibility = View.GONE
             binding.progressBar.visibility = View.VISIBLE

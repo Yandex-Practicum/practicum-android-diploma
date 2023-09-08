@@ -101,7 +101,7 @@
         android:label="fragment_work_place_filter"
         tools:layout="@layout/fragment_work_place_filter" >
         <action
-            android:id="@+id/action_workPlaceFilterFragment_to_countryFilterFragment"
+            android:id="@+id/action_workPlaceFragment_to_countryFragment"
             app:destination="@id/countryFilterFragment" />
         <action
             android:id="@+id/action_workPlaceFragment_to_regionFragment"

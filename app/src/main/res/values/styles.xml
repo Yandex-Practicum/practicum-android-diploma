@@ -120,8 +120,6 @@
     </style>
 
     <style name="toolbar">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">?attr/actionBarSize</item>
         <item name="android:background">@android:color/transparent</item>
         <item name="android:gravity">start|center_vertical</item>
         <item name="titleTextColor">?attr/colorOnPrimary</item>

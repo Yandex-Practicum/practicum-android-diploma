@@ -10,6 +10,8 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
         style="@style/toolbar"
         android:theme="@style/ToolbarRipple"
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,7 +75,7 @@
         style="@style/FilterBottomButtonsStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_8dp"
+        android:layout_marginBottom="@dimen/margin_24dp"
         android:background="@drawable/bt_round_drawable"
         android:text="@string/choose"
         android:textColor="?attr/colorOnSecondary"

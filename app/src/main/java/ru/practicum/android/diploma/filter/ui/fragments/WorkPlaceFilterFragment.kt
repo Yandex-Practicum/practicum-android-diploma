@@ -39,7 +39,6 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
 
         initListeners()
         viewModel.checkSavedFilterData()
-
         viewLifecycleOwner.lifecycle.coroutineScope.launch(Dispatchers.Main) {
             viewModel.uiState.collect { state -> render(state)
                 viewModel.log("CountryFilterFragment", "uiState.collect { $state")
@@ -52,7 +51,13 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
         with(binding) {
             countryText.setText(data.country?.name ?: "")
             regionText.setText(data.region?.name ?: "")
+            showButton(countryText.text)
         }
+    }
+
+    private fun showButton(country: Editable?) {
+        if (country.isNullOrEmpty()) binding.chooseBtn.visibility = View.GONE
+        else binding.chooseBtn.visibility = View.VISIBLE
     }
 
     private fun initListeners() {
@@ -63,7 +68,7 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
             country.debounceClickListener(debouncer) {
                 viewModel.saveRegion(null)
                 findNavController().navigate(
-                    WorkPlaceFilterFragmentDirections.actionWorkPlaceFilterFragmentToCountryFilterFragment()
+                    WorkPlaceFilterFragmentDirections.actionWorkPlaceFragmentToCountryFragment()
                 )
             }
             region.debounceClickListener(debouncer) {
