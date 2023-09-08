@@ -20,17 +20,23 @@ class ApiHelper @Inject constructor(
         }
     }
 
-    private fun <T> responseHandle(response: Response<T>, default: T, isConnected: Boolean): Either<Failure, T> {
-        logger.log(thisName, "responseHandle: ${response.code()}",)
+    private fun <T> responseHandle(
+        response: Response<T>,
+        default: T,
+        isConnected: Boolean
+    ): Either<Failure, T> {
         return when (response.isSuccessful) {
             true -> {
+                logger.log(thisName, "responseHandle: SUCCESS code= ${response.code()}; from cache = ${!isConnected}")
                 Either.Right(response.body() ?: default)
             }
             false -> {
-                if (!isConnected){
-                    Either.Left(Failure.NetworkConnection(555))
-                }else{
+                if (isConnected) {
+                    logger.log(thisName, "responseHandle: FAILURE code= ${response.code()}")
                     Either.Left(Failure.ServerError(response.code()))
+                } else {
+                    logger.log(thisName, "responseHandle: NOT CONNECTED code= ${response.code()}")
+                    Either.Left(Failure.NetworkConnection())
                 }
             }
         }
@@ -42,10 +48,9 @@ class ApiHelper @Inject constructor(
                 try {
                     responseHandle(request(), default, true)
                 } catch (exception: Throwable) {
-                    Either.Left(Failure.ServerError(111))
+                    Either.Left(Failure.UnknownError())
                 }
             }
-            false ->
-                    responseHandle(request(), default, false)
+            false -> responseHandle(request(), default, false)
         }
 }
