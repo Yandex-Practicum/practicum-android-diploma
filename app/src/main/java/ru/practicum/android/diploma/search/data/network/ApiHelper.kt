@@ -2,14 +2,13 @@ package ru.practicum.android.diploma.search.data.network
 
 import retrofit2.Response
 import ru.practicum.android.diploma.Logger
-import ru.practicum.android.diploma.di.annotations.NewResponse
 import ru.practicum.android.diploma.search.data.network.dto.response.VacanciesResponse
 import ru.practicum.android.diploma.util.functional.Either
 import ru.practicum.android.diploma.util.functional.Failure
 import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
 
-@NewResponse
+//@NewResponse
 class ApiHelper @Inject constructor(
     private val apiService: HhApiService,
     private val networkHandler: InternetController,
@@ -21,11 +20,19 @@ class ApiHelper @Inject constructor(
         }
     }
 
-    private fun <T> responseHandle(response: Response<T>, default: T): Either<Failure, T> {
+    private fun <T> responseHandle(response: Response<T>, default: T, isConnected: Boolean): Either<Failure, T> {
         logger.log(thisName, "responseHandle: ${response.code()}",)
         return when (response.isSuccessful) {
-            true -> Either.Right(response.body() ?: default)
-            false -> Either.Left(Failure.ServerError(response.code()))
+            true -> {
+                Either.Right(response.body() ?: default)
+            }
+            false -> {
+                if (!isConnected){
+                    Either.Left(Failure.NetworkConnection(555))
+                }else{
+                    Either.Left(Failure.ServerError(response.code()))
+                }
+            }
         }
     }
 
@@ -33,11 +40,12 @@ class ApiHelper @Inject constructor(
         when (networkHandler.isInternetAvailable()) {
             true -> {
                 try {
-                    responseHandle(request(), default)
+                    responseHandle(request(), default, true)
                 } catch (exception: Throwable) {
                     Either.Left(Failure.ServerError(111))
                 }
             }
-            false -> Either.Left(Failure.NetworkConnection(555))
+            false ->
+                    responseHandle(request(), default, false)
         }
 }
