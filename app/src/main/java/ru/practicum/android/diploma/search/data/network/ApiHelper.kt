@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.search.data.network
 
 import retrofit2.Response
 import ru.practicum.android.diploma.Logger
+import ru.practicum.android.diploma.filter.data.model.CountryDto
 import ru.practicum.android.diploma.search.data.network.dto.response.VacanciesResponse
 import ru.practicum.android.diploma.util.functional.Either
 import ru.practicum.android.diploma.util.functional.Failure
@@ -20,6 +21,12 @@ class ApiHelper @Inject constructor(
         }
     }
 
+    override suspend fun getAllCountries(): Either<Failure, List<CountryDto>> {
+        return requestData(emptyList()) {
+            apiService.getAllCountries()
+        }
+    }
+
     private fun <T> responseHandle(
         response: Response<T>,
         default: T,
@@ -27,7 +34,8 @@ class ApiHelper @Inject constructor(
     ): Either<Failure, T> {
         return when (response.isSuccessful) {
             true -> {
-                logger.log(thisName, "responseHandle: SUCCESS code= ${response.code()}; from cache = ${!isConnected}")
+                logger.log(thisName,
+                    "responseHandle: SUCCESS code= ${response.code()}; from cache = ${!isConnected}")
                 Either.Right(response.body() ?: default)
             }
             false -> {
