@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.util
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
+import android.util.Log
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -32,6 +33,7 @@ fun <T> delayedAction(
         }
         if (debounceJob?.isCompleted != false || deferredUsing) {
             debounceJob = coroutineScope.launch {
+                Log.d("delayedAction", "delayedAction: job = $debounceJob   query = $param", )
                 delay(delayMillis)
                 action(param)
             }

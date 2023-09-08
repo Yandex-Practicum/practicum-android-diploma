@@ -110,6 +110,7 @@ class SwipeStack @JvmOverloads constructor(
         if (state is Bundle) {
             val bundle = state
             mCurrentViewIndex = bundle.getInt(KEY_CURRENT_INDEX)
+            @Suppress("DEPRECATION")
             state = bundle.getParcelable(KEY_SUPER_STATE)
         }
         super.onRestoreInstanceState(state)

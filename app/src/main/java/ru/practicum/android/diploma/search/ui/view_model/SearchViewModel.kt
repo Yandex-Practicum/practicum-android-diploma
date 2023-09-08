@@ -7,11 +7,14 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.Logger
+import ru.practicum.android.diploma.di.annotations.NewResponse
 import ru.practicum.android.diploma.root.BaseViewModel
 import ru.practicum.android.diploma.search.domain.api.SearchVacanciesUseCase
-import ru.practicum.android.diploma.search.domain.models.FetchResult
+import ru.practicum.android.diploma.search.domain.models.Vacancies
+import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.ui.models.SearchScreenState
 import ru.practicum.android.diploma.util.delayedAction
+import ru.practicum.android.diploma.util.functional.Failure
 import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
 
@@ -19,57 +22,63 @@ class SearchViewModel @Inject constructor(
     private val searchVacanciesUseCase: SearchVacanciesUseCase,
     logger: Logger
 ) : BaseViewModel(logger) {
-    
     private val _uiState: MutableStateFlow<SearchScreenState> =
         MutableStateFlow(SearchScreenState.Default)
     val uiState: StateFlow<SearchScreenState> = _uiState
-    
     private var latestSearchQuery: String? = null
     private var searchJob: Job? = null
-    
+    private val currentVacancyList = mutableListOf <Vacancy>()
+    private var found: Int = 0
     private val onSearchDebounce = delayedAction<String>(
         coroutineScope = viewModelScope,
-        action = { query -> loadJobList(query) })
+        action = { query ->
+            searchVacancies(query)
+        })
 
     fun onSearchQueryChanged(query: String) {
         log(thisName, "onSearchQueryChanged($query: String)")
-        if (query.isEmpty()) {
-            _uiState.value = SearchScreenState.Default
-            onSearchDebounce("")
-            searchJob?.cancel()
-        }
-        else if (latestSearchQuery != query) {
+        _uiState.value = SearchScreenState.Default
+        if (latestSearchQuery != query) {
             latestSearchQuery = query
             onSearchDebounce(query)
         }
     }
-    private fun loadJobList(query: String) {
-        if(query.isEmpty()) return
-        log(thisName, "loadJobList($query: String)")
-        _uiState.value = SearchScreenState.Loading
-    
-        searchJob = viewModelScope.launch(Dispatchers.IO) {
-            searchVacanciesUseCase
-                .search(query)
-                .collect { result ->
-                    processResult(result)
-                }
+
+    fun onResume(){
+        if (currentVacancyList.isNotEmpty()){
+            _uiState.value = SearchScreenState.Content(
+                found = found,
+                jobList = currentVacancyList
+            )
         }
     }
-    
-    private fun processResult(result: FetchResult) {
-        log(thisName, "processResult(${result.thisName}: FetchResult)")
-        when {
-            result.error != null -> {
-                _uiState.value = SearchScreenState.Error(result.error)
-            }
-            
-            result.data != null -> {
-                _uiState.value = SearchScreenState.Content(
-                    count = result.count ?: 0,
-                    jobList = result.data,
-                )
+
+    @NewResponse
+    private fun searchVacancies(query: String) {
+        searchJob?.cancel()
+        if (query.isNotEmpty()) {
+            _uiState.value = SearchScreenState.Loading
+            searchJob = viewModelScope.launch(Dispatchers.IO) {
+                searchVacanciesUseCase.searchVacancies(query)
+                    .fold(::handleFailure, ::handleSuccess)
             }
         }
+    }
+
+    @NewResponse
+    override fun handleFailure(failure: Failure) {
+        super.handleFailure(failure)
+        _uiState.value = SearchScreenState.Error(failure)
+    }
+
+    @NewResponse
+    private fun handleSuccess(vacancies: Vacancies) {
+        _uiState.value = SearchScreenState.Content(
+            found = vacancies.found,
+            jobList = vacancies.items
+        )
+        found = vacancies.found
+        currentVacancyList.clear()
+        currentVacancyList.addAll(vacancies.items)
     }
 }

@@ -7,3 +7,7 @@ annotation class BaseUrl
 @Qualifier
 @Retention(AnnotationRetention.RUNTIME)
 annotation class PrefsKey
+
+@Qualifier
+@Retention(AnnotationRetention.SOURCE)
+annotation class NewResponse
