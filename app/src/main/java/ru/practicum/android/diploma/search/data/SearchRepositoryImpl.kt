@@ -36,7 +36,7 @@ class SearchRepositoryImpl @Inject constructor(
     private val converter: VacancyModelConverter,
     private val logger: Logger,
     private val context: Context,
-    @NewResponse private val apiHelper: AlternativeRemoteDataSource
+    private val apiHelper: AlternativeRemoteDataSource
 ) : SearchRepository {
 
     @NewResponse
