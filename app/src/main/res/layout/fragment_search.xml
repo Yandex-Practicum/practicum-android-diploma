@@ -16,28 +16,24 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/searchToolbar"
+            style="@style/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|enterAlways">
-
-            <TextView
-                android:id="@+id/textToolbar"
-                style="@style/ToolBarStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/search_title" />
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/ToolbarRipple"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:navigationIcon="@null"
+            app:title="@string/search_title">
 
             <ImageView
                 android:id="@+id/filterBtnToolbar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_marginEnd="@dimen/margin_8dp"
-                android:contentDescription="@string/filter_settings"
+                android:layout_marginEnd="@dimen/margin_12dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/filter_settings"
                 android:src="@drawable/ic_filter" />
         </androidx.appcompat.widget.Toolbar>
-
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/search_input_layout"

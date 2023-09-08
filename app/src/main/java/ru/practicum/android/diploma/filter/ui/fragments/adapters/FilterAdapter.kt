@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.databinding.ItemCountryFilterBinding
 import ru.practicum.android.diploma.databinding.ItemRegionDepartFilterBinding
 import ru.practicum.android.diploma.filter.domain.models.Country
 import ru.practicum.android.diploma.filter.domain.models.Region
-import ru.practicum.android.diploma.filter.ui.fragments.CountryFilterFragment.Companion.COUNTRY
+import ru.practicum.android.diploma.filter.ui.fragments.CountryFragment.Companion.COUNTRY
 import ru.practicum.android.diploma.filter.ui.fragments.RegionFragment.Companion.REGION
 import ru.practicum.android.diploma.root.Debouncer
 import ru.practicum.android.diploma.root.debounceClickListener
@@ -52,7 +52,7 @@ class FilterAdapter @Inject constructor(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val pos = holder.adapterPosition
-        if (fragment == "Country") {
+        if (fragment == COUNTRY) {
             val item = countryList[pos]
             holder as CountryViewHolder
             holder.bind(item)
@@ -61,7 +61,7 @@ class FilterAdapter @Inject constructor(
                 onClickCountry?.invoke(item)
             }
         }
-        if (fragment == "Region") {
+        if (fragment == REGION) {
             val item = regionList[pos]
             holder as RegionViewHolder
             holder.bind(item)

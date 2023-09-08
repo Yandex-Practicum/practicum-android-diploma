@@ -4,16 +4,13 @@ import android.view.View
 import com.google.android.material.snackbar.Snackbar
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentAreasBinding
-import ru.practicum.android.diploma.databinding.FragmentSearchBinding
-import ru.practicum.android.diploma.search.domain.models.Vacancy
-import ru.practicum.android.diploma.search.ui.fragment.SearchAdapter
 import ru.practicum.android.diploma.util.thisName
 
-sealed interface AreasUiState {
+sealed interface RenderState {
 
     fun render(binding: FragmentAreasBinding)
 
-    object Loading : AreasUiState {
+    object Loading : RenderState {
         override fun render(binding: FragmentAreasBinding) {
             val fragment = binding.thisName
             val context = binding.root.context
@@ -26,23 +23,19 @@ sealed interface AreasUiState {
         }
     }
 
-    data class Content<T>(val list: List<T>) : AreasUiState {
-        override fun render(binding: FragmentAreasBinding) { /* ignore */ }
-    }
-
-    data class NoData(val message: String) : AreasUiState {
+    data class NoData(val binding: FragmentAreasBinding, val message: String) : RenderState {
         override fun render(binding: FragmentAreasBinding) {
             super.showMessage(binding, message)
         }
     }
 
-    data class Offline(val message: String) : AreasUiState {
+    data class Offline(val binding: FragmentAreasBinding, val message: String) : RenderState {
         override fun render(binding: FragmentAreasBinding) {
             super.showMessage(binding, message)
         }
     }
 
-    data class Error(val message: String) : AreasUiState {
+    data class Error(val binding: FragmentAreasBinding, val message: String) : RenderState {
         override fun render(binding: FragmentAreasBinding) {
             super.showMessage(binding, message)
         }
