@@ -29,8 +29,9 @@ class SearchViewModel @Inject constructor(
     private var latestSearchQuery: String? = null
     private var searchJob: Job? = null
     private var found: Int = 0
-    private val onSearchDebounce =
-        delayedAction<String>(coroutineScope = viewModelScope, action = { query ->
+    private val onSearchDebounce = delayedAction<String>(
+        coroutineScope = viewModelScope,
+        action = { query ->
             searchVacancies(query)
         })
     
@@ -47,7 +48,6 @@ class SearchViewModel @Inject constructor(
         } else {
             onSearchDebounce(query)
         }
-        
     }
     
     @NewResponse
