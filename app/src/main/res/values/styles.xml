@@ -104,7 +104,7 @@
         <item name="android:layout_height">56dp</item>
         <item name="endIconDrawable">@drawable/ic_search</item>
         <item name="endIconMode">custom</item>
-        <item name="endIconTint">@color/black</item>
+        <item name="endIconTint">?attr/edittext_color</item>
         <item name="boxCornerRadiusBottomEnd">@dimen/margin_12dp</item>
         <item name="boxCornerRadiusBottomStart">@dimen/margin_12dp</item>
         <item name="boxCornerRadiusTopEnd">@dimen/margin_12dp</item>
@@ -130,6 +130,7 @@
         <item name="fontFamily">@font/ys_display_medium</item>
         <item name="android:fontFamily">@font/ys_display_medium</item>
         <item name="android:textSize">@dimen/text_size_22sp</item>
+        <item name="android:fontWeight">500</item>
     </style>
 
     <style name="FilterText">
@@ -243,7 +244,7 @@
         <item name="android:layout_height">@dimen/size_60dp</item>
         <item name="endIconDrawable">@drawable/leading_icon</item>
         <item name="endIconMode">custom</item>
-        <item name="endIconTint">@color/black</item>
+        <item name="endIconTint">?attr/edittext_color</item>
         <item name="boxCornerRadiusBottomEnd">@dimen/margin_12dp</item>
         <item name="boxCornerRadiusBottomStart">@dimen/margin_12dp</item>
         <item name="boxCornerRadiusTopEnd">@dimen/margin_12dp</item>

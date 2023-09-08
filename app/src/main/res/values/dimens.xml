@@ -9,6 +9,7 @@
     <dimen name="margin_16dp">16dp</dimen>
     <dimen name="margin_20dp">20dp</dimen>
     <dimen name="margin_24dp">24dp</dimen>
+    <dimen name="margin_32dp">32dp</dimen>
     <dimen name="margin_64dp">64dp</dimen>
 
     <dimen name="size_0.6dp">0.6dp</dimen>
@@ -33,5 +34,6 @@
     <dimen name="default_stack_spacing">12dp</dimen>
     <dimen name="elevation">4dp</dimen>
     <dimen name="corner_radius">4dp</dimen>
+
 
 </resources>

@@ -65,13 +65,11 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
                 findNavController().navigateUp()
             }
             country.debounceClickListener(debouncer) {
-                viewModel.saveRegion(null)
                 findNavController().navigate(
                     WorkPlaceFilterFragmentDirections.actionWorkPlaceFragmentToCountryFragment()
                 )
             }
             region.debounceClickListener(debouncer) {
-                viewModel.saveRegion(null)
                 findNavController().navigate(
                     WorkPlaceFilterFragmentDirections.actionWorkPlaceFragmentToRegionFragment()
                 )

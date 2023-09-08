@@ -48,5 +48,4 @@
             android:textSize="@dimen/text_size_16sp"
             tools:text="от 100 000 Р"/>
     </LinearLayout>
-
 </LinearLayout>

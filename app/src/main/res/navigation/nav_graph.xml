@@ -90,7 +90,7 @@
 
     <fragment
         android:id="@+id/countryFilterFragment"
-        android:name="ru.practicum.android.diploma.filter.ui.fragments.CountryFilterFragment"
+        android:name="ru.practicum.android.diploma.filter.ui.fragments.CountryFragment"
         android:label="fragment_areas"
         tools:layout="@layout/fragment_areas" >
     </fragment>

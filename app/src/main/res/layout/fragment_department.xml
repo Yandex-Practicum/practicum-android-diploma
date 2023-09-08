@@ -15,15 +15,9 @@ tools:context=".filter.ui.fragments.DepartmentFragment">
         android:id="@+id/filter_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:navigationIcon="@drawable/back_btn">
-
-        <TextView
-            style="@style/ToolBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/choose_department" />
-
-    </androidx.appcompat.widget.Toolbar>
+        style="@style/toolbar"
+        android:theme="@style/ToolbarRipple"
+        app:title="@string/choose_department" />
 
     <LinearLayout
         android:id="@+id/searchContainer"
