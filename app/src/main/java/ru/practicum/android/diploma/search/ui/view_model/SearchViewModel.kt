@@ -11,7 +11,6 @@ import ru.practicum.android.diploma.di.annotations.NewResponse
 import ru.practicum.android.diploma.root.BaseViewModel
 import ru.practicum.android.diploma.search.domain.api.SearchVacanciesUseCase
 import ru.practicum.android.diploma.search.domain.models.Vacancies
-import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.ui.models.SearchUiState
 import ru.practicum.android.diploma.util.delayedAction
 import ru.practicum.android.diploma.util.functional.Failure
