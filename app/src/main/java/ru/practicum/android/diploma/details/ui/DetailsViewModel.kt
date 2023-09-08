@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -65,9 +64,9 @@ class DetailsViewModel @Inject constructor(
         log(thisName, "sendVacancy()")
         _uiState.value.let { state ->
             if (state is DetailsScreenState.Content) {
-                Log.e("DetailsViewModel", "sendVacancy() -> ${state.vacancy.alternateUrl}")
-                state.vacancy.alternateUrl
-                sharingInteractor.sendVacancy(state.vacancy.alternateUrl)
+                Log.e("DetailsViewModel", "sendVacancy() -> ${state.vacancy.alternate_url}")
+                state.vacancy.alternate_url
+                sharingInteractor.sendVacancy(state.vacancy.alternate_url)
             } else {
                 return
             }
