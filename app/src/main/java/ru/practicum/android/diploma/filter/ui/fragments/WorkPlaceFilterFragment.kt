@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.filter.ui.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -49,28 +50,23 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
     private fun render(data: SelectedFilter) {
         viewModel.log(thisName,"render($data: SelectedFilter)")
         with(binding) {
-            countyHint.visibility = View.VISIBLE
-            countryText.text = data.country?.name ?: requireActivity().getString(R.string.region)
-            countryCancelItem.visibility = View.VISIBLE
-            countryItem.visibility = View.GONE
-            regionText.text = data.region?.name ?: requireActivity().getString(R.string.region)
-            countryItem.setImageResource(R.drawable.close_btn)
-            binding.chooseBtn.visibility = View.VISIBLE
+            countryText.setText(data.country?.name ?: "")
+            regionText.setText(data.region?.name ?: "")
         }
     }
 
     private fun initListeners() {
         with(binding) {
-            filterToolbar.setNavigationOnClickListener {
+            toolbar.setNavigationOnClickListener {
                 findNavController().navigateUp()
             }
-            countryContainer.debounceClickListener(debouncer) {
+            country.debounceClickListener(debouncer) {
                 viewModel.saveRegion(null)
                 findNavController().navigate(
                     WorkPlaceFilterFragmentDirections.actionWorkPlaceFilterFragmentToCountryFilterFragment()
                 )
             }
-            regionContainer.debounceClickListener(debouncer) {
+            region.debounceClickListener(debouncer) {
                 viewModel.saveRegion(null)
                 findNavController().navigate(
                     WorkPlaceFilterFragmentDirections.actionWorkPlaceFragmentToRegionFragment()

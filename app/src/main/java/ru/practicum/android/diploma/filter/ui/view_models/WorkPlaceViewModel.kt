@@ -22,8 +22,8 @@ class WorkPlaceViewModel @Inject constructor(
     logger: Logger
 ) : BaseViewModel(logger) {
 
-    private val _uiState: MutableSharedFlow<SelectedFilter> = MutableSharedFlow()
-    val uiState: SharedFlow<SelectedFilter> = _uiState
+    private val _uiState: MutableStateFlow<SelectedFilter> = MutableStateFlow(SelectedFilter())
+    val uiState: StateFlow<SelectedFilter> = _uiState
 
 
     fun checkSavedFilterData() {

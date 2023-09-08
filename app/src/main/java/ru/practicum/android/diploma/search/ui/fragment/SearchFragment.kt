@@ -43,7 +43,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.log(thisName, "onViewCreated(view: View, savedInstanceState: Bundle?)")
-    
         initListeners()
         initAdapter()
         initViewModelObserver()

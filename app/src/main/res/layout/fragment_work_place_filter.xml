@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,93 +9,64 @@
     tools:context=".filter.ui.fragments.WorkPlaceFilterFragment">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/filter_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_marginBottom="@dimen/margin_16dp"
-        app:navigationIcon="@drawable/back_btn">
+        android:id="@+id/toolbar"
+        style="@style/toolbar"
+        android:theme="@style/ToolbarRipple"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/work_place_choose" />
 
-        <TextView
-            style="@style/ToolBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/work_place_choose" />
-    </androidx.appcompat.widget.Toolbar>
-
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/country_container"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/size_60dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:backgroundTint="@android:color/transparent"
-        app:cardElevation="0dp">
-
-        <TextView
-            android:id="@+id/county_hint"
-            style="@style/FilterLesserTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/country"
-            android:visibility="gone" />
-
-        <TextView
+        style="@style/FilterStyle"
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:hint="@string/country"
+        app:hintAnimationEnabled="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/country_text"
-            style="@style/FilterGreaterTextStyle"
+            style="@style/SearchEditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/country" />
-
-        <ImageView
-            android:id="@+id/country_item"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|end"
-            app:srcCompat="@drawable/leading_icon" />
-
-        <ImageView
-            android:id="@+id/country_cancel_item"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_16dp"
-            android:layout_gravity="center_vertical|end"
-            android:visibility="gone"
-            app:srcCompat="@drawable/close_btn" />
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/region_container"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/size_60dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:backgroundTint="@android:color/transparent"
-        app:cardElevation="0dp">
-
-        <TextView
-            android:id="@+id/region_hint"
-            style="@style/FilterLesserTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/region"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/region_text"
-            style="@style/FilterGreaterTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/region" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|end"
-            app:srcCompat="@drawable/leading_icon" />
-    </androidx.cardview.widget.CardView>
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <View
-        android:layout_width="0dp"
+        android:id="@+id/country"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:background="@drawable/ripple"
+        app:layout_constraintTop_toTopOf="@id/country_container"
+        app:layout_constraintBottom_toBottomOf="@id/country_container" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/region_container"
+        style="@style/FilterStyle"
+        android:hint="@string/region"
+        app:hintAnimationEnabled="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/country_container">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/region_text"
+            style="@style/SearchEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+        android:id="@+id/region"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/ripple"
+        app:layout_constraintTop_toTopOf="@id/region_container"
+        app:layout_constraintBottom_toBottomOf="@id/region_container" />
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/choose_btn"
@@ -107,5 +79,8 @@
         android:textColor="?attr/colorOnSecondary"
         android:visibility="gone"
         app:cornerRadius="@dimen/size_12dp"
-        tools:visibility="visible"/>
-</LinearLayout>
+        tools:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
