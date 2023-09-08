@@ -14,7 +14,9 @@ import retrofit2.Converter
 import retrofit2.Retrofit
 import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.di.annotations.AppEmail
 import ru.practicum.android.diploma.di.annotations.ApplicationScope
+import ru.practicum.android.diploma.di.annotations.BaseUrl
 import ru.practicum.android.diploma.search.data.network.AlternativeRemoteDataSource
 import ru.practicum.android.diploma.search.data.network.ApiHelper
 import ru.practicum.android.diploma.search.data.network.HhApiService
@@ -25,8 +27,6 @@ import ru.practicum.android.diploma.search.data.network.cache.ForceCacheIntercep
 import java.io.File
 import javax.inject.Named
 
-private const val BASE_URL = "https://api.hh.ru"
-private const val APP_EMAIL = "margo.ivi@yandex.ru"
 @Module
 class SearchDataModule {
     @ApplicationScope
@@ -44,10 +44,11 @@ class SearchDataModule {
     fun provideRetrofit(
         okHttpClient: OkHttpClient,
         converterFactory: Converter.Factory,
+        @BaseUrl baseUrl: String
     ): Retrofit {
         return Retrofit
             .Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(baseUrl)
             .addConverterFactory(converterFactory)
             .client(okHttpClient)
             .build()
@@ -84,13 +85,14 @@ class SearchDataModule {
     
     @Named("authorization_key")
     @Provides
-    fun providesAuthInterceptor(context: Context): Interceptor {
+    fun providesAuthInterceptor(context: Context,
+                                @AppEmail appEmail: String): Interceptor {
         return Interceptor { chain ->
             val request = chain
                 .request()
                 .newBuilder()
                 .addHeader("Authorization", "Bearer ${BuildConfig.HH_ACCESS_TOKEN}")
-                .addHeader("HH-User-Agent", "${context.getString(R.string.app_name)} ($APP_EMAIL)")
+                .addHeader("HH-User-Agent", "${context.getString(R.string.app_name)} ($appEmail)")
                 .build()
             
             chain.proceed(request)

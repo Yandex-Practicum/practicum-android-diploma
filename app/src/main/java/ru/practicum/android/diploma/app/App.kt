@@ -16,7 +16,8 @@ class App: Application() {
             .create(
                 context = this,
                 baseUrl = getString(R.string.base_url),
-                prefsKey = APP_PREFERENCES
+                prefsKey = APP_PREFERENCES,
+                appEmail = getString(R.string.app_email)
             )
     }
 
