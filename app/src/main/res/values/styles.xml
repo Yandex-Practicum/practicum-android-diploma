@@ -130,6 +130,7 @@
         <item name="fontFamily">@font/ys_display_medium</item>
         <item name="android:fontFamily">@font/ys_display_medium</item>
         <item name="android:textSize">@dimen/text_size_22sp</item>
+        <item name="android:fontWeight">500</item>
     </style>
 
     <style name="FilterText">

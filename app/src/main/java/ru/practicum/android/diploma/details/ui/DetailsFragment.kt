@@ -20,8 +20,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
     private val binding by viewBinding<FragmentDetailsBinding>()
     private val viewModel: DetailsViewModel by viewModels { (activity as RootActivity).viewModelFactory }
     private val args by navArgs<DetailsFragmentArgs>()
-
-
+    
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.log(thisName, "onViewCreated()")
