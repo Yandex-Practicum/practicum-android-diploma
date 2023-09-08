@@ -34,7 +34,6 @@
             android:layout_marginTop="@dimen/margin_16dp"
             android:background="@drawable/shape_edittext_search"
             android:visibility="gone"
-            android:background="@drawable/shape_edittext_search"
             app:layout_scrollFlags="scroll|enterAlways">
 
             <EditText
@@ -73,9 +72,9 @@
 
         <LinearLayout
             android:id="@+id/placeholder_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:orientation="vertical"
             android:visibility="gone"
             tools:visibility="visible">
@@ -125,6 +124,6 @@
         android:textColor="?attr/colorOnSecondary"
         android:visibility="gone"
         app:cornerRadius="@dimen/size_12dp"
-        tools:visibility="visible"/>
+        tools:visibility="visible" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

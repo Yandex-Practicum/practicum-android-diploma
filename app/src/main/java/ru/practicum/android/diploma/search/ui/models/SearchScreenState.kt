@@ -1,7 +1,9 @@
 package ru.practicum.android.diploma.search.ui.models
 
 import android.util.Log
+import android.content.Context
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import com.google.android.material.appbar.AppBarLayout
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
@@ -11,7 +13,6 @@ import ru.practicum.android.diploma.util.functional.Failure
 import ru.practicum.android.diploma.util.thisName
 
 sealed interface SearchScreenState {
-    
     fun render(binding: FragmentSearchBinding)
     
     private fun refreshJobList(binding: FragmentSearchBinding, list: List<Vacancy>) {
