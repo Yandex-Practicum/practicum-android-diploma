@@ -30,8 +30,10 @@
             android:layout_marginTop="@dimen/margin_16dp"
             android:hint="@string/search_hint"
             app:hintAnimationEnabled="false"
-            app:layout_scrollFlags="scroll|enterAlways">
-
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:visibility="gone"
+            tools:visibility="visible">
+          
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/search"
                 style="@style/SearchEditTextStyle"
@@ -84,12 +86,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
-        android:visibility="gone"
         android:layout_gravity="center"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/searching"
-        tools:visibility="visible"/>
+        app:lottie_rawRes="@raw/searching"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/apply_btn"
@@ -102,6 +102,8 @@
         android:background="@drawable/bt_round_drawable"
         android:textColor="?attr/colorOnSecondary"
         app:cornerRadius="@dimen/size_12dp"
-        android:text="@string/choose"/>
+        android:text="@string/choose"
+        android:visibility="gone"
+        tools:visibility="visible"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

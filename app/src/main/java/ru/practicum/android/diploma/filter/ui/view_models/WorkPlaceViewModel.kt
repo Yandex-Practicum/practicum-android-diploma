@@ -30,12 +30,4 @@ class WorkPlaceViewModel @Inject constructor(
             log("WorkPlaceViewModel", "checkSavedFilterData() $selectedFilter")
         }
     }
-
-    fun saveRegion(region: Region?) {
-        log(thisName, "saveRegion(region: String)")
-        viewModelScope.launch(Dispatchers.IO) {
-            filterInteractor.saveRegion(FILTER_KEY, region)
-        }
-    }
-
 }
