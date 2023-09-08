@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.details.ui
 
 import android.view.View
-import android.widget.Toast
 import androidx.core.text.HtmlCompat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -28,10 +27,8 @@ sealed interface DetailsScreenState {
 
                 if (vacancy.logo.isNotEmpty()) imageView.imageTintList = null
 
-                tvContactsPhone.text =
-                    if (vacancy.contactPhones.isEmpty()) { binding.root.context.getString(R.string.no_info) }
-                    else { vacancy.contactPhones.joinToString("\n") }
-
+                tvContactsPhone.text = vacancy.contactPhones.joinToString("\n")
+                tvContactsComment.text = vacancy.contactComment
                 tvContactsName.text = vacancy.contactName
                 tvContactsEmail.text = vacancy.contactEmail
                 tvExperience.text = vacancy.experience
@@ -69,6 +66,10 @@ sealed interface DetailsScreenState {
                 if (vacancy.contactPhones.isEmpty()) {
                     tvContactsPhone.visibility = View.GONE
                     tvPhone.visibility = View.GONE
+                }
+                if (vacancy.contactComment.isEmpty()) {
+                    tvContactsComment.visibility = View.GONE
+                    tvComment.visibility = View.GONE
                 }
                 if (vacancy.contactName.isEmpty() &&
                     vacancy.contactEmail.isEmpty() &&

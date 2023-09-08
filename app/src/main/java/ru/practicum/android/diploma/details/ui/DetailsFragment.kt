@@ -28,18 +28,14 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         collector()
         pressSimilarVacanciesButton()
         initListeners()
-        sendVacancy()
-        writeEmail()
-        makeCall()
     }
 
     private fun initListeners() {
-        binding.lottieHeart.setOnClickListener {
-            viewModel.handleAddToFavsButton(args.vacancy)
-        }
-        binding.vacancyToolbar.setNavigationOnClickListener {
-            findNavController().popBackStack()
-        }
+        addToFavorites()
+        navigateUp()
+        sendVacancy()
+        writeEmail()
+        makeCall()
     }
 
     private fun collector() {
@@ -50,6 +46,21 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
             }
         }
     }
+
+    private fun navigateUp() {
+        binding.vacancyToolbar.setNavigationOnClickListener {
+            viewModel.log(thisName, "buttonNavigateUp.setOnClickListener { }")
+            findNavController().navigateUp()
+        }
+    }
+
+    private fun addToFavorites() {
+        binding.lottieHeart.setOnClickListener {
+            viewModel.log(thisName, "buttonAddToFavorites.setOnClickListener { }")
+            viewModel.handleAddToFavsButton(args.vacancy)
+        }
+    }
+
 
     private fun sendVacancy() {
         binding.shareButton.setOnClickListener {

@@ -109,7 +109,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_16dp"
                     android:layout_marginTop="@dimen/margin_16dp"
-                    android:layout_marginBottom="@dimen/margin_16dp"
                     app:tint="?attr/filter_text_color"
                     android:src="@drawable/ic_placeholder_company" />
 
@@ -123,7 +122,9 @@
                     android:layout_marginEnd="@dimen/margin_16dp"
                     android:maxLines="1"
                     android:ellipsize="end"
-                    android:text="@string/no_info" />
+                    android:text="@string/no_info"
+                    app:layout_constraintBaseline_toBaselineOf="@id/imageView" />
+                    />
 
                 <TextView
                     android:id="@+id/tv_area"
@@ -135,7 +136,9 @@
                     android:layout_marginEnd="@dimen/margin_16dp"
                     android:maxLines="1"
                     android:ellipsize="end"
-                    android:text="@string/no_info" />
+                    android:text="@string/no_info"
+                    android:layout_marginBottom="@dimen/margin_16dp"
+                    />
             </androidx.cardview.widget.CardView>
 
             <TextView
@@ -241,6 +244,22 @@
 
             <TextView
                 android:id="@+id/tv_contacts_phone"
+                style="@style/Html_h1_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/no_info"
+                android:textColor="?attr/colorSecondary" />
+
+            <TextView
+                android:id="@+id/tv_comment"
+                style="@style/Html_h1_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin_16dp"
+                android:text="@string/comment" />
+
+            <TextView
+                android:id="@+id/tv_contacts_comment"
                 style="@style/Html_h1_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

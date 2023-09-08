@@ -35,6 +35,7 @@
     <string name="contacts"                         >Контакты</string>
     <string name="contact_person"                   >Контактное лицо</string>
     <string name="phone"                            >Телефон</string>
+    <string name="comment"                          >Комментарий</string>
     <string name="e_mail"                           >E-mail</string>
     <string name="no_info"                          >Информация отсутствует</string>
     <string name="apply"                            >Применить</string>
@@ -58,6 +59,7 @@
     <string name="from"                             >от</string>
     <string name="to"                               >до</string>
     <string name="empty_salary"                     >ЗП не указана</string>
+    <string name="chooser_title"                    >Выберите приложение:</string>
 
     <plurals name="vacancies">
         <item quantity="one"                        >%1$d вакансия</item>

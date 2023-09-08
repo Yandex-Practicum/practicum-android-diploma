@@ -36,6 +36,7 @@
     <string name="contacts"                         >Contacts</string>
     <string name="contact_person"                   >Contact person</string>
     <string name="phone"                            >Phone</string>
+    <string name="comment"                          >Comment</string>
     <string name="e_mail"                           >E-mail</string>
     <string name="no_info"                          >No information</string>
     <string name="team"                             >Team</string>
@@ -62,6 +63,7 @@
     <string name="from"                             >from</string>
     <string name="to"                               >to</string>
     <string name="empty_salary"                     >Salary not specified</string>
+    <string name="chooser_title"                    >Select application:</string>
     <string name="share" translatable="false"       >share</string>
 
     <plurals name="vacancies">
