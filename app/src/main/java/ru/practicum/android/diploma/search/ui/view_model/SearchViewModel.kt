@@ -55,8 +55,7 @@ class SearchViewModel @Inject constructor(
         if (query.isNotEmpty()) {
             _uiState.value = SearchUiState.Loading
             searchJob = viewModelScope.launch(Dispatchers.IO) {
-                searchVacanciesUseCase
-                    .searchVacancies(query)
+                searchVacanciesUseCase(query)
                     .fold(::handleFailure, ::handleSuccess)
             }
         }
