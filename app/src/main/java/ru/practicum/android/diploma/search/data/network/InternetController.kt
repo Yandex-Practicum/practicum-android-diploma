@@ -25,7 +25,7 @@ class InternetController @Inject constructor(
                 capabilities.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) -> return true
             }
         }
-        logger.log(thisName,"isInternetAvailable(): false")
+        logger.log(thisName, "isInternetAvailable(): false")
         return false
     }
 }

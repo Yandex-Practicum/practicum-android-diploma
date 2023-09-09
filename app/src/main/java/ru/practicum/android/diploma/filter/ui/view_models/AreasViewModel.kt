@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.filter.ui.view_models
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -10,14 +9,14 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.filter.domain.api.FilterInteractor
 import ru.practicum.android.diploma.filter.domain.models.NetworkResponse.*
+import ru.practicum.android.diploma.root.BaseViewModel
 import ru.practicum.android.diploma.root.model.UiState
 import ru.practicum.android.diploma.util.thisName
 
 abstract class AreasViewModel(
-    private val logger: Logger,
-    private val filterInteractor: FilterInteractor,
-) : ViewModel() {
-
+ logger: Logger,
+    private val filterInteractor: FilterInteractor
+) : BaseViewModel(logger) {
 
     protected val _uiState: MutableStateFlow<UiState> =
         MutableStateFlow(UiState.Loading)
@@ -40,5 +39,6 @@ abstract class AreasViewModel(
 
     open fun onSearchQueryChanged(text: String) { /* ignore */ }
 
-    fun log(name: String, text: String) = logger.log(name, text)
+
+
 }
