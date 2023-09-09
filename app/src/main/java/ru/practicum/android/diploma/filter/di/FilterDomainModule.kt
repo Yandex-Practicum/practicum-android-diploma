@@ -5,11 +5,11 @@ import dagger.Module
 import ru.practicum.android.diploma.filter.domain.api.FilterInteractor
 import ru.practicum.android.diploma.filter.domain.api.GetAllCountriesUseCase
 import ru.practicum.android.diploma.filter.domain.api.GetIndustriesUseCase
-import ru.practicum.android.diploma.filter.domain.api.GetRegionInteractor
+import ru.practicum.android.diploma.filter.domain.api.GetRegionUseCase
 import ru.practicum.android.diploma.filter.domain.impl.FilterInteractorImpl
 import ru.practicum.android.diploma.filter.domain.impl.GetAllCountriesUseCaseImpl
 import ru.practicum.android.diploma.filter.domain.impl.GetIndustriesUseCaseImpl
-import ru.practicum.android.diploma.filter.domain.impl.GetRegionInteractorImpl
+import ru.practicum.android.diploma.filter.domain.impl.GetRegionUseCaseImpl
 
 @Module
 interface FilterDomainModule {
@@ -23,5 +23,5 @@ interface FilterDomainModule {
     fun bindGetIndustriesUseCase(getIndustriesUseCaseImpl: GetIndustriesUseCaseImpl) : GetIndustriesUseCase
 
     @Binds
-    fun bindGetRegionUseCase(getRegionInteractor: GetRegionInteractorImpl) : GetRegionInteractor
+    fun bindGetRegionUseCase(getRegionInteractor: GetRegionUseCaseImpl) : GetRegionUseCase
 }
