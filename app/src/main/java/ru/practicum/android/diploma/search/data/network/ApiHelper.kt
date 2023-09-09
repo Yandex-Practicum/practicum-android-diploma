@@ -1,8 +1,10 @@
 package ru.practicum.android.diploma.search.data.network
 
+import android.util.Log
 import retrofit2.Response
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.filter.data.model.CountryDto
+import ru.practicum.android.diploma.filter.data.model.IndustryDto
 import ru.practicum.android.diploma.search.data.network.dto.response.VacanciesResponse
 import ru.practicum.android.diploma.util.functional.Either
 import ru.practicum.android.diploma.util.functional.Failure
@@ -24,6 +26,12 @@ class ApiHelper @Inject constructor(
     override suspend fun getAllCountries(): Either<Failure, List<CountryDto>> {
         return requestData(emptyList()) {
             apiService.getAllCountries()
+        }
+    }
+
+    override suspend fun getIndustries(): Either<Failure, List<IndustryDto>> {
+        return requestData(emptyList()) {
+            apiService.getIndustries()
         }
     }
 

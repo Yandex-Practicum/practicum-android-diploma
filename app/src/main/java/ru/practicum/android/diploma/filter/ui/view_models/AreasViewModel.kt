@@ -10,13 +10,14 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.filter.domain.api.FilterInteractor
 import ru.practicum.android.diploma.filter.domain.models.NetworkResponse.*
+import ru.practicum.android.diploma.root.BaseViewModel
 import ru.practicum.android.diploma.root.model.UiState
 import ru.practicum.android.diploma.util.thisName
 
 abstract class AreasViewModel(
-    private val logger: Logger,
+ logger: Logger,
     private val filterInteractor: FilterInteractor,
-) : ViewModel() {
+) : BaseViewModel(logger) {
 
 
     protected val _uiState: MutableStateFlow<UiState> =
@@ -40,5 +41,6 @@ abstract class AreasViewModel(
 
     open fun onSearchQueryChanged(text: String) { /* ignore */ }
 
-    fun log(name: String, text: String) = logger.log(name, text)
+
+
 }

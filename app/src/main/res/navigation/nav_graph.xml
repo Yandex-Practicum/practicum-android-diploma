@@ -55,6 +55,9 @@
         <argument
             android:name="region"
             app:argType="string" />
+        <action
+            android:id="@+id/action_filterBaseFragment_to_departmentFragment"
+            app:destination="@id/departmentFragment" />
     </fragment>
 
 
@@ -129,4 +132,9 @@
         android:label="fragment_areas"
         tools:layout="@layout/fragment_areas" >
     </fragment>
+    <fragment
+        android:id="@+id/departmentFragment"
+        android:name="ru.practicum.android.diploma.filter.ui.fragments.DepartmentFragment"
+        android:label="fragment_department"
+        tools:layout="@layout/fragment_department" />
 </navigation>
