@@ -7,6 +7,4 @@ sealed interface UiState {
     data class NoData(val message: String) : UiState
     data class Offline(val message: String) : UiState
     data class Error(val message: String) : UiState
-
-
 }

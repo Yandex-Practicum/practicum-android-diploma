@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/size_60dp"
+    android:background="@drawable/ripple"
     android:paddingStart="@dimen/margin_16dp"
-    android:paddingTop="@dimen/margin_6dp"
-    android:paddingEnd="@dimen/margin_4dp"
-    android:paddingBottom="@dimen/margin_6dp">
+    android:paddingEnd="@dimen/margin_4dp">
 
     <TextView
         android:id="@+id/region"
@@ -21,8 +19,10 @@
         tools:text="Russia" />
 
     <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_60dp"
+        android:theme="@style/ToolbarRipple"
         android:buttonTint="?attr/colorSecondary"
-        android:layout_gravity="end" />
+        android:layout_gravity="end|center_vertical"
+        android:layoutDirection="rtl"/>
 </FrameLayout>
