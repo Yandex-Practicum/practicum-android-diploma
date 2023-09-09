@@ -24,6 +24,7 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
         super.onViewCreated(view, savedInstanceState)
         initListeners()
         initViewModelObserver()
+        viewModel.checkSavedFilterData()
     }
 
     private fun initListeners() {

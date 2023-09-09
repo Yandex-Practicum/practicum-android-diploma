@@ -4,8 +4,9 @@ import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.filter.domain.api.FilterInteractor
 import ru.practicum.android.diploma.filter.domain.api.FilterRepository
 import ru.practicum.android.diploma.filter.domain.models.Country
+import ru.practicum.android.diploma.filter.domain.models.Industry
 import ru.practicum.android.diploma.filter.domain.models.Region
-import ru.practicum.android.diploma.filter.ui.models.SelectedFilter
+import ru.practicum.android.diploma.filter.domain.models.SelectedFilter
 import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
 
@@ -32,5 +33,12 @@ class FilterInteractorImpl @Inject constructor(
         val data = stored.copy(country = country, region = null)
         filterRepository.saveSavedFilterSettings(key = key, selectedFilter = data)
         logger.log(thisName, "saveCountry($key: String, $country: Country)")
+    }
+
+    override suspend fun saveIndustry(key: String, industry: Industry) {
+        val stored = filterRepository.getSaveFilterSettings(key = key)
+        val data = stored.copy(industry = industry)
+        filterRepository.saveSavedFilterSettings(key = key, selectedFilter = data)
+        logger.log(thisName, "saveRegion($key: String, $industry: Industry)")
     }
 }

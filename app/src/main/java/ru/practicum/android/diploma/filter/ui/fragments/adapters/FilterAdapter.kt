@@ -94,7 +94,7 @@ class FilterAdapter @Inject constructor(
             DEPARTMENT -> {
                 val item = industryList[pos]
                 holder as IndustryViewHolder
-                holder.bind(item)
+                holder.bind(item, state = isSelected)
                 holder.itemView.debounceClickListener(debouncer) {
                     onItemPressed(holder, pos, selectedPosition)
                     onClickIndustry?.invoke(item)
@@ -106,19 +106,22 @@ class FilterAdapter @Inject constructor(
 
     private fun onItemPressed(holder: RecyclerView.ViewHolder, currentPos: Int, prev: Int) {
         val previousPos = if (prev == -1) 0 else prev
-        val itemPrevPos = regionList[previousPos]
-        val item = regionList[currentPos]
+
 
         when (fragment) {
             REGION -> {
+                val itemPrevPos = regionList[previousPos]
+                val item = regionList[currentPos]
                 holder as RegionViewHolder
                 holder.bind(itemPrevPos, state = false)
                 holder.bind(item, state = true)
             }
             DEPARTMENT -> {
+                val itemIndustryPrevPos = industryList[previousPos]
+                val itemIndustry = industryList[currentPos]
                 holder as IndustryViewHolder
-//                holder.bind(itemPrevPos, state = false)
-//                holder.bind(item, state = true)
+                holder.bind(itemIndustryPrevPos, state = false)
+                holder.bind(itemIndustry, state = true)
             }
         }
         notifyItemChanged(previousPos)

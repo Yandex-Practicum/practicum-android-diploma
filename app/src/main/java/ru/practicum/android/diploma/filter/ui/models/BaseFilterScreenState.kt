@@ -4,6 +4,7 @@ import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterBaseBinding
+import ru.practicum.android.diploma.filter.domain.models.SelectedFilter
 
 
 sealed interface BaseFilterScreenState {
@@ -21,11 +22,12 @@ sealed interface BaseFilterScreenState {
         }
     }
 
-    object Choose : BaseFilterScreenState {
+    data class Choose(private val selectedFilter: SelectedFilter) : BaseFilterScreenState {
         override fun render(binding: FragmentFilterBaseBinding) {
             with(binding) {
                 chooseBaseFilterBtn.visibility = View.VISIBLE
                 bottomContainerToApply.visibility = View.GONE
+                departmentText.text = selectedFilter.industry?.name ?: ""
                 amountText.setCompoundDrawablesWithIntrinsicBounds(
                     null,
                     null,
