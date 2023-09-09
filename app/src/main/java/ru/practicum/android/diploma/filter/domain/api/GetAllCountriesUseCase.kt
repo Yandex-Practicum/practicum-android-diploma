@@ -5,5 +5,5 @@ import ru.practicum.android.diploma.util.functional.Either
 import ru.practicum.android.diploma.util.functional.Failure
 
 interface GetAllCountriesUseCase {
-    suspend fun getAllCountries() : Either<Failure, List<Country>>
+    suspend operator fun invoke() : Either<Failure, List<Country>>
 }

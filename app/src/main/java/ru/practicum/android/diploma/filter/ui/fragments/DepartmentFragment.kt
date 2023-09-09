@@ -6,7 +6,6 @@ import androidx.fragment.app.viewModels
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.filter.ui.view_models.DepartmentViewModel
 import ru.practicum.android.diploma.root.RootActivity
-import ru.practicum.android.diploma.util.thisName
 
 class DepartmentFragment : ChooseFragment() {
     override val fragment = DEPARTMENT
@@ -20,7 +19,6 @@ class DepartmentFragment : ChooseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.initial()
-
     }
 
     companion object {

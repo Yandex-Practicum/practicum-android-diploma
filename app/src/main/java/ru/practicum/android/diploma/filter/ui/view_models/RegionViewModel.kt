@@ -18,7 +18,6 @@ class RegionViewModel @Inject constructor(
 ) : AreasViewModel(logger, filterInteractor) {
 
 
-
     override fun getData() {
         viewModelScope.launch(Dispatchers.IO) {
             val countryId = filterInteractor.getSavedFilterSettings(FILTER_KEY).country!!.id

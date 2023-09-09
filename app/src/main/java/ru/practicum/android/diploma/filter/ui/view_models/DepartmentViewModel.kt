@@ -21,7 +21,7 @@ class DepartmentViewModel @Inject constructor(
     init {
         logger.log(thisName, "logg")
         viewModelScope.launch(Dispatchers.IO) {
-        useCase.getIndustries().fold(::handleFailure,::success)
+        useCase().fold(::handleFailure,::success)
         }
     }
 

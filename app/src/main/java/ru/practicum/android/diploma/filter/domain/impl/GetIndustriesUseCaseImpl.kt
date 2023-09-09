@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class GetIndustriesUseCaseImpl @Inject constructor(private val repository: FilterRepository) :
     GetIndustriesUseCase {
-    override suspend fun getIndustries(): Either<Failure, List<Industry>> {
+    override suspend fun invoke(): Either<Failure, List<Industry>> {
         return repository.getIndustries()
     }
 }

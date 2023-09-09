@@ -36,13 +36,11 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
                     BaseFilterFragmentDirections.actionFilterBaseFragmentToWorkPlaceFilterFragment()
                 )
             }
-
             departmentContainer.setOnClickListener {
                 findNavController().navigate(
                     BaseFilterFragmentDirections.actionFilterBaseFragmentToDepartmentFragment()
                 )
             }
-
             amountText.doOnTextChanged { _, _, _, count ->
                 if (count == 0)
                     viewModel.setEmptyScreenState()

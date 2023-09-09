@@ -30,7 +30,8 @@ fun industryDtoListToIndustryList(list: List<IndustryDto>): List<Industry> {
             id = it.id ?: "",
             industries = it.industries?.map { industryAreaDto ->
                 IndustryArea(
-                    id = industryAreaDto.id ?: "", name = industryAreaDto.name ?: ""
+                    id = industryAreaDto.id ?: "",
+                    name = industryAreaDto.name ?: ""
                 )
             } ?: emptyList(),
             name = it.name ?: ""
