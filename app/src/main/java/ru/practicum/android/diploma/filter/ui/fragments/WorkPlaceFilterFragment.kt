@@ -40,7 +40,6 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
         viewModel.checkSavedFilterData()
         viewLifecycleOwner.lifecycle.coroutineScope.launch(Dispatchers.Main) {
             viewModel.uiState.collect { state -> render(state)
-                viewModel.log("CountryFilterFragment", "uiState.collect { $state")
             }
         }
     }

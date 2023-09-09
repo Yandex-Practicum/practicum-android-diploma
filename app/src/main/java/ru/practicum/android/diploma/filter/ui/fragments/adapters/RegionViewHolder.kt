@@ -9,7 +9,8 @@ class RegionViewHolder(
     private val binding: ItemRegionDepartFilterBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(model: Region) {
+    fun bind(model: Region, state: Boolean) {
         binding.region.text = model.name
+        binding.radioBtn.isChecked = state
     }
 }

@@ -7,8 +7,8 @@ import kotlinx.serialization.Serializable
 @Parcelize
 @Serializable
 data class RegionArea(
-    val id: String? = "",
-    @SerializedName("parent_id") val parentId: String? = "",
-    val name: String? = "",
-    val areas: List<RegionArea?>? = null
+    @SerializedName("id") val id: String? = null,
+    @SerializedName("parent_id") val parentId: String? = null,
+    @SerializedName("name") val name: String? = "",
+    @SerializedName("areas") val areas: List<RegionArea?>? = null
 ): Parcelable

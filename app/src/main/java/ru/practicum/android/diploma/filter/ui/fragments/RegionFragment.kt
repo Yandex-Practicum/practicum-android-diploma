@@ -2,6 +2,8 @@ package ru.practicum.android.diploma.filter.ui.fragments
 
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
+import androidx.core.view.marginBottom
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -43,7 +45,6 @@ class RegionFragment : ChooseFragment() {
         filterAdapter.onClickRegion = { region ->
             viewModel.saveRegion(region)
             binding.applyBtn.visibility = View.VISIBLE
-            // сделать в Item колечко кружочком
         }
     }
 

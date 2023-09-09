@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.details.data.dto.VacancyFullInfoModelDto
 import ru.practicum.android.diploma.di.annotations.NewResponse
 import ru.practicum.android.diploma.filter.data.model.CountryDto
 import ru.practicum.android.diploma.filter.data.model.IndustryDto
-import ru.practicum.android.diploma.search.data.network.dto.response.RegionCodeResponse
+import ru.practicum.android.diploma.filter.data.model.RegionListDto
 import ru.practicum.android.diploma.search.data.network.dto.response.VacanciesResponse
 import ru.practicum.android.diploma.search.data.network.dto.response.VacanciesSearchCodeResponse
 
@@ -27,12 +27,8 @@ interface HhApiService {
     @GET("/vacancies")
     suspend fun search(@Query("text") text: String): Response<VacanciesSearchCodeResponse>
 
-    @GET("/areas")
-    suspend fun getCountries(): Response<List<CountryDto>>
-
-
     @GET ("/areas/{area_id}")
-    suspend fun getRegionInfo(@Path("area_id") areaId: String): Response<RegionCodeResponse>
+    suspend fun getRegionInfo(@Path("area_id") areaId: String): Response<RegionListDto>
 
     @GET("/vacancies/{id}")
     suspend fun searchDetails(@Path("id") id: String): Response<VacancyFullInfoModelDto>

@@ -3,7 +3,6 @@ package ru.practicum.android.diploma.search.data.network.dto.response
 import kotlinx.serialization.Serializable
 import ru.practicum.android.diploma.search.data.network.dto.VacancyDto
 
-//@NewResponse
 @Serializable
 data class VacanciesResponse(
     val found: Int,
