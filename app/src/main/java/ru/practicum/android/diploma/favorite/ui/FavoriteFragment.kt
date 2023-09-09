@@ -22,7 +22,7 @@ import javax.inject.Inject
 
 class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
 
-    @Inject @JvmField var vacancyAdapter: SearchAdapter? = null
+    @Inject lateinit var vacancyAdapter: SearchAdapter
     private val viewModel: FavoriteViewModel by viewModels { (activity as RootActivity).viewModelFactory }
     private val binding by viewBinding<FragmentFavoriteBinding>()
 
@@ -52,8 +52,7 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
         viewModel.log(thisName, "showContent(list: size=${list.size})")
         binding.placeHolder.visibility = View.INVISIBLE
         binding.recycler.visibility = View.VISIBLE
-        vacancyAdapter?.list = list
-        vacancyAdapter?.notifyDataSetChanged()
+        vacancyAdapter.submitList(list)
     }
 
     private fun showPlaceholder() {
@@ -63,21 +62,15 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
     }
 
     private fun initListeners() {
-        vacancyAdapter?.onClick = { vacancy ->
+        vacancyAdapter.onClick = { vacancy ->
             navigateToDetails(vacancy)
         }
-        vacancyAdapter?.onLongClick = { viewModel.removeVacancy("0") }
+        vacancyAdapter.onLongClick = { viewModel.removeVacancy("0") }
     }
 
     private fun navigateToDetails(vacancy: Vacancy) {
         findNavController().navigate(
             FavoriteFragmentDirections.actionFavoriteFragmentToDetailsFragment(vacancy)
         )
-    }
-
-    override fun onDestroyView() {
-        viewModel.log(thisName, "onDestroyView()")
-        super.onDestroyView()
-        vacancyAdapter = null
     }
 }
