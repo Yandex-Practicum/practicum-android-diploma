@@ -5,11 +5,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.filter.domain.api.FilterInteractor
 import ru.practicum.android.diploma.root.BaseViewModel
 import ru.practicum.android.diploma.root.model.UiState
 import ru.practicum.android.diploma.util.functional.Failure
-import ru.practicum.android.diploma.util.functional.Failure.*
+import ru.practicum.android.diploma.util.functional.Failure.NotFound
+import ru.practicum.android.diploma.util.functional.Failure.Offline
 
 abstract class AreasViewModel(
     logger: Logger,
@@ -29,8 +29,8 @@ abstract class AreasViewModel(
             else        -> UiState.Error(message = R.string.error)
         }
     }
-    protected fun handleSuccess(list: List<Any?>) {
-        UiState.Content(list = list)
+    protected open fun handleSuccess(list: List<Any?>) {
+        _uiState.value = UiState.Content(list = list)
     }
 
     open fun onSearchQueryChanged(text: String) { /* ignore */ }
