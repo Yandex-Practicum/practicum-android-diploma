@@ -2,11 +2,13 @@ package ru.practicum.android.diploma.filter.data
 
 import ru.practicum.android.diploma.filter.data.converter.countryDtoToCountry
 import ru.practicum.android.diploma.filter.data.local_storage.LocalStorage
+import ru.practicum.android.diploma.filter.data.model.CountryDto
 import ru.practicum.android.diploma.filter.data.model.DataType
 import ru.practicum.android.diploma.filter.domain.api.FilterRepository
 import ru.practicum.android.diploma.filter.domain.models.Country
 import ru.practicum.android.diploma.filter.ui.models.SelectedFilter
 import ru.practicum.android.diploma.search.data.network.AlternativeRemoteDataSource
+import ru.practicum.android.diploma.search.data.network.dto.request.Request
 import ru.practicum.android.diploma.util.functional.Either
 import ru.practicum.android.diploma.util.functional.Failure
 import ru.practicum.android.diploma.util.functional.flatMap
@@ -26,7 +28,7 @@ class FilterRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getAllCountries(): Either<Failure, List<Country>> {
-        return apiHelper.getAllCountries().flatMap {
+        return ((apiHelper.doRequest(Request.AllCountriesRequest))as Either<Failure, List<CountryDto>>).flatMap {
             val list = countryDtoToCountry(it)
             Either.Right(list)
         }

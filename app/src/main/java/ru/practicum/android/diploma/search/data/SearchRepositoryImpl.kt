@@ -16,8 +16,10 @@ import ru.practicum.android.diploma.search.data.network.AlternativeRemoteDataSou
 import ru.practicum.android.diploma.search.data.network.CodeResponse
 import ru.practicum.android.diploma.search.data.network.NetworkClient
 import ru.practicum.android.diploma.search.data.network.converter.VacancyModelConverter
+import ru.practicum.android.diploma.search.data.network.dto.request.Request
 import ru.practicum.android.diploma.search.data.network.dto.response.CountriesCodeResponse
 import ru.practicum.android.diploma.search.data.network.dto.response.RegionCodeResponse
+import ru.practicum.android.diploma.search.data.network.dto.response.VacanciesResponse
 import ru.practicum.android.diploma.search.domain.api.SearchRepository
 import ru.practicum.android.diploma.search.domain.models.Vacancies
 import ru.practicum.android.diploma.util.functional.Either
@@ -36,7 +38,7 @@ class SearchRepositoryImpl @Inject constructor(
 
     @NewResponse
     override suspend fun searchVacancies(query: String): Either<Failure, Vacancies> {
-        return apiHelper.getVacancies(query).flatMap {
+        return ((apiHelper.doRequest(Request.VacanciesRequest(query))) as Either<Failure, VacanciesResponse>).flatMap {
             if (it.found == 0){
                 logger.log(thisName, "searchVacancies: NOTHING FOUND")
                 Either.Left(Failure.NotFound())
