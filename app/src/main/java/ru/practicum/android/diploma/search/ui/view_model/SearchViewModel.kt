@@ -11,8 +11,7 @@ import ru.practicum.android.diploma.di.annotations.NewResponse
 import ru.practicum.android.diploma.root.BaseViewModel
 import ru.practicum.android.diploma.search.domain.api.SearchVacanciesUseCase
 import ru.practicum.android.diploma.search.domain.models.Vacancies
-import ru.practicum.android.diploma.search.domain.models.Vacancy
-import ru.practicum.android.diploma.search.ui.models.SearchScreenState
+import ru.practicum.android.diploma.search.ui.models.SearchUiState
 import ru.practicum.android.diploma.util.delayedAction
 import ru.practicum.android.diploma.util.functional.Failure
 import ru.practicum.android.diploma.util.thisName
@@ -22,44 +21,42 @@ class SearchViewModel @Inject constructor(
     private val searchVacanciesUseCase: SearchVacanciesUseCase,
     logger: Logger
 ) : BaseViewModel(logger) {
-    private val _uiState: MutableStateFlow<SearchScreenState> =
-        MutableStateFlow(SearchScreenState.Default)
-    val uiState: StateFlow<SearchScreenState> = _uiState
+    
+    private val _uiState: MutableStateFlow<SearchUiState> = MutableStateFlow(SearchUiState.Default)
+    val uiState: StateFlow<SearchUiState> = _uiState
+    
     private var latestSearchQuery: String? = null
     private var searchJob: Job? = null
-    private val currentVacancyList = mutableListOf <Vacancy>()
     private var found: Int = 0
     private val onSearchDebounce = delayedAction<String>(
         coroutineScope = viewModelScope,
         action = { query ->
             searchVacancies(query)
         })
-
+    
     fun onSearchQueryChanged(query: String) {
         log(thisName, "onSearchQueryChanged($query: String)")
-        _uiState.value = SearchScreenState.Default
-        if (latestSearchQuery != query) {
-            latestSearchQuery = query
-        }
+        
+        if (query == latestSearchQuery) return
+        latestSearchQuery = query
+        
+        if (query.isEmpty()) {
+            searchJob?.cancel()
+            onSearchDebounce("")
+            _uiState.value = SearchUiState.Default
+        } else {
             onSearchDebounce(query)
-    }
-
-    fun onResume(){
-        if (currentVacancyList.isNotEmpty()){
-            _uiState.value = SearchScreenState.Content(
-                found = found,
-                jobList = currentVacancyList
-            )
         }
     }
-
+    
     @NewResponse
-    private fun searchVacancies(query: String) {
-        searchJob?.cancel()
+    fun searchVacancies(query: String) {
+        
         if (query.isNotEmpty()) {
-            _uiState.value = SearchScreenState.Loading
+            _uiState.value = SearchUiState.Loading
             searchJob = viewModelScope.launch(Dispatchers.IO) {
-                searchVacanciesUseCase.searchVacancies(query)
+                searchVacanciesUseCase
+                    .searchVacancies(query)
                     .fold(::handleFailure, ::handleSuccess)
             }
         }
@@ -68,17 +65,12 @@ class SearchViewModel @Inject constructor(
     @NewResponse
     override fun handleFailure(failure: Failure) {
         super.handleFailure(failure)
-        _uiState.value = SearchScreenState.Error(failure)
+        _uiState.value = SearchUiState.Error(failure)
     }
 
     @NewResponse
     private fun handleSuccess(vacancies: Vacancies) {
-        _uiState.value = SearchScreenState.Content(
-            found = vacancies.found,
-            jobList = vacancies.items
-        )
         found = vacancies.found
-        currentVacancyList.clear()
-        currentVacancyList.addAll(vacancies.items)
+        _uiState.value = SearchUiState.Content(list = vacancies.items, found = found)
     }
 }
