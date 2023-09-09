@@ -44,6 +44,7 @@
         </com.google.android.material.textfield.TextInputLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
         style="@style/vacancy_recycler"
@@ -96,14 +97,14 @@
         style="@style/FilterBottomButtonsStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
         android:layout_marginHorizontal="@dimen/margin_16dp"
         android:layout_marginBottom="@dimen/margin_24dp"
-        android:layout_gravity="bottom|center"
         android:background="@drawable/bt_round_drawable"
-        android:textColor="?attr/colorOnSecondary"
-        app:cornerRadius="@dimen/size_12dp"
         android:text="@string/choose"
+        android:textColor="?attr/colorOnSecondary"
         android:visibility="gone"
-        tools:visibility="visible"/>
+        app:cornerRadius="@dimen/size_12dp"
+        tools:visibility="visible" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
