@@ -61,18 +61,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                             searchAdapter.submitList(screenState.list)
                             painter.showContent(screenState.found)
                         }
-                        
-                        is SearchUiState.Default -> {
-                            painter.showDefault()
-                        }
-                        
-                        is SearchUiState.Error -> {
-                            painter.renderError(screenState.error)
-                        }
-                        
-                        is SearchUiState.Loading -> {
-                            painter.showLoading()
-                        }
+                        is SearchUiState.Default -> { painter.showDefault() }
+                        is SearchUiState.Error -> { painter.renderError(screenState.error) }
+                        is SearchUiState.Loading -> { painter.showLoading() }
                     }
                 }
             }
