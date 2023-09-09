@@ -13,12 +13,18 @@ class DepartmentFragment : ChooseFragment() {
 
     override fun renderContent(list: List<Any?>) {
         super.renderContent(list)
-        binding.toolbar.title = requireActivity().getString(R.string.choose_department)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.initial()
+        binding.toolbar.title = requireActivity().getString(R.string.choose_department)
+
+    }
+
+    override fun initListeners() {
+        super.initListeners()
+
     }
 
     companion object {

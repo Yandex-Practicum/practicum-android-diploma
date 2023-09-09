@@ -7,38 +7,45 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.Logger
+import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.di.annotations.NewResponse
 import ru.practicum.android.diploma.filter.domain.api.FilterInteractor
+import ru.practicum.android.diploma.filter.domain.api.GetAllCountriesUseCase
 import ru.practicum.android.diploma.filter.domain.models.NetworkResponse.*
 import ru.practicum.android.diploma.root.BaseViewModel
 import ru.practicum.android.diploma.root.model.UiState
+import ru.practicum.android.diploma.util.functional.Failure
 import ru.practicum.android.diploma.util.thisName
 
 abstract class AreasViewModel(
- logger: Logger,
-    private val filterInteractor: FilterInteractor
+    private val logger: Logger,
 ) : BaseViewModel(logger) {
+
 
     protected val _uiState: MutableStateFlow<UiState> =
         MutableStateFlow(UiState.Loading)
     val uiState: StateFlow<UiState> = _uiState
 
     open fun getData() {
-        viewModelScope.launch(Dispatchers.IO) {
-            filterInteractor.getCountries().collect { state ->
-                delay(600)
-                log("CountryViewModel", "getCountries().collect { state -> ${state.thisName}")
-                _uiState.value = when (state) {
-                    is Success -> UiState.Content(state.data)
-                    is NoData  -> UiState.NoData(message = state.message)
-                    is Offline -> UiState.Offline(message = state.message)
-                    is Error   -> UiState.Error(message = state.message)
-                }
-            }
+//ignore
+    }
+
+    @NewResponse
+    override fun handleFailure(failure: Failure) {
+        when (failure) {
+            is Failure.NotFound -> UiState.NoData(message = R.string.no_data)
+            is Failure.NetworkConnection -> UiState.Offline(message = R.string.no_internet_message)
+            else -> UiState.Error(message = R.string.error)
         }
     }
 
-    open fun onSearchQueryChanged(text: String) { /* ignore */ }
+    @NewResponse
+    private fun handleSuccess(list: List<Any?>) {
+        UiState.Content(list = list)
+    }
 
+    open fun onSearchQueryChanged(text: String) { /* ignore */
+    }
 
 
 }
