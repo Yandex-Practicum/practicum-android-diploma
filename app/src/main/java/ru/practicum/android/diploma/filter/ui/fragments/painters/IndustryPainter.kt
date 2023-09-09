@@ -14,6 +14,7 @@ class IndustryPainter(private val binding: FragmentAreasBinding) {
             applyBtn.visibility = View.GONE
             placeholder.visibility = View.GONE
             progressBar.visibility = View.VISIBLE
+            inputLayout.visibility = View.VISIBLE
         }
     }
 
