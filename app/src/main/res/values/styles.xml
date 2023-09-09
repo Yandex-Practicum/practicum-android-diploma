@@ -89,7 +89,6 @@
         <item name="android:background">@drawable/shape_edittext_search</item>
         <item name="boxStrokeColor">@android:color/transparent</item>
         <item name="boxStrokeWidth">@dimen/size_0.6dp</item>
-
         <item name="android:fontFamily">@font/ys_display_regular</item>
         <item name="android:textColorHint">?attr/hint_text_color</item>
         <item name="android:textSize">@dimen/text_size_16sp</item>
@@ -99,7 +98,6 @@
         <item name="android:inputType">textCapSentences</item>
         <item name="android:maxLines">1</item>
         <item name="android:singleLine">true</item>
-
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">56dp</item>
         <item name="endIconDrawable">@drawable/ic_search</item>

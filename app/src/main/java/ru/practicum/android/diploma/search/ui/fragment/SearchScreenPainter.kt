@@ -86,7 +86,7 @@ class SearchScreenPainter(
         Log.d(thisName, "render: $failure")
         
         when (failure) {
-            is Failure.NetworkConnection -> showConnectionError()
+            is Failure.Offline -> showConnectionError()
             is Failure.ServerError -> showEmpty()
             is Failure.NotFound -> showEmpty()
             is Failure.AppFailure -> showEmpty()

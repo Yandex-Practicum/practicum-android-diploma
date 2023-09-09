@@ -30,6 +30,7 @@ class FilterRepositoryImpl @Inject constructor(
         return sharedPrefsStorage.readData(key = key, defaultValue = DataType.OBJECT)
     }
 
+    @Suppress("UNCHECKED_CAST")
     override suspend fun getAllCountries(): Either<Failure, List<Country>> {
         return ((apiHelper.doRequest(Request.AllCountriesRequest)) as Either<Failure, List<CountryDto>>).flatMap {
             val list = countryDtoToCountry(it)
@@ -37,6 +38,7 @@ class FilterRepositoryImpl @Inject constructor(
         }
     }
 
+    @Suppress("UNCHECKED_CAST")
     override suspend fun getIndustries(): Either<Failure, List<Industry>> {
         return (apiHelper.doRequest(Request.AllIndustriesRequest) as Either<Failure, List<IndustryDto>>).flatMap {
             Either.Right(industryDtoListToIndustryList(it))

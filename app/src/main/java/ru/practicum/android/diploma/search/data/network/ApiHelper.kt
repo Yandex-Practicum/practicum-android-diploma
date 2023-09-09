@@ -62,7 +62,7 @@ class ApiHelper @Inject constructor(
                     Either.Left(Failure.ServerError(response.code()))
                 } else {
                     logger.log(thisName, "responseHandle: NOT CONNECTED")
-                    Either.Left(Failure.NetworkConnection())
+                    Either.Left(Failure.Offline())
                 }
             }
         }
