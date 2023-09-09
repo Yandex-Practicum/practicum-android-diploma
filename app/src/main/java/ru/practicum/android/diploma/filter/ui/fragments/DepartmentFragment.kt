@@ -1,9 +1,12 @@
 package ru.practicum.android.diploma.filter.ui.fragments
 
+import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.viewModels
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.filter.ui.view_models.DepartmentViewModel
 import ru.practicum.android.diploma.root.RootActivity
+import ru.practicum.android.diploma.util.thisName
 
 class DepartmentFragment : ChooseFragment() {
     override val fragment = DEPARTMENT
@@ -12,6 +15,12 @@ class DepartmentFragment : ChooseFragment() {
     override fun renderContent(list: List<Any?>) {
         super.renderContent(list)
         binding.toolbar.title = requireActivity().getString(R.string.choose_department)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.initial()
+
     }
 
     companion object {

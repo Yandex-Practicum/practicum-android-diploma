@@ -7,6 +7,7 @@ import retrofit2.http.Query
 import ru.practicum.android.diploma.details.data.dto.VacancyFullInfoModelDto
 import ru.practicum.android.diploma.di.annotations.NewResponse
 import ru.practicum.android.diploma.filter.data.model.CountryDto
+import ru.practicum.android.diploma.filter.data.model.IndustryDto
 import ru.practicum.android.diploma.search.data.network.dto.response.RegionCodeResponse
 import ru.practicum.android.diploma.search.data.network.dto.response.VacanciesResponse
 import ru.practicum.android.diploma.search.data.network.dto.response.VacanciesSearchCodeResponse
@@ -18,6 +19,10 @@ interface HhApiService {
     @NewResponse
     @GET("/areas")
     suspend fun getAllCountries(): Response<List<CountryDto>>
+    @NewResponse
+    @GET("/industries")
+    suspend fun getIndustries(): Response<List<IndustryDto>>
+
     @GET("/vacancies")
     suspend fun search(@Query("text") text: String): Response<VacanciesSearchCodeResponse>
 
