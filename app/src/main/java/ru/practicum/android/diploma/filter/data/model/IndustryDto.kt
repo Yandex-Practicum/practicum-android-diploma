@@ -8,7 +8,7 @@ data class IndustryDto(
     @SerialName("id")
     val id: String?,
     @SerialName("industries")
-    val industries: List<IndustryDto>?,
+    val industries: List<IndustryAreaDto>?,
     @SerialName("name")
-    val name : String
+    val name: String
 )

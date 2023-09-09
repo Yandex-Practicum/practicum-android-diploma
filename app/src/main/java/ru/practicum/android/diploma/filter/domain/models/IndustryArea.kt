@@ -3,13 +3,10 @@ package ru.practicum.android.diploma.filter.domain.models
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
-import ru.practicum.android.diploma.filter.data.model.IndustryDto
-
 
 @Parcelize
 @Serializable
-data class Industry (
+data class IndustryArea(
     val id: String,
-    val industries: List<IndustryArea>,
     val name: String,
 ): Parcelable
