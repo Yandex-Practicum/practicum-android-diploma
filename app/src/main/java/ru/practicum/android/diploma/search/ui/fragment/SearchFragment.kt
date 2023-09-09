@@ -56,11 +56,23 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             viewLifecycleOwner.lifecycle.coroutineScope.launch {
                 uiState.collect { screenState ->
                     val painter = SearchScreenPainter(binding)
-                    when(screenState) {
-                        is SearchUiState.Content -> { painter.showContent(screenState.list, screenState.found) }
-                        is SearchUiState.Default -> { painter.showDefault() }
-                        is SearchUiState.Error -> { painter.renderError(screenState.error) }
-                        is SearchUiState.Loading -> { painter.showLoading() }
+                    when (screenState) {
+                        is SearchUiState.Content -> {
+                            searchAdapter.submitList(screenState.list)
+                            painter.showContent(screenState.found)
+                        }
+                        
+                        is SearchUiState.Default -> {
+                            painter.showDefault()
+                        }
+                        
+                        is SearchUiState.Error -> {
+                            painter.renderError(screenState.error)
+                        }
+                        
+                        is SearchUiState.Loading -> {
+                            painter.showLoading()
+                        }
                     }
                 }
             }

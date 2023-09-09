@@ -15,7 +15,6 @@ class SearchScreenPainter(
     private val binding: FragmentSearchBinding,
 ) {
     fun showDefault() {
-        refreshJobList(emptyList())
         isScrollingEnabled(false)
         
         with(binding) {
@@ -25,12 +24,6 @@ class SearchScreenPainter(
             progressBar.visibility = View.GONE
             btnUpdate.visibility = View.GONE
         }
-    }
-    
-    private fun refreshJobList(list: List<Vacancy>) {
-        val adapter = (binding.recycler.adapter as SearchAdapter)
-        adapter.list = list
-        adapter.notifyDataSetChanged()
     }
     
     private fun isScrollingEnabled(isEnable: Boolean) {
@@ -50,7 +43,6 @@ class SearchScreenPainter(
     }
     
     fun showLoading() {
-        refreshJobList(emptyList())
         isScrollingEnabled(false)
         
         with(binding) {
@@ -65,8 +57,7 @@ class SearchScreenPainter(
         }
     }
     
-    fun showContent(jobList: List<Vacancy>, found: Int) {
-        refreshJobList(jobList)
+    fun showContent(found: Int) {
         isScrollingEnabled(true)
         
         with(binding) {
@@ -91,7 +82,6 @@ class SearchScreenPainter(
     }
     
     fun renderError(failure: Failure) {
-        refreshJobList(emptyList())
         isScrollingEnabled(false)
         Log.d(thisName, "render: $failure")
         
