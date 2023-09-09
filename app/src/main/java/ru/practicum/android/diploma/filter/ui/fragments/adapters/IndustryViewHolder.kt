@@ -8,7 +8,8 @@ class IndustryViewHolder(
     private val binding: ItemRegionDepartFilterBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(model: Industry) {
+    fun bind(model: Industry, state: Boolean) {
         binding.region.text = model.name
+        binding.radioBtn.isChecked = state
     }
 }
