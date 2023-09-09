@@ -25,18 +25,9 @@ fun countryDtoToCountry(list: List<CountryDto>): List<Country> {
 }
 
 fun industryDtoListToIndustryList(list: List<IndustryDto>): List<Industry> {
-    return list.map {
-        Industry(
-            id = it.id ?: "",
-            industries = it.industries?.map { industryAreaDto ->
-                IndustryArea(
-                    id = industryAreaDto.id ?: "",
-                    name = industryAreaDto.name ?: ""
-                )
-            } ?: emptyList(),
-            name = it.name ?: ""
-        )
-    }
+    return list.flatMap { it.industries ?: emptyList() }
+        .map { Industry(id = it.id ?: "", name = it.name ?: "", industries = emptyList()) }
+        .sortedBy { it.name }
 }
 
 private const val OTHER = "Другие регионы"

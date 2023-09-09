@@ -31,6 +31,9 @@ class FilterAdapter @Inject constructor(
     var regionList = listOf<Region>()
     var industryList = listOf<Industry>()
 
+    private var isNewRadioButtonChecked = false
+    private var lastCheckedPosition = -1
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (fragment) {
             COUNTRY -> {

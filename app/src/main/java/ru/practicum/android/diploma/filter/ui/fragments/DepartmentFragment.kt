@@ -21,7 +21,7 @@ class DepartmentFragment : ChooseFragment() {
     @Suppress("UNCHECKED_CAST")
     override fun renderContent(list: List<Any?>) {
         super.renderContent(list)
-        filterAdapter.industryList = list as List<Industry>
+        filterAdapter.industryList = (list as List<Industry>)
         filterAdapter.notifyItemRangeChanged(0, filterAdapter.itemCount)
         viewModel.log(thisName, "renderContent: list.size = ${list.size})")
     }
@@ -36,9 +36,9 @@ class DepartmentFragment : ChooseFragment() {
                 when (state) {
                     is UiState.Loading -> painter.showLoadingScreen()
                     is UiState.Content -> renderContent(state.list)
-                    is UiState.NoData  -> painter.showNoData(state.message)
+                    is UiState.NoData -> painter.showNoData(state.message)
                     is UiState.Offline -> painter.showOffline(state.message)
-                    is UiState.Error   -> painter.showError(state.message)
+                    is UiState.Error -> painter.showError(state.message)
                 }
             }
         }
@@ -48,7 +48,9 @@ class DepartmentFragment : ChooseFragment() {
 
     override fun initListeners() {
         super.initListeners()
+        filterAdapter.onClickIndustry = {
 
+        }
     }
 
     companion object {
