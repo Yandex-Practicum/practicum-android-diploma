@@ -6,9 +6,9 @@ import ru.practicum.android.diploma.filter.domain.models.Country
 import ru.practicum.android.diploma.filter.domain.models.Industry
 import ru.practicum.android.diploma.filter.domain.models.IndustryArea
 import ru.practicum.android.diploma.filter.domain.models.Region
-import ru.practicum.android.diploma.search.data.network.dto.response.RegionCodeResponse
+import ru.practicum.android.diploma.filter.data.model.RegionListDto
 
-fun mapRegionCodeResponseToRegionList(response: RegionCodeResponse): List<Region> {
+fun mapRegionListDtoToRegionList(response: RegionListDto): List<Region> {
     val regionList = mutableListOf<Region>()
     response.areas?.forEach { regionDto ->
         val id = regionDto?.areas?.firstOrNull()?.id ?: ""

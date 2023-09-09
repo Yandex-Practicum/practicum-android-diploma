@@ -52,7 +52,6 @@ open class CountryFragment : ChooseFragment() {
         super.initListeners()
         filterAdapter.onClickCountry = { country ->
             viewModel.saveCountry(country)
-            viewModel.saveRegion(null)
             findNavController().navigateUp()
         }
     }
