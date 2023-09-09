@@ -5,6 +5,7 @@ import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.filter.data.model.CountryDto
 import ru.practicum.android.diploma.search.data.network.dto.request.Request.*
 import ru.practicum.android.diploma.search.data.network.dto.request.*
+import ru.practicum.android.diploma.filter.data.model.IndustryDto
 import ru.practicum.android.diploma.search.data.network.dto.response.VacanciesResponse
 import ru.practicum.android.diploma.util.functional.Either
 import ru.practicum.android.diploma.util.functional.Failure
@@ -22,6 +23,7 @@ class ApiHelper @Inject constructor(
        return when (request){
            is VacanciesRequest -> getVacancies(request)
            is AllCountriesRequest -> getAllCountries()
+           is AllIndustriesRequest -> getIndustries()
        }
     }
 
@@ -34,6 +36,12 @@ class ApiHelper @Inject constructor(
     private suspend fun getAllCountries(): Either<Failure, List<CountryDto>> {
         return requestData(emptyList()) {
             apiService.getAllCountries()
+        }
+    }
+
+    private suspend fun getIndustries(): Either<Failure, List<IndustryDto>> {
+        return requestData(emptyList()) {
+            apiService.getIndustries()
         }
     }
 

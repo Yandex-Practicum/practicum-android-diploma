@@ -5,4 +5,5 @@ sealed interface Request {
     class VacanciesRequest(
         val query: String
     ) : Request
+    object AllIndustriesRequest: Request
 }
