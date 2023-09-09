@@ -7,7 +7,10 @@ import ru.practicum.android.diploma.util.functional.Either
 import ru.practicum.android.diploma.util.functional.Failure
 import javax.inject.Inject
 
-class GetAllCountriesUseCaseImpl @Inject constructor(private val repository: FilterRepository): GetAllCountriesUseCase {
+class GetAllCountriesUseCaseImpl @Inject constructor(
+    private val repository: FilterRepository
+): GetAllCountriesUseCase {
+
     override suspend fun getAllCountries(): Either<Failure, List<Country>> {
         return repository.getAllCountries()
     }
