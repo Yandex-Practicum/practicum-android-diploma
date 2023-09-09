@@ -44,11 +44,11 @@ open class ChooseFragment : Fragment(R.layout.fragment_areas) {
             viewModel.uiState.collect { state ->
                 viewModel.log(thisName, "uiState.collect { state -> ${state.thisName}")
                 when (state) {
-                    is Loading    -> showLoadingScreen()
+                    is Loading -> showLoadingScreen()
                     is Content -> renderContent(state.list)
-                    is NoData     -> showNoData(state.message)
-                    is Offline    -> showOffline(state.message)
-                    is Error      -> showError(state.message)
+                    is NoData  -> showNoData(state.message)
+                    is Offline -> showOffline(state.message)
+                    is Error   -> showError(state.message)
                 }
             }
         }
