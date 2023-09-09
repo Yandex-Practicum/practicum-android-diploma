@@ -3,6 +3,9 @@ package ru.practicum.android.diploma.search.data.network
 import retrofit2.Response
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.filter.data.model.CountryDto
+import ru.practicum.android.diploma.search.data.network.dto.request.Request.*
+import ru.practicum.android.diploma.search.data.network.dto.request.*
+import ru.practicum.android.diploma.filter.data.model.IndustryDto
 import ru.practicum.android.diploma.search.data.network.dto.response.VacanciesResponse
 import ru.practicum.android.diploma.util.functional.Either
 import ru.practicum.android.diploma.util.functional.Failure
@@ -15,15 +18,30 @@ class ApiHelper @Inject constructor(
     private val networkHandler: InternetController,
     private val logger: Logger
 ):  AlternativeRemoteDataSource{
-    override suspend fun getVacancies(query: String): Either<Failure, VacanciesResponse> {
+
+    override suspend fun doRequest(request: Request): Either<Failure, Any> {
+       return when (request){
+           is VacanciesRequest -> getVacancies(request)
+           is AllCountriesRequest -> getAllCountries()
+           is AllIndustriesRequest -> getIndustries()
+       }
+    }
+
+    private suspend fun getVacancies(request: VacanciesRequest): Either<Failure, VacanciesResponse> {
         return requestData(VacanciesResponse.empty) {
-            apiService.searchVacancies(query)
+            apiService.searchVacancies(request.query)
         }
     }
 
-    override suspend fun getAllCountries(): Either<Failure, List<CountryDto>> {
+    private suspend fun getAllCountries(): Either<Failure, List<CountryDto>> {
         return requestData(emptyList()) {
             apiService.getAllCountries()
+        }
+    }
+
+    private suspend fun getIndustries(): Either<Failure, List<IndustryDto>> {
+        return requestData(emptyList()) {
+            apiService.getIndustries()
         }
     }
 
@@ -44,7 +62,7 @@ class ApiHelper @Inject constructor(
                     Either.Left(Failure.ServerError(response.code()))
                 } else {
                     logger.log(thisName, "responseHandle: NOT CONNECTED")
-                    Either.Left(Failure.NetworkConnection())
+                    Either.Left(Failure.Offline())
                 }
             }
         }

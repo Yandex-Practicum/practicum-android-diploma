@@ -15,23 +15,22 @@ import javax.inject.Inject
 class RegionViewModel @Inject constructor(
     private val filterInteractor: FilterInteractor,
     logger: Logger
-) : AreasViewModel(logger, filterInteractor) {
-
+) : AreasViewModel(logger) {
 
 
     override fun getData() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val countryId = filterInteractor.getSavedFilterSettings(FILTER_KEY).country!!.id
-            filterInteractor.getRegions(countryId).collect { state ->
-                log("RegionViewModel", "state ${state.thisName}")
-                _uiState.value = when (state) {
-                    is Success -> UiState.Content(state.data)
-                    is NoData  -> UiState.NoData(message = state.message)
-                    is Offline -> UiState.Offline(message = state.message)
-                    is Error   -> UiState.Error(message = state.message)
-                }
-            }
-        }
+//        viewModelScope.launch(Dispatchers.IO) {
+//            val countryId = filterInteractor.getSavedFilterSettings(FILTER_KEY).country!!.id
+//            filterInteractor.getRegions(countryId).collect { state ->
+//                log("RegionViewModel", "state ${state.thisName}")
+//                _uiState.value = when (state) {
+//                    is Success -> UiState.Content(state.data)
+//                    is NoData  -> UiState.NoData(message = state.message)
+//                    is Offline -> UiState.Offline(message = state.message)
+//                    is Error   -> UiState.Error(message = state.message)
+//                }
+//            }
+//        }
     }
 
     fun saveRegion(region: Region) {

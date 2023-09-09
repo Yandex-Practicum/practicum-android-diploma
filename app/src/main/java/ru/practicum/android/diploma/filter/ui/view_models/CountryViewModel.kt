@@ -19,7 +19,7 @@ import javax.inject.Inject
 open class CountryViewModel @Inject constructor(
     private val filterInteractor: FilterInteractor,
     logger: Logger
-): AreasViewModel(logger, filterInteractor)  {
+): AreasViewModel(logger)  {
 
 
     fun saveCountry(country: Country) {

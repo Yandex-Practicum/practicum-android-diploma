@@ -1,7 +1,10 @@
 package ru.practicum.android.diploma.filter.data.converter
 
 import ru.practicum.android.diploma.filter.data.model.CountryDto
+import ru.practicum.android.diploma.filter.data.model.IndustryDto
 import ru.practicum.android.diploma.filter.domain.models.Country
+import ru.practicum.android.diploma.filter.domain.models.Industry
+import ru.practicum.android.diploma.filter.domain.models.IndustryArea
 import ru.practicum.android.diploma.filter.domain.models.Region
 import ru.practicum.android.diploma.search.data.network.dto.response.RegionCodeResponse
 
@@ -21,5 +24,19 @@ fun countryDtoToCountry(list: List<CountryDto>): List<Country> {
         .sortedWith(compareBy({ it.name == OTHER }, { it.name }))
 }
 
+fun industryDtoListToIndustryList(list: List<IndustryDto>): List<Industry> {
+    return list.map {
+        Industry(
+            id = it.id ?: "",
+            industries = it.industries?.map { industryAreaDto ->
+                IndustryArea(
+                    id = industryAreaDto.id ?: "",
+                    name = industryAreaDto.name ?: ""
+                )
+            } ?: emptyList(),
+            name = it.name ?: ""
+        )
+    }
+}
 
 private const val OTHER = "Другие регионы"

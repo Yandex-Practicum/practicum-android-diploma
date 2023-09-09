@@ -6,13 +6,9 @@ import ru.practicum.android.diploma.details.data.dto.VacancyFullInfoModelDto
 import ru.practicum.android.diploma.details.data.dto.assistants.KeySkillDto
 import ru.practicum.android.diploma.details.domain.models.VacancyFullInfo
 import ru.practicum.android.diploma.di.annotations.NewResponse
-import ru.practicum.android.diploma.filter.data.model.CountryDto
-import ru.practicum.android.diploma.filter.domain.models.Country
-import ru.practicum.android.diploma.filter.domain.models.Region
 import ru.practicum.android.diploma.search.data.network.dto.VacancyDto
 import ru.practicum.android.diploma.search.data.network.dto.general_models.Phone
 import ru.practicum.android.diploma.search.data.network.dto.general_models.Salary
-import ru.practicum.android.diploma.search.data.network.dto.response.RegionCodeResponse
 import ru.practicum.android.diploma.search.data.network.dto.response.VacanciesResponse
 import ru.practicum.android.diploma.search.domain.models.Vacancies
 import ru.practicum.android.diploma.search.domain.models.Vacancy
@@ -104,6 +100,7 @@ class VacancyModelConverter @Inject constructor(
                 contactName = contacts?.name ?: "",
                 keySkills = keySkillsToString(key_skills),
                 contactPhones = createPhones(contacts?.phones),
+                contactComment = contacts?.phones?.get(0)?.comment ?: "",
                 alternateUrl = alternate_url ?: "",
             )
         }

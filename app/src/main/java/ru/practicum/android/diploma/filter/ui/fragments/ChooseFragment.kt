@@ -54,7 +54,7 @@ open class ChooseFragment : Fragment(R.layout.fragment_areas) {
         }
     }
 
-    protected open fun showLoadingScreen() {
+    private fun showLoadingScreen() {
         binding.progressBar.visibility = View.VISIBLE
     }
 
@@ -90,9 +90,10 @@ open class ChooseFragment : Fragment(R.layout.fragment_areas) {
         binding.recycler.adapter = filterAdapter
     }
 
-    private fun showMessage(idRes: Int) {
-        val context = binding.root.context
-        val message = requireActivity().getString(idRes)
+
+    private fun showMessage(resId: Int) {
+        val context = requireContext()
+        val message = requireActivity().getString(resId)
         Snackbar
             .make(context, binding.root, message, Snackbar.LENGTH_LONG)
             .setBackgroundTint(context.getColor(R.color.blue))

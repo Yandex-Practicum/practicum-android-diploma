@@ -11,7 +11,7 @@ class GetAllCountriesUseCaseImpl @Inject constructor(
     private val repository: FilterRepository
 ): GetAllCountriesUseCase {
 
-    override suspend fun getAllCountries(): Either<Failure, List<Country>> {
+    override suspend fun invoke(): Either<Failure, List<Country>> {
         return repository.getAllCountries()
     }
 }

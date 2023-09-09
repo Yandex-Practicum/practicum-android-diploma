@@ -11,8 +11,7 @@ interface FilterInteractor {
 
     suspend fun getCountries(): Flow<NetworkResponse<List<Country>>>
     suspend fun getRegions(countryId: String): Flow<NetworkResponse<List<Region>>>
-
-
+    
     suspend fun getSavedFilterSettings(key: String): SelectedFilter
     suspend fun saveRegion(key: String, region: Region?)
     suspend fun saveCountry(key: String, country: Country)
