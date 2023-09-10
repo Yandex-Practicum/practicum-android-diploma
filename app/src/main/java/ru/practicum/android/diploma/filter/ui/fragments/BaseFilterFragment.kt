@@ -32,16 +32,21 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
             filterToolbar.setNavigationOnClickListener {
                 findNavController().navigateUp()
             }
-            workPlaceContainer.setOnClickListener {
-                findNavController().navigate(
-                    BaseFilterFragmentDirections.actionFilterBaseFragmentToWorkPlaceFilterFragment()
-                )
+            workPlaceText.setOnFocusChangeListener { _, isFocus ->
+                if (isFocus) {
+                    findNavController().navigate(
+                        BaseFilterFragmentDirections.actionFilterBaseFragmentToWorkPlaceFilterFragment()
+                    )
+                }
             }
-            departmentContainer.setOnClickListener {
-                findNavController().navigate(
-                    BaseFilterFragmentDirections.actionFilterBaseFragmentToDepartmentFragment()
-                )
+            departmentText.setOnFocusChangeListener { _, isFocus ->
+                if (isFocus) {
+                    findNavController().navigate(
+                        BaseFilterFragmentDirections.actionFilterBaseFragmentToDepartmentFragment()
+                    )
+                }
             }
+
             amountText.doOnTextChanged { _, _, _, count ->
                 if (count == 0)
                     viewModel.setEmptyScreenState()

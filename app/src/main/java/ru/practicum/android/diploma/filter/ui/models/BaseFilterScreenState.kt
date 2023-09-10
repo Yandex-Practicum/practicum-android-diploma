@@ -27,7 +27,7 @@ sealed interface BaseFilterScreenState {
             with(binding) {
                 chooseBaseFilterBtn.visibility = View.VISIBLE
                 bottomContainerToApply.visibility = View.GONE
-                departmentText.text = selectedFilter.industry?.name ?: ""
+                departmentText.setText( selectedFilter.industry?.name ?: "")
                 amountText.setCompoundDrawablesWithIntrinsicBounds(
                     null,
                     null,
