@@ -5,10 +5,10 @@ import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.annotation.StringRes
 import com.google.android.material.appbar.AppBarLayout
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
-import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.util.functional.Failure
 import ru.practicum.android.diploma.util.thisName
 
@@ -87,16 +87,18 @@ class SearchScreenPainter(
         
         when (failure) {
             is Failure.NetworkConnection -> showConnectionError()
-            is Failure.ServerError -> showEmpty()
-            is Failure.NotFound -> showEmpty()
-            is Failure.AppFailure -> showEmpty()
+            else -> showEmpty()
         }
     }
     
     fun renderErrorScrolling(failure: Failure) {
         isScrollingEnabled(true)
         Log.d(thisName, "renderErrorScrolling: $failure")
-        showToast()
+        
+        when (failure) {
+            is Failure.NetworkConnection -> showToast(R.string.no_internet_message)
+            else -> showToast(R.string.server_error)
+        }
     }
     
     private fun showConnectionError() {
@@ -123,8 +125,10 @@ class SearchScreenPainter(
         }
     }
     
-    private fun showToast() {
-        Toast.makeText(context, R.string.no_internet_message, Toast.LENGTH_SHORT).show()
+    private fun showToast(@StringRes stringRes: Int) {
+        Toast
+            .makeText(context, stringRes, Toast.LENGTH_SHORT)
+            .show()
     }
     
     private fun hideKeyboard(view: View) {

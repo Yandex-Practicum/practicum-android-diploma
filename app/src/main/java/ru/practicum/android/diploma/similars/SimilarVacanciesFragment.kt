@@ -2,8 +2,8 @@ package ru.practicum.android.diploma.similars
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -21,8 +21,9 @@ import ru.practicum.android.diploma.util.viewBinding
 import javax.inject.Inject
 
 class SimilarVacanciesFragment : Fragment(R.layout.fragment_similars_vacancy)  {
-
-    @Inject @JvmField var vacancyAdapter: SearchAdapter? = null
+    
+    @Inject
+    lateinit var vacancyAdapter: SearchAdapter
     private val viewModel: SimilarVacanciesViewModel by viewModels { (activity as RootActivity).viewModelFactory }
     private val binding by viewBinding<FragmentSimilarsVacancyBinding>()
     private val args by navArgs<SimilarVacanciesFragmentArgs>()
@@ -44,7 +45,10 @@ class SimilarVacanciesFragment : Fragment(R.layout.fragment_similars_vacancy)  {
     private fun collector() {
         viewModel.log(thisName, "collector()")
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
-            viewModel.uiState.collect { state -> state.render(binding) }
+            viewModel.uiState.collect { state ->
+                vacancyAdapter.isLastPage(true)
+                state.render(binding)
+            }
         }
     }
 
@@ -67,5 +71,4 @@ class SimilarVacanciesFragment : Fragment(R.layout.fragment_similars_vacancy)  {
             SimilarVacanciesFragmentDirections.actionSimilarsVacancyFragmentToDetailsFragment(vacancy)
         )
     }
-
 }

@@ -64,16 +64,12 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                             searchAdapter.submitList(screenState.list)
                             searchAdapter.isLastPage(screenState.isLastPage)
                             painter.showContent(screenState.found)
-                            viewModel.log(thisName, "adapterlist.size = ${searchAdapter.itemCount}")
                         }
                         is SearchUiState.AddedContent -> {
-                            delay(1000)
                            val newList = searchAdapter.currentList + screenState.list
                             searchAdapter.submitList(newList)
-                            viewModel.log(thisName, "searchAdapter.isLastPag = ${screenState.isLastPage}")
                             searchAdapter.isLastPage(screenState.isLastPage)
                             painter.showContent(screenState.found)
-                            viewModel.log(thisName, "adapterlist.size = ${newList.size}")
                         }
                         is SearchUiState.Default -> { painter.showDefault() }
                         is SearchUiState.Error -> { painter.renderError(screenState.error) }
@@ -125,7 +121,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                     if (dy > 0) {
                         val pos = (recycler.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
                         val itemsCount = searchAdapter.itemCount
-                        if (pos >= itemsCount-1) {
+                        if (pos >= itemsCount - 5) {
                             viewModel.onScrolledBottom()
                         }
                     }

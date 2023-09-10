@@ -5,6 +5,5 @@ import ru.practicum.android.diploma.util.functional.Either
 import ru.practicum.android.diploma.util.functional.Failure
 
 interface SearchVacanciesUseCase {
-    suspend operator fun invoke(query: String): Either<Failure, Vacancies>
     suspend operator fun invoke(query: String, page: Int): Either<Failure, Vacancies>
 }

@@ -36,7 +36,7 @@ class SearchRepositoryImpl @Inject constructor(
     private val apiHelper: AlternativeRemoteDataSource
 ) : SearchRepository {
 
-    @NewResponse
+/*     @NewResponse
     @Suppress("UNCHECKED_CAST")
     override suspend fun searchVacancies(query: String): Either<Failure, Vacancies> {
         return ((apiHelper.doRequest(
@@ -54,7 +54,7 @@ class SearchRepositoryImpl @Inject constructor(
                 Either.Right(converter.vacanciesResponseToVacancies(it))
             }
         }
-    }
+    } */
     @Suppress("UNCHECKED_CAST")
     @NewResponse
     override suspend fun searchVacancies(query: String, page: String): Either<Failure, Vacancies> {

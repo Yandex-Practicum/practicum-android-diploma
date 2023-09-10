@@ -21,19 +21,13 @@ class ApiHelper @Inject constructor(
 
     override suspend fun doRequest(request: Request): Either<Failure, Any> {
        return when (request){
-           is VacanciesRequest -> getVacanciesPerPage(request)
+           is VacanciesRequest -> getVacancies(request)
            is AllCountriesRequest -> getAllCountries()
            is AllIndustriesRequest -> getIndustries()
        }
     }
-
-    private suspend fun getVacancies(request: VacanciesRequest): Either<Failure, VacanciesResponse> {
-        return requestData(VacanciesResponse.empty) {
-            apiService.searchVacancies(request.query)
-        }
-    }
     
-    private suspend fun getVacanciesPerPage(request: VacanciesRequest): Either<Failure, VacanciesResponse> {
+    private suspend fun getVacancies(request: VacanciesRequest): Either<Failure, VacanciesResponse> {
         return requestData(VacanciesResponse.empty) {
             
             val queryParam: Map<String, String> = mapOf(
