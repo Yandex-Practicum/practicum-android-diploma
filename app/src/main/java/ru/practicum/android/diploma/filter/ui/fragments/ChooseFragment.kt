@@ -83,6 +83,7 @@ open class ChooseFragment : Fragment(R.layout.fragment_areas) {
         binding.toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
+        binding.inputLayout.isHintEnabled = false
     }
 
     private fun initAdapter() {

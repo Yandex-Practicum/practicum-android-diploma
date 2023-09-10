@@ -11,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterBaseBinding
+import ru.practicum.android.diploma.filter.ui.models.BaseFilterScreenState
 import ru.practicum.android.diploma.filter.ui.view_models.BaseFilterViewModel
 import ru.practicum.android.diploma.root.RootActivity
 import ru.practicum.android.diploma.util.thisName
@@ -23,8 +24,9 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initListeners()
-        initViewModelObserver()
         viewModel.checkSavedFilterData()
+        initViewModelObserver()
+
     }
 
     private fun initListeners() {
@@ -58,9 +60,16 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
 
     private fun initViewModelObserver() {
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
+
             viewModel.uiState.collect { state ->
-                viewModel.log(thisName, "uiState.collect { state -> ${state.thisName}")
-                state.render(binding)
+                viewModel.log("BaseFilterFragment", "uiState.collect { state -> ${state.thisName}")
+                when (state) {
+                    BaseFilterScreenState.Apply -> state.render(binding)
+                    is BaseFilterScreenState.Choose -> state.render(binding)
+                    is BaseFilterScreenState.Content -> state.render(binding)
+                    BaseFilterScreenState.Empty -> state.render(binding)
+                }
+
             }
         }
     }
