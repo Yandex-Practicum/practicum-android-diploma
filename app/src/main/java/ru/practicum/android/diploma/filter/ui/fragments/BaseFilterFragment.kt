@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.filter.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -23,10 +24,10 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
     private val viewModel: BaseFilterViewModel by viewModels { (activity as RootActivity).viewModelFactory }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("TAG", "onViewCreated: test")
         initListeners()
         viewModel.checkSavedFilterData()
         initViewModelObserver()
-
     }
 
     private fun initListeners() {
@@ -60,14 +61,13 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
 
     private fun initViewModelObserver() {
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
-
             viewModel.uiState.collect { state ->
                 viewModel.log("BaseFilterFragment", "uiState.collect { state -> ${state.thisName}")
                 when (state) {
                     BaseFilterScreenState.Apply -> state.render(binding)
                     is BaseFilterScreenState.Choose -> state.render(binding)
                     is BaseFilterScreenState.Content -> state.render(binding)
-                    BaseFilterScreenState.Empty -> state.render(binding)
+                    is BaseFilterScreenState.Empty -> state.render(binding)
                 }
 
             }

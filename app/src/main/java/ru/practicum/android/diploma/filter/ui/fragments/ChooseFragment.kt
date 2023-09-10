@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.filter.ui.fragments
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
@@ -84,6 +85,11 @@ open class ChooseFragment : Fragment(R.layout.fragment_areas) {
             findNavController().navigateUp()
         }
         binding.inputLayout.isHintEnabled = false
+        binding.search.doOnTextChanged { text, _, _, _ ->
+            viewModel.onSearchQueryChanged(text.toString())
+
+        }
+
     }
 
     private fun initAdapter() {
