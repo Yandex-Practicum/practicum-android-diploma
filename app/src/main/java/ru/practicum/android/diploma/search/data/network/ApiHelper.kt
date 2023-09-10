@@ -27,10 +27,17 @@ class ApiHelper @Inject constructor(
            is AllIndustriesRequest -> getIndustries()
        }
     }
-
+    
     private suspend fun getVacancies(request: VacanciesRequest): Either<Failure, VacanciesResponse> {
         return requestData(VacanciesResponse.empty) {
-            apiService.searchVacancies(request.query)
+            
+            val queryParam: Map<String, String> = mapOf(
+                "text" to request.query,
+                "page" to request.page,
+                "per_page" to COUNT_ITEMS
+            )
+            
+            apiService.searchVacanciesPerPage(queryParam)
         }
     }
 
@@ -86,4 +93,7 @@ class ApiHelper @Inject constructor(
             }
             false -> responseHandle(request(), default, false)
         }
+    companion object {
+        private const val COUNT_ITEMS = "20"
+    }
 }

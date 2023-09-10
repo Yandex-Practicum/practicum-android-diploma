@@ -8,10 +8,9 @@ import ru.practicum.android.diploma.util.functional.Failure
 import javax.inject.Inject
 
 class SearchVacanciesUseCaseImpl @Inject constructor(
-    private val repository: SearchRepository
-): SearchVacanciesUseCase {
-
-    override suspend operator fun invoke(query: String): Either<Failure, Vacancies> {
-        return repository.searchVacancies(query)
+    private val repository: SearchRepository,
+) : SearchVacanciesUseCase {
+    override suspend fun invoke(query: String, page: Int): Either<Failure, Vacancies> {
+        return repository.searchVacancies(query, page.toString())
     }
 }

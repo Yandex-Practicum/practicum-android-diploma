@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.search.data
 
 import ru.practicum.android.diploma.Logger
+import ru.practicum.android.diploma.di.annotations.NewResponse
 import ru.practicum.android.diploma.search.data.network.AlternativeRemoteDataSource
 import ru.practicum.android.diploma.search.data.network.converter.VacancyModelConverter
 import ru.practicum.android.diploma.search.data.network.dto.request.Request
@@ -18,14 +19,19 @@ class SearchRepositoryImpl @Inject constructor(
     private val logger: Logger,
     private val apiHelper: AlternativeRemoteDataSource
 ) : SearchRepository {
-
+    
     @Suppress("UNCHECKED_CAST")
-    override suspend fun searchVacancies(query: String): Either<Failure, Vacancies> {
-        return ((apiHelper.doRequest(Request.VacanciesRequest(query))) as Either<Failure, VacanciesResponse>).flatMap {
-            if (it.found == 0){
+    @NewResponse
+    override suspend fun searchVacancies(query: String, page: String): Either<Failure, Vacancies> {
+        return ((apiHelper.doRequest(
+            Request.VacanciesRequest(
+                query, page
+            )
+        )) as Either<Failure, VacanciesResponse>).flatMap {
+            if (it.found == 0) {
                 logger.log(thisName, "searchVacancies: NOTHING FOUND")
                 Either.Left(Failure.NotFound())
-            }else{
+            } else {
                 logger.log(thisName, "searchVacancies: FOUND = ${it.found}")
                 Either.Right(converter.vacanciesResponseToVacancies(it))
             }

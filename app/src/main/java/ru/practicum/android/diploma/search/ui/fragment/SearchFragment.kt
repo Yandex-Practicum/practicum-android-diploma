@@ -9,7 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
@@ -59,10 +62,18 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                     when (screenState) {
                         is SearchUiState.Content -> {
                             searchAdapter.submitList(screenState.list)
+                            searchAdapter.isLastPage(screenState.isLastPage)
+                            painter.showContent(screenState.found)
+                        }
+                        is SearchUiState.AddedContent -> {
+                           val newList = searchAdapter.currentList + screenState.list
+                            searchAdapter.submitList(newList)
+                            searchAdapter.isLastPage(screenState.isLastPage)
                             painter.showContent(screenState.found)
                         }
                         is SearchUiState.Default -> { painter.showDefault() }
                         is SearchUiState.Error -> { painter.renderError(screenState.error) }
+                        is SearchUiState.ErrorScrollLoading -> { painter.renderErrorScrolling(screenState.error) }
                         is SearchUiState.Loading -> { painter.showLoading() }
                     }
                 }
@@ -81,8 +92,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 )
             }
             
-            searchInputLayout.endIconDrawable =
-                AppCompatResources.getDrawable(requireContext(), R.drawable.ic_search)
+            viewModel.log(thisName, "endIconDrawable = ${searchInputLayout.endIconDrawable}")
+            
             searchInputLayout.isHintEnabled = false
             
             ietSearch.doOnTextChanged { text, _, _, _ ->
@@ -102,6 +113,20 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             btnUpdate.setOnClickListener {
                 viewModel.searchVacancies(ietSearch.text.toString())
             }
+            
+            recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    
+                    if (dy > 0) {
+                        val pos = (recycler.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                        val itemsCount = searchAdapter.itemCount
+                        if (pos >= itemsCount - 5) {
+                            viewModel.onScrolledBottom()
+                        }
+                    }
+                }
+            })
         }
     }
     
