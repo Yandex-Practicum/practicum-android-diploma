@@ -16,18 +16,16 @@ import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.details.domain.DetailsInteractor
 import ru.practicum.android.diploma.filter.domain.models.NetworkResponse
-import ru.practicum.android.diploma.root.BaseViewModel
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.sharing.domain.api.SharingInteractor
 import ru.practicum.android.diploma.util.thisName
-import javax.inject.Inject
 
 
 class DetailsViewModel @AssistedInject constructor(
     private val logger: Logger,
     private val detailsInteractor: DetailsInteractor,
     private val sharingInteractor: SharingInteractor,
-    @Assisted
+    @Assisted("vacancyId")
     private val vacancyId: String
 ) : ViewModel() {
 
@@ -35,32 +33,6 @@ class DetailsViewModel @AssistedInject constructor(
     val uiState: StateFlow<DetailsScreenState> = _uiState
 
     private var isInFavorites = false
-
-    init {
-        logger.log(thisName, "init______ vacancy id = ${vacancyId}")
-    }
-
-    fun printIt(){
-        log(thisName, "id = $vacancyId")
-    }
-
-    @AssistedFactory
-    interface Factory{
-        fun create(vacancyId: String): DetailsViewModel
-    }
-
-
-
-    companion object{
-
-        fun provideDetailsViewModelFactory(factory: Factory, vacancyId: String): ViewModelProvider.Factory{
-            return object : ViewModelProvider.Factory{
-                override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                    return factory.create(vacancyId) as T
-                }
-            }
-        }
-    }
 
     fun handleAddToFavsButton(vacancy: Vacancy){
         isInFavorites = !isInFavorites
@@ -159,4 +131,19 @@ class DetailsViewModel @AssistedInject constructor(
         }
     }
 
+
+    @AssistedFactory
+    interface Factory{
+        fun create(@Assisted("vacancyId") vacancyId: String): DetailsViewModel
+    }
+    companion object{
+
+        fun provideDetailsViewModelFactory(factory: Factory, vacancyId: String): ViewModelProvider.Factory{
+            return object : ViewModelProvider.Factory{
+                override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                    return factory.create(vacancyId) as T
+                }
+            }
+        }
+    }
 }
