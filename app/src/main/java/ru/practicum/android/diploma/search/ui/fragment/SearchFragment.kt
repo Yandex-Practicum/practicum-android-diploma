@@ -36,11 +36,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     override fun onResume() {
         super.onResume()
-
-        lifecycleScope.launch {
-            delay(2000)
-            binding.ietSearch.setText("hello")
-        }
         viewModel.log(thisName, "onResume()")
 //        TODO("Сделать запрос в SharedPrefs на наличие текущих филтров." +
 //                "Далее если фильтры есть и строка поиска не пустая -> сделать запрос в сеть и обновить список" +
