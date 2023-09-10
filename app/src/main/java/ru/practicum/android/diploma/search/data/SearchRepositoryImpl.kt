@@ -9,8 +9,8 @@ import ru.practicum.android.diploma.di.annotations.NewResponse
 import ru.practicum.android.diploma.filter.data.converter.countryDtoToCountry
 import ru.practicum.android.diploma.filter.data.converter.mapRegionCodeResponseToRegionList
 import ru.practicum.android.diploma.filter.data.model.Filter
-import ru.practicum.android.diploma.filter.domain.models.NetworkResponse
 import ru.practicum.android.diploma.filter.domain.models.Country
+import ru.practicum.android.diploma.filter.domain.models.NetworkResponse
 import ru.practicum.android.diploma.filter.domain.models.Region
 import ru.practicum.android.diploma.search.data.network.AlternativeRemoteDataSource
 import ru.practicum.android.diploma.search.data.network.CodeResponse
@@ -37,27 +37,50 @@ class SearchRepositoryImpl @Inject constructor(
 ) : SearchRepository {
 
     @NewResponse
+    @Suppress("UNCHECKED_CAST")
     override suspend fun searchVacancies(query: String): Either<Failure, Vacancies> {
-        return ((apiHelper.doRequest(Request.VacanciesRequest(query))) as Either<Failure, VacanciesResponse>).flatMap {
-            if (it.found == 0){
+        return ((apiHelper.doRequest(
+            Request.VacanciesRequest(
+                query,
+                "0"
+            )
+         
+        )) as Either<Failure, VacanciesResponse>).flatMap {
+            if (it.found == 0) {
                 logger.log(thisName, "searchVacancies: NOTHING FOUND")
                 Either.Left(Failure.NotFound())
-            }else{
+            } else {
                 logger.log(thisName, "searchVacancies: FOUND = ${it.found}")
                 Either.Right(converter.vacanciesResponseToVacancies(it))
             }
         }
     }
-
-
+    @Suppress("UNCHECKED_CAST")
+    @NewResponse
+    override suspend fun searchVacancies(query: String, page: String): Either<Failure, Vacancies> {
+        return ((apiHelper.doRequest(
+            Request.VacanciesRequest(
+                query, page
+            )
+        )) as Either<Failure, VacanciesResponse>).flatMap {
+            if (it.found == 0) {
+                logger.log(thisName, "searchVacancies: NOTHING FOUND")
+                Either.Left(Failure.NotFound())
+            } else {
+                logger.log(thisName, "searchVacancies: FOUND = ${it.found}")
+                Either.Right(converter.vacanciesResponseToVacancies(it))
+            }
+        }
+    }
+    
     override suspend fun getCountries(): Flow<NetworkResponse<List<Country>>> = flow {
         logger.log(thisName, "getCountries(): Flow<NetworkResponse<List<Country>>>")
         val request = Filter.CountryRequest
         val response = networkClient.doRequest(request)
         emit(
             when (response.resultCode) {
-                200  -> checkCountryData(response)
-                -1   -> NetworkResponse.Offline(message = context.getString(R.string.error))
+                200 -> checkCountryData(response)
+                -1 -> NetworkResponse.Offline(message = context.getString(R.string.error))
                 else -> NetworkResponse.Error(message = context.getString(R.string.server_error))
             }
         )

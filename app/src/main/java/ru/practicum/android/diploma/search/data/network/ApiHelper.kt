@@ -21,7 +21,7 @@ class ApiHelper @Inject constructor(
 
     override suspend fun doRequest(request: Request): Either<Failure, Any> {
        return when (request){
-           is VacanciesRequest -> getVacancies(request)
+           is VacanciesRequest -> getVacanciesPerPage(request)
            is AllCountriesRequest -> getAllCountries()
            is AllIndustriesRequest -> getIndustries()
        }
@@ -30,6 +30,19 @@ class ApiHelper @Inject constructor(
     private suspend fun getVacancies(request: VacanciesRequest): Either<Failure, VacanciesResponse> {
         return requestData(VacanciesResponse.empty) {
             apiService.searchVacancies(request.query)
+        }
+    }
+    
+    private suspend fun getVacanciesPerPage(request: VacanciesRequest): Either<Failure, VacanciesResponse> {
+        return requestData(VacanciesResponse.empty) {
+            
+            val queryParam: Map<String, String> = mapOf(
+                "text" to request.query,
+                "page" to request.page,
+                "per_page" to COUNT_ITEMS
+            )
+            
+            apiService.searchVacanciesPerPage(queryParam)
         }
     }
 
@@ -79,4 +92,7 @@ class ApiHelper @Inject constructor(
             }
             false -> responseHandle(request(), default, false)
         }
+    companion object {
+        private const val COUNT_ITEMS = "20"
+    }
 }

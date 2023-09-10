@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import com.google.android.material.appbar.AppBarLayout
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
@@ -14,6 +15,8 @@ import ru.practicum.android.diploma.util.thisName
 class SearchScreenPainter(
     private val binding: FragmentSearchBinding,
 ) {
+    
+    private val context = binding.textFabSearch.context
     fun showDefault() {
         isScrollingEnabled(false)
         
@@ -46,8 +49,7 @@ class SearchScreenPainter(
         isScrollingEnabled(false)
         
         with(binding) {
-            val context = textFabSearch.context
-            
+            hideKeyboard(ietSearch)
             textFabSearch.text = context.getString(R.string.loading_message)
             textFabSearch.visibility = View.VISIBLE
             recycler.visibility = View.GONE
@@ -61,8 +63,6 @@ class SearchScreenPainter(
         isScrollingEnabled(true)
         
         with(binding) {
-            val context = textFabSearch.context
-            
             val fabText = StringBuilder()
             fabText.append(context.getString(R.string.found))
             fabText.append(" ")
@@ -93,26 +93,26 @@ class SearchScreenPainter(
         }
     }
     
+    fun renderErrorScrolling(failure: Failure) {
+        isScrollingEnabled(true)
+        Log.d(thisName, "renderErrorScrolling: $failure")
+        showToast()
+    }
+    
     private fun showConnectionError() {
         with(binding) {
-            val context = textFabSearch.context
-            
             textFabSearch.text = context.getString(R.string.no_internet_message)
             textFabSearch.visibility = View.VISIBLE
             recycler.visibility = View.GONE
             placeholderImage.visibility = View.GONE
             progressBar.visibility = View.VISIBLE
             btnUpdate.visibility = View.VISIBLE
-            
-            hideKeyboard(ietSearch)
         }
     }
     
     private fun showEmpty() {
         
         with(binding) {
-            val context = textFabSearch.context
-            
             textFabSearch.text = context.getString(R.string.empty_search_error)
             textFabSearch.visibility = View.VISIBLE
             recycler.visibility = View.GONE
@@ -123,9 +123,13 @@ class SearchScreenPainter(
         }
     }
     
+    private fun showToast() {
+        Toast.makeText(context, R.string.no_internet_message, Toast.LENGTH_SHORT).show()
+    }
+    
     private fun hideKeyboard(view: View) {
         val inputMethodManager =
-            view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+            context.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
         inputMethodManager?.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }

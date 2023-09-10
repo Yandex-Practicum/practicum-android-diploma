@@ -17,4 +17,8 @@ class SearchVacanciesUseCaseImpl @Inject constructor(
     override suspend operator fun invoke(query: String): Either<Failure, Vacancies> {
         return repository.searchVacancies(query)
     }
+    @NewResponse
+    override suspend fun invoke(query: String, page: Int): Either<Failure, Vacancies> {
+        return repository.searchVacancies(query, page.toString())
+    }
 }

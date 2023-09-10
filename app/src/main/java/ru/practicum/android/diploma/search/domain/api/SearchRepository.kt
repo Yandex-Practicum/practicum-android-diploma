@@ -13,6 +13,8 @@ interface SearchRepository {
 
     @NewResponse
     suspend fun searchVacancies(query: String): Either<Failure, Vacancies>
+    @NewResponse
+    suspend fun searchVacancies(query: String, page: String): Either<Failure, Vacancies>
 
     suspend fun getCountries(): Flow<NetworkResponse<List<Country>>>
     suspend fun getRegionsById(countryId: String): Flow<NetworkResponse<List<Region>>>
