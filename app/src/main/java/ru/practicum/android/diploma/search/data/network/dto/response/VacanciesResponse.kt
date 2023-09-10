@@ -4,7 +4,6 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import ru.practicum.android.diploma.search.data.network.dto.VacancyDto
 
-//@NewResponse
 @Serializable
 data class VacanciesResponse(
     @SerialName("found") val found: Int,

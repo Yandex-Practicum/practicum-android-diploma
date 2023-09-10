@@ -6,7 +6,7 @@ import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.filter.data.converter.DataConverter
 import ru.practicum.android.diploma.filter.data.local_storage.LocalStorage
 import ru.practicum.android.diploma.filter.data.model.DataType
-import ru.practicum.android.diploma.filter.ui.models.SelectedFilter
+import ru.practicum.android.diploma.filter.domain.models.SelectedFilter
 import ru.practicum.android.diploma.util.thisName
 import java.util.concurrent.locks.ReentrantReadWriteLock
 import javax.inject.Inject
@@ -22,7 +22,7 @@ class SharedPrefsStorageImpl @Inject constructor(
 
     private val lock = ReentrantReadWriteLock()
     override fun <T> writeData(key: String, data: T) {
-        logger.log(thisName, "writeData(key: $key, $data: T)")
+        logger.log(thisName, "writeData($key: String, $data: T)")
         lock.write {
             when (data) {
                 is Boolean -> preferences.edit().putBoolean(key, data).apply()
@@ -34,7 +34,7 @@ class SharedPrefsStorageImpl @Inject constructor(
     }
 
     override fun <T> readData(key: String, defaultValue: DataType): T {
-        logger.log(thisName, "readData(key: $key, $defaultValue: T): T")
+        logger.log(thisName, "readData($key: String, defaultValue: T): T")
         lock.read {
             return when (defaultValue) {
                 DataType.BOOLEAN -> preferences.getBoolean(key, false) as T
@@ -46,7 +46,6 @@ class SharedPrefsStorageImpl @Inject constructor(
     }
 
     private fun <T> SharedPreferences.getSelectedData(key: String): T {
-        logger.log(thisName, "getSelectedData($key: String): T")
         return getString(key, null)
             ?.let { converter.dataFromJson(it, type<SelectedFilter>()) }
             ?: SelectedFilter() as T

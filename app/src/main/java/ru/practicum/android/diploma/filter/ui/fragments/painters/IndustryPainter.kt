@@ -5,17 +5,16 @@ import com.google.android.material.snackbar.Snackbar
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentAreasBinding
 
-
-class CountryPainter(private val binding: FragmentAreasBinding) {
-
+class IndustryPainter(private val binding: FragmentAreasBinding) {
     fun showLoadingScreen() {
         val context = binding.root.context
         with(binding) {
-            toolbar.title = context.getString(R.string.choose_country)
+            binding.toolbar.title = context.getString(R.string.choose_department)
             inputLayout.visibility = View.GONE
             applyBtn.visibility = View.GONE
             placeholder.visibility = View.GONE
             progressBar.visibility = View.VISIBLE
+            inputLayout.visibility = View.VISIBLE
         }
     }
 
@@ -42,5 +41,4 @@ class CountryPainter(private val binding: FragmentAreasBinding) {
         binding.placeholder.visibility = View.VISIBLE
         binding.recycler.visibility = View.GONE
     }
-
 }

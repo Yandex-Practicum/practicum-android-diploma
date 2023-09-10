@@ -6,5 +6,6 @@ sealed interface Request {
         val query: String,
         val page: String,
     ) : Request
+    class RegionRequest(val id: String) : Request
     object AllIndustriesRequest: Request
 }

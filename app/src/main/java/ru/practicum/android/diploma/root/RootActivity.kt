@@ -8,6 +8,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.app.App
+import ru.practicum.android.diploma.app.appComponent
 import ru.practicum.android.diploma.databinding.ActivityRootBinding
 import ru.practicum.android.diploma.di.ViewModelFactory
 import ru.practicum.android.diploma.util.thisName
@@ -15,8 +16,7 @@ import javax.inject.Inject
 
 class RootActivity : AppCompatActivity() {
     val component by lazy(LazyThreadSafetyMode.NONE) {
-        (application as App).component
-            .activityComponentFactory()
+        appComponent.activityComponentFactory()
             .create()
     }
     @Inject

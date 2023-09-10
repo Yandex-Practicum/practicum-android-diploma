@@ -6,13 +6,10 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentAreasBinding
 import ru.practicum.android.diploma.filter.ui.fragments.adapters.FilterAdapter
@@ -47,17 +44,17 @@ open class ChooseFragment : Fragment(R.layout.fragment_areas) {
             viewModel.uiState.collect { state ->
                 viewModel.log(thisName, "uiState.collect { state -> ${state.thisName}")
                 when (state) {
-                    is Loading    -> showLoadingScreen()
-                    is Content<*> -> renderContent(state.list)
-                    is NoData     -> showNoData(state.message)
-                    is Offline    -> showOffline(state.message)
-                    is Error      -> showError(state.message)
+                    is Loading -> showLoadingScreen()
+                    is Content -> renderContent(state.list)
+                    is NoData  -> showNoData(state.message)
+                    is Offline -> showOffline(state.message)
+                    is Error   -> showError(state.message)
                 }
             }
         }
     }
 
-    protected open fun showLoadingScreen() {
+    private fun showLoadingScreen() {
         binding.progressBar.visibility = View.VISIBLE
     }
 
@@ -68,16 +65,16 @@ open class ChooseFragment : Fragment(R.layout.fragment_areas) {
         }
     }
 
-    private fun showNoData(message: String) {
+    private fun showNoData(message: Int) {
         showMessage(message)
     }
 
-    private fun showOffline(message: String) {
+    private fun showOffline(message: Int) {
         showPlaceholder()
         showMessage(message)
     }
 
-    private fun showError(message: String) {
+    private fun showError(message: Int) {
         showPlaceholder()
         showMessage(message)
     }
@@ -93,8 +90,10 @@ open class ChooseFragment : Fragment(R.layout.fragment_areas) {
         binding.recycler.adapter = filterAdapter
     }
 
-    private fun showMessage(message: String) {
-        val context = binding.root.context
+
+    private fun showMessage(resId: Int) {
+        val context = requireContext()
+        val message = requireActivity().getString(resId)
         Snackbar
             .make(context, binding.root, message, Snackbar.LENGTH_LONG)
             .setBackgroundTint(context.getColor(R.color.blue))

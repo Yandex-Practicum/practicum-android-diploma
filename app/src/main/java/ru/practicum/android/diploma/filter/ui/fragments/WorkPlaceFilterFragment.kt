@@ -12,7 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentWorkPlaceFilterBinding
-import ru.practicum.android.diploma.filter.ui.models.SelectedFilter
+import ru.practicum.android.diploma.filter.domain.models.SelectedFilter
 import ru.practicum.android.diploma.filter.ui.view_models.WorkPlaceViewModel
 import ru.practicum.android.diploma.root.Debouncer
 import ru.practicum.android.diploma.root.RootActivity
@@ -40,7 +40,6 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
         viewModel.checkSavedFilterData()
         viewLifecycleOwner.lifecycle.coroutineScope.launch(Dispatchers.Main) {
             viewModel.uiState.collect { state -> render(state)
-                viewModel.log("CountryFilterFragment", "uiState.collect { $state")
             }
         }
     }

@@ -86,7 +86,7 @@ class SearchScreenPainter(
         Log.d(thisName, "render: $failure")
         
         when (failure) {
-            is Failure.NetworkConnection -> showConnectionError()
+            is Failure.Offline -> showConnectionError()
             else -> showEmpty()
         }
     }
@@ -96,8 +96,9 @@ class SearchScreenPainter(
         Log.d(thisName, "renderErrorScrolling: $failure")
         
         when (failure) {
-            is Failure.NetworkConnection -> showToast(R.string.no_internet_message)
+            is Failure.Offline -> showToast(R.string.no_internet_message)
             else -> showToast(R.string.server_error)
+            
         }
     }
     
