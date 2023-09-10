@@ -33,10 +33,10 @@ interface ViewModelModule {
     @Binds
     fun bindSearchViewModel(searchViewModel: SearchViewModel): ViewModel
 
-    @IntoMap
-    @ViewModelKey(DetailsViewModel::class)
-    @Binds
-    fun bindDetailsViewModel(detailsViewModel: DetailsViewModel): ViewModel
+//    @IntoMap
+//    @ViewModelKey(DetailsViewModel::class)
+//    @Binds
+//    fun bindDetailsViewModel(detailsViewModel: DetailsViewModel): ViewModel
 
 
     @IntoMap
