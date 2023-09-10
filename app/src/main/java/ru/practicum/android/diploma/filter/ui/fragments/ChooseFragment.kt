@@ -3,12 +3,14 @@ package ru.practicum.android.diploma.filter.ui.fragments
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
@@ -81,17 +83,26 @@ open class ChooseFragment : Fragment(R.layout.fragment_areas) {
     }
 
     protected open fun initListeners() {
-        binding.toolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
-        }
-        binding.inputLayout.isHintEnabled = false
-        binding.search.doOnTextChanged { text, _, _, _ ->
-            viewModel.onSearchQueryChanged(text.toString())
+        with(binding) {
+            toolbar.setNavigationOnClickListener {
+                findNavController().navigateUp()
+            }
+            inputLayout.isHintEnabled = false
+            search.doOnTextChanged { text, _, _, _ ->
+                viewModel.onSearchQueryChanged(text.toString())
+                if (text.isNullOrEmpty()) {
+                    inputLayout.endIconMode = TextInputLayout.END_ICON_NONE
+                    inputLayout.endIconDrawable =
+                        AppCompatResources.getDrawable(requireContext(), R.drawable.ic_search)
+                } else {
+                    inputLayout.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
+                    inputLayout.endIconDrawable =
+                        AppCompatResources.getDrawable(requireContext(), R.drawable.ic_clear)
+                }
+            }
 
         }
-
     }
-
     private fun initAdapter() {
         filterAdapter.fragment = fragment
         binding.recycler.adapter = filterAdapter

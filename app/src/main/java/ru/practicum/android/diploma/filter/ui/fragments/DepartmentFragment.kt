@@ -24,8 +24,8 @@ class DepartmentFragment : ChooseFragment() {
     override fun renderContent(list: List<Any?>) {
         super.renderContent(list)
         filterAdapter.industryList = (list as List<Industry>)
-        filterAdapter.notifyItemRangeChanged(0, filterAdapter.itemCount)
-        viewModel.log(thisName, "renderContent: list.size = ${list.size})")
+        filterAdapter.notifyDataSetChanged()
+        viewModel.log(thisName, "renderContent: list.size = ${list.size} ${filterAdapter.itemCount})")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

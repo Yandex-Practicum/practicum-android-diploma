@@ -12,4 +12,6 @@ class IndustryViewHolder(
         binding.region.text = model.name
         binding.radioBtn.isChecked = state
     }
+
+
 }
