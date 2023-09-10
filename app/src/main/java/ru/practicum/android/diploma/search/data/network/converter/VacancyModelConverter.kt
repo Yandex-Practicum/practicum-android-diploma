@@ -100,7 +100,7 @@ class VacancyModelConverter @Inject constructor(
                 contactName = contacts?.name ?: "",
                 keySkills = keySkillsToString(key_skills),
                 contactPhones = createPhones(contacts?.phones),
-                contactComment = contacts?.phones?.get(0)?.comment ?: "",
+                contactComment = contacts?.phones?.getOrNull(0)?.comment ?: "",
                 alternateUrl = alternate_url ?: "",
             )
         }

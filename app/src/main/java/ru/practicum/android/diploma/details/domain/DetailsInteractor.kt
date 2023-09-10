@@ -6,8 +6,9 @@ import ru.practicum.android.diploma.filter.domain.models.NetworkResponse
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 
 interface DetailsInteractor {
-   suspend fun addVacancyToFavorites(vacancy: Vacancy): Flow<Unit>
+   suspend fun addVacancyToFavorites(vacancy: VacancyFullInfo): Flow<Unit>
    suspend fun removeVacancyFromFavorite(id: String): Flow<Int>
-   suspend fun getFullVacancyInfo(id: String): Flow<NetworkResponse<VacancyFullInfo>>
+   suspend fun getFavoriteVacancy(id: String): Flow<Boolean>
+   suspend fun getFullVacancyInfoById(id: String): Flow<NetworkResponse<VacancyFullInfo>>
    suspend fun getSimilarVacancies(id: String): Flow<NetworkResponse<List<Vacancy>>>
 }

@@ -12,7 +12,7 @@ class DetailsInteractorImpl@Inject constructor(
     private val repository: DetailsRepository
 ) : DetailsInteractor {
     
-    override suspend fun addVacancyToFavorites(vacancy: Vacancy): Flow<Unit> {
+    override suspend fun addVacancyToFavorites(vacancy: VacancyFullInfo): Flow<Unit> {
        return repository.addVacancyToFavorite(vacancy)
     }
 
@@ -20,7 +20,11 @@ class DetailsInteractorImpl@Inject constructor(
         return repository.removeVacancyFromFavorite(id)
     }
 
-    override suspend fun getFullVacancyInfo(id: String): Flow<NetworkResponse<VacancyFullInfo>> {
+    override suspend fun getFavoriteVacancy(id: String): Flow<Boolean> {
+        return repository.getFavoriteVacancy(id)
+    }
+
+    override suspend fun getFullVacancyInfoById(id: String): Flow<NetworkResponse<VacancyFullInfo>> {
         return repository.getFullVacancyInfo(id)
     }
 

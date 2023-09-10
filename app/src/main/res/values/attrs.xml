@@ -9,6 +9,7 @@
     <attr name="image_in_card_view_color" format="reference"/>
     <attr name="cancel_btn_filter" format="reference"/>
     <attr name="blue_white" format="reference"/>
+    <attr name="vacancy_text_color" format="reference"/>
 
 
     <declare-styleable name="SwipeStack">

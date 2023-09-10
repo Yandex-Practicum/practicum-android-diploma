@@ -26,6 +26,8 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         viewModel.log(thisName, "onViewCreated()")
         viewModel.getVacancyByID(args.vacancy.id)
         collector()
+        showIfInFavourite()
+  //      viewModel.getFavoriteVacancyById(args.vacancy.id)
         pressSimilarVacanciesButton()
         initListeners()
     }
@@ -36,6 +38,12 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         sendVacancy()
         writeEmail()
         makeCall()
+    }
+
+    private fun showIfInFavourite() {
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
+            viewModel.getFavoriteVacancyById(args.vacancy.id)
+        }
     }
 
     private fun collector() {
@@ -57,7 +65,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
     private fun addToFavorites() {
         binding.lottieHeart.setOnClickListener {
             viewModel.log(thisName, "buttonAddToFavorites.setOnClickListener { }")
-            viewModel.handleAddToFavsButton(args.vacancy)
+            viewModel.handleAddToFavsButton(args.vacancy.id)
         }
     }
 

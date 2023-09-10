@@ -119,5 +119,5 @@ sealed interface DetailsScreenState {
         }
     }
 }
-const val STRAIGHT_ANIMATION_SPEED = 1f
-const val REVERS_ANIMATION_SPEED = -1f
+const val STRAIGHT_ANIMATION_SPEED = 4f
+const val REVERS_ANIMATION_SPEED = -4f

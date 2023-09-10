@@ -29,10 +29,14 @@ class DetailsRepositoryImpl @Inject constructor(
         return localDataSource.removeVacancyFromFavorite(id)
     }
     
-    override suspend fun addVacancyToFavorite(vacancy: Vacancy): Flow<Unit> {
+    override suspend fun addVacancyToFavorite(vacancy: VacancyFullInfo): Flow<Unit> {
         return localDataSource.addVacancyToFavorite(vacancy)
     }
-    
+
+    override suspend fun getFavoriteVacancy(id: String): Flow<Boolean> {
+        return localDataSource.getFavoriteVacancyById(id)
+    }
+
     override suspend fun getFullVacancyInfo(id: String): Flow<NetworkResponse<VacancyFullInfo>> = flow {
         if (latestVacancyFullInfo?.id != id) {
            remoteDataSource
