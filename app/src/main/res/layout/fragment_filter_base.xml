@@ -23,6 +23,7 @@
         style="@style/FilterStyle"
         android:layout_marginTop="@dimen/margin_16dp"
         android:hint="@string/work_place"
+        android:background="@drawable/ripple"
         app:hintAnimationEnabled="true"
         android:clickable="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,6 +40,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/department_container"
         style="@style/FilterStyle"
+        android:background="@drawable/ripple"
         android:layout_marginTop="@dimen/margin_16dp"
         android:hint="@string/department"
         app:hintAnimationEnabled="true"
