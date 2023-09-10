@@ -2,7 +2,12 @@ package ru.practicum.android.diploma.details.ui
 
 import android.content.Context
 import android.util.Log
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -11,17 +16,18 @@ import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.details.domain.DetailsInteractor
 import ru.practicum.android.diploma.filter.domain.models.NetworkResponse
-import ru.practicum.android.diploma.root.BaseViewModel
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.sharing.domain.api.SharingInteractor
 import ru.practicum.android.diploma.util.thisName
-import javax.inject.Inject
 
-class DetailsViewModel @Inject constructor(
-    logger: Logger,
+
+class DetailsViewModel @AssistedInject constructor(
+    private val logger: Logger,
     private val detailsInteractor: DetailsInteractor,
-    private val sharingInteractor: SharingInteractor
-) : BaseViewModel(logger) {
+    private val sharingInteractor: SharingInteractor,
+    @Assisted("vacancyId")
+    private val vacancyId: String
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow<DetailsScreenState>(DetailsScreenState.Empty)
     val uiState: StateFlow<DetailsScreenState> = _uiState
@@ -40,7 +46,7 @@ class DetailsViewModel @Inject constructor(
                 "vacancy removed from favs"
             }
         }
-        log(thisName, "handleAddToFavsButton $message")
+        logger.log(thisName, "handleAddToFavsButton $message")
         _uiState.value = DetailsScreenState.PlayHeartAnimation(isInFavorites, viewModelScope)
     }
 
@@ -71,6 +77,9 @@ class DetailsViewModel @Inject constructor(
                 return
             }
         }
+    }
+    fun log(tag:String, text:String){
+        logger.log(thisName, text)
     }
 
     fun writeEmail(context: Context) {
@@ -122,4 +131,19 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
+
+    @AssistedFactory
+    interface Factory{
+        fun create(@Assisted("vacancyId") vacancyId: String): DetailsViewModel
+    }
+    companion object{
+
+        fun provideDetailsViewModelFactory(factory: Factory, vacancyId: String): ViewModelProvider.Factory{
+            return object : ViewModelProvider.Factory{
+                override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                    return factory.create(vacancyId) as T
+                }
+            }
+        }
+    }
 }

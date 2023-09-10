@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.details.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -14,16 +15,28 @@ import ru.practicum.android.diploma.databinding.FragmentDetailsBinding
 import ru.practicum.android.diploma.root.RootActivity
 import ru.practicum.android.diploma.util.thisName
 import ru.practicum.android.diploma.util.viewBinding
+import javax.inject.Inject
 
 class DetailsFragment : Fragment(R.layout.fragment_details) {
 
     private val binding by viewBinding<FragmentDetailsBinding>()
-    private val viewModel: DetailsViewModel by viewModels { (activity as RootActivity).viewModelFactory }
+
+    @Inject
+    lateinit var factory: DetailsViewModel.Factory
+
+    private val viewModel: DetailsViewModel by viewModels {
+        DetailsViewModel.provideDetailsViewModelFactory(factory, args.vacancy.id)
+    }
+
     private val args by navArgs<DetailsFragmentArgs>()
-    
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (activity as RootActivity).component.inject(this)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.log(thisName, "onViewCreated()")
         viewModel.getVacancyByID(args.vacancy.id)
         collector()
         pressSimilarVacanciesButton()

@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.di.components
 
 import dagger.Subcomponent
+import ru.practicum.android.diploma.details.ui.DetailsFragment
 import ru.practicum.android.diploma.di.modules.ViewModelModule
 import ru.practicum.android.diploma.favorite.ui.FavoriteFragment
 import ru.practicum.android.diploma.filter.ui.fragments.ChooseFragment
@@ -19,6 +20,7 @@ interface ActivityComponent {
     fun inject(searchFragment: SearchFragment)
     fun inject(similarVacanciesFragment: SimilarVacanciesFragment)
     fun inject(teamFragment: TeamFragment)
+    fun inject(detailsFragment: DetailsFragment)
 
     //========Filter================================================================================
     fun inject(chooseFragment: ChooseFragment)
