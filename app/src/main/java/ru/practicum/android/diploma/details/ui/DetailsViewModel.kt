@@ -16,18 +16,19 @@ import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.details.domain.DetailsInteractor
 import ru.practicum.android.diploma.filter.domain.models.NetworkResponse
+import ru.practicum.android.diploma.root.BaseViewModel
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.sharing.domain.api.SharingInteractor
 import ru.practicum.android.diploma.util.thisName
 
 
 class DetailsViewModel @AssistedInject constructor(
-    private val logger: Logger,
+    logger: Logger,
     private val detailsInteractor: DetailsInteractor,
     private val sharingInteractor: SharingInteractor,
     @Assisted("vacancyId")
     private val vacancyId: String
-) : ViewModel() {
+) : BaseViewModel(logger) {
 
     private val _uiState = MutableStateFlow<DetailsScreenState>(DetailsScreenState.Empty)
     val uiState: StateFlow<DetailsScreenState> = _uiState
@@ -46,7 +47,7 @@ class DetailsViewModel @AssistedInject constructor(
                 "vacancy removed from favs"
             }
         }
-        logger.log(thisName, "handleAddToFavsButton $message")
+        log(thisName, "handleAddToFavsButton $message")
         _uiState.value = DetailsScreenState.PlayHeartAnimation(isInFavorites, viewModelScope)
     }
 
@@ -77,9 +78,6 @@ class DetailsViewModel @AssistedInject constructor(
                 return
             }
         }
-    }
-    fun log(tag:String, text:String){
-        logger.log(thisName, text)
     }
 
     fun writeEmail(context: Context) {
