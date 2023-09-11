@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:orientation="vertical"
     tools:context=".filter.ui.fragments.BaseFilterFragment">
 
@@ -15,67 +17,44 @@
         android:theme="@style/ToolbarRipple"
         app:title="@string/filter_settings" />
 
-    <androidx.cardview.widget.CardView
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/work_place_container"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/size_60dp"
+        style="@style/FilterStyle"
         android:layout_marginTop="@dimen/margin_16dp"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:backgroundTint="@android:color/transparent"
-        app:cardElevation="0dp">
-
-        <TextView
-            android:id="@+id/work_place_hint"
-            style="@style/FilterLesserTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/work_place"
-            android:visibility="gone" />
-
-        <TextView
+        android:hint="@string/work_place"
+        android:background="@drawable/ripple"
+        app:hintAnimationEnabled="true"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/work_place_text"
-            style="@style/FilterGreaterTextStyle"
+            style="@style/SearchEditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/work_place" />
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|end"
-            app:srcCompat="@drawable/leading_icon" />
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/department_container"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/size_60dp"
+        style="@style/FilterStyle"
+        android:background="@drawable/ripple"
         android:layout_marginTop="@dimen/margin_16dp"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:backgroundTint="@android:color/transparent"
-        app:cardElevation="0dp">
-
-        <TextView
-            android:id="@+id/department_text_hint"
-            style="@style/FilterLesserTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/department"
-            android:visibility="gone" />
-
-        <TextView
+        android:hint="@string/department"
+        app:hintAnimationEnabled="true"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/department_text"
-            style="@style/FilterGreaterTextStyle"
+            style="@style/SearchEditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/department" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|end"
-            app:srcCompat="@drawable/leading_icon" />
-    </androidx.cardview.widget.CardView>
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
     <com.google.android.material.textfield.TextInputLayout

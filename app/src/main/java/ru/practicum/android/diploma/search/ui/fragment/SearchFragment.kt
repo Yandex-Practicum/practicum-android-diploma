@@ -8,13 +8,18 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.root.RootActivity
 import ru.practicum.android.diploma.search.domain.models.Vacancy
+import ru.practicum.android.diploma.search.ui.models.SearchUiState
 import ru.practicum.android.diploma.search.ui.view_model.SearchViewModel
 import ru.practicum.android.diploma.util.thisName
 import ru.practicum.android.diploma.util.viewBinding
@@ -34,7 +39,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     override fun onResume() {
         super.onResume()
         viewModel.log(thisName, "onResume()")
-        viewModel.onResume()
 //        TODO("Сделать запрос в SharedPrefs на наличие текущих филтров." +
 //                "Далее если фильтры есть и строка поиска не пустая -> сделать запрос в сеть и обновить список" +
 //            "Если фильтрые есть, но строка поиска пустая -> просто применить фильтр без запроса в сеть"
@@ -54,7 +58,26 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private fun initViewModelObserver() {
         with(viewModel) {
             viewLifecycleOwner.lifecycle.coroutineScope.launch {
-                uiState.collect { screenState -> screenState.render(binding) }
+                uiState.collect { screenState ->
+                    val painter = SearchScreenPainter(binding)
+                    when (screenState) {
+                        is SearchUiState.Content -> {
+                            searchAdapter.submitList(screenState.list)
+                            searchAdapter.isLastPage(screenState.isLastPage)
+                            painter.showContent(screenState.found)
+                        }
+                        is SearchUiState.AddedContent -> {
+                           val newList = searchAdapter.currentList + screenState.list
+                            searchAdapter.submitList(newList)
+                            searchAdapter.isLastPage(screenState.isLastPage)
+                            painter.showContent(screenState.found)
+                        }
+                        is SearchUiState.Default -> { painter.showDefault() }
+                        is SearchUiState.Error -> { painter.renderError(screenState.error) }
+                        is SearchUiState.ErrorScrollLoading -> { painter.renderErrorScrolling(screenState.error) }
+                        is SearchUiState.Loading -> { painter.showLoading() }
+                    }
+                }
             }
         }
     }
@@ -69,11 +92,14 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                     args = null
                 )
             }
-            searchInputLayout.endIconDrawable =
-                AppCompatResources.getDrawable(requireContext(), R.drawable.ic_search)
+            
+            viewModel.log(thisName, "endIconDrawable = ${searchInputLayout.endIconDrawable}")
+            
             searchInputLayout.isHintEnabled = false
+            
             ietSearch.doOnTextChanged { text, _, _, _ ->
                 viewModel.onSearchQueryChanged(text.toString())
+                
                 if (text.isNullOrEmpty()) {
                     searchInputLayout.endIconMode = TextInputLayout.END_ICON_NONE
                     searchInputLayout.endIconDrawable =
@@ -86,8 +112,22 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
             
             btnUpdate.setOnClickListener {
-                viewModel.onSearchQueryChanged(ietSearch.text.toString())
+                viewModel.searchVacancies(ietSearch.text.toString())
             }
+            
+            recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    
+                    if (dy > 0) {
+                        val pos = (recycler.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                        val itemsCount = searchAdapter.itemCount
+                        if (pos >= itemsCount - 5) {
+                            viewModel.onScrolledBottom()
+                        }
+                    }
+                }
+            })
         }
     }
     

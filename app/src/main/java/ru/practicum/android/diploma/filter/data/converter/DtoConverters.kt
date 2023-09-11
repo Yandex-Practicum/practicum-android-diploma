@@ -1,11 +1,14 @@
 package ru.practicum.android.diploma.filter.data.converter
 
 import ru.practicum.android.diploma.filter.data.model.CountryDto
+import ru.practicum.android.diploma.filter.data.model.IndustryDto
 import ru.practicum.android.diploma.filter.domain.models.Country
+import ru.practicum.android.diploma.filter.domain.models.Industry
+import ru.practicum.android.diploma.filter.domain.models.IndustryArea
 import ru.practicum.android.diploma.filter.domain.models.Region
-import ru.practicum.android.diploma.search.data.network.dto.response.RegionCodeResponse
+import ru.practicum.android.diploma.filter.data.model.RegionListDto
 
-fun mapRegionCodeResponseToRegionList(response: RegionCodeResponse): List<Region> {
+fun mapRegionListDtoToRegionList(response: RegionListDto): List<Region> {
     val regionList = mutableListOf<Region>()
     response.areas?.forEach { regionDto ->
         val id = regionDto?.areas?.firstOrNull()?.id ?: ""
@@ -21,5 +24,10 @@ fun countryDtoToCountry(list: List<CountryDto>): List<Country> {
         .sortedWith(compareBy({ it.name == OTHER }, { it.name }))
 }
 
+fun industryDtoListToIndustryList(list: List<IndustryDto>): List<Industry> {
+    return list.flatMap { it.industries ?: emptyList() }
+        .map { Industry(id = it.id ?: "", name = it.name ?: "", industries = emptyList()) }
+        .sortedBy { it.name }
+}
 
 private const val OTHER = "Другие регионы"

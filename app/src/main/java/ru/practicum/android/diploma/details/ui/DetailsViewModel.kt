@@ -1,7 +1,13 @@
 package ru.practicum.android.diploma.details.ui
 
 import android.content.Context
+import android.util.Log
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,13 +21,15 @@ import ru.practicum.android.diploma.filter.domain.models.NetworkResponse
 import ru.practicum.android.diploma.root.BaseViewModel
 import ru.practicum.android.diploma.sharing.domain.api.SharingInteractor
 import ru.practicum.android.diploma.util.thisName
-import javax.inject.Inject
 
-class DetailsViewModel @Inject constructor(
+
+class DetailsViewModel @AssistedInject constructor(
     logger: Logger,
     private val detailsInteractor: DetailsInteractor,
     private val detailsLocalInteractor: DetailsLocalInteractor,
-    private val sharingInteractor: SharingInteractor
+    private val sharingInteractor: SharingInteractor,
+    @Assisted("vacancyId")
+    private val vacancyId: String
 ) : BaseViewModel(logger) {
 
     private val _uiState = MutableStateFlow<DetailsScreenState>(DetailsScreenState.Empty)
@@ -137,6 +145,21 @@ class DetailsViewModel @Inject constructor(
                     is NetworkResponse.NoData -> {
                         log(thisName, "NetworkResponse.NoData -> ${result.message}")
                     }
+                }
+            }
+        }
+    }
+
+    @AssistedFactory
+    interface Factory{
+        fun create(@Assisted("vacancyId") vacancyId: String): DetailsViewModel
+    }
+    companion object{
+
+        fun provideDetailsViewModelFactory(factory: Factory, vacancyId: String): ViewModelProvider.Factory{
+            return object : ViewModelProvider.Factory{
+                override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                    return factory.create(vacancyId) as T
                 }
             }
         }
