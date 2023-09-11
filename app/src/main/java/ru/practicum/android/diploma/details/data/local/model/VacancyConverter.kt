@@ -49,28 +49,4 @@ class VacancyConverter @Inject constructor() {
             )
         }
     }
-
-/*    private fun toFullInfoVacancy(vacancyEntity: VacancyFullInfoEntity): VacancyFullInfo {
-        return with(vacancyEntity) {
-            VacancyFullInfo(
-                id = id,
-                experience = experience,
-                employment = employment,
-                schedule = schedule,
-                description = description,
-                keySkills = keySkills,
-                area = area,
-                salary = salary,
-                date = date,
-                company = company,
-                logo = logo,
-                title = title,
-                contactEmail = contactEmail,
-                contactName = contactName,
-                contactComment = contactComment,
-                contactPhones = Json.decodeFromString(contactPhones),
-                alternateUrl = alternateUrl
-            )
-        }
-    }*/
 }

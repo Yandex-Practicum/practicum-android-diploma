@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.details.ui
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -10,6 +9,7 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.details.domain.DetailsInteractor
+import ru.practicum.android.diploma.details.domain.DetailsLocalInteractor
 import ru.practicum.android.diploma.details.domain.models.VacancyFullInfo
 import ru.practicum.android.diploma.filter.domain.models.NetworkResponse
 import ru.practicum.android.diploma.root.BaseViewModel
@@ -20,34 +20,34 @@ import javax.inject.Inject
 class DetailsViewModel @Inject constructor(
     logger: Logger,
     private val detailsInteractor: DetailsInteractor,
+    private val detailsLocalInteractor: DetailsLocalInteractor,
     private val sharingInteractor: SharingInteractor
 ) : BaseViewModel(logger) {
 
     private val _uiState = MutableStateFlow<DetailsScreenState>(DetailsScreenState.Empty)
     val uiState: StateFlow<DetailsScreenState> = _uiState
 
-    private var isInFavorites = false
     private var vacancy: VacancyFullInfo? = null
+    private var isInFavorites = false
 
-    fun handleAddToFavsButton(id: String) {
-        isInFavorites = !isInFavorites
+    fun handleAddToFavsButton() {
         val message = when (isInFavorites) {
             true -> {
+                deleteVacancy(vacancy?.id ?: "")
+                "vacancy removed from favs"
+            }
+
+            else -> {
                 vacancy?.let { addToFavorites(it) }
                 "vacancy added to favs"
             }
-            else -> {
-                deleteVacancy(id)
-                "vacancy removed from favs"
-            }
         }
         log(thisName, "handleAddToFavsButton $message")
-        _uiState.value = DetailsScreenState.PlayHeartAnimation(isInFavorites, viewModelScope)
     }
 
     private fun addToFavorites(vacancy: VacancyFullInfo) {
         viewModelScope.launch(Dispatchers.IO) {
-            detailsInteractor.addVacancyToFavorites(vacancy).collect {
+            detailsLocalInteractor.addVacancyToFavorites(vacancy).collect {
                 log(thisName, "${vacancy.id} inserted")
             }
         }
@@ -55,18 +55,22 @@ class DetailsViewModel @Inject constructor(
 
     private fun deleteVacancy(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            detailsInteractor.removeVacancyFromFavorite(id).collect {
+            detailsLocalInteractor.removeVacancyFromFavorite(id).collect {
                 log(thisName, "$id deleted")
             }
         }
     }
 
-    fun getFavoriteVacancyById(id: String) {
+    fun showIfInFavouriteById(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            detailsInteractor.getFavoriteVacancy(id).collect { vacancy ->
+            detailsLocalInteractor.showIfInFavourite(id).collect { vacancy ->
                 log(thisName, "getFavoriteVacancyById -> $vacancy")
                 isInFavorites = vacancy
-                _uiState.value = DetailsScreenState.PlayHeartAnimation(vacancy, viewModelScope)
+                if (vacancy) {
+                    _uiState.value = DetailsScreenState.AddAnimation(viewModelScope)
+                } else {
+                    _uiState.value = DetailsScreenState.DeleteAnimation(viewModelScope)
+                }
             }
         }
     }
@@ -75,7 +79,6 @@ class DetailsViewModel @Inject constructor(
         log(thisName, "sendVacancy()")
         _uiState.value.let { state ->
             if (state is DetailsScreenState.Content) {
-                Log.e("DetailsViewModel", "sendVacancy() -> ${state.vacancy.alternateUrl}")
                 state.vacancy.alternateUrl
                 sharingInteractor.sendVacancy(state.vacancy.alternateUrl)
             } else {

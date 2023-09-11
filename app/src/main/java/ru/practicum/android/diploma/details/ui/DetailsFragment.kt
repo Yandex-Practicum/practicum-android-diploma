@@ -8,6 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentDetailsBinding
@@ -20,20 +21,19 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
     private val binding by viewBinding<FragmentDetailsBinding>()
     private val viewModel: DetailsViewModel by viewModels { (activity as RootActivity).viewModelFactory }
     private val args by navArgs<DetailsFragmentArgs>()
-    
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.log(thisName, "onViewCreated()")
         viewModel.getVacancyByID(args.vacancy.id)
         collector()
         showIfInFavourite()
-  //      viewModel.getFavoriteVacancyById(args.vacancy.id)
         pressSimilarVacanciesButton()
         initListeners()
     }
 
     private fun initListeners() {
-        addToFavorites()
+        addOrDeleteFromFavorites()
         navigateUp()
         sendVacancy()
         writeEmail()
@@ -42,8 +42,11 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
 
     private fun showIfInFavourite() {
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
-            viewModel.getFavoriteVacancyById(args.vacancy.id)
+            viewModel.log(thisName, "showIfInFavourite()")
+            viewModel.showIfInFavouriteById(args.vacancy.id)
+            delay(TIME_TO_DRAW)
         }
+
     }
 
     private fun collector() {
@@ -62,10 +65,10 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         }
     }
 
-    private fun addToFavorites() {
+    private fun addOrDeleteFromFavorites() {
         binding.lottieHeart.setOnClickListener {
             viewModel.log(thisName, "buttonAddToFavorites.setOnClickListener { }")
-            viewModel.handleAddToFavsButton(args.vacancy.id)
+            viewModel.handleAddToFavsButton()
         }
     }
 
@@ -102,5 +105,9 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         findNavController().navigate(
             DetailsFragmentDirections.actionDetailsFragmentToSimilarsVacancyFragment(args.vacancy)
         )
+    }
+
+    companion object {
+        private const val TIME_TO_DRAW = 500L
     }
 }
