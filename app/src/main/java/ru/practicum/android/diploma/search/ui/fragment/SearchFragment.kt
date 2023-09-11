@@ -18,9 +18,9 @@ import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.root.RootActivity
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.ui.fragment.adapter_delegate.LoadingAdapterDelegate
-import ru.practicum.android.diploma.search.ui.fragment.adapter_delegate.LoadingItem
-import ru.practicum.android.diploma.search.ui.fragment.adapter_delegate.VacancyAdapterDelegate
 import ru.practicum.android.diploma.search.ui.fragment.adapter_delegate.MainCompositeAdapter
+import ru.practicum.android.diploma.search.ui.fragment.adapter_delegate.VacancyAdapterDelegate
+import ru.practicum.android.diploma.search.ui.models.LoadingItem
 import ru.practicum.android.diploma.search.ui.models.SearchUiState
 import ru.practicum.android.diploma.search.ui.view_model.SearchViewModel
 import ru.practicum.android.diploma.util.thisName
@@ -28,7 +28,6 @@ import ru.practicum.android.diploma.util.viewBinding
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
 
-//    @Inject lateinit var searchAdapter: SearchAdapter
     private val viewModel: SearchViewModel by viewModels { (activity as RootActivity).viewModelFactory }
     private val binding by viewBinding<FragmentSearchBinding>()
 
@@ -62,7 +61,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         initListeners()
         initAdapter()
         initViewModelObserver()
-        
     }
     
     private fun initViewModelObserver() {
@@ -72,21 +70,10 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                     val painter = SearchScreenPainter(binding)
                     when (screenState) {
                         is SearchUiState.Content -> {
-
-                            log(thisName, "screenState.list = ${screenState.list}")
-                            log(thisName, "screenState.isLastPage = ${screenState.isLastPage}")
-
-                            adapter.submitList(screenState.list + LoadingItem())
-
+                            if (screenState.isLastPage) adapter.submitList(screenState.list)
+                            else adapter.submitList(screenState.list + LoadingItem)
                             painter.showContent(screenState.found)
                         }
-                        is SearchUiState.AddedContent -> {
-                           val newList = adapter.currentList + screenState.list
-                            adapter.submitList(newList)
-//                          searchAdapter.isLastPage(screenState.isLastPage)
-                            painter.showContent(screenState.found)
-                        }
-
                         is SearchUiState.Default -> { painter.showDefault() }
                         is SearchUiState.Error -> { painter.renderError(screenState.error) }
                         is SearchUiState.ErrorScrollLoading -> { painter.renderErrorScrolling(screenState.error) }
@@ -127,7 +114,10 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
             
             btnUpdate.setOnClickListener {
-                viewModel.searchVacancies(ietSearch.text.toString())
+                viewModel.searchVacancies(
+                    query = ietSearch.text.toString(),
+                    isFirstPage = true
+                )
             }
             
             recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -149,7 +139,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private fun initAdapter() {
         viewModel.log(thisName, "initAdapter()")
         binding.recycler.adapter = adapter
-//        adapter.onClick = { vacancy -> navigateToDetails(vacancy) }
     }
     
     private fun navigateToDetails(vacancy: Vacancy) {

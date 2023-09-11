@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
 class MainCompositeAdapter(
-    private val delegates: SparseArray<DelegateAdapter<DelegateAdapterItem, RecyclerView.ViewHolder>>
-): ListAdapter<DelegateAdapterItem, RecyclerView.ViewHolder>(DelegateAdapterItemDiffCallback()) {
-
+    private val delegates: SparseArray<DelegateAdapter<DelegateAdapterItem, RecyclerView.ViewHolder>>,
+) : ListAdapter<DelegateAdapterItem, RecyclerView.ViewHolder>(DelegateAdapterItemDiffCallback()) {
+    
     override fun getItemViewType(position: Int): Int {
         for (i in 0 until delegates.size()) {
             if (delegates[i].modelClass == getItem(position).javaClass) {
@@ -17,7 +17,7 @@ class MainCompositeAdapter(
         }
         throw NullPointerException("Can not get viewType for position $position")
     }
-
+    
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return delegates[viewType].createViewHolder(parent)
     }
@@ -53,15 +53,20 @@ class MainCompositeAdapter(
     }
 
     class Builder {
-
+        
         private var count: Int = 0
-        private val delegates: SparseArray<DelegateAdapter<DelegateAdapterItem, RecyclerView.ViewHolder>> = SparseArray()
-
+        private val delegates: SparseArray<DelegateAdapter<DelegateAdapterItem, RecyclerView.ViewHolder>> =
+            SparseArray()
+        
+        @Suppress("UNCHECKED_CAST")
         fun add(delegateAdapter: DelegateAdapter<out DelegateAdapterItem, *>): Builder {
-            delegates.put(count++, delegateAdapter as DelegateAdapter<DelegateAdapterItem, RecyclerView.ViewHolder>)
+            delegates.put(
+                count++,
+                delegateAdapter as DelegateAdapter<DelegateAdapterItem, RecyclerView.ViewHolder>
+            )
             return this
         }
-
+        
         fun build(): MainCompositeAdapter {
             require(count != 0) { "Register at least one adapter" }
             return MainCompositeAdapter(delegates)

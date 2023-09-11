@@ -9,19 +9,22 @@ import ru.practicum.android.diploma.databinding.ItemSearchBinding
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.util.setImage
 
-
-class VacancyAdapterDelegate(private val onClick: (Vacancy)->Unit) : DelegateAdapter<Vacancy, VacancyAdapterDelegate.VacancyViewHolder>(Vacancy::class.java) {
-private var count = 0
+class VacancyAdapterDelegate(
+    private val onClick: (Vacancy) -> Unit,
+) : DelegateAdapter<Vacancy, VacancyAdapterDelegate.VacancyViewHolder>(Vacancy::class.java) {
+    
+    private var count = 0
+    
     override fun createViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
         val binding = ItemSearchBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        Log.d("BannerAdapterDelegate", "createViewHolder: _____ ${++count}", )
+        Log.d("BannerAdapterDelegate", "createViewHolder: _____ ${++count}")
         return VacancyViewHolder(binding)
     }
-
+    
     override fun bindViewHolder(
         model: Vacancy,
         viewHolder: VacancyViewHolder,
-        payloads: List<DelegateAdapterItem.Payloadable>
+        payloads: List<DelegateAdapterItem.Payloadable>,
     ) {
         viewHolder.itemView.setOnClickListener {
             onClick(model)
