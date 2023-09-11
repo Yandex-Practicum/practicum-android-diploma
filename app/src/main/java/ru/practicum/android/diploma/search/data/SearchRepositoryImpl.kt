@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.search.data
 
+import kotlinx.coroutines.delay
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.di.annotations.NewResponse
 import ru.practicum.android.diploma.search.data.network.AlternativeRemoteDataSource
@@ -33,6 +34,9 @@ class SearchRepositoryImpl @Inject constructor(
                 Either.Left(Failure.NotFound())
             } else {
                 logger.log(thisName, "searchVacancies: FOUND = ${it.found}")
+                if (page> 1.toString()){
+                    Thread.sleep(3000)
+                }
                 Either.Right(converter.vacanciesResponseToVacancies(it))
             }
         }
