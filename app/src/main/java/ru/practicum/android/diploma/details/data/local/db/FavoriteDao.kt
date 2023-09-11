@@ -21,4 +21,7 @@ interface FavoriteDao {
 
     @Query("SELECT * FROM favorite_vacancies_full_info WHERE id =:id")
     fun getFavoritesById(id: String): Flow<VacancyFullInfoEntity>
+
+    @Query("SELECT EXISTS(SELECT 1 FROM favorite_vacancies_full_info WHERE id = :id LIMIT 1);")
+    fun showIfInFavouriteById(id: String): Flow<Boolean>
 }

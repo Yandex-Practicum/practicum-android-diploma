@@ -23,9 +23,6 @@ class LocalDataSourceDetailsImpl @Inject constructor(
     }
 
     override suspend fun showIfInFavouriteById(id: String): Flow<Boolean> {
-        return dao.getFavoritesById(id).map { vacancy ->
-            if (vacancy != null && vacancy.id == id) true
-            else false
-        }
+        return dao.showIfInFavouriteById(id).map { it }
     }
 }
