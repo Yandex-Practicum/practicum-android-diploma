@@ -10,17 +10,17 @@ import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.util.setImage
 
 
-class VacancyAdapterDelegate(private val onClick: (Vacancy)->Unit) : DelegateAdapter<Vacancy, VacancyAdapterDelegate.BannerViewHolder>(Vacancy::class.java) {
+class VacancyAdapterDelegate(private val onClick: (Vacancy)->Unit) : DelegateAdapter<Vacancy, VacancyAdapterDelegate.VacancyViewHolder>(Vacancy::class.java) {
 private var count = 0
     override fun createViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
         val binding = ItemSearchBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         Log.d("BannerAdapterDelegate", "createViewHolder: _____ ${++count}", )
-        return BannerViewHolder(binding)
+        return VacancyViewHolder(binding)
     }
 
     override fun bindViewHolder(
         model: Vacancy,
-        viewHolder: BannerViewHolder,
+        viewHolder: VacancyViewHolder,
         payloads: List<DelegateAdapterItem.Payloadable>
     ) {
         viewHolder.itemView.setOnClickListener {
@@ -29,7 +29,7 @@ private var count = 0
         viewHolder.bind(model)
     }
 
-    inner class BannerViewHolder(private val binding: ItemSearchBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class VacancyViewHolder(private val binding: ItemSearchBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Vacancy) {
 
             val titleAndArea: String =
@@ -37,7 +37,6 @@ private var count = 0
                 else item.title
 
             val cornerRadius = itemView.resources.getDimensionPixelSize(R.dimen.size_12dp)
-
             binding.title.text = titleAndArea
             binding.company.text = item.company
             binding.value.text = item.salary

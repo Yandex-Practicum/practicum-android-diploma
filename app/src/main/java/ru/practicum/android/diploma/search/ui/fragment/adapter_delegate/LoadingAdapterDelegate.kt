@@ -5,10 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.databinding.ItemLoadingBinding
-import ru.practicum.android.diploma.search.ui.fragment.SearchAdapter
 import ru.practicum.android.diploma.search.ui.view_model.SCROLL_TAG
 
-class LoadingAdapterDelegate(): DelegateAdapter<LoadingItem, LoadingAdapterDelegate.LoadingViewHolder>(
+class LoadingAdapterDelegate: DelegateAdapter<LoadingItem, LoadingAdapterDelegate.LoadingViewHolder>(
     LoadingItem::class.java) {
     private var count = 0
     override fun createViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {

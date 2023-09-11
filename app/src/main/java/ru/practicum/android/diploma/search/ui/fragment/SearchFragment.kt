@@ -32,10 +32,10 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private val viewModel: SearchViewModel by viewModels { (activity as RootActivity).viewModelFactory }
     private val binding by viewBinding<FragmentSearchBinding>()
 
-    private val adapter by lazy{
+    private val adapter by lazy {
         MainCompositeAdapter.Builder()
-            .add(VacancyAdapterDelegate{
-                    vacancy -> navigateToDetails(vacancy)
+            .add(VacancyAdapterDelegate { vacancy ->
+                navigateToDetails(vacancy)
             })
             .add(LoadingAdapterDelegate())
             .build()
@@ -77,13 +77,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                         }
                         is SearchUiState.AddedContent -> {
                            val newList = adapter.currentList + screenState.list
-
                             adapter.submitList(newList)
-//                            if (screenState.isLastPage){
-//                                adapter.submitList()
-//                            }
-                            //
-//                            searchAdapter.isLastPage(screenState.isLastPage)
+//                          searchAdapter.isLastPage(screenState.isLastPage)
                             painter.showContent(screenState.found)
                         }
 
