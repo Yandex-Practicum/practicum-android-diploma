@@ -62,8 +62,11 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                     val painter = SearchScreenPainter(binding)
                     when (screenState) {
                         is SearchUiState.Content -> {
+                            log(thisName, "screenState.list = ${screenState.list}")
+                            log(thisName, "screenState.isLastPage = ${screenState.isLastPage}")
                             searchAdapter.submitList(screenState.list)
                             searchAdapter.isLastPage(screenState.isLastPage)
+                            
                             painter.showContent(screenState.found)
                         }
                         is SearchUiState.AddedContent -> {

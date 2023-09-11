@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.search.data.network
 
+import android.util.Log
 import retrofit2.Response
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.filter.data.model.CountryDto
@@ -36,8 +37,10 @@ class ApiHelper @Inject constructor(
                 "page" to request.page,
                 "per_page" to COUNT_ITEMS
             )
-            
-            apiService.searchVacanciesPerPage(queryParam)
+            val result =  apiService.searchVacanciesPerPage(queryParam)
+            Log.d("MyLog", result.body().toString())
+            result
+           
         }
     }
 

@@ -61,7 +61,6 @@ class SearchViewModel @Inject constructor(
             _uiState.value = SearchUiState.Loading
             searchJob = viewModelScope.launch(Dispatchers.IO) {
                 searchVacanciesUseCase(query, currentPage).fold(::handleFailure, ::handleSuccess)
-                currentPage++
             }
         }
     }
@@ -91,14 +90,24 @@ class SearchViewModel @Inject constructor(
     private fun handleSuccess(vacancies: Vacancies) {
         maxPages = vacancies.pages
         found = vacancies.found
+        currentPage++
+        if (currentPage < maxPages)
+        log(thisName, "maxPages($maxPages: Int)")
+        log(thisName, "currentPage($currentPage: Int)")
+        log(thisName, "list = ${vacancies.items})")
         
         if (currentPage < maxPages) {
+          
+            log(thisName, "isLastPage(false)")
             _uiState.value = SearchUiState.Content(
                 list = vacancies.items, found = vacancies.found, isLastPage = false
             )
-        } else _uiState.value = SearchUiState.Content(
-            list = vacancies.items, found = vacancies.found, isLastPage = true
-        )
+        } else {
+            log(thisName, "isLastPage(true)")
+            log(thisName, "list = ${vacancies.items})")
+            _uiState.value = SearchUiState.Content(
+                list = vacancies.items, found = vacancies.found, isLastPage = true)
+        }
     }
     
     private fun handleScrollFailure(failure: Failure) {
