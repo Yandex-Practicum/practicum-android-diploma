@@ -21,6 +21,9 @@ ksp = "1.8.10-1.0.9"
 kotlinx_retrofit = "1.0.0"
 nav_safe_args = "2.5.3"
 lottie = "6.0.0"
+parcelize = "1.8.21"
+adapterdelegates = "4.3.2"
+developproperties = "{}"
 
 
 [libraries]
@@ -39,7 +42,10 @@ lottie =                { module = "com.airbnb.android:lottie",                 
 # Kotlinx.Serialization
 serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
 kotlin-stdlib =      { module = "org.jetbrains.kotlin:kotlin-stdlib",               version.ref = "kotlin" }
-kotlinx-retrofit=   { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "kotlinx_retrofit" }
+kotlinx-retrofit=    { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "kotlinx_retrofit" }
+
+# Kotlin Parcelize
+parcelize = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "parcelize" }
 
 # Room
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
@@ -68,6 +74,10 @@ dagger =          { module = "com.google.dagger:dagger",          version.ref = 
 coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 coroutines-core =    { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core",    version.ref = "coroutines" }
 
+# Adapter Delegates
+adapterdelegates-core = { module = "com.hannesdorfmann:adapterdelegates4-kotlin-dsl", version.ref = "adapterdelegates" }
+adapterdelegates-viewbinding = { module = "com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding", version.ref = "adapterdelegates" }
+
 
 
 [bundles]
@@ -86,3 +96,5 @@ kotlin-android =       { id = "org.jetbrains.kotlin.android",              versi
 ksp =                  { id = "com.google.devtools.ksp",                   version.ref = "ksp"}
 kapt =                 { id = "org.jetbrains.kotlin.kapt",                 version.ref = "kotlin"}
 safe-args =            { id = "androidx.navigation.safeargs",              version.ref = "nav_safe_args"}
+parcelize =            { id = "org.jetbrains.kotlin.plugin.parcelize",     version.ref = "kotlin"}
+developproperties =    { id = "ru.practicum.android.diploma.plugins.developproperties", version.ref = "developproperties"}

@@ -2,7 +2,6 @@ package ru.practicum.android.diploma.team.ui
 
 import android.content.Context
 import android.database.DataSetObserver
-import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.AttributeSet
@@ -106,14 +105,14 @@ class SwipeStack @JvmOverloads constructor(
     }
 
     public override fun onRestoreInstanceState(state: Parcelable) {
-        var state: Parcelable? = state
-        if (state is Bundle) {
-            val bundle = state
+        var currentState: Parcelable? = state
+        if (currentState is Bundle) {
+            val bundle = currentState
             mCurrentViewIndex = bundle.getInt(KEY_CURRENT_INDEX)
             @Suppress("DEPRECATION")
-            state = bundle.getParcelable(KEY_SUPER_STATE)
+            currentState = bundle.getParcelable(KEY_SUPER_STATE)
         }
-        super.onRestoreInstanceState(state)
+        super.onRestoreInstanceState(currentState)
     }
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {

@@ -58,7 +58,7 @@ class SimilarVacanciesFragment : Fragment(R.layout.fragment_similars_vacancy)  {
     }
 
     private fun initListeners() {
-        vacancyAdapter?.onClick = { vacancy ->
+        vacancyAdapter.onClick = { vacancy ->
             navigateToDetails(vacancy)
         }
         binding.similarVacancyToolbar.setNavigationOnClickListener {

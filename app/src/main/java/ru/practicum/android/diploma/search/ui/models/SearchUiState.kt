@@ -11,11 +11,6 @@ sealed interface SearchUiState {
         val found: Int,
         val isLastPage: Boolean
     ) : SearchUiState
-    data class AddedContent(
-        val list: List<Vacancy>,
-        val found: Int,
-        val isLastPage: Boolean
-    ) : SearchUiState
     data class Error(val error: Failure) : SearchUiState
     data class ErrorScrollLoading(val error: Failure) : SearchUiState
 }
