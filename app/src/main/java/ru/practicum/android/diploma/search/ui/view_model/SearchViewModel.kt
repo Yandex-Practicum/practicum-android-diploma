@@ -42,6 +42,7 @@ class SearchViewModel @Inject constructor(
         if (query == latestSearchQuery) return
         latestSearchQuery = query
         currentPage = FIRST_PAGE
+        vacancyList = emptyList()
         
         if (query.isEmpty()) {
             searchJob?.cancel()

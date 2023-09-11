@@ -5,7 +5,8 @@ plugins {
     alias(libs.plugins.kapt)
     alias(libs.plugins.ksp)
     alias(libs.plugins.safe.args)
-    id("org.jetbrains.kotlin.plugin.parcelize")
+    alias(libs.plugins.parcelize)
+//    alias(libs.plugins.developproperties)
     id("ru.practicum.android.diploma.plugins.developproperties")
 }
 
@@ -67,14 +68,13 @@ dependencies {
     ksp(libs.room.compiler)
     implementation(libs.kotlinx.retrofit)
 
-    // Test
     implementation(libs.junit)
     implementation(libs.androidx.junit)
     implementation(libs.test.espresso.core)
     implementation(libs.lottie)
 
-    implementation ("com.hannesdorfmann:adapterdelegates4-kotlin-dsl:4.3.2")
-    implementation ("com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:4.3.2")
+    implementation (libs.adapterdelegates.core)
+    implementation (libs.adapterdelegates.viewbinding)
 
     // LeakCanary
     //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.8.1'

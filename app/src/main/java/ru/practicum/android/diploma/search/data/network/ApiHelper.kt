@@ -38,7 +38,6 @@ class ApiHelper @Inject constructor(
                 "per_page" to COUNT_ITEMS
             )
             val result =  apiService.searchVacanciesPerPage(queryParam)
-            Log.d("MyLog", result.body().toString())
             result
            
         }

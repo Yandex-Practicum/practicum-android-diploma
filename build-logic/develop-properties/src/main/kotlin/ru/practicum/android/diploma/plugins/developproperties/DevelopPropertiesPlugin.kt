@@ -44,5 +44,4 @@ class DevelopPropertiesPlugin : Plugin<Project> {
             }
         }
     }
-
 }

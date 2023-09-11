@@ -156,6 +156,7 @@ class DetailsViewModel @AssistedInject constructor(
     }
     companion object{
 
+        @Suppress("UNCHECKED_CAST")
         fun provideDetailsViewModelFactory(factory: Factory, vacancyId: String): ViewModelProvider.Factory{
             return object : ViewModelProvider.Factory{
                 override fun <T : ViewModel> create(modelClass: Class<T>): T {

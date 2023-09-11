@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.search.domain.impl
 
-import android.util.Log
 import ru.practicum.android.diploma.search.domain.api.SearchRepository
 import ru.practicum.android.diploma.search.domain.api.SearchVacanciesUseCase
 import ru.practicum.android.diploma.search.domain.models.Vacancies
