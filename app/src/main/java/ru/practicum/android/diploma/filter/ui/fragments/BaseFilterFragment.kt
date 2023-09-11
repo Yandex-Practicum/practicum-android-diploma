@@ -11,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterBaseBinding
+import ru.practicum.android.diploma.filter.ui.models.BaseFilterScreenState
 import ru.practicum.android.diploma.filter.ui.view_models.BaseFilterViewModel
 import ru.practicum.android.diploma.root.RootActivity
 import ru.practicum.android.diploma.util.thisName
@@ -24,6 +25,10 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
         super.onViewCreated(view, savedInstanceState)
         initListeners()
         initViewModelObserver()
+    }
+
+    override fun onResume() {
+        super.onResume()
         viewModel.checkSavedFilterData()
     }
 
@@ -32,16 +37,21 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
             filterToolbar.setNavigationOnClickListener {
                 findNavController().navigateUp()
             }
-            workPlaceContainer.setOnClickListener {
-                findNavController().navigate(
-                    BaseFilterFragmentDirections.actionFilterBaseFragmentToWorkPlaceFilterFragment()
-                )
+            workPlaceText.setOnFocusChangeListener { _, isFocus ->
+                if (isFocus) {
+                    findNavController().navigate(
+                        BaseFilterFragmentDirections.actionFilterBaseFragmentToWorkPlaceFilterFragment()
+                    )
+                }
             }
-            departmentContainer.setOnClickListener {
-                findNavController().navigate(
-                    BaseFilterFragmentDirections.actionFilterBaseFragmentToDepartmentFragment()
-                )
+            departmentText.setOnFocusChangeListener { _, isFocus ->
+                if (isFocus) {
+                    findNavController().navigate(
+                        BaseFilterFragmentDirections.actionFilterBaseFragmentToDepartmentFragment()
+                    )
+                }
             }
+
             amountText.doOnTextChanged { _, _, _, count ->
                 if (count == 0)
                     viewModel.setEmptyScreenState()
@@ -54,8 +64,14 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
     private fun initViewModelObserver() {
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
             viewModel.uiState.collect { state ->
-                viewModel.log(thisName, "uiState.collect { state -> ${state.thisName}")
-                state.render(binding)
+                viewModel.log("BaseFilterFragment", "uiState.collect { state -> ${state.thisName}")
+                when (state) {
+                    BaseFilterScreenState.Apply -> state.render(binding)
+                    is BaseFilterScreenState.Choose -> state.render(binding)
+                    is BaseFilterScreenState.Content -> state.render(binding)
+                    is BaseFilterScreenState.Empty -> state.render(binding)
+                }
+
             }
         }
     }

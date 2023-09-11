@@ -15,23 +15,28 @@ abstract class AreasViewModel(
     logger: Logger,
 ) : BaseViewModel(logger) {
 
-
-    private val _uiState: MutableStateFlow<UiState> =
+    private var chooseList = listOf<Any>()
+     val _uiState: MutableStateFlow<UiState> =
         MutableStateFlow(UiState.Loading)
     val uiState: StateFlow<UiState> = _uiState
 
-    open fun getData() { /* ignore */}
+    open fun getData() { /* ignore */
+    }
 
     override fun handleFailure(failure: Failure) {
         _uiState.value = when (failure) {
             is NotFound -> UiState.NoData(message = R.string.no_data)
-            is Offline  -> UiState.Offline(message = R.string.no_internet_message)
-            else        -> UiState.Error(message = R.string.error)
+            is Offline -> UiState.Offline(message = R.string.no_internet_message)
+            else -> UiState.Error(message = R.string.error)
         }
     }
-    protected open fun handleSuccess(list: List<Any?>) {
+
+    protected open fun handleSuccess(list: List<Any>) {
+        chooseList = list
         _uiState.value = UiState.Content(list = list)
     }
 
-    open fun onSearchQueryChanged(text: String) { /* ignore */ }
+    open fun onSearchQueryChanged(text: String)  {
+
+   }
 }

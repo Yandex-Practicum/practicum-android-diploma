@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.filter.ui.models
 
+import android.annotation.SuppressLint
 import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
 import ru.practicum.android.diploma.R
@@ -22,12 +23,29 @@ sealed interface BaseFilterScreenState {
         }
     }
 
-    data class Choose(private val selectedFilter: SelectedFilter) : BaseFilterScreenState {
+    data class Content(private val selectedFilter: SelectedFilter) : BaseFilterScreenState {
+
+        @SuppressLint("SetTextI18n")
+        override fun render(binding: FragmentFilterBaseBinding) {
+            binding.departmentText.setText(selectedFilter.industry?.name ?: "")
+            binding.workPlaceText.setText(
+                (selectedFilter.country?.name ?: "") +
+                        "${
+                            if (!selectedFilter.region?.name.isNullOrEmpty()) ", "
+                            else {
+                                ""
+                            }
+                        }${selectedFilter.region?.name ?: ""}"
+            )
+        }
+    }
+
+
+    object Choose : BaseFilterScreenState {
         override fun render(binding: FragmentFilterBaseBinding) {
             with(binding) {
                 chooseBaseFilterBtn.visibility = View.VISIBLE
                 bottomContainerToApply.visibility = View.GONE
-                departmentText.text = selectedFilter.industry?.name ?: ""
                 amountText.setCompoundDrawablesWithIntrinsicBounds(
                     null,
                     null,

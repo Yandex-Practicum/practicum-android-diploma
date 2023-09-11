@@ -2,7 +2,9 @@ package ru.practicum.android.diploma.filter.ui.view_models
 
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.Logger
@@ -12,7 +14,7 @@ import ru.practicum.android.diploma.root.BaseViewModel
 import javax.inject.Inject
 
 class BaseFilterViewModel @Inject constructor(
-   private val filterInteractor: FilterInteractor,
+    private val filterInteractor: FilterInteractor,
     logger: Logger
 ) : BaseViewModel(logger) {
 
@@ -21,20 +23,27 @@ class BaseFilterViewModel @Inject constructor(
     val uiState: StateFlow<BaseFilterScreenState> = _uiState
 
     fun setApplyScreenState() {
-     _uiState.value = BaseFilterScreenState.Apply
+
+            _uiState.value = BaseFilterScreenState.Apply
+
     }
 
     fun setEmptyScreenState() {
-        _uiState.value = BaseFilterScreenState.Empty
+
+            _uiState.value = BaseFilterScreenState.Empty
+
     }
 
     fun checkSavedFilterData() {
         viewModelScope.launch(Dispatchers.IO) {
             val selectedFilter = filterInteractor.getSavedFilterSettings(FILTER_KEY)
-            _uiState.value = BaseFilterScreenState.Choose(selectedFilter)
+            _uiState.emit(BaseFilterScreenState.Content(selectedFilter))
             log("WorkPlaceViewModel", "checkSavedFilterData() $selectedFilter")
         }
     }
-    companion object { const val FILTER_KEY = "filter" }
+
+    companion object {
+        const val FILTER_KEY = "filter"
+    }
 
 }
