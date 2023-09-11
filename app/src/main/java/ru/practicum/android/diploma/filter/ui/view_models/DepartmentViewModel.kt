@@ -43,7 +43,10 @@ class DepartmentViewModel @Inject constructor(
     override fun onSearchQueryChanged(text: String) {
         super.onSearchQueryChanged(text)
         val temp = industryList
-      _uiState.value = UiState.Content(temp.filter { it.name.contains(text)})
-        Log.e("TAG", "onSearchQueryChanged: ", )
+      _uiState.value = UiState.Content(temp.filter {     Log.d("TAG", " ${it.name}:  and ${it.industries}")
+          it.name.contains(text, true)
+
+      })
+
     }
 }
