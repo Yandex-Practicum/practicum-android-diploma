@@ -11,10 +11,12 @@ import ru.practicum.android.diploma.util.setImage
 
 sealed interface DetailsScreenState {
     fun render(binding: FragmentDetailsBinding)
-    object Empty : DetailsScreenState{
+
+    object Empty : DetailsScreenState {
         override fun render(binding: FragmentDetailsBinding) = Unit
     }
-    data class Content(val vacancy: VacancyFullInfo) : DetailsScreenState{
+
+    data class Content(val vacancy: VacancyFullInfo) : DetailsScreenState {
         override fun render(binding: FragmentDetailsBinding) {
             with(binding) {
                 scrollView.visibility = View.VISIBLE
@@ -23,7 +25,8 @@ sealed interface DetailsScreenState {
                 hideContactsIfEmpty(binding)
                 showKeySkills(binding)
                 val tvSchedule = vacancy.employment + ". " + vacancy.schedule
-                val formattedDescription = HtmlCompat.fromHtml(vacancy.description, HtmlCompat.FROM_HTML_MODE_LEGACY)
+                val formattedDescription =
+                    HtmlCompat.fromHtml(vacancy.description, HtmlCompat.FROM_HTML_MODE_LEGACY)
 
                 if (vacancy.logo.isNotEmpty()) imageView.imageTintList = null
 
@@ -38,7 +41,11 @@ sealed interface DetailsScreenState {
                 tvSalary.text = vacancy.salary
                 tvNameOfCompany.text = vacancy.company
                 tvArea.text = vacancy.area
-                imageView.setImage(vacancy.logo, R.drawable.ic_placeholder_company, binding.root.context.resources.getDimensionPixelSize(R.dimen.size_12dp))
+                imageView.setImage(
+                    vacancy.logo,
+                    R.drawable.ic_placeholder_company,
+                    binding.root.context.resources.getDimensionPixelSize(R.dimen.size_12dp)
+                )
             }
         }
 
@@ -104,20 +111,26 @@ sealed interface DetailsScreenState {
         }
     }
 
-    class PlayHeartAnimation(private val isInFavs: Boolean, val scope: CoroutineScope) :
+    class AddAnimation(private val scope: CoroutineScope) :
         DetailsScreenState {
         override fun render(binding: FragmentDetailsBinding) {
             scope.launch {
-                if (isInFavs) {
-                    binding.lottieHeart.speed = STRAIGHT_ANIMATION_SPEED
-                    binding.lottieHeart.playAnimation()
-                } else {
-                    binding.lottieHeart.speed = REVERS_ANIMATION_SPEED
-                    binding.lottieHeart.playAnimation()
-                }
+                binding.lottieHeart.speed = STRAIGHT_ANIMATION_SPEED
+                binding.lottieHeart.playAnimation()
+            }
+        }
+    }
+
+    class DeleteAnimation(private val scope: CoroutineScope) :
+        DetailsScreenState {
+        override fun render(binding: FragmentDetailsBinding) {
+            scope.launch {
+                binding.lottieHeart.speed = REVERS_ANIMATION_SPEED
+                binding.lottieHeart.playAnimation()
             }
         }
     }
 }
-const val STRAIGHT_ANIMATION_SPEED = 1f
-const val REVERS_ANIMATION_SPEED = -1f
+
+const val STRAIGHT_ANIMATION_SPEED = 4f
+const val REVERS_ANIMATION_SPEED = -4f

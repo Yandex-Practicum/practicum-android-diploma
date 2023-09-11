@@ -1,41 +1,51 @@
 package ru.practicum.android.diploma.details.data.local.model
 
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import ru.practicum.android.diploma.details.domain.models.VacancyFullInfo
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import javax.inject.Inject
 
 class VacancyConverter @Inject constructor() {
-    fun toEntity(vacancy: Vacancy): VacancyEntity {
+
+    fun toFullInfoEntity(vacancy: VacancyFullInfo): VacancyFullInfoEntity {
         return with(vacancy) {
-            VacancyEntity(
+            VacancyFullInfoEntity(
                 id = id,
-                iconUri = iconUri,
-                title = title,
-                company = company,
-                salary = salary,
+                experience = experience,
+                employment = employment,
+                schedule = schedule,
+                description = description,
+                keySkills = keySkills,
                 area = area,
-                date = date
+                salary = salary,
+                date = date,
+                company = company,
+                logo = logo,
+                title = title,
+                contactEmail = contactEmail,
+                contactName = contactName,
+                contactComment = contactComment,
+                contactPhones = Json.encodeToString(contactPhones),
+                alternateUrl = alternateUrl
             )
         }
     }
 
-    fun mapToVacancies(entities: List<VacancyEntity>): List<Vacancy>{
+    fun mapToVacancies(entities: List<VacancyFullInfoEntity>): List<Vacancy>{
         return entities.map { toVacancy(it) }
     }
-    
-    fun mapToEntities(vacancies: List<Vacancy>): List<VacancyEntity>{
-        return vacancies.map { toEntity(it) }
-    }
-    
-    private fun toVacancy(vacancyEntity: VacancyEntity): Vacancy {
+
+    private fun toVacancy(vacancyEntity: VacancyFullInfoEntity): Vacancy {
         return with(vacancyEntity) {
             Vacancy(
                 id = id,
-                iconUri = iconUri,
+                iconUri = logo,
                 title = title,
                 company = company,
                 salary = salary,
                 area = area,
-                date = date
+                date = date,
             )
         }
     }

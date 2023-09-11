@@ -15,9 +15,10 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.details.domain.DetailsInteractor
+import ru.practicum.android.diploma.details.domain.DetailsLocalInteractor
+import ru.practicum.android.diploma.details.domain.models.VacancyFullInfo
 import ru.practicum.android.diploma.filter.domain.models.NetworkResponse
 import ru.practicum.android.diploma.root.BaseViewModel
-import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.sharing.domain.api.SharingInteractor
 import ru.practicum.android.diploma.util.thisName
 
@@ -25,6 +26,7 @@ import ru.practicum.android.diploma.util.thisName
 class DetailsViewModel @AssistedInject constructor(
     logger: Logger,
     private val detailsInteractor: DetailsInteractor,
+    private val detailsLocalInteractor: DetailsLocalInteractor,
     private val sharingInteractor: SharingInteractor,
     @Assisted("vacancyId")
     private val vacancyId: String
@@ -33,36 +35,50 @@ class DetailsViewModel @AssistedInject constructor(
     private val _uiState = MutableStateFlow<DetailsScreenState>(DetailsScreenState.Empty)
     val uiState: StateFlow<DetailsScreenState> = _uiState
 
+    private var vacancy: VacancyFullInfo? = null
     private var isInFavorites = false
 
-    fun handleAddToFavsButton(vacancy: Vacancy){
-        isInFavorites = !isInFavorites
+    fun handleAddToFavsButton() {
         val message = when (isInFavorites) {
             true -> {
-                addToFavorites(vacancy)
-                "vacancy added to favs"
-            }
-            else -> {
-                deleteVacancy(vacancy.id)
+                deleteVacancy(vacancy?.id ?: "")
                 "vacancy removed from favs"
+            }
+
+            else -> {
+                vacancy?.let { addToFavorites(it) }
+                "vacancy added to favs"
             }
         }
         log(thisName, "handleAddToFavsButton $message")
-        _uiState.value = DetailsScreenState.PlayHeartAnimation(isInFavorites, viewModelScope)
     }
 
-   private fun addToFavorites(vacancy: Vacancy) {
+    private fun addToFavorites(vacancy: VacancyFullInfo) {
         viewModelScope.launch(Dispatchers.IO) {
-            detailsInteractor.addVacancyToFavorites(vacancy).collect {
-                log("DetailsViewModel", "${vacancy.id} inserted")
+            detailsLocalInteractor.addVacancyToFavorites(vacancy).collect {
+                log(thisName, "${vacancy.id} inserted")
             }
         }
     }
 
     private fun deleteVacancy(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            detailsInteractor.removeVacancyFromFavorite(id).collect {
-                log("DetailsViewModel", "$id was removed")
+            detailsLocalInteractor.removeVacancyFromFavorite(id).collect {
+                log(thisName, "$id deleted")
+            }
+        }
+    }
+
+    fun showIfInFavouriteById(id: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            detailsLocalInteractor.showIfInFavourite(id).collect { vacancy ->
+                log(thisName, "getFavoriteVacancyById -> $vacancy")
+                isInFavorites = vacancy
+                if (vacancy) {
+                    _uiState.value = DetailsScreenState.AddAnimation(viewModelScope)
+                } else {
+                    _uiState.value = DetailsScreenState.DeleteAnimation(viewModelScope)
+                }
             }
         }
     }
@@ -71,7 +87,6 @@ class DetailsViewModel @AssistedInject constructor(
         log(thisName, "sendVacancy()")
         _uiState.value.let { state ->
             if (state is DetailsScreenState.Content) {
-                Log.e("DetailsViewModel", "sendVacancy() -> ${state.vacancy.alternateUrl}")
                 state.vacancy.alternateUrl
                 sharingInteractor.sendVacancy(state.vacancy.alternateUrl)
             } else {
@@ -84,7 +99,8 @@ class DetailsViewModel @AssistedInject constructor(
         log(thisName, "writeEmail()")
         _uiState.value.let { state ->
             if (state is DetailsScreenState.Content &&
-                state.vacancy.contactEmail != context.getString(R.string.no_info)) {
+                state.vacancy.contactEmail != context.getString(R.string.no_info)
+            ) {
                 sharingInteractor.writeEmail(state.vacancy.contactEmail)
             } else {
                 return
@@ -96,7 +112,8 @@ class DetailsViewModel @AssistedInject constructor(
         log(thisName, "makeCall()")
         _uiState.value.let { state ->
             if (state is DetailsScreenState.Content &&
-                state.vacancy.contactPhones.isNotEmpty()) {
+                state.vacancy.contactPhones.isNotEmpty()
+            ) {
                 sharingInteractor.makeCall(state.vacancy.contactPhones[0])
             } else {
                 return
@@ -107,20 +124,24 @@ class DetailsViewModel @AssistedInject constructor(
     fun getVacancyByID(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
             _uiState.value = DetailsScreenState.Loading
-            detailsInteractor.getFullVacancyInfo(id).collect { result ->
+            detailsInteractor.getFullVacancyInfoById(id).collect { result ->
                 when (result) {
                     is NetworkResponse.Success -> {
                         log(thisName, "NetworkResponse.Success -> ${result.thisName}")
                         _uiState.value = DetailsScreenState.Content(result.data)
+                        vacancy = result.data
                     }
+
                     is NetworkResponse.Error -> {
                         log(thisName, "NetworkResponse.Error -> ${result.message}")
                         _uiState.value = DetailsScreenState.Error(result.message)
                     }
+
                     is NetworkResponse.Offline -> {
                         log(thisName, "NetworkResponse.Offline-> ${result.message}")
                         _uiState.value = DetailsScreenState.Offline(result.message)
                     }
+
                     is NetworkResponse.NoData -> {
                         log(thisName, "NetworkResponse.NoData -> ${result.message}")
                     }
@@ -128,7 +149,6 @@ class DetailsViewModel @AssistedInject constructor(
             }
         }
     }
-
 
     @AssistedFactory
     interface Factory{

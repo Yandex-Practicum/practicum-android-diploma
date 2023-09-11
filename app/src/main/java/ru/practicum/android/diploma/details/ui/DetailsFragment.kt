@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentDetailsBinding
@@ -39,16 +40,26 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getVacancyByID(args.vacancy.id)
         collector()
+        showIfInFavourite()
         pressSimilarVacanciesButton()
         initListeners()
     }
 
     private fun initListeners() {
-        addToFavorites()
+        addOrDeleteFromFavorites()
         navigateUp()
         sendVacancy()
         writeEmail()
         makeCall()
+    }
+
+    private fun showIfInFavourite() {
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
+            viewModel.log(thisName, "showIfInFavourite()")
+            viewModel.showIfInFavouriteById(args.vacancy.id)
+            delay(TIME_TO_DRAW)
+        }
+
     }
 
     private fun collector() {
@@ -67,10 +78,10 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         }
     }
 
-    private fun addToFavorites() {
+    private fun addOrDeleteFromFavorites() {
         binding.lottieHeart.setOnClickListener {
             viewModel.log(thisName, "buttonAddToFavorites.setOnClickListener { }")
-            viewModel.handleAddToFavsButton(args.vacancy)
+            viewModel.handleAddToFavsButton()
         }
     }
 
@@ -107,5 +118,9 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         findNavController().navigate(
             DetailsFragmentDirections.actionDetailsFragmentToSimilarsVacancyFragment(args.vacancy)
         )
+    }
+
+    companion object {
+        private const val TIME_TO_DRAW = 500L
     }
 }

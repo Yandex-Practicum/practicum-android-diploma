@@ -20,5 +20,6 @@
         <item name="edittext_color">@color/white</item>
         <item name="image_in_card_view_color">@color/light_gray</item>
         <item name="blue_white">@color/white</item>
+        <item name="vacancy_text_color">@color/black</item>
     </style>
 </resources>

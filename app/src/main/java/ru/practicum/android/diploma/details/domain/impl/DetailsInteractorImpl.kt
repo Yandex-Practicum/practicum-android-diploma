@@ -11,16 +11,8 @@ import javax.inject.Inject
 class DetailsInteractorImpl@Inject constructor(
     private val repository: DetailsRepository
 ) : DetailsInteractor {
-    
-    override suspend fun addVacancyToFavorites(vacancy: Vacancy): Flow<Unit> {
-       return repository.addVacancyToFavorite(vacancy)
-    }
 
-    override suspend fun removeVacancyFromFavorite(id: String): Flow<Int> {
-        return repository.removeVacancyFromFavorite(id)
-    }
-
-    override suspend fun getFullVacancyInfo(id: String): Flow<NetworkResponse<VacancyFullInfo>> {
+    override suspend fun getFullVacancyInfoById(id: String): Flow<NetworkResponse<VacancyFullInfo>> {
         return repository.getFullVacancyInfo(id)
     }
 
