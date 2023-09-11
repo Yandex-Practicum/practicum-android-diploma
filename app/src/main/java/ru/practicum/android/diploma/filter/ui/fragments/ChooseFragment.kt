@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.filter.ui.fragments
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -16,10 +17,14 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentAreasBinding
 import ru.practicum.android.diploma.filter.ui.fragments.adapters.FilterAdapter
-import ru.practicum.android.diploma.root.model.UiState.*
 import ru.practicum.android.diploma.filter.ui.view_models.AreasViewModel
 import ru.practicum.android.diploma.root.Debouncer
 import ru.practicum.android.diploma.root.RootActivity
+import ru.practicum.android.diploma.root.model.UiState.Content
+import ru.practicum.android.diploma.root.model.UiState.Error
+import ru.practicum.android.diploma.root.model.UiState.Loading
+import ru.practicum.android.diploma.root.model.UiState.NoData
+import ru.practicum.android.diploma.root.model.UiState.Offline
 import ru.practicum.android.diploma.util.thisName
 import ru.practicum.android.diploma.util.viewBinding
 import javax.inject.Inject
@@ -27,8 +32,12 @@ import javax.inject.Inject
 open class ChooseFragment : Fragment(R.layout.fragment_areas) {
 
     protected open val fragment = ""
-    @Inject lateinit var debouncer: Debouncer
-    @Inject lateinit var filterAdapter: FilterAdapter
+
+    @Inject
+    lateinit var debouncer: Debouncer
+
+    @Inject
+    lateinit var filterAdapter: FilterAdapter
     protected val binding by viewBinding<FragmentAreasBinding>()
     protected open val viewModel: AreasViewModel by viewModels { (activity as RootActivity).viewModelFactory }
     override fun onAttach(context: Context) {
@@ -42,19 +51,20 @@ open class ChooseFragment : Fragment(R.layout.fragment_areas) {
         initListeners()
         initAdapter()
         viewModel.getData()
-
+        hideKeyboard()
         viewLifecycleOwner.lifecycle.coroutineScope.launch(Dispatchers.Main) {
             viewModel.uiState.collect { state ->
                 viewModel.log(thisName, "uiState.collect { state -> ${state.thisName}")
                 when (state) {
                     is Loading -> showLoadingScreen()
                     is Content -> renderContent(state.list)
-                    is NoData  -> showNoData(state.message)
+                    is NoData -> showNoData(state.message)
                     is Offline -> showOffline(state.message)
-                    is Error   -> showError(state.message)
+                    is Error -> showError(state.message)
                 }
             }
         }
+
     }
 
     private fun showLoadingScreen() {
@@ -103,6 +113,7 @@ open class ChooseFragment : Fragment(R.layout.fragment_areas) {
 
         }
     }
+
     private fun initAdapter() {
         filterAdapter.fragment = fragment
         binding.recycler.adapter = filterAdapter
@@ -122,5 +133,11 @@ open class ChooseFragment : Fragment(R.layout.fragment_areas) {
     private fun showPlaceholder() {
         binding.recycler.visibility = View.GONE
         binding.placeholder.visibility = View.VISIBLE
+    }
+
+    private fun hideKeyboard() {
+        val inputMethodManager =
+            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        inputMethodManager?.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
     }
 }
