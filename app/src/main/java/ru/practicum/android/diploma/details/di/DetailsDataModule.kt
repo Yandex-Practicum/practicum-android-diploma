@@ -24,7 +24,6 @@ class DetailsDataModule {
          return detailsRepositoryImpl
      }
 
-    @ApplicationScope
     @Provides
     fun bindDetailsLocalRepository(detailsLocalRepositoryImpl: DetailsLocalRepositoryImpl): DetailsLocalRepository {
         return detailsLocalRepositoryImpl
