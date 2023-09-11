@@ -1,7 +1,5 @@
 package ru.practicum.android.diploma.filter.ui.view_models
 
-import android.annotation.SuppressLint
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -43,7 +41,8 @@ class DepartmentViewModel @Inject constructor(
     override fun onSearchQueryChanged(text: String) {
         super.onSearchQueryChanged(text)
         val temp = industryList
-      _uiState.value = UiState.Content(temp.filter { it.name.contains(text)})
-        Log.e("TAG", "onSearchQueryChanged: ", )
+        _uiState.value = UiState.Content(temp.filter {
+            it.name.contains(text, true)
+        })
     }
 }

@@ -33,7 +33,7 @@
             app:layout_scrollFlags="scroll|enterAlways"
             android:visibility="gone"
             tools:visibility="visible">
-          
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/search"
                 style="@style/SearchEditTextStyle"

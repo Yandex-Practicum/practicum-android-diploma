@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/size_60dp" >
+    android:layout_height="@dimen/size_60dp">
 
     <TextView
         android:id="@+id/region"
@@ -20,8 +20,9 @@
         android:id="@+id/radioBtn"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:theme="@style/ToolbarRipple"
-        android:buttonTint="?attr/colorSecondary"
         android:layout_gravity="end"
-        android:layoutDirection="rtl"/>
+        android:buttonTint="?attr/colorSecondary"
+        android:enabled="false"
+        android:layoutDirection="rtl"
+        android:theme="@style/ToolbarRipple" />
 </FrameLayout>
