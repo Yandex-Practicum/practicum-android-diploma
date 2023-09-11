@@ -6,13 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.databinding.ItemLoadingBinding
 import ru.practicum.android.diploma.search.ui.fragment.SearchAdapter
+import ru.practicum.android.diploma.search.ui.view_model.SCROLL_TAG
 
 class LoadingAdapterDelegate(): DelegateAdapter<LoadingItem, LoadingAdapterDelegate.LoadingViewHolder>(
     LoadingItem::class.java) {
     private var count = 0
     override fun createViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
         val binding = ItemLoadingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        Log.d("LoadingAdapterDelegate", "createViewHolder: _____ ${++count}", )
+        Log.d(SCROLL_TAG, "createViewHolder: _____ ${++count}", )
         return LoadingViewHolder(binding)
     }
 
@@ -22,7 +23,7 @@ class LoadingAdapterDelegate(): DelegateAdapter<LoadingItem, LoadingAdapterDeleg
         viewHolder: LoadingViewHolder,
         payloads: List<DelegateAdapterItem.Payloadable>
     ) {
-        Log.d("LoadingAdapterDelegate", "show loading", )
+        Log.d(SCROLL_TAG, "show loading", )
     }
 
     inner class LoadingViewHolder(binding: ItemLoadingBinding): RecyclerView.ViewHolder(binding.root)

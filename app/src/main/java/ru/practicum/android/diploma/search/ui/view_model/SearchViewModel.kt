@@ -38,13 +38,13 @@ class SearchViewModel @Inject constructor(
         })
     
     fun onSearchQueryChanged(query: String) {
-        log(thisName, "onSearchQueryChanged($query: String)")
+        log(SCROLL_TAG, "onSearchQueryChanged($query: String)")
         
         if (query == latestSearchQuery) return
         latestSearchQuery = query
         currentPage = 0
-        log(thisName, "maxPages($maxPages: Int)")
-        log(thisName, "currentPage($currentPage: Int)")
+        log(SCROLL_TAG, "maxPages($maxPages: Int)")
+        log(SCROLL_TAG, "currentPage($currentPage: Int)")
         
         if (query.isEmpty()) {
             searchJob?.cancel()
@@ -71,7 +71,7 @@ class SearchViewModel @Inject constructor(
         if (!isNextPageLoading && currentPage < maxPages) {
             isNextPageLoading = true
             searchJob = viewModelScope.launch(Dispatchers.IO) {
-                log(thisName, "searchVacancies(page = $currentPage)")
+                log(SCROLL_TAG, "searchVacancies(page = $currentPage)")
                 latestSearchQuery?.let {
                     searchVacanciesUseCase(it, currentPage).fold(
                         ::handleScrollFailure, ::handleScrollSuccess
@@ -86,44 +86,55 @@ class SearchViewModel @Inject constructor(
         super.handleFailure(failure)
         _uiState.value = SearchUiState.Error(failure)
     }
-    
+
     @NewResponse
     private fun handleSuccess(vacancies: Vacancies) {
         maxPages = vacancies.pages
         found = vacancies.found
-        
+
         if (currentPage < maxPages) {
+            log(SCROLL_TAG, "handleSuccess  currPage < maxPage")
             _uiState.value = SearchUiState.Content(
                 list = vacancies.items, found = vacancies.found, isLastPage = false
             )
-        } else _uiState.value = SearchUiState.Content(
-            list = vacancies.items, found = vacancies.found, isLastPage = true
-        )
+        } else {
+            log(SCROLL_TAG, "handleSuccess  currPage > maxPage")
+            _uiState.value = SearchUiState.Content(
+                list = vacancies.items, found = vacancies.found, isLastPage = true
+            )
+        }
+
     }
-    
+
     private fun handleScrollFailure(failure: Failure) {
         currentPage++
-        log(thisName, "handleFailure: ${failure.code} ")
+        log(SCROLL_TAG, "handleFailure: ${failure.code} ")
         _uiState.value = SearchUiState.ErrorScrollLoading(failure)
         isNextPageLoading = false
     }
     
     private fun handleScrollSuccess(vacancies: Vacancies) {
         currentPage++
-        log(thisName, "handleScrollSuccess")
+
+        log(SCROLL_TAG, "handleScrollSuccess 1   page =  ${vacancies.page}   pages = ${vacancies.pages}    current= $currentPage")
         if (currentPage < maxPages) {
+            log(SCROLL_TAG, "handleScrollSuccess  currPage < maxPage")
             _uiState.value = SearchUiState.AddedContent(
                 list = vacancies.items,
                 found = found,
                 isLastPage = false,
             )
         } else {
+            log(SCROLL_TAG, "handleScrollSuccess  currPage > maxPage")
             _uiState.value = SearchUiState.AddedContent(
                 list = vacancies.items,
                 found = found,
                 isLastPage = true,
             )
         }
+        log(SCROLL_TAG, "handleScrollSuccess isNextPageLoading = false")
         isNextPageLoading = false
     }
 }
+
+const val SCROLL_TAG = "scrolling"
