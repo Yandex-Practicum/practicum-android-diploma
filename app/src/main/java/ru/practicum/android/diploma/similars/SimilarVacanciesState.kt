@@ -73,6 +73,7 @@ sealed interface SimilarVacanciesState {
         override fun render(binding: FragmentSimilarsVacancyBinding) {
             super.isScrollingEnabled(binding, false)
             binding.iwAnim.visibility = View.VISIBLE
+            binding.placeHolder.visibility = View.GONE
         }
     }
 }

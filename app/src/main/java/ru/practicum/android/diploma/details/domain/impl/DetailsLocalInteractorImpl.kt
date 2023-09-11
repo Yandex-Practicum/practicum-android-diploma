@@ -20,4 +20,8 @@ class DetailsLocalInteractorImpl @Inject constructor(
     override suspend fun showIfInFavourite(id: String): Flow<Boolean> {
         return repository.showIfInFavourite(id)
     }
+
+    override suspend fun getFavoritesById(id: String): Flow<VacancyFullInfo> {
+        return repository.getFavoritesById(id)
+    }
 }

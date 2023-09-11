@@ -2,11 +2,13 @@ package ru.practicum.android.diploma.details.data
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import ru.practicum.android.diploma.Logger
+import ru.practicum.android.diploma.details.data.local.LocalDataSource
 import ru.practicum.android.diploma.details.data.network.RemoteDataSource
 import ru.practicum.android.diploma.details.domain.DetailsRepository
 import ru.practicum.android.diploma.details.domain.models.VacancyFullInfo
@@ -17,6 +19,7 @@ import javax.inject.Inject
 
 class DetailsRepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
+    private val localDataSource: LocalDataSource,
     private val logger: Logger
 ) : DetailsRepository {
     
@@ -24,7 +27,11 @@ class DetailsRepositoryImpl @Inject constructor(
     private var latestVacancyFullInfo: VacancyFullInfo? = null
 
     override suspend fun getFullVacancyInfo(id: String): Flow<NetworkResponse<VacancyFullInfo>> = flow {
-        if (latestVacancyFullInfo?.id != id) {
+
+        /** Проверяем есть ли в базе данных, если нет, то идём в сеть */
+        val isFavorite = localDataSource.showIfInFavouriteById(id).firstOrNull() ?: false
+
+        if (latestVacancyFullInfo?.id != id && !isFavorite) {
            remoteDataSource
                 .getVacancyFullInfo(id)
                 .collect {
@@ -38,10 +45,14 @@ class DetailsRepositoryImpl @Inject constructor(
                 }
             
         } else {
-            logger.log(
-                thisName,
-                "getFullVacancyInfo: LOADED FROM CACHE = $latestVacancyFullInfo"
-            )
+            logger.log(thisName, "getFullVacancyInfo: LOADED FROM CACHE = $latestVacancyFullInfo")
+            val vacancy = localDataSource.getFavoritesById(id).firstOrNull()
+            if (vacancy != null) {
+                latestVacancyFullInfoMutex.withLock {
+                    latestVacancyFullInfo = vacancy
+                }
+                emit(NetworkResponse.Success(vacancy))
+            }
         }
     }.flowOn(Dispatchers.IO)
 

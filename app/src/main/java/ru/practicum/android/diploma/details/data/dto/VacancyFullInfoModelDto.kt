@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.details.data.dto
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import ru.practicum.android.diploma.details.data.dto.assistants.ContactsDto
 import ru.practicum.android.diploma.details.data.dto.assistants.EmploymentDto
@@ -13,16 +14,16 @@ import ru.practicum.android.diploma.search.data.network.dto.general_models.Salar
 
 @Serializable
 data class VacancyFullInfoModelDto(
-    val id: String,
-    val experience: ExperienceDto?,
-    val employment: EmploymentDto?,
-    val schedule: ScheduleDto?,
-    val description: String?,
-    val key_skills: List<KeySkillDto>?,
-    val contacts: ContactsDto?,
-    val area: Area?,
-    val salary: Salary?,
-    val name: String?,
-    val employer: Employer?,
-    val alternate_url: String?,
-    ) : CodeResponse()
+    @SerialName("id") val id: String,
+    @SerialName("experience") val experience: ExperienceDto?,
+    @SerialName("employment") val employment: EmploymentDto?,
+    @SerialName("schedule") val schedule: ScheduleDto?,
+    @SerialName("description") val description: String?,
+    @SerialName("key_skills") val keySkills: List<KeySkillDto>?,
+    @SerialName("contacts") val contacts: ContactsDto?,
+    @SerialName("area") val area: Area?,
+    @SerialName("salary") val salary: Salary?,
+    @SerialName("name") val name: String?,
+    @SerialName("employer") val employer: Employer?,
+    @SerialName("alternate_url") val alternateUrl: String?,
+) : CodeResponse()

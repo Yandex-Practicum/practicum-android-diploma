@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.details.data.local
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import ru.practicum.android.diploma.details.data.local.db.FavoriteDao
@@ -24,5 +23,9 @@ class LocalDataSourceDetailsImpl @Inject constructor(
 
     override suspend fun showIfInFavouriteById(id: String): Flow<Boolean> {
         return dao.showIfInFavouriteById(id).map { it }
+    }
+
+    override suspend fun getFavoritesById(id: String): Flow<VacancyFullInfo> {
+        return dao.getFavoritesById(id).map { converter.toVacancyFullInfo(it) }
     }
 }

@@ -42,7 +42,10 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
                 viewModel.log(thisName, "uiState.collect { state -> ${state.thisName}")
                 when (state) {
                     is Empty -> { showPlaceholder() }
-                    is Content -> { showContent(state.list) }
+                    is Content -> {
+                        showContent(state.list)
+                        vacancyAdapter.isLastPage(true)
+                    }
                 }
             }
         }

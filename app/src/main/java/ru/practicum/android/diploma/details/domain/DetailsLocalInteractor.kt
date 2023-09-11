@@ -7,4 +7,5 @@ interface DetailsLocalInteractor {
     suspend fun addVacancyToFavorites(vacancy: VacancyFullInfo): Flow<Unit>
     suspend fun removeVacancyFromFavorite(id: String): Flow<Int>
     suspend fun showIfInFavourite(id: String): Flow<Boolean>
+    suspend fun getFavoritesById(id: String): Flow<VacancyFullInfo>
 }
