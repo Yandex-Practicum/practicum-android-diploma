@@ -56,7 +56,7 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
 
             amountText.doOnTextChanged { text, _, _, _ ->
                 if (text.isNullOrEmpty()) {
-                    viewModel.refreshSalary(text.toString())
+                    viewModel.saveSalary(text.toString())
                     amountTextLayout.endIconMode = TextInputLayout.END_ICON_NONE
                 } else {
                     amountTextLayout.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
@@ -67,7 +67,7 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
 
             amountText.setOnEditorActionListener { view, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    viewModel.refreshSalary(view.text.toString())
+                    viewModel.saveSalary(view.text.toString())
                 }
                 return@setOnEditorActionListener false
             }

@@ -9,6 +9,7 @@ import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.filter.domain.api.FilterInteractor
 import ru.practicum.android.diploma.filter.ui.models.BaseFilterScreenState
 import ru.practicum.android.diploma.root.BaseViewModel
+import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
 
 class BaseFilterViewModel @Inject constructor(
@@ -31,8 +32,11 @@ class BaseFilterViewModel @Inject constructor(
     }
 
 
-    fun refreshSalary(text: String) {
-
+    fun saveSalary(text: String) {
+        log(thisName, "saveSalary($text: String)")
+        viewModelScope.launch(Dispatchers.IO) {
+            filterInteractor.refreshSalary(FILTER_KEY, text)
+        }
     }
     companion object { const val FILTER_KEY = "filter" }
 }
