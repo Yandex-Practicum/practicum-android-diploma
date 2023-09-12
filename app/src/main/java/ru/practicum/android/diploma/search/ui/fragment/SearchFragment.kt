@@ -40,15 +40,20 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             .add(LoadingAdapterDelegate())
             .build()
     }
+    
+    private var isFilterSelected: Boolean = false
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        viewModel.log(thisName, "++++onAttach()++++")
         (activity as RootActivity).component.inject(this)
     }
 
     override fun onResume() {
         super.onResume()
-        viewModel.log(thisName, "onResume()")
+        viewModel.log(thisName, "++++onResume()++++")
+        isFilterSelected = viewModel.isFilterSelected()
+        viewModel.log(thisName, "isFilterSelected = $isFilterSelected")
 //        TODO("Сделать запрос в SharedPrefs на наличие текущих филтров." +
 //                "Далее если фильтры есть и строка поиска не пустая -> сделать запрос в сеть и обновить список" +
 //            "Если фильтрые есть, но строка поиска пустая -> просто применить фильтр без запроса в сеть"
@@ -57,14 +62,24 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.log(thisName, "onViewCreated(view: View, savedInstanceState: Bundle?)")
-
+        viewModel.log(thisName, "++++onViewCreated()++++")
+        isFilterSelected = viewModel.isFilterSelected()
+        drawFilterBtn()
         initListeners()
         initAdapter()
         initViewModelObserver()
     }
     
+    private fun drawFilterBtn() {
+        viewModel.log(thisName, "++++drawFilterBtn++++ $isFilterSelected")
+        with(binding) {
+            if (isFilterSelected) filterBtnToolbar.setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.ic_filter_enable))
+            else filterBtnToolbar.setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.ic_filter))
+        }
+    }
+    
     private fun initViewModelObserver() {
+        viewModel.log(thisName, "++++initViewModelObserver()++++")
         with(viewModel) {
             viewLifecycleOwner.lifecycle.coroutineScope.launch {
                 uiState.collect { screenState ->
@@ -86,7 +101,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
 
     private fun initListeners() {
-        viewModel.log(thisName, "initListeners()")
+        viewModel.log(thisName, "++++initListeners()++++")
 
         with(binding) {
             filterBtnToolbar.setOnClickListener {
@@ -124,6 +139,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
+                    viewModel.log(thisName, "++++OnScrollListener()++++")
                     
                     if (dy > 0) {
                         val pos = (recycler.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()

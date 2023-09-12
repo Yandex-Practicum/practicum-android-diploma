@@ -22,11 +22,9 @@ class SearchRepositoryImpl @Inject constructor(
     
     @Suppress("UNCHECKED_CAST")
     @NewResponse
-    override suspend fun searchVacancies(query: String, page: String): Either<Failure, Vacancies> {
+    override suspend fun searchVacancies(queryParams: Map<String, String>): Either<Failure, Vacancies> {
         return ((apiHelper.doRequest(
-            Request.VacanciesRequest(
-                query, page
-            )
+            Request.VacanciesRequest(queryParams)
         )) as Either<Failure, VacanciesResponse>).flatMap {
             if (it.found == 0) {
                 logger.log(thisName, "searchVacancies: NOTHING FOUND")
