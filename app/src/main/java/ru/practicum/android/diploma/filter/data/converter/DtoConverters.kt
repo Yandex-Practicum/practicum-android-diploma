@@ -15,9 +15,12 @@ fun mapRegionListDtoToRegionList(response: RegionListDto): List<Region> {
             regionDtoList.add(regionDto)
         }
     }
-
-    return regionDtoList.flatMap { it?.areas ?: emptyList() }
+    val citiesList = regionDtoList.map { Region(id = it.id ?: "", name = it.name ?: "") }
+    val minorCitiesList = regionDtoList.flatMap { it.areas ?: emptyList() }
         .map { Region(id = it?.id ?: "", name = it?.name ?: "") }.sortedBy { it.name }
+        .toMutableList()
+    minorCitiesList.addAll(citiesList)
+    return minorCitiesList
 
 }
 
