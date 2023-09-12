@@ -5,6 +5,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class RegionDto(
+    @SerialName("id")
+    val id: String? = null,
     @SerialName("name")
     val name: String? = null,
     @SerialName("areas")

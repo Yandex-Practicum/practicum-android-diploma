@@ -71,6 +71,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/amount_text"
             style="@style/FilterEditTextStyle"
+            android:imeOptions="actionDone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="true"

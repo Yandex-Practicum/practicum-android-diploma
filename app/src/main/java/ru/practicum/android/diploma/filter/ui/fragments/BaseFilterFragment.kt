@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.filter.ui.fragments
 
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -54,6 +55,7 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
 
             amountText.doOnTextChanged { text, _, _, _ ->
                 if (text.isNullOrEmpty()) {
+                    viewModel.saveSalary(text.toString())
                     amountTextLayout.endIconMode = TextInputLayout.END_ICON_NONE
                 } else {
                     amountTextLayout.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
@@ -61,6 +63,14 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
                         AppCompatResources.getDrawable(requireContext(), R.drawable.close_btn)
                 }
             }
+
+            amountText.setOnEditorActionListener { view, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    viewModel.saveSalary(view.text.toString())
+                }
+                return@setOnEditorActionListener false
+            }
+
         }
     }
 
