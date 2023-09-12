@@ -55,8 +55,9 @@ class DepartmentFragment : ChooseFragment() {
             industry = tempIndustry
         }
         binding.applyBtn.debounceClickListener(debouncer) {
-            viewModel.saveIndustry(industry)
-            findNavController().navigateUp()
+            findNavController().navigate(
+                DepartmentFragmentDirections.actionDepartmentFragmentToFilterBaseFragment(null, null, industry)
+            )
         }
     }
 

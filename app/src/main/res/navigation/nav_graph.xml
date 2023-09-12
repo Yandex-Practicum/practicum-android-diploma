@@ -51,10 +51,17 @@
         </action>
         <argument
             android:name="country"
-            app:argType="string" />
+            app:argType="ru.practicum.android.diploma.filter.domain.models.Country"
+            app:nullable="true" />
         <argument
             android:name="region"
-            app:argType="string" />
+            app:argType="ru.practicum.android.diploma.filter.domain.models.Region"
+            app:nullable="true" />
+
+        <argument
+            android:name="industry"
+            app:argType="ru.practicum.android.diploma.filter.domain.models.Industry"
+            app:nullable="true" />
         <action
             android:id="@+id/action_filterBaseFragment_to_departmentFragment"
             app:destination="@id/departmentFragment" />
@@ -136,5 +143,9 @@
         android:id="@+id/departmentFragment"
         android:name="ru.practicum.android.diploma.filter.ui.fragments.DepartmentFragment"
         android:label="fragment_department"
-        tools:layout="@layout/fragment_department" />
+        tools:layout="@layout/fragment_department" >
+        <action
+            android:id="@+id/action_departmentFragment_to_filterBaseFragment"
+            app:destination="@id/filterBaseFragment" />
+    </fragment>
 </navigation>

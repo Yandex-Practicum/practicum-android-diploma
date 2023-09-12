@@ -7,7 +7,6 @@ import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.filter.domain.api.FilterInteractor
 import ru.practicum.android.diploma.filter.domain.api.GetIndustriesUseCase
 import ru.practicum.android.diploma.filter.domain.models.Industry
-import ru.practicum.android.diploma.filter.ui.view_models.BaseFilterViewModel.Companion.FILTER_KEY
 import ru.practicum.android.diploma.root.model.UiState
 import javax.inject.Inject
 
@@ -31,11 +30,7 @@ class DepartmentViewModel @Inject constructor(
         industryList = list.map { it as Industry }
     }
 
-    fun saveIndustry(industry: Industry) {
-        viewModelScope.launch(Dispatchers.IO) {
-            interactor.saveIndustry(FILTER_KEY, industry)
-        }
-    }
+
 
 
     override fun onSearchQueryChanged(text: String) {
