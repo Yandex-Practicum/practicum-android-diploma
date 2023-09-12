@@ -38,7 +38,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getVacancyByID(args.id)
+        viewModel.getVacancyByID()
         collector()
         showIfInFavourite()
         pressSimilarVacanciesButton()
@@ -56,7 +56,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
     private fun showIfInFavourite() {
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
             viewModel.log(thisName, "showIfInFavourite()")
-            viewModel.showIfInFavouriteById(args.id)
+            viewModel.showIfInFavouriteById()
             delay(TIME_TO_DRAW)
         }
 
@@ -64,9 +64,19 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
 
     private fun collector() {
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
-            viewModel.uiState.collect { state ->
-                viewModel.log(thisName, "uiState.collect { state -> ${state.thisName}")
-                state.render(binding)
+            viewModel.uiState.collect { screenState ->
+                viewModel.log(thisName, "uiState.collect { state -> ${screenState.thisName}")
+                val painter = DetailsScreenPainter(binding)
+                when (screenState) {
+                    is DetailsScreenState.Content -> painter.showDataContent(screenState.vacancy)
+                    is DetailsScreenState.AddAnimation -> painter.showAddAnimation(viewLifecycleOwner.lifecycleScope)
+                    is DetailsScreenState.DeleteAnimation -> painter
+                        .showDeleteAnimation(viewLifecycleOwner.lifecycleScope)
+                    is DetailsScreenState.Offline -> painter.showOffline(screenState.message)
+                    is DetailsScreenState.Error -> painter.showError(screenState.message)
+                    is DetailsScreenState.Loading -> painter.showLoading()
+                    is DetailsScreenState.Default -> Unit
+                }
             }
         }
     }
