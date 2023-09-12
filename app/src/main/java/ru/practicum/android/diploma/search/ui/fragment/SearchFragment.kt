@@ -54,10 +54,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         viewModel.log(thisName, "++++onResume()++++")
         isFilterSelected = viewModel.isFilterSelected()
         viewModel.log(thisName, "isFilterSelected = $isFilterSelected")
-//        TODO("Сделать запрос в SharedPrefs на наличие текущих филтров." +
-//                "Далее если фильтры есть и строка поиска не пустая -> сделать запрос в сеть и обновить список" +
-//            "Если фильтрые есть, но строка поиска пустая -> просто применить фильтр без запроса в сеть"
-//                )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
