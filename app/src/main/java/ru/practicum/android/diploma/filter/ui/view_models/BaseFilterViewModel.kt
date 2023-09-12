@@ -7,6 +7,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.filter.domain.api.FilterInteractor
+import ru.practicum.android.diploma.filter.domain.models.Country
+import ru.practicum.android.diploma.filter.domain.models.Industry
+import ru.practicum.android.diploma.filter.domain.models.Region
 import ru.practicum.android.diploma.filter.ui.models.BaseFilterScreenState
 import ru.practicum.android.diploma.root.BaseViewModel
 import javax.inject.Inject
@@ -22,7 +25,7 @@ class BaseFilterViewModel @Inject constructor(
 
 
 
-    fun checkSavedFilterData() {
+    fun handleData(coutry: Country?, region: Region?, industry: Industry?) {
         viewModelScope.launch(Dispatchers.IO) {
             val selectedFilter = filterInteractor.getSavedFilterSettings(FILTER_KEY)
             _uiState.emit(BaseFilterScreenState.Content(selectedFilter))
@@ -32,6 +35,11 @@ class BaseFilterViewModel @Inject constructor(
 
     companion object {
         const val FILTER_KEY = "filter"
+    }
+    fun saveIndustry(industry: Industry) {
+        viewModelScope.launch(Dispatchers.IO) {
+            filterInteractor.saveIndustry(FILTER_KEY, industry)
+        }
     }
 
 }
