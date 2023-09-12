@@ -7,11 +7,11 @@ import ru.practicum.android.diploma.filter.domain.models.Industry
 class IndustryViewHolder(
     private val binding: ItemRegionDepartFilterBinding
 ) : RecyclerView.ViewHolder(binding.root) {
+    
+    val radioBtn = binding.radioBtn
 
     fun bind(model: Industry, state: Boolean) {
         binding.region.text = model.name
         binding.radioBtn.isChecked = state
     }
-
-
 }
