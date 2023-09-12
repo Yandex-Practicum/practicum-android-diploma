@@ -17,7 +17,7 @@ sealed interface BaseFilterScreenState {
             with(binding) {
                 chooseBaseFilterBtn.visibility = View.GONE
                 bottomContainerToApply.visibility = View.GONE
-                amountText.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null)
+
             }
 
         }
@@ -41,33 +41,7 @@ sealed interface BaseFilterScreenState {
     }
 
 
-    object Choose : BaseFilterScreenState {
-        override fun render(binding: FragmentFilterBaseBinding) {
-            with(binding) {
-                chooseBaseFilterBtn.visibility = View.VISIBLE
-                bottomContainerToApply.visibility = View.GONE
-                amountText.setCompoundDrawablesWithIntrinsicBounds(
-                    null,
-                    null,
-                    AppCompatResources.getDrawable(amountText.context, R.drawable.close_btn),
-                    null
-                )
-            }
-        }
-    }
 
-    object Apply : BaseFilterScreenState {
-        override fun render(binding: FragmentFilterBaseBinding) {
-            with(binding) {
-                chooseBaseFilterBtn.visibility = View.GONE
-                bottomContainerToApply.visibility = View.VISIBLE
-                amountText.setCompoundDrawablesWithIntrinsicBounds(
-                    null,
-                    null,
-                    AppCompatResources.getDrawable(amountText.context, R.drawable.close_btn),
-                    null
-                )
-            }
-        }
-    }
+
+
 }

@@ -70,8 +70,6 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
             viewModel.uiState.collect { state ->
                 viewModel.log("BaseFilterFragment", "uiState.collect { state -> ${state.thisName}")
                 when (state) {
-                    BaseFilterScreenState.Apply -> state.render(binding)
-                    is BaseFilterScreenState.Choose -> state.render(binding)
                     is BaseFilterScreenState.Content -> state.render(binding)
                     is BaseFilterScreenState.Empty -> state.render(binding)
                 }
