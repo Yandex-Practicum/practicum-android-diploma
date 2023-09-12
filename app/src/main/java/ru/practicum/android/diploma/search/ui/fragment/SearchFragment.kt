@@ -102,8 +102,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         with(binding) {
             filterBtnToolbar.setOnClickListener {
                 findNavController().navigate(
-                    resId = R.id.action_searchFragment_to_filterBaseFragment,
-                    args = null
+                    SearchFragmentDirections
+                        .actionSearchFragmentToFilterBaseFragment(null,null,null)
                 )
             }
             
