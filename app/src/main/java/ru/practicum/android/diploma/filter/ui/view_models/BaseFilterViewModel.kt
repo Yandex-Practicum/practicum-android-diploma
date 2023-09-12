@@ -30,8 +30,9 @@ class BaseFilterViewModel @Inject constructor(
         }
     }
 
-    companion object {
-        const val FILTER_KEY = "filter"
-    }
 
+    fun refreshSalary(text: String) {
+
+    }
+    companion object { const val FILTER_KEY = "filter" }
 }
