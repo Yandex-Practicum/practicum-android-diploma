@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.details.ui
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -41,7 +40,7 @@ class DetailsViewModel @AssistedInject constructor(
     fun handleAddToFavsButton() {
         val message = when (isInFavorites) {
             true -> {
-                deleteVacancy(vacancy?.id ?: "")
+                deleteVacancy()
                 "vacancy removed from favs"
             }
 
@@ -61,23 +60,23 @@ class DetailsViewModel @AssistedInject constructor(
         }
     }
 
-    private fun deleteVacancy(id: String) {
+    private fun deleteVacancy() {
         viewModelScope.launch(Dispatchers.IO) {
-            detailsLocalInteractor.removeVacancyFromFavorite(id).collect {
-                log(thisName, "$id deleted")
+            detailsLocalInteractor.removeVacancyFromFavorite(vacancyId).collect {
+                log(thisName, "$vacancyId deleted")
             }
         }
     }
 
-    fun showIfInFavouriteById(id: String) {
+    fun showIfInFavouriteById() {
         viewModelScope.launch(Dispatchers.IO) {
-            detailsLocalInteractor.showIfInFavourite(id).collect { vacancy ->
+            detailsLocalInteractor.showIfInFavourite(vacancyId).collect { vacancy ->
                 log(thisName, "getFavoriteVacancyById -> $vacancy")
                 isInFavorites = vacancy
                 if (vacancy) {
-                    _uiState.value = DetailsScreenState.AddAnimation(viewModelScope)
+                    _uiState.value = DetailsScreenState.AddAnimation
                 } else {
-                    _uiState.value = DetailsScreenState.DeleteAnimation(viewModelScope)
+                    _uiState.value = DetailsScreenState.DeleteAnimation
                 }
             }
         }
@@ -121,10 +120,10 @@ class DetailsViewModel @AssistedInject constructor(
         }
     }
 
-    fun getVacancyByID(id: String) {
+    fun getVacancyByID() {
         viewModelScope.launch(Dispatchers.IO) {
             _uiState.value = DetailsScreenState.Loading
-            detailsInteractor.getFullVacancyInfoById(id).collect { result ->
+            detailsInteractor.getFullVacancyInfoById(vacancyId).collect { result ->
                 when (result) {
                     is NetworkResponse.Success -> {
                         log(thisName, "NetworkResponse.Success -> ${result.thisName}")
@@ -149,6 +148,7 @@ class DetailsViewModel @AssistedInject constructor(
             }
         }
     }
+
 
     @AssistedFactory
     interface Factory{
