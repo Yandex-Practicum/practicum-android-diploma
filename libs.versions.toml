@@ -23,7 +23,7 @@ nav_safe_args = "2.5.3"
 lottie = "6.0.0"
 parcelize = "1.8.21"
 adapterdelegates = "4.3.2"
-developproperties = "{}"
+developproperties = "unspecified"
 
 
 [libraries]
