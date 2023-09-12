@@ -1,7 +1,11 @@
 package ru.practicum.android.diploma.details.data.network
 
+import android.util.Log
+import kotlinx.coroutines.flow.firstOrNull
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.details.data.dto.VacancyFullInfoModelDto
+import ru.practicum.android.diploma.details.data.local.LocalDataSource
+import ru.practicum.android.diploma.details.domain.DetailsRepository
 import ru.practicum.android.diploma.details.domain.models.VacancyFullInfo
 import ru.practicum.android.diploma.search.data.network.AlternativeRemoteDataSource
 import ru.practicum.android.diploma.search.data.network.converter.VacancyModelConverter
@@ -14,19 +18,33 @@ import ru.practicum.android.diploma.util.functional.flatMap
 import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
 
-class RemoteDataSourceImpl @Inject constructor(
+class DetailsRepositoryImpl @Inject constructor(
+    private val apiHelper: AlternativeRemoteDataSource,
+    private val localDataSource: LocalDataSource,
     private val converter: VacancyModelConverter,
-    private val logger: Logger,
-    private val apiHelper: AlternativeRemoteDataSource
-) : RemoteDataSource {
+    private val logger: Logger
+) : DetailsRepository {
 
     @Suppress("UNCHECKED_CAST")
-    override suspend fun getVacancyFullInfo(id: String): Either<Failure, VacancyFullInfo> {
-        return ((apiHelper.doRequest(
-            Request.VacancyDetailsRequest(id)
-        )) as Either<Failure, VacancyFullInfoModelDto>).flatMap {
-            logger.log(thisName, "getVacancyFullInfo: FOUND = ${it.id}")
-            Either.Right(converter.mapDetails(it))
+    override suspend fun getFullVacancyInfo(id: String): Either<Failure, VacancyFullInfo> {
+        Log.e("getFullVacancyInfo", "getFullVacancyInfo: LOADED FROM CACHE = $id")
+        val isFavorite = localDataSource.showIfInFavouriteById(id).firstOrNull() ?: false
+
+        return if (isFavorite) {
+            logger.log("getFullVacancyInfo", "getFullVacancyInfo: LOADED FROM CACHE = $id")
+            val vacancy = localDataSource.getFavoritesById(id).firstOrNull()
+            if (vacancy != null) {
+                Either.Right(vacancy)
+            } else {
+                Either.Left(Failure.NotFound())
+            }
+        } else {
+            ((apiHelper.doRequest(
+                Request.VacancyDetailsRequest(id)
+            )) as Either<Failure, VacancyFullInfoModelDto>).flatMap {
+                logger.log(thisName, "getVacancyFullInfo: FOUND = ${it.id}")
+                Either.Right(converter.mapDetails(it))
+            }
         }
     }
 
