@@ -13,4 +13,5 @@ interface FilterInteractor {
     suspend fun refreshCountry(key: String, country: Country)
     suspend fun saveIndustry(key: String, industry: Industry)
     suspend fun refreshSalary(key: String, salary: String)
+    suspend fun saveSavedData(key: String, data: SelectedFilter)
 }
