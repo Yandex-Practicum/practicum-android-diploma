@@ -27,7 +27,16 @@ sealed interface BaseFilterScreenState {
 
         @SuppressLint("SetTextI18n")
         override fun render(binding: FragmentFilterBaseBinding) {
-            binding.departmentText.setText(selectedFilter.industry?.name ?: "")
+            if (selectedFilter.industry?.name.isNullOrEmpty()) {
+                AppCompatResources.getDrawable(binding.root.context, R.drawable.leading_icon)
+                binding.departmentText.setText(selectedFilter.industry?.name ?: "")
+
+            } else {
+                binding.departmentContainer.endIconDrawable =
+                    AppCompatResources.getDrawable(binding.root.context, R.drawable.close_btn)
+                binding.departmentText.setText(selectedFilter.industry?.name ?: "")
+                binding.bottomContainerToApply.visibility = View.VISIBLE
+            }
             binding.workPlaceText.setText(
                 (selectedFilter.country?.name ?: "") +
                         "${
@@ -39,9 +48,6 @@ sealed interface BaseFilterScreenState {
             )
         }
     }
-
-
-
 
 
 }
