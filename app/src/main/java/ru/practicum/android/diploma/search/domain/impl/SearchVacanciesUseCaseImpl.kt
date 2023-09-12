@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.search.domain.impl
 
-import android.util.Log
 import ru.practicum.android.diploma.filter.domain.models.SelectedFilter
 import ru.practicum.android.diploma.search.domain.api.SearchRepository
 import ru.practicum.android.diploma.search.domain.api.SearchVacanciesUseCase
@@ -8,7 +7,6 @@ import ru.practicum.android.diploma.search.domain.models.Vacancies
 import ru.practicum.android.diploma.util.functional.Either
 import ru.practicum.android.diploma.util.functional.Failure
 import javax.inject.Inject
-import kotlin.math.log
 
 class SearchVacanciesUseCaseImpl @Inject constructor(
     private val repository: SearchRepository,
@@ -29,10 +27,8 @@ class SearchVacanciesUseCaseImpl @Inject constructor(
            
             filter?.industry?.id?.let { put("industry", it) }
             filter?.salary?.let { put("salary", it) }
-            //filter?.visibility?.let { put("only_with_salary", it.toString()) }
-            put("only_with_salary", "true")
+            filter?.visibility?.let { put("only_with_salary", it.toString()) }
         }
-        Log.d("MyLog", "queryMap = $queryMap")
         return repository.searchVacancies(queryMap)
     }
     
