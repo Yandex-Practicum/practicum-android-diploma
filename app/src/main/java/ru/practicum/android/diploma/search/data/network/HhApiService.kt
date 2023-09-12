@@ -16,11 +16,9 @@ import ru.practicum.android.diploma.search.data.network.dto.response.VacanciesSe
 interface HhApiService {
     @NewResponse
     @GET("/vacancies")
-    suspend fun searchVacancies(@Query("text") text: String): Response<VacanciesResponse>
-    
-    @NewResponse
-    @GET("/vacancies")
-    suspend fun searchVacanciesPerPage(@QueryMap queryParams: Map<String, String>): Response<VacanciesResponse>
+    suspend fun searchVacancies(
+        @QueryMap queryParams: Map<String, String>,
+    ): Response<VacanciesResponse>
     
     @NewResponse
     @GET("/areas")
@@ -29,7 +27,7 @@ interface HhApiService {
     @NewResponse
     @GET("/industries")
     suspend fun getIndustries(): Response<List<IndustryDto>>
-
+    
     @GET("/vacancies")
     suspend fun search(@Query("text") text: String): Response<VacanciesSearchCodeResponse>
 
@@ -41,7 +39,6 @@ interface HhApiService {
 
     @GET("/vacancies/{vacancy_id}/similar_vacancies")
     suspend fun getSimilarVacancies(@Path("vacancy_id") vacancyId: String): Response<VacanciesSearchCodeResponse>
-
 }
 
 

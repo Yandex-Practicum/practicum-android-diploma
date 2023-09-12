@@ -7,5 +7,5 @@ import ru.practicum.android.diploma.util.functional.Failure
 
 interface SearchRepository {
     @NewResponse
-    suspend fun searchVacancies(query: String, page: String): Either<Failure, Vacancies>
+    suspend fun searchVacancies(queryParams: Map<String, String>): Either<Failure, Vacancies>
 }

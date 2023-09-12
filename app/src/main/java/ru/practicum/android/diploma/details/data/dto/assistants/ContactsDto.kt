@@ -8,5 +8,5 @@ import ru.practicum.android.diploma.search.data.network.dto.general_models.Phone
 data class ContactsDto(
     @SerialName("email") val email: String? = "",
     @SerialName("name") val name: String? = "",
-    @SerialName("phones") val phones: List<Phone?>? = emptyList(),
+    @SerialName("phones") val phones: List<Phone>? = emptyList(),
 )

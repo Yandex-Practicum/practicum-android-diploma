@@ -31,8 +31,7 @@
                 android:layout_gravity="end"
                 android:layout_marginEnd="@dimen/margin_12dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/filter_settings"
-                android:src="@drawable/ic_filter" />
+                android:contentDescription="@string/filter_settings" />
         </androidx.appcompat.widget.Toolbar>
 
         <com.google.android.material.textfield.TextInputLayout

@@ -1,13 +1,15 @@
 package ru.practicum.android.diploma.search.data.network
 
-import android.util.Log
 import retrofit2.Response
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.filter.data.model.CountryDto
-import ru.practicum.android.diploma.search.data.network.dto.request.Request.*
-import ru.practicum.android.diploma.search.data.network.dto.request.*
 import ru.practicum.android.diploma.filter.data.model.IndustryDto
 import ru.practicum.android.diploma.filter.data.model.RegionListDto
+import ru.practicum.android.diploma.search.data.network.dto.request.Request
+import ru.practicum.android.diploma.search.data.network.dto.request.Request.AllCountriesRequest
+import ru.practicum.android.diploma.search.data.network.dto.request.Request.AllIndustriesRequest
+import ru.practicum.android.diploma.search.data.network.dto.request.Request.RegionRequest
+import ru.practicum.android.diploma.search.data.network.dto.request.Request.VacanciesRequest
 import ru.practicum.android.diploma.search.data.network.dto.response.VacanciesResponse
 import ru.practicum.android.diploma.util.functional.Either
 import ru.practicum.android.diploma.util.functional.Failure
@@ -31,15 +33,7 @@ class ApiHelper @Inject constructor(
     
     private suspend fun getVacancies(request: VacanciesRequest): Either<Failure, VacanciesResponse> {
         return requestData(VacanciesResponse.empty) {
-            
-            val queryParam: Map<String, String> = mapOf(
-                "text" to request.query,
-                "page" to request.page,
-                "per_page" to COUNT_ITEMS
-            )
-            val result =  apiService.searchVacanciesPerPage(queryParam)
-            result
-           
+            apiService.searchVacancies(request.queryParams)
         }
     }
 
@@ -95,7 +89,4 @@ class ApiHelper @Inject constructor(
             }
             false -> responseHandle(request(), default, false)
         }
-    companion object {
-        private const val COUNT_ITEMS = "20"
-    }
 }
