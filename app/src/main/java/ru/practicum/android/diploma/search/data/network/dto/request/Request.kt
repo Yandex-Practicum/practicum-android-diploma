@@ -7,4 +7,6 @@ sealed interface Request {
     ) : Request
     class RegionRequest(val id: String) : Request
     object AllIndustriesRequest: Request
+    class VacancyDetailsRequest(val id: String) : Request
+    class SimilarVacanciesRequest(val id: String) : Request
 }

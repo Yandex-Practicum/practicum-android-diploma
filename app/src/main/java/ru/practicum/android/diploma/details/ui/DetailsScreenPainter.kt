@@ -12,6 +12,7 @@ import java.lang.StringBuilder
 
 class DetailsScreenPainter(private val binding: FragmentDetailsBinding) {
 
+    private val context = binding.root.context
     fun showDataContent(vacancy: VacancyFullInfo) {
         with(binding) {
             scrollView.visibility = View.VISIBLE
@@ -82,15 +83,16 @@ class DetailsScreenPainter(private val binding: FragmentDetailsBinding) {
         }
     }
 
-    fun showOffline(message: String) {
+    fun showOffline() {
         binding.scrollView.visibility = View.GONE
-        binding.placeHolderText.text = message
+        binding.iwAnim.visibility = View.GONE
+        binding.placeHolderText.text = context.getString(R.string.no_internet_message)
         binding.placeHolder.visibility = View.VISIBLE
     }
 
-    fun showError(message: String) {
+    fun showError() {
         binding.scrollView.visibility = View.GONE
-        binding.placeHolderText.text = message
+        binding.placeHolderText.text = context.getString(R.string.server_error)
         binding.placeHolder.visibility = View.VISIBLE
     }
 

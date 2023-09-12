@@ -1,12 +1,9 @@
 package ru.practicum.android.diploma.details.data.network
 
-import kotlinx.coroutines.flow.Flow
-import ru.practicum.android.diploma.details.domain.models.VacancyFullInfo
-import ru.practicum.android.diploma.search.domain.models.Vacancy
-import ru.practicum.android.diploma.filter.domain.models.NetworkResponse
+import ru.practicum.android.diploma.util.functional.Either
+import ru.practicum.android.diploma.util.functional.Failure
 
 interface RemoteDataSource {
-    suspend fun getVacancyFullInfo(id: String): Flow<NetworkResponse<VacancyFullInfo>>
-
-    suspend fun getSimilarVacancies(id: String): Flow<NetworkResponse<List<Vacancy>>>
+    suspend fun getVacancyFullInfo(id: String): Either<Failure, Any>
+    suspend fun getSimilarVacancies(id: String): Either<Failure, Any>
 }

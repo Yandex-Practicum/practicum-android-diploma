@@ -12,4 +12,9 @@ data class VacanciesSearchCodeResponse(
     @SerialName("page") val page: Int? = 0,
     @SerialName("pages") val pages: Int? = 0,
     @SerialName("perPage") val perPage: Int? = 0,
-) : CodeResponse()
+) : CodeResponse() {
+    companion object {
+        val empty = VacanciesSearchCodeResponse(0, emptyList(), 0, 0 , 0)
+    }
+
+}

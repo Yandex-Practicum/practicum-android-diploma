@@ -7,8 +7,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.details.domain.DetailsInteractor
-import ru.practicum.android.diploma.filter.domain.models.NetworkResponse
 import ru.practicum.android.diploma.root.BaseViewModel
+import ru.practicum.android.diploma.search.domain.models.Vacancy
+import ru.practicum.android.diploma.util.functional.Failure
 import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
 
@@ -24,25 +25,29 @@ class SimilarVacanciesViewModel @Inject constructor(
         log(thisName, "getSimilarVacancies(vacancyId: $vacancyId)")
         _uiState.value = SimilarVacanciesState.Loading
         viewModelScope.launch(Dispatchers.IO) {
-            detailsInteractor.getSimilarVacancies(vacancyId).collect { result ->
-                when (result) {
-                    is NetworkResponse.Success -> {
-                        log(thisName, "NetworkResponse.Success -> ${result.thisName}")
-                        _uiState.value = SimilarVacanciesState.Content(result.data)
-                    }
-                    is NetworkResponse.Error -> {
-                        log(thisName, "NetworkResponse.Error -> ${result.message}")
-                        _uiState.value = SimilarVacanciesState.Empty
-                    }
-                    is NetworkResponse.Offline -> {
-                        log(thisName, "NetworkResponse.Offline-> ${result.message}")
-                        _uiState.value = SimilarVacanciesState.Offline(result.message)
-                    }
-                    is NetworkResponse.NoData -> {
-                        log(thisName, "NetworkResponse.NoData -> ${result.message}")
-                        _uiState.value = SimilarVacanciesState.Empty
-                    }
-                }
+            detailsInteractor.getSimilarVacancies(vacancyId).fold(
+                ::handleFailure,
+                ::handleSuccess
+            )
+        }
+    }
+
+    private fun handleSuccess(list: List<Vacancy>) {
+        log(thisName, "handleSuccess(list: $list)")
+        _uiState.value = SimilarVacanciesState.Content(list)
+    }
+
+    override fun handleFailure(failure: Failure) {
+        log(thisName, "handleFailure(failure: $failure)")
+        when (failure) {
+            is Failure.Offline -> {
+                _uiState.value = SimilarVacanciesState.Offline(failure)
+            }
+            is Failure.NotFound -> {
+                _uiState.value = SimilarVacanciesState.Empty
+            }
+            else -> {
+                _uiState.value = SimilarVacanciesState.Error(failure)
             }
         }
     }

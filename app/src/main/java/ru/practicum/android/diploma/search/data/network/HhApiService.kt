@@ -34,9 +34,11 @@ interface HhApiService {
     @GET ("/areas/{area_id}")
     suspend fun getRegionInfo(@Path("area_id") areaId: String): Response<RegionListDto>
 
+    @NewResponse
     @GET("/vacancies/{id}")
     suspend fun searchDetails(@Path("id") id: String): Response<VacancyFullInfoModelDto>
 
+    @NewResponse
     @GET("/vacancies/{vacancy_id}/similar_vacancies")
     suspend fun getSimilarVacancies(@Path("vacancy_id") vacancyId: String): Response<VacanciesSearchCodeResponse>
 }

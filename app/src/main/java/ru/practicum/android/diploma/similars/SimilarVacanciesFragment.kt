@@ -53,7 +53,14 @@ class SimilarVacanciesFragment : Fragment(R.layout.fragment_similars_vacancy) {
         viewModel.log(thisName, "collector()")
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
             viewModel.uiState.collect { state ->
-                state.render(binding)
+                val painter = SimilarVacanciesScreenPainter(binding)
+                when (state) {
+                    is SimilarVacanciesState.Empty -> painter.showEmpty()
+                    is SimilarVacanciesState.Content -> painter.showContent(state.list)
+                    is SimilarVacanciesState.Offline -> painter.showOffline()
+                    is SimilarVacanciesState.Error -> painter.showError()
+                    is SimilarVacanciesState.Loading -> painter.showLoading()
+                }
             }
         }
     }

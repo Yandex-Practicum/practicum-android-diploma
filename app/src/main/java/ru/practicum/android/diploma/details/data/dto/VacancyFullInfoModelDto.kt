@@ -7,6 +7,7 @@ import ru.practicum.android.diploma.details.data.dto.assistants.EmploymentDto
 import ru.practicum.android.diploma.details.data.dto.assistants.ExperienceDto
 import ru.practicum.android.diploma.details.data.dto.assistants.KeySkillDto
 import ru.practicum.android.diploma.details.data.dto.assistants.ScheduleDto
+import ru.practicum.android.diploma.filter.data.model.RegionListDto
 import ru.practicum.android.diploma.search.data.network.CodeResponse
 import ru.practicum.android.diploma.search.data.network.dto.general_models.Area
 import ru.practicum.android.diploma.search.data.network.dto.general_models.Employer
@@ -26,4 +27,22 @@ data class VacancyFullInfoModelDto(
     @SerialName("name") val name: String?,
     @SerialName("employer") val employer: Employer?,
     @SerialName("alternate_url") val alternateUrl: String?,
-) : CodeResponse()
+) : CodeResponse() {
+
+    companion object {
+        val empty = VacancyFullInfoModelDto(
+            id = "",
+            experience = null,
+            employment = null,
+            schedule = null,
+            description = null,
+            keySkills = null,
+            contacts = null,
+            area = null,
+            salary = null,
+            name = null,
+            employer = null,
+            alternateUrl = null,
+        )
+    }
+}
