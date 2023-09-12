@@ -32,10 +32,11 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private val binding by viewBinding<FragmentSearchBinding>()
 
     private val adapter by lazy {
-        MainCompositeAdapter.Builder()
-            .add(VacancyAdapterDelegate { vacancy ->
+        MainCompositeAdapter
+            .Builder()
+            .add(VacancyAdapterDelegate(onClick = { vacancy ->
                 navigateToDetails(vacancy)
-            })
+            }))
             .add(LoadingAdapterDelegate())
             .build()
     }

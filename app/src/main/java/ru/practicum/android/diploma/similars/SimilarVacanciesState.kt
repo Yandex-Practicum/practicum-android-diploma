@@ -3,12 +3,9 @@ package ru.practicum.android.diploma.similars
 import android.view.View
 import android.widget.Toast
 import com.google.android.material.appbar.AppBarLayout
-import ru.practicum.android.diploma.databinding.FragmentDetailsBinding
-import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.databinding.FragmentSimilarsVacancyBinding
-import ru.practicum.android.diploma.details.ui.DetailsScreenState
 import ru.practicum.android.diploma.search.domain.models.Vacancy
-import ru.practicum.android.diploma.search.ui.fragment.SearchAdapter
+import ru.practicum.android.diploma.search.ui.fragment.adapter_delegate.MainCompositeAdapter
 
 sealed interface SimilarVacanciesState {
     fun render(binding: FragmentSimilarsVacancyBinding)
@@ -45,7 +42,7 @@ sealed interface SimilarVacanciesState {
             binding.placeHolder.visibility = View.GONE
             binding.iwAnim.visibility = View.GONE
             binding.recycler.visibility = View.VISIBLE
-            val adapter = (binding.recycler.adapter as SearchAdapter)
+            val adapter = (binding.recycler.adapter as MainCompositeAdapter)
             adapter.submitList(list)
         }
     }

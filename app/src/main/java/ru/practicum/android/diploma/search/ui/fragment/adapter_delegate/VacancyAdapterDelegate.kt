@@ -11,6 +11,7 @@ import ru.practicum.android.diploma.util.setImage
 
 class VacancyAdapterDelegate(
     private val onClick: (Vacancy) -> Unit,
+    private val onLongClick: ((Vacancy) -> Unit)? = null,
 ) : DelegateAdapter<Vacancy, VacancyAdapterDelegate.VacancyViewHolder>(Vacancy::class.java) {
     
     private var count = 0
@@ -29,6 +30,12 @@ class VacancyAdapterDelegate(
         viewHolder.itemView.setOnClickListener {
             onClick(model)
         }
+        
+        viewHolder.itemView.setOnLongClickListener {
+            onLongClick?.let { onLongClick -> onLongClick(model) }
+            true
+        }
+        
         viewHolder.bind(model)
     }
 

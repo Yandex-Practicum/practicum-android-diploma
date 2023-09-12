@@ -15,38 +15,44 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSimilarsVacancyBinding
 import ru.practicum.android.diploma.root.RootActivity
 import ru.practicum.android.diploma.search.domain.models.Vacancy
-import ru.practicum.android.diploma.search.ui.fragment.SearchAdapter
+import ru.practicum.android.diploma.search.ui.fragment.adapter_delegate.MainCompositeAdapter
+import ru.practicum.android.diploma.search.ui.fragment.adapter_delegate.VacancyAdapterDelegate
 import ru.practicum.android.diploma.util.thisName
 import ru.practicum.android.diploma.util.viewBinding
-import javax.inject.Inject
 
-class SimilarVacanciesFragment : Fragment(R.layout.fragment_similars_vacancy)  {
+class SimilarVacanciesFragment : Fragment(R.layout.fragment_similars_vacancy) {
     
-    @Inject
-    lateinit var vacancyAdapter: SearchAdapter
     private val viewModel: SimilarVacanciesViewModel by viewModels { (activity as RootActivity).viewModelFactory }
     private val binding by viewBinding<FragmentSimilarsVacancyBinding>()
     private val args by navArgs<SimilarVacanciesFragmentArgs>()
-
+    
+    private val vacancyAdapter by lazy {
+        MainCompositeAdapter
+            .Builder()
+            .add(VacancyAdapterDelegate(onClick = { vacancy ->
+                navigateToDetails(vacancy)
+            }))
+            .build()
+    }
+    
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (activity as RootActivity).component.inject(this)
     }
-
+    
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.log(thisName, "onViewCreated()")
         initAdapter()
         initListeners()
         collector()
-        viewModel.getSimilarVacancies(args.vacancy.id )
+        viewModel.getSimilarVacancies(args.vacancy.id)
     }
 
     private fun collector() {
         viewModel.log(thisName, "collector()")
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
             viewModel.uiState.collect { state ->
-                vacancyAdapter.isLastPage(true)
                 state.render(binding)
             }
         }
@@ -58,9 +64,6 @@ class SimilarVacanciesFragment : Fragment(R.layout.fragment_similars_vacancy)  {
     }
 
     private fun initListeners() {
-        vacancyAdapter.onClick = { vacancy ->
-            navigateToDetails(vacancy)
-        }
         binding.similarVacancyToolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
