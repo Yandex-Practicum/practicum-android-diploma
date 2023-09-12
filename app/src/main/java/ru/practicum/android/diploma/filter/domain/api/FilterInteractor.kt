@@ -12,4 +12,5 @@ interface FilterInteractor {
     suspend fun saveRegion(key: String, region: Region)
     suspend fun refreshCountry(key: String, country: Country)
     suspend fun saveIndustry(key: String, industry: Industry)
+    suspend fun refreshSalary(key: String, salary: String)
 }

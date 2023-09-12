@@ -41,4 +41,11 @@ class FilterInteractorImpl @Inject constructor(
         filterRepository.saveSavedFilterSettings(key = key, selectedFilter = data)
         logger.log(thisName, "saveRegion($key: String, $industry: Industry)")
     }
+
+    override suspend fun refreshSalary(key: String, salary: String) {
+        val stored = filterRepository.getSaveFilterSettings(key = key)
+        val data = stored.copy(salary = salary)
+        filterRepository.saveSavedFilterSettings(key = key, selectedFilter = data)
+        logger.log(thisName, "refreshSalary($key: String, $salary: String)")
+    }
 }
