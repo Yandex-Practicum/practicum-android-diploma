@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.details.data.network
 
-import android.util.Log
 import kotlinx.coroutines.flow.firstOrNull
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.details.data.dto.VacancyFullInfoModelDto
@@ -27,7 +26,6 @@ class DetailsRepositoryImpl @Inject constructor(
 
     @Suppress("UNCHECKED_CAST")
     override suspend fun getFullVacancyInfo(id: String): Either<Failure, VacancyFullInfo> {
-        Log.e("getFullVacancyInfo", "getFullVacancyInfo: LOADED FROM CACHE = $id")
         val isFavorite = localDataSource.showIfInFavouriteById(id).firstOrNull() ?: false
 
         return if (isFavorite) {
