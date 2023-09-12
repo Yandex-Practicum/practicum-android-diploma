@@ -2,11 +2,13 @@ package ru.practicum.android.diploma.filter.ui.fragments
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
@@ -51,11 +53,14 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
                 }
             }
 
-            amountText.doOnTextChanged { _, _, _, count ->
-                if (count == 0)
-                    viewModel.setEmptyScreenState()
-                else
-                    viewModel.setApplyScreenState()
+            amountText.doOnTextChanged { text, _, _, _ ->
+                if (text.isNullOrEmpty()) {
+                    amountTextLayout.endIconMode = TextInputLayout.END_ICON_NONE
+                } else {
+                    amountTextLayout.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
+                    amountTextLayout.endIconDrawable =
+                        AppCompatResources.getDrawable(requireContext(), R.drawable.close_btn)
+                }
             }
         }
     }
