@@ -26,7 +26,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
     lateinit var factory: DetailsViewModel.Factory
 
     private val viewModel: DetailsViewModel by viewModels {
-        DetailsViewModel.provideDetailsViewModelFactory(factory, args.vacancy.id)
+        DetailsViewModel.provideDetailsViewModelFactory(factory, args.id)
     }
 
     private val args by navArgs<DetailsFragmentArgs>()
@@ -38,7 +38,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getVacancyByID(args.vacancy.id)
+        viewModel.getVacancyByID(args.id)
         collector()
         showIfInFavourite()
         pressSimilarVacanciesButton()
@@ -56,7 +56,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
     private fun showIfInFavourite() {
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
             viewModel.log(thisName, "showIfInFavourite()")
-            viewModel.showIfInFavouriteById(args.vacancy.id)
+            viewModel.showIfInFavouriteById(args.id)
             delay(TIME_TO_DRAW)
         }
 
@@ -116,7 +116,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
 
     private fun navigateToSimilarVacancies() {
         findNavController().navigate(
-            DetailsFragmentDirections.actionDetailsFragmentToSimilarsVacancyFragment(args.vacancy)
+            DetailsFragmentDirections.actionDetailsFragmentToSimilarsVacancyFragment(args.id)
         )
     }
 

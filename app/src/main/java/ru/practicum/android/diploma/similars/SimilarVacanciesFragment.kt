@@ -46,7 +46,7 @@ class SimilarVacanciesFragment : Fragment(R.layout.fragment_similars_vacancy) {
         initAdapter()
         initListeners()
         collector()
-        viewModel.getSimilarVacancies(args.vacancy.id)
+        viewModel.getSimilarVacancies(args.id)
     }
 
     private fun collector() {
@@ -71,7 +71,7 @@ class SimilarVacanciesFragment : Fragment(R.layout.fragment_similars_vacancy) {
 
     private fun navigateToDetails(vacancy: Vacancy) {
         findNavController().navigate(
-            SimilarVacanciesFragmentDirections.actionSimilarsVacancyFragmentToDetailsFragment(vacancy)
+            SimilarVacanciesFragmentDirections.actionSimilarsVacancyFragmentToDetailsFragment(vacancy.id)
         )
     }
 }

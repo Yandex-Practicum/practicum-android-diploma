@@ -144,7 +144,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     
     private fun navigateToDetails(vacancy: Vacancy) {
         findNavController().navigate(
-            SearchFragmentDirections.actionSearchFragmentToDetailsFragment(vacancy)
+            SearchFragmentDirections.actionSearchFragmentToDetailsFragment(vacancy.id)
         )
     }
 }

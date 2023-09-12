@@ -19,8 +19,8 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <argument
-            android:name="vacancy"
-            app:argType="ru.practicum.android.diploma.search.domain.models.Vacancy" />
+            android:name="id"
+            app:argType="string" />
     </fragment>
 
 
@@ -121,8 +121,8 @@
             android:id="@+id/action_similarsVacancyFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
         <argument
-            android:name="vacancy"
-            app:argType="ru.practicum.android.diploma.search.domain.models.Vacancy" />
+            android:name="id"
+            app:argType="string" />
     </fragment>
 
 

@@ -73,7 +73,7 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
 
     private fun navigateToDetails(vacancy: Vacancy) {
         findNavController().navigate(
-            FavoriteFragmentDirections.actionFavoriteFragmentToDetailsFragment(vacancy)
+            FavoriteFragmentDirections.actionFavoriteFragmentToDetailsFragment(vacancy.id)
         )
     }
 }
