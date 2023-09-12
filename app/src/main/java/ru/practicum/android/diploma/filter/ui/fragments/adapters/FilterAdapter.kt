@@ -31,7 +31,7 @@ class FilterAdapter @Inject constructor(
     var regionList = listOf<Region>()
     var industryList = listOf<Industry>()
 
-    private var selectedPosition = -1
+    private var selectedPosition = RecyclerView.NO_POSITION
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (fragment) {
@@ -69,11 +69,10 @@ class FilterAdapter @Inject constructor(
     override fun getItemCount() = countryList.size + regionList.size + industryList.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val pos = holder.adapterPosition
-        val isSelected = selectedPosition == pos
+        val isSelected = selectedPosition == position
         when (fragment) {
             COUNTRY -> {
-                val item = countryList[pos]
+                val item = countryList[position]
                 holder as CountryViewHolder
                 holder.bind(item)
                 holder.itemView.debounceClickListener(debouncer) {
@@ -82,21 +81,26 @@ class FilterAdapter @Inject constructor(
                 }
             }
             REGION -> {
-                val item = regionList[pos]
+                val item = regionList[position]
                 holder as RegionViewHolder
                 holder.bind(item, state = isSelected)
                 holder.itemView.debounceClickListener(debouncer) {
-                    onItemPressed(holder, pos, selectedPosition)
+                    onItemPressed(holder, position, selectedPosition)
                     onClickRegion?.invoke(item)
                     logger.log(thisName, "onClickRegion?.invoke($item)")
                 }
             }
             DEPARTMENT -> {
-                val item = industryList[pos]
+                val item = industryList[position]
                 holder as IndustryViewHolder
                 holder.bind(item, state = isSelected)
-                holder.itemView.debounceClickListener(debouncer) {
-                    onItemPressed(holder, pos, selectedPosition)
+                holder.radioBtn.setOnClickListener {
+                    onItemPressed(holder, position, selectedPosition)
+                    onClickIndustry?.invoke(item)
+                    logger.log(thisName, "onClickIndustry?.invoke($item)")
+                }
+                holder.itemView.setOnClickListener {
+                    onItemPressed(holder, position, selectedPosition)
                     onClickIndustry?.invoke(item)
                     logger.log(thisName, "onClickIndustry?.invoke($item)")
                 }
@@ -124,7 +128,9 @@ class FilterAdapter @Inject constructor(
                 holder.bind(itemIndustry, state = true)
             }
         }
-        notifyItemChanged(previousPos)
         selectedPosition = currentPos
+        notifyItemChanged(previousPos)
+        notifyItemChanged(selectedPosition)
+       
     }
 }
