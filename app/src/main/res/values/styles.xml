@@ -125,6 +125,7 @@
         <item name="titleTextAppearance">@style/ya.medium</item>
         <item name="navigationIcon">@drawable/back_btn</item>
     </style>
+
     <style name="ya.medium" parent="TextAppearance.MaterialComponents.Subtitle1">
         <item name="fontFamily">@font/ys_display_medium</item>
         <item name="android:fontFamily">@font/ys_display_medium</item>

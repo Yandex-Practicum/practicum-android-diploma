@@ -2,13 +2,10 @@ package ru.practicum.android.diploma.filter.ui.fragments
 
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
-import androidx.core.view.marginBottom
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.filter.domain.models.Country
 import ru.practicum.android.diploma.filter.domain.models.Region
 import ru.practicum.android.diploma.filter.ui.view_models.RegionViewModel
 import ru.practicum.android.diploma.root.RootActivity
@@ -36,7 +33,8 @@ class RegionFragment : ChooseFragment() {
         super.renderContent(list)
         binding.toolbar.title = requireActivity().getString(R.string.choose_region)
         filterAdapter.regionList = list as List<Region>
-        filterAdapter.notifyItemRangeChanged(0, filterAdapter.itemCount)
+        binding.inputLayout.visibility = View.VISIBLE
+        filterAdapter.notifyDataSetChanged()
         viewModel.log(thisName, "renderContent: list.size = ${list.size})")
     }
 

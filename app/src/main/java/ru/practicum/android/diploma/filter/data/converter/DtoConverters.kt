@@ -2,20 +2,23 @@ package ru.practicum.android.diploma.filter.data.converter
 
 import ru.practicum.android.diploma.filter.data.model.CountryDto
 import ru.practicum.android.diploma.filter.data.model.IndustryDto
+import ru.practicum.android.diploma.filter.data.model.RegionDto
+import ru.practicum.android.diploma.filter.data.model.RegionListDto
 import ru.practicum.android.diploma.filter.domain.models.Country
 import ru.practicum.android.diploma.filter.domain.models.Industry
-import ru.practicum.android.diploma.filter.domain.models.IndustryArea
 import ru.practicum.android.diploma.filter.domain.models.Region
-import ru.practicum.android.diploma.filter.data.model.RegionListDto
 
 fun mapRegionListDtoToRegionList(response: RegionListDto): List<Region> {
-    val regionList = mutableListOf<Region>()
+    val regionDtoList = mutableListOf<RegionDto>()
     response.areas?.forEach { regionDto ->
-        val id = regionDto?.areas?.firstOrNull()?.id ?: ""
-        val name = regionDto?.name ?: ""
-        regionList.add(Region(id, name))
+        if (regionDto != null) {
+            regionDtoList.add(regionDto)
+        }
     }
-    return regionList.filter { it.id.isEmpty() or it.name.isEmpty() }
+
+    return regionDtoList.flatMap { it?.areas ?: emptyList() }
+        .map { Region(id = it?.id ?: "", name = it?.name ?: "") }.sortedBy { it.name }
+
 }
 
 fun countryDtoToCountry(list: List<CountryDto>): List<Country> {
@@ -31,3 +34,4 @@ fun industryDtoListToIndustryList(list: List<IndustryDto>): List<Industry> {
 }
 
 private const val OTHER = "Другие регионы"
+

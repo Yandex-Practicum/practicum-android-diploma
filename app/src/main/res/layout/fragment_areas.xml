@@ -4,6 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:background="?attr/colorPrimaryVariant"
     tools:context=".filter.ui.fragments.RegionFragment">
 
@@ -44,46 +46,30 @@
         </com.google.android.material.textfield.TextInputLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
         style="@style/vacancy_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         tools:itemCount="10"
-        tools:listitem="@layout/item_region_depart_filter" />
+        tools:listitem="@layout/item_region_depart_filter"
+        tools:visibility="visible" />
 
-
-
-    <LinearLayout
+    <TextView
         android:id="@+id/placeholder"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
+        style="@style/ya.medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:text="@string/empty_list"
+        android:textAlignment="center"
+        android:textColor="?attr/colorOnPrimary"
         android:visibility="gone"
-        tools:visibility="visible">
+        app:drawableTopCompat="@drawable/ic_dummy"
+        tools:visibility="gone" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_16dp"
-            android:layout_marginEnd="@dimen/margin_16dp"
-            android:contentDescription="@string/image"
-            android:src="@drawable/ic_dummy" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin_16dp"
-            android:fontFamily="@font/ys_display_medium"
-            android:text="@string/empty_list"
-            android:textColor="?attr/colorOnPrimary"
-            android:textSize="@dimen/text_size_22sp" />
-    </LinearLayout>
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/progressBar"
@@ -93,7 +79,8 @@
         android:layout_gravity="center"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/searching"/>
+        app:lottie_rawRes="@raw/searching"
+        tools:visibility="gone" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/apply_btn"
@@ -103,11 +90,11 @@
         android:layout_gravity="bottom|center"
         android:layout_marginHorizontal="@dimen/margin_16dp"
         android:layout_marginBottom="@dimen/margin_24dp"
+        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
         android:background="@drawable/bt_round_drawable"
         android:text="@string/choose"
         android:textColor="?attr/colorOnSecondary"
         android:visibility="gone"
         app:cornerRadius="@dimen/size_12dp"
         tools:visibility="visible" />
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
