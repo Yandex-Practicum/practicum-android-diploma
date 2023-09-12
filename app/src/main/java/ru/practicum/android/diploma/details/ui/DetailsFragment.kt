@@ -68,14 +68,14 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
                 viewModel.log(thisName, "uiState.collect { state -> ${screenState.thisName}")
                 val painter = DetailsScreenPainter(binding)
                 when (screenState) {
-                    is DetailsScreenState.Content -> painter.renderDataContent(screenState.vacancy)
-                    is DetailsScreenState.AddAnimation -> painter.renderAddAnimation(viewLifecycleOwner.lifecycleScope)
+                    is DetailsScreenState.Content -> painter.showDataContent(screenState.vacancy)
+                    is DetailsScreenState.AddAnimation -> painter.showAddAnimation(viewLifecycleOwner.lifecycleScope)
                     is DetailsScreenState.DeleteAnimation -> painter
-                        .renderDeleteAnimation(viewLifecycleOwner.lifecycleScope)
-                    is DetailsScreenState.Offline -> painter.renderOffline(screenState.message)
-                    is DetailsScreenState.Error -> painter.renderError(screenState.message)
-                    is DetailsScreenState.Loading -> painter.renderLoading()
-                    is DetailsScreenState.Empty -> Unit
+                        .showDeleteAnimation(viewLifecycleOwner.lifecycleScope)
+                    is DetailsScreenState.Offline -> painter.showOffline(screenState.message)
+                    is DetailsScreenState.Error -> painter.showError(screenState.message)
+                    is DetailsScreenState.Loading -> painter.showLoading()
+                    is DetailsScreenState.Default -> Unit
                 }
             }
         }

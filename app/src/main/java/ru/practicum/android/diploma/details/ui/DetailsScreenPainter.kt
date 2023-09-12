@@ -8,17 +8,18 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentDetailsBinding
 import ru.practicum.android.diploma.details.domain.models.VacancyFullInfo
 import ru.practicum.android.diploma.util.setImage
+import java.lang.StringBuilder
 
 class DetailsScreenPainter(private val binding: FragmentDetailsBinding) {
 
-    fun renderDataContent(vacancy: VacancyFullInfo) {
+    fun showDataContent(vacancy: VacancyFullInfo) {
         with(binding) {
             scrollView.visibility = View.VISIBLE
             placeHolder.visibility = View.GONE
             iwAnim.visibility = View.GONE
             hideContactsIfEmpty(vacancy)
             showKeySkills(vacancy)
-            val tvSchedule = vacancy.employment + ". " + vacancy.schedule
+            val tvSchedule = StringBuilder().append(vacancy.employment).append(". ").append(vacancy.schedule).toString()
             val formattedDescription =
                 HtmlCompat.fromHtml(vacancy.description, HtmlCompat.FROM_HTML_MODE_LEGACY)
 
@@ -81,31 +82,31 @@ class DetailsScreenPainter(private val binding: FragmentDetailsBinding) {
         }
     }
 
-    fun renderOffline(message: String) {
+    fun showOffline(message: String) {
         binding.scrollView.visibility = View.GONE
         binding.placeHolderText.text = message
         binding.placeHolder.visibility = View.VISIBLE
     }
 
-    fun renderError(message: String) {
+    fun showError(message: String) {
         binding.scrollView.visibility = View.GONE
         binding.placeHolderText.text = message
         binding.placeHolder.visibility = View.VISIBLE
     }
 
-    fun renderLoading() {
+    fun showLoading() {
         binding.scrollView.visibility = View.GONE
         binding.iwAnim.visibility = View.VISIBLE
     }
 
-    fun renderAddAnimation(scope: CoroutineScope) {
+    fun showAddAnimation(scope: CoroutineScope) {
         scope.launch {
             binding.lottieHeart.speed = STRAIGHT_ANIMATION_SPEED
             binding.lottieHeart.playAnimation()
         }
     }
 
-    fun renderDeleteAnimation(scope: CoroutineScope) {
+    fun showDeleteAnimation(scope: CoroutineScope) {
         scope.launch {
             binding.lottieHeart.speed = REVERS_ANIMATION_SPEED
             binding.lottieHeart.playAnimation()

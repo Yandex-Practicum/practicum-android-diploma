@@ -31,7 +31,7 @@ class DetailsViewModel @AssistedInject constructor(
     private val vacancyId: String
 ) : BaseViewModel(logger) {
 
-    private val _uiState = MutableStateFlow<DetailsScreenState>(DetailsScreenState.Empty)
+    private val _uiState = MutableStateFlow<DetailsScreenState>(DetailsScreenState.Default)
     val uiState: StateFlow<DetailsScreenState> = _uiState
 
     private var vacancy: VacancyFullInfo? = null
