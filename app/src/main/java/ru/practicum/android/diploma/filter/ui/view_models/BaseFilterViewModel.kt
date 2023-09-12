@@ -20,13 +20,7 @@ class BaseFilterViewModel @Inject constructor(
         MutableStateFlow(BaseFilterScreenState.Empty)
     val uiState: StateFlow<BaseFilterScreenState> = _uiState
 
-    fun setApplyScreenState() {
-        _uiState.value = BaseFilterScreenState.Apply
-    }
 
-    fun setEmptyScreenState() {
-        _uiState.value = BaseFilterScreenState.Empty
-    }
 
     fun checkSavedFilterData() {
         viewModelScope.launch(Dispatchers.IO) {

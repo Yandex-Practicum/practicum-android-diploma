@@ -17,7 +17,7 @@ sealed interface BaseFilterScreenState {
             with(binding) {
                 chooseBaseFilterBtn.visibility = View.GONE
                 bottomContainerToApply.visibility = View.GONE
-                amountText.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null)
+
             }
 
         }
@@ -27,7 +27,16 @@ sealed interface BaseFilterScreenState {
 
         @SuppressLint("SetTextI18n")
         override fun render(binding: FragmentFilterBaseBinding) {
-            binding.departmentText.setText(selectedFilter.industry?.name ?: "")
+            if (selectedFilter.industry?.name.isNullOrEmpty()) {
+                AppCompatResources.getDrawable(binding.root.context, R.drawable.leading_icon)
+                binding.departmentText.setText(selectedFilter.industry?.name ?: "")
+
+            } else {
+                binding.departmentContainer.endIconDrawable =
+                    AppCompatResources.getDrawable(binding.root.context, R.drawable.close_btn)
+                binding.departmentText.setText(selectedFilter.industry?.name ?: "")
+                binding.bottomContainerToApply.visibility = View.VISIBLE
+            }
             binding.workPlaceText.setText(
                 (selectedFilter.country?.name ?: "") +
                         "${
@@ -41,33 +50,4 @@ sealed interface BaseFilterScreenState {
     }
 
 
-    object Choose : BaseFilterScreenState {
-        override fun render(binding: FragmentFilterBaseBinding) {
-            with(binding) {
-                chooseBaseFilterBtn.visibility = View.VISIBLE
-                bottomContainerToApply.visibility = View.GONE
-                amountText.setCompoundDrawablesWithIntrinsicBounds(
-                    null,
-                    null,
-                    AppCompatResources.getDrawable(amountText.context, R.drawable.close_btn),
-                    null
-                )
-            }
-        }
-    }
-
-    object Apply : BaseFilterScreenState {
-        override fun render(binding: FragmentFilterBaseBinding) {
-            with(binding) {
-                chooseBaseFilterBtn.visibility = View.GONE
-                bottomContainerToApply.visibility = View.VISIBLE
-                amountText.setCompoundDrawablesWithIntrinsicBounds(
-                    null,
-                    null,
-                    AppCompatResources.getDrawable(amountText.context, R.drawable.close_btn),
-                    null
-                )
-            }
-        }
-    }
 }
