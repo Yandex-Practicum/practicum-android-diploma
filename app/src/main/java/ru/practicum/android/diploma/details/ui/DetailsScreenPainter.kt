@@ -42,8 +42,6 @@ class DetailsScreenPainter(private val binding: FragmentDetailsBinding) {
             )
             if (vacancy.isInFavorite){
                 showAddAnimation()
-            }else{
-                showDeleteAnimation()
             }
         }
     }

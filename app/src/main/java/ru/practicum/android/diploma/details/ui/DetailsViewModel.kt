@@ -8,6 +8,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -77,6 +78,7 @@ class DetailsViewModel @AssistedInject constructor(
     }
 
     private fun getVacancyByID(id: String) {
+        _uiState.value = DetailsScreenState.Loading
         viewModelScope.launch(Dispatchers.IO) {
             getFullVacancyInfoByIdUseCase(id).fold(
                 ::handleFailure,
@@ -93,7 +95,12 @@ class DetailsViewModel @AssistedInject constructor(
 
     private fun handleSuccess(vacancy: VacancyFullInfo) {
         log(TAG, "handleSuccess -> company    ${vacancy.company}")
-        _uiState.value = DetailsScreenState.Content(vacancy)
+        viewModelScope.launch {
+            if (!vacancy.isInFavorite) {
+                delay(LOADING_SCREEN_DURATION)
+            }
+            _uiState.value = DetailsScreenState.Content(vacancy)
+        }
         this.vacancy = vacancy
     }
 
@@ -141,6 +148,7 @@ class DetailsViewModel @AssistedInject constructor(
     }
     companion object{
         private const val TAG = "DetailsViewModel"
+        private const val LOADING_SCREEN_DURATION = 400L
 
         @Suppress("UNCHECKED_CAST")
         fun provideDetailsViewModelFactory(factory: Factory, vacancyId: String): ViewModelProvider.Factory{
