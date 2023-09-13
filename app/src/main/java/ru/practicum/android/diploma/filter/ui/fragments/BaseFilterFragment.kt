@@ -124,7 +124,6 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
                 AppCompatResources.getDrawable(requireContext(), R.drawable.leading_icon)
         } else {
             binding.departmentContainer.requestFocus()
-            binding.departmentText.clearFocus()
             binding.departmentContainer.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
             binding.departmentContainer.endIconDrawable =
                 AppCompatResources.getDrawable(requireContext(), R.drawable.ic_clear)
