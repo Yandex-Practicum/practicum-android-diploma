@@ -49,6 +49,21 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         (activity as RootActivity).component.inject(this)
     }
 
+    override fun onStart() {
+        changeTextInputLayoutEndIconMode()
+        super.onStart()
+
+    }
+
+    private fun changeTextInputLayoutEndIconMode() {
+        if (binding.ietSearch.text.isNullOrEmpty()) {
+            binding.searchInputLayout.endIconMode = TextInputLayout.END_ICON_CUSTOM
+        } else {
+            binding.searchInputLayout.requestFocus()
+            binding.searchInputLayout.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         viewModel.log(thisName, "++++onResume()++++")
