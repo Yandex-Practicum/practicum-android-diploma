@@ -41,7 +41,7 @@ class SearchViewModel @Inject constructor(
     private var found: Int = 0
     private var maxPages: Int = 0
     private var currentPage: Int = 0
-    private var selectedFilter: SelectedFilter = SelectedFilter()
+    private var selectedFilter: SelectedFilter = SelectedFilter.empty
     
     private val onSearchDebounce =
         delayedAction<String>(coroutineScope = viewModelScope, action = { query ->
@@ -49,7 +49,7 @@ class SearchViewModel @Inject constructor(
             searchVacancies(query = query, filter = selectedFilter, isFirstPage = currentPage == FIRST_PAGE)
         })
     
-    fun isFilterSelected(): Boolean = selectedFilter != SelectedFilter()
+    fun isFilterSelected(): Boolean = selectedFilter != SelectedFilter.empty
     
     fun onSearchQueryChanged(query: String) {
         logger.log(thisName, "+++onSearchQueryChanged+++ -> $query: String")

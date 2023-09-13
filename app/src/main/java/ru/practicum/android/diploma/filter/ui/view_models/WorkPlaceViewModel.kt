@@ -19,10 +19,9 @@ class WorkPlaceViewModel @Inject constructor(
 
     private val _uiState: MutableStateFlow<SelectedFilter> = MutableStateFlow(SelectedFilter())
     val uiState: StateFlow<SelectedFilter> = _uiState
-
-
+    
     fun checkSavedFilterData() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             val selectedFilter = filterInteractor.getSavedFilterSettings(FILTER_KEY)
             _uiState.emit(selectedFilter)
             log("WorkPlaceViewModel", "checkSavedFilterData() $selectedFilter")

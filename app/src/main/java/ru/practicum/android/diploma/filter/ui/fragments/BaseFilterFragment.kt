@@ -27,6 +27,7 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.handleData()
         initListeners()
         initViewModelObserver()
     }

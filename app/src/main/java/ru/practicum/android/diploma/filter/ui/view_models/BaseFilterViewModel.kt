@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.filter.ui.view_models
 
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -24,10 +25,6 @@ class BaseFilterViewModel @Inject constructor(
     private val _uiState: MutableStateFlow<BaseFilterScreenState> =
         MutableStateFlow(BaseFilterScreenState.Empty)
     val uiState: StateFlow<BaseFilterScreenState> = _uiState
-
-    init {
-        handleData()
-    }
     
     fun saveSalary(text: String) {
         log(thisName, "saveSalary($text: String)")
@@ -43,11 +40,11 @@ class BaseFilterViewModel @Inject constructor(
         }
     }
     
-    private fun handleData() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val storedData = filterInteractor.getSavedFilterSettings(FILTER_KEY)
-            _uiState.emit(BaseFilterScreenState.Content(storedData))
-            log("BaseFilterViewModel", "handleData($storedData)")
+    fun handleData() {
+        viewModelScope.launch() {
+            val selectedFilter = filterInteractor.getSavedFilterSettings(FILTER_KEY)
+            _uiState.emit(BaseFilterScreenState.Content(selectedFilter))
+            log("BaseFilterViewModel", "handleData($selectedFilter)")
         }
     }
     
