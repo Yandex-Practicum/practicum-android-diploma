@@ -47,22 +47,6 @@ class DetailsRepositoryImpl @Inject constructor(
         }
     }
 
-    @Suppress("UNCHECKED_CAST")
-    override suspend fun getSimilarVacancies(id: String): Either<Failure, List<Vacancy>> {
-
-        return ((apiHelper.doRequest(
-            Request.SimilarVacanciesRequest(id)
-        )) as Either<Failure, VacanciesSearchCodeResponse>).flatMap {
-            if (it.found == 0) {
-                logger.log(thisName, "getSimilarVacancies: NOTHING FOUND")
-                Either.Left(Failure.NotFound())
-            } else {
-                logger.log(thisName, "getSimilarVacancies: FOUND = ${it.found}")
-                Either.Right(converter.mapList(it.items!!))
-            }
-        }
-    }
-
     override suspend fun removeVacancyFromFavorite(id: String): Flow<Int> {
         return localDataSource.removeVacancyFromFavorite(id)
     }
@@ -75,7 +59,4 @@ class DetailsRepositoryImpl @Inject constructor(
         return localDataSource.showIfInFavouriteById(id)
     }
 
-    override suspend fun getFavoritesById(id: String): Flow<VacancyFullInfo> {
-        return localDataSource.getFavoritesById(id)
-    }
 }
