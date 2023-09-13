@@ -26,7 +26,9 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
 
     private val binding by viewBinding<FragmentWorkPlaceFilterBinding>()
     private val viewModel: WorkPlaceViewModel by viewModels { (activity as RootActivity).viewModelFactory }
-    @Inject lateinit var debouncer: Debouncer
+
+    @Inject
+    lateinit var debouncer: Debouncer
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -39,13 +41,14 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
         initListeners()
         hideKeyboard()
         viewLifecycleOwner.lifecycle.coroutineScope.launch(Dispatchers.Main) {
-            viewModel.uiState.collect { state -> render(state)
+            viewModel.uiState.collect { state ->
+                render(state)
             }
         }
     }
 
     private fun render(data: SelectedFilter) {
-        viewModel.log(thisName,"render($data: SelectedFilter)")
+        viewModel.log(thisName, "render($data: SelectedFilter)")
         with(binding) {
             countryText.setText(data.country?.name ?: "")
             regionText.setText(data.region?.name ?: "")
@@ -78,6 +81,7 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
             }
         }
     }
+
     private fun hideKeyboard() {
         val inputMethodManager =
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
