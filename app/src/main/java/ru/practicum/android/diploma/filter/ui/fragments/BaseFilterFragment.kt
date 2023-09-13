@@ -14,6 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterBaseBinding
+import ru.practicum.android.diploma.filter.domain.models.SelectedFilter
 import ru.practicum.android.diploma.filter.ui.models.BaseFilterScreenState
 import ru.practicum.android.diploma.filter.ui.view_models.BaseFilterViewModel
 import ru.practicum.android.diploma.root.RootActivity
@@ -32,6 +33,11 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
         initViewModelObserver()
     }
     
+    override fun onStart() {
+        super.onStart()
+        //   changeTextInputLayoutEndIconMode()
+    }
+    
     private fun initListeners() {
         with(binding) {
             filterToolbar.setNavigationOnClickListener {
@@ -44,14 +50,12 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
                     )
                 }
             }
-            departmentText.setOnFocusChangeListener { _, isFocus ->
-                if (isFocus) {
-                    findNavController().navigate(
-                        BaseFilterFragmentDirections.actionFilterBaseFragmentToDepartmentFragment()
-                    )
-                }
+            departmentText.setOnClickListener {
+                findNavController().navigate(
+                    BaseFilterFragmentDirections.actionFilterBaseFragmentToDepartmentFragment()
+                )
             }
-
+            
             amountText.doOnTextChanged { text, _, _, _ ->
                 if (text.isNullOrEmpty()) {
                     viewModel.saveSalary(text.toString())
@@ -85,11 +89,45 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
             viewModel.uiState.collect { state ->
                 viewModel.log("BaseFilterFragment", "uiState.collect { state -> ${state.thisName}")
                 when (state) {
-                    is BaseFilterScreenState.Content -> state.render(binding)
-                    is BaseFilterScreenState.Empty -> state.render(binding)
+                    is BaseFilterScreenState.Content -> showContent(state.selectedFilter)
+                    is BaseFilterScreenState.Empty -> showEmpty()
                 }
-
             }
+        }
+    }
+    
+    private fun showContent(selectedFilter: SelectedFilter) {
+        with(binding) {
+            val workPlace = StringBuilder()
+            workPlace.append(selectedFilter.country?.name ?: "")
+            if (!selectedFilter.region?.name.isNullOrEmpty()) workPlace.append(", ")
+            workPlace.append(selectedFilter.region?.name ?: "")
+            
+            workPlaceText.setText(workPlace)
+            departmentText.setText(selectedFilter.industry?.name ?: "")
+            changeTextInputLayoutEndIconMode()
+            
+        }
+    }
+    
+    private fun showEmpty() {
+        with(binding) {
+            chooseBaseFilterBtn.visibility = View.GONE
+            bottomContainerToApply.visibility = View.GONE
+        }
+    }
+    
+    private fun changeTextInputLayoutEndIconMode() {
+        if (binding.departmentText.text.isNullOrEmpty()) {
+            binding.departmentContainer.endIconMode = TextInputLayout.END_ICON_CUSTOM
+            binding.departmentContainer.endIconDrawable =
+                AppCompatResources.getDrawable(requireContext(), R.drawable.leading_icon)
+        } else {
+            binding.departmentContainer.requestFocus()
+            binding.departmentText.clearFocus()
+            binding.departmentContainer.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
+            binding.departmentContainer.endIconDrawable =
+                AppCompatResources.getDrawable(requireContext(), R.drawable.ic_clear)
         }
     }
 }

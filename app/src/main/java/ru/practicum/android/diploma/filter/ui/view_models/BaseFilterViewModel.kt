@@ -43,7 +43,8 @@ class BaseFilterViewModel @Inject constructor(
     fun handleData() {
         viewModelScope.launch() {
             val selectedFilter = filterInteractor.getSavedFilterSettings(FILTER_KEY)
-            _uiState.emit(BaseFilterScreenState.Content(selectedFilter))
+            if (selectedFilter == SelectedFilter.empty) _uiState.emit(BaseFilterScreenState.Empty)
+            else _uiState.emit(BaseFilterScreenState.Content(selectedFilter))
             log("BaseFilterViewModel", "handleData($selectedFilter)")
         }
     }
