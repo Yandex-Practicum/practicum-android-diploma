@@ -39,7 +39,6 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.handleInputArgs(args.selectedFilter)
         initListeners()
-        //hideKeyboard()
         viewLifecycleOwner.lifecycle.coroutineScope.launch(Dispatchers.Main) {
             viewModel.uiState.collect { state ->
                 render(state)
@@ -88,11 +87,5 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
                 )
             }
         }
-    }
-
-    private fun hideKeyboard() {
-        val inputMethodManager =
-            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-        inputMethodManager?.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
     }
 }
