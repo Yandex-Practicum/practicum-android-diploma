@@ -50,7 +50,7 @@ class VacancyConverter @Inject constructor() {
         }
     }
 
-    fun toVacancyFullInfo(vacancyEntity: VacancyFullInfoEntity): VacancyFullInfo {
+    fun entityToModel(vacancyEntity: VacancyFullInfoEntity): VacancyFullInfo {
         return with(vacancyEntity) {
             VacancyFullInfo(
                 id = id,
@@ -69,7 +69,8 @@ class VacancyConverter @Inject constructor() {
                 contactName = contactName,
                 contactComment = contactComment,
                 contactPhones = Json.decodeFromString(contactPhones),
-                alternateUrl = alternateUrl
+                alternateUrl = alternateUrl,
+                isInFavorite = true
             )
         }
     }
