@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.filter.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.content.res.AppCompatResources
@@ -73,7 +74,9 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
             }
             applyFilterBtn.debounceClickListener(debouncer) {
                 viewModel.saveFilterSettings()
-                findNavController().popBackStack(R.id.searchFragment, true)
+                findNavController().navigate(
+                    BaseFilterFragmentDirections.actionFilterBaseFragmentToSearchFragment()
+                )
             }
             cancelFilterBtn.debounceClickListener(debouncer) {
                 viewModel.cancelFilterBtnClicked()
