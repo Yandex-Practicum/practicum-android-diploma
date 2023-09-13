@@ -16,7 +16,7 @@ import ru.practicum.android.diploma.di.annotations.ApplicationScope
 class DetailsDataModule {
     @ApplicationScope
     @Provides
-     fun bindDetailsRepository(detailsRepositoryImpl: DetailsRepositoryImpl): DetailsRepository{
+     fun bindDetailsRepository(detailsRepositoryImpl: DetailsRepositoryImpl): DetailsRepository {
          return detailsRepositoryImpl
      }
 
