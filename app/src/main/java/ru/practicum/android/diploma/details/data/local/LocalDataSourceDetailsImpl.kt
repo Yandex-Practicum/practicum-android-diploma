@@ -25,7 +25,10 @@ class LocalDataSourceDetailsImpl @Inject constructor(
         return dao.showIfInFavouriteById(id).map { it }
     }
 
+    override suspend fun isVacancyInFavs(id: String): Boolean {
+        return dao.isVacancyInFavs(id)
+    }
     override suspend fun getFavoritesById(id: String): Flow<VacancyFullInfo> {
-        return dao.getFavoritesById(id).map { converter.toVacancyFullInfo(it) }
+        return dao.getFavoritesById(id).map { converter.entityToModel(it) }
     }
 }
