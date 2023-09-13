@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.search.data.network
+/*package ru.practicum.android.diploma.search.data.network
 
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.util.thisName
@@ -40,5 +40,5 @@ class RetrofitClient @Inject constructor(
 
     }
 
-}
+}*/
 

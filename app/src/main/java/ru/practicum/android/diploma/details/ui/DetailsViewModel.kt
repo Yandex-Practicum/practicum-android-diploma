@@ -16,11 +16,10 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.details.domain.DetailsInteractor
 import ru.practicum.android.diploma.details.domain.DetailsLocalInteractor
 import ru.practicum.android.diploma.details.domain.models.VacancyFullInfo
-import ru.practicum.android.diploma.filter.domain.models.NetworkResponse
 import ru.practicum.android.diploma.root.BaseViewModel
 import ru.practicum.android.diploma.sharing.domain.api.SharingInteractor
+import ru.practicum.android.diploma.util.functional.Failure
 import ru.practicum.android.diploma.util.thisName
-
 
 class DetailsViewModel @AssistedInject constructor(
     logger: Logger,
@@ -121,34 +120,26 @@ class DetailsViewModel @AssistedInject constructor(
     }
 
     fun getVacancyByID() {
+        _uiState.value = DetailsScreenState.Loading
         viewModelScope.launch(Dispatchers.IO) {
-            _uiState.value = DetailsScreenState.Loading
-            detailsInteractor.getFullVacancyInfoById(vacancyId).collect { result ->
-                when (result) {
-                    is NetworkResponse.Success -> {
-                        log(thisName, "NetworkResponse.Success -> ${result.thisName}")
-                        _uiState.value = DetailsScreenState.Content(result.data)
-                        vacancy = result.data
-                    }
-
-                    is NetworkResponse.Error -> {
-                        log(thisName, "NetworkResponse.Error -> ${result.message}")
-                        _uiState.value = DetailsScreenState.Error(result.message)
-                    }
-
-                    is NetworkResponse.Offline -> {
-                        log(thisName, "NetworkResponse.Offline-> ${result.message}")
-                        _uiState.value = DetailsScreenState.Offline(result.message)
-                    }
-
-                    is NetworkResponse.NoData -> {
-                        log(thisName, "NetworkResponse.NoData -> ${result.message}")
-                    }
-                }
-            }
+            detailsInteractor.getFullVacancyInfoById(vacancyId).fold(
+                ::handleFailure,
+                ::handleSuccess
+            )
         }
     }
 
+    override fun handleFailure(failure: Failure) {
+        super.handleFailure(failure)
+        if (failure is Failure.Offline) _uiState.value = DetailsScreenState.Offline(failure)
+        else _uiState.value = DetailsScreenState.Error(failure)
+    }
+
+    private fun handleSuccess(vacancy: VacancyFullInfo) {
+        log(thisName, "handleSuccess -> $vacancy")
+        _uiState.value = DetailsScreenState.Content(vacancy)
+        this.vacancy = vacancy
+    }
 
     @AssistedFactory
     interface Factory{

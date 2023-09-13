@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.search.data.network
 
 import retrofit2.Response
 import ru.practicum.android.diploma.Logger
+import ru.practicum.android.diploma.details.data.dto.VacancyFullInfoModelDto
 import ru.practicum.android.diploma.filter.data.model.CountryDto
 import ru.practicum.android.diploma.filter.data.model.IndustryDto
 import ru.practicum.android.diploma.filter.data.model.RegionListDto
@@ -11,6 +12,7 @@ import ru.practicum.android.diploma.search.data.network.dto.request.Request.AllI
 import ru.practicum.android.diploma.search.data.network.dto.request.Request.RegionRequest
 import ru.practicum.android.diploma.search.data.network.dto.request.Request.VacanciesRequest
 import ru.practicum.android.diploma.search.data.network.dto.response.VacanciesResponse
+import ru.practicum.android.diploma.search.data.network.dto.response.VacanciesSearchCodeResponse
 import ru.practicum.android.diploma.util.functional.Either
 import ru.practicum.android.diploma.util.functional.Failure
 import ru.practicum.android.diploma.util.thisName
@@ -28,6 +30,8 @@ class ApiHelper @Inject constructor(
            is AllCountriesRequest -> getAllCountries()
            is RegionRequest -> getRegionById(request.id)
            is AllIndustriesRequest -> getIndustries()
+           is Request.VacancyDetailsRequest -> getVacancyDetails(request.id)
+           is Request.SimilarVacanciesRequest -> getSimilarVacancies(request.id)
        }
     }
     
@@ -52,6 +56,18 @@ class ApiHelper @Inject constructor(
     private suspend fun getIndustries(): Either<Failure, List<IndustryDto>> {
         return requestData(emptyList()) {
             apiService.getIndustries()
+        }
+    }
+
+    private suspend fun getVacancyDetails(id: String): Either<Failure, VacancyFullInfoModelDto> {
+        return requestData(VacancyFullInfoModelDto.empty) {
+            apiService.searchDetails(id)
+        }
+    }
+
+    private suspend fun getSimilarVacancies(id: String): Either<Failure, VacanciesSearchCodeResponse> {
+        return requestData(VacanciesSearchCodeResponse.empty) {
+            apiService.getSimilarVacancies(id)
         }
     }
 

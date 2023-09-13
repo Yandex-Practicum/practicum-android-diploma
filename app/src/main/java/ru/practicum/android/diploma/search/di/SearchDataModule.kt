@@ -20,8 +20,6 @@ import ru.practicum.android.diploma.di.annotations.BaseUrl
 import ru.practicum.android.diploma.search.data.network.AlternativeRemoteDataSource
 import ru.practicum.android.diploma.search.data.network.ApiHelper
 import ru.practicum.android.diploma.search.data.network.HhApiService
-import ru.practicum.android.diploma.search.data.network.NetworkClient
-import ru.practicum.android.diploma.search.data.network.RetrofitClient
 import ru.practicum.android.diploma.search.data.network.cache.CacheInterceptor
 import ru.practicum.android.diploma.search.data.network.cache.ForceCacheInterceptor
 import java.io.File
@@ -36,10 +34,10 @@ class SearchDataModule {
         return retrofit.create(HhApiService::class.java)
     }
     
-    @Provides
+/*    @Provides
     fun bindNetworkClient(retrofitClient: RetrofitClient): NetworkClient{
         return retrofitClient
-    }
+    }*/
 
     @Provides
     fun provideRetrofit(

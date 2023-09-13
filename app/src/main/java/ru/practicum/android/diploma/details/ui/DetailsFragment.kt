@@ -72,8 +72,8 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
                     is DetailsScreenState.AddAnimation -> painter.showAddAnimation(viewLifecycleOwner.lifecycleScope)
                     is DetailsScreenState.DeleteAnimation -> painter
                         .showDeleteAnimation(viewLifecycleOwner.lifecycleScope)
-                    is DetailsScreenState.Offline -> painter.showOffline(screenState.message)
-                    is DetailsScreenState.Error -> painter.showError(screenState.message)
+                    is DetailsScreenState.Offline -> painter.showOffline()
+                    is DetailsScreenState.Error -> painter.showError()
                     is DetailsScreenState.Loading -> painter.showLoading()
                     is DetailsScreenState.Default -> Unit
                 }
