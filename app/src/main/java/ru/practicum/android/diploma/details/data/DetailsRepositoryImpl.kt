@@ -1,8 +1,9 @@
-package ru.practicum.android.diploma.details.data.network
+package ru.practicum.android.diploma.details.data
 
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import ru.practicum.android.diploma.Logger
-import ru.practicum.android.diploma.details.data.dto.VacancyFullInfoModelDto
+import ru.practicum.android.diploma.details.data.network.dto.VacancyFullInfoModelDto
 import ru.practicum.android.diploma.details.data.local.LocalDataSource
 import ru.practicum.android.diploma.details.domain.DetailsRepository
 import ru.practicum.android.diploma.details.domain.models.VacancyFullInfo
@@ -60,5 +61,21 @@ class DetailsRepositoryImpl @Inject constructor(
                 Either.Right(converter.mapList(it.items!!))
             }
         }
+    }
+
+    override suspend fun removeVacancyFromFavorite(id: String): Flow<Int> {
+        return localDataSource.removeVacancyFromFavorite(id)
+    }
+
+    override suspend fun addVacancyToFavorite(vacancy: VacancyFullInfo): Flow<Unit> {
+        return localDataSource.addVacancyToFavorite(vacancy)
+    }
+
+    override suspend fun showIfInFavourite(id: String): Flow<Boolean> {
+        return localDataSource.showIfInFavouriteById(id)
+    }
+
+    override suspend fun getFavoritesById(id: String): Flow<VacancyFullInfo> {
+        return localDataSource.getFavoritesById(id)
     }
 }
