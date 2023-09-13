@@ -31,7 +31,6 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
         super.onViewCreated(view, savedInstanceState)
         initListeners()
         initViewModelObserver()
-        viewModel.handleData(args.country, args.region, args.industry)
     }
     
     private fun initListeners() {
@@ -71,7 +70,6 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
                 }
                 return@setOnEditorActionListener false
             }
-
         }
     }
 
@@ -87,5 +85,4 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
             }
         }
     }
-
 }

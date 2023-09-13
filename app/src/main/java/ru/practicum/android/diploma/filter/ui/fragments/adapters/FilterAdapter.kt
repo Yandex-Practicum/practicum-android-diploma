@@ -112,11 +112,14 @@ class FilterAdapter @Inject constructor(
             }
         }
     }
+    
+    fun refreshSelectedPosition() {
+        selectedPosition = RecyclerView.NO_POSITION
+    }
 
     private fun onItemPressed(holder: RecyclerView.ViewHolder, currentPos: Int, prev: Int) {
         val previousPos = if (prev == -1) 0 else prev
-
-
+        
         when (fragment) {
             REGION -> {
                 val itemPrevPos = regionList[previousPos]

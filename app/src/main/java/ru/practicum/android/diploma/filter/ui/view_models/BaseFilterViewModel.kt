@@ -24,26 +24,24 @@ class BaseFilterViewModel @Inject constructor(
         MutableStateFlow(BaseFilterScreenState.Empty)
     val uiState: StateFlow<BaseFilterScreenState> = _uiState
 
-
-    fun handleData(country: Country?, region: Region?, industry: Industry?) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val storedData = filterInteractor.getSavedFilterSettings(FILTER_KEY)
-            val data = storedData.copy(
-                country = country ?: storedData.country,
-                region = region ?: storedData.region,
-                industry = industry ?: storedData.industry
-            )
-            _uiState.emit(BaseFilterScreenState.Content(storedData))
-            filterInteractor.saveSavedData(key = FILTER_KEY, data = data)
-            log("BaseFilterViewModel", "handleData($data)")
-        }
+    init {
+        handleData()
     }
-
+    
     fun saveSalary(text: String) {
         log(thisName, "saveSalary($text: String)")
         viewModelScope.launch(Dispatchers.IO) {
             filterInteractor.refreshSalary(FILTER_KEY, text)
         }
     }
+    
+    private fun handleData() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val storedData = filterInteractor.getSavedFilterSettings(FILTER_KEY)
+            _uiState.emit(BaseFilterScreenState.Content(storedData))
+            log("BaseFilterViewModel", "handleData($storedData)")
+        }
+    }
+    
     companion object { const val FILTER_KEY = "filter" }
 }

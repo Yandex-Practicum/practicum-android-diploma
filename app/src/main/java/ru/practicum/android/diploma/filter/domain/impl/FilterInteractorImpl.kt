@@ -48,8 +48,4 @@ class FilterInteractorImpl @Inject constructor(
         filterRepository.saveSavedFilterSettings(key = key, selectedFilter = data)
         logger.log(thisName, "refreshSalary($key: String, $salary: String)")
     }
-
-    override suspend fun saveSavedData(key: String, data: SelectedFilter) {
-        filterRepository.saveSavedFilterSettings(key = key, selectedFilter = data)
-    }
 }

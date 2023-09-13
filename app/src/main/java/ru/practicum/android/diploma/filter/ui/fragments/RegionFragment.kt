@@ -48,6 +48,7 @@ class RegionFragment : ChooseFragment() {
         super.initListeners()
         
         filterAdapter.onClickRegion = { region ->
+            super.hideKeyboard()
             this.region = region
             binding.applyBtn.visibility = View.VISIBLE
         }

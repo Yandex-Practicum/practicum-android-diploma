@@ -45,6 +45,7 @@ class DepartmentFragment : ChooseFragment() {
     override fun initListeners() {
         super.initListeners()
         filterAdapter.onClickIndustry = { industry ->
+            super.hideKeyboard()
             this.industry = industry
             binding.applyBtn.visibility = View.VISIBLE
         }
