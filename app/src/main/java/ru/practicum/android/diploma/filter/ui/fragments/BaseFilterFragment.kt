@@ -68,6 +68,14 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
                 }
                 return@setOnEditorActionListener false
             }
+            
+            applyFilterBtn.setOnClickListener {
+                findNavController().navigateUp()
+            }
+            
+            cancelFilterBtn.setOnClickListener {
+                viewModel.cancelFilterBtnClicked()
+            }
         }
     }
 

@@ -10,6 +10,7 @@ import ru.practicum.android.diploma.filter.domain.api.FilterInteractor
 import ru.practicum.android.diploma.filter.domain.models.Country
 import ru.practicum.android.diploma.filter.domain.models.Industry
 import ru.practicum.android.diploma.filter.domain.models.Region
+import ru.practicum.android.diploma.filter.domain.models.SelectedFilter
 import ru.practicum.android.diploma.filter.ui.models.BaseFilterScreenState
 import ru.practicum.android.diploma.root.BaseViewModel
 import ru.practicum.android.diploma.util.thisName
@@ -32,6 +33,13 @@ class BaseFilterViewModel @Inject constructor(
         log(thisName, "saveSalary($text: String)")
         viewModelScope.launch(Dispatchers.IO) {
             filterInteractor.refreshSalary(FILTER_KEY, text)
+        }
+    }
+    
+    fun cancelFilterBtnClicked() {
+        viewModelScope.launch(Dispatchers.IO) {
+            filterInteractor.clearFilter(FILTER_KEY)
+            _uiState.emit(BaseFilterScreenState.Content(SelectedFilter.empty))
         }
     }
     

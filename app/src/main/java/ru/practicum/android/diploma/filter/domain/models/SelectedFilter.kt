@@ -6,4 +6,8 @@ data class SelectedFilter(
     val industry: Industry? = null,
     val salary: String? = null,
     val visibility: Boolean? = null,
-)
+) {
+    companion object {
+       val empty = SelectedFilter()
+    }
+}
