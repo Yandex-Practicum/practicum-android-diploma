@@ -2,8 +2,8 @@ package ru.practicum.android.diploma.search.data.network.converter
 
 import android.content.Context
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.details.data.dto.VacancyFullInfoModelDto
-import ru.practicum.android.diploma.details.data.dto.assistants.KeySkillDto
+import ru.practicum.android.diploma.details.data.network.dto.VacancyFullInfoModelDto
+import ru.practicum.android.diploma.details.data.network.dto.assistants.KeySkillDto
 import ru.practicum.android.diploma.details.domain.models.VacancyFullInfo
 import ru.practicum.android.diploma.di.annotations.NewResponse
 import ru.practicum.android.diploma.search.data.network.dto.VacancyDto
@@ -98,7 +98,7 @@ class VacancyModelConverter @Inject constructor(
                 title = name ?: "",
                 contactEmail = contacts?.email ?: "",
                 contactName = contacts?.name ?: "",
-                keySkills = keySkillsToString(keySkills) ?: "",
+                keySkills = keySkillsToString(keySkills),
                 contactPhones = createPhones(contacts?.phones),
                 contactComment = contacts?.phones?.getOrNull(0)?.comment ?: "",
                 alternateUrl = alternateUrl ?: "",
@@ -106,7 +106,7 @@ class VacancyModelConverter @Inject constructor(
         }
     }
 
-    private fun keySkillsToString(keySkills: List<KeySkillDto>?): String {
+    private fun keySkillsToString(keySkills:List<KeySkillDto>?): String {
         if (keySkills != null) {
             return keySkills.map { "• ${it.name}" }
                 .joinToString("\n")
