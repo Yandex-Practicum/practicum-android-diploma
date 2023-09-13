@@ -22,15 +22,15 @@ class RegionViewModel @Inject constructor(
 
     override fun getData(data: SelectedFilter) {
         selectedFilter = data
-        if (selectedFilter.country?.name.isNullOrEmpty())
-            viewModelScope.launch(Dispatchers.IO) {
+
+        viewModelScope.launch(Dispatchers.IO) {
+            if (selectedFilter.country == null)
                 useCase.getAllRegions().fold(::handleFailure, ::handleSuccess)
-            }
-        else
-            viewModelScope.launch(Dispatchers.IO) {
-                useCase.getRegions(selectedFilter.country?.id ?: "")
+            else
+                useCase.getRegions(selectedFilter.country?.id ?: "113")
                     .fold(::handleFailure, ::handleSuccess)
-            }
+        }
+
     }
 
     override fun handleSuccess(list: List<Any>) {

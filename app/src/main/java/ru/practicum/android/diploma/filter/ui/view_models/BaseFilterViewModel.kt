@@ -48,6 +48,7 @@ class BaseFilterViewModel @Inject constructor(
     }
 
     fun cancelFilterBtnClicked() {
+        selectedFilter = SelectedFilter.empty
         viewModelScope.launch(Dispatchers.IO) {
             filterInteractor.clearFilter(FILTER_KEY)
             _uiState.emit(BaseFilterScreenState.Content(SelectedFilter.empty))
