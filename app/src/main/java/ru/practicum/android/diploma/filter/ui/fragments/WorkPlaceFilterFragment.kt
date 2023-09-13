@@ -39,7 +39,7 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.checkSavedFilterData()
         initListeners()
-        hideKeyboard()
+        //hideKeyboard()
         viewLifecycleOwner.lifecycle.coroutineScope.launch(Dispatchers.Main) {
             viewModel.uiState.collect { state ->
                 render(state)
