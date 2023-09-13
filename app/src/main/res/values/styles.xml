@@ -224,9 +224,6 @@
 
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/size_60dp</item>
-        <item name="endIconDrawable">@drawable/leading_icon</item>
-        <item name="endIconMode">custom</item>
-        <item name="endIconTint">?attr/edittext_color</item>
         <item name="boxCornerRadiusBottomEnd">@dimen/margin_12dp</item>
         <item name="boxCornerRadiusBottomStart">@dimen/margin_12dp</item>
         <item name="boxCornerRadiusTopEnd">@dimen/margin_12dp</item>

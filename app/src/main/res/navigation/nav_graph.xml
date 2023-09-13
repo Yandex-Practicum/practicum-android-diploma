@@ -44,7 +44,7 @@
         android:id="@+id/filterBaseFragment"
         android:name="ru.practicum.android.diploma.filter.ui.fragments.BaseFilterFragment"
         android:label="fragment_filter_base"
-        tools:layout="@layout/fragment_filter_base" >
+        tools:layout="@layout/fragment_main_filter" >
         <action
             android:id="@+id/action_baseFilter_to_workPlaceFilter"
             app:destination="@id/workPlaceFilterFragment"
@@ -79,7 +79,7 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_searchFragment_to_detailsFragment"
             app:destination="@id/detailsFragment"
@@ -112,7 +112,8 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="true" />
     </fragment>
 
 
@@ -130,14 +131,16 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_workPlaceFragment_to_regionFragment"
             app:destination="@id/regionFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_workPlaceFilter_to_BaseFilter"
             app:destination="@id/filterBaseFragment"

@@ -2,7 +2,6 @@ package ru.practicum.android.diploma.filter.ui.fragments
 
 import android.os.Bundle
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -14,7 +13,8 @@ import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.databinding.FragmentFilterBaseBinding
+import ru.practicum.android.diploma.databinding.FragmentMainFilterBinding
+import ru.practicum.android.diploma.filter.data.converter.industryDtoListToIndustryList
 import ru.practicum.android.diploma.filter.domain.models.SelectedFilter
 import ru.practicum.android.diploma.filter.ui.models.BaseFilterScreenState
 import ru.practicum.android.diploma.filter.ui.view_models.BaseFilterViewModel
@@ -23,13 +23,12 @@ import ru.practicum.android.diploma.root.RootActivity
 import ru.practicum.android.diploma.root.debounceClickListener
 import ru.practicum.android.diploma.util.thisName
 import ru.practicum.android.diploma.util.viewBinding
-import javax.inject.Inject
 
-class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
+class BaseFilterFragment : Fragment(R.layout.fragment_main_filter) {
 
     private val debouncer = Debouncer()
     private val args by navArgs<BaseFilterFragmentArgs>()
-    private val binding by viewBinding<FragmentFilterBaseBinding>()
+    private val binding by viewBinding<FragmentMainFilterBinding>()
     private val viewModel: BaseFilterViewModel by viewModels { (activity as RootActivity).viewModelFactory }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,26 +40,23 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
     
     private fun initListeners() {
         with(binding) {
-            filterToolbar.setNavigationOnClickListener {
+            toolbar.setNavigationOnClickListener {
                 findNavController().navigateUp()
             }
-            workPlaceText.setOnFocusChangeListener { _, isFocus ->
-                if (isFocus) {
-                    findNavController().navigate(
-                        BaseFilterFragmentDirections
-                            .actionBaseFilterToWorkPlaceFilter(viewModel.selectedFilter)
-                    )
-                }
+            area.debounceClickListener(debouncer) {
+                findNavController().navigate(
+                    BaseFilterFragmentDirections
+                        .actionBaseFilterToWorkPlaceFilter(viewModel.selectedFilter)
+                )
             }
-            departmentText.setOnFocusChangeListener { _, isFocus ->
-                if (isFocus) {
-                    findNavController().navigate(
-                        BaseFilterFragmentDirections
-                            .actionBaseFilterToDepartmentFragment(viewModel.selectedFilter)
-                    )
-                }
+            industry.debounceClickListener(debouncer) {
+                findNavController().navigate(
+                    BaseFilterFragmentDirections
+                        .actionBaseFilterToDepartmentFragment(viewModel.selectedFilter)
+                )
             }
-            amountText.doOnTextChanged { text, _, _, _ ->
+
+            salary.doOnTextChanged { text, _, _, _ ->
                 if (text.isNullOrEmpty()) {
                     viewModel.changeSalary(null)
                     amountTextLayout.endIconMode = TextInputLayout.END_ICON_NONE
@@ -71,11 +67,11 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
                         AppCompatResources.getDrawable(requireContext(), R.drawable.close_btn)
                 }
             }
-            applyFilterBtn.debounceClickListener(debouncer) {
+            applyBtn.debounceClickListener(debouncer) {
                 viewModel.saveFilterSettings()
                 findNavController().navigateUp()
             }
-            cancelFilterBtn.debounceClickListener(debouncer) {
+            clearBtn.debounceClickListener(debouncer) {
                 viewModel.cancelFilterBtnClicked()
             }
         }
@@ -101,27 +97,22 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
             workPlace.append(selectedFilter.region?.name ?: "")
             
             workPlaceText.setText(workPlace)
-            departmentText.setText(selectedFilter.industry?.name ?: "")
+            industryText.setText(selectedFilter.industry?.name ?: "")
+            salary.setText(selectedFilter.salary ?: "")
+            checkbox.isChecked = selectedFilter.visibility ?: false
             changeTextInputLayoutEndIconMode()
             
         }
     }
     
     private fun showEmpty() {
-        with(binding) {
-            bottomContainerToApply.visibility = View.GONE
-        }
+        binding.btnGroup.visibility = View.GONE
     }
     
     private fun changeTextInputLayoutEndIconMode() {
-        if (binding.departmentText.text.isNullOrEmpty()) {
-            binding.departmentContainer.endIconMode = TextInputLayout.END_ICON_CUSTOM
-            binding.departmentContainer.endIconDrawable =
-                AppCompatResources.getDrawable(requireContext(), R.drawable.leading_icon)
-        } else {
-            binding.departmentContainer.requestFocus()
-            binding.departmentContainer.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
-            binding.departmentContainer.endIconDrawable =
+        if (!binding.salary.text.isNullOrEmpty()) {
+            binding.amountTextLayout.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
+            binding.amountTextLayout.endIconDrawable =
                 AppCompatResources.getDrawable(requireContext(), R.drawable.ic_clear)
         }
     }
