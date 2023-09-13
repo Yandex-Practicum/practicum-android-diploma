@@ -16,7 +16,7 @@ abstract class AreasViewModel(
 ) : BaseViewModel(logger) {
 
     private var chooseList = listOf<Any>()
-     val _uiState: MutableStateFlow<UiState> =
+    protected val _uiState: MutableStateFlow<UiState> =
         MutableStateFlow(UiState.Loading)
     val uiState: StateFlow<UiState> = _uiState
 

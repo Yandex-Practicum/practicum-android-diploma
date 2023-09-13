@@ -23,15 +23,17 @@
         style="@style/FilterStyle"
         android:layout_marginTop="@dimen/margin_16dp"
         android:hint="@string/work_place"
-        android:background="@drawable/ripple"
+        android:background="?android:selectableItemBackground"
         app:hintAnimationEnabled="true"
         android:clickable="true"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/work_place_text"
             style="@style/SearchEditTextStyle"
+            android:cursorVisible="false"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="text" />
@@ -40,7 +42,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/department_container"
         style="@style/FilterStyle"
-        android:background="@drawable/ripple"
+        android:backgroundTint="@android:color/transparent"
         android:layout_marginTop="@dimen/margin_16dp"
         android:hint="@string/department"
         app:hintAnimationEnabled="true"
@@ -51,6 +53,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/department_text"
             style="@style/SearchEditTextStyle"
+            android:cursorVisible="false"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="text" />

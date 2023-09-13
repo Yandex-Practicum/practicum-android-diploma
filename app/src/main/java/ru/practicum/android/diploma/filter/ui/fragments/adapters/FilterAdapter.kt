@@ -84,7 +84,12 @@ class FilterAdapter @Inject constructor(
                 val item = regionList[position]
                 holder as RegionViewHolder
                 holder.bind(item, state = isSelected)
-                holder.itemView.debounceClickListener(debouncer) {
+                holder.radioBtn.setOnClickListener {
+                    onItemPressed(holder, position, selectedPosition)
+                    onClickRegion?.invoke(item)
+                    logger.log(thisName, "onClickRegion?.invoke($item)")
+                }
+                holder.itemView.setOnClickListener {
                     onItemPressed(holder, position, selectedPosition)
                     onClickRegion?.invoke(item)
                     logger.log(thisName, "onClickRegion?.invoke($item)")
@@ -107,11 +112,14 @@ class FilterAdapter @Inject constructor(
             }
         }
     }
+    
+    fun refreshSelectedPosition() {
+        selectedPosition = RecyclerView.NO_POSITION
+    }
 
     private fun onItemPressed(holder: RecyclerView.ViewHolder, currentPos: Int, prev: Int) {
         val previousPos = if (prev == -1) 0 else prev
-
-
+        
         when (fragment) {
             REGION -> {
                 val itemPrevPos = regionList[previousPos]
@@ -131,6 +139,5 @@ class FilterAdapter @Inject constructor(
         selectedPosition = currentPos
         notifyItemChanged(previousPos)
         notifyItemChanged(selectedPosition)
-       
     }
 }

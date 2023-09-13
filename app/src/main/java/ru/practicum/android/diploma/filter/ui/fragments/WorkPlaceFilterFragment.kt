@@ -21,7 +21,6 @@ import ru.practicum.android.diploma.util.thisName
 import ru.practicum.android.diploma.util.viewBinding
 import javax.inject.Inject
 
-
 class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
 
     private val binding by viewBinding<FragmentWorkPlaceFilterBinding>()
@@ -35,9 +34,8 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        initListeners()
         viewModel.checkSavedFilterData()
+        initListeners()
         viewLifecycleOwner.lifecycle.coroutineScope.launch(Dispatchers.Main) {
             viewModel.uiState.collect { state -> render(state)
             }

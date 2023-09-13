@@ -46,15 +46,14 @@ class RootActivity : AppCompatActivity() {
             )
             when (destination.id) {
 
-                R.id.filterBaseFragment -> hideBottomNav()
-                R.id.detailsFragment -> hideBottomNav()
-                R.id.similarsVacancyFragment -> hideBottomNav()
-                R.id.workPlaceFilterFragment -> hideBottomNav()
-                R.id.countryFilterFragment -> hideBottomNav()
-                R.id.workPlaceFilterFragment -> hideBottomNav()
+                R.id.filterBaseFragment,
+                R.id.detailsFragment,
+                R.id.similarsVacancyFragment,
+                R.id.workPlaceFilterFragment,
+                R.id.countryFilterFragment,
+                R.id.workPlaceFilterFragment,
+                R.id.regionFragment,
                 R.id.departmentFragment -> hideBottomNav()
-
-
                 else -> showBottomNav()
             }
         }

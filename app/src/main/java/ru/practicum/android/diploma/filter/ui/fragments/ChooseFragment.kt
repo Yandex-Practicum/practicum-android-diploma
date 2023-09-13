@@ -73,6 +73,7 @@ open class ChooseFragment : Fragment(R.layout.fragment_areas) {
 
     protected open fun renderContent(list: List<Any?>) {
         with(binding) {
+            filterAdapter.refreshSelectedPosition()
             placeholder.visibility = View.GONE
             progressBar.visibility = View.GONE
         }
@@ -94,16 +95,20 @@ open class ChooseFragment : Fragment(R.layout.fragment_areas) {
 
     protected open fun initListeners() {
         with(binding) {
+            
             toolbar.setNavigationOnClickListener {
                 findNavController().navigateUp()
             }
+            
             inputLayout.isHintEnabled = false
+            
             search.doOnTextChanged { text, _, _, _ ->
                 viewModel.onSearchQueryChanged(text.toString())
                 if (text.isNullOrEmpty()) {
                     inputLayout.endIconMode = TextInputLayout.END_ICON_NONE
                     inputLayout.endIconDrawable =
                         AppCompatResources.getDrawable(requireContext(), R.drawable.ic_search)
+                    
                 } else {
                     inputLayout.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
                     inputLayout.endIconDrawable =
@@ -135,7 +140,7 @@ open class ChooseFragment : Fragment(R.layout.fragment_areas) {
         binding.placeholder.visibility = View.VISIBLE
     }
 
-    private fun hideKeyboard() {
+    protected fun hideKeyboard() {
         val inputMethodManager =
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
         inputMethodManager?.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)

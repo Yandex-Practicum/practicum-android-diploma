@@ -20,7 +20,11 @@ class FilterInteractorImpl @Inject constructor(
             logger.log(thisName, "getSelectedData($key: String): SelectedData=$it")
         }
     }
-
+    
+    override suspend fun clearFilter(key: String) {
+        filterRepository.saveSavedFilterSettings(key, SelectedFilter.empty)
+    }
+    
     override suspend fun saveRegion(key: String, region: Region) {
         val stored = filterRepository.getSaveFilterSettings(key = key)
         val data = stored.copy(region = region)
@@ -47,9 +51,5 @@ class FilterInteractorImpl @Inject constructor(
         val data = stored.copy(salary = salary)
         filterRepository.saveSavedFilterSettings(key = key, selectedFilter = data)
         logger.log(thisName, "refreshSalary($key: String, $salary: String)")
-    }
-
-    override suspend fun saveSavedData(key: String, data: SelectedFilter) {
-        filterRepository.saveSavedFilterSettings(key = key, selectedFilter = data)
     }
 }
