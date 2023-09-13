@@ -29,6 +29,10 @@ fun countryDtoToCountry(list: List<CountryDto>): List<Country> {
         .map { Country(id = it.id ?: "", name = it.name ?: "") }
         .sortedWith(compareBy({ it.name == OTHER }, { it.name }))
 }
+fun countryDtoListToAllRegionList(list: List<CountryDto>): List<Region> {
+    return list.flatMap { it.areas ?: emptyList() }
+        .map { Region(id = it?.id ?: "", name = it?.name ?: "") }
+}
 
 fun industryDtoListToIndustryList(list: List<IndustryDto>): List<Industry> {
     return list.flatMap { it.industries ?: emptyList() }
