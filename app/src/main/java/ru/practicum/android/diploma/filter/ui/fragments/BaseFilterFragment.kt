@@ -73,7 +73,7 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
             }
             applyFilterBtn.debounceClickListener(debouncer) {
                 viewModel.saveFilterSettings()
-                findNavController().navigateUp()
+                findNavController().popBackStack(R.id.searchFragment, true)
             }
             cancelFilterBtn.debounceClickListener(debouncer) {
                 viewModel.cancelFilterBtnClicked()
@@ -103,7 +103,7 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
             workPlaceText.setText(workPlace)
             departmentText.setText(selectedFilter.industry?.name ?: "")
             changeTextInputLayoutEndIconMode()
-            
+            bottomContainerToApply.visibility = View.VISIBLE
         }
     }
     
@@ -119,7 +119,6 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
             binding.departmentContainer.endIconDrawable =
                 AppCompatResources.getDrawable(requireContext(), R.drawable.leading_icon)
         } else {
-            binding.departmentContainer.requestFocus()
             binding.departmentContainer.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
             binding.departmentContainer.endIconDrawable =
                 AppCompatResources.getDrawable(requireContext(), R.drawable.ic_clear)
