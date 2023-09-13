@@ -23,5 +23,6 @@ data class VacancyFullInfo(
     val contactName: String = "",
     val contactComment: String = "",
     val contactPhones: List<String> = emptyList(),
-    val alternateUrl: String? = ""
+    val alternateUrl: String? = "",
+    val isInFavorite: Boolean = false
 ) : Parcelable

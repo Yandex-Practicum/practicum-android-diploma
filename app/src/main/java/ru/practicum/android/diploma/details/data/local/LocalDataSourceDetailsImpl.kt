@@ -4,13 +4,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import ru.practicum.android.diploma.details.data.local.db.FavoriteDao
-import ru.practicum.android.diploma.details.data.local.model.VacancyConverter
 import ru.practicum.android.diploma.details.domain.models.VacancyFullInfo
+import ru.practicum.android.diploma.search.data.network.converter.VacancyModelConverter
 import javax.inject.Inject
 
 class LocalDataSourceDetailsImpl @Inject constructor(
     private val dao: FavoriteDao,
-    private val converter: VacancyConverter
+    private val converter: VacancyModelConverter
 ) : LocalDataSource {
 
     override suspend fun removeVacancyFromFavorite(id: String): Flow<Int> {
@@ -25,7 +25,10 @@ class LocalDataSourceDetailsImpl @Inject constructor(
         return dao.showIfInFavouriteById(id).map { it }
     }
 
+    override suspend fun isVacancyInFavs(id: String): Boolean {
+        return dao.isVacancyInFavs(id)
+    }
     override suspend fun getFavoritesById(id: String): Flow<VacancyFullInfo> {
-        return dao.getFavoritesById(id).map { converter.toVacancyFullInfo(it) }
+        return dao.getFavoritesById(id).map { converter.entityToModel(it) }
     }
 }

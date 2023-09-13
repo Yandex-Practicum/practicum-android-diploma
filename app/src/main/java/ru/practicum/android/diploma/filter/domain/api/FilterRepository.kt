@@ -11,7 +11,8 @@ interface FilterRepository {
 
     suspend fun saveFilterSettings(key: String, selectedFilter: SelectedFilter)
     suspend fun getSaveFilterSettings(key: String): SelectedFilter
-    suspend fun getAllCountries() : Either<Failure, List<Country>>
+    suspend fun getAllCountries(): Either<Failure, List<Country>>
     suspend fun searchRegions(id: String): Either<Failure, List<Region>>
-    suspend fun getIndustries() : Either<Failure, List<Industry>>
+    suspend fun getIndustries(): Either<Failure, List<Industry>>
+    suspend fun getAllRegions(): Either<Failure, List<Region>>
 }

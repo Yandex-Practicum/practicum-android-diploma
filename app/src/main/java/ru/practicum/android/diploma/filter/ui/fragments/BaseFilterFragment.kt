@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.filter.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.widget.doOnTextChanged
@@ -41,7 +42,9 @@ class BaseFilterFragment : Fragment(R.layout.fragment_main_filter) {
     private fun initListeners() {
         with(binding) {
             toolbar.setNavigationOnClickListener {
-                findNavController().navigateUp()
+                findNavController().navigate(
+                    BaseFilterFragmentDirections.actionFilterBaseFragmentToSearchFragment()
+                )
             }
             area.debounceClickListener(debouncer) {
                 findNavController().navigate(
@@ -69,7 +72,9 @@ class BaseFilterFragment : Fragment(R.layout.fragment_main_filter) {
             }
             applyBtn.debounceClickListener(debouncer) {
                 viewModel.saveFilterSettings()
-                findNavController().navigateUp()
+                findNavController().navigate(
+                    BaseFilterFragmentDirections.actionFilterBaseFragmentToSearchFragment()
+                )
             }
             clearBtn.debounceClickListener(debouncer) {
                 viewModel.cancelFilterBtnClicked()
@@ -101,7 +106,7 @@ class BaseFilterFragment : Fragment(R.layout.fragment_main_filter) {
             salary.setText(selectedFilter.salary ?: "")
             checkbox.isChecked = selectedFilter.visibility ?: false
             changeTextInputLayoutEndIconMode()
-            
+            binding.btnGroup.visibility = View.VISIBLE
         }
     }
     

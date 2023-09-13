@@ -8,124 +8,79 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.details.domain.api.AddVacancyToFavoritesUseCase
-import ru.practicum.android.diploma.details.domain.api.CheckIfVacancyIsInFavoritesUseCase
+import ru.practicum.android.diploma.details.domain.api.CheckIfVacancyInFavsUseCase
 import ru.practicum.android.diploma.details.domain.api.GetFullVacancyInfoByIdUseCase
 import ru.practicum.android.diploma.details.domain.api.RemoveVacancyFromFavoritesUseCase
 import ru.practicum.android.diploma.details.domain.models.VacancyFullInfo
 import ru.practicum.android.diploma.root.BaseViewModel
 import ru.practicum.android.diploma.sharing.domain.api.SharingInteractor
 import ru.practicum.android.diploma.util.functional.Failure
-import ru.practicum.android.diploma.util.thisName
+
 
 class DetailsViewModel @AssistedInject constructor(
     logger: Logger,
     private val addVacancyToFavoritesUseCase: AddVacancyToFavoritesUseCase,
-    private val checkIfVacancyIsInFavoritesUseCase: CheckIfVacancyIsInFavoritesUseCase,
     private val getFullVacancyInfoByIdUseCase: GetFullVacancyInfoByIdUseCase,
     private val removeVacancyFromFavoritesUseCase: RemoveVacancyFromFavoritesUseCase,
+    private val checkIfVacancyInFavsUseCase: CheckIfVacancyInFavsUseCase,
     private val sharingInteractor: SharingInteractor,
     @Assisted("vacancyId")
-    private val vacancyId: String
+    vacancyId: String
 ) : BaseViewModel(logger) {
 
     private val _uiState = MutableStateFlow<DetailsScreenState>(DetailsScreenState.Default)
     val uiState: StateFlow<DetailsScreenState> = _uiState
 
     private var vacancy: VacancyFullInfo? = null
-    private var isInFavorites = false
+
+    init {
+        getVacancyByID(vacancyId)
+    }
 
     fun handleAddToFavsButton() {
-        val message = when (isInFavorites) {
-            true -> {
-                deleteVacancy()
-                "vacancy removed from favs"
-            }
-            else -> {
-                vacancy?.let { addToFavorites(it) }
-                "vacancy added to favs"
+        vacancy?.let { vacancy ->
+            viewModelScope.launch {
+                val message = if (checkIfVacancyInFavsUseCase(vacancy.id)) {
+                    removeFromFavs(vacancy.id)
+                    "vacancy removed from favs"
+                } else {
+                    addToFavs(vacancy)
+                    "vacancy added to favs"
+                }
+                log(TAG, "handleAddToFavsButton $message")
             }
         }
-        log(thisName, "handleAddToFavsButton $message")
     }
 
-    private fun addToFavorites(vacancy: VacancyFullInfo) {
+    private fun addToFavs(vacancy: VacancyFullInfo) {
         viewModelScope.launch(Dispatchers.IO) {
             addVacancyToFavoritesUseCase(vacancy).collect {
-                log(thisName, "${vacancy.id} inserted")
+                log(TAG, "${vacancy.id} inserted")
+                _uiState.value = DetailsScreenState.AddAnimation
             }
         }
     }
 
-    private fun deleteVacancy() {
+    private fun removeFromFavs(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            removeVacancyFromFavoritesUseCase(vacancyId).collect {
-                log(thisName, "$vacancyId deleted")
+            removeVacancyFromFavoritesUseCase(id).collect {
+                log(TAG, "$id deleted")
+                _uiState.value = DetailsScreenState.DeleteAnimation
             }
         }
     }
 
-    fun showIfInFavouriteById() {
-        viewModelScope.launch(Dispatchers.IO) {
-            checkIfVacancyIsInFavoritesUseCase(vacancyId).collect { vacancy ->
-                log(thisName, "getFavoriteVacancyById -> $vacancy")
-                isInFavorites = vacancy
-                if (vacancy) {
-                    _uiState.value = DetailsScreenState.AddAnimation
-                } else {
-                    _uiState.value = DetailsScreenState.DeleteAnimation
-                }
-            }
-        }
-    }
-
-    fun sendVacancy() {
-        log(thisName, "sendVacancy()")
-        _uiState.value.let { state ->
-            if (state is DetailsScreenState.Content) {
-                state.vacancy.alternateUrl
-                sharingInteractor.sendVacancy(state.vacancy.alternateUrl)
-            } else {
-                return
-            }
-        }
-    }
-
-    fun writeEmail(context: Context) {
-        log(thisName, "writeEmail()")
-        _uiState.value.let { state ->
-            if (state is DetailsScreenState.Content &&
-                state.vacancy.contactEmail != context.getString(R.string.no_info)
-            ) {
-                sharingInteractor.writeEmail(state.vacancy.contactEmail)
-            } else {
-                return
-            }
-        }
-    }
-
-    fun makeCall() {
-        log(thisName, "makeCall()")
-        _uiState.value.let { state ->
-            if (state is DetailsScreenState.Content &&
-                state.vacancy.contactPhones.isNotEmpty()
-            ) {
-                sharingInteractor.makeCall(state.vacancy.contactPhones[0])
-            } else {
-                return
-            }
-        }
-    }
-
-    fun getVacancyByID() {
+    private fun getVacancyByID(id: String) {
         _uiState.value = DetailsScreenState.Loading
         viewModelScope.launch(Dispatchers.IO) {
-            getFullVacancyInfoByIdUseCase(vacancyId).fold(
+            getFullVacancyInfoByIdUseCase(id).fold(
                 ::handleFailure,
                 ::handleSuccess
             )
@@ -139,9 +94,52 @@ class DetailsViewModel @AssistedInject constructor(
     }
 
     private fun handleSuccess(vacancy: VacancyFullInfo) {
-        log(thisName, "handleSuccess -> $vacancy")
-        _uiState.value = DetailsScreenState.Content(vacancy)
+        log(TAG, "handleSuccess -> company    ${vacancy.company}")
+        viewModelScope.launch {
+            if (!vacancy.isInFavorite) {
+                delay(LOADING_SCREEN_DURATION)
+            }
+            _uiState.value = DetailsScreenState.Content(vacancy)
+        }
         this.vacancy = vacancy
+    }
+
+    fun sendVacancy() {
+        log(TAG, "sendVacancy()")
+        _uiState.value.let { state ->
+            if (state is DetailsScreenState.Content) {
+                state.vacancy.alternateUrl
+                sharingInteractor.sendVacancy(state.vacancy.alternateUrl)
+            } else {
+                return
+            }
+        }
+    }
+
+    fun writeEmail(context: Context) {
+        log(TAG, "writeEmail()")
+        _uiState.value.let { state ->
+            if (state is DetailsScreenState.Content &&
+                state.vacancy.contactEmail != context.getString(R.string.no_info)
+            ) {
+                sharingInteractor.writeEmail(state.vacancy.contactEmail)
+            } else {
+                return
+            }
+        }
+    }
+
+    fun makeCall() {
+        log(TAG, "makeCall()")
+        _uiState.value.let { state ->
+            if (state is DetailsScreenState.Content &&
+                state.vacancy.contactPhones.isNotEmpty()
+            ) {
+                sharingInteractor.makeCall(state.vacancy.contactPhones[0])
+            } else {
+                return
+            }
+        }
     }
 
     @AssistedFactory
@@ -149,6 +147,8 @@ class DetailsViewModel @AssistedInject constructor(
         fun create(@Assisted("vacancyId") vacancyId: String): DetailsViewModel
     }
     companion object{
+        private const val TAG = "DetailsViewModel"
+        private const val LOADING_SCREEN_DURATION = 400L
 
         @Suppress("UNCHECKED_CAST")
         fun provideDetailsViewModelFactory(factory: Factory, vacancyId: String): ViewModelProvider.Factory{

@@ -10,5 +10,6 @@ interface DetailsRepository {
     suspend fun removeVacancyFromFavorite(id: String): Flow<Int>
     suspend fun addVacancyToFavorite(vacancy: VacancyFullInfo): Flow<Unit>
     suspend fun showIfInFavourite(id: String): Flow<Boolean>
+    suspend fun isVacancyInFavs(id: String): Boolean
 
 }
