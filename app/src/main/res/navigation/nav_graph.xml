@@ -65,6 +65,11 @@
         <argument
             android:name="SelectedFilter"
             app:argType="ru.practicum.android.diploma.filter.domain.models.SelectedFilter" />
+        <action
+            android:id="@+id/action_filterBaseFragment_to_searchFragment"
+            app:destination="@id/searchFragment"
+            app:popUpTo="@id/searchFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
 
