@@ -22,17 +22,18 @@ import ru.practicum.android.diploma.util.thisName
 import ru.practicum.android.diploma.util.viewBinding
 
 class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
+    
     private val binding by viewBinding<FragmentFilterBaseBinding>()
     private val viewModel: BaseFilterViewModel by viewModels { (activity as RootActivity).viewModelFactory }
     private val args by navArgs<BaseFilterFragmentArgs>()
+    
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initListeners()
         initViewModelObserver()
         viewModel.handleData(args.country, args.region, args.industry)
     }
-
-
+    
     private fun initListeners() {
         with(binding) {
             filterToolbar.setNavigationOnClickListener {

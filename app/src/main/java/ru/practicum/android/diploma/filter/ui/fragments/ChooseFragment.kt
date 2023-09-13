@@ -94,16 +94,20 @@ open class ChooseFragment : Fragment(R.layout.fragment_areas) {
 
     protected open fun initListeners() {
         with(binding) {
+            
             toolbar.setNavigationOnClickListener {
                 findNavController().navigateUp()
             }
+            
             inputLayout.isHintEnabled = false
+            
             search.doOnTextChanged { text, _, _, _ ->
                 viewModel.onSearchQueryChanged(text.toString())
                 if (text.isNullOrEmpty()) {
                     inputLayout.endIconMode = TextInputLayout.END_ICON_NONE
                     inputLayout.endIconDrawable =
                         AppCompatResources.getDrawable(requireContext(), R.drawable.ic_search)
+                    
                 } else {
                     inputLayout.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
                     inputLayout.endIconDrawable =
