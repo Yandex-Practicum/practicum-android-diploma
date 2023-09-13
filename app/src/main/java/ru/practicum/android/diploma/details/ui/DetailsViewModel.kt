@@ -14,7 +14,6 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.details.domain.DetailsInteractor
-import ru.practicum.android.diploma.details.domain.DetailsLocalInteractor
 import ru.practicum.android.diploma.details.domain.models.VacancyFullInfo
 import ru.practicum.android.diploma.root.BaseViewModel
 import ru.practicum.android.diploma.sharing.domain.api.SharingInteractor
@@ -24,7 +23,6 @@ import ru.practicum.android.diploma.util.thisName
 class DetailsViewModel @AssistedInject constructor(
     logger: Logger,
     private val detailsInteractor: DetailsInteractor,
-    private val detailsLocalInteractor: DetailsLocalInteractor,
     private val sharingInteractor: SharingInteractor,
     @Assisted("vacancyId")
     private val vacancyId: String
@@ -53,7 +51,7 @@ class DetailsViewModel @AssistedInject constructor(
 
     private fun addToFavorites(vacancy: VacancyFullInfo) {
         viewModelScope.launch(Dispatchers.IO) {
-            detailsLocalInteractor.addVacancyToFavorites(vacancy).collect {
+            detailsInteractor.addVacancyToFavorites(vacancy).collect {
                 log(thisName, "${vacancy.id} inserted")
             }
         }
@@ -61,7 +59,7 @@ class DetailsViewModel @AssistedInject constructor(
 
     private fun deleteVacancy() {
         viewModelScope.launch(Dispatchers.IO) {
-            detailsLocalInteractor.removeVacancyFromFavorite(vacancyId).collect {
+            detailsInteractor.removeVacancyFromFavorite(vacancyId).collect {
                 log(thisName, "$vacancyId deleted")
             }
         }
@@ -69,7 +67,7 @@ class DetailsViewModel @AssistedInject constructor(
 
     fun showIfInFavouriteById() {
         viewModelScope.launch(Dispatchers.IO) {
-            detailsLocalInteractor.showIfInFavourite(vacancyId).collect { vacancy ->
+            detailsInteractor.showIfInFavourite(vacancyId).collect { vacancy ->
                 log(thisName, "getFavoriteVacancyById -> $vacancy")
                 isInFavorites = vacancy
                 if (vacancy) {
