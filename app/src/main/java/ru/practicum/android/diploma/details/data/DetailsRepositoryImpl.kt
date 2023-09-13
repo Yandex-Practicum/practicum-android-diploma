@@ -59,4 +59,7 @@ class DetailsRepositoryImpl @Inject constructor(
         return localDataSource.showIfInFavouriteById(id)
     }
 
+    override suspend fun isVacancyInFavs(id: String): Boolean {
+        return localDataSource.isVacancyInFavs(id)
+    }
 }
