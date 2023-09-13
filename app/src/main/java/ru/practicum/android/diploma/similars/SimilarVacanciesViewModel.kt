@@ -6,16 +6,16 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.Logger
-import ru.practicum.android.diploma.details.domain.DetailsInteractor
 import ru.practicum.android.diploma.root.BaseViewModel
 import ru.practicum.android.diploma.search.domain.models.Vacancy
+import ru.practicum.android.diploma.similars.domain.api.GetSimilarVacanciesUseCase
 import ru.practicum.android.diploma.util.functional.Failure
 import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
 
 class SimilarVacanciesViewModel @Inject constructor(
     logger: Logger,
-    private val detailsInteractor: DetailsInteractor,
+    private val getSimilarVacanciesUseCase: GetSimilarVacanciesUseCase
 ) : BaseViewModel(logger) {
 
     private val _uiState = MutableStateFlow<SimilarVacanciesState>(SimilarVacanciesState.Empty)
@@ -25,7 +25,7 @@ class SimilarVacanciesViewModel @Inject constructor(
         log(thisName, "getSimilarVacancies(vacancyId: $vacancyId)")
         _uiState.value = SimilarVacanciesState.Loading
         viewModelScope.launch(Dispatchers.IO) {
-            detailsInteractor.getSimilarVacancies(vacancyId).fold(
+            getSimilarVacanciesUseCase(vacancyId).fold(
                 ::handleFailure,
                 ::handleSuccess
             )
