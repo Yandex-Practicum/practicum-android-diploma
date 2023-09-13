@@ -28,7 +28,6 @@ class RootActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         component.inject(this)
         super.onCreate(savedInstanceState)
-        
         setContentView(binding.root)
         
         viewModel.log(thisName, "onCreate() -> Unit")

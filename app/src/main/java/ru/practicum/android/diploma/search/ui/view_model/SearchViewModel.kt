@@ -127,6 +127,10 @@ class SearchViewModel @Inject constructor(
             }
         }
     }
+
+    fun getFilterSettings() :SelectedFilter {
+        return selectedFilter
+    }
     
     companion object {
         private const val FIRST_PAGE = 0

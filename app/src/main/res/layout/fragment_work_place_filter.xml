@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context=".filter.ui.fragments.WorkPlaceFilterFragment">
 
     <androidx.appcompat.widget.Toolbar
@@ -24,7 +25,6 @@
         style="@style/FilterStyle"
         android:layout_marginTop="@dimen/margin_16dp"
         android:hint="@string/country"
-        app:hintAnimationEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar">
@@ -33,7 +33,7 @@
             style="@style/SearchEditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="text" />
+           />
     </com.google.android.material.textfield.TextInputLayout>
 
     <View
@@ -49,7 +49,6 @@
         android:id="@+id/region_container"
         style="@style/FilterStyle"
         android:hint="@string/region"
-        app:hintAnimationEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/country_container">
@@ -58,7 +57,7 @@
             style="@style/SearchEditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="text" />
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
     <View

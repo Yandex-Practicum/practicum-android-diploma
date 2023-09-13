@@ -9,7 +9,7 @@ import ru.practicum.android.diploma.util.functional.Failure
 
 interface FilterRepository {
 
-    suspend fun saveSavedFilterSettings(key: String, selectedFilter: SelectedFilter)
+    suspend fun saveFilterSettings(key: String, selectedFilter: SelectedFilter)
     suspend fun getSaveFilterSettings(key: String): SelectedFilter
     suspend fun getAllCountries() : Either<Failure, List<Country>>
     suspend fun searchRegions(id: String): Either<Failure, List<Region>>

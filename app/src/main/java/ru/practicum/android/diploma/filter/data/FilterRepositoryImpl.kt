@@ -25,7 +25,7 @@ class FilterRepositoryImpl @Inject constructor(
     private val sharedPrefsStorage: LocalStorage,
     private val apiHelper: AlternativeRemoteDataSource,
 ) : FilterRepository {
-    override suspend fun saveSavedFilterSettings(key: String, selectedFilter: SelectedFilter) {
+    override suspend fun saveFilterSettings(key: String, selectedFilter: SelectedFilter) {
         sharedPrefsStorage.writeData(key = key, data = selectedFilter)
     }
 
