@@ -21,9 +21,8 @@ class RegionFragment : ChooseFragment() {
     override val viewModel: RegionViewModel by viewModels { (activity as RootActivity).viewModelFactory }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        selectedFilter = args.selectedFilter
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel.handleInputArgs(args.selectedFilter)
     }
 
     @Suppress("UNCHECKED_CAST")

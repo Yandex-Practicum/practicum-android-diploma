@@ -14,17 +14,16 @@ import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
 
 class RegionViewModel @Inject constructor(
-    private val filterInteractor: FilterInteractor,
     private val useCase: GetRegionUseCase,
     logger: Logger
 ) : AreasViewModel(logger) {
     
     private var regionList = listOf<Region>()
 
-    override fun getData() {
+    override fun getData(data: SelectedFilter) {
+        selectedFilter = data
         viewModelScope.launch(Dispatchers.IO) {
-            val countryId = filterInteractor.getSavedFilterSettings(FILTER_KEY).country!!.id
-            useCase.getRegions(countryId).fold(::handleFailure,::handleSuccess)
+            useCase.getRegions(selectedFilter.country?.id ?: "").fold(::handleFailure,::handleSuccess)
         }
     }
     

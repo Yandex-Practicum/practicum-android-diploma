@@ -23,10 +23,9 @@ open class CountryFragment : ChooseFragment() {
     override val viewModel: CountryViewModel by viewModels { (activity as RootActivity).viewModelFactory }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        selectedFilter = args.selectedFilter
         super.onViewCreated(view, savedInstanceState)
         val painter = CountryPainter(binding)
-
-        viewModel.handleInputArgs(args.selectedFilter)
 
         viewLifecycleOwner.lifecycle.coroutineScope.launch(Dispatchers.Main) {
             viewModel.uiState.collect { state ->

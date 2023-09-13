@@ -16,6 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentAreasBinding
+import ru.practicum.android.diploma.filter.domain.models.SelectedFilter
 import ru.practicum.android.diploma.filter.ui.fragments.adapters.FilterAdapter
 import ru.practicum.android.diploma.filter.ui.view_models.AreasViewModel
 import ru.practicum.android.diploma.root.Debouncer
@@ -35,6 +36,7 @@ open class ChooseFragment : Fragment(R.layout.fragment_areas) {
 
     @Inject lateinit var debouncer: Debouncer
     @Inject lateinit var filterAdapter: FilterAdapter
+    protected var selectedFilter = SelectedFilter.empty
     protected val binding by viewBinding<FragmentAreasBinding>()
     protected open val viewModel: AreasViewModel by viewModels { (activity as RootActivity).viewModelFactory }
     override fun onAttach(context: Context) {
@@ -45,9 +47,9 @@ open class ChooseFragment : Fragment(R.layout.fragment_areas) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initListeners()
         initAdapter()
-        viewModel.getData()
+        initListeners()
+        viewModel.getData(selectedFilter)
         hideKeyboard()
         binding.inputLayout.isHintEnabled = false
         viewLifecycleOwner.lifecycle.coroutineScope.launch(Dispatchers.Main) {

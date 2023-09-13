@@ -53,11 +53,13 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
                     )
                 }
             }
-            departmentText.debounceClickListener(debouncer) {
-                findNavController().navigate(
-                    BaseFilterFragmentDirections
-                        .actionBaseFilterToDepartmentFragment(viewModel.selectedFilter)
-                )
+            departmentText.setOnFocusChangeListener { _, isFocus ->
+                if (isFocus) {
+                    findNavController().navigate(
+                        BaseFilterFragmentDirections
+                            .actionBaseFilterToDepartmentFragment(viewModel.selectedFilter)
+                    )
+                }
             }
             amountText.doOnTextChanged { text, _, _, _ ->
                 if (text.isNullOrEmpty()) {

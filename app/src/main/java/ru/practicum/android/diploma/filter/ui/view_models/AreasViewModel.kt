@@ -21,7 +21,7 @@ abstract class AreasViewModel(
     protected val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
     val uiState: StateFlow<UiState> = _uiState
 
-    open fun getData() { /* ignore */ }
+    abstract fun getData(data: SelectedFilter)
 
     override fun handleFailure(failure: Failure) {
         _uiState.value = when (failure) {
@@ -29,11 +29,6 @@ abstract class AreasViewModel(
             is Offline -> UiState.Offline(message = R.string.no_internet_message)
             else -> UiState.Error(message = R.string.error)
         }
-    }
-
-
-    fun handleInputArgs(data: SelectedFilter) {
-        selectedFilter = data
     }
 
     protected open fun handleSuccess(list: List<Any>) {
