@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
@@ -36,6 +37,7 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.checkSavedFilterData()
         initListeners()
+        hideKeyboard()
         viewLifecycleOwner.lifecycle.coroutineScope.launch(Dispatchers.Main) {
             viewModel.uiState.collect { state -> render(state)
             }
@@ -75,5 +77,10 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
                 findNavController().navigateUp()
             }
         }
+    }
+    private fun hideKeyboard() {
+        val inputMethodManager =
+            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        inputMethodManager?.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
     }
 }
