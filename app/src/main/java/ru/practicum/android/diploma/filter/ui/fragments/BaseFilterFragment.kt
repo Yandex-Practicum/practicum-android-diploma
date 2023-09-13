@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -25,7 +24,6 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
     
     private val binding by viewBinding<FragmentFilterBaseBinding>()
     private val viewModel: BaseFilterViewModel by viewModels { (activity as RootActivity).viewModelFactory }
-    private val args by navArgs<BaseFilterFragmentArgs>()
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
