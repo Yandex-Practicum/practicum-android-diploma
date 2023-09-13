@@ -42,7 +42,6 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
     private fun initListeners() {
         with(binding) {
             filterToolbar.setNavigationOnClickListener {
-                viewModel.saveFilterSettings()
                 findNavController().navigateUp()
             }
             workPlaceText.setOnFocusChangeListener { _, isFocus ->
@@ -110,7 +109,6 @@ class BaseFilterFragment : Fragment(R.layout.fragment_filter_base) {
     
     private fun showEmpty() {
         with(binding) {
-            chooseBaseFilterBtn.visibility = View.GONE
             bottomContainerToApply.visibility = View.GONE
         }
     }
