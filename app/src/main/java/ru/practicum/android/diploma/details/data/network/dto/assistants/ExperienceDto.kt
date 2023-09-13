@@ -1,9 +1,10 @@
-package ru.practicum.android.diploma.details.data.dto.assistants
+package ru.practicum.android.diploma.details.data.network.dto.assistants
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class KeySkillDto(
+data class ExperienceDto(
+    @SerialName("id") val id: String?,
     @SerialName("name") val name: String?
 )

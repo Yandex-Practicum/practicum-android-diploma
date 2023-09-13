@@ -2,7 +2,7 @@ package ru.practicum.android.diploma.search.data.network
 
 import retrofit2.Response
 import ru.practicum.android.diploma.Logger
-import ru.practicum.android.diploma.details.data.dto.VacancyFullInfoModelDto
+import ru.practicum.android.diploma.details.data.network.dto.VacancyFullInfoModelDto
 import ru.practicum.android.diploma.filter.data.model.CountryDto
 import ru.practicum.android.diploma.filter.data.model.IndustryDto
 import ru.practicum.android.diploma.filter.data.model.RegionListDto

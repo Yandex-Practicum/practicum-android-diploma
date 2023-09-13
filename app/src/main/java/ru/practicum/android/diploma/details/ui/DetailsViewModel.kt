@@ -13,8 +13,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.details.domain.DetailsInteractor
-import ru.practicum.android.diploma.details.domain.DetailsLocalInteractor
+import ru.practicum.android.diploma.details.domain.api.AddVacancyToFavoritesUseCase
+import ru.practicum.android.diploma.details.domain.api.CheckIfVacancyIsInFavoritesUseCase
+import ru.practicum.android.diploma.details.domain.api.GetFullVacancyInfoByIdUseCase
+import ru.practicum.android.diploma.details.domain.api.RemoveVacancyFromFavoritesUseCase
 import ru.practicum.android.diploma.details.domain.models.VacancyFullInfo
 import ru.practicum.android.diploma.root.BaseViewModel
 import ru.practicum.android.diploma.sharing.domain.api.SharingInteractor
@@ -23,8 +25,10 @@ import ru.practicum.android.diploma.util.thisName
 
 class DetailsViewModel @AssistedInject constructor(
     logger: Logger,
-    private val detailsInteractor: DetailsInteractor,
-    private val detailsLocalInteractor: DetailsLocalInteractor,
+    private val addVacancyToFavoritesUseCase: AddVacancyToFavoritesUseCase,
+    private val checkIfVacancyIsInFavoritesUseCase: CheckIfVacancyIsInFavoritesUseCase,
+    private val getFullVacancyInfoByIdUseCase: GetFullVacancyInfoByIdUseCase,
+    private val removeVacancyFromFavoritesUseCase: RemoveVacancyFromFavoritesUseCase,
     private val sharingInteractor: SharingInteractor,
     @Assisted("vacancyId")
     private val vacancyId: String
@@ -42,7 +46,6 @@ class DetailsViewModel @AssistedInject constructor(
                 deleteVacancy()
                 "vacancy removed from favs"
             }
-
             else -> {
                 vacancy?.let { addToFavorites(it) }
                 "vacancy added to favs"
@@ -53,7 +56,7 @@ class DetailsViewModel @AssistedInject constructor(
 
     private fun addToFavorites(vacancy: VacancyFullInfo) {
         viewModelScope.launch(Dispatchers.IO) {
-            detailsLocalInteractor.addVacancyToFavorites(vacancy).collect {
+            addVacancyToFavoritesUseCase(vacancy).collect {
                 log(thisName, "${vacancy.id} inserted")
             }
         }
@@ -61,7 +64,7 @@ class DetailsViewModel @AssistedInject constructor(
 
     private fun deleteVacancy() {
         viewModelScope.launch(Dispatchers.IO) {
-            detailsLocalInteractor.removeVacancyFromFavorite(vacancyId).collect {
+            removeVacancyFromFavoritesUseCase(vacancyId).collect {
                 log(thisName, "$vacancyId deleted")
             }
         }
@@ -69,7 +72,7 @@ class DetailsViewModel @AssistedInject constructor(
 
     fun showIfInFavouriteById() {
         viewModelScope.launch(Dispatchers.IO) {
-            detailsLocalInteractor.showIfInFavourite(vacancyId).collect { vacancy ->
+            checkIfVacancyIsInFavoritesUseCase(vacancyId).collect { vacancy ->
                 log(thisName, "getFavoriteVacancyById -> $vacancy")
                 isInFavorites = vacancy
                 if (vacancy) {
@@ -122,7 +125,7 @@ class DetailsViewModel @AssistedInject constructor(
     fun getVacancyByID() {
         _uiState.value = DetailsScreenState.Loading
         viewModelScope.launch(Dispatchers.IO) {
-            detailsInteractor.getFullVacancyInfoById(vacancyId).fold(
+            getFullVacancyInfoByIdUseCase(vacancyId).fold(
                 ::handleFailure,
                 ::handleSuccess
             )

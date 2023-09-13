@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 import retrofit2.http.QueryMap
-import ru.practicum.android.diploma.details.data.dto.VacancyFullInfoModelDto
+import ru.practicum.android.diploma.details.data.network.dto.VacancyFullInfoModelDto
 import ru.practicum.android.diploma.di.annotations.NewResponse
 import ru.practicum.android.diploma.filter.data.model.CountryDto
 import ru.practicum.android.diploma.filter.data.model.IndustryDto
