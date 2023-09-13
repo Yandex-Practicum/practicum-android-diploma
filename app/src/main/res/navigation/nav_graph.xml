@@ -52,8 +52,7 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right">
-        </action>
+            app:popExitAnim="@anim/slide_out_right"></action>
         <action
             android:id="@+id/action_baseFilter_to_departmentFragment"
             app:destination="@id/departmentFragment"
@@ -65,6 +64,11 @@
         <argument
             android:name="SelectedFilter"
             app:argType="ru.practicum.android.diploma.filter.domain.models.SelectedFilter" />
+        <action
+            android:id="@+id/action_filterBaseFragment_to_searchFragment"
+            app:destination="@id/searchFragment"
+            app:popUpTo="@id/searchFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
 
@@ -145,7 +149,7 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
-            app:popUpToInclusive="true"/>
+            app:popUpTo="@id/searchFragment" />
     </fragment>
 
 
