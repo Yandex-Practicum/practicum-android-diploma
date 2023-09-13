@@ -72,7 +72,7 @@ class SearchViewModel @Inject constructor(
             logger.log(thisName, "+++searchVacancies+++ -> $query: String, $filter: SelectedFilter, $isFirstPage: Boolean")
             if (isFirstPage) _uiState.value = SearchUiState.Loading
             searchJob = viewModelScope.launch(Dispatchers.IO) {
-                searchVacanciesUseCase(query, currentPage++, filter).fold(
+                searchVacanciesUseCase(query, currentPage, filter).fold(
                     ::handleFailure,
                     ::handleSuccess
                 )
@@ -94,12 +94,16 @@ class SearchViewModel @Inject constructor(
     
     override fun handleFailure(failure: Failure) {
         super.handleFailure(failure)
+        logger.log(thisName, "handleFailure -> $failure")
+        logger.log(thisName, "handleFailure, currentPage -> $currentPage")
+        logger.log(thisName, "handleFailure, maxPages -> $maxPages")
         if (currentPage == maxPages) _uiState.value = SearchUiState.Error(failure)
         else _uiState.value = SearchUiState.ErrorScrollLoading(failure)
         isNextPageLoading = false
     }
     
     private fun handleSuccess(vacancies: Vacancies) {
+        currentPage++
         maxPages = vacancies.pages
         found = vacancies.found
         vacancyList += vacancies.items
