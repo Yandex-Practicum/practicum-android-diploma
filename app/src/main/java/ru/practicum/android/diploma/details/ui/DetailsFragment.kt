@@ -9,7 +9,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentDetailsBinding
@@ -38,9 +37,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getVacancyByID()
-        collector()
-        showIfInFavourite()
+        observeViewModel()
         pressSimilarVacanciesButton()
         initListeners()
     }
@@ -53,25 +50,16 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         makeCall()
     }
 
-    private fun showIfInFavourite() {
-        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
-            viewModel.log(thisName, "showIfInFavourite()")
-            viewModel.showIfInFavouriteById()
-            delay(TIME_TO_DRAW)
-        }
-
-    }
-
-    private fun collector() {
+    private fun observeViewModel() {
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
             viewModel.uiState.collect { screenState ->
-                viewModel.log(thisName, "uiState.collect { state -> ${screenState.thisName}")
+                viewModel.log("DetailsFragment", "uiState.collect { ________state -> ${screenState.thisName}")
                 val painter = DetailsScreenPainter(binding)
                 when (screenState) {
                     is DetailsScreenState.Content -> painter.showDataContent(screenState.vacancy)
-                    is DetailsScreenState.AddAnimation -> painter.showAddAnimation(viewLifecycleOwner.lifecycleScope)
+                    is DetailsScreenState.AddAnimation -> painter.showAddAnimation()
                     is DetailsScreenState.DeleteAnimation -> painter
-                        .showDeleteAnimation(viewLifecycleOwner.lifecycleScope)
+                        .showDeleteAnimation()
                     is DetailsScreenState.Offline -> painter.showOffline()
                     is DetailsScreenState.Error -> painter.showError()
                     is DetailsScreenState.Loading -> painter.showLoading()
@@ -90,7 +78,6 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
 
     private fun addOrDeleteFromFavorites() {
         binding.lottieHeart.setOnClickListener {
-            viewModel.log(thisName, "buttonAddToFavorites.setOnClickListener { }")
             viewModel.handleAddToFavsButton()
         }
     }
@@ -98,21 +85,18 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
 
     private fun sendVacancy() {
         binding.shareButton.setOnClickListener {
-            viewModel.log(thisName, "buttonSendVacancy.setOnClickListener { }")
             viewModel.sendVacancy()
         }
     }
 
     private fun writeEmail() {
         binding.tvContactsEmail.setOnClickListener {
-            viewModel.log(thisName, "buttonWriteEmail.setOnClickListener { }")
             viewModel.writeEmail(requireContext())
         }
     }
 
     private fun makeCall() {
         binding.tvContactsPhone.setOnClickListener {
-            viewModel.log(thisName, "buttonMakeCall.setOnClickListener { }")
             viewModel.makeCall()
         }
     }
@@ -128,9 +112,5 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         findNavController().navigate(
             DetailsFragmentDirections.actionDetailsFragmentToSimilarsVacancyFragment(args.id)
         )
-    }
-
-    companion object {
-        private const val TIME_TO_DRAW = 500L
     }
 }
