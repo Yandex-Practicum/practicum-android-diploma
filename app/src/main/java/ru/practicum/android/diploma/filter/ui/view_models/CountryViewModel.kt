@@ -8,13 +8,13 @@ import ru.practicum.android.diploma.filter.domain.api.FilterInteractor
 import ru.practicum.android.diploma.filter.domain.api.GetAllCountriesUseCase
 import ru.practicum.android.diploma.filter.domain.models.Country
 import ru.practicum.android.diploma.filter.domain.models.Region
+import ru.practicum.android.diploma.filter.domain.models.SelectedFilter
 import ru.practicum.android.diploma.filter.ui.view_models.BaseFilterViewModel.Companion.FILTER_KEY
 import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
 
 open class CountryViewModel @Inject constructor(
     private val useCase: GetAllCountriesUseCase,
-    private val interactor: FilterInteractor,
     logger: Logger
 ) : AreasViewModel(logger) {
 
@@ -24,10 +24,14 @@ open class CountryViewModel @Inject constructor(
         }
     }
 
+    fun refreshCountry(country: Country) {
+        if (country != selectedFilter.country) {
+            selectedFilter = selectedFilter.copy(country = country, region = null)
+        }
+    }
+
     fun saveCountry(country: Country) {
         log(thisName, "saveCountry(country: Country)")
-        viewModelScope.launch(Dispatchers.IO) {
-            interactor.refreshCountry(FILTER_KEY, country)
-        }
+
     }
 }

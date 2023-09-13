@@ -2,7 +2,6 @@ package ru.practicum.android.diploma.filter.ui.fragments
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.R
@@ -16,21 +15,6 @@ class DepartmentFragment : ChooseFragment() {
     
     override val fragment = DEPARTMENT
     override val viewModel: DepartmentViewModel by viewModels { (activity as RootActivity).viewModelFactory }
-    private var industry: Industry? = null
-    
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        
-        binding.applyBtn.debounceClickListener(debouncer) {
-            industry?.let { viewModel.saveIndustry(it) }
-            findNavController().navigateUp()
-        }
-        
-        binding.search.doOnTextChanged { text, _, _, _ ->
-            viewModel.log(thisName, "$text")
-            viewModel.onSearchQueryChanged(text.toString())
-        }
-    }
     
     @Suppress("UNCHECKED_CAST")
     override fun renderContent(list: List<Any?>) {
@@ -46,12 +30,22 @@ class DepartmentFragment : ChooseFragment() {
         super.initListeners()
         filterAdapter.onClickIndustry = { industry ->
             super.hideKeyboard()
-            this.industry = industry
+            viewModel.saveIndustry(industry)
             binding.applyBtn.visibility = View.VISIBLE
+        }
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().navigate(
+                DepartmentFragmentDirections
+                    .actionDepartmentFilterToBaseFilter(viewModel.selectedFilter)
+            )
+        }
+        binding.applyBtn.debounceClickListener(debouncer) {
+            findNavController().navigate(
+                DepartmentFragmentDirections
+                    .actionDepartmentFilterToBaseFilter(viewModel.selectedFilter)
+            )
         }
     }
     
-    companion object {
-        const val DEPARTMENT = "DepartmentFragment"
-    }
+    companion object { const val DEPARTMENT = "DepartmentFragment" }
 }

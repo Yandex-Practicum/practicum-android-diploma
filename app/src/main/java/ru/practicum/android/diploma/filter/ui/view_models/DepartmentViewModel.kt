@@ -32,7 +32,6 @@ class DepartmentViewModel @Inject constructor(
     }
     
     override fun onSearchQueryChanged(text: String) {
-        super.onSearchQueryChanged(text)
         val temp = industryList
         _uiState.value = UiState.Content(temp.filter {
             it.name.contains(text, true)
@@ -40,9 +39,7 @@ class DepartmentViewModel @Inject constructor(
     }
     
     fun saveIndustry(industry: Industry) {
-        log(thisName, "saveRegion(region: String)")
-        viewModelScope.launch(Dispatchers.IO) {
-            interactor.saveIndustry(BaseFilterViewModel.FILTER_KEY, industry)
-        }
+        log(thisName, "saveIndustry($industry: Industry)")
+        selectedFilter = selectedFilter.copy(industry = industry)
     }
 }

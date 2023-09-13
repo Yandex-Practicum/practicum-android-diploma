@@ -7,6 +7,7 @@ import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.filter.domain.api.FilterInteractor
 import ru.practicum.android.diploma.filter.domain.api.GetRegionUseCase
 import ru.practicum.android.diploma.filter.domain.models.Region
+import ru.practicum.android.diploma.filter.domain.models.SelectedFilter
 import ru.practicum.android.diploma.filter.ui.view_models.BaseFilterViewModel.Companion.FILTER_KEY
 import ru.practicum.android.diploma.root.model.UiState
 import ru.practicum.android.diploma.util.thisName
@@ -33,7 +34,6 @@ class RegionViewModel @Inject constructor(
     }
 
     override fun onSearchQueryChanged(text: String) {
-        super.onSearchQueryChanged(text)
         val temp = regionList
         _uiState.value = UiState.Content(temp.filter {
             it.name.contains(text, true)
@@ -41,9 +41,7 @@ class RegionViewModel @Inject constructor(
     }
     
     fun saveRegion(region: Region) {
-        log(thisName, "saveRegion(region: String)")
-        viewModelScope.launch(Dispatchers.IO) {
-            filterInteractor.saveRegion(FILTER_KEY, region)
-        }
+        log(thisName, "saveRegion($region: String)")
+        selectedFilter = selectedFilter.copy(region = region)
     }
 }

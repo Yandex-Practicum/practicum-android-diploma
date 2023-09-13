@@ -5,6 +5,7 @@ import android.view.View
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.filter.domain.models.Region
 import ru.practicum.android.diploma.filter.ui.view_models.RegionViewModel
@@ -16,21 +17,13 @@ import ru.practicum.android.diploma.util.thisName
 class RegionFragment : ChooseFragment() {
 
     override val fragment = REGION
+    private val args by navArgs<RegionFragmentArgs>()
     override val viewModel: RegionViewModel by viewModels { (activity as RootActivity).viewModelFactory }
-    private var region: Region? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.applyBtn.debounceClickListener(debouncer) {
-            region?.let { viewModel.saveRegion(it) }
-            findNavController().navigateUp()
-        }
-        
-        binding.search.doOnTextChanged { text, _, _, _ ->
-            viewModel.log(thisName, "$text")
-            viewModel.onSearchQueryChanged(text.toString())
-        }
+        viewModel.handleInputArgs(args.selectedFilter)
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -49,8 +42,21 @@ class RegionFragment : ChooseFragment() {
         
         filterAdapter.onClickRegion = { region ->
             super.hideKeyboard()
-            this.region = region
+            viewModel.saveRegion(region)
             binding.applyBtn.visibility = View.VISIBLE
+        }
+
+        binding.applyBtn.debounceClickListener(debouncer) {
+            findNavController().navigate(
+                RegionFragmentDirections
+                    .actionRegionFilterToWorkPlaceFilter(viewModel.selectedFilter)
+            )
+        }
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().navigate(
+                RegionFragmentDirections
+                    .actionRegionFilterToWorkPlaceFilter(viewModel.selectedFilter)
+            )
         }
     }
 

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
@@ -23,9 +24,10 @@ import javax.inject.Inject
 
 class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
 
+    @Inject lateinit var debouncer: Debouncer
+    private val args by navArgs<WorkPlaceFilterFragmentArgs>()
     private val binding by viewBinding<FragmentWorkPlaceFilterBinding>()
     private val viewModel: WorkPlaceViewModel by viewModels { (activity as RootActivity).viewModelFactory }
-    @Inject lateinit var debouncer: Debouncer
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -34,7 +36,7 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.checkSavedFilterData()
+        viewModel.handleInputArgs(args.selectedFilter)
         initListeners()
         viewLifecycleOwner.lifecycle.coroutineScope.launch(Dispatchers.Main) {
             viewModel.uiState.collect { state -> render(state)
@@ -59,20 +61,28 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
     private fun initListeners() {
         with(binding) {
             toolbar.setNavigationOnClickListener {
-                findNavController().navigateUp()
+                findNavController().navigate(
+                    WorkPlaceFilterFragmentDirections
+                        .actionWorkPlaceFilterToBaseFilter(viewModel.selectedFilter)
+                )
             }
             country.debounceClickListener(debouncer) {
                 findNavController().navigate(
-                    WorkPlaceFilterFragmentDirections.actionWorkPlaceFragmentToCountryFragment()
+                    WorkPlaceFilterFragmentDirections
+                        .actionWorkPlaceFragmentToCountryFragment(viewModel.selectedFilter)
                 )
             }
             region.debounceClickListener(debouncer) {
                 findNavController().navigate(
-                    WorkPlaceFilterFragmentDirections.actionWorkPlaceFragmentToRegionFragment()
+                    WorkPlaceFilterFragmentDirections
+                        .actionWorkPlaceFragmentToRegionFragment(viewModel.selectedFilter)
                 )
             }
             chooseBtn.debounceClickListener(debouncer) {
-                findNavController().navigateUp()
+                findNavController().navigate(
+                    WorkPlaceFilterFragmentDirections
+                        .actionWorkPlaceFilterToBaseFilter(viewModel.selectedFilter)
+                )
             }
         }
     }
