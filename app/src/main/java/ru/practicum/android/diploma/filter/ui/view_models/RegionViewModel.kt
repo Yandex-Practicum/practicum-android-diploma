@@ -17,16 +17,22 @@ class RegionViewModel @Inject constructor(
     private val useCase: GetRegionUseCase,
     logger: Logger
 ) : AreasViewModel(logger) {
-    
+
     private var regionList = listOf<Region>()
 
     override fun getData(data: SelectedFilter) {
         selectedFilter = data
-        viewModelScope.launch(Dispatchers.IO) {
-            useCase.getRegions(selectedFilter.country?.id ?: "").fold(::handleFailure,::handleSuccess)
-        }
+        if (selectedFilter.country?.name.isNullOrEmpty())
+            viewModelScope.launch(Dispatchers.IO) {
+                useCase.getAllRegions().fold(::handleFailure, ::handleSuccess)
+            }
+        else
+            viewModelScope.launch(Dispatchers.IO) {
+                useCase.getRegions(selectedFilter.country?.id ?: "")
+                    .fold(::handleFailure, ::handleSuccess)
+            }
     }
-    
+
     override fun handleSuccess(list: List<Any>) {
         super.handleSuccess(list)
         regionList = list.map { it as Region }
@@ -38,7 +44,7 @@ class RegionViewModel @Inject constructor(
             it.name.contains(text, true)
         })
     }
-    
+
     fun saveRegion(region: Region) {
         log(thisName, "saveRegion($region: String)")
         selectedFilter = selectedFilter.copy(region = region)
