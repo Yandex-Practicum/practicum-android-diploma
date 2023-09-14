@@ -94,6 +94,10 @@ open class ChooseFragment : Fragment(R.layout.fragment_areas) {
     }
 
     protected open fun initListeners() {
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
+
         with(binding) {
             search.doOnTextChanged { text, _, _, _ ->
                 viewModel.onSearchQueryChanged(text.toString())

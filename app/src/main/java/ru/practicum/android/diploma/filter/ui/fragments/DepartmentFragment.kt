@@ -39,12 +39,7 @@ class DepartmentFragment : ChooseFragment() {
             viewModel.saveIndustry(industry)
             binding.applyBtn.visibility = View.VISIBLE
         }
-        binding.toolbar.setNavigationOnClickListener {
-            findNavController().navigate(
-                DepartmentFragmentDirections
-                    .actionDepartmentFilterToBaseFilter(viewModel.selectedFilter)
-            )
-        }
+
         binding.applyBtn.setOnClickListener {
             findNavController().navigate(
                 DepartmentFragmentDirections

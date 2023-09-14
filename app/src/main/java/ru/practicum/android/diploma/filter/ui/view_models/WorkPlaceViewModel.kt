@@ -9,6 +9,7 @@ import ru.practicum.android.diploma.filter.domain.api.FilterInteractor
 import ru.practicum.android.diploma.filter.domain.models.SelectedFilter
 import ru.practicum.android.diploma.filter.ui.view_models.BaseFilterViewModel.Companion.FILTER_KEY
 import ru.practicum.android.diploma.root.BaseViewModel
+import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
 
 class WorkPlaceViewModel @Inject constructor(
@@ -25,5 +26,15 @@ class WorkPlaceViewModel @Inject constructor(
             _uiState.emit(selectedFilter)
             log("WorkPlaceViewModel", "checkSavedFilterData() $selectedFilter")
         }
+    }
+
+    fun changeCountry() {
+        selectedFilter = selectedFilter.copy(country = null)
+        log(thisName, "changeCountry: country = null")
+    }
+
+    fun changeRegion() {
+        selectedFilter = selectedFilter.copy(region = null)
+        log(thisName, "changeRegion: region = null")
     }
 }

@@ -32,7 +32,7 @@ class RegionFragment : ChooseFragment() {
         binding.toolbar.title = requireActivity().getString(R.string.choose_region)
         filterAdapter.regionList = list as List<Region>
         binding.inputLayout.visibility = View.VISIBLE
-        filterAdapter.notifyDataSetChanged()
+        filterAdapter.notifyItemRangeChanged(0, filterAdapter.itemCount)
         viewModel.log(thisName, "renderContent: list.size = ${list.size})")
     }
 
@@ -46,12 +46,6 @@ class RegionFragment : ChooseFragment() {
         }
 
         binding.applyBtn.debounceClickListener(debouncer) {
-            findNavController().navigate(
-                RegionFragmentDirections
-                    .actionRegionFilterToWorkPlaceFilter(viewModel.selectedFilter)
-            )
-        }
-        binding.toolbar.setNavigationOnClickListener {
             findNavController().navigate(
                 RegionFragmentDirections
                     .actionRegionFilterToWorkPlaceFilter(viewModel.selectedFilter)
