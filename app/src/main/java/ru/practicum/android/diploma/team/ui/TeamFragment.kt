@@ -32,27 +32,33 @@ class TeamFragment : Fragment(R.layout.fragment_team), SwipeStack.SwipeStackList
         list.add(TeamMember(
             photo = R.drawable.lead,
             name = getString(R.string.lead),
-            description = getString(R.string.lead_description)
+            description = getString(R.string.lead_description) ,
+            color = requireActivity().getColor(R.color.lead_color)
         ))
         list.add(TeamMember(
             photo = R.drawable.albatross,
             name = getString(R.string.oldwise),
-            description = getString(R.string.alba_description)
+            description = getString(R.string.alba_description),
+            color = requireActivity().getColor(R.color.alba_color)
         ))
         list.add(TeamMember(
             photo = R.drawable.flash,
             name = getString(R.string.flash),
-            description = getString(R.string.flash_description)
+            description = getString(R.string.flash_description),
+            color = requireActivity().getColor(R.color.flash_color)
+
         ))
         list.add(TeamMember(
             photo = R.drawable.meister,
             name = getString(R.string.meister),
-            description = getString(R.string.meister_description)
+            description = getString(R.string.meister_description),
+            color = requireActivity().getColor(R.color.meister_color)
         ))
         list.add(TeamMember(
             photo = R.drawable.bitwise,
             name = getString(R.string.bitwise),
-            description = getString(R.string.bitwise_description)
+            description = getString(R.string.bitwise_description),
+            color = requireActivity().getColor(R.color.bitwise_color)
         ))
         Log.d("MyLog", "$thisName -> getImgData(): List<TeamMember>.size = ${list.size}")
         return list

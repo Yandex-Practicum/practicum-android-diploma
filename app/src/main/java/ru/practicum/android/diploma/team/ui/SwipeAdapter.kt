@@ -1,15 +1,13 @@
 package ru.practicum.android.diploma.team.ui
 
 import android.annotation.SuppressLint
-import android.app.Application
-import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.team.ui.model.TeamMember
@@ -48,6 +46,8 @@ class SwipeAdapter @Inject constructor(
             name.text = mData[position].name
             val description = itemView.findViewById<TextView>(R.id.description)
             description.text = mData[position].description
+            val container = itemView.findViewById<ConstraintLayout>(R.id.card_container)
+            container.setBackgroundColor(mData[position].color)
         }
         return itemView
     }
