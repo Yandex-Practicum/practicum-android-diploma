@@ -8,7 +8,7 @@
     card_view:cardCornerRadius="@dimen/corner_radius"
     card_view:cardElevation="@dimen/elevation">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical" >
@@ -18,15 +18,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
-            android:src="@drawable/albatross"/>
+            android:src="@drawable/albatross"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent"/>
         <TextView
             android:id="@+id/name"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/size_64dp"
+            android:layout_height="@dimen/size_48dp"
             android:fontFamily="@font/ys_display_medium"
             android:gravity="center_vertical"
             android:paddingHorizontal="@dimen/margin_24dp"
             android:textColor="?attr/colorOnPrimary"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@id/photo"
             android:textSize="@dimen/text_size_22sp"
             android:text="@string/oldwise" />
 
@@ -35,8 +41,11 @@
             style="@style/Developers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@id/name"
             android:text="@string/alba_description" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
