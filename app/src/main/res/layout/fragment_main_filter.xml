@@ -35,13 +35,23 @@
             android:layout_height="match_parent" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <View
+    <FrameLayout
         android:id="@+id/area"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:paddingHorizontal="@dimen/margin_4dp"
         android:background="@drawable/ripple"
         app:layout_constraintTop_toTopOf="@id/workPlace"
-        app:layout_constraintBottom_toBottomOf="@id/workPlace" />
+        app:layout_constraintBottom_toBottomOf="@id/workPlace">
+        <ImageView
+            android:id="@+id/areaIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ripple"
+            android:layout_gravity="center_vertical|end"
+            android:src="@drawable/leading_icon"
+            android:clickable="true"/>
+    </FrameLayout>
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -58,13 +68,23 @@
             android:layout_height="match_parent" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <View
+    <FrameLayout
         android:id="@+id/industry"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:paddingHorizontal="@dimen/margin_4dp"
         android:background="@drawable/ripple"
         app:layout_constraintTop_toTopOf="@id/department"
-        app:layout_constraintBottom_toBottomOf="@id/department" />
+        app:layout_constraintBottom_toBottomOf="@id/department">
+        <ImageView
+            android:id="@+id/industryIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ripple"
+            android:layout_gravity="center_vertical|end"
+            android:src="@drawable/leading_icon"
+            android:clickable="true"/>
+    </FrameLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/amount_text_layout"
@@ -80,11 +100,9 @@
         app:layout_constraintTop_toBottomOf="@id/industry">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/salary"
-            style="@style/FilterEditTextStyle"
-            android:imeOptions="actionDone"
+            style="@style/SalaryEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="true" />
+            android:layout_height="wrap_content"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView

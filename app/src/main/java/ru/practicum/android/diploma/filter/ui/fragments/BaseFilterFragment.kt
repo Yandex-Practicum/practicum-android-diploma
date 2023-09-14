@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -75,6 +76,38 @@ class BaseFilterFragment : Fragment(R.layout.fragment_main_filter) {
             clearBtn.debounceClickListener(debouncer) {
                 viewModel.cancelFilterBtnClicked()
             }
+            areaIcon.debounceClickListener(debouncer) {
+                onAreaIconPush(workPlaceText)
+
+            }
+            industryIcon.debounceClickListener(debouncer) {
+                onIndustryIconPush(industryText)
+
+            }
+        }
+    }
+
+    private fun onAreaIconPush(view: TextInputEditText) {
+        if (view.text.isNullOrEmpty()) {
+            findNavController().navigate(
+                BaseFilterFragmentDirections
+                    .actionBaseFilterToWorkPlaceFilter(viewModel.selectedFilter)
+            )
+        } else {
+            view.setText("")
+            viewModel.changeSalary(null)
+        }
+    }
+
+    private fun onIndustryIconPush(view: TextInputEditText) {
+        if (view.text.isNullOrEmpty()) {
+            findNavController().navigate(
+                BaseFilterFragmentDirections
+                    .actionBaseFilterToDepartmentFragment(viewModel.selectedFilter)
+            )
+        } else {
+            view.setText("")
+            viewModel.changeSalary(null)
         }
     }
 
