@@ -150,9 +150,9 @@ class BaseFilterFragment : Fragment(R.layout.fragment_main_filter) {
 
     private fun changeIcon(editText: EditText, view: ImageView) {
         if (editText.text.isEmpty())
-            view.setImageResource(R.drawable.icon_corner)
+            view.setImageResource(R.drawable.leading_icon)
         else
-            view.setImageResource(R.drawable.close_btn)
+            view.setImageResource(R.drawable.ic_clear)
     }
 
 
