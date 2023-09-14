@@ -60,10 +60,7 @@ open class CountryFragment : ChooseFragment() {
             )
         }
         binding.toolbar.setNavigationOnClickListener {
-            findNavController().navigate(
-                CountryFragmentDirections
-                    .actionCountryFilterToWorkPlaceFilter(viewModel.selectedFilter)
-            )
+            findNavController().navigateUp()
         }
     }
 

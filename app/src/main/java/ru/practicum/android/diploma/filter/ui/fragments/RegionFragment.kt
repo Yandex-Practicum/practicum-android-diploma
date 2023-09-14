@@ -52,10 +52,7 @@ class RegionFragment : ChooseFragment() {
             )
         }
         binding.toolbar.setNavigationOnClickListener {
-            findNavController().navigate(
-                RegionFragmentDirections
-                    .actionRegionFilterToWorkPlaceFilter(viewModel.selectedFilter)
-            )
+            findNavController().navigateUp()
         }
     }
 

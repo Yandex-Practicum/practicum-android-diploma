@@ -63,10 +63,7 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
     private fun initListeners() {
         with(binding) {
             toolbar.setNavigationOnClickListener {
-                findNavController().navigate(
-                    WorkPlaceFilterFragmentDirections
-                        .actionWorkPlaceFilterToBaseFilter(viewModel.selectedFilter)
-                )
+                findNavController().navigateUp()
             }
             country.debounceClickListener(debouncer) {
                 findNavController().navigate(

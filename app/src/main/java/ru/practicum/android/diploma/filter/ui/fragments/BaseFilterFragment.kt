@@ -42,9 +42,7 @@ class BaseFilterFragment : Fragment(R.layout.fragment_main_filter) {
     private fun initListeners() {
         with(binding) {
             toolbar.setNavigationOnClickListener {
-                findNavController().navigate(
-                    BaseFilterFragmentDirections.actionFilterBaseFragmentToSearchFragment()
-                )
+                findNavController().navigateUp()
             }
             area.debounceClickListener(debouncer) {
                 findNavController().navigate(
@@ -64,7 +62,7 @@ class BaseFilterFragment : Fragment(R.layout.fragment_main_filter) {
                     viewModel.changeSalary(null)
                     amountTextLayout.endIconMode = TextInputLayout.END_ICON_NONE
                 } else {
-                    viewModel.changeSalary(null)
+                    viewModel.changeSalary(text.toString())
                     amountTextLayout.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
                     amountTextLayout.endIconDrawable =
                         AppCompatResources.getDrawable(requireContext(), R.drawable.close_btn)
@@ -72,9 +70,7 @@ class BaseFilterFragment : Fragment(R.layout.fragment_main_filter) {
             }
             applyBtn.debounceClickListener(debouncer) {
                 viewModel.saveFilterSettings()
-                findNavController().navigate(
-                    BaseFilterFragmentDirections.actionFilterBaseFragmentToSearchFragment()
-                )
+                findNavController().navigateUp()
             }
             clearBtn.debounceClickListener(debouncer) {
                 viewModel.cancelFilterBtnClicked()
@@ -105,7 +101,6 @@ class BaseFilterFragment : Fragment(R.layout.fragment_main_filter) {
             industryText.setText(selectedFilter.industry?.name ?: "")
             salary.setText(selectedFilter.salary ?: "")
             checkbox.isChecked = selectedFilter.visibility ?: false
-            changeTextInputLayoutEndIconMode()
             binding.btnGroup.visibility = View.VISIBLE
         }
     }
@@ -113,12 +108,5 @@ class BaseFilterFragment : Fragment(R.layout.fragment_main_filter) {
     private fun showEmpty() {
         binding.btnGroup.visibility = View.GONE
     }
-    
-    private fun changeTextInputLayoutEndIconMode() {
-        if (!binding.salary.text.isNullOrEmpty()) {
-            binding.amountTextLayout.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
-            binding.amountTextLayout.endIconDrawable =
-                AppCompatResources.getDrawable(requireContext(), R.drawable.ic_clear)
-        }
-    }
+
 }
