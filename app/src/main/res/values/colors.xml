@@ -7,4 +7,10 @@
     <color name="gray">#AEAFB4</color>
     <color name="light_gray">#E6E8EB</color>
     <color name="transparent">#00000000</color>
+
+    <color name="lead_color">#D5FCA9</color>
+    <color name="alba_color">#E0D1F9F9</color>
+    <color name="bitwise_color">#F6EFB9</color>
+    <color name="flash_color">#F7C6B6</color>
+    <color name="meister_color">#C5BBF2</color>
 </resources>

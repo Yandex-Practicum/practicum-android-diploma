@@ -202,9 +202,8 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:textSize">@dimen/text_size_16sp</item>
         <item name="android:paddingHorizontal">@dimen/margin_24dp</item>
-        <item name="android:layout_marginTop">@dimen/margin_16dp</item>
-
     </style>
+
     <style name="FilterStyle" parent="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
         <item name="boxStrokeWidth">0dp</item>
         <item name="boxStrokeWidthFocused">0dp</item>
