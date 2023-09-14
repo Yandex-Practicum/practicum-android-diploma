@@ -131,11 +131,7 @@ class BaseFilterFragment : Fragment(R.layout.fragment_main_filter) {
     }
 
     private fun showApplyBtn(selectedFilter: SelectedFilter) {
-        if (selectedFilter.country != null ||
-            selectedFilter.region != null ||
-            selectedFilter.salary != null ||
-            selectedFilter.onlyWithSalary
-        ) {
+        if (selectedFilter != SelectedFilter.empty) {
             binding.btnGroup.visibility = View.VISIBLE
         }
     }

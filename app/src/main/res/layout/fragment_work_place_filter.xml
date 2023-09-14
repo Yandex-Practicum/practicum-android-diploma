@@ -32,8 +32,7 @@
             android:id="@+id/country_text"
             style="@style/SearchEditTextStyle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-           />
+            android:layout_height="match_parent" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <FrameLayout
@@ -59,6 +58,8 @@
         android:id="@+id/region_container"
         style="@style/FilterStyle"
         android:hint="@string/region"
+        android:paddingStart="0dp"
+        android:paddingEnd="@dimen/size_30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/country_container">
@@ -66,8 +67,7 @@
             android:id="@+id/region_text"
             style="@style/SearchEditTextStyle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+            android:layout_height="match_parent" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <FrameLayout
