@@ -34,11 +34,21 @@ class BaseFilterViewModel @Inject constructor(
         }
     }
 
+    fun changeArea() {
+        selectedFilter = selectedFilter.copy(country = null)
+        log(thisName, "changeArea: country = null")
+    }
+
+    fun changeIndustry() {
+        selectedFilter = selectedFilter.copy(industry = null)
+        log(thisName, "changeIndustry: industry = null")
+    }
+
     fun changeSalary(text: String?) {
         selectedFilter =
             if (text.isNullOrEmpty()) selectedFilter.copy(salary = null)
             else selectedFilter.copy(salary = text)
-        log(thisName, "saveSalary($text: String)")
+        log(thisName, "changeSalary($text: String)")
     }
 
     fun saveFilterSettings() {
@@ -54,6 +64,11 @@ class BaseFilterViewModel @Inject constructor(
             selectedFilter = SelectedFilter.empty
             _uiState.emit(BaseFilterScreenState.Content(SelectedFilter.empty))
         }
+    }
+
+    fun changeCheckbox() {
+        selectedFilter =
+            selectedFilter.copy(onlyWithSalary = !selectedFilter.onlyWithSalary)
     }
     
     companion object { const val FILTER_KEY = "filter" }

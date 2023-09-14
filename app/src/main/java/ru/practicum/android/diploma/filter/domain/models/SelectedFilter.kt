@@ -9,7 +9,7 @@ data class SelectedFilter(
     val region: Region? = null,
     val industry: Industry? = null,
     val salary: String? = null,
-    val visibility: Boolean? = null,
+    val onlyWithSalary: Boolean = false,
 ) : Parcelable {
     companion object { val empty = SelectedFilter() }
 }

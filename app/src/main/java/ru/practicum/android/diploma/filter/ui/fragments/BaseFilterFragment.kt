@@ -1,8 +1,9 @@
 package ru.practicum.android.diploma.filter.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.widget.EditText
+import android.widget.ImageView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -16,7 +17,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentMainFilterBinding
-import ru.practicum.android.diploma.filter.data.converter.industryDtoListToIndustryList
 import ru.practicum.android.diploma.filter.domain.models.SelectedFilter
 import ru.practicum.android.diploma.filter.ui.models.BaseFilterScreenState
 import ru.practicum.android.diploma.filter.ui.view_models.BaseFilterViewModel
@@ -42,9 +42,6 @@ class BaseFilterFragment : Fragment(R.layout.fragment_main_filter) {
     
     private fun initListeners() {
         with(binding) {
-            toolbar.setNavigationOnClickListener {
-                findNavController().navigateUp()
-            }
             area.debounceClickListener(debouncer) {
                 findNavController().navigate(
                     BaseFilterFragmentDirections
@@ -73,41 +70,40 @@ class BaseFilterFragment : Fragment(R.layout.fragment_main_filter) {
                 viewModel.saveFilterSettings()
                 findNavController().navigateUp()
             }
+            toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
+            areaIcon.debounceClickListener(debouncer) { onAreaIconPush(workPlaceText) }
+            industryIcon.debounceClickListener(debouncer) { onIndustryIconPush(industryText) }
+            checkbox.debounceClickListener(debouncer) { viewModel.changeCheckbox() }
             clearBtn.debounceClickListener(debouncer) {
                 viewModel.cancelFilterBtnClicked()
-            }
-            areaIcon.debounceClickListener(debouncer) {
-                onAreaIconPush(workPlaceText)
-
-            }
-            industryIcon.debounceClickListener(debouncer) {
-                onIndustryIconPush(industryText)
-
+                showApplyBtn(SelectedFilter.empty)
             }
         }
     }
 
-    private fun onAreaIconPush(view: TextInputEditText) {
-        if (view.text.isNullOrEmpty()) {
+    private fun onAreaIconPush(view: EditText) {
+        if (view.text.isEmpty()) {
             findNavController().navigate(
                 BaseFilterFragmentDirections
                     .actionBaseFilterToWorkPlaceFilter(viewModel.selectedFilter)
             )
         } else {
             view.setText("")
-            viewModel.changeSalary(null)
+            viewModel.changeArea()
+            changeIcon(binding.workPlaceText, binding.areaIcon)
         }
     }
 
-    private fun onIndustryIconPush(view: TextInputEditText) {
-        if (view.text.isNullOrEmpty()) {
+    private fun onIndustryIconPush(view: EditText) {
+        if (view.text.isEmpty()) {
             findNavController().navigate(
                 BaseFilterFragmentDirections
                     .actionBaseFilterToDepartmentFragment(viewModel.selectedFilter)
             )
         } else {
             view.setText("")
-            viewModel.changeSalary(null)
+            viewModel.changeIndustry()
+            changeIcon(binding.industryText, binding.industryIcon)
         }
     }
 
@@ -125,19 +121,43 @@ class BaseFilterFragment : Fragment(R.layout.fragment_main_filter) {
     
     private fun showContent(selectedFilter: SelectedFilter) {
         with(binding) {
-            val workPlace = StringBuilder()
-            workPlace.append(selectedFilter.country?.name ?: "")
-            if (!selectedFilter.region?.name.isNullOrEmpty()) workPlace.append(", ")
-            workPlace.append(selectedFilter.region?.name ?: "")
-            
-            workPlaceText.setText(workPlace)
+            showAreaField(selectedFilter)
             industryText.setText(selectedFilter.industry?.name ?: "")
+            changeIcon(industryText, industryIcon)
             salary.setText(selectedFilter.salary ?: "")
-            checkbox.isChecked = selectedFilter.visibility ?: false
+            checkbox.isChecked = selectedFilter.onlyWithSalary
+            showApplyBtn(selectedFilter)
+        }
+    }
+
+    private fun showApplyBtn(selectedFilter: SelectedFilter) {
+        if (selectedFilter.country != null ||
+            selectedFilter.region != null ||
+            selectedFilter.salary != null) {
             binding.btnGroup.visibility = View.VISIBLE
         }
     }
-    
+
+
+    private fun showAreaField(selectedFilter: SelectedFilter) {
+        val workPlace = StringBuilder()
+        workPlace.append(selectedFilter.country?.name ?: "")
+        if (!selectedFilter.region?.name.isNullOrEmpty()) workPlace.append(", ")
+        workPlace.append(selectedFilter.region?.name ?: "")
+        with(binding) {
+            workPlaceText.setText(workPlace)
+            changeIcon(workPlaceText, areaIcon)
+        }
+    }
+
+    private fun changeIcon(editText: EditText, view: ImageView) {
+        if (editText.text.isEmpty())
+            view.setImageResource(R.drawable.icon_corner)
+        else
+            view.setImageResource(R.drawable.close_btn)
+    }
+
+
     private fun showEmpty() {
         binding.btnGroup.visibility = View.GONE
     }
