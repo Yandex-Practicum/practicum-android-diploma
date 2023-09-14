@@ -52,15 +52,13 @@ open class CountryFragment : ChooseFragment() {
     }
 
     override fun initListeners() {
+        super.initListeners()
         filterAdapter.onClickCountry = { country ->
             viewModel.refreshCountry(country)
             findNavController().navigate(
                 CountryFragmentDirections
                     .actionCountryFilterToWorkPlaceFilter(viewModel.selectedFilter)
             )
-        }
-        binding.toolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
         }
     }
 

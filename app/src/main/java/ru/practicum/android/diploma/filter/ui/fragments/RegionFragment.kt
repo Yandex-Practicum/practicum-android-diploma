@@ -51,9 +51,6 @@ class RegionFragment : ChooseFragment() {
                     .actionRegionFilterToWorkPlaceFilter(viewModel.selectedFilter)
             )
         }
-        binding.toolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
-        }
     }
 
     companion object { const val REGION = "RegionFragment" }
