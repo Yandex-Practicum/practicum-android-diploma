@@ -39,7 +39,6 @@
         android:id="@+id/country"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingHorizontal="@dimen/margin_12dp"
         android:background="@drawable/ripple"
         app:layout_constraintTop_toTopOf="@id/country_container"
         app:layout_constraintBottom_toBottomOf="@id/country_container">
@@ -47,10 +46,10 @@
             android:id="@+id/countryIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/margin_4dp"
             android:background="@drawable/ripple_icon"
             android:layout_gravity="center_vertical|end"
-            android:src="@drawable/icon_corner"/>
+            android:src="@drawable/leading_icon"
+            android:contentDescription="@string/leading_icon" />
     </FrameLayout>
 
 
@@ -74,7 +73,6 @@
         android:id="@+id/region"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingHorizontal="@dimen/margin_12dp"
         android:background="@drawable/ripple"
         app:layout_constraintTop_toTopOf="@id/region_container"
         app:layout_constraintBottom_toBottomOf="@id/region_container">
@@ -82,10 +80,10 @@
             android:id="@+id/regionIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/margin_4dp"
             android:background="@drawable/ripple_icon"
             android:layout_gravity="center_vertical|end"
-            android:src="@drawable/icon_corner"/>
+            android:src="@drawable/leading_icon"
+            android:contentDescription="@string/leading_icon" />
     </FrameLayout>
 
 

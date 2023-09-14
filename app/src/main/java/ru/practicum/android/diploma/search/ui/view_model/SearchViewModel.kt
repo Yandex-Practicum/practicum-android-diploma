@@ -26,11 +26,6 @@ class SearchViewModel @Inject constructor(
     private val logger: Logger,
 ) : BaseViewModel(logger) {
     
-    init {
-        logger.log(thisName, "+++init+++ -> fillFilterData()")
-        fillFilterData()
-    }
-    
     private val _uiState: MutableStateFlow<SearchUiState> = MutableStateFlow(SearchUiState.Default)
     val uiState: StateFlow<SearchUiState> = _uiState
     
@@ -116,7 +111,7 @@ class SearchViewModel @Inject constructor(
         isNextPageLoading = false
     }
     
-    private fun fillFilterData() {
+    fun fillFilterData() {
         viewModelScope.launch(Dispatchers.IO) {
             selectedFilter = filterInteractor.getSavedFilterSettings(BaseFilterViewModel.FILTER_KEY)
             log(thisName, "fillFilterData = $selectedFilter")

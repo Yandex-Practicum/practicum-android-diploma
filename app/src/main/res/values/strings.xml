@@ -65,6 +65,7 @@
     <string name="empty_salary">Salary not specified</string>
     <string name="chooser_title">Select application:</string>
     <string name="share" translatable="false">share</string>
+    <string name="leading_icon" translatable="false">leading_icon</string>
 
     <plurals name="vacancies">
         <item quantity="one">%1$d vacancy</item>
