@@ -47,10 +47,9 @@
             android:id="@+id/areaIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ripple"
+            android:background="@drawable/ripple_icon"
             android:layout_gravity="center_vertical|end"
-            android:src="@drawable/leading_icon"
-            android:clickable="true"/>
+            android:src="@drawable/leading_icon"/>
     </FrameLayout>
 
 
@@ -80,10 +79,9 @@
             android:id="@+id/industryIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ripple"
+            android:background="@drawable/ripple_icon"
             android:layout_gravity="center_vertical|end"
-            android:src="@drawable/leading_icon"
-            android:clickable="true"/>
+            android:src="@drawable/leading_icon"/>
     </FrameLayout>
 
     <com.google.android.material.textfield.TextInputLayout
