@@ -2,8 +2,6 @@ package ru.practicum.android.diploma.details.ui
 
 import android.view.View
 import androidx.core.text.HtmlCompat
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentDetailsBinding
 import ru.practicum.android.diploma.details.domain.models.VacancyFullInfo
@@ -42,6 +40,9 @@ class DetailsScreenPainter(private val binding: FragmentDetailsBinding) {
                 R.drawable.ic_placeholder_company,
                 binding.root.context.resources.getDimensionPixelSize(R.dimen.size_12dp)
             )
+            if (vacancy.isInFavorite){
+                showAddAnimation()
+            }
         }
     }
 
@@ -101,18 +102,16 @@ class DetailsScreenPainter(private val binding: FragmentDetailsBinding) {
         binding.iwAnim.visibility = View.VISIBLE
     }
 
-    fun showAddAnimation(scope: CoroutineScope) {
-        scope.launch {
+    fun showAddAnimation() {
             binding.lottieHeart.speed = STRAIGHT_ANIMATION_SPEED
             binding.lottieHeart.playAnimation()
-        }
+
     }
 
-    fun showDeleteAnimation(scope: CoroutineScope) {
-        scope.launch {
+    fun showDeleteAnimation() {
             binding.lottieHeart.speed = REVERS_ANIMATION_SPEED
             binding.lottieHeart.playAnimation()
-        }
+
     }
 
     companion object {

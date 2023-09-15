@@ -14,7 +14,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-const val DELAY_800_MILLIS = 800L
+const val DELAY_600_MILLIS = 600L
 const val DELAY_2000_MILLIS = 2000L
 
 val <T> T.thisName: String

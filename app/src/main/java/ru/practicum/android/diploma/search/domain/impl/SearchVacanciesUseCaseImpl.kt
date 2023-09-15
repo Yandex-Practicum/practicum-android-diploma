@@ -27,7 +27,7 @@ class SearchVacanciesUseCaseImpl @Inject constructor(
            
             filter?.industry?.id?.let { put("industry", it) }
             filter?.salary?.let { put("salary", it) }
-            filter?.visibility?.let { put("only_with_salary", it.toString()) }
+            filter?.onlyWithSalary?.let { put("only_with_salary", it.toString()) }
         }
         return repository.searchVacancies(queryMap)
     }

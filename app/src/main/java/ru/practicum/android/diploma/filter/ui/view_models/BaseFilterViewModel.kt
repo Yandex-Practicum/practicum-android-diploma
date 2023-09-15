@@ -7,9 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.filter.domain.api.FilterInteractor
-import ru.practicum.android.diploma.filter.domain.models.Country
-import ru.practicum.android.diploma.filter.domain.models.Industry
-import ru.practicum.android.diploma.filter.domain.models.Region
+import ru.practicum.android.diploma.filter.domain.models.SelectedFilter
 import ru.practicum.android.diploma.filter.ui.models.BaseFilterScreenState
 import ru.practicum.android.diploma.root.BaseViewModel
 import ru.practicum.android.diploma.util.thisName
@@ -20,30 +18,58 @@ class BaseFilterViewModel @Inject constructor(
     logger: Logger
 ) : BaseViewModel(logger) {
 
+    var selectedFilter: SelectedFilter = SelectedFilter.empty
     private val _uiState: MutableStateFlow<BaseFilterScreenState> =
         MutableStateFlow(BaseFilterScreenState.Empty)
     val uiState: StateFlow<BaseFilterScreenState> = _uiState
 
+    
+    fun handleData(data: SelectedFilter) {
+        viewModelScope.launch {
+            selectedFilter = data
 
-    fun handleData(country: Country?, region: Region?, industry: Industry?) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val storedData = filterInteractor.getSavedFilterSettings(FILTER_KEY)
-            val data = storedData.copy(
-                country = country ?: storedData.country,
-                region = region ?: storedData.region,
-                industry = industry ?: storedData.industry
-            )
-            _uiState.emit(BaseFilterScreenState.Content(storedData))
-            filterInteractor.saveSavedData(key = FILTER_KEY, data = data)
-            log("BaseFilterViewModel", "handleData($data)")
+            if (selectedFilter == SelectedFilter.empty) _uiState.emit(BaseFilterScreenState.Empty)
+            else _uiState.emit(BaseFilterScreenState.Content(selectedFilter))
+            log("BaseFilterViewModel", "handleData($selectedFilter)")
         }
     }
 
-    fun saveSalary(text: String) {
-        log(thisName, "saveSalary($text: String)")
+    fun changeArea() {
+        selectedFilter = selectedFilter.copy(country = null)
+        log(thisName, "changeArea: country = null")
+    }
+
+    fun changeIndustry() {
+        selectedFilter = selectedFilter.copy(industry = null)
+        log(thisName, "changeIndustry: industry = null")
+    }
+
+    fun changeSalary(text: String?) {
+        selectedFilter =
+            if (text.isNullOrEmpty()) selectedFilter.copy(salary = null)
+            else selectedFilter.copy(salary = text)
+        log(thisName, "changeSalary($text: String)")
+    }
+
+    fun saveFilterSettings() {
         viewModelScope.launch(Dispatchers.IO) {
-            filterInteractor.refreshSalary(FILTER_KEY, text)
+            filterInteractor.saveFilterSettings(key = FILTER_KEY, data = selectedFilter)
         }
     }
+
+    fun cancelFilterBtnClicked() {
+        selectedFilter = SelectedFilter.empty
+        viewModelScope.launch(Dispatchers.IO) {
+            filterInteractor.clearFilter(FILTER_KEY)
+            selectedFilter = SelectedFilter.empty
+            _uiState.emit(BaseFilterScreenState.Content(SelectedFilter.empty))
+        }
+    }
+
+    fun changeCheckbox(isChecked: Boolean) {
+        selectedFilter =
+            selectedFilter.copy(onlyWithSalary = isChecked)
+    }
+    
     companion object { const val FILTER_KEY = "filter" }
 }

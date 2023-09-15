@@ -1,12 +1,12 @@
-package ru.practicum.android.diploma.details.data.dto
+package ru.practicum.android.diploma.details.data.network.dto
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import ru.practicum.android.diploma.details.data.dto.assistants.ContactsDto
-import ru.practicum.android.diploma.details.data.dto.assistants.EmploymentDto
-import ru.practicum.android.diploma.details.data.dto.assistants.ExperienceDto
-import ru.practicum.android.diploma.details.data.dto.assistants.KeySkillDto
-import ru.practicum.android.diploma.details.data.dto.assistants.ScheduleDto
+import ru.practicum.android.diploma.details.data.network.dto.assistants.ContactsDto
+import ru.practicum.android.diploma.details.data.network.dto.assistants.EmploymentDto
+import ru.practicum.android.diploma.details.data.network.dto.assistants.ExperienceDto
+import ru.practicum.android.diploma.details.data.network.dto.assistants.KeySkillDto
+import ru.practicum.android.diploma.details.data.network.dto.assistants.ScheduleDto
 import ru.practicum.android.diploma.search.data.network.dto.general_models.Area
 import ru.practicum.android.diploma.search.data.network.dto.general_models.Employer
 import ru.practicum.android.diploma.search.data.network.dto.general_models.Salary

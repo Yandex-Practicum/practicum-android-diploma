@@ -51,8 +51,6 @@
     <string name="no">No</string>
     <string name="similar_vacancies">Similar vacancies</string>
     <string name="no_data">No data</string>
-    <string name="alba_description">"\"As you sow, so shall you reap."\"</string>
-    <string name="bitwise_description">"\"It's not a bug, it's a feature."\"</string>
     <string name="no_internet_message">Oops…there seems to be no internet</string>
 
     <!--TeamCard-->
@@ -62,12 +60,19 @@
     <string name="meister">Belykh Igor</string>
     <string name="bitwise">Yazykov Danila</string>
 
+    <string name="alba_description">"\"As you sow, so shall you reap."\"</string>
+    <string name="bitwise_description">"\"It's not a bug, it's a feature."\"</string>
+    <string name="lead_description">"\"Nothing limits the flight of thought of a novice programmer more than a compiler."\"</string>
+    <string name="flash_description">"\"Don't lie and don't be afraid."\"</string>
+    <string name="meister_description">"\"One mistake and you're mistaken."\"</string>
+
     <string name="found">Found</string>
     <string name="from">from</string>
     <string name="to">to</string>
     <string name="empty_salary">Salary not specified</string>
     <string name="chooser_title">Select application:</string>
     <string name="share" translatable="false">share</string>
+    <string name="leading_icon" translatable="false">leading_icon</string>
 
     <plurals name="vacancies">
         <item quantity="one">%1$d vacancy</item>

@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/size_60dp"
-    android:background="@drawable/ripple"
-    android:paddingStart="@dimen/margin_16dp"
-    android:paddingEnd="@dimen/margin_4dp">
+    android:background="@drawable/ripple">
 
     <TextView
         android:id="@+id/country"
@@ -23,5 +21,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|center_vertical"
-        app:srcCompat="@drawable/leading_icon" />
+        app:srcCompat="@drawable/leading_icon"
+        android:contentDescription="@string/leading_icon" />
 </FrameLayout>

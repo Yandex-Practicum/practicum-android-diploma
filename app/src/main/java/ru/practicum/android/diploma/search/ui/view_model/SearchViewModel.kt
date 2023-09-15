@@ -26,11 +26,6 @@ class SearchViewModel @Inject constructor(
     private val logger: Logger,
 ) : BaseViewModel(logger) {
     
-    init {
-        logger.log(thisName, "+++init+++ -> fillFilterData()")
-        fillFilterData()
-    }
-    
     private val _uiState: MutableStateFlow<SearchUiState> = MutableStateFlow(SearchUiState.Default)
     val uiState: StateFlow<SearchUiState> = _uiState
     
@@ -41,7 +36,7 @@ class SearchViewModel @Inject constructor(
     private var found: Int = 0
     private var maxPages: Int = 0
     private var currentPage: Int = 0
-    private var selectedFilter: SelectedFilter = SelectedFilter()
+    private var selectedFilter: SelectedFilter = SelectedFilter.empty
     
     private val onSearchDebounce =
         delayedAction<String>(coroutineScope = viewModelScope, action = { query ->
@@ -49,7 +44,7 @@ class SearchViewModel @Inject constructor(
             searchVacancies(query = query, filter = selectedFilter, isFirstPage = currentPage == FIRST_PAGE)
         })
     
-    fun isFilterSelected(): Boolean = selectedFilter != SelectedFilter()
+    fun isFilterSelected(): Boolean = selectedFilter != SelectedFilter.empty
     
     fun onSearchQueryChanged(query: String) {
         logger.log(thisName, "+++onSearchQueryChanged+++ -> $query: String")
@@ -72,7 +67,7 @@ class SearchViewModel @Inject constructor(
             logger.log(thisName, "+++searchVacancies+++ -> $query: String, $filter: SelectedFilter, $isFirstPage: Boolean")
             if (isFirstPage) _uiState.value = SearchUiState.Loading
             searchJob = viewModelScope.launch(Dispatchers.IO) {
-                searchVacanciesUseCase(query, currentPage++, filter).fold(
+                searchVacanciesUseCase(query, currentPage, filter).fold(
                     ::handleFailure,
                     ::handleSuccess
                 )
@@ -92,14 +87,23 @@ class SearchViewModel @Inject constructor(
         }
     }
     
+    fun onViewDestroyed() {
+        currentPage = FIRST_PAGE
+        vacancyList = emptyList()
+    }
+    
     override fun handleFailure(failure: Failure) {
         super.handleFailure(failure)
+        logger.log(thisName, "handleFailure -> $failure")
+        logger.log(thisName, "handleFailure, currentPage -> $currentPage")
+        logger.log(thisName, "handleFailure, maxPages -> $maxPages")
         if (currentPage == maxPages) _uiState.value = SearchUiState.Error(failure)
         else _uiState.value = SearchUiState.ErrorScrollLoading(failure)
         isNextPageLoading = false
     }
     
     private fun handleSuccess(vacancies: Vacancies) {
+        currentPage++
         maxPages = vacancies.pages
         found = vacancies.found
         vacancyList += vacancies.items
@@ -112,7 +116,7 @@ class SearchViewModel @Inject constructor(
         isNextPageLoading = false
     }
     
-    private fun fillFilterData() {
+    fun fillFilterData() {
         viewModelScope.launch(Dispatchers.IO) {
             selectedFilter = filterInteractor.getSavedFilterSettings(BaseFilterViewModel.FILTER_KEY)
             log(thisName, "fillFilterData = $selectedFilter")
@@ -122,6 +126,10 @@ class SearchViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    fun getFilterSettings() :SelectedFilter {
+        return selectedFilter
     }
     
     companion object {

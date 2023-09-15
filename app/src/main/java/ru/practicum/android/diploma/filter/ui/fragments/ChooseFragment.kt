@@ -16,6 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentAreasBinding
+import ru.practicum.android.diploma.filter.domain.models.SelectedFilter
 import ru.practicum.android.diploma.filter.ui.fragments.adapters.FilterAdapter
 import ru.practicum.android.diploma.filter.ui.view_models.AreasViewModel
 import ru.practicum.android.diploma.root.Debouncer
@@ -33,11 +34,9 @@ open class ChooseFragment : Fragment(R.layout.fragment_areas) {
 
     protected open val fragment = ""
 
-    @Inject
-    lateinit var debouncer: Debouncer
-
-    @Inject
-    lateinit var filterAdapter: FilterAdapter
+    @Inject lateinit var debouncer: Debouncer
+    @Inject lateinit var filterAdapter: FilterAdapter
+    protected var selectedFilter = SelectedFilter.empty
     protected val binding by viewBinding<FragmentAreasBinding>()
     protected open val viewModel: AreasViewModel by viewModels { (activity as RootActivity).viewModelFactory }
     override fun onAttach(context: Context) {
@@ -48,10 +47,11 @@ open class ChooseFragment : Fragment(R.layout.fragment_areas) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initListeners()
         initAdapter()
-        viewModel.getData()
+        initListeners()
+        viewModel.getData(selectedFilter)
         hideKeyboard()
+        binding.inputLayout.isHintEnabled = false
         viewLifecycleOwner.lifecycle.coroutineScope.launch(Dispatchers.Main) {
             viewModel.uiState.collect { state ->
                 viewModel.log(thisName, "uiState.collect { state -> ${state.thisName}")
@@ -73,6 +73,7 @@ open class ChooseFragment : Fragment(R.layout.fragment_areas) {
 
     protected open fun renderContent(list: List<Any?>) {
         with(binding) {
+            filterAdapter.refreshSelectedPosition()
             placeholder.visibility = View.GONE
             progressBar.visibility = View.GONE
         }
@@ -93,11 +94,11 @@ open class ChooseFragment : Fragment(R.layout.fragment_areas) {
     }
 
     protected open fun initListeners() {
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
+
         with(binding) {
-            toolbar.setNavigationOnClickListener {
-                findNavController().navigateUp()
-            }
-            inputLayout.isHintEnabled = false
             search.doOnTextChanged { text, _, _, _ ->
                 viewModel.onSearchQueryChanged(text.toString())
                 if (text.isNullOrEmpty()) {
@@ -110,7 +111,6 @@ open class ChooseFragment : Fragment(R.layout.fragment_areas) {
                         AppCompatResources.getDrawable(requireContext(), R.drawable.ic_clear)
                 }
             }
-
         }
     }
 
@@ -135,7 +135,7 @@ open class ChooseFragment : Fragment(R.layout.fragment_areas) {
         binding.placeholder.visibility = View.VISIBLE
     }
 
-    private fun hideKeyboard() {
+    protected fun hideKeyboard() {
         val inputMethodManager =
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
         inputMethodManager?.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)

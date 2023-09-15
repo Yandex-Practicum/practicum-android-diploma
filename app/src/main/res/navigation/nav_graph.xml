@@ -41,34 +41,6 @@
 
 
     <fragment
-        android:id="@+id/filterBaseFragment"
-        android:name="ru.practicum.android.diploma.filter.ui.fragments.BaseFilterFragment"
-        android:label="fragment_filter_base"
-        tools:layout="@layout/fragment_filter_base" >
-        <action
-            android:id="@+id/action_filterBaseFragment_to_workPlaceFilterFragment"
-            app:destination="@id/workPlaceFilterFragment">
-        </action>
-        <argument
-            android:name="country"
-            app:argType="ru.practicum.android.diploma.filter.domain.models.Country"
-            app:nullable="true" />
-        <argument
-            android:name="region"
-            app:argType="ru.practicum.android.diploma.filter.domain.models.Region"
-            app:nullable="true" />
-
-        <argument
-            android:name="industry"
-            app:argType="ru.practicum.android.diploma.filter.domain.models.Industry"
-            app:nullable="true" />
-        <action
-            android:id="@+id/action_filterBaseFragment_to_departmentFragment"
-            app:destination="@id/departmentFragment" />
-    </fragment>
-
-
-    <fragment
         android:id="@+id/searchFragment"
         android:name="ru.practicum.android.diploma.search.ui.fragment.SearchFragment"
         android:label="fragment_search"
@@ -79,7 +51,7 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_searchFragment_to_detailsFragment"
             app:destination="@id/detailsFragment"
@@ -91,10 +63,31 @@
 
 
     <fragment
-        android:id="@+id/teamFragment"
-        android:name="ru.practicum.android.diploma.team.ui.TeamFragment"
-        android:label="fragment_team"
-        tools:layout="@layout/fragment_team">
+        android:id="@+id/filterBaseFragment"
+        android:name="ru.practicum.android.diploma.filter.ui.fragments.BaseFilterFragment"
+        android:label="fragment_filter_base"
+        tools:layout="@layout/fragment_main_filter" >
+        <action
+            android:id="@+id/action_baseFilter_to_workPlaceFilter"
+            app:destination="@id/workPlaceFilterFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="false"
+            app:popUpTo="@id/filterBaseFragment" />
+        <action
+            android:id="@+id/action_baseFilter_to_departmentFragment"
+            app:destination="@id/departmentFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="false"
+            app:popUpTo="@id/filterBaseFragment" />
+        <argument
+            android:name="SelectedFilter"
+            app:argType="ru.practicum.android.diploma.filter.domain.models.SelectedFilter" />
     </fragment>
 
 
@@ -103,19 +96,96 @@
         android:name="ru.practicum.android.diploma.filter.ui.fragments.CountryFragment"
         android:label="fragment_areas"
         tools:layout="@layout/fragment_areas" >
+        <argument
+            android:name="SelectedFilter"
+            app:argType="ru.practicum.android.diploma.filter.domain.models.SelectedFilter" />
+        <action
+            android:id="@+id/action_countryFilter_to_workPlaceFilter"
+            app:destination="@id/workPlaceFilterFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/workPlaceFilterFragment" />
     </fragment>
+
 
     <fragment
         android:id="@+id/workPlaceFilterFragment"
         android:name="ru.practicum.android.diploma.filter.ui.fragments.WorkPlaceFilterFragment"
         android:label="fragment_work_place_filter"
         tools:layout="@layout/fragment_work_place_filter" >
+        <argument
+            android:name="SelectedFilter"
+            app:argType="ru.practicum.android.diploma.filter.domain.models.SelectedFilter" />
         <action
             android:id="@+id/action_workPlaceFragment_to_countryFragment"
-            app:destination="@id/countryFilterFragment" />
+            app:destination="@id/countryFilterFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="false"
+            app:popUpTo="@id/workPlaceFilterFragment" />
         <action
             android:id="@+id/action_workPlaceFragment_to_regionFragment"
-            app:destination="@id/regionFragment" />
+            app:destination="@id/regionFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="false"
+            app:popUpTo="@id/workPlaceFilterFragment" />
+        <action
+            android:id="@+id/action_workPlaceFilter_to_BaseFilter"
+            app:destination="@id/filterBaseFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="false"
+            app:popUpTo="@id/searchFragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/regionFragment"
+        android:name="ru.practicum.android.diploma.filter.ui.fragments.RegionFragment"
+        android:label="fragment_areas"
+        tools:layout="@layout/fragment_areas" >
+        <argument
+            android:name="SelectedFilter"
+            app:argType="ru.practicum.android.diploma.filter.domain.models.SelectedFilter" />
+        <action
+            android:id="@+id/action_regionFilter_to_workPlaceFilter"
+            app:destination="@id/workPlaceFilterFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/workPlaceFilterFragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/departmentFragment"
+        android:name="ru.practicum.android.diploma.filter.ui.fragments.DepartmentFragment"
+        android:label="fragment_department"
+        tools:layout="@layout/fragment_department" >
+        <argument
+            android:name="SelectedFilter"
+            app:argType="ru.practicum.android.diploma.filter.domain.models.SelectedFilter" />
+        <action
+            android:id="@+id/action_departmentFilter_to_baseFilter"
+            app:destination="@id/filterBaseFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="false"
+            app:popUpTo="@id/searchFragment" />
     </fragment>
 
 
@@ -126,26 +196,22 @@
         tools:layout="@layout/fragment_similars_vacancy" >
         <action
             android:id="@+id/action_similarsVacancyFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
+            app:destination="@id/detailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
         <argument
             android:name="id"
             app:argType="string" />
     </fragment>
 
 
+
     <fragment
-        android:id="@+id/regionFragment"
-        android:name="ru.practicum.android.diploma.filter.ui.fragments.RegionFragment"
-        android:label="fragment_areas"
-        tools:layout="@layout/fragment_areas" >
-    </fragment>
-    <fragment
-        android:id="@+id/departmentFragment"
-        android:name="ru.practicum.android.diploma.filter.ui.fragments.DepartmentFragment"
-        android:label="fragment_department"
-        tools:layout="@layout/fragment_department" >
-        <action
-            android:id="@+id/action_departmentFragment_to_filterBaseFragment"
-            app:destination="@id/filterBaseFragment" />
+        android:id="@+id/teamFragment"
+        android:name="ru.practicum.android.diploma.team.ui.TeamFragment"
+        android:label="fragment_team"
+        tools:layout="@layout/fragment_team">
     </fragment>
 </navigation>

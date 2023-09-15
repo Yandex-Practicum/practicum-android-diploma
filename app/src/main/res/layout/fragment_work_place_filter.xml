@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context=".filter.ui.fragments.WorkPlaceFilterFragment">
 
     <androidx.appcompat.widget.Toolbar
@@ -24,7 +25,6 @@
         style="@style/FilterStyle"
         android:layout_marginTop="@dimen/margin_16dp"
         android:hint="@string/country"
-        app:hintAnimationEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar">
@@ -32,24 +32,33 @@
             android:id="@+id/country_text"
             style="@style/SearchEditTextStyle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="text" />
+            android:layout_height="match_parent" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <View
+    <FrameLayout
         android:id="@+id/country"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@drawable/ripple"
         app:layout_constraintTop_toTopOf="@id/country_container"
-        app:layout_constraintBottom_toBottomOf="@id/country_container" />
+        app:layout_constraintBottom_toBottomOf="@id/country_container">
+        <ImageView
+            android:id="@+id/countryIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ripple_icon"
+            android:layout_gravity="center_vertical|end"
+            android:src="@drawable/leading_icon"
+            android:contentDescription="@string/leading_icon" />
+    </FrameLayout>
 
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/region_container"
         style="@style/FilterStyle"
         android:hint="@string/region"
-        app:hintAnimationEnabled="true"
+        android:paddingStart="0dp"
+        android:paddingEnd="@dimen/size_30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/country_container">
@@ -57,17 +66,25 @@
             android:id="@+id/region_text"
             style="@style/SearchEditTextStyle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="text" />
+            android:layout_height="match_parent" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <View
+    <FrameLayout
         android:id="@+id/region"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@drawable/ripple"
         app:layout_constraintTop_toTopOf="@id/region_container"
-        app:layout_constraintBottom_toBottomOf="@id/region_container" />
+        app:layout_constraintBottom_toBottomOf="@id/region_container">
+        <ImageView
+            android:id="@+id/regionIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ripple_icon"
+            android:layout_gravity="center_vertical|end"
+            android:src="@drawable/leading_icon"
+            android:contentDescription="@string/leading_icon" />
+    </FrameLayout>
 
 
     <androidx.appcompat.widget.AppCompatButton

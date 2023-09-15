@@ -55,6 +55,10 @@
     <string name="no_data"                          >Данные отсутствуют</string>
     <string name="alba_description"                 >"\"Каков орел - таковы и горы."\"</string>
     <string name="bitwise_description"              >"\"Быстро откаченное выложенным не считается."\"</string>
+    <string name="lead_description"                 >"\"Ничто так не ограничивает полет мысли начинающего программиста, как компилятор."\"</string>
+    <string name="flash_description"                >"\"Не врать и не бояться."\"</string>
+    <string name="meister_description"              >"\"Одна ошибка и ты ошибся."\"</string>
+
     <string name="no_internet_message"              >Упс…кажется, нет интернета</string>
 
 

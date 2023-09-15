@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.filter.domain.models.SelectedFilter
 import ru.practicum.android.diploma.root.BaseViewModel
 import ru.practicum.android.diploma.root.model.UiState
 import ru.practicum.android.diploma.util.functional.Failure
@@ -16,12 +17,11 @@ abstract class AreasViewModel(
 ) : BaseViewModel(logger) {
 
     private var chooseList = listOf<Any>()
-     val _uiState: MutableStateFlow<UiState> =
-        MutableStateFlow(UiState.Loading)
+    var selectedFilter: SelectedFilter = SelectedFilter.empty
+    protected val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
     val uiState: StateFlow<UiState> = _uiState
 
-    open fun getData() { /* ignore */
-    }
+    abstract fun getData(data: SelectedFilter)
 
     override fun handleFailure(failure: Failure) {
         _uiState.value = when (failure) {
@@ -36,7 +36,5 @@ abstract class AreasViewModel(
         _uiState.value = UiState.Content(list = list)
     }
 
-    open fun onSearchQueryChanged(text: String)  {
-
-   }
+    open fun onSearchQueryChanged(text: String)  { /* ignore */ }
 }

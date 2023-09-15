@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.filter.data
 
+import ru.practicum.android.diploma.filter.data.converter.countryDtoListToAllRegionList
 import ru.practicum.android.diploma.filter.data.converter.countryDtoToCountry
 import ru.practicum.android.diploma.filter.data.converter.industryDtoListToIndustryList
 import ru.practicum.android.diploma.filter.data.converter.mapRegionListDtoToRegionList
@@ -25,7 +26,7 @@ class FilterRepositoryImpl @Inject constructor(
     private val sharedPrefsStorage: LocalStorage,
     private val apiHelper: AlternativeRemoteDataSource,
 ) : FilterRepository {
-    override suspend fun saveSavedFilterSettings(key: String, selectedFilter: SelectedFilter) {
+    override suspend fun saveFilterSettings(key: String, selectedFilter: SelectedFilter) {
         sharedPrefsStorage.writeData(key = key, data = selectedFilter)
     }
 
@@ -48,6 +49,13 @@ class FilterRepositoryImpl @Inject constructor(
     override suspend fun getIndustries(): Either<Failure, List<Industry>> {
         return (apiHelper.doRequest(Request.AllIndustriesRequest) as Either<Failure, List<IndustryDto>>).flatMap {
             Either.Right(industryDtoListToIndustryList(it))
+        }
+    }
+
+    override suspend fun getAllRegions(): Either<Failure, List<Region>> {
+        return ((apiHelper.doRequest(Request.AllCountriesRequest)) as Either<Failure, List<CountryDto>>).flatMap {
+            val list = countryDtoListToAllRegionList(it)
+            Either.Right(list)
         }
     }
 }
