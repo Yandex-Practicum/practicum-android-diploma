@@ -84,8 +84,14 @@ class RecyclerViewSwipeCallback(
                     vhWidth - marginHorizontal,
                     viewHolder.itemView.top + vhHeight.div(2) + deleteIcon?.intrinsicHeight!!.div(2)
                 )
-                deleteIcon?.draw(canvas)
             }
+
+            if (dX == 0f) {
+                deleteIcon = null
+                getDefaultUIUtil().clearView(viewHolder.itemView)
+            }
+
+            if (deleteIcon != null) deleteIcon?.draw(canvas)
 
             val rect = with(viewHolder.itemView) { Rect(0, top, width, bottom) }
             canvas.drawRect(rect, paint)
