@@ -7,8 +7,9 @@ import ru.practicum.android.diploma.util.functional.Either
 import ru.practicum.android.diploma.util.functional.Failure
 import javax.inject.Inject
 
-class GetSimilarVacanciesUseCaseImpl @Inject constructor(private val repository: SimilarRepository) :
-    GetSimilarVacanciesUseCase {
+class GetSimilarVacanciesUseCaseImpl @Inject constructor(
+    private val repository: SimilarRepository
+) : GetSimilarVacanciesUseCase {
     override suspend operator fun invoke(id: String): Either<Failure, List<Vacancy>> {
         return repository.getSimilarVacancies(id)
     }

@@ -15,6 +15,7 @@ import ru.practicum.android.diploma.filter.domain.api.FilterRepository
 
 @Module
 class FilterDataModule {
+    
     @Provides
     fun provideFilterRepository(filterRepositoryImpl: FilterRepositoryImpl): FilterRepository {
         return filterRepositoryImpl
@@ -39,5 +40,4 @@ class FilterDataModule {
     fun provideSharedPreferences(@PrefsKey prefsKey: String, context: Context): SharedPreferences {
         return context.getSharedPreferences(prefsKey, Context.MODE_PRIVATE)
     }
-
 }

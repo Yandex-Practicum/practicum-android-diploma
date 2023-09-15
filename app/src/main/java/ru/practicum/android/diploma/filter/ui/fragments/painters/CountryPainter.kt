@@ -5,7 +5,6 @@ import com.google.android.material.snackbar.Snackbar
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentAreasBinding
 
-
 class CountryPainter(private val binding: FragmentAreasBinding) {
 
     fun showLoadingScreen() {
@@ -42,5 +41,4 @@ class CountryPainter(private val binding: FragmentAreasBinding) {
         binding.placeholder.visibility = View.VISIBLE
         binding.recycler.visibility = View.GONE
     }
-
 }

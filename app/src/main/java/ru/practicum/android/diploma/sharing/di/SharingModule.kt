@@ -9,8 +9,7 @@ import ru.practicum.android.diploma.sharing.domain.impl.SharingInteractorImpl
 
 @Module
 abstract class SharingModule {
-
-
+    
     @Binds
     abstract fun bindExternalNavigator(externalNavigatorImpl: ExternalNavigatorImpl): ExternalNavigator
 

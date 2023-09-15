@@ -22,12 +22,10 @@ class BaseFilterViewModel @Inject constructor(
     private val _uiState: MutableStateFlow<BaseFilterScreenState> =
         MutableStateFlow(BaseFilterScreenState.Empty)
     val uiState: StateFlow<BaseFilterScreenState> = _uiState
-
     
     fun handleData(data: SelectedFilter) {
         viewModelScope.launch {
             selectedFilter = data
-
             if (selectedFilter == SelectedFilter.empty) _uiState.emit(BaseFilterScreenState.Empty)
             else _uiState.emit(BaseFilterScreenState.Content(selectedFilter))
             log("BaseFilterViewModel", "handleData($selectedFilter)")

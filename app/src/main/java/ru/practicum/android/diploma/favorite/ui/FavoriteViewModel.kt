@@ -16,12 +16,19 @@ class FavoriteViewModel @Inject constructor(
     logger: Logger,
     private val favoritesInteractor: FavoritesInteractor,
 ) : BaseViewModel(logger) {
-
-
+    
     private val uiStateMutable = MutableStateFlow<FavoritesScreenState>(FavoritesScreenState.Empty)
     val uiState: StateFlow<FavoritesScreenState> = uiStateMutable.asStateFlow()
 
     init { getListFavorites() }
+    
+    fun removeVacancy(id: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            favoritesInteractor.removeVacancy(id).collect() {
+                log(thisName, "removeVacancy() -> vacancy id=$id was removed from favorites")
+            }
+        }
+    }
 
     private fun getListFavorites() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -34,13 +41,6 @@ class FavoriteViewModel @Inject constructor(
                 }
             }
 
-        }
-    }
-    fun removeVacancy(id: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            favoritesInteractor.removeVacancy(id).collect() {
-                log(thisName, "removeVacancy() -> vacancy id=$id was removed from favorites")
-            }
         }
     }
 }

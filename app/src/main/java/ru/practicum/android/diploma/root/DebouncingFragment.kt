@@ -6,7 +6,6 @@ import android.view.View
 import ru.practicum.android.diploma.util.DELAY_600_MILLIS
 import javax.inject.Inject
 
-
 class Debouncer @Inject constructor() {
 
     private val handler = Handler(Looper.getMainLooper())

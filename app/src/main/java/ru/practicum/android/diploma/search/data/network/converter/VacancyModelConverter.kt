@@ -8,7 +8,6 @@ import ru.practicum.android.diploma.details.data.local.model.VacancyFullInfoEnti
 import ru.practicum.android.diploma.details.data.network.dto.VacancyFullInfoModelDto
 import ru.practicum.android.diploma.details.data.network.dto.assistants.KeySkillDto
 import ru.practicum.android.diploma.details.domain.models.VacancyFullInfo
-import ru.practicum.android.diploma.di.annotations.NewResponse
 import ru.practicum.android.diploma.search.data.network.dto.VacancyDto
 import ru.practicum.android.diploma.search.data.network.dto.general_models.Phone
 import ru.practicum.android.diploma.search.data.network.dto.general_models.Salary
@@ -29,7 +28,7 @@ class VacancyModelConverter @Inject constructor(
         return with(this) {
             Vacancy(
                 id = id ?: "",
-                iconUri = employer?.logo_urls?.url240 ?: "",
+                iconUri = employer?.logoUrls?.url240 ?: "",
                 title = name ?: "",
                 company = employer?.name ?: "",
                 salary = createSalary(salary) ?: context.getString(R.string.empty_salary),
@@ -39,7 +38,6 @@ class VacancyModelConverter @Inject constructor(
         }
     }
 
-    @NewResponse
     fun vacanciesResponseToVacancies(vacanciesResponse: VacanciesResponse) : Vacancies{
         return with(vacanciesResponse) {
             Vacancies(
@@ -47,7 +45,7 @@ class VacancyModelConverter @Inject constructor(
                 items = mapList(items),
                 page = page,
                 pages = pages,
-                per_page = per_page,
+                perPage = perPage,
             )
         }
     }
@@ -97,7 +95,7 @@ class VacancyModelConverter @Inject constructor(
                 area = area?.name ?: "",
                 salary = createSalary(salary) ?: context.getString(R.string.empty_salary),
                 company = employer?.name ?: "",
-                logo = employer?.logo_urls?.url240 ?: "",
+                logo = employer?.logoUrls?.url240 ?: "",
                 title = name ?: "",
                 contactEmail = contacts?.email ?: "",
                 contactName = contacts?.name ?: "",
@@ -108,7 +106,6 @@ class VacancyModelConverter @Inject constructor(
             )
         }
     }
-
 
     fun toFullInfoEntity(vacancy: VacancyFullInfo): VacancyFullInfoEntity {
         return with(vacancy) {

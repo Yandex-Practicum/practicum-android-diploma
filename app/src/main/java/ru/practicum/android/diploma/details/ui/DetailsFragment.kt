@@ -21,8 +21,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
 
     private val binding by viewBinding<FragmentDetailsBinding>()
 
-    @Inject
-    lateinit var factory: DetailsViewModel.Factory
+    @Inject lateinit var factory: DetailsViewModel.Factory
 
     private val viewModel: DetailsViewModel by viewModels {
         DetailsViewModel.provideDetailsViewModelFactory(factory, args.id)
@@ -53,17 +52,14 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
     private fun observeViewModel() {
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
             viewModel.uiState.collect { screenState ->
-                viewModel.log("DetailsFragment", "uiState.collect { ________state -> ${screenState.thisName}")
                 val painter = DetailsScreenPainter(binding)
                 when (screenState) {
                     is DetailsScreenState.Content -> painter.showDataContent(screenState.vacancy)
                     is DetailsScreenState.AddAnimation -> painter.showAddAnimation()
-                    is DetailsScreenState.DeleteAnimation -> painter
-                        .showDeleteAnimation()
+                    is DetailsScreenState.DeleteAnimation -> painter.showDeleteAnimation()
                     is DetailsScreenState.Offline -> painter.showOffline()
                     is DetailsScreenState.Error -> painter.showError()
                     is DetailsScreenState.Loading -> painter.showLoading()
-                    is DetailsScreenState.Default -> Unit
                 }
             }
         }

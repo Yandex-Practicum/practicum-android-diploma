@@ -9,7 +9,6 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.filter.domain.models.Industry
 import ru.practicum.android.diploma.filter.ui.view_models.DepartmentViewModel
 import ru.practicum.android.diploma.root.RootActivity
-import ru.practicum.android.diploma.root.debounceClickListener
 import ru.practicum.android.diploma.util.thisName
 
 class DepartmentFragment : ChooseFragment() {

@@ -10,7 +10,7 @@ data class VacanciesResponse(
     @SerialName("items") val items: List<VacancyDto>,
     @SerialName("page") val page: Int,
     @SerialName("pages") val pages: Int,
-    @SerialName("per_page") val per_page: Int,
+    @SerialName("per_page") val perPage: Int,
 ) {
     companion object {
         val empty = VacanciesResponse(0, emptyList(), 0, 0 , 0)

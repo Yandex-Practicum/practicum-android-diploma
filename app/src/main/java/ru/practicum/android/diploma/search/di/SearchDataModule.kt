@@ -17,7 +17,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.di.annotations.AppEmail
 import ru.practicum.android.diploma.di.annotations.ApplicationScope
 import ru.practicum.android.diploma.di.annotations.BaseUrl
-import ru.practicum.android.diploma.search.data.network.AlternativeRemoteDataSource
+import ru.practicum.android.diploma.search.data.network.RemoteDataSource
 import ru.practicum.android.diploma.search.data.network.ApiHelper
 import ru.practicum.android.diploma.search.data.network.HhApiService
 import ru.practicum.android.diploma.search.data.network.cache.CacheInterceptor
@@ -25,19 +25,14 @@ import ru.practicum.android.diploma.search.data.network.cache.ForceCacheIntercep
 import java.io.File
 import javax.inject.Named
 
-
 @Module
 class SearchDataModule {
+    
     @ApplicationScope
     @Provides
     fun createApiService(retrofit: Retrofit): HhApiService {
         return retrofit.create(HhApiService::class.java)
     }
-    
-/*    @Provides
-    fun bindNetworkClient(retrofitClient: RetrofitClient): NetworkClient{
-        return retrofitClient
-    }*/
 
     @Provides
     fun provideRetrofit(
@@ -99,7 +94,7 @@ class SearchDataModule {
     }
 
     @Provides
-    fun provideAlternativeRemoteDataSource(apiHelper: ApiHelper): AlternativeRemoteDataSource =
+    fun provideAlternativeRemoteDataSource(apiHelper: ApiHelper): RemoteDataSource =
         apiHelper
 }
 

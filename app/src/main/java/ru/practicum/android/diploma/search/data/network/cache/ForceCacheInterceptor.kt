@@ -9,7 +9,6 @@ import ru.practicum.android.diploma.search.data.network.InternetController
 import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
 
-
 class ForceCacheInterceptor@Inject constructor(
     private val internetController: InternetController,
     private val logger: Logger

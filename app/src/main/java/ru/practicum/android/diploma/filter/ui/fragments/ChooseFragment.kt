@@ -39,6 +39,7 @@ open class ChooseFragment : Fragment(R.layout.fragment_areas) {
     protected var selectedFilter = SelectedFilter.empty
     protected val binding by viewBinding<FragmentAreasBinding>()
     protected open val viewModel: AreasViewModel by viewModels { (activity as RootActivity).viewModelFactory }
+    
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (activity as RootActivity).component.inject(this)
@@ -64,7 +65,6 @@ open class ChooseFragment : Fragment(R.layout.fragment_areas) {
                 }
             }
         }
-
     }
 
     private fun showLoadingScreen() {
@@ -97,7 +97,6 @@ open class ChooseFragment : Fragment(R.layout.fragment_areas) {
         binding.toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
-
         with(binding) {
             search.doOnTextChanged { text, _, _, _ ->
                 viewModel.onSearchQueryChanged(text.toString())

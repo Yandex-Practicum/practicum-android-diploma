@@ -5,10 +5,10 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Employer(
-    @SerialName("accredited_it_employer") val accredited_it_employer: Boolean? = false,
-    @SerialName("alternate_url") val alternate_url: String? = "",
+    @SerialName("accredited_it_employer") val accreditedItEmployer: Boolean? = false,
+    @SerialName("alternate_url") val alternateUrl: String? = "",
     @SerialName("id") val id: String? = "",
-    @SerialName("logo_urls") val logo_urls: LogoUrls? = LogoUrls(),
+    @SerialName("logo_urls") val logoUrls: LogoUrls? = LogoUrls(),
     @SerialName("name") val name: String? = "",
     @SerialName("trusted") val trusted: Boolean? = false,
     @SerialName("url") val url: String? = "",

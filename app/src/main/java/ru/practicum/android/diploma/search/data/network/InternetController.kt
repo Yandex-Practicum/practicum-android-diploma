@@ -11,7 +11,7 @@ class InternetController @Inject constructor(
     private val context: Context,
     private val logger: Logger,
 ) {
-
+    
     fun isInternetAvailable(): Boolean {
         val connectivityManager = context.getSystemService(
             Context.CONNECTIVITY_SERVICE) as ConnectivityManager

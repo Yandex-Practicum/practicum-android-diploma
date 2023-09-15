@@ -8,6 +8,7 @@ import ru.practicum.android.diploma.di.components.AppComponent
 import ru.practicum.android.diploma.di.components.DaggerAppComponent
 import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
+
 private const val APP_PREFERENCES = "app_preferences"
 
 class App: Application() {

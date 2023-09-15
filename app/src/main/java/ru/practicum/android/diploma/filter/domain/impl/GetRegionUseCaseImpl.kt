@@ -10,6 +10,7 @@ import javax.inject.Inject
 class GetRegionUseCaseImpl @Inject constructor(
     private val repository: FilterRepository
 ) : GetRegionUseCase{
+    
     override suspend fun getAllRegions(): Either<Failure, List<Region>> {
         return repository.getAllRegions()
     }

@@ -8,15 +8,18 @@ import ru.practicum.android.diploma.databinding.FragmentSimilarsVacancyBinding
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.ui.fragment.adapter_delegate.MainCompositeAdapter
 
-class SimilarVacanciesScreenPainter(private val binding: FragmentSimilarsVacancyBinding) {
-
+class SimilarVacanciesScreenPainter(
+    private val binding: FragmentSimilarsVacancyBinding,
+) {
+    
     private val context = binding.root.context
+    
     private fun isScrollingEnabled(isEnable: Boolean) {
-
+        
         with(binding) {
             val toolbarLayoutParams: AppBarLayout.LayoutParams =
                 similarVacancyToolbar.layoutParams as AppBarLayout.LayoutParams
-
+            
             if (!isEnable) {
                 toolbarLayoutParams.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_NO_SCROLL
             } else {
@@ -73,5 +76,4 @@ class SimilarVacanciesScreenPainter(private val binding: FragmentSimilarsVacancy
         binding.iwAnim.visibility = View.VISIBLE
         binding.placeHolder.visibility = View.GONE
     }
-
 }

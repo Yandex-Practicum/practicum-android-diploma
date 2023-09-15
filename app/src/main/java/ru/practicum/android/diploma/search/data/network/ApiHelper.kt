@@ -12,7 +12,6 @@ import ru.practicum.android.diploma.search.data.network.dto.request.Request.AllI
 import ru.practicum.android.diploma.search.data.network.dto.request.Request.RegionRequest
 import ru.practicum.android.diploma.search.data.network.dto.request.Request.VacanciesRequest
 import ru.practicum.android.diploma.search.data.network.dto.response.VacanciesResponse
-import ru.practicum.android.diploma.search.data.network.dto.response.VacanciesSearchCodeResponse
 import ru.practicum.android.diploma.util.functional.Either
 import ru.practicum.android.diploma.util.functional.Failure
 import ru.practicum.android.diploma.util.thisName
@@ -22,7 +21,7 @@ class ApiHelper @Inject constructor(
     private val apiService: HhApiService,
     private val networkHandler: InternetController,
     private val logger: Logger
-):  AlternativeRemoteDataSource{
+):  RemoteDataSource{
 
     override suspend fun doRequest(request: Request): Either<Failure, Any> {
        return when (request){
@@ -65,8 +64,8 @@ class ApiHelper @Inject constructor(
         }
     }
 
-    private suspend fun getSimilarVacancies(id: String): Either<Failure, VacanciesSearchCodeResponse> {
-        return requestData(VacanciesSearchCodeResponse.empty) {
+    private suspend fun getSimilarVacancies(id: String): Either<Failure, VacanciesResponse> {
+        return requestData(VacanciesResponse.empty) {
             apiService.getSimilarVacancies(id)
         }
     }

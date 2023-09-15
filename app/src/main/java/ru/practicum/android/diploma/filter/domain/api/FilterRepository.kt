@@ -8,7 +8,6 @@ import ru.practicum.android.diploma.util.functional.Either
 import ru.practicum.android.diploma.util.functional.Failure
 
 interface FilterRepository {
-
     suspend fun saveFilterSettings(key: String, selectedFilter: SelectedFilter)
     suspend fun getSaveFilterSettings(key: String): SelectedFilter
     suspend fun getAllCountries(): Either<Failure, List<Country>>

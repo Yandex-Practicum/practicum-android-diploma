@@ -41,6 +41,7 @@
             style="@style/Developers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="?attr/colorOnPrimary"
             android:text="@string/lead" />
 
         <TextView
@@ -48,6 +49,7 @@
             style="@style/Developers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="?attr/colorOnPrimary"
             android:text="@string/oldwise" />
 
         <TextView
@@ -55,6 +57,7 @@
             style="@style/Developers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="?attr/colorOnPrimary"
             android:text="@string/flash" />
 
         <TextView
@@ -62,6 +65,7 @@
             style="@style/Developers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="?attr/colorOnPrimary"
             android:text="@string/meister" />
 
         <TextView
@@ -69,6 +73,7 @@
             style="@style/Developers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="?attr/colorOnPrimary"
             android:text="@string/bitwise" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>

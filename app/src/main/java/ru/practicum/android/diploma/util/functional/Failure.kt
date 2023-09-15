@@ -1,8 +1,5 @@
 package ru.practicum.android.diploma.util.functional
 
-import ru.practicum.android.diploma.di.annotations.NewResponse
-
-@NewResponse
 sealed class Failure(val code: Int) {
     class Offline(code: Int = DISCONNECTED_CODE) : Failure(code = code)
     class ServerError(code: Int) : Failure(code = code)

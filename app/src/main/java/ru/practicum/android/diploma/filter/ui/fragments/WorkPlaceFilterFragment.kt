@@ -86,10 +86,15 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
                         .actionWorkPlaceFilterToBaseFilter(viewModel.selectedFilter)
                 )
             }
-            toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-            countryIcon.debounceClickListener(debouncer) { onCountryIconPush(countryText) }
-            regionIcon.debounceClickListener(debouncer) { onRegionIconPush(regionText) }
-            
+            toolbar.setNavigationOnClickListener {
+                findNavController().navigateUp()
+            }
+            countryIcon.debounceClickListener(debouncer) {
+                onCountryIconPush(countryText)
+            }
+            regionIcon.debounceClickListener(debouncer) {
+                onRegionIconPush(regionText)
+            }
             countryText.doOnTextChanged { text, _, _, _ ->
                 renderEditTextColor(countryContainer, text)
             }

@@ -23,7 +23,6 @@ import ru.practicum.android.diploma.root.BaseViewModel
 import ru.practicum.android.diploma.sharing.domain.api.SharingInteractor
 import ru.practicum.android.diploma.util.functional.Failure
 
-
 class DetailsViewModel @AssistedInject constructor(
     logger: Logger,
     private val addVacancyToFavoritesUseCase: AddVacancyToFavoritesUseCase,
@@ -31,11 +30,10 @@ class DetailsViewModel @AssistedInject constructor(
     private val removeVacancyFromFavoritesUseCase: RemoveVacancyFromFavoritesUseCase,
     private val checkIfVacancyInFavsUseCase: CheckIfVacancyInFavsUseCase,
     private val sharingInteractor: SharingInteractor,
-    @Assisted("vacancyId")
-    vacancyId: String
+    @Assisted("vacancyId") vacancyId: String
 ) : BaseViewModel(logger) {
 
-    private val _uiState = MutableStateFlow<DetailsScreenState>(DetailsScreenState.Default)
+    private val _uiState = MutableStateFlow<DetailsScreenState>(DetailsScreenState.Loading)
     val uiState: StateFlow<DetailsScreenState> = _uiState
 
     private var vacancy: VacancyFullInfo? = null
@@ -78,7 +76,6 @@ class DetailsViewModel @AssistedInject constructor(
     }
 
     private fun getVacancyByID(id: String) {
-        _uiState.value = DetailsScreenState.Loading
         viewModelScope.launch(Dispatchers.IO) {
             getFullVacancyInfoByIdUseCase(id).fold(
                 ::handleFailure,

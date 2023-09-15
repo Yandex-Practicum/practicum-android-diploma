@@ -16,7 +16,8 @@ class SearchScreenPainter(
     private val binding: FragmentSearchBinding,
 ) {
     
-    private val context = binding.textFabSearch.context
+    private val context = binding.root.context
+    
     fun showDefault() {
         isScrollingEnabled(false)
         
