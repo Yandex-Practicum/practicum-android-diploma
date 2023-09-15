@@ -46,6 +46,9 @@
     <string name="choose">Choose</string>
     <string name="error">Check your internet connection</string>
     <string name="server_error">Server error</string>
+    <string name="delete_vacancy">Do you want to delete vacancy?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
     <string name="similar_vacancies">Similar vacancies</string>
     <string name="no_data">No data</string>
     <string name="no_internet_message">Oops…there seems to be no internet</string>

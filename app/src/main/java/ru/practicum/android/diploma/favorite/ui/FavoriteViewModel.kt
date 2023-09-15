@@ -21,11 +21,13 @@ class FavoriteViewModel @Inject constructor(
     private val uiStateMutable = MutableStateFlow<FavoritesScreenState>(FavoritesScreenState.Empty)
     val uiState: StateFlow<FavoritesScreenState> = uiStateMutable.asStateFlow()
 
-    init { getListFavorites() }
+    init {
+        getListFavorites()
+    }
 
     private fun getListFavorites() {
         viewModelScope.launch(Dispatchers.IO) {
-            favoritesInteractor.getFavorites().collect{ list ->
+            favoritesInteractor.getFavorites().collect { list ->
                 log(thisName, "favoritesInteractor.getFavorites().collect{ list -> $list")
                 if (list.isEmpty()) {
                     uiStateMutable.emit(FavoritesScreenState.Empty)
@@ -36,9 +38,11 @@ class FavoriteViewModel @Inject constructor(
 
         }
     }
+
     fun removeVacancy(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            favoritesInteractor.removeVacancy(id).collect() {
+            favoritesInteractor.removeVacancy(id).collect() { _ ->
+                getListFavorites()
                 log(thisName, "removeVacancy() -> vacancy id=$id was removed from favorites")
             }
         }

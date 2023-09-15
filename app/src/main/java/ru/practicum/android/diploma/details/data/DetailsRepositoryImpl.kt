@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.details.data
 
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import ru.practicum.android.diploma.Logger
@@ -27,21 +28,12 @@ class DetailsRepositoryImpl @Inject constructor(
 
     @Suppress("UNCHECKED_CAST")
     override suspend fun getFullVacancyInfo(id: String): Either<Failure, VacancyFullInfo> {
-        val isFavorite = localDataSource.showIfInFavouriteById(id).firstOrNull() ?: false
-
-        return if (isFavorite) {
-            logger.log("getFullVacancyInfo", "getFullVacancyInfo: LOADED FROM CACHE = $id")
-            val vacancy = localDataSource.getFavoritesById(id).firstOrNull()
-            if (vacancy != null) {
-                Either.Right(vacancy)
-            } else {
-                Either.Left(Failure.NotFound())
-            }
-        } else {
+        return try {
+            Either.Right(localDataSource.getFavoritesById(id).first())
+        } catch (e: Exception) {
             ((apiHelper.doRequest(
                 Request.VacancyDetailsRequest(id)
             )) as Either<Failure, VacancyFullInfoModelDto>).flatMap {
-                logger.log(thisName, "getVacancyFullInfo: FOUND = ${it.id}")
                 Either.Right(converter.mapDetails(it))
             }
         }
