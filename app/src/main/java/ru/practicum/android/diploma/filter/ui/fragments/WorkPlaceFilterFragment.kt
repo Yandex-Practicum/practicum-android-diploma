@@ -4,14 +4,16 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
@@ -87,6 +89,13 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
             toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
             countryIcon.debounceClickListener(debouncer) { onCountryIconPush(countryText) }
             regionIcon.debounceClickListener(debouncer) { onRegionIconPush(regionText) }
+            
+            countryText.doOnTextChanged { text, _, _, _ ->
+                renderEditTextColor(countryContainer, text)
+            }
+            regionText.doOnTextChanged { text, _, _, _ ->
+                renderEditTextColor(regionContainer, text)
+            }
         }
     }
 
@@ -115,11 +124,21 @@ class WorkPlaceFilterFragment : Fragment(R.layout.fragment_work_place_filter) {
             changeIcon(binding.regionText, binding.regionIcon)
         }
     }
-
+    
     private fun changeIcon(editText: EditText, view: ImageView) {
-        if (editText.text.isEmpty())
-            view.setImageResource(R.drawable.leading_icon)
-        else
-            view.setImageResource(R.drawable.ic_clear)
+        if (editText.text.isEmpty()) view.setImageResource(R.drawable.leading_icon)
+        else view.setImageResource(R.drawable.ic_clear)
+    }
+    
+    private fun renderEditTextColor(view: TextInputLayout, text: CharSequence?) {
+        if (!text.isNullOrEmpty()) {
+            view.defaultHintTextColor = ContextCompat.getColorStateList(
+                requireContext(), R.color.filter_text_color_enabled
+            )
+        } else {
+            view.defaultHintTextColor = ContextCompat.getColorStateList(
+                requireContext(), R.color.filter_text_color
+            )
+        }
     }
 }

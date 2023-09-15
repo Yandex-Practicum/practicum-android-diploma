@@ -66,9 +66,9 @@ class BaseFilterViewModel @Inject constructor(
         }
     }
 
-    fun changeCheckbox() {
+    fun changeCheckbox(isChecked: Boolean) {
         selectedFilter =
-            selectedFilter.copy(onlyWithSalary = !selectedFilter.onlyWithSalary)
+            selectedFilter.copy(onlyWithSalary = isChecked)
     }
     
     companion object { const val FILTER_KEY = "filter" }

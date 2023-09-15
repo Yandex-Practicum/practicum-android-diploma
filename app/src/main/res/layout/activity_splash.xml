@@ -16,6 +16,7 @@
         app:lottie_loop="false"
         android:layout_gravity="center_vertical"
         app:lottie_rawRes="@raw/splash_lottie"
+        app:lottie_colorFilter="?attr/colorOnPrimary"
         android:layout_weight="1"/>
 
     <TextView
