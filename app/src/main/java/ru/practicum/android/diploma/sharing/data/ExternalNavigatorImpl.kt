@@ -17,7 +17,6 @@ class ExternalNavigatorImpl @Inject constructor(private val context: Context) : 
             }, context.getText(R.string.chooser_title))
 
             context.startActivity(intent.addFlags(FLAG_ACTIVITY_NEW_TASK))
-
     }
 
     override fun writeEmail(link: String?) {
@@ -29,7 +28,6 @@ class ExternalNavigatorImpl @Inject constructor(private val context: Context) : 
             addFlags(FLAG_ACTIVITY_NEW_TASK)
             context.startActivity(this)
         }
-
     }
 
     override fun makeCall(link: String?) {
@@ -39,6 +37,5 @@ class ExternalNavigatorImpl @Inject constructor(private val context: Context) : 
             addFlags(FLAG_ACTIVITY_NEW_TASK)
             context.startActivity(this)
         }
-
     }
 }

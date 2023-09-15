@@ -26,5 +26,4 @@ open class CountryViewModel @Inject constructor(
             selectedFilter = selectedFilter.copy(country = country, region = null)
         }
     }
-
 }

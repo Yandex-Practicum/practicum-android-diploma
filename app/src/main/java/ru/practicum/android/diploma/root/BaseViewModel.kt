@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.root
 
-
 import androidx.lifecycle.ViewModel
 import ru.practicum.android.diploma.Logger
 import ru.practicum.android.diploma.util.functional.Failure

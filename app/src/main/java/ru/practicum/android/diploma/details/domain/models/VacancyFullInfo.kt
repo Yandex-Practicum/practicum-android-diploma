@@ -1,11 +1,5 @@
 package ru.practicum.android.diploma.details.domain.models
 
-import android.os.Parcelable
-import kotlinx.serialization.Serializable
-import kotlinx.parcelize.Parcelize
-
-@Parcelize
-@Serializable
 data class VacancyFullInfo(
     val id: String,
     val experience: String = "",
@@ -25,4 +19,4 @@ data class VacancyFullInfo(
     val contactPhones: List<String> = emptyList(),
     val alternateUrl: String? = "",
     val isInFavorite: Boolean = false
-) : Parcelable
+)

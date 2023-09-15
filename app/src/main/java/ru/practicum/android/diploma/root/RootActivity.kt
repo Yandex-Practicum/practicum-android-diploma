@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.app.App
 import ru.practicum.android.diploma.app.appComponent
 import ru.practicum.android.diploma.databinding.ActivityRootBinding
 import ru.practicum.android.diploma.di.ViewModelFactory
@@ -19,8 +18,8 @@ class RootActivity : AppCompatActivity() {
         appComponent.activityComponentFactory()
             .create()
     }
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+    
+    @Inject lateinit var viewModelFactory: ViewModelFactory
     private val viewModel: RootViewModel by viewModels { viewModelFactory }
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) { ActivityRootBinding.inflate(layoutInflater) }
@@ -44,7 +43,6 @@ class RootActivity : AppCompatActivity() {
                 "addOnDestinationChangedListener { destination = ${destination.label} }"
             )
             when (destination.id) {
-
                 R.id.filterBaseFragment,
                 R.id.detailsFragment,
                 R.id.similarsVacancyFragment,

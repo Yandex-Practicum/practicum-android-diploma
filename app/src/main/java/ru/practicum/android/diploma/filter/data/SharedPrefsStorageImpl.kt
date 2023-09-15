@@ -21,6 +21,7 @@ class SharedPrefsStorageImpl @Inject constructor(
 ) : LocalStorage {
 
     private val lock = ReentrantReadWriteLock()
+    
     override fun <T> writeData(key: String, data: T) {
         logger.log(thisName, "writeData($key: String, $data: T)")
         lock.write {
@@ -52,6 +53,5 @@ class SharedPrefsStorageImpl @Inject constructor(
     }
 
     private inline fun <reified T> type() = object: TypeToken<T>() {}.type
-
 }
 

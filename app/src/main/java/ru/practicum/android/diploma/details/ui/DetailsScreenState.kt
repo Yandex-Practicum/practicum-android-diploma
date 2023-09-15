@@ -4,8 +4,7 @@ import ru.practicum.android.diploma.details.domain.models.VacancyFullInfo
 import ru.practicum.android.diploma.util.functional.Failure
 
 sealed interface DetailsScreenState {
-
-    object Default : DetailsScreenState
+    
     data class Content(val vacancy: VacancyFullInfo) : DetailsScreenState
     data class Offline(val message: Failure) : DetailsScreenState
     data class Error(val message: Failure) : DetailsScreenState

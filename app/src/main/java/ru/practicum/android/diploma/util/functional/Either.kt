@@ -1,7 +1,5 @@
 package ru.practicum.android.diploma.util.functional
 
-import ru.practicum.android.diploma.di.annotations.NewResponse
-
 /**
  * Класс [Either] (Либо) используется, когда нам нужно передавать один из двух типов объектов между
  * функциями/классами и т.д.
@@ -12,7 +10,6 @@ import ru.practicum.android.diploma.di.annotations.NewResponse
  * @see [Left]
  * @see [Right]
  * */
-@NewResponse
 sealed class Either<out L, out R> {
 
     /** Преставляет левую половину [Either], которая хранит тип ошибки */

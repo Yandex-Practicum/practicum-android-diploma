@@ -48,7 +48,6 @@ open class CountryFragment : ChooseFragment() {
         filterAdapter.countryList = list as List<Country>
         filterAdapter.notifyItemRangeChanged(0, filterAdapter.itemCount)
         viewModel.log(thisName, "renderContent: list.size = ${list.size})")
-
     }
 
     override fun initListeners() {

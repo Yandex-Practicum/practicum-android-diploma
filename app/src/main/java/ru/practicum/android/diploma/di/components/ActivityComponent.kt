@@ -21,8 +21,6 @@ interface ActivityComponent {
     fun inject(similarVacanciesFragment: SimilarVacanciesFragment)
     fun inject(teamFragment: TeamFragment)
     fun inject(detailsFragment: DetailsFragment)
-
-    //========Filter================================================================================
     fun inject(chooseFragment: ChooseFragment)
     fun inject(workPlaceFilterFragment: WorkPlaceFilterFragment)
     fun inject(countryFragment: CountryFragment)

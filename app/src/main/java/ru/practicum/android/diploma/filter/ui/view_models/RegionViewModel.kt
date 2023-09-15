@@ -4,11 +4,9 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.Logger
-import ru.practicum.android.diploma.filter.domain.api.FilterInteractor
 import ru.practicum.android.diploma.filter.domain.api.GetRegionUseCase
 import ru.practicum.android.diploma.filter.domain.models.Region
 import ru.practicum.android.diploma.filter.domain.models.SelectedFilter
-import ru.practicum.android.diploma.filter.ui.view_models.BaseFilterViewModel.Companion.FILTER_KEY
 import ru.practicum.android.diploma.root.model.UiState
 import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
@@ -30,7 +28,6 @@ class RegionViewModel @Inject constructor(
                 useCase.getRegions(selectedFilter.country?.id ?: "113")
                     .fold(::handleFailure, ::handleSuccess)
         }
-
     }
 
     override fun handleSuccess(list: List<Any>) {

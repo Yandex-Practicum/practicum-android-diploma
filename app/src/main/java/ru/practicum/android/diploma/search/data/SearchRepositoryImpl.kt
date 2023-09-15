@@ -1,8 +1,7 @@
 package ru.practicum.android.diploma.search.data
 
 import ru.practicum.android.diploma.Logger
-import ru.practicum.android.diploma.di.annotations.NewResponse
-import ru.practicum.android.diploma.search.data.network.AlternativeRemoteDataSource
+import ru.practicum.android.diploma.search.data.network.RemoteDataSource
 import ru.practicum.android.diploma.search.data.network.converter.VacancyModelConverter
 import ru.practicum.android.diploma.search.data.network.dto.request.Request
 import ru.practicum.android.diploma.search.data.network.dto.response.VacanciesResponse
@@ -17,11 +16,10 @@ import javax.inject.Inject
 class SearchRepositoryImpl @Inject constructor(
     private val converter: VacancyModelConverter,
     private val logger: Logger,
-    private val apiHelper: AlternativeRemoteDataSource
+    private val apiHelper: RemoteDataSource
 ) : SearchRepository {
     
     @Suppress("UNCHECKED_CAST")
-    @NewResponse
     override suspend fun searchVacancies(queryParams: Map<String, String>): Either<Failure, Vacancies> {
         return ((apiHelper.doRequest(
             Request.VacanciesRequest(queryParams)

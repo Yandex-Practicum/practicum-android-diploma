@@ -13,7 +13,7 @@ import ru.practicum.android.diploma.filter.domain.models.Country
 import ru.practicum.android.diploma.filter.domain.models.Industry
 import ru.practicum.android.diploma.filter.domain.models.Region
 import ru.practicum.android.diploma.filter.domain.models.SelectedFilter
-import ru.practicum.android.diploma.search.data.network.AlternativeRemoteDataSource
+import ru.practicum.android.diploma.search.data.network.RemoteDataSource
 import ru.practicum.android.diploma.search.data.network.dto.request.Request
 import ru.practicum.android.diploma.filter.data.model.RegionListDto
 import ru.practicum.android.diploma.util.functional.Either
@@ -24,7 +24,7 @@ import javax.inject.Inject
 @Suppress("UNCHECKED_CAST")
 class FilterRepositoryImpl @Inject constructor(
     private val sharedPrefsStorage: LocalStorage,
-    private val apiHelper: AlternativeRemoteDataSource,
+    private val apiHelper: RemoteDataSource,
 ) : FilterRepository {
     override suspend fun saveFilterSettings(key: String, selectedFilter: SelectedFilter) {
         sharedPrefsStorage.writeData(key = key, data = selectedFilter)

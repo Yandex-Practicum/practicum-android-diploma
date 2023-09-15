@@ -6,11 +6,11 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
 import android.view.animation.OvershootInterpolator
-import ru.practicum.android.diploma.util.AnimationUtils.AnimationEndListener
+import ru.practicum.android.diploma.util.AnimationEndListener
 import kotlin.math.abs
 
 class SwipeHelper(
-    private val mSwipeStack: SwipeStack
+    private val mSwipeStack: SwipeStack,
 ) : OnTouchListener {
 
     private var mObservedView: View? = null

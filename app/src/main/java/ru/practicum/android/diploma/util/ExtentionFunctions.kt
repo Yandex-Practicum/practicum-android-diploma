@@ -6,7 +6,6 @@ import android.os.Parcelable
 import android.util.Log
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CenterInside
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import kotlinx.coroutines.CoroutineScope
@@ -47,14 +46,6 @@ fun ImageView.setImage(url: String, placeholder: Int, cornerRadius: Int) {
         .load(url)
         .placeholder(placeholder)
         .transform(CenterInside(), RoundedCorners(cornerRadius))
-        .into(this)
-}
-fun ImageView.setImage(url: String, placeholder: Int) {
-    Glide
-        .with(this.context)
-        .load(url)
-        .placeholder(placeholder)
-        .transform(CenterCrop())
         .into(this)
 }
 

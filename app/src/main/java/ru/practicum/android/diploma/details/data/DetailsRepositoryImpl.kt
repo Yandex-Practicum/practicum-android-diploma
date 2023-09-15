@@ -8,11 +8,9 @@ import ru.practicum.android.diploma.details.data.network.dto.VacancyFullInfoMode
 import ru.practicum.android.diploma.details.data.local.LocalDataSource
 import ru.practicum.android.diploma.details.domain.DetailsRepository
 import ru.practicum.android.diploma.details.domain.models.VacancyFullInfo
-import ru.practicum.android.diploma.search.data.network.AlternativeRemoteDataSource
+import ru.practicum.android.diploma.search.data.network.RemoteDataSource
 import ru.practicum.android.diploma.search.data.network.converter.VacancyModelConverter
 import ru.practicum.android.diploma.search.data.network.dto.request.Request
-import ru.practicum.android.diploma.search.data.network.dto.response.VacanciesSearchCodeResponse
-import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.util.functional.Either
 import ru.practicum.android.diploma.util.functional.Failure
 import ru.practicum.android.diploma.util.functional.flatMap
@@ -20,7 +18,7 @@ import ru.practicum.android.diploma.util.thisName
 import javax.inject.Inject
 
 class DetailsRepositoryImpl @Inject constructor(
-    private val apiHelper: AlternativeRemoteDataSource,
+    private val apiHelper: RemoteDataSource,
     private val localDataSource: LocalDataSource,
     private val converter: VacancyModelConverter,
     private val logger: Logger

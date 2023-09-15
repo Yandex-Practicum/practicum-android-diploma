@@ -11,5 +11,6 @@ data class SelectedFilter(
     val salary: String? = null,
     val onlyWithSalary: Boolean = false,
 ) : Parcelable {
+    
     companion object { val empty = SelectedFilter() }
 }

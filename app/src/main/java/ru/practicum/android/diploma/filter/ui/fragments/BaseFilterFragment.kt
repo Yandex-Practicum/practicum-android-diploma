@@ -163,8 +163,7 @@ class BaseFilterFragment : Fragment(R.layout.fragment_main_filter) {
         else
             view.setImageResource(R.drawable.ic_clear)
     }
-
-
+    
     private fun showEmpty() {
         binding.btnGroup.visibility = View.GONE
     }
@@ -194,6 +193,7 @@ class BaseFilterFragment : Fragment(R.layout.fragment_main_filter) {
             )
         }
     }
+    
     private fun renderSalaryTextColor(view: TextInputLayout, text: CharSequence?) {
         if (!text.isNullOrEmpty()) {
             view.defaultHintTextColor = ContextCompat.getColorStateList(

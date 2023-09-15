@@ -4,7 +4,6 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.Logger
-import ru.practicum.android.diploma.filter.domain.api.FilterInteractor
 import ru.practicum.android.diploma.filter.domain.api.GetIndustriesUseCase
 import ru.practicum.android.diploma.filter.domain.models.Industry
 import ru.practicum.android.diploma.filter.domain.models.SelectedFilter

@@ -7,6 +7,7 @@ import javax.inject.Inject
 class SharingInteractorImpl @Inject constructor(
     private val externalNavigator: ExternalNavigator,
 ) : SharingInteractor {
+    
     override fun sendVacancy(link: String?) {
         externalNavigator.sendVacancy(link)
     }
