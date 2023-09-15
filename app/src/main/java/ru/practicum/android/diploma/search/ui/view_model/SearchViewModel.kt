@@ -87,6 +87,11 @@ class SearchViewModel @Inject constructor(
         }
     }
     
+    fun onViewDestroyed() {
+        currentPage = FIRST_PAGE
+        vacancyList = emptyList()
+    }
+    
     override fun handleFailure(failure: Failure) {
         super.handleFailure(failure)
         logger.log(thisName, "handleFailure -> $failure")

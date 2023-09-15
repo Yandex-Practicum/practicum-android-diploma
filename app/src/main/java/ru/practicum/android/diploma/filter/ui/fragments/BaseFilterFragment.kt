@@ -5,13 +5,13 @@ import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -54,26 +54,35 @@ class BaseFilterFragment : Fragment(R.layout.fragment_main_filter) {
                         .actionBaseFilterToDepartmentFragment(viewModel.selectedFilter)
                 )
             }
-
+            workPlaceText.doOnTextChanged { text, _, _, _ ->
+                renderEditTextColor(workPlace, text)
+            }
+            industryText.doOnTextChanged { text, _, _, _ ->
+                renderEditTextColor(department, text)
+            }
             salary.doOnTextChanged { text, _, _, _ ->
-                if (text.isNullOrEmpty()) {
-                    viewModel.changeSalary(null)
-                    amountTextLayout.endIconMode = TextInputLayout.END_ICON_NONE
-                } else {
-                    viewModel.changeSalary(text.toString())
-                    amountTextLayout.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
-                    amountTextLayout.endIconDrawable =
-                        AppCompatResources.getDrawable(requireContext(), R.drawable.close_btn)
-                }
+                renderSalaryTextColor(amountTextLayout, text)
+                changeTextInputLayoutEndIconMode(text)
             }
             applyBtn.debounceClickListener(debouncer) {
                 viewModel.saveFilterSettings()
                 findNavController().navigateUp()
             }
-            toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-            areaIcon.debounceClickListener(debouncer) { onAreaIconPush(workPlaceText) }
-            industryIcon.debounceClickListener(debouncer) { onIndustryIconPush(industryText) }
-            checkbox.debounceClickListener(debouncer) { viewModel.changeCheckbox() }
+            toolbar.setNavigationOnClickListener {
+                findNavController().navigateUp()
+            }
+            areaIcon.debounceClickListener(debouncer) {
+                onAreaIconPush(workPlaceText)
+            }
+            industryIcon.debounceClickListener(debouncer) {
+                onIndustryIconPush(industryText)
+            }
+            showSalaryText.setOnClickListener {
+                checkbox.isChecked = !checkbox.isChecked
+            }
+            checkbox.setOnCheckedChangeListener { _, isChecked ->
+                viewModel.changeCheckbox(isChecked)
+            }
             clearBtn.debounceClickListener(debouncer) {
                 viewModel.cancelFilterBtnClicked()
                 showApplyBtn(SelectedFilter.empty)
@@ -159,5 +168,41 @@ class BaseFilterFragment : Fragment(R.layout.fragment_main_filter) {
     private fun showEmpty() {
         binding.btnGroup.visibility = View.GONE
     }
-
+    
+    private fun changeTextInputLayoutEndIconMode(text: CharSequence?) {
+        with(binding) {
+            if (text.isNullOrEmpty()) {
+                viewModel.changeSalary(null)
+                amountTextLayout.endIconMode = TextInputLayout.END_ICON_NONE
+            } else {
+                viewModel.changeSalary(text.toString())
+                amountTextLayout.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
+                amountTextLayout.endIconDrawable =
+                    AppCompatResources.getDrawable(requireContext(), R.drawable.close_btn)
+            }
+        }
+    }
+    
+    private fun renderEditTextColor(view: TextInputLayout, text: CharSequence?) {
+        if (!text.isNullOrEmpty()) {
+            view.defaultHintTextColor = ContextCompat.getColorStateList(
+                requireContext(), R.color.filter_text_color_enabled
+            )
+        } else {
+            view.defaultHintTextColor = ContextCompat.getColorStateList(
+                requireContext(), R.color.filter_text_color
+            )
+        }
+    }
+    private fun renderSalaryTextColor(view: TextInputLayout, text: CharSequence?) {
+        if (!text.isNullOrEmpty()) {
+            view.defaultHintTextColor = ContextCompat.getColorStateList(
+                requireContext(), R.color.hint_text_color_enabled
+            )
+        } else {
+            view.defaultHintTextColor = ContextCompat.getColorStateList(
+                requireContext(), R.color.hint_text_color
+            )
+        }
+    }
 }

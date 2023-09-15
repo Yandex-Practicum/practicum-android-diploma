@@ -102,8 +102,8 @@
         <action
             android:id="@+id/action_countryFilter_to_workPlaceFilter"
             app:destination="@id/workPlaceFilterFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:popUpToInclusive="true"
@@ -140,8 +140,8 @@
         <action
             android:id="@+id/action_workPlaceFilter_to_BaseFilter"
             app:destination="@id/filterBaseFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:popUpToInclusive="false"
@@ -160,8 +160,8 @@
         <action
             android:id="@+id/action_regionFilter_to_workPlaceFilter"
             app:destination="@id/workPlaceFilterFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:popUpToInclusive="true"
@@ -180,8 +180,8 @@
         <action
             android:id="@+id/action_departmentFilter_to_baseFilter"
             app:destination="@id/filterBaseFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:popUpToInclusive="false"
