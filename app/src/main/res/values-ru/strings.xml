@@ -48,6 +48,9 @@
     <string name="bitwise"                          >Языков Данила</string>
     <string name="error"                            >Проверьте подключение к интернету</string>
     <string name="server_error"                     >Ошибка сервера</string>
+    <string name="delete_vacancy"                   >Вы действительно хотите удалить вакансию?</string>
+    <string name="yes"                              >Да</string>
+    <string name="no"                               >Нет</string>
     <string name="similar_vacancies"                >Похожие вакансии</string>
     <string name="no_data"                          >Данные отсутствуют</string>
     <string name="alba_description"                 >"\"Каков орел - таковы и горы."\"</string>

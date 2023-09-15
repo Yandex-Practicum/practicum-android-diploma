@@ -28,11 +28,10 @@ class FavoriteViewModel @Inject constructor(
                 log(thisName, "removeVacancy() -> vacancy id=$id was removed from favorites")
             }
         }
-    }
 
     private fun getListFavorites() {
         viewModelScope.launch(Dispatchers.IO) {
-            favoritesInteractor.getFavorites().collect{ list ->
+            favoritesInteractor.getFavorites().collect { list ->
                 log(thisName, "favoritesInteractor.getFavorites().collect{ list -> $list")
                 if (list.isEmpty()) {
                     uiStateMutable.emit(FavoritesScreenState.Empty)
@@ -40,7 +39,6 @@ class FavoriteViewModel @Inject constructor(
                     uiStateMutable.emit(FavoritesScreenState.Content(list))
                 }
             }
-
         }
     }
 }
