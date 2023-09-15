@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.favorite.ui
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -26,6 +27,7 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
     
     private val viewModel: FavoriteViewModel by viewModels { (activity as RootActivity).viewModelFactory }
     private val binding by viewBinding<FragmentFavoriteBinding>()
+    private var trackDialog: AlertDialog? = null
     
     private val vacancyAdapter by lazy {
         MainCompositeAdapter
@@ -33,7 +35,7 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
             .add(
                 VacancyAdapterDelegate(
                     onClick = { vacancy -> navigateToDetails(vacancy) },
-                    onLongClick = { vacancy -> viewModel.removeVacancy(vacancy.id) })
+                    onLongClick = { vacancy -> showTrackDialog(vacancy.id) })
             )
             .build()
     }
@@ -71,6 +73,17 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
                 }
             }
         }
+    }
+
+    private fun showTrackDialog(vacancy: String) {
+        trackDialog = AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.delete_vacancy))
+            .setNegativeButton(R.string.no) { _, _ -> trackDialog?.dismiss() }
+            .setPositiveButton(R.string.yes) { _, _ -> viewModel.removeVacancy(vacancy) }
+            .create()
+        trackDialog?.setCanceledOnTouchOutside(false)
+        trackDialog?.setCancelable(false)
+        trackDialog?.show()
     }
 
     private fun showContent(list: List<Vacancy>) {
