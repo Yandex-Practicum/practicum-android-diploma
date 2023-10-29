@@ -25,7 +25,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
         android:background="@color/light_grey" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
