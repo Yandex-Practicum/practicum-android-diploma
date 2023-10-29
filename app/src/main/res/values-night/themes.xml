@@ -3,6 +3,6 @@
     <style name="Base.Theme.PracticumAndroidDiploma" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
-        <item name="bottomNavigationStyle">@color/black</item>
+        <item name="bottomNavigationViewBackground">@color/black</item>
     </style>
 </resources>
