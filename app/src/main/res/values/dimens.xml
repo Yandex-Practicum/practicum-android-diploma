@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="logo_corner_radius">2dp</dimen>
+    <!-- Margin and Padding Size -->
+    <dimen name="end_logo_item_margin">12dp</dimen>
+    <dimen name="logo_item_padding">8dp</dimen>
+    <dimen name="vertical_item_padding">8dp</dimen>
+    <dimen name="Horizontal_item_padding">16dp</dimen>
+    <!-- Radius Size -->
+    <dimen name="logo_corner_radius">12dp</dimen>
+    <!-- Text Size -->
+    <dimen name="header_item_size">22sp</dimen>
+    <dimen name="content_item_size">16sp</dimen>
 </resources>

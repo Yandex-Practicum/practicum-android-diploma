@@ -4,23 +4,24 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:paddingHorizontal="16dp"
-    android:paddingVertical="9dp">
+    android:paddingHorizontal="@dimen/Horizontal_item_padding"
+    android:paddingVertical="@dimen/vertical_item_padding">
 
     <ImageView
         android:id="@+id/logo_rv"
-        android:padding="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/placeholder_32px"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="@dimen/end_logo_item_margin"
         android:background="@drawable/corner_shape"
-        android:contentDescription="logo"/>
+        android:contentDescription="logo"
+        android:padding="@dimen/logo_item_padding"
+        android:src="@drawable/item_placeholder" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/head_vacancy_rv"
             style="@style/HeadVacancyItem"
@@ -41,6 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="salary" />
+
     </LinearLayout>
 
 </LinearLayout>
