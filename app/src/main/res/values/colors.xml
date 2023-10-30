@@ -4,4 +4,12 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#FFAEAFB4</color>
     <color name="light_gray">#FFE6E8EB</color>
+
+
+    <color name="blackDayWhiteNight">@color/yp_black</color>
+    <color name="whiteDayBlackNight">@color/yp_white</color>
+
+    <color name="yp_black">#1A1B22</color>
+    <color name="yp_white">#FDFDFD</color>
+
 </resources>
