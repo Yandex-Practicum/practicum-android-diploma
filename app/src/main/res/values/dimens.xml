@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Общие размеры текста-->
+    <dimen name="title_text_size">32sp</dimen>
+    <dimen name="header_text_size">22sp</dimen>
+    <dimen name="regular_text_size">16sp</dimen>
+
+    <!--Размеры текста для отдельных элементов-->
+    <dimen name="tool_bar_text_size">22sp</dimen>
+    <dimen name="button_text_size">16sp</dimen>
+
+    <!--Размеры отдельных view-->
+    <dimen name="tool_bar_height">64dp</dimen>
+    <dimen name="edit_text_height">48dp</dimen>
+
+    <!--margins-->
+    <dimen name="margin_4">4dp</dimen>
+    <dimen name="margin_8">8dp</dimen>
+    <dimen name="margin_16">16dp</dimen>
+    <dimen name="margin_24">24dp</dimen>
+</resources>
