@@ -8,4 +8,99 @@
     </style>
 
     <attr name="bottomNavigationViewBackground" format="color" />
+
+
+    <style name="FilterBackImageButtonStyle" parent="Widget.AppCompat.ImageButton">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="tint">?android:attr/textColorPrimary</item>
+        <item name="android:src">@drawable/ic_filter_arrow_back</item>
+    </style>
+
+    <style name="FilterTopBarTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/header_text_size</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+
+    <style name="FilterMenuItem" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/margin_16</item>
+        <item name="android:textColorHint">@color/filter_menu_label_selector</item>
+        <item name="hintTextColor">?android:attr/textColorPrimary</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+        <item name="endIconMode">custom</item>
+        <item name="endIconDrawable">@drawable/ic_filter_arrow_forward</item>
+        <item name="endIconContentDescription">\></item>
+        <item name="endIconTint">?android:attr/textColorPrimary</item>
+        <item name="android:editable">false</item>
+        <item name="boxStrokeColor">?attr/colorPrimary</item>
+        <item name="boxStrokeErrorColor">?attr/colorPrimary</item>
+        <item name="boxBackgroundColor">?attr/colorPrimary</item>
+
+    </style>
+
+    <style name="FilterMenuItemHintTextAppearance">
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+    </style>
+
+    <style name="FilterMenuItemEditTextAppearance">
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/regular_text_size</item>
+    </style>
+
+    <style name="ThemeFilterMenuItemSalaryOverlay.AppTheme.TextInputEditText.FilledBox" parent="">
+        <item name="colorControlActivated">@color/blue</item>
+        <item name="colorAccent">@color/blue</item>
+        <item name="colorOnSurface">@color/black</item>
+        <item name="android:textColorPrimary">@color/black</item>
+    </style>
+
+    <style name="FilterMenuItemSalary" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/margin_16</item>
+        <item name="android:textColorHint">?attr/colorOnSecondary</item>
+        <item name="hintTextColor">?android:attr/textColorPrimary</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+        <item name="endIconMode">custom</item>
+        <item name="endIconDrawable">@drawable/ic_filter_clear</item>
+        <item name="endIconContentDescription">\></item>
+        <item name="endIconTint">?android:attr/textColorPrimary</item>
+        <item name="android:paddingEnd">0dp</item>
+    </style>
+
+    <style name="FilterMenuItemSalaryHintTextAppearance">
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+    </style>
+
+    <style name="FilterButtonStyle" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">60dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/red</item>
+        <item name="android:textSize">@dimen/regular_text_size</item>
+        <item name="cornerRadius">12dp</item>
+    </style>
+
+    <style name="FilterBlueButtonStyle" parent="FilterButtonStyle">
+        <item name="backgroundTint">@color/blue</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
 </resources>

@@ -3,4 +3,13 @@
     <string name="command">Команда</string>
     <string name="favorite">Избранное</string>
     <string name="main">Главная</string>
+    
+    <string name="filter_topbar_header">Настройки фильтрации</string>
+    <string name="filter_location">Место работы</string>
+    <string name="filter_industry">Отрасль</string>
+    <string name="filter_salary_label">Ожидаемая зарплата</string>
+    <string name="filter_salary_hint">Введите сумму</string>
+    <string name="filter_salary_required">Не показывать без зарплаты</string>
+    <string name="filter_button_apply">Применить</string>
+    <string name="filter_button_clear">Сбросить</string>
 </resources>
