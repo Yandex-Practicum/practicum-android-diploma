@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="SearchCoverImage">
+        <item name="android:src">@drawable/search_cover_dm</item>
+    </style>
+</resources>
