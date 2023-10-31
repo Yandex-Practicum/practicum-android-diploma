@@ -43,19 +43,12 @@ android {
 
 dependencies {
 
-    implementation ("androidx.fragment:fragment-ktx:1.6.1")
-    implementation ("androidx.navigation:navigation-fragment-ktx:2.7.4")
-    implementation ("androidx.navigation:navigation-ui-ktx:2.7.4")
-    implementation ("androidx.fragment:fragment-ktx:1.6.1")
-
     implementation ("com.github.bumptech.glide:glide:4.15.1")
 
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
 
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation ("com.google.code.gson:gson:2.10.1")
-
-    implementation ("io.insert-koin:koin-android:3.5.0")
 
     implementation ("androidx.viewpager2:viewpager2:1.0.0")
 
