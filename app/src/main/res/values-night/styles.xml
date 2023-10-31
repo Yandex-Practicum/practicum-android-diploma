@@ -3,4 +3,12 @@
     <style name="SearchCoverImage">
         <item name="android:src">@drawable/search_cover_dm</item>
     </style>
+
+    <style name="ErrorNetworkImage">
+        <item name="android:src">@drawable/error_connection_dm</item>
+    </style>
+
+    <style name="ErrorVacancyImage">
+        <item name="android:src">@drawable/error_vacancy_dm</item>
+    </style>
 </resources>

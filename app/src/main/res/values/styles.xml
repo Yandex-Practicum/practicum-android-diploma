@@ -11,5 +11,13 @@
         <item name="android:src">@drawable/search_cover_lm</item>
     </style>
 
+    <style name="ErrorNetworkImage">
+        <item name="android:src">@drawable/error_connection_lm</item>
+    </style>
+
+    <style name="ErrorVacancyImage">
+        <item name="android:src">@drawable/error_vacancy_lm</item>
+    </style>
+
     <attr name="bottomNavigationViewBackground" format="color" />
 </resources>
