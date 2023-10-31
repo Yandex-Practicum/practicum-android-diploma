@@ -2,4 +2,12 @@
     <string name="app_name">Practicum-Android-Diploma</string>
     <string name="favourites">Избранное</string>
     <string name="list_empty">Список пуст</string>
+    <string name="settings_filters">Настройки фильтрации</string>
+    <string name="sector">Отрасль</string>e
+    <string name="expected_salary">Ожидаемая ЗП</string>
+    <string name="work_place">Место работы</string>
+    <string name="input_the_amount">Введите сумму</string>
+    <string name="apply">Применить</string>
+    <string name="do_not_show_without_salary">Не показывать без ЗП</string>
+    <string name="reset">Сбросить</string>
 </resources>
