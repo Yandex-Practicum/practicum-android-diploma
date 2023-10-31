@@ -6,16 +6,16 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/text_title"
+        style="@style/textStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="@dimen/dimens_16"
+        android:layout_marginTop="@dimen/margin_20"
+        android:layout_marginEnd="@dimen/margin_8"
         android:fontFamily="@font/ys_display_medium"
-        android:text="Избранное"
-        android:textColor="@color/blackDayWhiteNight"
-        android:textSize="22sp"
+        android:text="@string/favourites"
+        android:textSize="@dimen/header_item_size"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -25,14 +25,14 @@
         android:id="@+id/recycler_View_Favorite"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="16sp"
-        android:layout_marginTop="16sp"
-        android:layout_marginEnd="16sp"
+        android:layout_marginStart="@dimen/dimens_16"
+        android:layout_marginTop="@dimen/dimens_16"
+        android:layout_marginEnd="@dimen/dimens_16"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/text_title"
         tools:listitem="@layout/item_vacancy"/>
 
     <LinearLayout
@@ -45,21 +45,23 @@
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toBottomOf="@+id/text_title">
 
         <ImageView
+            android:id="@+id/image_placeholder_empty"
             android:layout_width="328dp"
             android:layout_height="223dp"
             android:src="@drawable/placeholder_empty_favourite_vacancy" />
 
         <TextView
+            android:id="@+id/text_list_empty"
+            style="@style/textStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/dimens_16"
             android:fontFamily="@font/ys_display_medium"
-            android:text="Список пуст"
-            android:textColor="@color/blackDayWhiteNight"
-            android:textSize="22sp" />
+            android:text="@string/list_empty"
+            android:textSize="@dimen/header_item_size" />
     </LinearLayout>
 
 

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Practicum-Android-Diploma</string>
+    <string name="favourites">Избранное</string>
+    <string name="list_empty">Список пуст</string>
 </resources>
