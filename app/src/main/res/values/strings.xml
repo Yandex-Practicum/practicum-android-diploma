@@ -5,4 +5,6 @@
     <string name="main">Главная</string>
     <string name="vacancy_search">Поиск вакансий</string>
     <string name="enter_request">Введите запрос</string>
+    <string name="network_error">Нет интернета</string>
+    <string name="vacancy_error">Не удалось получить список вакансий</string>
 </resources>
