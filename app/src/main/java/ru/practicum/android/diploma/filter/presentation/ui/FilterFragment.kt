@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterBinding
@@ -36,21 +37,30 @@ class FilterFragment: Fragment() {
         setSalaryEditTextStyle(binding.miFilterSalary, false)
 
         binding.miFilterLocation.editText?.setOnClickListener {
-            // переход на фрагмент локаций
-            }
+            showLocationFargment()
+        }
 
         binding.miFilterIndustry.editText?.setOnClickListener {
-            // переход на фрагмент отраслей
+            showRegionFargment()
         }
 
         binding.miFilterLocation.setEndIconOnClickListener {
-            binding.miFilterLocation.editText?.text = null
-            setMenuEditTextStyle(binding.miFilterLocation, false)
+            if (binding.miFilterLocation.editText?.text.isNullOrEmpty())
+                showLocationFargment()
+            else {
+                binding.miFilterLocation.editText?.text = null
+                setMenuEditTextStyle(binding.miFilterLocation, false)
+            }
         }
 
         binding.miFilterIndustry.setEndIconOnClickListener {
-            binding.miFilterIndustry.editText?.text = null
-            setMenuEditTextStyle(binding.miFilterIndustry, false)
+            if (binding.miFilterIndustry.editText?.text.isNullOrEmpty())
+                showRegionFargment()
+            else {
+                binding.miFilterIndustry.editText?.text = null
+                setMenuEditTextStyle(binding.miFilterIndustry, false)
+            }
+
         }
 
         binding.miFilterSalary.setEndIconOnClickListener {
@@ -93,5 +103,13 @@ class FilterFragment: Fragment() {
         textInputLayout.defaultHintTextColor = colorStateList
         textInputLayout.hintTextColor = colorStateList
         textInputLayout.isEndIconVisible = filled
+    }
+
+    private fun showLocationFargment() {
+        findNavController().navigate(R.id.action_filterFragment_to_filterLocationFragment)
+    }
+
+    private fun showRegionFargment() {
+        //
     }
 }

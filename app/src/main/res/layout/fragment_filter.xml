@@ -7,14 +7,14 @@
     tools:context=".filter.presentation.ui.FilterFragment">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/playlistLeftGuideLine16"
+        android:id="@+id/filterLeftGuideLine16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="@dimen/margin_16" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/playlistRightGuideLine16"
+        android:id="@+id/filterRightGuideLine16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -28,13 +28,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/btPlaylistBack"
+            android:id="@+id/btTopBarBack"
             style="@style/FilterBackImageButtonStyle"
             android:layout_marginVertical="@dimen/margin_8"
             tools:ignore="ContentDescription,ImageContrastCheck" />
 
         <TextView
-            android:id="@+id/tvPlaylistTitle"
+            android:id="@+id/tvTopBarTitle"
             style="@style/FilterTopBarTextStyle"
             android:layout_marginStart="8dp"
             android:text="@string/filter_topbar_header"/>
@@ -90,8 +90,8 @@
         android:paddingVertical="0dp"
         android:background="@drawable/bg_filter_edittext"
         android:theme="@style/ThemeFilterMenuItemSalaryOverlay.AppTheme.TextInputEditText.FilledBox"
-        app:layout_constraintEnd_toEndOf="@id/playlistRightGuideLine16"
-        app:layout_constraintStart_toStartOf="@id/playlistLeftGuideLine16"
+        app:layout_constraintEnd_toEndOf="@id/filterRightGuideLine16"
+        app:layout_constraintStart_toStartOf="@id/filterLeftGuideLine16"
         app:layout_constraintTop_toBottomOf="@id/miFilterIndustry">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -118,7 +118,7 @@
         android:layout_marginTop="@dimen/margin_24"
         android:minHeight="@dimen/salary_box_min_height"
 
-        app:layout_constraintStart_toStartOf="@id/playlistLeftGuideLine16"
+        app:layout_constraintStart_toStartOf="@id/filterLeftGuideLine16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/miFilterSalary">
 
@@ -148,8 +148,8 @@
         android:text="@string/filter_button_apply"
         android:layout_marginBottom="@dimen/margin_8"
 
-        app:layout_constraintEnd_toEndOf="@id/playlistRightGuideLine16"
-        app:layout_constraintStart_toStartOf="@id/playlistLeftGuideLine16"
+        app:layout_constraintEnd_toEndOf="@id/filterRightGuideLine16"
+        app:layout_constraintStart_toStartOf="@id/filterLeftGuideLine16"
         app:layout_constraintBottom_toTopOf="@id/btFilterClear"/>
 
     <Button
@@ -158,8 +158,8 @@
         android:layout_marginBottom="@dimen/margin_24"
         android:text="@string/filter_button_clear"
 
-        app:layout_constraintEnd_toEndOf="@id/playlistRightGuideLine16"
-        app:layout_constraintStart_toStartOf="@id/playlistLeftGuideLine16"
+        app:layout_constraintEnd_toEndOf="@id/filterRightGuideLine16"
+        app:layout_constraintStart_toStartOf="@id/filterLeftGuideLine16"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
     <androidx.constraintlayout.widget.Group

@@ -20,4 +20,7 @@
     <string name="filter_salary_required">Не показывать без зарплаты</string>
     <string name="filter_button_apply">Применить</string>
     <string name="filter_button_clear">Сбросить</string>
+    <string name="location_topbar_header">Выбор места работы</string>
+    <string name="location_country">Страна</string>
+    <string name="location_region">Регион</string>
 </resources>
