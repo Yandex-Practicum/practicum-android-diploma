@@ -17,6 +17,8 @@
         <item name="colorAccent">@color/blue</item>
         <item name="colorControlActivated">@color/blue</item>
         <item name="bottomNavigationViewBackground">@color/white</item>
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="Theme.PracticumAndroidDiploma" parent="Base.Theme.PracticumAndroidDiploma" />

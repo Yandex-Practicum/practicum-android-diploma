@@ -9,4 +9,9 @@
         android:name="ru.practicum.android.diploma.search.presentation.ui.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/filterFragment"
+        android:name="ru.practicum.android.diploma.filter.presentation.ui.FilterFragment"
+        android:label="FilterFragment"
+        tools:layout="@layout/fragment_filter"/>
 </navigation>

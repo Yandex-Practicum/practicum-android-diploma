@@ -4,6 +4,7 @@
     <dimen name="title_text_size">32sp</dimen>
     <dimen name="header_text_size">22sp</dimen>
     <dimen name="regular_text_size">16sp</dimen>
+    <dimen name="text_size_12">12sp</dimen>
 
     <!--Размеры текста для отдельных элементов-->
     <dimen name="tool_bar_text_size">22sp</dimen>
@@ -18,4 +19,24 @@
     <dimen name="margin_8">8dp</dimen>
     <dimen name="margin_16">16dp</dimen>
     <dimen name="margin_24">24dp</dimen>
+
+    <!--Размеры из Search эпика-->
+    <dimen name="margin_19">19dp</dimen>
+    <dimen name="margin_12">12dp</dimen>
+    <dimen name="margin_27">27dp</dimen>
+    <dimen name="margin_164">164dp</dimen>
+    <dimen name="margin_156">156dp</dimen>
+    <dimen name="margin_143">143dp</dimen>
+    <dimen name="margin_177">177dp</dimen>
+    <dimen name="margin_268">268dp</dimen>
+    <dimen name="margin_26">26dp</dimen>
+    <dimen name="margin_130">130dp</dimen>
+    <dimen name="margin_190">190dp</dimen>
+    <dimen name="margin_52">52dp</dimen>
+    <dimen name="margin_244">244dp</dimen>
+    <dimen name="margin_80">80dp</dimen>
+    <dimen name="margin_9">9dp</dimen>
+
+    <dimen name="salary_box_min_height">48dp</dimen>
+    <dimen name="button_back_height">48dp</dimen>
 </resources>
