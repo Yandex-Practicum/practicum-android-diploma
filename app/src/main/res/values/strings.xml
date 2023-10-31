@@ -3,8 +3,21 @@
     <string name="command">Команда</string>
     <string name="favorite">Избранное</string>
     <string name="main">Главная</string>
+
+    <!-- search section -->
     <string name="vacancy_search">Поиск вакансий</string>
     <string name="enter_request">Введите запрос</string>
     <string name="network_error">Нет интернета</string>
     <string name="vacancy_error">Не удалось получить список вакансий</string>
+
+
+    <!-- filter section -->
+    <string name="filter_topbar_header">Настройки фильтрации</string>
+    <string name="filter_location">Место работы</string>
+    <string name="filter_industry">Отрасль</string>
+    <string name="filter_salary_label">Ожидаемая зарплата</string>
+    <string name="filter_salary_hint">Введите сумму</string>
+    <string name="filter_salary_required">Не показывать без зарплаты</string>
+    <string name="filter_button_apply">Применить</string>
+    <string name="filter_button_clear">Сбросить</string>
 </resources>
