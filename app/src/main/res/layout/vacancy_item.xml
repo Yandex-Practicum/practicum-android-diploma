@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/colorPrimary">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="@dimen/edit_text_height"
+        android:layout_height="@dimen/edit_text_height"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_9"
+        app:cardCornerRadius="@dimen/margin_12">
+
+        <ImageView
+            android:id="@+id/image_placeholder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/vacancy_item_search_placeholder" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/text_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="@dimen/margin_12"
+        android:layout_marginTop="@dimen/margin_9"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:layout_toEndOf="@id/cardView"
+        android:fontFamily="@font/ys_display_medium"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="@dimen/header_text_size" />
+
+    <TextView
+        android:id="@+id/text_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_header"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="@dimen/margin_12"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:layout_toEndOf="@id/cardView"
+        android:fontFamily="@font/ys_display_regular"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="@dimen/regular_text_size" />
+
+    <TextView
+        android:id="@+id/text_salary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_description"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="@dimen/margin_12"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:layout_toEndOf="@id/cardView"
+        android:fontFamily="@font/ys_display_regular"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="@dimen/regular_text_size" />
+</RelativeLayout>
