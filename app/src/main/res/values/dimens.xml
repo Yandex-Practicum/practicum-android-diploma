@@ -18,4 +18,21 @@
     <dimen name="margin_8">8dp</dimen>
     <dimen name="margin_16">16dp</dimen>
     <dimen name="margin_24">24dp</dimen>
+
+    <!--Размеры из Search эпика-->
+    <dimen name="margin_19">19dp</dimen>
+    <dimen name="margin_12">12dp</dimen>
+    <dimen name="margin_27">27dp</dimen>
+    <dimen name="margin_164">164dp</dimen>
+    <dimen name="margin_156">156dp</dimen>
+    <dimen name="margin_143">143dp</dimen>
+    <dimen name="margin_177">177dp</dimen>
+    <dimen name="margin_268">268dp</dimen>
+    <dimen name="margin_26">26dp</dimen>
+    <dimen name="margin_130">130dp</dimen>
+    <dimen name="margin_190">190dp</dimen>
+    <dimen name="margin_52">52dp</dimen>
+    <dimen name="margin_244">244dp</dimen>
+    <dimen name="margin_80">80dp</dimen>
+
 </resources>

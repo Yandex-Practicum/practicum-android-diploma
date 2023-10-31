@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_16"
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="@dimen/margin_19"
         android:fontFamily="@font/ys_display_medium"
         android:text="@string/vacancy_search"
         android:textColor="?android:textColorPrimary"
@@ -22,10 +22,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:id="@+id/imageButton"
+        android:layout_width="@dimen/edit_text_height"
+        android:layout_height="@dimen/edit_text_height"
         android:layout_marginTop="@dimen/margin_8"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="@dimen/margin_12"
         android:backgroundTint="?attr/colorPrimary"
         android:src="@drawable/menu_search"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,20 +37,41 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_marginStart="@dimen/margin_16"
-        android:layout_marginTop="27dp"
+        android:layout_marginTop="@dimen/margin_27"
         android:layout_marginEnd="@dimen/margin_16"
         android:background="@drawable/edit_text_background"
-        android:drawableEnd="@drawable/icon_search"
-        android:drawableTint="@color/black"
         android:hint="@string/enter_request"
         android:imeOptions="actionDone"
         android:paddingStart="@dimen/margin_16"
-        android:paddingEnd="@dimen/margin_8"
         android:singleLine="true"
+        android:textColor="@color/black"
         android:textColorHint="?attr/colorOnSecondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView" />
+
+    <ImageButton
+        android:id="@+id/icon_search"
+        android:layout_width="@dimen/edit_text_height"
+        android:layout_height="@dimen/edit_text_height"
+        android:src="@drawable/icon_search"
+        android:background="?attr/colorSecondary"
+        android:layout_marginEnd="@dimen/margin_4"
+        app:layout_constraintBottom_toBottomOf="@+id/search_edit_text"
+        app:layout_constraintEnd_toEndOf="@+id/search_edit_text"
+        app:layout_constraintTop_toTopOf="@+id/search_edit_text" />
+
+    <ImageButton
+        android:id="@+id/icon_cross"
+        android:layout_width="@dimen/edit_text_height"
+        android:layout_height="@dimen/edit_text_height"
+        android:layout_marginEnd="@dimen/margin_4"
+        android:src="@drawable/icon_cross"
+        android:background="?attr/colorSecondary"
+        app:layout_constraintBottom_toBottomOf="@+id/search_edit_text"
+        app:layout_constraintEnd_toEndOf="@+id/search_edit_text"
+        app:layout_constraintTop_toTopOf="@+id/search_edit_text"
+        android:visibility="gone"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_search"
@@ -64,7 +86,7 @@
     <TextView
         android:id="@+id/text_vacancy_count"
         android:layout_width="wrap_content"
-        android:layout_height="27dp"
+        android:layout_height="@dimen/margin_27"
         android:layout_marginTop="@dimen/margin_8"
         android:background="@drawable/text_search_count_backgr"
         android:gravity="center_horizontal"
@@ -83,9 +105,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|center_horizontal"
         android:layout_marginStart="@dimen/margin_16"
-        android:layout_marginTop="164dp"
+        android:layout_marginTop="@dimen/margin_164"
         android:layout_marginEnd="@dimen/margin_16"
-        android:layout_marginBottom="156dp"
+        android:layout_marginBottom="@dimen/margin_156"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -98,8 +120,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|center_horizontal"
         android:layout_marginHorizontal="@dimen/margin_16"
-        android:layout_marginTop="143dp"
-        android:layout_marginBottom="177dp"
+        android:layout_marginTop="@dimen/margin_143"
+        android:layout_marginBottom="@dimen/margin_177"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -108,8 +130,8 @@
 
     <TextView
         android:id="@+id/text_connection_error"
-        android:layout_width="268dp"
-        android:layout_height="26dp"
+        android:layout_width="@dimen/margin_268"
+        android:layout_height="@dimen/margin_26"
         android:layout_marginTop="@dimen/margin_16"
         android:textAlignment="center"
         android:text="@string/network_error"
@@ -129,8 +151,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|center_horizontal"
         android:layout_marginHorizontal="@dimen/margin_16"
-        android:layout_marginTop="130dp"
-        android:layout_marginBottom="190dp"
+        android:layout_marginTop="@dimen/margin_130"
+        android:layout_marginBottom="@dimen/margin_190"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -139,8 +161,8 @@
 
     <TextView
         android:id="@+id/text_vacancy_error"
-        android:layout_width="268dp"
-        android:layout_height="52dp"
+        android:layout_width="@dimen/margin_268"
+        android:layout_height="@dimen/margin_52"
         android:layout_marginTop="@dimen/margin_16"
         android:text="@string/vacancy_error"
         android:textSize="@dimen/header_text_size"
@@ -155,11 +177,11 @@
 
     <ProgressBar
         android:id="@+id/progressBar"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="@dimen/edit_text_height"
+        android:layout_height="@dimen/edit_text_height"
         android:layout_gravity="center_horizontal"
-        android:layout_marginHorizontal="156dp"
-        android:layout_marginVertical="244dp"
+        android:layout_marginHorizontal="@dimen/margin_156"
+        android:layout_marginVertical="@dimen/margin_244"
         android:indeterminateTint="@color/blue"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -169,7 +191,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="@dimen/margin_80"
         android:background="?attr/colorPrimary"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -178,10 +200,10 @@
 
     <ProgressBar
         android:id="@+id/progressBar_bottom"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="@dimen/edit_text_height"
+        android:layout_height="@dimen/edit_text_height"
         android:layout_gravity="center|bottom"
-        android:layout_marginHorizontal="156dp"
+        android:layout_marginHorizontal="@dimen/margin_156"
         android:layout_marginBottom="@dimen/margin_16"
         android:indeterminateTint="@color/blue"
         android:visibility="gone"
