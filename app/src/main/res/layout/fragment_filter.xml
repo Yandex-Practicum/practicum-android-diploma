@@ -25,12 +25,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginVertical="@dimen/margin_8"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
             android:id="@+id/btPlaylistBack"
             style="@style/FilterBackImageButtonStyle"
+            android:layout_marginVertical="@dimen/margin_8"
             tools:ignore="ContentDescription,ImageContrastCheck" />
 
         <TextView
