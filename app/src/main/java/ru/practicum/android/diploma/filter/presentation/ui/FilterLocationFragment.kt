@@ -34,6 +34,10 @@ class FilterLocationFragment: Fragment() {
         setMenuEditTextStyle(binding.miLocationCountry, true)
         setMenuEditTextStyle(binding.miLocationRegion, false)
 
+        binding.miLocationCountry.setOnClickListener {
+            showLocation()
+        }
+
         binding.miLocationCountry.setEndIconOnClickListener {
             binding.miLocationCountry.editText?.text = null
             setMenuEditTextStyle(binding.miLocationCountry, false)
@@ -65,5 +69,9 @@ class FilterLocationFragment: Fragment() {
         } else {
             textInputLayout.setEndIconDrawable(R.drawable.ic_filter_arrow_forward)
         }
+    }
+
+    private fun showLocation() {
+        findNavController().navigate(R.id.action_filterLocationFragment_to_locationCountryFragment)
     }
 }

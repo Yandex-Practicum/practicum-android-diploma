@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/topLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btTopBarBack"
+            style="@style/FilterBackImageButtonStyle"
+            android:layout_marginVertical="@dimen/margin_8"
+            tools:ignore="ContentDescription,ImageContrastCheck" />
+
+        <TextView
+            android:id="@+id/tvTopBarTitle"
+            style="@style/FilterTopBarTextStyle"
+            android:layout_marginStart="8dp"
+            android:text="@string/country_topbar_header"/>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCountryList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/margin_16"
+        tools:listitem="@layout/filter_location_view"
+        tools:itemCount="4"
+        android:scrollbars="vertical"
+        android:visibility="visible"/>
+</LinearLayout>

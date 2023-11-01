@@ -37,16 +37,16 @@ class FilterFragment: Fragment() {
         setSalaryEditTextStyle(binding.miFilterSalary, false)
 
         binding.miFilterLocation.editText?.setOnClickListener {
-            showLocationFargment()
+            showLocation()
         }
 
         binding.miFilterIndustry.editText?.setOnClickListener {
-            showRegionFargment()
+            showRegion()
         }
 
         binding.miFilterLocation.setEndIconOnClickListener {
             if (binding.miFilterLocation.editText?.text.isNullOrEmpty())
-                showLocationFargment()
+                showLocation()
             else {
                 binding.miFilterLocation.editText?.text = null
                 setMenuEditTextStyle(binding.miFilterLocation, false)
@@ -55,7 +55,7 @@ class FilterFragment: Fragment() {
 
         binding.miFilterIndustry.setEndIconOnClickListener {
             if (binding.miFilterIndustry.editText?.text.isNullOrEmpty())
-                showRegionFargment()
+                showRegion()
             else {
                 binding.miFilterIndustry.editText?.text = null
                 setMenuEditTextStyle(binding.miFilterIndustry, false)
@@ -105,11 +105,11 @@ class FilterFragment: Fragment() {
         textInputLayout.isEndIconVisible = filled
     }
 
-    private fun showLocationFargment() {
+    private fun showLocation() {
         findNavController().navigate(R.id.action_filterFragment_to_filterLocationFragment)
     }
 
-    private fun showRegionFargment() {
+    private fun showRegion() {
         //
     }
 }

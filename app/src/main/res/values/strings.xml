@@ -23,4 +23,5 @@
     <string name="location_topbar_header">Выбор места работы</string>
     <string name="location_country">Страна</string>
     <string name="location_region">Регион</string>
+    <string name="country_topbar_header">Выбор страны</string>
 </resources>

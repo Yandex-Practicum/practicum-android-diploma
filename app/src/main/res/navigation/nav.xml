@@ -3,12 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav"
-    app:startDestination="@id/searchFragment">
+    app:startDestination="@id/filterFragment">
     <fragment
         android:id="@+id/searchFragment"
         android:name="ru.practicum.android.diploma.search.presentation.ui.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_filterFragment"
+            app:destination="@id/filterFragment" />
+    </fragment>
     <fragment
         android:id="@+id/filterFragment"
         android:name="ru.practicum.android.diploma.filter.presentation.ui.FilterFragment"
@@ -22,5 +26,14 @@
         android:id="@+id/filterLocationFragment"
         android:name="ru.practicum.android.diploma.filter.presentation.ui.FilterLocationFragment"
         android:label="fragment_filter_location"
-        tools:layout="@layout/fragment_filter_location" />
+        tools:layout="@layout/fragment_filter_location" >
+        <action
+            android:id="@+id/action_filterLocationFragment_to_locationCountryFragment"
+            app:destination="@id/locationCountryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/locationCountryFragment"
+        android:name="ru.practicum.android.diploma.filter.presentation.ui.LocationCountryFragment"
+        android:label="LocationCountryFragment"
+        tools:layout="@layout/fragment_location_country"/>
 </navigation>
