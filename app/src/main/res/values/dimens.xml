@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="textSize_22sp">22sp</dimen>
+    <dimen name="margin_4dp">4dp</dimen>
+    <dimen name="textFontWeight_500">500</dimen>
+
+</resources>
