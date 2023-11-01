@@ -24,4 +24,9 @@
     <string name="location_country">Страна</string>
     <string name="location_region">Регион</string>
     <string name="country_topbar_header">Выбор страны</string>
+    <string name="region_topbar_header">Выбор региона</string>
+    <string name="region_edittext_hint">Введите регион</string>
+    <string name="error_region_message">Такого региона нет</string>
+    <string name="error_connection_message">Не удалось получить\nсписок</string>
+    <string name="search_content_description">Найти/Очистить</string>
 </resources>

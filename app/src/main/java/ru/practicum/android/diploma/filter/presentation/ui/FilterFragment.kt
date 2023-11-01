@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.filter.presentation.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterBinding
 import ru.practicum.android.diploma.filter.presentation.viewmodel.FilterViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.search.presentation.ui.SearchFragmentDirections
 
 class FilterFragment: Fragment() {
     private lateinit var binding: FragmentFilterBinding
@@ -41,7 +43,7 @@ class FilterFragment: Fragment() {
         }
 
         binding.miFilterIndustry.editText?.setOnClickListener {
-            showRegion()
+            showIndustry()
         }
 
         binding.miFilterLocation.setEndIconOnClickListener {
@@ -55,7 +57,7 @@ class FilterFragment: Fragment() {
 
         binding.miFilterIndustry.setEndIconOnClickListener {
             if (binding.miFilterIndustry.editText?.text.isNullOrEmpty())
-                showRegion()
+                showIndustry()
             else {
                 binding.miFilterIndustry.editText?.text = null
                 setMenuEditTextStyle(binding.miFilterIndustry, false)
@@ -106,10 +108,14 @@ class FilterFragment: Fragment() {
     }
 
     private fun showLocation() {
-        findNavController().navigate(R.id.action_filterFragment_to_filterLocationFragment)
+        Log.e("filter", findNavController().currentDestination.toString())
+        val action = FilterFragmentDirections.actionFilterFragmentToFilterLocationFragment2(
+            // location
+        )
+       findNavController().navigate(action)
     }
 
-    private fun showRegion() {
+    private fun showIndustry() {
         //
     }
 }

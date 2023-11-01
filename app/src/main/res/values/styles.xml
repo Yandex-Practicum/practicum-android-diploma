@@ -130,4 +130,33 @@
         <item name="android:textColor">?android:attr/textColorPrimary</item>
         <item name="android:textSize">@dimen/regular_text_size</item>
     </style>
+
+    <style name="FilterRegionEditTextSyle">
+        <item name="android:minHeight">@dimen/filter_edittext_min_height</item>
+        <item name="android:layout_marginStart">@dimen/margin_16</item>
+        <item name="android:layout_marginEnd">@dimen/margin_16</item>
+        <item name="android:layout_marginTop">@dimen/margin_8</item>
+        <item name="android:paddingStart">@dimen/margin_16</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:inputType">text</item>
+        <item name="android:background">@drawable/bg_filter_edittext</item>
+
+        <item name="android:imeOptions">actionDone</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/regular_text_size</item>
+        <item name="android:textColorHint">?attr/colorOnSecondary</item>
+        <item name="android:drawableEnd">@drawable/icon_search</item>
+        <item name="android:drawableTint">@color/black</item>
+        <item name="android:importantForAutofill">no</item>
+    </style>
+
+    <style name="FilterPlaceHolderTextViewStyle">
+        <item name="android:gravity">center</item>
+        <item name="android:drawablePadding">@dimen/margin_16</item>
+        <item name="fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/header_text_size</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
 </resources>

@@ -40,4 +40,6 @@
     <dimen name="salary_box_min_height">48dp</dimen>
     <dimen name="button_back_height">48dp</dimen>
     <dimen name="location_item_min_height">60dp</dimen>
+    <dimen name="filter_edittext_min_height">56dp</dimen>
+    <dimen name="filter_edittext_image_size">48dp</dimen>
 </resources>

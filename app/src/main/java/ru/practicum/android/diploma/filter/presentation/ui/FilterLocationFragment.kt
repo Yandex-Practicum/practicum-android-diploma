@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.filter.presentation.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,18 +35,30 @@ class FilterLocationFragment: Fragment() {
         setMenuEditTextStyle(binding.miLocationCountry, true)
         setMenuEditTextStyle(binding.miLocationRegion, false)
 
-        binding.miLocationCountry.setOnClickListener {
-            showLocation()
+        binding.miLocationCountry.editText?.setOnClickListener {
+            showCountry()
+        }
+
+        binding.miLocationRegion.editText?.setOnClickListener {
+            showRegion()
         }
 
         binding.miLocationCountry.setEndIconOnClickListener {
-            binding.miLocationCountry.editText?.text = null
-            setMenuEditTextStyle(binding.miLocationCountry, false)
+            if (binding.miLocationCountry.editText?.text.isNullOrEmpty())
+                showCountry()
+            else {
+                binding.miLocationCountry.editText?.text = null
+                setMenuEditTextStyle(binding.miLocationCountry, false)
+            }
         }
 
         binding.miLocationRegion.setEndIconOnClickListener {
-            binding.miLocationRegion.editText?.text = null
-            setMenuEditTextStyle(binding.miLocationRegion, false)
+            if (binding.miLocationRegion.editText?.text.isNullOrEmpty())
+                showRegion()
+            else {
+                binding.miLocationRegion.editText?.text = null
+                setMenuEditTextStyle(binding.miLocationRegion, false)
+            }
         }
 
         binding.btTopBarBack.setOnClickListener {
@@ -71,7 +84,17 @@ class FilterLocationFragment: Fragment() {
         }
     }
 
-    private fun showLocation() {
-        findNavController().navigate(R.id.action_filterLocationFragment_to_locationCountryFragment)
+    private fun showCountry() {
+        val action = FilterLocationFragmentDirections.actionFilterLocationFragmentToLocationCountryFragment(
+            // country
+        )
+        findNavController().navigate(action)
+    }
+
+    private fun showRegion() {
+        val action = FilterLocationFragmentDirections.actionFilterLocationFragmentToLocationRegionFragment(
+            // region
+        )
+        findNavController().navigate(action)
     }
 }

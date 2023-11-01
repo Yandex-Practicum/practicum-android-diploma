@@ -5,6 +5,7 @@ import org.koin.dsl.module
 import ru.practicum.android.diploma.filter.presentation.viewmodel.FilterLocationViewModel
 import ru.practicum.android.diploma.filter.presentation.viewmodel.FilterViewModel
 import ru.practicum.android.diploma.filter.presentation.viewmodel.LocationCountryViewModel
+import ru.practicum.android.diploma.filter.presentation.viewmodel.LocationRegionViewModel
 
 val viewModelModule = module {
     viewModel {
@@ -17,5 +18,9 @@ val viewModelModule = module {
 
     viewModel {
         LocationCountryViewModel()
+    }
+
+    viewModel {
+        LocationRegionViewModel()
     }
 }
