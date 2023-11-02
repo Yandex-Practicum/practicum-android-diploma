@@ -14,4 +14,10 @@
     <string name="telefon">Телефон</string>
     <string name="comment">Комментарий</string>
     <string name="similar_vacancies">Похожие вакансии</string>
+    <string name="favourites">Избранное</string>
+    <string name="list_empty">Список пуст</string>
+    <string name="search_title">Поиск вакансий</string>
+    <string name="search_hint">Введите запрос</string>
+    <string name="no_internet">Список пустНет интернета</string>
+
 </resources>
