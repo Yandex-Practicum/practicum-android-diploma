@@ -6,12 +6,25 @@
     <dimen name="vertical_item_padding">8dp</dimen>
     <dimen name="Horizontal_item_padding">16dp</dimen>
     <dimen name="margin_20">20dp</dimen>
+    <dimen name="margin_24">24dp</dimen>
     <dimen name="margin_8">8dp</dimen>
+    <dimen name="margin_12">12dp</dimen>
+    <dimen name="margin_2">2dp</dimen>
+    <dimen name="margin_48">48dp</dimen>
+    <dimen name="margin_40">40dp</dimen>
+
+    <dimen name="padding_8">8dp</dimen>
+    <dimen name="padding_24">24dp</dimen>
+    <dimen name="padding_20">20dp</dimen>
+
     <!-- Radius Size -->
     <dimen name="logo_corner_radius">12dp</dimen>
     <!-- Text Size -->
     <dimen name="header_item_size">22sp</dimen>
     <dimen name="content_item_size">16sp</dimen>
+    <dimen name="text_16">16sp</dimen>
+    <dimen name="text_22">22sp</dimen>
+    <dimen name="text_12">12sp</dimen>
 
     <item name="dimens_16" type="dimen">16dp</item>
 </resources>
