@@ -11,5 +11,5 @@
 
     <color name="yp_black">#1A1B22</color>
     <color name="yp_white">#FDFDFD</color>
-
+    <color name="progress_color">#FF3772E7</color>
 </resources>
