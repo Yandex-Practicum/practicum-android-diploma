@@ -25,6 +25,16 @@
 
     </style>
 
+    <style name="NavigationButtonStyle">
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="itemTextColor">@color/bottom_navigate_color</item>
+        <item name="android:textSize">@dimen/button_text_size</item>
+        <item name="itemIconTint">@color/bottom_navigate_color</item>
+        <item name="itemBackground">@color/white</item>
+    </style>
+
+    <dimen name="button_text_size">12sp</dimen>
+
     <style name="EditTextStyle">
         <item name="android:fontFamily">@font/ys_display_regular</item>
         <item name="iconGravity">textStart</item>
