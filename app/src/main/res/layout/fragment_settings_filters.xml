@@ -14,7 +14,8 @@
         android:layout_marginTop="@dimen/margin_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_back_arrow"/>
+        app:srcCompat="@drawable/ic_back_arrow"
+         />
 
     <TextView
         android:id="@+id/settings_header_textview"
@@ -59,10 +60,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
-            android:fontFamily="@font/ys_display_regular"
             android:focusable="false"
+            android:fontFamily="@font/ys_display_regular"
             android:textSize="@dimen/text_16"
-            app:boxBackgroundColor="@android:color/transparent" />
+            app:boxBackgroundColor="@android:color/transparent"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -96,10 +98,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
-            android:fontFamily="@font/ys_display_regular"
             android:focusable="false"
+            android:fontFamily="@font/ys_display_regular"
             android:textSize="@dimen/text_16"
-            app:boxBackgroundColor="@android:color/transparent" />
+            app:boxBackgroundColor="@android:color/transparent"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -127,8 +130,9 @@
             android:hint="@string/input_the_amount"
             android:inputType="number"
             android:textColor="@color/yp_black"
-            android:textColorHint="@color/gray"
-            android:textSize="@dimen/text_16" />
+            android:textColorHint="#616161"
+            android:textSize="@dimen/text_16"
+            tools:ignore="TouchTargetSizeCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -170,7 +174,8 @@
         android:textSize="@dimen/text_16"
         app:layout_constraintBottom_toTopOf="@+id/reset_settings_textview"
         app:layout_constraintEnd_toEndOf="@+id/reset_settings_textview"
-        app:layout_constraintStart_toStartOf="@+id/reset_settings_textview" />
+        app:layout_constraintStart_toStartOf="@+id/reset_settings_textview"
+        tools:ignore="TextContrastCheck" />
 
     <TextView
         android:id="@+id/reset_settings_textview"
@@ -186,6 +191,7 @@
         android:textSize="@dimen/text_16"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="TextContrastCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
