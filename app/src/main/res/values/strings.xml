@@ -1,5 +1,19 @@
 <resources>
     <string name="app_name">Practicum-Android-Diploma</string>
+    <string name="vacancies">Вакансия</string>
+    <string name="ot">от </string>
+    <string name="experience">Требуемый опыт</string>
+    <string name="vacancy_descriptio">Описание вакансии</string>
+    <string name="requirements">Требования</string>
+    <string name="сonditions">Условия</string>
+    <string name="skills">Ключевые навыки</string>
+    <string name="responsibilities_tv">Обязанности</string>
+    <string name="contact">Контакты</string>
+    <string name="contact_person">Контактное лицо</string>
+    <string name="e_mail">E-mail</string>
+    <string name="telefon">Телефон</string>
+    <string name="comment">Комментарий</string>
+    <string name="similar_vacancies">Похожие вакансии</string>
     <string name="favourites">Избранное</string>
     <string name="list_empty">Список пуст</string>
     <string name="search_title">Поиск вакансий</string>
