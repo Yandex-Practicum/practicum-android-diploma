@@ -33,20 +33,20 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp">
+        android:layout_margin="@dimen/dimens_16">
 
         <EditText
             android:id="@+id/seartch_et"
             style="@style/EditTextStyle"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="@dimen/edittext_vertical_size"
             android:background="@drawable/et_background"
             android:hint="@string/search_hint"
             android:imeOptions="actionDone"
             android:inputType="text"
             android:maxLength="30"
             android:maxLines="1"
-            android:paddingStart="8dp"
+            android:paddingStart="@dimen/margin_8"
             android:singleLine="true" />
 
         <ImageView
@@ -63,7 +63,7 @@
         style="@style/SearchCountStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="@dimen/margin_top_search_count"
         android:layout_marginBottom="@dimen/margin_8"
         android:layout_gravity="center"
         android:visibility="gone" />
@@ -72,7 +72,7 @@
         android:id="@+id/start_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="16dp"
+        android:layout_marginHorizontal="@dimen/dimens_16"
         android:scaleType="centerInside"
         android:src="@drawable/search_start" />
 
