@@ -21,4 +21,6 @@
     <!-- View Size -->
     <dimen name="edittext_vertical_size">56dp</dimen>
 
+    <dimen name="margin_24dp">24dp</dimen>
+
 </resources>
