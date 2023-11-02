@@ -111,7 +111,4 @@
         <item name="android:layout_marginTop">@dimen/margin_24dp</item>
         <item name="android:layout_marginBottom">@dimen/margin_24dp</item>
     </style>
-
-
-
 </resources>
