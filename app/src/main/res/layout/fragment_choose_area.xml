@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <ImageView
+        android:id="@+id/choose_area_back_arrow_imageview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_20"
+        android:layout_marginTop="@dimen/margin_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_back_arrow" />
+
+    <TextView
+        style="@style/textStyle"
+        android:id="@+id/choose_area_header_textview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_20"
+        android:layout_marginTop="@dimen/margin_20"
+        android:fontFamily="@font/ys_display_medium"
+        android:text="@string/choose_area"
+        android:textSize="@dimen/text_22"
+        app:layout_constraintStart_toEndOf="@+id/choose_area_back_arrow_imageview"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/choose_area_enter_field_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimens_16"
+        android:layout_marginTop="@dimen/margin_24"
+        android:background="@drawable/rounded_edittext_background"
+        android:backgroundTint="@color/light_gray"
+        android:drawableEnd="@drawable/ic_search"
+        android:drawableTint="@color/black"
+        android:fontFamily="@font/ys_display_regular"
+        android:hint="@string/input_area"
+        android:imeOptions="actionDone"
+        android:padding="@dimen/dimens_16"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray"
+        android:textCursorDrawable="@drawable/color_cursor"
+        android:textSize="@dimen/text_16"
+        app:layout_constraintTop_toBottomOf="@+id/choose_area_header_textview" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/choose_area_list_recycle_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/choose_area_enter_field_edittext"
+        tools:itemCount="15"
+        tools:listitem="@layout/industry_area_item"
+        />
+
+    <LinearLayout
+        android:id="@+id/error_areas_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/placeholder_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/search_placeholder" />
+
+        <TextView
+            style="@style/textStyle"
+            android:id="@+id/areas_error_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dimens_16"
+            android:fontFamily="@font/ys_display_medium"
+            />
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/choose_area_approve_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimens_16"
+        android:layout_marginBottom="@dimen/margin_24"
+        android:background="@drawable/rounded_edittext_background"
+        android:backgroundTint="@color/blue"
+        android:fontFamily="@font/ys_display_medium"
+        android:paddingVertical="@dimen/padding_20"
+        android:text="@string/choose"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_16"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/choose_area_list_recycle_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

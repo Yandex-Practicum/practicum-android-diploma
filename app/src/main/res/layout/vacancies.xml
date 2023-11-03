@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include
+            android:id="@+id/toolbarInclude"
+            layout="@layout/toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="16dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="16dp" />
+
+        <TextView
+            android:id="@+id/job_name_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/toolbarInclude"
+            tools:text="Андройд-разработчик" />
+
+        <TextView
+            android:id="@+id/job_payment_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ot"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/textSize_22sp"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/job_name_tv" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/rounded_rectangle"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/job_payment_tv">
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:src="@drawable/logo"
+                tools:ignore="ContentDescription" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/name_company_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/ys_display"
+                    android:textColor="@color/text_color"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    tools:text="Еда" />
+
+                <TextView
+                    android:id="@+id/location_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/ys_display"
+                    android:textColor="@color/text_color"
+                    android:textSize="16sp"
+                    tools:text="Москва" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/experience"
+            style="@style/TextViewHeader"
+            android:layout_marginTop="24dp"
+            android:text="@string/experience"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+        <TextView
+            android:id="@+id/experience_tv"
+            style="@style/TextView"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/experience"
+            tools:text="от 1 года до 3 лет" />
+
+        <TextView
+            android:id="@+id/employment_tv"
+            style="@style/TextView"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/experience_tv"
+            tools:text="Полная занятость, Удаленная работа" />
+
+        <TextView
+            android:id="@+id/vacancy_descriptio"
+            style="@style/TextViewTitle"
+            android:text="@string/vacancy_descriptio"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/employment_tv" />
+
+        <TextView
+            android:id="@+id/responsibilities_header_tv"
+            style="@style/TextViewHeader"
+            android:text="@string/responsibilities_tv"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/vacancy_descriptio" />
+
+
+        <TextView
+            android:id="@+id/responsibilities_tv1"
+            style="@style/TextView"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/ys_display"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/responsibilities_header_tv"
+            tools:text="  •  Разрабатывать новую функциональность приложения" />
+
+        <TextView
+            android:id="@+id/responsibilities_tv2"
+            style="@style/TextView"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/responsibilities_tv1"
+            tools:text="  •  Помогать с интеграцией нашего SDK в другие приложения" />
+
+        <TextView
+            android:id="@+id/responsibilities_tv3"
+            style="@style/TextView"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/responsibilities_tv2"
+            tools:text="  •  Проектировать большие новые модули" />
+
+        <TextView
+            android:id="@+id/responsibilities_tv4"
+            style="@style/TextView"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/responsibilities_tv3"
+            tools:text="  •  Писать UI- и unit-тесты" />
+
+        <TextView
+            android:id="@+id/responsibilities_tv5"
+            style="@style/TextView"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/responsibilities_tv4"
+            tools:text="  •  Следить за работоспособностью сервиса и устранять технический долг" />
+
+        <TextView
+            android:id="@+id/requirements_tv"
+            style="@style/TextViewHeader"
+            android:text="@string/requirements"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/responsibilities_tv5" />
+
+        <TextView
+            android:id="@+id/requirements_tv1"
+            style="@style/TextView"
+            android:layout_marginTop="4dp"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/requirements_tv"
+            tools:text="  •  100% Kotlin" />
+
+        <TextView
+            android:id="@+id/requirements_tv2"
+            style="@style/TextView"
+            android:layout_width="0dp"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/requirements_tv1"
+            tools:text="  •  WebRTC" />
+
+        <TextView
+            android:id="@+id/requirements_tv3"
+            style="@style/TextView"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/requirements_tv2"
+            tools:text=" • CI по модели Trunk Based Development" />
+
+        <TextView
+            android:id="@+id/conditions_tv"
+            style="@style/TextViewHeader"
+            android:text="@string/сonditions"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/requirements_tv3" />
+
+        <TextView
+            android:id="@+id/conditions_tv1"
+            style="@style/TextView"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/conditions_tv"
+            tools:text="  •  сильная команда, с которой можно расти" />
+
+        <TextView
+            android:id="@+id/conditions_tv2"
+            style="@style/TextView"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/conditions_tv1"
+            tools:text="  •  возможность влиять на процесс и результат" />
+
+        <TextView
+            android:id="@+id/conditions_tv3"
+            style="@style/TextView"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/conditions_tv2"
+            tools:text="  •  расширенная программа ДМС: стоматология, обследования, вызов врача на дом и многое другое" />
+
+        <TextView
+            android:id="@+id/skills"
+            style="@style/TextViewTitle"
+            android:text="@string/skills"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/conditions_tv3" />
+
+        <TextView
+            android:id="@+id/skills_tv1"
+            style="@style/TextView"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/skills"
+            tools:text="  •  Знание классических алгоритмов и структуры данных" />
+
+        <TextView
+            android:id="@+id/skills_tv2"
+            style="@style/TextView"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/skills_tv1"
+            tools:text="  •  Программирование для Android больше одного года" />
+
+        <TextView
+            android:id="@+id/skills_tv3"
+            style="@style/TextView"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/skills_tv2"
+            tools:text="  •  Знание WebRTC" />
+
+        <TextView
+            android:id="@+id/contact"
+            style="@style/TextViewTitle"
+            android:text="@string/contact"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/skills_tv3" />
+
+        <TextView
+            android:id="@+id/contact_person"
+            style="@style/TextViewHeader"
+            android:text="@string/contact_person"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/contact" />
+
+        <TextView
+            android:id="@+id/contact_person_name"
+            style="@style/TextView"
+            android:layout_marginTop="4dp"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/contact_person"
+            tools:text="Ирина" />
+
+        <TextView
+            android:id="@+id/email_title"
+            style="@style/TextViewHeader"
+            android:text="@string/e_mail"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/contact_person_name" />
+
+        <TextView
+            android:id="@+id/email_address"
+            style="@style/TextView"
+            android:layout_marginTop="4dp"
+            android:autoLink="email"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/email_title"
+            tools:text="yandex@yandex.ru" />
+
+        <TextView
+            android:id="@+id/telefone_title"
+            style="@style/TextViewHeader"
+            android:text="@string/telefon"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/email_address" />
+
+        <TextView
+            android:id="@+id/telefone"
+            style="@style/TextView"
+            android:layout_marginTop="4dp"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/telefone_title"
+            tools:text="+7(904)329-27-71" />
+
+        <TextView
+            android:id="@+id/comment_title"
+            style="@style/TextViewHeader"
+            android:text="@string/comment"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/telefone" />
+
+        <TextView
+            android:id="@+id/comment"
+            style="@style/TextView"
+            android:layout_marginTop="4dp"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/comment_title"
+            tools:text="Заполнить анкету по форме можно на нашем сайте" />
+
+        <Button
+            style="@style/MyButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:fontFamily="@font/ys_display"
+            android:text="@string/similar_vacancies"
+            android:textAllCaps="false"
+            android:textColor="@color/my_button_text_color"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/comment" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

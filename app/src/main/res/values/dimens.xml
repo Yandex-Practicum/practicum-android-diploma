@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="textSize_22sp">22sp</dimen>
+    <dimen name="margin_4dp">4dp</dimen>
+    <dimen name="textFontWeight_500">500</dimen>
     <!-- Margin and Padding Size -->
     <dimen name="end_logo_item_margin">12dp</dimen>
     <dimen name="logo_item_padding">8dp</dimen>
@@ -12,10 +15,13 @@
     <dimen name="margin_2">2dp</dimen>
     <dimen name="margin_48">48dp</dimen>
     <dimen name="margin_40">40dp</dimen>
+    <dimen name="margin_35">35dp</dimen>
 
     <dimen name="padding_8">8dp</dimen>
     <dimen name="padding_24">24dp</dimen>
     <dimen name="padding_20">20dp</dimen>
+
+    <dimen name="margin_top_search_count">2dp</dimen>
 
     <!-- Radius Size -->
     <dimen name="logo_corner_radius">12dp</dimen>
@@ -27,8 +33,12 @@
     <dimen name="text_22">22sp</dimen>
     <dimen name="text_12">12sp</dimen>
 
+    <dimen name="text_32">32sp</dimen>
+
     <item name="dimens_16" type="dimen">16dp</item>
     <!-- View Size -->
     <dimen name="edittext_vertical_size">56dp</dimen>
+
+    <dimen name="margin_24dp">24dp</dimen>
 
 </resources>
