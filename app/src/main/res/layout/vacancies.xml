@@ -371,7 +371,7 @@
             android:fontFamily="@font/ys_display"
             android:text="@string/similar_vacancies"
             android:textAllCaps="false"
-            android:textColor="@color/my_button_text_color"
+            android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"

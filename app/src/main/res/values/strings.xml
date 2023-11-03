@@ -39,7 +39,6 @@
     <string name="search_title">Поиск вакансий</string>
     <string name="search_hint">Введите запрос</string>
     <string name="no_internet">Список пустНет интернета</string>
-
     <string name="main_menu_button">Главная</string>
     <string name="favorite_menu_button">Избранное</string>
     <string name="team_menu_button">Команда</string>
