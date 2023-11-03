@@ -12,10 +12,10 @@
     <dimen name="margin_2">2dp</dimen>
     <dimen name="margin_48">48dp</dimen>
     <dimen name="margin_35">35dp</dimen>
-
     <dimen name="padding_8">8dp</dimen>
     <dimen name="padding_24">24dp</dimen>
     <dimen name="padding_20">20dp</dimen>
+    <dimen name="margin_32">32dp</dimen>
 
     <dimen name="margin_top_search_count">2dp</dimen>
     <!-- Radius Size -->

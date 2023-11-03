@@ -22,6 +22,8 @@
 
     <style name="textStyle">
         <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/text_16</item>
+        <item name="android:fontFamily">@font/ys_display_medium"</item>
 
     </style>
 
