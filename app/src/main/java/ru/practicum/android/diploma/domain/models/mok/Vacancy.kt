@@ -144,7 +144,7 @@ fun parseVacancy(jsonStr: String): Vacancy? {
     return gson.fromJson(jsonStr, Vacancy::class.java)
 }
 
-fun main() {
+fun getVacancy(): Vacancy? {
     val jsonStr = """
         {
             "id": "88913459",
@@ -242,6 +242,12 @@ fun main() {
     """
 
     val vacancy = parseVacancy(jsonStr)
-    println(vacancy)
+    return vacancy
 }
+
+fun getVacancies(): MutableList<Vacancy> {
+    val vacancy = getVacancy()
+    return if (vacancy != null) mutableListOf(vacancy) else mutableListOf()
+}
+
 
