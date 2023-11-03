@@ -8,4 +8,8 @@
     <string name="apply">Применить</string>
     <string name="reset">Сбросить</string>
     <string name="choose">Выбрать</string>
+    <string name="search_title">Поиск вакансий</string>
+    <string name="search_hint">Введите запрос</string>
+    <string name="no_internet">Список пустНет интернета</string>
+
 </resources>

@@ -19,6 +19,7 @@
 
     <!-- Radius Size -->
     <dimen name="logo_corner_radius">12dp</dimen>
+    <dimen name="search_corner_radius">12dp</dimen>
     <!-- Text Size -->
     <dimen name="header_item_size">22sp</dimen>
     <dimen name="content_item_size">16sp</dimen>
@@ -27,4 +28,7 @@
     <dimen name="text_12">12sp</dimen>
 
     <item name="dimens_16" type="dimen">16dp</item>
+    <!-- View Size -->
+    <dimen name="edittext_vertical_size">56dp</dimen>
+
 </resources>
