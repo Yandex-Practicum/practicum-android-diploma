@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="@dimen/padding_20">
+    android:paddingHorizontal="@dimen/padding_20"
+    tools:context=".presentation.similar.SimilarVacanciesFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
