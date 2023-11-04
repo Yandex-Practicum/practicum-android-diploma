@@ -23,11 +23,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_20"
         android:layout_marginTop="@dimen/margin_20"
-        android:text="Выбор региона"
+        android:fontFamily="@font/ys_display_medium"
+        android:text="@string/choose_area"
         android:textSize="@dimen/text_22"
         app:layout_constraintStart_toEndOf="@+id/choose_area_back_arrow_imageview"
         app:layout_constraintTop_toTopOf="parent" />
-
     <EditText
         style="@style/EditTextStyle"
         android:id="@+id/choose_area_enter_field_edittext"
@@ -39,10 +39,13 @@
         android:backgroundTint="@color/light_gray"
         android:drawableEnd="@drawable/ic_search"
         android:drawableTint="@color/black"
-        android:hint="Введите регион"
+        android:fontFamily="@font/ys_display_regular"
+        android:hint="@string/input_area"
         android:imeOptions="actionDone"
         android:padding="@dimen/dimens_16"
         android:singleLine="true"
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray"
         android:textCursorDrawable="@drawable/color_cursor"
         android:textSize="@dimen/text_16"
         app:layout_constraintTop_toBottomOf="@+id/choose_area_header_textview" />
@@ -55,7 +58,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/choose_area_enter_field_edittext"
         tools:itemCount="15"
-        tools:listitem="@layout/industry_area_item" />
+        tools:listitem="@layout/industry_area_item"
+        />
+
 
     <LinearLayout
         android:id="@+id/error_areas_layout"
@@ -81,6 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/dimens_16"
+            android:fontFamily="@font/ys_display_medium"
             />
 
     </LinearLayout>
@@ -94,8 +100,8 @@
         android:background="@drawable/rounded_edittext_background"
         android:backgroundTint="@color/blue"
         android:fontFamily="@font/ys_display_medium"
-        android:paddingVertical="@dimen/margin_20"
-        android:text="Выбрать"
+        android:paddingVertical="@dimen/padding_20"
+        android:text="@string/choose"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="@dimen/text_16"
@@ -103,5 +109,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/choose_area_list_recycle_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,24 @@
 <resources>
     <string name="app_name">Practicum-Android-Diploma</string>
+    <string name="vacancies">Вакансия</string>
+    <string name="ot">от </string>
+    <string name="experience">Требуемый опыт</string>
+    <string name="vacancy_descriptio">Описание вакансии</string>
+    <string name="requirements">Требования</string>
+    <string name="сonditions">Условия</string>
+    <string name="skills">Ключевые навыки</string>
+    <string name="responsibilities_tv">Обязанности</string>
+    <string name="contact">Контакты</string>
+    <string name="contact_person">Контактное лицо</string>
+    <string name="e_mail">E-mail</string>
+    <string name="telefon">Телефон</string>
+    <string name="comment">Комментарий</string>
     <string name="favourites">Избранное</string>
     <string name="list_empty">Список пуст</string>
+    <string name="work_place">Выбор места работы</string>
+    <string name="country">Страна</string>
+    <string name="region">Регион</string>
+    <string name="similar_vacancies">Похожие вакансии</string>
     <string name="settings_filters">Настройки фильтрации</string>
     <string name="sector">Отрасль</string>e
     <string name="expected_salary">Ожидаемая ЗП</string>
@@ -18,10 +35,13 @@
     <string name="dev_4">Ринат Мубинов</string>
     <string name="similar_vacancies">Похожие вакансии</string>
 
+    <string name="choose_area">Выбор региона</string>
+    <string name="input_area">Введите регион</string>
+    <string name="choose">Выбрать</string>
+    <string name="sector_or_area">Отрасль или регион</string>
     <string name="search_title">Поиск вакансий</string>
     <string name="search_hint">Введите запрос</string>
     <string name="no_internet">Список пустНет интернета</string>
-
     <string name="main_menu_button">Главная</string>
     <string name="favorite_menu_button">Избранное</string>
     <string name="team_menu_button">Команда</string>
