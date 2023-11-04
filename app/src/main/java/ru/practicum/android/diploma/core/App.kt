@@ -3,11 +3,10 @@ package ru.practicum.android.diploma.core
 import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
-import ru.practicum.android.diploma.core.di.favoriteModule
-import ru.practicum.android.diploma.core.di.filterModule
-import ru.practicum.android.diploma.core.di.detailsModule
-import ru.practicum.android.diploma.core.di.searchModule
-import ru.practicum.android.diploma.core.di.similarVacanciesModule
+import ru.practicum.android.diploma.core.di.dataModule
+import ru.practicum.android.diploma.core.di.interactorModule
+import ru.practicum.android.diploma.core.di.repositoryModule
+import ru.practicum.android.diploma.core.di.viewModelModule
 
 class App : Application() {
 
@@ -16,11 +15,10 @@ class App : Application() {
         startKoin {
             androidContext(this@App)
             modules(
-                detailsModule,
-                favoriteModule,
-                searchModule,
-                filterModule,
-                similarVacanciesModule,
+                dataModule,
+                viewModelModule,
+                interactorModule,
+                repositoryModule,
             )
         }
     }
