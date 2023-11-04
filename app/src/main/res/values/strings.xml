@@ -42,4 +42,5 @@
     <string name="main_menu_button">Главная</string>
     <string name="favorite_menu_button">Избранное</string>
     <string name="team_menu_button">Команда</string>
+    <string name="not_salary">Зарплата не указана</string>
 </resources>
