@@ -17,7 +17,7 @@
         app:layout_constraintEnd_toStartOf="@id/industry_region_check_radiobutton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Отрасль или регион" />
+        tools:text="@string/sector_or_area" />
 
     <RadioButton
         android:id="@+id/industry_region_check_radiobutton"

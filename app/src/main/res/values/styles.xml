@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="wrap_content">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="match_parent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="match_parent_wrap_content">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="wrap_content_match_parent">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+
+    <style name="MyButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/button_rounded</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     <style name="HeadVacancyItem">
         <item name="android:fontFamily">@font/ys_display_medium</item>
         <item name="android:textSize">@dimen/header_item_size</item>
@@ -22,8 +48,9 @@
 
     <style name="textStyle">
         <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
         <item name="android:textSize">@dimen/text_16</item>
-        <item name="android:fontFamily">@font/ys_display_medium"</item>
+
 
     </style>
 
@@ -65,4 +92,40 @@
         <item name="android:paddingVertical">8dp</item>
     </style>
 
+    <style name="dpWrapContent">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+
+    <style name="TextView" parent="dpWrapContent">
+        <item name="android:fontFamily">@font/ys_display</item>
+        <item name="android:textSize">@dimen/content_item_size</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+
+    <style name="TextViewTitle" parent="dpWrapContent">
+        <item name="android:fontFamily">@font/ys_display</item>
+        <item name="android:textSize">@dimen/textSize_22sp</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">@dimen/dimens_16</item>
+    </style>
+
+    <style name="TextViewHeader" parent="dpWrapContent">
+        <item name="android:fontFamily">@font/ys_display</item>
+        <item name="android:textSize">@dimen/content_item_size</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">@dimen/dimens_16</item>
+    </style>
+
+    <style name="ButtonVacancy" parent="dpWrapContent">
+        <item name="android:fontFamily">@font/ys_display</item>
+        <item name="android:textSize">@dimen/content_item_size</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:layout_marginTop">@dimen/margin_24dp</item>
+        <item name="android:layout_marginBottom">@dimen/margin_24dp</item>
+    </style>
 </resources>
