@@ -11,7 +11,7 @@ android {
     defaultConfig {
         applicationId = "ru.practicum.android.diploma"
         minSdk = 26
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -59,7 +59,7 @@ dependencies {
     implementation ("com.google.code.gson:gson:2.10")
     implementation ("com.github.bumptech.glide:glide:4.14.2")
     //coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
 
     //koin
     implementation("io.insert-koin:koin-android:3.4.2")
