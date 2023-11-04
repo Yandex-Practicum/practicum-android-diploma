@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.presentation.search
 
-import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.domain.models.mok.Vacancy
 
 sealed interface SearchState {
     object Loading : SearchState

@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.domain.models.mok.getVacancies
 
 class SearchViewModel : ViewModel() {
 
@@ -28,7 +29,7 @@ class SearchViewModel : ViewModel() {
         }
     }
     private fun search(inputText: String) {
-        renderState(SearchState.Empty(inputText))
+        renderState(SearchState.Content(getVacancies()))
     }
     private fun renderState(state: SearchState) {
         stateLiveData.postValue(state)

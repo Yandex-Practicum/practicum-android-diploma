@@ -11,18 +11,12 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import ru.practicum.android.diploma.R
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
-import ru.practicum.android.diploma.domain.models.Vacancy
-import ru.practicum.android.diploma.domain.models.mok.getVacancies
-import ru.practicum.android.diploma.presentation.detail.DetailFragment
-import ru.practicum.android.diploma.util.debounce
 import ru.practicum.android.diploma.domain.models.mok.Vacancy
-import ru.practicum.android.diploma.domain.models.mok.getVacancies
-import ru.practicum.android.diploma.presentation.detail.DetailFragment.Companion.addArgs
+import ru.practicum.android.diploma.presentation.detail.DetailFragment
 import ru.practicum.android.diploma.util.debounce
 
 class SearchFragment : Fragment() {
@@ -52,7 +46,6 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.rvSearch.adapter = adapter
-        vacancies.addAll(getVacancies())
         onItemClickDebounce = debounce(
             CLICK_DEBOUNCE_DELAY_MILLIS,
             viewLifecycleOwner.lifecycleScope,
@@ -118,12 +111,14 @@ class SearchFragment : Fragment() {
         binding.placeholderMessage.isVisible = false
     }
 
-    private fun showContent(vacancies: List<Vacancy>) {
+    private fun showContent(searchVacancies: List<Vacancy>) {
         binding.startImage.isVisible = false
         binding.progressBar.isVisible = false
         binding.rvSearch.isVisible = true
         binding.searchCount.isVisible = true
         binding.placeholderMessage.isVisible = false
+        vacancies.clear()
+        vacancies.addAll(searchVacancies)
         adapter.notifyDataSetChanged()
     }
 
