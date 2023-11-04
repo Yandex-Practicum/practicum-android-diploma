@@ -1,23 +1,36 @@
 package ru.practicum.android.diploma.presentation.search
 
+import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import ru.practicum.android.diploma.R
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
+import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.domain.models.mok.getVacancies
+import ru.practicum.android.diploma.presentation.detail.DetailFragment
+import ru.practicum.android.diploma.util.debounce
 import ru.practicum.android.diploma.domain.models.mok.Vacancy
 import ru.practicum.android.diploma.domain.models.mok.getVacancies
 import ru.practicum.android.diploma.presentation.detail.DetailFragment.Companion.addArgs
 import ru.practicum.android.diploma.util.debounce
 
 class SearchFragment : Fragment() {
+    private val viewModel = SearchViewModel()
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
+    private var inputText: String = ""
+    private var simpleTextWatcher: TextWatcher? = null
     lateinit var onItemClickDebounce: (Vacancy) -> Unit
 
     private val vacancies = mutableListOf<Vacancy>()
@@ -35,6 +48,7 @@ class SearchFragment : Fragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.rvSearch.adapter = adapter
@@ -44,13 +58,101 @@ class SearchFragment : Fragment() {
             viewLifecycleOwner.lifecycleScope,
             false
         ) { vacancy ->
-            addArgs(vacancy)
+            DetailFragment.addArgs(vacancy)
             findNavController().navigate(R.id.action_searchFragment_to_detailFragment)
         }
-        binding.startImage.isVisible = false
-        binding.rvSearch.isVisible = true
-        adapter.notifyDataSetChanged()
+        binding.clearButtonIcon.setOnClickListener {
+            if (binding.searchEt.text.isNotEmpty()) {
+                binding.searchEt.setText("")
+                viewModel.searchDebounce("")
+                val inputMethodManager =
+                    requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+                inputMethodManager?.hideSoftInputFromWindow(binding.clearButtonIcon.windowToken, 0)
+            }
+        }
+        simpleTextWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                inputText = s?.toString() ?: ""
+                viewModel.searchDebounce(inputText)
+                if (binding.searchEt.text.isNotEmpty()) {
+                    binding.clearButtonIcon.setImageResource(R.drawable.ic_clear_et)
+                } else clearEditText()
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        }
+        simpleTextWatcher?.let { binding.searchEt.addTextChangedListener(it) }
+
+        viewModel.observeState().observe(viewLifecycleOwner) {
+            render(it)
+        }
+
+        binding.searchEt.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                if (binding.searchEt.text.isNotEmpty()) {
+                    viewModel.searchDebounce(inputText)
+                    binding.clearButtonIcon.setImageResource(R.drawable.ic_clear_et)
+                } else clearEditText()
+            }
+            false
+        }
+    }
+
+    private fun render(state: SearchState) {
+        when (state) {
+            is SearchState.Loading -> showLoading()
+            is SearchState.Content -> showContent(state.vacancies)
+            is SearchState.Error -> showError(state.errorMessage)
+            is SearchState.Empty -> showEmpty(state.message)
+        }
+    }
+
+    private fun showLoading() {
+        binding.startImage.isVisible = false
+        binding.progressBar.isVisible = true
+        binding.rvSearch.isVisible = false
+        binding.searchCount.isVisible = false
+        binding.placeholderMessage.isVisible = false
+    }
+
+    private fun showContent(vacancies: List<Vacancy>) {
+        binding.startImage.isVisible = false
+        binding.progressBar.isVisible = false
+        binding.rvSearch.isVisible = true
+        binding.searchCount.isVisible = true
+        binding.placeholderMessage.isVisible = false
+        adapter.notifyDataSetChanged()
+    }
+
+    private fun showEmpty(message: String) {
+        binding.startImage.isVisible = false
+        binding.progressBar.isVisible = false
+        binding.rvSearch.isVisible = false
+        binding.searchCount.isVisible = false
+        binding.placeholderMessage.isVisible = true
+        binding.placeholderMessageImage.setImageResource(R.drawable.search_placeholder_nothing_found)
+        binding.placeholderMessageText.text = message
+    }
+
+    private fun showError(errorMessage: String) {
+        binding.startImage.isVisible = false
+        binding.progressBar.isVisible = false
+        binding.rvSearch.isVisible = false
+        binding.searchCount.isVisible = false
+        binding.placeholderMessage.isVisible = true
+        binding.placeholderMessageText.text = errorMessage
+    }
+
+    private fun clearEditText() {
+        binding.clearButtonIcon.setImageResource(R.drawable.ic_clear_et)
+        binding.startImage.isVisible = true
+        binding.progressBar.isVisible = false
+        binding.rvSearch.isVisible = false
+        binding.searchCount.isVisible = false
+        binding.placeholderMessage.isVisible = false
     }
 
     companion object {

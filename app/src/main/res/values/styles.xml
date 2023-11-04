@@ -24,7 +24,7 @@
 
     <style name="MyButtonStyle" parent="Widget.AppCompat.Button">
         <item name="android:background">@drawable/button_rounded</item>
-        <item name="android:textColor">@color/my_button_text_color</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="HeadVacancyItem">
