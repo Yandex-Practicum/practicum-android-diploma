@@ -22,6 +22,7 @@
     <string name="settings_filters">Настройки фильтрации</string>
     <string name="sector">Отрасль</string>e
     <string name="expected_salary">Ожидаемая ЗП</string>
+    <string name="work_place">Место работы</string>
     <string name="input_the_amount">Введите сумму</string>
     <string name="apply">Применить</string>
     <string name="do_not_show_without_salary">Не показывать без ЗП</string>
@@ -32,6 +33,8 @@
     <string name="dev_2">Цабут Ян</string>
     <string name="dev_3">Максим Конончик</string>
     <string name="dev_4">Ринат Мубинов</string>
+    <string name="similar_vacancies">Похожие вакансии</string>
+
     <string name="choose_area">Выбор региона</string>
     <string name="input_area">Введите регион</string>
     <string name="choose">Выбрать</string>
