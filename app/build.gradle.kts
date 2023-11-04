@@ -60,6 +60,9 @@ dependencies {
     implementation ("com.github.bumptech.glide:glide:4.14.2")
     //coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+
+    //koin
+    implementation("io.insert-koin:koin-android:3.4.2")
     //navigation
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.4")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.4")
