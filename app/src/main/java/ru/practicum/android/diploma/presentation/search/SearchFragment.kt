@@ -13,6 +13,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.domain.models.mok.Vacancy
@@ -20,7 +21,7 @@ import ru.practicum.android.diploma.presentation.detail.DetailFragment
 import ru.practicum.android.diploma.util.debounce
 
 class SearchFragment : Fragment() {
-    private val viewModel = SearchViewModel()
+    private val viewModel by viewModel<SearchViewModel> ()
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
     private var inputText: String = ""
@@ -96,10 +97,10 @@ class SearchFragment : Fragment() {
 
     private fun render(state: SearchState) {
         when (state) {
-            is SearchState.Loading -> showLoading()
             is SearchState.Content -> showContent(state.vacancies)
-            is SearchState.Error -> showError(state.errorMessage)
             is SearchState.Empty -> showEmpty(state.message)
+            is SearchState.Error -> showError(state.errorMessage)
+            SearchState.Loading -> showLoading()
         }
     }
 

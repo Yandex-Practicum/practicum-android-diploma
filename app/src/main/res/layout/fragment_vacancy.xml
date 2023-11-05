@@ -84,7 +84,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/name_company_tv"
+                    android:id="@+id/employer_name_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/ys_display"
@@ -263,7 +263,7 @@
             app:layout_constraintTop_toBottomOf="@+id/conditions_tv3" />
 
         <TextView
-            android:id="@+id/skills_tv1"
+            android:id="@+id/skills_tv"
             style="@style/TextView"
             app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
             app:layout_constraintStart_toStartOf="@+id/guidelineRight"
@@ -271,28 +271,12 @@
             tools:text="  •  Знание классических алгоритмов и структуры данных" />
 
         <TextView
-            android:id="@+id/skills_tv2"
-            style="@style/TextView"
-            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
-            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/skills_tv1"
-            tools:text="  •  Программирование для Android больше одного года" />
-
-        <TextView
-            android:id="@+id/skills_tv3"
-            style="@style/TextView"
-            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
-            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/skills_tv2"
-            tools:text="  •  Знание WebRTC" />
-
-        <TextView
             android:id="@+id/contact"
             style="@style/TextViewTitle"
             android:text="@string/contact"
             app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
             app:layout_constraintStart_toStartOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/skills_tv3" />
+            app:layout_constraintTop_toBottomOf="@+id/skills_tv" />
 
         <TextView
             android:id="@+id/contact_person"
@@ -330,20 +314,21 @@
             tools:text="yandex@yandex.ru" />
 
         <TextView
-            android:id="@+id/telefone_title"
+            android:id="@+id/phone_title"
             style="@style/TextViewHeader"
             android:text="@string/telefon"
             app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
             app:layout_constraintStart_toStartOf="@+id/guidelineRight"
             app:layout_constraintTop_toBottomOf="@+id/email_address" />
 
-        <TextView
-            android:id="@+id/telefone"
-            style="@style/TextView"
-            android:layout_marginTop="4dp"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/phone"
+            tools:listitem="@layout/phone_tv"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
             app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
             app:layout_constraintStart_toStartOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/telefone_title"
+            app:layout_constraintTop_toBottomOf="@+id/phone_title"
             tools:text="+7(904)329-27-71" />
 
         <TextView
@@ -352,7 +337,7 @@
             android:text="@string/comment"
             app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
             app:layout_constraintStart_toStartOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/telefone" />
+            app:layout_constraintTop_toBottomOf="@+id/phone" />
 
         <TextView
             android:id="@+id/comment"
