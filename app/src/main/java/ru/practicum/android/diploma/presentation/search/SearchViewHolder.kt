@@ -6,6 +6,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.ItemVacancyBinding
 import ru.practicum.android.diploma.domain.models.mok.Vacancy
+import ru.practicum.android.diploma.presentation.SalaryPresenter
 
 class SearchViewHolder(private val binding: ItemVacancyBinding) :
     RecyclerView.ViewHolder(binding.root) {
@@ -13,7 +14,7 @@ class SearchViewHolder(private val binding: ItemVacancyBinding) :
     fun bind(item: Vacancy) {
         binding.headVacancyRv.text = item.name
         binding.employerRv.text = item.employer?.name ?: ""
-        binding.salaryRv.text = item.salary?.currency ?: ""
+        binding.salaryRv.text = SalaryPresenter().showSalary(item.salary)
         Glide.with(itemView)
             .load(item.employer?.url)
             .placeholder(R.drawable.logo)
