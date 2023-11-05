@@ -15,10 +15,8 @@
     <string name="comment">Комментарий</string>
     <string name="favourites">Избранное</string>
     <string name="list_empty">Список пуст</string>
-    <string name="work_place">Выбор места работы</string>
     <string name="country">Страна</string>
     <string name="region">Регион</string>
-    <string name="similar_vacancies">Похожие вакансии</string>
     <string name="settings_filters">Настройки фильтрации</string>
     <string name="sector">Отрасль</string>e
     <string name="expected_salary">Ожидаемая ЗП</string>
