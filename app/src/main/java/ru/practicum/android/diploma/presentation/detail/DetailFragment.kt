@@ -37,6 +37,7 @@ class DetailFragment : Fragment() {
         val vacancy = viewModel.getVacancy()
         binding.jobNameTv.text = vacancy.name
         binding.jobPaymentTv.text = SalaryPresenter().showSalary(vacancy.salary)
+        binding.experienceTv.text = vacancy.experience
         binding.employerNameTv.text = vacancy.employer?.name ?: ""
         binding.locationTv.text = vacancy.address
         binding.contactPersonName.text = vacancy.contacts.name ?: ""
@@ -54,12 +55,13 @@ class DetailFragment : Fragment() {
 
         }
         binding.skillsTv.text = vacancy.skills
+        binding.requirementsTv.text = vacancy.requirements
     }
 
 
     companion object {
         fun addArgs(vacancy: Vacancy) {
-
+            vacancy.id
         }
     }
 }

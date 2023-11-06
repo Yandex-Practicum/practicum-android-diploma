@@ -13,5 +13,6 @@ data class Vacancy(
     val employer: EmployerModel?,
     val experience: String?,
     val salary: Salary?,
-    val skills: CharSequence?
+    val skills: CharSequence?,
+    val requirements: CharSequence?
 )

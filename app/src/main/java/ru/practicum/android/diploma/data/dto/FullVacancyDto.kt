@@ -6,7 +6,7 @@ import ru.practicum.android.diploma.domain.models.mok.EmployerModel
 import ru.practicum.android.diploma.domain.models.mok.Salary
 
 
-data class FullVacancyDto (
+data class FullVacancyDto(
     val name: String?,
     val address: Adress,
     @SerializedName("branded_description")
@@ -17,7 +17,10 @@ data class FullVacancyDto (
     val experience: Experience?,
     val salary: Salary?,
     @SerializedName("key_skills")
-    val keySkills: List<SkillName>
+    val keySkills: List<SkillName>,
+    @SerializedName("driver_license_types")
+    val driverLicense: List<License>,
+    val languages: List<Language>,
 )
 
 fun parseFullVacancy(jsonStr: String): FullVacancyDto? {
@@ -28,6 +31,20 @@ fun parseFullVacancy(jsonStr: String): FullVacancyDto? {
 data class SkillName(
     val name: String?
 )
+
+data class License(
+    val id: String?
+)
+
+data class Language (
+    val name: String?,
+    val level: Level,
+)
+
+data class Level(
+    val id: String?,
+    val name: String?
+    )
 
 data class Adress(
     val city: String,

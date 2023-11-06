@@ -189,37 +189,20 @@
             tools:text="  •  Следить за работоспособностью сервиса и устранять технический долг" />
 
         <TextView
-            android:id="@+id/requirements_tv"
+            android:id="@+id/requirements"
             style="@style/TextViewHeader"
             android:text="@string/requirements"
             app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
             app:layout_constraintStart_toStartOf="@+id/guidelineRight"
             app:layout_constraintTop_toBottomOf="@+id/responsibilities_tv5" />
 
-        <TextView
-            android:id="@+id/requirements_tv1"
-            style="@style/TextView"
-            android:layout_marginTop="4dp"
-            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
-            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/requirements_tv"
-            tools:text="  •  100% Kotlin" />
 
         <TextView
-            android:id="@+id/requirements_tv2"
-            style="@style/TextView"
-            android:layout_width="0dp"
-            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
-            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/requirements_tv1"
-            tools:text="  •  WebRTC" />
-
-        <TextView
-            android:id="@+id/requirements_tv3"
+            android:id="@+id/requirements_tv"
             style="@style/TextView"
             app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
             app:layout_constraintStart_toStartOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/requirements_tv2"
+            app:layout_constraintTop_toBottomOf="@+id/requirements"
             tools:text=" • CI по модели Trunk Based Development" />
 
         <TextView
@@ -228,7 +211,7 @@
             android:text="@string/сonditions"
             app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
             app:layout_constraintStart_toStartOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/requirements_tv3" />
+            app:layout_constraintTop_toBottomOf="@+id/requirements_tv" />
 
         <TextView
             android:id="@+id/conditions_tv1"
