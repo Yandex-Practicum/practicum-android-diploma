@@ -18,6 +18,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.domain.SearchState
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.presentation.detail.DetailFragment
 import ru.practicum.android.diploma.util.debounce
 
 
@@ -54,7 +55,7 @@ class SearchFragment : Fragment() {
             viewLifecycleOwner.lifecycleScope,
             false
         ) { vacancy ->
-//            DetailFragment.addArgs(vacancy)
+            DetailFragment.addArgs(vacancy.id)
             findNavController().navigate(R.id.action_searchFragment_to_detailFragment)
         }
         binding.clearButtonIcon.setOnClickListener {
@@ -100,7 +101,7 @@ class SearchFragment : Fragment() {
     private fun render(state: SearchState) {
         when (state) {
             is SearchState.Loading -> showLoading()
-            is SearchState.Content -> showContent(state.vacancies,state.foundValue)
+            is SearchState.Content -> showContent(state.vacancies, state.foundValue)
             is SearchState.Error -> showError(state.errorMessage)
             is SearchState.Empty -> showEmpty(state.message)
         }

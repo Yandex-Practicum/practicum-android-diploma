@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ru.practicum.android.diploma.databinding.VacanciesBinding
-import ru.practicum.android.diploma.domain.models.Vacancy
 
 
 class DetailFragment : Fragment() {
     private var _binding: VacanciesBinding? = null
     private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -22,8 +22,10 @@ class DetailFragment : Fragment() {
     }
 
     companion object {
-        fun addArgs(vacancy: Vacancy){
+        private var vacancyId: String = ""
 
+        fun addArgs(id: String) {
+            vacancyId += id
         }
     }
 }
