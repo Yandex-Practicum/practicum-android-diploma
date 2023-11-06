@@ -2,7 +2,6 @@
 <resources>
     <dimen name="textSize_22sp">22sp</dimen>
     <dimen name="margin_4dp">4dp</dimen>
-    <dimen name="textFontWeight_500">500</dimen>
     <!-- Margin and Padding Size -->
     <dimen name="end_logo_item_margin">12dp</dimen>
     <dimen name="logo_item_padding">8dp</dimen>

@@ -32,5 +32,5 @@
         android:id="@+id/detailFragment"
         android:name="ru.practicum.android.diploma.presentation.detail.DetailFragment"
         android:label="vacancies"
-        tools:layout="@layout/vacancies" />
+        tools:layout="@layout/fragment_vacancy" />
 </navigation>

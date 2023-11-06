@@ -55,7 +55,7 @@ class SearchFragment : Fragment() {
             viewLifecycleOwner.lifecycleScope,
             false
         ) { vacancy ->
-            DetailFragment.addArgs(vacancy.id)
+//            DetailFragment.addArgs(vacancy)
             findNavController().navigate(R.id.action_searchFragment_to_detailFragment)
         }
         binding.clearButtonIcon.setOnClickListener {
