@@ -9,9 +9,6 @@
     <color name="gray">#FFAEAFB4</color>
     <color name="blue">#3772E7</color>
     <color name="red">#F56B6C</color>
-    <color name="blackDayWhiteNight">@color/yp_black</color>
-    <color name="whiteDayBlackNight">@color/yp_white</color>
-    <color name="yp_black">#1A1B22</color>
-    <color name="yp_white">#FDFDFD</color>
+
     <color name="progress_color">#FF3772E7</color>
 </resources>
