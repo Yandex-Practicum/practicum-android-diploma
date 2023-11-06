@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.presentation.chooseArea
+package ru.practicum.android.diploma.presentation.filter.chooseArea
 
 import androidx.fragment.app.Fragment
 
