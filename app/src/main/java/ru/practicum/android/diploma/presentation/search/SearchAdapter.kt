@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.databinding.ItemVacancyBinding
-import ru.practicum.android.diploma.domain.models.mok.Vacancy
+import ru.practicum.android.diploma.domain.models.Vacancy
 
 class SearchAdapter(
     private val data: List<Vacancy>,

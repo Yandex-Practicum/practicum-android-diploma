@@ -43,4 +43,8 @@
     <string name="favorite_menu_button">Избранное</string>
     <string name="team_menu_button">Команда</string>
     <string name="not_salary">Зарплата не указана</string>
+    <string name="check_connection">Проверьте подключение к интернету</string>
+    <string name="server_error">Ошибка сервера</string>
+    <string name="no_connection">Проблемы со связью\n\nЗагрузка не удалась. Проверьте подключение к интернету</string>
+    <string name="no_vacancies">Таких вакансий нет</string>
 </resources>
