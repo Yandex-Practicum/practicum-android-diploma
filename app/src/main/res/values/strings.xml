@@ -15,10 +15,8 @@
     <string name="comment">Комментарий</string>
     <string name="favourites">Избранное</string>
     <string name="list_empty">Список пуст</string>
-    <string name="work_place">Выбор места работы</string>
     <string name="country">Страна</string>
     <string name="region">Регион</string>
-    <string name="similar_vacancies">Похожие вакансии</string>
     <string name="settings_filters">Настройки фильтрации</string>
     <string name="sector">Отрасль</string>e
     <string name="expected_salary">Ожидаемая ЗП</string>
@@ -43,4 +41,10 @@
     <string name="favorite_menu_button">Избранное</string>
     <string name="team_menu_button">Команда</string>
     <string name="not_salary">Зарплата не указана</string>
+    <string name="check_connection">Проверьте подключение к интернету</string>
+    <string name="server_error">Ошибка сервера</string>
+    <string name="no_connection">Проблемы со связью\n\nЗагрузка не удалась. Проверьте подключение к интернету</string>
+    <string name="no_vacancies">Таких вакансий нет</string>
+    <string name="work_place">Выбор места работы</string>
+    <string name="similar_vacancies">Похожие вакансии</string>
 </resources>

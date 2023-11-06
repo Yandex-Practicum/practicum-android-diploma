@@ -16,13 +16,12 @@ import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
-import ru.practicum.android.diploma.domain.models.mok.Vacancy
-import ru.practicum.android.diploma.presentation.detail.DetailFragment
+import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.util.debounce
 
 class SearchFragment : Fragment() {
-    private val viewModel by viewModel<SearchViewModel> ()
     private var _binding: FragmentSearchBinding? = null
+    private val viewModel by viewModel<SearchViewModel>()
     private val binding get() = _binding!!
     private var inputText: String = ""
     private var simpleTextWatcher: TextWatcher? = null
@@ -58,7 +57,7 @@ class SearchFragment : Fragment() {
         binding.clearButtonIcon.setOnClickListener {
             if (binding.searchEt.text.isNotEmpty()) {
                 binding.searchEt.setText("")
-                viewModel.searchDebounce("")
+                viewModel.clearInputEditText()
                 val inputMethodManager =
                     requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
                 inputMethodManager?.hideSoftInputFromWindow(binding.clearButtonIcon.windowToken, 0)
@@ -97,10 +96,10 @@ class SearchFragment : Fragment() {
 
     private fun render(state: SearchState) {
         when (state) {
-            is SearchState.Content -> showContent(state.vacancies)
-            is SearchState.Empty -> showEmpty(state.message)
+            is SearchState.Loading -> showLoading()
+            is SearchState.Content -> showContent(state.vacancies,state.foundValue)
             is SearchState.Error -> showError(state.errorMessage)
-            SearchState.Loading -> showLoading()
+            is SearchState.Empty -> showEmpty(state.message)
         }
     }
 
@@ -112,11 +111,12 @@ class SearchFragment : Fragment() {
         binding.placeholderMessage.isVisible = false
     }
 
-    private fun showContent(searchVacancies: List<Vacancy>) {
+    private fun showContent(searchVacancies: List<Vacancy>, foundValue: Int) {
         binding.startImage.isVisible = false
         binding.progressBar.isVisible = false
         binding.rvSearch.isVisible = true
         binding.searchCount.isVisible = true
+        binding.searchCount.text = foundValue.toString() + "шт"
         binding.placeholderMessage.isVisible = false
         vacancies.clear()
         vacancies.addAll(searchVacancies)

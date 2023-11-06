@@ -15,6 +15,9 @@ import ru.practicum.android.diploma.presentation.SalaryPresenter
 import ru.practicum.android.diploma.presentation.detail.adapter.PhoneAdapter
 import ru.practicum.android.diploma.presentation.search.SearchFragment
 import ru.practicum.android.diploma.util.debounce
+import ru.practicum.android.diploma.databinding.VacanciesBinding
+import ru.practicum.android.diploma.domain.models.Vacancy
+
 
 class DetailFragment : Fragment() {
     private val viewModel by viewModel<DetailViewModel>()
@@ -65,4 +68,3 @@ class DetailFragment : Fragment() {
         }
     }
 }
-
