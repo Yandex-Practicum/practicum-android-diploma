@@ -249,5 +249,3 @@ fun getVacancies(): MutableList<Vacancy> {
     val vacancy = getVacancy()
     return if (vacancy != null) mutableListOf(vacancy) else mutableListOf()
 }
-
-
