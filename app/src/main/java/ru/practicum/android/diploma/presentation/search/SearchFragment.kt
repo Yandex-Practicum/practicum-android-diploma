@@ -17,7 +17,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.domain.SearchState
-import ru.practicum.android.diploma.domain.models.mok.Vacancy
+import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.util.debounce
 
 
@@ -100,10 +100,9 @@ class SearchFragment : Fragment() {
     private fun render(state: SearchState) {
         when (state) {
             is SearchState.Loading -> showLoading()
-
+            is SearchState.Content -> showContent(state.vacancies,state.foundValue)
             is SearchState.Error -> showError(state.errorMessage)
             is SearchState.Empty -> showEmpty(state.message)
-            else -> {}
         }
     }
 
@@ -115,11 +114,12 @@ class SearchFragment : Fragment() {
         binding.placeholderMessage.isVisible = false
     }
 
-    private fun showContent(searchVacancies: List<Vacancy>) {
+    private fun showContent(searchVacancies: List<Vacancy>, foundValue: Int) {
         binding.startImage.isVisible = false
         binding.progressBar.isVisible = false
         binding.rvSearch.isVisible = true
         binding.searchCount.isVisible = true
+        binding.searchCount.text = foundValue.toString() + "шт"
         binding.placeholderMessage.isVisible = false
         vacancies.clear()
         vacancies.addAll(searchVacancies)

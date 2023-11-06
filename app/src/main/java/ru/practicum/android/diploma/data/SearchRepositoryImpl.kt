@@ -8,10 +8,9 @@ import ru.practicum.android.diploma.data.dto.SearchRequestOptions
 import ru.practicum.android.diploma.data.dto.SearchResponse
 import ru.practicum.android.diploma.data.dto.VacancyDto
 import ru.practicum.android.diploma.domain.api.SearchRepository
+import ru.practicum.android.diploma.domain.models.Salary
 import ru.practicum.android.diploma.domain.models.Vacancy
-
 import ru.practicum.android.diploma.util.Resource
-import ru.practicum.android.diploma.util.createValue
 
 class SearchRepositoryImpl(
     private val networkClient: NetworkClient,
@@ -70,29 +69,14 @@ class SearchRepositoryImpl(
             vacancyDto.employer.name,
             found = foundValue,
             vacancyDto.employer.logo_urls?.original,
-            getSymbol(vacancyDto.salary?.currency),
-            createValue(vacancyDto.salary?.from),
-            createValue(vacancyDto.salary?.to),
+            Salary(
+                vacancyDto.salary?.currency,
+                vacancyDto.salary?.from,
+                vacancyDto.salary?.to
+            ),
         )
     }
 
-
-    private fun getSymbol(currency: String?): String? {
-
-        return when (currency) {
-            "AZN" -> "₼"
-            "BYR" -> "Br"
-            "EUR" -> "€"
-            "GEL" -> "₾"
-            "KGS" -> "с"
-            "KZT" -> "₸"
-            "RUR" -> "₽"
-            "UAH" -> "₴"
-            "USD" -> "$"
-            "UZS" -> "UZS"
-            else -> null
-        }
-    }
 
     companion object {
         const val ERROR = -1
