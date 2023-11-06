@@ -10,13 +10,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.data.dto.Phone
 import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
-import ru.practicum.android.diploma.domain.models.mok.Vacancy
-import ru.practicum.android.diploma.presentation.SalaryPresenter
+import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.presentation.detail.adapter.PhoneAdapter
 import ru.practicum.android.diploma.presentation.search.SearchFragment
 import ru.practicum.android.diploma.util.debounce
-import ru.practicum.android.diploma.databinding.VacanciesBinding
-import ru.practicum.android.diploma.domain.models.Vacancy
 
 
 class DetailFragment : Fragment() {
@@ -39,7 +36,7 @@ class DetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val vacancy = viewModel.getVacancy()
         binding.jobNameTv.text = vacancy.name
-        binding.jobPaymentTv.text = SalaryPresenter().showSalary(vacancy.salary)
+        // binding.jobPaymentTv.text = SalaryPresenter().showSalary(vacancy.salary)
         binding.experienceTv.text = vacancy.experience
         binding.employerNameTv.text = vacancy.employer?.name ?: ""
         binding.locationTv.text = vacancy.address
