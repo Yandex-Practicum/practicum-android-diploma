@@ -18,7 +18,6 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.domain.SearchState
 import ru.practicum.android.diploma.domain.models.mok.Vacancy
-import ru.practicum.android.diploma.presentation.detail.DetailFragment
 import ru.practicum.android.diploma.util.debounce
 
 
@@ -61,7 +60,7 @@ class SearchFragment : Fragment() {
         binding.clearButtonIcon.setOnClickListener {
             if (binding.searchEt.text.isNotEmpty()) {
                 binding.searchEt.setText("")
-                viewModel.searchVacancy("")
+                viewModel.clearInputEditText()
                 val inputMethodManager =
                     requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
                 inputMethodManager?.hideSoftInputFromWindow(binding.clearButtonIcon.windowToken, 0)
@@ -72,7 +71,7 @@ class SearchFragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 inputText = s?.toString() ?: ""
-                viewModel.searchVacancy(inputText)
+                viewModel.searchDebounce(inputText)
                 if (binding.searchEt.text.isNotEmpty()) {
                     binding.clearButtonIcon.setImageResource(R.drawable.ic_clear_et)
                 } else clearEditText()
@@ -90,7 +89,7 @@ class SearchFragment : Fragment() {
         binding.searchEt.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 if (binding.searchEt.text.isNotEmpty()) {
-                    viewModel.searchVacancy(inputText)
+                    viewModel.searchDebounce(inputText)
                     binding.clearButtonIcon.setImageResource(R.drawable.ic_clear_et)
                 } else clearEditText()
             }
