@@ -144,75 +144,7 @@
             app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
             app:layout_constraintStart_toStartOf="@+id/guidelineRight"
             app:layout_constraintTop_toBottomOf="@+id/vacancy_description" />
-        <TextView
-            android:id="@+id/responsibilities_header_tv"
-            style="@style/TextViewHeader"
-            android:text="@string/responsibilities_tv"
-            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
-            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/vacancy_description_tv" />
 
-
-        <TextView
-            android:id="@+id/responsibilities_tv1"
-            style="@style/TextView"
-            android:layout_marginTop="4dp"
-            android:fontFamily="@font/ys_display"
-            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
-            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/responsibilities_header_tv"
-            tools:text="  •  Разрабатывать новую функциональность приложения" />
-
-        <TextView
-            android:id="@+id/responsibilities_tv2"
-            style="@style/TextView"
-            android:layout_marginTop="44dp"
-            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/responsibilities_tv1"
-            tools:text="  •  Помогать с интеграцией нашего SDK в другие приложения" />
-
-        <TextView
-            android:id="@+id/responsibilities_tv3"
-            style="@style/TextView"
-            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
-            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/responsibilities_tv2"
-            tools:text="  •  Проектировать большие новые модули" />
-
-        <TextView
-            android:id="@+id/responsibilities_tv4"
-            style="@style/TextView"
-            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
-            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/responsibilities_tv3"
-            tools:text="  •  Писать UI- и unit-тесты" />
-
-        <TextView
-            android:id="@+id/responsibilities_tv5"
-            style="@style/TextView"
-            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
-            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/responsibilities_tv4"
-            tools:text="  •  Следить за работоспособностью сервиса и устранять технический долг" />
-
-        <TextView
-            android:id="@+id/requirements"
-            style="@style/TextViewHeader"
-            android:text="@string/requirements"
-            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
-            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/responsibilities_tv5" />
-
-
-        <TextView
-            android:id="@+id/requirements_tv"
-            style="@style/TextView"
-            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
-            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/requirements"
-            tools:text=" • CI по модели Trunk Based Development" />
 
         <TextView
             android:id="@+id/conditions_tv"
@@ -220,7 +152,7 @@
             android:text="@string/сonditions"
             app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
             app:layout_constraintStart_toStartOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/requirements_tv" />
+            app:layout_constraintTop_toBottomOf="@+id/vacancy_description_tv" />
 
         <TextView
             android:id="@+id/conditions_tv1"

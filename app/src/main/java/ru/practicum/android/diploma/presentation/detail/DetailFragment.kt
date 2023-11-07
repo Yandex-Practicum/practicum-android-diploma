@@ -88,7 +88,6 @@ class DetailFragment : Fragment() {
 
         }
         binding.skillsTv.text = vacancy.skills
-        binding.requirementsTv.text = vacancy.requirements
         binding.employmentTv.text = vacancy.employment
         binding.vacancyDescriptionTv.text = vacancy.description
     }

@@ -20,6 +20,10 @@ interface ApiService {
         @Query("per_page") perPage: Int,
     ): SearchResponse
 
+    @Headers(
+        "Authorization: Bearer ${BuildConfig.HH_ACCESS_TOKEN}",
+        "HH-User-Agent: EmployMe (eenot84@yandex.ru)"
+    )
     @GET("/vacancies/{vacancy_id}")
     suspend fun getVacancy(@Path("vacancy_id") id: String): FullVacancyDto
 }
