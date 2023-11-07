@@ -5,7 +5,7 @@ import ru.practicum.android.diploma.domain.models.detail.FullVacancy
 
 
 interface FavouriteInteractor {
-    fun addToFavourite(fullVacancy: FullVacancy): Flow<Boolean>
+    suspend fun addToFavourite(fullVacancy: FullVacancy)
 
     fun getFavoriteList(): Flow<List<ru.practicum.android.diploma.domain.models.Vacancy>>
 

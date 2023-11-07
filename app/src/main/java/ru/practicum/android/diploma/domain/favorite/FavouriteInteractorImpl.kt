@@ -5,7 +5,7 @@ import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.models.detail.FullVacancy
 
 class FavouriteInteractorImpl(val favouriteRepository: FavouriteRepository) : FavouriteInteractor {
-    override fun addToFavourite(fullVacancy: FullVacancy): Flow<Boolean> {
+    override suspend fun addToFavourite(fullVacancy: FullVacancy) {
         return favouriteRepository.addToFavourite(fullVacancy)
 
     }

@@ -9,7 +9,7 @@ data class VacancyEntity(
     val id: String,
     val name: String,
     val city: String,
-    val employerName: String?,
-    val employerLogoUrl: String?,
+    val employerName: String,
+    val employerLogoUrl: String,
     val salary: String?,
 )

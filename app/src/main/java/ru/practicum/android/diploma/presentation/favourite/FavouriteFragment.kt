@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -43,23 +44,23 @@ class FavouriteFragment : Fragment() {
         viewModel.observeState().observe(viewLifecycleOwner) {
             render(it)
         }
-        binding.recyclerViewFavorite.adapter = adapter
         onItemClickDebounce = debounce(
             SearchFragment.CLICK_DEBOUNCE_DELAY_MILLIS,
             viewLifecycleOwner.lifecycleScope,
             false
         ) { vacancy ->
             DetailFragment.addArgs(vacancy)
-            findNavController().navigate(R.id.action_searchFragment_to_detailFragment)
+            findNavController().navigate(R.id.action_favouriteFragment_to_detailFragment)
         }
+        binding.recyclerViewFavorite.adapter = adapter
         viewModel.fill()
     }
 
     private fun render(favouriteVacancies: List<Vacancy>) {
+        if (favouriteVacancies.isNotEmpty()) binding.placeHolderFavorite.isVisible = false
+        if (favouriteVacancies.isNotEmpty()) binding.recyclerViewFavorite.isVisible = true
         vacancies.clear()
         vacancies.addAll(favouriteVacancies)
         adapter.notifyDataSetChanged()
     }
-
-
 }

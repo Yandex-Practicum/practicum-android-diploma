@@ -28,7 +28,6 @@ class SearchFragment : Fragment() {
     private var inputText: String = ""
     private var simpleTextWatcher: TextWatcher? = null
     lateinit var onItemClickDebounce: (Vacancy) -> Unit
-
     private val vacancies = mutableListOf<Vacancy>()
     private val adapter = SearchAdapter(vacancies) { vacanciy ->
         onItemClickDebounce(vacanciy)

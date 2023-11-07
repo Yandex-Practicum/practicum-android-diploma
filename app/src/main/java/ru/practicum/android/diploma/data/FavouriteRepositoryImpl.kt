@@ -14,12 +14,9 @@ import java.lang.reflect.Type
 
 class FavouriteRepositoryImpl(private val dao: VacancyDao, private val gson: Gson) :
     FavouriteRepository {
-    override fun addToFavourite(fullVacancy: FullVacancy): Flow<Boolean> = flow {
-        if (!dao.getVacanciesId().contains(fullVacancy.id)) {
-            val vacancyEntity = toVacancyEntity(fullVacancy)
-            dao.addVacancy(vacancyEntity)
-        }
-        emit(true)
+    override suspend fun addToFavourite(fullVacancy: FullVacancy) {
+        val vacancyEntity = toVacancyEntity(fullVacancy)
+        dao.addVacancy(vacancyEntity)
     }
 
     override fun deleteFromFavourite(fullVacancy: FullVacancy) {}
@@ -34,8 +31,8 @@ class FavouriteRepositoryImpl(private val dao: VacancyDao, private val gson: Gso
             fullVacancy.id,
             fullVacancy.name,
             fullVacancy.address,
-            fullVacancy.employer?.name,
-            fullVacancy.employer?.vacanciesUrl,
+            fullVacancy.employer?.name ?: "",
+            fullVacancy.employer?.vacanciesUrl ?: "",
             gson.toJson(fullVacancy.salary),
         )
     }

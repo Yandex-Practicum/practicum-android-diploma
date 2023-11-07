@@ -23,9 +23,7 @@ class DetailViewModel(
     fun addToFavourite(fullVacancy: FullVacancy) {
         viewModelScope.launch {
             favouriteInteractor.addToFavourite(fullVacancy)
-                .collect() {
-                    renderState(it)
-                }
+            renderState(true)
         }
     }
 
