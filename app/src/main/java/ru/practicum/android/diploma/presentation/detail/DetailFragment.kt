@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.dto.Phone
 import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
@@ -35,6 +36,12 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val vacancy = viewModel.getVacancy()
+        viewModel.observedFavouriteState().observe(viewLifecycleOwner) {
+            showFavouriteStatus(it)
+        }
+        binding.favouritesIcon.setOnClickListener {
+            viewModel.addToFavourite(vacancy)
+        }
         binding.jobNameTv.text = vacancy.name
         // binding.jobPaymentTv.text = SalaryPresenter().showSalary(vacancy.salary)
         binding.experienceTv.text = vacancy.experience
@@ -56,6 +63,12 @@ class DetailFragment : Fragment() {
         }
         binding.skillsTv.text = vacancy.skills
         binding.requirementsTv.text = vacancy.requirements
+    }
+
+    private fun showFavouriteStatus(isFavorite: Boolean) {
+        if (isFavorite) binding.favouritesIcon.setImageResource(R.drawable.ic_favourite_on) else binding.favouritesIcon.setImageResource(
+            R.drawable.ic_favourite
+        )
     }
 
 

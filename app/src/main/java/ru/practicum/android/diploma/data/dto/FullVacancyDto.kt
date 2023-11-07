@@ -7,7 +7,8 @@ import ru.practicum.android.diploma.domain.models.mok.Salary
 
 
 data class FullVacancyDto(
-    val name: String?,
+    val id: String,
+    val name: String,
     val address: Adress,
     @SerializedName("branded_description")
     val brandedDescription: String?,

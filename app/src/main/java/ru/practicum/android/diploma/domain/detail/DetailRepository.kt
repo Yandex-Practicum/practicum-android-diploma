@@ -1,7 +1,7 @@
 package ru.practicum.android.diploma.domain.detail
 
-import ru.practicum.android.diploma.domain.models.detail.Vacancy
+import ru.practicum.android.diploma.domain.models.detail.FullVacancy
 
 interface DetailRepository {
-    fun getVavancy(): Vacancy
+    fun getVavancy(): FullVacancy
 }

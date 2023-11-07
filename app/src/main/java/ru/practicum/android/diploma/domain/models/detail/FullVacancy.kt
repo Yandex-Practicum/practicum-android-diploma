@@ -4,10 +4,10 @@ import ru.practicum.android.diploma.data.dto.Contacts
 import ru.practicum.android.diploma.domain.models.mok.EmployerModel
 import ru.practicum.android.diploma.domain.models.mok.Salary
 
-data class Vacancy(
-    val name: String?,
-    val address: String?,
-    val brandedDescription: String?,
+data class FullVacancy(
+    val id: String,
+    val name: String,
+    val address: String,
     val contacts: Contacts,
     val description: String?,
     val employer: EmployerModel?,

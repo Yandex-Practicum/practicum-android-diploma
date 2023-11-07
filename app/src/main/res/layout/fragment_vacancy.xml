@@ -10,13 +10,49 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <include
-            android:id="@+id/toolbarInclude"
-            layout="@layout/toolbar"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            app:contentInsetStart="0dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/back_icon"
+                android:contentDescription="back_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:src="@drawable/ic_back_arrow"/>
+
+            <TextView
+                style="@style/HeaderTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimens_16"
+                android:text="@string/vacancies"/>
+
+            <ImageView
+                android:id="@+id/favourites_icon"
+                android:contentDescription="favourites_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="4dp"
+                android:src="@drawable/ic_favourite" />
+
+            <ImageView
+                android:id="@+id/sharing_icon"
+                android:contentDescription="sharing_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/dimens_16"
+                android:src="@drawable/trailing_icon" />
+        </androidx.appcompat.widget.Toolbar>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineLeft"
@@ -41,7 +77,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
             app:layout_constraintStart_toStartOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/toolbarInclude"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
             tools:text="Андройд-разработчик" />
 
         <TextView
