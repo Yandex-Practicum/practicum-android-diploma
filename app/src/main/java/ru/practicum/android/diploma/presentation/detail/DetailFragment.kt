@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.presentation.detail
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -59,6 +60,7 @@ class DetailFragment : Fragment() {
 
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private fun showContent(vacancy: FullVacancy) {
         binding.jobNameTv.text = vacancy.name
         binding.jobPaymentTv.text = SalaryPresenter().showSalary(vacancy.salary)
@@ -87,9 +89,14 @@ class DetailFragment : Fragment() {
         ) { phone ->
 
         }
+        binding.vacancyDescriptionTv.settings.javaScriptEnabled = true
+        val descriptionHtml = vacancy.description
         binding.skillsTv.text = vacancy.skills
         binding.employmentTv.text = vacancy.employment
-        binding.vacancyDescriptionTv.text = vacancy.description
+//        binding.vacancyDescriptionTv.text = vacancy.description
+        if (descriptionHtml != null) {
+            binding.vacancyDescriptionTv.loadDataWithBaseURL(null, descriptionHtml, "text/html", "UTF-8", null)
+        }
     }
 
 

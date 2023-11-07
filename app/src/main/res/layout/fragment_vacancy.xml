@@ -137,46 +137,15 @@
             app:layout_constraintStart_toStartOf="@+id/guidelineRight"
             app:layout_constraintTop_toBottomOf="@+id/employment_tv" />
 
-        <TextView
+        <WebView
             android:id="@+id/vacancy_description_tv"
             style="@style/TextView"
             android:text=""
             app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
             app:layout_constraintStart_toStartOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/vacancy_description" />
+            app:layout_constraintTop_toBottomOf="@+id/vacancy_description"
+            tools:ignore="WebViewLayout" />
 
-
-        <TextView
-            android:id="@+id/conditions_tv"
-            style="@style/TextViewHeader"
-            android:text="@string/сonditions"
-            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
-            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/vacancy_description_tv" />
-
-        <TextView
-            android:id="@+id/conditions_tv1"
-            style="@style/TextView"
-            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
-            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/conditions_tv"
-            tools:text="  •  сильная команда, с которой можно расти" />
-
-        <TextView
-            android:id="@+id/conditions_tv2"
-            style="@style/TextView"
-            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
-            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/conditions_tv1"
-            tools:text="  •  возможность влиять на процесс и результат" />
-
-        <TextView
-            android:id="@+id/conditions_tv3"
-            style="@style/TextView"
-            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
-            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/conditions_tv2"
-            tools:text="  •  расширенная программа ДМС: стоматология, обследования, вызов врача на дом и многое другое" />
 
         <TextView
             android:id="@+id/skills"
@@ -184,7 +153,7 @@
             android:text="@string/skills"
             app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
             app:layout_constraintStart_toStartOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/conditions_tv3" />
+            app:layout_constraintTop_toBottomOf="@+id/vacancy_description_tv" />
 
         <TextView
             android:id="@+id/skills_tv"
