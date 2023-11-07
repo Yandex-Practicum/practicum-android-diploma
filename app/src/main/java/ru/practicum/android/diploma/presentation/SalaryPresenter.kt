@@ -1,37 +1,36 @@
 package ru.practicum.android.diploma.presentation
 
-import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.Salary
 import java.text.DecimalFormat
 
 class SalaryPresenter {
-
     fun showSalary(salary: Salary?): String {
-        if (salary == null)
-            return R.string.not_salary.toString()
+        if (salary == null || salary.to == null && salary.from == null)
+            return "Зарплата не указана"
         var textSalary = ""
-        if (salary.to != 0) textSalary += "от  ${salary.to?.let { formatter(it) }} "
-        if (salary.from != 0) textSalary += "до ${salary.from?.let { formatter(it) }} "
-        textSalary.plus(getSymbol(salary.currency))
+        if (salary.to != null) textSalary += "от  ${formatter(salary.to)} "
+        if (salary.from != null) textSalary += "до ${formatter(salary.from)} "
+        textSalary += getSymbol(salary.currency)
         return textSalary
     }
 
     private fun getSymbol(currency: String?): String? {
 
         return when (currency) {
-            "AZN" -> "₼"
-            "BYR" -> "Br"
-            "EUR" -> "€"
-            "GEL" -> "₾"
-            "KGS" -> "с"
-            "KZT" -> "₸"
-            "RUR" -> "₽"
-            "UAH" -> "₴"
-            "USD" -> "$"
-            "UZS" -> "UZS"
+            "AZN" -> "\u20bc"
+            "BYR" -> "\u0072"
+            "EUR" -> "\u20ac"
+            "GEL" -> "\u20be"
+            "KGS" -> "\u043b"
+            "KZT" -> "\u043b"
+            "RUR" -> "\u20bd"
+            "UAH" -> "\u20b4"
+            "USD" -> "\u0024"
+            "UZS" -> "\u043b"
             else -> null
         }
     }
+
     private fun formatter(n: Int): String =
         DecimalFormat("#,###")
             .format(n)

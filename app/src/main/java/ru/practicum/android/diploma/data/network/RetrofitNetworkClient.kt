@@ -8,21 +8,30 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import okhttp3.OkHttpClient
-import okhttp3.Request
 import ru.practicum.android.diploma.data.NetworkClient
+import ru.practicum.android.diploma.data.dto.DetailRequest
 import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.SearchRequest
-import java.io.IOException
-import okhttp3.logging.HttpLoggingInterceptor
 
 
-class RetrofitNetworkClient(private val api: ApiService, private val context: Context) : NetworkClient {
+class RetrofitNetworkClient(private val api: ApiService, private val context: Context) :
+    NetworkClient {
 
     @RequiresApi(Build.VERSION_CODES.M)
     override suspend fun doRequest(dto: Any): Response {
         if (!isConnected()) {
             return Response().apply { resultCode = -1 }
+        }
+        if (dto is DetailRequest) {
+            return withContext(Dispatchers.IO) {
+                try {
+                    val response = api.getVacancy(dto.id)
+                    Log.d("vacancyResponse", "Response: $response")
+                    response.apply { resultCode = 200 }
+                } catch (e: Throwable) {
+                    Response().apply { resultCode = 500 }
+                }
+            }
         }
         if (dto !is SearchRequest) {
             return Response().apply { resultCode = 400 }
