@@ -10,13 +10,14 @@ import ru.practicum.android.diploma.data.ResourceProvider
 import ru.practicum.android.diploma.domain.DetailInteractor
 import ru.practicum.android.diploma.domain.DetailState
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.domain.models.detail.FullVacancy
 
 class DetailViewModel(
     private val interactor: DetailInteractor,
     private val resourceProvider: ResourceProvider,
 ) : ViewModel() {
 
-    private lateinit var vacancy: Vacancy
+    private lateinit var vacancy: FullVacancy
 
     private val stateLiveData = MutableLiveData<DetailState>()
     fun observeState(): LiveData<DetailState> = stateLiveData
@@ -34,7 +35,7 @@ class DetailViewModel(
         }
     }
 
-    private fun processResult(outVacancy: Vacancy?, errorMessage: String?) {
+    private fun processResult(outVacancy: FullVacancy?, errorMessage: String?) {
         if (outVacancy != null) {
             vacancy = outVacancy
         }
@@ -46,6 +47,7 @@ class DetailViewModel(
                     )
                 )
             }
+
             else -> {
                 renderState(
                     DetailState.Content(

@@ -23,13 +23,14 @@ class RetrofitNetworkClient(private val api: ApiService, private val context: Co
             return Response().apply { resultCode = -1 }
         }
         if (dto is DetailRequest) {
-            try {
-                val response = api.getVacancy(dto.id)
-                Log.d("RetrofitNetworkClient", "Response: $response")
-                response.apply { resultCode = 200 }
-            } catch (e: Throwable) {
-                Response().apply { resultCode = 500 }
-
+            return withContext(Dispatchers.IO) {
+                try {
+                    val response = api.getVacancy(dto.id)
+                    Log.d("vacancyResponse", "Response: $response")
+                    response.apply { resultCode = 200 }
+                } catch (e: Throwable) {
+                    Response().apply { resultCode = 500 }
+                }
             }
         }
         if (dto !is SearchRequest) {

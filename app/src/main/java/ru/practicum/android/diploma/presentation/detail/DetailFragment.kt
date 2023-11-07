@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.data.dto.Phone
 import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
-import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.domain.DetailState
+import ru.practicum.android.diploma.domain.models.detail.FullVacancy
+import ru.practicum.android.diploma.presentation.SalaryPresenter
 import ru.practicum.android.diploma.presentation.detail.adapter.PhoneAdapter
 import ru.practicum.android.diploma.presentation.search.SearchFragment
 import ru.practicum.android.diploma.util.debounce
@@ -34,18 +36,40 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val vacancy = viewModel.getVacancy()
+        viewModel.getVacancy(vacancyId)
+        viewModel.observeState().observe(viewLifecycleOwner) {
+            render(it)
+        }
+
+    }
+
+    private fun render(state: DetailState) {
+        when (state) {
+            is DetailState.Loading -> showLoading()
+            is DetailState.Content -> showContent(state.vacancy)
+            is DetailState.Error -> showError(state.errorMessage)
+        }
+    }
+
+    private fun showLoading() {
+        binding.jobNameTv.text = "fdfdfdfdf"
+
+    }
+
+    private fun showContent(vacancy: FullVacancy) {
         binding.jobNameTv.text = vacancy.name
-        // binding.jobPaymentTv.text = SalaryPresenter().showSalary(vacancy.salary)
+        binding.jobPaymentTv.text = SalaryPresenter().showSalary(vacancy.salary)
         binding.experienceTv.text = vacancy.experience
-        binding.employerNameTv.text = vacancy.employer?.name ?: ""
-        binding.locationTv.text = vacancy.address
-        binding.contactPersonName.text = vacancy.contacts.name ?: ""
-        binding.emailAddress.text = vacancy.contacts.email ?: ""
+        binding.employerNameTv.text = vacancy.employerName
+        binding.locationTv.text = vacancy.city
+        binding.contactPersonName.text = vacancy.contacts?.name ?: ""
+        binding.emailAddress.text = vacancy.contacts?.email ?: ""
         binding.phone.layoutManager =
             GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
-        binding.phone.adapter = PhoneAdapter(vacancy.contacts.phones) { phone ->
-            onItemClickDebounce(phone)
+        binding.phone.adapter = vacancy.contacts?.let {
+            PhoneAdapter(it.phones) { phone ->
+                onItemClickDebounce(phone)
+            }
         }
         onItemClickDebounce = debounce(
             SearchFragment.CLICK_DEBOUNCE_DELAY_MILLIS,
@@ -59,6 +83,11 @@ class DetailFragment : Fragment() {
     }
 
 
+    private fun showError(errorMessage: String) {
+        binding.jobNameTv.text = "aaaaaa"
+    }
+
+
     companion object {
         private var vacancyId: String = ""
 
@@ -67,3 +96,25 @@ class DetailFragment : Fragment() {
         }
     }
 }
+
+/*binding.jobNameTv.text = vacancy.name
+// binding.jobPaymentTv.text = SalaryPresenter().showSalary(vacancy.salary)
+binding.experienceTv.text = vacancy.experience
+binding.employerNameTv.text = vacancy.employer?.name ?: ""
+binding.locationTv.text = vacancy.address
+binding.contactPersonName.text = vacancy.contacts.name ?: ""
+binding.emailAddress.text = vacancy.contacts.email ?: ""
+binding.phone.layoutManager =
+GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
+binding.phone.adapter = PhoneAdapter(vacancy.contacts.phones) { phone ->
+    onItemClickDebounce(phone)
+}
+onItemClickDebounce = debounce(
+SearchFragment.CLICK_DEBOUNCE_DELAY_MILLIS,
+viewLifecycleOwner.lifecycleScope,
+false
+) { phone ->
+
+}
+binding.skillsTv.text = vacancy.skills
+binding.requirementsTv.text = vacancy.requirements*/
