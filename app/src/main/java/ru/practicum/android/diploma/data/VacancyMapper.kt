@@ -43,6 +43,7 @@ class VacancyMapper {
             vacancyDto.contacts,
             vacancyDto.description,
             vacancyDto.experience?.name.toString(),
+            vacancyDto.employment?.name.toString(),
             if (vacancyDto.keySkills != null) contentMap(vacancyDto.keySkills).toBulletedList() else "",
             addRequirements(vacancyDto)
         )

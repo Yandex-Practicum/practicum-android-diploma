@@ -130,7 +130,7 @@
             tools:text="Полная занятость, Удаленная работа" />
 
         <TextView
-            android:id="@+id/vacancy_descriptio"
+            android:id="@+id/vacancy_description"
             style="@style/TextViewTitle"
             android:text="@string/vacancy_descriptio"
             app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
@@ -138,12 +138,19 @@
             app:layout_constraintTop_toBottomOf="@+id/employment_tv" />
 
         <TextView
+            android:id="@+id/vacancy_description_tv"
+            style="@style/TextView"
+            android:text=""
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/vacancy_description" />
+        <TextView
             android:id="@+id/responsibilities_header_tv"
             style="@style/TextViewHeader"
             android:text="@string/responsibilities_tv"
             app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
             app:layout_constraintStart_toStartOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/vacancy_descriptio" />
+            app:layout_constraintTop_toBottomOf="@+id/vacancy_description_tv" />
 
 
         <TextView
@@ -159,7 +166,9 @@
         <TextView
             android:id="@+id/responsibilities_tv2"
             style="@style/TextView"
+            android:layout_marginTop="44dp"
             app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/guidelineRight"
             app:layout_constraintTop_toBottomOf="@+id/responsibilities_tv1"
             tools:text="  •  Помогать с интеграцией нашего SDK в другие приложения" />

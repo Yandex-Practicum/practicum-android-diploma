@@ -14,6 +14,7 @@ data class FullVacancy(
     val contacts: Contacts?,
     val description: String?,
     val experience: String?,
+    val employment: String?,
     val skills: CharSequence?,
     val requirements: CharSequence?
 )

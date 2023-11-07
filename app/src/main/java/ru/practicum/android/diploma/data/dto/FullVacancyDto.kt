@@ -13,11 +13,17 @@ data class FullVacancyDto(
     val description: String?,
     val employer: Employer?,
     val experience: Experience?,
+    val employment: EmploymentType?,
     val salary: Salary?,
     val keySkills: List<SkillName>?,
     val driverLicense: List<License>?,
     val languages: List<Language>?,
 ) : Parcelable, Response()
+
+@Parcelize
+data class EmploymentType(
+    val name: String?
+) : Parcelable
 
 @Parcelize
 data class SkillName(

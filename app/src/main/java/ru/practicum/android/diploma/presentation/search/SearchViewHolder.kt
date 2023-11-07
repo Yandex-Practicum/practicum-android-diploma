@@ -11,10 +11,12 @@ import ru.practicum.android.diploma.presentation.SalaryPresenter
 class SearchViewHolder(private val binding: ItemVacancyBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
+    private val salaryPresenter = SalaryPresenter()
+
     fun bind(item: Vacancy) {
         binding.headVacancyRv.text = item.name
         binding.employerRv.text = item.employerName
-        binding.salaryRv.text = SalaryPresenter().showSalary(item.salary)
+        binding.salaryRv.text = salaryPresenter.showSalary(item.salary)
         Glide.with(itemView)
             .load(item.employerLogoUrl)
             .placeholder(R.drawable.logo)
