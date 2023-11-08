@@ -1,9 +1,9 @@
 package ru.practicum.android.diploma.data
 
-import ru.practicum.android.diploma.data.dto.FullVacancyDto
-import ru.practicum.android.diploma.data.dto.Language
-import ru.practicum.android.diploma.data.dto.License
-import ru.practicum.android.diploma.data.dto.SkillName
+import ru.practicum.android.diploma.data.dto.detail.FullVacancyDto
+import ru.practicum.android.diploma.data.dto.detail.Language
+import ru.practicum.android.diploma.data.dto.detail.License
+import ru.practicum.android.diploma.data.dto.detail.SkillName
 import ru.practicum.android.diploma.data.dto.VacancyDto
 import ru.practicum.android.diploma.domain.models.Salary
 import ru.practicum.android.diploma.domain.models.Vacancy

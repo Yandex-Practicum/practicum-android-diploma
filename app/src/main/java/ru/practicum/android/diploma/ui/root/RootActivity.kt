@@ -27,6 +27,9 @@ class RootActivity : AppCompatActivity() {
                 R.id.searchFragment, R.id.favouriteFragment, R.id.teamFragment -> {
                     binding.bottomNavigationView.isVisible = true
                 }
+                R.id.detailFragment, R.id.similarVacanciesFragment -> {
+                    binding.bottomNavigationView.isVisible = false
+                }
             }
         }
         //Пример использования access token для HeadHunter API
