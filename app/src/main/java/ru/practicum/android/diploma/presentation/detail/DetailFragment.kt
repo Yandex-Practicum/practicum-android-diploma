@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -29,6 +31,7 @@ class DetailFragment : Fragment() {
     private var _binding: FragmentVacancyBinding? = null
     private val binding get() = _binding!!
 
+    private var fullVacancy: FullVacancy? = null
     lateinit var onItemClickDebounce: (Phone) -> Unit
 
     override fun onCreateView(
@@ -50,6 +53,16 @@ class DetailFragment : Fragment() {
             SimilarVacanciesFragment.addArgs(vacancyId)
             findNavController().navigate(R.id.action_detailFragment_to_similarVacanciesFragment)
         }
+
+        val shareButton = view.findViewById<ImageView>(R.id.share)
+        shareButton.setOnClickListener {
+            fullVacancy?.alternate_url?.let { url ->
+                viewModel.shareVacancyUrl(url)
+            }
+        }
+
+
+
         binding.toolbarInclude.back.setOnClickListener {
             findNavController().popBackStack()
         }
@@ -69,6 +82,7 @@ class DetailFragment : Fragment() {
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun showContent(vacancy: FullVacancy) {
+        fullVacancy = vacancy
         binding.jobNameTv.text = vacancy.name
         binding.jobPaymentTv.text = SalaryPresenter().showSalary(vacancy.salary)
         binding.experienceTv.text = vacancy.experience

@@ -65,4 +65,8 @@ class DetailViewModel(
     fun shareEmail(email: String) {
         interactor.shareEmail(email)
     }
+
+    fun shareVacancyUrl(vacancyUrl: String){
+        interactor.shareVacancyUrl(vacancyUrl)
+    }
 }
