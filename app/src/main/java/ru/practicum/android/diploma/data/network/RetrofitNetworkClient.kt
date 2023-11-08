@@ -11,6 +11,8 @@ import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.detail.DetailRequest
+import ru.practicum.android.diploma.data.dto.filter.CountryRequest
+import ru.practicum.android.diploma.data.dto.filter.CountryResponse
 import ru.practicum.android.diploma.data.dto.search.SearchRequest
 import ru.practicum.android.diploma.data.dto.similar.SearchSimilarRequest
 
@@ -22,6 +24,21 @@ class RetrofitNetworkClient(private val api: ApiService, private val context: Co
     override suspend fun doRequest(dto: Any): Response {
         if (!isConnected()) {
             return Response().apply { resultCode = -1 }
+        }
+        if (dto is CountryRequest) {
+            return withContext(Dispatchers.IO) {
+
+                try {
+                    val countries = api.getCountres()
+                    if (countries.isEmpty()) {
+                        Response().apply { resultCode = 666 }
+                    } else {
+                        CountryResponse(countries).apply { resultCode = 200 }
+                    }
+                } catch (e: Throwable) {
+                    Response().apply { resultCode = 500 }
+                }
+            }
         }
         if (dto is DetailRequest) {
             return withContext(Dispatchers.IO) {
