@@ -50,7 +50,7 @@ class DetailFragment : Fragment() {
             SimilarVacanciesFragment.addArgs(vacancyId)
             findNavController().navigate(R.id.action_detailFragment_to_similarVacanciesFragment)
         }
-        binding.toolbarInclude.back.setOnClickListener{
+        binding.toolbarInclude.back.setOnClickListener {
             findNavController().popBackStack()
         }
     }
@@ -93,11 +93,12 @@ class DetailFragment : Fragment() {
             SearchFragment.CLICK_DEBOUNCE_DELAY_MILLIS,
             viewLifecycleOwner.lifecycleScope,
             false
-        ) { phone -> viewModel.sharePhone(binding.phone)
+        ) { phone ->
+            viewModel.sharePhone(phone)
 
         }
         binding.emailAddress.setOnClickListener {
-            if(vacancy.contacts?.email != null)
+            if (vacancy.contacts?.email != null)
                 viewModel.shareEmail(vacancy.contacts?.email!!)
         }
         binding.vacancyDescriptionTv.settings.javaScriptEnabled = true
@@ -105,7 +106,13 @@ class DetailFragment : Fragment() {
         binding.skillsTv.text = vacancy.skills
         binding.employmentTv.text = vacancy.employment
         if (descriptionHtml != null) {
-            binding.vacancyDescriptionTv.loadDataWithBaseURL(null, descriptionHtml, "text/html", "UTF-8", null)
+            binding.vacancyDescriptionTv.loadDataWithBaseURL(
+                null,
+                descriptionHtml,
+                "text/html",
+                "UTF-8",
+                null
+            )
         }
 
     }
