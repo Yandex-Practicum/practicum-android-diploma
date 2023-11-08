@@ -13,14 +13,14 @@
         android:orientation="horizontal">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/back"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/ys_display"
             android:textSize="@dimen/textSize_22sp"
             android:layout_marginEnd="@dimen/margin_4dp"
-            app:navigationIcon="@drawable/leading_icon"
+            app:navigationIcon="@drawable/ic_back_arrow"
             tools:ignore="UnusedAttribute" />
 
         <TextView
@@ -36,15 +36,15 @@
             tools:ignore="UnusedAttribute" />
 
         <ImageView
-            android:id="@+id/Forward"
+            android:id="@+id/share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/trailing_icon"
             android:layout_marginEnd="@dimen/margin_4dp"
+            android:src="@drawable/trailing_icon"
             tools:ignore="ContentDescription" />
 
         <ImageView
-            android:id="@+id/Favourite"
+            android:id="@+id/favourite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/trailing_icon_2"
