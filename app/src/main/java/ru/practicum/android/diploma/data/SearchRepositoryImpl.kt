@@ -3,9 +3,9 @@ package ru.practicum.android.diploma.data
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.data.dto.SearchRequest
-import ru.practicum.android.diploma.data.dto.SearchRequestOptions
-import ru.practicum.android.diploma.data.dto.SearchResponse
+import ru.practicum.android.diploma.data.dto.search.SearchRequest
+import ru.practicum.android.diploma.data.dto.search.SearchRequestOptions
+import ru.practicum.android.diploma.data.dto.search.SearchResponse
 import ru.practicum.android.diploma.domain.api.SearchRepository
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.util.Resource

@@ -7,18 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.data.dto.Phone
+import ru.practicum.android.diploma.data.dto.detail.Phone
 import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
 import ru.practicum.android.diploma.domain.DetailState
 import ru.practicum.android.diploma.domain.models.detail.FullVacancy
 import ru.practicum.android.diploma.presentation.SalaryPresenter
 import ru.practicum.android.diploma.presentation.detail.adapter.PhoneAdapter
 import ru.practicum.android.diploma.presentation.search.SearchFragment
+import ru.practicum.android.diploma.presentation.similar.SimilarVacanciesFragment
 import ru.practicum.android.diploma.util.debounce
 
 
@@ -44,7 +46,13 @@ class DetailFragment : Fragment() {
         viewModel.observeState().observe(viewLifecycleOwner) {
             render(it)
         }
-
+        binding.searchButton.setOnClickListener {
+            SimilarVacanciesFragment.addArgs(vacancyId)
+            findNavController().navigate(R.id.action_detailFragment_to_similarVacanciesFragment)
+        }
+        binding.toolbarInclude.back.setOnClickListener{
+            findNavController().popBackStack()
+        }
     }
 
     private fun render(state: DetailState) {
@@ -56,7 +64,6 @@ class DetailFragment : Fragment() {
     }
 
     private fun showLoading() {
-        binding.jobNameTv.text = "fdfdfdfdf"
 
     }
 
@@ -93,15 +100,14 @@ class DetailFragment : Fragment() {
         val descriptionHtml = vacancy.description
         binding.skillsTv.text = vacancy.skills
         binding.employmentTv.text = vacancy.employment
-//        binding.vacancyDescriptionTv.text = vacancy.description
         if (descriptionHtml != null) {
             binding.vacancyDescriptionTv.loadDataWithBaseURL(null, descriptionHtml, "text/html", "UTF-8", null)
         }
+
     }
 
 
     private fun showError(errorMessage: String) {
-        binding.jobNameTv.text = "aaaaaa"
     }
 
 

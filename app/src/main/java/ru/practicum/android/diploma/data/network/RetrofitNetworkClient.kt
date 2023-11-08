@@ -9,9 +9,10 @@ import androidx.annotation.RequiresApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.data.NetworkClient
-import ru.practicum.android.diploma.data.dto.DetailRequest
 import ru.practicum.android.diploma.data.dto.Response
-import ru.practicum.android.diploma.data.dto.SearchRequest
+import ru.practicum.android.diploma.data.dto.detail.DetailRequest
+import ru.practicum.android.diploma.data.dto.search.SearchRequest
+import ru.practicum.android.diploma.data.dto.similar.SearchSimilarRequest
 
 
 class RetrofitNetworkClient(private val api: ApiService, private val context: Context) :
@@ -26,7 +27,17 @@ class RetrofitNetworkClient(private val api: ApiService, private val context: Co
             return withContext(Dispatchers.IO) {
                 try {
                     val response = api.getVacancy(dto.id)
-                    Log.d("vacancyResponse", "Response: $response")
+                    response.apply { resultCode = 200 }
+                } catch (e: Throwable) {
+                    Response().apply { resultCode = 500 }
+                }
+            }
+        }
+        if (dto is SearchSimilarRequest) {
+            return withContext(Dispatchers.IO) {
+                try {
+                    val response = api.searchSimilar(dto.id)
+                    Log.d("similarResponse", "Response: $response")
                     response.apply { resultCode = 200 }
                 } catch (e: Throwable) {
                     Response().apply { resultCode = 500 }

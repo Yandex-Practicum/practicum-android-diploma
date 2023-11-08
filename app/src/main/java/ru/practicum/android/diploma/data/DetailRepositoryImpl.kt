@@ -4,8 +4,8 @@ import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.data.dto.DetailRequest
-import ru.practicum.android.diploma.data.dto.FullVacancyDto
+import ru.practicum.android.diploma.data.dto.detail.DetailRequest
+import ru.practicum.android.diploma.data.dto.detail.FullVacancyDto
 import ru.practicum.android.diploma.domain.api.DetailRepository
 import ru.practicum.android.diploma.domain.models.detail.FullVacancy
 import ru.practicum.android.diploma.util.Resource
