@@ -20,6 +20,7 @@ import ru.practicum.android.diploma.data.filter.local.LocalStorage
 import ru.practicum.android.diploma.data.filter.local.SharedPreferensClient
 import ru.practicum.android.diploma.data.network.ApiService
 import ru.practicum.android.diploma.data.network.RetrofitNetworkClient
+import ru.practicum.android.diploma.domain.ExternalNavigator
 
 
 val dataModule = module {
