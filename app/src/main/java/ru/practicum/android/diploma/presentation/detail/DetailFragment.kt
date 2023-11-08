@@ -86,8 +86,12 @@ class DetailFragment : Fragment() {
             SearchFragment.CLICK_DEBOUNCE_DELAY_MILLIS,
             viewLifecycleOwner.lifecycleScope,
             false
-        ) { phone ->
+        ) { phone -> viewModel.sharePhone(binding.phone)
 
+        }
+        binding.emailAddress.setOnClickListener {
+            if(vacancy.contacts?.email != null)
+                viewModel.shareEmail(vacancy.contacts?.email!!)
         }
         binding.vacancyDescriptionTv.settings.javaScriptEnabled = true
         val descriptionHtml = vacancy.description
@@ -97,6 +101,7 @@ class DetailFragment : Fragment() {
         if (descriptionHtml != null) {
             binding.vacancyDescriptionTv.loadDataWithBaseURL(null, descriptionHtml, "text/html", "UTF-8", null)
         }
+
     }
 
 
