@@ -45,7 +45,7 @@ class SimilarVacanciesFragment : Fragment() {
             false
         ) { vacancy ->
             DetailFragment.addArgs(vacancy.id)
-            findNavController().navigate(R.id.action_searchFragment_to_detailFragment)
+            findNavController().navigate(R.id.action_similarVacanciesFragment_to_detailFragment)
         }
         viewModel.searchVacancy(vacancyId)
         binding.similarVacanciesBackArrowImageview.setOnClickListener {

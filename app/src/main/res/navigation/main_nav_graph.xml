@@ -41,5 +41,9 @@
         android:id="@+id/similarVacanciesFragment"
         android:name="ru.practicum.android.diploma.presentation.similar.SimilarVacanciesFragment"
         android:label="fragment_similar_vacancies"
-        tools:layout="@layout/fragment_similar_vacancies" />
+        tools:layout="@layout/fragment_similar_vacancies" >
+        <action
+            android:id="@+id/action_similarVacanciesFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
 </navigation>
