@@ -2,9 +2,12 @@ package ru.practicum.android.diploma.data.network
 
 import retrofit2.http.GET
 import retrofit2.http.Headers
+import retrofit2.http.Path
 import retrofit2.http.Query
 import ru.practicum.android.diploma.BuildConfig
-import ru.practicum.android.diploma.data.dto.SearchResponse
+import ru.practicum.android.diploma.data.dto.detail.FullVacancyDto
+import ru.practicum.android.diploma.data.dto.search.SearchResponse
+import ru.practicum.android.diploma.data.dto.similar.SearchSimilarResponse
 
 interface ApiService {
     @Headers(
@@ -17,4 +20,21 @@ interface ApiService {
         @Query("page") page: Int,
         @Query("per_page") perPage: Int,
     ): SearchResponse
+
+    @Headers(
+        "Authorization: Bearer ${BuildConfig.HH_ACCESS_TOKEN}",
+        "HH-User-Agent: EmployMe (eenot84@yandex.ru)"
+    )
+    @GET("/vacancies/{vacancy_id}")
+    suspend fun getVacancy(@Path("vacancy_id") id: String): FullVacancyDto
+
+    @Headers(
+        "Authorization: Bearer ${BuildConfig.HH_ACCESS_TOKEN}",
+        "HH-User-Agent: EmployMe (eenot84@yandex.ru)"
+    )
+    @GET("/vacancies/{vacancy_id}/similar_vacancies")
+    suspend fun searchSimilar(
+        @Path("vacancy_id") id: String,
+    ): SearchSimilarResponse
+
 }
