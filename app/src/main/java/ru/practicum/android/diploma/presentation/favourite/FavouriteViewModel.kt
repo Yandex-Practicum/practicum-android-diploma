@@ -10,6 +10,7 @@ import ru.practicum.android.diploma.domain.models.Vacancy
 
 
 class FavouriteViewModel(val interactor: FavouriteInteractor) : ViewModel() {
+
     fun fill() {
         viewModelScope.launch {
             interactor.getFavoriteList()

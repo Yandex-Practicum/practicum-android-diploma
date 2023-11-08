@@ -19,7 +19,14 @@ class FavouriteRepositoryImpl(private val dao: VacancyDao, private val gson: Gso
         dao.addVacancy(vacancyEntity)
     }
 
-    override fun deleteFromFavourite(fullVacancy: FullVacancy) {}
+    override suspend fun deleteFromFavourite(fullVacancy: FullVacancy) {
+        val vacancyEntity = toVacancyEntity(fullVacancy)
+        dao.delete(vacancyEntity)
+    }
+    override fun getFavouriteStatus(vacancyId: String): Flow<Boolean> = flow {
+        val listId = dao.getVacanciesId()
+        emit(listId.contains(vacancyId))
+    }
 
     override fun getFavouriteVacancies(): Flow<List<Vacancy>> = flow {
         val favouriteVacancies = dao.getFavoriteVacancies()
@@ -30,9 +37,9 @@ class FavouriteRepositoryImpl(private val dao: VacancyDao, private val gson: Gso
         return VacancyEntity(
             fullVacancy.id,
             fullVacancy.name,
-            fullVacancy.address,
-            fullVacancy.employer?.name ?: "",
-            fullVacancy.employer?.vacanciesUrl ?: "",
+            fullVacancy.city,
+            fullVacancy.employerName,
+            fullVacancy.employerLogoUrl ?: "",
             gson.toJson(fullVacancy.salary),
         )
     }

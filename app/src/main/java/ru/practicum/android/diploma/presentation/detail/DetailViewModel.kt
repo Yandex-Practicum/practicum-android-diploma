@@ -16,11 +16,11 @@ import ru.practicum.android.diploma.domain.models.detail.FullVacancy
 class DetailViewModel(
     private val interactor: DetailInteractor,
     private val resourceProvider: ResourceProvider,
-    val favouriteInteractor: FavouriteInteractor
+    private val favouriteInteractor: FavouriteInteractor
 ) : ViewModel() {
 
     private lateinit var vacancy: FullVacancy
-    private var favouriteStateLiveData = MutableLiveData<Boolean>()
+    private var favouriteStateLiveData = MutableLiveData(false)
     fun observedFavouriteState(): LiveData<Boolean> = favouriteStateLiveData
 
     private val stateLiveData = MutableLiveData<DetailState>()
@@ -29,6 +29,15 @@ class DetailViewModel(
         stateLiveData.postValue(state)
     }
 
+    fun getStatus(id: String){
+        viewModelScope.launch {
+            favouriteInteractor.getFavoriteStatus(id)
+                .collect{
+                    renderFavouriteState(it)
+                }
+        }
+
+    }
     fun getVacancy(id: String) {
         renderState(DetailState.Loading)
         viewModelScope.launch {
@@ -74,10 +83,21 @@ class DetailViewModel(
         interactor.shareVacancyUrl(vacancyUrl)
     }
 
+    fun changedFavourite(fullVacancy: FullVacancy){
+        if (favouriteStateLiveData.value == true)  deleteFromFavourite(fullVacancy) else addToFavourite(fullVacancy)
+    }
+
     fun addToFavourite(fullVacancy: FullVacancy) {
         viewModelScope.launch {
             favouriteInteractor.addToFavourite(fullVacancy)
             renderFavouriteState(true)
+        }
+    }
+
+    fun deleteFromFavourite(fullVacancy: FullVacancy){
+        viewModelScope.launch {
+            favouriteInteractor.deleteVacancy(fullVacancy)
+            renderFavouriteState(false)
         }
     }
 

@@ -15,7 +15,7 @@ import ru.practicum.android.diploma.domain.similar.SimilarInteractor
 
 val interactorModule = module {
     single<SearchInteractor> { SearchInteractorImpl(get()) }
-    single<FilterInteractor> { FilterInteractorImpl(get(),get()) }
+    single<FilterInteractor> { FilterInteractorImpl(get(), get()) }
     single<SimilarInteractor> { SimilarInteractorImpl(get()) }
     single<DetailInteractor> { DetailInteractorImpl(get(), get()) }
     single<FavouriteInteractor> { FavouriteInteractorImpl(get()) }

@@ -22,7 +22,6 @@ class FavouriteFragment : Fragment() {
     private var _binding: FragmentFavouriteBinding? = null
     private val binding get() = _binding!!
 
-
     lateinit var onItemClickDebounce: (Vacancy) -> Unit
     private val vacancies = mutableListOf<Vacancy>()
     private val adapter = SearchAdapter(vacancies) { vacancy ->
@@ -41,6 +40,7 @@ class FavouriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.recyclerViewFavorite.adapter = adapter
         viewModel.observeState().observe(viewLifecycleOwner) {
             render(it)
         }
@@ -49,10 +49,9 @@ class FavouriteFragment : Fragment() {
             viewLifecycleOwner.lifecycleScope,
             false
         ) { vacancy ->
-            DetailFragment.addArgs(vacancy)
+            DetailFragment.addArgs(vacancy.id)
             findNavController().navigate(R.id.action_favouriteFragment_to_detailFragment)
         }
-        binding.recyclerViewFavorite.adapter = adapter
         viewModel.fill()
     }
 
