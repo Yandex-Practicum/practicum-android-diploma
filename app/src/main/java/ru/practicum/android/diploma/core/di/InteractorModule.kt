@@ -9,5 +9,5 @@ import ru.practicum.android.diploma.domain.impl.SearchInteractorImpl
 
 val interactorModule = module {
     factory<SearchInteractor> { SearchInteractorImpl(get()) }
-    factory<DetailInteractor> { DetailInteractorImpl(get()) }
+    factory<DetailInteractor> { DetailInteractorImpl(get(), get()) }
 }
