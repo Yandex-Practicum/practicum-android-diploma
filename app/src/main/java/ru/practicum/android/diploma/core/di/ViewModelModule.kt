@@ -4,15 +4,13 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 import ru.practicum.android.diploma.presentation.detail.DetailViewModel
+import ru.practicum.android.diploma.presentation.filter.FilterViewModel
 import ru.practicum.android.diploma.presentation.search.SearchViewModel
 
 
 val viewModelModule = module {
 
     viewModelOf(::SearchViewModel)
-    viewModel{ DetailViewModel(get(),get()) }
-
-
-
-
+    viewModel { DetailViewModel(get(), get()) }
+    viewModel { FilterViewModel(get()) }
 }

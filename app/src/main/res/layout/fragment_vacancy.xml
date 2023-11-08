@@ -216,6 +216,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/phone"
+            style="@style/TextView"
             tools:listitem="@layout/phone_tv"
             android:layout_height="wrap_content"
             android:layout_width="0dp"
