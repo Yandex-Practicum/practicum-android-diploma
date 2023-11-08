@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSettingsFiltersBinding
 
 class SettingsFilterFragment: Fragment() {
@@ -49,6 +50,14 @@ class SettingsFilterFragment: Fragment() {
             viewModel.setSalary(inputText)
             findNavController().popBackStack()
         }
+        binding.settingsBackArrowImageview.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        binding.workPlaceTextInputEditText.setOnClickListener {
+            findNavController().navigate(R.id.action_settingsFiltersFragment_to_chooseWorkplaceFragment)
+        }
+
     }
 
 
