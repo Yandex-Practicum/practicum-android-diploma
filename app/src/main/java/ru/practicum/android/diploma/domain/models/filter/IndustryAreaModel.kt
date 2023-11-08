@@ -4,5 +4,4 @@ abstract class IndustryAreaModel(
     open val id: String,
     open val name: String,
     open var isChecked: Boolean = false,
-) {
-}
+)
