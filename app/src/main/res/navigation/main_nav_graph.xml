@@ -57,6 +57,10 @@
     <action
         android:id="@+id/action_settingsFiltersFragment_to_chooseWorkplaceFragment"
         app:destination="@id/chooseWorkplaceFragment" />
+        <action
+            android:id="@+id/action_settingsFiltersFragment_to_chooseIndustryFragment"
+            app:destination="@id/chooseIndustryFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/chooseAreaFragment"
@@ -76,5 +80,10 @@
         android:id="@+id/action_chooseWorkplaceFragment_to_chooseAreaFragment"
         app:destination="@id/chooseAreaFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/chooseIndustryFragment"
+        android:name="ru.practicum.android.diploma.presentation.filter.ChooseIndustryFragment"
+        android:label="fragment_choose_industry"
+        tools:layout="@layout/fragment_choose_industry" />
 
 </navigation>

@@ -58,7 +58,14 @@ class SettingsFilterFragment: Fragment() {
             findNavController().navigate(R.id.action_settingsFiltersFragment_to_chooseWorkplaceFragment)
         }
 
-    }
+        binding.industryTextInputEditText.setOnClickListener {
+            findNavController().navigate(R.id.action_settingsFiltersFragment_to_chooseIndustryFragment)
+        }
 
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
 }

@@ -47,4 +47,6 @@
     <string name="no_vacancies">Таких вакансий нет</string>
     <string name="work_place">Выбор места работы</string>
     <string name="similar_vacancies">Похожие вакансии</string>
+    <string name="choose_industry">Выбор отрасли</string>
+    <string name="input_industry">Введите отрасль</string>
 </resources>
