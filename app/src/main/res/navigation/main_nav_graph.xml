@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_searchFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_settingsFilterFragment"
+            app:destination="@id/settingsFilterFragment" />
     </fragment>
     <fragment
         android:id="@+id/teamFragment"
@@ -46,4 +49,9 @@
             android:id="@+id/action_similarVacanciesFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/settingsFilterFragment"
+        android:name="ru.practicum.android.diploma.presentation.filter.SettingsFilterFragment"
+        android:label="fragment_settings_filters"
+        tools:layout="@layout/fragment_settings_filters" />
 </navigation>

@@ -96,6 +96,9 @@ class SearchFragment : Fragment() {
             }
             false
         }
+        binding.FilterButtonIcon.setOnClickListener {
+            findNavController().navigate(R.id.action_searchFragment_to_settingsFilterFragment)
+        }
     }
 
     private fun render(state: SearchState) {

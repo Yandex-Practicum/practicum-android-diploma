@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.core.di
 
+import android.content.Context
 import androidx.room.Room
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
@@ -15,6 +16,8 @@ import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.ResourceProvider
 import ru.practicum.android.diploma.data.ResourceProviderImpl
 import ru.practicum.android.diploma.data.db.AppDataBase
+import ru.practicum.android.diploma.data.filter.local.LocalStorage
+import ru.practicum.android.diploma.data.filter.local.SharedPreferensClient
 import ru.practicum.android.diploma.data.network.ApiService
 import ru.practicum.android.diploma.data.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.domain.ExternalNavigator
@@ -51,6 +54,15 @@ val dataModule = module {
     single<ResourceProvider> { ResourceProviderImpl(androidContext()) }
 
     singleOf(::ExternalNavigatorImpl).bind<ExternalNavigator>()
+
+    single {
+        androidContext()
+            .getSharedPreferences("local_storage", Context.MODE_PRIVATE)
+    }
+
+    single<LocalStorage> {
+        SharedPreferensClient(get(), get())
+    }
 }
 
 
