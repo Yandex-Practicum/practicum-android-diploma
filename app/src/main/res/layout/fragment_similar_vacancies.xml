@@ -47,4 +47,40 @@
         tools:itemCount="20"
         tools:listitem="@layout/item_vacancy" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/progress_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        android:visibility="gone" />
+
+
+    <LinearLayout
+        android:id="@+id/placeholderMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/placeholderMessageImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/placeholderMessageText"
+            style="@style/placeHolderTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/dimens_16" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

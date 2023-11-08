@@ -20,7 +20,7 @@
             android:fontFamily="@font/ys_display"
             android:textSize="@dimen/textSize_22sp"
             android:layout_marginEnd="@dimen/margin_4dp"
-            app:navigationIcon="@drawable/leading_icon"
+            app:navigationIcon="@drawable/ic_back_arrow"
             tools:ignore="UnusedAttribute" />
 
         <TextView

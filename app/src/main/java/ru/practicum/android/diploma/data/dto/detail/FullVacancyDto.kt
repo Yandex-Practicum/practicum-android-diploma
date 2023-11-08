@@ -1,7 +1,11 @@
-package ru.practicum.android.diploma.data.dto
+package ru.practicum.android.diploma.data.dto.detail
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import ru.practicum.android.diploma.data.dto.Area
+import ru.practicum.android.diploma.data.dto.Employer
+import ru.practicum.android.diploma.data.dto.Response
+import ru.practicum.android.diploma.data.dto.Salary
 
 @Parcelize
 data class FullVacancyDto(

@@ -3,7 +3,7 @@ package ru.practicum.android.diploma.presentation.detail.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ru.practicum.android.diploma.data.dto.Phone
+import ru.practicum.android.diploma.data.dto.detail.Phone
 import ru.practicum.android.diploma.databinding.PhoneTvBinding
 import ru.practicum.android.diploma.presentation.detail.viewholder.PhoneViewHolder
 

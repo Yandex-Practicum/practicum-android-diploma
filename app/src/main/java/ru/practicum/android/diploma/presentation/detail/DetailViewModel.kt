@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.ResourceProvider
+import ru.practicum.android.diploma.data.dto.detail.Phone
 import ru.practicum.android.diploma.domain.DetailInteractor
 import ru.practicum.android.diploma.domain.DetailState
 import ru.practicum.android.diploma.domain.models.detail.FullVacancy
@@ -57,11 +57,12 @@ class DetailViewModel(
             }
         }
     }
-    fun sharePhone(phone: RecyclerView){
+
+    fun sharePhone(phone: Phone) {
         interactor.sharePhone(phone)
     }
 
-    fun shareEmail(email: String){
+    fun shareEmail(email: String) {
         interactor.shareEmail(email)
     }
 }

@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.domain.models.detail
 
-import ru.practicum.android.diploma.data.dto.Contacts
+import ru.practicum.android.diploma.data.dto.detail.Contacts
 import ru.practicum.android.diploma.domain.models.Salary
 
 data class FullVacancy(

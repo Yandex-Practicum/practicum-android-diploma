@@ -242,6 +242,7 @@
             tools:text="Заполнить анкету по форме можно на нашем сайте" />
 
         <Button
+            android:id="@+id/search_button"
             style="@style/MyButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -257,5 +258,4 @@
             app:layout_constraintStart_toStartOf="@+id/guidelineRight"
             app:layout_constraintTop_toBottomOf="@+id/comment" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </ScrollView>

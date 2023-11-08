@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data.dto
+package ru.practicum.android.diploma.data.dto.search
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
