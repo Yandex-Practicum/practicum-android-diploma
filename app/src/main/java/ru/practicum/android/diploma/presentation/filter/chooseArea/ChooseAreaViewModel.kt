@@ -11,7 +11,7 @@ import ru.practicum.android.diploma.domain.models.filter.Area
 import ru.practicum.android.diploma.domain.models.filter.usecase.GetAreasUseCase
 import ru.practicum.android.diploma.presentation.filter.chooseArea.state.AreasState
 import ru.practicum.android.diploma.util.DataResponse
-
+import ru.practicum.android.diploma.util.NetworkError
 
 
 class ChooseAreaViewModel(private val areasUseCase: GetAreasUseCase) : ViewModel() {
@@ -35,6 +35,18 @@ class ChooseAreaViewModel(private val areasUseCase: GetAreasUseCase) : ViewModel
     }
     private suspend fun processResult(result: DataResponse<Area>) {
 
+        if (result.data != null) {
+            areasStateLiveData.value =
+                AreasState.DisplayAreas(getAreasList(result.data))
+        }
+        else {
+            when (result.networkError!!) {
+                NetworkError.BAD_CONNECTION.toString() -> areasStateLiveData.value =
+                    AreasState.Error("Проверьте подключение к интернету")
+                NetworkError.SERVER_ERROR.toString() -> areasStateLiveData.value =
+                    AreasState.Error("Ошибка сервера")
+            }
+        }
     }
 
 
@@ -47,6 +59,8 @@ class ChooseAreaViewModel(private val areasUseCase: GetAreasUseCase) : ViewModel
             extendedAreasList.sortBy { it.name }
             extendedAreasList
         }
+
+
 
     private fun getAreasRecursively(extendedAreasList: ArrayList<Area>, area: Area) {
         extendedAreasList.add(area)
