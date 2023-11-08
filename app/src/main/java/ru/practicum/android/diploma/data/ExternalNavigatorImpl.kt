@@ -19,4 +19,14 @@ class ExternalNavigatorImpl(private val context: Context) : ExternalNavigator {
         writeSupport.putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
         context.startActivity(writeSupport.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
     }
+
+    override fun shareVacancyUrl(vacancyUrl: String) {
+        val sendIntent : Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, vacancyUrl)
+            type = "text/plain"
+        }
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        context.startActivity(shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+    }
 }

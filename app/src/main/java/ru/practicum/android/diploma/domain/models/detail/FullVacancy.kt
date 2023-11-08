@@ -10,11 +10,12 @@ data class FullVacancy(
     val employerName: String,
     val employerLogoUrl: String?,
     val salary: Salary?,
+    val alternate_url: String?,
     val brandedDescription: String?,
     val contacts: Contacts?,
     val description: String?,
     val experience: String?,
-    val employment: String?,
+    val employment: CharSequence,
     val skills: CharSequence?,
     val requirements: CharSequence?
 )

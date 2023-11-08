@@ -39,6 +39,7 @@ class VacancyMapper {
                 vacancyDto.salary?.from,
                 vacancyDto.salary?.to
             ),
+            vacancyDto.alternate_url,
             vacancyDto.brandedDescription,
             vacancyDto.contacts,
             vacancyDto.description,

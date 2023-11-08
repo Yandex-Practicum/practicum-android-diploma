@@ -36,11 +36,11 @@
             tools:ignore="UnusedAttribute" />
 
         <ImageView
-            android:id="@+id/forward"
+            android:id="@+id/share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/trailing_icon"
             android:layout_marginEnd="@dimen/margin_4dp"
+            android:src="@drawable/trailing_icon"
             tools:ignore="ContentDescription" />
 
         <ImageView

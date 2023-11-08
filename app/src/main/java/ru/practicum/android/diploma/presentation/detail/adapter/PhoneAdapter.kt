@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.presentation.detail.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -30,3 +31,5 @@ class PhoneAdapter(
         return data.size
     }
 }
+
+

@@ -12,6 +12,7 @@ data class FullVacancyDto(
     val id: String,
     val name: String,
     val area: Area,
+    val alternate_url: String?,
     val brandedDescription: String?,
     val contacts: Contacts?,
     val description: String?,
