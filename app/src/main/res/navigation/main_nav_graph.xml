@@ -79,11 +79,19 @@
     <action
         android:id="@+id/action_chooseWorkplaceFragment_to_chooseAreaFragment"
         app:destination="@id/chooseAreaFragment" />
+        <action
+            android:id="@+id/action_chooseWorkplaceFragment_to_chooseCountryFragment"
+            app:destination="@id/chooseCountryFragment" />
     </fragment>
     <fragment
         android:id="@+id/chooseIndustryFragment"
         android:name="ru.practicum.android.diploma.presentation.filter.ChooseIndustryFragment"
         android:label="fragment_choose_industry"
         tools:layout="@layout/fragment_choose_industry" />
+    <fragment
+        android:id="@+id/chooseCountryFragment"
+        android:name="ru.practicum.android.diploma.presentation.filter.ChooseCountryFragment"
+        android:label="fragment_choose_country"
+        tools:layout="@layout/fragment_choose_country" />
 
 </navigation>

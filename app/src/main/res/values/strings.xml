@@ -49,4 +49,5 @@
     <string name="similar_vacancies">Похожие вакансии</string>
     <string name="choose_industry">Выбор отрасли</string>
     <string name="input_industry">Введите отрасль</string>
+    <string name="country_russia">Россия</string>
 </resources>
