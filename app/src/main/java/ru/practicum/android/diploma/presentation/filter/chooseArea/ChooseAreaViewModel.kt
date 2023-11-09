@@ -7,14 +7,17 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import ru.practicum.android.diploma.data.ResourceProvider
 import ru.practicum.android.diploma.domain.models.filter.Area
 import ru.practicum.android.diploma.domain.models.filter.FilterInteractor
+import ru.practicum.android.diploma.domain.models.filter.usecase.GetAreasUseCase
 import ru.practicum.android.diploma.presentation.filter.chooseArea.state.AreasState
+import ru.practicum.android.diploma.presentation.filter.chooseArea.state.CountryState
 import ru.practicum.android.diploma.util.DataResponse
 import ru.practicum.android.diploma.util.NetworkError
 
 
-class ChooseAreaViewModel(private val areasUseCase: FilterInteractor) : ViewModel() {
+class ChooseAreaViewModel(private val areasUseCase: GetAreasUseCase) : ViewModel() {
 
     //todo замемнить на реальный areaId
     private val areaId = "113"
@@ -28,11 +31,12 @@ class ChooseAreaViewModel(private val areasUseCase: FilterInteractor) : ViewMode
 
     private fun initScreen() {
         viewModelScope.launch {
-            areasUseCase.getAreas(areaId).collect { result ->
+            areasUseCase.invoke(areaId).collect { result ->
                 processResult(result)
             }
         }
     }
+
 
     private suspend fun processResult(result: DataResponse<Area>) {
 

@@ -14,8 +14,6 @@ import ru.practicum.android.diploma.presentation.filter.chooseArea.adaptor.Filte
 import ru.practicum.android.diploma.presentation.filter.chooseArea.state.AreasState
 
 class ChooseAreaFragment : Fragment() {
-
-
     private var _binding: FragmentChooseAreaBinding? = null
     private val binding get() = _binding!!
     private val viewModel: ChooseAreaViewModel by viewModel()

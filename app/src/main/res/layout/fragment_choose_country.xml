@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.filter.ChooseCountryFragment">
+    tools:context=".presentation.filter.chooseArea.ChooseCountryFragment">
 
     <ImageView
         android:id="@+id/choose_country_back_arrow_imageview"
@@ -52,7 +52,7 @@
             android:id="@+id/placeholder_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/search_placeholder" />
+            android:src="@drawable/search_start" />
 
         <TextView
             style="@style/textStyle"

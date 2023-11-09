@@ -75,7 +75,7 @@
             android:id="@+id/placeholder_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/search_placeholder" />
+            android:src="@drawable/search_start" />
 
         <TextView
             style="@style/textStyle"
