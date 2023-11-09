@@ -8,8 +8,8 @@ class SalaryPresenter {
         if (salary == null || salary.to == null && salary.from == null)
             return "Зарплата не указана"
         var textSalary = ""
-        if (salary.to != null) textSalary += "от  ${formatter(salary.to)} "
-        if (salary.from != null) textSalary += "до ${formatter(salary.from)} "
+        if (salary.from != null) textSalary += "от  ${formatter(salary.from)} "
+        if (salary.to != null) textSalary += "до ${formatter(salary.to)} "
         textSalary += getSymbol(salary.currency)
         return textSalary
     }

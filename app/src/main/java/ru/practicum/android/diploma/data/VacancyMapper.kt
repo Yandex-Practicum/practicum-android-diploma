@@ -1,10 +1,12 @@
 package ru.practicum.android.diploma.data
 
+import ru.practicum.android.diploma.data.dto.VacancyDto
 import ru.practicum.android.diploma.data.dto.detail.FullVacancyDto
 import ru.practicum.android.diploma.data.dto.detail.Language
 import ru.practicum.android.diploma.data.dto.detail.License
 import ru.practicum.android.diploma.data.dto.detail.SkillName
-import ru.practicum.android.diploma.data.dto.VacancyDto
+import ru.practicum.android.diploma.domain.models.Contact
+import ru.practicum.android.diploma.domain.models.Phone
 import ru.practicum.android.diploma.domain.models.Salary
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.models.detail.FullVacancy
@@ -41,7 +43,11 @@ class VacancyMapper {
             ),
             vacancyDto.alternate_url,
             vacancyDto.brandedDescription,
-            vacancyDto.contacts,
+            Contact(
+                vacancyDto.contacts?.name,
+                vacancyDto.contacts?.email,
+                phoneFromDto(vacancyDto.contacts?.phones)
+            ),
             vacancyDto.description,
             vacancyDto.experience?.name.toString(),
             vacancyDto.employment?.name.toString(),
@@ -50,6 +56,18 @@ class VacancyMapper {
         )
     }
 
+    private fun phoneFromDto(phones: List<ru.practicum.android.diploma.data.dto.detail.Phone>?): List<Phone> {
+        return if (!phones.isNullOrEmpty() ) phones.map { mapPhones(it) } else mutableListOf()
+    }
+
+    fun mapPhones(phoneDto: ru.practicum.android.diploma.data.dto.detail.Phone): Phone {
+        return Phone(
+            phoneDto.city,
+        phoneDto.comment,
+        phoneDto.country,
+        phoneDto.number
+        )
+    }
 
     private fun addRequirements(fullVacancyDto: FullVacancyDto): String {
         var requirements = ""

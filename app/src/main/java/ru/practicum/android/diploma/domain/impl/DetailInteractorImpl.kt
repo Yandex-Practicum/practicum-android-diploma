@@ -2,10 +2,10 @@ package ru.practicum.android.diploma.domain.impl
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import ru.practicum.android.diploma.data.dto.detail.Phone
 import ru.practicum.android.diploma.domain.DetailInteractor
 import ru.practicum.android.diploma.domain.ExternalNavigator
 import ru.practicum.android.diploma.domain.api.DetailRepository
+import ru.practicum.android.diploma.domain.models.Phone
 import ru.practicum.android.diploma.domain.models.detail.FullVacancy
 import ru.practicum.android.diploma.util.Resource
 
