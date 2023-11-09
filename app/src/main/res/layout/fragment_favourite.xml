@@ -23,18 +23,16 @@
     </TextView>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_View_Favorite"
+        android:id="@+id/recycler_view_favorite"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="@dimen/dimens_16"
-        android:layout_marginTop="@dimen/dimens_16"
-        android:layout_marginEnd="@dimen/dimens_16"
-        android:visibility="gone"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_title"
-        tools:listitem="@layout/item_vacancy"/>
+        tools:listitem="@layout/item_vacancy" />
 
     <LinearLayout
         android:id="@+id/place_holder_favorite"

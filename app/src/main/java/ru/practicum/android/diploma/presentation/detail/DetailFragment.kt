@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -46,8 +45,15 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getVacancy(vacancyId)
+        viewModel.getStatus(vacancyId)
         viewModel.observeState().observe(viewLifecycleOwner) {
             render(it)
+        }
+        viewModel.observedFavouriteState().observe(viewLifecycleOwner) {
+            showFavouriteStatus(it)
+        }
+        binding.toolbarInclude.favourite.setOnClickListener {
+            fullVacancy?.let { it1 -> viewModel.changedFavourite(it1) }
         }
         binding.searchButton.setOnClickListener {
             SimilarVacanciesFragment.addArgs(vacancyId)
@@ -113,7 +119,7 @@ class DetailFragment : Fragment() {
         }
         binding.emailAddress.setOnClickListener {
             if (vacancy.contacts?.email != null)
-                viewModel.shareEmail(vacancy.contacts?.email!!)
+                viewModel.shareEmail(vacancy.contacts.email)
         }
         binding.vacancyDescriptionTv.settings.javaScriptEnabled = true
         val descriptionHtml = vacancy.description
@@ -133,6 +139,12 @@ class DetailFragment : Fragment() {
 
 
     private fun showError(errorMessage: String) {
+    }
+
+    private fun showFavouriteStatus(isFavorite: Boolean) {
+        if (isFavorite) binding.toolbarInclude.favourite.setImageResource(R.drawable.ic_favourite_on) else binding.toolbarInclude.favourite.setImageResource(
+            R.drawable.ic_favourite
+        )
     }
 
 
