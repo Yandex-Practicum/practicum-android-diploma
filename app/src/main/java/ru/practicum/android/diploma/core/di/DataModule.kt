@@ -49,6 +49,11 @@ val dataModule = module {
             .build()
     }
 
+    single {
+        val database = get<AppDataBase>()
+        database.vacancyDao()
+    }
+
     single<NetworkClient> { RetrofitNetworkClient(get(), get()) }
 
     single<ResourceProvider> { ResourceProviderImpl(androidContext()) }

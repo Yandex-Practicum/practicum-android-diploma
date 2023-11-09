@@ -6,8 +6,10 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.data.dto.detail.FullVacancyDto
+import ru.practicum.android.diploma.data.dto.filter.CountryDto
 import ru.practicum.android.diploma.data.dto.search.SearchResponse
 import ru.practicum.android.diploma.data.dto.similar.SearchSimilarResponse
+import ru.practicum.android.diploma.data.filter.RegionListDto
 
 interface ApiService {
     @Headers(
@@ -37,4 +39,9 @@ interface ApiService {
         @Path("vacancy_id") id: String,
     ): SearchSimilarResponse
 
+    @GET("/areas/countries")
+    suspend fun getCountres(): List<CountryDto>
+
+    @GET("/areas/{area_id}")
+    suspend fun getRegionInfo(@Path("area_id") areaId: String): RegionListDto
 }
