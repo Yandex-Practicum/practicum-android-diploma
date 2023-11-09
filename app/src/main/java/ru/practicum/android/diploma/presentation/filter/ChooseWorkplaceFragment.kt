@@ -29,8 +29,12 @@ class ChooseWorkplaceFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        binding.countryTextInputLayout.setOnClickListener {
+        binding.regionTextInputEditText.setOnClickListener {
             findNavController().navigate(R.id.action_chooseWorkplaceFragment_to_chooseAreaFragment)
+        }
+
+        binding.countryTextInputEditText.setOnClickListener {
+            findNavController().navigate(R.id.action_chooseWorkplaceFragment_to_chooseCountryFragment)
         }
 
 

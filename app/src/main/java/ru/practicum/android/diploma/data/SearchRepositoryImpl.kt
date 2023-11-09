@@ -34,7 +34,6 @@ class SearchRepositoryImpl(
                 emit(Resource.Error(resourceProvider.getString(R.string.server_error)))
             }
         }
-
     }
 
     override fun getVacancies(options: HashMap<String, String>): Flow<Resource<List<Vacancy>>> =

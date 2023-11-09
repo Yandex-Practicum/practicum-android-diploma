@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -29,6 +30,7 @@ class DetailFragment : Fragment() {
     private var _binding: FragmentVacancyBinding? = null
     private val binding get() = _binding!!
 
+    private var fullVacancy: FullVacancy? = null
     lateinit var onItemClickDebounce: (Phone) -> Unit
 
     override fun onCreateView(
@@ -43,13 +45,30 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getVacancy(vacancyId)
+        viewModel.getStatus(vacancyId)
         viewModel.observeState().observe(viewLifecycleOwner) {
             render(it)
+        }
+        viewModel.observedFavouriteState().observe(viewLifecycleOwner) {
+            showFavouriteStatus(it)
+        }
+        binding.toolbarInclude.favourite.setOnClickListener {
+            fullVacancy?.let { it1 -> viewModel.changedFavourite(it1) }
         }
         binding.searchButton.setOnClickListener {
             SimilarVacanciesFragment.addArgs(vacancyId)
             findNavController().navigate(R.id.action_detailFragment_to_similarVacanciesFragment)
         }
+
+        val shareButton = view.findViewById<ImageView>(R.id.share)
+        shareButton.setOnClickListener {
+            fullVacancy?.alternate_url?.let { url ->
+                viewModel.shareVacancyUrl(url)
+            }
+        }
+
+
+
         binding.toolbarInclude.back.setOnClickListener {
             findNavController().popBackStack()
         }
@@ -69,6 +88,7 @@ class DetailFragment : Fragment() {
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun showContent(vacancy: FullVacancy) {
+        fullVacancy = vacancy
         binding.jobNameTv.text = vacancy.name
         binding.jobPaymentTv.text = SalaryPresenter().showSalary(vacancy.salary)
         binding.experienceTv.text = vacancy.experience
@@ -99,7 +119,7 @@ class DetailFragment : Fragment() {
         }
         binding.emailAddress.setOnClickListener {
             if (vacancy.contacts?.email != null)
-                viewModel.shareEmail(vacancy.contacts?.email!!)
+                viewModel.shareEmail(vacancy.contacts.email)
         }
         binding.vacancyDescriptionTv.settings.javaScriptEnabled = true
         val descriptionHtml = vacancy.description
@@ -119,6 +139,12 @@ class DetailFragment : Fragment() {
 
 
     private fun showError(errorMessage: String) {
+    }
+
+    private fun showFavouriteStatus(isFavorite: Boolean) {
+        if (isFavorite) binding.toolbarInclude.favourite.setImageResource(R.drawable.ic_favourite_on) else binding.toolbarInclude.favourite.setImageResource(
+            R.drawable.ic_favourite
+        )
     }
 
 
