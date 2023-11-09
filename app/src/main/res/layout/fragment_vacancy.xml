@@ -30,15 +30,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="16dp" />
+            app:layout_constraintGuide_begin="@dimen/Horizontal_item_padding" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/progress_color"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/toolbarInclude"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/job_name_tv"
+            style="@style/JobName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:textSize="32sp"
-            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
             app:layout_constraintStart_toStartOf="@+id/guidelineRight"
             app:layout_constraintTop_toBottomOf="@+id/toolbarInclude"
@@ -46,11 +57,9 @@
 
         <TextView
             android:id="@+id/job_payment_tv"
+            style="@style/JobPatmant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ot"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/textSize_22sp"
             app:layout_constraintStart_toStartOf="@+id/guidelineRight"
             app:layout_constraintTop_toBottomOf="@+id/job_name_tv" />
 
