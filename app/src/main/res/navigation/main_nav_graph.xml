@@ -83,7 +83,7 @@
         android:id="@+id/chooseCountryFragment"
         android:name="ru.practicum.android.diploma.presentation.filter.chooseArea.ChooseCountryFragment"
         android:label="fragment_choose_country"
-        tools:layout="@layout/fragment_choose_country" />
+        />
 
     <fragment
         android:id="@+id/chooseAreaFragment"
