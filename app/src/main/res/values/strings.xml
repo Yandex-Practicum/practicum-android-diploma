@@ -50,4 +50,12 @@
     <string name="choose_industry">Выбор отрасли</string>
     <string name="input_industry">Введите отрасль</string>
     <string name="country_russia">Россия</string>
+    <plurals name="vacancies">
+        <item quantity="zero">%d вакансий</item>
+        <item quantity="one">%d вакансия</item>
+        <item quantity="two">%d вакансии</item>
+        <item quantity="few">%d вакансий</item>
+        <item quantity="many">%d вакансий</item>
+        <item quantity="other">%d вакансий</item>
+    </plurals>
 </resources>

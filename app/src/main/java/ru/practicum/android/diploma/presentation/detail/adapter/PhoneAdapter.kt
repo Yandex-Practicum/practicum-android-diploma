@@ -1,11 +1,10 @@
 package ru.practicum.android.diploma.presentation.detail.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ru.practicum.android.diploma.data.dto.detail.Phone
 import ru.practicum.android.diploma.databinding.PhoneTvBinding
+import ru.practicum.android.diploma.domain.models.Phone
 import ru.practicum.android.diploma.presentation.detail.viewholder.PhoneViewHolder
 
 class PhoneAdapter(
@@ -15,7 +14,6 @@ class PhoneAdapter(
     RecyclerView.Adapter<PhoneViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhoneViewHolder {
-
         val layoutInspector = LayoutInflater.from(parent.context)
         return PhoneViewHolder(PhoneTvBinding.inflate(layoutInspector, parent, false))
     }

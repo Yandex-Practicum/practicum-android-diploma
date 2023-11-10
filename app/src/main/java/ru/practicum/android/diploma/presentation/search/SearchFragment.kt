@@ -122,7 +122,10 @@ class SearchFragment : Fragment() {
         binding.progressBar.isVisible = false
         binding.rvSearch.isVisible = true
         binding.searchCount.isVisible = true
-        binding.searchCount.text = foundValue.toString() + "шт"
+        binding.searchCount.text = requireActivity().resources.getQuantityString(
+            R.plurals.vacancies,
+            foundValue, foundValue
+        )
         binding.placeholderMessage.isVisible = false
         vacancies.clear()
         vacancies.addAll(searchVacancies)
