@@ -14,6 +14,8 @@ class FilterInteractorImpl(
     private val repository: FilterRepository,
     private val directoryRepository: DirectoryRepository
 ) : FilterInteractor {
+
+
     override fun setSalary(input: String) {
         repository.setSalary(input)
     }
@@ -50,5 +52,13 @@ class FilterInteractorImpl(
                 }
             }
         }
+    }
+
+    override fun setSelectedCountry(country: Country?) {
+        repository.setSelectedCountry(country)
+    }
+
+    override fun getSelectedCountry(): Country? {
+        return repository.getSelectedCountry()
     }
 }

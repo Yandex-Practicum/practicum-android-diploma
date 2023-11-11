@@ -47,6 +47,7 @@
     <string name="no_vacancies">Таких вакансий нет</string>
     <string name="work_place">Выбор места работы</string>
     <string name="similar_vacancies">Похожие вакансии</string>
+    <string name="selectionCountries">Выбор страны</string>
     <plurals name="vacancies">
         <item quantity="zero">%d вакансий</item>
         <item quantity="one">%d вакансия</item>

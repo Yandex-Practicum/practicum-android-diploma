@@ -10,4 +10,7 @@ interface FilterInteractor {
     fun getAreas(areaId: String): Flow<DataResponse<Area>>
 
     fun getCountries(): Flow<Pair<List<Country>?, String?>>
+    fun setSelectedCountry(country: Country?)
+    fun getSelectedCountry(): Country?
+
 }
