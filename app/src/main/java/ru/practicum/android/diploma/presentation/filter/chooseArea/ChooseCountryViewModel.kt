@@ -15,17 +15,13 @@ class ChooseCountryViewModel(
     val interactor: FilterInteractor,
     val resourceProvider: ResourceProvider
 ) : ViewModel() {
-    //todo замемнить на реальный areaId
-    private val areaId = "113"
 
     private val stateLiveData = MutableLiveData<CountryState>()
     fun observeState(): LiveData<CountryState> = stateLiveData
 
     private val _selectedCountry = MutableLiveData<Country?>()
+    val selectedCountry: LiveData<Country?> = _selectedCountry
 
-    private val selectedCountry: LiveData<Country?> = interactor.getSelectedCountryLiveData()
-
-    fun getSelectedCountry(): LiveData<Country?> = selectedCountry
 
     private fun renderState(state: CountryState) {
         stateLiveData.postValue(state)
@@ -64,10 +60,11 @@ class ChooseCountryViewModel(
         }
     }
 
-
-
-
     fun onAreaClicked(area: Country) {
         interactor.setSelectedCountry(area)
+    }
+
+    fun loadSelectedCountry() {
+        _selectedCountry.value = interactor.getSelectedCountry()
     }
 }

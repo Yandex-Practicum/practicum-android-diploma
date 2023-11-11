@@ -50,10 +50,12 @@ class ChooseWorkplaceFragment : Fragment() {
             findNavController().navigate(R.id.action_chooseWorkplaceFragment_to_chooseCountryFragment)
         }
 
+        viewModel.loadSelectedCountry()
         // Наблюдение за изменениями в выбранной стране
-        viewModel.getSelectedCountry().observe(viewLifecycleOwner) { selectedCountry ->
+        viewModel.selectedCountry.observe(viewLifecycleOwner) { selectedCountry ->
             binding.countryTextInputEditText.setText(selectedCountry?.name.orEmpty())
         }
+        viewModel.getCountries()
     }
 
     override fun onDestroyView() {

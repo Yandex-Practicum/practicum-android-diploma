@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.domain.impl
 
-import androidx.lifecycle.LiveData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import ru.practicum.android.diploma.domain.api.DirectoryRepository
@@ -61,9 +60,5 @@ class FilterInteractorImpl(
 
     override fun getSelectedCountry(): Country? {
         return repository.getSelectedCountry()
-    }
-
-    override fun getSelectedCountryLiveData(): LiveData<Country?> {
-        return repository.getSelectedCountryLiveData()
     }
 }
