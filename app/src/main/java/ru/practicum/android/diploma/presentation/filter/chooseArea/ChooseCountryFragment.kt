@@ -42,8 +42,6 @@ class ChooseCountryFragment : Fragment() {
                 is CountryState.Error -> displayError(state.errorText)
             }
         }
-
-
         viewModel.getCountries()
         binding.chooseAreaBackArrowImageview.setOnClickListener {
             findNavController().popBackStack()
@@ -60,8 +58,7 @@ class ChooseCountryFragment : Fragment() {
         if (areasAdapter == null) {
             areasAdapter = AreasAdapter(countries) { country ->
                 viewModel.onAreaClicked(country)
-
-
+                findNavController().popBackStack()
             }
 
             binding.chooseAreaListRecycleView.apply {
