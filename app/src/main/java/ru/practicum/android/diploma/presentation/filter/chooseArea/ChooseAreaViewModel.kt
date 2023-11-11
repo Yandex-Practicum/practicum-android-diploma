@@ -17,7 +17,7 @@ import ru.practicum.android.diploma.util.NetworkError
 class ChooseAreaViewModel(private val areasUseCase: FilterInteractor) : ViewModel() {
 
     //todo замемнить на реальный areaId
-    private val areaId = "113"
+    private val areaId = "117"
 
     private val areasStateLiveData = MutableLiveData<AreasState>()
     fun observeAreasState(): LiveData<AreasState> = areasStateLiveData

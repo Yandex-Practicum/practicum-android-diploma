@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.domain.models.filter.IndustryAreaModel
+import ru.practicum.android.diploma.domain.models.filter.Country
 
-class AreasAdapter<T : IndustryAreaModel>(
+class AreasAdapter<T : Country>(
     val items: List<T>,
     private val clickListener: (T) -> Unit
 ) : RecyclerView.Adapter<AreasViewHolder>() {
@@ -26,13 +26,13 @@ class AreasAdapter<T : IndustryAreaModel>(
         }
     }
 
-    private fun setPositionChecked(position: Int, isChecked: Boolean) {
-        if (positionChecked > -1) {
-            items[positionChecked].isChecked = false
-            notifyItemChanged(positionChecked)
-        }
-        positionChecked = if (isChecked) position else -1
-    }
+//    private fun setPositionChecked(position: Int, isChecked: Boolean) {
+//        if (positionChecked > -1) {
+//            items[positionChecked].isChecked = false
+//            notifyItemChanged(positionChecked)
+//        }
+//        positionChecked = if (isChecked) position else -1
+//    }
 
     override fun getItemCount(): Int = items.size
 }

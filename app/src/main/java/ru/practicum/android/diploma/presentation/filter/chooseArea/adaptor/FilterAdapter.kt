@@ -7,7 +7,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.filter.IndustryAreaModel
 
 class FilterAdapter<T : IndustryAreaModel>(
-    val items: ArrayList<T>,
+    private var items: ArrayList<T>,
     private val clickListener: ClickListener
 ) : RecyclerView.Adapter<FilterViewHolder>() {
 
@@ -35,6 +35,11 @@ class FilterAdapter<T : IndustryAreaModel>(
                 { isChecked: Boolean -> setPositionChecked(position, isChecked) }
             )
         }
+    }
+
+    fun updateData(newData: List<T>) {
+        items = ArrayList(newData)
+        notifyDataSetChanged()
     }
 
     private fun setPositionChecked(position: Int, isChecked: Boolean) {

@@ -51,4 +51,12 @@ class FilterInteractorImpl(
             }
         }
     }
+
+    override fun setSelectedCountry(country: Country?) {
+        repository.setSelectedCountry(country)
+    }
+
+    override fun getSelectedCountry(): Country? {
+        return repository.getSelectedCountry()
+    }
 }

@@ -5,7 +5,7 @@ import android.widget.RadioButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.domain.models.filter.IndustryAreaModel
+import ru.practicum.android.diploma.domain.models.filter.Country
 
 
 class AreasViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -14,7 +14,7 @@ class AreasViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val radioButton: RadioButton =
         itemView.findViewById(R.id.industry_region_check_radiobutton)
 
-    fun bind( item: IndustryAreaModel) {
+    fun bind(item: Country) {
         name.text = item.name
     }
 }

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentChooseAreaBinding
 import ru.practicum.android.diploma.domain.models.filter.Country
 import ru.practicum.android.diploma.presentation.filter.chooseArea.adaptor.AreasAdapter
@@ -34,7 +35,7 @@ class ChooseCountryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.chooseAreaListRecycleView
         binding.chooseAreaEnterFieldEdittext.isVisible = false
-        binding.chooseAreaHeaderTextview.text = "Выбор страны"
+        binding.chooseAreaHeaderTextview.text = getString(R.string.selectionCountries)
         viewModel.observeState().observe(viewLifecycleOwner) { state ->
             when (state) {
                 is CountryState.Display -> displayCountries(state.content)
@@ -55,7 +56,10 @@ class ChooseCountryFragment : Fragment() {
         if (areasAdapter == null) {
             areasAdapter = AreasAdapter(countries) { country ->
                 viewModel.onAreaClicked(country)
+
+
             }
+
             binding.chooseAreaListRecycleView.apply {
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = areasAdapter

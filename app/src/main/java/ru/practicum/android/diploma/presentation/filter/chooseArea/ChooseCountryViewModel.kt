@@ -57,7 +57,8 @@ class ChooseCountryViewModel(
         }
     }
 
+
     fun onAreaClicked(area: Country) {
-        //todo
+        interactor.setSelectedCountry(area)
     }
 }
