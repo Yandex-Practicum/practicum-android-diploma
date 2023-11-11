@@ -20,6 +20,13 @@ class ChooseCountryViewModel(
 
     private val stateLiveData = MutableLiveData<CountryState>()
     fun observeState(): LiveData<CountryState> = stateLiveData
+
+    private val _selectedCountry = MutableLiveData<Country?>()
+
+    private val selectedCountry: LiveData<Country?> = interactor.getSelectedCountryLiveData()
+
+    fun getSelectedCountry(): LiveData<Country?> = selectedCountry
+
     private fun renderState(state: CountryState) {
         stateLiveData.postValue(state)
     }
@@ -56,6 +63,8 @@ class ChooseCountryViewModel(
             }
         }
     }
+
+
 
 
     fun onAreaClicked(area: Country) {

@@ -30,24 +30,30 @@ class ChooseWorkplaceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Получаем сохраненную страну
         val savedCountry: Country? = viewModel.interactor.getSelectedCountry()
-        val countryText: String = savedCountry?.name.orEmpty()
+        // Устанавливаем текст в поле ввода страны
+        binding.countryTextInputEditText.setText(savedCountry?.name.orEmpty())
 
-        binding.countryTextInputEditText.setText(countryText)
-
+        // Обработчик нажатия на кнопку "Назад"
         binding.settingsBackArrowImageview.setOnClickListener {
             findNavController().popBackStack()
         }
 
+        // Обработчик нажатия на поле ввода региона
         binding.regionTextInputEditText.setOnClickListener {
             findNavController().navigate(R.id.action_chooseWorkplaceFragment_to_chooseAreaFragment)
         }
 
+        // Обработчик нажатия на поле ввода страны
         binding.countryTextInputEditText.setOnClickListener {
             findNavController().navigate(R.id.action_chooseWorkplaceFragment_to_chooseCountryFragment)
         }
 
-
+        // Наблюдение за изменениями в выбранной стране
+        viewModel.getSelectedCountry().observe(viewLifecycleOwner) { selectedCountry ->
+            binding.countryTextInputEditText.setText(selectedCountry?.name.orEmpty())
+        }
     }
 
     override fun onDestroyView() {

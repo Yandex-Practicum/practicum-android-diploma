@@ -42,11 +42,15 @@ class ChooseCountryFragment : Fragment() {
                 is CountryState.Error -> displayError(state.errorText)
             }
         }
+
+
         viewModel.getCountries()
         binding.chooseAreaBackArrowImageview.setOnClickListener {
             findNavController().popBackStack()
         }
     }
+
+
 
     private fun displayCountries(countries: List<Country>) {
         binding.apply {
