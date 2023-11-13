@@ -60,9 +60,9 @@
     </fragment>
     <fragment
         android:id="@+id/chooseWorkplaceFragment"
-        android:name="ru.practicum.android.diploma.presentation.filter.ChooseWorkplaceFragment"
+        android:name="ru.practicum.android.diploma.presentation.filter.SelectWorkplaceFragment"
         android:label="fragment_choose_workplace"
-        tools:layout="@layout/fragment_choose_workplace">
+        tools:layout="@layout/fragment_select_workplace">
     <action
         android:id="@+id/action_chooseWorkplaceFragment_to_chooseAreaFragment"
         app:destination="@id/chooseAreaFragment" />

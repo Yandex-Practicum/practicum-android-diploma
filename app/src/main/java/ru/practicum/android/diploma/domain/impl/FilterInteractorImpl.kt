@@ -7,6 +7,7 @@ import ru.practicum.android.diploma.domain.models.filter.Area
 import ru.practicum.android.diploma.domain.models.filter.Country
 import ru.practicum.android.diploma.domain.models.filter.FilterInteractor
 import ru.practicum.android.diploma.domain.models.filter.FilterRepository
+import ru.practicum.android.diploma.domain.models.filter.Filters
 import ru.practicum.android.diploma.util.DataResponse
 import ru.practicum.android.diploma.util.Resource
 
@@ -65,5 +66,16 @@ class FilterInteractorImpl(
 
     override fun getSelectedArea(): Area? {
         return repository.getSelectedArea()
+    }
+
+    override fun getFilters(): Filters {
+        val country = getSelectedCountry()
+        val area = getSelectedArea()
+        val preferSalary = getSalary()
+        // val industry  вписать получение индустрии
+        // val isChecked значение галочки
+        return Filters(
+            country, area, null, preferSalary, false
+        )
     }
 }

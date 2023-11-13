@@ -12,7 +12,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentChooseAreaBinding
 import ru.practicum.android.diploma.domain.models.filter.Country
-import ru.practicum.android.diploma.presentation.filter.chooseArea.adaptor.AreasAdapter
+import ru.practicum.android.diploma.presentation.filter.chooseArea.adaptor.CountryAdapter
 import ru.practicum.android.diploma.presentation.filter.chooseArea.state.CountryState
 
 class ChooseCountryFragment : Fragment() {
@@ -21,7 +21,7 @@ class ChooseCountryFragment : Fragment() {
     private var _binding: FragmentChooseAreaBinding? = null
     private val binding get() = _binding!!
     private val viewModel: ChooseCountryViewModel by viewModel()
-    private var areasAdapter: AreasAdapter<Country>? = null
+    private var countryAdapter: CountryAdapter<Country>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,15 +55,15 @@ class ChooseCountryFragment : Fragment() {
             chooseAreaListRecycleView.visibility = View.VISIBLE
             errorAreasLayout.visibility = View.GONE
         }
-        if (areasAdapter == null) {
-            areasAdapter = AreasAdapter(countries) { country ->
+        if (countryAdapter == null) {
+            countryAdapter = CountryAdapter(countries) { country ->
                 viewModel.onAreaClicked(country)
                 findNavController().popBackStack()
             }
 
             binding.chooseAreaListRecycleView.apply {
                 layoutManager = LinearLayoutManager(requireContext())
-                adapter = areasAdapter
+                adapter = countryAdapter
             }
         } else {
             //todo
