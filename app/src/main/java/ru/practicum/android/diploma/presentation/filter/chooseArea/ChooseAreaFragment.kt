@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,14 +30,15 @@ class ChooseAreaFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.chooseAreaListRecycleView
+        binding.chooseAreaEnterFieldEdittext.isVisible = false
+        binding.chooseAreaHeaderTextview.text = "Выбор региона"
         viewModel.observeAreasState().observe(viewLifecycleOwner) { state ->
             when (state) {
                 is AreasState.DisplayAreas -> displayAreas(state.areas)
                 is AreasState.Error -> displayError(state.errorText)
             }
         }
-
         binding.chooseAreaBackArrowImageview.setOnClickListener {
             findNavController().popBackStack()
         }
@@ -48,11 +50,8 @@ class ChooseAreaFragment : Fragment() {
             errorAreasLayout.visibility = View.GONE
         }
         if (areasAdapter == null) {
-            areasAdapter = FilterAdapter(areas) { area, position, notifyItemChanged, setPositionChecked ->
+            areasAdapter = FilterAdapter(areas) { area ->
                 viewModel.onAreaClicked(area as Area)
-                areas[position] = area.copy(isChecked = !area.isChecked)
-                notifyItemChanged.invoke()
-                setPositionChecked.invoke(areas[position].isChecked)
             }
             binding.chooseAreaListRecycleView.apply {
                 layoutManager = LinearLayoutManager(requireContext())

@@ -15,18 +15,8 @@ class FilterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         itemView.findViewById(R.id.industry_region_check_radiobutton)
 
     fun bind(
-        model: IndustryAreaModel,
-        position: Int,
-        clickListener: FilterAdapter.ClickListener,
-        notifyItemChanged: () -> Unit,
-        setPositionChecked: (Boolean) -> Unit
+        model: IndustryAreaModel
     ) {
         name.text = model.name
-        radioButton.apply {
-            isChecked = model.isChecked
-            setOnClickListener {
-                clickListener.onItemClicked(model, position, notifyItemChanged, setPositionChecked)
-            }
         }
     }
-}

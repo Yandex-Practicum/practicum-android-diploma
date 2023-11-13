@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.presentation.filter.chooseArea.adaptor
 
 import android.view.LayoutInflater
+
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.R
@@ -8,7 +9,7 @@ import ru.practicum.android.diploma.domain.models.filter.IndustryAreaModel
 
 class FilterAdapter<T : IndustryAreaModel>(
     val items: ArrayList<T>,
-    private val clickListener: ClickListener
+    private val clickListener: (model: IndustryAreaModel) -> Unit
 ) : RecyclerView.Adapter<FilterViewHolder>() {
 
     private var positionChecked = -1
@@ -20,20 +21,9 @@ class FilterAdapter<T : IndustryAreaModel>(
         )
 
     override fun onBindViewHolder(holder: FilterViewHolder, position: Int) {
-        holder.bind(
-            items[position],
-            position,
-            clickListener,
-            { notifyItemChanged(position) },
-            { isChecked: Boolean -> setPositionChecked(position, isChecked) })
-
+        holder.bind(items[position])
         holder.itemView.setOnClickListener {
-            clickListener.onItemClicked(
-                items[position],
-                position,
-                { notifyItemChanged(position) },
-                { isChecked: Boolean -> setPositionChecked(position, isChecked) }
-            )
+            clickListener.invoke(items[position])
         }
     }
 
@@ -47,12 +37,4 @@ class FilterAdapter<T : IndustryAreaModel>(
 
     override fun getItemCount(): Int = items.size
 
-    fun interface ClickListener {
-        fun onItemClicked(
-            model: IndustryAreaModel,
-            position: Int,
-            notifyItemChanged: () -> Unit,
-            setPositionChecked: (Boolean) -> Unit
-        )
-    }
 }

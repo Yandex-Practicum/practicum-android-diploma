@@ -6,7 +6,7 @@ import org.koin.core.context.startKoin
 import ru.practicum.android.diploma.core.di.dataModule
 import ru.practicum.android.diploma.core.di.interactorModule
 import ru.practicum.android.diploma.core.di.repositoryModule
-import ru.practicum.android.diploma.core.di.viewModule
+import ru.practicum.android.diploma.core.di.viewModelModule
 
 class App : Application() {
 
