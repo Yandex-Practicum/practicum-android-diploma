@@ -67,6 +67,10 @@ class SettingsFilterFragment : Fragment() {
             findNavController().navigate(R.id.action_settingsFiltersFragment_to_chooseWorkplaceFragment)
         }
 
+        binding.resetSettingsTextview.setOnClickListener {
+            viewModel.clearFilters()
+        }
+
 
     }
 
@@ -82,12 +86,6 @@ class SettingsFilterFragment : Fragment() {
         binding.salaryEt.setText(filters.preferSalary)
         binding.doNotShowWithoutSalaryCheckBox.isChecked = filters.isIncludeSalary
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

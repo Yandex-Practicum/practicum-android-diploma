@@ -16,7 +16,7 @@ import ru.practicum.android.diploma.presentation.SalaryPresenter
 
 
 val interactorModule = module {
-    single<SearchInteractor> { SearchInteractorImpl(get()) }
+    single<SearchInteractor> { SearchInteractorImpl(get(),get()) }
     single<FilterInteractor> { FilterInteractorImpl(get(), get()) }
     single<SimilarInteractor> { SimilarInteractorImpl(get()) }
     single<DetailInteractor> { DetailInteractorImpl(get(), get()) }
