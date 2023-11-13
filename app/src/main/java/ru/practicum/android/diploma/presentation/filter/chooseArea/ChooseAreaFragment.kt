@@ -1,6 +1,8 @@
 package ru.practicum.android.diploma.presentation.filter.chooseArea
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.FragmentChooseAreaBinding
 import ru.practicum.android.diploma.domain.models.filter.Area
-import ru.practicum.android.diploma.presentation.filter.chooseArea.adaptor.FilterAdapter
+import ru.practicum.android.diploma.presentation.filter.chooseArea.adaptor.AreaAdapter
 import ru.practicum.android.diploma.presentation.filter.chooseArea.state.AreasState
 
 class ChooseAreaFragment : Fragment() {
@@ -19,7 +21,7 @@ class ChooseAreaFragment : Fragment() {
     private var _binding: FragmentChooseAreaBinding? = null
     private val binding get() = _binding!!
     private val viewModel: ChooseAreaViewModel by viewModel()
-    private var areasAdapter: FilterAdapter<Area>? = null
+    private var areasAdapter: AreaAdapter<Area>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +44,30 @@ class ChooseAreaFragment : Fragment() {
         binding.chooseAreaBackArrowImageview.setOnClickListener {
             findNavController().popBackStack()
         }
+
+        setupSearchInput()
+
+
+        viewModel.initScreen()
+        viewModel.loadSelectedArea()
+    }
+
+    private fun setupSearchInput() {
+        binding.chooseAreaEnterFieldEdittext.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(charSequence: CharSequence?, start: Int, count: Int, after: Int) {
+                // No implementation needed
+            }
+
+            override fun onTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int) {
+                // No implementation needed
+            }
+
+            override fun afterTextChanged(editable: Editable?) {
+                editable?.toString()?.let { query ->
+                    viewModel.filterAreas(query)
+                }
+            }
+        })
     }
 
     private fun displayAreas(areas: ArrayList<Area>) {
@@ -49,21 +75,27 @@ class ChooseAreaFragment : Fragment() {
             chooseAreaListRecycleView.visibility = View.VISIBLE
             errorAreasLayout.visibility = View.GONE
         }
+
         if (areasAdapter == null) {
-            areasAdapter = FilterAdapter(areas) { area, position, notifyItemChanged, setPositionChecked ->
-                viewModel.onAreaClicked(area as Area)
+            areasAdapter = AreaAdapter(areas) { area ->
+                viewModel.onAreaClicked(area)
+                val position = areas.indexOf(area)
                 areas[position] = area.copy(isChecked = !area.isChecked)
-                notifyItemChanged.invoke()
-                setPositionChecked.invoke(areas[position].isChecked)
+                viewModel.onAreaClicked(area)
+                findNavController().popBackStack()
+                areasAdapter?.notifyItemChanged(position)
             }
+
             binding.chooseAreaListRecycleView.apply {
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = areasAdapter
             }
         } else {
-            //todo
+            // TODO:
         }
     }
+
+
 
     private fun displayError(errorText: String) {
         binding.apply {

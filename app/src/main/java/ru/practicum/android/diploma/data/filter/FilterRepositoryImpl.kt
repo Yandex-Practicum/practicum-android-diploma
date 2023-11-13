@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.data.filter
 
 import ru.practicum.android.diploma.data.filter.local.LocalStorage
+import ru.practicum.android.diploma.domain.models.filter.Area
 import ru.practicum.android.diploma.domain.models.filter.Country
 import ru.practicum.android.diploma.domain.models.filter.FilterRepository
 
@@ -22,5 +23,13 @@ class FilterRepositoryImpl(
 
     override fun getSelectedCountry(): Country? {
         return localStorage.getSelectedCountry()
+    }
+
+    override fun setSelectedArea(area: Area?) {
+        localStorage.setSelectedArea(area)
+    }
+
+    override fun getSelectedArea(): Area? {
+        return localStorage.getSelectedArea()
     }
 }

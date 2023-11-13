@@ -57,7 +57,16 @@ class SettingsFilterFragment: Fragment() {
         binding.workPlaceTextInputEditText.setOnClickListener {
             findNavController().navigate(R.id.action_settingsFiltersFragment_to_chooseWorkplaceFragment)
         }
+        binding.workPlaceTextInputEditText.text = placeWork()
+    }
 
+
+    private fun placeWork(): Editable? {
+        val country = viewModel.interactor.getSelectedCountry()
+        val area = viewModel.interactor.getSelectedArea()
+        val countryName = country?.name ?: "N/A"
+        val areaName = area?.name ?: "N/A"
+        return Editable.Factory.getInstance().newEditable("$countryName, $areaName")
     }
 
 
