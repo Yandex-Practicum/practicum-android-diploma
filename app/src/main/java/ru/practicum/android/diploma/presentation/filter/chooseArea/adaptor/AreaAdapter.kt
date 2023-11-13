@@ -7,11 +7,9 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.filter.Area
 
 class AreaAdapter<T : Area>(
-    val items: List<T>,
+    private val items: List<T>,
     private val clickListener: (T) -> Unit
 ) : RecyclerView.Adapter<AreaViewHolder<T>>() {
-
-    private var positionChecked = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AreaViewHolder<T> =
         AreaViewHolder(
@@ -25,9 +23,4 @@ class AreaAdapter<T : Area>(
     }
 
     override fun getItemCount(): Int = items.size
-
-    // Функциональный интерфейс для обработки кликов
-    interface ClickListener<T> {
-        fun onItemClicked(item: T)
-    }
 }

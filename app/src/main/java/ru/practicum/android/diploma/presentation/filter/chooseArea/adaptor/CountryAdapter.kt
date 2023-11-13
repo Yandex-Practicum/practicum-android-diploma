@@ -6,33 +6,24 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.filter.Country
 
-class AreasAdapter<T : Country>(
-    val items: List<T>,
+class CountryAdapter<T : Country>(
+    private val items: List<T>,
     private val clickListener: (T) -> Unit
-) : RecyclerView.Adapter<AreasViewHolder>() {
+) : RecyclerView.Adapter<CountryViewHolder>() {
 
-    private var positionChecked = -1
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AreasViewHolder =
-        AreasViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryViewHolder =
+        CountryViewHolder(
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.industry_area_item, parent, false)
         )
 
-    override fun onBindViewHolder(holder: AreasViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CountryViewHolder, position: Int) {
         holder.bind(items[position])
         holder.itemView.setOnClickListener {
             clickListener.invoke(items[position])
         }
     }
-
-//    private fun setPositionChecked(position: Int, isChecked: Boolean) {
-//        if (positionChecked > -1) {
-//            items[positionChecked].isChecked = false
-//            notifyItemChanged(positionChecked)
-//        }
-//        positionChecked = if (isChecked) position else -1
-//    }
 
     override fun getItemCount(): Int = items.size
 }

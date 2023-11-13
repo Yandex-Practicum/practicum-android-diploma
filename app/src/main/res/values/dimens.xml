@@ -44,5 +44,6 @@
     <dimen name="edittext_vertical_size">56dp</dimen>
 
     <dimen name="margin_24dp">24dp</dimen>
+    <dimen name="my_button_corner_radius">12dp</dimen>
 
 </resources>
