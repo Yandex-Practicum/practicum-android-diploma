@@ -15,7 +15,7 @@ import ru.practicum.android.diploma.domain.models.filter.Area
 import ru.practicum.android.diploma.presentation.filter.chooseArea.adaptor.AreaAdapter
 import ru.practicum.android.diploma.presentation.filter.chooseArea.state.AreasState
 
-class ChooseAreaFragment : Fragment() {
+class SelectAreaFragment : Fragment() {
 
 
     private var _binding: FragmentChooseAreaBinding? = null

@@ -72,11 +72,11 @@
     </fragment>
     <fragment
         android:id="@+id/chooseCountryFragment"
-        android:name="ru.practicum.android.diploma.presentation.filter.chooseArea.ChooseCountryFragment"
+        android:name="ru.practicum.android.diploma.presentation.filter.chooseArea.SelectCountryFragment"
         android:label="ChooseCountryFragment" />
     <fragment
         android:id="@+id/chooseAreaFragment"
-        android:name="ru.practicum.android.diploma.presentation.filter.chooseArea.ChooseAreaFragment"
+        android:name="ru.practicum.android.diploma.presentation.filter.chooseArea.SelectAreaFragment"
         android:label="fragment_choose_area"
         tools:layout="@layout/fragment_choose_area" />
 

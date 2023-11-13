@@ -12,11 +12,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.domain.models.Phone
 import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
 import ru.practicum.android.diploma.domain.DetailState
+import ru.practicum.android.diploma.domain.models.Phone
 import ru.practicum.android.diploma.domain.models.detail.FullVacancy
 import ru.practicum.android.diploma.presentation.SalaryPresenter
 import ru.practicum.android.diploma.presentation.detail.adapter.PhoneAdapter
@@ -27,6 +28,8 @@ import ru.practicum.android.diploma.util.debounce
 
 class DetailFragment : Fragment() {
     private val viewModel by viewModel<DetailViewModel>()
+    private val salaryPresenter: SalaryPresenter by inject()
+
     private var _binding: FragmentVacancyBinding? = null
     private val binding get() = _binding!!
 
@@ -67,11 +70,13 @@ class DetailFragment : Fragment() {
             }
         }
 
-
-
         binding.toolbarInclude.back.setOnClickListener {
             findNavController().popBackStack()
         }
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     private fun render(state: DetailState) {
@@ -90,12 +95,12 @@ class DetailFragment : Fragment() {
     private fun showContent(vacancy: FullVacancy) {
         fullVacancy = vacancy
         binding.jobNameTv.text = vacancy.name
-        binding.jobPaymentTv.text = SalaryPresenter().showSalary(vacancy.salary)
+        binding.jobPaymentTv.text = salaryPresenter.showSalary(vacancy.salary)
         binding.experienceTv.text = vacancy.experience
         binding.employerNameTv.text = vacancy.employerName
         Glide.with(requireContext())
             .load(vacancy.employerLogoUrl)
-            .placeholder(R.drawable.logo)
+            .placeholder(R.drawable.item_placeholder)
             .centerCrop()
             .transform(RoundedCorners(requireContext().resources.getDimensionPixelSize(R.dimen.logo_corner_radius)))
             .into(binding.logo)
@@ -143,7 +148,7 @@ class DetailFragment : Fragment() {
 
     private fun showFavouriteStatus(isFavorite: Boolean) {
         if (isFavorite) binding.toolbarInclude.favourite.setImageResource(R.drawable.ic_favourite_on) else binding.toolbarInclude.favourite.setImageResource(
-            R.drawable.ic_favourite
+            R.drawable.ic_favourites
         )
     }
 

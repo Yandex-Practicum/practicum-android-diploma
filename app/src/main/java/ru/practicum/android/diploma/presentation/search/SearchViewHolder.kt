@@ -8,10 +8,10 @@ import ru.practicum.android.diploma.databinding.ItemVacancyBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.presentation.SalaryPresenter
 
-class SearchViewHolder(private val binding: ItemVacancyBinding) :
-    RecyclerView.ViewHolder(binding.root) {
-
-    private val salaryPresenter = SalaryPresenter()
+class SearchViewHolder(
+    private val binding: ItemVacancyBinding,
+    private val salaryPresenter: SalaryPresenter
+) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: Vacancy) {
         binding.headVacancyRv.text = item.name
@@ -19,10 +19,9 @@ class SearchViewHolder(private val binding: ItemVacancyBinding) :
         binding.salaryRv.text = salaryPresenter.showSalary(item.salary)
         Glide.with(itemView)
             .load(item.employerLogoUrl)
-            .placeholder(R.drawable.logo)
+            .placeholder(R.drawable.item_placeholder)
             .centerCrop()
             .transform(RoundedCorners(itemView.resources.getDimensionPixelSize(R.dimen.logo_corner_radius)))
             .into(binding.logoRv)
-
     }
 }

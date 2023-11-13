@@ -29,7 +29,6 @@ class SelectWorkplaceFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         // Получаем сохраненную страну
         val savedCountry: Country? = viewModel.interactor.getSelectedCountry()
         // Устанавливаем текст в поле ввода страны
@@ -55,17 +54,13 @@ class SelectWorkplaceFragment : Fragment() {
         viewModel.selectedCountry.observe(viewLifecycleOwner) { selectedCountry ->
             binding.countryTextInputEditText.setText(selectedCountry?.name.orEmpty())
         }
-
         viewModel.loadSelectedArea()
         viewModel.selectedArea.observe(viewLifecycleOwner) { selectedArea ->
             binding.regionTextInputEditText.setText(selectedArea?.name.orEmpty())
         }
-
         binding.chooseButton.setOnClickListener {
             findNavController().popBackStack()
         }
-
-
         viewModel.getCountries()
     }
 

@@ -15,7 +15,7 @@ import ru.practicum.android.diploma.domain.models.filter.Country
 import ru.practicum.android.diploma.presentation.filter.chooseArea.adaptor.CountryAdapter
 import ru.practicum.android.diploma.presentation.filter.chooseArea.state.CountryState
 
-class ChooseCountryFragment : Fragment() {
+class SelectCountryFragment : Fragment() {
 
 
     private var _binding: FragmentChooseAreaBinding? = null
@@ -77,7 +77,6 @@ class ChooseCountryFragment : Fragment() {
             areasErrorText.text = errorText
         }
     }
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
