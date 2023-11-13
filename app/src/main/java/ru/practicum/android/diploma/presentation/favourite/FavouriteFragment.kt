@@ -54,7 +54,10 @@ class FavouriteFragment : Fragment() {
         }
         viewModel.fill()
     }
-
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
     private fun render(favouriteVacancies: List<Vacancy>) {
         if (favouriteVacancies.isNotEmpty()) binding.placeHolderFavorite.isVisible = false
         if (favouriteVacancies.isNotEmpty()) binding.recyclerViewFavorite.isVisible = true

@@ -57,7 +57,12 @@ class SimilarVacanciesFragment : Fragment() {
         }
     }
 
-    fun render(state: SearchState) {
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
+    private fun render(state: SearchState) {
         when (state) {
             is SearchState.Loading -> showLoading()
             is SearchState.Content -> showContent(state.vacancies)
@@ -94,11 +99,6 @@ class SimilarVacanciesFragment : Fragment() {
         binding.similarVacanciesRecyclerView.isVisible = false
         binding.placeholderMessage.isVisible = true
         binding.placeholderMessageText.text = errorMessage
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
     }
 
     companion object {

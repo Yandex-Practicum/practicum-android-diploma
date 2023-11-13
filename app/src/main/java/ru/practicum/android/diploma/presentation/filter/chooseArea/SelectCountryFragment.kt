@@ -1,27 +1,27 @@
 package ru.practicum.android.diploma.presentation.filter.chooseArea
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentChooseAreaBinding
-import ru.practicum.android.diploma.domain.models.filter.Area
-import ru.practicum.android.diploma.presentation.filter.chooseArea.adaptor.AreaAdapter
-import ru.practicum.android.diploma.presentation.filter.chooseArea.state.AreasState
+import ru.practicum.android.diploma.domain.models.filter.Country
+import ru.practicum.android.diploma.presentation.filter.chooseArea.adaptor.AreasAdapter
+import ru.practicum.android.diploma.presentation.filter.chooseArea.state.CountryState
 
-class ChooseAreaFragment : Fragment() {
+class SelectCountryFragment : Fragment() {
 
 
     private var _binding: FragmentChooseAreaBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: ChooseAreaViewModel by viewModel()
-    private var areasAdapter: AreaAdapter<Area>? = null
+    private val viewModel: ChooseCountryViewModel by viewModel()
+    private var areasAdapter: AreasAdapter<Country>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,57 +33,32 @@ class ChooseAreaFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel.observeAreasState().observe(viewLifecycleOwner) { state ->
+        binding.chooseAreaListRecycleView
+        binding.chooseAreaEnterFieldEdittext.isVisible = false
+        binding.chooseAreaHeaderTextview.text = getString(R.string.selectionCountries)
+        viewModel.observeState().observe(viewLifecycleOwner) { state ->
             when (state) {
-                is AreasState.DisplayAreas -> displayAreas(state.areas)
-                is AreasState.Error -> displayError(state.errorText)
+                is CountryState.Display -> displayCountries(state.content)
+                is CountryState.Error -> displayError(state.errorText)
             }
         }
-
+        viewModel.getCountries()
         binding.chooseAreaBackArrowImageview.setOnClickListener {
             findNavController().popBackStack()
         }
-
-        setupSearchInput()
-
-
-        viewModel.initScreen()
-        viewModel.loadSelectedArea()
     }
 
-    private fun setupSearchInput() {
-        binding.chooseAreaEnterFieldEdittext.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(charSequence: CharSequence?, start: Int, count: Int, after: Int) {
-                // No implementation needed
-            }
 
-            override fun onTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int) {
-                // No implementation needed
-            }
 
-            override fun afterTextChanged(editable: Editable?) {
-                editable?.toString()?.let { query ->
-                    viewModel.filterAreas(query)
-                }
-            }
-        })
-    }
-
-    private fun displayAreas(areas: ArrayList<Area>) {
+    private fun displayCountries(countries: List<Country>) {
         binding.apply {
             chooseAreaListRecycleView.visibility = View.VISIBLE
             errorAreasLayout.visibility = View.GONE
         }
-
         if (areasAdapter == null) {
-            areasAdapter = AreaAdapter(areas) { area ->
-                viewModel.onAreaClicked(area)
-                val position = areas.indexOf(area)
-                areas[position] = area.copy(isChecked = !area.isChecked)
-                viewModel.onAreaClicked(area)
+            areasAdapter = AreasAdapter(countries) { country ->
+                viewModel.onAreaClicked(country)
                 findNavController().popBackStack()
-                areasAdapter?.notifyItemChanged(position)
             }
 
             binding.chooseAreaListRecycleView.apply {
@@ -91,11 +66,9 @@ class ChooseAreaFragment : Fragment() {
                 adapter = areasAdapter
             }
         } else {
-            // TODO:
+            //todo
         }
     }
-
-
 
     private fun displayError(errorText: String) {
         binding.apply {
@@ -104,7 +77,6 @@ class ChooseAreaFragment : Fragment() {
             areasErrorText.text = errorText
         }
     }
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
