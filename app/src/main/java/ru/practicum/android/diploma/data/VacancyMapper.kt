@@ -1,10 +1,10 @@
 package ru.practicum.android.diploma.data
 
+import ru.practicum.android.diploma.data.dto.Language
+import ru.practicum.android.diploma.data.dto.License
+import ru.practicum.android.diploma.data.dto.SkillName
 import ru.practicum.android.diploma.data.dto.VacancyDto
 import ru.practicum.android.diploma.data.dto.detail.FullVacancyDto
-import ru.practicum.android.diploma.data.dto.detail.Language
-import ru.practicum.android.diploma.data.dto.detail.License
-import ru.practicum.android.diploma.data.dto.detail.SkillName
 import ru.practicum.android.diploma.domain.models.Contact
 import ru.practicum.android.diploma.domain.models.Phone
 import ru.practicum.android.diploma.domain.models.Salary
@@ -56,11 +56,11 @@ class VacancyMapper {
         )
     }
 
-    private fun phoneFromDto(phones: List<ru.practicum.android.diploma.data.dto.detail.Phone>?): List<Phone> {
+    private fun phoneFromDto(phones: List<ru.practicum.android.diploma.data.dto.Phone>?): List<Phone> {
         return if (!phones.isNullOrEmpty() ) phones.map { mapPhones(it) } else mutableListOf()
     }
 
-    fun mapPhones(phoneDto: ru.practicum.android.diploma.data.dto.detail.Phone): Phone {
+    fun mapPhones(phoneDto: ru.practicum.android.diploma.data.dto.Phone): Phone {
         return Phone(
             phoneDto.city,
         phoneDto.comment,
