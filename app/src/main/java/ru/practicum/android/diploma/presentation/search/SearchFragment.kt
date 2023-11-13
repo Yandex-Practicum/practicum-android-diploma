@@ -99,6 +99,10 @@ class SearchFragment : Fragment() {
             findNavController().navigate(R.id.action_searchFragment_to_settingsFilterFragment)
         }
     }
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 
     private fun render(state: SearchState) {
         when (state) {
@@ -159,6 +163,7 @@ class SearchFragment : Fragment() {
         binding.searchCount.isVisible = false
         binding.placeholderMessage.isVisible = false
     }
+
 
     companion object {
         const val CLICK_DEBOUNCE_DELAY_MILLIS = 200L

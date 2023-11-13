@@ -67,11 +67,13 @@ class DetailFragment : Fragment() {
             }
         }
 
-
-
         binding.toolbarInclude.back.setOnClickListener {
             findNavController().popBackStack()
         }
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     private fun render(state: DetailState) {
