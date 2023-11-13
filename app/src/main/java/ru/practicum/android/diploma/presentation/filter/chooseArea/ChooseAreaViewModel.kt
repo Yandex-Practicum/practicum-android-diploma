@@ -26,7 +26,7 @@ class ChooseAreaViewModel(private val areasUseCase: GetAreasUseCase) : ViewModel
         initScreen()
     }
 
-    private fun initScreen() {
+     fun initScreen() {
         viewModelScope.launch {
             areasUseCase.invoke(areaId).collect { result ->
                 processResult(result)

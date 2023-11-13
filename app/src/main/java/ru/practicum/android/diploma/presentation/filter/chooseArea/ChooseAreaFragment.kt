@@ -39,6 +39,7 @@ class ChooseAreaFragment : Fragment() {
                 is AreasState.Error -> displayError(state.errorText)
             }
         }
+        viewModel.initScreen()
         binding.chooseAreaBackArrowImageview.setOnClickListener {
             findNavController().popBackStack()
         }
