@@ -23,9 +23,6 @@ class SearchViewModel(
 
     private val stateLiveData = MutableLiveData<SearchState>()
 
-    private var _iconStateLiveData = MutableLiveData<IconState>()
-    val iconStateLiveData: LiveData<IconState> = _iconStateLiveData
-
     fun observeState(): LiveData<SearchState> = stateLiveData
     private fun renderState(state: SearchState) {
         stateLiveData.postValue(state)
@@ -33,13 +30,6 @@ class SearchViewModel(
 
     fun clearInputEditText() {
         lastSearchText = ""
-    }
-
-    fun setOnFocus(editText: String?, hasFocus: Boolean) {
-        if (hasFocus && editText.isNullOrEmpty()) _iconStateLiveData.postValue(IconState.SearchIcon)
-        if (hasFocus && editText!!.isNotEmpty()) _iconStateLiveData.postValue(IconState.CloseIcon)
-        if (!hasFocus && editText!!.isNotEmpty()) _iconStateLiveData.postValue(IconState.SearchIcon)
-        if (!hasFocus && editText.isNullOrEmpty()) _iconStateLiveData.postValue(IconState.SearchIcon)
     }
 
     fun searchDebounce(changedText: String) {
