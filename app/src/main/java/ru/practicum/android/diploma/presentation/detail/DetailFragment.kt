@@ -75,6 +75,7 @@ class DetailFragment : Fragment() {
             findNavController().popBackStack()
         }
     }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
@@ -91,15 +92,15 @@ class DetailFragment : Fragment() {
 
     private fun showLoading() {
         binding.progressBar.isVisible = true
-       // binding.content.isVisible = false
-       // binding.placeholderMessage.isVisible = false
+        binding.content.isVisible = false
+        binding.placeholderMessage.isVisible = false
     }
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun showContent(vacancy: FullVacancy) {
         binding.progressBar.isVisible = false
-       // binding.content.isVisible = true
-       // binding.placeholderMessage.isVisible = false
+        binding.content.isVisible = true
+        binding.placeholderMessage.isVisible = false
         fullVacancy = vacancy
         binding.jobNameTv.text = vacancy.name
         binding.jobPaymentTv.text = salaryPresenter.showSalary(vacancy.salary)
@@ -152,10 +153,10 @@ class DetailFragment : Fragment() {
 
     private fun showError(errorMessage: String) {
         binding.progressBar.isVisible = false
-        //binding.content.isVisible = false
-      //  binding.placeholderMessage.isVisible = true
-      //  binding.placeholderMessageImage.setImageResource(R.drawable.server_error)
-      //  binding.placeholderMessageText.text= errorMessage
+        binding.content.isVisible = false
+        binding.placeholderMessage.isVisible = true
+        binding.placeholderMessageImage.setImageResource(R.drawable.server_error)
+        binding.placeholderMessageText.text = errorMessage
     }
 
     private fun showFavouriteStatus(isFavorite: Boolean) {
