@@ -7,6 +7,7 @@
 
     <!-- Используем горизонтальный LinearLayout -->
     <LinearLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -29,7 +30,7 @@
             android:layout_weight="3"
             android:text="@string/vacancies"
             android:textColor="@color/text_color"
-            android:textSize="22sp"
+            android:textSize="@dimen/textSize_22sp"
             android:textStyle="bold"
             android:fontFamily="@font/ys_display"
             android:layout_marginEnd="@dimen/margin_4dp"
@@ -39,16 +40,16 @@
             android:id="@+id/share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_4dp"
-            android:src="@drawable/trailing_icon"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:src="@drawable/ic_sharing"
             tools:ignore="ContentDescription" />
 
         <ImageView
             android:id="@+id/favourite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/trailing_icon_2"
-            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_favourites"
+            android:layout_marginEnd="@dimen/margin_8"
             tools:ignore="ContentDescription" />
     </LinearLayout>
 </com.google.android.material.appbar.AppBarLayout>

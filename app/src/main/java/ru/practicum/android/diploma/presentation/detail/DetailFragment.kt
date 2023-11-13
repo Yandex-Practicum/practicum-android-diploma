@@ -148,7 +148,7 @@ class DetailFragment : Fragment() {
 
     private fun showFavouriteStatus(isFavorite: Boolean) {
         if (isFavorite) binding.toolbarInclude.favourite.setImageResource(R.drawable.ic_favourite_on) else binding.toolbarInclude.favourite.setImageResource(
-            R.drawable.ic_favourite
+            R.drawable.ic_favourites
         )
     }
 
