@@ -51,7 +51,7 @@ class ChooseAreaFragment : Fragment() {
         }
         if (areasAdapter == null) {
             areasAdapter = FilterAdapter(areas) { area ->
-                viewModel.onAreaClicked(area as Area)
+                viewModel.onAreaClicked(area)
             }
             binding.chooseAreaListRecycleView.apply {
                 layoutManager = LinearLayoutManager(requireContext())

@@ -9,7 +9,7 @@ import ru.practicum.android.diploma.domain.models.filter.IndustryAreaModel
 
 class FilterAdapter<T : IndustryAreaModel>(
     val items: ArrayList<T>,
-    private val clickListener: (model: IndustryAreaModel) -> Unit
+    private val clickListener: (T) -> Unit
 ) : RecyclerView.Adapter<FilterViewHolder>() {
 
     private var positionChecked = -1
