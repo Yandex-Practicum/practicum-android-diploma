@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/vacancy_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingHorizontal="@dimen/Horizontal_item_padding"
+    android:paddingVertical="@dimen/vertical_item_padding">
+
+    <ImageView
+        android:id="@+id/logo_rv"
+        android:layout_width="48dp"
+        app:strokeWidth="1dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="@dimen/end_logo_item_margin"
+        android:background="@drawable/corner_shape"
+        android:contentDescription="logo"
+        android:padding="@dimen/logo_item_padding"
+        android:src="@drawable/item_placeholder" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/head_vacancy_rv"
+            style="@style/HeadVacancyItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Header" />
+
+        <TextView
+            android:id="@+id/employer_rv"
+            style="@style/contentVacancyItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="employer" />
+
+        <TextView
+            android:id="@+id/salary_rv"
+            style="@style/contentVacancyItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="salary" />
+
+    </LinearLayout>
+
+</LinearLayout>

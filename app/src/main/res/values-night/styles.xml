@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="wrap_content">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="match_parent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="match_parent_wrap_content">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="wrap_content_match_parent">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="MyButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/button_rounded</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="HeadVacancyItem">
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/header_item_size</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="contentVacancyItem">
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/content_item_size</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+
+    <style name="HeaderTextStyle">
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/header_item_size</item>
+    </style>
+
+
+    <style name="textStyle">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_16</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+
+    </style>
+
+    <style name="NavigationButtonStyle">
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="itemTextColor">@color/bottom_navigate_color</item>
+        <item name="android:textSize">@dimen/button_text_size</item>
+        <item name="itemIconTint">@color/bottom_navigate_color</item>
+        <item name="itemBackground">@color/black</item>
+    </style>
+
+    <style name="EditTextStyle">
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="backgroundTint">@color/gray</item>
+        <item name="iconGravity">textStart</item>
+        <item name="android:drawablePadding">9dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:shadowRadius">0</item>
+    </style>
+
+    <style name="placeHolderTextStyle">
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/header_item_size</item>
+    </style>
+
+    <style name="SearchCountStyle">
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/content_item_size</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/search_count_background</item>
+        <item name="android:paddingHorizontal">12dp</item>
+        <item name="android:paddingVertical">8dp</item>
+    </style>
+
+    <style name="dpWrapContent">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+
+    <style name="TextView" parent="dpWrapContent">
+        <item name="android:fontFamily">@font/ys_display</item>
+        <item name="android:textSize">@dimen/content_item_size</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TextViewTitle" parent="dpWrapContent">
+        <item name="android:fontFamily">@font/ys_display</item>
+        <item name="android:textSize">@dimen/textSize_22sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">@dimen/dimens_16</item>
+    </style>
+
+    <style name="TextViewHeader" parent="dpWrapContent">
+        <item name="android:fontFamily">@font/ys_display</item>
+        <item name="android:textSize">@dimen/content_item_size</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">@dimen/dimens_16</item>
+    </style>
+
+    <style name="ButtonVacancy" parent="dpWrapContent">
+        <item name="android:fontFamily">@font/ys_display</item>
+        <item name="android:textSize">@dimen/content_item_size</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:layout_marginTop">@dimen/margin_24dp</item>
+        <item name="android:layout_marginBottom">@dimen/margin_24dp</item>
+    </style>
+
+    <style name="JobName">
+        <item name="android:layout_marginTop">24dp</item>
+        <item name="android:textSize">32sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="JobPatmant">
+        <item name="android:layout_marginTop">24dp</item>
+        <item name="android:textSize">@dimen/textSize_22sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+</resources>

@@ -1,0 +1,54 @@
+<com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:elevation="0dp">
+
+    <!-- Используем горизонтальный LinearLayout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/back"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/ys_display"
+            android:textSize="@dimen/textSize_22sp"
+            android:layout_marginEnd="@dimen/margin_4dp"
+            app:navigationIcon="@drawable/ic_back_arrow"
+            tools:ignore="UnusedAttribute" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="@string/vacancies"
+            android:textColor="@color/text_color"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/ys_display"
+            android:layout_marginEnd="@dimen/margin_4dp"
+            tools:ignore="UnusedAttribute" />
+
+        <ImageView
+            android:id="@+id/share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_4dp"
+            android:src="@drawable/trailing_icon"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/favourite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/trailing_icon_2"
+            android:layout_marginEnd="8dp"
+            tools:ignore="ContentDescription" />
+    </LinearLayout>
+</com.google.android.material.appbar.AppBarLayout>
