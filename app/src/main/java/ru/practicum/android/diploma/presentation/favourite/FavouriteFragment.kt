@@ -8,10 +8,12 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFavouriteBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.presentation.SalaryPresenter
 import ru.practicum.android.diploma.presentation.detail.DetailFragment
 import ru.practicum.android.diploma.presentation.search.SearchAdapter
 import ru.practicum.android.diploma.presentation.search.SearchFragment
@@ -19,12 +21,13 @@ import ru.practicum.android.diploma.util.debounce
 
 class FavouriteFragment : Fragment() {
     val viewModel by viewModel<FavouriteViewModel>()
+    val salaryPresenter: SalaryPresenter by inject()
     private var _binding: FragmentFavouriteBinding? = null
     private val binding get() = _binding!!
 
     lateinit var onItemClickDebounce: (Vacancy) -> Unit
     private val vacancies = mutableListOf<Vacancy>()
-    private val adapter = SearchAdapter(vacancies) { vacancy ->
+    private val adapter = SearchAdapter(vacancies,salaryPresenter) { vacancy ->
         onItemClickDebounce(vacancy)
     }
 

@@ -9,23 +9,27 @@ import androidx.fragment.app.Fragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import org.koin.android.ext.android.inject
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSimilarVacanciesBinding
 import ru.practicum.android.diploma.domain.SearchState
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.presentation.SalaryPresenter
 import ru.practicum.android.diploma.presentation.detail.DetailFragment
 import ru.practicum.android.diploma.presentation.search.SearchAdapter
 import ru.practicum.android.diploma.presentation.search.SearchFragment
 import ru.practicum.android.diploma.util.debounce
 
 class SimilarVacanciesFragment : Fragment() {
-    val viewModel by viewModel<SimilarViewModel>()
+    private val viewModel by viewModel<SimilarViewModel>()
+    private val salaryPresenter: SalaryPresenter by inject()
+
     private var _binding: FragmentSimilarVacanciesBinding? = null
     private val binding get() = _binding!!
     lateinit var onItemClickDebounce: (Vacancy) -> Unit
     private val vacancies = mutableListOf<Vacancy>()
-    private val adapter = SearchAdapter(vacancies) { vacanciy ->
-        onItemClickDebounce(vacanciy)
+    private val adapter = SearchAdapter(vacancies, salaryPresenter) { vacancy ->
+        onItemClickDebounce(vacancy)
     }
 
     override fun onCreateView(
