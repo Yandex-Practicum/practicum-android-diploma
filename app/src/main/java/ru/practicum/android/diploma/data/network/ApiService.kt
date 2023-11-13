@@ -44,4 +44,5 @@ interface ApiService {
 
     @GET("/areas/{area_id}")
     suspend fun getRegionInfo(@Path("area_id") areaId: String): RegionListDto
+
 }

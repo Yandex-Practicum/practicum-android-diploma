@@ -57,15 +57,17 @@ class SettingsFilterFragment: Fragment() {
         binding.workPlaceTextInputEditText.setOnClickListener {
             findNavController().navigate(R.id.action_settingsFiltersFragment_to_chooseWorkplaceFragment)
         }
-
-        binding.industryTextInputEditText.setOnClickListener {
-            findNavController().navigate(R.id.action_settingsFiltersFragment_to_chooseIndustryFragment)
-        }
-
+        binding.workPlaceTextInputEditText.text = placeWork()
     }
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+
+
+    private fun placeWork(): Editable? {
+        val country = viewModel.interactor.getSelectedCountry()
+        val area = viewModel.interactor.getSelectedArea()
+        val countryName = country?.name ?: "N/A"
+        val areaName = area?.name ?: "N/A"
+        return Editable.Factory.getInstance().newEditable("$countryName, $areaName")
     }
+
 
 }

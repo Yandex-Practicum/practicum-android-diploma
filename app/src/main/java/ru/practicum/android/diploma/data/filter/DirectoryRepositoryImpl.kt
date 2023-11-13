@@ -12,6 +12,7 @@ import ru.practicum.android.diploma.domain.api.DirectoryRepository
 import ru.practicum.android.diploma.domain.models.filter.Area
 import ru.practicum.android.diploma.domain.models.filter.Country
 import ru.practicum.android.diploma.domain.models.filter.Industry
+import ru.practicum.android.diploma.util.DataResponse
 import ru.practicum.android.diploma.util.Resource
 
 class DirectoryRepositoryImpl(
@@ -64,6 +65,7 @@ class DirectoryRepositoryImpl(
             }
         }
     }
+
 
     companion object {
         const val ERROR = -1

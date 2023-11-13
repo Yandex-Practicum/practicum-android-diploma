@@ -14,6 +14,7 @@ class FilterInteractorImpl(
     private val repository: FilterRepository,
     private val directoryRepository: DirectoryRepository
 ) : FilterInteractor {
+
     override fun setSalary(input: String) {
         repository.setSalary(input)
     }
@@ -24,7 +25,6 @@ class FilterInteractorImpl(
 
     override fun getAreas(areaId: String): Flow<DataResponse<Area>> {
         return directoryRepository.getAreas(areaId).map { result ->
-
             when (result) {
                 is Resource.Success -> {
                     DataResponse(data = result.data, networkError = null)
@@ -34,7 +34,6 @@ class FilterInteractorImpl(
                     DataResponse(data = null, networkError = result.message)
                 }
             }
-
         }
     }
 
@@ -50,5 +49,21 @@ class FilterInteractorImpl(
                 }
             }
         }
+    }
+
+    override fun setSelectedCountry(country: Country?) {
+        repository.setSelectedCountry(country)
+    }
+
+    override fun getSelectedCountry(): Country? {
+        return repository.getSelectedCountry()
+    }
+
+    override fun setSelectedArea(area: Area?) {
+        repository.setSelectedArea(area)
+    }
+
+    override fun getSelectedArea(): Area? {
+        return repository.getSelectedArea()
     }
 }

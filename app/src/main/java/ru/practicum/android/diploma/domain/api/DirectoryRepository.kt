@@ -14,4 +14,5 @@ interface DirectoryRepository {
 
     fun getAreas(areaId: String): Flow<Resource<List<Area>>>
 
+
 }

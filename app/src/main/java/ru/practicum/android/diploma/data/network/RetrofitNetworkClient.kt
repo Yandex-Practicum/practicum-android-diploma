@@ -11,6 +11,7 @@ import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.detail.DetailRequest
+import ru.practicum.android.diploma.data.dto.filter.AreaRequest
 import ru.practicum.android.diploma.data.dto.filter.CountryRequest
 import ru.practicum.android.diploma.data.dto.filter.CountryResponse
 import ru.practicum.android.diploma.data.dto.search.SearchRequest
@@ -61,6 +62,18 @@ class RetrofitNetworkClient(private val api: ApiService, private val context: Co
                 }
             }
         }
+
+        if (dto is AreaRequest) {
+            return withContext(Dispatchers.IO) {
+                try {
+                    val response = api.getRegionInfo(dto.id)
+                    response.apply { resultCode = 200 }
+                } catch (e: Throwable) {
+                    Response().apply { resultCode = 500 }
+                }
+            }
+        }
+
         if (dto !is SearchRequest) {
             return Response().apply { resultCode = 400 }
         }
