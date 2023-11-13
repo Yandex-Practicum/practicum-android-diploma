@@ -13,4 +13,7 @@ interface FilterInteractor {
     fun setSelectedCountry(country: Country?)
     fun getSelectedCountry(): Country?
 
+    fun setSelectedArea(area: Area?)
+    fun getSelectedArea(): Area?
+
 }

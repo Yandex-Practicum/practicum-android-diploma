@@ -12,13 +12,13 @@ import ru.practicum.android.diploma.databinding.FragmentChooseWorkplaceBinding
 import ru.practicum.android.diploma.domain.models.filter.Country
 import ru.practicum.android.diploma.presentation.filter.chooseArea.ChooseCountryViewModel
 
+
 class ChooseWorkplaceFragment : Fragment() {
 
     private var _binding: FragmentChooseWorkplaceBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: ChooseCountryViewModel by viewModel()
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,6 +55,17 @@ class ChooseWorkplaceFragment : Fragment() {
         viewModel.selectedCountry.observe(viewLifecycleOwner) { selectedCountry ->
             binding.countryTextInputEditText.setText(selectedCountry?.name.orEmpty())
         }
+
+        viewModel.loadSelectedArea()
+        viewModel.selectedArea.observe(viewLifecycleOwner) { selectedArea ->
+            binding.regionTextInputEditText.setText(selectedArea?.name.orEmpty())
+        }
+
+        binding.chooseButton.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
+
         viewModel.getCountries()
     }
 
