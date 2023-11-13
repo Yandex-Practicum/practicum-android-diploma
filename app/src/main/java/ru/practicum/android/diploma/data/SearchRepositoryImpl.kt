@@ -19,7 +19,7 @@ class SearchRepositoryImpl(
         val response = networkClient.doRequest(SearchRequest(query))
         when (response.resultCode) {
             ERROR -> {
-                emit(Resource.Error(resourceProvider.getString(R.string.check_connection)))
+                emit(Resource.Error(resourceProvider.getString(R.string.no_internet)))
             }
 
             SUCCESS -> {
@@ -41,7 +41,7 @@ class SearchRepositoryImpl(
             val response = networkClient.doRequest(SearchRequestOptions(options))
             when (response.resultCode) {
                 ERROR -> {
-                    emit(Resource.Error(resourceProvider.getString(R.string.check_connection)))
+                    emit(Resource.Error(resourceProvider.getString(R.string.no_internet)))
                 }
 
                 SUCCESS -> {

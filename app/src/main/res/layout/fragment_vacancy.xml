@@ -35,14 +35,15 @@
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_gravity="center"
             android:indeterminateTint="@color/progress_color"
             app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
             app:layout_constraintStart_toStartOf="@+id/guidelineRight"
             app:layout_constraintTop_toBottomOf="@+id/toolbarInclude"
             app:layout_constraintEnd_toEndOf="parent"
-            android:visibility="gone" />
+             />
+
 
         <TextView
             android:id="@+id/job_name_tv"
@@ -265,4 +266,5 @@
             app:layout_constraintStart_toStartOf="@+id/guidelineRight"
             app:layout_constraintTop_toBottomOf="@+id/comment" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </ScrollView>

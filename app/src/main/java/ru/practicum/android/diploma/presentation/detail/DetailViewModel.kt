@@ -56,7 +56,7 @@ class DetailViewModel(
             errorMessage != null -> {
                 renderState(
                     DetailState.Error(
-                        errorMessage = resourceProvider.getString(R.string.no_connection)
+                        errorMessage = resourceProvider.getString(R.string.server_error)
                     )
                 )
             }
