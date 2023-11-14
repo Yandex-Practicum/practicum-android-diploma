@@ -13,11 +13,13 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.domain.SearchState
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.presentation.SalaryPresenter
 import ru.practicum.android.diploma.presentation.detail.DetailFragment
 import ru.practicum.android.diploma.util.debounce
 
@@ -26,12 +28,13 @@ class SearchFragment : Fragment() {
 
     private var _binding: FragmentSearchBinding? = null
     private val viewModel by viewModel<SearchViewModel>()
+    private val salaryPresenter: SalaryPresenter by inject()
     private val binding get() = _binding!!
     private var inputText: String = ""
     private var simpleTextWatcher: TextWatcher? = null
     lateinit var onItemClickDebounce: (Vacancy) -> Unit
     private val vacancies = mutableListOf<Vacancy>()
-    private val adapter = SearchAdapter(vacancies) { vacanciy ->
+    private val adapter = SearchAdapter(vacancies, salaryPresenter) { vacanciy ->
         onItemClickDebounce(vacanciy)
     }
 
@@ -99,6 +102,10 @@ class SearchFragment : Fragment() {
             findNavController().navigate(R.id.action_searchFragment_to_settingsFilterFragment)
         }
     }
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 
     private fun render(state: SearchState) {
         when (state) {
@@ -148,6 +155,7 @@ class SearchFragment : Fragment() {
         binding.rvSearch.isVisible = false
         binding.searchCount.isVisible = false
         binding.placeholderMessage.isVisible = true
+        binding.placeholderMessageImage.setImageResource(R.drawable.no_internet_error)
         binding.placeholderMessageText.text = errorMessage
     }
 
@@ -159,6 +167,7 @@ class SearchFragment : Fragment() {
         binding.searchCount.isVisible = false
         binding.placeholderMessage.isVisible = false
     }
+
 
     companion object {
         const val CLICK_DEBOUNCE_DELAY_MILLIS = 200L

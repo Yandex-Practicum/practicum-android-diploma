@@ -7,7 +7,8 @@ import ru.practicum.android.diploma.domain.filter.FilterInteractor
 import ru.practicum.android.diploma.domain.filter.FilterRepository
 import ru.practicum.android.diploma.domain.models.filter.Area
 import ru.practicum.android.diploma.domain.models.filter.Country
-import ru.practicum.android.diploma.domain.models.filter.Industry
+import ru.practicum.android.diploma.domain.models.filter.FilterInteractor
+import ru.practicum.android.diploma.domain.models.filter.FilterRepository
 import ru.practicum.android.diploma.util.DataResponse
 import ru.practicum.android.diploma.util.Resource
 
@@ -66,6 +67,21 @@ class FilterInteractorImpl(
 
     override fun getSelectedArea(): Area? {
         return repository.getSelectedArea()
+    }
+
+    override fun getFilters(): Filters {
+        val country = getSelectedCountry()
+        val area = getSelectedArea()
+        val preferSalary = getSalary()
+        // val industry  вписать получение индустрии
+        // val isChecked значение галочки
+        return Filters(
+            country, area, null, preferSalary, false
+        )
+    }
+
+    override fun clearFilters() {
+        //TODO("очистить значения")
     }
 
     override fun getIndustries(): Flow<DataResponse<Industry>> {

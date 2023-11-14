@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.filter.SettingsFilterFragment" >
+    tools:context=".presentation.filter.SettingsFilterFragment">
 
     <ImageView
         android:id="@+id/settings_back_arrow_imageview"
@@ -14,8 +14,7 @@
         android:layout_marginTop="@dimen/margin_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_back_arrow"
-         />
+        app:srcCompat="@drawable/ic_back_arrow" />
 
     <TextView
         android:id="@+id/settings_header_textview"
@@ -54,13 +53,13 @@
         app:errorEnabled="false"
         app:layout_constraintTop_toBottomOf="@id/settings_header_textview">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/work_place_textInputEditText"
+        <EditText
+            android:id="@+id/work_place_et"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
-            android:fontFamily="@font/ys_display_regular"
             android:focusable="false"
+            android:fontFamily="@font/ys_display_regular"
             android:textSize="@dimen/text_16"
             app:boxBackgroundColor="@android:color/transparent"
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
@@ -97,27 +96,27 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
-            android:fontFamily="@font/ys_display_regular"
             android:focusable="false"
+            android:fontFamily="@font/ys_display_regular"
             android:textSize="@dimen/text_16"
             app:boxBackgroundColor="@android:color/transparent"
             tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/editTextInputStyle"
         android:id="@+id/salary_editText"
+        style="@style/editTextInputStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dimens_16"
         android:layout_marginTop="@dimen/margin_24"
+        android:background="@drawable/rounded_edittext_background"
         android:hint="@string/expected_salary"
         app:boxCollapsedPaddingTop="@dimen/padding_8"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
         app:expandedHintEnabled="false"
         app:hintEnabled="true"
-        android:background="@drawable/rounded_edittext_background"
         app:hintTextColor="@color/blue"
         app:layout_constraintTop_toBottomOf="@+id/industry_textInputLayout">
 
@@ -159,25 +158,20 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/confirm_button"
+        style="@style/MyButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dimens_16"
         android:layout_marginBottom="@dimen/margin_8"
-        android:background="@drawable/rounded_edittext_background"
-        android:backgroundTint="@color/blue"
-        android:paddingVertical="@dimen/padding_20"
         android:text="@string/apply"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_16"
         app:layout_constraintBottom_toTopOf="@+id/reset_settings_textview"
         app:layout_constraintEnd_toEndOf="@+id/reset_settings_textview"
         app:layout_constraintStart_toStartOf="@+id/reset_settings_textview"
         tools:ignore="TextContrastCheck" />
 
     <TextView
-        style="@style/textStyle"
         android:id="@+id/reset_settings_textview"
+        style="@style/textStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dimens_16"

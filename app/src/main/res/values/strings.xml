@@ -36,7 +36,7 @@
     <string name="sector_or_area">Отрасль или регион</string>
     <string name="search_title">Поиск вакансий</string>
     <string name="search_hint">Введите запрос</string>
-    <string name="no_internet">Список пустНет интернета</string>
+    <string name="no_internet">Нет интернета</string>
     <string name="main_menu_button">Главная</string>
     <string name="favorite_menu_button">Избранное</string>
     <string name="team_menu_button">Команда</string>
@@ -48,6 +48,9 @@
     <string name="work_place">Выбор места работы</string>
     <string name="similar_vacancies">Похожие вакансии</string>
     <string name="selectionCountries">Выбор страны</string>
+    <string name="no_salary">Зарплата не указана</string>
+    <string name="from">"от %s "</string>
+    <string name="to">"до %s "</string>
     <string name="choose_industry">Выбор отрасли</string>
     <string name="input_industry">Введите отрасль</string>
     <plurals name="vacancies">

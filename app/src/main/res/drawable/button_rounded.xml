@@ -1,5 +1,15 @@
 <!-- В res/drawable/button_rounded.xml -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/blue" />
-    <corners android:radius="12dp" />
-</shape>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:state_enabled="false">
+    <shape android:shape="rectangle">
+        <corners android:radius="@dimen/my_button_corner_radius"/>
+        <solid android:color="@color/gray" />
+    </shape>
+</item>
+<item>
+    <shape android:shape="rectangle">
+        <corners android:radius="@dimen/my_button_corner_radius"/>
+        <solid android:color="@color/blue" />
+    </shape>
+</item>
+</selector>

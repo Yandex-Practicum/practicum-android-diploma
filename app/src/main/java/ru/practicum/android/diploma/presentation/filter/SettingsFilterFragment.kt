@@ -11,8 +11,9 @@ import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSettingsFiltersBinding
+import ru.practicum.android.diploma.domain.models.filter.Filters
 
-class SettingsFilterFragment: Fragment() {
+class SettingsFilterFragment : Fragment() {
     private val viewModel by viewModel<FilterViewModel>()
 
     private var _binding: FragmentSettingsFiltersBinding? = null
@@ -32,13 +33,21 @@ class SettingsFilterFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.salaryEt.setText(viewModel.getSalary())
+        viewModel.getFilters()
+        binding.confirmButton.isEnabled = false
+        viewModel.observeChanges().observe(viewLifecycleOwner) {
+            changeEnabled(it)
+        }
+        viewModel.observeFilters().observe(viewLifecycleOwner) {
+            showWorkPlace(it)
+        }
         binding.salaryEt.isSelected = (inputText.isNotEmpty())
         simpleTextWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 inputText = s?.toString() ?: ""
+                viewModel.checkChanges(inputText)
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -46,7 +55,7 @@ class SettingsFilterFragment: Fragment() {
         }
         simpleTextWatcher?.let { binding.salaryEt.addTextChangedListener(it) }
 
-        binding.confirmButton.setOnClickListener{
+        binding.confirmButton.setOnClickListener {
             viewModel.setSalary(inputText)
             findNavController().popBackStack()
         }
@@ -54,24 +63,32 @@ class SettingsFilterFragment: Fragment() {
             findNavController().popBackStack()
         }
 
-        binding.industryTextInputEditText.setOnClickListener {
-            findNavController().navigate(R.id.action_settingsFiltersFragment_to_chooseIndustryFragment)
-        }
-
-        binding.workPlaceTextInputEditText.setOnClickListener {
+        binding.workPlaceEt.setOnClickListener {
             findNavController().navigate(R.id.action_settingsFiltersFragment_to_chooseWorkplaceFragment)
         }
-        binding.workPlaceTextInputEditText.text = placeWork()
+
+        binding.resetSettingsTextview.setOnClickListener {
+            viewModel.clearFilters()
+        }
+
+
     }
 
-
-    private fun placeWork(): Editable? {
-        val country = viewModel.interactor.getSelectedCountry()
-        val area = viewModel.interactor.getSelectedArea()
-        val countryName = country?.name ?: "N/A"
-        val areaName = area?.name ?: "N/A"
-        return Editable.Factory.getInstance().newEditable("$countryName, $areaName")
+    private fun changeEnabled(isEnabled: Boolean) {
+        binding.confirmButton.isEnabled = isEnabled
     }
 
+    private fun showWorkPlace(filters: Filters) {
+        val countryName = filters.country?.name ?: "N/A"
+        val areaName = filters.area?.name ?: "N/A"
+        binding.workPlaceEt.setText("$countryName, $areaName")
+        binding.industryTextInputEditText.setText(filters.industry?.name ?: "N/A")
+        binding.salaryEt.setText(filters.preferSalary)
+        binding.doNotShowWithoutSalaryCheckBox.isChecked = filters.isIncludeSalary
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

@@ -18,6 +18,8 @@ interface FilterInteractor {
 
     fun setSelectedArea(area: Area?)
     fun getSelectedArea(): Area?
+    fun getFilters(): Filters
+    fun clearFilters()
 
     fun getIndustries(): Flow<DataResponse<Industry>>
 

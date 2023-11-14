@@ -8,28 +8,27 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.databinding.FragmentChooseWorkplaceBinding
+import ru.practicum.android.diploma.databinding.FragmentSelectWorkplaceBinding
 import ru.practicum.android.diploma.domain.models.filter.Country
-import ru.practicum.android.diploma.presentation.filter.chooseArea.ChooseCountryViewModel
+import ru.practicum.android.diploma.presentation.filter.selectArea.SelectCountryViewModel
 
 
-class ChooseWorkplaceFragment : Fragment() {
+class SelectWorkplaceFragment : Fragment() {
 
-    private var _binding: FragmentChooseWorkplaceBinding? = null
+    private var _binding: FragmentSelectWorkplaceBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: ChooseCountryViewModel by viewModel()
+    private val viewModel: SelectCountryViewModel by viewModel()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentChooseWorkplaceBinding.inflate(inflater, container, false)
+        _binding = FragmentSelectWorkplaceBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         // Получаем сохраненную страну
         val savedCountry: Country? = viewModel.interactor.getSelectedCountry()
         // Устанавливаем текст в поле ввода страны
@@ -55,17 +54,13 @@ class ChooseWorkplaceFragment : Fragment() {
         viewModel.selectedCountry.observe(viewLifecycleOwner) { selectedCountry ->
             binding.countryTextInputEditText.setText(selectedCountry?.name.orEmpty())
         }
-
         viewModel.loadSelectedArea()
         viewModel.selectedArea.observe(viewLifecycleOwner) { selectedArea ->
             binding.regionTextInputEditText.setText(selectedArea?.name.orEmpty())
         }
-
         binding.chooseButton.setOnClickListener {
             findNavController().popBackStack()
         }
-
-
         viewModel.getCountries()
     }
 

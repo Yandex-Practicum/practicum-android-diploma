@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.presentation.filter.chooseArea
+package ru.practicum.android.diploma.presentation.filter.selectArea
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,24 +10,24 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.databinding.FragmentChooseAreaBinding
+import ru.practicum.android.diploma.databinding.FragmentSelectAreaBinding
 import ru.practicum.android.diploma.domain.models.filter.Country
-import ru.practicum.android.diploma.presentation.filter.chooseArea.adaptor.AreasAdapter
-import ru.practicum.android.diploma.presentation.filter.chooseArea.state.CountryState
+import ru.practicum.android.diploma.presentation.filter.selectArea.adaptor.CountryAdapter
+import ru.practicum.android.diploma.presentation.filter.selectArea.state.CountryState
 
-class ChooseCountryFragment : Fragment() {
+class SelectCountryFragment : Fragment() {
 
 
-    private var _binding: FragmentChooseAreaBinding? = null
+    private var _binding: FragmentSelectAreaBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: ChooseCountryViewModel by viewModel()
-    private var areasAdapter: AreasAdapter<Country>? = null
+    private val viewModel: SelectCountryViewModel by viewModel()
+    private var countryAdapter: CountryAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentChooseAreaBinding.inflate(inflater, container, false)
+        _binding = FragmentSelectAreaBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -49,21 +49,20 @@ class ChooseCountryFragment : Fragment() {
     }
 
 
-
     private fun displayCountries(countries: List<Country>) {
         binding.apply {
             chooseAreaListRecycleView.visibility = View.VISIBLE
             errorAreasLayout.visibility = View.GONE
         }
-        if (areasAdapter == null) {
-            areasAdapter = AreasAdapter(countries) { country ->
+        if (countryAdapter == null) {
+            countryAdapter = CountryAdapter(countries) { country ->
                 viewModel.onAreaClicked(country)
                 findNavController().popBackStack()
             }
 
             binding.chooseAreaListRecycleView.apply {
                 layoutManager = LinearLayoutManager(requireContext())
-                adapter = areasAdapter
+                adapter = countryAdapter
             }
         } else {
             //todo

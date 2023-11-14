@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.filter.ChooseWorkplaceFragment">
+    tools:context=".presentation.filter.SelectWorkplaceFragment">
 
     <ImageView
         android:id="@+id/settings_back_arrow_imageview"
@@ -105,17 +105,12 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/choose_button"
+        style="@style/MyButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dimens_16"
         android:layout_marginBottom="@dimen/margin_8"
-        android:background="@drawable/rounded_edittext_background"
-        android:backgroundTint="@color/blue"
-        android:paddingVertical="@dimen/padding_20"
         android:text="@string/choose"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_16"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
