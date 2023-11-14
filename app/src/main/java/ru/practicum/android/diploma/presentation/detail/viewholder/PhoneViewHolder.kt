@@ -8,7 +8,7 @@ class PhoneViewHolder(private val binding: PhoneTvBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: Phone) {
-        binding.phoneNumber.text = "+${item.country} (${item.city}) ${item.number}"
+        binding.phoneNumber.text = String.format("+%s (%s) %s",item.country,item.city,item.number)
     }
 }
 

@@ -44,8 +44,8 @@ class VacancyMapper {
             vacancyDto.alternate_url,
             vacancyDto.brandedDescription,
             Contact(
-                vacancyDto.contacts?.name,
                 vacancyDto.contacts?.email,
+                vacancyDto.contacts?.name,
                 phoneFromDto(vacancyDto.contacts?.phones)
             ),
             vacancyDto.description,
