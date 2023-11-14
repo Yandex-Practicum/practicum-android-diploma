@@ -41,12 +41,12 @@ class SelectWorkplaceFragment : Fragment() {
 
         // Обработчик нажатия на поле ввода региона
         binding.regionTextInputEditText.setOnClickListener {
-            findNavController().navigate(R.id.action_chooseWorkplaceFragment_to_chooseAreaFragment)
+            findNavController().navigate(R.id.action_selectWorkplaceFragment_to_selectAreaFragment)
         }
 
         // Обработчик нажатия на поле ввода страны
         binding.countryTextInputEditText.setOnClickListener {
-            findNavController().navigate(R.id.action_chooseWorkplaceFragment_to_chooseCountryFragment)
+            findNavController().navigate(R.id.action_selectWorkplaceFragment_to_selectCountryFragment)
         }
 
         viewModel.loadSelectedCountry()

@@ -9,16 +9,16 @@ import ru.practicum.android.diploma.domain.models.filter.Area
 class AreaAdapter(
     private val items: List<Area>,
     private val clickListener: (Area) -> Unit
-) : RecyclerView.Adapter<AreaViewHolder<Area>>() {
+) : RecyclerView.Adapter<AreaViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AreaViewHolder<Area> =
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AreaViewHolder =
         AreaViewHolder(
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.industry_area_item, parent, false),
             clickListener
         )
 
-    override fun onBindViewHolder(holder: AreaViewHolder<Area>, position: Int) {
+    override fun onBindViewHolder(holder: AreaViewHolder, position: Int) {
         holder.bind(items[position])
     }
 

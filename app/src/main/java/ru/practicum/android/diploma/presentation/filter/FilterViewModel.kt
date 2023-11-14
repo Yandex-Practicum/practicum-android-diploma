@@ -3,7 +3,7 @@ package ru.practicum.android.diploma.presentation.filter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import ru.practicum.android.diploma.domain.models.filter.FilterInteractor
+import ru.practicum.android.diploma.domain.filter.FilterInteractor
 import ru.practicum.android.diploma.domain.models.filter.Filters
 
 class FilterViewModel(private val interactor: FilterInteractor) : ViewModel() {

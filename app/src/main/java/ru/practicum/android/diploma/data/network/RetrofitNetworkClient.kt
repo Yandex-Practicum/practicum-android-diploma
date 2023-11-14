@@ -11,6 +11,8 @@ import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.filter.CountryResponse
+import ru.practicum.android.diploma.data.dto.filter.IndustryResponse
+import ru.practicum.android.diploma.domain.models.filter.Industry
 
 
 class RetrofitNetworkClient(private val api: ApiService, private val context: Context) :
@@ -88,6 +90,25 @@ class RetrofitNetworkClient(private val api: ApiService, private val context: Co
                     Response().apply { resultCode = 666 }
                 } else {
                     CountryResponse(countries).apply { resultCode = 200 }
+                }
+            } catch (e: Throwable) {
+                Response().apply { resultCode = 500 }
+            }
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    override suspend fun doIndustryRequest(): Response {
+        if (!isConnected()) {
+            return Response().apply { resultCode = -1 }
+        }
+        return withContext(Dispatchers.IO) {
+            try {
+                val industries = api.getIndustries()
+                if (industries.isEmpty()) {
+                    Response().apply { resultCode = 666 }
+                } else {
+                    IndustryResponse(industries).apply { resultCode = 200 }
                 }
             } catch (e: Throwable) {
                 Response().apply { resultCode = 500 }

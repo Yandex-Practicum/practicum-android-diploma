@@ -24,6 +24,7 @@ class SelectIndustryViewModel(private val filterInteractor: FilterInteractor) : 
 
 
     private var filteredIndustries: ArrayList<Industry> = arrayListOf()
+
     init {
 
         initScreen()
@@ -39,12 +40,13 @@ class SelectIndustryViewModel(private val filterInteractor: FilterInteractor) : 
 
     fun filterIndustries(query: String) {
         if (query.isEmpty()) {
-            industriesStateLiveData .value = IndustriesState.DisplayIndustries(filteredIndustries)
+            industriesStateLiveData.value = IndustriesState.DisplayIndustries(filteredIndustries)
         } else {
             val filteredList = filteredIndustries.filter { industry ->
                 industry.name.contains(query, ignoreCase = true)
             }.toMutableList()
-            industriesStateLiveData.value = IndustriesState.DisplayIndustries(ArrayList(filteredList))
+            industriesStateLiveData.value =
+                IndustriesState.DisplayIndustries(ArrayList(filteredList))
         }
     }
 
@@ -52,8 +54,7 @@ class SelectIndustryViewModel(private val filterInteractor: FilterInteractor) : 
         if (result.data != null) {
             industriesStateLiveData.value =
                 IndustriesState.DisplayIndustries(getFullIndustriesList(result.data))
-        }
-        else {
+        } else {
             when (result.networkError!!) {
                 NetworkError.BAD_CONNECTION.toString() -> industriesStateLiveData.value =
                     IndustriesState.Error("Проверьте подключение к интернету")
@@ -68,8 +69,7 @@ class SelectIndustryViewModel(private val filterInteractor: FilterInteractor) : 
         withContext(Dispatchers.Default) {
             val extendedIndustriesList: ArrayList<Industry> = arrayListOf()
             for (industry in nestedIndustriesList) {
-                extendedIndustriesList.add(industry.copy(industries = null))
-                if (industry.industries != null) extendedIndustriesList.addAll(industry.industries)
+                extendedIndustriesList.add(industry)
             }
             extendedIndustriesList.sortBy { it.name }
             extendedIndustriesList

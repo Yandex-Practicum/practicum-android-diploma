@@ -64,7 +64,11 @@ class SettingsFilterFragment : Fragment() {
         }
 
         binding.workPlaceEt.setOnClickListener {
-            findNavController().navigate(R.id.action_settingsFiltersFragment_to_chooseWorkplaceFragment)
+            findNavController().navigate(R.id.action_settingsFiltersFragment_to_selectWorkplaceFragment)
+        }
+
+        binding.industryTextInputEditText.setOnClickListener {
+            findNavController().navigate(R.id.action_settingsFiltersFragment_to_selectIndustryFragment)
         }
 
         binding.resetSettingsTextview.setOnClickListener {

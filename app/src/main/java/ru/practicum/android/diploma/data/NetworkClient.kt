@@ -9,4 +9,5 @@ interface NetworkClient {
     suspend fun doDetailRequest(id: String): Response
     suspend fun doAreaRequest(id: String): Response
     suspend fun doSearchSimilarRequest(id: String): Response
+    suspend fun doIndustryRequest(): Response
 }
