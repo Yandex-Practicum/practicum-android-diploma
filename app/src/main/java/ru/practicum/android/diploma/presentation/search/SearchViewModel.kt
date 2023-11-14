@@ -79,7 +79,7 @@ class SearchViewModel(
             errorMessage != null -> {
                 renderState(
                     SearchState.Error(
-                        errorMessage = resourceProvider.getString(R.string.no_connection)
+                        errorMessage = resourceProvider.getString(R.string.no_internet)
                     )
                 )
             }

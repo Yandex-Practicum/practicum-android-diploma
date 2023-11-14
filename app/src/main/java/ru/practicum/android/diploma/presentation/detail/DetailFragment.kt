@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -74,6 +75,7 @@ class DetailFragment : Fragment() {
             findNavController().popBackStack()
         }
     }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
@@ -84,15 +86,21 @@ class DetailFragment : Fragment() {
             is DetailState.Loading -> showLoading()
             is DetailState.Content -> showContent(state.vacancy)
             is DetailState.Error -> showError(state.errorMessage)
+            else -> showError(requireContext().getString(R.string.server_error))
         }
     }
 
     private fun showLoading() {
-
+        binding.progressBar.isVisible = true
+        binding.content.isVisible = false
+        binding.placeholderMessage.isVisible = false
     }
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun showContent(vacancy: FullVacancy) {
+        binding.progressBar.isVisible = false
+        binding.content.isVisible = true
+        binding.placeholderMessage.isVisible = false
         fullVacancy = vacancy
         binding.jobNameTv.text = vacancy.name
         binding.jobPaymentTv.text = salaryPresenter.showSalary(vacancy.salary)
@@ -144,6 +152,11 @@ class DetailFragment : Fragment() {
 
 
     private fun showError(errorMessage: String) {
+        binding.progressBar.isVisible = false
+        binding.content.isVisible = false
+        binding.placeholderMessage.isVisible = true
+        binding.placeholderMessageImage.setImageResource(R.drawable.server_error)
+        binding.placeholderMessageText.text = errorMessage
     }
 
     private fun showFavouriteStatus(isFavorite: Boolean) {
