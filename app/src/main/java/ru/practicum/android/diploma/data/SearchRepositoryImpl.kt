@@ -20,11 +20,9 @@ class SearchRepositoryImpl(
             options["text"] = query
             options["page"] = "0"
             options["per_page"] = "50"
-            if (filters.area != null) options["area"] =
-                filters.area.id else if (filters.country != null) options["area"] =
-                filters.country.id
+            if (filters.area != null) options["area"] = filters.area.id else if (filters.country != null) options["area"] = filters.country.id
             if (filters.industry != null) options["industry"] = filters.industry.id
-            if (filters.isIncludeSalary && filters.preferSalary != null) options["salary"] =
+            if (filters.isIncludeSalary && !filters.preferSalary.isNullOrEmpty()) options["salary"] =
                 filters.preferSalary
             val response = networkClient.doSearchRequest(options)
             when (response.resultCode) {
