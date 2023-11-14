@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -20,7 +21,6 @@ import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.domain.SearchState
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.presentation.SalaryPresenter
-import ru.practicum.android.diploma.presentation.detail.DetailFragment
 import ru.practicum.android.diploma.util.debounce
 
 
@@ -32,7 +32,7 @@ class SearchFragment : Fragment() {
     private val binding get() = _binding!!
     private var inputText: String = ""
     private var simpleTextWatcher: TextWatcher? = null
-    lateinit var onItemClickDebounce: (Vacancy) -> Unit
+    private lateinit var onItemClickDebounce: (Vacancy) -> Unit
     private val vacancies = mutableListOf<Vacancy>()
     private val adapter = SearchAdapter(vacancies, salaryPresenter) { vacanciy ->
         onItemClickDebounce(vacanciy)
@@ -57,8 +57,8 @@ class SearchFragment : Fragment() {
             viewLifecycleOwner.lifecycleScope,
             false
         ) { vacancy ->
-            DetailFragment.addArgs(vacancy.id)
-            findNavController().navigate(R.id.action_searchFragment_to_detailFragment)
+            val bundle = bundleOf(ID to vacancy.id)
+            findNavController().navigate(R.id.action_searchFragment_to_detailFragment, bundle)
         }
         binding.clearButtonIcon.setOnClickListener {
             if (binding.searchEt.text.isNotEmpty()) {
@@ -102,6 +102,7 @@ class SearchFragment : Fragment() {
             findNavController().navigate(R.id.action_searchFragment_to_settingsFilterFragment)
         }
     }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
@@ -172,5 +173,6 @@ class SearchFragment : Fragment() {
 
     companion object {
         const val CLICK_DEBOUNCE_DELAY_MILLIS = 200L
+        const val ID = "vacancyId"
     }
 }
