@@ -10,7 +10,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSelectWorkplaceBinding
 import ru.practicum.android.diploma.domain.models.filter.Country
-import ru.practicum.android.diploma.presentation.filter.chooseArea.ChooseCountryViewModel
+import ru.practicum.android.diploma.presentation.filter.selectArea.SelectCountryViewModel
 
 
 class SelectWorkplaceFragment : Fragment() {
@@ -18,7 +18,7 @@ class SelectWorkplaceFragment : Fragment() {
     private var _binding: FragmentSelectWorkplaceBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: ChooseCountryViewModel by viewModel()
+    private val viewModel: SelectCountryViewModel by viewModel()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

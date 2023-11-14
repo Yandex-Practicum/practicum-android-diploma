@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.presentation.filter.chooseArea
+package ru.practicum.android.diploma.presentation.filter.selectArea
 
 import android.os.Bundle
 import android.text.Editable
@@ -10,24 +10,24 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import ru.practicum.android.diploma.databinding.FragmentChooseAreaBinding
+import ru.practicum.android.diploma.databinding.FragmentSelectAreaBinding
 import ru.practicum.android.diploma.domain.models.filter.Area
-import ru.practicum.android.diploma.presentation.filter.chooseArea.adaptor.AreaAdapter
-import ru.practicum.android.diploma.presentation.filter.chooseArea.state.AreasState
+import ru.practicum.android.diploma.presentation.filter.selectArea.adaptor.AreaAdapter
+import ru.practicum.android.diploma.presentation.filter.selectArea.state.AreasState
 
 class SelectAreaFragment : Fragment() {
 
 
-    private var _binding: FragmentChooseAreaBinding? = null
+    private var _binding: FragmentSelectAreaBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: ChooseAreaViewModel by viewModel()
-    private var areasAdapter: AreaAdapter<Area>? = null
+    private val viewModel: SelectAreaViewModel by viewModel()
+    private var areasAdapter: AreaAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentChooseAreaBinding.inflate(inflater, container, false)
+        _binding = FragmentSelectAreaBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -54,11 +54,21 @@ class SelectAreaFragment : Fragment() {
 
     private fun setupSearchInput() {
         binding.chooseAreaEnterFieldEdittext.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(charSequence: CharSequence?, start: Int, count: Int, after: Int) {
+            override fun beforeTextChanged(
+                charSequence: CharSequence?,
+                start: Int,
+                count: Int,
+                after: Int
+            ) {
                 // No implementation needed
             }
 
-            override fun onTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int) {
+            override fun onTextChanged(
+                charSequence: CharSequence?,
+                start: Int,
+                before: Int,
+                count: Int
+            ) {
                 // No implementation needed
             }
 
@@ -94,7 +104,6 @@ class SelectAreaFragment : Fragment() {
             // TODO:
         }
     }
-
 
 
     private fun displayError(errorText: String) {
