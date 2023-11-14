@@ -8,8 +8,8 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import ru.practicum.android.diploma.domain.models.filter.Area
 import ru.practicum.android.diploma.domain.filter.FilterInteractor
+import ru.practicum.android.diploma.domain.models.filter.Area
 import ru.practicum.android.diploma.presentation.filter.selectArea.state.AreasState
 import ru.practicum.android.diploma.util.DataResponse
 import ru.practicum.android.diploma.util.NetworkError
@@ -54,8 +54,9 @@ class SelectAreaViewModel(private val areasUseCase: FilterInteractor) : ViewMode
     private suspend fun processResult(result: DataResponse<Area>) {
 
         if (result.data != null) {
+            filteredAreas = getAreasList(result.data)
             areasStateLiveData.value =
-                AreasState.DisplayAreas(getAreasList(result.data))
+                AreasState.DisplayAreas(filteredAreas)
             Log.e("ChooseAreaViewModel", "Result: $result")
 
         } else {
@@ -91,10 +92,10 @@ class SelectAreaViewModel(private val areasUseCase: FilterInteractor) : ViewMode
     }
 
     fun onAreaClicked(area: Area) {
-      areasUseCase.setSelectedArea(area)
+        areasUseCase.setSelectedArea(area)
     }
 
-    private fun loadSelectedCountryId() : String? {
+    private fun loadSelectedCountryId(): String? {
         val selectedCountry = areasUseCase.getSelectedCountry()
         return selectedCountry?.id
     }
