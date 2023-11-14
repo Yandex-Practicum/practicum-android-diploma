@@ -78,4 +78,8 @@ class FilterInteractorImpl(
             country, area, null, preferSalary, false
         )
     }
+
+    override fun clearFilters() {
+        //TODO("очистить значения")
+    }
 }

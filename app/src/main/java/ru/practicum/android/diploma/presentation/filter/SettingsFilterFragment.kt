@@ -67,6 +67,10 @@ class SettingsFilterFragment : Fragment() {
             findNavController().navigate(R.id.action_settingsFiltersFragment_to_chooseWorkplaceFragment)
         }
 
+        binding.resetSettingsTextview.setOnClickListener {
+            viewModel.clearFilters()
+        }
+
 
     }
 

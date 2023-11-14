@@ -38,4 +38,8 @@ class FilterViewModel(private val interactor: FilterInteractor) : ViewModel() {
     fun setSalary(inputText: String) {
         interactor.setSalary(inputText)
     }
+
+    fun clearFilters() {
+        interactor.clearFilters()
+    }
 }
