@@ -3,10 +3,11 @@ package ru.practicum.android.diploma.domain.impl
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import ru.practicum.android.diploma.domain.api.DirectoryRepository
+import ru.practicum.android.diploma.domain.filter.FilterInteractor
+import ru.practicum.android.diploma.domain.filter.FilterRepository
 import ru.practicum.android.diploma.domain.models.filter.Area
 import ru.practicum.android.diploma.domain.models.filter.Country
-import ru.practicum.android.diploma.domain.models.filter.FilterInteractor
-import ru.practicum.android.diploma.domain.models.filter.FilterRepository
+import ru.practicum.android.diploma.domain.models.filter.Industry
 import ru.practicum.android.diploma.util.DataResponse
 import ru.practicum.android.diploma.util.Resource
 
@@ -66,4 +67,27 @@ class FilterInteractorImpl(
     override fun getSelectedArea(): Area? {
         return repository.getSelectedArea()
     }
+
+    override fun getIndustries(): Flow<DataResponse<Industry>> {
+        return directoryRepository.getIndustries().map { result ->
+            when (result) {
+                is Resource.Success -> {
+                    DataResponse(data = result.data, networkError = null)
+                }
+
+                is Resource.Error -> {
+                    DataResponse(data = null, networkError = result.message)
+                }
+            }
+        }
+    }
+
+    override fun setSelectedIdustries(industry: Industry?) {
+        repository.setSelectedIndustry(industry)
+    }
+
+    override fun getSelectedIndustries(): Industry? {
+        return repository.getSelectedIndustry()
+    }
+
 }

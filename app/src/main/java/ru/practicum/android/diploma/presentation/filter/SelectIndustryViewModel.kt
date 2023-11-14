@@ -7,30 +7,47 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import ru.practicum.android.diploma.domain.filter.FilterInteractor
 import ru.practicum.android.diploma.domain.models.filter.Industry
-import ru.practicum.android.diploma.domain.models.filter.usecase.GetIndustriesUseCase
 import ru.practicum.android.diploma.presentation.filter.chooseArea.state.IndustriesState
 import ru.practicum.android.diploma.util.DataResponse
 import ru.practicum.android.diploma.util.NetworkError
 
-class ChooseIndustryViewModel(private val industriesUseCase: GetIndustriesUseCase) : ViewModel() {
+class SelectIndustryViewModel(private val filterInteractor: FilterInteractor) : ViewModel() {
+
 
     private val industriesStateLiveData = MutableLiveData<IndustriesState>()
+
+    private val _selectedIndustry = MutableLiveData<Industry?>()
+
     fun observeIndustriesState(): LiveData<IndustriesState> = industriesStateLiveData
 
+
+    private var filteredIndustries: ArrayList<Industry> = arrayListOf()
     init {
+
         initScreen()
     }
 
-    private fun initScreen() {
+    fun initScreen() {
         viewModelScope.launch {
-            industriesUseCase.invoke().collect { result ->
+            filterInteractor.getIndustries().collect { result ->
                 processResult(result)
             }
         }
     }
 
-    //todo Добавить strings из ресурсов
+    fun filterIndustries(query: String) {
+        if (query.isEmpty()) {
+            industriesStateLiveData .value = IndustriesState.DisplayIndustries(filteredIndustries)
+        } else {
+            val filteredList = filteredIndustries.filter { industry ->
+                industry.name.contains(query, ignoreCase = true)
+            }.toMutableList()
+            industriesStateLiveData.value = IndustriesState.DisplayIndustries(ArrayList(filteredList))
+        }
+    }
+
     private suspend fun processResult(result: DataResponse<Industry>) {
         if (result.data != null) {
             industriesStateLiveData.value =
@@ -59,6 +76,10 @@ class ChooseIndustryViewModel(private val industriesUseCase: GetIndustriesUseCas
         }
 
     fun onIndustryClicked(industry: Industry) {
-        //todo
+        filterInteractor.setSelectedIdustries(industry)
+    }
+
+    fun loadSelectedIndustry() {
+        _selectedIndustry.value = filterInteractor.getSelectedIndustries()
     }
 }

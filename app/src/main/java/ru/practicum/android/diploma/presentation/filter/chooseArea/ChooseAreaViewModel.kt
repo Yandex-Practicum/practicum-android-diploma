@@ -8,8 +8,8 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import ru.practicum.android.diploma.domain.filter.FilterInteractor
 import ru.practicum.android.diploma.domain.models.filter.Area
-import ru.practicum.android.diploma.domain.models.filter.FilterInteractor
 import ru.practicum.android.diploma.presentation.filter.chooseArea.state.AreasState
 import ru.practicum.android.diploma.util.DataResponse
 import ru.practicum.android.diploma.util.NetworkError

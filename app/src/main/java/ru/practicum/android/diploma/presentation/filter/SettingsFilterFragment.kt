@@ -54,6 +54,10 @@ class SettingsFilterFragment: Fragment() {
             findNavController().popBackStack()
         }
 
+        binding.industryTextInputEditText.setOnClickListener {
+            findNavController().navigate(R.id.action_settingsFiltersFragment_to_chooseIndustryFragment)
+        }
+
         binding.workPlaceTextInputEditText.setOnClickListener {
             findNavController().navigate(R.id.action_settingsFiltersFragment_to_chooseWorkplaceFragment)
         }

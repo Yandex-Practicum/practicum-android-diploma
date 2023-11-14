@@ -13,7 +13,7 @@ import ru.practicum.android.diploma.domain.api.DetailRepository
 import ru.practicum.android.diploma.domain.api.DirectoryRepository
 import ru.practicum.android.diploma.domain.api.SearchRepository
 import ru.practicum.android.diploma.domain.favorite.FavouriteRepository
-import ru.practicum.android.diploma.domain.models.filter.FilterRepository
+import ru.practicum.android.diploma.domain.filter.FilterRepository
 import ru.practicum.android.diploma.domain.similar.SimilarRepository
 
 val repositoryModule = module {

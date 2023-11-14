@@ -9,7 +9,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.ResourceProvider
 import ru.practicum.android.diploma.domain.models.filter.Area
 import ru.practicum.android.diploma.domain.models.filter.Country
-import ru.practicum.android.diploma.domain.models.filter.FilterInteractor
+import ru.practicum.android.diploma.domain.filter.FilterInteractor
 import ru.practicum.android.diploma.presentation.filter.chooseArea.state.AreasState
 import ru.practicum.android.diploma.presentation.filter.chooseArea.state.CountryState
 

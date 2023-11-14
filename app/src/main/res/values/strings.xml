@@ -48,6 +48,8 @@
     <string name="work_place">Выбор места работы</string>
     <string name="similar_vacancies">Похожие вакансии</string>
     <string name="selectionCountries">Выбор страны</string>
+    <string name="choose_industry">Выбор отрасли</string>
+    <string name="input_industry">Введите отрасль</string>
     <plurals name="vacancies">
         <item quantity="zero">%d вакансий</item>
         <item quantity="one">%d вакансия</item>

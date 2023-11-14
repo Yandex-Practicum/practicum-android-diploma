@@ -5,18 +5,19 @@ import android.widget.RadioButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.domain.models.filter.IndustryAreaModel
+import ru.practicum.android.diploma.domain.models.filter.Industry
 
 
-class FilterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class FilterViewHolder<T : Industry>(itemView: View, private val clickListener: (T) -> Unit) : RecyclerView.ViewHolder(itemView) {
 
     private val name: TextView = itemView.findViewById(R.id.industry_region_title_textview)
     private val radioButton: RadioButton =
         itemView.findViewById(R.id.industry_region_check_radiobutton)
 
-    fun bind(
-        model: IndustryAreaModel
-    ) {
-        name.text = model.name
+    fun bind(item: T) {
+        name.text = item.name
+        itemView.setOnClickListener {
+            clickListener.invoke(item)
         }
+    }
     }
