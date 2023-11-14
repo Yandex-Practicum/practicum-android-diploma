@@ -41,4 +41,8 @@ class FilterRepositoryImpl(
     override fun setSelectedIndustry(industry: Industry?) {
         return localStorage.setSelectedIndustry(industry)
     }
+
+    override fun clear(){
+        localStorage.clear()
+    }
 }

@@ -39,7 +39,7 @@ class SettingsFilterFragment : Fragment() {
             changeEnabled(it)
         }
         viewModel.observeFilters().observe(viewLifecycleOwner) {
-            showWorkPlace(it)
+            showFilters(it)
         }
         binding.salaryEt.isSelected = (inputText.isNotEmpty())
         simpleTextWatcher = object : TextWatcher {
@@ -82,11 +82,11 @@ class SettingsFilterFragment : Fragment() {
         binding.confirmButton.isEnabled = isEnabled
     }
 
-    private fun showWorkPlace(filters: Filters) {
-        val countryName = filters.country?.name ?: "N/A"
-        val areaName = filters.area?.name ?: "N/A"
-        binding.workPlaceEt.setText("$countryName, $areaName")
-        binding.industryTextInputEditText.setText(filters.industry?.name ?: "N/A")
+    private fun showFilters(filters: Filters) {
+        val countryName = filters.country?.name ?: ""
+        val areaName = filters.area?.name ?: ""
+        if (countryName.isNotEmpty()) binding.workPlaceEt.setText("$countryName, $areaName")
+        binding.industryTextInputEditText.setText(filters.industry?.name ?: "")
         binding.salaryEt.setText(filters.preferSalary)
         binding.doNotShowWithoutSalaryCheckBox.isChecked = filters.isIncludeSalary
     }

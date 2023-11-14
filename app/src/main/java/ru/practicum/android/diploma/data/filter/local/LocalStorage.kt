@@ -17,4 +17,5 @@ interface LocalStorage {
 
     fun setSelectedIndustry(industry: Industry?)
     fun getSelectedIndustry(): Industry?
+    fun clear()
 }
