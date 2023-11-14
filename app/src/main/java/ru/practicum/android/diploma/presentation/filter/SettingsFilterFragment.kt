@@ -75,7 +75,9 @@ class SettingsFilterFragment : Fragment() {
             viewModel.clearFilters()
         }
 
+        binding.doNotShowWithoutSalaryCheckBox.setOnClickListener {
 
+        }
     }
 
     private fun changeEnabled(isEnabled: Boolean) {

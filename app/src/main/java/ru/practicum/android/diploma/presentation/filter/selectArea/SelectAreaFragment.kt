@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.FragmentSelectAreaBinding
-import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.models.filter.Area
 import ru.practicum.android.diploma.presentation.filter.selectArea.adaptor.AreaAdapter
 import ru.practicum.android.diploma.presentation.filter.selectArea.state.AreasState
@@ -48,9 +47,7 @@ class SelectAreaFragment : Fragment() {
         }
 
         setupSearchInput()
-
         viewModel.initScreen()
-        viewModel.loadSelectedArea()
     }
 
     private fun setupSearchInput() {
@@ -61,7 +58,6 @@ class SelectAreaFragment : Fragment() {
                 count: Int,
                 after: Int
             ) {
-                // No implementation needed
             }
 
             override fun onTextChanged(
@@ -70,8 +66,9 @@ class SelectAreaFragment : Fragment() {
                 before: Int,
                 count: Int
             ) {
-                    viewModel.filterAreas(s?.toString() ?: "")
+                viewModel.filterAreas(s?.toString() ?: "")
             }
+
             override fun afterTextChanged(editable: Editable?) {
 
             }

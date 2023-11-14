@@ -73,11 +73,15 @@ class FilterInteractorImpl(
         val country = getSelectedCountry()
         val area = getSelectedArea()
         val preferSalary = getSalary()
-        // val industry  вписать получение индустрии
-        // val isChecked значение галочки
+        val industry = getSelectedIndustry()
+        val isChecked = getCheckedStatus()
         return Filters(
-            country, area, null, preferSalary, false
+            country, area, industry, preferSalary, isChecked
         )
+    }
+
+    private fun getCheckedStatus(): Boolean {
+        return repository.getCheckedStatus()
     }
 
     override fun clearFilters() {
@@ -102,7 +106,15 @@ class FilterInteractorImpl(
         repository.setSelectedIndustry(industry)
     }
 
-    override fun getSelectedIndustries(): Industry? {
+    override fun getSelectedIndustry(): Industry? {
         return repository.getSelectedIndustry()
+    }
+
+    override fun setSalaryStatus(isChecked:Boolean) {
+        repository.setCheckedStatus(isChecked)
+    }
+
+    override fun getSalaryStatus(): Boolean {
+        return repository.getCheckedStatus()
     }
 }

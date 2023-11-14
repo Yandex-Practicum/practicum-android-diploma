@@ -6,7 +6,7 @@ import ru.practicum.android.diploma.domain.models.filter.Area
 import ru.practicum.android.diploma.domain.models.filter.Country
 import ru.practicum.android.diploma.domain.models.filter.Industry
 
-class SharedPreferensClient(val gson: Gson, private val sharedPreferences: SharedPreferences) :
+class SharedPreferenceClient(val gson: Gson, private val sharedPreferences: SharedPreferences) :
     LocalStorage {
 
     private val editor = sharedPreferences.edit()
@@ -48,7 +48,7 @@ class SharedPreferensClient(val gson: Gson, private val sharedPreferences: Share
     override fun setSelectedIndustry(industry: Industry?) {
         val industryJson = gson.toJson(industry)
         editor
-            .putString(SELECTED_AREA_KEY, industryJson)
+            .putString(SELECTED_INDUSTRY_KEY, industryJson)
             .apply()
     }
 
@@ -57,13 +57,21 @@ class SharedPreferensClient(val gson: Gson, private val sharedPreferences: Share
         return gson.fromJson(industryJson, Industry::class.java)
     }
 
-
     override fun clear() {
         editor.clear().apply()
     }
 
+    override fun getCheckedStatus(): Boolean {
+        return sharedPreferences.getBoolean(SALARY_FLAG, false)
+    }
+
+    override fun setCheckedStatus(isChecked: Boolean) {
+        editor.putBoolean(SALARY_FLAG, isChecked)
+    }
+
     companion object {
         const val SALARY_KEY = "salary"
+        const val SALARY_FLAG = "salaryFlag"
         const val SELECTED_COUNTRY_KEY = "selectedCountry"
         const val SELECTED_AREA_KEY = "selectedArea"
         const val SELECTED_INDUSTRY_KEY = "selectedIndustry"

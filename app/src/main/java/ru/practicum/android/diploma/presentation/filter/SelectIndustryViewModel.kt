@@ -52,8 +52,8 @@ class SelectIndustryViewModel(private val filterInteractor: FilterInteractor) : 
 
     private suspend fun processResult(result: DataResponse<Industry>) {
         if (result.data != null) {
-            industriesStateLiveData.value =
-                IndustriesState.DisplayIndustries(getFullIndustriesList(result.data))
+            filteredIndustries = getFullIndustriesList(result.data)
+            industriesStateLiveData.value = IndustriesState.DisplayIndustries(filteredIndustries)
         } else {
             when (result.networkError!!) {
                 NetworkError.BAD_CONNECTION.toString() -> industriesStateLiveData.value =
@@ -80,6 +80,6 @@ class SelectIndustryViewModel(private val filterInteractor: FilterInteractor) : 
     }
 
     fun loadSelectedIndustry() {
-        _selectedIndustry.value = filterInteractor.getSelectedIndustries()
+        _selectedIndustry.value = filterInteractor.getSelectedIndustry()
     }
 }

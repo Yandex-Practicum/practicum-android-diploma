@@ -18,4 +18,6 @@ interface FilterRepository {
 
     fun setSelectedIndustry(industry: Industry?)
     fun clear()
+    fun getCheckedStatus(): Boolean
+    fun setCheckedStatus(isChecked: Boolean)
 }

@@ -26,5 +26,7 @@ interface FilterInteractor {
 
     fun setSelectedIdustries(industry: Industry?)
 
-    fun getSelectedIndustries(): Industry?
+    fun getSelectedIndustry(): Industry?
+    fun setSalaryStatus(isChecked:Boolean)
+    fun getSalaryStatus():Boolean
 }

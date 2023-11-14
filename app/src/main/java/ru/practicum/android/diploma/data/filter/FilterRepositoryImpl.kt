@@ -45,4 +45,12 @@ class FilterRepositoryImpl(
     override fun clear(){
         localStorage.clear()
     }
+
+    override fun getCheckedStatus(): Boolean {
+        return localStorage.getCheckedStatus()
+    }
+
+    override fun setCheckedStatus(isChecked: Boolean) {
+        localStorage.setCheckedStatus(isChecked)
+    }
 }
