@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.FragmentSelectAreaBinding
+import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.models.filter.Area
 import ru.practicum.android.diploma.presentation.filter.selectArea.adaptor.AreaAdapter
 import ru.practicum.android.diploma.presentation.filter.selectArea.state.AreasState
@@ -21,6 +22,7 @@ class SelectAreaFragment : Fragment() {
     private var _binding: FragmentSelectAreaBinding? = null
     private val binding get() = _binding!!
     private val viewModel: SelectAreaViewModel by viewModel()
+    private val listArea = mutableListOf<Area>()
     private var areasAdapter: AreaAdapter? = null
 
     override fun onCreateView(
@@ -47,7 +49,6 @@ class SelectAreaFragment : Fragment() {
 
         setupSearchInput()
 
-
         viewModel.initScreen()
         viewModel.loadSelectedArea()
     }
@@ -64,18 +65,15 @@ class SelectAreaFragment : Fragment() {
             }
 
             override fun onTextChanged(
-                charSequence: CharSequence?,
+                s: CharSequence?,
                 start: Int,
                 before: Int,
                 count: Int
             ) {
-                // No implementation needed
+                    viewModel.filterAreas(s?.toString() ?: "")
             }
-
             override fun afterTextChanged(editable: Editable?) {
-                editable?.toString()?.let { query ->
-                    viewModel.filterAreas(query)
-                }
+
             }
         })
     }
@@ -85,9 +83,8 @@ class SelectAreaFragment : Fragment() {
             chooseAreaListRecycleView.visibility = View.VISIBLE
             errorAreasLayout.visibility = View.GONE
         }
-
         if (areasAdapter == null) {
-            areasAdapter = AreaAdapter(areas) { area ->
+            areasAdapter = AreaAdapter(listArea) { area ->
                 viewModel.onAreaClicked(area)
                 val position = areas.indexOf(area)
                 areas[position] = area.copy(isChecked = !area.isChecked)
@@ -95,14 +92,14 @@ class SelectAreaFragment : Fragment() {
                 findNavController().popBackStack()
                 areasAdapter?.notifyItemChanged(position)
             }
-
             binding.chooseAreaListRecycleView.apply {
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = areasAdapter
             }
-        } else {
-            // TODO:
         }
+        listArea.clear()
+        listArea.addAll(areas)
+        areasAdapter!!.notifyDataSetChanged()
     }
 
 
