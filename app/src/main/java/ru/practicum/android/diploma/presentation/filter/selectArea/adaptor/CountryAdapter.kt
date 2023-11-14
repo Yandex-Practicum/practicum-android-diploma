@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.presentation.filter.chooseArea.adaptor
+package ru.practicum.android.diploma.presentation.filter.selectArea.adaptor
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,9 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.filter.Country
 
-class CountryAdapter<T : Country>(
-    private val items: List<T>,
-    private val clickListener: (T) -> Unit
+
+class CountryAdapter(
+    private val items: List<Country>,
+    private val clickListener: (Country) -> Unit
 ) : RecyclerView.Adapter<CountryViewHolder>() {
 
 

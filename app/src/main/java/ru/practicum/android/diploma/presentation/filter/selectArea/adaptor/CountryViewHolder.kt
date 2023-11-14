@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.presentation.filter.chooseArea.adaptor
+package ru.practicum.android.diploma.presentation.filter.selectArea.adaptor
 
 import android.view.View
 import android.widget.TextView

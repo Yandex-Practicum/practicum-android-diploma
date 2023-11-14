@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.presentation.filter.chooseArea
+package ru.practicum.android.diploma.presentation.filter.selectArea
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -10,19 +10,17 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.domain.models.filter.Area
 import ru.practicum.android.diploma.domain.models.filter.FilterInteractor
-import ru.practicum.android.diploma.presentation.filter.chooseArea.state.AreasState
+import ru.practicum.android.diploma.presentation.filter.selectArea.state.AreasState
 import ru.practicum.android.diploma.util.DataResponse
 import ru.practicum.android.diploma.util.NetworkError
 
 
-class ChooseAreaViewModel(private val areasUseCase: FilterInteractor) : ViewModel() {
+class SelectAreaViewModel(private val areasUseCase: FilterInteractor) : ViewModel() {
 
     private val areasStateLiveData = MutableLiveData<AreasState>()
     fun observeAreasState(): LiveData<AreasState> = areasStateLiveData
 
-    private val _selectedArea = MutableLiveData<Area?>()
-
-    val selectedArea: LiveData<Area?> = _selectedArea
+    private val selectedArea = MutableLiveData<Area?>()
 
     // Добавленное поле для хранения отфильтрованных регионов
     private var filteredAreas: ArrayList<Area> = arrayListOf()
@@ -103,7 +101,7 @@ class ChooseAreaViewModel(private val areasUseCase: FilterInteractor) : ViewMode
 
 
     fun loadSelectedArea() {
-        _selectedArea.value = areasUseCase.getSelectedArea()
+        selectedArea.value = areasUseCase.getSelectedArea()
     }
 
 }

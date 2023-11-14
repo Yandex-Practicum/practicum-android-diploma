@@ -86,6 +86,7 @@ class SettingsFilterFragment : Fragment() {
         binding.salaryEt.setText(filters.preferSalary)
         binding.doNotShowWithoutSalaryCheckBox.isChecked = filters.isIncludeSalary
     }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
