@@ -52,37 +52,20 @@ class VacancyMapper {
             vacancyDto.experience?.name.toString(),
             vacancyDto.employment?.name.toString(),
             if (vacancyDto.keySkills != null) contentMap(vacancyDto.keySkills).toBulletedList() else "",
-            addRequirements(vacancyDto)
         )
     }
 
     private fun phoneFromDto(phones: List<ru.practicum.android.diploma.data.dto.Phone>?): List<Phone> {
-        return if (!phones.isNullOrEmpty() ) phones.map { mapPhones(it) } else mutableListOf()
+        return if (!phones.isNullOrEmpty()) phones.map { mapPhones(it) } else mutableListOf()
     }
 
-    fun mapPhones(phoneDto: ru.practicum.android.diploma.data.dto.Phone): Phone {
+    private fun mapPhones(phoneDto: ru.practicum.android.diploma.data.dto.Phone): Phone {
         return Phone(
             phoneDto.city,
-        phoneDto.comment,
-        phoneDto.country,
-        phoneDto.number
+            phoneDto.comment,
+            phoneDto.country,
+            phoneDto.number
         )
-    }
-
-    private fun addRequirements(fullVacancyDto: FullVacancyDto): String {
-        var requirements = ""
-        if (!fullVacancyDto.driverLicense.isNullOrEmpty()) {
-            requirements += "Права категории"
-            //requirements += contentMap(fullVacancyDto.driverLicense)
-            requirements += "\n"
-        }
-        if (!fullVacancyDto.languages.isNullOrEmpty()) {
-            requirements += "Знание язаков: "
-            //requirements += contentMap(fullVacancyDto.languages)
-            requirements += "\n"
-
-        }
-        return requirements
     }
 
     private fun <T> contentMap(listDto: List<T>): List<String> {

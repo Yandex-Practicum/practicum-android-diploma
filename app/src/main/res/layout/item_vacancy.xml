@@ -10,9 +10,9 @@
 
     <ImageView
         android:id="@+id/logo_rv"
-        android:layout_width="48dp"
+        android:layout_width="@dimen/logo_size"
         app:strokeWidth="1dp"
-        android:layout_height="48dp"
+        android:layout_height="@dimen/logo_size"
         android:layout_marginEnd="@dimen/end_logo_item_margin"
         android:background="@drawable/corner_shape"
         android:contentDescription="logo"
