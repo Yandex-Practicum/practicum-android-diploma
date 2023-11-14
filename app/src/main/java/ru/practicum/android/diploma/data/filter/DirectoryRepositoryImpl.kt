@@ -6,6 +6,8 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.ResourceProvider
 import ru.practicum.android.diploma.data.dto.filter.CountryResponse
+import ru.practicum.android.diploma.data.dto.filter.IndustryResponse
+import ru.practicum.android.diploma.data.dto.filter.RegionListDto
 import ru.practicum.android.diploma.domain.api.DirectoryRepository
 import ru.practicum.android.diploma.domain.models.filter.Area
 import ru.practicum.android.diploma.domain.models.filter.Country
@@ -18,7 +20,24 @@ class DirectoryRepositoryImpl(
     val mapper: FiltersMapper
 ) : DirectoryRepository {
     override fun getIndustries(): Flow<Resource<List<Industry>>> = flow {
-        //TODO("Not yet implemented")
+        val response = networkClient.doIndustryRequest()
+        when (response.resultCode) {
+            ERROR -> {
+                emit(Resource.Error(resourceProvider.getString(R.string.check_connection)))
+            }
+
+            SUCCESS -> {
+                with(response as IndustryResponse) {
+                    val industryList = industries.map { mapper.mapIndustryFromDto(it) }
+                    emit(Resource.Success(industryList))
+                }
+
+            }
+
+            else -> {
+                emit(Resource.Error(resourceProvider.getString(R.string.server_error)))
+            }
+        }
     }
 
     override fun getCountries(): Flow<Resource<List<Country>>> = flow {
@@ -33,7 +52,6 @@ class DirectoryRepositoryImpl(
                     val countryList = countries.map { mapper.mapCoyntryFromDto(it) }
                     emit(Resource.Success(countryList))
                 }
-
             }
 
             else -> {

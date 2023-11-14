@@ -7,8 +7,8 @@ import ru.practicum.android.diploma.domain.filter.FilterInteractor
 import ru.practicum.android.diploma.domain.filter.FilterRepository
 import ru.practicum.android.diploma.domain.models.filter.Area
 import ru.practicum.android.diploma.domain.models.filter.Country
-import ru.practicum.android.diploma.domain.models.filter.FilterInteractor
-import ru.practicum.android.diploma.domain.models.filter.FilterRepository
+import ru.practicum.android.diploma.domain.models.filter.Filters
+import ru.practicum.android.diploma.domain.models.filter.Industry
 import ru.practicum.android.diploma.util.DataResponse
 import ru.practicum.android.diploma.util.Resource
 

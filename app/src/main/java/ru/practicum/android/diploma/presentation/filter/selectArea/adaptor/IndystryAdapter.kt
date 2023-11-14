@@ -8,28 +8,28 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.filter.Industry
 import java.util.Locale
 
-class FilterAdapter<T : Industry>(
-    private var items: ArrayList<T>,
-    private val clickListener:(T) -> Unit
-) : RecyclerView.Adapter<FilterViewHolder<T>>() {
+class IndystryAdapter(
+    private var items: ArrayList<Industry>,
+    private val clickListener: (Industry) -> Unit
+) : RecyclerView.Adapter<IndystryViewHolder>() {
 
     private var positionChecked = -1
 
-    private var filteredItems: ArrayList<T> = ArrayList(items)
+    private var filteredItems: ArrayList<Industry> = ArrayList(items)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilterViewHolder<T> =
-        FilterViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IndystryViewHolder =
+        IndystryViewHolder(
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.industry_area_item, parent, false),
-                    clickListener
+            clickListener
         )
 
-    override fun onBindViewHolder(holder: FilterViewHolder<T>, position: Int) {
+    override fun onBindViewHolder(holder: IndystryViewHolder, position: Int) {
         holder.bind(items[position])
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateData(newData: List<T>) {
+    fun updateData(newData: List<Industry>) {
         items = ArrayList(newData)
         filter("") // Примените фильтрацию с пустым запросом, чтобы обновить filteredItems
         notifyDataSetChanged()
@@ -52,11 +52,7 @@ class FilterAdapter<T : Industry>(
     }
 
 
-
     override fun getItemCount(): Int = filteredItems.size
 
-    interface ClickListener<T> {
-        fun onItemClicked(item: T)
-    }
 }
 
