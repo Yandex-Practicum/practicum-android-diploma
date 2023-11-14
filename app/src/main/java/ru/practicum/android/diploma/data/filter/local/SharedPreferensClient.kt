@@ -9,8 +9,10 @@ import ru.practicum.android.diploma.domain.models.filter.Industry
 class SharedPreferensClient(val gson: Gson, private val sharedPreferences: SharedPreferences) :
     LocalStorage {
 
+    private val editor = sharedPreferences.edit()
+
     override fun setSalary(salary: String) {
-        sharedPreferences.edit()
+        editor
             .putString(SALARY_KEY, salary)
             .apply()
     }
@@ -21,7 +23,7 @@ class SharedPreferensClient(val gson: Gson, private val sharedPreferences: Share
 
     override fun setSelectedCountry(country: Country?) {
         val countryJson = gson.toJson(country)
-        sharedPreferences.edit()
+        editor
             .putString(SELECTED_COUNTRY_KEY, countryJson)
             .apply()
     }
@@ -33,7 +35,7 @@ class SharedPreferensClient(val gson: Gson, private val sharedPreferences: Share
 
     override fun setSelectedArea(area: Area?) {
         val areaJson = gson.toJson(area)
-        sharedPreferences.edit()
+        editor
             .putString(SELECTED_AREA_KEY, areaJson)
             .apply()
     }
@@ -45,7 +47,7 @@ class SharedPreferensClient(val gson: Gson, private val sharedPreferences: Share
 
     override fun setSelectedIndustry(industry: Industry?) {
         val industryJson = gson.toJson(industry)
-        sharedPreferences.edit()
+        editor
             .putString(SELECTED_AREA_KEY, industryJson)
             .apply()
     }
@@ -55,11 +57,15 @@ class SharedPreferensClient(val gson: Gson, private val sharedPreferences: Share
         return gson.fromJson(industryJson, Industry::class.java)
     }
 
+
+    override fun clear() {
+        editor.clear().apply()
+    }
+
     companion object {
         const val SALARY_KEY = "salary"
         const val SELECTED_COUNTRY_KEY = "selectedCountry"
         const val SELECTED_AREA_KEY = "selectedArea"
         const val SELECTED_INDUSTRY_KEY = "selectedIndustry"
-
     }
 }

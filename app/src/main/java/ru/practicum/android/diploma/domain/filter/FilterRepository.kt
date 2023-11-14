@@ -17,4 +17,5 @@ interface FilterRepository {
     fun getSelectedIndustry(): Industry?
 
     fun setSelectedIndustry(industry: Industry?)
+    fun clear()
 }

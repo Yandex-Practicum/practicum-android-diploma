@@ -81,7 +81,7 @@ class FilterInteractorImpl(
     }
 
     override fun clearFilters() {
-        //TODO("очистить значения")
+        repository.clear()
     }
 
     override fun getIndustries(): Flow<DataResponse<Industry>> {
@@ -105,5 +105,4 @@ class FilterInteractorImpl(
     override fun getSelectedIndustries(): Industry? {
         return repository.getSelectedIndustry()
     }
-
 }
