@@ -1,12 +1,11 @@
-package ru.practicum.android.diploma.data.filter.local
+package ru.practicum.android.diploma.domain.filter
 
 import ru.practicum.android.diploma.domain.models.filter.Area
 import ru.practicum.android.diploma.domain.models.filter.Country
 import ru.practicum.android.diploma.domain.models.filter.Industry
 
-interface LocalStorage {
-
-    fun setSalary(salary: String)
+interface FilterRepository {
+    fun setSalary(input: String)
     fun getSalary(): String
 
     fun setSelectedCountry(country: Country?)
@@ -15,6 +14,7 @@ interface LocalStorage {
     fun setSelectedArea(area: Area?)
     fun getSelectedArea(): Area?
 
-    fun setSelectedIndustry(industry: Industry?)
     fun getSelectedIndustry(): Industry?
+
+    fun setSelectedIndustry(industry: Industry?)
 }

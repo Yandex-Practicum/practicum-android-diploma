@@ -5,40 +5,27 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.domain.models.filter.IndustryAreaModel
+import ru.practicum.android.diploma.domain.models.filter.Industry
 import java.util.Locale
 
-class FilterAdapter<T : IndustryAreaModel>(
+class FilterAdapter<T : Industry>(
     private var items: ArrayList<T>,
-    private val clickListener: ClickListener
-) : RecyclerView.Adapter<FilterViewHolder>() {
+    private val clickListener:(T) -> Unit
+) : RecyclerView.Adapter<FilterViewHolder<T>>() {
 
     private var positionChecked = -1
 
     private var filteredItems: ArrayList<T> = ArrayList(items)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilterViewHolder =
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilterViewHolder<T> =
         FilterViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.industry_area_item, parent, false)
+                .inflate(R.layout.industry_area_item, parent, false),
+                    clickListener
         )
 
-    override fun onBindViewHolder(holder: FilterViewHolder, position: Int) {
-        holder.bind(
-            filteredItems[position],
-            position,
-            clickListener,
-            { notifyItemChanged(position) },
-            { isChecked: Boolean -> setPositionChecked(position, isChecked) })
-
-        holder.itemView.setOnClickListener {
-            clickListener.onItemClicked(
-                filteredItems[position],
-                position,
-                { notifyItemChanged(position) },
-                { isChecked: Boolean -> setPositionChecked(position, isChecked) }
-            )
-        }
+    override fun onBindViewHolder(holder: FilterViewHolder<T>, position: Int) {
+        holder.bind(items[position])
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -64,23 +51,12 @@ class FilterAdapter<T : IndustryAreaModel>(
         notifyDataSetChanged()
     }
 
-    private fun setPositionChecked(position: Int, isChecked: Boolean) {
-        if (positionChecked > -1) {
-            filteredItems[positionChecked].isChecked = false
-            notifyItemChanged(positionChecked)
-        }
-        positionChecked = if (isChecked) position else -1
-    }
+
 
     override fun getItemCount(): Int = filteredItems.size
 
-    fun interface ClickListener {
-        fun onItemClicked(
-            model: IndustryAreaModel,
-            position: Int,
-            notifyItemChanged: () -> Unit,
-            setPositionChecked: (Boolean) -> Unit
-        )
+    interface ClickListener<T> {
+        fun onItemClicked(item: T)
     }
 }
 

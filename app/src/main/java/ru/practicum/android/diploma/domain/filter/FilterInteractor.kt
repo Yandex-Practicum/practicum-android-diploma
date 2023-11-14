@@ -1,6 +1,9 @@
-package ru.practicum.android.diploma.domain.models.filter
+package ru.practicum.android.diploma.domain.filter
 
 import kotlinx.coroutines.flow.Flow
+import ru.practicum.android.diploma.domain.models.filter.Area
+import ru.practicum.android.diploma.domain.models.filter.Country
+import ru.practicum.android.diploma.domain.models.filter.Industry
 import ru.practicum.android.diploma.util.DataResponse
 
 interface FilterInteractor {
@@ -18,4 +21,9 @@ interface FilterInteractor {
     fun getFilters(): Filters
     fun clearFilters()
 
+    fun getIndustries(): Flow<DataResponse<Industry>>
+
+    fun setSelectedIdustries(industry: Industry?)
+
+    fun getSelectedIndustries(): Industry?
 }
