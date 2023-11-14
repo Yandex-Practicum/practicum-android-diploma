@@ -136,7 +136,12 @@ class DetailFragment : Fragment() {
         }
         binding.vacancyDescriptionTv.settings.javaScriptEnabled = true
         val descriptionHtml = vacancy.description
-        binding.skillsTv.text = vacancy.skills
+        if (vacancy.skills.isNullOrEmpty()) {
+            binding.skills.isVisible = false
+        } else {
+            binding.skills.isVisible = true
+            binding.skillsTv.text = vacancy.skills
+        }
         binding.employmentTv.text = vacancy.employment
         if (descriptionHtml != null) {
             binding.vacancyDescriptionTv.loadDataWithBaseURL(
@@ -147,7 +152,6 @@ class DetailFragment : Fragment() {
                 null
             )
         }
-
     }
 
 
