@@ -38,7 +38,7 @@
         android:id="@+id/place_holder_favorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="171dp"
+        android:layout_marginTop="@dimen/margin_171"
         android:gravity="center"
         android:orientation="vertical"
         android:visibility="visible"
