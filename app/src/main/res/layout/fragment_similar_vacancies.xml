@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorOnPrimary"
     android:paddingHorizontal="@dimen/padding_20"
     tools:context=".presentation.similar.SimilarVacanciesFragment">
 
@@ -25,7 +26,7 @@
             android:src="@drawable/ic_back_arrow" />
 
         <TextView
-            style="@style/textStyle"
+            style="@style/HeaderTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_20"
@@ -54,6 +55,7 @@
         android:layout_gravity="center"
         android:indeterminateTint="@color/progress_color"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         android:visibility="gone" />

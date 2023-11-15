@@ -156,4 +156,10 @@
         <item name="cornerRadius">@dimen/margin_12</item>
         <item name="android:textColor">@color/white</item>
     </style>
+
+    <style name="DividerBottomNavigationMenu">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/divider</item>
+        <item name="android:background">@color/gray</item>
+    </style>
 </resources>
