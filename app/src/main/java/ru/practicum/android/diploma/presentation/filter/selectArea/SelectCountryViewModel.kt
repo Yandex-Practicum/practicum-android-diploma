@@ -65,8 +65,8 @@ class SelectCountryViewModel(
         }
     }
 
-    fun onAreaClicked(area: Country) {
-        interactor.setSelectedCountry(area)
+    fun onClicked(country: Country) {
+        interactor.setSelectedCountry(country)
     }
 
     fun loadSelectedCountry() {

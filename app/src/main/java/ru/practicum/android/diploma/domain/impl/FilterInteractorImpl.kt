@@ -54,6 +54,8 @@ class FilterInteractorImpl(
     }
 
     override fun setSelectedCountry(country: Country?) {
+        val lastCountry = repository.getSelectedCountry()
+        if (lastCountry != country) setSelectedArea(null)
         repository.setSelectedCountry(country)
     }
 
