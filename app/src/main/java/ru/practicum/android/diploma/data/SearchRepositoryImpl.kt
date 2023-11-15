@@ -7,7 +7,9 @@ import ru.practicum.android.diploma.data.dto.search.SearchResponse
 import ru.practicum.android.diploma.domain.api.SearchRepository
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.models.filter.Filters
+import ru.practicum.android.diploma.util.ERROR
 import ru.practicum.android.diploma.util.Resource
+import ru.practicum.android.diploma.util.SUCCESS
 
 class SearchRepositoryImpl(
     private val networkClient: NetworkClient,
@@ -43,10 +45,4 @@ class SearchRepositoryImpl(
                 }
             }
         }
-
-    companion object {
-        const val ERROR = -1
-        const val SUCCESS = 200
-    }
-
 }

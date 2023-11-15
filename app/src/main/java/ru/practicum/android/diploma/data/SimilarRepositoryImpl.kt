@@ -6,7 +6,9 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.dto.similar.SearchSimilarResponse
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.similar.SimilarRepository
+import ru.practicum.android.diploma.util.ERROR
 import ru.practicum.android.diploma.util.Resource
+import ru.practicum.android.diploma.util.SUCCESS
 
 class SimilarRepositoryImpl(
     private val networkClient: NetworkClient,
@@ -33,11 +35,4 @@ class SimilarRepositoryImpl(
             }
         }
     }
-
-
-    companion object {
-        const val ERROR = -1
-        const val SUCCESS = 200
-    }
-
 }

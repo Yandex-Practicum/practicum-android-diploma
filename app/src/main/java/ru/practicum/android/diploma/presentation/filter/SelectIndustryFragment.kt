@@ -20,7 +20,7 @@ class SelectIndustryFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModel<SelectIndustryViewModel>()
-    private val  listIndustry = mutableListOf<Industry>()
+    private val listIndustry = mutableListOf<Industry>()
     private var industriesAdapter: IndystryAdapter? = null
 
     override fun onCreateView(
@@ -119,5 +119,4 @@ class SelectIndustryFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

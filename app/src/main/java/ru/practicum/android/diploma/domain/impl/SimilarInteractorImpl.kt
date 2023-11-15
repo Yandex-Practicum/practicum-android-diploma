@@ -21,5 +21,4 @@ class SimilarInteractorImpl(private val repository: SimilarRepository) : Similar
             }
         }
     }
-
 }

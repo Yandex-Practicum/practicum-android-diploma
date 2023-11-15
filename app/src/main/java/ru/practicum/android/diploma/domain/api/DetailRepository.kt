@@ -6,5 +6,4 @@ import ru.practicum.android.diploma.util.Resource
 
 interface DetailRepository {
     fun getVacancy(id: String): Flow<Resource<FullVacancy>>
-
 }

@@ -114,7 +114,6 @@ class SearchFragment : Fragment() {
             is SearchState.Content -> showContent(state.vacancies, state.foundValue)
             is SearchState.Error -> showError(state.errorMessage)
             is SearchState.Empty -> showEmpty(state.message)
-            else -> {}
         }
     }
 
@@ -169,7 +168,6 @@ class SearchFragment : Fragment() {
         binding.searchCount.isVisible = false
         binding.placeholderMessage.isVisible = false
     }
-
 
     companion object {
         const val CLICK_DEBOUNCE_DELAY_MILLIS = 200L

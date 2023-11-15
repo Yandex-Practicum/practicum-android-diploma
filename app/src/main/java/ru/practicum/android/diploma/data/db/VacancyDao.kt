@@ -19,5 +19,4 @@ interface VacancyDao {
     suspend fun getFavoriteVacancies(): List<VacancyEntity>
     @Delete
     suspend fun delete(vacancyEntity: VacancyEntity)
-
 }

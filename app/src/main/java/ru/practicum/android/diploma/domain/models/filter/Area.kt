@@ -6,8 +6,7 @@ data class Area(
     val name: String,
     val areas: List<Area>,
     val isChecked: Boolean = false
-
-    )
+)
 
 
 

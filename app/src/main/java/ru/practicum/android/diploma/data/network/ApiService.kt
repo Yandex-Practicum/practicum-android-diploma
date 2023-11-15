@@ -8,9 +8,9 @@ import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.data.dto.detail.FullVacancyDto
 import ru.practicum.android.diploma.data.dto.filter.CountryDto
 import ru.practicum.android.diploma.data.dto.filter.IndustryDto
+import ru.practicum.android.diploma.data.dto.filter.RegionListDto
 import ru.practicum.android.diploma.data.dto.search.SearchResponse
 import ru.practicum.android.diploma.data.dto.similar.SearchSimilarResponse
-import ru.practicum.android.diploma.data.dto.filter.RegionListDto
 
 interface ApiService {
     @Headers(
@@ -43,7 +43,4 @@ interface ApiService {
     suspend fun getIndustries(): List<IndustryDto>
     @GET("/areas/{area_id}")
     suspend fun getRegionInfo(@Path("area_id") areaId: String): RegionListDto
-
-
-
 }

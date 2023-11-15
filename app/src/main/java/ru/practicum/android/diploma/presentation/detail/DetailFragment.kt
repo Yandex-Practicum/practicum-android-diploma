@@ -155,7 +155,6 @@ class DetailFragment : Fragment() {
         }
     }
 
-
     private fun showError(errorMessage: String) {
         binding.progressBar.isVisible = false
         binding.content.isVisible = false
