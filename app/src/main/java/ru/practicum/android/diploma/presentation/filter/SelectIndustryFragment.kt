@@ -20,7 +20,7 @@ class SelectIndustryFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModel<SelectIndustryViewModel>()
-
+    private val  listIndustry = mutableListOf<Industry>()
     private var industriesAdapter: IndystryAdapter? = null
 
     override fun onCreateView(
@@ -89,7 +89,7 @@ class SelectIndustryFragment : Fragment() {
             errorIndustryLayout.visibility = View.GONE
         }
         if (industriesAdapter == null) {
-            industriesAdapter = IndystryAdapter(industries) { industry ->
+            industriesAdapter = IndystryAdapter(listIndustry) { industry ->
                 viewModel.onIndustryClicked(industry)
                 val position = industries.indexOf(industry)
                 industries[position] = industry.copy(isChecked = !industry.isChecked)
@@ -101,9 +101,10 @@ class SelectIndustryFragment : Fragment() {
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = industriesAdapter
             }
-        } else {
-            //todo
         }
+        listIndustry.clear()
+        listIndustry.addAll(industries)
+        industriesAdapter!!.notifyDataSetChanged()
     }
 
     private fun displayError(errorText: String) {

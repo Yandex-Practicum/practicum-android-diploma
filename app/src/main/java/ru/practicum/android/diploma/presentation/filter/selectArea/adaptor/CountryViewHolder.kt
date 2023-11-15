@@ -9,7 +9,7 @@ import ru.practicum.android.diploma.domain.models.filter.Country
 
 class CountryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    private val name: TextView = itemView.findViewById(R.id.industry_region_title_textview)
+    private val name: TextView = itemView.findViewById(R.id.country_item_textview)
 
     fun bind(item: Country) {
         name.text = item.name

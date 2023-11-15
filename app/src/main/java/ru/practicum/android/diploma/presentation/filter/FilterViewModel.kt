@@ -47,4 +47,7 @@ class FilterViewModel(private val interactor: FilterInteractor) : ViewModel() {
         interactor.clearFilters()
         getFilters()
     }
+    fun setSalaryStatus(isChecked:Boolean) {
+        interactor.setSalaryStatus(isChecked)
+    }
 }

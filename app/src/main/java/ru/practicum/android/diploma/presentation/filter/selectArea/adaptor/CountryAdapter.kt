@@ -16,7 +16,7 @@ class CountryAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryViewHolder =
         CountryViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.industry_area_item, parent, false)
+                .inflate(R.layout.country_item, parent, false)
         )
 
     override fun onBindViewHolder(holder: CountryViewHolder, position: Int) {

@@ -70,7 +70,6 @@ class SelectAreaViewModel(private val areasUseCase: FilterInteractor) : ViewMode
         }
     }
 
-
     private suspend fun getAreasList(nestedAreasList: List<Area>): ArrayList<Area> =
         withContext(Dispatchers.Default) {
             val extendedAreasList: ArrayList<Area> = arrayListOf()

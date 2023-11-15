@@ -7,7 +7,7 @@
     tools:context=".presentation.filter.selectArea.SelectAreaFragment">
 
     <ImageView
-        android:id="@+id/choose_country_back_arrow_imageview"
+        android:id="@+id/back_arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_20"
@@ -18,14 +18,14 @@
 
     <TextView
         style="@style/textStyle"
-        android:id="@+id/choose_country_header_textview"
+        android:id="@+id/header_textview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_20"
         android:layout_marginTop="@dimen/margin_20"
-        android:text="Выбор страны"
+        android:text="@string/select_country"
         android:textSize="@dimen/text_22"
-        app:layout_constraintStart_toEndOf="@+id/choose_country_back_arrow_imageview"
+        app:layout_constraintStart_toEndOf="@id/back_arrow"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_48"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/choose_country_back_arrow_imageview"
+        app:layout_constraintTop_toBottomOf="@id/back_arrow"
         tools:listitem="@layout/country_item" />
 
     <LinearLayout
