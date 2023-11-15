@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -14,7 +15,6 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFavouriteBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.presentation.SalaryPresenter
-import ru.practicum.android.diploma.presentation.detail.DetailFragment
 import ru.practicum.android.diploma.presentation.search.SearchAdapter
 import ru.practicum.android.diploma.presentation.search.SearchFragment
 import ru.practicum.android.diploma.util.debounce
@@ -27,7 +27,7 @@ class FavouriteFragment : Fragment() {
 
     lateinit var onItemClickDebounce: (Vacancy) -> Unit
     private val vacancies = mutableListOf<Vacancy>()
-    private val adapter = SearchAdapter(vacancies,salaryPresenter) { vacancy ->
+    private val adapter = SearchAdapter(vacancies, salaryPresenter) { vacancy ->
         onItemClickDebounce(vacancy)
     }
 
@@ -52,15 +52,17 @@ class FavouriteFragment : Fragment() {
             viewLifecycleOwner.lifecycleScope,
             false
         ) { vacancy ->
-            DetailFragment.addArgs(vacancy.id)
-            findNavController().navigate(R.id.action_favouriteFragment_to_detailFragment)
+            val bundle = bundleOf("vacancyId" to vacancy.id)
+            findNavController().navigate(R.id.action_favouriteFragment_to_detailFragment, bundle)
         }
         viewModel.fill()
     }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
+
     private fun render(favouriteVacancies: List<Vacancy>) {
         if (favouriteVacancies.isNotEmpty()) binding.placeHolderFavorite.isVisible = false
         if (favouriteVacancies.isNotEmpty()) binding.recyclerViewFavorite.isVisible = true

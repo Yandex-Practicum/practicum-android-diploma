@@ -48,6 +48,7 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val vacancyId = arguments?.getString("vacancyId") ?: ""
         viewModel.getVacancy(vacancyId)
         viewModel.getStatus(vacancyId)
         viewModel.observeState().observe(viewLifecycleOwner) {
@@ -86,7 +87,7 @@ class DetailFragment : Fragment() {
             is DetailState.Loading -> showLoading()
             is DetailState.Content -> showContent(state.vacancy)
             is DetailState.Error -> showError(state.errorMessage)
-            else -> showError(requireContext().getString(R.string.server_error))
+            else -> {}
         }
     }
 
@@ -167,14 +168,5 @@ class DetailFragment : Fragment() {
         if (isFavorite) binding.toolbarInclude.favourite.setImageResource(R.drawable.ic_favourite_on) else binding.toolbarInclude.favourite.setImageResource(
             R.drawable.ic_favourites
         )
-    }
-
-
-    companion object {
-        private var vacancyId: String = ""
-
-        fun addArgs(id: String) {
-            vacancyId = id
-        }
     }
 }

@@ -4,18 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSimilarVacanciesBinding
 import ru.practicum.android.diploma.domain.SearchState
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.presentation.SalaryPresenter
-import ru.practicum.android.diploma.presentation.detail.DetailFragment
 import ru.practicum.android.diploma.presentation.search.SearchAdapter
 import ru.practicum.android.diploma.presentation.search.SearchFragment
 import ru.practicum.android.diploma.util.debounce
@@ -48,8 +48,11 @@ class SimilarVacanciesFragment : Fragment() {
             viewLifecycleOwner.lifecycleScope,
             false
         ) { vacancy ->
-            DetailFragment.addArgs(vacancy.id)
-            findNavController().navigate(R.id.action_similarVacanciesFragment_to_detailFragment)
+            val bundle = bundleOf("vacancyId" to vacancy.id)
+            findNavController().navigate(
+                R.id.action_similarVacanciesFragment_to_detailFragment,
+                bundle
+            )
         }
         viewModel.searchVacancy(vacancyId)
         binding.similarVacanciesBackArrowImageview.setOnClickListener {
