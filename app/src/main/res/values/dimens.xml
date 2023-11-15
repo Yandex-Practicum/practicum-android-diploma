@@ -43,10 +43,10 @@
     <item name="dimens_16" type="dimen">16dp</item>
     <!-- View Size -->
     <dimen name="edittext_vertical_size">56dp</dimen>
-    <dimen name="divider">1dp</dimen>
     <dimen name="margin_24dp">24dp</dimen>
     <dimen name="my_button_corner_radius">12dp</dimen>
     <dimen name="error">200dp</dimen>
     <dimen name="logo_size">48dp</dimen>
+    <dimen name="divider">1dp</dimen>
 
 </resources>
