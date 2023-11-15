@@ -22,6 +22,9 @@ class SimilarViewModel(
         stateLiveData.postValue(state)
     }
 
+    init {
+        searchVacancy(searchText = String())
+    }
     fun searchVacancy(searchText: String) {
         if (searchText.isNotEmpty()) {
             renderState(SearchState.Loading)

@@ -29,7 +29,6 @@ class SelectIndustryViewModel(private val filterInteractor: FilterInteractor) : 
 
         initScreen()
     }
-
     fun initScreen() {
         viewModelScope.launch {
             filterInteractor.getIndustries().collect { result ->
