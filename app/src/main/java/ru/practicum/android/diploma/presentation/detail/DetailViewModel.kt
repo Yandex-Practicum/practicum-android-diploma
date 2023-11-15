@@ -29,11 +29,6 @@ class DetailViewModel(
         stateLiveData.postValue(state)
     }
 
-    init {
-        getStatus(id = String())
-        getVacancy(id = String())
-    }
-
     fun getStatus(id: String){
         viewModelScope.launch {
             favouriteInteractor.getFavoriteStatus(id)
