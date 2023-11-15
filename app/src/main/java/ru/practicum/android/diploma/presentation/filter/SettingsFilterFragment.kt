@@ -87,7 +87,7 @@ class SettingsFilterFragment : Fragment() {
     private fun showFilters(filters: Filters) {
         val countryName = filters.country?.name ?: ""
         val areaName = filters.area?.name ?: ""
-        if (countryName.isNotEmpty()) binding.workPlaceEt.setText("$countryName, $areaName")
+        if (areaName.isNotEmpty()) binding.workPlaceEt.setText("$countryName, $areaName") else binding.workPlaceEt.setText(countryName)
         binding.industryTextInputEditText.setText(filters.industry?.name ?: "")
         binding.salaryEt.setText(filters.preferSalary)
         binding.doNotShowWithoutSalaryCheckBox.isChecked = filters.isIncludeSalary

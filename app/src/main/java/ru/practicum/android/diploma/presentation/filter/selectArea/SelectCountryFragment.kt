@@ -38,6 +38,7 @@ class SelectCountryFragment : Fragment() {
             when (state) {
                 is CountryState.Display -> displayCountries(state.content)
                 is CountryState.Error -> displayError(state.errorText)
+                else -> {}
             }
         }
         viewModel.getCountries()
@@ -54,7 +55,7 @@ class SelectCountryFragment : Fragment() {
         }
         if (countryAdapter == null) {
             countryAdapter = CountryAdapter(countries) { country ->
-                viewModel.onAreaClicked(country)
+                viewModel.onClicked(country)
                 findNavController().popBackStack()
             }
 
