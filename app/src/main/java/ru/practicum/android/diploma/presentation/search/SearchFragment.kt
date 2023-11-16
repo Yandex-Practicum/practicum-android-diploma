@@ -14,13 +14,17 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.domain.SearchState
+import ru.practicum.android.diploma.domain.models.RowType
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.presentation.SalaryPresenter
+import ru.practicum.android.diploma.util.CLICK_DEBOUNCE_DELAY_MILLIS
+import ru.practicum.android.diploma.util.ID
 import ru.practicum.android.diploma.util.debounce
 
 
@@ -33,11 +37,12 @@ class SearchFragment : Fragment() {
     private var inputText: String = ""
     private var simpleTextWatcher: TextWatcher? = null
     private lateinit var onItemClickDebounce: (Vacancy) -> Unit
-    private val vacancies = mutableListOf<Vacancy>()
-    private val adapter = SearchAdapter(vacancies, salaryPresenter) { vacanciy ->
-        onItemClickDebounce(vacanciy)
+    private val vacancies = mutableListOf<RowType>()
+    private val adapter = SearchPagingAdapter(vacancies, salaryPresenter) { vacancy ->
+        onItemClickDebounce(vacancy)
     }
-
+    var isLastPage: Boolean = false
+    var isLoading: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,15 +56,7 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.rvSearch.adapter = adapter
-        onItemClickDebounce = debounce(
-            CLICK_DEBOUNCE_DELAY_MILLIS,
-            viewLifecycleOwner.lifecycleScope,
-            false
-        ) { vacancy ->
-            val bundle = bundleOf(ID to vacancy.id)
-            findNavController().navigate(R.id.action_searchFragment_to_detailFragment, bundle)
-        }
+        initRV()
         binding.clearButtonIcon.setOnClickListener {
             if (binding.searchEt.text.isNotEmpty()) {
                 binding.searchEt.setText("")
@@ -88,6 +85,9 @@ class SearchFragment : Fragment() {
         viewModel.observeState().observe(viewLifecycleOwner) {
             render(it)
         }
+        viewModel.observeNextState().observe(viewLifecycleOwner) {
+            renderNext(it)
+        }
 
         binding.searchEt.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -101,6 +101,59 @@ class SearchFragment : Fragment() {
         binding.FilterButtonIcon.setOnClickListener {
             findNavController().navigate(R.id.action_searchFragment_to_settingsFilterFragment)
         }
+    }
+
+    private fun renderNext(state: SearchState) {
+        when (state) {
+            is SearchState.Loading -> showAddLoading()
+            is SearchState.Content -> addContent(state.vacancies)
+            is SearchState.Error -> showAddError(state.errorMessage)
+            is SearchState.Empty -> {}
+        }
+    }
+
+    private fun showAddError(errorMessage: String) {
+        adapter.showError(errorMessage)
+    }
+
+    private fun showAddLoading() {
+        adapter.showLoading()
+    }
+
+    private fun addContent(results: List<Vacancy>) {
+        isLoading = false
+        adapter.removeLoadingFooter()
+        adapter.addData(results)
+    }
+
+    private fun initRV() {
+        binding.rvSearch.adapter = adapter
+        val linearLayoutManager = LinearLayoutManager(requireContext())
+        binding.rvSearch.layoutManager = linearLayoutManager
+        onItemClickDebounce = debounce(
+            CLICK_DEBOUNCE_DELAY_MILLIS,
+            viewLifecycleOwner.lifecycleScope,
+            false
+        ) { vacancy ->
+            val bundle = bundleOf(ID to vacancy.id)
+            findNavController().navigate(R.id.action_searchFragment_to_detailFragment, bundle)
+        }
+
+        binding.rvSearch.addOnScrollListener(object :
+            PaginationScrollListener(linearLayoutManager) {
+            override fun isLastPage(): Boolean {
+                return isLastPage
+            }
+
+            override fun isLoading(): Boolean {
+                return isLoading
+            }
+
+            override fun loadMoreItems() {
+                isLoading = true
+                viewModel.addSearch(inputText)
+            }
+        })
     }
 
     override fun onDestroy() {
@@ -161,7 +214,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun clearEditText() {
-        binding.clearButtonIcon.setImageResource(R.drawable.ic_clear_et)
+        binding.clearButtonIcon.setImageResource(R.drawable.ic_search)
         binding.startImage.isVisible = true
         binding.progressBar.isVisible = false
         binding.rvSearch.isVisible = false
@@ -169,8 +222,4 @@ class SearchFragment : Fragment() {
         binding.placeholderMessage.isVisible = false
     }
 
-    companion object {
-        const val CLICK_DEBOUNCE_DELAY_MILLIS = 200L
-        const val ID = "vacancyId"
-    }
 }

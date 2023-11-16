@@ -47,6 +47,7 @@
     <dimen name="my_button_corner_radius">12dp</dimen>
     <dimen name="error">200dp</dimen>
     <dimen name="logo_size">48dp</dimen>
+    <dimen name="placeholder_top">140dp</dimen>
     <dimen name="divider">1dp</dimen>
 
 </resources>

@@ -12,6 +12,7 @@ import ru.practicum.android.diploma.data.ResourceProvider
 import ru.practicum.android.diploma.domain.SearchState
 import ru.practicum.android.diploma.domain.api.SearchInteractor
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.util.PER_PAGE
 import ru.practicum.android.diploma.util.SEARCH_DEBOUNCE_DELAY_MILLIS
 
 class SearchViewModel(
@@ -21,12 +22,21 @@ class SearchViewModel(
 
     private var lastSearchText: String? = null
     private var searchJob: Job? = null
+    private val pageStart: Int = 0
+    private var totalPages: Int = 1
+    private var currentPage: Int = pageStart
 
     private val stateLiveData = MutableLiveData<SearchState>()
-
     fun observeState(): LiveData<SearchState> = stateLiveData
+
+    private val stateNextLiveData = MutableLiveData<SearchState>()
+    fun observeNextState(): LiveData<SearchState> = stateNextLiveData
     private fun renderState(state: SearchState) {
         stateLiveData.postValue(state)
+    }
+
+    private fun renderNextState(state: SearchState) {
+        stateNextLiveData.postValue(state)
     }
 
     fun clearInputEditText() {
@@ -38,24 +48,56 @@ class SearchViewModel(
             return
         }
         this.lastSearchText = changedText
-
-
+        currentPage = 0
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
             delay(SEARCH_DEBOUNCE_DELAY_MILLIS)
-            searchVacancy(changedText)
+            searchVacancy(changedText, 0)
         }
     }
 
-    private fun searchVacancy(searchText: String) {
+    private fun searchVacancy(searchText: String, pageCount: Int) {
         if (searchText.isNotEmpty()) {
-            renderState(SearchState.Loading)
-
+            if (pageCount == 0) renderState(SearchState.Loading) else renderNextState(SearchState.Loading)
             viewModelScope.launch {
-                interactor.loadVacancies(searchText)
+                interactor.loadVacancies(searchText, pageCount)
                     .collect { pair ->
-                        processResult(pair.first, pair.second)
+                        if (pageCount == 0) processResult(pair.first, pair.second)
+                        else processNextResult(pair.first, pair.second)
                     }
+            }
+        }
+    }
+
+    private fun processNextResult(foundVacancies: List<Vacancy>?, errorMessage: String?) {
+        val vacancies = mutableListOf<Vacancy>()
+        if (foundVacancies != null) {
+            vacancies.addAll(foundVacancies)
+        }
+        when {
+            errorMessage != null -> {
+                renderNextState(
+                    SearchState.Error(
+                        errorMessage = resourceProvider.getString(R.string.no_internet)
+                    )
+                )
+            }
+
+            vacancies.isEmpty() -> {
+                renderNextState(
+                    SearchState.Empty(
+                        message = resourceProvider.getString(R.string.no_vacancies)
+                    )
+                )
+            }
+
+            else -> {
+                renderNextState(
+                    SearchState.Content(
+                        vacancies = vacancies,
+                        foundValue = vacancies[0].found
+                    )
+                )
             }
         }
     }
@@ -78,12 +120,12 @@ class SearchViewModel(
             vacancies.isEmpty() -> {
                 renderState(
                     SearchState.Empty(
-                        message = resourceProvider.getString(R.string.no_vacancies)
+                        message = resourceProvider.getString(R.string.empty_list)
                     )
                 )
             }
-
             else -> {
+                totalPages = vacancies[0].found.div(PER_PAGE)
                 renderState(
                     SearchState.Content(
                         vacancies = vacancies,
@@ -92,5 +134,14 @@ class SearchViewModel(
                 )
             }
         }
+    }
+
+    fun addSearch(inputText: String) {
+        currentPage += 1
+        if (currentPage <= totalPages) searchVacancy(inputText, currentPage)
+        else renderNextState(
+            SearchState.Empty(
+                message = resourceProvider.getString(R.string.no_vacancies)
+            ))
     }
 }

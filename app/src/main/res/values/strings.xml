@@ -44,6 +44,7 @@
     <string name="check_connection">Проверьте подключение к интернету</string>
     <string name="server_error">Ошибка сервера</string>
     <string name="no_connection">Проблемы со связью\n\nЗагрузка не удалась. Проверьте подключение к интернету</string>
+    <string name="empty_list">Не удалось получить список вакансий</string>
     <string name="no_vacancies">Таких вакансий нет</string>
     <string name="work_place">Выбор места работы</string>
     <string name="similar_vacancies">Похожие вакансии</string>

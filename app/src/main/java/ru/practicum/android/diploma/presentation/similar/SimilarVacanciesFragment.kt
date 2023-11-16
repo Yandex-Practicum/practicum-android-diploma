@@ -17,7 +17,7 @@ import ru.practicum.android.diploma.domain.SearchState
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.presentation.SalaryPresenter
 import ru.practicum.android.diploma.presentation.search.SearchAdapter
-import ru.practicum.android.diploma.presentation.search.SearchFragment
+import ru.practicum.android.diploma.util.CLICK_DEBOUNCE_DELAY_MILLIS
 import ru.practicum.android.diploma.util.debounce
 
 class SimilarVacanciesFragment : Fragment() {
@@ -44,7 +44,7 @@ class SimilarVacanciesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.similarVacanciesRecyclerView.adapter = adapter
         onItemClickDebounce = debounce(
-            SearchFragment.CLICK_DEBOUNCE_DELAY_MILLIS,
+            CLICK_DEBOUNCE_DELAY_MILLIS,
             viewLifecycleOwner.lifecycleScope,
             false
         ) { vacancy ->
