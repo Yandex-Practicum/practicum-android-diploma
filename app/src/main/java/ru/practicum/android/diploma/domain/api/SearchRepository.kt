@@ -7,5 +7,4 @@ import ru.practicum.android.diploma.util.Resource
 
 interface SearchRepository {
     fun searchVacancies(query: String, filters: Filters): Flow<Resource<List<Vacancy>>>
-
 }

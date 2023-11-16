@@ -86,6 +86,7 @@ class SelectAreaFragment : Fragment() {
                 val position = areas.indexOf(area)
                 areas[position] = area.copy(isChecked = !area.isChecked)
                 viewModel.onAreaClicked(area)
+                viewModel.loadSelectedArea()
                 findNavController().popBackStack()
                 areasAdapter?.notifyItemChanged(position)
             }
@@ -98,7 +99,6 @@ class SelectAreaFragment : Fragment() {
         listArea.addAll(areas)
         areasAdapter!!.notifyDataSetChanged()
     }
-
 
     private fun displayError(errorText: String) {
         binding.apply {

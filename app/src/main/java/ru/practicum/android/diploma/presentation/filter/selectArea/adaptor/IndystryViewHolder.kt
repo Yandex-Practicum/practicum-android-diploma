@@ -8,7 +8,8 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.filter.Industry
 
 
-class IndystryViewHolder(itemView: View, private val clickListener: (Industry) -> Unit) : RecyclerView.ViewHolder(itemView) {
+class IndystryViewHolder(itemView: View, private val clickListener: (Industry) -> Unit) :
+    RecyclerView.ViewHolder(itemView) {
 
     private val name: TextView = itemView.findViewById(R.id.industry_region_title_textview)
     private val radioButton: RadioButton =
@@ -20,4 +21,4 @@ class IndystryViewHolder(itemView: View, private val clickListener: (Industry) -
             clickListener.invoke(item)
         }
     }
-    }
+}
