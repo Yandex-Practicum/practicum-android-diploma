@@ -101,7 +101,7 @@ class SettingsFilterFragment : Fragment() {
         }
 
         binding.doNotShowWithoutSalaryCheckBox.setOnClickListener {
-
+            viewModel.setSalaryStatus(binding.doNotShowWithoutSalaryCheckBox.isChecked)
         }
     }
 
