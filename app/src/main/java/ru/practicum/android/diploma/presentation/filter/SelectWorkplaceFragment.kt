@@ -73,15 +73,6 @@ class SelectWorkplaceFragment : Fragment() {
         viewModel.getCountries()
     }
 
-    fun isAnyFilterFieldFilled(): Boolean {
-        val countryText = binding.countryTextInputEditText.text.toString().trim()
-        val regionText = binding.regionTextInputEditText.text.toString().trim()
-        val anyFieldFilled = countryText.isNotEmpty() || regionText.isNotEmpty()
-        _filterFieldsFilled.postValue(anyFieldFilled)
-        return anyFieldFilled
-    }
-
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
