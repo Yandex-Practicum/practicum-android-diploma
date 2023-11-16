@@ -12,6 +12,7 @@ import ru.practicum.android.diploma.data.ResourceProvider
 import ru.practicum.android.diploma.domain.SearchState
 import ru.practicum.android.diploma.domain.api.SearchInteractor
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.util.PER_PAGE
 import ru.practicum.android.diploma.util.SEARCH_DEBOUNCE_DELAY_MILLIS
 
 class SearchViewModel(
@@ -142,9 +143,5 @@ class SearchViewModel(
             SearchState.Empty(
                 message = resourceProvider.getString(R.string.no_vacancies)
             ))
-    }
-
-    companion object {
-        const val PER_PAGE = 20
     }
 }

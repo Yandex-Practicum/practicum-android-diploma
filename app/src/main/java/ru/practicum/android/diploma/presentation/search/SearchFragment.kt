@@ -23,6 +23,8 @@ import ru.practicum.android.diploma.domain.SearchState
 import ru.practicum.android.diploma.domain.models.RowType
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.presentation.SalaryPresenter
+import ru.practicum.android.diploma.util.CLICK_DEBOUNCE_DELAY_MILLIS
+import ru.practicum.android.diploma.util.ID
 import ru.practicum.android.diploma.util.debounce
 
 
@@ -220,8 +222,4 @@ class SearchFragment : Fragment() {
         binding.placeholderMessage.isVisible = false
     }
 
-    companion object {
-        const val CLICK_DEBOUNCE_DELAY_MILLIS = 200L
-        const val ID = "vacancyId"
-    }
 }

@@ -5,6 +5,7 @@
 
     <ProgressBar
         android:id="@+id/loadmore_progress"
+        android:indeterminateTint="@color/progress_color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
