@@ -12,6 +12,5 @@ interface FavouriteRepository {
 
     fun getFavouriteVacancies(): Flow<List<Vacancy>>
     suspend fun getFullVacancy(id:String): FullVacancy?
-
-
+    suspend fun updateVacancy(vacancy: FullVacancy?)
 }
