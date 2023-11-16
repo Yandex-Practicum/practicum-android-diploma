@@ -23,7 +23,6 @@ class FavouriteViewModel(val interactor: FavouriteInteractor) : ViewModel() {
     private val stateFavoriteLiveData = MutableLiveData<List<Vacancy>>()
     fun observeState(): LiveData<List<Vacancy>> = stateFavoriteLiveData
 
-
     private fun renderState(vacancies: List<Vacancy>) {
         stateFavoriteLiveData.postValue(vacancies)
     }

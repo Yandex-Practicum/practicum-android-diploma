@@ -12,7 +12,9 @@ import ru.practicum.android.diploma.domain.api.DirectoryRepository
 import ru.practicum.android.diploma.domain.models.filter.Area
 import ru.practicum.android.diploma.domain.models.filter.Country
 import ru.practicum.android.diploma.domain.models.filter.Industry
+import ru.practicum.android.diploma.util.ERROR
 import ru.practicum.android.diploma.util.Resource
+import ru.practicum.android.diploma.util.SUCCESS
 
 class DirectoryRepositoryImpl(
     val networkClient: NetworkClient,
@@ -79,12 +81,6 @@ class DirectoryRepositoryImpl(
                 emit(Resource.Error(resourceProvider.getString(R.string.server_error)))
             }
         }
-    }
-
-
-    companion object {
-        const val ERROR = -1
-        const val SUCCESS = 200
     }
 
 }

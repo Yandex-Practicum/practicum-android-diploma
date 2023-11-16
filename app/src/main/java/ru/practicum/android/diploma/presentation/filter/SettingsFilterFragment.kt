@@ -21,7 +21,6 @@ class SettingsFilterFragment : Fragment() {
     private var inputText: String = ""
     private var simpleTextWatcher: TextWatcher? = null
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

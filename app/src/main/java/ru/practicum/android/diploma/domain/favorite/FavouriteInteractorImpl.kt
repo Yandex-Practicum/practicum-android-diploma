@@ -20,6 +20,4 @@ class FavouriteInteractorImpl(val favouriteRepository: FavouriteRepository) : Fa
     override fun getFavoriteList(): Flow<List<Vacancy>> {
         return favouriteRepository.getFavouriteVacancies()
     }
-
-
 }

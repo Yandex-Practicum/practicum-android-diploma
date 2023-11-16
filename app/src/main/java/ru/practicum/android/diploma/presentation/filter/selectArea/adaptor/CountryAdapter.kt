@@ -12,7 +12,6 @@ class CountryAdapter(
     private val clickListener: (Country) -> Unit
 ) : RecyclerView.Adapter<CountryViewHolder>() {
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryViewHolder =
         CountryViewHolder(
             LayoutInflater.from(parent.context)

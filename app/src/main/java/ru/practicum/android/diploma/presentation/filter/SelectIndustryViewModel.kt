@@ -17,12 +17,8 @@ class SelectIndustryViewModel(private val filterInteractor: FilterInteractor) : 
 
 
     private val industriesStateLiveData = MutableLiveData<IndustriesState>()
-
     private val _selectedIndustry = MutableLiveData<Industry?>()
-
     fun observeIndustriesState(): LiveData<IndustriesState> = industriesStateLiveData
-
-
     private var filteredIndustries: ArrayList<Industry> = arrayListOf()
 
     init {

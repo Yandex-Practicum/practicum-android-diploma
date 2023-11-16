@@ -23,6 +23,5 @@ class IndystryAdapter(
     }
 
     override fun getItemCount(): Int = items.size
-
 }
 
