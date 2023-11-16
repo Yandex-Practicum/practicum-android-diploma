@@ -12,6 +12,7 @@ import ru.practicum.android.diploma.data.ResourceProvider
 import ru.practicum.android.diploma.domain.SearchState
 import ru.practicum.android.diploma.domain.api.SearchInteractor
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.util.SEARCH_DEBOUNCE_DELAY_MILLIS
 
 class SearchViewModel(
     private val interactor: SearchInteractor,
@@ -122,7 +123,6 @@ class SearchViewModel(
                     )
                 )
             }
-
             else -> {
                 totalPages = vacancies[0].found.div(PER_PAGE)
                 renderState(
@@ -145,7 +145,6 @@ class SearchViewModel(
     }
 
     companion object {
-        const val SEARCH_DEBOUNCE_DELAY_MILLIS = 2000L
         const val PER_PAGE = 20
     }
 }

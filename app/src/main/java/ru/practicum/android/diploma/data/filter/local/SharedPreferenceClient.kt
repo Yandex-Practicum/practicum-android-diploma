@@ -5,6 +5,11 @@ import com.google.gson.Gson
 import ru.practicum.android.diploma.domain.models.filter.Area
 import ru.practicum.android.diploma.domain.models.filter.Country
 import ru.practicum.android.diploma.domain.models.filter.Industry
+import ru.practicum.android.diploma.util.SALARY_FLAG
+import ru.practicum.android.diploma.util.SALARY_KEY
+import ru.practicum.android.diploma.util.SELECTED_AREA_KEY
+import ru.practicum.android.diploma.util.SELECTED_COUNTRY_KEY
+import ru.practicum.android.diploma.util.SELECTED_INDUSTRY_KEY
 
 class SharedPreferenceClient(val gson: Gson, private val sharedPreferences: SharedPreferences) :
     LocalStorage {
@@ -67,13 +72,5 @@ class SharedPreferenceClient(val gson: Gson, private val sharedPreferences: Shar
 
     override fun setCheckedStatus(isChecked: Boolean) {
         editor.putBoolean(SALARY_FLAG, isChecked)
-    }
-
-    companion object {
-        const val SALARY_KEY = "salary"
-        const val SALARY_FLAG = "salaryFlag"
-        const val SELECTED_COUNTRY_KEY = "selectedCountry"
-        const val SELECTED_AREA_KEY = "selectedArea"
-        const val SELECTED_INDUSTRY_KEY = "selectedIndustry"
     }
 }

@@ -8,6 +8,5 @@ interface DetailInteractor {
     fun getVacancy(id: String): Flow<Pair<FullVacancy?, String?>>
     fun sharePhone(phone: Phone)
     fun shareEmail(email: String)
-
     fun shareVacancyUrl(vacancyUrl: String)
 }

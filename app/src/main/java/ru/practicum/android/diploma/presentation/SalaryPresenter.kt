@@ -3,6 +3,16 @@ package ru.practicum.android.diploma.presentation
 import android.content.Context
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.Salary
+import ru.practicum.android.diploma.util.AZN
+import ru.practicum.android.diploma.util.BYR
+import ru.practicum.android.diploma.util.EUR
+import ru.practicum.android.diploma.util.GEL
+import ru.practicum.android.diploma.util.KGS
+import ru.practicum.android.diploma.util.KZT
+import ru.practicum.android.diploma.util.RUR
+import ru.practicum.android.diploma.util.UAH
+import ru.practicum.android.diploma.util.USD
+import ru.practicum.android.diploma.util.UZS
 import java.text.DecimalFormat
 
 class SalaryPresenter(private val context: Context) {
@@ -47,16 +57,4 @@ class SalaryPresenter(private val context: Context) {
             .format(n)
             .replace(",", " ")
 
-    companion object {
-        const val AZN = "\u20bc"
-        const val BYR = "\u0072"
-        const val EUR = "\u20ac"
-        const val GEL = "\u20be"
-        const val KGS = "\u043b"
-        const val KZT = "\u043b"
-        const val RUR = "\u20bd"
-        const val UAH = "\u20b4"
-        const val USD = "\u0024"
-        const val UZS = "\u043b"
-    }
 }

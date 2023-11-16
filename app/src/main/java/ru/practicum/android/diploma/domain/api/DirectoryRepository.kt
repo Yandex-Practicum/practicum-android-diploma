@@ -7,12 +7,7 @@ import ru.practicum.android.diploma.domain.models.filter.Industry
 import ru.practicum.android.diploma.util.Resource
 
 interface DirectoryRepository {
-
     fun getIndustries(): Flow<Resource<List<Industry>>>
-
     fun getCountries(): Flow<Resource<List<Country>>>
-
     fun getAreas(areaId: String): Flow<Resource<List<Area>>>
-
-
 }

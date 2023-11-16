@@ -1,11 +1,13 @@
 package ru.practicum.android.diploma.presentation.detail
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -87,7 +89,6 @@ class DetailFragment : Fragment() {
             is DetailState.Loading -> showLoading()
             is DetailState.Content -> showContent(state.vacancy)
             is DetailState.Error -> showError(state.errorMessage)
-            else -> {}
         }
     }
 
@@ -135,8 +136,8 @@ class DetailFragment : Fragment() {
             if (vacancy.contacts?.email != null)
                 viewModel.shareEmail(vacancy.contacts.email)
         }
-        binding.vacancyDescriptionTv.settings.javaScriptEnabled = true
         val descriptionHtml = vacancy.description
+        binding.vacancyDescriptionTv.setBackgroundColor(Color.TRANSPARENT)
         if (vacancy.skills.isNullOrEmpty()) {
             binding.skills.isVisible = false
         } else {
@@ -144,17 +145,13 @@ class DetailFragment : Fragment() {
             binding.skillsTv.text = vacancy.skills
         }
         binding.employmentTv.text = vacancy.employment
+
         if (descriptionHtml != null) {
-            binding.vacancyDescriptionTv.loadDataWithBaseURL(
-                null,
-                descriptionHtml,
-                "text/html",
-                "UTF-8",
-                null
-            )
+            val formattedDescription =
+                HtmlCompat.fromHtml(vacancy.description, HtmlCompat.FROM_HTML_MODE_LEGACY)
+            binding.vacancyDescriptionTv.text = formattedDescription
         }
     }
-
 
     private fun showError(errorMessage: String) {
         binding.progressBar.isVisible = false

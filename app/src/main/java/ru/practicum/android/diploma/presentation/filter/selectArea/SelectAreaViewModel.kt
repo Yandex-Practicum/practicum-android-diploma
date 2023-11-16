@@ -99,9 +99,7 @@ class SelectAreaViewModel(private val areasUseCase: FilterInteractor) : ViewMode
         return selectedCountry?.id
     }
 
-
     fun loadSelectedArea() {
         selectedArea.value = areasUseCase.getSelectedArea()
     }
-
 }

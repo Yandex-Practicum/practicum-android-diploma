@@ -220,7 +220,6 @@ class SearchFragment : Fragment() {
         binding.placeholderMessage.isVisible = false
     }
 
-
     companion object {
         const val CLICK_DEBOUNCE_DELAY_MILLIS = 200L
         const val ID = "vacancyId"

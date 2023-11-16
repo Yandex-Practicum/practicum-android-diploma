@@ -7,7 +7,9 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.dto.detail.FullVacancyDto
 import ru.practicum.android.diploma.domain.api.DetailRepository
 import ru.practicum.android.diploma.domain.models.detail.FullVacancy
+import ru.practicum.android.diploma.util.ERROR
 import ru.practicum.android.diploma.util.Resource
+import ru.practicum.android.diploma.util.SUCCESS
 
 class DetailRepositoryImpl(
     private val networkClient: NetworkClient,
@@ -35,11 +37,5 @@ class DetailRepositoryImpl(
             }
         }
     }
-
-    companion object {
-        const val ERROR = -1
-        const val SUCCESS = 200
-    }
-
 }
 

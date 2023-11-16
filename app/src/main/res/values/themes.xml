@@ -6,8 +6,8 @@
 
     <!-- Primary brand color. -->
         <item name="colorPrimary">@color/blue</item>
-        <item name="colorPrimaryVariant">@color/black</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">@color/text_color</item>
+        <item name="colorOnPrimary">@color/my_button_text_color</item>
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
