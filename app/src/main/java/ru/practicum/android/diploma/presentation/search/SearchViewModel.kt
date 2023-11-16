@@ -118,7 +118,7 @@ class SearchViewModel(
             vacancies.isEmpty() -> {
                 renderState(
                     SearchState.Empty(
-                        message = resourceProvider.getString(R.string.no_vacancies)
+                        message = resourceProvider.getString(R.string.empty_list)
                     )
                 )
             }

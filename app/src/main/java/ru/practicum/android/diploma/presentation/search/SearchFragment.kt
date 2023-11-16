@@ -212,7 +212,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun clearEditText() {
-        binding.clearButtonIcon.setImageResource(R.drawable.ic_clear_et)
+        binding.clearButtonIcon.setImageResource(R.drawable.ic_search)
         binding.startImage.isVisible = true
         binding.progressBar.isVisible = false
         binding.rvSearch.isVisible = false

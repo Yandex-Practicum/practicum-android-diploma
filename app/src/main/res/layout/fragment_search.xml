@@ -98,7 +98,8 @@
     <LinearLayout
         android:id="@+id/placeholderMessage"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/placeholder_top"
         android:layout_gravity="center"
         android:orientation="vertical">
 
@@ -113,6 +114,7 @@
             style="@style/placeHolderTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/dimens_16"
             android:gravity="center"
             android:layout_marginTop="@dimen/dimens_16" />
     </LinearLayout>
