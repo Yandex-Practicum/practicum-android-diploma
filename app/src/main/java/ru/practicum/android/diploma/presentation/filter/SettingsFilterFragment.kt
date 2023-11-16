@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.presentation.filter
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,6 +13,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSettingsFiltersBinding
 import ru.practicum.android.diploma.domain.models.filter.Filters
+import ru.practicum.android.diploma.ui.root.BottomNavigationVisibilityListener
 
 class SettingsFilterFragment : Fragment() {
     private val viewModel by viewModel<FilterViewModel>()
@@ -20,6 +22,17 @@ class SettingsFilterFragment : Fragment() {
     private val binding get() = _binding!!
     private var inputText: String = ""
     private var simpleTextWatcher: TextWatcher? = null
+
+    private var bottomNavigationVisibilityListener: BottomNavigationVisibilityListener? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is BottomNavigationVisibilityListener) {
+            bottomNavigationVisibilityListener = context
+        } else {
+            throw RuntimeException("$context must implement BottomNavigationVisibilityListener")
+        }
+    }
 
 
     override fun onCreateView(
@@ -33,6 +46,7 @@ class SettingsFilterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        bottomNavigationVisibilityListener?.setBottomNavigationVisibility(false)
         viewModel.getFilters()
         binding.confirmButton.isEnabled = false
         viewModel.observeChanges().observe(viewLifecycleOwner) {
