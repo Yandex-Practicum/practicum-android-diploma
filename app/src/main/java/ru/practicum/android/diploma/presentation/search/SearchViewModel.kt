@@ -43,6 +43,9 @@ class SearchViewModel(
         lastSearchText = ""
     }
 
+    init {
+        searchDebounce(changedText= String())
+    }
     fun searchDebounce(changedText: String) {
         if (lastSearchText == changedText) {
             return
