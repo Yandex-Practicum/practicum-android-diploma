@@ -19,8 +19,8 @@ val viewModelModule = module {
     viewModel { DetailViewModel(get(), get(), get()) }
     viewModel{ SimilarViewModel(get(),get()) }
     viewModel { FilterViewModel(get()) }
-    viewModel { SelectAreaViewModel(get()) }
+    viewModel { SelectAreaViewModel(get(),get()) }
     viewModel { SelectCountryViewModel(get(),get()) }
     viewModel { FavouriteViewModel(get()) }
-    viewModel { SelectIndustryViewModel(get()) }
+    viewModel { SelectIndustryViewModel(get(),get()) }
 }

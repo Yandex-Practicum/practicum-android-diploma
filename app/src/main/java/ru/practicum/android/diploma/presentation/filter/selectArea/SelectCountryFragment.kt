@@ -1,39 +1,25 @@
 package ru.practicum.android.diploma.presentation.filter.selectArea
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.databinding.FragmentSelectCountryBinding
 import ru.practicum.android.diploma.domain.models.filter.Country
+import ru.practicum.android.diploma.presentation.ModelFragment
 import ru.practicum.android.diploma.presentation.filter.selectArea.adaptor.CountryAdapter
 import ru.practicum.android.diploma.presentation.filter.selectArea.state.CountryState
 
-class SelectCountryFragment : Fragment() {
+class SelectCountryFragment : ModelFragment() {
 
-
-    private var _binding: FragmentSelectCountryBinding? = null
-    private val binding get() = _binding!!
     private val viewModel: SelectCountryViewModel by viewModel()
     private var countryAdapter: CountryAdapter? = null
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentSelectCountryBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.countryListRecyclerView
-        binding.headerTextview.text = getString(R.string.selectionCountries)
+        binding.toolbarInclude.headerTitle.text = getString(R.string.select_countries)
+        binding.container.isVisible = false
         viewModel.observeState().observe(viewLifecycleOwner) { state ->
             when (state) {
                 is CountryState.Display -> displayCountries(state.content)
@@ -42,16 +28,13 @@ class SelectCountryFragment : Fragment() {
             }
         }
         viewModel.getCountries()
-        binding.backArrow.setOnClickListener {
-            findNavController().popBackStack()
-        }
     }
 
 
     private fun displayCountries(countries: List<Country>) {
         binding.apply {
-            countryListRecyclerView.visibility = View.VISIBLE
-            errorCountriesLayout.visibility = View.GONE
+            RecyclerView.visibility = View.VISIBLE
+            placeholderMessage.visibility = View.GONE
         }
         if (countryAdapter == null) {
             countryAdapter = CountryAdapter(countries) { country ->
@@ -59,7 +42,7 @@ class SelectCountryFragment : Fragment() {
                 findNavController().popBackStack()
             }
 
-            binding.countryListRecyclerView.apply {
+            binding.RecyclerView.apply {
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = countryAdapter
             }
@@ -68,14 +51,10 @@ class SelectCountryFragment : Fragment() {
 
     private fun displayError(errorText: String) {
         binding.apply {
-            countryListRecyclerView.visibility = View.INVISIBLE
-            errorCountriesLayout.visibility = View.VISIBLE
-            countriesErrorText.text = errorText
+            RecyclerView.visibility = View.INVISIBLE
+            placeholderMessage.visibility = View.VISIBLE
+            placeholderMessageImage.setImageResource(R.drawable.search_placeholder_nothing_found)
+            placeholderMessageText.text = errorText
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
     }
 }

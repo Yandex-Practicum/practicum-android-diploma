@@ -47,9 +47,7 @@ class SimilarViewModel(
         when {
             errorMessage != null -> {
                 renderState(
-                    SearchState.Error(
-                        errorMessage = resourceProvider.getString(R.string.no_connection)
-                    )
+                    SearchState.Error(errorMessage)
                 )
             }
 

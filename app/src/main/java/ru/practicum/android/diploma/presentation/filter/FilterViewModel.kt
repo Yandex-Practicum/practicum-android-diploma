@@ -49,5 +49,6 @@ class FilterViewModel(private val interactor: FilterInteractor) : ViewModel() {
     }
     fun setSalaryStatus(isChecked:Boolean) {
         interactor.setSalaryStatus(isChecked)
+        changesLiveData.postValue(true)
     }
 }

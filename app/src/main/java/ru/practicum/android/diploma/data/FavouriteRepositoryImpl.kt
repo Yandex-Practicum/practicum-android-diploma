@@ -33,4 +33,14 @@ class FavouriteRepositoryImpl(private val dao: VacancyDao, private val mapper: V
         return if(favouriteVacancy != null) mapper.fromVacancyEntityToFullVacancy(favouriteVacancy) else null
     }
 
+    override suspend fun updateVacancy(vacancy: FullVacancy?) {
+        if (vacancy != null) {
+            val listId = dao.getVacanciesId()
+            if(listId.contains(vacancy.id)) {
+                val vacancyEntity = mapper.toVacancyEntity(vacancy)
+                dao.updateVacancy(vacancyEntity)
+            }
+        }
+    }
+
 }

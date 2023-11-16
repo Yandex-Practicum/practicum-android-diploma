@@ -19,7 +19,7 @@ class SimilarRepositoryImpl(
         val response = networkClient.doSearchSimilarRequest(vacancyId)
         when (response.resultCode) {
             ERROR -> {
-                emit(Resource.Error(resourceProvider.getString(R.string.check_connection)))
+                emit(Resource.Error(resourceProvider.getString(R.string.no_internet)))
             }
 
             SUCCESS -> {

@@ -35,7 +35,6 @@ class SettingsFilterFragment : Fragment() {
         }
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -64,12 +63,21 @@ class SettingsFilterFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 inputText = s?.toString() ?: ""
                 viewModel.checkChanges(inputText)
+                checkFieldsForResetVisibility()
+                if (binding.salaryEt.text.isNotEmpty()) {
+                    binding.clearButtonIcon.isVisible = true
+                }
             }
 
             override fun afterTextChanged(s: Editable?) {
             }
         }
         simpleTextWatcher?.let { binding.salaryEt.addTextChangedListener(it) }
+        binding.clearButtonIcon.setOnClickListener {
+            binding.salaryEt.setText("")
+            binding.clearButtonIcon.isVisible = false
+
+        }
 
         binding.confirmButton.setOnClickListener {
             viewModel.setSalary(inputText)
@@ -88,11 +96,12 @@ class SettingsFilterFragment : Fragment() {
         }
 
         binding.resetSettingsTextview.setOnClickListener {
+            resetFields()
             viewModel.clearFilters()
         }
 
         binding.doNotShowWithoutSalaryCheckBox.setOnClickListener {
-
+            viewModel.setSalaryStatus(binding.doNotShowWithoutSalaryCheckBox.isChecked)
         }
     }
 
@@ -110,8 +119,29 @@ class SettingsFilterFragment : Fragment() {
             append(areaName)
         }) else binding.workPlaceEt.setText(countryName)
         binding.industryTextInputEditText.setText(filters.industry?.name ?: "")
+        binding.clearButtonIcon.isVisible = !filters.preferSalary.isNullOrEmpty()
         binding.salaryEt.setText(filters.preferSalary)
         binding.doNotShowWithoutSalaryCheckBox.isChecked = filters.isIncludeSalary
+    }
+
+    private fun resetFields() {
+        binding.workPlaceEt.text = null
+        binding.industryTextInputEditText.text = null
+        binding.salaryEt.text = null
+        binding.doNotShowWithoutSalaryCheckBox.isChecked = false
+        binding.clearButtonIcon.isVisible = false
+        checkFieldsForResetVisibility()
+    }
+
+    private fun checkFieldsForResetVisibility() {
+        val isAnyFieldNotEmpty = binding.workPlaceEt.text?.isNotEmpty() ?: false ||
+                binding.industryTextInputEditText.text?.isNotEmpty() ?: false ||
+                binding.salaryEt.text?.isNotEmpty() ?: false ||
+                binding.doNotShowWithoutSalaryCheckBox.isChecked
+        binding.resetSettingsTextview.isVisible = isAnyFieldNotEmpty
+        if (!isAnyFieldNotEmpty) {
+            binding.resetSettingsTextview.isVisible = false
+        }
     }
 
     override fun onDestroy() {

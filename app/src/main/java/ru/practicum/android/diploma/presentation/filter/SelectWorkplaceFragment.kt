@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -30,14 +31,19 @@ class SelectWorkplaceFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.apply {
+            toolbarInclude.headerTitle.text = getString(R.string.work_place)
+            toolbarInclude.favourite.isVisible = false
+            toolbarInclude.share.isVisible = false
+        }
+        binding.toolbarInclude
         // Получаем сохраненную страну
         val savedCountry: Country? = viewModel.interactor.getSelectedCountry()
         // Устанавливаем текст в поле ввода страны
         binding.countryTextInputEditText.setText(savedCountry?.name.orEmpty())
 
         // Обработчик нажатия на кнопку "Назад"
-        binding.settingsBackArrowImageview.setOnClickListener {
+        binding.toolbarInclude.back.setOnClickListener {
             findNavController().popBackStack()
         }
 
@@ -56,6 +62,7 @@ class SelectWorkplaceFragment : Fragment() {
         viewModel.selectedCountry.observe(viewLifecycleOwner) { selectedCountry ->
             binding.countryTextInputEditText.setText(selectedCountry?.name.orEmpty())
         }
+
         viewModel.loadSelectedArea()
         viewModel.selectedArea.observe(viewLifecycleOwner) { selectedArea ->
             binding.regionTextInputEditText.setText(selectedArea?.name.orEmpty())
@@ -63,6 +70,7 @@ class SelectWorkplaceFragment : Fragment() {
         binding.chooseButton.setOnClickListener {
             findNavController().popBackStack()
         }
+
         viewModel.getCountries()
     }
 

@@ -27,9 +27,11 @@ class RootActivity : AppCompatActivity(), BottomNavigationVisibilityListener {
             when (destination.id) {
                 R.id.searchFragment, R.id.favouriteFragment, R.id.teamFragment -> {
                     binding.bottomNavigationView.isVisible = true
+                    binding.divider.isVisible = true
                 }
                 R.id.detailFragment, R.id.similarVacanciesFragment -> {
                     binding.bottomNavigationView.isVisible = false
+                    binding.divider.isVisible = false
                 }
             }
         }
@@ -37,6 +39,8 @@ class RootActivity : AppCompatActivity(), BottomNavigationVisibilityListener {
 
     override fun setBottomNavigationVisibility(isVisible: Boolean) {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        val divider = findViewById<View>(R.id.divider)
         bottomNavigationView.visibility = if (isVisible) View.VISIBLE else View.GONE
+        divider.visibility = if (isVisible) View.VISIBLE else View.GONE
     }
 }

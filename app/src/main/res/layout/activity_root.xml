@@ -20,6 +20,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <View
+        android:id="@+id/divider"
         style="@style/DividerBottomNavigationMenu"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.presentation.filter.selectArea
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,17 +7,23 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.data.ResourceProvider
 import ru.practicum.android.diploma.domain.filter.FilterInteractor
 import ru.practicum.android.diploma.domain.models.filter.Area
 import ru.practicum.android.diploma.presentation.filter.selectArea.state.AreasState
 import ru.practicum.android.diploma.util.DataResponse
-import ru.practicum.android.diploma.util.NetworkError
 
 
-class SelectAreaViewModel(private val areasUseCase: FilterInteractor) : ViewModel() {
+class SelectAreaViewModel(
+    private val areasUseCase: FilterInteractor,
+    private val resourceProvider: ResourceProvider
+) : ViewModel() {
 
     private val areasStateLiveData = MutableLiveData<AreasState>()
     fun observeAreasState(): LiveData<AreasState> = areasStateLiveData
+    private val areasFilterStateLiveData = MutableLiveData<AreasState>()
+    fun observeFilterAreasState(): LiveData<AreasState> = areasFilterStateLiveData
 
     private val selectedArea = MutableLiveData<Area?>()
 
@@ -29,7 +34,7 @@ class SelectAreaViewModel(private val areasUseCase: FilterInteractor) : ViewMode
         initScreen()
     }
 
-    fun initScreen() {
+    private fun initScreen() {
         viewModelScope.launch {
             loadSelectedCountryId()?.let {
                 areasUseCase.getAreas(it).collect { result ->
@@ -41,32 +46,34 @@ class SelectAreaViewModel(private val areasUseCase: FilterInteractor) : ViewMode
 
     fun filterAreas(query: String) {
         if (query.isEmpty()) {
-            areasStateLiveData.value = AreasState.DisplayAreas(filteredAreas)
+            areasFilterStateLiveData.value = AreasState.DisplayAreas(filteredAreas)
         } else {
             val filteredList = filteredAreas.filter { area ->
                 area.name.contains(query, ignoreCase = true)
             }.toMutableList()
-            areasStateLiveData.value = AreasState.DisplayAreas(ArrayList(filteredList))
+            if (filteredList.isEmpty()) areasFilterStateLiveData.postValue(
+                AreasState.Error(
+                    resourceProvider.getString(R.string.empty_filtered_regions)
+                )
+            )
+            else
+                areasFilterStateLiveData.postValue(AreasState.DisplayAreas(ArrayList(filteredList)))
         }
     }
 
 
     private suspend fun processResult(result: DataResponse<Area>) {
-
         if (result.data != null) {
             filteredAreas = getAreasList(result.data)
-            areasStateLiveData.value =
-                AreasState.DisplayAreas(filteredAreas)
-            Log.e("ChooseAreaViewModel", "Result: $result")
-
+            if (filteredAreas.isNotEmpty()) areasStateLiveData.value =
+                AreasState.DisplayAreas(filteredAreas) else AreasState.Error(
+                resourceProvider.getString(
+                    R.string.no_list
+                )
+            )
         } else {
-            when (result.networkError!!) {
-                NetworkError.BAD_CONNECTION.toString() -> areasStateLiveData.value =
-                    AreasState.Error("Проверьте подключение к интернету")
-
-                NetworkError.SERVER_ERROR.toString() -> areasStateLiveData.value =
-                    AreasState.Error("Ошибка сервера")
-            }
+            areasStateLiveData.value =
+                AreasState.Error(resourceProvider.getString(R.string.no_list))
         }
     }
 
@@ -102,4 +109,6 @@ class SelectAreaViewModel(private val areasUseCase: FilterInteractor) : ViewMode
     fun loadSelectedArea() {
         selectedArea.value = areasUseCase.getSelectedArea()
     }
+
+
 }

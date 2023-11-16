@@ -2,9 +2,9 @@ package ru.practicum.android.diploma.domain.impl
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import ru.practicum.android.diploma.domain.DetailInteractor
 import ru.practicum.android.diploma.domain.ExternalNavigator
 import ru.practicum.android.diploma.domain.api.DetailRepository
+import ru.practicum.android.diploma.domain.detail.DetailInteractor
 import ru.practicum.android.diploma.domain.favorite.FavouriteRepository
 import ru.practicum.android.diploma.domain.models.Phone
 import ru.practicum.android.diploma.domain.models.detail.FullVacancy
@@ -20,11 +20,16 @@ class DetailInteractorImpl(
         return repository.getVacancy(id).map { result ->
             when (result) {
                 is Resource.Success<*> -> {
+                    favouriteRepository.updateVacancy(result.data)
                     Pair(result.data, null)
                 }
+
                 is Resource.Error<*> -> {
-                    val favouriteVacancy =favouriteRepository.getFullVacancy(id)
-                    if (favouriteVacancy != null) Pair(favouriteVacancy, null) else Pair(null, result.message)
+                    val favouriteVacancy = favouriteRepository.getFullVacancy(id)
+                    if (favouriteVacancy != null) Pair(favouriteVacancy, null) else Pair(
+                        null,
+                        result.message
+                    )
                 }
             }
         }
@@ -39,7 +44,7 @@ class DetailInteractorImpl(
         navigator.shareEmail(email)
     }
 
-    override fun shareVacancyUrl(vacancyUrl: String){
+    override fun shareVacancyUrl(vacancyUrl: String) {
         navigator.shareVacancyUrl(vacancyUrl)
     }
 }

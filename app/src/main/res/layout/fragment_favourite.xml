@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/text_title"
-        style="@style/textStyle"
+        style="@style/HeaderTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimens_16"
@@ -17,13 +17,12 @@
         android:layout_marginEnd="@dimen/margin_8"
         android:fontFamily="@font/ys_display_medium"
         android:text="@string/favourites"
-        android:textSize="@dimen/header_item_size"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
     </TextView>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="@dimen/margin_35"
         android:id="@+id/recycler_view_favorite"
         android:layout_width="match_parent"
         android:layout_height="0dp"
