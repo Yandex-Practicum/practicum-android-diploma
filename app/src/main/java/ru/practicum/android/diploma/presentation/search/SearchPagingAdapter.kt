@@ -2,7 +2,6 @@ package ru.practicum.android.diploma.presentation.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.databinding.ItemLoadingBinding
 import ru.practicum.android.diploma.databinding.ItemVacancyBinding
@@ -26,7 +25,7 @@ class SearchPagingAdapter(
         return if (viewType == item) SearchViewHolder(
             ItemVacancyBinding.inflate(layoutInspector, parent, false),
             salaryPresenter
-        ) else LoadingVH(
+        ) else LoadingViewHolder(
             ItemLoadingBinding.inflate(layoutInspector, parent, false)
         )
     }
@@ -39,8 +38,8 @@ class SearchPagingAdapter(
                 clickListener.invoke(data[position] as Vacancy)
             }
         } else {
-            val loadingVH: LoadingVH = holder as LoadingVH
-            loadingVH.bind(data[position] as ErrMessage)
+            val loadingViewHolder: LoadingViewHolder = holder as LoadingViewHolder
+            loadingViewHolder.bind(data[position] as ErrMessage)
         }
     }
 
@@ -89,19 +88,3 @@ class SearchPagingAdapter(
     }
 }
 
-class LoadingVH(binding: ItemLoadingBinding) : RecyclerView.ViewHolder(binding.root) {
-    var itemRowBinding: ItemLoadingBinding = binding
-
-    fun bind(errMessage: ErrMessage) {
-        if (errMessage.text.isNullOrEmpty()) {
-            itemRowBinding.loadmoreErrorlayout.isVisible = false
-            itemRowBinding.loadmoreProgress.isVisible = true
-        } else {
-            itemRowBinding.loadmoreErrorlayout.isVisible = true
-            itemRowBinding.loadmoreProgress.isVisible = false
-            itemRowBinding.loadmoreErrortxt.text = errMessage.text
-        }
-
-
-    }
-}
