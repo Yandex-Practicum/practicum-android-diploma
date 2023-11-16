@@ -25,7 +25,6 @@ import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.presentation.SalaryPresenter
 import ru.practicum.android.diploma.util.CLICK_DEBOUNCE_DELAY_MILLIS
 import ru.practicum.android.diploma.util.ID
-import ru.practicum.android.diploma.util.SELECTED_COUNTRY_KEY
 import ru.practicum.android.diploma.util.debounce
 
 
@@ -232,9 +231,9 @@ class SearchFragment : Fragment() {
 
     private fun checkSharedPrefsForFilters() {
         val sharedPrefs = requireContext().getSharedPreferences("local_storage", Context.MODE_PRIVATE)
-        val selectedCountry = sharedPrefs.getString(SELECTED_COUNTRY_KEY, "")
-        val selectedIndustry = sharedPrefs.getString("SELECTED_INDUSTRY_KEY", "")
-        val selectedArea = sharedPrefs.getString("SELECTED_AREA_KEY", "")
+        val selectedCountry = sharedPrefs.getString("selectedCountry", "")
+        val selectedIndustry = sharedPrefs.getString("selectedIndustry", "")
+        val selectedArea = sharedPrefs.getString("selectedArea", "")
 
         if (selectedCountry?.isNotEmpty() == true
             || selectedIndustry?.isNotEmpty() == true
