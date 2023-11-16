@@ -9,4 +9,4 @@ data class Vacancy(
     val found: Int,
     val employerLogoUrl: String?,
     val salary: Salary?
-)
+): RowType()

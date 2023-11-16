@@ -13,7 +13,7 @@ class SearchInteractorImpl(
     private val repository: SearchRepository,
     val filterRepository: FilterRepository
 ) : SearchInteractor {
-    override fun loadVacancies(query: String): Flow<Pair<List<Vacancy>?, String?>> {
+    override fun loadVacancies(query: String, pageCount: Int): Flow<Pair<List<Vacancy>?, String?>> {
         val filters = Filters(
             filterRepository.getSelectedCountry(),
             filterRepository.getSelectedArea(),
@@ -21,7 +21,7 @@ class SearchInteractorImpl(
             filterRepository.getSalary(),
             true
         )
-        return repository.searchVacancies(query, filters).map { result ->
+        return repository.searchVacancies(query, filters, pageCount).map { result ->
             when (result) {
                 is Resource.Success -> {
                     Pair(result.data, null)

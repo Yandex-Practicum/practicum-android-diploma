@@ -6,6 +6,6 @@ import ru.practicum.android.diploma.domain.models.filter.Filters
 import ru.practicum.android.diploma.util.Resource
 
 interface SearchRepository {
-    fun searchVacancies(query: String, filters: Filters): Flow<Resource<List<Vacancy>>>
+    fun searchVacancies(query: String, filters: Filters,pageCount:Int): Flow<Resource<List<Vacancy>>>
 
 }
