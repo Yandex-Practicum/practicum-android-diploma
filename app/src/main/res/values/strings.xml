@@ -54,6 +54,7 @@
     <string name="choose_industry">Выбор отрасли</string>
     <string name="input_industry">Введите отрасль</string>
     <string name="select_country">Выбор страны</string>
+    <string name="logo">logo</string>
     <plurals name="vacancies">
         <item quantity="zero">Найдено %d вакансий</item>
         <item quantity="one">Найдена %d вакансия</item>
