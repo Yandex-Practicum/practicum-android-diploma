@@ -7,24 +7,31 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.data.ResourceProvider
 import ru.practicum.android.diploma.domain.filter.FilterInteractor
 import ru.practicum.android.diploma.domain.models.filter.Industry
 import ru.practicum.android.diploma.presentation.filter.chooseArea.state.IndustriesState
 import ru.practicum.android.diploma.util.DataResponse
-import ru.practicum.android.diploma.util.NetworkError
 
-class SelectIndustryViewModel(private val filterInteractor: FilterInteractor) : ViewModel() {
+class SelectIndustryViewModel(
+    private val filterInteractor: FilterInteractor,
+    val resourceProvider: ResourceProvider
+) : ViewModel() {
 
 
     private val industriesStateLiveData = MutableLiveData<IndustriesState>()
     private val _selectedIndustry = MutableLiveData<Industry?>()
     fun observeIndustriesState(): LiveData<IndustriesState> = industriesStateLiveData
     private var filteredIndustries: ArrayList<Industry> = arrayListOf()
+    private val filteredIndustriesState = MutableLiveData<IndustriesState>()
+    fun observeFilteredIndustriesState(): LiveData<IndustriesState> = filteredIndustriesState
 
     init {
 
         initScreen()
     }
+
     fun initScreen() {
         viewModelScope.launch {
             filterInteractor.getIndustries().collect { result ->
@@ -35,28 +42,41 @@ class SelectIndustryViewModel(private val filterInteractor: FilterInteractor) : 
 
     fun filterIndustries(query: String) {
         if (query.isEmpty()) {
-            industriesStateLiveData.value = IndustriesState.DisplayIndustries(filteredIndustries)
+            filteredIndustriesState.value = IndustriesState.DisplayIndustries(filteredIndustries)
         } else {
             val filteredList = filteredIndustries.filter { industry ->
                 industry.name.contains(query, ignoreCase = true)
             }.toMutableList()
-            industriesStateLiveData.value =
-                IndustriesState.DisplayIndustries(ArrayList(filteredList))
+            if (filteredList.isEmpty()) filteredIndustriesState.postValue(
+                IndustriesState.Error(
+                    resourceProvider.getString(R.string.empty_filtered_industry)
+                )
+            ) else
+                filteredIndustriesState.postValue(
+                    IndustriesState.DisplayIndustries(
+                        ArrayList(
+                            filteredList
+                        )
+                    )
+                )
+
         }
     }
 
     private suspend fun processResult(result: DataResponse<Industry>) {
         if (result.data != null) {
             filteredIndustries = getFullIndustriesList(result.data)
-            industriesStateLiveData.value = IndustriesState.DisplayIndustries(filteredIndustries)
-        } else {
-            when (result.networkError!!) {
-                NetworkError.BAD_CONNECTION.toString() -> industriesStateLiveData.value =
-                    IndustriesState.Error("Проверьте подключение к интернету")
+            industriesStateLiveData.value =
+                if (filteredIndustries.isNotEmpty()) IndustriesState.DisplayIndustries(
+                    filteredIndustries
+                ) else IndustriesState.Error(
+                    resourceProvider.getString(
+                        R.string.no_list
+                    )
+                )
 
-                NetworkError.SERVER_ERROR.toString() -> industriesStateLiveData.value =
-                    IndustriesState.Error("Ошибка сервера")
-            }
+        } else {
+            IndustriesState.Error(resourceProvider.getString(R.string.no_list))
         }
     }
 

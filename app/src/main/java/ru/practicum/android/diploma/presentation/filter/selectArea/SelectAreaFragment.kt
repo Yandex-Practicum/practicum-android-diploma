@@ -3,55 +3,43 @@ package ru.practicum.android.diploma.presentation.filter.selectArea
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.core.view.isVisible
+import ru.practicum.android.diploma.R
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import ru.practicum.android.diploma.databinding.FragmentSelectAreaBinding
 import ru.practicum.android.diploma.domain.models.filter.Area
+import ru.practicum.android.diploma.presentation.ModelFragment
 import ru.practicum.android.diploma.presentation.filter.selectArea.adaptor.AreaAdapter
 import ru.practicum.android.diploma.presentation.filter.selectArea.state.AreasState
 
-class SelectAreaFragment : Fragment() {
+class SelectAreaFragment : ModelFragment() {
 
-
-    private var _binding: FragmentSelectAreaBinding? = null
-    private val binding get() = _binding!!
     private val viewModel: SelectAreaViewModel by viewModel()
     private val listArea = mutableListOf<Area>()
     private var areasAdapter: AreaAdapter? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentSelectAreaBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.toolbarInclude.headerTitle.text = getString(R.string.select_area)
         viewModel.observeAreasState().observe(viewLifecycleOwner) { state ->
             when (state) {
                 is AreasState.DisplayAreas -> displayAreas(state.areas)
                 is AreasState.Error -> displayError(state.errorText)
             }
         }
-
-        binding.chooseAreaBackArrowImageview.setOnClickListener {
-            findNavController().popBackStack()
+        viewModel.observeFilterAreasState().observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is AreasState.DisplayAreas -> displayAreas(state.areas)
+                is AreasState.Error -> displayFilterError(state.errorText)
+            }
         }
-
         setupSearchInput()
-        viewModel.initScreen()
     }
 
     private fun setupSearchInput() {
-        binding.chooseAreaEnterFieldEdittext.addTextChangedListener(object : TextWatcher {
+        binding.searchEt.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(
                 charSequence: CharSequence?,
                 start: Int,
@@ -77,8 +65,8 @@ class SelectAreaFragment : Fragment() {
 
     private fun displayAreas(areas: ArrayList<Area>) {
         binding.apply {
-            chooseAreaListRecycleView.visibility = View.VISIBLE
-            errorAreasLayout.visibility = View.GONE
+            RecyclerView.visibility = View.VISIBLE
+            placeholderMessage.visibility = View.GONE
         }
         if (areasAdapter == null) {
             areasAdapter = AreaAdapter(listArea) { area ->
@@ -90,7 +78,7 @@ class SelectAreaFragment : Fragment() {
                 findNavController().popBackStack()
                 areasAdapter?.notifyItemChanged(position)
             }
-            binding.chooseAreaListRecycleView.apply {
+            binding.RecyclerView.apply {
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = areasAdapter
             }
@@ -102,14 +90,19 @@ class SelectAreaFragment : Fragment() {
 
     private fun displayError(errorText: String) {
         binding.apply {
-            chooseAreaListRecycleView.visibility = View.INVISIBLE
-            errorAreasLayout.visibility = View.VISIBLE
-            areasErrorText.text = errorText
+            RecyclerView.isVisible = true
+            placeholderMessage.isVisible = false
+            placeholderMessageImage.setImageResource(R.drawable.search_placeholder_nothing_found)
+            placeholderMessageText.text = errorText
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
+    private fun displayFilterError(errorText: String) {
+        binding.apply {
+            RecyclerView.isVisible = false
+            placeholderMessage.isVisible = true
+            placeholderMessageImage.setImageResource(R.drawable.fitred_empty)
+            placeholderMessageText.text = errorText
+        }
     }
 }

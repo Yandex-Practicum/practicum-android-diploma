@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.os.bundleOf
 import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -24,7 +25,6 @@ import ru.practicum.android.diploma.domain.models.Phone
 import ru.practicum.android.diploma.domain.models.detail.FullVacancy
 import ru.practicum.android.diploma.presentation.SalaryPresenter
 import ru.practicum.android.diploma.presentation.detail.adapter.PhoneAdapter
-import ru.practicum.android.diploma.presentation.similar.SimilarVacanciesFragment
 import ru.practicum.android.diploma.util.CLICK_DEBOUNCE_DELAY_MILLIS
 import ru.practicum.android.diploma.util.debounce
 
@@ -63,8 +63,11 @@ class DetailFragment : Fragment() {
             fullVacancy?.let { it1 -> viewModel.changedFavourite(it1) }
         }
         binding.searchButton.setOnClickListener {
-            SimilarVacanciesFragment.addArgs(vacancyId)
-            findNavController().navigate(R.id.action_detailFragment_to_similarVacanciesFragment)
+            val bundle = bundleOf("vacancyId" to vacancyId)
+            findNavController().navigate(
+                R.id.action_detailFragment_to_similarVacanciesFragment,
+                bundle
+            )
         }
 
         val shareButton = view.findViewById<ImageView>(R.id.share)

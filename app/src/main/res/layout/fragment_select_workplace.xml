@@ -7,27 +7,9 @@
     android:background="?attr/colorOnPrimary"
     tools:context=".presentation.filter.SelectWorkplaceFragment">
 
-    <ImageView
-        android:id="@+id/settings_back_arrow_imageview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_20"
-        android:layout_marginTop="@dimen/margin_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_arrow_back" />
-
-    <TextView
-        android:id="@+id/settings_header_textview"
-        style="@style/textStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_20"
-        android:layout_marginTop="@dimen/margin_20"
-        android:fontFamily="@font/ys_display_medium"
-        android:text="@string/work_place"
-        android:textSize="@dimen/text_22"
-        app:layout_constraintStart_toEndOf="@+id/settings_back_arrow_imageview"
+    <include
+        android:id="@+id/toolbarInclude"
+        layout="@layout/toolbar"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -51,9 +33,9 @@
         app:boxStrokeWidthFocused="0dp"
         app:endIconDrawable="@drawable/ic_arrow_forward"
         app:endIconMode="custom"
-        app:endIconTint="@color/black"
+        app:endIconTint="?attr/colorPrimaryVariant"
         app:errorEnabled="false"
-        app:layout_constraintTop_toBottomOf="@id/settings_header_textview">
+        app:layout_constraintTop_toBottomOf="@id/toolbarInclude">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/country_textInputEditText"
@@ -86,7 +68,7 @@
         app:boxStrokeWidthFocused="0dp"
         app:endIconDrawable="@drawable/ic_arrow_forward"
         app:endIconMode="custom"
-        app:endIconTint="@color/black"
+        app:endIconTint="?attr/colorPrimaryVariant"
         app:errorEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

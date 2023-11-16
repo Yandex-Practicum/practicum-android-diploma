@@ -35,14 +35,14 @@ class SelectWorkplaceFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.toolbarInclude.headerTitle.text = getString(R.string.work_place)
         // Получаем сохраненную страну
         val savedCountry: Country? = viewModel.interactor.getSelectedCountry()
         // Устанавливаем текст в поле ввода страны
         binding.countryTextInputEditText.setText(savedCountry?.name.orEmpty())
 
         // Обработчик нажатия на кнопку "Назад"
-        binding.settingsBackArrowImageview.setOnClickListener {
+        binding.toolbarInclude.back.setOnClickListener {
             findNavController().popBackStack()
         }
 
