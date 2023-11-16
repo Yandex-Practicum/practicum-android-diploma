@@ -32,6 +32,10 @@ class SelectCountryViewModel(
         stateLiveData.postValue(state)
     }
 
+    init {
+        getCountries()
+    }
+
     fun getCountries() {
         viewModelScope.launch {
             interactor.getCountries()
