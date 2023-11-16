@@ -18,6 +18,9 @@ class FilterViewModel(private val interactor: FilterInteractor) : ViewModel() {
     private val filtersLiveData = MutableLiveData<Filters>()
     fun observeFilters(): LiveData<Filters> = filtersLiveData
 
+    init {
+        getFilters()
+    }
     fun getFilters() {
         viewModelScope.launch {
             val filters = interactor.getFilters()

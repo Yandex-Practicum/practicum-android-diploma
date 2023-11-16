@@ -13,7 +13,8 @@ const val UZS = "\u043b"
 
 const val SEARCH_DEBOUNCE_DELAY_MILLIS = 2000L
 
-const val CLICK_DEBOUNCE_DELAY_MILLIS200 = 200L
+const val CLICK_DEBOUNCE_DELAY_MILLIS = 200L
+const val PER_PAGE = 20
 const val ID = "vacancyId"
 
 const val ERROR = -1
