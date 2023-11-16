@@ -4,9 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
@@ -22,9 +21,6 @@ class SelectWorkplaceFragment : Fragment() {
 
     private val viewModel: SelectCountryViewModel by viewModel()
 
-    private val _filterFieldsFilled = MutableLiveData<Boolean>()
-    val filterFieldsFilled: LiveData<Boolean> = _filterFieldsFilled
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,7 +31,12 @@ class SelectWorkplaceFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.toolbarInclude.headerTitle.text = getString(R.string.work_place)
+        binding.apply {
+            toolbarInclude.headerTitle.text = getString(R.string.work_place)
+            toolbarInclude.favourite.isVisible = false
+            toolbarInclude.share.isVisible = false
+        }
+        binding.toolbarInclude
         // Получаем сохраненную страну
         val savedCountry: Country? = viewModel.interactor.getSelectedCountry()
         // Устанавливаем текст в поле ввода страны
