@@ -16,32 +16,32 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:visibility="gone"
-        android:indeterminateTint="@color/progress_color" />
+        android:indeterminateTint="@color/progress_color"
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/placeholderMessage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:visibility="gone"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/placeholderMessageImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/error"
             android:layout_gravity="center"
-            android:src="@drawable/no_internet_error"/>
+            android:layout_marginTop="@dimen/error"
+            android:src="@drawable/no_internet_error" />
 
         <TextView
             android:id="@+id/placeholderMessageText"
             style="@style/placeHolderTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="@dimen/dimens_16" />
+            android:layout_marginTop="@dimen/dimens_16"
+            android:gravity="center" />
     </LinearLayout>
 
     <ScrollView
@@ -105,7 +105,7 @@
                     android:layout_marginEnd="@dimen/margin_8"
                     android:layout_marginBottom="@dimen/margin_16"
                     android:background="@drawable/corner_shape"
-                    android:contentDescription="logo"
+                    android:contentDescription="@string/logo"
                     android:padding="@dimen/logo_item_padding"
                     android:src="@drawable/logo"
                     tools:ignore="ContentDescription" />
@@ -172,10 +172,11 @@
                 app:layout_constraintStart_toStartOf="@+id/guidelineRight"
                 app:layout_constraintTop_toBottomOf="@+id/employment_tv" />
 
-            <WebView
+            <TextView
                 android:id="@+id/vacancy_description_tv"
-                style="@style/TextView"
-                android:text=""
+                style="@style/textStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
                 app:layout_constraintStart_toStartOf="@+id/guidelineRight"
                 app:layout_constraintTop_toBottomOf="@+id/vacancy_description"
