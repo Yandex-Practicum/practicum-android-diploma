@@ -64,12 +64,20 @@ class SettingsFilterFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 inputText = s?.toString() ?: ""
                 viewModel.checkChanges(inputText)
+                if (binding.salaryEt.text.isNotEmpty()) {
+                    binding.clearButtonIcon.isVisible = true
+                }
             }
 
             override fun afterTextChanged(s: Editable?) {
             }
         }
         simpleTextWatcher?.let { binding.salaryEt.addTextChangedListener(it) }
+        binding.clearButtonIcon.setOnClickListener {
+            binding.salaryEt.setText("")
+            binding.clearButtonIcon.isVisible = false
+
+        }
 
         binding.confirmButton.setOnClickListener {
             viewModel.setSalary(inputText)
@@ -110,6 +118,7 @@ class SettingsFilterFragment : Fragment() {
             append(areaName)
         }) else binding.workPlaceEt.setText(countryName)
         binding.industryTextInputEditText.setText(filters.industry?.name ?: "")
+        binding.clearButtonIcon.isVisible = !filters.preferSalary.isNullOrEmpty()
         binding.salaryEt.setText(filters.preferSalary)
         binding.doNotShowWithoutSalaryCheckBox.isChecked = filters.isIncludeSalary
     }
