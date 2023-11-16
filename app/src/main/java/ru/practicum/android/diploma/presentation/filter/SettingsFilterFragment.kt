@@ -6,7 +6,6 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -21,6 +20,7 @@ class SettingsFilterFragment : Fragment() {
     private val binding get() = _binding!!
     private var inputText: String = ""
     private var simpleTextWatcher: TextWatcher? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
