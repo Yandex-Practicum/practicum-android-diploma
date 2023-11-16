@@ -24,8 +24,8 @@ import ru.practicum.android.diploma.domain.models.Phone
 import ru.practicum.android.diploma.domain.models.detail.FullVacancy
 import ru.practicum.android.diploma.presentation.SalaryPresenter
 import ru.practicum.android.diploma.presentation.detail.adapter.PhoneAdapter
-import ru.practicum.android.diploma.presentation.search.SearchFragment
 import ru.practicum.android.diploma.presentation.similar.SimilarVacanciesFragment
+import ru.practicum.android.diploma.util.CLICK_DEBOUNCE_DELAY_MILLIS
 import ru.practicum.android.diploma.util.debounce
 
 
@@ -125,7 +125,7 @@ class DetailFragment : Fragment() {
             }
         }
         onItemClickDebounce = debounce(
-            SearchFragment.CLICK_DEBOUNCE_DELAY_MILLIS,
+            CLICK_DEBOUNCE_DELAY_MILLIS,
             viewLifecycleOwner.lifecycleScope,
             false
         ) { phone ->
