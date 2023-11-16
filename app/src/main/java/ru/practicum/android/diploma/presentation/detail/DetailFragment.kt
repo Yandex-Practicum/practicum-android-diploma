@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.presentation.detail
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -137,6 +138,7 @@ class DetailFragment : Fragment() {
         }
         binding.vacancyDescriptionTv.settings.javaScriptEnabled = true
         val descriptionHtml = vacancy.description
+        binding.vacancyDescriptionTv.setBackgroundColor(Color.TRANSPARENT)
         if (vacancy.skills.isNullOrEmpty()) {
             binding.skills.isVisible = false
         } else {
@@ -144,6 +146,7 @@ class DetailFragment : Fragment() {
             binding.skillsTv.text = vacancy.skills
         }
         binding.employmentTv.text = vacancy.employment
+
         if (descriptionHtml != null) {
             binding.vacancyDescriptionTv.loadDataWithBaseURL(
                 null,
