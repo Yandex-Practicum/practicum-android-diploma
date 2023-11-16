@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -81,12 +82,17 @@ class SettingsFilterFragment : Fragment() {
 
     private fun changeEnabled(isEnabled: Boolean) {
         binding.confirmButton.isEnabled = isEnabled
+        binding.resetSettingsTextview.isVisible = isEnabled
     }
 
     private fun showFilters(filters: Filters) {
         val countryName = filters.country?.name ?: ""
         val areaName = filters.area?.name ?: ""
-        if (areaName.isNotEmpty()) binding.workPlaceEt.setText("$countryName, $areaName") else binding.workPlaceEt.setText(countryName)
+        if (areaName.isNotEmpty()) binding.workPlaceEt.setText(buildString {
+            append(countryName)
+            append(", ")
+            append(areaName)
+        }) else binding.workPlaceEt.setText(countryName)
         binding.industryTextInputEditText.setText(filters.industry?.name ?: "")
         binding.salaryEt.setText(filters.preferSalary)
         binding.doNotShowWithoutSalaryCheckBox.isChecked = filters.isIncludeSalary
