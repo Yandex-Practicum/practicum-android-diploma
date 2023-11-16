@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
@@ -19,6 +21,9 @@ class SelectWorkplaceFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: SelectCountryViewModel by viewModel()
+
+    private val _filterFieldsFilled = MutableLiveData<Boolean>()
+    val filterFieldsFilled: LiveData<Boolean> = _filterFieldsFilled
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +61,7 @@ class SelectWorkplaceFragment : Fragment() {
         viewModel.selectedCountry.observe(viewLifecycleOwner) { selectedCountry ->
             binding.countryTextInputEditText.setText(selectedCountry?.name.orEmpty())
         }
+
         viewModel.loadSelectedArea()
         viewModel.selectedArea.observe(viewLifecycleOwner) { selectedArea ->
             binding.regionTextInputEditText.setText(selectedArea?.name.orEmpty())
@@ -63,8 +69,18 @@ class SelectWorkplaceFragment : Fragment() {
         binding.chooseButton.setOnClickListener {
             findNavController().popBackStack()
         }
+
         viewModel.getCountries()
     }
+
+    fun isAnyFilterFieldFilled(): Boolean {
+        val countryText = binding.countryTextInputEditText.text.toString().trim()
+        val regionText = binding.regionTextInputEditText.text.toString().trim()
+        val anyFieldFilled = countryText.isNotEmpty() || regionText.isNotEmpty()
+        _filterFieldsFilled.postValue(anyFieldFilled)
+        return anyFieldFilled
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

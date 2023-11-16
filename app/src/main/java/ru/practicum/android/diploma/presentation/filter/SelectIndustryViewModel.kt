@@ -77,4 +77,5 @@ class SelectIndustryViewModel(private val filterInteractor: FilterInteractor) : 
     fun loadSelectedIndustry() {
         _selectedIndustry.value = filterInteractor.getSelectedIndustry()
     }
+
 }

@@ -25,10 +25,16 @@ import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.presentation.SalaryPresenter
 import ru.practicum.android.diploma.util.CLICK_DEBOUNCE_DELAY_MILLIS
 import ru.practicum.android.diploma.util.ID
+import ru.practicum.android.diploma.util.SELECTED_COUNTRY_KEY
 import ru.practicum.android.diploma.util.debounce
 
 
 class SearchFragment : Fragment() {
+
+    override fun onStart() {
+        super.onStart()
+        checkSharedPrefsForFilters()
+    }
 
     private var _binding: FragmentSearchBinding? = null
     private val viewModel by viewModel<SearchViewModel>()
@@ -52,10 +58,9 @@ class SearchFragment : Fragment() {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initRV()
         binding.clearButtonIcon.setOnClickListener {
             if (binding.searchEt.text.isNotEmpty()) {
@@ -66,6 +71,7 @@ class SearchFragment : Fragment() {
                 inputMethodManager?.hideSoftInputFromWindow(binding.clearButtonIcon.windowToken, 0)
             }
         }
+
         simpleTextWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -100,7 +106,9 @@ class SearchFragment : Fragment() {
         }
         binding.FilterButtonIcon.setOnClickListener {
             findNavController().navigate(R.id.action_searchFragment_to_settingsFilterFragment)
+
         }
+
     }
 
     private fun renderNext(state: SearchState) {
@@ -220,6 +228,21 @@ class SearchFragment : Fragment() {
         binding.rvSearch.isVisible = false
         binding.searchCount.isVisible = false
         binding.placeholderMessage.isVisible = false
+    }
+
+    private fun checkSharedPrefsForFilters() {
+        val sharedPrefs = requireContext().getSharedPreferences("local_storage", Context.MODE_PRIVATE)
+        val selectedCountry = sharedPrefs.getString(SELECTED_COUNTRY_KEY, "")
+        val selectedIndustry = sharedPrefs.getString("SELECTED_INDUSTRY_KEY", "")
+        val selectedArea = sharedPrefs.getString("SELECTED_AREA_KEY", "")
+
+        if (selectedCountry?.isNotEmpty() == true
+            || selectedIndustry?.isNotEmpty() == true
+            || selectedArea?.isNotEmpty() == true) {
+            binding.FilterButtonIcon.setImageResource(R.drawable.filter_on)
+        } else {
+            binding.FilterButtonIcon.setImageResource(R.drawable.filter_button)
+        }
     }
 
 }
