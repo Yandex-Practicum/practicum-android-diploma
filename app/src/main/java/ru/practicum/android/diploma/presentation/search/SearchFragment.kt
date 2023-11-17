@@ -32,7 +32,11 @@ class SearchFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        checkSharedPrefsForFilters()
+        if (viewModel.checkFilters() ){
+            binding.FilterButtonIcon.setImageResource(R.drawable.filter_on)
+        } else {
+            binding.FilterButtonIcon.setImageResource(R.drawable.filter_button)
+        }
     }
 
     private var _binding: FragmentSearchBinding? = null
@@ -227,21 +231,6 @@ class SearchFragment : Fragment() {
         binding.rvSearch.isVisible = false
         binding.searchCount.isVisible = false
         binding.placeholderMessage.isVisible = false
-    }
-
-    private fun checkSharedPrefsForFilters() {
-        val sharedPrefs = requireContext().getSharedPreferences("local_storage", Context.MODE_PRIVATE)
-        val selectedCountry = sharedPrefs.getString("selectedCountry", "")
-        val selectedIndustry = sharedPrefs.getString("selectedIndustry", "")
-        val selectedArea = sharedPrefs.getString("selectedArea", "")
-
-        if (selectedCountry?.isNotEmpty() == true
-            || selectedIndustry?.isNotEmpty() == true
-            || selectedArea?.isNotEmpty() == true) {
-            binding.FilterButtonIcon.setImageResource(R.drawable.filter_on)
-        } else {
-            binding.FilterButtonIcon.setImageResource(R.drawable.filter_button)
-        }
     }
 
 }

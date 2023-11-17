@@ -147,4 +147,8 @@ class SearchViewModel(
                 message = resourceProvider.getString(R.string.no_vacancies)
             ))
     }
+
+    fun checkFilters(): Boolean {
+        return interactor.checkFilters()
+    }
 }

@@ -17,16 +17,22 @@ class SearchRepositoryImpl(
     private val resourceProvider: ResourceProvider,
     private val mapper: VacancyMapper,
 ) : SearchRepository {
-    override fun searchVacancies(query: String, filters: Filters, pageCount:Int): Flow<Resource<List<Vacancy>>> =
+    override fun searchVacancies(
+        query: String,
+        filters: Filters,
+        pageCount: Int
+    ): Flow<Resource<List<Vacancy>>> =
         flow {
             val options: HashMap<String, String> = HashMap()
             options["text"] = query
             options["page"] = pageCount.toString()
             options["per_page"] = PER_PAGE.toString()
-            if (filters.area != null) options["area"] = filters.area.id else if (filters.country != null) options["area"] = filters.country.id
+            if (filters.area != null) options["area"] =
+                filters.area.id else if (filters.country != null) options["area"] =
+                filters.country.id
             if (filters.industry != null) options["industry"] = filters.industry.id
-            if (filters.isIncludeSalary && !filters.preferSalary.isNullOrEmpty()) options["salary"] =
-                filters.preferSalary
+            if (!filters.preferSalary.isNullOrEmpty()) options["salary"] = filters.preferSalary
+            if (filters.isIncludeSalary)  options["only_with_salary"] = true.toString()
             val response = networkClient.doSearchRequest(options)
             when (response.resultCode) {
                 ERROR -> {
