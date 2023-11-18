@@ -18,5 +18,6 @@ class AreaViewHolder(itemView: View, private val clickListener: (Area) -> Unit) 
         itemView.setOnClickListener {
             clickListener.invoke(item)
         }
+        radioButton.isChecked = item.isChecked
     }
 }
