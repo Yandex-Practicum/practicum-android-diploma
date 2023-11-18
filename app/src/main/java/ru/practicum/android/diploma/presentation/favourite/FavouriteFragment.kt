@@ -55,7 +55,7 @@ class FavouriteFragment : Fragment() {
             val bundle = bundleOf("vacancyId" to vacancy.id)
             findNavController().navigate(R.id.action_favouriteFragment_to_detailFragment, bundle)
         }
-        viewModel.fill()
+
     }
 
     override fun onDestroy() {
