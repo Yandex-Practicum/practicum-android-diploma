@@ -12,7 +12,6 @@ import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.filter.CountryResponse
 import ru.practicum.android.diploma.data.dto.filter.IndustryResponse
-import ru.practicum.android.diploma.domain.models.filter.Industry
 
 
 class RetrofitNetworkClient(private val api: ApiService, private val context: Context) :
@@ -87,7 +86,7 @@ class RetrofitNetworkClient(private val api: ApiService, private val context: Co
             try {
                 val countries = api.getCountres()
                 if (countries.isEmpty()) {
-                    Response().apply { resultCode = 666 }
+                    Response().apply { resultCode = 204 }
                 } else {
                     CountryResponse(countries).apply { resultCode = 200 }
                 }
@@ -106,7 +105,7 @@ class RetrofitNetworkClient(private val api: ApiService, private val context: Co
             try {
                 val industries = api.getIndustries()
                 if (industries.isEmpty()) {
-                    Response().apply { resultCode = 666 }
+                    Response().apply { resultCode = 204 }
                 } else {
                     IndustryResponse(industries).apply { resultCode = 200 }
                 }
