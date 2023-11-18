@@ -20,5 +20,6 @@ class IndystryViewHolder(itemView: View, private val clickListener: (Industry) -
         itemView.setOnClickListener {
             clickListener.invoke(item)
         }
+        radioButton.isChecked = item.isChecked
     }
 }
