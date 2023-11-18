@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 import ru.practicum.android.diploma.data.dto.Response
 
 @Parcelize
-data class RegionListDto(
+ class RegionListDto(
     val id: String,
     val parent_id: String,
     val name: String,

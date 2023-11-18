@@ -47,18 +47,14 @@ class SelectIndustryFragment : ModelFragment() {
                 start: Int,
                 count: Int,
                 after: Int
-            ) {
-                // No implementation needed
-            }
+            ) {}
 
             override fun onTextChanged(
                 charSequence: CharSequence?,
                 start: Int,
                 before: Int,
                 count: Int
-            ) {
-                // No implementation needed
-            }
+            ) {}
 
             override fun afterTextChanged(editable: Editable?) {
                 editable?.toString()?.let { query ->
