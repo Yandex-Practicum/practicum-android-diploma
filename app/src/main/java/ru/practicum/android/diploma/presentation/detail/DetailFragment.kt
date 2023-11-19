@@ -176,31 +176,23 @@ class DetailFragment : Fragment() {
         when (state) {
             is DetailState.Content -> {
                 val vacancy = state.vacancy
-                val hasContacts = vacancy.contacts != null
-                val hasPhones = !vacancy.contacts?.phones.isNullOrEmpty()
-                val hasEmail = !vacancy.contacts?.email.isNullOrEmpty()
-                val hasComments = vacancy.contacts?.phones?.
-                any { phone -> !phone.comment.isNullOrEmpty() } ?: false
+                binding.contactPerson.isVisible = !vacancy.contacts?.name.isNullOrEmpty()
+                binding.emailTitle.isVisible = !vacancy.contacts?.email.isNullOrEmpty()
+                binding.emailAddress.isVisible = !vacancy.contacts?.email.isNullOrEmpty()
 
-                binding.contactPerson.isVisible = hasContacts
-                binding.contactPersonName.isVisible = hasContacts && !vacancy.contacts?.name.isNullOrEmpty()
+                val phones = vacancy.contacts?.phones
+                binding.contact.isVisible = !phones.isNullOrEmpty()
+                binding.phone.isVisible = !phones.isNullOrEmpty()
+                binding.phoneTitle.isVisible = !phones.isNullOrEmpty()
 
-                binding.emailTitle.isVisible = hasEmail
-                binding.emailAddress.isVisible = hasEmail
-
-                binding.contact.isVisible = hasPhones
-                binding.contactPerson.isVisible = hasPhones
-
-                binding.phoneTitle.isVisible = hasPhones
-                binding.phone.isVisible = hasPhones
-
+                val hasComments = phones?.any { phone -> !phone.comment.isNullOrEmpty() } ?: false
                 binding.commentTitle.isVisible = hasComments
                 binding.comment.isVisible = hasComments
             }
             else -> {
-
             }
         }
     }
+
 
 }
