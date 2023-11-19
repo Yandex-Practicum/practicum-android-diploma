@@ -26,6 +26,7 @@ import ru.practicum.android.diploma.domain.models.detail.FullVacancy
 import ru.practicum.android.diploma.presentation.SalaryPresenter
 import ru.practicum.android.diploma.presentation.detail.adapter.PhoneAdapter
 import ru.practicum.android.diploma.util.CLICK_DEBOUNCE_DELAY_MILLIS
+import ru.practicum.android.diploma.util.ID
 import ru.practicum.android.diploma.util.debounce
 
 
@@ -50,7 +51,7 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val vacancyId = arguments?.getString("vacancyId") ?: ""
+        val vacancyId = arguments?.getString(ID) ?: ""
         viewModel.getVacancy(vacancyId)
         viewModel.getStatus(vacancyId)
         viewModel.observeState().observe(viewLifecycleOwner) {
@@ -63,7 +64,7 @@ class DetailFragment : Fragment() {
             fullVacancy?.let { it1 -> viewModel.changedFavourite(it1) }
         }
         binding.searchButton.setOnClickListener {
-            val bundle = bundleOf("vacancyId" to vacancyId)
+            val bundle = bundleOf(ID to vacancyId)
             findNavController().navigate(
                 R.id.action_detailFragment_to_similarVacanciesFragment,
                 bundle
@@ -165,7 +166,8 @@ class DetailFragment : Fragment() {
     }
 
     private fun showFavouriteStatus(isFavorite: Boolean) {
-        if (isFavorite) binding.toolbarInclude.favourite.setImageResource(R.drawable.ic_favourite_on) else binding.toolbarInclude.favourite.setImageResource(
+        if (isFavorite) binding.toolbarInclude.favourite.setImageResource(R.drawable.ic_favourite_on)
+        else binding.toolbarInclude.favourite.setImageResource(
             R.drawable.ic_favourites
         )
     }
