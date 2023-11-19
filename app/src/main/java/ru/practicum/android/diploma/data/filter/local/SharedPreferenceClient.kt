@@ -14,7 +14,7 @@ import ru.practicum.android.diploma.util.SELECTED_INDUSTRY_KEY
 class SharedPreferenceClient(val gson: Gson, private val sharedPreferences: SharedPreferences) :
     LocalStorage {
 
-    private val editor = sharedPreferences.edit()
+    private val editor get() = sharedPreferences.edit()
 
     override fun setSalary(salary: String) {
         editor
@@ -71,6 +71,6 @@ class SharedPreferenceClient(val gson: Gson, private val sharedPreferences: Shar
     }
 
     override fun setCheckedStatus(isChecked: Boolean) {
-        editor.putBoolean(SALARY_FLAG, isChecked)
+        editor.putBoolean(SALARY_FLAG, isChecked).apply()
     }
 }
