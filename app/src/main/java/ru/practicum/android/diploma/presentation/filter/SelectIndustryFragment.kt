@@ -36,7 +36,6 @@ class SelectIndustryFragment : ModelFragment() {
             }
         }
         setupSearchInput()
-        viewModel.initScreen()
         viewModel.loadSelectedIndustry()
     }
 

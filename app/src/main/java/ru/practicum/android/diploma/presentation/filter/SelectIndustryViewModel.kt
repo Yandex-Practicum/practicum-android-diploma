@@ -32,7 +32,7 @@ class SelectIndustryViewModel(
         initScreen()
     }
 
-    fun initScreen() {
+    private fun initScreen() {
         viewModelScope.launch {
             filterInteractor.getIndustries().collect { result ->
                 processResult(result)
