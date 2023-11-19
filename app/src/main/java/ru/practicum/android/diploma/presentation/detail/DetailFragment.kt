@@ -54,8 +54,9 @@ class DetailFragment : Fragment() {
         val vacancyId = arguments?.getString(ID) ?: ""
         viewModel.getVacancy(vacancyId)
         viewModel.getStatus(vacancyId)
-        viewModel.observeState().observe(viewLifecycleOwner) {
-            render(it)
+        viewModel.observeState().observe(viewLifecycleOwner) {state ->
+            render(state)
+            hideEmptyContactFields(state)
         }
         viewModel.observedFavouriteState().observe(viewLifecycleOwner) {
             showFavouriteStatus(it)
@@ -171,4 +172,29 @@ class DetailFragment : Fragment() {
             R.drawable.ic_favourites
         )
     }
+
+
+    private fun hideEmptyContactFields(state: DetailState) {
+        when (state) {
+            is DetailState.Content -> {
+                val vacancy = state.vacancy
+                binding.contactPerson.isVisible = !vacancy.contacts?.name.isNullOrEmpty()
+                binding.emailTitle.isVisible = !vacancy.contacts?.email.isNullOrEmpty()
+                binding.emailAddress.isVisible = !vacancy.contacts?.email.isNullOrEmpty()
+
+                val phones = vacancy.contacts?.phones
+                binding.contact.isVisible = !phones.isNullOrEmpty()
+                binding.phone.isVisible = !phones.isNullOrEmpty()
+                binding.phoneTitle.isVisible = !phones.isNullOrEmpty()
+
+                val hasComments = phones?.any { phone -> !phone.comment.isNullOrEmpty() } ?: false
+                binding.commentTitle.isVisible = hasComments
+                binding.comment.isVisible = hasComments
+            }
+            else -> {
+            }
+        }
+    }
+
+
 }
