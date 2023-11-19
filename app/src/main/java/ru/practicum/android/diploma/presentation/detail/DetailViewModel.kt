@@ -7,8 +7,8 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.ResourceProvider
-import ru.practicum.android.diploma.domain.detail.DetailInteractor
 import ru.practicum.android.diploma.domain.DetailState
+import ru.practicum.android.diploma.domain.detail.DetailInteractor
 import ru.practicum.android.diploma.domain.favorite.FavouriteInteractor
 import ru.practicum.android.diploma.domain.models.Phone
 import ru.practicum.android.diploma.domain.models.detail.FullVacancy
@@ -18,6 +18,9 @@ class DetailViewModel(
     private val resourceProvider: ResourceProvider,
     private val favouriteInteractor: FavouriteInteractor
 ) : ViewModel() {
+
+    private val _vacancyState = MutableLiveData<DetailState>()
+    val vacancyState: LiveData<DetailState> get() = _vacancyState
 
     private lateinit var vacancy: FullVacancy
     private var favouriteStateLiveData = MutableLiveData(false)
@@ -104,4 +107,7 @@ class DetailViewModel(
     private fun renderFavouriteState(isAdded: Boolean) {
         favouriteStateLiveData.postValue(isAdded)
     }
+
+
+
 }
