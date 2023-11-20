@@ -67,7 +67,7 @@ class SelectWorkplaceFragment : Fragment() {
         viewModel.selectedArea.observe(viewLifecycleOwner) { selectedArea ->
             binding.regionTextInputEditText.setText(selectedArea?.name.orEmpty())
         }
-        binding.chooseButton.setOnClickListener {
+        binding.selectButton.setOnClickListener {
             findNavController().popBackStack()
         }
 

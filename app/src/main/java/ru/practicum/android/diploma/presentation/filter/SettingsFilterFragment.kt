@@ -118,7 +118,13 @@ class SettingsFilterFragment : Fragment() {
             append(", ")
             append(areaName)
         }) else binding.workPlaceEt.setText(countryName)
-        binding.industryTextInputEditText.setText(filters.industry?.name ?: "")
+        if (!filters.industries.isNullOrEmpty()) {
+            val sb = StringBuilder()
+            for (item in filters.industries) {
+                sb.append(item.name).append(",")
+            }
+            binding.industryTextInputEditText.setText(sb.toString())
+        }
         binding.clearButtonIcon.isVisible = !filters.preferSalary.isNullOrEmpty()
         binding.salaryEt.setText(filters.preferSalary)
         binding.doNotShowWithoutSalaryCheckBox.isChecked = filters.isIncludeSalary
