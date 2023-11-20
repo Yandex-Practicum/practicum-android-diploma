@@ -29,12 +29,21 @@
         app:layout_constraintStart_toEndOf="@+id/settings_back_arrow_imageview"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/right_border"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/margin_16" />
+    
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/work_place_textInputLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="16dp"
         android:background="@android:color/transparent"
         android:fontFamily="@font/ys_display_regular"
         android:hint="@string/work_place"
@@ -48,10 +57,9 @@
         app:boxBackgroundColor="@android:color/transparent"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
-        app:endIconDrawable="@drawable/ic_arrow_forward"
-        app:endIconMode="custom"
-        app:endIconTint="?attr/colorPrimaryVariant"
         app:errorEnabled="false"
+        app:layout_constraintEnd_toStartOf="@+id/industry_button"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/settings_header_textview">
 
         <EditText
@@ -66,10 +74,31 @@
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <ImageView
+        android:id="@+id/work_place_button"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:paddingStart="20dp"
+        android:src="@drawable/ic_arrow_forward"
+        app:layout_constraintBottom_toBottomOf="@+id/work_place_textInputLayout"
+        app:layout_constraintEnd_toStartOf="@+id/right_border"
+        app:layout_constraintTop_toTopOf="@+id/work_place_textInputLayout" />
+
+    <ImageView
+        android:id="@+id/work_place_clear"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:paddingStart="20dp"
+        android:src="@drawable/ic_clear_et"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/work_place_textInputLayout"
+        app:layout_constraintEnd_toStartOf="@id/right_border"
+        app:layout_constraintTop_toTopOf="@+id/work_place_textInputLayout" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/industry_textInputLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_12"
         android:background="@android:color/transparent"
@@ -84,11 +113,8 @@
         app:boxBackgroundColor="@android:color/transparent"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
-        app:endIconDrawable="@drawable/ic_arrow_forward"
-        app:endIconMode="custom"
-        app:endIconTint="?attr/colorPrimaryVariant"
         app:errorEnabled="false"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/industry_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/work_place_textInputLayout">
 
@@ -103,6 +129,27 @@
             app:boxBackgroundColor="@android:color/transparent"
             tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/industry_button"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:paddingStart="20dp"
+        android:src="@drawable/ic_arrow_forward"
+        app:layout_constraintBottom_toBottomOf="@+id/industry_textInputLayout"
+        app:layout_constraintEnd_toStartOf="@+id/right_border"
+        app:layout_constraintTop_toTopOf="@+id/industry_textInputLayout" />
+
+    <ImageView
+        android:id="@+id/industry_clear"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:paddingStart="20dp"
+        android:src="@drawable/ic_clear_et"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/industry_textInputLayout"
+        app:layout_constraintEnd_toStartOf="@id/right_border"
+        app:layout_constraintTop_toTopOf="@+id/industry_textInputLayout" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/salary_editText"
