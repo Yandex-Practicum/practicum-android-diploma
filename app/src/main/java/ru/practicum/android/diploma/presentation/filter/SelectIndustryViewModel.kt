@@ -11,7 +11,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.ResourceProvider
 import ru.practicum.android.diploma.domain.filter.FilterInteractor
 import ru.practicum.android.diploma.domain.models.filter.Industry
-import ru.practicum.android.diploma.presentation.filter.chooseArea.state.IndustriesState
+import ru.practicum.android.diploma.presentation.filter.selectArea.state.IndustriesState
 import ru.practicum.android.diploma.util.DataResponse
 
 class SelectIndustryViewModel(
@@ -21,9 +21,11 @@ class SelectIndustryViewModel(
 
 
     private val industriesStateLiveData = MutableLiveData<IndustriesState>()
-    private val _selectedIndustry = MutableLiveData<Industry?>()
+    private val selectedIndustry = MutableLiveData(mutableListOf<Industry>())
+    fun observeSelectedIndustry(): LiveData<MutableList<Industry>> = selectedIndustry
+
     fun observeIndustriesState(): LiveData<IndustriesState> = industriesStateLiveData
-    private var filteredIndustries: ArrayList<Industry> = arrayListOf()
+    private var filteredIndustries: List<Industry> = mutableListOf()
     private val filteredIndustriesState = MutableLiveData<IndustriesState>()
     fun observeFilteredIndustriesState(): LiveData<IndustriesState> = filteredIndustriesState
 
@@ -90,12 +92,21 @@ class SelectIndustryViewModel(
             extendedIndustriesList
         }
 
-    fun onIndustryClicked(industry: Industry) {
-        filterInteractor.setSelectedIdustries(industry)
+    fun onIndustryClicked(industry: Industry, isChecked: Boolean) {
+        val changedList = selectedIndustry.value ?: mutableListOf()
+        if (isChecked) changedList.add(industry)
+        else changedList.remove(industry)
+        selectedIndustry.postValue(changedList)
+    }
+
+    fun setIndustries() {
+        filterInteractor.setSelectedIndustries(selectedIndustry.value)
     }
 
     fun loadSelectedIndustry() {
-        _selectedIndustry.value = filterInteractor.getSelectedIndustry()
+        selectedIndustry.postValue(
+            (filterInteractor.getSelectedIndustries() ?: mutableListOf()).toMutableList()
+        )
     }
 
 }

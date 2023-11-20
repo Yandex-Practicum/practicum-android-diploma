@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.data
 
+import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.R
@@ -30,9 +31,15 @@ class SearchRepositoryImpl(
             if (filters.area != null) options["area"] =
                 filters.area.id else if (filters.country != null) options["area"] =
                 filters.country.id
-            if (filters.industry != null) options["industry"] = filters.industry.id
+            if (!filters.industries.isNullOrEmpty()) {
+                val industriesId = mutableListOf<String>()
+                for (item in filters.industries) {
+                    industriesId.add(item.id)
+                }
+                options["industry"] = industriesId[0]
+            }
             if (!filters.preferSalary.isNullOrEmpty()) options["salary"] = filters.preferSalary
-            if (filters.isIncludeSalary)  options["only_with_salary"] = true.toString()
+            if (filters.isIncludeSalary) options["only_with_salary"] = true.toString()
             val response = networkClient.doSearchRequest(options)
             when (response.resultCode) {
                 ERROR -> {

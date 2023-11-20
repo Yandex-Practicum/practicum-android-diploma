@@ -32,7 +32,7 @@ class SearchFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        if (viewModel.checkFilters() ){
+        if (viewModel.checkFilters()){
             binding.FilterButtonIcon.setImageResource(R.drawable.filter_on)
         } else {
             binding.FilterButtonIcon.setImageResource(R.drawable.filter_button)
