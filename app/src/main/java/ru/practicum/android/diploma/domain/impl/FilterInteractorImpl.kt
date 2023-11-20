@@ -112,11 +112,24 @@ class FilterInteractorImpl(
         return repository.getSelectedIndustry()
     }
 
-    override fun setSalaryStatus(isChecked:Boolean) {
+    override fun setSalaryStatus(isChecked: Boolean) {
         repository.setCheckedStatus(isChecked)
     }
 
     override fun getSalaryStatus(): Boolean {
         return repository.getCheckedStatus()
     }
+
+    override fun removeSelectedCountry() {
+        repository.removeSelectedCountry()
+    }
+
+    override fun removeSelectedArea() {
+        repository.removeSelectedArea()
+    }
+
+    override fun removeSelectedIndustry() {
+        repository.removeSelectedIndustry()
+    }
+
 }

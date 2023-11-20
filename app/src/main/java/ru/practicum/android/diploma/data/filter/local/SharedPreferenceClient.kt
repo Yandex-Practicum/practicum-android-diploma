@@ -73,4 +73,16 @@ class SharedPreferenceClient(val gson: Gson, private val sharedPreferences: Shar
     override fun setCheckedStatus(isChecked: Boolean) {
         editor.putBoolean(SALARY_FLAG, isChecked)
     }
+
+    override fun removeSelectedCountry() {
+        editor.remove(SELECTED_COUNTRY_KEY).apply()
+    }
+
+    override fun removeSelectedArea() {
+        editor.remove(SELECTED_AREA_KEY).apply()
+    }
+
+    override fun removeSelectedIndustry() {
+        editor.remove(SELECTED_INDUSTRY_KEY).apply()
+    }
 }

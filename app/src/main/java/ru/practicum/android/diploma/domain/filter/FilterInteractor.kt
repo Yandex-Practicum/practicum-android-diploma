@@ -21,6 +21,10 @@ interface FilterInteractor {
     fun getIndustries(): Flow<DataResponse<Industry>>
     fun setSelectedIdustries(industry: Industry?)
     fun getSelectedIndustry(): Industry?
-    fun setSalaryStatus(isChecked:Boolean)
-    fun getSalaryStatus():Boolean
+    fun setSalaryStatus(isChecked: Boolean)
+    fun getSalaryStatus(): Boolean
+
+    fun removeSelectedCountry()
+    fun removeSelectedArea()
+    fun removeSelectedIndustry()
 }
