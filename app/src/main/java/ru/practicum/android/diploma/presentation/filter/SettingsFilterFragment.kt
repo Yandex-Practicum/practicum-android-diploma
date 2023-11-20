@@ -90,12 +90,15 @@ class SettingsFilterFragment : Fragment() {
             binding.workPlaceEditText.setText("")
             binding.workPlaceClear.isVisible = false
             binding.workPlaceButton.isVisible = true
+            viewModel.clearCountry()
+            viewModel.clearArea()
         }
 
         binding.industryClear.setOnClickListener {
             binding.industryEditText.setText("")
             binding.industryClear.isVisible = false
             binding.industryButton.isVisible = true
+            viewModel.clearIndustry()
         }
 
         binding.confirmButton.setOnClickListener {

@@ -51,4 +51,15 @@ class FilterViewModel(private val interactor: FilterInteractor) : ViewModel() {
         interactor.setSalaryStatus(isChecked)
         changesLiveData.postValue(true)
     }
+    fun clearCountry() {
+        interactor.removeSelectedCountry()
+    }
+
+    fun clearArea() {
+        interactor.removeSelectedArea()
+    }
+
+    fun clearIndustry() {
+        interactor.removeSelectedIndustry()
+    }
 }
