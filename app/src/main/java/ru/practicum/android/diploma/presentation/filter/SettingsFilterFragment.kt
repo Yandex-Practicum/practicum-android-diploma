@@ -64,6 +64,10 @@ class SettingsFilterFragment : Fragment() {
                 inputText = s?.toString() ?: ""
                 viewModel.checkChanges(inputText)
                 checkFieldsForResetVisibility()
+                if (binding.industryEditText.text?.isNotEmpty() == true) {
+                    binding.industryButton.isVisible = false
+                    binding.industryClear.isVisible = true
+                }
                 if (binding.salaryEt.text.isNotEmpty()) {
                     binding.clearButtonIcon.isVisible = true
                 }
@@ -76,7 +80,12 @@ class SettingsFilterFragment : Fragment() {
         binding.clearButtonIcon.setOnClickListener {
             binding.salaryEt.setText("")
             binding.clearButtonIcon.isVisible = false
+        }
 
+        binding.industryClear.setOnClickListener {
+            binding.industryEditText.setText("")
+            binding.industryClear.isVisible = false
+            binding.industryButton.isVisible = true
         }
 
         binding.confirmButton.setOnClickListener {
@@ -138,6 +147,7 @@ class SettingsFilterFragment : Fragment() {
         binding.salaryEt.text = null
         binding.doNotShowWithoutSalaryCheckBox.isChecked = false
         binding.clearButtonIcon.isVisible = false
+        binding.industryClear.isVisible = false
         checkFieldsForResetVisibility()
     }
 
