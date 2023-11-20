@@ -64,6 +64,10 @@ class SettingsFilterFragment : Fragment() {
                 inputText = s?.toString() ?: ""
                 viewModel.checkChanges(inputText)
                 checkFieldsForResetVisibility()
+                if (binding.workPlaceEditText.text?.isNotEmpty() == true) {
+                    binding.workPlaceButton.isVisible = false
+                    binding.workPlaceClear.isVisible = true
+                }
                 if (binding.industryEditText.text?.isNotEmpty() == true) {
                     binding.industryButton.isVisible = false
                     binding.industryClear.isVisible = true
@@ -80,6 +84,12 @@ class SettingsFilterFragment : Fragment() {
         binding.clearButtonIcon.setOnClickListener {
             binding.salaryEt.setText("")
             binding.clearButtonIcon.isVisible = false
+        }
+
+        binding.workPlaceClear.setOnClickListener {
+            binding.workPlaceEditText.setText("")
+            binding.workPlaceClear.isVisible = false
+            binding.workPlaceButton.isVisible = true
         }
 
         binding.industryClear.setOnClickListener {
@@ -115,6 +125,7 @@ class SettingsFilterFragment : Fragment() {
         binding.resetSettingsTextview.setOnClickListener {
             resetFields()
             viewModel.clearFilters()
+            binding.confirmButton.isVisible = false
         }
 
         binding.doNotShowWithoutSalaryCheckBox.setOnClickListener {
@@ -125,6 +136,8 @@ class SettingsFilterFragment : Fragment() {
     private fun changeEnabled(isEnabled: Boolean) {
         binding.confirmButton.isEnabled = isEnabled
         binding.resetSettingsTextview.isVisible = isEnabled
+        binding.workPlaceButton.isVisible = isEnabled
+        binding.industryButton.isVisible = isEnabled
     }
 
     private fun showFilters(filters: Filters) {
@@ -148,6 +161,7 @@ class SettingsFilterFragment : Fragment() {
         binding.doNotShowWithoutSalaryCheckBox.isChecked = false
         binding.clearButtonIcon.isVisible = false
         binding.industryClear.isVisible = false
+        binding.workPlaceClear.isVisible = false
         checkFieldsForResetVisibility()
     }
 
