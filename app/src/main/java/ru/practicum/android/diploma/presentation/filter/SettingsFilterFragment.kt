@@ -136,8 +136,8 @@ class SettingsFilterFragment : Fragment() {
     private fun changeEnabled(isEnabled: Boolean) {
         binding.confirmButton.isEnabled = isEnabled
         binding.resetSettingsTextview.isVisible = isEnabled
-        binding.workPlaceButton.isVisible = isEnabled
-        binding.industryButton.isVisible = isEnabled
+        binding.workPlaceButton.isVisible = true
+        binding.industryButton.isVisible = true
     }
 
     private fun showFilters(filters: Filters) {
