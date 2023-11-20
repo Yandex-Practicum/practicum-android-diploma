@@ -95,7 +95,7 @@ class SelectIndustryViewModel(
     fun onIndustryClicked(industry: Industry, isChecked: Boolean) {
         val changedList = selectedIndustry.value ?: mutableListOf()
         if (isChecked) changedList.add(industry)
-        else changedList.remove(industry)
+        else changedList.remove(industry.copy(isChecked = false))
         selectedIndustry.postValue(changedList)
     }
 

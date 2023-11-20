@@ -12,18 +12,30 @@ import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.filter.CountryResponse
 import ru.practicum.android.diploma.data.dto.filter.IndustryResponse
+import ru.practicum.android.diploma.domain.models.filter.Filters
+import ru.practicum.android.diploma.util.PER_PAGE
 
 
 class RetrofitNetworkClient(private val api: ApiService, private val context: Context) :
     NetworkClient {
     @RequiresApi(Build.VERSION_CODES.M)
-    override suspend fun doSearchRequest(options: HashMap<String, String>): Response {
+    override suspend fun doSearchRequest(text: String, filters: Filters, pageCount: Int): Response {
         if (!isConnected()) {
             return Response().apply { resultCode = -1 }
         }
         return withContext(Dispatchers.IO) {
             try {
-                val response = api.search(options)
+                var area: String? = null
+                if (filters.area != null) area = filters.area.id else if (filters.country != null)
+                    area = filters.country.id
+                var industriesId: MutableList<String>? = mutableListOf()
+                if (!filters.industries.isNullOrEmpty()){
+                    for (item in filters.industries) industriesId?.add(item.id)
+                } else industriesId = null
+                val salary = if(!filters.preferSalary.isNullOrEmpty()) filters.preferSalary else null
+                val response =
+                    api.search(text, pageCount.toString(), PER_PAGE.toString(), area, industriesId,
+                      salary , if (filters.isIncludeSalary) true else null)
                 Log.d("RetrofitNetworkClient", "Response: $response")
                 response.apply { resultCode = 200 }
             } catch (e: Throwable) {
