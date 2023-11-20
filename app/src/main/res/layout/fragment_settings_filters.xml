@@ -39,7 +39,7 @@
     
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/work_place_textInputLayout"
+        android:id="@+id/work_place_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
         app:layout_constraintTop_toBottomOf="@id/settings_header_textview">
 
         <EditText
-            android:id="@+id/work_place_et"
+            android:id="@+id/work_place_edit_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
@@ -80,9 +80,9 @@
         android:layout_height="60dp"
         android:paddingStart="20dp"
         android:src="@drawable/ic_arrow_forward"
-        app:layout_constraintBottom_toBottomOf="@+id/work_place_textInputLayout"
+        app:layout_constraintBottom_toBottomOf="@+id/work_place_layout"
         app:layout_constraintEnd_toStartOf="@+id/right_border"
-        app:layout_constraintTop_toTopOf="@+id/work_place_textInputLayout" />
+        app:layout_constraintTop_toTopOf="@+id/work_place_layout" />
 
     <ImageView
         android:id="@+id/work_place_clear"
@@ -91,12 +91,12 @@
         android:paddingStart="20dp"
         android:src="@drawable/ic_clear_et"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/work_place_textInputLayout"
+        app:layout_constraintBottom_toBottomOf="@+id/work_place_layout"
         app:layout_constraintEnd_toStartOf="@id/right_border"
-        app:layout_constraintTop_toTopOf="@+id/work_place_textInputLayout" />
+        app:layout_constraintTop_toTopOf="@+id/work_place_layout" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/industry_textInputLayout"
+        android:id="@+id/industry_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -116,10 +116,10 @@
         app:errorEnabled="false"
         app:layout_constraintEnd_toStartOf="@+id/industry_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/work_place_textInputLayout">
+        app:layout_constraintTop_toBottomOf="@+id/work_place_layout">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/industry_textInputEditText"
+            android:id="@+id/industry_edit_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
@@ -136,9 +136,9 @@
         android:layout_height="60dp"
         android:paddingStart="20dp"
         android:src="@drawable/ic_arrow_forward"
-        app:layout_constraintBottom_toBottomOf="@+id/industry_textInputLayout"
+        app:layout_constraintBottom_toBottomOf="@+id/industry_layout"
         app:layout_constraintEnd_toStartOf="@+id/right_border"
-        app:layout_constraintTop_toTopOf="@+id/industry_textInputLayout" />
+        app:layout_constraintTop_toTopOf="@+id/industry_layout" />
 
     <ImageView
         android:id="@+id/industry_clear"
@@ -147,9 +147,9 @@
         android:paddingStart="20dp"
         android:src="@drawable/ic_clear_et"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/industry_textInputLayout"
+        app:layout_constraintBottom_toBottomOf="@+id/industry_layout"
         app:layout_constraintEnd_toStartOf="@id/right_border"
-        app:layout_constraintTop_toTopOf="@+id/industry_textInputLayout" />
+        app:layout_constraintTop_toTopOf="@+id/industry_layout" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/salary_editText"
@@ -166,7 +166,7 @@
         app:expandedHintEnabled="false"
         app:hintEnabled="true"
         app:hintTextColor="@color/blue"
-        app:layout_constraintTop_toBottomOf="@+id/industry_textInputLayout">
+        app:layout_constraintTop_toBottomOf="@+id/industry_layout">
 
         <FrameLayout
             android:layout_width="match_parent"

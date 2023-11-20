@@ -87,11 +87,19 @@ class SettingsFilterFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        binding.workPlaceEt.setOnClickListener {
+        binding.workPlaceEditText.setOnClickListener {
             findNavController().navigate(R.id.action_settingsFiltersFragment_to_selectWorkplaceFragment)
         }
 
-        binding.industryTextInputEditText.setOnClickListener {
+        binding.workPlaceButton.setOnClickListener {
+            findNavController().navigate(R.id.action_settingsFiltersFragment_to_selectWorkplaceFragment)
+        }
+
+        binding.industryEditText.setOnClickListener {
+            findNavController().navigate(R.id.action_settingsFiltersFragment_to_selectIndustryFragment)
+        }
+
+        binding.industryButton.setOnClickListener {
             findNavController().navigate(R.id.action_settingsFiltersFragment_to_selectIndustryFragment)
         }
 
@@ -113,20 +121,20 @@ class SettingsFilterFragment : Fragment() {
     private fun showFilters(filters: Filters) {
         val countryName = filters.country?.name ?: ""
         val areaName = filters.area?.name ?: ""
-        if (areaName.isNotEmpty()) binding.workPlaceEt.setText(buildString {
+        if (areaName.isNotEmpty()) binding.workPlaceEditText.setText(buildString {
             append(countryName)
             append(", ")
             append(areaName)
-        }) else binding.workPlaceEt.setText(countryName)
-        binding.industryTextInputEditText.setText(filters.industry?.name ?: "")
+        }) else binding.workPlaceEditText.setText(countryName)
+        binding.industryEditText.setText(filters.industry?.name ?: "")
         binding.clearButtonIcon.isVisible = !filters.preferSalary.isNullOrEmpty()
         binding.salaryEt.setText(filters.preferSalary)
         binding.doNotShowWithoutSalaryCheckBox.isChecked = filters.isIncludeSalary
     }
 
     private fun resetFields() {
-        binding.workPlaceEt.text = null
-        binding.industryTextInputEditText.text = null
+        binding.workPlaceEditText.text = null
+        binding.industryEditText.text = null
         binding.salaryEt.text = null
         binding.doNotShowWithoutSalaryCheckBox.isChecked = false
         binding.clearButtonIcon.isVisible = false
@@ -134,8 +142,8 @@ class SettingsFilterFragment : Fragment() {
     }
 
     private fun checkFieldsForResetVisibility() {
-        val isAnyFieldNotEmpty = binding.workPlaceEt.text?.isNotEmpty() ?: false ||
-                binding.industryTextInputEditText.text?.isNotEmpty() ?: false ||
+        val isAnyFieldNotEmpty = binding.workPlaceEditText.text?.isNotEmpty() ?: false ||
+                binding.industryEditText.text?.isNotEmpty() ?: false ||
                 binding.salaryEt.text?.isNotEmpty() ?: false ||
                 binding.doNotShowWithoutSalaryCheckBox.isChecked
         binding.resetSettingsTextview.isVisible = isAnyFieldNotEmpty
