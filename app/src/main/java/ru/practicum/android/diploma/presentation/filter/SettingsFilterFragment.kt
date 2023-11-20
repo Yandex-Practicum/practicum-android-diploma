@@ -64,14 +64,6 @@ class SettingsFilterFragment : Fragment() {
                 inputText = s?.toString() ?: ""
                 viewModel.checkChanges(inputText)
                 checkFieldsForResetVisibility()
-                if (binding.workPlaceEditText.text?.isNotEmpty() == true) {
-                    binding.workPlaceButton.isVisible = false
-                    binding.workPlaceClear.isVisible = true
-                }
-                if (binding.industryEditText.text?.isNotEmpty() == true) {
-                    binding.industryButton.isVisible = false
-                    binding.industryClear.isVisible = true
-                }
                 if (binding.salaryEt.text.isNotEmpty()) {
                     binding.clearButtonIcon.isVisible = true
                 }
@@ -84,21 +76,7 @@ class SettingsFilterFragment : Fragment() {
         binding.clearButtonIcon.setOnClickListener {
             binding.salaryEt.setText("")
             binding.clearButtonIcon.isVisible = false
-        }
 
-        binding.workPlaceClear.setOnClickListener {
-            binding.workPlaceEditText.setText("")
-            binding.workPlaceClear.isVisible = false
-            binding.workPlaceButton.isVisible = true
-            viewModel.clearCountry()
-            viewModel.clearArea()
-        }
-
-        binding.industryClear.setOnClickListener {
-            binding.industryEditText.setText("")
-            binding.industryClear.isVisible = false
-            binding.industryButton.isVisible = true
-            viewModel.clearIndustry()
         }
 
         binding.confirmButton.setOnClickListener {
@@ -109,26 +87,17 @@ class SettingsFilterFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        binding.workPlaceEditText.setOnClickListener {
+        binding.workPlaceEt.setOnClickListener {
             findNavController().navigate(R.id.action_settingsFiltersFragment_to_selectWorkplaceFragment)
         }
 
-        binding.workPlaceButton.setOnClickListener {
-            findNavController().navigate(R.id.action_settingsFiltersFragment_to_selectWorkplaceFragment)
-        }
-
-        binding.industryEditText.setOnClickListener {
-            findNavController().navigate(R.id.action_settingsFiltersFragment_to_selectIndustryFragment)
-        }
-
-        binding.industryButton.setOnClickListener {
+        binding.industryTextInputEditText.setOnClickListener {
             findNavController().navigate(R.id.action_settingsFiltersFragment_to_selectIndustryFragment)
         }
 
         binding.resetSettingsTextview.setOnClickListener {
             resetFields()
             viewModel.clearFilters()
-            binding.confirmButton.isVisible = false
         }
 
         binding.doNotShowWithoutSalaryCheckBox.setOnClickListener {
@@ -139,19 +108,17 @@ class SettingsFilterFragment : Fragment() {
     private fun changeEnabled(isEnabled: Boolean) {
         binding.confirmButton.isEnabled = isEnabled
         binding.resetSettingsTextview.isVisible = isEnabled
-        binding.workPlaceButton.isVisible = true
-        binding.industryButton.isVisible = true
     }
 
     private fun showFilters(filters: Filters) {
         val countryName = filters.country?.name ?: ""
         val areaName = filters.area?.name ?: ""
-        if (areaName.isNotEmpty()) binding.workPlaceEditText.setText(buildString {
+        if (areaName.isNotEmpty()) binding.workPlaceEt.setText(buildString {
             append(countryName)
             append(", ")
             append(areaName)
-        }) else binding.workPlaceEditText.setText(countryName)
-        binding.industryEditText.setText(filters.industry?.name ?: "")
+        }) else binding.workPlaceEt.setText(countryName)
+        binding.industryTextInputEditText.setText(filters.industry?.name ?: "")
         binding.clearButtonIcon.isVisible = !filters.preferSalary.isNullOrEmpty()
         binding.salaryEt.setText(filters.preferSalary)
         binding.doNotShowWithoutSalaryCheckBox.isChecked = filters.isIncludeSalary

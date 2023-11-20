@@ -11,8 +11,8 @@ interface FilterRepository {
     fun getSelectedCountry(): Country?
     fun setSelectedArea(area: Area?)
     fun getSelectedArea(): Area?
-    fun getSelectedIndustry(): Industry?
-    fun setSelectedIndustry(industry: Industry?)
+    fun getSelectedIndustries(): List<Industry>?
+    fun setSelectedIndustries(industry: List<Industry>?)
     fun clear()
     fun getCheckedStatus(): Boolean
     fun setCheckedStatus(isChecked: Boolean)

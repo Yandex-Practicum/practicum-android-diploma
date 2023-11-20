@@ -12,8 +12,8 @@ interface LocalStorage {
     fun getSelectedCountry(): Country?
     fun setSelectedArea(area: Area?)
     fun getSelectedArea(): Area?
-    fun setSelectedIndustry(industry: Industry?)
-    fun getSelectedIndustry(): Industry?
+    fun setSelectedIndustries(industries: List<Industry>?)
+    fun getSelectedIndustries(): MutableList<Industry>?
     fun clear()
     fun getCheckedStatus(): Boolean
     fun setCheckedStatus(isChecked: Boolean)

@@ -26,6 +26,7 @@ import ru.practicum.android.diploma.domain.models.detail.FullVacancy
 import ru.practicum.android.diploma.presentation.SalaryPresenter
 import ru.practicum.android.diploma.presentation.detail.adapter.PhoneAdapter
 import ru.practicum.android.diploma.util.CLICK_DEBOUNCE_DELAY_MILLIS
+import ru.practicum.android.diploma.util.ID
 import ru.practicum.android.diploma.util.debounce
 
 
@@ -50,11 +51,12 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val vacancyId = arguments?.getString("vacancyId") ?: ""
+        val vacancyId = arguments?.getString(ID) ?: ""
         viewModel.getVacancy(vacancyId)
         viewModel.getStatus(vacancyId)
-        viewModel.observeState().observe(viewLifecycleOwner) {
-            render(it)
+        viewModel.observeState().observe(viewLifecycleOwner) {state ->
+            render(state)
+            hideEmptyContactFields(state)
         }
         viewModel.observedFavouriteState().observe(viewLifecycleOwner) {
             showFavouriteStatus(it)
@@ -63,7 +65,7 @@ class DetailFragment : Fragment() {
             fullVacancy?.let { it1 -> viewModel.changedFavourite(it1) }
         }
         binding.searchButton.setOnClickListener {
-            val bundle = bundleOf("vacancyId" to vacancyId)
+            val bundle = bundleOf(ID to vacancyId)
             findNavController().navigate(
                 R.id.action_detailFragment_to_similarVacanciesFragment,
                 bundle
@@ -165,8 +167,34 @@ class DetailFragment : Fragment() {
     }
 
     private fun showFavouriteStatus(isFavorite: Boolean) {
-        if (isFavorite) binding.toolbarInclude.favourite.setImageResource(R.drawable.ic_favourite_on) else binding.toolbarInclude.favourite.setImageResource(
+        if (isFavorite) binding.toolbarInclude.favourite.setImageResource(R.drawable.ic_favourite_on)
+        else binding.toolbarInclude.favourite.setImageResource(
             R.drawable.ic_favourites
         )
     }
+
+
+    private fun hideEmptyContactFields(state: DetailState) {
+        when (state) {
+            is DetailState.Content -> {
+                val vacancy = state.vacancy
+                binding.contactPerson.isVisible = !vacancy.contacts?.name.isNullOrEmpty()
+                binding.emailTitle.isVisible = !vacancy.contacts?.email.isNullOrEmpty()
+                binding.emailAddress.isVisible = !vacancy.contacts?.email.isNullOrEmpty()
+
+                val phones = vacancy.contacts?.phones
+                binding.contact.isVisible = !phones.isNullOrEmpty()
+                binding.phone.isVisible = !phones.isNullOrEmpty()
+                binding.phoneTitle.isVisible = !phones.isNullOrEmpty()
+
+                val hasComments = phones?.any { phone -> !phone.comment.isNullOrEmpty() } ?: false
+                binding.commentTitle.isVisible = hasComments
+                binding.comment.isVisible = hasComments
+            }
+            else -> {
+            }
+        }
+    }
+
+
 }

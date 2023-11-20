@@ -26,3 +26,4 @@ const val SALARY_FLAG = "salaryFlag"
 const val SELECTED_COUNTRY_KEY = "selectedCountry"
 const val SELECTED_AREA_KEY = "selectedArea"
 const val SELECTED_INDUSTRY_KEY = "selectedIndustry"
+

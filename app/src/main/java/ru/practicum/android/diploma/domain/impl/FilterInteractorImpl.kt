@@ -75,10 +75,10 @@ class FilterInteractorImpl(
         val country = getSelectedCountry()
         val area = getSelectedArea()
         val preferSalary = getSalary()
-        val industry = getSelectedIndustry()
+        val industries = getSelectedIndustries()
         val isChecked = getCheckedStatus()
         return Filters(
-            country, area, industry, preferSalary, isChecked
+            country, area, industries, preferSalary, isChecked
         )
     }
 
@@ -94,7 +94,16 @@ class FilterInteractorImpl(
         return directoryRepository.getIndustries().map { result ->
             when (result) {
                 is Resource.Success -> {
-                    DataResponse(data = result.data, networkError = null)
+                    val selectIndustries = repository.getSelectedIndustries()
+                    if (selectIndustries != null) {
+                        val industries = mutableListOf<Industry>()
+                        result.data?.let { industries.addAll(it) }
+                        for (index in industries.indices) {
+                            if (selectIndustries.contains(industries[index])) industries[index] =
+                                industries[index].copy(isChecked = true)
+                        }
+                        DataResponse(data = industries, networkError = null)
+                    } else DataResponse(data = result.data, networkError = null)
                 }
 
                 is Resource.Error -> {
@@ -104,12 +113,12 @@ class FilterInteractorImpl(
         }
     }
 
-    override fun setSelectedIdustries(industry: Industry?) {
-        repository.setSelectedIndustry(industry)
+    override fun setSelectedIndustries(industry: List<Industry>?) {
+        repository.setSelectedIndustries(industry)
     }
 
-    override fun getSelectedIndustry(): Industry? {
-        return repository.getSelectedIndustry()
+    override fun getSelectedIndustries(): List<Industry>? {
+        return repository.getSelectedIndustries()
     }
 
     override fun setSalaryStatus(isChecked: Boolean) {
