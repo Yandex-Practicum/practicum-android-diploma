@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,7 +32,7 @@ class SettingsFilterFragment : Fragment() {
         if (context is BottomNavigationVisibilityListener) {
             bottomNavigationVisibilityListener = context
         } else {
-            throw RuntimeException("$context must implement BottomNavigationVisibilityListener")
+            Log.e("SettingsFilterFragment", "$context must implement BottomNavigationVisibilityListener")
         }
     }
 
