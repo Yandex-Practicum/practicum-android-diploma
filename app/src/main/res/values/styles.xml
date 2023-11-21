@@ -162,4 +162,9 @@
         <item name="android:layout_height">@dimen/divider</item>
         <item name="android:background">@color/gray</item>
     </style>
+
+    <style name="clearButton">
+        <item name="android:src">@drawable/ic_clear_et</item>
+        <item name="android:background">?attr/colorOnPrimary</item>
+    </style>
 </resources>

@@ -23,4 +23,7 @@ interface FilterInteractor {
     fun getSelectedIndustries(): List<Industry>?
     fun setSalaryStatus(isChecked:Boolean)
     fun getSalaryStatus():Boolean
+    fun removeSelectedCountry()
+    fun removeSelectedArea()
+    fun removeSelectedIndustry()
 }

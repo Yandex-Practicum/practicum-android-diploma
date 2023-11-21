@@ -42,7 +42,7 @@ class FilterRepositoryImpl(
         return localStorage.setSelectedIndustries(industry)
     }
 
-    override fun clear(){
+    override fun clear() {
         localStorage.clear()
     }
 
@@ -52,5 +52,17 @@ class FilterRepositoryImpl(
 
     override fun setCheckedStatus(isChecked: Boolean) {
         localStorage.setCheckedStatus(isChecked)
+    }
+
+    override fun removeSelectedArea() {
+        localStorage.removeSelectedArea()
+    }
+
+    override fun removeSelectedCountry() {
+        localStorage.removeSelectedCountry()
+    }
+
+    override fun removeSelectedIndustry() {
+        localStorage.removeSelectedIndustry()
     }
 }

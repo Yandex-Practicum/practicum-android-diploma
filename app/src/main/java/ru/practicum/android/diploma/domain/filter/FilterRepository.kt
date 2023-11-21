@@ -16,4 +16,8 @@ interface FilterRepository {
     fun clear()
     fun getCheckedStatus(): Boolean
     fun setCheckedStatus(isChecked: Boolean)
+
+    fun removeSelectedCountry()
+    fun removeSelectedArea()
+    fun removeSelectedIndustry()
 }

@@ -81,4 +81,16 @@ class SharedPreferenceClient(
     override fun setCheckedStatus(isChecked: Boolean) {
         editor.putBoolean(SALARY_FLAG, isChecked).apply()
     }
+
+    override fun removeSelectedCountry() {
+        editor.remove(SELECTED_COUNTRY_KEY).apply()
+    }
+
+    override fun removeSelectedArea() {
+        editor.remove(SELECTED_AREA_KEY).apply()
+    }
+
+    override fun removeSelectedIndustry() {
+        editor.remove(SELECTED_INDUSTRY_KEY).apply()
+    }
 }
