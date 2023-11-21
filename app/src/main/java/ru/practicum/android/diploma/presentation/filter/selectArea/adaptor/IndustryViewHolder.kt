@@ -1,11 +1,11 @@
 package ru.practicum.android.diploma.presentation.filter.selectArea.adaptor
 
 import androidx.recyclerview.widget.RecyclerView
-import ru.practicum.android.diploma.databinding.IndustryAreaItemBinding
+import ru.practicum.android.diploma.databinding.ItemIndustryBinding
 import ru.practicum.android.diploma.domain.models.filter.Industry
 
 
-class IndystryViewHolder(val binding: IndustryAreaItemBinding) :
+class IndustryViewHolder(val binding: ItemIndustryBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: Industry) {

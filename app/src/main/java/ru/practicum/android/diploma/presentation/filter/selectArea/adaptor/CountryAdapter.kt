@@ -3,7 +3,7 @@ package ru.practicum.android.diploma.presentation.filter.selectArea.adaptor
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ru.practicum.android.diploma.databinding.CountryItemBinding
+import ru.practicum.android.diploma.databinding.ItemAreaBinding
 import ru.practicum.android.diploma.domain.models.filter.Country
 
 
@@ -14,7 +14,7 @@ class CountryAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryViewHolder =
         CountryViewHolder(
-            CountryItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemAreaBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
 
     override fun onBindViewHolder(holder: CountryViewHolder, position: Int) {

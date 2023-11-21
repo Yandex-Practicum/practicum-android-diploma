@@ -11,13 +11,13 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.filter.Industry
 import ru.practicum.android.diploma.presentation.ModelFragment
-import ru.practicum.android.diploma.presentation.filter.selectArea.adaptor.IndystryAdapter
+import ru.practicum.android.diploma.presentation.filter.selectArea.adaptor.IndustryAdapter
 import ru.practicum.android.diploma.presentation.filter.selectArea.state.IndustriesState
 
 class SelectIndustryFragment : ModelFragment() {
     private val viewModel by viewModel<SelectIndustryViewModel>()
     private val listIndustry = mutableListOf<Industry>()
-    private var industriesAdapter: IndystryAdapter? = null
+    private var industriesAdapter: IndustryAdapter? = null
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -80,7 +80,7 @@ class SelectIndustryFragment : ModelFragment() {
             placeholderMessage.visibility = View.GONE
         }
         if (industriesAdapter == null) {
-            industriesAdapter = IndystryAdapter(listIndustry as ArrayList<Industry>) { industry, position ->
+            industriesAdapter = IndustryAdapter(listIndustry as ArrayList<Industry>) { industry, position ->
                 viewModel.onIndustryClicked(industry,!industry.isChecked)
                 listIndustry[position] = industry.copy(isChecked = !industry.isChecked )
                 industriesAdapter?.notifyItemChanged(position)
