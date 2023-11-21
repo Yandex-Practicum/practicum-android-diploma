@@ -79,6 +79,19 @@ class SettingsFilterFragment : Fragment() {
 
         }
 
+        binding.workPlaceClear.setOnClickListener {
+            binding.workPlaceEditText.setText("")
+            binding.workPlaceClear.isVisible = false
+            viewModel.clearCountry()
+            viewModel.clearArea()
+        }
+
+        binding.industryClear.setOnClickListener {
+            binding.industryEditText.setText("")
+            binding.industryClear.isVisible = false
+            viewModel.clearIndustry()
+        }
+
         binding.confirmButton.setOnClickListener {
             viewModel.setSalary(inputText)
             findNavController().popBackStack()
@@ -87,11 +100,11 @@ class SettingsFilterFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        binding.workPlaceEt.setOnClickListener {
+        binding.workPlaceEditText.setOnClickListener {
             findNavController().navigate(R.id.action_settingsFiltersFragment_to_selectWorkplaceFragment)
         }
 
-        binding.industryTextInputEditText.setOnClickListener {
+        binding.industryEditText.setOnClickListener {
             findNavController().navigate(R.id.action_settingsFiltersFragment_to_selectIndustryFragment)
         }
 
@@ -107,18 +120,35 @@ class SettingsFilterFragment : Fragment() {
 
     private fun changeEnabled(isEnabled: Boolean) {
         binding.confirmButton.isEnabled = isEnabled
-        binding.resetSettingsTextview.isVisible = isEnabled
+        binding.resetSettingsTextview.isVisible = true
     }
 
     private fun showFilters(filters: Filters) {
         val countryName = filters.country?.name ?: ""
         val areaName = filters.area?.name ?: ""
-        if (areaName.isNotEmpty()) binding.workPlaceEt.setText(buildString {
-            append(countryName)
-            append(", ")
-            append(areaName)
-        }) else binding.workPlaceEt.setText(countryName)
-        binding.industryTextInputEditText.setText(filters.industry?.name ?: "")
+        if (areaName.isNotEmpty()) {
+            binding.workPlaceClear.isVisible = true
+            binding.workPlaceEditText.setText(buildString {
+                append(countryName)
+                append(", ")
+                append(areaName)
+            })
+        } else if (countryName.isNotEmpty()) {
+            binding.workPlaceEditText.setText(countryName)
+            binding.workPlaceClear.isVisible = true
+        } else {
+            binding.workPlaceClear.isVisible = false
+        }
+        if (!filters.industries.isNullOrEmpty()) {
+            val sb = StringBuilder()
+            for (item in filters.industries) {
+                sb.append(item.name).append(",")
+            }
+            binding.industryEditText.setText(sb.toString())
+            binding.industryClear.isVisible = true
+        } else {
+            binding.industryClear.isVisible = false
+        }
         binding.clearButtonIcon.isVisible = !filters.preferSalary.isNullOrEmpty()
         binding.salaryEt.setText(filters.preferSalary)
         binding.doNotShowWithoutSalaryCheckBox.isChecked = filters.isIncludeSalary
