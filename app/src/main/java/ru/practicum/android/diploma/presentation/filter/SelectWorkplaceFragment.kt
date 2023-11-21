@@ -35,13 +35,16 @@ class SelectWorkplaceFragment : Fragment() {
             toolbarInclude.headerTitle.text = getString(R.string.work_place)
             toolbarInclude.favourite.isVisible = false
             toolbarInclude.share.isVisible = false
+
         }
         binding.toolbarInclude
         // Получаем сохраненную страну
         val savedCountry: Country? = viewModel.interactor.getSelectedCountry()
         // Устанавливаем текст в поле ввода страны
         binding.countryTextInputEditText.setText(savedCountry?.name.orEmpty())
-
+        if (binding.countryTextInputEditText.text?.isNotEmpty() == true){
+            binding.selectButton.isVisible = true
+        }
         // Обработчик нажатия на кнопку "Назад"
         binding.toolbarInclude.back.setOnClickListener {
             findNavController().popBackStack()
@@ -67,7 +70,7 @@ class SelectWorkplaceFragment : Fragment() {
         viewModel.selectedArea.observe(viewLifecycleOwner) { selectedArea ->
             binding.regionTextInputEditText.setText(selectedArea?.name.orEmpty())
         }
-        binding.chooseButton.setOnClickListener {
+        binding.selectButton.setOnClickListener {
             findNavController().popBackStack()
         }
 

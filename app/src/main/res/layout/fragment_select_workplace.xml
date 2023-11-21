@@ -87,7 +87,7 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/choose_button"
+        android:id="@+id/select_button"
         style="@style/MyButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -96,5 +96,6 @@
         android:text="@string/choose"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
