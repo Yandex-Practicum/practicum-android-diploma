@@ -14,7 +14,8 @@ class FavouriteViewModel(val interactor: FavouriteInteractor) : ViewModel() {
     init {
         fill()
     }
-    fun fill() {
+
+    private fun fill() {
         viewModelScope.launch {
             interactor.getFavoriteList()
                 .collect { vacancies ->

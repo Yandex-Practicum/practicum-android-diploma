@@ -17,7 +17,7 @@ class SearchInteractorImpl(
         val filters = Filters(
             filterRepository.getSelectedCountry(),
             filterRepository.getSelectedArea(),
-            filterRepository.getSelectedIndustry(),
+            filterRepository.getSelectedIndustries(),
             filterRepository.getSalary(),
             filterRepository.getCheckedStatus()
         )
@@ -35,11 +35,10 @@ class SearchInteractorImpl(
     }
 
     override fun checkFilters(): Boolean {
-        val filters =filterRepository.getCheckedStatus() ||
+        return filterRepository.getCheckedStatus() ||
                 filterRepository.getSelectedCountry() != null ||
                 filterRepository.getSelectedArea() != null ||
-                filterRepository.getSelectedIndustry() != null ||
+                !filterRepository.getSelectedIndustries().isNullOrEmpty() ||
                 filterRepository.getSalary().isNotEmpty()
-        return filters
     }
 }

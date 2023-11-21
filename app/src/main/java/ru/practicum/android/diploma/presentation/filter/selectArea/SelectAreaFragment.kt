@@ -101,7 +101,7 @@ class SelectAreaFragment : ModelFragment() {
         binding.apply {
             RecyclerView.isVisible = false
             placeholderMessage.isVisible = true
-            placeholderMessageImage.setImageResource(R.drawable.fitred_empty)
+            placeholderMessageImage.setImageResource(R.drawable.search_placeholder_nothing_found)
             placeholderMessageText.text = errorText
         }
     }

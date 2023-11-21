@@ -6,7 +6,7 @@ import ru.practicum.android.diploma.data.dto.Response
 
 @Parcelize
 
-data class IndustryDto (
+ class IndustryDto (
         val url: String,
         val id: String,
         val name: String

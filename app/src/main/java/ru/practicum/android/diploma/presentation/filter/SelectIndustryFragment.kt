@@ -11,8 +11,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.filter.Industry
 import ru.practicum.android.diploma.presentation.ModelFragment
-import ru.practicum.android.diploma.presentation.filter.chooseArea.state.IndustriesState
 import ru.practicum.android.diploma.presentation.filter.selectArea.adaptor.IndystryAdapter
+import ru.practicum.android.diploma.presentation.filter.selectArea.state.IndustriesState
 
 class SelectIndustryFragment : ModelFragment() {
     private val viewModel by viewModel<SelectIndustryViewModel>()
@@ -35,9 +35,16 @@ class SelectIndustryFragment : ModelFragment() {
                 is IndustriesState.Error -> displayFilterError(state.errorText)
             }
         }
+        viewModel.observeSelectedIndustry().observe(viewLifecycleOwner) {
+            binding.selectButton.isVisible = !it.isNullOrEmpty()
+        }
+
         setupSearchInput()
-        viewModel.initScreen()
         viewModel.loadSelectedIndustry()
+        binding.selectButton.setOnClickListener{
+            viewModel.setIndustries()
+            findNavController().popBackStack()
+        }
     }
 
     private fun setupSearchInput() {
@@ -48,7 +55,6 @@ class SelectIndustryFragment : ModelFragment() {
                 count: Int,
                 after: Int
             ) {
-                // No implementation needed
             }
 
             override fun onTextChanged(
@@ -57,7 +63,6 @@ class SelectIndustryFragment : ModelFragment() {
                 before: Int,
                 count: Int
             ) {
-                // No implementation needed
             }
 
             override fun afterTextChanged(editable: Editable?) {
@@ -69,18 +74,15 @@ class SelectIndustryFragment : ModelFragment() {
     }
 
 
-    private fun displayIndustries(industries: ArrayList<Industry>) {
+    private fun displayIndustries(industries: List<Industry>) {
         binding.apply {
             RecyclerView.visibility = View.VISIBLE
             placeholderMessage.visibility = View.GONE
         }
         if (industriesAdapter == null) {
-            industriesAdapter = IndystryAdapter(listIndustry) { industry ->
-                viewModel.onIndustryClicked(industry)
-                val position = industries.indexOf(industry)
-                industries[position] = industry.copy(isChecked = !industry.isChecked)
-                viewModel.onIndustryClicked(industry)
-                findNavController().popBackStack()
+            industriesAdapter = IndystryAdapter(listIndustry as ArrayList<Industry>) { industry, position ->
+                viewModel.onIndustryClicked(industry,!industry.isChecked)
+                listIndustry[position] = industry.copy(isChecked = !industry.isChecked )
                 industriesAdapter?.notifyItemChanged(position)
             }
             binding.RecyclerView.apply {

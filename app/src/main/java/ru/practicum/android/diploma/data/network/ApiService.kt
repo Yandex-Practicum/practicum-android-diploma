@@ -3,7 +3,7 @@ package ru.practicum.android.diploma.data.network
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
-import retrofit2.http.QueryMap
+import retrofit2.http.Query
 import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.data.dto.detail.FullVacancyDto
 import ru.practicum.android.diploma.data.dto.filter.CountryDto
@@ -18,7 +18,15 @@ interface ApiService {
         "HH-User-Agent: EmployMe (eenot84@yandex.ru)"
     )
     @GET("/vacancies")
-    suspend fun search(@QueryMap options: Map<String, String>): SearchResponse
+    suspend fun search(
+        @Query("text") text: String,
+        @Query("page") page: String,
+        @Query("per_page") per_page: String,
+        @Query("area") area: String?,
+        @Query("industry") industry: List<String>?,
+        @Query("salary") salary: String?,
+        @Query("only_with_salary") only_with_salary: Boolean?,
+    ): SearchResponse
 
     @Headers(
         "Authorization: Bearer ${BuildConfig.HH_ACCESS_TOKEN}",
@@ -41,6 +49,7 @@ interface ApiService {
 
     @GET("/industries")
     suspend fun getIndustries(): List<IndustryDto>
+
     @GET("/areas/{area_id}")
     suspend fun getRegionInfo(@Path("area_id") areaId: String): RegionListDto
 }
