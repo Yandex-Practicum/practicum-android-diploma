@@ -17,7 +17,7 @@ comments=$(curl \
               	-H "Authorization: Bearer $github_token" \
               	"$comments_url" | jq -c '.[] | select(.user.login == "'$username'") | .url')
 
-echo "$comments" | read -r comment_url; do
+echo "$comments" | while read -r comment_url; do
     curl -s -X DELETE \
             -H "Authorization: Bearer $github_token" \
             -H "Accept: application/vnd.github.v3+json" \
