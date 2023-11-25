@@ -12,7 +12,7 @@ jobs:
             - uses: izhangzhihao/delete-comment@master
               with:
                   github_token: ${{ secrets.GITHUB_TOKEN }}
-                  delete_user_name: 'github-actions[bot]'
+                  delete_user_name: github-actions[bot]
                   issue_number: ${{ github.event.number }}  # remove comments from the current PR
 
     pr-checks:
