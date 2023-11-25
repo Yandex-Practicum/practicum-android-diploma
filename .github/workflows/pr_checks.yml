@@ -43,7 +43,7 @@ jobs:
                     reviewdog \
                         -f=checkstyle \
                         -name="detekt" \
-                        -reporter=github-pr-check \
+                        -reporter=github-pr-review \
                         -level="error" \
                         -filter-mode="added" \
                         <./build/reports/detekt/detekt.xml
