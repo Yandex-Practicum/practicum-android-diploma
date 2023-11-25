@@ -18,12 +18,8 @@ jobs:
                 uses: actions/checkout@v3
 
             -   name: Cleanup Github-Actions bot comments
-                run: sh ./ci/github_comments_cleanup.sh \
-                    "${{ github.repository_owner }}" \
-                    "${{ github.event.repository.name }}" \
-                    "${{ github.event.number }}" \
-                    "github-actions[bot]" \
-                    "${{ secrets.GITHUB_TOKEN }}"
+                run: |
+                    sh ./ci/github_comments_cleanup.sh "${{ github.repository_owner }}" "${{ github.event.repository.name }}" "${{ github.event.number }}" "github-actions[bot]" "${{ secrets.GITHUB_TOKEN }}"
 
             -   name: Setup Reviewdog
                 uses: reviewdog/action-setup@v1
