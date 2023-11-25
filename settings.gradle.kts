@@ -1,3 +1,7 @@
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
+rootProject.name = "Practicum-Android-Diploma"
+
 pluginManagement {
     repositories {
         google()
@@ -5,6 +9,8 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
+@Suppress("UnstableApiUsage")
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -15,6 +21,4 @@ dependencyResolutionManagement {
 
 includeBuild("build-logic")
 
-rootProject.name = "Practicum-Android-Diploma"
 include(":app")
- 
