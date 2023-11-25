@@ -8,6 +8,9 @@ on:
 jobs:
     pr-checks:
         runs-on: ubuntu-latest
+        permissions:
+            pull-requests: write
+            contents: write
         env:
             commonGradleFlags: --parallel --stacktrace --no-configuration-cache --no-daemon
             detektReportPath: ./build/reports/detekt/detekt.xml
