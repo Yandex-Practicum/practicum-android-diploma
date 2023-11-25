@@ -52,7 +52,7 @@ done
 comments=$(curl \
               	-L \
               	-H "Accept: application/vnd.github+json" \
-              	-H "Authorization: token $github_token" \
+              	-H "Authorization: Bearer $github_token" \
               	https://api.github.com/repos/$repo_owner/$repo_name/pulls/$pull_number/comments \
               	| jq -c '.[] | select(.user.login == "'$username'") | .url' )
 comments_arr=($comments)
@@ -60,7 +60,7 @@ comments_arr=($comments)
 for comment_url in "${comments_arr[@]}"
 do
     curl -s -X DELETE \
-        -H "Authorization: token $github_token" \
+        -H "Authorization: Bearer $github_token" \
         -H "Accept: application/vnd.github.v3+json" \
         $comment_url
 
