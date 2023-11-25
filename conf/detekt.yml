@@ -1,5 +1,5 @@
 build:
-    maxIssues: 100500 # Это нужно, чтобы не упасть сразу после прогона detekt-а, а дождаться остальных утилит.
+    maxIssues: 0
     excludeCorrectable: false
     weights:
     # complexity: 2
