@@ -6,10 +6,14 @@ import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.R
 
 class RootActivity : AppCompatActivity() {
+
+    private fun anotherUnusedFunction() {
+        // do nothing
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_root)
-        val s = 1
 
         // Пример использования access token для HeadHunter API
         networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
@@ -17,6 +21,10 @@ class RootActivity : AppCompatActivity() {
 
     private fun networkRequestExample(accessToken: String) {
         // ...
+    }
+
+    private fun someUnusedFunction() {
+        // do nothing
     }
 
 }
