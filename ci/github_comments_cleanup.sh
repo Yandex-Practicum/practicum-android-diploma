@@ -49,6 +49,16 @@ while [[ $# -gt 0 ]]; do
 done
 
 # List all comments in the pull request
+
+com=$(curl \
+        -L \
+        -H "Accept: application/vnd.github+json" \
+        -H "Authorization: Bearer $github_token" \
+        https://api.github.com/repos/$repo_owner/$repo_name/pulls/$pull_number/comments)
+
+echo "COMM"
+echo $com
+
 comments=$(curl \
               	-L \
               	-H "Accept: application/vnd.github+json" \
