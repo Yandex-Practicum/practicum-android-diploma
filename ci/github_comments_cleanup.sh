@@ -20,7 +20,7 @@ comments=$(curl \
 echo "$comments" | while read -r comment_url; do
     curl -s -X DELETE \
             -H "Authorization: Bearer $github_token" \
-            -H "Accept: application/vnd.github.v3+json" \
+            -H "Accept: application/vnd.github+json" \
             $comment_url
 
         echo "Deleted comment: $comment_url "
