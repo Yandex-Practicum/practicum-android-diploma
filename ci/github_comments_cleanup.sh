@@ -18,11 +18,7 @@ comments=$(curl \
               	"$comments_url" | jq -c '.[] | select(.user.login == "'$username'") | .url')
 
 echo "$comments" | while read -r comment_url; do
-    curl -s -X DELETE \
-        -H "Accept: application/vnd.github+json" \
-        -H "Authorization: Bearer $github_token" \
-        -H "X-GitHub-Api-Version: 2022-11-28" \
-        "$comment_url"
+    curl -s -X DELETE -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $github_token" -H "X-GitHub-Api-Version: 2022-11-28" "$comment_url"
 
     echo "Deleted comment: $comment_url"
 done
