@@ -14,12 +14,8 @@ class RootActivity : AppCompatActivity() {
         networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
     }
 
-    private fun networkRequestExample(accessToken: String) {
+    private fun networkRequestExample() {
         // ...
-    }
-
-    private fun detektWarningFunction() {
-        // nothing
     }
 
 }
