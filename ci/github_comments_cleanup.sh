@@ -1,43 +1,43 @@
 #!/bin/bash
 
 # Initialize variables
-repoOwner=""
-repoName=""
-prNumber=""
-user_to_delete=""
-token=""
+repo_owner=""
+repo_name=""
+pull_number=""
+username=""
+github_token=""
 
 # Parse named arguments
 while [[ $# -gt 0 ]]; do
     key="$1"
 
     case $key in
-        --repoOwner)
-        repoOwner="$2"
+        --repo_owner)
+        repo_owner="$2"
         shift # past argument
         shift # past value
         ;;
 
-        --repoName)
-        repoName="$2"
+        --repo_name)
+        repo_name="$2"
         shift # past argument
         shift # past value
         ;;
 
-        --prNumber)
-        prNumber="$2"
+        --pull_number)
+        pull_number="$2"
         shift # past argument
         shift # past value
         ;;
 
         --username)
-        user_to_delete="$2"
+        username="$2"
         shift # past argument
         shift # past value
         ;;
 
-        --token)
-        token="$2"
+        --github_token)
+        github_token="$2"
         shift # past argument
         shift # past value
         ;;
@@ -49,15 +49,21 @@ while [[ $# -gt 0 ]]; do
 done
 
 # List all comments in the pull request
-comments=$(curl -s -H "Authorization: token $access_token" \
-                 -H "Accept: application/vnd.github.v3+json" \
-                 "https://api.github.com/repos/$repo_owner/$repo_name/pulls/$pull_number/comments")
+comments=$(curl \
+              	-L \
+              	-H "Accept: application/vnd.github+json" \
+              	-H "Authorization: token $github_token" \
+              	https://api.github.com/repos/$repo_owner/$repo_name/pulls/$pull_number/comments \
+              	| jq -c '.[] | select(.user.login == "'$username'") | .url' )
+comments_arr=($comments)
 
-# Loop through comments and delete those made by the specified user
-echo "$comments" | jq -c '.[] | select(.user.login == "'$user_to_delete'") | .url' | while read -r comment_url; do
+for comment_url in "${comments_arr[@]}"
+do
     curl -s -X DELETE \
-         -H "Authorization: token $access_token" \
-         -H "Accept: application/vnd.github.v3+json" \
-         "$comment_url"
-    echo "Deleted comment: $comment_url"
+        -H "Authorization: token $github_token" \
+        -H "Accept: application/vnd.github.v3+json" \
+        $comment_url
+
+    echo "Deleted comment: $comment_url "
 done
+

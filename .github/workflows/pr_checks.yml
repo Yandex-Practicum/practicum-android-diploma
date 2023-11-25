@@ -20,11 +20,11 @@ jobs:
             -   name: Cleanup Github-Actions bot comments
                 run: |
                     sh ./ci/github_comments_cleanup.sh \
-                      --token "${{ secrets.GITHUB_TOKEN }}" \
+                      --github_token "${{ secrets.GITHUB_TOKEN }}" \
                       --username "github-actions[bot]" \
-                      --repoOwner "${{ github.repository_owner }}" \
-                      --repoName "${{ github.event.repository.name }}" \
-                      --prNumber "${{ github.event.number }}"
+                      --repo_owner "${{ github.repository_owner }}" \
+                      --repo_name "${{ github.event.repository.name }}" \
+                      --pullNumber "${{ github.event.number }}"
 
             -   name: Setup Reviewdog
                 uses: reviewdog/action-setup@v1
