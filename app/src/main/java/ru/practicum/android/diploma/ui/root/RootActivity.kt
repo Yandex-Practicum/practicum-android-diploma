@@ -15,8 +15,17 @@ class RootActivity : AppCompatActivity() {
         networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
     }
 
+    private fun sss2() {
+        // do nothing
+    }
+
     private fun networkRequestExample(accessToken: String) {
         // ...
     }
+
+    private fun sss() {
+        // do nothing
+    }
+
 
 }
