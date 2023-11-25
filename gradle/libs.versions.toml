@@ -22,4 +22,19 @@ staticAnalysis-detektFormatting = { module = "io.gitlab.arturbosch.detekt:detekt
 staticAnalysis-detektLibraries = { module = "io.gitlab.arturbosch.detekt:detekt-rules-libraries", version.ref = "detekt" }
 staticAnalysis-detektTwitterComposeRules = { module = "com.twitter.compose.rules:detekt", version.ref = "detektTwitterComposeRules" }
 
+# AndroidX
+androidX-core = "androidx.core:core-ktx:1.12.0"
+androidX-appCompat = "androidx.appcompat:appcompat:1.6.1"
+
+# UI layer libraries
+ui-material = "com.google.android.material:material:1.10.0"
+ui-constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.4"
+
+# Unit tests
+unitTests-junit = "junit:junit:4.13.2"
+
+# UI tests
+uiTests-junitExt = "androidx.test.ext:junit:1.1.5"
+uiTests-espressoCore = "androidx.test.espresso:espresso-core:3.5.1"
+
 [bundles]

@@ -40,12 +40,19 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidX.core)
+    implementation(libs.androidX.appCompat)
 
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.10.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    // UI layer libraries
+    implementation(libs.ui.material)
+    implementation(libs.ui.constraintLayout)
+
+    // region Unit tests
+    testImplementation(libs.unitTests.junit)
+    // endregion
+
+    // region UI tests
+    androidTestImplementation(libs.uiTests.junitExt)
+    androidTestImplementation(libs.uiTests.espressoCore)
+    // endregion
 }
