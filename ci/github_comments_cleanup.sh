@@ -1,55 +1,13 @@
 #!/bin/bash
 
-# Initialize variables
-repo_owner=""
-repo_name=""
-pull_number=""
-username=""
-github_token=""
-
-# Parse named arguments
-while [[ $# -gt 0 ]]; do
-    key="$1"
-
-    case $key in
-        --repo_owner)
-        repo_owner="$2"
-        shift # past argument
-        shift # past value
-        ;;
-
-        --repo_name)
-        repo_name="$2"
-        shift # past argument
-        shift # past value
-        ;;
-
-        --pull_number)
-        pull_number="$2"
-        shift # past argument
-        shift # past value
-        ;;
-
-        --username)
-        username="$2"
-        shift # past argument
-        shift # past value
-        ;;
-
-        --github_token)
-        github_token="$2"
-        shift # past argument
-        shift # past value
-        ;;
-
-        *)    # unknown option
-        shift # past argument
-        ;;
-    esac
-done
+# Variables
+repo_owner="$1"
+repo_name="$2"
+pull_number="$3"
+username="$4"
+github_token="$5"
 
 # List all comments in the pull request
-
 comments_url="https://api.github.com/repos/$repo_owner/$repo_name/pulls/$pull_number/comments"
 echo "COMMENT URL: $comments_url"
 

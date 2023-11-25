@@ -17,16 +17,13 @@ jobs:
             -   name: Checkout
                 uses: actions/checkout@v3
 
-            -   name: Print
-                run: env | sort
-
             -   name: Cleanup Github-Actions bot comments
                 run: sh ./ci/github_comments_cleanup.sh \
-                      --github_token "${{ secrets.GITHUB_TOKEN }}" \
-                      --username "github-actions[bot]" \
-                      --repo_owner "${{ github.repository_owner }}" \
-                      --repo_name "${{ github.event.repository.name }}" \
-                      --pull_number "${{ github.event.number }}"
+                    "${{ github.repository_owner }}" \
+                    "${{ github.event.repository.name }}" \
+                    "${{ github.event.number }}" \
+                    "github-actions[bot]" \
+                    "${{ secrets.GITHUB_TOKEN }}"
 
             -   name: Setup Reviewdog
                 uses: reviewdog/action-setup@v1
