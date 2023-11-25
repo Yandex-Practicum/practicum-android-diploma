@@ -17,9 +17,11 @@ jobs:
             -   name: Checkout
                 uses: actions/checkout@v3
 
+            -   name: Print
+                run: env | sort
+
             -   name: Cleanup Github-Actions bot comments
-                run: |
-                    sh ./ci/github_comments_cleanup.sh \
+                run: sh ./ci/github_comments_cleanup.sh \
                       --github_token "${{ secrets.GITHUB_TOKEN }}" \
                       --username "github-actions[bot]" \
                       --repo_owner "${{ github.repository_owner }}" \
