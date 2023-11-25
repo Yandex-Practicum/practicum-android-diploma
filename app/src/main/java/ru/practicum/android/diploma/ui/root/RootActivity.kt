@@ -9,6 +9,7 @@ class RootActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_root)
+        val s = 1
 
         // Пример использования access token для HeadHunter API
         networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
