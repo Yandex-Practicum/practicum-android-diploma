@@ -16,6 +16,8 @@ comments=$(curl \
               	-H "Accept: application/vnd.github+json" \
               	-H "Authorization: Bearer $github_token" \
               	"$comments_url" | jq -c '.[] | select(.user.login == "'$username'") | .url')
+echo "COMMENTS URLS"
+echo "$comments"
 comments_arr=($comments)
 
 for comment_url in "${comments_arr[@]}"
