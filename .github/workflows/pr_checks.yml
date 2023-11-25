@@ -15,6 +15,16 @@ jobs:
                   delete_user_name: github-actions[bot]
                   issue_number: ${{ github.event.number }}  # remove comments from the current PR
 
+    required_label:
+        name: "Auto Resolve Comment"
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: Ardiannn08/resolve-outdated-comment@v1.1
+                with:
+                    token: ${{ secrets.GH_TOKEN }}
+                    filter-user: "github-actions[bot]"
+                    mode: "delete"
+
     pr-checks:
         runs-on: ubuntu-latest
         env:
