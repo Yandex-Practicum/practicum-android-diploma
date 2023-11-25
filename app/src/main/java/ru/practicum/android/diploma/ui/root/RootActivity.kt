@@ -18,8 +18,4 @@ class RootActivity : AppCompatActivity() {
         // ...
     }
 
-    private fun detektWarningFunction() {
-        // nothing
-    }
-
 }
