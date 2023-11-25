@@ -6,14 +6,17 @@ on:
     pull_request:
 
 jobs:
-    delete-comments:
+    clean:
         runs-on: ubuntu-latest
         steps:
-            -   uses: izhangzhihao/delete-comment@master
+            -   name: pr-deleter
+                uses: maheshrayas/action-pr-comment-delete@v3.0
                 with:
-                    github_token: ${{ secrets.GITHUB_TOKEN }}
-                    delete_user_name: github-actions[bot]
-                    issue_number: ${{ github.event.number }}  # remove comments from the current PR
+                    github_token: '${{ secrets.GITHUB_TOKEN }}'
+#                    org: <orgname>
+#                    repo: <repo>
+                    user: 'github-actions[bot]'
+                    issue: '${{github.event.number}}'
 
     pr-checks:
         runs-on: ubuntu-latest
