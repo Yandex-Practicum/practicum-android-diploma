@@ -25,11 +25,14 @@ jobs:
             -   name: Grant execute permission for gradlew
                 run: chmod +x gradlew
 
+            -   name: Run detekt
+                uses: alaegin/Detekt-Action@v1.23.3
+                with:
+                    github_token: ${{ secrets.github_token }}
+                    detekt_config: ./conf/detekt.yml
+
             -   name: Warming up Gradle
                 run: ./gradlew help $commonGradleFlags
-
-            -   name: Run detekt
-                run: ./gradlew detektAll $commonGradleFlags
 
             -   name: Assemble app
                 run: ./gradlew :app:assembleDebug $commonGradleFlags
