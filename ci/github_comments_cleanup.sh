@@ -11,21 +11,11 @@ github_token="$5"
 comments_url="https://api.github.com/repos/$repo_owner/$repo_name/pulls/$pull_number/comments"
 echo "COMMENT URL: $comments_url"
 
-com=$(curl \
-        -L \
-        -H "Accept: application/vnd.github+json" \
-        -H "Authorization: Bearer $github_token" \
-        "$comments_url")
-
-echo "COMM"
-echo $com
-
 comments=$(curl \
               	-L \
               	-H "Accept: application/vnd.github+json" \
               	-H "Authorization: Bearer $github_token" \
-              	https://api.github.com/repos/$repo_owner/$repo_name/pulls/$pull_number/comments \
-              	| jq -c '.[] | select(.user.login == "'$username'") | .url' )
+              	"$comments_url" | jq -c '.[] | select(.user.login == "'$username'") | .url')
 comments_arr=($comments)
 
 for comment_url in "${comments_arr[@]}"
