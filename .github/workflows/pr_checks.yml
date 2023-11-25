@@ -9,21 +9,14 @@ jobs:
     delete-comments:
         runs-on: ubuntu-latest
         steps:
-            - uses: izhangzhihao/delete-comment@master
-              with:
-                  github_token: ${{ secrets.GITHUB_TOKEN }}
-                  delete_user_name: github-actions[bot]
-                  issue_number: ${{ github.event.number }}  # remove comments from the current PR
-
-    required_label:
-        name: "Auto Resolve Comment"
-        runs-on: ubuntu-latest
-        steps:
-            -   uses: Ardiannn08/resolve-outdated-comment@v1.1
-                with:
-                    token: ${{ secrets.GITHUB_TOKEN }}
-                    filter-user: "github-actions[bot]"
-                    mode: "delete"
+            -   name: Cleanup Github-Actions bot comments
+                run: |
+                    sh ./ci/github_comments_cleanup.sh \
+                      --token "${{ secrets.GITHUB_TOKEN }}" \
+                      --username "github-actions[bot]" \
+                      --repoOwner "${{ github.repository_owner }}" \
+                      --repoName "${{ github.event.repository.name }}" \
+                      --prNumber "${{ github.event.number }}"
 
     pr-checks:
         runs-on: ubuntu-latest
