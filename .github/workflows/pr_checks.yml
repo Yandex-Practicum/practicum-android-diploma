@@ -68,5 +68,17 @@ jobs:
             -   name: Grant execute permission for gradlew
                 run: chmod +x gradlew
 
+            -   name: Setup environment
+                env:
+                    GH_HH_ACCESS_TOKEN: ${{ secrets.GH_HH_ACCESS_TOKEN }}
+                run: |
+                    sh ci/setup_env.sh
+
             -   name: Assemble app
                 run: ./gradlew :app:assembleDebug $commonGradleFlags
+
+            -   name: Archive production artifacts
+                uses: actions/upload-artifact@v3
+                with:
+                    name: app-debug.apk
+                    path: app/build/outputs/apk/debug/app-debug.apk
