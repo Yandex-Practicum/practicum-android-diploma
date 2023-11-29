@@ -54,5 +54,22 @@ jobs:
                 run: |
                     reviewdog $reviewdogSetup -reporter=github-pr-check <$detektReportPath
 
-            -   name: Assemble app
-                run: ./gradlew :app:assembleDebug $commonGradleFlags
+    assemble:
+        -   name: Checkout
+            uses: actions/checkout@v3
+
+        -   name: Setup JDK 17 for build
+            uses: actions/setup-java@v3
+            with:
+                java-version: '17'
+                distribution: 'temurin'
+                cache: gradle
+
+        -   name: Grant execute permission for gradlew
+            run: chmod +x gradlew
+
+        -   name: Warming up Gradle
+            run: ./gradlew help $commonGradleFlags
+
+        -   name: Assemble app
+            run: ./gradlew :app:assembleDebug $commonGradleFlags
