@@ -36,9 +36,6 @@ jobs:
             -   name: Grant execute permission for gradlew
                 run: chmod +x gradlew
 
-            -   name: Warming up Gradle
-                run: ./gradlew help $commonGradleFlags
-
             -   name: Run detekt
                 run: ./gradlew detektAll $commonGradleFlags
 
@@ -67,9 +64,6 @@ jobs:
 
         -   name: Grant execute permission for gradlew
             run: chmod +x gradlew
-
-        -   name: Warming up Gradle
-            run: ./gradlew help $commonGradleFlags
 
         -   name: Assemble app
             run: ./gradlew :app:assembleDebug $commonGradleFlags
