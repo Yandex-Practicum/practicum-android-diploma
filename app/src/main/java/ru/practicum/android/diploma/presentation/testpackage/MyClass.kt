@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.presentation.test_package
+package ru.practicum.android.diploma.presentation.testpackage
 
 internal object MyClass {
 
