@@ -14,8 +14,16 @@ class RootActivity : AppCompatActivity() {
         networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
     }
 
+    private fun anotherUnusedFunctionDetektFail() {
+        // do nothing
+    }
+
     private fun networkRequestExample(accessToken: String) {
         // ...
+    }
+
+    private fun unusedFunctionDetektFail() {
+        // do nothing
     }
 
 }
