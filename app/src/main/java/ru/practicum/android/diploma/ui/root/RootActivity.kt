@@ -11,11 +11,19 @@ class RootActivity : AppCompatActivity() {
         setContentView(R.layout.activity_root)
 
         // Пример использования access token для HeadHunter API
-        networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
+        networkRequestExample111(accessToken = BuildConfig.HH_ACCESS_TOKEN)
+    }
+
+    private fun anotherUnusedDetektFunction() {
+        // do nothing
     }
 
     private fun networkRequestExample(accessToken: String) {
         // ...
+    }
+
+    private fun unusedDetektFunction() {
+        // do nothing
     }
 
 }
