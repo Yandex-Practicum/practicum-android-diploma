@@ -2,17 +2,17 @@ name: PR checks
 
 on:
     push:
-        branches: [ "main" ]
+        branches: [ "main", "dev" ]
     pull_request:
+
+env:
+    commonGradleFlags: --parallel --stacktrace --no-configuration-cache --no-daemon
+    detektReportPath: ./build/reports/detekt/detekt.xml
+    reviewdogSetup: -f=checkstyle -name="detekt" -level=error -filter-mode=added
 
 jobs:
     pr-checks:
         runs-on: ubuntu-latest
-        env:
-            commonGradleFlags: --parallel --stacktrace --no-configuration-cache --no-daemon
-            detektReportPath: ./build/reports/detekt/detekt.xml
-            reviewdogSetup: -f=checkstyle -name="detekt" -level=error -filter-mode=added
-
         steps:
             -   name: Checkout
                 uses: actions/checkout@v3
@@ -53,18 +53,20 @@ jobs:
                     reviewdog $reviewdogSetup -reporter=github-pr-check <$detektReportPath
 
     assemble:
-        -   name: Checkout
-            uses: actions/checkout@v3
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v3
 
-        -   name: Setup JDK 17 for build
-            uses: actions/setup-java@v3
-            with:
-                java-version: '17'
-                distribution: 'temurin'
-                cache: gradle
+            -   name: Setup JDK 17 for build
+                uses: actions/setup-java@v3
+                with:
+                    java-version: '17'
+                    distribution: 'temurin'
+                    cache: gradle
 
-        -   name: Grant execute permission for gradlew
-            run: chmod +x gradlew
+            -   name: Grant execute permission for gradlew
+                run: chmod +x gradlew
 
-        -   name: Assemble app
-            run: ./gradlew :app:assembleDebug $commonGradleFlags
+            -   name: Assemble app
+                run: ./gradlew :app:assembleDebug $commonGradleFlags
