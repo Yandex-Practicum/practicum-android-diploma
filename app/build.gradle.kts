@@ -39,8 +39,8 @@ android {
         }
     }
 
-    java { toolchain.languageVersion.set(JavaLanguageVersion.of(18)) }
-    kotlinOptions { jvmTarget = "18" }
+    java { toolchain.languageVersion.set(JavaLanguageVersion.of(17)) }
+    kotlinOptions { jvmTarget = "17" }
 
     buildFeatures {
         viewBinding = true
