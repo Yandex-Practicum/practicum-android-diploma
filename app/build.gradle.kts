@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("ru.practicum.android.diploma.plugins.developproperties")
+    id ("kotlin-kapt")
 }
 
 android {
@@ -55,4 +56,26 @@ dependencies {
     androidTestImplementation(libs.uiTests.junitExt)
     androidTestImplementation(libs.uiTests.espressoCore)
     // endregion
+
+
+    //koin
+    implementation("io.insert-koin:koin-android:3.5.3")
+    // retrofit
+    implementation("com.google.code.gson:gson:2.10.1")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    //glide
+    implementation("com.github.bumptech.glide:glide:4.15.1")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.15.1")
+    //Room
+    val roomVersion = "2.5.2"
+    implementation("androidx.room:room-runtime:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
+    //Fragment
+    val fragmentVersion = "1.6.2"
+    implementation ("androidx.fragment:fragment-ktx:$fragmentVersion")
+    implementation ("androidx.viewpager2:viewpager2:1.0.0")
+    implementation ("androidx.navigation:navigation-fragment-ktx:2.7.6")
+    implementation ("androidx.navigation:navigation-ui-ktx:2.7.6")
 }
