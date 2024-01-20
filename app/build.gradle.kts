@@ -56,24 +56,15 @@ dependencies {
     androidTestImplementation(libs.uiTests.espressoCore)
     // endregion
 
-    //koin
     implementation(libs.koin)
-
-    // retrofit
     implementation(libs.gson)
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
-
-    //glide
     implementation(libs.glide)
     annotationProcessor(libs.compiler)
-
-    //Room
     implementation(libs.room.runtime)
     kapt(libs.room.compiler)
     implementation(libs.room.ktx)
-
-    //Fragment
     implementation(libs.fragment.ktx)
     implementation(libs.viewpager2)
     implementation(libs.navigation.fragment.ktx)
