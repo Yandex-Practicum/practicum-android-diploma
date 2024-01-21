@@ -69,4 +69,5 @@ dependencies {
     implementation(libs.viewpager2)
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.navigation.ui.ktx)
+    implementation(libs.coroutines)
 }
