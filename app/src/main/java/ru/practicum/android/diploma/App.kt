@@ -11,7 +11,6 @@ class App : Application() {
 
         startKoin {
             androidContext(this@App)
-
         }
     }
 }
