@@ -15,12 +15,12 @@ class CountrySelectionFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-
         }
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_country_selection, container, false)
@@ -31,7 +31,6 @@ class CountrySelectionFragment : Fragment() {
         fun newInstance(param1: String, param2: String) =
             CountrySelectionFragment().apply {
                 arguments = Bundle().apply {
-
                 }
             }
     }

@@ -14,12 +14,12 @@ class PlaceWorkFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-
         }
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_place_work, container, false)
@@ -30,7 +30,6 @@ class PlaceWorkFragment : Fragment() {
         fun newInstance(param1: String, param2: String) =
             PlaceWorkFragment().apply {
                 arguments = Bundle().apply {
-
                 }
             }
     }

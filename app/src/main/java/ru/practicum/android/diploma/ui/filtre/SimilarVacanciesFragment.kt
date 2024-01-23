@@ -19,7 +19,8 @@ class SimilarVacanciesFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_similar_vacancies, container, false)
@@ -30,7 +31,6 @@ class SimilarVacanciesFragment : Fragment() {
         fun newInstance(param1: String, param2: String) =
             SimilarVacanciesFragment().apply {
                 arguments = Bundle().apply {
-
                 }
             }
     }

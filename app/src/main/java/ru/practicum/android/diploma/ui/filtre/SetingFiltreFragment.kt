@@ -14,12 +14,12 @@ class SetingFiltreFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-
         }
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_seting_filtre, container, false)
@@ -30,7 +30,6 @@ class SetingFiltreFragment : Fragment() {
         fun newInstance(param1: String, param2: String) =
             SetingFiltreFragment().apply {
                 arguments = Bundle().apply {
-
                 }
             }
     }
