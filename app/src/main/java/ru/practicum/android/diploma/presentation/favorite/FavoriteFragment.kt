@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.filtre
+package ru.practicum.android.diploma.presentation.favorite
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,8 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ru.practicum.android.diploma.R
 
-class CountrySelectionFragment : Fragment() {
-
+class FavoriteFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
@@ -23,13 +22,13 @@ class CountrySelectionFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_country_selection, container, false)
+        return inflater.inflate(R.layout.fragment_favorite, container, false)
     }
 
     companion object {
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            CountrySelectionFragment().apply {
+            FavoriteFragment().apply {
                 arguments = Bundle().apply {
                 }
             }

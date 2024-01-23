@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.filtre
+package ru.practicum.android.diploma.presentation.filtre
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ru.practicum.android.diploma.R
 
-class SetingFiltreFragment : Fragment() {
+class SimilarVacanciesFragment : Fragment() {
+
     private var param1: String? = null
     private var param2: String? = null
 
@@ -22,13 +23,13 @@ class SetingFiltreFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_seting_filtre, container, false)
+        return inflater.inflate(R.layout.fragment_similar_vacancies, container, false)
     }
 
     companion object {
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            SetingFiltreFragment().apply {
+            SimilarVacanciesFragment().apply {
                 arguments = Bundle().apply {
                 }
             }

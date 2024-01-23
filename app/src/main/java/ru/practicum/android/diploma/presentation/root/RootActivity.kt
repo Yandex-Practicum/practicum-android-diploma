@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.root
+package ru.practicum.android.diploma.presentation.root
 
 import android.os.Bundle
 import android.view.View

@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.root.RootActivity">
+    tools:context=".presentation.root.RootActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/container_view"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="?attr/colorOnSecondary"
+        android:background="?attr/colorPrimaryVariant"
         app:defaultNavHost="true"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
