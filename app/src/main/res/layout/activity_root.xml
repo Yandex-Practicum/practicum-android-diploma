@@ -33,14 +33,14 @@
         android:id="@+id/bottomNavigationView"
         style="@style/StyleMenuNavigation"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="57dp"
         app:itemIconTint="@color/switch_color"
-        app:itemTextAppearanceActive="@style/TextStyleRegular12_400"
-        app:itemTextAppearanceInactive="@style/TextStyleRegular12_400"
         app:itemTextColor="@color/switch_color"
+        app:itemIconSize="20dp"
+        app:itemPaddingBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/menu" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
