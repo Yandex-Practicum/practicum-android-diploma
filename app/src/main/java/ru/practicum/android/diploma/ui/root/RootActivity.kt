@@ -10,10 +10,12 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.ActivityRootBinding
 
 class RootActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityRootBinding
+
+    private var _binding: ActivityRootBinding? = null
+    private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityRootBinding.inflate(layoutInflater)
+        _binding = ActivityRootBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // Пример использования access token для HeadHunter API
@@ -30,15 +32,17 @@ class RootActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun hideBottomNav() {
         binding.bottomNavigationView.visibility = View.GONE
     }
+
     private fun showBottomNav() {
         binding.bottomNavigationView.visibility = View.VISIBLE
     }
+
     private fun networkRequestExample(accessToken: String) {
         // ...
     }
 
 }
-
