@@ -4,8 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Area(
-    val id: String?,
-    val name: String?,
-    val parent_id: String?,
+data class ClusterGroup(
+    val id: String,
+    val name: String
 ): Parcelable
