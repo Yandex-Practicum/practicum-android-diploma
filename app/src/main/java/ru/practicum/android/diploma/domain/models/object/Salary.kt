@@ -1,4 +1,3 @@
 package ru.practicum.android.diploma.domain.models.`object`
 
-class Salary {
-}
+class Salary

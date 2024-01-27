@@ -9,4 +9,4 @@ data class Areas(
     val id: String,
     val name: String,
     val parent_id: String?
-): Parcelable
+) : Parcelable

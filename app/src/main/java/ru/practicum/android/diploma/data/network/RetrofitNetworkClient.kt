@@ -9,7 +9,7 @@ import kotlinx.coroutines.withContext
 class RetrofitNetworkClient(
     private val service: HhApi,
     private val context: Context
-): NetworkClient {
+) : NetworkClient {
     override suspend fun doRequest(dto: Any): Response {
         if (!isConnected()) {
             return Response().apply { resultCode = -1 }
@@ -40,7 +40,8 @@ class RetrofitNetworkClient(
 
     private fun isConnected(): Boolean {
         val connectivityManager = context.getSystemService(
-            Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            Context.CONNECTIVITY_SERVICE
+        ) as ConnectivityManager
         val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
         if (capabilities != null) {
             when {
@@ -52,4 +53,3 @@ class RetrofitNetworkClient(
         return false
     }
 }
-
