@@ -9,4 +9,4 @@ data class Countries(
     val name: String,
     val url: String
 
-): Parcelable
+) : Parcelable
