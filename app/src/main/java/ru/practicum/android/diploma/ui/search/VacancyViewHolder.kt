@@ -18,8 +18,8 @@ class VacancyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(item: Vacancy) {
         tvDescription.text = item.name
-        tvCompanyName.text = item.employer
-        item.salary?.let { tvSalary.text = item.salary }
+        tvCompanyName.text = item.employerName
+        tvSalary.text = item.salary
 
         Glide.with(itemView)
             .load(item.area)
