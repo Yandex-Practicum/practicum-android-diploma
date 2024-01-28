@@ -7,4 +7,4 @@ import kotlinx.android.parcel.Parcelize
 data class ClusterGroup(
     val id: String,
     val name: String
-): Parcelable
+) : Parcelable

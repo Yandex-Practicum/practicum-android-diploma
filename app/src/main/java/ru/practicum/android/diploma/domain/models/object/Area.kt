@@ -7,5 +7,5 @@ import kotlinx.android.parcel.Parcelize
 data class Area(
     val id: String?,
     val name: String?,
-    val parent_id: String?,
-): Parcelable
+    val parentId: String?,
+) : Parcelable

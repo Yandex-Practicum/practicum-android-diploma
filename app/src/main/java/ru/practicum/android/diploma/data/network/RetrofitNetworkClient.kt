@@ -1,33 +1,48 @@
 package ru.practicum.android.diploma.data.network
 
-import android.content.Context
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
+import java.io.IOException
 
 class RetrofitNetworkClient(
     private val service: HhApi,
 ) : NetworkClient {
+    companion object {
+        private const val SUCCESS_RESULT_CODE = 200
+        private const val BAD_REQUEST_RESULT_CODE = 400
+        private const val SERVER_ERROR_RESULT_CODE = 500
+    }
     override suspend fun doRequest(dto: Any): Response = withContext(Dispatchers.IO) {
         try {
-            if (dto !is JobSearchRequest) {
-                return@withContext Response().apply { resultCode = 400 }
+            val result = if (dto is JobSearchRequest) {
+                val responseSearch = service.jobSearch(dto.expression)
+                val responseCountry = service.filterCountry()
+                val responseRegion = service.filterRegion(dto.expression)
+                val responseIndustry = service.filterIndustry()
+
+                setSuccessResultCode(responseSearch, responseCountry, responseRegion, responseIndustry)
+
+                Response().apply { resultCode = SUCCESS_RESULT_CODE }
+            } else {
+                Response().apply { resultCode = BAD_REQUEST_RESULT_CODE }
             }
 
-            val responseSearch = service.jobSearch(dto.expression)
-            val responseCountry = service.filterCountry()
-            val responseRegion = service.filterRegion(dto.expression)
-            val responseIndustry = service.filterIndustry()
-
-            setSuccessResultCode(responseSearch, responseCountry, responseRegion, responseIndustry)
-
-            Response().apply { resultCode = 200 }
-
-        } catch (e: Throwable) {
-            Response().apply { resultCode = 500 }
+            result
+        } catch (e: IOException) {
+            Response().apply {
+                resultCode = SERVER_ERROR_RESULT_CODE
+                errorMessage = "Network error: ${e.message}"
+            }
+        } catch (e: HttpException) {
+            Response().apply {
+                resultCode = SERVER_ERROR_RESULT_CODE
+                errorMessage = "HTTP error: ${e.code()} ${e.message()}"
+            }
         }
     }
 
     private fun setSuccessResultCode(vararg responses: Response) {
-        responses.forEach { it.resultCode = 200 }
+        responses.forEach { it.resultCode = SUCCESS_RESULT_CODE }
     }
 }
