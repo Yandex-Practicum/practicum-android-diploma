@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data.dto.fieldVacancyDto
+package ru.practicum.android.diploma.data.dto.fieldvacancydto
 
 data class AreaDto(
     val id: String?,

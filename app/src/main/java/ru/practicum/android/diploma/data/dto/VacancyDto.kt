@@ -1,8 +1,8 @@
 package ru.practicum.android.diploma.data.dto
 
-import ru.practicum.android.diploma.data.dto.fieldVacancyDto.AreaDto
-import ru.practicum.android.diploma.data.dto.fieldVacancyDto.EmploerDto
-import ru.practicum.android.diploma.data.dto.fieldVacancyDto.SalaryDto
+import ru.practicum.android.diploma.data.dto.fieldvacancydto.AreaDto
+import ru.practicum.android.diploma.data.dto.fieldvacancydto.EmploerDto
+import ru.practicum.android.diploma.data.dto.fieldvacancydto.SalaryDto
 
 data class VacancyDto(
     val id: String,
@@ -12,5 +12,3 @@ data class VacancyDto(
     val name: String,
     val salary: SalaryDto?,
 )
-
-
