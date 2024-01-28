@@ -32,12 +32,10 @@ class RetrofitNetworkClient(
         } catch (e: IOException) {
             Response().apply {
                 resultCode = SERVER_ERROR_RESULT_CODE
-                errorMessage = "Network error: ${e.message}"
             }
         } catch (e: HttpException) {
             Response().apply {
                 resultCode = SERVER_ERROR_RESULT_CODE
-                errorMessage = "HTTP error: ${e.code()} ${e.message()}"
             }
         }
     }
