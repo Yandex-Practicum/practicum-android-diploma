@@ -10,4 +10,25 @@
     <string name="favorite">Избранное</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="vacancy_text">Вакансия</string>
+    <string name="job_name">Андроид-разработчик</string>
+    <string name="job_salary">От 100 000</string>
+    <string name="company_experience_text">Требуемый опыт</string>
+    <string name="needed_experience_data">От 1 года до 3 лет</string>
+    <string name="work_time_text">Полная занятость удаленная работа</string>
+    <string name="vacancy_description_text">Описание вакансии</string>
+    <string name="vacancy_responsibilities_text">Обязаности</string>
+    <string name="requirements_text">Требования</string>
+    <string name="conditions_text">Условия</string>
+    <string name="key_skills_text">Ключевые навыки</string>
+    <string name="contact_information_text">Контакты</string>
+    <string name="contact_person_text">Контактное лицо</string>
+    <string name="contact_person_data">Ирина</string>
+    <string name="contact_person_email_text">Email</string>
+    <string name="contact_person_email_data_text">i.lozgkina@yandex.ru</string>
+    <string name="contact_person_phone_text">Телефон</string>
+    <string name="contact_person_phone_data_text">+7 (904) 329-27-71</string>
+    <string name="contact_comment_text">Комментарий</string>
+    <string name="contact_comment_data_text">Заполнить анкету по форме можно на нашем сайте</string>
+    <string name="similar_vacancies_button_text">Похожие вакансии</string>
 </resources>

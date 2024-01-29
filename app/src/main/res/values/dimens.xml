@@ -2,9 +2,12 @@
 <resources>
     <dimen name="font_size_22">22sp</dimen>
     <dimen name="font_size_32">32sp</dimen>
+    <dimen name="font_size_24">24sp</dimen>
     <dimen name="font_size_16">16sp</dimen>
-    <dimen name="font_size_12">21dp</dimen>
+    <dimen name="font_size_12">12dp</dimen>
     <dimen name="margin_8">8dp</dimen>
     <dimen name="margin_16">16dp</dimen>
     <dimen name="margin_18">18dp</dimen>
+    <dimen name="margin_32">32dp</dimen>
+    <dimen name="corner_radius_card_company_12">12dp</dimen>
 </resources>
