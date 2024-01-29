@@ -4,74 +4,67 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.SearchInteractor
 import ru.practicum.android.diploma.domain.models.ErrorNetwork
 import ru.practicum.android.diploma.domain.models.Vacancy
-import kotlin.reflect.KProperty
+
 
 class SearchViewModel(
-    private val interactor: SearchInteractor
+    private var searchInteractor: SearchInteractor
 ) : ViewModel() {
 
-    private var latestSearchText: String? = null
-    private var searchJob: Job? = null
+
     private val stateLiveData = MutableLiveData<SearchState>()
-    fun observeState(): LiveData<SearchState> = stateLiveData
+
     private fun renderState(state: SearchState) {
         stateLiveData.postValue(state)
     }
 
-    private val clearTextState = MutableLiveData<ClearTextState>(ClearTextState.None)
-    fun observeClearTextState(): LiveData<ClearTextState> = clearTextState
-    fun textCleared() {
-        clearTextState.value = ClearTextState.None
-        searchJob?.cancel()
-    }
-    fun onTextChanged(searchText: String?) {
-        if (searchText.isNullOrEmpty()) {
-            renderState(SearchState.EmptyScreen)
-        } else {
-            searchDebounce(searchText)
-        }
-    }
-    fun onClearTextPressed() {
-        clearTextState.value = ClearTextState.ClearText
-
-    }
-
-    public override fun onCleared() {
-        super.onCleared()
+    fun observeState(): LiveData<SearchState> = stateLiveData
+    fun getStateLiveData(): LiveData<SearchState> {
+        return stateLiveData
     }
 
 
-    fun onRefreshSearchButtonPressed(searchRequest: String) {
-        searchRequest(searchRequest)
-    }
-
-
-    private fun searchDebounce(changedText: String) {
-        if (latestSearchText == changedText) {
-            return
-        }
-
-        latestSearchText = changedText
-
-        searchJob?.cancel()
-        searchJob = viewModelScope.launch {
-            delay(SEARCH_DEBOUNCE_DELAY)
-            searchRequest(changedText)
+   // private var trackResultList: MutableLiveData<List<Vacancy>?> = MutableLiveData<List<Vacancy>?>()
+/*
+    fun searchRequesting(searchExpression: String) {
+        if (searchExpression.isNotEmpty()) {
+            stateLiveData.postValue(SearchState.Loading)
+            viewModelScope.launch {
+                stateLiveData.postValue(SearchState.Loading)
+                try {
+                    searchInteractor.search(searchExpression).collect {
+                        when (it.message) {
+                            "CONNECTION_ERROR" -> stateLiveData.postValue(SearchState.ConnectionError)
+                            "SERVER_ERROR" -> stateLiveData.postValue(SearchState.NothingFound)
+                            else -> {
+                                trackResultList.postValue(it.data)
+                                stateLiveData.postValue(
+                                    if (it.data.isNullOrEmpty())
+                                        SearchState.NothingFound
+                                    else SearchState.SearchIsOk(it.data)
+                                )
+                            }
+                        }
+                    }
+                } catch (error: Error) {
+                    stateLiveData.postValue(SearchState.ConnectionError)
+                }
+            }
         }
     }
 
-    private fun searchRequest(searchText: String) {
+
+ */
+
+    fun searchRequest(searchText: String) {
 
         if (searchText.isNotEmpty()) {
             renderState(SearchState.Loading)
             viewModelScope.launch {
-                interactor
+                searchInteractor
                     .search(searchText)
                     .collect { pair ->
                         processResult(pair.first, pair.second)
@@ -79,12 +72,11 @@ class SearchViewModel(
             }
         }
     }
+    val vacancys = mutableListOf<Vacancy>()
+    private fun processResult(searchVacancys: List<Vacancy>?, errorMessage: ErrorNetwork?) {
 
-
-    private fun processResult(searchTracks: List<Vacancy>?, errorMessage: ErrorNetwork?) {
-        val tracks = mutableListOf<Vacancy>()
-        if (searchTracks != null) {
-            tracks.addAll(searchTracks)
+        if (searchVacancys != null) {
+            vacancys.addAll(searchVacancys)
         }
 
         when {
@@ -92,22 +84,13 @@ class SearchViewModel(
                 renderState(SearchState.Error)
             }
 
-            tracks.isEmpty() -> {
+            vacancys.isEmpty() -> {
                 renderState(SearchState.EmptySearch)
             }
 
             else -> {
-                renderState(SearchState.SearchContent(vacansys = tracks))
+                renderState(SearchState.SearchContent(vacancys = vacancys))
             }
         }
-    }
-    fun onDestroy() {
-        searchJob?.cancel()
-    }
-
-
-
-    companion object {
-        const val SEARCH_DEBOUNCE_DELAY = 2_000L
     }
 }
