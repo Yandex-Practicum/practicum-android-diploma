@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.Vacancy
 
-class VacancyAdapter(private val clickListener: VacancyClickListener) : RecyclerView.Adapter<VacancyViewHolder>() {
-    private var vacancyList = ArrayList<Vacancy>()
+class VacancyAdapter() : RecyclerView.Adapter<VacancyViewHolder>() {
+    var vacancyList = ArrayList<Vacancy>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VacancyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.vacancy, parent, false)
@@ -16,7 +16,7 @@ class VacancyAdapter(private val clickListener: VacancyClickListener) : Recycler
 
     override fun onBindViewHolder(holder: VacancyViewHolder, position: Int) {
         holder.bind(vacancyList[position])
-        holder.itemView.setOnClickListener { clickListener.onTrackClick(vacancyList[position]) }
+        //holder.itemView.setOnClickListener { clickListener.onTrackClick(vacancyList[position]) }
     }
 
     override fun getItemCount(): Int {

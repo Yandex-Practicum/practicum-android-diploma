@@ -12,10 +12,11 @@ class RetrofitNetworkClient(
         private const val SUCCESS_RESULT_CODE = 200
         private const val BAD_REQUEST_RESULT_CODE = 400
         private const val SERVER_ERROR_RESULT_CODE = 500
+        const val HH_BASE_URL = "https://api.hh.ru/"
     }
     override suspend fun doRequest(dto: Any): Response = withContext(Dispatchers.IO) {
         try {
-            val result = if (dto is JobSearchRequest) {
+            val result = if (dto is VacancyRequest) {
                 val responseSearch = service.jobSearch(dto.expression)
                 val responseCountry = service.filterCountry()
                 val responseRegion = service.filterRegion(dto.expression)
