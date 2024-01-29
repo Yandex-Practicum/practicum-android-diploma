@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data.dto.fieldvacancydto
+package ru.practicum.android.diploma.data.dto.field
 
 data class EmploerDto(
     val logoUrls: LogoUrlDto?,
