@@ -1,9 +1,15 @@
 package ru.practicum.android.diploma.domain.models
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+import ru.practicum.android.diploma.domain.models.`object`.ClusterGroup
+
+@Parcelize
 data class Vacancy(
-    val id: String,
-    val area: String,
-    val employer: String?,
-    val name: String,
-    val salary: String?
-)
+    val argument: String,
+    val disableUrl: String,
+    val clusterGroup: ClusterGroup,
+    val value: String,
+    val valueDescription: String
+
+) : Parcelable

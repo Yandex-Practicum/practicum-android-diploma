@@ -4,7 +4,7 @@
     <string name="developer1">Евгений Ермолов</string>
     <string name="developer4">Андрей Яковлев</string>
     <string name="developer3">Сергей Немцев</string>
-    <string name="developer2">Михаил</string>
+    <string name="developer2">Михаил Минулин</string>
     <string name="work">Над приложением \nработали</string>
     <string name="main">Главная</string>
     <string name="favorite">Избранное</string>
@@ -16,6 +16,6 @@
     <string name="not_vacancy">Таких вакансий нет</string>
     <string name="description_vacancy">Android - разработчик, Магадант</string>
     <string name="error_search">Неудалось получить \n список  вакансий</string>
-    <string name="not_internet">Неудалось получить \n список  вакансий</string>
-
+    <string name="not_internet">Нет интернета</string>
+    <string name="salary_not">"Зарплата не указана"</string>
 </resources>
