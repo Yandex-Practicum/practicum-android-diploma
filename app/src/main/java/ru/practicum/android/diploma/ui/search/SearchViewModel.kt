@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.domain.SearchInteractor
+import ru.practicum.android.diploma.domain.api.SearchInteractor
 import ru.practicum.android.diploma.domain.models.ErrorNetwork
 import ru.practicum.android.diploma.domain.models.Vacancy
 
@@ -21,43 +21,9 @@ class SearchViewModel(
         stateLiveData.postValue(state)
     }
 
-    fun observeState(): LiveData<SearchState> = stateLiveData
     fun getStateLiveData(): LiveData<SearchState> {
         return stateLiveData
     }
-
-
-   // private var trackResultList: MutableLiveData<List<Vacancy>?> = MutableLiveData<List<Vacancy>?>()
-/*
-    fun searchRequesting(searchExpression: String) {
-        if (searchExpression.isNotEmpty()) {
-            stateLiveData.postValue(SearchState.Loading)
-            viewModelScope.launch {
-                stateLiveData.postValue(SearchState.Loading)
-                try {
-                    searchInteractor.search(searchExpression).collect {
-                        when (it.message) {
-                            "CONNECTION_ERROR" -> stateLiveData.postValue(SearchState.ConnectionError)
-                            "SERVER_ERROR" -> stateLiveData.postValue(SearchState.NothingFound)
-                            else -> {
-                                trackResultList.postValue(it.data)
-                                stateLiveData.postValue(
-                                    if (it.data.isNullOrEmpty())
-                                        SearchState.NothingFound
-                                    else SearchState.SearchIsOk(it.data)
-                                )
-                            }
-                        }
-                    }
-                } catch (error: Error) {
-                    stateLiveData.postValue(SearchState.ConnectionError)
-                }
-            }
-        }
-    }
-
-
- */
 
     fun searchRequest(searchText: String) {
 
@@ -72,6 +38,7 @@ class SearchViewModel(
             }
         }
     }
+
     val vacancys = mutableListOf<Vacancy>()
     private fun processResult(searchVacancys: List<Vacancy>?, errorMessage: ErrorNetwork?) {
 

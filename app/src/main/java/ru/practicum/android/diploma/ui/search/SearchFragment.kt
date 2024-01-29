@@ -45,30 +45,22 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        searchViewModel.getStateLiveData().observe(viewLifecycleOwner) { stateLiveData ->
-            when (stateLiveData) {
-                is SearchState.EmptyScreen -> defaultSearch()
-                is SearchState.Error -> connectionError()
-                is SearchState.Loading -> loading()
-                is SearchState.EmptySearch -> nothingFound()
-                is SearchState.SearchContent -> searchIsOk(stateLiveData.vacancys)
-                else -> {
-                    connectionError()
-                }
-            }
-        }
-        vacancyAdapter = VacancyAdapter()
-    /*        clickListener = {
-                if (isClickAllowed) {
-                    clickAdapting(it)
-                }
-            },
-            longClickListener = {})
 
-     */
+        searchViewModel.getStateLiveData().observe(viewLifecycleOwner) { render(it)
+            }
+
+        vacancyAdapter = VacancyAdapter()
+        /*        clickListener = {
+                    if (isClickAllowed) {
+                        clickAdapting(it)
+                    }
+                },
+                longClickListener = {})
+
+         */
         isClickAllowed = false
         clickDebounceManager()
-       // onEditorFocus()
+        // onEditorFocus()
         onSearchTextChange()
         onClearIconClick()
         clearIconVisibilityChanger()
@@ -86,7 +78,15 @@ class SearchFragment : Fragment() {
             searchText = savedInstanceState.getString(SEARCH_USER_INPUT, "")
         }
     }
-
+    private fun render(stateLiveData: SearchState) {
+        when (stateLiveData) {
+            is SearchState.Loading -> loading()
+            is SearchState.SearchContent -> searchIsOk(stateLiveData.vacancys)
+            is SearchState.EmptySearch -> nothingFound()
+            is SearchState.Error -> connectionError()
+            is SearchState.EmptyScreen -> defaultSearch()
+        }
+    }
     private lateinit var searchText: String
 
     override fun onResume() {
@@ -129,6 +129,7 @@ class SearchFragment : Fragment() {
     private fun search() {
         searchViewModel.searchRequest(binding.inputSearchForm.text.toString())
     }
+
     private fun searchDebounce() {
         searchJob?.cancel()
         searchJob = lifecycleScope.launch {
@@ -146,7 +147,7 @@ class SearchFragment : Fragment() {
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (binding.inputSearchForm.hasFocus() && p0?.isEmpty() == true) {
-                   // searchViewModel.clearVacancyList()
+                    // searchViewModel.clearVacancyList()
                 }
                 if (binding.inputSearchForm.text.isNotEmpty()) {
                     searchText = binding.inputSearchForm.text.toString()
@@ -184,7 +185,7 @@ class SearchFragment : Fragment() {
                 0
             )
             binding.inputSearchForm.clearFocus()
-           // searchViewModel.clearVacancyList()
+            // searchViewModel.clearVacancyList()
         }
     }
 
@@ -248,7 +249,6 @@ class SearchFragment : Fragment() {
         recyclerView.visibility = View.GONE
         Log.d("ConnectionError", "Connection Error")
     }
-
 
 
     companion object {

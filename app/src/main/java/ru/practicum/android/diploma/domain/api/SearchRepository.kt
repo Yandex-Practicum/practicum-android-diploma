@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.domain
+package ru.practicum.android.diploma.domain.api
 
 import com.bumptech.glide.load.engine.Resource
 import kotlinx.coroutines.flow.Flow
