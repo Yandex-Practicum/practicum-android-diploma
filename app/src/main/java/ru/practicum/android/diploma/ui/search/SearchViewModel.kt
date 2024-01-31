@@ -9,11 +9,9 @@ import ru.practicum.android.diploma.domain.api.SearchInteractor
 import ru.practicum.android.diploma.domain.models.ErrorNetwork
 import ru.practicum.android.diploma.domain.models.Vacancy
 
-
 class SearchViewModel(
     private var searchInteractor: SearchInteractor
 ) : ViewModel() {
-
 
     private val stateLiveData = MutableLiveData<SearchState>()
 
@@ -26,7 +24,6 @@ class SearchViewModel(
     }
 
     fun searchRequest(searchText: String) {
-
         if (searchText.isNotEmpty()) {
             renderState(SearchState.Loading)
             viewModelScope.launch {
@@ -41,7 +38,6 @@ class SearchViewModel(
 
     val vacancys = mutableListOf<Vacancy>()
     private fun processResult(searchVacancys: List<Vacancy>?, errorMessage: ErrorNetwork?) {
-
         if (searchVacancys != null) {
             vacancys.addAll(searchVacancys)
         }

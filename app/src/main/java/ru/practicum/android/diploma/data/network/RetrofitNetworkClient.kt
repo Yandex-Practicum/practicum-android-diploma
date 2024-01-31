@@ -42,7 +42,6 @@ class RetrofitNetworkClient(
             }
         }
     }
-
     private fun setSuccessResultCode(vararg responses: Response) {
         responses.forEach { it.resultCode = SUCCESS_RESULT_CODE }
     }

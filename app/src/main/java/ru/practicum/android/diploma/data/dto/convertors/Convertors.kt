@@ -42,7 +42,10 @@ class Convertors {
             logoUrls.logoUrls
         }
     }
-
+    private fun createSalary(salary: SalaryDto?): String {
+        return R.string.salary_not.toString()
+    }
+/*
     private fun createSalary(salary: SalaryDto?): String {
         salary ?: return R.string.salary_not.toString()
 
@@ -71,6 +74,9 @@ class Convertors {
             else -> R.string.salary_not.toString()
         }
     }
+
+
+ */
     private fun createLogoUrl(logo: LogoUrlDto?): String? {
         return if (logo?.logoUrl90 == null) {
             null

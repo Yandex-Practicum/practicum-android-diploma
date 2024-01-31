@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.data
 
-
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.Resource
@@ -16,7 +15,7 @@ class SearchRepositoryImpl(
     private val networkClient: NetworkClient
 ) : SearchRepository {
 
-    override fun search(expression: String) : Flow<Resource<List<Vacancy>>> = flow {
+    override fun search(expression: String): Flow<Resource<List<Vacancy>>> = flow {
         val response = networkClient.doRequest(dto = VacancyRequest(expression))
         when (response.resultCode) {
             -1 -> {

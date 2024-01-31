@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -24,7 +25,6 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
 
-
 class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
     private val searchViewModel by viewModel<SearchViewModel>()
@@ -32,7 +32,6 @@ class SearchFragment : Fragment() {
     private lateinit var vacancyAdapter: VacancyAdapter
     private lateinit var recyclerView: RecyclerView
     private var searchJob: Job? = null
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,18 +45,19 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        searchViewModel.getStateLiveData().observe(viewLifecycleOwner) { render(it)
+        searchViewModel.getStateLiveData().observe(viewLifecycleOwner) {
+            render(it)
+        }
+
+        vacancyAdapter = VacancyAdapter {
+            if (isClickAllowed) {
+                clickAdapting(it)
             }
+        }
 
-        vacancyAdapter = VacancyAdapter()
-        /*        clickListener = {
-                    if (isClickAllowed) {
-                        clickAdapting(it)
-                    }
-                },
-                longClickListener = {})
 
-         */
+
+
         isClickAllowed = false
         clickDebounceManager()
         // onEditorFocus()
@@ -78,6 +78,7 @@ class SearchFragment : Fragment() {
             searchText = savedInstanceState.getString(SEARCH_USER_INPUT, "")
         }
     }
+
     private fun render(stateLiveData: SearchState) {
         when (stateLiveData) {
             is SearchState.Loading -> loading()
@@ -87,6 +88,7 @@ class SearchFragment : Fragment() {
             is SearchState.EmptyScreen -> defaultSearch()
         }
     }
+
     private lateinit var searchText: String
 
     override fun onResume() {
@@ -94,7 +96,7 @@ class SearchFragment : Fragment() {
         isClickAllowed = true
     }
 
-
+    @OptIn(DelicateCoroutinesApi::class)
     private fun clickDebounceManager() {
         GlobalScope.launch { clickDebounce() }
     }
@@ -138,16 +140,16 @@ class SearchFragment : Fragment() {
         }
     }
 
-
     private fun onSearchTextChange() {
         binding.inputSearchForm.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
+                searchDebounce()
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (binding.inputSearchForm.hasFocus() && p0?.isEmpty() == true) {
                     // searchViewModel.clearVacancyList()
+                    searchDebounce()
                 }
                 if (binding.inputSearchForm.text.isNotEmpty()) {
                     searchText = binding.inputSearchForm.text.toString()
@@ -156,7 +158,6 @@ class SearchFragment : Fragment() {
             }
 
             override fun afterTextChanged(p0: Editable?) {
-
             }
         })
     }
@@ -192,7 +193,6 @@ class SearchFragment : Fragment() {
     private fun clearIconVisibilityChanger() {
         val simpleTextWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -200,7 +200,6 @@ class SearchFragment : Fragment() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-
             }
         }
         binding.inputSearchForm.addTextChangedListener(simpleTextWatcher)
@@ -249,7 +248,6 @@ class SearchFragment : Fragment() {
         recyclerView.visibility = View.GONE
         Log.d("ConnectionError", "Connection Error")
     }
-
 
     companion object {
         private const val SEARCH_USER_INPUT = "SEARCH_USER_INPUT"
