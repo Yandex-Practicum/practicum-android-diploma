@@ -16,7 +16,7 @@ class RetrofitNetworkClient(
     override suspend fun doRequest(dto: Any): Response = withContext(Dispatchers.IO) {
         try {
             val result = if (dto is JobSearchRequest) {
-                val responseSearch = service.jobSearch(dto.expression)
+                val responseSearch = service.jobSearch(dto.expression, dto.page, dto.perPage)
                 val responseCountry = service.filterCountry()
                 val responseRegion = service.filterRegion(dto.expression)
                 val responseIndustry = service.filterIndustry()
