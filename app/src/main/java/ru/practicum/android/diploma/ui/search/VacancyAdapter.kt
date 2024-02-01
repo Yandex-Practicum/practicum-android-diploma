@@ -7,7 +7,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.Vacancy
 
 class VacancyAdapter(private val clickListener: VacancyClickListener) : RecyclerView.Adapter<VacancyViewHolder>() {
-    private var vacancyList = ArrayList<Vacancy>()
+    var vacancyList = ArrayList<Vacancy>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VacancyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.vacancy, parent, false)
