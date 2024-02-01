@@ -85,7 +85,6 @@ class SearchFragment : Fragment() {
         }
     }
 
-
     private fun clickAdapting() {
         vacancyClickDebounce = debounce(
             CLICK_DEBOUNCE_DELAY,
