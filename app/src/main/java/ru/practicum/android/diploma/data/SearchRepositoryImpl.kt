@@ -18,11 +18,11 @@ class SearchRepositoryImpl(
     override fun search(expression: String): Flow<Resource<List<Vacancy>>> = flow {
         val response = networkClient.doRequest(dto = VacancyRequest(expression))
         when (response.resultCode) {
-            -1 -> {
+            NO_CONNECTIVITY_MESSAGE -> {
                 emit(Resource.Error(ErrorNetwork.NO_CONNECTIVITY_MESSAGE))
             }
 
-            200 -> {
+            GUD -> {
                 emit(Resource.Success((response as VacancyResponse).results.map {
                     Convertors().convertorToVacancy(it)
                 }))
@@ -33,5 +33,9 @@ class SearchRepositoryImpl(
             }
 
         }
+    }
+    companion object {
+        private const val NO_CONNECTIVITY_MESSAGE = -1
+        private const val GUD = 200
     }
 }

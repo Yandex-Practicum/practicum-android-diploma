@@ -11,12 +11,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -24,13 +22,19 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.util.debounce
 
 class SearchFragment : Fragment() {
-    private lateinit var binding: FragmentSearchBinding
+    private var _binding: FragmentSearchBinding? = null
+    private val binding get() = _binding!!
     private val searchViewModel by viewModel<SearchViewModel>()
-    private var isClickAllowed = true
-    private lateinit var vacancyAdapter: VacancyAdapter
-    private lateinit var recyclerView: RecyclerView
+    private var vacancyClickDebounce: ((Vacancy) -> Unit)? = null
+
+    // также надо переделать на searchDebouns
+    private var vacancyAdapter = VacancyAdapter {
+        vacancyClickDebounce?.let { vacancyClickDebounce -> vacancyClickDebounce(it) }
+    }
+    private var recyclerView = binding.rvSearch
     private var searchJob: Job? = null
 
     override fun onCreateView(
@@ -38,7 +42,7 @@ class SearchFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentSearchBinding.inflate(layoutInflater)
+        _binding = FragmentSearchBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -50,16 +54,10 @@ class SearchFragment : Fragment() {
         }
 
         vacancyAdapter = VacancyAdapter {
-            if (isClickAllowed) {
-                clickAdapting(it)
-            }
+            vacancyClickDebounce?.let { vacancyClickDebounce -> vacancyClickDebounce(it) }
         }
 
-
-
-
-        isClickAllowed = false
-        clickDebounceManager()
+        clickAdapting()
         // onEditorFocus()
         onSearchTextChange()
         onClearIconClick()
@@ -74,9 +72,7 @@ class SearchFragment : Fragment() {
     // метод восстанавливает поисковой запрос после пересоздания
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
-        if (savedInstanceState != null) {
-            searchText = savedInstanceState.getString(SEARCH_USER_INPUT, "")
-        }
+        savedInstanceState?.getString(SEARCH_USER_INPUT, "")
     }
 
     private fun render(stateLiveData: SearchState) {
@@ -89,35 +85,16 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private lateinit var searchText: String
 
-    override fun onResume() {
-        super.onResume()
-        isClickAllowed = true
-    }
-
-    @OptIn(DelicateCoroutinesApi::class)
-    private fun clickDebounceManager() {
-        GlobalScope.launch { clickDebounce() }
-    }
-
-    private suspend fun clickDebounce(): Boolean {
-        val current = isClickAllowed
-        if (isClickAllowed) {
-            delay(CLICK_DEBOUNCE_DELAY)
-            isClickAllowed = false
+    private fun clickAdapting() {
+        vacancyClickDebounce = debounce(
+            CLICK_DEBOUNCE_DELAY,
+            viewLifecycleOwner.lifecycleScope,
+            false
+        ) {
+            val bundle = bundleOf("vacancy" to it)
+            findNavController().navigate(R.id.action_searchFragment_to_vacancyFragment, bundle)
         }
-        return current
-    }
-
-    private fun clickAdapting(item: Vacancy) {
-        Log.d("SearchFragment", "Click on the track")
-        isClickAllowed = false
-        val bundle = Bundle()
-        bundle.putParcelable("vacancy", item)
-        Log.d("vacancy", "$item")
-        val navController = findNavController()
-        navController.navigate(R.id.vacancyFragment, bundle)
     }
 
     private fun clearButtonVisibility(s: CharSequence?): Int {
@@ -152,12 +129,13 @@ class SearchFragment : Fragment() {
                     searchDebounce()
                 }
                 if (binding.inputSearchForm.text.isNotEmpty()) {
-                    searchText = binding.inputSearchForm.text.toString()
+                    binding.inputSearchForm.text.toString()
                     searchDebounce()
                 }
             }
 
             override fun afterTextChanged(p0: Editable?) {
+                searchDebounce()
             }
         })
     }
@@ -165,12 +143,10 @@ class SearchFragment : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     private fun startSearchByEnterPress() {
         binding.inputSearchForm.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                if (binding.inputSearchForm.text.isNotEmpty()) {
-                    searchText = binding.inputSearchForm.text.toString()
-                    search()
-                    vacancyAdapter.notifyDataSetChanged()
-                }
+            if (actionId == EditorInfo.IME_ACTION_DONE && binding.inputSearchForm.text.isNotEmpty()) {
+                binding.inputSearchForm.text.toString()
+                search()
+                vacancyAdapter.notifyDataSetChanged()
             }
             false
         }
@@ -193,6 +169,8 @@ class SearchFragment : Fragment() {
     private fun clearIconVisibilityChanger() {
         val simpleTextWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                binding.closeImage.visibility = clearButtonVisibility(s)
+                // это здесь недолжно быть
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -200,6 +178,8 @@ class SearchFragment : Fragment() {
             }
 
             override fun afterTextChanged(s: Editable?) {
+                binding.closeImage.visibility = clearButtonVisibility(s)
+                // и тут тоже
             }
         }
         binding.inputSearchForm.addTextChangedListener(simpleTextWatcher)

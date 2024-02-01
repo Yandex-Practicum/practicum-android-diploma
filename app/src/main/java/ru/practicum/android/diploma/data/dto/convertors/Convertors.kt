@@ -45,6 +45,7 @@ class Convertors {
     private fun createSalary(salary: SalaryDto?): String {
         return R.string.salary_not.toString()
     }
+
 /*
     private fun createSalary(salary: SalaryDto?): String {
         salary ?: return R.string.salary_not.toString()
