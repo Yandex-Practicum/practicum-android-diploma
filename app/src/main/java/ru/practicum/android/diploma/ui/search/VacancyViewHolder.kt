@@ -17,12 +17,12 @@ class VacancyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val ivUrl100: ImageView = itemView.findViewById(R.id.iv_logo)
 
     fun bind(item: Vacancy) {
-        tvDescription.text = item.argument
-        tvCompanyName.text = item.clusterGroup.name
-        tvSalary.text = item.value
+        tvDescription.text = item.name
+        tvCompanyName.text = item.area
+        tvSalary.text = item.salary
 
         Glide.with(itemView)
-            .load(item.disableUrl)
+            .load(item.logoUrl90)
             .placeholder(R.drawable.ic_toast)
             .fitCenter()
             .transform(RoundedCorners(itemView.resources.getDimensionPixelSize(R.dimen.margin_8)))
