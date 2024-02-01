@@ -31,4 +31,6 @@
     <string name="contact_comment_text">Комментарий</string>
     <string name="contact_comment_data_text">Заполнить анкету по форме можно на нашем сайте</string>
     <string name="similar_vacancies_button_text">Похожие вакансии</string>
+    <string name="server_error_text">Ошибка сервера</string>
+    <string name="company_name_text">Еда</string>
 </resources>
