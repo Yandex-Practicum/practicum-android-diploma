@@ -1,15 +1,20 @@
 package ru.practicum.android.diploma.data.network
 
 import retrofit2.http.GET
-import retrofit2.http.Headers
 import retrofit2.http.Path
-import ru.practicum.android.diploma.BuildConfig
+import retrofit2.http.Query
 import ru.practicum.android.diploma.data.dto.response.CountryResponse
 import ru.practicum.android.diploma.data.dto.response.IndustryResponse
+import ru.practicum.android.diploma.data.dto.response.JobResponse
 import ru.practicum.android.diploma.data.dto.response.RegionResponse
-import ru.practicum.android.diploma.data.dto.response.VacancyResponse
 
 interface HhApi {
+    @GET("vacancies")
+    suspend fun jobSearch(
+        @Query("term") text: String,
+        @Query("page") page: Int,
+        @Query("per_page") perPage: Int
+    ): JobResponse
     @Headers(
         "Authorization: Bearer ${BuildConfig.HH_ACCESS_TOKEN}",
         "HH-User-Agent: HHLiteJob (ya.tarannov@yandex.ru)"
