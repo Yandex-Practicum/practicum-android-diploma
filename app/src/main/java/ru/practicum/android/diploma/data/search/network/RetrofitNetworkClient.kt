@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data.network
+package ru.practicum.android.diploma.data.search.network
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

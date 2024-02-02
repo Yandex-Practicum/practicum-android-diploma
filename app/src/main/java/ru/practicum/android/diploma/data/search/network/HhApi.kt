@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data.network
+package ru.practicum.android.diploma.data.search.network
 
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -9,9 +9,9 @@ import ru.practicum.android.diploma.data.dto.response.JobResponse
 import ru.practicum.android.diploma.data.dto.response.RegionResponse
 
 interface HhApi {
-    @GET("vacancies")
+    @GET("vacancies?text=query")
     suspend fun jobSearch(
-        @Query("term") text: String,
+        @Query("text") query: String,
         @Query("page") page: Int,
         @Query("per_page") perPage: Int
     ): JobResponse

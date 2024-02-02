@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data.network
+package ru.practicum.android.diploma.data.search.network
 
 import ru.practicum.android.diploma.domain.api.ErrorType
 
