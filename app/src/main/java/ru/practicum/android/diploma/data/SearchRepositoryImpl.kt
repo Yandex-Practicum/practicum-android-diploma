@@ -5,8 +5,8 @@ import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.Resource
 import ru.practicum.android.diploma.data.dto.convertors.Convertors
 import ru.practicum.android.diploma.data.dto.response.VacancyResponse
-import ru.practicum.android.diploma.data.network.NetworkClient
 import ru.practicum.android.diploma.data.network.VacancyRequest
+import ru.practicum.android.diploma.data.search.network.NetworkClient
 import ru.practicum.android.diploma.domain.api.SearchRepository
 import ru.practicum.android.diploma.domain.models.ErrorNetwork
 import ru.practicum.android.diploma.domain.models.Vacancy
@@ -34,6 +34,7 @@ class SearchRepositoryImpl(
 
         }
     }
+
     companion object {
         private const val NO_CONNECTIVITY_MESSAGE = -1
         private const val GUD = 200

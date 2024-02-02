@@ -76,6 +76,7 @@ class SearchFragment : Fragment() {
         onClearIconClick()
 
     }
+
     private fun render(stateLiveData: SearchState) {
         when (stateLiveData) {
             is SearchState.Loading -> loading()
@@ -156,10 +157,12 @@ class SearchFragment : Fragment() {
         binding.placeholderImage.visibility = GONE
         Log.d("ConnectionError", "Connection Error")
     }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
+
     companion object {
         private const val SEARCH_USER_INPUT = "SEARCH_USER_INPUT"
         private const val SEARCH_DEBOUNCE_DELAY_MILLIS = 2000L
