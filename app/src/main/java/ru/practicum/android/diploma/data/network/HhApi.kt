@@ -1,12 +1,15 @@
 package ru.practicum.android.diploma.data.network
 
 import retrofit2.http.GET
+import retrofit2.http.Headers
 import retrofit2.http.Path
 import retrofit2.http.Query
+import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.data.dto.response.CountryResponse
 import ru.practicum.android.diploma.data.dto.response.IndustryResponse
 import ru.practicum.android.diploma.data.dto.response.JobResponse
 import ru.practicum.android.diploma.data.dto.response.RegionResponse
+import ru.practicum.android.diploma.data.dto.response.VacancyResponse
 
 interface HhApi {
     @GET("vacancies")

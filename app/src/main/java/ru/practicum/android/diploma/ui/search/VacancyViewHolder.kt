@@ -18,11 +18,11 @@ class VacancyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(item: Vacancy) {
         tvDescription.text = item.name
-        tvCompanyName.text = item.area
-        tvSalary.text = item.salary
+        tvCompanyName.text = item.areaName
+        tvSalary.text = item.salaryFrom.toString()
 
         Glide.with(itemView)
-            .load(item.logoUrl90)
+            .load(item.areaUrl)
             .placeholder(R.drawable.ic_toast)
             .fitCenter()
             .transform(RoundedCorners(itemView.resources.getDimensionPixelSize(R.dimen.margin_8)))

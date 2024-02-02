@@ -8,6 +8,8 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -15,9 +17,8 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
@@ -34,15 +35,15 @@ class SearchFragment : Fragment() {
     private var vacancyAdapter = VacancyAdapter {
         vacancyClickDebounce?.let { vacancyClickDebounce -> vacancyClickDebounce(it) }
     }
-    private var recyclerView = binding.rvSearch
+    private var recyclerView: RecyclerView? = null
     private var searchJob: Job? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentSearchBinding.inflate(layoutInflater)
+    ): View? {
+        _binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -58,14 +59,12 @@ class SearchFragment : Fragment() {
         }
 
         clickAdapting()
-        // onEditorFocus()
-        onSearchTextChange()
+        binding.inputSearchForm.addTextChangedListener(simpleTextWatcher)
         onClearIconClick()
-        clearIconVisibilityChanger()
         startSearchByEnterPress()
 
         recyclerView = binding.rvSearch
-        recyclerView.adapter = vacancyAdapter
+        recyclerView!!.adapter = vacancyAdapter
 
     }
 
@@ -96,47 +95,29 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun clearButtonVisibility(s: CharSequence?): Int {
-        return if (s.isNullOrEmpty()) {
-            View.GONE
-        } else {
-            View.VISIBLE
-        }
-    }
-
     private fun search() {
         searchViewModel.searchRequest(binding.inputSearchForm.text.toString())
     }
 
-    private fun searchDebounce() {
-        searchJob?.cancel()
-        searchJob = lifecycleScope.launch {
-            delay(SEARCH_DEBOUNCE_DELAY_MILLIS)
-            search()
+    private val simpleTextWatcher = object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            binding.searchImage.visibility = VISIBLE
+            binding.closeImage.visibility = GONE
         }
-    }
 
-    private fun onSearchTextChange() {
-        binding.inputSearchForm.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                searchDebounce()
-            }
+        override fun onTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            startSearchByEnterPress()
+        }
 
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (binding.inputSearchForm.hasFocus() && p0?.isEmpty() == true) {
-                    // searchViewModel.clearVacancyList()
-                    searchDebounce()
-                }
-                if (binding.inputSearchForm.text.isNotEmpty()) {
-                    binding.inputSearchForm.text.toString()
-                    searchDebounce()
-                }
+        override fun afterTextChanged(editable: Editable?) {
+            if (binding.inputSearchForm.text.isEmpty()) {
+                binding.searchImage.visibility = VISIBLE
+                binding.closeImage.visibility = GONE
+            } else {
+                binding.searchImage.visibility = GONE
+                binding.closeImage.visibility = VISIBLE
             }
-
-            override fun afterTextChanged(p0: Editable?) {
-                searchDebounce()
-            }
-        })
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -161,31 +142,11 @@ class SearchFragment : Fragment() {
                 0
             )
             binding.inputSearchForm.clearFocus()
-            // searchViewModel.clearVacancyList()
         }
-    }
-
-    private fun clearIconVisibilityChanger() {
-        val simpleTextWatcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                binding.closeImage.visibility = clearButtonVisibility(s)
-                // это здесь недолжно быть
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                binding.closeImage.visibility = clearButtonVisibility(s)
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                binding.closeImage.visibility = clearButtonVisibility(s)
-                // и тут тоже
-            }
-        }
-        binding.inputSearchForm.addTextChangedListener(simpleTextWatcher)
     }
 
     private fun defaultSearch() {
-        recyclerView.visibility = View.VISIBLE
+        recyclerView?.visibility = View.VISIBLE
         binding.notInternetImage.visibility = View.GONE
         binding.errorVacancyImage.visibility = View.GONE
         Log.d("DefaultSearch", "DefaultSearch was started")
@@ -194,7 +155,7 @@ class SearchFragment : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     private fun loading() {
         binding.progressBar.visibility = View.VISIBLE
-        recyclerView.visibility = View.GONE
+        recyclerView?.visibility = View.GONE
         binding.notInternetImage.visibility = View.GONE
         binding.errorVacancyImage.visibility = View.GONE
         vacancyAdapter.notifyDataSetChanged()
@@ -203,7 +164,7 @@ class SearchFragment : Fragment() {
 
     private fun searchIsOk(data: List<Vacancy>) {
         binding.progressBar.visibility = View.GONE
-        recyclerView.visibility = View.VISIBLE
+        recyclerView?.visibility = View.VISIBLE
         binding.notInternetImage.visibility = View.GONE
         binding.errorVacancyImage.visibility = View.GONE
         binding.closeImage.visibility - View.GONE
@@ -214,7 +175,7 @@ class SearchFragment : Fragment() {
     private fun nothingFound() {
         binding.progressBar.visibility = View.GONE
         binding.closeImage.visibility = View.VISIBLE
-        recyclerView.visibility = View.GONE
+        recyclerView?.visibility = View.GONE
         binding.errorVacancyImage.visibility = View.VISIBLE
         binding.notInternetImage.visibility = View.GONE
         Log.d("NothingFound", "NothingFound")
@@ -224,7 +185,7 @@ class SearchFragment : Fragment() {
         binding.progressBar.visibility = View.GONE
         binding.notInternetImage.visibility = View.VISIBLE
         binding.errorVacancyImage.visibility = View.GONE
-        recyclerView.visibility = View.GONE
+        recyclerView?.visibility = View.GONE
         Log.d("ConnectionError", "Connection Error")
     }
 
