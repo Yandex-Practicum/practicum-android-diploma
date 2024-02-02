@@ -1,14 +1,480 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/vacancy_detail_screen"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent"
-    tools:context=".ui.vacancy.VacancyFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    android:visibility="visible"
+    android:orientation="vertical">
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_gravity="center"
+        android:backgroundTint="?attr/colorOnSecondary"
+        android:layout_marginTop="150dp"
+        android:indeterminateTint="@color/blue"
+        android:visibility="gone"/>
+    <ScrollView
+        android:id="@+id/fragment_notifications"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:visibility="visible">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="64dp"
+            android:visibility="visible">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/vacancy_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/arrow_back_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_16"
+                    android:src="@drawable/arrow_back_16x16"
+                    app:layout_constraintBottom_toBottomOf="@id/button_share"
+                    app:layout_constraintTop_toTopOf="@id/button_share"
+                    app:layout_constraintVertical_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@id/vacancy_toolbar" />
+
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_16"
+                    app:layout_constraintStart_toEndOf="@id/arrow_back_button"
+                    app:layout_constraintTop_toTopOf="@id/vacancy_toolbar"
+                    app:layout_constraintBottom_toBottomOf="@id/vacancy_toolbar"
+                    android:fontFamily="@font/ys_display_medium"
+                    android:text="@string/vacancy_text"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_size_22" />
+
+                <ImageView
+                    android:id="@+id/button_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="@id/vacancy_toolbar"
+                    app:layout_constraintBottom_toBottomOf="@id/vacancy_toolbar"
+                    app:layout_constraintEnd_toStartOf="@id/button_add_to_favorites"
+                    android:layout_marginEnd="@dimen/margin_32"
+                    android:src="@drawable/ic_share" />
+
+                <ImageView
+                    android:id="@+id/button_add_to_favorites"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="@id/vacancy_toolbar"
+                    app:layout_constraintBottom_toBottomOf="@id/vacancy_toolbar"
+                    android:layout_marginEnd="@dimen/margin_16"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:src="@drawable/ic_add_to_favorites" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/job_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:fontFamily="@font/ys_display_bold"
+                android:paddingStart="@dimen/margin_8"
+                android:paddingEnd="@dimen/margin_8"
+                android:layout_marginTop="64dp"
+                android:text="@string/job_name"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_size_32"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/job_salary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ys_display_medium"
+                android:paddingStart="@dimen/margin_8"
+                android:paddingEnd="@dimen/margin_8"
+                android:text="@string/job_salary"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_size_22"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/job_name" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_view_company"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:backgroundTint="@color/light_gray"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="vertical"
+                app:cardCornerRadius="@dimen/corner_radius_card_company_12"
+                app:cardElevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/job_salary">
+
+                <TextView
+                    android:id="@+id/company_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="75dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/ys_display_bold"
+                    android:text="@string/company_name_text"
+                    android:textSize="@dimen/font_size_24" />
+
+                <TextView
+                    android:id="@+id/company_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="75dp"
+                    android:layout_marginTop="46dp"
+                    android:fontFamily="@font/ys_display_regular"
+                    android:text="company_city_text" />
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="@dimen/margin_16"
+                    android:layout_marginTop="@dimen/margin_16"
+                    android:src="@mipmap/ic_company_logo" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/needed_experience"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/ys_display_bold"
+                android:text="@string/company_experience_text"
+                android:textSize="@dimen/font_size_16"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/card_view_company" />
+
+            <TextView
+                android:id="@+id/years_of_experience"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/ys_display_regular"
+                android:text="@string/needed_experience_data"
+                android:textSize="@dimen/font_size_16"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/needed_experience" />
+
+            <TextView
+                android:id="@+id/job_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/ys_display_regular"
+                android:text="@string/work_time_text"
+                android:textSize="@dimen/font_size_16"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/years_of_experience" />
+
+            <TextView
+                android:id="@+id/vacancy_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/ys_display_bold"
+                android:text="@string/vacancy_description_text"
+                android:textSize="@dimen/font_size_22"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/job_time" />
+
+            <TextView
+                android:id="@+id/responsibilities"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/ys_display_bold"
+                android:text="@string/vacancy_responsibilities_text"
+                android:textSize="@dimen/font_size_16"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/vacancy_description" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/responsibilities_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingStart="@dimen/margin_16"
+                android:paddingEnd="@dimen/margin_16"
+                app:layout_constraintEnd_toEndOf="@id/card_view_company"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/responsibilities"
+                tools:itemCount="5" />
+
+            <TextView
+                android:id="@+id/requirements"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/ys_display_bold"
+                android:text="@string/requirements_text"
+                android:textSize="@dimen/font_size_16"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/responsibilities_recycler_view" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/requirements_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingStart="@dimen/margin_16"
+                android:paddingEnd="@dimen/margin_16"
+                app:layout_constraintEnd_toEndOf="@id/card_view_company"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/requirements"
+                tools:itemCount="5" />
+
+            <TextView
+                android:id="@+id/conditions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/ys_display_bold"
+                android:text="@string/conditions_text"
+                android:textSize="@dimen/font_size_16"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/requirements_recycler_view" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/conditions_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingStart="@dimen/margin_16"
+                android:paddingEnd="@dimen/margin_16"
+                app:layout_constraintEnd_toEndOf="@id/card_view_company"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/conditions"
+                tools:itemCount="5" />
+
+            <TextView
+                android:id="@+id/key_skills"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/ys_display_bold"
+                android:text="@string/key_skills_text"
+                android:textSize="@dimen/font_size_22"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/conditions_recycler_view" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/key_skills_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingStart="@dimen/margin_16"
+                android:paddingEnd="@dimen/margin_16"
+                app:layout_constraintEnd_toEndOf="@id/card_view_company"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/key_skills"
+                tools:itemCount="5" />
+
+            <TextView
+                android:id="@+id/contact_information"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/ys_display_bold"
+                android:text="@string/contact_information_text"
+                android:textSize="@dimen/font_size_22"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/key_skills_recycler_view" />
+
+            <TextView
+                android:id="@+id/contact_person"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/ys_display_bold"
+                android:text="@string/contact_person_text"
+                android:textSize="@dimen/font_size_16"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/contact_information" />
+
+            <TextView
+                android:id="@+id/contact_person_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/ys_display_medium"
+                android:text="@string/contact_person_data"
+                android:textSize="@dimen/font_size_16"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/contact_person" />
+
+            <TextView
+                android:id="@+id/contact_person_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/ys_display_bold"
+                android:text="@string/contact_person_email_text"
+                android:textSize="@dimen/font_size_16"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/contact_person_data" />
+
+            <TextView
+                android:id="@+id/contact_person_email_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/ys_display_medium"
+                android:text="@string/contact_person_email_data_text"
+                android:textSize="@dimen/font_size_16"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/contact_person_email" />
+
+            <TextView
+                android:id="@+id/contact_person_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/ys_display_bold"
+                android:text="@string/contact_person_phone_text"
+                android:textSize="@dimen/font_size_16"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/contact_person_email_data" />
+
+            <TextView
+                android:id="@+id/contact_person_phone_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/ys_display_medium"
+                android:text="@string/contact_person_phone_data_text"
+                android:textSize="@dimen/font_size_16"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/contact_person_phone" />
+
+            <TextView
+                android:id="@+id/contact_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/ys_display_bold"
+                android:text="@string/contact_comment_text"
+                android:textSize="@dimen/font_size_16"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/contact_person_phone_data" />
+
+            <TextView
+                android:id="@+id/contact_comment_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/ys_display_regular"
+                android:lines="2"
+                android:paddingEnd="@dimen/margin_16"
+                android:text="@string/contact_comment_data_text"
+                android:textSize="@dimen/font_size_16"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/contact_comment" />
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_margin="@dimen/margin_16"
+                android:text="@string/similar_vacancies_button_text"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_16"
+                android:background="@color/blue"
+                app:cornerRadius="12dp"
+                app:layout_constraintTop_toBottomOf="@id/contact_comment_data"
+                app:layout_constraintStart_toStartOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+    <LinearLayout
+        android:id="@+id/server_error_layout"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/vacancy_toolbar1"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/arrow_back_button1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:src="@drawable/arrow_back_16x16"
+                app:layout_constraintBottom_toBottomOf="@id/button_share1"
+                app:layout_constraintTop_toTopOf="@id/button_share1"
+                app:layout_constraintVertical_bias="0.5"
+                app:layout_constraintStart_toStartOf="@id/vacancy_toolbar1" />
+
+            <TextView
+                android:id="@+id/toolbar_title1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                app:layout_constraintStart_toEndOf="@id/arrow_back_button1"
+                app:layout_constraintTop_toTopOf="@id/vacancy_toolbar1"
+                app:layout_constraintBottom_toBottomOf="@id/vacancy_toolbar1"
+                android:fontFamily="@font/ys_display_medium"
+                android:text="@string/vacancy_text"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_size_22" />
+
+            <ImageView
+                android:id="@+id/button_share1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/vacancy_toolbar1"
+                app:layout_constraintBottom_toBottomOf="@id/vacancy_toolbar1"
+                app:layout_constraintEnd_toStartOf="@id/button_add_to_favorites1"
+                android:layout_marginEnd="@dimen/margin_32"
+                android:src="@drawable/ic_share" />
+
+            <ImageView
+                android:id="@+id/button_add_to_favorites1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/vacancy_toolbar1"
+                app:layout_constraintBottom_toBottomOf="@id/vacancy_toolbar1"
+                android:layout_marginEnd="@dimen/margin_16"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:src="@drawable/ic_add_to_favorites" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_server_error"
+            android:layout_marginTop="200dp"
+            android:layout_gravity="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/server_error_text"
+            android:textSize="@dimen/font_size_22"
+            android:fontFamily="@font/ys_display_bold"
+            />
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
