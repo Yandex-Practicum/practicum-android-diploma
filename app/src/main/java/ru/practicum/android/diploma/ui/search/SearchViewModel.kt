@@ -13,6 +13,8 @@ class SearchViewModel(
     private var searchInteractor: SearchInteractor
 ) : ViewModel() {
 
+    private val vacancys = mutableListOf<Vacancy>()
+
     private val stateLiveData = MutableLiveData<SearchState>()
 
     private fun renderState(state: SearchState) {
@@ -36,7 +38,6 @@ class SearchViewModel(
         }
     }
 
-    val vacancys = mutableListOf<Vacancy>()
     private fun processResult(searchVacancys: List<Vacancy>?, errorMessage: ErrorNetwork?) {
         if (searchVacancys != null) {
             vacancys.addAll(searchVacancys)
