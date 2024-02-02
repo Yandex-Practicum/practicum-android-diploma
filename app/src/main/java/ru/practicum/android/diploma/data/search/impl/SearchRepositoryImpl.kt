@@ -1,11 +1,11 @@
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import ru.practicum.android.diploma.data.dto.response.JobResponse
-
 import ru.practicum.android.diploma.data.search.SearchRepository
 import ru.practicum.android.diploma.data.search.network.JobSearchRequest
 import ru.practicum.android.diploma.data.search.network.NetworkClient
 import ru.practicum.android.diploma.domain.models.Vacancy
+import java.io.IOException
 
 class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRepository {
 
@@ -27,7 +27,7 @@ class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRep
                         }
                         else -> LoadResult.Error(Exception("Error loading data"))
                     }
-                } catch (e: Exception) {
+                } catch (e: IOException) {
                     return LoadResult.Error(e)
                 }
             }
