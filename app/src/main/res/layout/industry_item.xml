@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/industry_region_button"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?attr/colorOnSecondary">
+
+
+    <CheckBox
+        android:id="@+id/industry_item_checkBox"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/industry_job_text"
+        android:fontFamily="@font/ys_display_regular"
+        android:textSize="@dimen/font_size_16"
+        android:button="@null"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:drawableRight="@drawable/round_check_box_selector"
+        android:gravity="start|center_vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
