@@ -10,4 +10,26 @@
     <string name="favorite">Избранное</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="country_selection_text">Выбор страны</string>
+    <string name="region_selection_text">Выбор региона</string>
+    <string name="industry_selection_text">Выбор места работы</string>
+    <string name="country_text">Страна</string>
+    <string name="region_text">Регион</string>
+    <string name="industry_job_text">Авиаперевозки</string>
+    <string name="industry_choose_text">Выбор отрасли</string>
+    <string name="choose_a_industry_text">Введите отрасль</string>
+    <string name="country_russia_text">Россия</string>
+    <string name="choose_a_region_text">Введите регион</string>
+    <string name="other_regions_text">Другие регионы</string>
+    <string name="region_absent_text">Такого региона нет</string>
+    <string name="cant_find_list_of_countries_text">Не удалось получить \nсписок</string>
+    <string name="choose_button_text">Выбрать</string>
+    <string name="filtration_settings_text">Настройки фильтрации</string>
+    <string name="place_of_work_text">Место работы</string>
+    <string name="industry_text">Отрасль</string>
+    <string name="search_salary_field_text">Ожидаемая зарплата \nВведите сумму</string>
+    <string name="dont_show_without_salary">Не показывать без зарплаты</string>
+    <string name="apply_text">Применить</string>
+    <string name="reset_button_text">Сбросить</string>
+    <string name="moscow_city_text">Москва</string>
 </resources>
