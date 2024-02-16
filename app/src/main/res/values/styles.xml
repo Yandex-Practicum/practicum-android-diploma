@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<style name="BottomNavigationColored" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+    <item name="itemIconTint">@color/bottom_item_color</item>
+    <item name="itemTextColor">@color/bottom_item_color</item>
+    <item name="itemTextAppearanceInactive">@color/bottom_item_color</item>
+    <item name="itemTextAppearanceActive">@color/bottom_item_color</item>
+    <item name="android:background">@color/white_day</item>
+</style>
+</resources>
