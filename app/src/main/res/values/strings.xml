@@ -3,4 +3,9 @@
     <string name="main">Главная</string>
     <string name="favorites">Избранное</string>
     <string name="team">Команда</string>
+    <string name="title_team">Над приложением работали</string>
+    <string name="name1">Анастасия Рябикина</string>
+    <string name="name2">Дмитрий Жаринов</string>
+    <string name="name3">Евгений Ермолов</string>
+    <string name="name4">Михаил</string>
 </resources>
