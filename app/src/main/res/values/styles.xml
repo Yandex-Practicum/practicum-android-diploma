@@ -45,6 +45,4 @@
         <item name="itemPadding">8dp</item>
         <item name="itemRippleColor">@color/blue</item>
     </style>
-
-
 </resources>
