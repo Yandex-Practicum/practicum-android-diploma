@@ -28,6 +28,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/menu_bottom_navigation" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/light_gray"
+        app:layout_constraintBottom_toBottomOf="@+id/main_box"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/bottom_navigation" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
