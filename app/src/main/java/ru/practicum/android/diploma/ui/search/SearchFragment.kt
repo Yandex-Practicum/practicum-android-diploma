@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 
-
 class SearchFragment : Fragment() {
 
     private var _binding: FragmentSearchBinding? = null
@@ -23,7 +22,7 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         val view = binding.root
         return view

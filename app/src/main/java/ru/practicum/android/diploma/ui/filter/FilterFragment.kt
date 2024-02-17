@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ru.practicum.android.diploma.databinding.FragmentFilterBinding
 
-
 class FilterFragment : Fragment() {
 
     private var _binding: FragmentFilterBinding? = null
@@ -23,7 +22,7 @@ class FilterFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentFilterBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
@@ -34,4 +33,3 @@ class FilterFragment : Fragment() {
         _binding = null
     }
 }
-

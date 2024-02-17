@@ -44,7 +44,6 @@ android {
     }
 }
 
-
 dependencies {
     implementation(libs.androidX.core)
     implementation(libs.androidX.appCompat)
