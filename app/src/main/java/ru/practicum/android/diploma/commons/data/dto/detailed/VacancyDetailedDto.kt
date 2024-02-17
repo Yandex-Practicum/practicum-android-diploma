@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.commons.data.dto.detailed
 
-
 import com.google.gson.annotations.SerializedName
 import ru.practicum.android.diploma.commons.data.dto.search.Address
 import ru.practicum.android.diploma.commons.data.dto.search.Company
