@@ -9,6 +9,10 @@ android {
     namespace = "ru.practicum.android.diploma"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
+    buildFeatures {
+        viewBinding = true
+    }
+
     defaultConfig {
         applicationId = "ru.practicum.android.diploma"
         minSdk = libs.versions.minSdk.get().toInt()
@@ -39,6 +43,7 @@ android {
         buildConfig = true
     }
 }
+
 
 dependencies {
     implementation(libs.androidX.core)
