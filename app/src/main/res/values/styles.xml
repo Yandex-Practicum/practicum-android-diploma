@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="TextStyleToolbar" parent="TextAppearance.AppCompat.Light.SearchResult.Title">
+        <item name="android:textSize">@dimen/font_size_22</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textFontWeight" tools:targetApi="p">500</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="TextStyleBold32_700" parent="TextAppearance.AppCompat.Light.SearchResult.Title">
+        <item name="android:textSize">@dimen/font_size_32</item>
+        <item name="android:fontFamily">@font/ys_display_bold</item>
+        <item name="android:textFontWeight" tools:targetApi="p">700</item>
+    </style>
+
+    <style name="TextStyleMedium22_500" parent="TextAppearance.AppCompat.Light.SearchResult.Title">
+        <item name="android:textSize">@dimen/font_size_22</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textFontWeight" tools:targetApi="p">500</item>
+    </style>
+
+    <style name="TextStyleMedium16_500" parent="TextAppearance.AppCompat.Light.SearchResult.Title">
+        <item name="android:textSize">@dimen/font_size_16</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textFontWeight" tools:targetApi="p">500</item>
+    </style>
+
+    <style name="TextStyleRegular16_400" parent="TextAppearance.AppCompat.Light.SearchResult.Title">
+        <item name="android:textSize">@dimen/font_size_16</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textFontWeight" tools:targetApi="p">400</item>
+    </style>
+
+    <style name="TextStyleRegular12_400" parent="TextAppearance.AppCompat.Light.SearchResult.Title">
+        <item name="android:textSize">@dimen/font_size_12</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textFontWeight" tools:targetApi="p">400</item>
+    </style>
+
+    <style name="StyleMenuNavigation" parent="Widget.Design.BottomNavigationView">
+        <item name="android:background">?attr/colorOnSecondary</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">12sp</item>
+        <item name="itemPadding">8dp</item>
+        <item name="itemRippleColor">@color/blue</item>
+    </style>
+</resources>
