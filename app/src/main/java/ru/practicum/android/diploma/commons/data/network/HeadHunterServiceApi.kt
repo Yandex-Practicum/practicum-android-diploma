@@ -12,7 +12,7 @@ interface HeadHunterServiceApi {
     suspend fun searchVacancies(
         @Query("text") name: String,
         @Query("page") page: Long,
-        @Query("per_page") amount: Int
+        @Query("per_page") amount: Long
     ): VacanciesSearchResponse
 
     @GET("/vacancies/{id}/similar_vacancies")
