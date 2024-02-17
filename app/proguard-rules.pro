@@ -11,7 +11,26 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+#retrofit
+-dontwarn retrofit.**
+-keep class retrofit.** { *; }
+-keepattributes Signature
+-keepattributes Exceptions
+#network layer
+-keep class ru.practicum.android.diploma.root.data.dto*
+-keep class ru.practicum.android.diploma.root.data.network*
+#okhttp3
+-keepattributes Signature
+-keepattributes *Annotation*
+-keep class okhttp3.** { *; }
+-keep interface okhttp3.** { *; }
+-dontwarn okhttp3.**
+-dontnote okhttp3.**
 
+-dontwarn java.nio.file.*
+#gson
+-keep class com.google.gson.stream.** { *; }
+-keep class **$$Parcelable { *; }
 # Uncomment this to preserve the line number information for
 # debugging stack traces.
 #-keepattributes SourceFile,LineNumberTable
