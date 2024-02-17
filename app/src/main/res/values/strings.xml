@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">Practicum-Android-Diploma</string>
+    <string name="app_name">Practicum HHit</string>
+    <string name="team">Команда</string>
+    <string name="developer1">Екатерина</string>
+    <string name="developer2">Сергей Немцев </string>
+    <string name="developer3">Антон Рейников</string>
+    <string name="developer4">Pro </string>
+    <string name="developer5">Андрей Яковлев</string>
+    <string name="work">Над приложением \nработали</string>
+    <string name="main">Главная</string>
+    <string name="favorite">Избранное</string>
 </resources>
