@@ -12,9 +12,9 @@ fun isConnected(context: Context): Boolean {
         connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
     if (capabilities != null) {
         when {
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> return true
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> return true
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> return true
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) || capabilities.hasTransport(
+                NetworkCapabilities.TRANSPORT_WIFI
+            ) || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> return true
         }
     }
     return false
