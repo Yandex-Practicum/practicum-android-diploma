@@ -40,6 +40,11 @@ android {
 }
 
 dependencies {
+
+    implementation ("androidx.navigation:navigation-fragment-ktx:2.5.3")
+    implementation ("androidx.navigation:navigation-ui-ktx:2.5.3")
+    implementation ("androidx.fragment:fragment-ktx:1.5.6")
+
     implementation(libs.androidX.core)
     implementation(libs.androidX.appCompat)
 
@@ -55,4 +60,6 @@ dependencies {
     androidTestImplementation(libs.uiTests.junitExt)
     androidTestImplementation(libs.uiTests.espressoCore)
     // endregion
+
+
 }
