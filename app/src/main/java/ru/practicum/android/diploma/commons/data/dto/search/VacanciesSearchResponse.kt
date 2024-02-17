@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.commons.data.dto.vacancies_search
+package ru.practicum.android.diploma.commons.data.dto.search
 
 import ru.practicum.android.diploma.commons.data.dto.Response
 

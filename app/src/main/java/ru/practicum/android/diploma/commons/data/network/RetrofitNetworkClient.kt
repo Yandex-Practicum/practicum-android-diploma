@@ -2,10 +2,12 @@ package ru.practicum.android.diploma.commons.data.network
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
+import ru.practicum.android.diploma.commons.data.Constant.BAD_REQUEST_RESULT_CODE
+import ru.practicum.android.diploma.commons.data.Constant.SUCCESS_RESULT_CODE
 import ru.practicum.android.diploma.commons.data.dto.Response
-import ru.practicum.android.diploma.commons.data.dto.vacancies_search.VacanciesSearchByNameRequest
-import ru.practicum.android.diploma.commons.data.dto.vacancies_search.VacanciesSearchSimilarRequest
-import ru.practicum.android.diploma.commons.data.dto.vacancy_detailed.VacancyDetailedRequest
+import ru.practicum.android.diploma.commons.data.dto.detailed.VacancyDetailedRequest
+import ru.practicum.android.diploma.commons.data.dto.search.VacanciesSearchByNameRequest
 
 class RetrofitNetworkClient(
     private val headHunterService: HeadHunterServiceApi
@@ -19,34 +21,26 @@ class RetrofitNetworkClient(
                 when (dto) {
                     is VacanciesSearchByNameRequest -> {
                         headHunterService.searchVacancies(dto.name, dto.page, dto.amount).apply {
-                            responseCode = 200
-                        }
-                    }
-
-                    is VacanciesSearchSimilarRequest -> {
-                        headHunterService.searchSimilarVacancies(dto.id, dto.page, dto.amount).apply {
-                            responseCode = 200
+                            responseCode = SUCCESS_RESULT_CODE
                         }
                     }
 
                     is VacancyDetailedRequest -> {
                         headHunterService.searchConcreteVacancy(dto.id).apply {
-                            responseCode = 200
+                            responseCode = SUCCESS_RESULT_CODE
                         }
                     }
 
                     else -> {
                         Response().apply {
-                            responseCode = 400
+                            responseCode = BAD_REQUEST_RESULT_CODE
                         }
                     }
                 }
-            } catch (e: Throwable) {
-                Response().apply {
-                    responseCode = 503
-                }
+            } catch (exception: HttpException) {
+                Response().apply { responseCode = exception.code() }
+
             }
         }
     }
-
 }

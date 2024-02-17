@@ -3,8 +3,8 @@ package ru.practicum.android.diploma.commons.data.network
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
-import ru.practicum.android.diploma.commons.data.dto.vacancies_search.VacanciesSearchResponse
-import ru.practicum.android.diploma.commons.data.dto.vacancy_detailed.VacancyDetailedResponse
+import ru.practicum.android.diploma.commons.data.dto.detailed.VacancyDetailedResponse
+import ru.practicum.android.diploma.commons.data.dto.search.VacanciesSearchResponse
 
 interface HeadHunterServiceApi {
 
@@ -12,7 +12,7 @@ interface HeadHunterServiceApi {
     suspend fun searchVacancies(
         @Query("text") name: String,
         @Query("page") page: Long,
-        @Query("per_page") amount: Long
+        @Query("per_page") amount: Int
     ): VacanciesSearchResponse
 
     @GET("/vacancies/{id}/similar_vacancies")
