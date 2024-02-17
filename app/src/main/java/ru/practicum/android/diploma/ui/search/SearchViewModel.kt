@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.root.fragments
+package ru.practicum.android.diploma.ui.search
 
 import androidx.lifecycle.ViewModel
 

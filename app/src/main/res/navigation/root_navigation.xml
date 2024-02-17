@@ -6,13 +6,55 @@
     app:startDestination="@id/searchFragment">
     <fragment
         android:id="@+id/searchFragment"
-        android:name="ru.practicum.android.diploma.ui.root.fragments.SearchFragment"
+        android:name="ru.practicum.android.diploma.ui.search.SearchFragment"
         android:label="searchFragment"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_teamFragment"
+            app:destination="@id/teamFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_favouriteFragment"
+            app:destination="@id/favouriteFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_vacancyFragment"
+            app:destination="@id/vacancyFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_filterFragmentt"
+            app:destination="@id/filterFragmentt" />
+    </fragment>
     <fragment
         android:id="@+id/teamFragment"
-        android:name="ru.practicum.android.diploma.ui.root.viewmodels.TeamFragment"
+        android:name="ru.practicum.android.diploma.ui.team.TeamFragment"
         android:label="teamFragment"
         tools:layout="@layout/fragment_team" />
-    <fragment android:id="@+id/favoritesFragment" />
+    <fragment
+        android:id="@+id/fragmentVacancy"
+        android:label="vacancyFragment"
+        tools:layout="@layout/fragment_vacancy">
+
+    </fragment>
+    <fragment
+        android:id="@+id/favouriteFragment"
+        android:name="ru.practicum.android.diploma.ui.favourite.FavouriteFragment"
+        android:label="FavouriteFragment" >
+        <action
+            android:id="@+id/action_favouriteFragment_to_vacancyFragment"
+            app:destination="@id/vacancyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/filterFragmentt"
+        android:name="ru.practicum.android.diploma.ui.filter.FilterFragmentt"
+        android:label="FilterFragmentt" />
+    <fragment
+        android:id="@+id/similarFragment"
+        android:name="ru.practicum.android.diploma.ui.similar.SimilarFragment"
+        android:label="SimilarFragment" />
+    <fragment
+        android:id="@+id/vacancyFragment"
+        android:name="ru.practicum.android.diploma.ui.vacancy.VacancyFragment"
+        android:label="VacancyFragment" >
+        <action
+            android:id="@+id/action_vacancyFragment_to_similarFragment"
+            app:destination="@id/similarFragment" />
+    </fragment>
 </navigation>
