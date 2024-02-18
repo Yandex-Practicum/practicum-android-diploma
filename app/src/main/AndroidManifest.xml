@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -15,8 +14,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.PracticumAndroidDiploma"
+        tools:targetApi="31"
         android:screenOrientation="portrait"
-        tools:targetApi="31">
+        >
         <activity
             android:name=".root.ui.RootActivity"
             android:exported="true">
@@ -29,3 +29,4 @@
     </application>
 
 </manifest>
+
