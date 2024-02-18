@@ -16,6 +16,7 @@ targetSdk = "33"
 # Detekt
 detekt = "1.23.3"
 detektTwitterComposeRules ="0.0.26"
+navigationFragment = "2.7.7"
 
 [libraries]
 # Glide
@@ -60,5 +61,6 @@ unitTests-junit = "junit:junit:4.13.2"
 # UI tests
 uiTests-junitExt = "androidx.test.ext:junit:1.1.5"
 uiTests-espressoCore = "androidx.test.espresso:espresso-core:3.5.1"
+navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
 
 [bundles]
