@@ -7,4 +7,5 @@
     <dimen name="margin_8">8dp</dimen>
     <dimen name="margin_16">16dp</dimen>
     <dimen name="margin_18">18dp</dimen>
+    <dimen name="corner_radius_card_company_12">12dp</dimen>
 </resources>
