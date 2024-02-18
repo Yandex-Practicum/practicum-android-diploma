@@ -9,15 +9,16 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.dto.Response
+import ru.practicum.android.diploma.data.dto.VacanciesSearchRequest
 
 class RetrofitNetworkClient(
     private val context: Context
 ) : NetworkClient {
 
-    private val imdbBaseUrl = "https://itunes.apple.com"
+    private val hhBaseUrl = "https://api.hh.ru"
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl(imdbBaseUrl)
+        .baseUrl(hhBaseUrl)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
@@ -27,10 +28,13 @@ class RetrofitNetworkClient(
         if (isConnected() == false) {
             return Response().apply { resultCode = -1 }
         }
+        if(dto !is VacanciesSearchRequest) {
+            return Response().apply { resultCode = 400 }
+        }
 
         return withContext(Dispatchers.IO) {
             try {
-                val response = jobVacancySearchApi.search(dto.toString())
+                val response = jobVacancySearchApi.search(dto.text)
                 response.apply { resultCode = 200 }
             } catch (e: Throwable) {
                 Response().apply { resultCode = 500 }
