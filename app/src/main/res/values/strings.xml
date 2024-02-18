@@ -28,4 +28,11 @@
     <string name="vacancy_text">Вакансия</string>
     <string name="todo">TODO</string>
     <string name="similar_vacancies_button_text">Похожие вакансии</string>
+    <string name="search">Поиск</string>
+    <string name="search_vacancy">Поиск вакансий</string>
+    <string name="input_text">Введите запрос</string>
+    <string name="not_vacancy">Таких вакансий нет</string>
+    <string name="description_vacancy">Android - разработчик, Магадант</string>
+    <string name="error_search">Неудалось получить \n список  вакансий</string>
+    <string name="not_internet">Нет интернета</string>
 </resources>
