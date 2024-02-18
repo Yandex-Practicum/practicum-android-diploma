@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.root.fragments
+package ru.practicum.android.diploma.ui.team
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,19 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import ru.practicum.android.diploma.R
 
-class SearchFragment : Fragment() {
+class TeamFragment : Fragment() {
 
     companion object {
-        fun newInstance() = SearchFragment()
+        fun newInstance() = TeamFragment()
     }
 
-    private lateinit var viewModel: SearchViewModel
+    private lateinit var viewModel: TeamViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_search, container, false)
+        return inflater.inflate(R.layout.fragment_team, container, false)
     }
 
 
