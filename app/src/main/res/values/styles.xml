@@ -34,4 +34,14 @@
         <item name="android:fontFamily">@font/ys_display_medium</item>
 
     </style>
+    <style name="filters" >
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textSize">16sp</item>
+
+    </style>
+    <style name="not_show_without_salary" >
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">16sp</item>
+
+    </style>
 </resources>
