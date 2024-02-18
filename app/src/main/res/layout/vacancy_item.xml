@@ -9,7 +9,8 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:src="@drawable/ic_logo"/>
+        tools:src="@drawable/ic_logo"
+        android:contentDescription="@string/search_description_of_company_logo" />
 
     <LinearLayout
         android:layout_marginStart="@dimen/margin_12"
