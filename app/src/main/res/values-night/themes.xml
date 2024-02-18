@@ -1,7 +1,7 @@
-<resources>
-    <style name="Base.Theme.PracticumAndroidDiploma" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/yp_black</item>
-        <item name="colorOnPrimary">@color/yp_white</item>
-        <item name="colorPrimaryContainer">@color/yp_gray</item>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.PracticumAndroidDiploma" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Customize your dark theme here. -->
+        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
     </style>
 </resources>
