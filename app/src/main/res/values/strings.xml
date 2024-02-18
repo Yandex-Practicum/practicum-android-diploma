@@ -4,8 +4,9 @@
     <string name="favorites">Избранное</string>
     <string name="team">Команда</string>
     <string name="title_team">Над приложением работали</string>
-    <string name="name1">Анастасия Рябикина</string>
-    <string name="name2">Дмитрий Жаринов</string>
-    <string name="name3">Евгений Ермолов</string>
-    <string name="name4">Михаил</string>
+    <string name="name1">Александр Ефремов</string>
+    <string name="name2">Анастасия Рябикина</string>
+    <string name="name3">Дмитрий Жаринов</string>
+    <string name="name4">Евгений Ермолов</string>
+    <string name="name5">Михаил Минулин</string>
 </resources>
