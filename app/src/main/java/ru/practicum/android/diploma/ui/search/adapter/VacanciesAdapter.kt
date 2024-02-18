@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.databinding.VacancyItemBinding
 import ru.practicum.android.diploma.domain.models.VacancyModel
-import ru.practicum.android.diploma.ui.search.view_holder.VacanciesViewHolder
+import ru.practicum.android.diploma.ui.search.viewholder.VacanciesViewHolder
 
 class VacanciesAdapter(
     private val vacancies: ArrayList<VacancyModel>,

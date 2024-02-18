@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.search.view_holder
+package ru.practicum.android.diploma.ui.search.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
