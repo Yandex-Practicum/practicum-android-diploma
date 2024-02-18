@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data.dto.ResponseUnits
+package ru.practicum.android.diploma.data.dto.responseUnits
 
 data class Contacts(
     val email: String?,

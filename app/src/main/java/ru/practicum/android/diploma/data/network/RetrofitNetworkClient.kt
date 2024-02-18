@@ -28,8 +28,8 @@ class RetrofitNetworkClient(
         if (isConnected() == false) {
             return Response().apply { resultCode = -1 }
         }
-        if(dto !is VacanciesSearchRequest){
-            return Response().apply{resultCode = 400}
+        if(dto !is VacanciesSearchRequest) {
+            return Response().apply { resultCode = 400 }
         }
 
         return withContext(Dispatchers.IO) {
