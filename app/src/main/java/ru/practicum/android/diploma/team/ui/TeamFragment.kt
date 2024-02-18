@@ -13,6 +13,6 @@ class TeamFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_team, container)
+        return inflater.inflate(R.layout.fragment_team, container, false)
     }
 }

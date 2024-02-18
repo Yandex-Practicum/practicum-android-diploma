@@ -53,6 +53,7 @@ dependencies {
     implementation(libs.fragment.ktx)
 
     implementation(libs.glide)
+    implementation(libs.navigation.fragment)
     annotationProcessor(libs.glide.compiler)
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
