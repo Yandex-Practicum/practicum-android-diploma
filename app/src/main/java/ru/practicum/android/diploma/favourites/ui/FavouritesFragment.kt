@@ -13,6 +13,6 @@ class FavouritesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_favourites, container)
+        return inflater.inflate(R.layout.fragment_favourites, container, false)
     }
 }
