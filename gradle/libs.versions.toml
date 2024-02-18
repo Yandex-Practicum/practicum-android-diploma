@@ -13,6 +13,7 @@ glide = "4.15.1"
 # Detekt
 detekt = "1.23.3"
 detektTwitterComposeRules ="0.0.26"
+kotlin = "1.9.22"
 
 [libraries]
 
@@ -67,3 +68,5 @@ uiTests-junitExt = "androidx.test.ext:junit:1.1.5"
 uiTests-espressoCore = "androidx.test.espresso:espresso-core:3.5.1"
 
 [bundles]
+[plugins]
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

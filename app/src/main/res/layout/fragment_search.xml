@@ -111,27 +111,13 @@
         tools:listitem="" />
 
     <ImageView
-        android:visibility="gone"
+        android:visibility="visible"
         android:id="@+id/placeholder_Image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:contentDescription="@string/todo"
         android:src="@drawable/ic_placeholder"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <ImageView
-        android:id="@+id/error_vacancy_Image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:contentDescription="@string/todo"
-        android:src="@drawable/ic_error_server"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -149,7 +135,7 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/error_vacancy_Image"
+        app:layout_constraintTop_toBottomOf="@+id/placeholder_Image"
         tools:text="@string/error_search" />
 
     <ProgressBar
