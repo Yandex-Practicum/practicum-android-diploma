@@ -64,8 +64,7 @@ object VacancyMapper {
                 contactComment,
                 employerLogoUrl,
                 employerName,
-                city,
-                insertionTime = Calendar.getInstance().time.time
+                city
             )
         }
     }

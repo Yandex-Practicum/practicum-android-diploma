@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.favourites.data.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.Date
 
 @Entity(tableName = "vacancy_favorites_table")
 data class FavoriteEntity(
@@ -23,5 +24,5 @@ data class FavoriteEntity(
     val employerLogoUrl: String,
     val employerName: String,
     val city: String,
-    val insertionTime: Long
+    val insertionTime: Long = Date().time
 )
