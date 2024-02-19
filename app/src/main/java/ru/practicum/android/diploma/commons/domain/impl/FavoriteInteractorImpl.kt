@@ -29,30 +29,9 @@ class FavoriteInteractorImpl : FavoriteInteractor {
                         Pair("987-654-3210", "Text only")
                     )
                 )
-            ),
-            VacancyModel(
-                id = "2",
-                vacancyName = "Web Developer",
-                city = "New York",
-                salary = "$90,000 - $110,000",
-                companyName = "Web Co.",
-                logoUrls = arrayListOf("https://example.com/logo2.png"),
-                details = Details(
-                    experience = "2+ years",
-                    employment = "Remote",
-                    description = "We are looking for a skilled web developer to join our remote team.",
-                    keySkills = arrayListOf("HTML", "CSS", "JavaScript", "React"),
-                    managerName = "Jane Smith",
-                    email = "jane.smith@example.com",
-                    phonesAndComments = arrayListOf(
-                        Pair("111-222-3333", "Call for details")
-                    )
-                )
             )
             // Add more VacancyModel objects if needed
         )
-
-
 
         return flow {
             emit(vacancies)

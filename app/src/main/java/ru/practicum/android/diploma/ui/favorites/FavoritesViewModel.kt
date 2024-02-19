@@ -15,7 +15,6 @@ class FavoritesViewModel(
     private val _stateLiveData = MutableLiveData<FavoritesState>()
     private val stateLiveData: LiveData<FavoritesState> = _stateLiveData
 
-
     fun getState(): LiveData<FavoritesState> = stateLiveData
 
     init {
@@ -34,9 +33,11 @@ class FavoritesViewModel(
     }
 
     private fun renderState(vacancies: ArrayList<VacancyModel>) {
-        if(vacancies.isEmpty())
+        if (vacancies.isEmpty()) {
             _stateLiveData.postValue(FavoritesState.Empty)
-        else _stateLiveData.postValue(FavoritesState.Content(vacancies))
+        } else {
+            _stateLiveData.postValue(FavoritesState.Content(vacancies))
+        }
 
     }
 }

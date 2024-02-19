@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.ui.favorites
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,9 +26,7 @@ class FavoritesFragment : Fragment() {
 
     private val viewModel: FavoritesViewModel by viewModel()
 
-
     private lateinit var onTrackClickDebounce: (VacancyModel) -> Unit
-
 
     private val adapter = VacanciesAdapter(
         itemClickListener = { vacancy: VacancyModel -> onTrackClickDebounce(vacancy) }
@@ -78,7 +75,7 @@ class FavoritesFragment : Fragment() {
         when (state) {
             is FavoritesState.Content -> showContent(state.vacancies)
             is FavoritesState.Empty -> showEmpty()
-            is FavoritesState.Error -> showError(state.error)
+            is FavoritesState.Error -> showError()
             is FavoritesState.Loading -> showLoading()
         }
     }
@@ -92,15 +89,11 @@ class FavoritesFragment : Fragment() {
         }
     }
 
-    private fun showError(error: ErrorCode) {
+    private fun showError() {
         binding.apply {
             rvFavorites.isVisible = false
             ivPlaceholder.setImageResource(R.drawable.ic_not_faund)
-            when (error) {
-                ErrorCode.SOMETHING_WRONG -> {
-                    tvPlaceholder.text = getString(R.string.can_not_get_list)
-                }
-            }
+            tvPlaceholder.text = getString(R.string.can_not_get_list)
             ivPlaceholder.isVisible = true
             tvPlaceholder.isVisible = true
             loadingIndicator.isVisible = false
@@ -129,7 +122,6 @@ class FavoritesFragment : Fragment() {
         adapter.vacancies.addAll(vacancies)
         adapter.notifyDataSetChanged()
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
