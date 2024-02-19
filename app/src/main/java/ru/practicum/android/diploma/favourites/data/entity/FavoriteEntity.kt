@@ -16,7 +16,7 @@ data class FavoriteEntity(
     val employment: String,
     val workSchedule: String,
     val description: String,
-    val keySkills: String,
+    val keySkills: List<String>,
     val contactName: String,
     val email: String,
     val phone: String,

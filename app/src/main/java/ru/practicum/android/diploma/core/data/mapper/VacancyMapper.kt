@@ -1,12 +1,12 @@
 package ru.practicum.android.diploma.core.data.mapper
 
+import androidx.room.TypeConverter
 import ru.practicum.android.diploma.core.data.network.dto.CompanyLogoUrlsDto
 import ru.practicum.android.diploma.core.data.network.dto.DetailVacancyResponse
 import ru.practicum.android.diploma.core.data.network.dto.ShortVacancyDto
 import ru.practicum.android.diploma.core.domain.model.DetailVacancy
 import ru.practicum.android.diploma.core.domain.model.ShortVacancy
 import ru.practicum.android.diploma.favourites.data.entity.FavoriteEntity
-import java.util.Calendar
 
 object VacancyMapper {
     fun mapToDomain(shortVacancyDto: ShortVacancyDto): ShortVacancy {
@@ -91,6 +91,16 @@ object VacancyMapper {
                 city
             )
         }
+    }
+
+    @TypeConverter
+    fun fromStringList(value: List<String>): String {
+        return value.joinToString(separator = ",")
+    }
+
+    @TypeConverter
+    fun toStringList(value: String): List<String> {
+        return value.split(",")
     }
 
     private fun getActualLogo(companyLogoUrlsDto: CompanyLogoUrlsDto?): String {

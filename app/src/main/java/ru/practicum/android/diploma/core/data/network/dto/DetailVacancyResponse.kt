@@ -16,7 +16,7 @@ data class DetailVacancyResponse(
     @SerializedName("description")
     val description: String,
     @SerializedName("key_skills")
-    val keySkills: String,
+    val keySkills: List<String>,
     @SerializedName("salary")
     val salaryInfo: SalaryDto?,
     @SerializedName("schedule")
