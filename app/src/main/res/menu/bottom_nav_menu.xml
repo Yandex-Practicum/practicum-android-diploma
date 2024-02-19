@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/mainFragment"
+        android:icon="@drawable/main"
+        android:title="Главная"/>
+    <item
+        android:id="@+id/favoritesFragment"
+        android:icon="@drawable/favorites"
+        android:title="Избранное"/>
+    <item
+        android:id="@+id/squadFragment"
+        android:icon="@drawable/team"
+        android:title="Команда"/>
+</menu>

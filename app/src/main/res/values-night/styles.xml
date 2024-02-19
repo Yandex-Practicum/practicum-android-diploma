@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="bottom_navigation_view" >
+        <item name="android:textColor">@color/YP_White</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:background">@color/YP_Black</item>
+        <item name="itemIconTint">@drawable/bottom_navigation_tab_bar_dark</item>
+        <item name="itemTextColor">@drawable/bottom_navigation_tab_bar_dark</item>
+    </style>
+</resources>

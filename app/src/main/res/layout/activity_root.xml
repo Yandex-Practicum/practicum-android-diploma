@@ -7,37 +7,37 @@
     tools:context=".ui.root.RootActivity">
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/rootFragmentContainerView"
+        android:id="@+id/fragment_container"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@id/separator_line"
+        app:navGraph="@navigation/nav_graph"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/nav_graph" />
+        app:layout_constraintTop_toTopOf="parent">
+    </androidx.fragment.app.FragmentContainerView>
 
     <View
-        android:id="@+id/separator_line"
+        android:id="@+id/horizontalLine"
         android:layout_width="match_parent"
-        android:layout_height="1.5dp"
-        android:background="@color/grey"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="1dp"
+        android:background="@color/settings_icon_color"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:backgroundTint="@color/white_black"
-        app:itemIconTint="@color/black_white"
-        app:itemTextColor="@color/black_white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/navigation_items" />
+        app:menu="@menu/bottom_nav_menu"
+        android:elevation="0dp"
+        style="@style/bottom_navigation_view"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
