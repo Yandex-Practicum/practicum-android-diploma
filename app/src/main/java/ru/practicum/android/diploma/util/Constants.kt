@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.util
 
-
 const val HUNDRED = 100
 const val TWENTY = 20
 const val TEN = 10
