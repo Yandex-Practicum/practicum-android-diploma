@@ -101,15 +101,13 @@
         android:layout_width="match_parent"
         tools:visibility="gone"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_16"
         android:layout_marginTop="@dimen/margin_16"
-        android:layout_marginEnd="@dimen/margin_16"
         android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toast_search"
-        tools:listitem="" />
+        tools:listitem="@layout/vacancy_item" />
 
     <ImageView
         android:visibility="visible"

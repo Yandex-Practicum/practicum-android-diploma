@@ -4,6 +4,7 @@
     android:orientation="horizontal"
     android:layout_marginStart="@dimen/margin_16"
     android:layout_marginEnd="@dimen/margin_16"
+    android:layout_marginBottom="@dimen/margin_9"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -27,7 +28,7 @@
             android:textSize="@dimen/font_size_22"
             android:textColor="@color/black"
             android:fontFamily="@font/ys_display_medium"
-            tools:text="Супер вакансия с очень большой зарплатой!"/>
+            tools:text="[Супер вакансия с очень большой зарплатой!]"/>
 
         <TextView
             android:id="@+id/company_name"
