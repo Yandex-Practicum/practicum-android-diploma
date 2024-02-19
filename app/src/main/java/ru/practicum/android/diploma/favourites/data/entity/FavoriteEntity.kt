@@ -23,5 +23,3 @@ data class FavoriteEntity(
     val city: String,
     val insertionTime: Long
 )
-
-
