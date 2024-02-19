@@ -5,6 +5,8 @@ import ru.practicum.android.diploma.core.data.network.dto.DetailVacancyResponse
 import ru.practicum.android.diploma.core.data.network.dto.ShortVacancyDto
 import ru.practicum.android.diploma.core.domain.model.DetailVacancy
 import ru.practicum.android.diploma.core.domain.model.ShortVacancy
+import ru.practicum.android.diploma.favourites.data.entity.FavoriteEntity
+import java.util.Calendar
 
 object VacancyMapper {
     fun mapToDomain(shortVacancyDto: ShortVacancyDto): ShortVacancy {
@@ -15,7 +17,8 @@ object VacancyMapper {
                 city = locationInfo?.city.orEmpty(),
                 salaryFrom = salaryInfo?.from.orEmpty(),
                 salaryTo = salaryInfo?.to.orEmpty(),
-                currency = salaryInfo?.currency.orEmpty()
+                currency = salaryInfo?.currency.orEmpty(),
+                employerLogoUrl = getActualLogo(shortVacancyDto.employerInfo?.companyLogoUrls)
             )
         }
     }
@@ -40,6 +43,55 @@ object VacancyMapper {
             employerName = detailVacancy.employerInfo?.companyName.orEmpty(),
             city = detailVacancy.locationInfo?.city.orEmpty()
         )
+    }
+
+    fun mapToFavoritesEntity(detailVacancy: DetailVacancy): FavoriteEntity {
+        return with(detailVacancy) {
+            FavoriteEntity(
+                id,
+                name,
+                salaryFrom,
+                salaryTo,
+                currency,
+                experience,
+                employment,
+                workSchedule,
+                description,
+                keySkills,
+                contactName,
+                email,
+                phone,
+                contactComment,
+                employerLogoUrl,
+                employerName,
+                city,
+                insertionTime = Calendar.getInstance().time.time
+            )
+        }
+    }
+
+    fun mapToDetailVacancy(favoriteEntity: FavoriteEntity): DetailVacancy {
+        return with(favoriteEntity) {
+            DetailVacancy(
+                id,
+                name,
+                salaryFrom,
+                salaryTo,
+                currency,
+                experience,
+                employment,
+                workSchedule,
+                description,
+                keySkills,
+                contactName,
+                email,
+                phone,
+                contactComment,
+                employerLogoUrl,
+                employerName,
+                city
+            )
+        }
     }
 
     private fun getActualLogo(companyLogoUrlsDto: CompanyLogoUrlsDto?): String {

@@ -6,5 +6,6 @@ data class ShortVacancy(
     val city: String,
     val salaryFrom: String,
     val salaryTo: String,
-    val currency: String
+    val currency: String,
+    val employerLogoUrl: String,
 )

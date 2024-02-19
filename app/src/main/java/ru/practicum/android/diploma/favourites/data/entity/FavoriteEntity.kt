@@ -1,10 +1,9 @@
-package ru.practicum.android.diploma.core.domain.model
+package ru.practicum.android.diploma.favourites.data.entity
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
+import androidx.room.Entity
 
-@Parcelize
-data class DetailVacancy(
+@Entity(tableName = "vacancy_favorites_table")
+data class FavoriteEntity(
     val id: Long,
     val name: String,
     val salaryFrom: String,
@@ -22,4 +21,7 @@ data class DetailVacancy(
     val employerLogoUrl: String,
     val employerName: String,
     val city: String,
-) : Parcelable
+    val insertionTime: Long
+)
+
+
