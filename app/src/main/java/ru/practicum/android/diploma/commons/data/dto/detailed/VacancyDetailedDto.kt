@@ -1,44 +1,27 @@
 package ru.practicum.android.diploma.commons.data.dto.detailed
 
 import com.google.gson.annotations.SerializedName
-import ru.practicum.android.diploma.commons.data.dto.search.Address
-import ru.practicum.android.diploma.commons.data.dto.search.Company
-import ru.practicum.android.diploma.commons.data.dto.search.Salary
+import ru.practicum.android.diploma.commons.data.dto.detailed.field.AreaDto
+import ru.practicum.android.diploma.commons.data.dto.detailed.field.ContactsDto
+import ru.practicum.android.diploma.commons.data.dto.detailed.field.EmployerDto
+import ru.practicum.android.diploma.commons.data.dto.detailed.field.EmploymentDto
+import ru.practicum.android.diploma.commons.data.dto.detailed.field.ExperienceDto
+import ru.practicum.android.diploma.commons.data.dto.detailed.field.KeySkillsDto
+import ru.practicum.android.diploma.commons.data.dto.detailed.field.SalaryDto
+import ru.practicum.android.diploma.commons.data.dto.detailed.field.ScheduleDto
 
 data class VacancyDetailedDto(
     val id: String,
+    val area: AreaDto?,
+    val contacts: ContactsDto?,
+    val description: String?,
+    val employer: EmployerDto?,
+    val employment: EmploymentDto,
+    val experienceId: String?,
+    val experience: ExperienceDto,
+    @SerializedName("key_skills")
+    val keySkills: List<KeySkillsDto>?,
     val name: String,
-    val address: Address?,
-    val salary: Salary?,
-    @SerializedName("employer") val company: Company,
-    val experience: Experience?,
-    val employment: Employment?,
-    val description: String,
-    @SerializedName("key_skills") val keySkills: ArrayList<Skill>,
-    val contacts: Contacts?
-)
-
-data class Experience(
-    val name: String
-)
-
-data class Employment(
-    val name: String
-)
-
-data class Skill(
-    val name: String
-)
-
-data class Contacts(
-    val email: String?,
-    val name: String?,
-    val phones: ArrayList<Phone>?
-)
-
-data class Phone(
-    val country: String,
-    val city: String,
-    val number: String,
-    val comment: String?
+    val salary: SalaryDto?,
+    val schedule: ScheduleDto?,
 )
