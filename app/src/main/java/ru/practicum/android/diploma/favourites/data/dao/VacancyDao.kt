@@ -18,5 +18,5 @@ interface VacancyDao {
     suspend fun removeVacancyFromFavorites(vacancy: FavoriteEntity)
 
     @Query("SELECT * FROM vacancy_favorites_table ORDER BY insertionTime DESC")
-    fun getTrack(): Flow<List<FavoriteEntity>>
+    fun getVacancy(): Flow<List<FavoriteEntity>>
 }
