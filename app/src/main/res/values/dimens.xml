@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="bar_text_size">24sp</dimen>
+    <dimen name="edit_text_size">16sp</dimen>
+    <dimen name="tv_amount_vacancy_size">16sp</dimen>
+    <dimen name="tv_vacancy_title_size">22sp</dimen>
+    <dimen name="tv_vacancy_company_size">16sp</dimen>
+    <dimen name="tv_vacancy_salary_size">16sp</dimen>
+    <dimen name="tv_bottom_bar_size">12sp</dimen>
+    <dimen name="tv_button_size">16sp</dimen>
+    <dimen name="tv_placeholder_errors_size">22sp</dimen>
+    <dimen name="tv_detailed_vacancy_title_size">32sp</dimen>
+    <dimen name="tv_detailed_vacancy_salary_size">22sp</dimen>
+    <dimen name="tv_detailed_vacancy_l">22sp</dimen>
+    <dimen name="tv_detailed_vacancy_m">16sp</dimen>
+    <dimen name="tv_team_header_size">32sp</dimen>
+    <dimen name="tv_team_content_size">16sp</dimen>
+    <dimen name="tv_filter_xs">12sp</dimen>
+    <dimen name="tv_filter_s">16sp</dimen>
+
+    <dimen name="border_margin">16dp</dimen>
+    <dimen name="header_top_margin_l">19dp</dimen>
+    <dimen name="header_top_margin_s">4dp</dimen>
+    <dimen name="placeholder_top_margin">38dp</dimen>
+    <dimen name="tv_margin_from_iv">16dp</dimen>
+    <dimen name="iv_icon_company">48dp</dimen>
+    <dimen name="iv_loader">36dp</dimen>
+    <dimen name="tv_amount_of_vacancies_from_edit_text_margin">18dp</dimen>
+    <dimen name="tv_region_country_vertical_margin">14dp</dimen>
+    <dimen name="tv_filter_margin_m">24dp</dimen>
+    <dimen name="tv_detailed_vacancy_margin_xs">4dp</dimen>
+    <dimen name="tv_detailed_vacancy_margin_s">8dp</dimen>
+    <dimen name="tv_detailed_vacancy_margin_m">16dp</dimen>
+    <dimen name="tv_detailed_vacancy_margin_l">32dp</dimen>
+</resources>
