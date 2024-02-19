@@ -24,7 +24,9 @@
     <string name="placeholder_no_internet">Нет интернета</string>
     <string name="placeholder_server_error">Ошибка сервера</string>
     <string name="placeholder_no_such_vacancy">Таких вакансий нет</string>
+    <string name="placeholder_no_such_region">Такого региона нет</string>
     <string name="placeholder_cannot_get_list_of_vacancy">Не удалось получить список вакансий</string>
+    <string name="placeholder_cannot_get_list_of_regions">Не удалось получить список</string>
     <string name="tv_place_of_job">Место работы</string>
     <string name="tv_branch">Отрасль</string>
     <string name="tv_dont_show_without_salary">Не показывать без зарплаты</string>
@@ -39,9 +41,21 @@
     <string name="tv_email">E-mail</string>
     <string name="tv_phone_number">Телефон</string>
     <string name="tv_comment">Комментарий</string>
+    <string name="tv_country">Страна</string>
+    <string name="tv_region">Регион</string>
+    <string name="tv_amount_of_vacancies">Найдено %1$s вакансий</string>
+    <string name="tv_job_title_and_region">%1$s, %2$s</string>
+    <string name="tv_salary_no_info">Зарплата не указана</string>
     <string name="best_people">Над приложением работали</string>
     <string name="denis">Денис Быков</string>
     <string name="pavel">Павел Хоменко</string>
     <string name="sergey">Сергей Осипов</string>
     <string name="victor">Виктор Бляхеров</string>
+
+    <plurals name="vacancies">
+        <item quantity="one">%1$d вакансия</item>
+        <item quantity="few">%1$d вакансии</item>
+        <item quantity="many">%1$d вакансий</item>
+        <item quantity="other">%1$d вакансий</item>
+    </plurals>
 </resources>

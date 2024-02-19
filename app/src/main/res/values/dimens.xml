@@ -19,7 +19,7 @@
     <dimen name="tv_filter_s">16sp</dimen>
 
     <dimen name="border_margin">16dp</dimen>
-    <dimen name="header_top_margin_l">19dp</dimen>
+    <dimen name="header_top_margin_l">20dp</dimen>
     <dimen name="header_top_margin_s">4dp</dimen>
     <dimen name="placeholder_top_margin">38dp</dimen>
     <dimen name="tv_margin_from_iv">16dp</dimen>
