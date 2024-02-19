@@ -2,4 +2,8 @@
     <string name="app_name">Practicum-Android-Diploma</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="activity_bottom_search">Главная</string>
+    <string name="activity_bottom_favorite">Избранное</string>
+    <string name="activity_bottom_team">Команда</string>
 </resources>

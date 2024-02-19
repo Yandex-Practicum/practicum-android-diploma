@@ -56,6 +56,8 @@ dependencies {
     // Glide
     implementation(libs.glide)
     implementation(libs.glide.material)
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.navigation.ui.ktx)
     annotationProcessor(libs.glide.annotationProcessor)
 
     // Koin
