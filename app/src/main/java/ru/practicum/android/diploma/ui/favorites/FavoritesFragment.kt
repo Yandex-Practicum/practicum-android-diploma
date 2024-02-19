@@ -26,7 +26,7 @@ class FavoritesFragment : Fragment() {
 
     private val viewModel: FavoritesViewModel by viewModel()
 
-    private  var onTrackClickDebounce: (VacancyModel) -> Unit = {}
+    private var onTrackClickDebounce: (VacancyModel) -> Unit = {}
 
     private val adapter = VacanciesAdapter(
         itemClickListener = { vacancy: VacancyModel -> onTrackClickDebounce(vacancy) }
