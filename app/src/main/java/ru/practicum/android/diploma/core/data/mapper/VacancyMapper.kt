@@ -95,12 +95,12 @@ object VacancyMapper {
 
     @TypeConverter
     fun fromStringList(value: List<String>): String {
-        return value.joinToString(separator = ",")
+        return value.joinToString(separator = "\n")
     }
 
     @TypeConverter
     fun toStringList(value: String): List<String> {
-        return value.split(",")
+        return value.split("\n")
     }
 
     private fun getActualLogo(companyLogoUrlsDto: CompanyLogoUrlsDto?): String {
