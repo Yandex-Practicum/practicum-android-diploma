@@ -48,23 +48,23 @@ object VacancyMapper {
     fun mapToFavoritesEntity(detailVacancy: DetailVacancy): FavoriteEntity {
         return with(detailVacancy) {
             FavoriteEntity(
-                id,
-                name,
-                salaryFrom,
-                salaryTo,
-                currency,
-                experience,
-                employment,
-                workSchedule,
-                description,
-                keySkills,
-                contactName,
-                email,
-                phone,
-                contactComment,
-                employerLogoUrl,
-                employerName,
-                city
+                id = id,
+                name = name,
+                salaryFrom = salaryFrom,
+                salaryTo = salaryTo,
+                currency = currency,
+                experience = experience,
+                employment = employment,
+                workSchedule = workSchedule,
+                description = description,
+                keySkills = keySkills,
+                contactName = contactName,
+                email = email,
+                phone = phone,
+                contactComment = contactComment,
+                employerLogoUrl = employerLogoUrl,
+                employerName = employerName,
+                city = city
             )
         }
     }
@@ -72,23 +72,23 @@ object VacancyMapper {
     fun mapToDetailVacancy(favoriteEntity: FavoriteEntity): DetailVacancy {
         return with(favoriteEntity) {
             DetailVacancy(
-                id,
-                name,
-                salaryFrom,
-                salaryTo,
-                currency,
-                experience,
-                employment,
-                workSchedule,
-                description,
-                keySkills,
-                contactName,
-                email,
-                phone,
-                contactComment,
-                employerLogoUrl,
-                employerName,
-                city
+                id = id,
+                name = name,
+                salaryFrom = salaryFrom,
+                salaryTo = salaryTo,
+                currency = currency,
+                experience = experience,
+                employment = employment,
+                workSchedule = workSchedule,
+                description = description,
+                keySkills = keySkills,
+                contactName = contactName,
+                email = email,
+                phone = phone,
+                contactComment = contactComment,
+                employerLogoUrl = employerLogoUrl,
+                employerName = employerName,
+                city = city
             )
         }
     }
