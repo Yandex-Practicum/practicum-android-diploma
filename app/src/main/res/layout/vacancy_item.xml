@@ -3,62 +3,82 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="61dp"
-    android:orientation="horizontal"
+    android:layout_height="wrap_content"
+    android:paddingVertical="@dimen/margin_9"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/vacancy_cover"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/linearLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/vacancy_cover"
+        app:layout_constraintGuide_begin="@dimen/edit_text_height" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
+        android:layout_width="@dimen/edit_text_height"
+        android:layout_height="@dimen/edit_text_height"
+        android:layout_marginEnd="@dimen/margin_12"
+        app:cardCornerRadius="@dimen/margin_12"
+        app:cardElevation="0dp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/vacancyNameAndArea"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:textSize="@dimen/text_size_item"
-            android:theme="@style/rvTextStyle"
-            tools:text="@tools:sample/lorem/random"/>
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_company"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:strokeWidth="@dimen/margin_1"
+            android:padding="@dimen/margin_1"
+            app:strokeColor="@color/YP_Light_Gray"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_launcher_foreground"
+            app:shapeAppearanceOverlay="@style/rounded_12"
+            android:background="@color/bottom_nav_back"/>
+    </com.google.android.material.card.MaterialCardView>
 
-        <TextView
-            android:id="@+id/vacancySector"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:textSize="@dimen/text_size_item"
-            android:theme="@style/rvLilTextStyle"
-            tools:text="@tools:sample/lorem/random"/>
+    <TextView
+        android:id="@+id/tv_vacancy_name"
+        style="@style/Text_Header"
+        android:textFontWeight="500"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_12"
+        android:ellipsize="end"
+        android:maxLines="3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/card"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Разработчик на С++ в команду внутренних сервисов, Москва" />
 
-        <TextView
-            android:id="@+id/vacancySalary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:textSize="@dimen/text_size_item"
-            android:theme="@style/rvLilTextStyle"
-            tools:text="@tools:sample/lorem/random"/>
-    </LinearLayout>
+    <TextView
+        android:id="@+id/department"
+        style="@style/Text_Standard"
+        android:textFontWeight="400"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_12"
+        android:ellipsize="end"
+        android:maxLines="1"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/card"
+        app:layout_constraintTop_toBottomOf="@id/tv_vacancy_name"
+        tools:text="Авто.ру" />
+
+    <TextView
+        android:id="@+id/salary"
+        style="@style/Text_Standard"
+        android:textFontWeight="400"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_12"
+        android:ellipsize="end"
+        android:maxLines="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/card"
+        app:layout_constraintTop_toBottomOf="@id/department"
+        tools:text="от 40 000 до 80 000 ₽" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
