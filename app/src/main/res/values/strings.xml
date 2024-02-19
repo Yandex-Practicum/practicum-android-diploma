@@ -2,5 +2,12 @@
     <string name="app_name">Practicum-Android-Diploma</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="devOneName">Григораш Артём Сергеевич</string>
+    <string name="devTwoName">Мальцев Валентин Вадимович</string>
+    <string name="devThreeName">Маркович Никита Иванович</string>
+    <string name="devFourName">Шостак Максим Иванович</string>
+    <string name="bottomMain">Главная</string>
+    <string name="bottomFavorites">Избранное</string>
+    <string name="bottomSquad">Команда</string>
     <string name="squad">Команда</string>
 </resources>
