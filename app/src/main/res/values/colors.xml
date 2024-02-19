@@ -19,4 +19,5 @@
     <color name="system_PM">#3772E7</color>
     <color name="system_dark">#121212</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#AEAFB4</color>
+    <color name="bottom_nav_back">#FFFDFDFD</color>
 </resources>

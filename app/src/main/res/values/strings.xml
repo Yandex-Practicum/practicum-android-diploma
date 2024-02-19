@@ -10,4 +10,8 @@
     <string name="bottomFavorites">Избранное</string>
     <string name="bottomSquad">Команда</string>
     <string name="squad">Команда</string>
+    <string name="no_list_vacancies"><![CDATA[no_list_vacancies\">Не удалось получить \\n список вакансий]]></string>
+    <string name="no_internet">Нет интернета</string>
+    <string name="no_vacancy">Таких вакансий нет</string>
+    <string name="search_request">Введите запрос</string>
 </resources>
