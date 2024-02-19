@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma
 
-import ru.practicum.android.diploma.commons.domain.model.ErrorNetwork
+import ru.practicum.android.diploma.domain.model.ErrorNetwork
 
 sealed class Resource<T>(val data: T? = null, val message: ErrorNetwork? = null) {
     class Success<T>(data: T) : Resource<T>(data)

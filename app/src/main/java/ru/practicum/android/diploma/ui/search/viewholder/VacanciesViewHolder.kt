@@ -4,9 +4,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.commons.data.Constant
 import ru.practicum.android.diploma.databinding.VacancyItemBinding
-import ru.practicum.android.diploma.domain.models.VacancyModel
+import ru.practicum.android.diploma.domain.model.VacancyModel
+import ru.practicum.android.diploma.util.Constant
 
 class VacanciesViewHolder(
     private val binding: VacancyItemBinding
