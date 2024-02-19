@@ -4,14 +4,110 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+<TextView
+    android:id="@+id/teamTextView"
+    style="@style/developerItem"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintStart_toEndOf="parent"
+    android:text="@string/nav_team"
+    android:textSize="@dimen/tv_vacancy_title_size"
+    android:fontFamily="@font/ys_display_bold"
+    android:paddingStart="@dimen/padding_16dp"
+    android:paddingTop="@dimen/padding_8dp"
+    android:paddingBottom="@dimen/padding_8dp"
+    android:paddingEnd="@dimen/padding_16dp"
+    android:layout_marginTop="@dimen/padding_24dp"
+    />
+
     <TextView
+        android:id="@+id/appWorkTextView"
+        style="@style/developerItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/teamTextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="Team Fragment"
+        app:layout_constraintStart_toEndOf="parent"
+        android:text="@string/best_people"
+        android:textSize="@dimen/tv_team_header_size"
+        android:fontFamily="@font/ys_display_bold"
+        android:paddingStart="@dimen/padding_16dp"
+        android:paddingTop="@dimen/padding_8dp"
+        android:paddingBottom="@dimen/padding_8dp"
+        android:paddingEnd="@dimen/padding_16dp"
+        android:layout_marginTop="@dimen/padding_16dp"
         />
+
+    <TextView
+        android:id="@+id/dev1TextView"
+        style="@style/developerItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/appWorkTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        android:textSize="@dimen/tv_team_content_size"
+        android:fontFamily="@font/ys_display_medium"
+        android:text="@string/denis"
+        android:paddingStart="@dimen/padding_16dp"
+        android:paddingTop="@dimen/padding_8dp"
+        android:paddingBottom="@dimen/padding_8dp"
+        android:paddingEnd="@dimen/padding_16dp"
+        android:layout_marginTop="@dimen/padding_16dp"
+        />
+
+    <TextView
+        android:id="@+id/dev2TextView"
+        style="@style/developerItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/dev1TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        android:textSize="@dimen/tv_team_content_size"
+        android:fontFamily="@font/ys_display_medium"
+        android:text="@string/pavel"
+        android:paddingStart="@dimen/padding_16dp"
+        android:paddingTop="@dimen/padding_8dp"
+        android:paddingBottom="@dimen/padding_8dp"
+        android:paddingEnd="@dimen/padding_16dp"
+        />
+
+    <TextView
+        android:id="@+id/dev3TextView"
+        style="@style/developerItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/dev2TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        android:textSize="@dimen/tv_team_content_size"
+        android:fontFamily="@font/ys_display_medium"
+        android:text="@string/sergey"
+        android:paddingStart="@dimen/padding_16dp"
+        android:paddingTop="@dimen/padding_8dp"
+        android:paddingBottom="@dimen/padding_8dp"
+        android:paddingEnd="@dimen/padding_16dp"
+        />
+
+    <TextView
+        android:id="@+id/dev4TextView"
+        style="@style/developerItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/dev3TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        android:textSize="@dimen/tv_team_content_size"
+        android:fontFamily="@font/ys_display_medium"
+        android:text="@string/victor"
+        android:paddingStart="@dimen/padding_16dp"
+        android:paddingTop="@dimen/padding_8dp"
+        android:paddingBottom="@dimen/padding_8dp"
+        android:paddingEnd="@dimen/padding_16dp"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
