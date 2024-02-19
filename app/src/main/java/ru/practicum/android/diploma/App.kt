@@ -1,18 +1,23 @@
 package ru.practicum.android.diploma
 
 import android.app.Application
+import android.util.Log
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext.startKoin
-import ru.practicum.android.diploma.di.VacancyModule
+import ru.practicum.android.diploma.di.interactorModule
+import ru.practicum.android.diploma.di.viewModelModule
 
 class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
+        Log.d("MyTag", "Приложение стартует")
         startKoin {
             androidContext(this@App)
-            modules(VacancyModule)
+            modules(
+                interactorModule,
+                viewModelModule
+            )
         }
     }
 }
