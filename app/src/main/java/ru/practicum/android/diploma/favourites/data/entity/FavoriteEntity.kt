@@ -1,9 +1,11 @@
 package ru.practicum.android.diploma.favourites.data.entity
 
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity(tableName = "vacancy_favorites_table")
 data class FavoriteEntity(
+    @PrimaryKey(autoGenerate = false)
     val id: Long,
     val name: String,
     val salaryFrom: String,
@@ -13,7 +15,7 @@ data class FavoriteEntity(
     val employment: String,
     val workSchedule: String,
     val description: String,
-    val keySkills: List<String>,
+    val keySkills: String,
     val contactName: String,
     val email: String,
     val phone: String,

@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.favourites.data.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
+import androidx.room.Entity
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -13,14 +14,11 @@ import ru.practicum.android.diploma.favourites.data.entity.FavoriteEntity
 interface VacancyDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addVacancyToFavorites(vacancy: DetailVacancy)
+    suspend fun addVacancyToFavorites(vacancy: FavoriteEntity)
 
     @Delete
-    suspend fun removeVacancyFromFavorites(vacancy: DetailVacancy)
+    suspend fun removeVacancyFromFavorites(vacancy: FavoriteEntity)
 
     @Query("SELECT * FROM vacancy_favorites_table ORDER BY insertionTime DESC")
     fun getTrack(): Flow<List<FavoriteEntity>>
-
-    @Query("SELECT id FROM vacancy_favorites_table")
-    suspend fun getVacancyId(): List<String>
 }
