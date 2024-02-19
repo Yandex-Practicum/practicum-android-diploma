@@ -3,6 +3,10 @@ package ru.practicum.android.diploma.app
 import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
+import ru.practicum.android.diploma.di.DataModule
+import ru.practicum.android.diploma.di.InteractorModule
+import ru.practicum.android.diploma.di.RepositoryModule
+import ru.practicum.android.diploma.di.ViewModelModule
 
 class App: Application() {
     override fun onCreate() {
@@ -10,7 +14,7 @@ class App: Application() {
 
         startKoin {
             androidContext(this@App)
-            // Добавить di коментарий удалить
+            modules(DataModule, InteractorModule, RepositoryModule, ViewModelModule)
         }
     }
 }
