@@ -8,9 +8,10 @@ import ru.practicum.android.diploma.domain.models.VacancyModel
 import ru.practicum.android.diploma.ui.search.viewholder.VacanciesViewHolder
 
 class VacanciesAdapter(
-    private val vacancies: ArrayList<VacancyModel>,
     private val itemClickListener: ((VacancyModel) -> Unit)
 ) : RecyclerView.Adapter<VacanciesViewHolder>() {
+
+    var vacancies: ArrayList<VacancyModel> = ArrayList<VacancyModel>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
