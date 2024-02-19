@@ -9,4 +9,16 @@
     </style>
 
     <style name="Theme.PracticumAndroidDiploma" parent="Base.Theme.PracticumAndroidDiploma" />
+
+    <style name="rvTextStyle" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="android:textColor">@color/YP_Black</item>
+        <item name="android:textColorHint">@color/YP_Black</item>
+        <item name="tint">@color/YP_Black</item>
+    </style>
+
+    <style name="rvLilTextStyle" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="android:textColor">@color/YP_Text_Gray</item>
+        <item name="android:textColorHint">@color/YP_Text_Gray</item>
+        <item name="tint">@color/YP_Text_Gray</item>
+    </style>
 </resources>
