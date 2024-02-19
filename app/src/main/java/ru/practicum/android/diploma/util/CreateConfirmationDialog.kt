@@ -3,21 +3,26 @@ package ru.practicum.android.diploma.util
 import android.content.Context
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
+data class ConfirmationDialogParams(
+    val title: String,
+    val positiveButtonText: String,
+    val negativeButtonText: String,
+    val positiveAction: () -> Unit,
+    val negativeAction: () -> Unit
+)
+
 fun createConfirmationDialog(
     context: Context,
-    title: String,
-    positiveButtonText: String,
-    negativeButtonText: String,
-    positiveAction: () -> Unit,
-    negativeAction: () -> Unit
+    params: ConfirmationDialogParams
 ) {
     MaterialAlertDialogBuilder(context)
-        .setTitle(title)
-        .setNegativeButton(negativeButtonText) { _, _ ->
-            negativeAction.invoke()
+        .setTitle(params.title)
+        .setNegativeButton(params.negativeButtonText) { _, _ ->
+            params.negativeAction.invoke()
         }
-        .setPositiveButton(positiveButtonText) { _, _ ->
-            positiveAction.invoke()
+        .setPositiveButton(params.positiveButtonText) { _, _ ->
+            params.positiveAction.invoke()
         }
         .show()
 }
+
