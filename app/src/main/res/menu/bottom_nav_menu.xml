@@ -2,14 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/mainFragment"
-        android:icon="@drawable/main"
-        android:title="Главная"/>
+        android:icon="@drawable/ic_bottom_main"
+        android:title="@string/bottomMain"/>
+
     <item
         android:id="@+id/favoritesFragment"
-        android:icon="@drawable/favorites"
-        android:title="Избранное"/>
+        android:icon="@drawable/ic_bottom_favorite"
+        android:title="@string/bottomFavorites"/>
+
     <item
         android:id="@+id/squadFragment"
-        android:icon="@drawable/team"
-        android:title="Команда"/>
+        android:icon="@drawable/ic_bottom_team"
+        android:title="@string/bottomSquad"/>
 </menu>
