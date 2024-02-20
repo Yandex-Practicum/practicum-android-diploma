@@ -6,7 +6,7 @@ import ru.practicum.android.diploma.data.dto.responseUnits.Salary
 import ru.practicum.android.diploma.data.dto.responseUnits.VacancyArea
 import ru.practicum.android.diploma.data.dto.responseUnits.VacancyType
 
-class VacancyDetailDto (
+class VacancyDetailDto(
     val id: String,
     val name: String,
     val area: VacancyArea, // Регион

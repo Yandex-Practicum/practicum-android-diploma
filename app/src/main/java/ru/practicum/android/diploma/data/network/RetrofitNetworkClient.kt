@@ -7,6 +7,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.Response
+import ru.practicum.android.diploma.data.ResponseCodes
 import ru.practicum.android.diploma.data.vacancyDetail.dto.DetailRequest
 import ru.practicum.android.diploma.data.vacancyList.dto.VacanciesSearchRequest
 
@@ -24,29 +25,29 @@ class RetrofitNetworkClient(
     private val jobVacancySearchApi = retrofit.create(JobVacancySearchApi::class.java)
 
     override suspend fun doRequest(dto: Any): Response {
-        if (isConnected() == false) {
-            return Response().apply { resultCode = 500 }
+        if (!isConnected()) {
+            return Response().apply { resultCode = ResponseCodes.NO_CONNECTION }
         }
 
-        return when(dto) {
+        return when (dto) {
             is VacanciesSearchRequest ->
                 try {
                     val response = jobVacancySearchApi.getVacancyList(dto.queryMap)
-                    response.apply { resultCode = 200 }
+                    response.apply { resultCode = ResponseCodes.SUCCESS }
                 } catch (e: Throwable) {
-                Response().apply { resultCode = 400 }
+                Response().apply { resultCode = ResponseCodes.ERROR }
             }
 
             is DetailRequest ->
-                try{
+                try {
                     val response = jobVacancySearchApi.getVacancyDetail(dto.id)
-                    response.apply { resultCode = 200 }
+                    response.apply { resultCode = ResponseCodes.SUCCESS }
                 } catch (e: Throwable) {
-                Response().apply { resultCode = 400 }
+                Response().apply { resultCode = ResponseCodes.ERROR }
             }
 
             else ->
-                Response().apply { resultCode = 400 }
+                Response().apply { resultCode = ResponseCodes.ERROR }
         }
     }
 

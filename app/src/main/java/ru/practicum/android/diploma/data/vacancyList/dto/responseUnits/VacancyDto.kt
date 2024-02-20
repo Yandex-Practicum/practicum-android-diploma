@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.data.dto.responseUnits
 
-class VacancyDto (
+class VacancyDto(
     val id: String,
     val name: String,
     val area: VacancyArea, // Регион

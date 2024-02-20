@@ -1,5 +1,5 @@
 package ru.practicum.android.diploma.data
 
 open class Response() {
-    var resultCode = 0
+    var resultCode = ResponseCodes.NO_CONNECTION
 }
