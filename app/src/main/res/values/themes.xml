@@ -4,6 +4,8 @@
         <item name="colorPrimary">@color/yp_white</item>
         <item name="colorOnPrimary">@color/yp_black</item>
         <item name="colorPrimaryContainer">@color/yp_light_gray</item>
+        <item name="teamTextColor">@color/yp_black</item>
+        <item name="bottomNavViewBackgroundColor">@color/yp_white</item>
 
     </style>
 

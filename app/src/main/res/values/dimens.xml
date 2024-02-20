@@ -32,4 +32,9 @@
     <dimen name="tv_detailed_vacancy_margin_s">8dp</dimen>
     <dimen name="tv_detailed_vacancy_margin_m">16dp</dimen>
     <dimen name="tv_detailed_vacancy_margin_l">32dp</dimen>
+    <dimen name="padding_8dp">8dp</dimen>
+    <dimen name="padding_16dp">16dp</dimen>
+    <dimen name="padding_24dp">24dp</dimen>
+    <dimen name="padding_20dp">20dp</dimen>
+
 </resources>
