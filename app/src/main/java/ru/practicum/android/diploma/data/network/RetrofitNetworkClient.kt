@@ -8,8 +8,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.Response
 import ru.practicum.android.diploma.data.ResponseCodes
-import ru.practicum.android.diploma.data.vacancyDetail.dto.DetailRequest
-import ru.practicum.android.diploma.data.vacancyList.dto.VacanciesSearchRequest
+import ru.practicum.android.diploma.data.vacancydetail.dto.DetailRequest
+import ru.practicum.android.diploma.data.vacancylist.dto.VacanciesSearchRequest
 
 class RetrofitNetworkClient(
     private val context: Context
