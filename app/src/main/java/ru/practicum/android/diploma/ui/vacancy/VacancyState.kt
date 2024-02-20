@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.ui.vacancy
 
-import ru.practicum.android.diploma.commons.domain.model.DetailVacancy
+import ru.practicum.android.diploma.domain.model.DetailVacancy
 
 sealed interface VacancyState {
     data object Loading : VacancyState

@@ -5,12 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.commons.domain.api.VacancyInteractor
-import ru.practicum.android.diploma.commons.domain.model.DetailVacancy
-import ru.practicum.android.diploma.commons.domain.model.ErrorNetwork
+import ru.practicum.android.diploma.domain.api.DetailVacancyInteractor
+import ru.practicum.android.diploma.domain.model.DetailVacancy
+import ru.practicum.android.diploma.domain.model.ErrorNetwork
 
 class VacancyViewModel(
-    val vacancyInteractor: VacancyInteractor,
+    val vacancyInteractor: DetailVacancyInteractor,
 ) : ViewModel() {
 
     private val _vacancyState = MutableLiveData<VacancyState>()
@@ -28,7 +28,7 @@ class VacancyViewModel(
                 vacancyInteractor
                     .getDetailVacancy(id)
                     .collect { resource ->
-                        processResult(resource.data, resource.message)
+                        processResult(resource.first, resource.second)
                     }
             }
         }
