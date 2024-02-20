@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data.dto.responseUnits
+package ru.practicum.android.diploma.data.vacancyDetail.dto.responseUnits
 
 data class Snippet(
     val requirement: String?,
