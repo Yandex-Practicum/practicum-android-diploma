@@ -60,7 +60,6 @@ dependencies {
     // Koin
     implementation(libs.koin)
 
-
     // Room
     implementation(libs.room)
     implementation(libs.room.ktx)
