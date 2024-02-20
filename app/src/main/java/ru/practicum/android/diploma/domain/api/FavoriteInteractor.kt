@@ -1,7 +1,8 @@
 package ru.practicum.android.diploma.commons.domain.api
 
 import kotlinx.coroutines.flow.Flow
-import ru.practicum.android.diploma.domain.models.VacancyModel
+import ru.practicum.android.diploma.domain.model.VacancyModel
+
 
 interface FavoriteInteractor {
     fun getMockResults(): Flow<ArrayList<VacancyModel>>

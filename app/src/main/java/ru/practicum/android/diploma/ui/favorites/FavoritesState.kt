@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.ui.favorites
 
-import ru.practicum.android.diploma.domain.models.VacancyModel
+import ru.practicum.android.diploma.domain.model.VacancyModel
 
 sealed interface FavoritesState {
     object Loading : FavoritesState
