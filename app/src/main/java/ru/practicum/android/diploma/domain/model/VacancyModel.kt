@@ -18,4 +18,3 @@ data class Details(
     val email: String,
     val phonesAndComments: ArrayList<Pair<String, String>>
 )
-
