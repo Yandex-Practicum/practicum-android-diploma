@@ -1,8 +1,11 @@
 package ru.practicum.android.diploma.data.dto.responseUnits
 
+import com.google.gson.annotations.SerializedName
+
 data class Employer(
     val id: String,
-    val logo_urls: LogoUrls?,
+    @SerializedName("logo-urls")
+    val logoUrls: LogoUrls?,
     val name: String,
     val trusted: Boolean,
 )
