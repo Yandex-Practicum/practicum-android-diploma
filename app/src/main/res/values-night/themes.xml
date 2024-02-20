@@ -3,5 +3,7 @@
     <style name="Base.Theme.PracticumAndroidDiploma" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="teamTextColor">@color/yp_white</item>
+        <item name="bottomNavViewBackgroundColor">@color/yp_black</item>
     </style>
 </resources>

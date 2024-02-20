@@ -1,17 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="bottomNavigationView">
-        <item name="android:fontFamily">@font/ys_display_regular</item>
-        <item name="android:textColor">@color/yp_gray</item>
-        <item name="android:textSize">@dimen/tv_bottom_bar_size</item>
-        <item name="android:background">@color/yp_black</item>
-        <item name="itemIconTint">@drawable/bottom_nav_view_selector</item>
-        <item name="itemTextColor">@drawable/bottom_nav_view_selector</item>
-    </style>
-    <style name="developerItem">
-        <item name="android:textSize">@dimen/tv_team_content_size</item>
-        <item name="fontFamily">@font/ys_display_medium</item>
-        <item name="android:textColor">@color/yp_white</item>
-    </style>
-
 </resources>
