@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.ui.main.viewModel.MainViewModel
+import ru.practicum.android.diploma.ui.main.viewmodel.MainViewModel
 
 class MainFragment : Fragment() {
 
