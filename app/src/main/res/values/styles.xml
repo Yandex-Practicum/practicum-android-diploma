@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="MaterialToolbarTextStyle">
+        <item name="textInputStyle">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/bar_text_size</item>
+    </style>
+
     <style name="bottomNavigationView">
         <item name="android:fontFamily">@font/ys_display_regular</item>
         <item name="android:textColor">@color/yp_gray</item>
@@ -8,10 +13,13 @@
         <item name="itemIconTint">@drawable/bottom_nav_view_selector</item>
         <item name="itemTextColor">@drawable/bottom_nav_view_selector</item>
     </style>
+
     <style name="developerItem">
         <item name="fontFamily">@font/ys_display_medium</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/tv_detailed_vacancy_margin_m</item>
         <item name="android:textColor">?attr/teamTextColor</item>
         <item name="android:textSize">@dimen/tv_team_content_size</item>
     </style>
-
 </resources>
