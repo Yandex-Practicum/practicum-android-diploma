@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="MaterialToolbarTextStyle">
+        <item name="textInputStyle">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/bar_text_size</item>
+    </style>
+
+    <style name="EditTextStyle">
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textCursorDrawable">@drawable/custom_cursor</item>
+        <item name="fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/edit_text_size</item>
+        <item name="hintTextColor">?attr/hintTextColor</item>
+        <item name="android:inputType">text</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:imeOptions">actionDone</item>
+    </style>
+
+    <style name="VacancyHeaderStyle">
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/tv_vacancy_title_size</item>
+        <item name="android:layout_weight">500</item>
+    </style>
+
+    <style name="VacancyTextStyle">
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/tv_vacancy_company_size</item>
+        <item name="android:layout_weight">400</item>
+    </style>
+
+    <style name="ErrorTextStyle">
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/tv_vacancy_title_size</item>
+        <item name="android:layout_weight">500</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+</resources>
