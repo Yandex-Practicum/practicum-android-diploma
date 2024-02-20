@@ -11,6 +11,7 @@
 /.idea/gradle.xml
 /.idea/compiler.xml
 /.idea/misc.xml
+/.idea/deploymentTargetDropDown.xml
 .idea
 
 # Gradle files
