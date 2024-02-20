@@ -7,5 +7,8 @@
     <color name="red">#F56B6C</color>
     <color name="light_gray">#E6E8EB</color>
     <color name="background">#801A1B22</color>
-
+    <color name="white_universal">#FDFDFD</color>
+    <color name="black_universal">#1A1B22</color>
+    <color name="light_red">#F56B6C</color>
+    <color name="fav_background_after_delete">@color/gray</color>
 </resources>
