@@ -9,7 +9,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.ui.main.viewModel.MainViewModel
 
-
 class MainFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,6 +23,5 @@ class MainFragment : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
-
 
 }
