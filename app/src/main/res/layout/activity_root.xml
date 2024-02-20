@@ -25,19 +25,17 @@
         android:background="@color/yp_light_gray"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="parent"
-
-        />
+        app:layout_constraintEnd_toStartOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        style="@style/bottomNavigationView"
         android:id="@+id/bottomNavigationView"
+        style="@style/bottomNavigationView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/rootFragmentContainerView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rootFragmentContainerView"
         app:menu="@menu/bottom_navigation_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
