@@ -5,7 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import org.koin.android.BuildConfig
+import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.ActivityRootBinding
 
@@ -35,7 +35,7 @@ class RootActivity : AppCompatActivity() {
             }
         }
 
-       // networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
+        networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
     }
 
     private fun networkRequestExample(accessToken: String) {
