@@ -18,8 +18,13 @@
     <string name="not_show_without_salary">Не показывать без зарплаты</string>
     <string name="choosing_place_of_work">Выбор места работы</string>
     <string name="country">Страна</string>
+    <string name="choosing_country">Выбор страны</string>
     <string name="region">Регион</string>
     <string name="choosing_region">Выбор региона</string>
+    <string name="enter_region">Введите регион</string>
     <string name="no_region">Такого региона нет</string>
     <string name="failed_to_get_list">Не удалось получить список</string>
+    <string name="apply">Применить</string>
+    <string name="throw_off">Сбросить</string>
+    <string name="choose">Выбрать</string>
 </resources>

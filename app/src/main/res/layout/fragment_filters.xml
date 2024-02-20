@@ -4,16 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.team.TeamFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/back_arrow"
         app:title="@string/filter" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,15 +29,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-        <TextView
-            android:id="@+id/place_of_work"
-            style="@style/filters"
-            android:layout_width="wrap_content"
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/place_of_work"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:focusable="auto"
+            android:hint="@string/place_of_work"
+            android:textColorHint="@color/gray"
+            app:boxBackgroundColor="@color/white"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:cursorColor="#003772E7"
+            app:hintTextColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/place_of_work_arrow"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/place_of_work"
+                style="@style/filters"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:paddingStart="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
             android:id="@+id/place_of_work_arrow"
@@ -44,6 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/arrow"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -60,15 +82,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat">
 
-        <TextView
-            android:id="@+id/department"
-            style="@style/filters"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/department"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:focusable="auto"
+            android:hint="@string/department"
+            android:textColorHint="@color/gray"
+            app:boxBackgroundColor="@color/white"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:cursorColor="#003772E7"
+            app:hintTextColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/department_arrow"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/department1"
+                style="@style/filters"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:paddingStart="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <ImageView
             android:id="@+id/department_arrow"
@@ -76,12 +118,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/arrow"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/outlinedTextFielddiscname"
+        android:id="@+id/expected_salary"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -89,20 +132,27 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:hint="@string/expected_salary"
-        app:boxBackgroundColor="@color/blue"
+        android:textColorHint="@color/gray"
+        app:boxBackgroundColor="#00000000"
+        app:boxBackgroundMode="filled"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
         app:cornerRadius="12dp"
+        app:cursorColor="@color/blue"
+        app:hintTextColor="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat2">
 
         <com.google.android.material.textfield.TextInputEditText
-
-            android:id="@+id/namePlayList"
+            android:id="@+id/expected_salary1"
+            style="@style/filters"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/expected_salary"
             app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat2"
-            tools:text="name" />
+            tools:text="@string/enter_amount" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -116,11 +166,11 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/outlinedTextFielddiscname">
+        app:layout_constraintTop_toBottomOf="@+id/expected_salary">
 
         <TextView
-            android:id="@+id/place_of_work"
-            style="@style/not_show_without_salary"
+            android:id="@+id/place_of_work2"
+            style="@style/black_16_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/not_show_without_salary"
@@ -129,7 +179,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/place_of_work_arrow"
+            android:id="@+id/place_of_work_arrow2"
             style="@style/filters"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -137,5 +187,39 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView2"
+        style="@style/Button"
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/expected_salary"
+        android:backgroundTint="@color/blue"
+        android:gravity="center"
+        android:text="@string/apply"
+        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/expected_salary"
+        android:backgroundTint="#003772E7"
+        android:fontFamily="@font/ys_display_medium"
+        android:gravity="center"
+        android:text="@string/throw_off"
+        android:textColor="@color/red"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
