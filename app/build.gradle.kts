@@ -36,17 +36,33 @@ android {
 
     buildFeatures {
         buildConfig = true
+        viewBinding = true
     }
 }
 
 dependencies {
 
-    implementation ("androidx.navigation:navigation-fragment-ktx:2.5.3")
-    implementation ("androidx.navigation:navigation-ui-ktx:2.5.3")
-    implementation ("androidx.fragment:fragment-ktx:1.5.6")
-
     implementation(libs.androidX.core)
     implementation(libs.androidX.appCompat)
+
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.gson)
+    implementation(libs.retrofit.converter)
+
+    // Glide
+    implementation(libs.glide)
+    implementation(libs.glide.material)
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.navigation.ui.ktx)
+    annotationProcessor(libs.glide.annotationProcessor)
+
+    // Koin
+    implementation(libs.koin)
+
+    // Room
+    implementation(libs.room)
+    implementation(libs.room.ktx)
 
     // UI layer libraries
     implementation(libs.ui.material)
