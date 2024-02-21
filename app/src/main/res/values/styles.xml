@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="MaterialToolbarTextStyle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="textInputStyle">@font/ys_display_medium</item>
         <item name="android:textSize">@dimen/bar_text_size</item>
@@ -61,5 +62,19 @@
         <item name="android:layout_marginTop">@dimen/tv_detailed_vacancy_margin_m</item>
         <item name="android:textColor">?attr/teamTextColor</item>
         <item name="android:textSize">@dimen/tv_team_content_size</item>
+    </style>
+
+    <style name="VacancyDetailsValueTextViewStyle">
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/tv_detailed_vacancy_m</item>
+        <item name="fontWeight">400</item>
+    </style>
+
+    <style name="VacancyDetailsTitleTextViewStyle">
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/tv_detailed_vacancy_l</item>
+        <item name="fontWeight">500</item>
     </style>
 </resources>
