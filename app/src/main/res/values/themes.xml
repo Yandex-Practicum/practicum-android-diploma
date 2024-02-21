@@ -5,7 +5,9 @@
         <item name="colorOnPrimary">@color/yp_black</item>
         <item name="hintTextColor">@color/yp_gray</item>
         <item name="colorPrimaryContainer">@color/yp_light_gray</item>
-
+        <!-- Custom attribute setup -->
+        <item name="teamTextColor">@color/yp_black</item>
+        <item name="bottomNavViewBackgroundColor">@color/yp_white</item>
     </style>
 
     <style name="Theme.PracticumAndroidDiploma" parent="Base.Theme.PracticumAndroidDiploma" />

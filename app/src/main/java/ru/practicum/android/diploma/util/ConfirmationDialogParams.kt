@@ -25,4 +25,3 @@ fun createConfirmationDialog(
         }
         .show()
 }
-

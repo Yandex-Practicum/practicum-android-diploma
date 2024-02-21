@@ -1,17 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
-    <TextView
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftGL"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/border_margin" />
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbarTeam"
+        style="style/MaterialToolbarTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ys_display_medium"
+        android:textColor="?attr/teamTextColor"
+        android:textSize="@dimen/tv_vacancy_title_size"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="Team Fragment"
-        />
+        app:title="@string/nav_team" />
+
+    <TextView
+        android:id="@+id/appWorkTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_24dp"
+        android:fontFamily="@font/ys_display_bold"
+        android:text="@string/best_people"
+        android:textColor="?attr/teamTextColor"
+        android:textSize="@dimen/tv_team_header_size"
+        app:layout_constraintStart_toEndOf="@id/leftGL"
+        app:layout_constraintTop_toBottomOf="@id/toolbarTeam" />
+
+    <TextView
+        android:id="@+id/dev1TextView"
+        style="@style/developerItem"
+        android:layout_marginTop="@dimen/tv_detailed_vacancy_margin_l"
+        android:text="@string/denis"
+        app:layout_constraintStart_toEndOf="@id/leftGL"
+        app:layout_constraintTop_toBottomOf="@id/appWorkTextView" />
+
+    <TextView
+        android:id="@+id/dev2TextView"
+        style="@style/developerItem"
+        android:text="@string/pavel"
+        app:layout_constraintStart_toEndOf="@id/leftGL"
+        app:layout_constraintTop_toBottomOf="@id/dev1TextView" />
+
+    <TextView
+        android:id="@+id/dev3TextView"
+        style="@style/developerItem"
+        android:text="@string/sergey"
+        app:layout_constraintStart_toEndOf="@id/leftGL"
+        app:layout_constraintTop_toBottomOf="@id/dev2TextView" />
+
+    <TextView
+        android:id="@+id/dev4TextView"
+        style="@style/developerItem"
+        android:text="@string/victor"
+        app:layout_constraintStart_toEndOf="@id/leftGL"
+        app:layout_constraintTop_toBottomOf="@id/dev3TextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

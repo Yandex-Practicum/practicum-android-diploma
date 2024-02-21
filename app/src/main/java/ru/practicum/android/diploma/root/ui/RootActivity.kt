@@ -33,13 +33,15 @@ class RootActivity : AppCompatActivity() {
             when (destination.id) {
                 R.id.searchFragment, R.id.favouritesFragment, R.id.teamFragment -> {
                     binding!!.bottomNavigationView.visibility = View.VISIBLE
+                    binding!!.horizontalLine.visibility = View.VISIBLE
                 }
+
                 else -> {
                     binding!!.bottomNavigationView.visibility = View.GONE
+                    binding!!.horizontalLine.visibility = View.GONE
                 }
             }
         }
-
     }
 
     private fun networkRequestExample(accessToken: String) {
