@@ -71,6 +71,7 @@ jobs:
             -   name: Setup environment
                 env:
                     GH_HH_ACCESS_TOKEN: ${{ secrets.GH_HH_ACCESS_TOKEN }}
+                    GH_DEVELOPER_EMAIL: ${{ secrets.GH_DEVELOPER_EMAIL }}
                 run: |
                     sh ci/setup_env.sh
 
