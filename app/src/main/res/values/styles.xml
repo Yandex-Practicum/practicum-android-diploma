@@ -4,7 +4,6 @@
     <style name="MaterialToolbarTextStyle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="textInputStyle">@font/ys_display_medium</item>
         <item name="android:textSize">@dimen/bar_text_size</item>
-        <item name="android:layout_weight">500</item>
     </style>
 
     <style name="EditTextStyle">
@@ -21,23 +20,32 @@
     <style name="VacancyHeaderStyle">
         <item name="android:textColor">?attr/colorOnPrimary</item>
         <item name="fontFamily">@font/ys_display_medium</item>
+        <item name="android:layout_marginStart">12dp</item>
         <item name="android:textSize">@dimen/tv_vacancy_title_size</item>
-        <item name="android:layout_weight">500</item>
     </style>
 
     <style name="VacancyTextStyle">
         <item name="android:textColor">?attr/colorOnPrimary</item>
         <item name="fontFamily">@font/ys_display_regular</item>
+        <item name="android:layout_marginStart">12dp</item>
         <item name="android:textSize">@dimen/tv_vacancy_company_size</item>
-        <item name="android:layout_weight">400</item>
     </style>
 
     <style name="ErrorTextStyle">
         <item name="android:textColor">?attr/colorOnPrimary</item>
         <item name="fontFamily">@font/ys_display_medium</item>
         <item name="android:textSize">@dimen/tv_vacancy_title_size</item>
-        <item name="android:layout_weight">500</item>
         <item name="android:gravity">center</item>
+    </style>
+
+    <style name="VacancyAmountTextViewStyle">
+        <item name="android:layout_marginTop">@dimen/search_margin_s</item>
+        <item name="android:layout_marginBottom">12dp</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingHorizontal">12dp</item>
+        <item name="android:textColor">@color/yp_white</item>
+        <item name="android:textSize">@dimen/tv_button_size</item>
     </style>
 
 </resources>

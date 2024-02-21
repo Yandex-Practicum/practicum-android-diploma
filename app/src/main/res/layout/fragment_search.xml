@@ -52,18 +52,29 @@
         app:layout_constraintEnd_toEndOf="@id/searchEditText"
         app:layout_constraintTop_toTopOf="@+id/searchEditText" />
 
-
     <ImageView
         android:id="@+id/placeholderSearch"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:importantForAccessibility="no"
         android:src="@drawable/placeholder_search_vacancies"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/right_guideline"
         app:layout_constraintStart_toEndOf="@id/left_guideline"
         app:layout_constraintTop_toBottomOf="@+id/searchEditText" />
+
+    <TextView
+        android:id="@+id/tv_vacancy_amount"
+        style="@style/VacancyAmountTextViewStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:background="@drawable/text_view_background"
+        android:text="@string/tv_amount_of_vacancies"
+        app:layout_constraintBottom_toTopOf="@id/vacancyRecycler"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchEditText" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -77,15 +88,28 @@
         app:layout_constraintTop_toBottomOf="@+id/searchEditText" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/vacancyRecycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@id/paginationProgressBar"
+        app:layout_constraintEnd_toStartOf="@id/right_guideline"
+        app:layout_constraintStart_toEndOf="@id/left_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/searchEditText"
+        tools:itemCount="7"
+        tools:listitem="@layout/vacancy_view" />
+
+    <ProgressBar
+        android:id="@+id/paginationProgressBar"
+        android:layout_width="@dimen/progress_bar_size"
+        android:layout_height="@dimen/progress_bar_size"
+        android:layout_marginVertical="@dimen/pagination_margin"
+        android:indeterminateTint="@color/yp_blue"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/right_guideline"
         app:layout_constraintStart_toEndOf="@id/left_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/searchEditText"
-        tools:itemCount="18"
-        tools:listitem="@layout/vacancy_view" />
+        app:layout_constraintTop_toBottomOf="@+id/vacancyRecycler" />
 
     <ImageView
         android:id="@+id/errorPlaceholder"
@@ -96,7 +120,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchEditText"
         tools:src="@drawable/placeholder_no_internet" />
 
     <TextView
