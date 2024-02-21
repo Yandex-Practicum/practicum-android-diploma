@@ -36,6 +36,7 @@
         android:background="@drawable/edit_text_background"
         android:hint="@string/edit_text_hint_search"
         android:paddingStart="@dimen/search_margin_m"
+        android:paddingEnd="64dp"
         app:layout_constraintEnd_toStartOf="@id/right_guideline"
         app:layout_constraintStart_toEndOf="@id/left_guideline"
         app:layout_constraintTop_toBottomOf="@+id/searchToolbar"
