@@ -37,7 +37,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/container"
+        android:id="@+id/searchContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_16"
@@ -75,10 +75,10 @@
         android:layout_height="@dimen/edit_text_height"
         android:layout_marginEnd="@dimen/margin_4"
         android:alpha="0"
-        android:enabled="true"
-        app:layout_constraintBottom_toBottomOf="@id/container"
-        app:layout_constraintEnd_toEndOf="@+id/container"
-        app:layout_constraintTop_toTopOf="@+id/container" />
+        android:enabled="false"
+        app:layout_constraintBottom_toBottomOf="@id/searchContainer"
+        app:layout_constraintEnd_toEndOf="@+id/searchContainer"
+        app:layout_constraintTop_toTopOf="@+id/searchContainer" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/searchResyclerView"
@@ -95,7 +95,7 @@
         app:layout_constrainedHeight="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/container"
+        app:layout_constraintTop_toBottomOf="@id/searchContainer"
         app:layout_constraintBottom_toTopOf="@id/progress_bar"
         tools:itemCount="5"
         tools:listitem="@layout/vacancy_item"
@@ -109,7 +109,7 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/container">
+        app:layout_constraintTop_toBottomOf="@id/searchContainer">
 
         <TextView
             android:id="@+id/tv_rv_header"
@@ -157,7 +157,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/container"
+        app:layout_constraintTop_toBottomOf="@+id/searchContainer"
         app:layout_constraintBottom_toBottomOf="parent"
         >
 
@@ -178,7 +178,7 @@
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/container"
+        app:layout_constraintTop_toBottomOf="@id/searchContainer"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:src="@drawable/image_scull"
         tools:ignore="ContentDescription" />
@@ -207,7 +207,7 @@
         app:layout_constraintBottom_toTopOf="@id/placeholder_message"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/container"
+        app:layout_constraintTop_toBottomOf="@id/searchContainer"
         tools:src="@drawable/error_show_cat"
         tools:ignore="ContentDescription" />
 
