@@ -21,19 +21,18 @@
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/searchToolbar"
-        style="style/MaterialToolbarTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:menu="@menu/search_toolbar_menu"
-        app:title="@string/bar_search" />
+        app:title="@string/bar_search"
+        app:titleTextAppearance="@style/MaterialToolbarTextStyle" />
 
     <EditText
         android:id="@+id/searchEditText"
         style="@style/EditTextStyle"
         android:layout_width="0dp"
-        android:layout_height="48dp"
+        android:layout_height="@dimen/edit_text_height_size"
         android:background="@drawable/edit_text_background"
         android:hint="@string/edit_text_hint_search"
         android:paddingStart="@dimen/search_margin_m"
@@ -46,18 +45,19 @@
         android:id="@+id/icSearchOrCross"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingEnd="@dimen/search_margin_m"
+        android:layout_marginEnd="@dimen/search_margin_m"
+        android:importantForAccessibility="no"
         android:src="@drawable/ic_search"
         app:layout_constraintBottom_toBottomOf="@+id/searchEditText"
         app:layout_constraintEnd_toEndOf="@id/searchEditText"
-        app:layout_constraintTop_toTopOf="@+id/searchEditText"
-        tools:ignore="RtlSymmetry" />
+        app:layout_constraintTop_toTopOf="@+id/searchEditText" />
 
 
     <ImageView
         android:id="@+id/placeholderSearch"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:importantForAccessibility="no"
         android:src="@drawable/placeholder_search_vacancies"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -91,6 +91,7 @@
         android:id="@+id/errorPlaceholder"
         android:layout_width="328dp"
         android:layout_height="223dp"
+        android:importantForAccessibility="no"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="MaterialToolbarTextStyle">
+    <style name="MaterialToolbarTextStyle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="textInputStyle">@font/ys_display_medium</item>
         <item name="android:textSize">@dimen/bar_text_size</item>
+        <item name="android:layout_weight">500</item>
     </style>
 
     <style name="EditTextStyle">

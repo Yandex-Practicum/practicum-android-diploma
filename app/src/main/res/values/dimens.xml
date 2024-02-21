@@ -37,5 +37,6 @@
     <dimen name="search_margin_m">16dp</dimen>
     <dimen name="search_margin_l">32dp</dimen>
     <dimen name="progress_bar_size">36dp</dimen>
+    <dimen name="edit_text_height_size">56dp</dimen>
     <dimen name="guideline_xxl">60dp</dimen>
 </resources>
