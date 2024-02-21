@@ -17,6 +17,9 @@ class VacancyViewModel(
     val vacancyState: LiveData<VacancyState> = _vacancyState
     private var vacancy: DetailVacancy? = null
 
+    private val _shareUrl = MutableLiveData<String?>()
+    val shareUrl: LiveData<String?> get() = _shareUrl
+
     private fun renderState(state: VacancyState) {
         _vacancyState.postValue(state)
     }

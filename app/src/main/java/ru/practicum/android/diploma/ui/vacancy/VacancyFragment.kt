@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.ui.vacancy
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -51,7 +52,15 @@ class VacancyFragment : Fragment() {
                 // SimilarVacanciesFragment.createArgs(vacancyId)
             )
         }
-    }
+
+        viewModel.shareUrl.observe(viewLifecycleOwner) { url ->
+            binding.icSharing.setOnClickListener {
+                val share = Intent(Intent.ACTION_SEND)
+                share.putExtra(Intent.EXTRA_TEXT, url)
+                share.type = "text/plain"
+                requireContext().startActivity(Intent.createChooser(share, "Поделиться ссылкой"))
+            }
+
 
     private fun render(stateLiveData: VacancyState) {
         when (stateLiveData) {
