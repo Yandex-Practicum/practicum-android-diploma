@@ -41,4 +41,8 @@
     <dimen name="pagination_margin">22dp</dimen>
     <dimen name="edit_text_height_size">56dp</dimen>
     <dimen name="guideline_xxl">60dp</dimen>
+    <dimen name="padding_8dp">8dp</dimen>
+    <dimen name="padding_16dp">16dp</dimen>
+    <dimen name="padding_24dp">24dp</dimen>
+    <dimen name="padding_20dp">20dp</dimen>
 </resources>
