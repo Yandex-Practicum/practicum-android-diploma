@@ -14,6 +14,7 @@ import java.util.*
 @Suppress("detekt.UnnecessaryAbstractClass")
 abstract class DevelopPropertiesPluginExtension {
     var hhAccessToken = ""
+    var developerEmailHhApi = ""
 }
 
 class DevelopPropertiesPlugin : Plugin<Project> {
@@ -49,6 +50,9 @@ class DevelopPropertiesPlugin : Plugin<Project> {
         with(extension) {
             properties.getProperty("hhAccessToken")?.let {
                 hhAccessToken = it
+            }
+            properties.getProperty("developerEmailForApi")?.let {
+                developerEmailHhApi = it
             }
         }
     }
