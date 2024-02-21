@@ -40,6 +40,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="empty_list">Список пуст</string>
     <string name="can_not_get_list">Не удалось получить список вакансий</string>
+    <string name="server_error">Ошибка сервера</string>
 
 
 </resources>

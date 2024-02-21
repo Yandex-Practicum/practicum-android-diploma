@@ -14,6 +14,11 @@
         <item name="android:textFontWeight" tools:targetApi="p">700</item>
     </style>
 
+    <style name="Text_Medium_22_500" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">@dimen/font_size_22</item>
+        <item name="fontWeight">500</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+    </style>
     <style name="TextStyleMedium22_500" parent="TextAppearance.AppCompat.Light.SearchResult.Title">
         <item name="android:textSize">@dimen/font_size_22</item>
         <item name="android:fontFamily">@font/ys_display_medium</item>
