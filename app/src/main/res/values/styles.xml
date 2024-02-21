@@ -20,14 +20,12 @@
     <style name="VacancyHeaderStyle">
         <item name="android:textColor">?attr/colorOnPrimary</item>
         <item name="fontFamily">@font/ys_display_medium</item>
-        <item name="android:layout_marginStart">12dp</item>
         <item name="android:textSize">@dimen/tv_vacancy_title_size</item>
     </style>
 
     <style name="VacancyTextStyle">
         <item name="android:textColor">?attr/colorOnPrimary</item>
         <item name="fontFamily">@font/ys_display_regular</item>
-        <item name="android:layout_marginStart">12dp</item>
         <item name="android:textSize">@dimen/tv_vacancy_company_size</item>
     </style>
 
@@ -40,10 +38,10 @@
 
     <style name="VacancyAmountTextViewStyle">
         <item name="android:layout_marginTop">@dimen/search_margin_s</item>
-        <item name="android:layout_marginBottom">12dp</item>
+        <item name="android:layout_marginBottom">@dimen/search_margin_xs</item>
         <item name="android:fontFamily">@font/ys_display_regular</item>
         <item name="android:gravity">center</item>
-        <item name="android:paddingHorizontal">12dp</item>
+        <item name="android:paddingHorizontal">@dimen/search_margin_s</item>
         <item name="android:textColor">@color/yp_white</item>
         <item name="android:textSize">@dimen/tv_button_size</item>
     </style>
