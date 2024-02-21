@@ -25,8 +25,8 @@
     <string name="placeholder_server_error">Ошибка сервера</string>
     <string name="placeholder_no_such_vacancy">Таких вакансий нет</string>
     <string name="placeholder_no_such_region">Такого региона нет</string>
-    <string name="placeholder_cannot_get_list_of_vacancy">Не удалось получить список вакансий</string>
-    <string name="placeholder_cannot_get_list_of_regions">Не удалось получить список</string>
+    <string name="placeholder_cannot_get_list_of_vacancy">Не удалось получить\n список вакансий</string>
+    <string name="placeholder_cannot_get_list_of_regions">Не удалось получить\n список</string>
     <string name="tv_place_of_job">Место работы</string>
     <string name="tv_branch">Отрасль</string>
     <string name="tv_dont_show_without_salary">Не показывать без зарплаты</string>

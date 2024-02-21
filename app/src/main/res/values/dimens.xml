@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="bar_text_size">24sp</dimen>
+    <dimen name="bar_text_size">22sp</dimen>
     <dimen name="edit_text_size">16sp</dimen>
     <dimen name="tv_amount_vacancy_size">16sp</dimen>
     <dimen name="tv_vacancy_title_size">22sp</dimen>
@@ -32,6 +32,15 @@
     <dimen name="tv_detailed_vacancy_margin_s">8dp</dimen>
     <dimen name="tv_detailed_vacancy_margin_m">16dp</dimen>
     <dimen name="tv_detailed_vacancy_margin_l">32dp</dimen>
+    <dimen name="search_margin_xxs">4dp</dimen>
+    <dimen name="search_margin_xs">8dp</dimen>
+    <dimen name="search_margin_s">12dp</dimen>
+    <dimen name="search_margin_m">16dp</dimen>
+    <dimen name="search_margin_l">32dp</dimen>
+    <dimen name="progress_bar_size">48dp</dimen>
+    <dimen name="pagination_margin">22dp</dimen>
+    <dimen name="edit_text_height_size">56dp</dimen>
+    <dimen name="guideline_xxl">60dp</dimen>
     <dimen name="padding_8dp">8dp</dimen>
     <dimen name="padding_16dp">16dp</dimen>
     <dimen name="padding_24dp">24dp</dimen>
