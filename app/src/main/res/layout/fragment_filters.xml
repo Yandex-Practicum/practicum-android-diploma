@@ -48,7 +48,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/place_of_work"
-                style="@style/filters"
+                style="@style/gray_16_regular"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusable="false"
@@ -61,7 +61,7 @@
 
         <ImageView
             android:id="@+id/place_of_work_arrow"
-            style="@style/filters"
+            style="@style/gray_16_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/arrow"
@@ -100,7 +100,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/department1"
-                style="@style/filters"
+                style="@style/gray_16_regular"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusable="false"
@@ -114,7 +114,7 @@
 
         <ImageView
             android:id="@+id/department_arrow"
-            style="@style/filters"
+            style="@style/gray_16_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/arrow"
@@ -147,7 +147,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/expected_salary1"
-            style="@style/filters"
+            style="@style/gray_16_regular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/expected_salary"
@@ -180,7 +180,7 @@
 
         <ImageView
             android:id="@+id/place_of_work_arrow2"
-            style="@style/filters"
+            style="@style/gray_16_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ckeck_box"
@@ -190,7 +190,7 @@
 
     <TextView
         android:id="@+id/textView2"
-        style="@style/Button"
+        style="@style/white_16_medium"
         android:layout_width="match_parent"
         android:layout_height="59dp"
         android:layout_marginStart="17dp"

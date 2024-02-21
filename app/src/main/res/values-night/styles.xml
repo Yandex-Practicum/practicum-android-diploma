@@ -11,7 +11,7 @@
     </style>
 
 
-    <style name="ScreenTitle">
+    <style name="black_22_medium">
         <item name="itemTextColor">@color/white</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">22sp</item>

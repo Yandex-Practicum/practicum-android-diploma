@@ -27,6 +27,8 @@
     <string name="apply">Применить</string>
     <string name="throw_off">Сбросить</string>
     <string name="choose">Выбрать</string>
+    <string name="vacancy">Вакансия</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search">Поиск</string>
