@@ -12,7 +12,7 @@
         style="@style/Text_Header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:padding="@dimen/margin_16"
         android:text="@string/bottomFavorites"
         android:textColor="@color/black_white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,8 +21,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/favorite_vacancy_recycler"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="@dimen/margin_0"
+        android:layout_height="@dimen/margin_0"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
