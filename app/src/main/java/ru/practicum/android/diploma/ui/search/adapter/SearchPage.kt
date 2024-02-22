@@ -25,7 +25,7 @@ class SearchPage(
         if (query.isEmpty()) {
             return LoadResult.Page(emptyList(), prevKey = null, nextKey = null)
         }
-        val page: Int = params.key ?: 0 //params.loadSize
+        val page: Int = params.key ?: 0
         val pageSize: Int = STATIC_PAGE_SIZE
         val response = search(query, page)
         return if (response.data != null) {
