@@ -37,7 +37,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/container"
+        android:id="@+id/searchContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_16"
@@ -56,7 +56,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"
             android:drawableEnd="@drawable/ic_search"
             android:drawablePadding="@dimen/margin_16"
             android:hint="@string/search_request"
@@ -75,30 +74,40 @@
         android:layout_height="@dimen/edit_text_height"
         android:layout_marginEnd="@dimen/margin_4"
         android:alpha="0"
-        android:enabled="true"
-        app:layout_constraintBottom_toBottomOf="@id/container"
-        app:layout_constraintEnd_toEndOf="@+id/container"
-        app:layout_constraintTop_toTopOf="@+id/container" />
+        android:enabled="false"
+        app:layout_constraintBottom_toBottomOf="@id/searchContainer"
+        app:layout_constraintEnd_toEndOf="@+id/searchContainer"
+        app:layout_constraintTop_toTopOf="@+id/searchContainer" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/searchResyclerView"
-        android:layout_width="0dp"
+        android:id="@+id/searchRecyclerView"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin_16"
         android:layout_marginTop="@dimen/margin_10"
         android:layout_marginEnd="@dimen/margin_16"
         android:clipToPadding="false"
         android:paddingTop="@dimen/margin_32"
+        android:paddingBottom="50dp"
         android:visibility="gone"
-        app:flow_verticalBias="0"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constrainedHeight="true"
-        app:layout_constraintBottom_toTopOf="@id/progress_bar"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/container"
-        tools:itemCount="5"
+        app:layout_constraintTop_toBottomOf="@id/searchContainer"
         tools:listitem="@layout/vacancy_item"
+        tools:visibility="gone" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/YP_Blue"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchContainer"
         tools:visibility="visible" />
 
     <FrameLayout
@@ -109,7 +118,7 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/container">
+        app:layout_constraintTop_toBottomOf="@id/searchContainer">
 
         <TextView
             android:id="@+id/tv_rv_header"
@@ -123,10 +132,9 @@
             android:text="@string/no_vacancy"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:visibility="visible"
-            tools:visibility="gone" />
+            android:visibility="gone"
+            tools:visibility="visible" />
     </FrameLayout>
-
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/top_guideline"
@@ -135,81 +143,30 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="190dp" />
 
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:foregroundGravity="center"
-        android:indeterminate="true"
-        android:indeterminateTint="@color/YP_Blue"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchResyclerView"
-        tools:visibility="visible" />
-
-    <FrameLayout
-
+    <ImageView
+        android:id="@+id/imageBinoculars"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/container">
-
-        <ImageView
-            android:id="@+id/image_binoculars"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="invisible"
-            tools:src="@drawable/state_image_start_search" />
-    </FrameLayout>
+        app:layout_constraintTop_toBottomOf="@+id/searchContainer"
+        android:src="@drawable/state_image_start_search" />
 
     <ImageView
         android:id="@+id/placeholder_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/container"
+        app:layout_constraintTop_toBottomOf="@id/searchContainer"
         tools:ignore="ContentDescription"
-        tools:src="@drawable/state_image_no_internet" />
+        android:src="@drawable/state_image_no_internet" />
 
     <TextView
-        android:id="@+id/placeholder_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:textAlignment="center"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/placeholder_image"
-        tools:text="@string/no_internet" />
-
-
-    <ImageView
-        android:id="@+id/placeholder_error_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="112dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@id/placeholder_message"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/container"
-        tools:ignore="ContentDescription"
-        tools:src="@drawable/state_image_nothing_found" />
-
-    <TextView
-        android:id="@+id/placeholder_error"
+        android:id="@+id/placeholderMessageTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -219,6 +176,38 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/placeholder_image"
-        tools:text="@string/no_list_vacancies" />
+        android:textStyle="bold"
+        tools:text="@string/no_internet"
+        tools:visibility="visible"/>
+
+
+    <ImageView
+        android:id="@+id/placeholderErrorImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/state_image_nothing_found"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchContainer"
+        tools:ignore="ContentDescription"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/placeholderErrorTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/placeholder_image"
+        tools:text="@string/no_list_vacancies"
+        android:textStyle="bold"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,13 +6,6 @@
     android:paddingVertical="@dimen/margin_9"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="@dimen/edit_text_height" />
-
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
         android:layout_width="@dimen/edit_text_height"
@@ -40,7 +33,7 @@
     <TextView
         android:id="@+id/tv_vacancy_name"
         style="@style/Text_Header"
-        android:textFontWeight="500"
+        android:textStyle="bold"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_12"
@@ -54,13 +47,11 @@
     <TextView
         android:id="@+id/department"
         style="@style/Text_Standard"
-        android:textFontWeight="400"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_12"
         android:ellipsize="end"
         android:maxLines="1"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/card"
         app:layout_constraintTop_toBottomOf="@id/tv_vacancy_name"
@@ -69,7 +60,6 @@
     <TextView
         android:id="@+id/salary"
         style="@style/Text_Standard"
-        android:textFontWeight="400"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_12"
