@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.data.network.Resource
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.ui.search.adapter.SearchPage
+import ru.practicum.android.diploma.ui.search.adapter.SearchPage.Companion.STATIC_PAGE_SIZE
 import java.util.UUID
 
 class SearchViewModel : ViewModel() {
@@ -25,7 +26,7 @@ class SearchViewModel : ViewModel() {
     }
 
     fun getPagingData(search: String): StateFlow<PagingData<Vacancy>> {
-        return Pager(PagingConfig(pageSize = 20)) {
+        return Pager(PagingConfig(pageSize = STATIC_PAGE_SIZE)) {
             SearchPage(
                 { it1, it2 ->
                     fakeData(it1, it2)
@@ -45,12 +46,11 @@ class SearchViewModel : ViewModel() {
 
     suspend fun fakeData(expression: String, page: Int): Resource<List<Vacancy>> {
         val list = mutableListOf<Vacancy>()
-        for (i in 0 until 20) {
+        for (i in 0 until STATIC_PAGE_SIZE) {
             list.add(
                 Vacancy(
                     id = UUID.randomUUID().toString(),
-                    name = "$expression Станица:$page Номер:$i",
-                    null, null, null, null, null, null,
+                    name = "$expression Станица:$page Номер:$i", null, null, null, null, null, null,
                 )
             )
         }
