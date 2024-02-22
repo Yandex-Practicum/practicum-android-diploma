@@ -107,6 +107,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchContainer"
         tools:visibility="visible" />
 
     <FrameLayout
@@ -143,14 +144,14 @@
         app:layout_constraintGuide_begin="190dp" />
 
     <ImageView
-        android:id="@+id/image_binoculars"
+        android:id="@+id/imageBinoculars"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchContainer"
-        android:src="@drawable/image_binoculars" />
+        android:src="@drawable/state_image_start_search" />
 
     <ImageView
         android:id="@+id/placeholder_image"
@@ -162,39 +163,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/searchContainer"
         tools:ignore="ContentDescription"
-        android:src="@drawable/image_scull" />
+        android:src="@drawable/state_image_no_internet" />
 
     <TextView
-        android:id="@+id/placeholder_message"
+        android:id="@+id/placeholderMessageTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:textAlignment="center"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/placeholder_image"
-        tools:text="@string/no_internet" />
+        android:textStyle="bold"
+        tools:text="@string/no_internet"
+        tools:visibility="visible"/>
 
 
     <ImageView
-        android:id="@+id/placeholder_error_image"
+        android:id="@+id/placeholderErrorImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="112dp"
+        android:src="@drawable/state_image_nothing_found"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@id/placeholder_message"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/searchContainer"
         tools:ignore="ContentDescription"
-        android:src="@drawable/error_show_cat"
         tools:visibility="visible" />
 
     <TextView
-        android:id="@+id/placeholder_error"
+        android:id="@+id/placeholderErrorTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -205,6 +207,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/placeholder_image"
         tools:text="@string/no_list_vacancies"
+        android:textStyle="bold"
         tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

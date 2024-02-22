@@ -76,9 +76,9 @@ class MainFragment : Fragment() {
                     binding.searchRecyclerView.visibleOrGone(state.state is SearchState.Content || state.state is SearchState.Loading)
                     binding.imageBinoculars.visibleOrGone(state.state == null)
                     binding.placeholderImage.visibleOrGone(state.state is SearchState.Error)
-                    binding.placeholderMessage.visibleOrGone(state.state is SearchState.Error)
-                    binding.placeholderError.visibleOrGone(state.state is SearchState.Empty)
-                    binding.placeholderErrorImage.visibleOrGone(state.state is SearchState.Empty)
+                    binding.placeholderMessageTextView.visibleOrGone(state.state is SearchState.Error)
+                    binding.placeholderErrorTextView.visibleOrGone(state.state is SearchState.Empty)
+                    binding.placeholderErrorImageView.visibleOrGone(state.state is SearchState.Empty)
 
                 }
             }

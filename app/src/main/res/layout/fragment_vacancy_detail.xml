@@ -471,7 +471,7 @@
             tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@+id/placeholder_message"
+            android:id="@+id/placeholdeMessageTextView"
             style="@style/Text_Header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
