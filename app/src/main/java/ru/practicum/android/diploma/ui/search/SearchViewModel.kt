@@ -30,12 +30,9 @@ class SearchViewModel : ViewModel() {
             SearchPage(
                 { it1, it2 ->
                     fakeData(it1, it2)
-                },
-                search
+                }, search
             )
-        }
-            .flow
-            .stateIn(viewModelScope, SharingStarted.Lazily, PagingData.empty())
+        }.flow.stateIn(viewModelScope, SharingStarted.Lazily, PagingData.empty())
     }
 
     fun search(vacancy: String) {
@@ -50,7 +47,13 @@ class SearchViewModel : ViewModel() {
             list.add(
                 Vacancy(
                     id = UUID.randomUUID().toString(),
-                    name = "$expression Станица:$page Номер:$i", null, null, null, null, null, null,
+                    name = "$expression Станица:$page Номер:$i",
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
                 )
             )
         }
