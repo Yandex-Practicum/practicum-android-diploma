@@ -27,11 +27,9 @@ class SearchViewModel : ViewModel() {
 
     fun getPagingData(search: String): StateFlow<PagingData<Vacancy>> {
         return Pager(PagingConfig(pageSize = STATIC_PAGE_SIZE)) {
-            SearchPage(
-                { it1, it2 ->
-                    fakeData(it1, it2)
-                }, search
-            )
+            SearchPage(search) { it1, it2 ->
+                fakeData(it1, it2)
+            }
         }.flow.stateIn(viewModelScope, SharingStarted.Lazily, PagingData.empty())
     }
 
