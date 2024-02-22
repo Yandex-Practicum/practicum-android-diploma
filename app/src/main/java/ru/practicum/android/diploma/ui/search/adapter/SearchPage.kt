@@ -6,8 +6,8 @@ import ru.practicum.android.diploma.data.network.Resource
 import ru.practicum.android.diploma.domain.models.Vacancy
 
 class SearchPage(
-    val search: suspend (expression: String, page: Int) -> Resource<List<Vacancy>>,
-    private val query: String
+    private val query: String,
+    private val search: suspend (expression: String, page: Int) -> Resource<List<Vacancy>>,
 ) : PagingSource<Int, Vacancy>() {
 
     override fun getRefreshKey(state: PagingState<Int, Vacancy>): Int? {
