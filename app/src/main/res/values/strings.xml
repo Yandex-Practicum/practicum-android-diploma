@@ -37,7 +37,7 @@
     <string name="tv_conditions">Условия</string>
     <string name="tv_key_skills">Ключевые навыки</string>
     <string name="tv_contacts">Контакты</string>
-    <string name="tv_percon_in_charge">Контактное лицо</string>
+    <string name="tv_person_in_charge">Контактное лицо</string>
     <string name="tv_email">E-mail</string>
     <string name="tv_phone_number">Телефон</string>
     <string name="tv_comment">Комментарий</string>
