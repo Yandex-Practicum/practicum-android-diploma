@@ -15,7 +15,7 @@ class SearchPage(
         if (anchorPosition != null) {
             val page = state.closestPageToPosition(anchorPosition)
             if (page != null) {
-               return page.prevKey?.plus(1) ?: page.nextKey?.minus(1)
+                return page.prevKey?.plus(1) ?: page.nextKey?.minus(1)
             }
         }
         return null
@@ -25,8 +25,7 @@ class SearchPage(
         if (query.isEmpty()) {
             return LoadResult.Page(emptyList(), prevKey = null, nextKey = null)
         }
-        val page: Int = params.key ?: 0
-        //params.loadSize
+        val page: Int = params.key ?: 0 //params.loadSize
         val pageSize: Int = STATIC_PAGE_SIZE
         val response = search(query, page)
         return if (response.data != null) {
@@ -38,7 +37,7 @@ class SearchPage(
         }
     }
 
-    companion object{
+    companion object {
         const val STATIC_PAGE_SIZE = 20
     }
 }
