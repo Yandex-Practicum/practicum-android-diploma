@@ -40,13 +40,14 @@
     <TextView
         android:id="@+id/tv_vacancy_name"
         style="@style/Text_Header"
-        android:textFontWeight="500"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_12"
         android:ellipsize="end"
         android:maxLines="3"
+        android:textFontWeight="500"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/card"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Разработчик на С++ в команду внутренних сервисов, Москва" />
@@ -69,13 +70,14 @@
     <TextView
         android:id="@+id/salary"
         style="@style/Text_Standard"
-        android:textFontWeight="400"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_12"
         android:ellipsize="end"
         android:maxLines="1"
+        android:textFontWeight="400"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/card"
         app:layout_constraintTop_toBottomOf="@id/department"
         tools:text="от 40 000 до 80 000 ₽" />

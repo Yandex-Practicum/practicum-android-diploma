@@ -51,9 +51,9 @@
         tools:layout="@layout/fragment_region" />
     <fragment
         android:id="@+id/vacanciesFragment"
-        android:name="ru.practicum.android.diploma.ui.vacancies.VacanciesFragment"
+        android:name="ru.practicum.android.diploma.ui.vacancydetail.VacancyDetailFragment"
         android:label="fragment_vacancies"
-        tools:layout="@layout/fragment_vacancies" >
+        tools:layout="@layout/fragment_vacancy_detail" >
         <action
             android:id="@+id/action_vacanciesFragment_to_similarVacanciesFragment"
             app:destination="@id/similarVacanciesFragment" />

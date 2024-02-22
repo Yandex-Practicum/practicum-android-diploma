@@ -13,5 +13,16 @@
     <string name="no_list_vacancies"><![CDATA[no_list_vacancies\">Не удалось получить \\n список вакансий]]></string>
     <string name="no_internet">Нет интернета</string>
     <string name="no_vacancy">Таких вакансий нет</string>
-    <string name="search_request">Введите запрос</string>
+    <string name="vacancy">Вакансия</string>
+    <string name="experience">Требуемый опыт</string>
+    <string name="description">Описание вакансии</string>
+    <string name="key_skills">Ключевые навыки</string>
+    <string name="contacts">Контакты</string>
+    <string name="contact_name">Контактное лицо</string>
+    <string name="email">E-mail</string>
+    <string name="phone">Телефон</string>
+    <string name="comment">Комментарий</string>
+    <string name="similar_vacancy">Похожие вакансии</string>
+    <string name="comma">, </string>
+    <string name="server_error">Ошибка сервера</string>
 </resources>
