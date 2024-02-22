@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.vacancydetail.VacancyDetailFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/navigation_toolbar"
+            style="@style/Text_Header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="@string/vacancy"
+            app:navigationIcon="@drawable/arrow_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/ibbuttonLike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_8"
+                android:layout_gravity="end"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/like_icon"/>
+
+            <ImageView
+                android:id="@+id/ibbuttonShare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_4"
+                android:layout_gravity="end"
+                android:src="@drawable/share_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.appcompat.widget.Toolbar>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clvacancy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/navigation_toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/leftBorder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="16dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/rightBorder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="16dp" />
+
+        <TextView
+            android:id="@+id/tvvacancy_name"
+            style="@style/Text_Main_Header"
+            android:textFontWeight="700"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_24"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:ellipsize="end"
+            app:layout_constraintEnd_toEndOf="@id/rightBorder"
+            app:layout_constraintStart_toStartOf="@id/leftBorder"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Android-разработчик">
+        </TextView>
+
+        <TextView
+            android:id="@+id/tvsalary"
+            style="@style/Text_Header"
+            android:textFontWeight="500"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_4"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:ellipsize="end"
+            app:layout_constraintEnd_toEndOf="@id/rightBorder"
+            app:layout_constraintStart_toStartOf="@id/leftBorder"
+            app:layout_constraintTop_toBottomOf="@id/tvvacancy_name"
+            tools:text="от 100 000 ₽">
+        </TextView>
+
+        <FrameLayout
+            android:id="@+id/flcompany_card"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_24"
+            app:layout_constraintEnd_toEndOf="@id/rightBorder"
+            app:layout_constraintStart_toStartOf="@id/leftBorder"
+            app:layout_constraintTop_toBottomOf="@id/tvsalary"
+            android:background="@drawable/rounded_rectangle">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/margin_16">
+
+                <ImageView
+                    android:id="@+id/ivcompany_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_16"
+                    android:layout_marginStart="@dimen/margin_16"
+                    android:src="@drawable/placeholder_company_icon"
+                    android:background="@drawable/company_icon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </ImageView>
+
+                <TextView
+                    android:id="@+id/tvcompany_name"
+                    style="@style/Text_Header_Company_Card"
+                    android:textFontWeight="500"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_16"
+                    android:layout_marginEnd="@dimen/margin_16"
+                    android:layout_marginStart="@dimen/margin_8"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    android:ellipsize="end"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ivcompany_icon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Еда">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/tvcompany_area"
+                    style="@style/Text_Standard_Company_Card"
+                    android:textFontWeight="400"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_16"
+                    android:layout_marginStart="@dimen/margin_8"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    android:ellipsize="end"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ivcompany_icon"
+                    app:layout_constraintTop_toBottomOf="@id/tvcompany_name"
+                    tools:text="Москва">
+                </TextView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </FrameLayout>
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="flcompany_card"
+            app:barrierDirection="bottom" />
+
+        <LinearLayout
+            android:id="@+id/llexperience_employment_and_schedule"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@id/rightBorder"
+            app:layout_constraintStart_toStartOf="@id/leftBorder"
+            app:layout_constraintTop_toBottomOf="@id/barrier"
+            android:layout_marginTop="@dimen/margin_24">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tvexperiencelabel"
+                    style="@style/Text_Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/experience"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    android:ellipsize="end"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/tvexperience"
+                    style="@style/Text_Standard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    android:ellipsize="end"
+                    android:layout_marginTop="@dimen/margin_4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvexperiencelabel"
+                    tools:text="От 1 года до 3 лет">
+                </TextView>
+
+                <RelativeLayout
+                    android:id="@+id/rlemployment_and_schedule"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:layout_marginTop="@dimen/margin_8"
+                    app:layout_constraintTop_toBottomOf="@id/tvexperience"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_width="0dp">
+
+                    <TextView
+                        android:id="@+id/tvemployment"
+                        style="@style/Text_Standard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toStartOf="@id/comma"
+                        tools:text="Полная занятость" />
+
+                    <TextView
+                        android:id="@+id/comma"
+                        style="@style/Text_Standard"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_marginVertical="4dp"
+                        android:text="@string/comma"
+                        android:layout_toStartOf="@id/tvschedule" />
+
+                    <TextView
+                        android:id="@+id/tvschedule"
+                        style="@style/Text_Standard"
+                        tools:text="Удаленная работа"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_alignParentRight="true" />
+
+                </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvdescription_label"
+            style="@style/Text_Main_Header"
+            android:textFontWeight="500"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_32"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/leftBorder"
+            app:layout_constraintTop_toBottomOf="@id/llexperience_employment_and_schedule"
+            android:text="@string/description">
+        </TextView>
+
+        <TextView
+            android:id="@+id/tvdescription"
+            style="@style/Text_Standard"
+            android:textFontWeight="400"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:ellipsize="end"
+            app:layout_constraintEnd_toEndOf="@id/rightBorder"
+            app:layout_constraintStart_toEndOf="@id/leftBorder"
+            app:layout_constraintTop_toBottomOf="@id/tvdescription_label"
+            tools:text="Обязанности, требования и условия">
+        </TextView>
+
+        <TextView
+            android:id="@+id/tvkey_skills_label"
+            style="@style/Text_Main_Header"
+            android:textFontWeight="500"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_24"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/leftBorder"
+            app:layout_constraintTop_toBottomOf="@id/tvdescription"
+            android:text="@string/key_skills">
+        </TextView>
+
+        <TextView
+            android:id="@+id/tvkey_skills"
+            style="@style/Text_Standard"
+            android:textFontWeight="400"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:ellipsize="end"
+            app:layout_constraintEnd_toEndOf="@id/rightBorder"
+            app:layout_constraintStart_toEndOf="@id/leftBorder"
+            app:layout_constraintTop_toBottomOf="@id/tvkey_skills_label"
+            tools:text="разные ключевые навыки">
+        </TextView>
+
+        <TextView
+            android:id="@+id/tvcontacts_label"
+            style="@style/Text_Main_Header"
+            android:textFontWeight="500"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_24"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/leftBorder"
+            app:layout_constraintTop_toBottomOf="@id/tvkey_skills"
+            android:text="@string/contacts">
+        </TextView>
+
+        <TextView
+            android:id="@+id/tvcontact_name_label"
+            style="@style/Text_Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/contact_name"
+            android:layout_marginTop="@dimen/margin_16"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/leftBorder"
+            app:layout_constraintTop_toBottomOf="@id/tvcontacts_label">
+        </TextView>
+
+        <TextView
+            android:id="@+id/tvcontact_name"
+            style="@style/Text_Standard"
+            android:textFontWeight="400"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_4"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:ellipsize="end"
+            app:layout_constraintEnd_toEndOf="@id/rightBorder"
+            app:layout_constraintStart_toEndOf="@id/leftBorder"
+            app:layout_constraintTop_toBottomOf="@id/tvcontact_name_label"
+            tools:text="Имя Фамилия">
+        </TextView>
+
+        <TextView
+            android:id="@+id/tvcontact_email_label"
+            style="@style/Text_Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/email"
+            android:layout_marginTop="@dimen/margin_16"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/leftBorder"
+            app:layout_constraintTop_toBottomOf="@id/tvcontact_name">
+        </TextView>
+
+        <TextView
+            android:id="@+id/tvcontact_email"
+            style="@style/Text_Standard"
+            android:textFontWeight="400"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_4"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:ellipsize="end"
+            app:layout_constraintEnd_toEndOf="@id/rightBorder"
+            app:layout_constraintStart_toEndOf="@id/leftBorder"
+            app:layout_constraintTop_toBottomOf="@id/tvcontact_email_label"
+            android:clickable="true"
+            android:textColor="@color/YP_Blue"
+            tools:text="name.secondname@yandex.ru">
+        </TextView>
+
+        <TextView
+            android:id="@+id/tvcontact_phone_label"
+            style="@style/Text_Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/phone"
+            android:layout_marginTop="@dimen/margin_16"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/leftBorder"
+            app:layout_constraintTop_toBottomOf="@id/tvcontact_email">
+        </TextView>
+
+        <TextView
+            android:id="@+id/tvcontact_phone"
+            style="@style/Text_Standard"
+            android:textFontWeight="400"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_4"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:ellipsize="end"
+            app:layout_constraintEnd_toEndOf="@id/rightBorder"
+            app:layout_constraintStart_toEndOf="@id/leftBorder"
+            app:layout_constraintTop_toBottomOf="@id/tvcontact_phone_label"
+            android:clickable="true"
+            android:textColor="@color/YP_Blue"
+            tools:text="+7(904)329-27-71">
+        </TextView>
+
+        <TextView
+            android:id="@+id/tvcontact_comment_label"
+            style="@style/Text_Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/comment"
+            android:layout_marginTop="@dimen/margin_16"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/leftBorder"
+            app:layout_constraintTop_toBottomOf="@id/tvcontact_phone">
+        </TextView>
+
+        <TextView
+            android:id="@+id/tvcontact_comment"
+            style="@style/Text_Standard"
+            android:textFontWeight="400"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_4"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:ellipsize="end"
+            app:layout_constraintEnd_toEndOf="@id/rightBorder"
+            app:layout_constraintStart_toEndOf="@id/leftBorder"
+            app:layout_constraintTop_toBottomOf="@id/tvcontact_comment_label"
+            tools:text="Заполнить анкету по форме можно на нашем сайте">
+        </TextView>
+
+        <Button
+            android:id="@+id/bbutton_similar"
+            android:layout_width="0dp"
+            style="@style/Text_Label"
+            android:textColor="@color/bottom_nav_back"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_24"
+            app:layout_constraintEnd_toEndOf="@id/rightBorder"
+            app:layout_constraintStart_toStartOf="@id/leftBorder"
+            app:layout_constraintTop_toBottomOf="@id/tvcontact_comment"
+            app:cornerRadius="@dimen/radius_12"
+            android:backgroundTint="@color/YP_Blue"
+            android:text="@string/similar_vacancy"
+            android:padding="@dimen/margin_20"
+            android:foreground="?attr/selectableItemBackground">
+        </Button>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:indeterminateTint="@color/YP_Blue"
+            android:foregroundGravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/navigation_toolbar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/placeholder_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/navigation_toolbar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:src="@drawable/image_error_server_1"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/placeholder_message"
+            style="@style/Text_Header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:textAlignment="center"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/placeholder_image"
+            tools:text="@string/server_error" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
