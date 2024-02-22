@@ -20,4 +20,7 @@
     <color name="system_dark">#121212</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#AEAFB4</color>
     <color name="bottom_nav_back">#FFFDFDFD</color>
+
+    <color name="black_white">#1A1B22</color>
+    <color name="white_black">#FDFDFD</color>
 </resources>
