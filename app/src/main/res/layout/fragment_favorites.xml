@@ -12,7 +12,6 @@
         style="@style/Text_Header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
         android:padding="16dp"
         android:text="@string/bottomFavorites"
         android:textColor="@color/black_white"
@@ -28,13 +27,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/favorite_text" />
+        app:layout_constraintTop_toBottomOf="@id/favorite_text"
+        tools:listitem="@layout/vacancy_item" />
 
     <LinearLayout
         android:id="@+id/favorite_empty_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="@dimen/margin_170"
         android:orientation="vertical"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,6 +50,7 @@
             style="@style/Text_Header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16"
             android:layout_gravity="center"
             android:text="@string/fav_empty_list" />
     </LinearLayout>
@@ -58,7 +59,7 @@
         android:id="@+id/favorite_nothing_found"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="@dimen/margin_170"
         android:orientation="vertical"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
@@ -74,6 +75,7 @@
             style="@style/Text_Header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16"
             android:layout_gravity="center"
             android:gravity="center"
             android:text="@string/fav_nothing_found" />
