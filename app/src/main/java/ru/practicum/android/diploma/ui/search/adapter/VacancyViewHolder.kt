@@ -10,7 +10,6 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.Vacancy
 
-
 class VacancyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     //восстановить
     // val convertSalary = ConvertSalary()
