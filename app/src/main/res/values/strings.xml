@@ -2,16 +2,22 @@
     <string name="app_name">Practicum-Android-Diploma</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="devOneName">Григораш Артём Сергеевич</string>
     <string name="devTwoName">Мальцев Валентин Вадимович</string>
     <string name="devThreeName">Маркович Никита Иванович</string>
     <string name="devFourName">Шостак Максим Иванович</string>
+
     <string name="bottomMain">Главная</string>
     <string name="bottomFavorites">Избранное</string>
     <string name="bottomSquad">Команда</string>
+
     <string name="squad">Команда</string>
     <string name="no_list_vacancies">Не удалось получить список вакансий</string>
     <string name="no_internet">Нет интернета</string>
     <string name="no_vacancy">Таких вакансий нет</string>
     <string name="search_request">Введите запрос</string>
+
+    <string name="fav_empty_list">Список пуст</string>
+    <string name="fav_nothing_found">Не удалось получить \nсписок вакансий</string>
 </resources>

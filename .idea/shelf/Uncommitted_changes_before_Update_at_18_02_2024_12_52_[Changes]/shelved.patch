@@ -1,0 +1,34 @@
+Index: .gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># IntelliJ\r\n*.iml\r\n/.idea/caches\r\n/.idea/libraries\r\n/.idea/modules.xml\r\n/.idea/workspace.xml\r\n/.idea/navEditor.xml\r\n/.idea/assetWizardSettings.xml\r\n/.idea/kotlinc.xml\r\n/.idea/gradle.xml\r\n/.idea/compiler.xml\r\n/.idea/misc.xml\r\n\r\n# Gradle files\r\n.gradle/\r\nbuild/\r\nout/\r\n\r\n# Local configuration file (sdk path, etc)\r\nlocal.properties\r\ndevelop.properties\r\n\r\n# Gradle-profiler data\r\nprofile-out*/\r\ngradle-user-home/\r\n*.hprof\r\n\r\n# Android Studio generated files and folders\r\ncaptures/\r\n.externalNativeBuild/\r\n.cxx/\r\noutput.json\r\n\r\n# Built application files\r\n*.apk\r\n*.aar\r\n*.ap_\r\n*.aab\r\n\r\n# Keystore files\r\n*.jks\r\n*.keystore\r\n\r\n# Google Services (e.g. APIs or Firebase)\r\ngoogle-services.json\r\n\r\n# OS specific\r\n.DS_Store\r\n*.log\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.gitignore b/.gitignore
+--- a/.gitignore	(revision b2c5afb6129573783f61adb3fed8a30256c035e2)
++++ b/.gitignore	(date 1708249928811)
+@@ -47,3 +47,4 @@
+ # OS specific
+ .DS_Store
+ *.log
++/.idea/deploymentTargetDropDown.xml
+Index: app/src/main/java/ru/practicum/android/diploma/ui/root/RootActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.ui.root\r\n\r\nimport android.os.Bundle\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport ru.practicum.android.diploma.BuildConfig\r\nimport ru.practicum.android.diploma.R\r\n\r\nclass RootActivity : AppCompatActivity() {\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n        setContentView(R.layout.activity_root)\r\n\r\n        // Пример использования access token для HeadHunter API\r\n        networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)\r\n    }\r\n\r\n    private fun networkRequestExample(accessToken: String) {\r\n        // ...\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/ui/root/RootActivity.kt b/app/src/main/java/ru/practicum/android/diploma/ui/root/RootActivity.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/ui/root/RootActivity.kt	(revision b2c5afb6129573783f61adb3fed8a30256c035e2)
++++ b/app/src/main/java/ru/practicum/android/diploma/ui/root/RootActivity.kt	(date 1708249707860)
+@@ -11,7 +11,7 @@
+         setContentView(R.layout.activity_root)
+ 
+         // Пример использования access token для HeadHunter API
+-        networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
++//        networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
+     }
+ 
+     private fun networkRequestExample(accessToken: String) {
