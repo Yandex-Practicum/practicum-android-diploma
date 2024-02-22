@@ -29,4 +29,5 @@
     <dimen name="margin_88">88dp</dimen>
     <dimen name="margin_112">112dp</dimen>
     <dimen name="margin_150">150dp</dimen>
+    <dimen name="margin_170">170dp</dimen>
 </resources>
