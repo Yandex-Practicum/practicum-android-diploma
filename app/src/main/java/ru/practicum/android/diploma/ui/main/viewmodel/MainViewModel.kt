@@ -37,17 +37,17 @@ class MainViewModel(
 
     var vacancyList: List<Vacancy>? = ArrayList()
 
-    fun searchRequest(text: String){
+    fun searchRequest(text: String) {
         if (text.isNotEmpty()) {
             state.update { it.copy(state = SearchState.Loading) }
 
-            val hm = HashMap<String,String>()
-            hm.put(text,text)
+            val hm = HashMap<String, String>()
+            hm.put(text, text)
 
             viewModelScope.launch {
                 repository.makeRequest(VacanciesSearchRequest(text))
-                    .collect{ vacancies ->
-                        when(vacancies){
+                    .collect { vacancies ->
+                        when (vacancies) {
                             is Resource.Error -> {
                                 state.update { it.copy(state = SearchState.Error) }
                                 Log.d("SearchState", "Error")
@@ -67,7 +67,6 @@ class MainViewModel(
             }
         }
     }
-
 
     private fun processResult(foundVacancy: List<Vacancy>?) {
         val vacancy = mutableListOf<Vacancy>()
