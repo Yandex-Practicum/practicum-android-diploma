@@ -29,15 +29,24 @@ class MainViewModel(
         state.update { it.copy(state = SearchState.Loading) }
 
         viewModelScope.launch {
-            delay(2000) //TODO SearchVacancyInteractor(text)
-            searchRequest(text)
-//            state.update { it.copy(state = SearchState.Error) }
+            val vacancies = try {
+                 repository.getVacancyByQuery(text)
+            } catch (e: Exception) {
+                state.update { it.copy(state = SearchState.Error) }
+                return@launch
+            }
+
+            if (vacancies.isEmpty()) {
+                state.update { it.copy(state = SearchState.Empty) }
+            } else {
+                state.update { it.copy(state = SearchState.Content(vacancies)) }
+            }
         }
     }
 
     var vacancyList: List<Vacancy>? = ArrayList()
 
-    fun searchRequest(text: String) {
+    private fun searchRequest(text: String) {
         if (text.isNotEmpty()) {
             state.update { it.copy(state = SearchState.Loading) }
 
