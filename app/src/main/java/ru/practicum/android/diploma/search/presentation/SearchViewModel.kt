@@ -11,11 +11,9 @@ import ru.practicum.android.diploma.search.domain.usecase.SearchVacancyUseCase
 import ru.practicum.android.diploma.util.Resource
 
 class SearchViewModel(private val searchVacancyUseCase: SearchVacancyUseCase) : ViewModel() {
-    init {
-        renderState(SearchState.Default)
-    }
 
-    private val stateLiveData = MutableLiveData<SearchState>()
+    private var searchFilterParameters: SearchFilterParameters = createDefaultSearchFilterParameters()
+    private val stateLiveData = MutableLiveData<SearchState>(SearchState.Default)
     fun observeState(): LiveData<SearchState> = stateLiveData
 
     private fun renderState(state: SearchState) {
@@ -25,8 +23,9 @@ class SearchViewModel(private val searchVacancyUseCase: SearchVacancyUseCase) : 
     fun initSearch(
         searchText: String,
         page: Int,
-        filterParameters: SearchFilterParameters
+        mockedFilterParameters: SearchFilterParameters?
     ) {
+        val filterParameters = mockedFilterParameters ?: SearchFilterParameters()
         if (searchText.isNotEmpty()) {
             renderState(SearchState.Loading)
             viewModelScope.launch(Dispatchers.IO) {
@@ -54,5 +53,13 @@ class SearchViewModel(private val searchVacancyUseCase: SearchVacancyUseCase) : 
 
     fun clearSearch() {
         stateLiveData.postValue(SearchState.Default)
+    }
+
+    fun setMockedFilterParameters(parameters: SearchFilterParameters) {
+        searchFilterParameters = parameters
+    }
+
+    private fun createDefaultSearchFilterParameters(): SearchFilterParameters {
+        return SearchFilterParameters()
     }
 }
