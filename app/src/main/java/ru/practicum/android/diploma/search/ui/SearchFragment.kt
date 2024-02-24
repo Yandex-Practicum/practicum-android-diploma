@@ -32,6 +32,11 @@ class SearchFragment : Fragment() {
         viewModel.observeState().observe(viewLifecycleOwner) {
             render(it)
         }
+        setupListeners()
+    }
+
+    private fun setupListeners() {
+
     }
 
     private fun render(it: SearchState) {
