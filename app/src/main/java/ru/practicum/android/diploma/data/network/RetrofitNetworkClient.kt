@@ -32,7 +32,7 @@ class RetrofitNetworkClient(
         return when (dto) {
             is VacanciesSearchRequest ->
                 try {
-                    val response = jobVacancySearchApi.getVacancyList(dto.queryMap)
+                    val response = jobVacancySearchApi.getVacancyDetail(dto.queryMap)
                     response.apply { resultCode = ResponseCodes.SUCCESS }
                 } catch (e: Throwable) {
                 Response().apply { resultCode = ResponseCodes.ERROR }
