@@ -89,7 +89,12 @@ class VacancyFragment : Fragment() {
         Glide.with(binding.imageViewEmployerLogo)
             .load(detailVacancy.employerLogoUrl)
             .placeholder(R.drawable.placeholder_vacancy)
-            .transform(RoundedCorners(requireContext().resources.getDimensionPixelSize(R.dimen.tv_detailed_vacancy_corner_radius)))
+            .transform(
+                RoundedCorners(
+                    requireContext().resources
+                        .getDimensionPixelSize(R.dimen.tv_detailed_vacancy_corner_radius)
+                )
+            )
             .into(binding.imageViewEmployerLogo)
     }
 
