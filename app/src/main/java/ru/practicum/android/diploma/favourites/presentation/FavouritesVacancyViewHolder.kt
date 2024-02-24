@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.favourites.presentation
 
-import android.view.TextureView
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView

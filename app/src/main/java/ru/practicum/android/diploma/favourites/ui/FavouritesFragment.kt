@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
@@ -38,7 +37,7 @@ class FavouritesFragment : Fragment() {
 
         favouritesViewModel.getFavouritesList()
 
-        favouritesViewModel.favouritesStatus.observe(viewLifecycleOwner) { it ->
+        favouritesViewModel.favouritesStatus.observe(viewLifecycleOwner) {
             setElement(it)
         }
     }

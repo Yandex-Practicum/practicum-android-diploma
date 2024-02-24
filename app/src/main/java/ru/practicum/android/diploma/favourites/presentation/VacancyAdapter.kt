@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.domain.model.DetailVacancy
-import ru.practicum.android.diploma.core.domain.model.ShortVacancy
 
 class VacancyAdapter(
     private val clickVacancyListener: ClickVacancyListener,
@@ -23,7 +22,6 @@ class VacancyAdapter(
             clickVacancyListener.onVacancyClick(vacancys[position].id)
         }
     }
-
 
     override fun getItemCount() = vacancys.size
 
