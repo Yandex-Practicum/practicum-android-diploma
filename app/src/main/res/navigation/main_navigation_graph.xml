@@ -7,7 +7,11 @@
     <fragment
         android:id="@+id/favouritesFragment"
         android:name="ru.practicum.android.diploma.favourites.ui.FavouritesFragment"
-        android:label="FavouritesFragment" />
+        android:label="FavouritesFragment" >
+        <action
+            android:id="@+id/action_favouritesFragment_to_vacancyFragment"
+            app:destination="@id/vacancyFragment" />
+    </fragment>
     <fragment
         android:id="@+id/filterFragment"
         android:name="ru.practicum.android.diploma.filter.ui.FilterFragment"
