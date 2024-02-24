@@ -18,11 +18,14 @@ class VacancyViewModel(
     private val sendEmailUseCase: SendEmailUseCase,
     private val shareVacancyUseCase: ShareVacancyUseCase
 ) : ViewModel() {
+    init {
+        getDetailVacancyById()
+    }
 
     private val stateLiveData = MutableLiveData<VacancyScreenState>()
     fun observeState(): LiveData<VacancyScreenState> = stateLiveData
 
-    fun getDetailVacancyById() {
+    private fun getDetailVacancyById() {
         stateLiveData.postValue(VacancyScreenState.Loading)
         viewModelScope.launch(Dispatchers.IO) {
             detailVacancyUseCase.execute(TODO("Получить id в зависимости от способа передачи")).collect {

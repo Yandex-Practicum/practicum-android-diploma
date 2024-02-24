@@ -36,6 +36,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:id="@+id/imageViewShareVacancy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_26dp"
@@ -74,7 +75,7 @@
                 app:layout_constraintGuide_end="@dimen/tv_detailed_vacancy_margin_m" />
 
             <TextView
-                android:id="@+id/textViewVacancyTittle"
+                android:id="@+id/textViewVacancyValue"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/ys_display_bold"
@@ -87,13 +88,13 @@
                 tools:text="Android-разработчик" />
 
             <TextView
-                android:id="@+id/textViewSalaryInfo"
+                android:id="@+id/textViewSalaryInfoValue"
                 style="@style/VacancyDetailsTitleTextViewStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="@id/right_border_16"
                 app:layout_constraintStart_toEndOf="@id/left_border_16"
-                app:layout_constraintTop_toBottomOf="@id/textViewVacancyTittle"
+                app:layout_constraintTop_toBottomOf="@id/textViewVacancyValue"
                 tools:text="от 100 000р" />
 
             <androidx.cardview.widget.CardView
@@ -105,7 +106,7 @@
                 app:cardCornerRadius="@dimen/tv_detailed_vacancy_corner_radius"
                 app:layout_constraintEnd_toEndOf="@id/right_border_16"
                 app:layout_constraintStart_toEndOf="@id/left_border_16"
-                app:layout_constraintTop_toBottomOf="@id/textViewSalaryInfo">
+                app:layout_constraintTop_toBottomOf="@id/textViewSalaryInfoValue">
 
                 <ImageView
                     android:id="@+id/imageViewEmployerLogo"
@@ -117,7 +118,7 @@
                     tools:src="@drawable/placeholder_vacancy" />
 
                 <TextView
-                    android:id="@+id/textViewEmployer"
+                    android:id="@+id/textViewEmployerValue"
                     style="@style/VacancyDetailsTitleTextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -126,7 +127,7 @@
                     tools:text="Еда" />
 
                 <TextView
-                    android:id="@+id/textViewEmployerCity"
+                    android:id="@+id/textViewEmployerCityValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="72dp"
@@ -186,7 +187,7 @@
                 app:layout_constraintTop_toBottomOf="@id/textViewSchedule" />
 
             <TextView
-                android:id="@+id/textViewVacancyDescription"
+                android:id="@+id/textViewDescriptionValue"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/tv_detailed_vacancy_margin_m"
@@ -208,7 +209,7 @@
                 android:text="@string/tv_key_skills"
                 app:layout_constraintEnd_toEndOf="@id/right_border_16"
                 app:layout_constraintStart_toEndOf="@id/left_border_16"
-                app:layout_constraintTop_toBottomOf="@id/textViewVacancyDescription" />
+                app:layout_constraintTop_toBottomOf="@id/textViewDescriptionValue" />
 
             <TextView
                 android:id="@+id/textViewKeySkillsValue"
@@ -310,7 +311,7 @@
                 tools:text="+7 (904) 329-27-71" />
 
             <TextView
-                android:id="@+id/textCommentTitle"
+                android:id="@+id/textViewCommentTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/tv_detailed_vacancy_margin_m"
@@ -331,7 +332,7 @@
                 android:layout_marginTop="@dimen/header_top_margin_s"
                 app:layout_constraintEnd_toEndOf="@id/right_border_16"
                 app:layout_constraintStart_toEndOf="@id/left_border_16"
-                app:layout_constraintTop_toBottomOf="@id/textCommentTitle"
+                app:layout_constraintTop_toBottomOf="@id/textViewCommentTitle"
                 tools:text="Заполнить анкету по форме можно на нашем сайте" />
 
             <Button
@@ -375,6 +376,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/textViewServerError"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/border_margin"
