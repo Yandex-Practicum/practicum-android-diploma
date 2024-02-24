@@ -1,10 +1,8 @@
 package ru.practicum.android.diploma.search.ui
 
-import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.core.domain.model.DetailVacancy
 import ru.practicum.android.diploma.core.domain.model.ShortVacancy
 import ru.practicum.android.diploma.databinding.VacancyViewBinding
 

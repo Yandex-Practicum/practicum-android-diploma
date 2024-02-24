@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.search.presentation
 
 import ru.practicum.android.diploma.core.domain.model.SearchVacanciesResult
-import ru.practicum.android.diploma.core.domain.model.ShortVacancy
 
 sealed interface SearchState {
     object Default : SearchState

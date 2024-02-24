@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.core.domain.model.ShortVacancy
+import ru.practicum.android.diploma.core.domain.model.SearchVacanciesResult
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.search.presentation.SearchState
 import ru.practicum.android.diploma.search.presentation.SearchStatus
 import ru.practicum.android.diploma.search.presentation.SearchViewModel
 
 class SearchFragment : Fragment() {
-    private lateinit var vacancyAdapter: VacancyAdapter
+    private var vacancyAdapter: VacancyAdapter? = null
     private val viewModel by viewModel<SearchViewModel>()
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
@@ -33,42 +33,45 @@ class SearchFragment : Fragment() {
             render(it)
         }
         vacancyAdapter = VacancyAdapter()
-        vacancyAdapter.onItemClick = {
-
-        }
     }
 
     private fun render(it: SearchState) {
         when (it) {
             is SearchState.Default -> setStatus(SearchStatus.DEFAULT)
             is SearchState.Loading -> setStatus(SearchStatus.PROGRESS)
-            is SearchState.Content -> showContent(it.data)
+            is SearchState.Content -> showContent(it.data!!)
             is SearchState.NetworkError -> showNetworkError()
             is SearchState.EmptyResult -> showEmptyResult()
         }
     }
 
-    private fun showContent(shortVacancy: List<ShortVacancy>) {
+    private fun showContent(searchVacanciesResult: SearchVacanciesResult) {
         setStatus(SearchStatus.SUCCESS)
-        vacancyAdapter.vacancyList.clear()
-        vacancyAdapter.vacancyList.addAll(shortVacancy)
-        vacancyAdapter.notifyDataSetChanged()
+        vacancyAdapter?.vacancyList?.clear()
+        vacancyAdapter?.vacancyList?.addAll(searchVacanciesResult.vacancies)
+        vacancyAdapter?.notifyDataSetChanged()
+        binding.tvVacancyAmount.text =
+            requireContext().resources.getQuantityString(
+                R.plurals.vacancies,
+                searchVacanciesResult.numOfResults,
+                searchVacanciesResult.numOfResults
+            )
     }
 
     private fun showNetworkError() {
         binding.errorPlaceholder.setImageResource(R.drawable.placeholder_no_internet)
         binding.placeholderText.setText(R.string.placeholder_no_internet)
         setStatus(SearchStatus.ERROR)
-        vacancyAdapter.vacancyList.clear()
-        vacancyAdapter.notifyDataSetChanged()
+        vacancyAdapter?.vacancyList?.clear()
+        vacancyAdapter?.notifyDataSetChanged()
     }
 
     private fun showEmptyResult() {
         binding.errorPlaceholder.setImageResource(R.drawable.placeholder_nothing_found)
         binding.placeholderText.setText(R.string.placeholder_cannot_get_list_of_vacancy)
         setStatus(SearchStatus.ERROR)
-        vacancyAdapter.vacancyList.clear()
-        vacancyAdapter.notifyDataSetChanged()
+        vacancyAdapter?.vacancyList?.clear()
+        vacancyAdapter?.notifyDataSetChanged()
     }
 
     private fun setStatus(status: SearchStatus) {
@@ -110,6 +113,4 @@ class SearchFragment : Fragment() {
             }
         }
     }
-
-
 }
