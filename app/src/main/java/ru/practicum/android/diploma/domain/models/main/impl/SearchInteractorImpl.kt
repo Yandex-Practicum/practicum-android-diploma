@@ -7,8 +7,8 @@ import ru.practicum.android.diploma.domain.models.main.SearchInteractor
 import ru.practicum.android.diploma.domain.models.main.Vacancy
 
 class SearchInteractorImpl(
-    val repository : SearchRepository
-): SearchInteractor {
+    val repository: SearchRepository
+) : SearchInteractor {
     override fun searchTrack(term: String): Flow<List<Vacancy>> = flow {
 //        return repository.makeRequest(VacanciesSearchRequest(term)).map { result ->
 //            when(result) {
