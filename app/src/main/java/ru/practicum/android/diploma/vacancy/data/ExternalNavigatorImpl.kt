@@ -23,8 +23,13 @@ class ExternalNavigatorImpl(private val context: Context) : ExternalNavigator {
         }
     }
 
-    override fun shareVacancy() {
-        TODO("Not yet implemented")
+    override fun shareVacancy(url: String) {
+        Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_TEXT, url)
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            context.startActivity(this)
+        }
     }
 
 }

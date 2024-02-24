@@ -21,6 +21,7 @@ class VacancyFragment : Fragment() {
     private val viewModel by viewModel<VacancyViewModel>()
     private var _binding: FragmentVacancyBinding? = null
     private val binding get() = _binding!!
+    private var detailVacancy: DetailVacancy? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -71,6 +72,7 @@ class VacancyFragment : Fragment() {
     }
 
     private fun setContent(detailVacancy: DetailVacancy) {
+        this.detailVacancy = detailVacancy
         binding.textViewVacancyValue.text = detailVacancy.name
         binding.textViewEmployerValue.text = detailVacancy.employerName
         binding.textViewEmployerCityValue.text = detailVacancy.city
@@ -157,7 +159,7 @@ class VacancyFragment : Fragment() {
         }
 
         binding.imageViewShareVacancy.setOnClickListener {
-            viewModel.shareVacancy()
+            viewModel.shareVacancy(detailVacancy!!.alternateUrl)
         }
 
         binding.imageViewFavorite.setOnClickListener {
@@ -165,11 +167,11 @@ class VacancyFragment : Fragment() {
         }
 
         binding.textViewPhoneValue.setOnClickListener {
-            viewModel.makeCall(binding.textViewPhoneValue.text.toString())
+            viewModel.makeCall(detailVacancy!!.phone)
         }
 
         binding.textViewEmailValue.setOnClickListener {
-            viewModel.sendEmail(binding.textViewEmailValue.text.toString())
+            viewModel.sendEmail(detailVacancy!!.email)
         }
     }
 }

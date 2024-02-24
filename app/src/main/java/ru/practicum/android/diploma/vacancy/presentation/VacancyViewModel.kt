@@ -30,9 +30,9 @@ class VacancyViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             detailVacancyUseCase.execute(TODO("Получить id в зависимости от способа передачи")).collect {
                 when (it) {
-                    is Resource.Success -> stateLiveData.postValue(VacancyScreenState.Content(it.data!!))
-                    is Resource.InternetError -> stateLiveData.postValue(VacancyScreenState.Error)
-                    is Resource.ServerError -> stateLiveData.postValue(VacancyScreenState.Error)
+                    is Resource.Success -> renderState(VacancyScreenState.Content(it.data!!))
+                    is Resource.InternetError -> renderState(VacancyScreenState.Error)
+                    is Resource.ServerError -> renderState(VacancyScreenState.Error)
                 }
             }
         }
@@ -46,7 +46,11 @@ class VacancyViewModel(
         sendEmailUseCase.execute(email)
     }
 
-    fun shareVacancy() {
-        shareVacancyUseCase.execute()
+    fun shareVacancy(url: String) {
+        shareVacancyUseCase.execute(url)
+    }
+
+    private fun renderState(vacancyScreenState: VacancyScreenState) {
+        stateLiveData.postValue(vacancyScreenState)
     }
 }

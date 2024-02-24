@@ -4,7 +4,7 @@ import ru.practicum.android.diploma.vacancy.domain.api.ExternalNavigator
 
 class ShareVacancyUseCase(private val externalNavigator: ExternalNavigator) {
 
-    fun execute() {
-        externalNavigator.shareVacancy()
+    fun execute(url: String) {
+        externalNavigator.shareVacancy(url)
     }
 }
