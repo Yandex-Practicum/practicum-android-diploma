@@ -14,6 +14,7 @@ object VacancyMapper {
             ShortVacancy(
                 id = id,
                 name = name,
+                companyName = employerInfo?.companyName.orEmpty(),
                 city = locationInfo?.city.orEmpty(),
                 salaryFrom = salaryInfo?.from.orEmpty(),
                 salaryTo = salaryInfo?.to.orEmpty(),

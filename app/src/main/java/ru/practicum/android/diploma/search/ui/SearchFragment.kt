@@ -14,7 +14,7 @@ import ru.practicum.android.diploma.search.presentation.SearchStatus
 import ru.practicum.android.diploma.search.presentation.SearchViewModel
 
 class SearchFragment : Fragment() {
-    private var vacancyAdapter: VacancyAdapter? = null
+    private var vacancyAdapter: VacancyAdapter = VacancyAdapter(requireContext())
     private val viewModel by viewModel<SearchViewModel>()
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
@@ -32,7 +32,6 @@ class SearchFragment : Fragment() {
         viewModel.observeState().observe(viewLifecycleOwner) {
             render(it)
         }
-        vacancyAdapter = VacancyAdapter()
     }
 
     private fun render(it: SearchState) {
@@ -47,9 +46,9 @@ class SearchFragment : Fragment() {
 
     private fun showContent(searchVacanciesResult: SearchVacanciesResult) {
         setStatus(SearchStatus.SUCCESS)
-        vacancyAdapter?.vacancyList?.clear()
-        vacancyAdapter?.vacancyList?.addAll(searchVacanciesResult.vacancies)
-        vacancyAdapter?.notifyDataSetChanged()
+        vacancyAdapter.vacancyList.clear()
+        vacancyAdapter.vacancyList.addAll(searchVacanciesResult.vacancies)
+        vacancyAdapter.notifyDataSetChanged()
         binding.tvVacancyAmount.text =
             requireContext().resources.getQuantityString(
                 R.plurals.vacancies,
@@ -62,16 +61,16 @@ class SearchFragment : Fragment() {
         binding.errorPlaceholder.setImageResource(R.drawable.placeholder_no_internet)
         binding.placeholderText.setText(R.string.placeholder_no_internet)
         setStatus(SearchStatus.ERROR)
-        vacancyAdapter?.vacancyList?.clear()
-        vacancyAdapter?.notifyDataSetChanged()
+        vacancyAdapter.vacancyList.clear()
+        vacancyAdapter.notifyDataSetChanged()
     }
 
     private fun showEmptyResult() {
         binding.errorPlaceholder.setImageResource(R.drawable.placeholder_nothing_found)
         binding.placeholderText.setText(R.string.placeholder_cannot_get_list_of_vacancy)
         setStatus(SearchStatus.ERROR)
-        vacancyAdapter?.vacancyList?.clear()
-        vacancyAdapter?.notifyDataSetChanged()
+        vacancyAdapter.vacancyList.clear()
+        vacancyAdapter.notifyDataSetChanged()
     }
 
     private fun setStatus(status: SearchStatus) {
