@@ -49,6 +49,8 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
     implementation(libs.retrofit.converter)
+    implementation(libs.logging.interceptor)
+    implementation(libs.okhttp)
 
     // Glide
     implementation(libs.glide)

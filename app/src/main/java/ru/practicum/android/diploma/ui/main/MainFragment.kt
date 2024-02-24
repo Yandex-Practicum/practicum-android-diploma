@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentMainBinding
 import ru.practicum.android.diploma.presentation.main.MainAdapter
@@ -28,7 +29,8 @@ import ru.practicum.android.diploma.util.extensions.visibleOrGone
 
 class MainFragment : Fragment() {
 
-    private val viewModel by viewModels<MainViewModel>()
+    private val viewModel by viewModel<MainViewModel>()
+
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: MainAdapter
