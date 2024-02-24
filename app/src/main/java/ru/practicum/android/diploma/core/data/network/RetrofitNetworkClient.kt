@@ -57,7 +57,13 @@ class RetrofitNetworkClient(
     }
 
     override suspend fun getDetailVacancyById(id: Long): Response {
-        return Response().apply { resultCode = SUCCESSFUL_CODE }
+        val response = hhApi.getVacancy(id)
+        val body = response.body()
+        return if (response.isSuccessful && body != null) {
+            body.apply { resultCode = SUCCESSFUL_CODE }
+        } else {
+            Response().apply { resultCode = response.code() }
+        }
     }
 
     companion object {
