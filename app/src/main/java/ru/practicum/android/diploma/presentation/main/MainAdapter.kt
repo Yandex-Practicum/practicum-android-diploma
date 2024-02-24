@@ -24,6 +24,7 @@ class MainAdapter : ListAdapter<Vacancy, MainViewHolder>(DiffUtil()) {
         val item = currentList[position]
         holder.bind(item)
     }
+
 }
 
 

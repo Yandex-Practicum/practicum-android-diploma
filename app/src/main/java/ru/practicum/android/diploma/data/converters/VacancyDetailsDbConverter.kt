@@ -46,4 +46,5 @@ object VacancyDetailsDbConverter {
     fun List<VacancyDetailDtoEntity>.mapToVacancyDetailDto(): List<VacancyDetailDto> =
         map { it.mapToVacancyDetailDto() }
 
+
 }
