@@ -21,7 +21,6 @@ class VacancyFragment : Fragment() {
     private val viewModel by viewModel<VacancyViewModel>()
     private var _binding: FragmentVacancyBinding? = null
     private val binding get() = _binding!!
-    private var detailVacancy: DetailVacancy? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,9 +32,12 @@ class VacancyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initListeners()
         viewModel.observeState().observe(viewLifecycleOwner) {
             render(it)
+        }
+
+        binding.vacancyToolbar.setOnClickListener {
+            findNavController().navigateUp()
         }
     }
 
@@ -72,22 +74,30 @@ class VacancyFragment : Fragment() {
     }
 
     private fun setContent(detailVacancy: DetailVacancy) {
-        this.detailVacancy = detailVacancy
         binding.textViewVacancyValue.text = detailVacancy.name
         binding.textViewEmployerValue.text = detailVacancy.employerName
         binding.textViewEmployerCityValue.text = detailVacancy.city
         binding.textViewRequiredExperienceValue.text = detailVacancy.experience
         binding.textViewSchedule.text = detailVacancy.workSchedule
         binding.textViewDescriptionValue.setText(Html.fromHtml(detailVacancy.description, Html.FROM_HTML_MODE_COMPACT))
-        setSalary(detailVacancy)
-        setLogo(detailVacancy)
-        setKeySkills(detailVacancy)
-        setContactInfo(detailVacancy)
+        setSalary(detailVacancy.salaryFrom, detailVacancy.salaryTo)
+        setLogo(detailVacancy.employerLogoUrl)
+        setKeySkills(detailVacancy.keySkills)
+        setContactInfo(
+            detailVacancy.contactName,
+            detailVacancy.email,
+            detailVacancy.phone,
+            detailVacancy.contactComment
+        )
+        binding.imageViewShareVacancy.setOnClickListener { viewModel.shareVacancy(detailVacancy.alternateUrl) }
+        binding.imageViewFavorite.setOnClickListener { TODO() }
+        binding.textViewPhoneValue.setOnClickListener { viewModel.makeCall(detailVacancy.phone) }
+        binding.textViewEmailValue.setOnClickListener { viewModel.sendEmail(detailVacancy.email) }
     }
 
-    private fun setLogo(detailVacancy: DetailVacancy) {
+    private fun setLogo(employerLogoUrl: String) {
         Glide.with(binding.imageViewEmployerLogo)
-            .load(detailVacancy.employerLogoUrl)
+            .load(employerLogoUrl)
             .placeholder(R.drawable.placeholder_vacancy)
             .transform(
                 RoundedCorners(
@@ -98,30 +108,30 @@ class VacancyFragment : Fragment() {
             .into(binding.imageViewEmployerLogo)
     }
 
-    private fun setSalary(detailVacancy: DetailVacancy) {
-        if (detailVacancy.salaryFrom.isNullOrEmpty() && detailVacancy.salaryTo.isNullOrEmpty()) {
+    private fun setSalary(salaryFrom: String, salaryTo: String) {
+        if (salaryFrom.isNullOrEmpty() && salaryTo.isNullOrEmpty()) {
             binding.textViewSalaryInfoValue.text = requireContext().resources.getString(R.string.tv_salary_no_info)
         } else {
-            if (detailVacancy.salaryTo.isNullOrEmpty()) {
+            if (salaryTo.isNullOrEmpty()) {
                 binding.textViewSalaryInfoValue.text =
-                    requireContext().resources.getString(R.string.tv_salary_from_info, detailVacancy.salaryFrom)
+                    requireContext().resources.getString(R.string.tv_salary_from_info, salaryFrom)
             } else {
                 binding.textViewSalaryInfoValue.text = requireContext().resources.getString(
                     R.string.tv_salary_from_to_info,
-                    detailVacancy.salaryFrom,
-                    detailVacancy.salaryTo
+                    salaryFrom,
+                    salaryTo
                 )
             }
         }
     }
 
-    private fun setKeySkills(detailVacancy: DetailVacancy) {
-        if (detailVacancy.keySkills.isNullOrEmpty()) {
+    private fun setKeySkills(keySkills: List<String>) {
+        if (keySkills.isNullOrEmpty()) {
             binding.textViewKeySkillsTitle.isVisible = false
             binding.textViewKeySkillsValue.isVisible = false
         } else {
             var keySkillsText = ""
-            detailVacancy.keySkills.forEach { keySkill ->
+            keySkills.forEach { keySkill ->
                 val line = "${keySkill}\n"
                 keySkillsText += line
             }
@@ -129,54 +139,32 @@ class VacancyFragment : Fragment() {
         }
     }
 
-    private fun setContactInfo(detailVacancy: DetailVacancy) {
-        if (detailVacancy.contactName.isNullOrEmpty()) {
+    private fun setContactInfo(contactName: String, email: String, phone: String, contactComment: String) {
+        if (contactName.isNullOrEmpty()) {
             binding.textViewContactNameTitle.isVisible = false
             binding.textViewContactNameValue.isVisible = false
         } else {
-            binding.textViewContactNameValue.text = detailVacancy.contactName
+            binding.textViewContactNameValue.text = contactName
         }
-        if (detailVacancy.phone.isNullOrEmpty()) {
+        if (email.isNullOrEmpty()) {
             binding.textViewEmailTitle.isVisible = false
             binding.textViewEmailValue.isVisible = false
         } else {
-            binding.textViewEmailValue.text = detailVacancy.email
+            binding.textViewEmailValue.text = email
         }
 
-        if (detailVacancy.phone.isNullOrEmpty()) {
+        if (phone.isNullOrEmpty()) {
             binding.textViewPhoneTitle.isVisible = false
             binding.textViewPhoneValue.isVisible = false
         } else {
-            binding.textViewPhoneValue.text = detailVacancy.phone
+            binding.textViewPhoneValue.text = phone
         }
 
-        if (detailVacancy.contactComment.isNullOrEmpty()) {
+        if (contactComment.isNullOrEmpty()) {
             binding.textViewCommentTitle.isVisible = false
             binding.textViewCommentValue.isVisible = false
         } else {
-            binding.textViewCommentValue.text = detailVacancy.contactComment
-        }
-    }
-
-    private fun initListeners() {
-        binding.vacancyToolbar.setOnClickListener {
-            findNavController().navigateUp()
-        }
-
-        binding.imageViewShareVacancy.setOnClickListener {
-            viewModel.shareVacancy(detailVacancy!!.alternateUrl)
-        }
-
-        binding.imageViewFavorite.setOnClickListener {
-            TODO()
-        }
-
-        binding.textViewPhoneValue.setOnClickListener {
-            viewModel.makeCall(detailVacancy!!.phone)
-        }
-
-        binding.textViewEmailValue.setOnClickListener {
-            viewModel.sendEmail(detailVacancy!!.email)
+            binding.textViewCommentValue.text = contactComment
         }
     }
 }

@@ -6,6 +6,6 @@ import ru.practicum.android.diploma.vacancy.domain.api.DetailVacancyRepository
 
 val repositoryModule = module {
     factory<DetailVacancyRepository> {
-        DetailVacancyRepositoryImpl(get())
+        DetailVacancyRepositoryImpl(networkClient = get())
     }
 }

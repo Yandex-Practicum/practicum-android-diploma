@@ -6,6 +6,11 @@ import ru.practicum.android.diploma.vacancy.presentation.VacancyViewModel
 
 val viewModelModule = module {
     viewModel {
-        VacancyViewModel(get(), get(), get(), get())
+        VacancyViewModel(
+            detailVacancyUseCase = get(),
+            makeCallUseCase = get(),
+            sendEmailUseCase = get(),
+            shareVacancyUseCase = get()
+        )
     }
 }

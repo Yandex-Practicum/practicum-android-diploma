@@ -1,13 +1,18 @@
 package ru.practicum.android.diploma.core.data.network
 
+import android.content.Context
 import android.util.Log
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.core.data.NetworkClient
 import ru.practicum.android.diploma.core.data.network.dto.Response
 import ru.practicum.android.diploma.core.domain.model.SearchFilterParameters
+import ru.practicum.android.diploma.util.isConnected
 import java.io.IOException
 import java.net.SocketTimeoutException
 
 class RetrofitNetworkClient(
+    private val context: Context,
     private val hhApi: HhApi
 ) : NetworkClient {
     override suspend fun getVacanciesByPage(
@@ -15,6 +20,21 @@ class RetrofitNetworkClient(
         filterParameters: SearchFilterParameters,
         page: Int,
         perPage: Int
+    ): Response {
+        if (!isConnected(context)) {
+            return Response().apply { resultCode = NETWORK_ERROR_CODE }
+        }
+        return withContext(Dispatchers.IO) {
+            executeRequestGetVacanciesByPage(searchText, filterParameters, page, perPage, hhApi)
+        }
+    }
+
+    private suspend fun executeRequestGetVacanciesByPage(
+        searchText: String,
+        filterParameters: SearchFilterParameters,
+        page: Int,
+        perPage: Int,
+        hhApi: HhApi
     ): Response {
         return try {
             val queryMap = mutableMapOf(
@@ -57,12 +77,29 @@ class RetrofitNetworkClient(
     }
 
     override suspend fun getDetailVacancyById(id: Long): Response {
-        val response = hhApi.getVacancy(id)
-        val body = response.body()
-        return if (response.isSuccessful && body != null) {
-            body.apply { resultCode = SUCCESSFUL_CODE }
-        } else {
-            Response().apply { resultCode = response.code() }
+        if (!isConnected(context)) {
+            return Response().apply { resultCode = NETWORK_ERROR_CODE }
+        }
+        return withContext(Dispatchers.IO) {
+            executeRequestGetDetailVacancyById(id, hhApi)
+        }
+    }
+
+    private suspend fun executeRequestGetDetailVacancyById(id: Long, hhApi: HhApi): Response {
+        return try {
+            val response = hhApi.getVacancy(id)
+            val body = response.body()
+            if (response.isSuccessful && body != null) {
+                body.apply { resultCode = SUCCESSFUL_CODE }
+            } else {
+                Response().apply { resultCode = response.code() }
+            }
+        } catch (e: SocketTimeoutException) {
+            Log.e(RetrofitNetworkClient::class.java.simpleName, e.stackTraceToString())
+            Response().apply { resultCode = NETWORK_ERROR_CODE }
+        } catch (e: IOException) {
+            Log.e(RetrofitNetworkClient::class.java.simpleName, e.stackTraceToString())
+            Response().apply { resultCode = EXCEPTION_ERROR_CODE }
         }
     }
 
