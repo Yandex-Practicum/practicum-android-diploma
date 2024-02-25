@@ -13,8 +13,6 @@ class TeamFragment : Fragment() {
         fun newInstance() = TeamFragment()
     }
 
-    private lateinit var viewModel: TeamViewModel
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

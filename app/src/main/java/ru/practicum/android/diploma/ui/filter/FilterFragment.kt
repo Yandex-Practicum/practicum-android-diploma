@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ru.practicum.android.diploma.R
 
-class FilterFragmentt : Fragment() {
+class FilterFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
