@@ -1,10 +1,15 @@
-package ru.practicum.android.diploma.data
+package ru.practicum.android.diploma.data.dto.favourites.room
 
-data class VacancyDetails(
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "favourites_table")
+data class VacancyEntity(
+    @PrimaryKey
     val id: String,
-    val url: String?,
-    val name: String?,
-    val area: String?,
+    val url: String,
+    val name: String,
+    val area: String,
     val salaryCurrency: String?,
     val salaryFrom: Int?,
     val salaryTo: Int?,
@@ -13,7 +18,7 @@ data class VacancyDetails(
     val schedule: String?,
     val contactName: String?,
     val contactEmail: String?,
-    val phones: List<String>?,
+    val phones: String?,
     val contactComment: String?,
     val logoUrl: String?,
     val logoUrl90: String?,
@@ -22,12 +27,7 @@ data class VacancyDetails(
     val employerUrl: String?,
     val employerName: String?,
     val employment: String?,
-    val keySkills: List<String>?,
-    val description: String?,
-) {
-    val isFavorite: FavBooleanClass = FavBooleanClass()
-}
-
-class FavBooleanClass {
-    var isFavorite: Boolean = false
-}
+    val keySkills: String?,
+    val description: String,
+    val salary: String
+)
