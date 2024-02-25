@@ -60,4 +60,3 @@ object VacancyConverter {
         description = vacancy.description!!,
     )
 }
-

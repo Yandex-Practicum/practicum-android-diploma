@@ -1,7 +1,5 @@
 package ru.practicum.android.diploma.data.search.impl
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.data.Constant
 import ru.practicum.android.diploma.data.Convertors
 import ru.practicum.android.diploma.data.search.network.JobSearchRequest
@@ -13,7 +11,7 @@ import ru.practicum.android.diploma.domain.search.SearchRepository
 
 class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRepository {
 
-    override suspend fun search(expression: String, page: Int): Resource<List<Vacancy>>{
+    override suspend fun search(expression: String, page: Int): Resource<List<Vacancy>> {
         val options = HashMap<String, String>()
 
         options[Constant.PAGE] = page.toString()
@@ -27,11 +25,11 @@ class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRep
             }
             Constant.SUCCESS_RESULT_CODE -> {
                 Resource(
-                        (response as SearchListDto).results.map { vacancyDto ->
-                            Convertors().convertorToVacancy(vacancyDto)
-                        },
-                        Constant.SUCCESS_RESULT_CODE
-                    )
+                    (response as SearchListDto).results.map { vacancyDto ->
+                        Convertors().convertorToVacancy(vacancyDto)
+                    },
+                    Constant.SUCCESS_RESULT_CODE
+                )
 
             }
 

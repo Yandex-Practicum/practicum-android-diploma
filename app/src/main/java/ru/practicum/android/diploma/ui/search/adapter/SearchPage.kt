@@ -2,9 +2,6 @@ package ru.practicum.android.diploma.ui.search.adapter
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.flow.map
-import ru.practicum.android.diploma.data.Constant
 import ru.practicum.android.diploma.data.Constant.STATIC_PAGE_SIZE
 import ru.practicum.android.diploma.data.Constant.SUCCESS_RESULT_CODE
 import ru.practicum.android.diploma.domain.models.Vacancy
@@ -47,4 +44,3 @@ class SearchPage(
         }
     }
 }
-

@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.data
 
-
 import DetailVacancy
 import ru.practicum.android.diploma.data.dto.fields.AreaDto
 import ru.practicum.android.diploma.data.dto.fields.DetailVacancyDto
