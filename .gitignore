@@ -48,3 +48,5 @@ google-services.json
 .DS_Store
 *.log
 /.idea/deploymentTargetDropDown.xml
+/.idea/.name
+/.idea/vcs.xml

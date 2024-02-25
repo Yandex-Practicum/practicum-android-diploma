@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentMainBinding
 import ru.practicum.android.diploma.presentation.main.MainAdapter
@@ -28,7 +29,8 @@ import ru.practicum.android.diploma.util.extensions.visibleOrGone
 
 class MainFragment : Fragment() {
 
-    private val viewModel by viewModels<MainViewModel>()
+    private val viewModel by viewModel<MainViewModel>()
+
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: MainAdapter
@@ -42,15 +44,19 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @OptIn(FlowPreview::class)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupMainRecycler()
+        clearSearchText()
+
         binding.searchEditText.onTextChange {
             binding.searchContainer.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
             binding.searchContainer.endIconDrawable = requireContext().getDrawable(R.drawable.ic_clear)
             binding.clearButton.isEnabled = true
         }
+
         binding.searchEditText.onTextChangeDebounce()
             .debounce(2000)
             .onEach { viewModel.onSearch(it?.toString().orEmpty()) }
@@ -75,25 +81,28 @@ class MainFragment : Fragment() {
                     binding.progressBar.visibleOrGone(state.state is SearchState.Loading)
                     binding.searchRecyclerView.visibleOrGone(state.state is SearchState.Content || state.state is SearchState.Loading)
                     binding.imageBinoculars.visibleOrGone(state.state == null)
-                    binding.placeholderImage.visibleOrGone(state.state is SearchState.Error)
-                    binding.placeholderMessageTextView.visibleOrGone(state.state is SearchState.Error)
-                    binding.placeholderErrorTextView.visibleOrGone(state.state is SearchState.Empty)
-                    binding.placeholderErrorImageView.visibleOrGone(state.state is SearchState.Empty)
+                    binding.placeholderError.visibleOrGone(state.state is SearchState.Error)
+                    binding.placeholder.visibleOrGone(state.state is SearchState.Empty)
 
                 }
             }
         }
     }
 
-    private fun setupMainRecycler() {
-        adapter = MainAdapter()
-        binding.searchRecyclerView.adapter = adapter
-        binding.searchRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+    override fun onPause() {
+        super.onPause()
+        clearSearchText()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setupMainRecycler() {
+        adapter = MainAdapter()
+        binding.searchRecyclerView.adapter = adapter
+        binding.searchRecyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")

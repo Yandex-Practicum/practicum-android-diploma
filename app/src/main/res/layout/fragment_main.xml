@@ -89,7 +89,7 @@
         android:clipToPadding="false"
         android:paddingTop="@dimen/margin_32"
         android:paddingBottom="50dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -151,63 +151,58 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchContainer"
-        android:src="@drawable/state_image_start_search" />
+        android:src="@drawable/state_image_start_search"
+        tools:visibility="invisible"
+        />
 
-    <ImageView
-        android:id="@+id/placeholder_image"
+    <LinearLayout
+        android:id="@+id/placeholderError"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchContainer"
-        tools:ignore="ContentDescription"
-        android:src="@drawable/state_image_no_internet" />
+        app:layout_constraintTop_toBottomOf="@+id/searchContainer">
 
-    <TextView
-        android:id="@+id/placeholderMessageTextView"
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/state_image_nothing_found" />
+
+        <TextView
+            style="@style/Text_Header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_16"
+            android:text="@string/no_list_vacancies" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/placeholder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:textAlignment="center"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/placeholder_image"
-        android:textStyle="bold"
-        tools:text="@string/no_internet"
-        tools:visibility="visible"/>
-
-
-    <ImageView
-        android:id="@+id/placeholderErrorImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:src="@drawable/state_image_nothing_found"
+        android:orientation="vertical"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchContainer"
-        tools:ignore="ContentDescription"
-        tools:visibility="visible" />
+        app:layout_constraintTop_toBottomOf="@+id/searchContainer">
 
-    <TextView
-        android:id="@+id/placeholderErrorTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:textAlignment="center"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/placeholder_image"
-        tools:text="@string/no_list_vacancies"
-        android:textStyle="bold"
-        tools:visibility="visible" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/state_image_no_internet" />
+
+        <TextView
+            style="@style/Text_Header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_16"
+            android:text="@string/no_internet" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
