@@ -33,7 +33,6 @@ class RootActivity : AppCompatActivity() {
     }
 
     private fun setupNav(navController: NavController) {
-
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.favouriteFragment -> showBottomNav()

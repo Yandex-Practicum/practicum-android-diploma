@@ -13,7 +13,6 @@ import ru.practicum.android.diploma.domain.search.SearchInteractor
 import ru.practicum.android.diploma.domain.search.SearchRepository
 import ru.practicum.android.diploma.domain.search.impl.SearchInteractorImpl
 import ru.practicum.android.diploma.ui.search.SearchViewModel
-import ru.practicum.android.diploma.ui.search.adapter.SearchPage
 
 val SearchModules = module {
     single<HhApi> {

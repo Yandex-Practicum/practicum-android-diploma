@@ -13,11 +13,9 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.data.Constant.STATIC_PAGE_SIZE
-import ru.practicum.android.diploma.data.search.network.Resource
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.search.SearchInteractor
 import ru.practicum.android.diploma.ui.search.adapter.SearchPage
-import java.util.UUID
 
 class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewModel() {
     val actionStateFlow = MutableSharedFlow<String>()
@@ -36,24 +34,5 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
         viewModelScope.launch(Dispatchers.IO) {
             actionStateFlow.emit(vacancy)
         }
-    }
-
-    suspend fun fakeData(expression: String, page: Int): Resource<List<Vacancy>> {
-        val list = mutableListOf<Vacancy>()
-        for (i in 0 until STATIC_PAGE_SIZE) {
-            list.add(
-                Vacancy(
-                    id = UUID.randomUUID().toString(),
-                    name = "$expression Станица:$page Номер:$i",
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                )
-            )
-        }
-        return Resource(data = list)
     }
 }

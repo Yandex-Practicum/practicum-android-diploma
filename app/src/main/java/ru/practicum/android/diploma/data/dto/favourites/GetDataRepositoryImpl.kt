@@ -2,8 +2,8 @@ package ru.practicum.android.diploma.data.dto.favourites
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import ru.practicum.android.diploma.data.room.AppDatabase
 import ru.practicum.android.diploma.data.dto.favourites.room.VacancyShortMapper
+import ru.practicum.android.diploma.data.room.AppDatabase
 import ru.practicum.android.diploma.domain.api.GetDataRepository
 import ru.practicum.android.diploma.domain.models.Vacancy
 
