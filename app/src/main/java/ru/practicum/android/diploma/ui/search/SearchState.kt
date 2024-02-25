@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.ui.search
 
-
 sealed class SearchState {
     object Search : SearchState()
     object Loading : SearchState()

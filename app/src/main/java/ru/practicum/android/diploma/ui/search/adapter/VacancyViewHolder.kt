@@ -12,7 +12,7 @@ import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.util.ConvertSalary
 
 class VacancyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-     val convertSalary = ConvertSalary()
+    val convertSalary = ConvertSalary()
     private val tvDescription: TextView = itemView.findViewById(R.id.tv_description)
     private val tvCompanyName: TextView = itemView.findViewById(R.id.tv_name_company)
     private val tvSalary: TextView = itemView.findViewById(R.id.tv_salary)
@@ -26,7 +26,7 @@ class VacancyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         tvSalary.text = convertSalary.formatSalaryWithCurrency(item.salaryFrom, item.salaryTo, item.currency)
         Glide.with(ivUrl100)
             .load(item.employerLogoUrls)
-             .placeholder(R.drawable.placeholder_vacancy)
+            .placeholder(R.drawable.placeholder_vacancy)
             .transform(RoundedCorners(radius))
             .into(ivUrl100)
     }
