@@ -7,9 +7,9 @@ import kotlinx.coroutines.flow.flowOn
 import ru.practicum.android.diploma.data.Constant
 import ru.practicum.android.diploma.data.dto.favourites.room.VacancyConverter
 import ru.practicum.android.diploma.data.dto.favourites.room.VacancyDetails
-import ru.practicum.android.diploma.data.dto.response.VacancyDetailsSearchResponse
-import ru.practicum.android.diploma.data.network.NetworkClient
-import ru.practicum.android.diploma.data.network.Resource
+import ru.practicum.android.diploma.data.response.VacancyDetailsSearchResponse
+import ru.practicum.android.diploma.data.search.network.NetworkClient
+import ru.practicum.android.diploma.data.search.network.Resource
 import ru.practicum.android.diploma.data.room.AppDatabase
 import ru.practicum.android.diploma.data.dto.favourites.room.VacancyDetailsConverter
 import ru.practicum.android.diploma.data.dto.favourites.room.VacancyDetailsSearchRequest

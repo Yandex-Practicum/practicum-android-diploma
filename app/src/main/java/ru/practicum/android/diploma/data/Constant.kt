@@ -12,5 +12,6 @@ object Constant {
     const val PAGE = "page"
     const val PER_PAGE = "per_page"
     const val TEXT = "text"
+    const val STATIC_PAGE_SIZE = 20
 
 }

@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data.network
+package ru.practicum.android.diploma.data.search.network
 
 import com.google.gson.annotations.SerializedName
 import ru.practicum.android.diploma.data.dto.fields.VacancyDto
