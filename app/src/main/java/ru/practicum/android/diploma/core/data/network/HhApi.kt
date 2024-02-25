@@ -17,7 +17,7 @@ interface HhApi {
     @GET("vacancies")
     suspend fun getVacancies(@QueryMap queryMap: Map<String, String>): Response<SearchVacanciesResponse>
 
-    @GET("/vacancies/{vacancy_id}")
+    @GET("vacancies/{vacancy_id}")
     suspend fun getVacancy(@Path("vacancy_id") id: Long): Response<DetailVacancyResponse>
 }
 
