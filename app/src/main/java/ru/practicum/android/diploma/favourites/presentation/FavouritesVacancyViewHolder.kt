@@ -11,13 +11,13 @@ import ru.practicum.android.diploma.core.domain.model.DetailVacancy
 import ru.practicum.android.diploma.util.getSalaryStr
 import ru.practicum.android.diploma.util.getVacancyTitle
 
+const val ROUND_RADIUS = 10
+
 class FavouritesVacancyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val vacancyName: TextView
     private val companyName: TextView
     private val salary: TextView
     private val vacancyCover: ImageView
-
-    private val ROUND_RADIUS = 10
 
     init {
         vacancyName = itemView.findViewById(R.id.vacancyName)

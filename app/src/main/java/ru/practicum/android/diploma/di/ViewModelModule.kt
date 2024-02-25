@@ -9,4 +9,3 @@ val viewModelModule = module {
         FavouritesViewModel(get())
     }
 }
-

@@ -9,7 +9,7 @@ import ru.practicum.android.diploma.core.domain.model.DetailVacancy
 import ru.practicum.android.diploma.favourites.domain.api.GetFavouritesInteractor
 import ru.practicum.android.diploma.favourites.domain.models.FavouritesState
 
-class FavouritesViewModel(private val getFavouritesInteractor : GetFavouritesInteractor): ViewModel() {
+class FavouritesViewModel(private val getFavouritesInteractor: GetFavouritesInteractor) : ViewModel() {
 
     private var favouritesListMutable = MutableLiveData<List<DetailVacancy>>()
     val favouritesList: LiveData<List<DetailVacancy>> = favouritesListMutable
@@ -75,8 +75,6 @@ class FavouritesViewModel(private val getFavouritesInteractor : GetFavouritesInt
             "Авто.ру",
             "Москва"
         )
-
-
 
         viewModelScope.launch {
             getFavouritesInteractor.fillVacList(vac1)
