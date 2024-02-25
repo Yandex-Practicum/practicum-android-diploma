@@ -4,9 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.core.domain.model.SearchFilterParameters
 import ru.practicum.android.diploma.core.domain.model.SearchVacanciesResult
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.search.presentation.SearchState
@@ -14,7 +17,8 @@ import ru.practicum.android.diploma.search.presentation.SearchStatus
 import ru.practicum.android.diploma.search.presentation.SearchViewModel
 
 class SearchFragment : Fragment() {
-    private var vacancyAdapter: VacancyAdapter = VacancyAdapter(requireContext())
+    private lateinit var vacancyAdapter: VacancyAdapter
+    private val mockedParameters = SearchFilterParameters("", "", "", false)
     private val viewModel by viewModel<SearchViewModel>()
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
@@ -36,7 +40,31 @@ class SearchFragment : Fragment() {
     }
 
     private fun setupListeners() {
+        binding.searchEditText.doOnTextChanged { text, _, _, _ ->
+            if (text.isNullOrEmpty()) {
+                binding.icSearchOrCross.setImageResource(R.drawable.ic_search)
+            } else {
+                binding.icSearchOrCross.setImageResource(R.drawable.ic_close)
+            }
+        }
+        binding.icSearchOrCross.setOnClickListener {
+            binding.searchEditText.text = null
+            viewModel.clearSearch()
+        }
+        binding.searchEditText.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                search()
+            }
+            true
+        }
+        vacancyAdapter = VacancyAdapter(requireContext())
+    }
 
+    private fun search() {
+        if (binding.searchEditText.text.isNotEmpty()) {
+            setStatus(SearchStatus.PROGRESS)
+            viewModel.initSearch(binding.searchEditText.text.toString(), 0, mockedParameters)
+        }
     }
 
     private fun render(it: SearchState) {
