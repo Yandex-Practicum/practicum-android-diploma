@@ -1,7 +1,5 @@
-package ru.practicum.android.diploma.data.room
+package ru.practicum.android.diploma.data.dto.favourites.room
 
-import ru.practicum.android.diploma.data.dto.favourites.room.VacancyDetails
-import ru.practicum.android.diploma.data.dto.favourites.room.VacancyEntity
 import java.util.stream.Collectors
 
 object VacancyConverter {
@@ -60,4 +58,3 @@ object VacancyConverter {
         description = vacancy.description!!,
     )
 }
-

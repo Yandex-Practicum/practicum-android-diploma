@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
+import ru.practicum.android.diploma.data.dto.favourites.room.VacancyEntity
 
 @Dao
 interface VacancyDao {
