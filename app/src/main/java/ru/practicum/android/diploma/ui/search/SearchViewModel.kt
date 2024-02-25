@@ -20,6 +20,7 @@ import ru.practicum.android.diploma.ui.search.adapter.SearchPage
 class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewModel() {
     val actionStateFlow = MutableSharedFlow<String>()
 
+
     val stateVacancyData = actionStateFlow.flatMapLatest {
         getPagingData(it)
     }
