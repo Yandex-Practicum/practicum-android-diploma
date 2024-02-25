@@ -4,7 +4,7 @@ import androidx.room.Room
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import ru.practicum.android.diploma.data.room.AppDatabase
-import ru.practicum.android.diploma.data.room.VacancyConverter
+import ru.practicum.android.diploma.data.dto.favourites.room.VacancyConverter
 
 val DBModule = module {
     single {
