@@ -9,28 +9,78 @@ import ru.practicum.android.diploma.core.domain.model.DetailVacancy
 import ru.practicum.android.diploma.favourites.domain.api.GetFavouritesInteractor
 import ru.practicum.android.diploma.favourites.domain.models.FavouritesState
 
-class FavouritesViewModel(private val getFavouritesInteractor: GetFavouritesInteractor): ViewModel() {
+class FavouritesViewModel(private val getFavouritesInteractor : GetFavouritesInteractor): ViewModel() {
 
-    private var _favouritesListMutable = MutableLiveData<List<DetailVacancy>>()
-    val _favouritesList: LiveData<List<DetailVacancy>> = _favouritesListMutable
+    private var favouritesListMutable = MutableLiveData<List<DetailVacancy>>()
+    val favouritesList: LiveData<List<DetailVacancy>> = favouritesListMutable
 
-    private var _favouritesStatusMutable = MutableLiveData<FavouritesState>()
-    val favouritesStatus: LiveData<FavouritesState> = _favouritesStatusMutable
+    private var favouritesStatusMutable = MutableLiveData<FavouritesState>()
+    val favouritesStatus: LiveData<FavouritesState> = favouritesStatusMutable
 
     fun getFavouritesList() {
-        viewModelScope.launch {
-            getFavouritesInteractor.getFavouritesList().collect { it ->
-                _favouritesListMutable.postValue(listOf<DetailVacancy>())
-                if (it == null) {
-                    _favouritesStatusMutable.postValue(FavouritesState.ERROR)
-                } else if (it.isEmpty()) {
-                    _favouritesStatusMutable.postValue(FavouritesState.EMPTY_RESULT)
-                } else {
-                    _favouritesListMutable.postValue(it!!)
-                    _favouritesStatusMutable.postValue(FavouritesState.SUCCESS)
+        fillVacancyList()
 
+        viewModelScope.launch {
+            getFavouritesInteractor.getFavouritesList().collect {
+                favouritesListMutable.postValue(listOf<DetailVacancy>())
+                if (it == null) {
+                    favouritesStatusMutable.postValue(FavouritesState.ERROR)
+                } else if (it.isEmpty()) {
+                    favouritesStatusMutable.postValue(FavouritesState.EMPTY_RESULT)
+                } else {
+                    favouritesListMutable.postValue(it!!)
+                    favouritesStatusMutable.postValue(FavouritesState.SUCCESS)
                 }
             }
+        }
+    }
+
+    fun fillVacancyList() {
+        val vac1 = DetailVacancy(
+            1,
+            "Андроид-разработчик",
+            "100 000",
+            "",
+            "Rub",
+            "3 years",
+            "Employment",
+            "24 on 7",
+            "Very rock vacancy",
+            listOf(),
+            "Anna",
+            "ya@ya.ru",
+            "_789890980",
+            "HR",
+            "",
+            "Еда",
+            "Москва"
+        )
+
+        val vac2 = DetailVacancy(
+            2,
+            "Разработчик на С++ в команду внутренних сервисов",
+            "40 000",
+            "80 000",
+            "Rub",
+            "1 years",
+            "Employment 1",
+            "always",
+            "Very high vacancy",
+            listOf(),
+            "Anna1",
+            "ya@ya1.ru",
+            "_7898909888",
+            "HR1",
+            "",
+            "Авто.ру",
+            "Москва"
+        )
+
+
+
+        viewModelScope.launch {
+            getFavouritesInteractor.fillVacList(vac1)
+            getFavouritesInteractor.fillVacList(vac2)
         }
     }
 }

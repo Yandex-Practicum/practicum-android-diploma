@@ -21,3 +21,10 @@ fun getSalaryStr(salaryFrom: String, salaryTo: String, currencyStr: String, cont
 
     return resStr
 }
+
+fun getVacancyTitle(name: String, city: String): String {
+    return if (city.isNotBlank()) {
+        "$name, $city"
+    } else
+        name
+}
