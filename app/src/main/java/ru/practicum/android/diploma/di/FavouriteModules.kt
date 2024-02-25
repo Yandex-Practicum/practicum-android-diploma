@@ -6,8 +6,8 @@ import ru.practicum.android.diploma.data.dto.favourites.DeleteDataRepositoryImpl
 import ru.practicum.android.diploma.data.dto.favourites.GetDataByIdRepositoryImpl
 import ru.practicum.android.diploma.data.dto.favourites.GetDataRepositoryImpl
 import ru.practicum.android.diploma.data.dto.favourites.SaveDataRepositoryImpl
-import ru.practicum.android.diploma.data.network.NetworkClient
-import ru.practicum.android.diploma.data.network.RetrofitNetworkClient
+import ru.practicum.android.diploma.data.search.network.NetworkClient
+import ru.practicum.android.diploma.data.search.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.domain.api.CheckOnLikeRepository
 import ru.practicum.android.diploma.domain.api.DeleteDataRepository
 import ru.practicum.android.diploma.domain.api.GetDataByIdRepository
