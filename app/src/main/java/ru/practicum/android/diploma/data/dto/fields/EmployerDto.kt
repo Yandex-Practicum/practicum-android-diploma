@@ -7,4 +7,3 @@ data class EmployerDto(
     @SerializedName("logo_urls") val logoUrlsDto: LogoUrlsDto?,
     @SerializedName("alternate_url") val alternateUrl: String?
 )
-

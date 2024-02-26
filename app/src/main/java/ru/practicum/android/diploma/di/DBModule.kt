@@ -3,8 +3,8 @@ package ru.practicum.android.diploma.di
 import androidx.room.Room
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
-import ru.practicum.android.diploma.data.room.AppDatabase
 import ru.practicum.android.diploma.data.dto.favourites.room.VacancyConverter
+import ru.practicum.android.diploma.data.room.AppDatabase
 
 val DBModule = module {
     single {
@@ -14,6 +14,6 @@ val DBModule = module {
             .build()
     }
     factory { VacancyConverter }
-    //factory { VacancyDetailsConverter } заготовка
-    //factory { DetailsConverter() } заготовка
+    // factory { VacancyDetailsConverter } заготовка
+    // factory { DetailsConverter() } заготовка
 }

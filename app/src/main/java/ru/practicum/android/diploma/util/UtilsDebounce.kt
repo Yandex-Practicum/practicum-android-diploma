@@ -6,7 +6,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 object UtilsDebounce {
-     fun debounce(
+    fun debounce(
         coroutineScope: CoroutineScope,
         job: Job?,
         function: () -> Unit,

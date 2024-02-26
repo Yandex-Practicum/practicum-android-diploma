@@ -20,7 +20,7 @@ class FavoriteViewModel(
     private val screenStatement: MutableLiveData<FavouritesState> = MutableLiveData()
     val screenState: LiveData<FavouritesState> get() = screenStatement
 
-    //Получение данных
+    // Получение данных
     fun getData() {
         viewModelScope.launch(Dispatchers.IO) {
             try {

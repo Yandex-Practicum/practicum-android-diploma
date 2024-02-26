@@ -11,7 +11,7 @@ import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.R
 
 class RootActivity : AppCompatActivity() {
-    lateinit var bottomNavigationView: BottomNavigationView
+    private var bottomNavigationView: BottomNavigationView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +23,7 @@ class RootActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.main_box) as NavHostFragment
         val navController = navHostFragment.navController
-        bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        var bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNavigationView.setupWithNavController(navController)
         setupNav(navController)
     }
@@ -33,7 +33,6 @@ class RootActivity : AppCompatActivity() {
     }
 
     private fun setupNav(navController: NavController) {
-
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.favouriteFragment -> showBottomNav()
@@ -45,12 +44,11 @@ class RootActivity : AppCompatActivity() {
     }
 
     private fun showBottomNav() {
-        bottomNavigationView.visibility = View.VISIBLE
-
+        bottomNavigationView?.visibility = View.VISIBLE
     }
 
     private fun hideBottomNav() {
-        bottomNavigationView.visibility = View.GONE
+        bottomNavigationView?.visibility = View.GONE
 
     }
 

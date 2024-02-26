@@ -12,14 +12,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.data.network.Resource
+import ru.practicum.android.diploma.data.Constant.STATIC_PAGE_SIZE
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.domain.search.SearchInteractor
 import ru.practicum.android.diploma.ui.search.adapter.SearchPage
-import ru.practicum.android.diploma.ui.search.adapter.SearchPage.Companion.STATIC_PAGE_SIZE
-import java.util.UUID
 
-class SearchViewModel : ViewModel() {
+class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewModel() {
     val actionStateFlow = MutableSharedFlow<String>()
+
 
     val stateVacancyData = actionStateFlow.flatMapLatest {
         getPagingData(it)
@@ -27,9 +27,7 @@ class SearchViewModel : ViewModel() {
 
     fun getPagingData(search: String): StateFlow<PagingData<Vacancy>> {
         return Pager(PagingConfig(pageSize = STATIC_PAGE_SIZE)) {
-            SearchPage(search) { it1, it2 ->
-                fakeData(it1, it2)
-            }
+            SearchPage(search, searchInteractor)
         }.flow.stateIn(viewModelScope, SharingStarted.Lazily, PagingData.empty())
     }
 
@@ -37,24 +35,5 @@ class SearchViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             actionStateFlow.emit(vacancy)
         }
-    }
-
-    suspend fun fakeData(expression: String, page: Int): Resource<List<Vacancy>> {
-        val list = mutableListOf<Vacancy>()
-        for (i in 0 until STATIC_PAGE_SIZE) {
-            list.add(
-                Vacancy(
-                    id = UUID.randomUUID().toString(),
-                    name = "$expression Станица:$page Номер:$i",
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                )
-            )
-        }
-        return Resource(data = list)
     }
 }
