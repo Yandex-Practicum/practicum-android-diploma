@@ -26,6 +26,7 @@
     <string name="comma">, </string>
     <string name="server_error">Ошибка сервера</string>
     <string name="search_request">Введите запрос</string>
+    <string name="filter_settings">Настройки фильтрации</string>
 
     <string name="fav_empty_list">Список пуст</string>
     <string name="fav_nothing_found">Не удалось получить \nсписок вакансий</string>
