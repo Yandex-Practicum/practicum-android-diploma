@@ -1,10 +1,8 @@
 package ru.practicum.android.diploma.search.ui
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.domain.model.ShortVacancy
 import ru.practicum.android.diploma.databinding.VacancyViewBinding
 
