@@ -22,7 +22,8 @@ class VacancyViewHolder(
         val salaryFrom = shortVacancy.salaryFrom?.toIntOrNull() ?: 0
         val salaryTo = shortVacancy.salaryTo?.toIntOrNull() ?: 0
 
-        binding.vacancyName.text = itemView.context.getString(R.string.vacancy_name, shortVacancy.name, shortVacancy.city)
+        binding.vacancyName.text =
+            itemView.context.getString(R.string.vacancy_name, shortVacancy.name, shortVacancy.city)
         binding.companyName.text = itemView.context.getString(R.string.company_name, shortVacancy.companyName)
         binding.salary.text = itemView.context.getString(R.string.salary_format, salaryFrom, salaryTo)
 
