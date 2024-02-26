@@ -1,27 +1,26 @@
 package ru.practicum.android.diploma.core.data.network
 
-import android.content.Context
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.core.data.NetworkClient
 import ru.practicum.android.diploma.core.data.network.dto.Response
 import ru.practicum.android.diploma.core.domain.model.SearchFilterParameters
-import ru.practicum.android.diploma.util.isConnected
 import java.io.IOException
 import java.net.SocketTimeoutException
 
 class RetrofitNetworkClient(
-    private val context: Context,
-    private val hhApi: HhApi
+    private val hhApi: HhApi,
+    private val connectionChecker: ConnectionChecker,
 ) : NetworkClient {
+
     override suspend fun getVacanciesByPage(
         searchText: String,
         filterParameters: SearchFilterParameters,
         page: Int,
         perPage: Int
     ): Response {
-        if (!isConnected(context)) {
+        if (!connectionChecker.isConnected()) {
             return Response().apply { resultCode = NETWORK_ERROR_CODE }
         }
         return withContext(Dispatchers.IO) {
@@ -77,7 +76,7 @@ class RetrofitNetworkClient(
     }
 
     override suspend fun getDetailVacancyById(id: Long): Response {
-        if (!isConnected(context)) {
+        if (!connectionChecker.isConnected()) {
             return Response().apply { resultCode = NETWORK_ERROR_CODE }
         }
         return withContext(Dispatchers.IO) {

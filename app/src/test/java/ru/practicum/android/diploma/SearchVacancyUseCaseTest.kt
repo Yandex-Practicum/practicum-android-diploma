@@ -15,7 +15,8 @@ import ru.practicum.android.diploma.search.domain.usecase.SearchVacancyUseCase
 import ru.practicum.android.diploma.util.Resource
 
 class SearchVacancyUseCaseTest {
-    private val networkClient: NetworkClient = RetrofitNetworkClient(HhApiProvider.hhService)
+    private val networkClient: NetworkClient =
+        RetrofitNetworkClient(HhApiProvider.hhService) { true }
     private val searchVacancyRepository: SearchVacancyRepository = SearchVacancyRepositoryImpl(networkClient)
     private val searchVacancyUseCase = SearchVacancyUseCase(searchVacancyRepository)
 

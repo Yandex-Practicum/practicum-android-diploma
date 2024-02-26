@@ -34,7 +34,7 @@ object VacancyMapper {
             employment = detailVacancy.employment?.name.orEmpty(),
             workSchedule = detailVacancy.workScheduleInfo?.name.orEmpty(),
             description = detailVacancy.description,
-            keySkills = detailVacancy.keySkills,
+            keySkills = detailVacancy.keySkills.map { it.name },
             contactName = detailVacancy.contactInfo?.contactName.orEmpty(),
             email = detailVacancy.contactInfo?.email.orEmpty(),
             phone = detailVacancy.contactInfo?.phones?.firstOrNull()?.formatted.orEmpty(),

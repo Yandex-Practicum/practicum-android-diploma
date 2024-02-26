@@ -5,7 +5,7 @@ import ru.practicum.android.diploma.vacancy.data.DetailVacancyRepositoryImpl
 import ru.practicum.android.diploma.vacancy.domain.api.DetailVacancyRepository
 
 val repositoryModule = module {
-    factory<DetailVacancyRepository> {
+    single<DetailVacancyRepository> {
         DetailVacancyRepositoryImpl(networkClient = get())
     }
 }

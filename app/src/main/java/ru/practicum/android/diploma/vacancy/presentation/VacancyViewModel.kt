@@ -18,17 +18,18 @@ class VacancyViewModel(
     private val sendEmailUseCase: SendEmailUseCase,
     private val shareVacancyUseCase: ShareVacancyUseCase
 ) : ViewModel() {
+    private val stateLiveData = MutableLiveData<VacancyScreenState>()
+
     init {
         getDetailVacancyById()
     }
 
-    private val stateLiveData = MutableLiveData<VacancyScreenState>()
     fun observeState(): LiveData<VacancyScreenState> = stateLiveData
 
     private fun getDetailVacancyById() {
         stateLiveData.postValue(VacancyScreenState.Loading)
         viewModelScope.launch(Dispatchers.IO) {
-            detailVacancyUseCase.execute(TODO("Получить id в зависимости от способа передачи")).collect {
+            detailVacancyUseCase.execute(TEST_ID).collect {
                 when (it) {
                     is Resource.Success -> renderState(VacancyScreenState.Content(it.data!!))
                     is Resource.InternetError -> renderState(VacancyScreenState.Error)
@@ -52,5 +53,9 @@ class VacancyViewModel(
 
     private fun renderState(vacancyScreenState: VacancyScreenState) {
         stateLiveData.postValue(vacancyScreenState)
+    }
+
+    companion object {
+        private const val TEST_ID = 93_485_145L
     }
 }

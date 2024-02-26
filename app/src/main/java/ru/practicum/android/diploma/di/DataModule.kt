@@ -4,6 +4,10 @@ import androidx.room.Room
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import ru.practicum.android.diploma.core.data.NetworkClient
+import ru.practicum.android.diploma.core.data.network.ConnectionChecker
+import ru.practicum.android.diploma.core.data.network.ConnectionCheckerImpl
+import ru.practicum.android.diploma.core.data.network.HhApi
+import ru.practicum.android.diploma.core.data.network.HhApiProvider
 import ru.practicum.android.diploma.core.data.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.favourites.data.db.AppDatabase
 import ru.practicum.android.diploma.vacancy.data.ExternalNavigatorImpl
@@ -16,11 +20,18 @@ val dataModule = module {
             .build()
     }
 
-    single<ExternalNavigator> {
+    factory<ExternalNavigator> {
         ExternalNavigatorImpl(context = androidContext())
     }
 
     single<NetworkClient> {
-        RetrofitNetworkClient(context = androidContext(), hhApi = get())
+        RetrofitNetworkClient(hhApi = get(), connectionChecker = get())
+    }
+
+    single<ConnectionChecker> {
+        ConnectionCheckerImpl(context = androidContext())
+    }
+    single<HhApi> {
+        HhApiProvider.hhService
     }
 }

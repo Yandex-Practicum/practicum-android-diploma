@@ -35,7 +35,6 @@ class VacancyFragment : Fragment() {
         viewModel.observeState().observe(viewLifecycleOwner) {
             render(it)
         }
-
         binding.vacancyToolbar.setOnClickListener {
             findNavController().navigateUp()
         }
