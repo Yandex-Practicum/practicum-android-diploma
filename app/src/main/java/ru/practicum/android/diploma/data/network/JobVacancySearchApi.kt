@@ -23,6 +23,6 @@ interface JobVacancySearchApi {
 
     companion object {
         const val HEADER_AUTH = "Authorization: Bearer ${BuildConfig.HH_ACCESS_TOKEN}"
-        const val HEADER_USER = "HH-User-Agent: Application Name (makss.impeks@gmail.com)"
+        const val HEADER_USER = "HH-User-Agent: practicum-android-diploma (makss.impeks@gmail.com)"
     }
 }
