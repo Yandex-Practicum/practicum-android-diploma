@@ -5,7 +5,7 @@ import ru.practicum.android.diploma.data.vacancylist.dto.VacanciesSearchRequest
 import ru.practicum.android.diploma.domain.models.main.Vacancy
 
 interface SearchRepository {
-    fun makeRequest(request: VacanciesSearchRequest): Flow<Resource<List<Vacancy>>>
+    fun makeRequest(queryMap: Map<String, String>): Flow<Resource<List<Vacancy>>>
 
     suspend fun getVacancyByQuery(query: String): List<Vacancy>
 }
