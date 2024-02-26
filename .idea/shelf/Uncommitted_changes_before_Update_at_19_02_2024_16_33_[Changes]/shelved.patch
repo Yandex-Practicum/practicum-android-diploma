@@ -1,0 +1,24 @@
+Index: app/src/main/res/menu/navigation_items.xml
+===================================================================
+diff --git a/app/src/main/res/menu/navigation_items.xml b/app/src/main/res/menu/navigation_items.xml
+deleted file mode 100644
+--- a/app/src/main/res/menu/navigation_items.xml	(revision e7262675d67db0d443453f8bddb782e4b37af089)
++++ /dev/null	(revision e7262675d67db0d443453f8bddb782e4b37af089)
+@@ -1,17 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+-    <item
+-        android:id="@+id/mainFragment"
+-        android:icon="@drawable/ic_bottom_main"
+-        android:title="@string/activity_bottom_search" />
+-
+-    <item
+-        android:id="@+id/favoritesFragment"
+-        android:icon="@drawable/ic_bottom_favorite"
+-        android:title="@string/activity_bottom_favorite" />
+-
+-    <item
+-        android:id="@+id/countryFragment"
+-        android:icon="@drawable/ic_bottom_team"
+-        android:title="@string/activity_bottom_team" />
+-</menu>

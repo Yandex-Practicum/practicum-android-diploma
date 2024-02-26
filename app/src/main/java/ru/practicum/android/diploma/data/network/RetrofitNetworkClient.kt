@@ -12,17 +12,9 @@ import ru.practicum.android.diploma.data.vacancydetail.dto.DetailRequest
 import ru.practicum.android.diploma.data.vacancylist.dto.VacanciesSearchRequest
 
 class RetrofitNetworkClient(
-    private val context: Context
+    private val context: Context,
+    private val jobVacancySearchApi: JobVacancySearchApi
 ) : NetworkClient {
-
-    private val hhBaseUrl = "https://api.hh.ru"
-
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(hhBaseUrl)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-
-    private val jobVacancySearchApi = retrofit.create(JobVacancySearchApi::class.java)
 
     override suspend fun doRequest(dto: Any): Response {
         if (!isConnected()) {
