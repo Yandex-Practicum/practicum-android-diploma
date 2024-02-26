@@ -51,6 +51,10 @@
     <string name="pavel">Павел Хоменко</string>
     <string name="sergey">Сергей Осипов</string>
     <string name="victor">Виктор Бляхеров</string>
+    <string name="vacancy_name">%1$s, %2$s</string>
+    <string name="company_name">%s</string>
+    <string name="salary_format">%1$d - %2$d</string>
+    <string name="salary_unknown">Unknown</string>
 
     <plurals name="vacancies">
         <item quantity="one">%1$d вакансия</item>
