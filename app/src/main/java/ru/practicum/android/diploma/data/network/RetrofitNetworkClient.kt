@@ -7,8 +7,6 @@ import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.Response
 import ru.practicum.android.diploma.data.ResponseCodes
@@ -35,9 +33,8 @@ class RetrofitNetworkClient(
         return withContext(Dispatchers.IO) {
             try {
                 val response = when (dto) {
-                    is VacanciesSearchRequest -> async { jobVacancySearchApi.getVacancyListString(dto.queryMap) }
-                    is DetailRequest -> async { jobVacancySearchApi.getVacancyDetail(dto.id) }
-                    else -> async { jobVacancySearchApi.getVacancyListString((dto as VacanciesSearchRequest).queryMap) }
+                    is VacanciesSearchRequest -> async { jobVacancySearchApi.getFullListVacancy(dto.queryMap) }
+                    else -> async { jobVacancySearchApi.getVacancyDetail((dto as DetailRequest).id) }
                 }.await()
                 response.apply { resultCode = ResponseCodes.SUCCESS }
             } catch (e: Throwable) {

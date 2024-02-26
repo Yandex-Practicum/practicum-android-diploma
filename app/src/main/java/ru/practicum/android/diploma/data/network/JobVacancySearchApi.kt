@@ -5,7 +5,6 @@ import retrofit2.http.Headers
 import retrofit2.http.Path
 import retrofit2.http.QueryMap
 import ru.practicum.android.diploma.BuildConfig
-import ru.practicum.android.diploma.data.vacancydetail.dto.DetailResponse
 import ru.practicum.android.diploma.data.vacancylist.dto.VacanciesRemote
 import ru.practicum.android.diploma.data.vacancylist.dto.VacanciesSearchResponse
 
@@ -19,7 +18,7 @@ interface JobVacancySearchApi {
     // Запрос списка вакансий
     @Headers(HEADER_AUTH, HEADER_USER)
     @GET("/vacancies")
-    suspend fun getVacancyListString(@QueryMap options: Map<String, String>): VacanciesSearchResponse
+    suspend fun getFullListVacancy(@QueryMap request: Map<String, String>): VacanciesSearchResponse
 
     // Запрос детальной информации о вакансии
     @Headers(HEADER_AUTH, HEADER_USER)

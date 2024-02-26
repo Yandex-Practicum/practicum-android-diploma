@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.ui.main.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,6 +23,7 @@ class MainViewModel(
     val interactor: SearchInteractor
 ) : ViewModel() {
     private val state = MutableStateFlow(MainViewState())
+    private var searchJob: Job? = null
     fun observeState() = state.asStateFlow()
 
     fun onSearch(text: String) {
@@ -29,6 +31,7 @@ class MainViewModel(
             state.update { it.copy(state = null) }
             return
         }
+
         state.update { it.copy(state = SearchState.Loading) }
 
         viewModelScope.launch {
@@ -45,18 +48,18 @@ class MainViewModel(
 //                state.update { it.copy(state = SearchState.Content(vacancies)) }
 //            }
 
-            searchRequest(mapOf("text" to text))
+            searchRequest(text)
         }
     }
 
     var vacancyList: List<Vacancy>? = ArrayList()
 
-    private fun searchRequest(queryMap: Map<String, String>) {
-        if (queryMap.isNotEmpty()) {
+    private fun searchRequest(text: String) {
+        if (text.isNotEmpty()) {
             state.update { it.copy(state = SearchState.Loading) }
 
             viewModelScope.launch {
-                interactor.searchTrack(queryMap)
+                interactor.searchTrack(mapOf("text" to  text))
                     .collect { vacancies ->
                         processResult(vacancies.first, vacancies.second)
                     }
