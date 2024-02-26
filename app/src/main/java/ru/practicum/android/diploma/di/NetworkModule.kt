@@ -42,7 +42,7 @@ val networkModule = module {
     }
 
     single<NetworkClient> {
-        RetrofitNetworkClient(androidContext())
+        RetrofitNetworkClient(androidContext(), get())
     }
 
     single {
