@@ -14,9 +14,17 @@ import ru.practicum.android.diploma.domain.models.main.Vacancy
 class SearchInteractorImpl(
     val repository: SearchRepository
 ) : SearchInteractor {
-    override suspend fun searchTrack(query: String): List<Vacancy> {
-        return withContext(Dispatchers.IO) {
-            repository.getVacancyByQuery(query)
+
+    override suspend fun searchTrack(queryMap: Map<String, String>): Flow<Pair<List<Vacancy>?, Int?>> {
+        return repository.makeRequest(queryMap).map {
+            when(it) {
+                is Resource.Success -> {
+                    Pair(it.data, null)
+                }
+                is Resource.Error -> {
+                    Pair(null, it.message)
+                }
+            }
         }
     }
 }

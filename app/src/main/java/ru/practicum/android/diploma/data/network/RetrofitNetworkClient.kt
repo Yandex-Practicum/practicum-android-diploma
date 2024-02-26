@@ -3,8 +3,10 @@ package ru.practicum.android.diploma.data.network
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import android.util.Log
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.Response
 import ru.practicum.android.diploma.data.ResponseCodes
@@ -17,29 +19,28 @@ class RetrofitNetworkClient(
 ) : NetworkClient {
 
     override suspend fun doRequest(dto: Any): Response {
+        Log.d("StateSearch", "${isConnected()}")
         if (!isConnected()) {
             return Response().apply { resultCode = ResponseCodes.NO_CONNECTION }
         }
 
-        return when (dto) {
-            is VacanciesSearchRequest ->
-                try {
-                    val response = jobVacancySearchApi.getVacancyDetail(dto.queryMap)
-                    response.apply { resultCode = ResponseCodes.SUCCESS }
-                } catch (e: Throwable) {
-                Response().apply { resultCode = ResponseCodes.ERROR }
-            }
+        if ((dto !is VacanciesSearchRequest)
+            && (dto !is DetailRequest)
+        ) {
+            Log.d("StateSearch", "Упали не дошли на ошибке")
+            return Response().apply { resultCode = ResponseCodes.ERROR }
+        }
 
-            is DetailRequest ->
-                try {
-                    val response = jobVacancySearchApi.getVacancyDetail(dto.id)
-                    response.apply { resultCode = ResponseCodes.SUCCESS }
-                } catch (e: Throwable) {
-                Response().apply { resultCode = ResponseCodes.ERROR }
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = when (dto) {
+                    is VacanciesSearchRequest -> async { jobVacancySearchApi.getFullListVacancy(dto.queryMap) }
+                    else -> async { jobVacancySearchApi.getVacancyDetail((dto as DetailRequest).id) }
+                }.await()
+                response.apply { resultCode = ResponseCodes.SUCCESS }
+            } catch (e: Throwable) {
+                Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
             }
-
-            else ->
-                Response().apply { resultCode = ResponseCodes.ERROR }
         }
     }
 

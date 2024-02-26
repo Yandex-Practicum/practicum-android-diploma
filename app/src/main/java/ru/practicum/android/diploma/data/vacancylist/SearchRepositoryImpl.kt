@@ -19,12 +19,15 @@ class SearchRepositoryImpl(
     private val networkClient: NetworkClient,
     private val vacancyApi: JobVacancySearchApi
 ) : SearchRepository {
-    override fun makeRequest(request: VacanciesSearchRequest): Flow<Resource<List<Vacancy>>> = flow {
-        val response = networkClient.doRequest(request)
+
+    override fun makeRequest(queryMap: Map<String, String>): Flow<Resource<List<Vacancy>>> = flow {
+        val response = networkClient.doRequest(VacanciesSearchRequest(queryMap))
+
         when (response.resultCode) {
+            ResponseCodes.DEFAULT -> emit(Resource.Error(response.resultCode.code))
             ResponseCodes.SUCCESS -> {
-                with(response as VacanciesSearchResponse){
-                    val data = results.vacancyDto.map {
+                with(response as VacanciesSearchResponse) {
+                    val data = results?.vacancyDto?.map {
                         it.toVacancy()
                     }
                 emit(Resource.Success(data))
@@ -32,6 +35,7 @@ class SearchRepositoryImpl(
             }
             ResponseCodes.ERROR -> emit(Resource.Error(response.resultCode.code))
             ResponseCodes.NO_CONNECTION -> emit(Resource.Error(response.resultCode.code))
+            ResponseCodes.SERVER_ERROR -> emit(Resource.Error(response.resultCode.code))
         }
     }
 

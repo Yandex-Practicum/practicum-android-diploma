@@ -30,8 +30,8 @@ val networkModule = module {
     single<Retrofit> {
         val client = get<OkHttpClient>()
         Retrofit.Builder()
-            .client(client)
             .baseUrl(ApiEndpoints.BASE_URL)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

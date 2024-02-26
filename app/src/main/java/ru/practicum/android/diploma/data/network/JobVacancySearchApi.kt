@@ -22,7 +22,7 @@ interface JobVacancySearchApi {
     suspend fun getVacancyDetail(@Path("vacancy_id") id: String): DetailResponse
 
     companion object {
-        const val HEADER_AUTH = "Authorization: Bearer ${BuildConfig.HH_ACCESS_TOKEN}"
+        const val HEADER_AUTH = "Authorization: Bearer APPLRKAEGP85JKN46QO2879BNG9GEJD0QARKN5OKGAOUCEEHAFVSDUN9ND5FOJT1"
         const val HEADER_USER = "HH-User-Agent: practicum-android-diploma (makss.impeks@gmail.com)"
     }
 }
