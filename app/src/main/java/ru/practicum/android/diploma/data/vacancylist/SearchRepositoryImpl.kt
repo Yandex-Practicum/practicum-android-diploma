@@ -26,8 +26,8 @@ class SearchRepositoryImpl(
         when (response.resultCode) {
             ResponseCodes.DEFAULT -> emit(Resource.Error(response.resultCode.code))
             ResponseCodes.SUCCESS -> {
-                with(response as VacanciesSearchResponse){
-                    val data = results.vacancyDto.map {
+                with(response as VacanciesSearchResponse) {
+                    val data = results?.vacancyDto?.map {
                         it.toVacancy()
                     }
                 emit(Resource.Success(data))

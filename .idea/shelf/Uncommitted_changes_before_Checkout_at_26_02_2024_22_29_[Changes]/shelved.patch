@@ -1,0 +1,19 @@
+Index: app/src/main/java/ru/practicum/android/diploma/data/network/JobVacancySearchApi.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.data.network\r\n\r\nimport retrofit2.http.GET\r\nimport retrofit2.http.Headers\r\nimport retrofit2.http.Path\r\nimport retrofit2.http.QueryMap\r\nimport ru.practicum.android.diploma.BuildConfig\r\nimport ru.practicum.android.diploma.data.vacancydetail.dto.DetailResponse\r\nimport ru.practicum.android.diploma.data.vacancylist.dto.VacanciesRemote\r\nimport ru.practicum.android.diploma.data.vacancylist.dto.VacanciesSearchResponse\r\n\r\ninterface JobVacancySearchApi {\r\n\r\n    // Запрос списка вакансий\r\n    @Headers(HEADER_AUTH, HEADER_USER)\r\n    @GET(\"/vacancies\")\r\n    suspend fun getVacancyList(@QueryMap options: Map<String, String>): VacanciesRemote\r\n\r\n    // Запрос детальной информации о вакансии\r\n    @Headers(HEADER_AUTH, HEADER_USER)\r\n    @GET(\"/vacancies/{vacancy_id}\")\r\n    suspend fun getVacancyDetail(@Path(\"vacancy_id\") id: String): DetailResponse\r\n\r\n    companion object {\r\n        const val HEADER_AUTH = \"Authorization: Bearer ${BuildConfig.HH_ACCESS_TOKEN}\"\r\n        const val HEADER_USER = \"HH-User-Agent: practicum-android-diploma (makss.impeks@gmail.com)\"\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/data/network/JobVacancySearchApi.kt b/app/src/main/java/ru/practicum/android/diploma/data/network/JobVacancySearchApi.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/data/network/JobVacancySearchApi.kt	(revision 1c99c00b5f2700c49273ccbe5e83464645fb7cf0)
++++ b/app/src/main/java/ru/practicum/android/diploma/data/network/JobVacancySearchApi.kt	(date 1708975677167)
+@@ -22,7 +22,7 @@
+     suspend fun getVacancyDetail(@Path("vacancy_id") id: String): DetailResponse
+ 
+     companion object {
+-        const val HEADER_AUTH = "Authorization: Bearer ${BuildConfig.HH_ACCESS_TOKEN}"
++        const val HEADER_AUTH = "Authorization: Bearer GAKDA01M8PRHG570LM3SQG9GL7S3PVKTULQTRV6RNRUNU0DRUFVAAP7EKH54IPHS"
+         const val HEADER_USER = "HH-User-Agent: practicum-android-diploma (makss.impeks@gmail.com)"
+     }
+ }

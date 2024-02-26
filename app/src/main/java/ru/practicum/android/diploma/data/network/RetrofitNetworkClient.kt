@@ -19,6 +19,7 @@ class RetrofitNetworkClient(
 ) : NetworkClient {
 
     override suspend fun doRequest(dto: Any): Response {
+        Log.d("StateSearch", "${isConnected()}")
         if (!isConnected()) {
             return Response().apply { resultCode = ResponseCodes.NO_CONNECTION }
         }
