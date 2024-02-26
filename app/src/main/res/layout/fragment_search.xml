@@ -68,6 +68,7 @@
             android:lines="1"
             android:paddingHorizontal="16dp"
             android:singleLine="true"
+            android:textColor="@color/black"
             android:textColorHint="?attr/colorOnSecondary"
             android:textCursorDrawable="@drawable/cursor" />
 
@@ -161,5 +162,5 @@
         android:layout_marginVertical="22dp"
         android:layout_gravity="center"
         android:indeterminateTint="@color/blue"
-        android:visibility="visible" />
+        android:visibility="gone" />
 </LinearLayout>
