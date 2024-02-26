@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.domain.model.SearchFilterParameters
@@ -17,7 +18,7 @@ import ru.practicum.android.diploma.search.presentation.SearchStatus
 import ru.practicum.android.diploma.search.presentation.SearchViewModel
 
 class SearchFragment : Fragment() {
-    private var vacancyAdapter: VacancyAdapter? = null
+    private var vacancyAdapter: VacancyAdapter = VacancyAdapter()
     private val mockedParameters = SearchFilterParameters("", "", "", false)
     private val viewModel by viewModel<SearchViewModel>()
     private var _binding: FragmentSearchBinding? = null
@@ -57,7 +58,8 @@ class SearchFragment : Fragment() {
             }
             true
         }
-        vacancyAdapter = VacancyAdapter(requireContext())
+        binding.vacancyRecycler.adapter = vacancyAdapter
+        binding.vacancyRecycler.layoutManager = LinearLayoutManager(requireContext())
     }
 
     private fun search() {
@@ -132,7 +134,7 @@ class SearchFragment : Fragment() {
                 binding.vacancyRecycler.visibility = View.VISIBLE
                 binding.placeholderText.visibility = View.GONE
                 binding.errorPlaceholder.visibility = View.GONE
-                binding.tvVacancyAmount.visibility = View.GONE
+                binding.tvVacancyAmount.visibility = View.VISIBLE
             }
 
             SearchStatus.DEFAULT -> {

@@ -4,19 +4,20 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.domain.model.ShortVacancy
 import ru.practicum.android.diploma.databinding.VacancyViewBinding
 
 class VacancyAdapter(
-    private val context: Context,
     var onItemClick: ((ShortVacancy) -> Unit)? = null
 ) : RecyclerView.Adapter<VacancyViewHolder>() {
 
     var vacancyList = ArrayList<ShortVacancy>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VacancyViewHolder {
-        val binding = VacancyViewBinding.inflate(LayoutInflater.from(context), parent, false)
-        return VacancyViewHolder(binding, context)
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val binding = VacancyViewBinding.inflate(layoutInflater, parent, false)
+        return VacancyViewHolder(binding)
     }
 
     override fun getItemCount(): Int = vacancyList.size
@@ -28,3 +29,4 @@ class VacancyAdapter(
         }
     }
 }
+

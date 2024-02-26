@@ -32,7 +32,11 @@ class SearchViewModel(private val searchVacancyUseCase: SearchVacancyUseCase) : 
                     .collect {
                         when (it) {
                             is Resource.Success -> {
-                                stateLiveData.postValue(SearchState.Content(it.data))
+                                if (it.data?.vacancies?.isNullOrEmpty() == true) {
+                                    stateLiveData.postValue(SearchState.EmptyResult)
+                                } else {
+                                    stateLiveData.postValue(SearchState.Content(it.data))
+                                }
                             }
 
                             is Resource.InternetError -> {

@@ -10,11 +10,10 @@ import ru.practicum.android.diploma.databinding.VacancyViewBinding
 
 class VacancyViewHolder(
     private val binding: VacancyViewBinding,
-    private val context: Context
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(shortVacancy: ShortVacancy) {
-        Glide.with(context)
+        Glide.with(itemView)
             .load(shortVacancy.employerLogoUrl)
             .placeholder(R.drawable.placeholder_vacancy)
             .transform(RoundedCorners(itemView.resources.getDimensionPixelSize(R.dimen.search_margin_s)))
@@ -24,9 +23,9 @@ class VacancyViewHolder(
         val salaryFrom = shortVacancy.salaryFrom?.toIntOrNull() ?: 0
         val salaryTo = shortVacancy.salaryTo?.toIntOrNull() ?: 0
 
-        binding.vacancyName.text = context.getString(R.string.vacancy_name, shortVacancy.name, shortVacancy.city)
-        binding.companyName.text = context.getString(R.string.company_name, shortVacancy.companyName)
-        binding.salary.text = context.getString(R.string.salary_format, salaryFrom, salaryTo)
+        binding.vacancyName.text = itemView.context.getString(R.string.vacancy_name, shortVacancy.name, shortVacancy.city)
+        binding.companyName.text = itemView.context.getString(R.string.company_name, shortVacancy.companyName)
+        binding.salary.text = itemView.context.getString(R.string.salary_format, salaryFrom, salaryTo)
 
     }
 }
