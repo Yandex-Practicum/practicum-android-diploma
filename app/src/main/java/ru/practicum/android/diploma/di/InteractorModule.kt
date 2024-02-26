@@ -5,6 +5,7 @@ import ru.practicum.android.diploma.vacancy.domain.usecase.DetailVacancyUseCase
 import ru.practicum.android.diploma.vacancy.domain.usecase.MakeCallUseCase
 import ru.practicum.android.diploma.vacancy.domain.usecase.SendEmailUseCase
 import ru.practicum.android.diploma.vacancy.domain.usecase.ShareVacancyUseCase
+import ru.practicum.android.diploma.search.domain.usecase.SearchVacancyUseCase
 
 val interactorModule = module {
     single {
@@ -19,5 +20,8 @@ val interactorModule = module {
 
     single {
         ShareVacancyUseCase(externalNavigator = get())
+    }
+    single {
+        SearchVacancyUseCase(searchVacancyRepository = get())
     }
 }
