@@ -3,14 +3,15 @@ package ru.practicum.android.diploma.di
 import androidx.room.Room
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import ru.practicum.android.diploma.core.data.NetworkClient
+import ru.practicum.android.diploma.core.data.network.ConnectionChecker
+import ru.practicum.android.diploma.core.data.network.ConnectionCheckerImpl
 import ru.practicum.android.diploma.core.data.network.HhApi
 import ru.practicum.android.diploma.core.data.network.HhApiProvider
 import ru.practicum.android.diploma.core.data.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.favourites.data.db.AppDatabase
+import ru.practicum.android.diploma.vacancy.data.ExternalNavigatorImpl
+import ru.practicum.android.diploma.vacancy.domain.api.ExternalNavigator
 
 val dataModule = module {
 
@@ -18,14 +19,19 @@ val dataModule = module {
         Room.databaseBuilder(androidContext(), AppDatabase::class.java, "database.db")
             .build()
     }
+
+    factory<ExternalNavigator> {
+        ExternalNavigatorImpl(context = androidContext())
+    }
+
     single<NetworkClient> {
-        RetrofitNetworkClient(hhApi = get())
+        RetrofitNetworkClient(hhApi = get(), connectionChecker = get())
+    }
+
+    single<ConnectionChecker> {
+        ConnectionCheckerImpl(context = androidContext())
     }
     single<HhApi> {
-        Retrofit.Builder()
-            .baseUrl(HhApiProvider.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create()
+        HhApiProvider.hhService
     }
 }

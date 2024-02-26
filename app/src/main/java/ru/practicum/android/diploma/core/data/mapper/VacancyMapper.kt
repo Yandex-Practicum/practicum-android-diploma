@@ -35,14 +35,15 @@ object VacancyMapper {
             employment = detailVacancy.employment?.name.orEmpty(),
             workSchedule = detailVacancy.workScheduleInfo?.name.orEmpty(),
             description = detailVacancy.description,
-            keySkills = detailVacancy.keySkills,
+            keySkills = detailVacancy.keySkills.map { it.name },
             contactName = detailVacancy.contactInfo?.contactName.orEmpty(),
             email = detailVacancy.contactInfo?.email.orEmpty(),
             phone = detailVacancy.contactInfo?.phones?.firstOrNull()?.formatted.orEmpty(),
             contactComment = detailVacancy.contactInfo?.phones?.firstOrNull()?.comment.orEmpty(),
             employerLogoUrl = getActualLogo(detailVacancy.employerInfo?.companyLogoUrls),
             employerName = detailVacancy.employerInfo?.companyName.orEmpty(),
-            city = detailVacancy.locationInfo?.city.orEmpty()
+            city = detailVacancy.locationInfo?.city.orEmpty(),
+            alternateUrl = detailVacancy.alternateUrl
         )
     }
 
@@ -65,7 +66,8 @@ object VacancyMapper {
                 contactComment = contactComment,
                 employerLogoUrl = employerLogoUrl,
                 employerName = employerName,
-                city = city
+                city = city,
+                alternateUrl = alternateUrl
             )
         }
     }
@@ -89,7 +91,8 @@ object VacancyMapper {
                 contactComment = contactComment,
                 employerLogoUrl = employerLogoUrl,
                 employerName = employerName,
-                city = city
+                city = city,
+                alternateUrl = alternateUrl
             )
         }
     }

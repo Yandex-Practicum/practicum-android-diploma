@@ -16,7 +16,7 @@ data class DetailVacancyResponse(
     @SerializedName("description")
     val description: String,
     @SerializedName("key_skills")
-    val keySkills: List<String>,
+    val keySkills: List<KeySkillDto>,
     @SerializedName("salary")
     val salaryInfo: SalaryDto?,
     @SerializedName("schedule")
@@ -24,5 +24,7 @@ data class DetailVacancyResponse(
     @SerializedName("employment")
     val employment: EmploymentDto?,
     @SerializedName("address")
-    val locationInfo: AddressDto?
+    val locationInfo: AddressDto?,
+    @SerializedName("alternate_url")
+    val alternateUrl: String
 ) : Response()

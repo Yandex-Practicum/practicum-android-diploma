@@ -1,6 +1,8 @@
 package ru.practicum.android.diploma.core.data.network
 
 import android.util.Log
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.core.data.NetworkClient
 import ru.practicum.android.diploma.core.data.network.dto.Response
 import ru.practicum.android.diploma.core.domain.model.SearchFilterParameters
@@ -8,13 +10,30 @@ import java.io.IOException
 import java.net.SocketTimeoutException
 
 class RetrofitNetworkClient(
-    private val hhApi: HhApi
+    private val hhApi: HhApi,
+    private val connectionChecker: ConnectionChecker,
 ) : NetworkClient {
+
     override suspend fun getVacanciesByPage(
         searchText: String,
         filterParameters: SearchFilterParameters,
         page: Int,
         perPage: Int
+    ): Response {
+        if (!connectionChecker.isConnected()) {
+            return Response().apply { resultCode = NETWORK_ERROR_CODE }
+        }
+        return withContext(Dispatchers.IO) {
+            executeRequestGetVacanciesByPage(searchText, filterParameters, page, perPage, hhApi)
+        }
+    }
+
+    private suspend fun executeRequestGetVacanciesByPage(
+        searchText: String,
+        filterParameters: SearchFilterParameters,
+        page: Int,
+        perPage: Int,
+        hhApi: HhApi
     ): Response {
         return try {
             val queryMap = mutableMapOf(
@@ -57,7 +76,30 @@ class RetrofitNetworkClient(
     }
 
     override suspend fun getDetailVacancyById(id: Long): Response {
-        return Response().apply { resultCode = SUCCESSFUL_CODE }
+        if (!connectionChecker.isConnected()) {
+            return Response().apply { resultCode = NETWORK_ERROR_CODE }
+        }
+        return withContext(Dispatchers.IO) {
+            executeRequestGetDetailVacancyById(id, hhApi)
+        }
+    }
+
+    private suspend fun executeRequestGetDetailVacancyById(id: Long, hhApi: HhApi): Response {
+        return try {
+            val response = hhApi.getVacancy(id)
+            val body = response.body()
+            if (response.isSuccessful && body != null) {
+                body.apply { resultCode = SUCCESSFUL_CODE }
+            } else {
+                Response().apply { resultCode = response.code() }
+            }
+        } catch (e: SocketTimeoutException) {
+            Log.e(RetrofitNetworkClient::class.java.simpleName, e.stackTraceToString())
+            Response().apply { resultCode = NETWORK_ERROR_CODE }
+        } catch (e: IOException) {
+            Log.e(RetrofitNetworkClient::class.java.simpleName, e.stackTraceToString())
+            Response().apply { resultCode = EXCEPTION_ERROR_CODE }
+        }
     }
 
     companion object {
