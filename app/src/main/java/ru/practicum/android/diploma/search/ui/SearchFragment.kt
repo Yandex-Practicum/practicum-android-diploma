@@ -19,16 +19,19 @@ import ru.practicum.android.diploma.search.presentation.SearchStatus
 import ru.practicum.android.diploma.search.presentation.SearchViewModel
 
 class SearchFragment : Fragment() {
-    private var vacancyAdapter: VacancyAdapter = VacancyAdapter()
-    private val mockedParameters = SearchFilterParameters("", "", "", false)
+    private val mockedParameters = SearchFilterParameters()
     private val viewModel by viewModel<SearchViewModel>()
+    private var vacancyAdapter: VacancyAdapter = VacancyAdapter { vacancy ->
+        transitionToDetailedVacancy(vacancy.id)
+    }
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -42,9 +45,6 @@ class SearchFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        vacancyAdapter.onItemClick = {
-            transitionToDetailedVacancy(it.id)
-        }
         binding.searchEditText.doOnTextChanged { text, _, _, _ ->
             if (text.isNullOrEmpty()) {
                 binding.icSearchOrCross.setImageResource(R.drawable.ic_search)
@@ -85,9 +85,7 @@ class SearchFragment : Fragment() {
 
     private fun showContent(searchVacanciesResult: SearchVacanciesResult) {
         setStatus(SearchStatus.SUCCESS)
-        vacancyAdapter?.vacancyList?.clear()
-        vacancyAdapter?.vacancyList?.addAll(searchVacanciesResult.vacancies)
-        vacancyAdapter?.notifyDataSetChanged()
+        vacancyAdapter.submitList(searchVacanciesResult.vacancies)
         binding.tvVacancyAmount.text =
             requireContext().resources.getQuantityString(
                 R.plurals.vacancies,
@@ -100,16 +98,14 @@ class SearchFragment : Fragment() {
         binding.errorPlaceholder.setImageResource(R.drawable.placeholder_no_internet)
         binding.placeholderText.setText(R.string.placeholder_no_internet)
         setStatus(SearchStatus.ERROR)
-        vacancyAdapter?.vacancyList?.clear()
-        vacancyAdapter?.notifyDataSetChanged()
+        vacancyAdapter.submitList(emptyList())
     }
 
     private fun showEmptyResult() {
         binding.errorPlaceholder.setImageResource(R.drawable.placeholder_nothing_found)
         binding.placeholderText.setText(R.string.placeholder_cannot_get_list_of_vacancy)
         setStatus(SearchStatus.ERROR)
-        vacancyAdapter?.vacancyList?.clear()
-        vacancyAdapter?.notifyDataSetChanged()
+        vacancyAdapter.submitList(emptyList())
     }
 
     private fun setStatus(status: SearchStatus) {
