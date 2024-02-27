@@ -66,6 +66,7 @@ dependencies {
     implementation(libs.koin)
     implementation(libs.gson)
     implementation(libs.retrofit)
+    implementation(libs.okhttp.logging.interceptor)
     implementation(libs.retrofit.converter.gson)
     implementation(libs.glide)
     annotationProcessor(libs.compiler)

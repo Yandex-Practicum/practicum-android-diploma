@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
     style="@style/screens_background"
@@ -33,7 +34,7 @@
             android:clickable="true"
             android:paddingVertical="6dp"
             android:src="@drawable/ic_filter"
-            android:visibility="gone"
+            android:visibility="visible"
             tools:visibility="visible" />
 
         <ImageView
@@ -89,35 +90,45 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginVertical="12dp"
             android:src="@drawable/ic_clear_button"
-            android:visibility="gone" />
+            android:visibility="gone"
+            tools:visibility="gone" />
 
     </FrameLayout>
 
     <LinearLayout
-        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="1"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:visibility="visible">
 
         <ImageView
             android:id="@+id/image_search_not_started"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_start" />
+            android:src="@drawable/icon_start"
+            android:visibility="gone"
+            tools:visibility="gone" />
 
-        <FrameLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/recycler_vacancy_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/vacancy_list"
-                android:overScrollMode="never"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone" />
+                android:layout_height="0dp"
+                android:layout_marginTop="4dp"
+                android:overScrollMode="never"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/search_message" />
 
             <TextView
                 android:id="@+id/search_message"
@@ -128,7 +139,10 @@
                 android:background="@drawable/search_message_background"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="4dp"
-                android:visibility="gone"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="@string/not_vacancy" />
 
             <include
@@ -137,13 +151,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:visibility="gone" />
-        </FrameLayout>
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="gone" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <include
             android:id="@+id/error_no_internet"
             layout="@layout/no_internet"
-            android:visibility="gone" />
+            android:visibility="gone"
+            tools:visibility="gone" />
 
 
         <ProgressBar
@@ -152,15 +172,8 @@
             android:layout_height="36dp"
             android:layout_gravity="center"
             android:indeterminateTint="@color/blue"
-            android:visibility="gone" />
+            android:visibility="gone"
+            tools:visibility="gone" />
     </LinearLayout>
 
-    <ProgressBar
-        android:id="@+id/paging_progress_bar"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_marginVertical="22dp"
-        android:layout_gravity="center"
-        android:indeterminateTint="@color/blue"
-        android:visibility="gone" />
 </LinearLayout>

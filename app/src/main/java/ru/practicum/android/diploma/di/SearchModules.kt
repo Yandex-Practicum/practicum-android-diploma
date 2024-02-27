@@ -1,5 +1,7 @@
 package ru.practicum.android.diploma.di
 
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -19,6 +21,13 @@ val SearchModules = module {
         Retrofit.Builder()
             .baseUrl(Constant.HH_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
+            .client(
+                OkHttpClient.Builder()
+                    .apply {
+                        addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                    }
+                    .build()
+            )
             .build()
             .create(HhApi::class.java)
     }
