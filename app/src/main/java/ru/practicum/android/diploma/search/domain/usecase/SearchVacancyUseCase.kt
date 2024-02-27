@@ -17,7 +17,12 @@ class SearchVacancyUseCase(
         return searchVacancyRepository.getVacanciesByPage(
             searchText = searchText,
             page = page,
-            filterParameters = filterParameters
+            filterParameters = filterParameters,
+            perPage = DEFAULT_VACANCIES_PER_PAGE
         )
+    }
+
+    companion object {
+        const val DEFAULT_VACANCIES_PER_PAGE = 20
     }
 }

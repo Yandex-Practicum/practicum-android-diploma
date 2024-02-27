@@ -5,15 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.domain.model.SearchFilterParameters
 import ru.practicum.android.diploma.core.domain.model.SearchVacanciesResult
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
+import ru.practicum.android.diploma.search.domain.usecase.SearchVacancyUseCase
 import ru.practicum.android.diploma.search.presentation.SearchState
 import ru.practicum.android.diploma.search.presentation.SearchStatus
 import ru.practicum.android.diploma.search.presentation.SearchViewModel
@@ -64,6 +67,39 @@ class SearchFragment : Fragment() {
         }
         binding.vacancyRecycler.adapter = vacancyAdapter
         binding.vacancyRecycler.layoutManager = LinearLayoutManager(requireContext())
+        setPaginationListener()
+    }
+
+    private fun setPaginationListener() {
+        binding.vacancyRecycler.addOnScrollListener(
+            object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    val lastVisibleItem = (recyclerView.layoutManager as LinearLayoutManager)
+                        .findLastVisibleItemPosition()
+                    if (isNeedToGetNextPage(lastVisibleItem)) {
+                        viewModel.searchByPage(
+                            searchText = binding.searchEditText.text.toString(),
+                            page = getNextPageIndex(),
+                            filterParameters = mockedParameters
+                        )
+                        binding.paginationProgressBar.isVisible = isScrolledToLastItem(lastVisibleItem)
+                    }
+                }
+            }
+        )
+    }
+
+    private fun isNeedToGetNextPage(lastVisibleItem: Int): Boolean {
+        return lastVisibleItem > vacancyAdapter.itemCount - PRE_PAGINATION_ITEM_COUNT
+    }
+
+    private fun getNextPageIndex(): Int {
+        return vacancyAdapter.itemCount / SearchVacancyUseCase.DEFAULT_VACANCIES_PER_PAGE
+    }
+
+    private fun isScrolledToLastItem(lastVisibleItem: Int): Boolean {
+        return lastVisibleItem + 1 >= vacancyAdapter.itemCount
     }
 
     private fun search() {
@@ -85,7 +121,11 @@ class SearchFragment : Fragment() {
 
     private fun showContent(searchVacanciesResult: SearchVacanciesResult) {
         setStatus(SearchStatus.SUCCESS)
-        vacancyAdapter.submitList(searchVacanciesResult.vacancies)
+        if (vacancyAdapter.itemCount == 0) {
+            vacancyAdapter.submitList(searchVacanciesResult.vacancies)
+        } else {
+            vacancyAdapter.submitList(vacancyAdapter.currentList.toMutableList().apply { addAll(searchVacanciesResult.vacancies) })
+        }
         binding.tvVacancyAmount.text =
             requireContext().resources.getQuantityString(
                 R.plurals.vacancies,
@@ -109,6 +149,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun setStatus(status: SearchStatus) {
+        binding.paginationProgressBar.isVisible = false
         when (status) {
             SearchStatus.PROGRESS -> {
                 binding.progressBar.visibility = View.VISIBLE
@@ -153,5 +194,9 @@ class SearchFragment : Fragment() {
             val action = SearchFragmentDirections.actionSearchFragmentToVacancyFragment(vacancyId)
             findNavController().navigate(action)
         }
+    }
+
+    companion object {
+        private const val PRE_PAGINATION_ITEM_COUNT = 5
     }
 }
