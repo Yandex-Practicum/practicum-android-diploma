@@ -16,20 +16,21 @@ class VacancyViewModel(
     private val detailVacancyUseCase: DetailVacancyUseCase,
     private val makeCallUseCase: MakeCallUseCase,
     private val sendEmailUseCase: SendEmailUseCase,
-    private val shareVacancyUseCase: ShareVacancyUseCase
+    private val shareVacancyUseCase: ShareVacancyUseCase,
+    private val id: Long
 ) : ViewModel() {
     private val stateLiveData = MutableLiveData<VacancyScreenState>()
 
     init {
-        getDetailVacancyById()
+        getDetailVacancyById(id)
     }
 
     fun observeState(): LiveData<VacancyScreenState> = stateLiveData
 
-    private fun getDetailVacancyById() {
+    private fun getDetailVacancyById(id: Long) {
         stateLiveData.postValue(VacancyScreenState.Loading)
         viewModelScope.launch(Dispatchers.IO) {
-            detailVacancyUseCase.execute(TEST_ID).collect {
+            detailVacancyUseCase.execute(id).collect {
                 when (it) {
                     is Resource.Success -> renderState(VacancyScreenState.Content(it.data!!))
                     is Resource.InternetError -> renderState(VacancyScreenState.Error)
@@ -53,9 +54,5 @@ class VacancyViewModel(
 
     private fun renderState(vacancyScreenState: VacancyScreenState) {
         stateLiveData.postValue(vacancyScreenState)
-    }
-
-    companion object {
-        private const val TEST_ID = 93_485_145L
     }
 }

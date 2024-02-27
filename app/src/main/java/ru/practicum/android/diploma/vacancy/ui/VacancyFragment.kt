@@ -11,16 +11,23 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.domain.model.DetailVacancy
 import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
 import ru.practicum.android.diploma.vacancy.presentation.VacancyScreenState
 import ru.practicum.android.diploma.vacancy.presentation.VacancyViewModel
+import kotlin.properties.Delegates
 
 class VacancyFragment : Fragment() {
-    private val viewModel by viewModel<VacancyViewModel>()
+    private var id by Delegates.notNull<Long>()
+    private val viewModel by viewModel<VacancyViewModel> { parametersOf(id) }
     private var _binding: FragmentVacancyBinding? = null
     private val binding get() = _binding!!
+    override fun onCreate(savedInstanceState: Bundle?) {
+        id = VacancyFragmentArgs.fromBundle(requireArguments()).vacancyId
+        super.onCreate(savedInstanceState)
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -131,7 +138,10 @@ class VacancyFragment : Fragment() {
         } else {
             var keySkillsText = ""
             keySkills.forEach { keySkill ->
-                val line = "${keySkill}\n"
+                val line = requireContext().resources.getString(
+                    R.string.tv_detail_vacancy_keySkill,
+                    keySkill
+                )
                 keySkillsText += line
             }
             binding.textViewKeySkillsValue.text = keySkillsText

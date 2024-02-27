@@ -57,6 +57,7 @@
     <string name="company_name">%s</string>
     <string name="salary_format">%1$d - %2$d</string>
     <string name="salary_unknown">Unknown</string>
+    <string name="tv_detail_vacancy_keySkill">· %1$s\n</string>
 
     <plurals name="vacancies">
         <item quantity="one">%1$d вакансия</item>
