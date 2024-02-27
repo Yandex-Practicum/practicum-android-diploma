@@ -28,6 +28,18 @@ class RootActivity : AppCompatActivity() {
                 R.id.filtersFragment -> {
                     binding.bottomNavigationView.visibility = View.GONE
                 }
+                R.id.countryFragment -> {
+                    binding.bottomNavigationView.visibility = View.GONE
+                }
+                R.id.industryFragment -> {
+                    binding.bottomNavigationView.visibility = View.GONE
+                }
+                R.id.regionFragment -> {
+                    binding.bottomNavigationView.visibility = View.GONE
+                }
+                R.id.workplaceFragment -> {
+                    binding.bottomNavigationView.visibility = View.GONE
+                }
                 else -> {
                     binding.bottomNavigationView.visibility = View.VISIBLE
                 }
