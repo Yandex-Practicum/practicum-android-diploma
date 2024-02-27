@@ -77,7 +77,7 @@ class FavouritesFragment : Fragment() {
         }
     }
 
-    fun onVacancyClick(vacancyId: Long) {
+    private fun onVacancyClick(vacancyId: Long) {
         if (favouritesViewModel.clickDebounce()) {
             val action = FavouritesFragmentDirections.actionFavouritesFragmentToVacancyFragment(vacancyId)
             findNavController().navigate(action)
