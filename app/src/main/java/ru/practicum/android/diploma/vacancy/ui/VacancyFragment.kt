@@ -39,9 +39,6 @@ class VacancyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        val args = requireArguments()
-//        val vacancyId = args.getLong("vacancyId")
-//        viewModel.getDetailVacancyById(vacancyId)
         viewModel.observeState().observe(viewLifecycleOwner) {
             render(it)
         }
