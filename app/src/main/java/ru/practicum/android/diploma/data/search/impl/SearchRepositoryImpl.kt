@@ -6,12 +6,12 @@ import ru.practicum.android.diploma.data.search.network.JobSearchRequest
 import ru.practicum.android.diploma.data.search.network.NetworkClient
 import ru.practicum.android.diploma.data.search.network.Resource
 import ru.practicum.android.diploma.data.search.network.SearchListDto
-import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.domain.models.VacancyData
 import ru.practicum.android.diploma.domain.search.SearchRepository
 
 class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRepository {
 
-    override suspend fun search(expression: String, page: Int): Resource<List<Vacancy>> {
+    override suspend fun search(expression: String, page: Int): Resource<VacancyData> {
         val options = HashMap<String, String>()
 
         options[Constant.PAGE] = page.toString()
@@ -21,20 +21,24 @@ class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRep
         val response = networkClient.search(JobSearchRequest(options))
         return when (response.resultCode) {
             Constant.NO_CONNECTIVITY_MESSAGE -> {
-                Resource<List<Vacancy>>(code = Constant.NO_CONNECTIVITY_MESSAGE)
+                Resource(code = Constant.NO_CONNECTIVITY_MESSAGE)
             }
+
             Constant.SUCCESS_RESULT_CODE -> {
+                val result = (response as SearchListDto)
                 Resource(
-                    (response as SearchListDto).results.map { vacancyDto ->
-                        Convertors().convertorToVacancy(vacancyDto)
-                    },
+                    VacancyData(
+                        found = result.found ?: 0,
+                        listVacancy = result.results.map { vacancyDto ->
+                            Convertors().convertorToVacancy(vacancyDto)
+                        }
+                    ),
                     Constant.SUCCESS_RESULT_CODE
                 )
-
             }
 
             else -> {
-                Resource<List<Vacancy>>(code = Constant.SERVER_ERROR)
+                Resource(code = Constant.SERVER_ERROR)
             }
         }
 

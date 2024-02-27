@@ -19,7 +19,9 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.data.Constant.STATIC_PAGE_SIZE
+import ru.practicum.android.diploma.data.search.network.Resource
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.domain.models.VacancyData
 import ru.practicum.android.diploma.domain.search.SearchInteractor
 import ru.practicum.android.diploma.ui.search.adapter.SearchPage
 import ru.practicum.android.diploma.util.UtilsDebounce
@@ -38,9 +40,18 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
         getPagingData(it)
     }
 
+    suspend fun search(
+        expression: String,
+        page: Int,
+    ): Resource<VacancyData> {
+        val result = searchInteractor.search(expression, page)
+        SearchState.Loaded.counter = result.data?.found ?: 0
+        return result
+    }
+
     fun getPagingData(search: String): StateFlow<PagingData<Vacancy>> {
         return Pager(PagingConfig(pageSize = STATIC_PAGE_SIZE)) {
-            SearchPage(search, searchInteractor)
+            SearchPage(search, ::search)
         }.flow.map {
             it
         }.stateIn(viewModelScope, SharingStarted.Lazily, PagingData.empty())
@@ -49,13 +60,16 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
     fun search(vacancy: String) {
         if (vacancy.isNotEmpty()) {
             searchState.value = SearchState.Search
+            job = UtilsDebounce.debounce(viewModelScope, job, function = {
+                searchState.value = SearchState.Loading
+                viewModelScope.launch(Dispatchers.IO) {
+                    actionStateFlow.emit(vacancy)
+                }
+            })
+        } else {
+            searchState.value = SearchState.Start
+            job?.cancel()
         }
-        job = UtilsDebounce.debounce(viewModelScope, job, function = {
-            searchState.value = SearchState.Loading
-            viewModelScope.launch(Dispatchers.IO) {
-                actionStateFlow.emit(vacancy)
-            }
-        })
     }
 
 

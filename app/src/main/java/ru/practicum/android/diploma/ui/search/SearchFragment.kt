@@ -6,17 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.gson.Gson
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
+import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.ui.search.adapter.PageVacancyAdapter
 import ru.practicum.android.diploma.ui.search.adapter.SearchLoadStateAdapter
+import ru.practicum.android.diploma.util.Constants.ID_VACANCY
 
 class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
@@ -36,21 +41,8 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val vacancyList = binding.vacancyList
-        val adapter = PageVacancyAdapter().apply {
+        val adapter = PageVacancyAdapter(::openVacancy).apply {
             this.addLoadStateListener(viewModel::listener)
-
-//            this.addLoadStateListener() { loadState ->
-//                val errorState = when {
-//                    loadState.append is LoadState.Error -> loadState.append as LoadState.Error
-//                    loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
-//                    loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
-//                    else -> null
-//                }
-//                errorState?.let {
-//                    //Можно взять тип ошибки из it.error
-//                    //Toast.makeText(context, "Показываем ошибку", Toast.LENGTH_LONG).show()
-//                }
-//            }
         }
 
         vacancyList.adapter = adapter.withLoadStateFooter(
@@ -76,7 +68,6 @@ class SearchFragment : Fragment() {
                         binding.errorNoInternet.noInternetLayout.gone()
                         binding.errorFailedGetCat.errorFailedGetCat.visible()
                         binding.progressBar.gone()
-                        binding.pagingProgressBar.gone()
                         binding.searchMessage.visible()
                         binding.searchMessage.text = "Таких вакансий нет"
                     }
@@ -87,7 +78,6 @@ class SearchFragment : Fragment() {
                         binding.recyclerVacancyLayout.visible()
                         binding.errorNoInternet.noInternetLayout.gone()
                         binding.progressBar.gone()
-                        binding.pagingProgressBar.gone()
                         binding.searchMessage.visible()
                         binding.searchMessage.text = "Найдено ${(it as SearchState.Loaded).counter} вакансий"
 
@@ -99,7 +89,6 @@ class SearchFragment : Fragment() {
                         binding.recyclerVacancyLayout.gone()
                         binding.errorNoInternet.noInternetLayout.gone()
                         binding.progressBar.visible()
-                        binding.pagingProgressBar.gone()
                         binding.searchMessage.gone()
                     }
 
@@ -109,7 +98,6 @@ class SearchFragment : Fragment() {
                         binding.recyclerVacancyLayout.gone()
                         binding.errorNoInternet.noInternetLayout.visible()
                         binding.progressBar.gone()
-                        binding.pagingProgressBar.gone()
                         binding.searchMessage.gone()
                     }
 
@@ -119,7 +107,6 @@ class SearchFragment : Fragment() {
                         binding.recyclerVacancyLayout.gone()
                         binding.errorNoInternet.noInternetLayout.gone()
                         binding.progressBar.gone()
-                        binding.pagingProgressBar.gone()
                         binding.searchMessage.gone()
                     }
 
@@ -130,7 +117,6 @@ class SearchFragment : Fragment() {
                         binding.recyclerVacancyLayout.gone()
                         binding.errorNoInternet.noInternetLayout.gone()
                         binding.progressBar.gone()
-                        binding.pagingProgressBar.gone()
                         binding.searchMessage.gone()
                     }
                 }
@@ -148,6 +134,14 @@ class SearchFragment : Fragment() {
                 viewModel.clearMessageAddPlayList()
             }
         }
+        settingListener()
+    }
+
+    private fun openVacancy(vacancy: Vacancy) {
+        findNavController().navigate(
+            R.id.action_searchFragment_to_vacancyFragment,
+            bundleOf(ID_VACANCY to Gson().toJson(vacancy.id))
+        )
     }
 
     fun exampleFun(it: Editable?) {
@@ -162,6 +156,15 @@ class SearchFragment : Fragment() {
             binding.searchButton.gone()
             binding.clearButton.visible()
 
+        }
+    }
+
+    fun settingListener() {
+        binding.clearButton.setOnClickListener {
+            binding.editText.text = null
+        }
+        binding.buttonFiltersEmpty.setOnClickListener {
+            findNavController().navigate(R.id.action_searchFragment_to_filterFragment)
         }
     }
 }
