@@ -30,7 +30,6 @@ class MainViewModel(
 
         state.update { it.copy(state = SearchState.Loading) }
 
-
         viewModelScope.launch {
 //            val vacancies = try {
 //                 repository.getVacancyByQuery(text)
