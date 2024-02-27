@@ -30,4 +30,6 @@
 
     <string name="fav_empty_list">Список пуст</string>
     <string name="fav_nothing_found">Не удалось получить \nсписок вакансий</string>
+    <string name="workplace">Место работы</string>
+    <string name="industry">Отрасль</string>
 </resources>
