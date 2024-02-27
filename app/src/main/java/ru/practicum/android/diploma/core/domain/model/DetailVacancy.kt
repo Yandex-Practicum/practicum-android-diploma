@@ -22,4 +22,5 @@ data class DetailVacancy(
     val employerLogoUrl: String,
     val employerName: String,
     val city: String,
+    val alternateUrl: String
 ) : Parcelable

@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 
 object HhApiProvider {
-    private const val BASE_URL = "https://api.hh.ru/"
+    const val BASE_URL = "https://api.hh.ru/"
     val hhService: HhApi by lazy { buildRetrofit() }
 
     private fun buildRetrofit(): HhApi {

@@ -37,7 +37,7 @@
     <string name="tv_conditions">Условия</string>
     <string name="tv_key_skills">Ключевые навыки</string>
     <string name="tv_contacts">Контакты</string>
-    <string name="tv_percon_in_charge">Контактное лицо</string>
+    <string name="tv_person_in_charge">Контактное лицо</string>
     <string name="tv_email">E-mail</string>
     <string name="tv_phone_number">Телефон</string>
     <string name="tv_comment">Комментарий</string>
@@ -46,11 +46,17 @@
     <string name="tv_amount_of_vacancies">Найдено %1$s вакансий</string>
     <string name="tv_job_title_and_region">%1$s, %2$s</string>
     <string name="tv_salary_no_info">Зарплата не указана</string>
+    <string name="tv_salary_from_info">От %1$s</string>
+    <string name="tv_salary_from_to_info">От %1$s до %2$s</string>
     <string name="best_people">Над приложением работали</string>
     <string name="denis">Денис Быков</string>
     <string name="pavel">Павел Хоменко</string>
     <string name="sergey">Сергей Осипов</string>
     <string name="victor">Виктор Бляхеров</string>
+    <string name="vacancy_name">%1$s, %2$s</string>
+    <string name="company_name">%s</string>
+    <string name="salary_format">%1$d - %2$d</string>
+    <string name="salary_unknown">Unknown</string>
 
     <plurals name="vacancies">
         <item quantity="one">%1$d вакансия</item>

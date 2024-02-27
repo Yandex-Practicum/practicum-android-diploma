@@ -90,12 +90,10 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/vacancyRecycler"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@id/paginationProgressBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchEditText"
         tools:itemCount="7"
         tools:listitem="@layout/vacancy_view" />
@@ -104,8 +102,9 @@
         android:id="@+id/paginationProgressBar"
         android:layout_width="@dimen/progress_bar_size"
         android:layout_height="@dimen/progress_bar_size"
-        android:layout_marginVertical="@dimen/pagination_margin"
         android:indeterminateTint="@color/yp_blue"
+        app:layout_goneMarginBottom="@dimen/pagination_margin"
+        app:layout_goneMarginTop="@dimen/pagination_margin"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/right_guideline"
