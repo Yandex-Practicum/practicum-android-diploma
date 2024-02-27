@@ -1,6 +1,8 @@
 package ru.practicum.android.diploma.di
 
 import org.koin.dsl.module
+import ru.practicum.android.diploma.favourites.domain.api.GetFavouritesInteractor
+import ru.practicum.android.diploma.favourites.domain.impl.GetFavourtiesInteractorImpl
 import ru.practicum.android.diploma.vacancy.domain.usecase.DetailVacancyUseCase
 import ru.practicum.android.diploma.vacancy.domain.usecase.MakeCallUseCase
 import ru.practicum.android.diploma.vacancy.domain.usecase.SendEmailUseCase
@@ -23,5 +25,8 @@ val interactorModule = module {
     }
     single {
         SearchVacancyUseCase(searchVacancyRepository = get())
+    }
+    single<GetFavouritesInteractor> {
+        GetFavourtiesInteractorImpl(get())
     }
 }

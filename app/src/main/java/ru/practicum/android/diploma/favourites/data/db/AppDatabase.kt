@@ -7,7 +7,7 @@ import ru.practicum.android.diploma.core.data.mapper.VacancyMapper
 import ru.practicum.android.diploma.favourites.data.dao.VacancyDao
 import ru.practicum.android.diploma.favourites.data.entity.FavoriteEntity
 
-@Database(version = 1, entities = [FavoriteEntity::class])
+@Database(version = 2, entities = [FavoriteEntity::class])
 @TypeConverters(VacancyMapper::class)
 abstract class AppDatabase : RoomDatabase() {
 

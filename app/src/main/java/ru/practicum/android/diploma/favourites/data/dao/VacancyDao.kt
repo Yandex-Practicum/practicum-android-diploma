@@ -5,7 +5,6 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.favourites.data.entity.FavoriteEntity
 
 @Dao
@@ -18,5 +17,5 @@ interface VacancyDao {
     suspend fun removeVacancyFromFavorites(vacancy: FavoriteEntity)
 
     @Query("SELECT * FROM vacancy_favorites_table ORDER BY insertionTime DESC")
-    fun getVacancy(): Flow<List<FavoriteEntity>>
+    suspend fun getVacancy(): List<FavoriteEntity>
 }
