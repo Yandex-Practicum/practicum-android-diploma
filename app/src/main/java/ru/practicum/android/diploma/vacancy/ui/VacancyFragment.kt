@@ -14,6 +14,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.domain.model.DetailVacancy
 import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
+import ru.practicum.android.diploma.util.CurrencySymbol
 import ru.practicum.android.diploma.vacancy.presentation.VacancyScreenState
 import ru.practicum.android.diploma.vacancy.presentation.VacancyViewModel
 
@@ -79,7 +80,7 @@ class VacancyFragment : Fragment() {
         binding.textViewRequiredExperienceValue.text = detailVacancy.experience
         binding.textViewSchedule.text = detailVacancy.workSchedule
         binding.textViewDescriptionValue.setText(Html.fromHtml(detailVacancy.description, Html.FROM_HTML_MODE_COMPACT))
-        setSalary(detailVacancy.salaryFrom, detailVacancy.salaryTo)
+        setSalary(detailVacancy.salaryFrom, detailVacancy.salaryTo, detailVacancy.currency)
         setLogo(detailVacancy.employerLogoUrl)
         setKeySkills(detailVacancy.keySkills)
         setContactInfo(
@@ -107,18 +108,20 @@ class VacancyFragment : Fragment() {
             .into(binding.imageViewEmployerLogo)
     }
 
-    private fun setSalary(salaryFrom: String, salaryTo: String) {
+    private fun setSalary(salaryFrom: String, salaryTo: String, currency: String) {
         if (salaryFrom.isNullOrEmpty() && salaryTo.isNullOrEmpty()) {
             binding.textViewSalaryInfoValue.text = requireContext().resources.getString(R.string.tv_salary_no_info)
         } else {
+            val currencySymbol = CurrencySymbol.getCurrencySymbol(currency)
             if (salaryTo.isNullOrEmpty()) {
                 binding.textViewSalaryInfoValue.text =
-                    requireContext().resources.getString(R.string.tv_salary_from_info, salaryFrom)
+                    requireContext().resources.getString(R.string.tv_salary_from_info, salaryFrom, currencySymbol)
             } else {
                 binding.textViewSalaryInfoValue.text = requireContext().resources.getString(
                     R.string.tv_salary_from_to_info,
                     salaryFrom,
-                    salaryTo
+                    salaryTo,
+                    currencySymbol
                 )
             }
         }
@@ -142,6 +145,7 @@ class VacancyFragment : Fragment() {
         if (contactName.isNullOrEmpty()) {
             binding.textViewContactNameTitle.isVisible = false
             binding.textViewContactNameValue.isVisible = false
+            binding.textViewContactInfoTitle.isVisible = false
         } else {
             binding.textViewContactNameValue.text = contactName
         }
