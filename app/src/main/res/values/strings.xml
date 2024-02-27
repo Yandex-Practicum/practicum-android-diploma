@@ -32,4 +32,13 @@
     <string name="fav_nothing_found">Не удалось получить \nсписок вакансий</string>
     <string name="workplace">Место работы</string>
     <string name="industry">Отрасль</string>
+    <string name="chose_workplace">Выбор места работы</string>
+    <string name="chose_country">Выбор страны</string>
+    <string name="chose_region">Выбор региона</string>
+    <string name="chose_industry">Выбор отрасли</string>
+    <string name="country">Страна</string>
+    <string name="region">Регион</string>
+    <string name="enter_sum">Введите сумму</string>
+    <string name="enter_region">Введите регион</string>
+
 </resources>

@@ -12,8 +12,6 @@ import ru.practicum.android.diploma.databinding.FragmentFiltersBinding
 class FiltersFragment : Fragment() {
 
     private lateinit var binding: FragmentFiltersBinding
-    private lateinit var place: FiltersItemBinding
-    private lateinit var industry: FiltersItemBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View    {
         binding = FragmentFiltersBinding.inflate(inflater, container, false)
@@ -27,7 +25,6 @@ class FiltersFragment : Fragment() {
     }
 
     private fun setViews() {
-        place = binding.place
-        industry = binding.industry
+
     }
 }

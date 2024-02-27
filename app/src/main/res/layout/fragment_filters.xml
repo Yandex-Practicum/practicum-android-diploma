@@ -90,6 +90,67 @@
 
     </FrameLayout>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="@dimen/margin_20"
+        android:background="@drawable/rounded_edittext">
 
+        <EditText
+            android:id="@+id/Edit"
+            style="@style/Text_Standard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/enter_sum"
+            android:inputType="text"
+            android:lines="1"
+            android:maxLength="25"
+            android:background="@android:color/transparent"
+            android:paddingStart="8dp"
+            android:textCursorDrawable="@color/YP_Blue"
+            android:textColorHint="@color/YP_Text_Gray"
+            android:imeOptions="actionDone"
+            android:singleLine="true"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/salary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="Не показывать без зарплаты"
+                android:fontFamily="@font/ys_display_regular"
+                android:textSize="16sp"
+                android:textColor="@color/dark_theme_item"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <CheckBox
+                android:id="@+id/checkBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:buttonTint="@color/YP_Blue"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
 
 </LinearLayout>
