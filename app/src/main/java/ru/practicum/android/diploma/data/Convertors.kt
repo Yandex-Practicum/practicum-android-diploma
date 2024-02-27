@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.data
 
-import DetailVacancy
 import ru.practicum.android.diploma.data.dto.fields.AreaDto
 import ru.practicum.android.diploma.data.dto.fields.DetailVacancyDto
 import ru.practicum.android.diploma.data.dto.fields.EmployerDto
@@ -8,6 +7,7 @@ import ru.practicum.android.diploma.data.dto.fields.KeySkillsDto
 import ru.practicum.android.diploma.data.dto.fields.PhoneNumsDto
 import ru.practicum.android.diploma.data.dto.fields.VacancyDto
 import ru.practicum.android.diploma.data.search.network.SearchListDto
+import ru.practicum.android.diploma.domain.models.DetailVacancy
 import ru.practicum.android.diploma.domain.models.SearchList
 import ru.practicum.android.diploma.domain.models.Vacancy
 
@@ -59,6 +59,10 @@ class Convertors {
             salaryTo = vacancy.salary?.to,
             scheduleId = "",
             scheduleName = vacancy.schedule?.name,
+            logoUrl = vacancy.employer?.logoUrlsDto?.original,
+            logoUrl90 = vacancy.employer?.logoUrlsDto?.art90,
+            logoUrl240 = vacancy.employer?.logoUrlsDto?.art240,
+            employerUrl = vacancy.employer?.logoUrlsDto?.art240
         )
     }
 
@@ -81,8 +85,9 @@ class Convertors {
     private fun createPhone(phone: PhoneNumsDto): String {
         return "+${phone.country}" + " (${phone.city})" + " ${phone.number}"
     }
-    private fun createKeySkills(keySkills: List<KeySkillsDto>?): List<String?> {
-        return keySkills?.map { it.name } ?: emptyList()
+
+    private fun createKeySkills(keySkills: List<KeySkillsDto>?): List<String>? {
+        return (listOf((keySkills?.map { it.name } ?: emptyList()).toString()))!!
     }
 
 }

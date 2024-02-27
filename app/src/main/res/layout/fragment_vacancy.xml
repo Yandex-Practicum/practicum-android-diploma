@@ -1,13 +1,378 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/vacancy_detail_screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.team.TeamFragment">
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:visibility="visible">
 
-    <TextView
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="150dp"
+        android:backgroundTint="?attr/colorOnSecondary"
+        android:indeterminateTint="@color/blue"
+        android:visibility="gone" />
+
+
+
+    <ScrollView
+        android:id="@+id/fragment_notifications"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Детали вакансии" />
+        android:visibility="visible">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="64dp"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/job_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="64dp"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:fontFamily="@font/ys_display_bold"
+                android:paddingStart="@dimen/margin_8"
+                android:paddingEnd="@dimen/margin_8"
+                android:text="@string/job_name"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_size_32"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/job_salary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ys_display_medium"
+                android:paddingStart="@dimen/margin_8"
+                android:paddingEnd="@dimen/margin_8"
+                android:text="@string/job_salary"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_size_22"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/job_name" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_view_company"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:backgroundTint="@color/light_gray"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="vertical"
+                app:cardCornerRadius="@dimen/corner_radius_card_company_12"
+                app:cardElevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/job_salary">
+
+                <TextView
+                    android:id="@+id/company_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="75dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/ys_display_bold"
+                    android:text="@string/company_name_text"
+                    android:textSize="@dimen/font_size_24" />
+
+                <TextView
+                    android:id="@+id/company_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="75dp"
+                    android:layout_marginTop="46dp"
+                    android:fontFamily="@font/ys_display_regular"
+                    android:text="company_city_text" />
+
+                <ImageView
+                    android:id="@+id/iv_company"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="@dimen/margin_16"
+                    android:layout_marginTop="@dimen/margin_16"
+                    android:src="@mipmap/ic_launcher_round" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/needed_experience"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/ys_display_bold"
+                android:text="@string/company_experience_text"
+                android:textSize="@dimen/font_size_16"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/card_view_company" />
+
+            <TextView
+                android:id="@+id/years_of_experience"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/ys_display_regular"
+                android:textSize="@dimen/font_size_16"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/needed_experience" />
+
+            <TextView
+                android:id="@+id/job_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/ys_display_regular"
+                android:textSize="@dimen/font_size_16"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/years_of_experience" />
+
+            <TextView
+                android:id="@+id/vacancy_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/ys_display_bold"
+                android:text="@string/vacancy_description_text"
+                android:textSize="@dimen/font_size_22"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/job_time" />
+
+            <TextView
+                android:id="@+id/tv_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingStart="@dimen/margin_16"
+                android:paddingEnd="@dimen/margin_16"
+                app:layout_constraintEnd_toEndOf="@id/card_view_company"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/vacancy_description"
+                tools:itemCount="5" />
+
+
+            <TextView
+                android:id="@+id/key_skills"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/ys_display_bold"
+                android:text="@string/key_skills_text"
+                android:textSize="@dimen/font_size_22"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/tv_description" />
+
+            <TextView
+                android:id="@+id/key_skills_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingStart="@dimen/margin_16"
+                android:paddingEnd="@dimen/margin_16"
+                app:layout_constraintEnd_toEndOf="@id/card_view_company"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/key_skills"
+                tools:itemCount="5" />
+
+            <TextView
+                android:id="@+id/contact_information"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/ys_display_bold"
+                android:text="@string/contact_information_text"
+                android:textSize="@dimen/font_size_22"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/key_skills_recycler_view" />
+
+            <TextView
+                android:id="@+id/contact_person"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/ys_display_bold"
+                android:text="@string/contact_person_text"
+                android:textSize="@dimen/font_size_16"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/contact_information" />
+
+            <TextView
+                android:id="@+id/contact_person_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/ys_display_medium"
+                android:text="@string/contact_person_data"
+                android:textSize="@dimen/font_size_16"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/contact_person" />
+
+            <TextView
+                android:id="@+id/contact_person_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/ys_display_bold"
+                android:text="@string/contact_person_email_text"
+                android:textSize="@dimen/font_size_16"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/contact_person_data" />
+
+            <TextView
+                android:id="@+id/contact_person_email_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/ys_display_medium"
+                android:text="@string/contact_person_email_data_text"
+                android:textSize="@dimen/font_size_16"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/contact_person_email" />
+
+            <TextView
+                android:id="@+id/contact_person_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/ys_display_bold"
+                android:text="@string/contact_person_phone_text"
+                android:textSize="@dimen/font_size_16"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/contact_person_email_data" />
+
+            <TextView
+                android:id="@+id/contact_person_phone_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/ys_display_medium"
+                android:text="@string/contact_person_phone_data_text"
+                android:textSize="@dimen/font_size_16"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/contact_person_phone" />
+
+            <TextView
+                android:id="@+id/contact_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/ys_display_bold"
+                android:text="@string/contact_comment_text"
+                android:textSize="@dimen/font_size_16"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/contact_person_phone_data" />
+
+            <TextView
+                android:id="@+id/contact_comment_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/ys_display_regular"
+                android:lines="2"
+                android:paddingEnd="@dimen/margin_16"
+                android:text="@string/contact_comment_data_text"
+                android:textSize="@dimen/font_size_16"
+                app:layout_constraintStart_toStartOf="@id/card_view_company"
+                app:layout_constraintTop_toBottomOf="@id/contact_comment" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/vacancy_toolbars"
+        style="@style/TextStyleToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:clickable="true"
+        android:background="?attr/colorPrimaryVariant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/arrow_back_16x16"
+        app:title="@string/vacancy_text">
+
+        <ImageView
+            android:id="@+id/button_add_to_favorites"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/margin_8"
+            android:contentDescription="@string/todo"
+            android:paddingEnd="@dimen/font_size_16"
+            android:src="@drawable/ic_add_to_favorites"
+            tools:ignore="RtlSymmetry"
+            android:visibility="visible"/>
+        <ImageView
+            android:id="@+id/button_delete_from_favorites"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/margin_8"
+            android:contentDescription="@string/todo"
+            android:paddingEnd="@dimen/font_size_16"
+            android:src="@drawable/ic_added_to_favorites"
+            tools:ignore="RtlSymmetry"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/button_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/ic_share"
+            tools:ignore="RtlSymmetry" />
+
+    </androidx.appcompat.widget.Toolbar>
+    <LinearLayout
+        android:id="@+id/server_error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+
+        <ImageView
+            android:id="@+id/iv_server_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="200dp"
+            android:src="@drawable/ic_server_error" />
+
+        <TextView
+            android:id="@+id/tv_server_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/ys_display_bold"
+            android:text="@string/server_error_text"
+            android:textSize="@dimen/font_size_22" />
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_similar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_margin="@dimen/margin_16"
+        android:background="@color/blue"
+        android:text="@string/similar_vacancies_button_text"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_16"
+        app:cornerRadius="12dp"
+        app:layout_anchor="@+id/fragment_notifications"
+        app:layout_anchorGravity="bottom|center" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
