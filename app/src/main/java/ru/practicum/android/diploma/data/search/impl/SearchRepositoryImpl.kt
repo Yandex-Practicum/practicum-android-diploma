@@ -25,7 +25,7 @@ class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRep
             }
 
             Constant.SUCCESS_RESULT_CODE -> {
-                val result = (response as SearchListDto)
+                val result = response as SearchListDto
                 Resource(
                     VacancyData(
                         found = result.found ?: 0,

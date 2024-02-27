@@ -72,7 +72,6 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
         }
     }
 
-
     fun listener(loadState: CombinedLoadStates) {
         when (val refresh = loadState.source.refresh) {
             is LoadState.Error -> when (refresh.error) {
