@@ -2,10 +2,12 @@ package ru.practicum.android.diploma.ui.search.adapter
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import kotlinx.coroutines.delay
 import ru.practicum.android.diploma.data.Constant.STATIC_PAGE_SIZE
 import ru.practicum.android.diploma.data.Constant.SUCCESS_RESULT_CODE
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.search.SearchInteractor
+import java.net.ConnectException
 
 class SearchPage(
     private val query: String,
@@ -30,17 +32,17 @@ class SearchPage(
         val page: Int = params.key ?: 0
         val pageSize: Int = STATIC_PAGE_SIZE
         val response = searchInteractor.search(query, page)
-        return if (response != null) {
+        return if (response.data.isNullOrEmpty().not()) {
             if (response.code == SUCCESS_RESULT_CODE) {
-                val data = response.data ?: emptyList()
+                val data = response.data!!
                 val nextKey = if (data.size < pageSize) null else page + 1
                 val prevKey = if (page == 0) null else page - 1
                 LoadResult.Page(data, prevKey, nextKey)
             } else {
-                LoadResult.Error(Exception("Ошибка загрузки"))
+                LoadResult.Error(ConnectException())
             }
         } else {
-            LoadResult.Error(Exception("Пустой результат"))
+            LoadResult.Error(NullPointerException())
         }
     }
 }
