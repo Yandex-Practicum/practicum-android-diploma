@@ -13,9 +13,9 @@ class MainViewHolder(private val binding: VacancyItemBinding) : RecyclerView.Vie
         binding.salary.text = vacancy.salary
         binding.tvVacancyName.text = vacancy.name
 
-        Glide.with(binding.ivCompany)
+        Glide.with(itemView.context)
             .load(vacancy.employerImgUrl)
-            .placeholder(R.drawable.ic_launcher_foreground)
+            .placeholder(R.drawable.ic_vacancy_placeholder)
             .centerCrop()
             .into(binding.ivCompany)
     }

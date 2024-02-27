@@ -8,4 +8,5 @@ data class Employer(
     val logoUrls: LogoUrls?,
     val name: String,
     val trusted: Boolean,
+    val vacancies_url: String
 )

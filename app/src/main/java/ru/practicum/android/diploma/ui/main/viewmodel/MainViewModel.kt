@@ -65,7 +65,7 @@ class MainViewModel(
 
             else -> {
                 state.update { it.copy(state = SearchState.Content(vacancy)) }
-                Log.d("StateSearch", "Есть что-то = $vacancy")
+                Log.d("StateSearch", "Есть что-то = ${vacancy.map { it.employerImgUrl }}")
             }
         }
     }
