@@ -32,6 +32,9 @@ class VacancyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val args = requireArguments()
+        val vacancyId = args.getLong("vacancyId")
+        viewModel.getDetailVacancyById(vacancyId)
         viewModel.observeState().observe(viewLifecycleOwner) {
             render(it)
         }
@@ -131,7 +134,10 @@ class VacancyFragment : Fragment() {
         } else {
             var keySkillsText = ""
             keySkills.forEach { keySkill ->
-                val line = "${keySkill}\n"
+                val line = requireContext().resources.getString(
+                    R.string.tv_detail_vacancy_keySkill,
+                    keySkill
+                )
                 keySkillsText += line
             }
             binding.textViewKeySkillsValue.text = keySkillsText
