@@ -7,7 +7,6 @@ sealed interface SearchState {
     data object Empty : SearchState
     data class Content(
         val vacancy : List<Vacancy>?
-
     ) : SearchState
     data object Error : SearchState
 }

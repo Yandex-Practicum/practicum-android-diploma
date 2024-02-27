@@ -2,11 +2,10 @@ package ru.practicum.android.diploma.ui.main
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -62,8 +61,7 @@ class MainFragment : Fragment() {
             .onEach { viewModel.onSearch(it?.toString().orEmpty()) }
             .launchIn(lifecycleScope)
 
-
-        binding.clearButton.setOnClickListener{
+        binding.clearButton.setOnClickListener {
             clearSearchText()
         }
 
@@ -81,9 +79,8 @@ class MainFragment : Fragment() {
                     binding.progressBar.visibleOrGone(state.state is SearchState.Loading)
                     binding.searchRecyclerView.visibleOrGone(state.state is SearchState.Content || state.state is SearchState.Loading)
                     binding.imageBinoculars.visibleOrGone(state.state == null)
-                    binding.placeholderError.visibleOrGone(state.state is SearchState.Error)
-                    binding.placeholder.visibleOrGone(state.state is SearchState.Empty)
-
+                    binding.placeholderError.visibleOrGone(state.state is SearchState.Empty)
+                    binding.placeholderNoConnection.visibleOrGone(state.state is SearchState.Error)
                 }
             }
         }
@@ -106,7 +103,7 @@ class MainFragment : Fragment() {
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private fun clearSearchText(){
+    private fun clearSearchText() {
         binding.searchEditText.setText("")
         binding.searchContainer.endIconMode = TextInputLayout.END_ICON_CUSTOM
         binding.searchContainer.endIconDrawable = requireContext().getDrawable(R.drawable.ic_search)

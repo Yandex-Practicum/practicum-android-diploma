@@ -5,6 +5,6 @@ import ru.practicum.android.diploma.ui.main.viewmodel.MainViewModel
 
 val viewModelModule = module {
     single {
-        MainViewModel(get(), get())
+        MainViewModel(get())
     }
 }
