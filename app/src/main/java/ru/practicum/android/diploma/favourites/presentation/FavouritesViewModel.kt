@@ -10,6 +10,8 @@ import ru.practicum.android.diploma.core.domain.model.DetailVacancy
 import ru.practicum.android.diploma.favourites.domain.api.GetFavouritesInteractor
 import ru.practicum.android.diploma.favourites.domain.models.FavouritesState
 
+const val CLICK_DEBOUNCE_DELAY = 1000L
+
 class FavouritesViewModel(private val getFavouritesInteractor: GetFavouritesInteractor) : ViewModel() {
 
     private var favouritesListMutable = MutableLiveData<List<DetailVacancy>>()
@@ -19,8 +21,6 @@ class FavouritesViewModel(private val getFavouritesInteractor: GetFavouritesInte
     val favouritesStatus: LiveData<FavouritesState> = favouritesStatusMutable
 
     private var isClickAllowed = true
-
-    private val CLICK_DEBOUNCE_DELAY = 1000L
 
     fun getFavouritesList() {
         fillVacancyList()
