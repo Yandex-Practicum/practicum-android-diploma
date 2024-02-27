@@ -73,24 +73,29 @@ class SearchFragment : Fragment() {
     private fun setPaginationListener() {
         binding.vacancyRecycler.addOnScrollListener(
             object : RecyclerView.OnScrollListener() {
+                private var lastVisibleItem = -1
+
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
-                    val lastVisibleItem = (recyclerView.layoutManager as LinearLayoutManager)
+                    val currentLastVisibleItem = (recyclerView.layoutManager as LinearLayoutManager)
                         .findLastVisibleItemPosition()
-                    if (isNeedToGetNextPage(lastVisibleItem)) {
+                    if (isTimeToGetNextPage(currentLastVisibleItem) && currentLastVisibleItem != lastVisibleItem) {
+                        binding.paginationProgressBar.isVisible = isScrolledToLastItem(currentLastVisibleItem)
                         viewModel.searchByPage(
                             searchText = binding.searchEditText.text.toString(),
                             page = getNextPageIndex(),
                             filterParameters = mockedParameters
                         )
-                        binding.paginationProgressBar.isVisible = isScrolledToLastItem(lastVisibleItem)
+                    } else if (currentLastVisibleItem != lastVisibleItem) {
+                        binding.paginationProgressBar.isVisible = false
                     }
+                    lastVisibleItem = currentLastVisibleItem
                 }
             }
         )
     }
 
-    private fun isNeedToGetNextPage(lastVisibleItem: Int): Boolean {
+    private fun isTimeToGetNextPage(lastVisibleItem: Int): Boolean {
         return lastVisibleItem > vacancyAdapter.itemCount - PRE_PAGINATION_ITEM_COUNT
     }
 
@@ -124,7 +129,8 @@ class SearchFragment : Fragment() {
         if (vacancyAdapter.itemCount == 0) {
             vacancyAdapter.submitList(searchVacanciesResult.vacancies)
         } else {
-            vacancyAdapter.submitList(vacancyAdapter.currentList.toMutableList().apply { addAll(searchVacanciesResult.vacancies) })
+            val newList = vacancyAdapter.currentList.toMutableList().apply { addAll(searchVacanciesResult.vacancies) }
+            vacancyAdapter.submitList(newList)
         }
         binding.tvVacancyAmount.text =
             requireContext().resources.getQuantityString(
@@ -149,7 +155,6 @@ class SearchFragment : Fragment() {
     }
 
     private fun setStatus(status: SearchStatus) {
-        binding.paginationProgressBar.isVisible = false
         when (status) {
             SearchStatus.PROGRESS -> {
                 binding.progressBar.visibility = View.VISIBLE
@@ -176,6 +181,7 @@ class SearchFragment : Fragment() {
                 binding.placeholderText.visibility = View.GONE
                 binding.errorPlaceholder.visibility = View.GONE
                 binding.tvVacancyAmount.visibility = View.VISIBLE
+                binding.paginationProgressBar.isVisible = false
             }
 
             SearchStatus.DEFAULT -> {

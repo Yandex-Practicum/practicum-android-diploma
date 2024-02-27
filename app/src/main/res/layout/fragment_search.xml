@@ -35,6 +35,7 @@
         android:layout_height="@dimen/edit_text_height_size"
         android:background="@drawable/edit_text_background"
         android:hint="@string/edit_text_hint_search"
+        android:importantForAutofill="no"
         android:paddingStart="@dimen/search_margin_m"
         android:paddingEnd="64dp"
         app:layout_constraintEnd_toStartOf="@id/right_guideline"
@@ -94,22 +95,22 @@
         android:layout_height="0dp"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@id/paginationProgressBar"
-        app:layout_constraintTop_toBottomOf="@+id/searchEditText"
-        tools:itemCount="7"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vacancy_amount"
+        tools:itemCount="20"
         tools:listitem="@layout/vacancy_view" />
 
     <ProgressBar
         android:id="@+id/paginationProgressBar"
         android:layout_width="@dimen/progress_bar_size"
         android:layout_height="@dimen/progress_bar_size"
+        android:layout_marginVertical="@dimen/pagination_margin"
         android:indeterminateTint="@color/yp_blue"
-        app:layout_goneMarginBottom="@dimen/pagination_margin"
-        app:layout_goneMarginTop="@dimen/pagination_margin"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/right_guideline"
         app:layout_constraintStart_toEndOf="@id/left_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/vacancyRecycler" />
+        app:layout_constraintTop_toBottomOf="@id/vacancyRecycler"
+        tools:visibility="visible" />
 
     <ImageView
         android:id="@+id/errorPlaceholder"
