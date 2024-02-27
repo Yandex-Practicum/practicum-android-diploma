@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.core.domain.model.DetailVacancy
 import ru.practicum.android.diploma.favourites.domain.api.GetFavouritesInteractor
@@ -16,6 +17,10 @@ class FavouritesViewModel(private val getFavouritesInteractor: GetFavouritesInte
 
     private var favouritesStatusMutable = MutableLiveData<FavouritesState>()
     val favouritesStatus: LiveData<FavouritesState> = favouritesStatusMutable
+
+    private var isClickAllowed = true
+
+    private val CLICK_DEBOUNCE_DELAY = 1000L
 
     fun getFavouritesList() {
         fillVacancyList()
@@ -33,6 +38,18 @@ class FavouritesViewModel(private val getFavouritesInteractor: GetFavouritesInte
                 }
             }
         }
+    }
+
+    fun clickDebounce(): Boolean {
+        val current = isClickAllowed
+        if (isClickAllowed) {
+            isClickAllowed = false
+            viewModelScope.launch {
+                delay(CLICK_DEBOUNCE_DELAY)
+                isClickAllowed = true
+            }
+        }
+        return current
     }
 
     fun fillVacancyList() {
@@ -53,7 +70,8 @@ class FavouritesViewModel(private val getFavouritesInteractor: GetFavouritesInte
             "HR",
             "",
             "Еда",
-            "Москва"
+            "Москва",
+            ""
         )
 
         val vac2 = DetailVacancy(
@@ -73,7 +91,8 @@ class FavouritesViewModel(private val getFavouritesInteractor: GetFavouritesInte
             "HR1",
             "",
             "Авто.ру",
-            "Москва"
+            "Москва",
+            ""
         )
 
         viewModelScope.launch {

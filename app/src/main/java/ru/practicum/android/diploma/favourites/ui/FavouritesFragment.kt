@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
@@ -78,12 +78,10 @@ class FavouritesFragment : Fragment() {
     }
 
     fun onVacancyClick(vacancyId: Long) {
-//        if (favouritesViewModel.clickDebounce()) {
-//            val vacancy = favouritesViewModel.getDetailedVacancy(vacancyId)
-//            (requireActivity() as VacancyDetailStorage).setVacancyDetail(vacancy)
-//            findNavController().navigate(R.id.action_favouritesFragment_to_vacancyFragment)
-//        }
-        Toast.makeText(requireContext(), "Click!", Toast.LENGTH_LONG).show()
+        if (favouritesViewModel.clickDebounce()) {
+            val action = FavouritesFragmentDirections.actionFavouritesFragmentToVacancyFragment(vacancyId)
+            findNavController().navigate(action)
+        }
     }
 
     override fun onDestroyView() {

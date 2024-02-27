@@ -44,5 +44,9 @@
     <fragment
         android:id="@+id/vacancyFragment"
         android:name="ru.practicum.android.diploma.vacancy.ui.VacancyFragment"
-        android:label="VacancyFragment" />
+        android:label="VacancyFragment" >
+        <argument
+            android:name="vacancyId"
+            app:argType="long" />
+    </fragment>
 </navigation>

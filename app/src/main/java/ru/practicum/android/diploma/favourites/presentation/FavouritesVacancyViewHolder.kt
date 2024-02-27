@@ -11,8 +11,6 @@ import ru.practicum.android.diploma.core.domain.model.DetailVacancy
 import ru.practicum.android.diploma.util.getSalaryStr
 import ru.practicum.android.diploma.util.getVacancyTitle
 
-const val ROUND_RADIUS = 10
-
 class FavouritesVacancyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val vacancyName: TextView
     private val companyName: TextView
@@ -34,7 +32,7 @@ class FavouritesVacancyViewHolder(itemView: View) : RecyclerView.ViewHolder(item
             .load(model.employerLogoUrl)
             .placeholder(R.drawable.placeholder_vacancy)
             .centerInside()
-            .transform(RoundedCorners(ROUND_RADIUS))
+            .transform(RoundedCorners(itemView.resources.getDimensionPixelSize(R.dimen.search_margin_s)))
             .into(vacancyCover)
     }
 

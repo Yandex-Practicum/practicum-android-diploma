@@ -5,6 +5,7 @@ buildscript {
     }
     dependencies {
         classpath(libs.navigation.safe.args.gradle.plugin)
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.7.7")
     }
 }
 
@@ -13,4 +14,5 @@ plugins {
     id("org.jetbrains.kotlin.android") version "1.9.21" apply false
     id("com.google.devtools.ksp") version "1.9.21-1.0.16" apply false
     id("convention.detekt")
+    id("androidx.navigation.safeargs") version "2.4.2" apply false
 }

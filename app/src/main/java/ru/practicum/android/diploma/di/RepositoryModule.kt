@@ -1,6 +1,8 @@
 package ru.practicum.android.diploma.di
 
 import org.koin.dsl.module
+import ru.practicum.android.diploma.favourites.data.GetFavouritesRepositoryImpl
+import ru.practicum.android.diploma.favourites.domain.api.GetFavouritesRepository
 import ru.practicum.android.diploma.vacancy.data.DetailVacancyRepositoryImpl
 import ru.practicum.android.diploma.vacancy.domain.api.DetailVacancyRepository
 import ru.practicum.android.diploma.search.data.SearchVacancyRepositoryImpl
@@ -12,5 +14,8 @@ val repositoryModule = module {
     }
     single<SearchVacancyRepository> {
         SearchVacancyRepositoryImpl(networkClient = get())
+    }
+    single<GetFavouritesRepository> {
+        GetFavouritesRepositoryImpl(appDatabase = get())
     }
 }
