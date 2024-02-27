@@ -32,7 +32,7 @@ class SearchRepositoryImpl(
                     } else {
                         emit(Resource.Error(response.resultCode.code))
                     }
-                } catch (e: Exception) {
+                } catch (e: Throwable) {
                     emit(Resource.Error(response.resultCode.code))
                 }
             }

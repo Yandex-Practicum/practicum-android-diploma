@@ -47,7 +47,6 @@ class MainViewModel(
 
     private fun processResult(foundVacancy: List<Vacancy>?, errorMessage: Int?) {
         val vacancy = mutableListOf<Vacancy>()
-        Log.d("StateSearch", "Список вакансий = ${foundVacancy?.map { it.name }}")
 
         if (foundVacancy != null) {
             vacancy.addAll(foundVacancy)
