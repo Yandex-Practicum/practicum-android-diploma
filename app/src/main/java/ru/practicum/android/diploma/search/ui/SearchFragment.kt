@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
@@ -41,6 +42,9 @@ class SearchFragment : Fragment() {
     }
 
     private fun setupListeners() {
+        vacancyAdapter.onItemClick = {
+            transitionToDetailedVacancy(it.id)
+        }
         binding.searchEditText.doOnTextChanged { text, _, _, _ ->
             if (text.isNullOrEmpty()) {
                 binding.icSearchOrCross.setImageResource(R.drawable.ic_search)
@@ -145,6 +149,13 @@ class SearchFragment : Fragment() {
                 binding.errorPlaceholder.visibility = View.GONE
                 binding.tvVacancyAmount.visibility = View.GONE
             }
+        }
+    }
+
+    private fun transitionToDetailedVacancy(vacancyId: Long) {
+        if (viewModel.clickDebounce()) {
+            val action = SearchFragmentDirections.actionSearchFragmentToVacancyFragment(vacancyId)
+            findNavController().navigate(action)
         }
     }
 }

@@ -5,18 +5,34 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.core.domain.model.SearchFilterParameters
+import ru.practicum.android.diploma.favourites.presentation.CLICK_DEBOUNCE_DELAY
 import ru.practicum.android.diploma.search.domain.usecase.SearchVacancyUseCase
 import ru.practicum.android.diploma.util.Resource
 
 class SearchViewModel(private val searchVacancyUseCase: SearchVacancyUseCase) : ViewModel() {
+
+    private var isClickAllowed = true
 
     private val stateLiveData = MutableLiveData<SearchState>(SearchState.Default)
     fun observeState(): LiveData<SearchState> = stateLiveData
 
     private fun renderState(state: SearchState) {
         stateLiveData.postValue(state)
+    }
+
+    fun clickDebounce(): Boolean {
+        val current = isClickAllowed
+        if (isClickAllowed) {
+            isClickAllowed = false
+            viewModelScope.launch {
+                delay(CLICK_DEBOUNCE_DELAY)
+                isClickAllowed = true
+            }
+        }
+        return current
     }
 
     fun initSearch(
