@@ -10,7 +10,7 @@ object VacancyConverter {
             name = name,
             area = area.name,
             employer = employer.name,
-            salary = salary?.currency,
+            salary = "от ${salary?.from} до ${salary?.to}",
             employerImgUrl = area.url
         )
     }

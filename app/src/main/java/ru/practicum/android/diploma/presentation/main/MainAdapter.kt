@@ -36,5 +36,4 @@ class DiffUtil: DiffUtil.ItemCallback<Vacancy>() {
     override fun areContentsTheSame(oldItem: Vacancy, newItem: Vacancy): Boolean {
         return oldItem == newItem
     }
-
 }

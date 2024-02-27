@@ -15,11 +15,9 @@ import ru.practicum.android.diploma.ui.main.MainViewState
 import ru.practicum.android.diploma.ui.main.SearchState
 
 class MainViewModel(
-    val repository: SearchRepository,
     val interactor: SearchInteractor
 ) : ViewModel() {
     private val state = MutableStateFlow(MainViewState())
-    private var searchJob: Job? = null
     fun observeState() = state.asStateFlow()
 
     fun onSearch(text: String) {
@@ -29,26 +27,10 @@ class MainViewModel(
         }
 
         state.update { it.copy(state = SearchState.Loading) }
-
         viewModelScope.launch {
-//            val vacancies = try {
-//                 repository.getVacancyByQuery(text)
-//            } catch (e: Exception) {
-//                state.update { it.copy(state = SearchState.Error) }
-//                return@launch
-//            }
-//
-//            if (vacancies.isEmpty()) {
-//                state.update { it.copy(state = SearchState.Empty) }
-//            } else {
-//                state.update { it.copy(state = SearchState.Content(vacancies)) }
-//            }
-
             searchRequest(text)
         }
     }
-
-    var vacancyList: List<Vacancy>? = ArrayList()
 
     private fun searchRequest(text: String) {
         if (text.isNotEmpty()) {
@@ -65,6 +47,7 @@ class MainViewModel(
 
     private fun processResult(foundVacancy: List<Vacancy>?, errorMessage: Int?) {
         val vacancy = mutableListOf<Vacancy>()
+        Log.d("StateSearch", "Список вакансий = ${foundVacancy?.map { it.name }}")
 
         if (foundVacancy != null) {
             vacancy.addAll(foundVacancy)
@@ -82,8 +65,8 @@ class MainViewModel(
             }
 
             else -> {
-                state.update { it.copy(state = SearchState.Content(vacancyList)) }
-                Log.d("StateSearch", "Есть что-то")
+                state.update { it.copy(state = SearchState.Content(vacancy)) }
+                Log.d("StateSearch", "Есть что-то = $vacancy")
             }
         }
     }
