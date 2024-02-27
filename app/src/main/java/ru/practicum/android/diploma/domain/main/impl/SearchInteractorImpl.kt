@@ -1,11 +1,11 @@
-package ru.practicum.android.diploma.domain.models.main.impl
+package ru.practicum.android.diploma.domain.main.impl
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import ru.practicum.android.diploma.domain.api.Resource
-import ru.practicum.android.diploma.domain.api.SearchRepository
-import ru.practicum.android.diploma.domain.models.main.SearchInteractor
-import ru.practicum.android.diploma.domain.models.main.Vacancy
+import ru.practicum.android.diploma.util.Resource
+import ru.practicum.android.diploma.domain.main.SearchRepository
+import ru.practicum.android.diploma.domain.main.SearchInteractor
+import ru.practicum.android.diploma.domain.models.Vacancy
 
 class SearchInteractorImpl(
     val repository: SearchRepository

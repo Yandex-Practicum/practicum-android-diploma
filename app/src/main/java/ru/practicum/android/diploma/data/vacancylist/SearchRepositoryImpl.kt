@@ -5,13 +5,11 @@ import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.ResponseCodes
 import ru.practicum.android.diploma.data.converters.VacancyConverter.toVacancy
-import ru.practicum.android.diploma.data.network.JobVacancySearchApi
-import ru.practicum.android.diploma.data.network.asDomain
 import ru.practicum.android.diploma.data.vacancylist.dto.VacanciesSearchRequest
 import ru.practicum.android.diploma.data.vacancylist.dto.VacanciesSearchResponse
-import ru.practicum.android.diploma.domain.api.Resource
-import ru.practicum.android.diploma.domain.api.SearchRepository
-import ru.practicum.android.diploma.domain.models.main.Vacancy
+import ru.practicum.android.diploma.util.Resource
+import ru.practicum.android.diploma.domain.main.SearchRepository
+import ru.practicum.android.diploma.domain.models.Vacancy
 
 class SearchRepositoryImpl(
     private val networkClient: NetworkClient,

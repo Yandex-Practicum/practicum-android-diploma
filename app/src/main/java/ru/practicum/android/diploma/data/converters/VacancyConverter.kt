@@ -1,7 +1,7 @@
 package ru.practicum.android.diploma.data.converters
 
 import ru.practicum.android.diploma.data.dto.responseUnits.VacancyDto
-import ru.practicum.android.diploma.domain.models.main.Vacancy
+import ru.practicum.android.diploma.domain.models.Vacancy
 
 object VacancyConverter {
     fun VacancyDto.toVacancy(): Vacancy {
@@ -11,7 +11,7 @@ object VacancyConverter {
             area = area.name,
             employer = employer.name,
             salary = "от ${salary?.from} до ${salary?.to}",
-            employerImgUrl = employer.logoUrls?.art90 ?: ""
+            employerImgUrl = employer.logoUrls?.original ?: ""
         )
     }
 }

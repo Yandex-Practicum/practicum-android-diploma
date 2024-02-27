@@ -3,7 +3,7 @@ package ru.practicum.android.diploma.presentation.favorite
 import android.content.Context
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ru.practicum.android.diploma.domain.models.main.Vacancy
+import ru.practicum.android.diploma.domain.models.Vacancy
 
 class FavoriteAdapter(
     val context: Context
