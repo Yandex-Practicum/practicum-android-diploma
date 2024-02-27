@@ -18,4 +18,8 @@ interface VacancyDao {
 
     @Query("SELECT * FROM vacancy_favorites_table ORDER BY insertionTime DESC")
     suspend fun getVacancy(): List<FavoriteEntity>
+
+    @Query("SELECT * FROM vacancy_favorites_table WHERE id=:id")
+    suspend fun getVacancyById(id:Long): List<FavoriteEntity>
+
 }

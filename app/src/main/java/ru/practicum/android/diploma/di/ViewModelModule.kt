@@ -12,7 +12,8 @@ val viewModelModule = module {
             detailVacancyUseCase = get(),
             makeCallUseCase = get(),
             sendEmailUseCase = get(),
-            shareVacancyUseCase = get()
+            shareVacancyUseCase = get(),
+            addToFavouritesInteractor = get()
         )
     }
     viewModel {

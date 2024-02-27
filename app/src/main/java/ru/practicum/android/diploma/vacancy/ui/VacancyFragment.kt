@@ -5,6 +5,7 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -45,7 +46,7 @@ class VacancyFragment : Fragment() {
             is VacancyScreenState.Loading -> showProgressBar()
             is VacancyScreenState.Error -> showError()
             is VacancyScreenState.Content -> {
-                setContent(vacancyScreenState.vacancy)
+                setContent(vacancyScreenState.vacancy, viewModel.getFavouritesStatus())
                 showContent()
             }
         }
@@ -72,7 +73,7 @@ class VacancyFragment : Fragment() {
         binding.textViewServerError.isVisible = true
     }
 
-    private fun setContent(detailVacancy: DetailVacancy) {
+    private fun setContent(detailVacancy: DetailVacancy, isInFavourites: Boolean) {
         binding.textViewVacancyValue.text = detailVacancy.name
         binding.textViewEmployerValue.text = detailVacancy.employerName
         binding.textViewEmployerCityValue.text = detailVacancy.city
@@ -88,8 +89,16 @@ class VacancyFragment : Fragment() {
             detailVacancy.phone,
             detailVacancy.contactComment
         )
+        if (isInFavourites) {
+            binding.imageViewFavorite.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_favorites_add))
+        } else {
+            binding.imageViewFavorite.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_favorites_remove))
+        }
         binding.imageViewShareVacancy.setOnClickListener { viewModel.shareVacancy(detailVacancy.alternateUrl) }
-        binding.imageViewFavorite.setOnClickListener { TODO() }
+        binding.imageViewFavorite.setOnClickListener {
+            viewModel.setFavourites()
+            setContent(detailVacancy, !isInFavourites)
+        }
         binding.textViewPhoneValue.setOnClickListener { viewModel.makeCall(detailVacancy.phone) }
         binding.textViewEmailValue.setOnClickListener { viewModel.sendEmail(detailVacancy.email) }
     }
