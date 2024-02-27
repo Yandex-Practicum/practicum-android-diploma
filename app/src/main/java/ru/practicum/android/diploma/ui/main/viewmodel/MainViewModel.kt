@@ -4,14 +4,10 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.data.vacancylist.dto.VacanciesSearchRequest
-import ru.practicum.android.diploma.domain.api.Resource
 import ru.practicum.android.diploma.domain.api.SearchRepository
 import ru.practicum.android.diploma.domain.models.main.SearchInteractor
 import ru.practicum.android.diploma.domain.models.main.Vacancy
@@ -59,7 +55,7 @@ class MainViewModel(
             state.update { it.copy(state = SearchState.Loading) }
 
             viewModelScope.launch {
-                interactor.searchTrack(mapOf("text" to  text))
+                interactor.searchTrack(mapOf("text" to text))
                     .collect { vacancies ->
                         processResult(vacancies.first, vacancies.second)
                     }
