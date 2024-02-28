@@ -95,6 +95,7 @@
                 style="@style/VacancyDetailsTitleTextViewStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/tv_detailed_vacancy_margin_xs"
                 app:layout_constraintEnd_toEndOf="@id/right_border_16"
                 app:layout_constraintStart_toEndOf="@id/left_border_16"
                 app:layout_constraintTop_toBottomOf="@id/textViewVacancyValue"
@@ -104,7 +105,7 @@
                 android:id="@+id/cardViewEmployer"
                 android:layout_width="0dp"
                 android:layout_height="80dp"
-                android:layout_marginTop="@dimen/tv_detailed_vacancy_margin_m"
+                android:layout_marginTop="@dimen/tv_filter_margin_m"
                 android:backgroundTint="@color/yp_light_gray"
                 app:cardCornerRadius="@dimen/tv_detailed_vacancy_corner_radius"
                 app:layout_constraintEnd_toEndOf="@id/right_border_16"
@@ -120,29 +121,36 @@
                     android:importantForAccessibility="no"
                     tools:src="@drawable/placeholder_vacancy" />
 
-                <TextView
-                    android:id="@+id/textViewEmployerValue"
-                    style="@style/VacancyDetailsTitleTextViewStyle"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="72dp"
+                    android:layout_marginStart="@dimen/margin_72dp"
                     android:layout_marginTop="@dimen/tv_detailed_vacancy_margin_m"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:textColor="@color/yp_black"
-                    tools:text="Еда" />
+                    android:layout_marginEnd="@dimen/tv_detailed_vacancy_margin_m"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textViewEmployerCityValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="72dp"
-                    android:layout_marginTop="42dp"
-                    android:fontFamily="@font/ys_display_regular"
-                    android:fontWeight="400"
-                    android:textColor="@color/yp_black"
-                    android:textSize="@dimen/tv_detailed_vacancy_m"
-                    tools:text="Москва" />
+                    <TextView
+                        android:id="@+id/textViewEmployerValue"
+                        style="@style/VacancyDetailsTitleTextViewStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/yp_black"
+                        tools:text="Еда" />
+
+                    <TextView
+                        android:id="@+id/textViewEmployerCityValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/ys_display_regular"
+                        android:fontWeight="400"
+                        android:maxLines="1"
+                        android:textColor="@color/yp_black"
+                        android:textSize="@dimen/tv_detailed_vacancy_m"
+                        tools:text="Москва" />
+                </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <TextView
@@ -175,7 +183,7 @@
                 style="@style/VacancyDetailsValueTextViewStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/tv_detailed_vacancy_margin_xs"
+                android:layout_marginTop="@dimen/tv_detailed_vacancy_margin_s"
                 app:layout_constraintEnd_toEndOf="@id/right_border_16"
                 app:layout_constraintStart_toStartOf="@id/left_border_16"
                 app:layout_constraintTop_toBottomOf="@id/textViewRequiredExperienceValue"
