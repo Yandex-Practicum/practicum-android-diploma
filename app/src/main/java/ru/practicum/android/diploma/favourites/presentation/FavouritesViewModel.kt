@@ -23,7 +23,6 @@ class FavouritesViewModel(private val getFavouritesInteractor: GetFavouritesInte
     private var isClickAllowed = true
 
     fun getFavouritesList() {
-        fillVacancyList()
 
         viewModelScope.launch {
             getFavouritesInteractor.getFavouritesList().collect {
@@ -50,38 +49,5 @@ class FavouritesViewModel(private val getFavouritesInteractor: GetFavouritesInte
             }
         }
         return current
-    }
-
-    private fun fillVacancyList() {
-        val mockList = mutableListOf<DetailVacancy>()
-        repeat('0'.code) {
-            val vac = DetailVacancy(
-                it.toLong(),
-                "Андроид-разработчик",
-                "100 000",
-                "",
-                "Rub",
-                "3 years",
-                "Employment",
-                "24 on 7",
-                "Very rock vacancy",
-                listOf(),
-                "Anna",
-                "ya@ya.ru",
-                "_789890980",
-                "HR",
-                "",
-                "Еда",
-                "Москва",
-                ""
-            )
-            mockList.add(vac)
-        }
-
-        viewModelScope.launch {
-            mockList.forEach {
-                getFavouritesInteractor.fillVacList(it)
-            }
-        }
     }
 }

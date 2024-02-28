@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.vacancy.presentation
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,7 +20,7 @@ class VacancyViewModel(
     private val makeCallUseCase: MakeCallUseCase,
     private val sendEmailUseCase: SendEmailUseCase,
     private val shareVacancyUseCase: ShareVacancyUseCase,
-    private val addToFavouritesInteractor: AddToFavouritesInteractor
+    private val addToFavouritesInteractor: AddToFavouritesInteractor,
     private val id: Long
 ) : ViewModel() {
     private val stateLiveData = MutableLiveData<VacancyScreenState>()
@@ -33,12 +34,17 @@ class VacancyViewModel(
 
     fun observeState(): LiveData<VacancyScreenState> = stateLiveData
 
-    private fun getDetailVacancyById(id:Long) {
+    private fun getDetailVacancyById(id: Long) {
         stateLiveData.postValue(VacancyScreenState.Loading)
         viewModelScope.launch(Dispatchers.IO) {
             detailVacancyUseCase.execute(id).collect {
                 when (it) {
-                    is Resource.Success -> renderState(VacancyScreenState.Content(it.data!!))
+                    is Resource.Success -> {
+                        vacancy = it.data!!
+                        renderState(VacancyScreenState.Content(it.data!!))
+
+                    }
+
                     is Resource.InternetError -> renderState(VacancyScreenState.Error)
                     is Resource.ServerError -> renderState(VacancyScreenState.Error)
                 }
@@ -72,17 +78,15 @@ class VacancyViewModel(
 
     fun setFavouritesStatus() {
         viewModelScope.launch {
-            isInFavourites = addToFavouritesInteractor.checkVacancyInFavourites(vacancy!!.id)
+            isInFavourites = addToFavouritesInteractor.checkVacancyInFavourites(id)
         }
     }
 
     fun setFavourites() {
-        if (isInFavourites) {
-            viewModelScope.launch {
+        viewModelScope.launch {
+            if (isInFavourites) {
                 addToFavouritesInteractor.removeFromFavourites(vacancy!!)
-            }
-        } else {
-            viewModelScope.launch {
+            } else {
                 addToFavouritesInteractor.addToFavourites(vacancy!!)
             }
         }
