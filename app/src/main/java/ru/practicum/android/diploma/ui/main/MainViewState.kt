@@ -1,7 +1,7 @@
 package ru.practicum.android.diploma.ui.main
 
 import androidx.paging.PagingData
-import ru.practicum.android.diploma.domain.models.main.Vacancy
+import ru.practicum.android.diploma.domain.models.Vacancy
 
 data class MainViewState (
     val state: SearchState? = null,

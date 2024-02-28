@@ -13,16 +13,17 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.domain.api.Resource
 import ru.practicum.android.diploma.domain.api.SearchRepository
-import ru.practicum.android.diploma.domain.models.main.Vacancy
+import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.presentation.main.VacanciesPagingSource
 import ru.practicum.android.diploma.ui.main.MainViewState
 import ru.practicum.android.diploma.ui.main.SearchState
+import ru.practicum.android.diploma.util.Resource
 
 class MainViewModel(
     private val repository: SearchRepository
 ) : ViewModel() {
+
     private val state = MutableStateFlow(MainViewState())
     fun observeState() = state.asStateFlow()
     private var vacancyJob: Job? = null
