@@ -13,6 +13,7 @@
     <string name="place_of_work">Место работы</string>
     <string name="department">Отрасль</string>
     <string name="choosing_department">Выбор отрасли</string>
+    <string name="enter_department">Введите отрасль</string>
     <string name="expected_salary">Ожидаемая зарплата</string>
     <string name="enter_amount">Введите сумму</string>
     <string name="not_show_without_salary">Не показывать без зарплаты</string>

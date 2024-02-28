@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     tools:context=".ui.team.TeamFragment">
 
     <androidx.appcompat.widget.Toolbar
@@ -31,17 +30,14 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            style="@style/fragment_filters_textInput"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:focusable="auto"
             android:hint="@string/place_of_work"
-            android:textColorHint="@color/gray"
-            app:boxBackgroundColor="@color/white"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
             app:cursorColor="#003772E7"
-            app:hintTextColor="@color/black"
             app:layout_constraintEnd_toStartOf="@+id/place_of_work_arrow"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -83,17 +79,14 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat">
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            style="@style/fragment_filters_textInput"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:focusable="auto"
             android:hint="@string/department"
-            android:textColorHint="@color/gray"
-            app:boxBackgroundColor="@color/white"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
             app:cursorColor="#003772E7"
-            app:hintTextColor="@color/black"
             app:layout_constraintEnd_toStartOf="@+id/department_arrow"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -125,14 +118,14 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/expected_salary"
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+        style="@style/fragment_filters_expected_salary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:hint="@string/expected_salary"
-        android:textColorHint="@color/gray"
+        app:placeholderText="@string/enter_amount"
         app:boxBackgroundColor="#00000000"
         app:boxBackgroundMode="filled"
         app:boxStrokeWidth="0dp"
@@ -140,19 +133,22 @@
         app:cornerRadius="12dp"
         app:cursorColor="@color/blue"
         app:hintTextColor="@color/blue"
+        app:expandedHintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
+
         app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat2">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/expected_salary1"
-            style="@style/gray_16_regular"
+            style="@style/TextStyleMedium16_500"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/expected_salary"
             app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat2"
-            tools:text="@string/enter_amount" />
+            android:textColor="@color/black"
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -176,16 +172,16 @@
             android:text="@string/not_show_without_salary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.517" />
 
-        <ImageView
+        <CheckBox
             android:id="@+id/place_of_work_arrow2"
-            style="@style/gray_16_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ckeck_box"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView

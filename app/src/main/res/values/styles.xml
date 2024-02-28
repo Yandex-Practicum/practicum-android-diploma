@@ -10,6 +10,7 @@
         <item name="android:background">@color/white</item>
     </style>
 
+
     <style name="screens_background">
         <item name="android:background">@color/white</item>
     </style>
@@ -123,4 +124,19 @@
     </style>
 
     <color name="basic_text_color">@color/black</color>
+
+    <style name="fragment_filters_textInput" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="boxBackgroundColor">@color/white</item>
+        <item name="android:textColorHint">@color/gray</item>
+        <item name="hintTextColor">@color/black</item>
+        <item name="placeholderTextColor">@color/gray</item>
+
+    </style>
+
+    <style name="fragment_filters_expected_salary" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="android:textColorHint">@color/gray</item>
+
+    </style>
+
+    expected_salary
 </resources>

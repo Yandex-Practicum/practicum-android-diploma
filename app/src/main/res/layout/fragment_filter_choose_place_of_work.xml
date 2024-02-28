@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+   >
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/back_arrow"
@@ -28,13 +29,11 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            style="@style/fragment_filters_textInput"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:focusable="auto"
             android:hint="@string/country"
-            android:textColorHint="@color/gray"
-            app:boxBackgroundColor="@color/white"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
             app:cursorColor="#003772E7"
@@ -52,7 +51,8 @@
                 android:paddingStart="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -81,13 +81,11 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat">
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            style="@style/fragment_filters_textInput"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:focusable="auto"
             android:hint="@string/region"
-            android:textColorHint="@color/gray"
-            app:boxBackgroundColor="@color/white"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
             app:cursorColor="#003772E7"
@@ -120,4 +118,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView2"
+        style="@style/white_16_medium"
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/expected_salary"
+        android:backgroundTint="@color/blue"
+        android:gravity="center"
+        android:text="@string/choose"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

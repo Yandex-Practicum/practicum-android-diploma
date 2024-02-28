@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.PracticumAndroidDiploma" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary brand color. -->
@@ -7,6 +7,7 @@
         <item name="colorButtonNormal">@color/blue</item>
         <item name="colorOnSecondary">@color/gray</item>
         <item name="editTextColor">@color/light_gray</item>
+        <item name="android:windowBackground">@color/white</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimary</item>
         <!-- Customize your theme here. -->
