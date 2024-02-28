@@ -9,7 +9,7 @@ interface SearchVacancyRepository {
     fun getVacanciesByPage(
         searchText: String,
         page: Int,
-        perPage: Int = 20,
+        perPage: Int,
         filterParameters: SearchFilterParameters
     ): Flow<Resource<SearchVacanciesResult>>
 }

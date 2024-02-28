@@ -13,10 +13,10 @@ import ru.practicum.android.diploma.search.domain.usecase.SearchVacancyUseCase
 import ru.practicum.android.diploma.util.Resource
 
 class SearchViewModel(private val searchVacancyUseCase: SearchVacancyUseCase) : ViewModel() {
-
     private var isClickAllowed = true
-
     private val stateLiveData = MutableLiveData<SearchState>(SearchState.Default)
+    private var isSearchAllowed = true
+
     fun observeState(): LiveData<SearchState> = stateLiveData
 
     private fun renderState(state: SearchState) {
@@ -40,7 +40,7 @@ class SearchViewModel(private val searchVacancyUseCase: SearchVacancyUseCase) : 
         page: Int,
         filterParameters: SearchFilterParameters
     ) {
-        if (searchText.isNotEmpty()) {
+        if (searchText.isNotEmpty() && isSearchAllowed) {
             renderState(SearchState.Loading)
             viewModelScope.launch(Dispatchers.IO) {
                 searchVacancyUseCase
@@ -48,7 +48,7 @@ class SearchViewModel(private val searchVacancyUseCase: SearchVacancyUseCase) : 
                     .collect {
                         when (it) {
                             is Resource.Success -> {
-                                if (it.data?.vacancies?.isNullOrEmpty() == true) {
+                                if (it.data?.vacancies.isNullOrEmpty()) {
                                     stateLiveData.postValue(SearchState.EmptyResult)
                                 } else {
                                     stateLiveData.postValue(SearchState.Content(it.data))
@@ -69,7 +69,26 @@ class SearchViewModel(private val searchVacancyUseCase: SearchVacancyUseCase) : 
         }
     }
 
+    fun searchByPage(searchText: String, page: Int, filterParameters: SearchFilterParameters) {
+        if (isSearchAllowed && searchText.isNotEmpty()) {
+            isSearchAllowed = false
+            viewModelScope.launch(Dispatchers.IO) {
+                searchVacancyUseCase.execute(searchText, page, filterParameters).collect {
+                    if (it is Resource.Success && !it.data?.vacancies.isNullOrEmpty()) {
+                        stateLiveData.postValue(SearchState.Content(it.data))
+                    }
+                    delay(SEARCH_PAGINATION_DELAY)
+                    isSearchAllowed = true
+                }
+            }
+        }
+    }
+
     fun clearSearch() {
         stateLiveData.postValue(SearchState.Default)
+    }
+
+    companion object {
+        private const val SEARCH_PAGINATION_DELAY = 500L
     }
 }
