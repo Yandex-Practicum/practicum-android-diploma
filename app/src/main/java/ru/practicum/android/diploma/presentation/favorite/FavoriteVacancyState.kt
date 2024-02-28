@@ -8,7 +8,7 @@ sealed interface FavoriteVacancyState {
 
     object EmptyList : FavoriteVacancyState
 
-    object Error: FavoriteVacancyState
+    object Error : FavoriteVacancyState
 
     data class Content(
         val vacancy: List<VacancyDetailDto>

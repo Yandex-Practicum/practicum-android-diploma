@@ -11,7 +11,7 @@ import ru.practicum.android.diploma.presentation.favorite.FavoriteVacancyState
 
 class FavoriteViewModel(
     val interactor: FavoriteInteractor
-): ViewModel() {
+) : ViewModel() {
 
     private val _vacancyState = MutableLiveData<FavoriteVacancyState>()
     fun vacancyState(): LiveData<FavoriteVacancyState> = _vacancyState
@@ -19,6 +19,7 @@ class FavoriteViewModel(
     init {
         fillData()
     }
+
     fun fillData() {
         renderState(FavoriteVacancyState.Loading)
         viewModelScope.launch {

@@ -7,7 +7,6 @@ import com.bumptech.glide.Glide
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.VacancyDetailDto
 import ru.practicum.android.diploma.databinding.VacancyItemBinding
-import ru.practicum.android.diploma.domain.models.Vacancy
 
 class FavoriteViewHolder(
     parent: ViewGroup,
