@@ -1,6 +1,8 @@
 package ru.practicum.android.diploma.search.ui
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +28,8 @@ class SearchFragment : Fragment() {
     private var vacancyAdapter: VacancyAdapter = VacancyAdapter { vacancy ->
         transitionToDetailedVacancy(vacancy.id)
     }
+    private val handler = Handler(Looper.getMainLooper())
+    private val searchRunnable = Runnable {  viewModel.initSearch(binding.searchEditText.text.toString(), 0, mockedParameters) }
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
@@ -51,6 +55,7 @@ class SearchFragment : Fragment() {
             if (text.isNullOrEmpty()) {
                 binding.icSearchOrCross.setImageResource(R.drawable.ic_search)
             } else {
+                searchDebounce()
                 binding.icSearchOrCross.setImageResource(R.drawable.ic_close)
             }
         }
@@ -209,7 +214,13 @@ class SearchFragment : Fragment() {
         }
     }
 
+    private fun searchDebounce() {
+        handler.removeCallbacks(searchRunnable)
+        handler.postDelayed(searchRunnable, SEARCH_DEBOUNCE_DELAY)
+    }
+
     companion object {
         private const val PRE_PAGINATION_ITEM_COUNT = 5
+        private const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
 }

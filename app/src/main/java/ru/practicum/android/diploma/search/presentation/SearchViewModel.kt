@@ -90,5 +90,6 @@ class SearchViewModel(private val searchVacancyUseCase: SearchVacancyUseCase) : 
 
     companion object {
         private const val SEARCH_PAGINATION_DELAY = 500L
+        private const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
 }
