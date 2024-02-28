@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.ui.search
 
 import android.os.Bundle
 import android.text.Editable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -138,10 +139,11 @@ class SearchFragment : Fragment() {
     }
 
     private fun openVacancy(vacancy: Vacancy) {
-        findNavController().navigate(
-            R.id.action_searchFragment_to_vacancyFragment,
-            bundleOf(ID_VACANCY to Gson().toJson(vacancy.id))
-        )
+        val navController = findNavController()
+        val bundle = Bundle()
+        Log.d("bundle", "$bundle")
+        bundle.putParcelable("vacancyId", vacancy)
+        navController.navigate(R.id.vacancyFragment, bundle)
     }
 
     fun exampleFun(it: Editable?) {
