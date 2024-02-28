@@ -57,27 +57,21 @@ class VacancyFragment : Fragment() {
             onDestroy()
         }
         viewModel.onLikedCheck(vacancyId!!).observe(requireActivity()) { likeIndicator ->
-            fun changeLikeButton() {
-                _vacancy!!.isFavorite.isFavorite = false
+            if (!likeIndicator) {
                 binding.buttonAddToFavorites.visibility = VISIBLE
                 binding.buttonDeleteFromFavorites.visibility = GONE
-                binding.buttonAddToFavorites.setOnClickListener {
-                    Log.d("Press on like button", ":)")
-                    viewModel.clickOnButton()
-                    _vacancy!!.isFavorite.isFavorite = true
-                    binding.buttonAddToFavorites.visibility = GONE
-                    binding.buttonDeleteFromFavorites.visibility = VISIBLE
-                }
-            }
-            if (!likeIndicator) {
                 _vacancy?.isFavorite?.isFavorite = false
+                binding.buttonAddToFavorites.setOnClickListener {
+                    Log.d("FragmentVacancy","Press on like :)")
+                    viewModel.clickOnButton()
+                }
             } else {
                 binding.buttonAddToFavorites.visibility = GONE
                 binding.buttonDeleteFromFavorites.visibility = VISIBLE
+                _vacancy?.isFavorite?.isFavorite = true
                 binding.buttonDeleteFromFavorites.setOnClickListener {
-                    Log.d("Press on dislike", ":(")
+                    Log.d("FragmentVacancy","Press on dislike :(")
                     viewModel.clickOnButton()
-                    changeLikeButton()
                 }
             }
         }
