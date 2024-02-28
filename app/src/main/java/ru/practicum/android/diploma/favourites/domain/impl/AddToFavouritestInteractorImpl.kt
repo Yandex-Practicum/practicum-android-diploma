@@ -4,7 +4,8 @@ import ru.practicum.android.diploma.core.domain.model.DetailVacancy
 import ru.practicum.android.diploma.favourites.domain.api.AddToFavouritesInteractor
 import ru.practicum.android.diploma.favourites.domain.api.AddToFavouritesRepository
 
-class AddToFavouritestInteractorImpl(private val addToFavouritesRepository: AddToFavouritesRepository): AddToFavouritesInteractor{
+class AddToFavouritestInteractorImpl(private val addToFavouritesRepository: AddToFavouritesRepository) :
+    AddToFavouritesInteractor {
     override suspend fun checkVacancyInFavourites(vacancyId: Long): Boolean {
         return addToFavouritesRepository.checkVacancyInFavourites(vacancyId)
     }

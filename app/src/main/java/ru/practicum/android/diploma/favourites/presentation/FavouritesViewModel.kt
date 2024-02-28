@@ -23,7 +23,6 @@ class FavouritesViewModel(private val getFavouritesInteractor: GetFavouritesInte
     private var isClickAllowed = true
 
     fun getFavouritesList() {
-
         viewModelScope.launch {
             getFavouritesInteractor.getFavouritesList().collect {
                 favouritesListMutable.postValue(listOf<DetailVacancy>())

@@ -30,6 +30,7 @@ class VacancyFragment : Fragment() {
         id = VacancyFragmentArgs.fromBundle(requireArguments()).vacancyId
         super.onCreate(savedInstanceState)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -98,9 +99,19 @@ class VacancyFragment : Fragment() {
             detailVacancy.contactComment
         )
         if (isInFavourites) {
-            binding.imageViewFavorite.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_favorites_add))
+            binding.imageViewFavorite.setImageDrawable(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.ic_favorites_add
+                )
+            )
         } else {
-            binding.imageViewFavorite.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_favorites_remove))
+            binding.imageViewFavorite.setImageDrawable(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.ic_favorites_remove
+                )
+            )
         }
         binding.imageViewShareVacancy.setOnClickListener { viewModel.shareVacancy(detailVacancy.alternateUrl) }
         binding.imageViewFavorite.setOnClickListener {
