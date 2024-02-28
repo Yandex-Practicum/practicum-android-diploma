@@ -60,6 +60,8 @@
     <string name="tv_detail_vacancy_keySkill">· %1$s\n</string>
 
     <plurals name="vacancies">
+        <item quantity="zero">%1$d вакансий</item>
+        <item quantity="two">%1$d вакансии</item>
         <item quantity="one">%1$d вакансия</item>
         <item quantity="few">%1$d вакансии</item>
         <item quantity="many">%1$d вакансий</item>
