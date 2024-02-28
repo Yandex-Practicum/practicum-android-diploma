@@ -49,6 +49,5 @@
     <dimen name="margin_20dp">20dp</dimen>
     <dimen name="margin_56dp">56dp</dimen>
     <dimen name="margin_26dp">26dp</dimen>
-
-
+    <dimen name="margin_72dp">72dp</dimen>
 </resources>
