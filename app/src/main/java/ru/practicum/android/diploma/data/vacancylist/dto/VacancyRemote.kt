@@ -30,7 +30,7 @@ data class EmployerRemote(
 )
 
 data class LogoUrlRemote (
-    @SerializedName("90") val small: String,
-    @SerializedName("240") val medium: String,
-    val original: String
+    @SerializedName("90") val small: String?,
+    @SerializedName("240") val medium: String?,
+    val original: String?
 )

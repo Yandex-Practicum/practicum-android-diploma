@@ -5,13 +5,13 @@ import kotlinx.coroutines.flow.map
 import ru.practicum.android.diploma.domain.api.Resource
 import ru.practicum.android.diploma.domain.api.SearchRepository
 import ru.practicum.android.diploma.domain.models.main.SearchInteractor
-import ru.practicum.android.diploma.domain.models.main.Vacancy
+import ru.practicum.android.diploma.domain.models.main.SearchingVacancies
 
 class SearchInteractorImpl(
     val repository: SearchRepository
 ) : SearchInteractor {
 
-    override suspend fun searchTrack(queryMap: Map<String, String>): Flow<Pair<List<Vacancy>?, Int?>> {
+    override suspend fun searchTrack(queryMap: Map<String, String>): Flow<Pair<SearchingVacancies?, Int?>> {
         return repository.makeRequest(queryMap).map {
             when (it) {
                 is Resource.Success -> {
