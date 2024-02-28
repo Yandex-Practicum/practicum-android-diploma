@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/yaJobRootContainerBackground">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/vacancyToolbar"
@@ -34,8 +35,7 @@
         android:importantForAccessibility="no"
         android:src="@drawable/ic_favorites_remove"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="?attr/colorOnPrimary" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageViewShareVacancy"

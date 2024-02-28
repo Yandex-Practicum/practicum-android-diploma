@@ -1,10 +1,10 @@
 package ru.practicum.android.diploma.vacancy.ui
 
 import android.os.Bundle
-import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -44,7 +44,7 @@ class VacancyFragment : Fragment() {
         viewModel.observeState().observe(viewLifecycleOwner) {
             render(it)
         }
-        binding.vacancyToolbar.setOnClickListener {
+        binding.vacancyToolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
     }
@@ -54,7 +54,7 @@ class VacancyFragment : Fragment() {
             is VacancyScreenState.Loading -> showProgressBar()
             is VacancyScreenState.Error -> showError()
             is VacancyScreenState.Content -> {
-                setContent(vacancyScreenState.vacancy)
+                setContent(vacancyScreenState.vacancy, viewModel.getFavouritesStatus())
                 showContent()
             }
         }
@@ -81,13 +81,13 @@ class VacancyFragment : Fragment() {
         binding.textViewServerError.isVisible = true
     }
 
-    private fun setContent(detailVacancy: DetailVacancy) {
+    private fun setContent(detailVacancy: DetailVacancy, isInFavourites: Boolean) {
         binding.textViewVacancyValue.text = detailVacancy.name
         binding.textViewEmployerValue.text = detailVacancy.employerName
         binding.textViewEmployerCityValue.text = detailVacancy.city
         binding.textViewRequiredExperienceValue.text = detailVacancy.experience
         binding.textViewSchedule.text = detailVacancy.workSchedule
-        binding.textViewDescriptionValue.setText(Html.fromHtml(detailVacancy.description, Html.FROM_HTML_MODE_COMPACT))
+        binding.textViewDescriptionValue.text = detailVacancy.description
         setSalary(detailVacancy.salaryFrom, detailVacancy.salaryTo, detailVacancy.currency)
         setLogo(detailVacancy.employerLogoUrl)
         setKeySkills(detailVacancy.keySkills)
@@ -97,8 +97,26 @@ class VacancyFragment : Fragment() {
             detailVacancy.phone,
             detailVacancy.contactComment
         )
+        if (isInFavourites) {
+            binding.imageViewFavorite.setImageDrawable(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.ic_favorites_add
+                )
+            )
+        } else {
+            binding.imageViewFavorite.setImageDrawable(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.ic_favorites_remove
+                )
+            )
+        }
         binding.imageViewShareVacancy.setOnClickListener { viewModel.shareVacancy(detailVacancy.alternateUrl) }
-        binding.imageViewFavorite.setOnClickListener { TODO() }
+        binding.imageViewFavorite.setOnClickListener {
+            viewModel.setFavourites()
+            setContent(detailVacancy, !isInFavourites)
+        }
         binding.textViewPhoneValue.setOnClickListener { viewModel.makeCall(detailVacancy.phone) }
         binding.textViewEmailValue.setOnClickListener { viewModel.sendEmail(detailVacancy.email) }
     }
@@ -117,11 +135,11 @@ class VacancyFragment : Fragment() {
     }
 
     private fun setSalary(salaryFrom: String, salaryTo: String, currency: String) {
-        if (salaryFrom.isNullOrEmpty() && salaryTo.isNullOrEmpty()) {
+        if (salaryFrom.isEmpty() && salaryTo.isEmpty()) {
             binding.textViewSalaryInfoValue.text = requireContext().resources.getString(R.string.tv_salary_no_info)
         } else {
             val currencySymbol = CurrencySymbol.getCurrencySymbol(currency)
-            if (salaryTo.isNullOrEmpty()) {
+            if (salaryTo.isEmpty()) {
                 binding.textViewSalaryInfoValue.text =
                     requireContext().resources.getString(R.string.tv_salary_from_info, salaryFrom, currencySymbol)
             } else {
@@ -136,7 +154,7 @@ class VacancyFragment : Fragment() {
     }
 
     private fun setKeySkills(keySkills: List<String>) {
-        if (keySkills.isNullOrEmpty()) {
+        if (keySkills.isEmpty()) {
             binding.textViewKeySkillsTitle.isVisible = false
             binding.textViewKeySkillsValue.isVisible = false
         } else {
@@ -153,28 +171,28 @@ class VacancyFragment : Fragment() {
     }
 
     private fun setContactInfo(contactName: String, email: String, phone: String, contactComment: String) {
-        if (contactName.isNullOrEmpty()) {
+        if (contactName.isEmpty()) {
             binding.textViewContactNameTitle.isVisible = false
             binding.textViewContactNameValue.isVisible = false
             binding.textViewContactInfoTitle.isVisible = false
         } else {
             binding.textViewContactNameValue.text = contactName
         }
-        if (email.isNullOrEmpty()) {
+        if (email.isEmpty()) {
             binding.textViewEmailTitle.isVisible = false
             binding.textViewEmailValue.isVisible = false
         } else {
             binding.textViewEmailValue.text = email
         }
 
-        if (phone.isNullOrEmpty()) {
+        if (phone.isEmpty()) {
             binding.textViewPhoneTitle.isVisible = false
             binding.textViewPhoneValue.isVisible = false
         } else {
             binding.textViewPhoneValue.text = phone
         }
 
-        if (contactComment.isNullOrEmpty()) {
+        if (contactComment.isEmpty()) {
             binding.textViewCommentTitle.isVisible = false
             binding.textViewCommentValue.isVisible = false
         } else {

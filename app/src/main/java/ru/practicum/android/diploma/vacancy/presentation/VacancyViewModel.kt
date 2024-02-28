@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.core.domain.model.DetailVacancy
+import ru.practicum.android.diploma.favourites.domain.api.AddToFavouritesInteractor
 import ru.practicum.android.diploma.util.Resource
 import ru.practicum.android.diploma.vacancy.domain.usecase.DetailVacancyUseCase
 import ru.practicum.android.diploma.vacancy.domain.usecase.MakeCallUseCase
@@ -17,12 +19,16 @@ class VacancyViewModel(
     private val makeCallUseCase: MakeCallUseCase,
     private val sendEmailUseCase: SendEmailUseCase,
     private val shareVacancyUseCase: ShareVacancyUseCase,
+    private val addToFavouritesInteractor: AddToFavouritesInteractor,
     private val id: Long
 ) : ViewModel() {
     private val stateLiveData = MutableLiveData<VacancyScreenState>()
+    private var isInFavourites: Boolean = false
+    private var vacancy: DetailVacancy? = null
 
     init {
         getDetailVacancyById(id)
+        setFavouritesStatus()
     }
 
     fun observeState(): LiveData<VacancyScreenState> = stateLiveData
@@ -32,7 +38,12 @@ class VacancyViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             detailVacancyUseCase.execute(id).collect {
                 when (it) {
-                    is Resource.Success -> renderState(VacancyScreenState.Content(it.data!!))
+                    is Resource.Success -> {
+                        vacancy = it.data!!
+                        renderState(VacancyScreenState.Content(it.data))
+
+                    }
+
                     is Resource.InternetError -> renderState(VacancyScreenState.Error)
                     is Resource.ServerError -> renderState(VacancyScreenState.Error)
                 }
@@ -54,5 +65,25 @@ class VacancyViewModel(
 
     private fun renderState(vacancyScreenState: VacancyScreenState) {
         stateLiveData.postValue(vacancyScreenState)
+    }
+
+    fun getFavouritesStatus(): Boolean {
+        return isInFavourites
+    }
+
+    private fun setFavouritesStatus() {
+        viewModelScope.launch {
+            isInFavourites = addToFavouritesInteractor.checkVacancyInFavourites(id)
+        }
+    }
+
+    fun setFavourites() {
+        viewModelScope.launch {
+            if (isInFavourites) {
+                addToFavouritesInteractor.removeFromFavourites(vacancy!!)
+            } else {
+                addToFavouritesInteractor.addToFavourites(vacancy!!)
+            }
+        }
     }
 }

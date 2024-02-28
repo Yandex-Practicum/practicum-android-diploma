@@ -13,6 +13,7 @@ val viewModelModule = module {
             makeCallUseCase = get(),
             sendEmailUseCase = get(),
             shareVacancyUseCase = get(),
+            addToFavouritesInteractor = get(),
             id = id
         )
     }
