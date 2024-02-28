@@ -7,13 +7,14 @@ import ru.practicum.android.diploma.vacancy.presentation.VacancyViewModel
 import ru.practicum.android.diploma.search.presentation.SearchViewModel
 
 val viewModelModule = module {
-    viewModel {
+    viewModel { (id: Long) ->
         VacancyViewModel(
             detailVacancyUseCase = get(),
             makeCallUseCase = get(),
             sendEmailUseCase = get(),
             shareVacancyUseCase = get(),
-            addToFavouritesInteractor = get()
+            addToFavouritesInteractor = get(),
+            id = id
         )
     }
     viewModel {

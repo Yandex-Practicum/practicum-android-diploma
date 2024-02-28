@@ -5,11 +5,11 @@ import ru.practicum.android.diploma.favourites.domain.api.AddToFavouritesInterac
 import ru.practicum.android.diploma.favourites.domain.api.GetFavouritesInteractor
 import ru.practicum.android.diploma.favourites.domain.impl.AddToFavouritestInteractorImpl
 import ru.practicum.android.diploma.favourites.domain.impl.GetFavourtiesInteractorImpl
+import ru.practicum.android.diploma.search.domain.usecase.SearchVacancyUseCase
 import ru.practicum.android.diploma.vacancy.domain.usecase.DetailVacancyUseCase
 import ru.practicum.android.diploma.vacancy.domain.usecase.MakeCallUseCase
 import ru.practicum.android.diploma.vacancy.domain.usecase.SendEmailUseCase
 import ru.practicum.android.diploma.vacancy.domain.usecase.ShareVacancyUseCase
-import ru.practicum.android.diploma.search.domain.usecase.SearchVacancyUseCase
 
 val interactorModule = module {
     single {

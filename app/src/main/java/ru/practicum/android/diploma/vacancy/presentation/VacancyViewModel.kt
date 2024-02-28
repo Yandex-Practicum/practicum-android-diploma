@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.vacancy.presentation
 
-import android.text.BoringLayout
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,29 +20,25 @@ class VacancyViewModel(
     private val sendEmailUseCase: SendEmailUseCase,
     private val shareVacancyUseCase: ShareVacancyUseCase,
     private val addToFavouritesInteractor: AddToFavouritesInteractor
+    private val id: Long
 ) : ViewModel() {
     private val stateLiveData = MutableLiveData<VacancyScreenState>()
-
     private var isInFavourites: Boolean = false
-
     private var vacancy: DetailVacancy? = null
 
     init {
-        getDetailVacancyById()
+        getDetailVacancyById(id)
         setFavouritesStatus()
     }
 
     fun observeState(): LiveData<VacancyScreenState> = stateLiveData
 
-    private fun getDetailVacancyById() {
+    private fun getDetailVacancyById(id:Long) {
         stateLiveData.postValue(VacancyScreenState.Loading)
         viewModelScope.launch(Dispatchers.IO) {
-            detailVacancyUseCase.execute(TEST_ID).collect {
+            detailVacancyUseCase.execute(id).collect {
                 when (it) {
-                    is Resource.Success -> {
-                        renderState(VacancyScreenState.Content(it.data!!))
-                        vacancy = it.data!!
-                    }
+                    is Resource.Success -> renderState(VacancyScreenState.Content(it.data!!))
                     is Resource.InternetError -> renderState(VacancyScreenState.Error)
                     is Resource.ServerError -> renderState(VacancyScreenState.Error)
                 }
@@ -92,4 +87,6 @@ class VacancyViewModel(
             }
         }
     }
+
+
 }

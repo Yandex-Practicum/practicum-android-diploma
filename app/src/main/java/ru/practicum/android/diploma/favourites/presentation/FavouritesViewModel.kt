@@ -52,52 +52,36 @@ class FavouritesViewModel(private val getFavouritesInteractor: GetFavouritesInte
         return current
     }
 
-    fun fillVacancyList() {
-        val vac1 = DetailVacancy(
-            1,
-            "Андроид-разработчик",
-            "100 000",
-            "",
-            "Rub",
-            "3 years",
-            "Employment",
-            "24 on 7",
-            "Very rock vacancy",
-            listOf(),
-            "Anna",
-            "ya@ya.ru",
-            "_789890980",
-            "HR",
-            "",
-            "Еда",
-            "Москва",
-            ""
-        )
-
-        val vac2 = DetailVacancy(
-            2,
-            "Разработчик на С++ в команду внутренних сервисов",
-            "40 000",
-            "80 000",
-            "Rub",
-            "1 years",
-            "Employment 1",
-            "always",
-            "Very high vacancy",
-            listOf(),
-            "Anna1",
-            "ya@ya1.ru",
-            "_7898909888",
-            "HR1",
-            "",
-            "Авто.ру",
-            "Москва",
-            ""
-        )
+    private fun fillVacancyList() {
+        val mockList = mutableListOf<DetailVacancy>()
+        repeat('0'.code) {
+            val vac = DetailVacancy(
+                it.toLong(),
+                "Андроид-разработчик",
+                "100 000",
+                "",
+                "Rub",
+                "3 years",
+                "Employment",
+                "24 on 7",
+                "Very rock vacancy",
+                listOf(),
+                "Anna",
+                "ya@ya.ru",
+                "_789890980",
+                "HR",
+                "",
+                "Еда",
+                "Москва",
+                ""
+            )
+            mockList.add(vac)
+        }
 
         viewModelScope.launch {
-            getFavouritesInteractor.fillVacList(vac1)
-            getFavouritesInteractor.fillVacList(vac2)
+            mockList.forEach {
+                getFavouritesInteractor.fillVacList(it)
+            }
         }
     }
 }

@@ -11,7 +11,7 @@ class VacancyViewHolder(
     private val binding: VacancyViewBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(shortVacancy: ShortVacancy) {
+    fun bind(shortVacancy: ShortVacancy, onItemClickListener: ((ShortVacancy) -> Unit)?) {
         Glide.with(itemView)
             .load(shortVacancy.employerLogoUrl)
             .placeholder(R.drawable.placeholder_vacancy)
@@ -19,13 +19,12 @@ class VacancyViewHolder(
             .centerInside()
             .into(binding.vacancyCover)
 
-        val salaryFrom = shortVacancy.salaryFrom?.toIntOrNull() ?: 0
-        val salaryTo = shortVacancy.salaryTo?.toIntOrNull() ?: 0
-
+        val salaryFrom = shortVacancy.salaryFrom.toIntOrNull() ?: 0
+        val salaryTo = shortVacancy.salaryTo.toIntOrNull() ?: 0
+        itemView.setOnClickListener { onItemClickListener?.invoke(shortVacancy) }
         binding.vacancyName.text =
             itemView.context.getString(R.string.vacancy_name, shortVacancy.name, shortVacancy.city)
         binding.companyName.text = itemView.context.getString(R.string.company_name, shortVacancy.companyName)
         binding.salary.text = itemView.context.getString(R.string.salary_format, salaryFrom, salaryTo)
-
     }
 }

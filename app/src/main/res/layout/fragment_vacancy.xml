@@ -12,7 +12,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/ic_arrow_back" />
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:navigationIconTint="?attr/colorOnPrimary" />
 
     <TextView
         style="@style/MaterialToolbarTextStyle"
@@ -33,7 +34,8 @@
         android:importantForAccessibility="no"
         android:src="@drawable/ic_favorites_remove"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="?attr/colorOnPrimary" />
 
     <ImageView
         android:id="@+id/imageViewShareVacancy"
@@ -43,7 +45,8 @@
         android:importantForAccessibility="no"
         android:src="@drawable/ic_sharing"
         app:layout_constraintEnd_toStartOf="@id/imageViewFavorite"
-        app:layout_constraintTop_toTopOf="@id/imageViewFavorite" />
+        app:layout_constraintTop_toTopOf="@id/imageViewFavorite"
+        app:tint="?attr/colorOnPrimary" />
 
 
     <ScrollView
@@ -124,6 +127,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="72dp"
                     android:layout_marginTop="@dimen/tv_detailed_vacancy_margin_m"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/yp_black"
                     tools:text="Еда" />
 
                 <TextView
@@ -134,7 +140,7 @@
                     android:layout_marginTop="42dp"
                     android:fontFamily="@font/ys_display_regular"
                     android:fontWeight="400"
-                    android:textColor="?attr/colorOnPrimary"
+                    android:textColor="@color/yp_black"
                     android:textSize="@dimen/tv_detailed_vacancy_m"
                     tools:text="Москва" />
             </androidx.cardview.widget.CardView>
