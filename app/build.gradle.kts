@@ -69,6 +69,7 @@ dependencies {
     // UI layer libraries
     implementation(libs.ui.material)
     implementation(libs.ui.constraintLayout)
+    implementation("androidx.paging:paging-runtime:3.2.1")
 
     // region Unit tests
     testImplementation(libs.unitTests.junit)
