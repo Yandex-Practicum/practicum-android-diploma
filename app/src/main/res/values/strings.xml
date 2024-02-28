@@ -47,6 +47,7 @@
     <string name="tv_job_title_and_region">%1$s, %2$s</string>
     <string name="tv_salary_no_info">Зарплата не указана</string>
     <string name="tv_salary_from_info">от %1$s %2$s</string>
+    <string name="tv_salary_to_info">до %1$s %2$s</string>
     <string name="tv_salary_from_to_info">от %1$s до %2$s %3$s</string>
     <string name="best_people">Над приложением работали</string>
     <string name="denis">Денис Быков</string>

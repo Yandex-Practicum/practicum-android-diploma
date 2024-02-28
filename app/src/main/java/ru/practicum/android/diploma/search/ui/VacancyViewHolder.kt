@@ -41,6 +41,12 @@ class VacancyViewHolder(
                 shortVacancy.salaryFrom,
                 CurrencySymbol.getCurrencySymbol(shortVacancy.currency)
             )
+        } else if (salaryFrom == 0) {
+            itemView.context.getString(
+                R.string.tv_salary_to_info,
+                shortVacancy.salaryTo,
+                CurrencySymbol.getCurrencySymbol(shortVacancy.currency)
+            )
         } else {
             itemView.context.getString(
                 R.string.tv_salary_from_to_info,
