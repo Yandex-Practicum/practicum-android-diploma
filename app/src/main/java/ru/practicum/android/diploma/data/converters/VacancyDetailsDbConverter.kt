@@ -13,7 +13,6 @@ import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.Phones
 import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.Schedule
 import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.Snippet
 import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.VacancyDetailDto
-import ru.practicum.android.diploma.data.vacancylist.dto.LogoUrlRemote
 
 object VacancyDetailsDbConverter {
 

@@ -4,12 +4,13 @@ import org.koin.dsl.module
 import ru.practicum.android.diploma.domain.favorite.FavoriteInteractor
 import ru.practicum.android.diploma.domain.favorite.impl.FavoriteInteractorImpl
 import ru.practicum.android.diploma.domain.main.SearchInteractor
+import ru.practicum.android.diploma.domain.models.main.impl.SearchInteractorImpl
 
 val interactorModule = module {
 
-//    single<SearchInteractor> {
-//        SearchInteractorImpl(get())
-//    }
+    single<SearchInteractor> {
+        SearchInteractorImpl(get())
+    }
 
     single<FavoriteInteractor> {
         FavoriteInteractorImpl(get())
