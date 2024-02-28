@@ -4,7 +4,8 @@ import androidx.recyclerview.widget.DiffUtil
 import ru.practicum.android.diploma.core.domain.model.ShortVacancy
 
 class VacancyDiffCallback(
-    private val oldList: List<ShortVacancy>, private val newList: List<ShortVacancy>
+    private val oldList: List<ShortVacancy>,
+    private val newList: List<ShortVacancy>
 ) : DiffUtil.Callback() {
     override fun getOldListSize() = oldList.size
 
