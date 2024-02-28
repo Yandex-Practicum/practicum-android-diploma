@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="?attr/yaJobRootContainerBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -94,17 +95,19 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:visibility="visible"
+        app:layout_goneMarginBottom="0dp"
         app:layout_constraintBottom_toTopOf="@id/paginationProgressBar"
         app:layout_constraintTop_toBottomOf="@+id/tv_vacancy_amount"
         tools:itemCount="20"
         tools:listitem="@layout/vacancy_view" />
 
-    <ProgressBar
+    <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/paginationProgressBar"
         android:layout_width="@dimen/progress_bar_size"
         android:layout_height="@dimen/progress_bar_size"
         android:layout_marginVertical="@dimen/pagination_margin"
-        android:indeterminateTint="@color/yp_blue"
+        android:indeterminate="true"
+        app:indicatorColor="@color/yp_blue"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/right_guideline"

@@ -80,14 +80,18 @@ class SearchFragment : Fragment() {
                     val currentLastVisibleItem = (recyclerView.layoutManager as LinearLayoutManager)
                         .findLastVisibleItemPosition()
                     if (isTimeToGetNextPage(currentLastVisibleItem) && currentLastVisibleItem != lastVisibleItem) {
-                        binding.paginationProgressBar.isVisible = isScrolledToLastItem(currentLastVisibleItem)
+                        if (isScrolledToLastItem(currentLastVisibleItem)) {
+                            binding.paginationProgressBar.show()
+                        } else {
+                            binding.paginationProgressBar.visibility = View.GONE
+                        }
                         viewModel.searchByPage(
                             searchText = binding.searchEditText.text.toString(),
                             page = getNextPageIndex(),
                             filterParameters = mockedParameters
                         )
                     } else if (currentLastVisibleItem != lastVisibleItem) {
-                        binding.paginationProgressBar.isVisible = false
+                        binding.paginationProgressBar.visibility = View.GONE
                     }
                     lastVisibleItem = currentLastVisibleItem
                 }
@@ -181,7 +185,7 @@ class SearchFragment : Fragment() {
                 binding.placeholderText.visibility = View.GONE
                 binding.errorPlaceholder.visibility = View.GONE
                 binding.tvVacancyAmount.visibility = View.VISIBLE
-                binding.paginationProgressBar.isVisible = false
+                binding.paginationProgressBar.visibility = View.GONE
             }
 
             SearchStatus.DEFAULT -> {
