@@ -29,7 +29,8 @@ class SearchFragment : Fragment() {
         transitionToDetailedVacancy(vacancy.id)
     }
     private val handler = Handler(Looper.getMainLooper())
-    private val searchRunnable = Runnable {  viewModel.initSearch(binding.searchEditText.text.toString(), 0, mockedParameters) }
+    private val searchRunnable =
+        Runnable { viewModel.initSearch(binding.searchEditText.text.toString(), 0, mockedParameters) }
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
