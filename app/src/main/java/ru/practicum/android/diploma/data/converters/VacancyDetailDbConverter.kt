@@ -1,27 +1,36 @@
 package ru.practicum.android.diploma.data.converters
 
 import ru.practicum.android.diploma.data.db.entyti.VacancyDetailDtoEntity
+import ru.practicum.android.diploma.data.dto.responseUnits.Employer
+import ru.practicum.android.diploma.data.dto.responseUnits.LogoUrls
+import ru.practicum.android.diploma.data.dto.responseUnits.Salary
+import ru.practicum.android.diploma.data.dto.responseUnits.VacancyArea
+import ru.practicum.android.diploma.data.dto.responseUnits.VacancyType
+import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.Contacts
+import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.Employment
+import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.Experience
 import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.KeySkillVacancyDetail
 import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.Phones
+import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.Schedule
 import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.VacancyDetailDtoResponse
 import ru.practicum.android.diploma.domain.models.detail.VacancyDetail
 
-object VacancyDetailConverter {
+object VacancyDetailDbConverter {
 
     fun VacancyDetailDtoEntity.mapToVacancyDetailDto(): VacancyDetailDtoResponse {
         return VacancyDetailDtoResponse(
-            id = id,
+            id = vacancyId,
             name = name,
-            area = area,
-            vacancyLink = vacancyLink,
-            contacts = contacts,
-            employer = employer,
-            salary = salary,
-            schedule = schedule,
-            type = type,
-            employment = employment,
-            experience = experience,
-            keySkills = keySkills,
+            area = VacancyArea(vacancyId, name, url),
+            contacts = Contacts("", "", arrayOf(Phones("", "", "", "", ""))),
+            employer = Employer("", LogoUrls("", "", ""), "", false, ""),
+            salary = Salary("", 0, false, 0),
+            schedule = Schedule("", ""),
+            type = VacancyType("", ""),
+            employment = Employment("", ""),
+            experience = Experience("", ""),
+            keySkills = listOf(),
+            vacancyLink = url,
             description = description
         )
     }
@@ -29,18 +38,28 @@ object VacancyDetailConverter {
     fun VacancyDetailDtoResponse.mapToVacancyDetailDtoEntity(): VacancyDetailDtoEntity {
         return VacancyDetailDtoEntity(
             vacancyId = id,
+            url = employer?.logoUrls?.original ?: "",
             name = name,
-            area = area,
-            vacancyLink = vacancyLink,
-            contacts = contacts,
-            employer = employer,
-            salary = salary,
-            schedule = schedule,
-            type = type,
-            employment = employment,
-            experience = experience,
-            keySkills = keySkills,
-            description = description
+            area = area.name,
+            salaryCurrency = salary?.currency ?: "",
+            salaryFrom = salary?.from,
+            salaryTo = salary?.to,
+            salaryGross = salary?.gross,
+            experience = experience?.name,
+            schedule = schedule?.name,
+            contactName = contacts?.name,
+            contactEmail = contacts?.email,
+            phones = employer?.logoUrls?.original,
+            contactComment = contacts?.name,
+            logoUrl = employer?.logoUrls?.original,
+            logoUrl90 = employer?.logoUrls?.art90,
+            logoUrl240 = employer?.logoUrls?.art240,
+            address = name,
+            employerUrl = employer?.logoUrls?.original,
+            employerName = employer?.name,
+            employment = employment?.name,
+            keySkills = keySkills.toString(),
+            description = description,
         )
     }
 

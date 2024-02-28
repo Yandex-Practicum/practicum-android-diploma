@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.ui.vacancydetail
 
 import ru.practicum.android.diploma.domain.models.detail.VacancyDetail
-import ru.practicum.android.diploma.domain.models.main.Vacancy
 
 sealed interface DetailState {
 

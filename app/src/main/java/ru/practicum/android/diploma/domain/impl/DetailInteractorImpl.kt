@@ -4,8 +4,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import ru.practicum.android.diploma.domain.api.DetailInteractor
 import ru.practicum.android.diploma.domain.api.DetailRepository
-import ru.practicum.android.diploma.domain.api.Resource
 import ru.practicum.android.diploma.domain.models.detail.VacancyDetail
+import ru.practicum.android.diploma.util.Resource
 
 class DetailInteractorImpl(
     private val detailRepository: DetailRepository

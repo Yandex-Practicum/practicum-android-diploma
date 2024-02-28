@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.VacancyDetailDto
+import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.VacancyDetailDtoResponse
 import ru.practicum.android.diploma.databinding.FragmentFavoritesBinding
 import ru.practicum.android.diploma.presentation.favorite.FavoriteAdapter
 import ru.practicum.android.diploma.presentation.favorite.FavoriteVacancyState
@@ -73,7 +73,7 @@ class FavoritesFragment : Fragment() {
         binding.favoriteVacancyProgressBar.visibility = View.GONE
     }
 
-    private fun showContent(vacancy: List<VacancyDetailDto>) {
+    private fun showContent(vacancy: List<VacancyDetailDtoResponse>) {
         binding.favoriteVacancyRecycler.visibility = View.VISIBLE
         binding.favoriteEmptyList.visibility = View.GONE
         binding.favoriteNothingFound.visibility = View.GONE
