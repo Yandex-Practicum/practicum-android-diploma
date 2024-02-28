@@ -12,11 +12,11 @@ class FavoriteInteractorImpl(
         repository.addVacancy(vacancy)
     }
 
-    override suspend fun deleteTrack(vacancyId: Int) {
-        repository.deleteTrack(vacancyId)
+    override suspend fun deleteVacancy(vacancyId: Int) {
+        repository.deleteVacancy(vacancyId)
     }
 
-    override fun getListTracks(): Flow<List<VacancyDetailDto>> {
-        return repository.getListTracks()
+    override fun getListVacancy(): Flow<List<VacancyDetailDto>> {
+        return repository.getListVacancy()
     }
 }

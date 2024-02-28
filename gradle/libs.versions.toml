@@ -43,6 +43,7 @@ androidX-appCompat = "androidx.appcompat:appcompat:1.6.1"
 
 # Room
 room = "androidx.room:room-runtime:2.6.1"
+room-kapt = "androidx.room:room-compiler:2.6.1"
 
 # Поддержка корутин
 room-ktx = "androidx.room:room-ktx:2.6.1"

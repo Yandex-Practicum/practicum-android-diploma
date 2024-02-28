@@ -5,6 +5,6 @@ import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.Vacancy
 
 interface FavoriteRepository {
     suspend fun addVacancy(vacancy: VacancyDetailDto)
-    suspend fun deleteTrack(vacancyId: Int)
-    fun getListTracks(): Flow<List<VacancyDetailDto>>
+    suspend fun deleteVacancy(vacancyId: Int)
+    fun getListVacancy(): Flow<List<VacancyDetailDto>>
 }

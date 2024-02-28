@@ -11,15 +11,16 @@ import ru.practicum.android.diploma.domain.favorite.FavoriteRepository
 class FavoriteRepositoryImpl(
     val appDatabase: AppDatabase
 ) : FavoriteRepository {
+
     override suspend fun addVacancy(vacancy: VacancyDetailDto) {
         appDatabase.vacancyDtoDao().insertVacancy(vacancy.mapToVacancyDetailDtoEntity())
     }
 
-    override suspend fun deleteTrack(vacancyId: Int) {
+    override suspend fun deleteVacancy(vacancyId: Int) {
         appDatabase.vacancyDtoDao().deleteVacancy(vacancyId)
     }
 
-    override fun getListTracks(): Flow<List<VacancyDetailDto>> = flow {
+    override fun getListVacancy(): Flow<List<VacancyDetailDto>> = flow {
         val vacancy = appDatabase.vacancyDtoDao().getAllTrack()
         emit(vacancy.mapToVacancyDetailDto())
     }
