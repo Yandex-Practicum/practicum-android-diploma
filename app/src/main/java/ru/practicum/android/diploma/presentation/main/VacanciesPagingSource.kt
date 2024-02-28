@@ -2,10 +2,10 @@ package ru.practicum.android.diploma.presentation.main
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import ru.practicum.android.diploma.domain.api.Resource
 import ru.practicum.android.diploma.domain.api.SearchRepository
+import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.models.main.SearchingVacancies
-import ru.practicum.android.diploma.domain.models.main.Vacancy
+import ru.practicum.android.diploma.util.Resource
 
 class VacanciesPagingSource(
     private val repository: SearchRepository,

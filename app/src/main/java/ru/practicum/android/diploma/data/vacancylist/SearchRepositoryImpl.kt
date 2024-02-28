@@ -10,9 +10,9 @@ import ru.practicum.android.diploma.data.converters.VacancyConverter.toVacancy
 import ru.practicum.android.diploma.data.network.JobVacancySearchApi
 import ru.practicum.android.diploma.data.vacancylist.dto.VacanciesSearchRequest
 import ru.practicum.android.diploma.data.vacancylist.dto.VacanciesSearchResponse
-import ru.practicum.android.diploma.domain.api.Resource
 import ru.practicum.android.diploma.domain.api.SearchRepository
 import ru.practicum.android.diploma.domain.models.main.SearchingVacancies
+import ru.practicum.android.diploma.util.Resource
 
 class SearchRepositoryImpl(
     private val networkClient: NetworkClient,

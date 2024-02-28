@@ -18,9 +18,4 @@ val dataModule = module {
     single<NetworkClient> {
         RetrofitNetworkClient(androidContext(), get())
     }
-
-    single {
-        Room.databaseBuilder(androidContext(), AppDatabase::class.java, "get_vacancy_db")
-            .build()
-    }
 }

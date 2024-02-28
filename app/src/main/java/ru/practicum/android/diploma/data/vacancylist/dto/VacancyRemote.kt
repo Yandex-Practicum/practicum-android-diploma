@@ -9,6 +9,7 @@ data class VacanciesRemote (
 data class VacancyRemote(
     val id: String,
     val name: String,
+    val department: String,
     val salary: SalaryRemote,
     val address: AddressRemote,
     val employer: EmployerRemote
