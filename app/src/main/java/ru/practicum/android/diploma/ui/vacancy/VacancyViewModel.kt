@@ -28,17 +28,14 @@ class VacancyViewModel(
 
     private val _vacancyState = MutableLiveData<VacancyState>()
     val vacancyState: LiveData<VacancyState> = _vacancyState
-    private var vacancy: DetailVacancy = DetailVacancy(
-        "", "", "", "", false, "", "", listOf(""), "", "", "", "", "", "", "",
-        listOf(""), "", "", 0, false, 0, "", "", "", "", "", ""
-    )
+    private var vacancy: DetailVacancy = DetailVacancy("","","","",false,"","", listOf(""),"","","","","","","",
+        listOf(""),"","",0,false,0,"","","","","","")
     private var likeIndicator = MutableLiveData<Boolean>()
     private var likeJob: Job? = null
 
     private fun renderState(state: VacancyState) {
         _vacancyState.postValue(state)
     }
-
     fun getVacancyDetail(id: String) {
         if (id.isNotEmpty()) {
             renderState(VacancyState.Loading)
@@ -61,7 +58,7 @@ class VacancyViewModel(
     }
 
     fun clickOnButton() {
-        val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        val coroutineExceptionHandler = CoroutineExceptionHandler{_, throwable ->
             throwable.printStackTrace()
         }
         if (vacancyState.value is VacancyState.Content) {
@@ -77,10 +74,8 @@ class VacancyViewModel(
                     }
                 )
                 viewModelScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
-                    deleteVacancyRepository.delete(
-                        (vacancyState.value as VacancyState.Content)
-                            .vacancy.id
-                    )
+                    deleteVacancyRepository.delete((vacancyState.value as VacancyState.Content)
+                        .vacancy.id)
                     Log.d("delete", "Deleted from fav")
                     //Log.d("deleted","${vacancyState.value as VacancyState.Content).vacancy.id}")
                 }

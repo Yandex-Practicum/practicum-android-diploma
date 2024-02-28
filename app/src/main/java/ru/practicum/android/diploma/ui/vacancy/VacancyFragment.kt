@@ -27,7 +27,6 @@ class VacancyFragment : Fragment() {
     private var _binding: FragmentVacancyBinding? = null
     private val binding get() = _binding!!
     private val viewModel: VacancyViewModel by viewModel<VacancyViewModel>()
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,6 +41,8 @@ class VacancyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        vacancyId = requireArguments().getString(ARGS_VACANCY)
         vacancyId = arguments?.getParcelable<Vacancy>("vacancyId")!!.id
         Log.d("id", "$vacancyId")
         viewModel.getVacancyDetail(vacancyId!!)
@@ -50,7 +51,10 @@ class VacancyFragment : Fragment() {
         }
         binding.buttonSimilar.setOnClickListener {
             val vacancyId = it.id.toString()
-            //findNavController().navigate(R.id.action_vacancyFragment_to_similarVacanciesFragment, SimilarVacanciesFragment.createArgs(vacancyId) )
+            //findNavController().navigate(R.id.action_vacancyFragment_to_similarVacanciesFragment, SimilarVacanciesFragment.createArgs(vacancyId))
+        }
+        if (vacancyId == null){
+            onDestroy()
         }
         viewModel.onLikedCheck(vacancyId!!).observe(requireActivity()) { likeIndicator ->
             fun changeLikeButton() {
@@ -66,7 +70,7 @@ class VacancyFragment : Fragment() {
                 }
             }
             if (!likeIndicator) {
-                _vacancy!!.isFavorite.isFavorite = false
+                _vacancy?.isFavorite?.isFavorite = false
             } else {
                 binding.buttonAddToFavorites.visibility = GONE
                 binding.buttonDeleteFromFavorites.visibility = VISIBLE
@@ -79,7 +83,7 @@ class VacancyFragment : Fragment() {
         }
     }
 
-    private fun reRender() {
+    private fun reRender(){
         viewModel.vacancyState.observe(viewLifecycleOwner) { state ->
             render(state)
         }
@@ -104,13 +108,13 @@ class VacancyFragment : Fragment() {
                     vacancy.salaryTo,
                     vacancy.salaryCurrency
                 )
+
             Glide.with(requireContext())
                 .load(vacancy.areaUrl)
                 .placeholder(R.drawable.ic_toast)
                 .fitCenter()
                 .transform(RoundedCorners(requireContext().resources.getDimensionPixelSize(R.dimen.margin_8)))
                 .into(ivCompany)
-
             companyName.text = vacancy.employerName
             companyCity.text = vacancy.areaName
             jobTime.text = vacancy.scheduleName
@@ -124,9 +128,10 @@ class VacancyFragment : Fragment() {
 
             }
             createDiscription(vacancy.description)
+            vacancy.keySkillsNames?.let { createKeySkills(it) }
             createKeySkills(vacancy.keySkillsNames!!)
             createContacts(vacancy)
-            if (vacancy.isFavorite.isFavorite) {
+            if (vacancy.isFavorite.isFavorite){
                 binding.buttonAddToFavorites.visibility = GONE
                 binding.buttonDeleteFromFavorites.visibility = VISIBLE
             }
@@ -161,14 +166,12 @@ class VacancyFragment : Fragment() {
             }
         }
     }
-
     private fun createDiscription(description: String?) {
         binding.tvDescription.text = HtmlCompat.fromHtml(
             description?.replace(Regex("<li>\\s<p>|<li>"), "<li>\u00A0") ?: "",
             HtmlCompat.FROM_HTML_SEPARATOR_LINE_BREAK_LIST_ITEM
         )
     }
-
     private fun createKeySkills(keySkills: List<String?>) {
         with(binding) {
             if (keySkills.isEmpty()) {
@@ -182,19 +185,16 @@ class VacancyFragment : Fragment() {
                 keySkillsRecyclerView.text = skills
             }
         }
-
     }
-
     private fun loading() {
         binding.progressBar.visibility = VISIBLE
         binding.fragmentNotifications.visibility = GONE
-
     }
-
     private fun content(data: DetailVacancy) {
         binding.progressBar.visibility = GONE
         initViews(data)
         binding.fragmentNotifications.visibility = VISIBLE
+
         Log.d("Vacancy Details:", "$data")
     }
 
@@ -203,7 +203,6 @@ class VacancyFragment : Fragment() {
         binding.progressBar.visibility = GONE
         binding.fragmentNotifications.visibility = GONE
     }
-
     private fun connectionError() {
         with(binding) {
             progressBar.visibility = GONE
@@ -212,16 +211,13 @@ class VacancyFragment : Fragment() {
             ivServerError.visibility = VISIBLE
         }
     }
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
-
     companion object {
         const val ARGS_VACANCY = "vacancyId"
         fun createArgs(vacancyId: String): Bundle =
             bundleOf(ARGS_VACANCY to vacancyId)
-
     }
 }
