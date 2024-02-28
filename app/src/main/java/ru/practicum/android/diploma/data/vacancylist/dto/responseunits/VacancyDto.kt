@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.data.dto.responseUnits
 
-class VacancyDto(
+data class VacancyDto(
     val id: String,
     val department: String,
     val name: String,

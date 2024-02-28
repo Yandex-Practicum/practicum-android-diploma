@@ -12,10 +12,12 @@
         tools:layout="@layout/fragment_main" >
         <action
             android:id="@+id/action_mainFragment_to_filtersFragment"
-            app:destination="@id/filtersFragment" />
+            app:destination="@id/filtersFragment"
+            app:popUpToSaveState="true"/>
         <action
             android:id="@+id/action_mainFragment_to_vacanciesFragment"
-            app:destination="@id/vacanciesFragment" />
+            app:destination="@id/vacanciesFragment"
+            app:popUpToSaveState="true"/>
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
