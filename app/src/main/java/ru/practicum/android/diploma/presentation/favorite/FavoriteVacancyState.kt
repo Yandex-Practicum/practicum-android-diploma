@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.presentation.favorite
 
-import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.VacancyDetailDto
+import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.VacancyDetailDtoResponse
 
 sealed interface FavoriteVacancyState {
 
@@ -11,6 +11,6 @@ sealed interface FavoriteVacancyState {
     object Error : FavoriteVacancyState
 
     data class Content(
-        val vacancy: List<VacancyDetailDto>
+        val vacancy: List<VacancyDetailDtoResponse>
     ) : FavoriteVacancyState
 }

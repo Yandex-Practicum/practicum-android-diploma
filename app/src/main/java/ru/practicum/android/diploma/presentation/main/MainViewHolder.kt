@@ -18,7 +18,7 @@ class MainViewHolder(private val binding: VacancyItemBinding) : RecyclerView.Vie
 
         Glide.with(binding.ivCompany)
             .load(vacancy.employerImgUrl)
-            .placeholder(R.drawable.ic_launcher_foreground)
+            .placeholder(R.drawable.placeholder_company_icon)
             .centerCrop()
             .into(binding.ivCompany)
 

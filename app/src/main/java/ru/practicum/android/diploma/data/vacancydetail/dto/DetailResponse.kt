@@ -1,8 +1,8 @@
 package ru.practicum.android.diploma.data.vacancydetail.dto
 
 import ru.practicum.android.diploma.data.Response
-import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.VacancyDetailDto
+import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.VacancyDetailDtoResponse
 
 class DetailResponse(
-    val results: VacancyDetailDto
+    val result: VacancyDetailDtoResponse
 ) : Response()
