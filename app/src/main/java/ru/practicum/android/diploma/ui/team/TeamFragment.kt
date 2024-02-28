@@ -1,10 +1,10 @@
 package ru.practicum.android.diploma.ui.team
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import ru.practicum.android.diploma.R
 
 class TeamFragment : Fragment() {
@@ -13,14 +13,12 @@ class TeamFragment : Fragment() {
         fun newInstance() = TeamFragment()
     }
 
-    private lateinit var viewModel: TeamViewModel
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_team, container, false)
     }
-
 
 }

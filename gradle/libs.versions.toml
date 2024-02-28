@@ -10,6 +10,7 @@ minSdk = "26"
 compileSdk = "34"
 mockk = "1.12.0"
 retrofit = "2.9.0"
+okhttp = "4.12.0"
 roomKtx = "2.6.1"
 roomVersion = "2.6.1"
 targetSdk = "33"
@@ -59,6 +60,7 @@ koin = "io.insert-koin:koin-android:3.5.3"
 gson = "com.google.code.gson:gson:2.10.1"
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+okhttp-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
 
 #Glide
 glide = "com.github.bumptech.glide:glide:4.15.1"
