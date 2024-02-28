@@ -4,10 +4,10 @@ object CurrencySymbol {
     fun getCurrencySymbol(currency: String): String {
         return when (currency) {
             "AZN" -> "\u20bc"
-            "BYR" -> "\u0072"
+            "BYR" -> "Br"
             "EUR" -> "\u20ac"
             "GEL" -> "\u20be"
-            "KGS" -> "\u043b"
+            "KGS" -> "Som"
             "KZT" -> "\u20b8"
             "RUR" -> "\u20bd"
             "UAH" -> "\u20b4"

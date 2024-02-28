@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.core.domain.model.SearchFilterParameters
@@ -16,6 +17,8 @@ class SearchViewModel(private val searchVacancyUseCase: SearchVacancyUseCase) : 
     private var isClickAllowed = true
     private val stateLiveData = MutableLiveData<SearchState>(SearchState.Default)
     private var isSearchAllowed = true
+    private var searchByTextJob: Job? = null
+    private var previousSearchText = ""
 
     fun observeState(): LiveData<SearchState> = stateLiveData
 
@@ -27,7 +30,7 @@ class SearchViewModel(private val searchVacancyUseCase: SearchVacancyUseCase) : 
         val current = isClickAllowed
         if (isClickAllowed) {
             isClickAllowed = false
-            viewModelScope.launch {
+            viewModelScope.launch(Dispatchers.IO) {
                 delay(CLICK_DEBOUNCE_DELAY)
                 isClickAllowed = true
             }
@@ -35,37 +38,36 @@ class SearchViewModel(private val searchVacancyUseCase: SearchVacancyUseCase) : 
         return current
     }
 
-    fun initSearch(
-        searchText: String,
-        page: Int,
-        filterParameters: SearchFilterParameters
-    ) {
-        if (searchText.isNotEmpty() && isSearchAllowed) {
-            renderState(SearchState.Loading)
-            viewModelScope.launch(Dispatchers.IO) {
-                searchVacancyUseCase
-                    .execute(searchText, page, filterParameters)
-                    .collect {
-                        when (it) {
-                            is Resource.Success -> {
-                                if (it.data?.vacancies.isNullOrEmpty()) {
-                                    stateLiveData.postValue(SearchState.EmptyResult)
-                                } else {
-                                    stateLiveData.postValue(SearchState.Content(it.data))
-                                }
-                            }
-
-                            is Resource.InternetError -> {
-                                stateLiveData.postValue(SearchState.NetworkError)
-                            }
-
-                            is Resource.ServerError -> {
+    fun searchByText(searchText: String, filterParameters: SearchFilterParameters) {
+        searchByTextJob?.cancel()
+        if (searchText.isNotEmpty() && searchText != previousSearchText) {
+            searchByTextJob = viewModelScope.launch(Dispatchers.IO) {
+                delay(SEARCH_DEBOUNCE_DELAY)
+                previousSearchText = searchText
+                renderState(SearchState.Loading)
+                searchVacancyUseCase.execute(searchText, 0, filterParameters).collect {
+                    when (it) {
+                        is Resource.Success -> {
+                            if (it.data?.vacancies.isNullOrEmpty()) {
                                 stateLiveData.postValue(SearchState.EmptyResult)
+                            } else {
+                                clearSearch()
+                                stateLiveData.postValue(SearchState.Content(it.data))
                             }
                         }
-                    }
 
+                        is Resource.InternetError -> {
+                            stateLiveData.postValue(SearchState.NetworkError)
+                        }
+
+                        is Resource.ServerError -> {
+                            stateLiveData.postValue(SearchState.EmptyResult)
+                        }
+                    }
+                }
             }
+        } else if (searchText.isEmpty()) {
+            clearSearch()
         }
     }
 
@@ -90,5 +92,6 @@ class SearchViewModel(private val searchVacancyUseCase: SearchVacancyUseCase) : 
 
     companion object {
         private const val SEARCH_PAGINATION_DELAY = 500L
+        private const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
 }

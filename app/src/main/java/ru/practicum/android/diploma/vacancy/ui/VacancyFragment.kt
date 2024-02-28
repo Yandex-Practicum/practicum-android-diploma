@@ -29,6 +29,7 @@ class VacancyFragment : Fragment() {
         id = VacancyFragmentArgs.fromBundle(requireArguments()).vacancyId
         super.onCreate(savedInstanceState)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

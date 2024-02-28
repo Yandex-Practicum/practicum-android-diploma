@@ -26,6 +26,8 @@ class SearchFragment : Fragment() {
     private var vacancyAdapter: VacancyAdapter = VacancyAdapter { vacancy ->
         transitionToDetailedVacancy(vacancy.id)
     }
+    private var isLastPageReached = false
+    private var onScrollLister: RecyclerView.OnScrollListener? = null
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
@@ -48,6 +50,7 @@ class SearchFragment : Fragment() {
 
     private fun setupListeners() {
         binding.searchEditText.doOnTextChanged { text, _, _, _ ->
+            viewModel.searchByText(binding.searchEditText.text.toString(), mockedParameters)
             if (text.isNullOrEmpty()) {
                 binding.icSearchOrCross.setImageResource(R.drawable.ic_search)
             } else {
@@ -70,32 +73,40 @@ class SearchFragment : Fragment() {
     }
 
     private fun setPaginationListener() {
-        binding.vacancyRecycler.addOnScrollListener(
-            object : RecyclerView.OnScrollListener() {
-                private var lastVisibleItem = -1
+        onScrollLister = object : RecyclerView.OnScrollListener() {
+            private var lastVisibleItem = -1
 
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    super.onScrolled(recyclerView, dx, dy)
-                    val currentLastVisibleItem = (recyclerView.layoutManager as LinearLayoutManager)
-                        .findLastVisibleItemPosition()
-                    if (isTimeToGetNextPage(currentLastVisibleItem) && currentLastVisibleItem != lastVisibleItem) {
-                        if (isScrolledToLastItem(currentLastVisibleItem)) {
-                            binding.paginationProgressBar.show()
-                        } else {
-                            binding.paginationProgressBar.visibility = View.GONE
-                        }
-                        viewModel.searchByPage(
-                            searchText = binding.searchEditText.text.toString(),
-                            page = getNextPageIndex(),
-                            filterParameters = mockedParameters
-                        )
-                    } else if (currentLastVisibleItem != lastVisibleItem) {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (isLastPageReached) {
+                    binding.paginationProgressBar.visibility = View.GONE
+                    return
+                }
+                val currentLastVisibleItem = (recyclerView.layoutManager as LinearLayoutManager)
+                    .findLastVisibleItemPosition()
+                if (isTimeToGetNextPage(currentLastVisibleItem) && currentLastVisibleItem != lastVisibleItem) {
+                    if (isScrolledToLastItem(currentLastVisibleItem)) {
+                        binding.paginationProgressBar.show()
+                    } else {
                         binding.paginationProgressBar.visibility = View.GONE
                     }
-                    lastVisibleItem = currentLastVisibleItem
+                    viewModel.searchByPage(
+                        searchText = binding.searchEditText.text.toString(),
+                        page = getNextPageIndex(),
+                        filterParameters = mockedParameters
+                    )
+                } else if (currentLastVisibleItem != lastVisibleItem) {
+                    binding.paginationProgressBar.visibility = View.GONE
                 }
+                lastVisibleItem = currentLastVisibleItem
             }
-        )
+        }
+        onScrollLister?.let { binding.vacancyRecycler.addOnScrollListener(it) }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        onScrollLister?.let { binding.vacancyRecycler.removeOnScrollListener(it) }
     }
 
     private fun isTimeToGetNextPage(lastVisibleItem: Int): Boolean {
@@ -113,14 +124,22 @@ class SearchFragment : Fragment() {
     private fun search() {
         if (binding.searchEditText.text.isNotEmpty()) {
             setStatus(SearchStatus.PROGRESS)
-            viewModel.initSearch(binding.searchEditText.text.toString(), 0, mockedParameters)
+            viewModel.searchByText(binding.searchEditText.text.toString(), mockedParameters)
         }
     }
 
     private fun render(it: SearchState) {
         when (it) {
-            is SearchState.Default -> setStatus(SearchStatus.DEFAULT)
-            is SearchState.Loading -> setStatus(SearchStatus.PROGRESS)
+            is SearchState.Default -> {
+                vacancyAdapter.updateList(emptyList())
+                setStatus(SearchStatus.DEFAULT)
+            }
+
+            is SearchState.Loading -> {
+                vacancyAdapter.updateList(emptyList())
+                setStatus(SearchStatus.PROGRESS)
+            }
+
             is SearchState.Content -> showContent(it.data!!)
             is SearchState.NetworkError -> showNetworkError()
             is SearchState.EmptyResult -> showEmptyResult()
@@ -128,12 +147,11 @@ class SearchFragment : Fragment() {
     }
 
     private fun showContent(searchVacanciesResult: SearchVacanciesResult) {
-        setStatus(SearchStatus.SUCCESS)
+        isLastPageReached = searchVacanciesResult.vacancies.size < SearchVacancyUseCase.DEFAULT_VACANCIES_PER_PAGE
         if (vacancyAdapter.itemCount == 0) {
-            vacancyAdapter.submitList(searchVacanciesResult.vacancies)
+            vacancyAdapter.updateList(searchVacanciesResult.vacancies)
         } else {
-            val newList = vacancyAdapter.currentList.toMutableList().apply { addAll(searchVacanciesResult.vacancies) }
-            vacancyAdapter.submitList(newList)
+            vacancyAdapter.pagination(searchVacanciesResult.vacancies)
         }
         binding.tvVacancyAmount.text =
             requireContext().resources.getQuantityString(
@@ -141,20 +159,21 @@ class SearchFragment : Fragment() {
                 searchVacanciesResult.numOfResults,
                 searchVacanciesResult.numOfResults
             )
+        setStatus(SearchStatus.SUCCESS)
     }
 
     private fun showNetworkError() {
         binding.errorPlaceholder.setImageResource(R.drawable.placeholder_no_internet)
         binding.placeholderText.setText(R.string.placeholder_no_internet)
+        vacancyAdapter.updateList(emptyList())
         setStatus(SearchStatus.ERROR)
-        vacancyAdapter.submitList(emptyList())
     }
 
     private fun showEmptyResult() {
         binding.errorPlaceholder.setImageResource(R.drawable.placeholder_nothing_found)
         binding.placeholderText.setText(R.string.placeholder_cannot_get_list_of_vacancy)
+        vacancyAdapter.updateList(emptyList())
         setStatus(SearchStatus.ERROR)
-        vacancyAdapter.submitList(emptyList())
     }
 
     private fun setStatus(status: SearchStatus) {
