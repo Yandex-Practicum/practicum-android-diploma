@@ -79,7 +79,7 @@ class SearchFragment : Fragment() {
                     val currentLastVisibleItem = (recyclerView.layoutManager as LinearLayoutManager)
                         .findLastVisibleItemPosition()
                     if (isTimeToGetNextPage(currentLastVisibleItem) && currentLastVisibleItem != lastVisibleItem) {
-                        if (isScrolledToLastItem(currentLastVisibleItem)) {
+                        if (isScrolledToLastItem(currentLastVisibleItem) && isLastPageReached(getNextPageIndex() - 1)) {
                             binding.paginationProgressBar.show()
                         } else {
                             binding.paginationProgressBar.visibility = View.GONE
@@ -96,6 +96,10 @@ class SearchFragment : Fragment() {
                 }
             }
         )
+    }
+
+    private fun isLastPageReached(currentPage: Int): Boolean {
+        return vacancyAdapter.itemCount / SearchVacancyUseCase.DEFAULT_VACANCIES_PER_PAGE > currentPage
     }
 
     private fun isTimeToGetNextPage(lastVisibleItem: Int): Boolean {
