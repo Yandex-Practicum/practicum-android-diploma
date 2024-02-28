@@ -7,7 +7,6 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.domain.model.ShortVacancy
 import ru.practicum.android.diploma.databinding.VacancyViewBinding
 import ru.practicum.android.diploma.util.CurrencySymbol
-import ru.practicum.android.diploma.vacancy.ui.VacancyFragment
 
 class VacancyViewHolder(
     private val binding: VacancyViewBinding,
