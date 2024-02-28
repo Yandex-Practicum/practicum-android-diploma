@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.core.data.mapper
 
+import android.text.Html
 import androidx.room.TypeConverter
 import ru.practicum.android.diploma.core.data.network.dto.CompanyLogoUrlsDto
 import ru.practicum.android.diploma.core.data.network.dto.DetailVacancyResponse
@@ -14,12 +15,12 @@ object VacancyMapper {
             ShortVacancy(
                 id = id,
                 name = name,
-                companyName = employerInfo?.companyName.orEmpty(),
+                companyName = employerInfo.companyName,
                 city = locationInfo?.city.orEmpty(),
                 salaryFrom = salaryInfo?.from.orEmpty(),
                 salaryTo = salaryInfo?.to.orEmpty(),
                 currency = salaryInfo?.currency.orEmpty(),
-                employerLogoUrl = getActualLogo(shortVacancyDto.employerInfo?.companyLogoUrls)
+                employerLogoUrl = getActualLogo(shortVacancyDto.employerInfo.companyLogoUrls)
             )
         }
     }
@@ -34,7 +35,7 @@ object VacancyMapper {
             experience = detailVacancy.experience?.name.orEmpty(),
             employment = detailVacancy.employment?.name.orEmpty(),
             workSchedule = detailVacancy.workScheduleInfo?.name.orEmpty(),
-            description = detailVacancy.description,
+            description = Html.fromHtml(detailVacancy.description, Html.FROM_HTML_MODE_COMPACT).toString(),
             keySkills = detailVacancy.keySkills.map { it.name },
             contactName = detailVacancy.contactInfo?.contactName.orEmpty(),
             email = detailVacancy.contactInfo?.email.orEmpty(),

@@ -40,7 +40,7 @@ class VacancyViewModel(
                 when (it) {
                     is Resource.Success -> {
                         vacancy = it.data!!
-                        renderState(VacancyScreenState.Content(it.data!!))
+                        renderState(VacancyScreenState.Content(it.data))
 
                     }
 
@@ -67,15 +67,11 @@ class VacancyViewModel(
         stateLiveData.postValue(vacancyScreenState)
     }
 
-    companion object {
-        private const val TEST_ID = 93_485_145L
-    }
-
     fun getFavouritesStatus(): Boolean {
         return isInFavourites
     }
 
-    fun setFavouritesStatus() {
+    private fun setFavouritesStatus() {
         viewModelScope.launch {
             isInFavourites = addToFavouritesInteractor.checkVacancyInFavourites(id)
         }
