@@ -40,5 +40,7 @@
     <string name="region">Регион</string>
     <string name="enter_sum">Введите сумму</string>
     <string name="enter_region">Введите регион</string>
+    <string name="chose">Выбрать</string>
+    <string name="remove">Сбросить</string>
 
 </resources>
