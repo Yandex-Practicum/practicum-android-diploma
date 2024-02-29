@@ -33,6 +33,6 @@ interface HhApi {
     @GET("areas/{area_id}")
     suspend fun filterRegion(@Path("area_id") areaId: String): RegionResponse
 
-    @GET("areas/industries")
-    suspend fun filterIndustry(): IndustryResponse
+    @GET("industries")
+    suspend fun filterIndustry(): List<IndustryResponse>
 }

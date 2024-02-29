@@ -60,4 +60,8 @@
         android:id="@+id/filterFragment"
         android:name="ru.practicum.android.diploma.ui.filter.FilterFragment"
         android:label="FilterFragment" />
+    <fragment
+        android:id="@+id/chooseIndustryFragment"
+        android:name="ru.practicum.android.diploma.ui.filter.ChooseIndustryFragment"
+        android:label="chooseIndustryFragment"/>
 </navigation>

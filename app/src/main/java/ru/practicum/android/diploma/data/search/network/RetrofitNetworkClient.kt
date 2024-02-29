@@ -48,6 +48,14 @@ class RetrofitNetworkClient(
                     response.apply { resultCode = SUCCESS_RESULT_CODE }
                 }
 
+                is IndustriesRequest -> withContext(Dispatchers.IO) {
+                    val result = service.filterIndustry()
+                    response.apply {
+                        list = result
+                        resultCode = SUCCESS_RESULT_CODE
+                    }
+                }
+
                 else -> {
                     response.apply { resultCode = SERVER_ERROR }
                 }
