@@ -11,6 +11,12 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimary</item>
         <!-- Customize your theme here. -->
+
+        <item name="android:textColorSecondary">@color/red</item>
+        <!-- Цвет фона (если нужно) -->
+        <item name="android:colorBackground">@color/red</item>
+        <!-- Цвет акцента, используется для кнопки и чекбокса -->
+        <item name="colorAccent">@color/red</item>
     </style>
 
     <style name="Theme.PracticumAndroidDiploma" parent="Base.Theme.PracticumAndroidDiploma" />

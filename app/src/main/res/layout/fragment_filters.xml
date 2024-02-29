@@ -167,21 +167,24 @@
         <TextView
             android:id="@+id/place_of_work2"
             style="@style/black_16_regular"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/not_show_without_salary"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/place_of_work_arrow2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.517" />
 
-        <CheckBox
+        <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/place_of_work_arrow2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:checked="true"
+            app:buttonCompat="@drawable/selertor_checkbox_buttons"
+            app:buttonTint="@color/blue"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
