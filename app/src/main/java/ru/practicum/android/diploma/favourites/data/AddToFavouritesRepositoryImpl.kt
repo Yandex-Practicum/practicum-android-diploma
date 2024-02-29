@@ -8,11 +8,7 @@ import ru.practicum.android.diploma.favourites.domain.api.AddToFavouritesReposit
 class AddToFavouritesRepositoryImpl(private val appDatabase: AppDatabase) : AddToFavouritesRepository {
     override suspend fun checkVacancyInFavourites(vacancyId: Long): Boolean {
         val vacancy = appDatabase.vacancyDao().getVacancyById(vacancyId)
-        if (vacancy.isNullOrEmpty()) {
-            return false
-        } else {
-            return true
-        }
+        return vacancy != null
     }
 
     override suspend fun addToFavourites(vacancy: DetailVacancy) {

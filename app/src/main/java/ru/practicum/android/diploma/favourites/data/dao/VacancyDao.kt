@@ -9,7 +9,6 @@ import ru.practicum.android.diploma.favourites.data.entity.FavoriteEntity
 
 @Dao
 interface VacancyDao {
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addVacancyToFavorites(vacancy: FavoriteEntity)
 
@@ -20,6 +19,5 @@ interface VacancyDao {
     suspend fun getVacancy(): List<FavoriteEntity>
 
     @Query("SELECT * FROM vacancy_favorites_table WHERE id=:id")
-    suspend fun getVacancyById(id: Long): List<FavoriteEntity>
-
+    suspend fun getVacancyById(id: Long): FavoriteEntity?
 }
