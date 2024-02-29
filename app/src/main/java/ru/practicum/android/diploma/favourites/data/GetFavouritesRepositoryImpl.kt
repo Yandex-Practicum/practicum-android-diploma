@@ -12,7 +12,7 @@ class GetFavouritesRepositoryImpl(private val appDatabase: AppDatabase) : GetFav
     override suspend fun getFavouritesList(): Flow<List<DetailVacancy>?> = flow {
         val vacancy = try {
             appDatabase.vacancyDao().getVacancy()
-        } catch (e: Exception) {
+        } catch (e: FileSystemException) {
             null
         }
         emit(vacancy?.map { VacancyMapper.mapToDetailVacancy(it) })

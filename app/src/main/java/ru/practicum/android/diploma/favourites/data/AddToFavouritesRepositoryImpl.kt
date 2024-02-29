@@ -11,7 +11,7 @@ class AddToFavouritesRepositoryImpl(private val appDatabase: AppDatabase) : AddT
     override suspend fun checkVacancyInFavourites(vacancyId: Long): Boolean {
         val vacancy: FavoriteEntity? = try {
             appDatabase.vacancyDao().getVacancyById(vacancyId)
-        } catch (e: Exception) {
+        } catch (e: FileSystemException) {
             null
         }
         return vacancy != null
