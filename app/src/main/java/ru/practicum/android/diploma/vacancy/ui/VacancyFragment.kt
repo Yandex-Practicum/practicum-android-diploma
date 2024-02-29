@@ -86,7 +86,11 @@ class VacancyFragment : Fragment() {
         binding.textViewEmployerValue.text = detailVacancy.employerName
         binding.textViewEmployerCityValue.text = detailVacancy.city
         binding.textViewRequiredExperienceValue.text = detailVacancy.experience
-        binding.textViewSchedule.text = detailVacancy.workSchedule
+        binding.textViewEmploymentAndSchedule.text = requireContext().resources.getString(
+            R.string.tv_schedule_and_employment,
+            detailVacancy.employment,
+            detailVacancy.workSchedule
+        )
         binding.textViewDescriptionValue.text = detailVacancy.description
         setSalary(detailVacancy.salaryFrom, detailVacancy.salaryTo, detailVacancy.currency)
         setLogo(detailVacancy.employerLogoUrl)
