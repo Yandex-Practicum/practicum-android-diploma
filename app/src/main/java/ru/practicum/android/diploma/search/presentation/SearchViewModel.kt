@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.search.presentation
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -53,7 +52,6 @@ class SearchViewModel(private val searchVacancyUseCase: SearchVacancyUseCase) : 
                                 stateLiveData.postValue(SearchState.EmptyResult)
                             } else {
                                 clearSearch()
-                                Log.v("OkHttp", "searchText = $searchText")
                                 stateLiveData.postValue(SearchState.Content(it.data))
                             }
                         }
