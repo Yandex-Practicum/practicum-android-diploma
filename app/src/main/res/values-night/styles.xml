@@ -19,17 +19,20 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:fontFamily">@font/ys_display_medium</item>
     </style>
+
     <style name="ScreenTitle">
         <item name="itemTextColor">@color/white</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">22sp</item>
         <item name="android:fontFamily">@font/ys_display_medium</item>
     </style>
+
     <style name="search_message_text" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:fontFamily">@font/ys_display_regular</item>
     </style>
+
     <style name="LargeFont">
         <item name="itemTextColor">@color/white</item>
         <item name="android:textColor">@color/white</item>
@@ -47,4 +50,30 @@
         <item name="android:fontFamily">@font/ys_display_medium</item>
 
     </style>
+
+    <style name="fragment_filters_textInput" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="boxBackgroundColor">@color/black</item>
+        <item name="android:textColorHint">@color/gray</item>
+        <item name="hintTextColor">@color/white</item>
+        <item name="placeholderTextColor">@color/white</item>
+
+    </style>
+
+    <style name="fragment_filters_expected_salary" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="android:textColorHint">@color/white</item>
+        <item name="placeholderTextColor">@color/white</item>
+
+    </style>
+
+    <style name="gray_16_regular">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+    </style>
+    <style name="black_16_regular">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+    </style>
+
 </resources>

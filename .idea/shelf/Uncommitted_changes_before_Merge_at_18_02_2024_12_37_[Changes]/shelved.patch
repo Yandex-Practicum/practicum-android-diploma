@@ -1,0 +1,74 @@
+Index: app/src/main/res/layout/fragment_team.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n\r\n\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\">\r\n\r\n    <androidx.appcompat.widget.Toolbar\r\n        android:id=\"@+id/screen_title\"\r\n        style=\"@style/ScreenTitle\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintHorizontal_bias=\"1.0\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        app:title=\"@string/team\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/textView\"\r\n        style=\"@style/LargeFont\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginStart=\"16dp\"\r\n        android:layout_marginTop=\"16dp\"\r\n        android:layout_marginEnd=\"16dp\"\r\n        android:text=\"@string/title_team\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/screen_title\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/name1\"\r\n        style=\"@style/TeamName\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginTop=\"24dp\"\r\n        android:text=\"@string/name1\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/textView\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/name2\"\r\n        style=\"@style/TeamName\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginTop=\"16dp\"\r\n        android:text=\"@string/name2\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/name1\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/name3\"\r\n        style=\"@style/TeamName\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginTop=\"16dp\"\r\n        android:text=\"@string/name3\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/name2\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/name4\"\r\n        style=\"@style/TeamName\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginTop=\"16dp\"\r\n        android:text=\"@string/name4\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/name3\" />\r\n</androidx.constraintlayout.widget.ConstraintLayout>\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_team.xml b/app/src/main/res/layout/fragment_team.xml
+--- a/app/src/main/res/layout/fragment_team.xml	(revision a11c1a0f807e399849167a8927f96b9da58cc546)
++++ b/app/src/main/res/layout/fragment_team.xml	(date 1708164984255)
+@@ -73,6 +73,17 @@
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@+id/name3" />
++
++    <TextView
++        android:id="@+id/name5"
++        style="@style/TeamName"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="16dp"
++        android:text="@string/name5"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/name4" />
+ </androidx.constraintlayout.widget.ConstraintLayout>
+ 
+ 
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\r\n    <string name=\"app_name\">Practicum-Android-Diploma</string>\r\n    <string name=\"main\">Главная</string>\r\n    <string name=\"favorites\">Избранное</string>\r\n    <string name=\"team\">Команда</string>\r\n    <string name=\"title_team\">Над приложением работали</string>\r\n    <string name=\"name1\">Анастасия Рябикина</string>\r\n    <string name=\"name2\">Дмитрий Жаринов</string>\r\n    <string name=\"name3\">Евгений Ермолов</string>\r\n    <string name=\"name4\">Михаил</string>\r\n</resources>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+--- a/app/src/main/res/values/strings.xml	(revision a11c1a0f807e399849167a8927f96b9da58cc546)
++++ b/app/src/main/res/values/strings.xml	(date 1708164984233)
+@@ -4,8 +4,9 @@
+     <string name="favorites">Избранное</string>
+     <string name="team">Команда</string>
+     <string name="title_team">Над приложением работали</string>
+-    <string name="name1">Анастасия Рябикина</string>
+-    <string name="name2">Дмитрий Жаринов</string>
+-    <string name="name3">Евгений Ермолов</string>
+-    <string name="name4">Михаил</string>
++    <string name="name1">Александр Ефремов</string>
++    <string name="name2">Анастасия Рябикина</string>
++    <string name="name3">Дмитрий Жаринов</string>
++    <string name="name4">Евгений Ермолов</string>
++    <string name="name5">Михаил</string>
+ </resources>
+Index: app/src/main/res/values/themes.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources xmlns:tools=\"http://schemas.android.com/tools\">\r\n    <!-- Base application theme. -->\r\n    <style name=\"Base.Theme.PracticumAndroidDiploma\" parent=\"Theme.Material3.DayNight.NoActionBar\">\r\n        <!-- Customize your light theme here. -->\r\n        <!-- <item name=\"colorPrimary\">@color/my_light_primary</item> -->\r\n    </style>\r\n\r\n    <style name=\"Theme.PracticumAndroidDiploma\" parent=\"Base.Theme.PracticumAndroidDiploma\" />\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/themes.xml b/app/src/main/res/values/themes.xml
+--- a/app/src/main/res/values/themes.xml	(revision a11c1a0f807e399849167a8927f96b9da58cc546)
++++ b/app/src/main/res/values/themes.xml	(date 1708164984244)
+@@ -2,8 +2,9 @@
+     <!-- Base application theme. -->
+     <style name="Base.Theme.PracticumAndroidDiploma" parent="Theme.Material3.DayNight.NoActionBar">
+         <!-- Customize your light theme here. -->
++
+         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+     </style>
+ 
+     <style name="Theme.PracticumAndroidDiploma" parent="Base.Theme.PracticumAndroidDiploma" />
+-</resources>
+\ No newline at end of file
++</resources>
