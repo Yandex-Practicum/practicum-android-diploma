@@ -15,7 +15,7 @@ import org.koin.core.parameter.parametersOf
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.domain.model.DetailVacancy
 import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
-import ru.practicum.android.diploma.util.CurrencySymbol
+import ru.practicum.android.diploma.util.StringUtils
 import ru.practicum.android.diploma.vacancy.presentation.VacancyScreenState
 import ru.practicum.android.diploma.vacancy.presentation.VacancyViewModel
 import kotlin.properties.Delegates
@@ -135,22 +135,12 @@ class VacancyFragment : Fragment() {
     }
 
     private fun setSalary(salaryFrom: String, salaryTo: String, currency: String) {
-        if (salaryFrom.isEmpty() && salaryTo.isEmpty()) {
-            binding.textViewSalaryInfoValue.text = requireContext().resources.getString(R.string.tv_salary_no_info)
-        } else {
-            val currencySymbol = CurrencySymbol.getCurrencySymbol(currency)
-            if (salaryTo.isEmpty()) {
-                binding.textViewSalaryInfoValue.text =
-                    requireContext().resources.getString(R.string.tv_salary_from_info, salaryFrom, currencySymbol)
-            } else {
-                binding.textViewSalaryInfoValue.text = requireContext().resources.getString(
-                    R.string.tv_salary_from_to_info,
-                    salaryFrom,
-                    salaryTo,
-                    currencySymbol
-                )
-            }
-        }
+        binding.textViewSalaryInfoValue.text = StringUtils.getSalary(
+            salaryFrom = salaryFrom,
+            salaryTo = salaryTo,
+            currency = currency,
+            context = requireContext()
+        )
     }
 
     private fun setKeySkills(keySkills: List<String>) {
