@@ -6,9 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.databinding.FragmentCountryBinding
+import androidx.recyclerview.widget.LinearLayoutManager
 import ru.practicum.android.diploma.databinding.FragmentRegionBinding
+import ru.practicum.android.diploma.ui.country.RecyclerItem
+import ru.practicum.android.diploma.ui.country.CountryAdapter
 
 class RegionFragment : Fragment() {
     private lateinit var binding: FragmentRegionBinding
@@ -25,5 +26,24 @@ class RegionFragment : Fragment() {
             findNavController().navigateUp()
         }
 
+
+        val regions = ArrayList<RecyclerItem>()
+        regions.add(RecyclerItem("Регион 1"))
+        regions.add(RecyclerItem("Регион 2"))
+        regions.add(RecyclerItem("Регион 3"))
+        regions.add(RecyclerItem("Регион 4"))
+        regions.add(RecyclerItem("Регион 5"))
+        regions.add(RecyclerItem("Регион 6"))
+        regions.add(RecyclerItem("Регион 7"))
+        regions.add(RecyclerItem("Регион 8"))
+        regions.add(RecyclerItem("Регион 9"))
+        regions.add(RecyclerItem("Регион 10"))
+        regions.add(RecyclerItem("Регион 11"))
+        regions.add(RecyclerItem("Регион 12"))
+        regions.add(RecyclerItem("Регион 13"))
+
+        val adapter = CountryAdapter(regions)
+        binding.regionRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.regionRecycler.adapter = adapter
     }
 }

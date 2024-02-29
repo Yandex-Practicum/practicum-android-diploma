@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import ru.practicum.android.diploma.databinding.FragmentCountryBinding
 
 class CountryFragment : Fragment() {
@@ -23,5 +24,18 @@ class CountryFragment : Fragment() {
             findNavController().navigateUp()
         }
 
+        val countries = ArrayList<RecyclerItem>()
+        countries.add(RecyclerItem("Россия"))
+        countries.add(RecyclerItem("Украина"))
+        countries.add(RecyclerItem("Казахстан"))
+        countries.add(RecyclerItem("Азербайджан"))
+        countries.add(RecyclerItem("Беларусь"))
+        countries.add(RecyclerItem("Грузия"))
+        countries.add(RecyclerItem("Кыргыстан"))
+        countries.add(RecyclerItem("Узбекистан"))
+        countries.add(RecyclerItem("Другие регионы"))
+        val adapter = CountryAdapter(countries)
+        binding.countryRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.countryRecycler.adapter = adapter
     }
 }
