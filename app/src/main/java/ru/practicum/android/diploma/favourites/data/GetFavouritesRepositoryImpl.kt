@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.favourites.data
 
+import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.core.data.mapper.VacancyMapper
@@ -13,6 +14,7 @@ class GetFavouritesRepositoryImpl(private val appDatabase: AppDatabase) : GetFav
         val vacancy = try {
             appDatabase.vacancyDao().getVacancy()
         } catch (e: FileSystemException) {
+            Log.e("DB Error", e.message.toString())
             null
         }
         emit(vacancy?.map { VacancyMapper.mapToDetailVacancy(it) })
