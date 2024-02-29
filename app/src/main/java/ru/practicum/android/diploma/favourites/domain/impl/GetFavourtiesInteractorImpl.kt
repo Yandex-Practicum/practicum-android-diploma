@@ -6,7 +6,7 @@ import ru.practicum.android.diploma.favourites.domain.api.GetFavouritesInteracto
 import ru.practicum.android.diploma.favourites.domain.api.GetFavouritesRepository
 
 class GetFavourtiesInteractorImpl(private val repository: GetFavouritesRepository) : GetFavouritesInteractor {
-    override suspend fun getFavouritesList(): Flow<List<DetailVacancy>> {
+    override suspend fun getFavouritesList(): Flow<List<DetailVacancy>?> {
         return repository.getFavouritesList()
     }
 

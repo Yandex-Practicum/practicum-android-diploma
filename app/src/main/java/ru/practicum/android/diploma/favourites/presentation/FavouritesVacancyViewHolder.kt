@@ -35,5 +35,4 @@ class FavouritesVacancyViewHolder(itemView: View) : RecyclerView.ViewHolder(item
             .transform(RoundedCorners(itemView.resources.getDimensionPixelSize(R.dimen.search_margin_s)))
             .into(vacancyCover)
     }
-
 }

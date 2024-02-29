@@ -25,13 +25,13 @@ class FavouritesViewModel(private val getFavouritesInteractor: GetFavouritesInte
     fun getFavouritesList() {
         viewModelScope.launch {
             getFavouritesInteractor.getFavouritesList().collect {
-                favouritesListMutable.postValue(listOf<DetailVacancy>())
+                favouritesListMutable.postValue(listOf())
                 if (it == null) {
                     favouritesStatusMutable.postValue(FavouritesState.ERROR)
                 } else if (it.isEmpty()) {
                     favouritesStatusMutable.postValue(FavouritesState.EMPTY_RESULT)
                 } else {
-                    favouritesListMutable.postValue(it!!)
+                    favouritesListMutable.postValue(it)
                     favouritesStatusMutable.postValue(FavouritesState.SUCCESS)
                 }
             }
