@@ -59,5 +59,20 @@
     <fragment
         android:id="@+id/filterFragment"
         android:name="ru.practicum.android.diploma.ui.filter.FilterFragment"
-        android:label="FilterFragment" />
+        android:label="FilterFragment" >
+        <action
+            android:id="@+id/action_filterFragment_to_filterPlaceOfWorkFragment"
+            app:destination="@id/filterPlaceOfWorkFragment" />
+        <action
+            android:id="@+id/action_filterFragment_to_filterIndustryFragment"
+            app:destination="@id/filterIndustryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/filterIndustryFragment"
+        android:name="ru.practicum.android.diploma.ui.filter.FilterIndustryFragment"
+        android:label="FilterIndustryFragment" />
+    <fragment
+        android:id="@+id/filterPlaceOfWorkFragment"
+        android:name="ru.practicum.android.diploma.ui.filter.FilterPlaceOfWorkFragment"
+        android:label="FilterPlaceOfWorkFragment" />
 </navigation>
