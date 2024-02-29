@@ -9,13 +9,16 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.databinding.ActivityRootBinding
 
 class RootActivity : AppCompatActivity() {
-    private var bottomNavigationView: BottomNavigationView? = null
 
+    private var _binding: ActivityRootBinding? = null
+    private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_root)
+        _binding = ActivityRootBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // Пример использования access token для HeadHunter API
         networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
@@ -23,33 +26,27 @@ class RootActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.main_box) as NavHostFragment
         val navController = navHostFragment.navController
-        var bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-        bottomNavigationView.setupWithNavController(navController)
-        setupNav(navController)
-    }
-
-    private fun networkRequestExample(accessToken: String) {
-        // ...
-    }
-
-    private fun setupNav(navController: NavController) {
+        binding.bottomNavigation.setupWithNavController(navController)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.favouriteFragment -> showBottomNav()
+                R.id.searchFragment,
+                R.id.favouriteFragment,
                 R.id.teamFragment -> showBottomNav()
-                R.id.searchFragment -> showBottomNav()
                 else -> hideBottomNav()
             }
         }
     }
 
-    private fun showBottomNav() {
-        bottomNavigationView?.visibility = View.VISIBLE
+    private fun hideBottomNav() {
+        binding.bottomNavigation.visibility = View.GONE
     }
 
-    private fun hideBottomNav() {
-        bottomNavigationView?.visibility = View.GONE
+    private fun showBottomNav() {
+        binding.bottomNavigation.visibility = View.VISIBLE
+    }
 
+    private fun networkRequestExample(accessToken: String) {
+        // ...
     }
 
 }
