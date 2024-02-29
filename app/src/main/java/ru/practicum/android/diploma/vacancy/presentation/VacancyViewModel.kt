@@ -81,8 +81,10 @@ class VacancyViewModel(
         viewModelScope.launch {
             if (isInFavourites) {
                 addToFavouritesInteractor.removeFromFavourites(vacancy!!)
+                isInFavourites = false
             } else {
                 addToFavouritesInteractor.addToFavourites(vacancy!!)
+                isInFavourites = true
             }
         }
     }
