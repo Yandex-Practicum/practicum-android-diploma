@@ -7,7 +7,6 @@ import ru.practicum.android.diploma.core.data.mapper.VacancyMapper
 import ru.practicum.android.diploma.core.domain.model.DetailVacancy
 import ru.practicum.android.diploma.favourites.data.db.AppDatabase
 import ru.practicum.android.diploma.favourites.domain.api.GetFavouritesRepository
-import java.lang.Exception
 
 class GetFavouritesRepositoryImpl(private val appDatabase: AppDatabase) : GetFavouritesRepository {
     override suspend fun getFavouritesList(): Flow<List<DetailVacancy>?> = flow {
