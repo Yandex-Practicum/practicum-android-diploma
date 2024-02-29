@@ -7,8 +7,10 @@
 
     <ImageView
         android:id="@+id/vacancyCover"
+        android:padding="1dp"
         android:layout_width="@dimen/iv_icon_company"
         android:layout_height="@dimen/iv_icon_company"
+        android:background="@drawable/ic_vacancy_background"
         android:src="@drawable/placeholder_vacancy" />
 
     <LinearLayout

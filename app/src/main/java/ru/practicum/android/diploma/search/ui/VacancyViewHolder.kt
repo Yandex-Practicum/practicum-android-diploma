@@ -16,8 +16,8 @@ class VacancyViewHolder(
         Glide.with(itemView)
             .load(shortVacancy.employerLogoUrl)
             .placeholder(R.drawable.placeholder_vacancy)
+            .centerCrop()
             .transform(RoundedCorners(itemView.resources.getDimensionPixelSize(R.dimen.search_margin_s)))
-            .centerInside()
             .into(binding.vacancyCover)
 
         itemView.setOnClickListener { onItemClickListener?.invoke(shortVacancy) }
