@@ -123,7 +123,6 @@ class SearchFragment : Fragment() {
 
     private fun search() {
         if (binding.searchEditText.text.isNotEmpty()) {
-            setStatus(SearchStatus.PROGRESS)
             viewModel.searchByText(binding.searchEditText.text.toString(), mockedParameters)
         }
     }

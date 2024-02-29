@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.search.presentation
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,7 +17,7 @@ import ru.practicum.android.diploma.util.Resource
 class SearchViewModel(private val searchVacancyUseCase: SearchVacancyUseCase) : ViewModel() {
     private var isClickAllowed = true
     private val stateLiveData = MutableLiveData<SearchState>(SearchState.Default)
-    private var isSearchAllowed = true
+    private var isSearchByPageAllowed = true
     private var searchByTextJob: Job? = null
     private var previousSearchText = ""
 
@@ -52,6 +53,7 @@ class SearchViewModel(private val searchVacancyUseCase: SearchVacancyUseCase) : 
                                 stateLiveData.postValue(SearchState.EmptyResult)
                             } else {
                                 clearSearch()
+                                Log.v("OkHttp", "searchText = $searchText")
                                 stateLiveData.postValue(SearchState.Content(it.data))
                             }
                         }
@@ -72,15 +74,15 @@ class SearchViewModel(private val searchVacancyUseCase: SearchVacancyUseCase) : 
     }
 
     fun searchByPage(searchText: String, page: Int, filterParameters: SearchFilterParameters) {
-        if (isSearchAllowed && searchText.isNotEmpty()) {
-            isSearchAllowed = false
+        if (isSearchByPageAllowed && searchText.isNotEmpty() && searchByTextJob?.isCompleted != false) {
+            isSearchByPageAllowed = false
             viewModelScope.launch(Dispatchers.IO) {
                 searchVacancyUseCase.execute(searchText, page, filterParameters).collect {
                     if (it is Resource.Success && !it.data?.vacancies.isNullOrEmpty()) {
                         stateLiveData.postValue(SearchState.Content(it.data))
                     }
                     delay(SEARCH_PAGINATION_DELAY)
-                    isSearchAllowed = true
+                    isSearchByPageAllowed = true
                 }
             }
         }
