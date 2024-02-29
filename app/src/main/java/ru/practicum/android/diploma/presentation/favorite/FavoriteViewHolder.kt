@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.VacancyDetailDtoResponse
 import ru.practicum.android.diploma.databinding.VacancyItemBinding
+import ru.practicum.android.diploma.domain.models.detail.VacancyDetail
 
 class FavoriteViewHolder(
     parent: ViewGroup,
@@ -18,7 +19,7 @@ class FavoriteViewHolder(
     private val _binding: VacancyItemBinding? = null
     private val binding get() = _binding!!
 
-    fun bind(vacancy: VacancyDetailDtoResponse) {
+    fun bind(vacancy: VacancyDetail) {
         binding.tvVacancyName.text = vacancy.name
         binding.department.text = vacancy.description
         binding.tvVacancyName.text = vacancy.name
