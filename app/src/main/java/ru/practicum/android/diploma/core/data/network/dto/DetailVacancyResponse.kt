@@ -26,5 +26,7 @@ data class DetailVacancyResponse(
     @SerializedName("address")
     val locationInfo: AddressDto?,
     @SerializedName("alternate_url")
-    val alternateUrl: String
+    val alternateUrl: String,
+    @SerializedName("area")
+    val area: AreaDto?
 ) : Response()

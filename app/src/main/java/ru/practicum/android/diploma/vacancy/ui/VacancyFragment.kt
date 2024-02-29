@@ -84,7 +84,6 @@ class VacancyFragment : Fragment() {
     private fun setContent(detailVacancy: DetailVacancy, isInFavourites: Boolean) {
         binding.textViewVacancyValue.text = detailVacancy.name
         binding.textViewEmployerValue.text = detailVacancy.employerName
-        binding.textViewEmployerCityValue.text = detailVacancy.city
         binding.textViewRequiredExperienceValue.text = detailVacancy.experience
         binding.textViewEmploymentAndSchedule.text = requireContext().resources.getString(
             R.string.tv_schedule_and_employment,
@@ -95,6 +94,7 @@ class VacancyFragment : Fragment() {
         setSalary(detailVacancy.salaryFrom, detailVacancy.salaryTo, detailVacancy.currency)
         setLogo(detailVacancy.employerLogoUrl)
         setKeySkills(detailVacancy.keySkills)
+        setLocation(detailVacancy.city, detailVacancy.area)
         setContactInfo(
             detailVacancy.contactName,
             detailVacancy.email,
@@ -191,6 +191,14 @@ class VacancyFragment : Fragment() {
             binding.textViewCommentValue.isVisible = false
         } else {
             binding.textViewCommentValue.text = contactComment
+        }
+    }
+
+    private fun setLocation(city: String, area: String) {
+        if (city.isNotEmpty()) {
+            binding.textViewEmployerCityValue.text = city
+        } else {
+            binding.textViewEmployerCityValue.text = area
         }
     }
 }
