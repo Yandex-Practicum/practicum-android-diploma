@@ -8,9 +8,9 @@ import ru.practicum.android.diploma.favourites.data.db.AppDatabase
 import ru.practicum.android.diploma.favourites.domain.api.GetFavouritesRepository
 
 class GetFavouritesRepositoryImpl(private val appDatabase: AppDatabase) : GetFavouritesRepository {
-    override suspend fun getFavouritesList(): Flow<List<DetailVacancy>> = flow {
+    override suspend fun getFavouritesList(): Flow<List<DetailVacancy>?> = flow {
         val vacancy = appDatabase.vacancyDao().getVacancy()
-        emit(vacancy.map { VacancyMapper.mapToDetailVacancy(it) })
+        emit(vacancy?.map { VacancyMapper.mapToDetailVacancy(it) })
     }
 
     override suspend fun fillVacList(vac: DetailVacancy) {

@@ -8,5 +8,4 @@ interface AddToFavouritesRepository {
     suspend fun addToFavourites(vacancy: DetailVacancy)
 
     suspend fun removeFromFavourites(vacancy: DetailVacancy)
-
 }

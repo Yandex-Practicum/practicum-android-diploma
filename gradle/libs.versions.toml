@@ -6,6 +6,7 @@ java = "VERSION_1_8"
 
 # Build constants
 koinAndroid = "3.3.0"
+loggingInterceptor = "3.9.0"
 minSdk = "26"
 compileSdk = "34"
 navigation = "2.7.7"
@@ -25,6 +26,7 @@ glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 # Koin
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinAndroid" }
 # Retrofit
+logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "loggingInterceptor" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 # Room

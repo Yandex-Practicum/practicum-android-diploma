@@ -6,7 +6,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.domain.model.ShortVacancy
 import ru.practicum.android.diploma.databinding.VacancyViewBinding
-import ru.practicum.android.diploma.util.CurrencySymbol
+import ru.practicum.android.diploma.util.StringUtils
 
 class VacancyViewHolder(
     private val binding: VacancyViewBinding,
@@ -20,40 +20,14 @@ class VacancyViewHolder(
             .centerInside()
             .into(binding.vacancyCover)
 
-        val salaryFrom = shortVacancy.salaryFrom.toIntOrNull() ?: 0
-        val salaryTo = shortVacancy.salaryTo.toIntOrNull() ?: 0
         itemView.setOnClickListener { onItemClickListener?.invoke(shortVacancy) }
-
-        binding.vacancyName.text = if (shortVacancy.city.isEmpty()) {
-            shortVacancy.name
-        } else {
-            itemView.context.getString(R.string.vacancy_name, shortVacancy.name, shortVacancy.city)
-        }
-
+        binding.vacancyName.text = StringUtils.getVacancyTitle(shortVacancy.name, shortVacancy.city, itemView.context)
         binding.companyName.text = itemView.context.getString(R.string.company_name, shortVacancy.companyName)
-
-        binding.salary.text = (if (salaryFrom == 0 && salaryTo == 0) {
-            itemView.context.getString(R.string.tv_salary_no_info)
-        } else if (salaryTo == 0) {
-            itemView.context.getString(
-                R.string.tv_salary_from_info,
-                shortVacancy.salaryFrom,
-                CurrencySymbol.getCurrencySymbol(shortVacancy.currency)
-            )
-        } else if (salaryFrom == 0) {
-            itemView.context.getString(
-                R.string.tv_salary_to_info,
-                shortVacancy.salaryTo,
-                CurrencySymbol.getCurrencySymbol(shortVacancy.currency)
-            )
-        } else {
-            itemView.context.getString(
-                R.string.tv_salary_from_to_info,
-                shortVacancy.salaryFrom,
-                shortVacancy.salaryTo,
-                CurrencySymbol.getCurrencySymbol(shortVacancy.currency)
-            )
-        }).toString()
-
+        binding.salary.text = StringUtils.getSalary(
+            salaryFrom = shortVacancy.salaryFrom,
+            salaryTo = shortVacancy.salaryTo,
+            currency = shortVacancy.currency,
+            context = itemView.context
+        )
     }
 }

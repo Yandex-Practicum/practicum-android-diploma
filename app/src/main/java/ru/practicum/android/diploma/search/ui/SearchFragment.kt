@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -14,6 +15,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.domain.model.SearchFilterParameters
 import ru.practicum.android.diploma.core.domain.model.SearchVacanciesResult
+import ru.practicum.android.diploma.core.domain.model.ShortVacancy
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.search.domain.usecase.SearchVacancyUseCase
 import ru.practicum.android.diploma.search.presentation.SearchState
@@ -123,7 +125,6 @@ class SearchFragment : Fragment() {
 
     private fun search() {
         if (binding.searchEditText.text.isNotEmpty()) {
-            setStatus(SearchStatus.PROGRESS)
             viewModel.searchByText(binding.searchEditText.text.toString(), mockedParameters)
         }
     }
@@ -141,18 +142,40 @@ class SearchFragment : Fragment() {
             }
 
             is SearchState.Content -> showContent(it.data!!)
+
+            is SearchState.Pagination -> {
+                updateContent(it.data, it.error)
+            }
+
+            is SearchState.ServerError -> {
+                showServerError()
+            }
+
             is SearchState.NetworkError -> showNetworkError()
             is SearchState.EmptyResult -> showEmptyResult()
         }
     }
 
+    private fun updateContent(vacancies: List<ShortVacancy>, error: SearchState?) {
+        binding.paginationProgressBar.visibility = View.GONE
+        if (vacancies.isNotEmpty()) {
+            isLastPageReached = vacancies.size < SearchVacancyUseCase.DEFAULT_VACANCIES_PER_PAGE
+            vacancyAdapter.pagination(vacancies)
+        }
+        if (error is SearchState.NetworkError) {
+            showToast(getString(R.string.pagination_error_error_connection))
+        } else if (error is SearchState.ServerError) {
+            showToast(getString(R.string.pagination_error_server_error))
+        }
+    }
+
+    private fun showToast(text: String) {
+        Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
+    }
+
     private fun showContent(searchVacanciesResult: SearchVacanciesResult) {
         isLastPageReached = searchVacanciesResult.vacancies.size < SearchVacancyUseCase.DEFAULT_VACANCIES_PER_PAGE
-        if (vacancyAdapter.itemCount == 0) {
-            vacancyAdapter.updateList(searchVacanciesResult.vacancies)
-        } else {
-            vacancyAdapter.pagination(searchVacanciesResult.vacancies)
-        }
+        vacancyAdapter.updateList(searchVacanciesResult.vacancies)
         binding.tvVacancyAmount.text =
             requireContext().resources.getQuantityString(
                 R.plurals.vacancies,
@@ -172,6 +195,13 @@ class SearchFragment : Fragment() {
     private fun showEmptyResult() {
         binding.errorPlaceholder.setImageResource(R.drawable.placeholder_nothing_found)
         binding.placeholderText.setText(R.string.placeholder_cannot_get_list_of_vacancy)
+        vacancyAdapter.updateList(emptyList())
+        setStatus(SearchStatus.ERROR)
+    }
+
+    private fun showServerError() {
+        binding.errorPlaceholder.setImageResource(R.drawable.placeholder_server_error)
+        binding.placeholderText.setText(R.string.placeholder_server_error)
         vacancyAdapter.updateList(emptyList())
         setStatus(SearchStatus.ERROR)
     }

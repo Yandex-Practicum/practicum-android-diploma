@@ -59,6 +59,8 @@
     <string name="salary_format">%1$d - %2$d</string>
     <string name="salary_unknown">Unknown</string>
     <string name="tv_detail_vacancy_keySkill">· %1$s\n</string>
+    <string name="pagination_error_error_connection">Проверьте подключение к интернету</string>
+    <string name="pagination_error_server_error">Произошла ошибка</string>
 
     <plurals name="vacancies">
         <item quantity="zero">%1$d вакансий</item>

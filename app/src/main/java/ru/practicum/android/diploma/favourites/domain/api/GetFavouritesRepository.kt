@@ -5,7 +5,7 @@ import ru.practicum.android.diploma.core.domain.model.DetailVacancy
 
 interface GetFavouritesRepository {
 
-    suspend fun getFavouritesList(): Flow<List<DetailVacancy>>
+    suspend fun getFavouritesList(): Flow<List<DetailVacancy>?>
 
     suspend fun fillVacList(vac: DetailVacancy)
 }

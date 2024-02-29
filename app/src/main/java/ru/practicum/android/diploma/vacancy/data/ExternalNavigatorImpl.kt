@@ -7,29 +7,39 @@ import ru.practicum.android.diploma.vacancy.domain.api.ExternalNavigator
 
 class ExternalNavigatorImpl(private val context: Context) : ExternalNavigator {
     override fun makeCall(phoneNumber: String) {
-        Intent(Intent.ACTION_DIAL).apply {
+        val intent = Intent(Intent.ACTION_DIAL).apply {
             data = Uri.parse("tel:$phoneNumber")
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            context.startActivity(this)
         }
+        startImplicitIntent(intent)
     }
 
     override fun sendEmail(email: String) {
-        Intent(Intent.ACTION_DIAL).apply {
+        val intent = Intent(Intent.ACTION_SENDTO).apply {
             data = Uri.parse("mailto:")
             putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            context.startActivity(this)
+            putExtra(Intent.EXTRA_SUBJECT, "")
+            putExtra(Intent.EXTRA_TEXT, "")
         }
+        startImplicitIntent(intent)
     }
 
     override fun shareVacancy(url: String) {
-        Intent(Intent.ACTION_SEND).apply {
+        val intent = Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"
             putExtra(Intent.EXTRA_TEXT, url)
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            context.startActivity(this)
+        }
+        startImplicitIntent(intent)
+    }
+
+    private fun startImplicitIntent(intent: Intent) {
+        if (isIntentSafe(intent)) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            context.startActivity(intent)
         }
     }
 
+    private fun isIntentSafe(intent: Intent): Boolean {
+        val activities = context.packageManager.queryIntentActivities(intent, 0)
+        return activities.size > 0
+    }
 }
