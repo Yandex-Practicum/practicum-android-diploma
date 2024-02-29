@@ -12,6 +12,7 @@
 /.idea/compiler.xml
 /.idea/misc.xml
 /.idea/deploymentTargetDropDown.xml
+/.idea/migrations.xml
 .idea
 
 # Gradle files
