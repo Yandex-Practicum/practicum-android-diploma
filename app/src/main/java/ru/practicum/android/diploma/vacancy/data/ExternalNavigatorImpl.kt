@@ -7,7 +7,7 @@ import ru.practicum.android.diploma.vacancy.domain.api.ExternalNavigator
 
 class ExternalNavigatorImpl(private val context: Context) : ExternalNavigator {
     override fun makeCall(phoneNumber: String) {
-        val intent = Intent(Intent.ACTION_DIAL).apply {
+        val intent = Intent(Intent.ACTION_CALL).apply {
             data = Uri.parse("tel:$phoneNumber")
         }
         startImplicitIntent(intent)

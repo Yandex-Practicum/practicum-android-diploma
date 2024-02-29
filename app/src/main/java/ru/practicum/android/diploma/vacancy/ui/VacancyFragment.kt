@@ -1,9 +1,11 @@
 package ru.practicum.android.diploma.vacancy.ui
 
+import android.Manifest
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -25,6 +27,7 @@ class VacancyFragment : Fragment() {
     private val viewModel by viewModel<VacancyViewModel> { parametersOf(id) }
     private var _binding: FragmentVacancyBinding? = null
     private val binding get() = _binding!!
+    private var detailVacancy: DetailVacancy? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         id = VacancyFragmentArgs.fromBundle(requireArguments()).vacancyId
         super.onCreate(savedInstanceState)
@@ -46,6 +49,15 @@ class VacancyFragment : Fragment() {
         }
         binding.vacancyToolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
+        }
+        val requestPermissionLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+                if (isGranted) {
+                    viewModel.makeCall(detailVacancy!!.phone)
+                }
+            }
+        binding.textViewPhoneValue.setOnClickListener {
+            requestPermissionLauncher.launch(Manifest.permission.CALL_PHONE)
         }
     }
 
@@ -82,6 +94,7 @@ class VacancyFragment : Fragment() {
     }
 
     private fun setContent(detailVacancy: DetailVacancy, isInFavourites: Boolean) {
+        this.detailVacancy = detailVacancy
         binding.textViewVacancyValue.text = detailVacancy.name
         binding.textViewEmployerValue.text = detailVacancy.employerName
         binding.textViewRequiredExperienceValue.text = detailVacancy.experience
@@ -107,7 +120,6 @@ class VacancyFragment : Fragment() {
             viewModel.setFavourites()
             setContent(detailVacancy, !isInFavourites)
         }
-        binding.textViewPhoneValue.setOnClickListener { viewModel.makeCall(detailVacancy.phone) }
         binding.textViewEmailValue.setOnClickListener { viewModel.sendEmail(detailVacancy.email) }
     }
 
