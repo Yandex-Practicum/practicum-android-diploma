@@ -101,21 +101,7 @@ class VacancyFragment : Fragment() {
             detailVacancy.phone,
             detailVacancy.contactComment
         )
-        if (isInFavourites) {
-            binding.imageViewFavorite.setImageDrawable(
-                ContextCompat.getDrawable(
-                    requireContext(),
-                    R.drawable.ic_favorites_add
-                )
-            )
-        } else {
-            binding.imageViewFavorite.setImageDrawable(
-                ContextCompat.getDrawable(
-                    requireContext(),
-                    R.drawable.ic_favorites_remove
-                )
-            )
-        }
+        setFavouriteImage(isInFavourites)
         binding.imageViewShareVacancy.setOnClickListener { viewModel.shareVacancy(detailVacancy.alternateUrl) }
         binding.imageViewFavorite.setOnClickListener {
             viewModel.setFavourites()
@@ -199,6 +185,24 @@ class VacancyFragment : Fragment() {
             binding.textViewEmployerCityValue.text = city
         } else {
             binding.textViewEmployerCityValue.text = area
+        }
+    }
+
+    private fun setFavouriteImage(isInFavourites: Boolean) {
+        if (isInFavourites) {
+            binding.imageViewFavorite.setImageDrawable(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.ic_favorites_add
+                )
+            )
+        } else {
+            binding.imageViewFavorite.setImageDrawable(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.ic_favorites_remove
+                )
+            )
         }
     }
 }
