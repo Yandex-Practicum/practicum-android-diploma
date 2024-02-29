@@ -12,6 +12,7 @@ class ChooseIndustryFragment: Fragment() {
     private var _binding: FragmentFilterChooseIndustryBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModel<ChooseIndustryViewModel>()
+    private var adapter = IndustriesAdapter()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentFilterChooseIndustryBinding.inflate(inflater, container, false)
         return binding.root
@@ -20,12 +21,13 @@ class ChooseIndustryFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getIndustries()
+        binding.industryList.adapter = this.adapter
         viewModel.industriesState.observe(viewLifecycleOwner) { state ->
             when(state) {
                 IndustriesState.Error -> {}
                 IndustriesState.Initial -> Unit
                 IndustriesState.Loading -> {}
-                is IndustriesState.Success -> {}
+                is IndustriesState.Success -> {adapter.updateList(state.data)}
             }
         }
     }
