@@ -17,6 +17,10 @@ interface HhApi {
     @GET("vacancies")
     suspend fun getVacancies(@QueryMap queryMap: Map<String, String>): Response<SearchVacanciesResponse>
 
+    @Headers(
+        "Authorization: Bearer ${BuildConfig.HH_ACCESS_TOKEN}",
+        "HH-User-Agent: JobSeeker/${BuildConfig.VERSION_NAME} (${BuildConfig.DEVELOPER_EMAIL})"
+    )
     @GET("vacancies/{vacancy_id}")
     suspend fun getVacancy(@Path("vacancy_id") id: Long): Response<DetailVacancyResponse>
 }
