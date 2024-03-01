@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.ResponseCodes
-import ru.practicum.android.diploma.data.converters.VacancyDetailDbConverter.toVacancyDetail
+import ru.practicum.android.diploma.data.converters.VacancyConverter.toVacancyDetail
 import ru.practicum.android.diploma.data.vacancydetail.dto.DetailRequest
 import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.VacancyDetailDtoResponse
 import ru.practicum.android.diploma.domain.api.DetailRepository
@@ -13,7 +13,7 @@ import ru.practicum.android.diploma.util.Resource
 
 class DetailRepositoryImpl(
     private val networkClient: NetworkClient,
-): DetailRepository {
+) : DetailRepository {
 
     override fun searchDetailInformation(vacancyId: String): Flow<Resource<VacancyDetail>> = flow {
         val response = networkClient.doRequest(DetailRequest(vacancyId))
