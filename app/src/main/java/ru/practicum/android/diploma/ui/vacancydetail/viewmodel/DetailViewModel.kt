@@ -7,11 +7,13 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.api.DetailInteractor
+import ru.practicum.android.diploma.domain.favorite.FavoriteInteractor
 import ru.practicum.android.diploma.domain.models.detail.VacancyDetail
 import ru.practicum.android.diploma.ui.vacancydetail.DetailState
 
 class DetailViewModel(
-    private val detailInteractor: DetailInteractor
+    val detailInteractor: DetailInteractor,
+    val interactorFavorite: FavoriteInteractor
 ) : ViewModel() {
 
     private val stateLiveData = MutableLiveData<DetailState>()
@@ -19,12 +21,19 @@ class DetailViewModel(
 
     fun searchDetailInformation(vacancyId: String) {
         renderState(DetailState.Loading)
+
         viewModelScope.launch {
-            detailInteractor
-                .searchDetailInformation(vacancyId)
-                .collect { pair ->
-                    processResult(pair.first, pair.second)
-                }
+            val stateDb = interactorFavorite.getAppIdVacancy()
+            if (stateDb.contains(vacancyId)) {
+                val itemFromDb = interactorFavorite.getVacancyId(vacancyId)
+                renderState(DetailState.Content(itemFromDb))
+            } else {
+                detailInteractor
+                    .searchDetailInformation(vacancyId)
+                    .collect { pair ->
+                        processResult(pair.first, pair.second)
+                    }
+            }
         }
     }
 
@@ -48,7 +57,28 @@ class DetailViewModel(
         }
     }
 
-    private fun renderState(detailState: DetailState) {
+    fun renderState(detailState: DetailState) {
         stateLiveData.postValue(detailState)
     }
-}
+
+    fun onFavoriteClicked() {
+        stateLiveData.value?.getCurrentIfReady()?.let { detailState ->
+            viewModelScope.launch {
+                if (detailState.vacancyDetail.isFavorite) {
+                    interactorFavorite.deleteVacancy(detailState.vacancyDetail.id.toInt())
+                    stateLiveData.postValue(
+                        DetailState.Content(
+                            detailState.vacancyDetail.copy(isFavorite = false)
+                        )
+                    )
+                } else {
+                    interactorFavorite.addVacancy(detailState.vacancyDetail)
+                    stateLiveData.postValue(
+                        DetailState.Content(
+                            detailState.vacancyDetail.copy(isFavorite = true)
+                        )
+                    )
+                }
+            }
+        }
+    }

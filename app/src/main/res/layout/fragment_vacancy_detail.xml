@@ -31,7 +31,7 @@
                 android:layout_gravity="end"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/like_icon"/>
+                android:src="@drawable/like_icon_off"/>
 
             <ImageView
                 android:id="@+id/ivbuttonShare"
