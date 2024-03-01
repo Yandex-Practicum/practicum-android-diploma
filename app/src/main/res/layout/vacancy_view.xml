@@ -1,21 +1,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingVertical="@dimen/search_margin_xs"
+    android:orientation="horizontal"
     android:paddingHorizontal="@dimen/search_margin_m"
-    android:orientation="horizontal">
+    android:paddingVertical="@dimen/search_margin_xs">
 
     <ImageView
         android:id="@+id/vacancyCover"
         android:layout_width="@dimen/iv_icon_company"
         android:layout_height="@dimen/iv_icon_company"
+        android:background="@drawable/ic_vacancy_background"
+        android:padding="1dp"
         android:src="@drawable/placeholder_vacancy" />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:layout_marginStart="12dp"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView

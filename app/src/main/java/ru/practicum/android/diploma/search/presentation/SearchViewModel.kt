@@ -40,6 +40,17 @@ class SearchViewModel(private val searchVacancyUseCase: SearchVacancyUseCase) : 
         return current
     }
 
+    fun searchByButton(searchText: String, filterParameters: SearchFilterParameters) {
+        if (searchText.isNotEmpty()) {
+            viewModelScope.launch(Dispatchers.IO) {
+                renderState(SearchState.Loading)
+                searchVacancyUseCase.execute(searchText, 0, filterParameters).collect {
+                    processSearchByTextResult(it)
+                }
+            }
+        }
+    }
+
     fun searchByText(searchText: String, filterParameters: SearchFilterParameters) {
         searchByTextJob?.cancel()
         if (searchText.isNotEmpty() && searchText != previousSearchText) {

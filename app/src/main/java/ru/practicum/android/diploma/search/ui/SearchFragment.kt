@@ -1,10 +1,12 @@
 package ru.practicum.android.diploma.search.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -32,6 +34,7 @@ class SearchFragment : Fragment() {
     private var onScrollLister: RecyclerView.OnScrollListener? = null
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
+    private var vacancyAmount: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,7 +68,10 @@ class SearchFragment : Fragment() {
         }
         binding.searchEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                search()
+                viewModel.searchByButton(binding.searchEditText.text.toString(), mockedParameters)
+                val inputMethodManager =
+                    requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+                inputMethodManager?.hideSoftInputFromWindow(binding.searchEditText.windowToken, 0)
             }
             true
         }
@@ -161,6 +167,12 @@ class SearchFragment : Fragment() {
         if (vacancies.isNotEmpty()) {
             isLastPageReached = vacancies.size < SearchVacancyUseCase.DEFAULT_VACANCIES_PER_PAGE
             vacancyAdapter.pagination(vacancies)
+            binding.tvVacancyAmount.text =
+                requireContext().resources.getQuantityString(
+                    R.plurals.vacancies,
+                    vacancyAmount ?: 0,
+                    vacancyAmount ?: 0
+                )
         }
         if (error is SearchState.NetworkError) {
             showToast(getString(R.string.pagination_error_error_connection))
@@ -182,6 +194,7 @@ class SearchFragment : Fragment() {
                 searchVacanciesResult.numOfResults,
                 searchVacanciesResult.numOfResults
             )
+        vacancyAmount = searchVacanciesResult.numOfResults
         setStatus(SearchStatus.SUCCESS)
     }
 

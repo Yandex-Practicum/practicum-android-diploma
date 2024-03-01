@@ -109,16 +109,6 @@ object VacancyMapper {
     }
 
     private fun getActualLogo(companyLogoUrlsDto: CompanyLogoUrlsDto?): String {
-        return if (companyLogoUrlsDto == null) {
-            ""
-        } else {
-            when {
-                companyLogoUrlsDto.small != null -> companyLogoUrlsDto.small
-                companyLogoUrlsDto.medium != null -> companyLogoUrlsDto.medium
-                else -> {
-                    companyLogoUrlsDto.original
-                }
-            }
-        }
+        return companyLogoUrlsDto?.original ?: ""
     }
 }
