@@ -11,7 +11,7 @@ import ru.practicum.android.diploma.domain.models.detail.VacancyDetail
 import ru.practicum.android.diploma.ui.vacancydetail.DetailState
 
 class DetailViewModel(
-    val detailInteractor: DetailInteractor
+    private val detailInteractor: DetailInteractor
 ) : ViewModel() {
 
     private val stateLiveData = MutableLiveData<DetailState>()
@@ -19,7 +19,6 @@ class DetailViewModel(
 
     fun searchDetailInformation(vacancyId: String) {
         renderState(DetailState.Loading)
-
         viewModelScope.launch {
             detailInteractor
                 .searchDetailInformation(vacancyId)
@@ -29,7 +28,7 @@ class DetailViewModel(
         }
     }
 
-    private fun processResult(vacancyDetail: VacancyDetail?, errorMessage: Int?){
+    private fun processResult(vacancyDetail: VacancyDetail?, errorMessage: Int?) {
         when {
             errorMessage != null -> {
                 renderState(
@@ -49,7 +48,7 @@ class DetailViewModel(
         }
     }
 
-    fun renderState(detailState: DetailState){
+    private fun renderState(detailState: DetailState) {
         stateLiveData.postValue(detailState)
     }
 }

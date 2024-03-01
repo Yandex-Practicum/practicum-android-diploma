@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.data.vacancydetail
 
-import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.data.NetworkClient
@@ -18,14 +17,12 @@ class DetailRepositoryImpl(
 
     override fun searchDetailInformation(vacancyId: String): Flow<Resource<VacancyDetail>> = flow {
         val response = networkClient.doRequest(DetailRequest(vacancyId))
-        Log.d("vacancyId", "ответ = ${response.resultCode}")
 
         when (response.resultCode) {
             ResponseCodes.DEFAULT -> emit(Resource.Error(response.resultCode.code))
             ResponseCodes.SUCCESS -> {
                 try {
                     val vacancy = (response as VacancyDetailDtoResponse).toVacancyDetail()
-                    Log.d("vacancyId", vacancy.name)
                     emit(Resource.Success(vacancy))
                 } catch (e: Throwable) {
                     emit(Resource.Error(response.resultCode.code))
