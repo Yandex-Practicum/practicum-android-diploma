@@ -75,8 +75,8 @@ object VacancyDetailDbConverter {
             contactPhone = "buildPhoneNumbers(contacts?.phones)",
             contactComment = "buildPhoneComments(contacts?.phones)",
             employerName = employer?.name,
-            employerUrl = employer?.logoUrls?.original,
-            salary = "от ${salary?.from} до ${salary?.to}",
+            employerUrl = employer?.logoUrls?.art90,
+            salary = formatSalary(salary),
             schedule = schedule?.name,
             employment = employment?.name,
             experience = experience?.name,
@@ -109,5 +109,34 @@ object VacancyDetailDbConverter {
             skillsList.add(it.name)
         }
         return skillsList
+    }
+
+    private fun formatSalary(salary: Salary?): String {
+        if (salary == null) return "Зарплата не указана"
+
+        val currency = when (salary.currency) {
+            "RUR" -> "₽"
+            "EUR" -> "€"
+            "KZT" -> "₸"
+            "AZN" -> "\u20BC"
+            "USD" -> "$"
+            "BYR" -> "\u0042\u0072"
+            "GEL" -> "\u20BE"
+            "UAH" -> "\u20b4"
+            else -> ""
+        }
+
+        val stringBuilder = StringBuilder()
+
+        salary.from?.let {
+            stringBuilder.append("от ${salary.from} ")
+        }
+
+        salary.to?.let {
+            stringBuilder.append("до ${salary.to} ")
+        }
+        stringBuilder.append("$currency")
+
+        return stringBuilder.toString()
     }
 }

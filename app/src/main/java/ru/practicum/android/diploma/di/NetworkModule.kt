@@ -8,6 +8,7 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.ApiEndpoints
+import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.data.network.JobVacancySearchApi
@@ -18,10 +19,17 @@ val networkModule = module {
     single<OkHttpClient> {
         OkHttpClient
             .Builder()
-            .addInterceptor(
-                HttpLoggingInterceptor()
-                    .apply { setLevel(HttpLoggingInterceptor.Level.BODY) }
-            )
+            .addInterceptor { chain ->
+                chain.run {
+                    proceed(
+                        request()
+                            .newBuilder()
+                            .addHeader("Authorization", "Bearer ${BuildConfig.HH_ACCESS_TOKEN}")
+                            .addHeader("HH-User-Agent", "practicum-android-diploma (makss.impeks@gmail.com)")
+                            .build()
+                    )
+                }
+            }
             .build()
     }
 
