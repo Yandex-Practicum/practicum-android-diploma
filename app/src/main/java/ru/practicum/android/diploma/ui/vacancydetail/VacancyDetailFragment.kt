@@ -8,11 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentVacancyDetailBinding
 import ru.practicum.android.diploma.domain.models.detail.VacancyDetail
@@ -20,11 +19,13 @@ import ru.practicum.android.diploma.ui.similarvacancies.SimilarVacanciesFragment
 import ru.practicum.android.diploma.ui.vacancydetail.viewmodel.DetailViewModel
 
 class VacancyDetailFragment : Fragment() {
-    private val vacancyDetailViewModel by viewModel<DetailViewModel>()
+
+    private val vacancyDetailViewModel: DetailViewModel by activityViewModel()
     private var _binding: FragmentVacancyDetailBinding? = null
     private val binding get() = _binding!!
     private var vacancyLink = ""
     private var vacancyId = ""
+    private var convertedVacancyId = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +39,7 @@ class VacancyDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val convertedVacancyId = requireArguments().getString(VACANCYID)!!
+        convertedVacancyId = requireArguments().getString(VACANCYID)!!
 
         vacancyDetailViewModel.searchDetailInformation(convertedVacancyId)
 
@@ -65,7 +66,6 @@ class VacancyDetailFragment : Fragment() {
         }
 
         binding.ivbuttonLike.setOnClickListener {
-            //сделать лайк/анлайк
             vacancyDetailViewModel.onFavoriteClicked()
         }
 
@@ -198,10 +198,6 @@ class VacancyDetailFragment : Fragment() {
     }
 
     companion object {
-        private const val VACANCYID = "vacancy_id"
-        fun createArgs(vacancyId: String): Bundle =
-            bundleOf(
-                VACANCYID to vacancyId
-            )
+        private var VACANCYID = "vacancy_id"
     }
 }

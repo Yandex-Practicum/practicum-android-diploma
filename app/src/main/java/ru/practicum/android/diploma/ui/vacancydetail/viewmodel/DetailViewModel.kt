@@ -59,6 +59,7 @@ class DetailViewModel(
 
     fun renderState(detailState: DetailState) {
         stateLiveData.postValue(detailState)
+
     }
 
     fun onFavoriteClicked() {
@@ -82,8 +83,6 @@ class DetailViewModel(
             }
         }
     }
-
     private fun DetailState.getCurrentIfReady(): DetailState.Content? =
         if (this is DetailState.Content) this else null
 }
-
