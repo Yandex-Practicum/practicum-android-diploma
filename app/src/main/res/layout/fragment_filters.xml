@@ -182,7 +182,7 @@
         app:layout_constraintBottom_toBottomOf="@id/salary_only" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/applyButton"
         style="@style/white_16_medium"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_height"
@@ -194,12 +194,13 @@
         android:gravity="center"
         android:text="@string/apply"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        app:layout_goneMarginBottom="@dimen/margin_24"
+        app:layout_constraintBottom_toTopOf="@id/resetButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/resetButton"
         style="@style/white_16_medium"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_height"
