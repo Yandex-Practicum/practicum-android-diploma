@@ -25,8 +25,12 @@ val FiltersModules = module {
     factoryOf(::FiltersInteractorImpl).bind<FiltersInteractor>()
     viewModelOf(::FiltersViewModel)
 
-    single(qualifier = named("filtersPrefs")) { provideFiltersPreferences(androidApplication(), FILTERS_PREFS) }
+    single(qualifier = named("filtersPrefs")) {
+        provideFiltersPreferences(androidApplication(), FILTERS_PREFS)
+    }
+
     single { FiltersLocalStorage(get(named("filtersPrefs"))) }
 }
 
-private fun provideFiltersPreferences(app: Application, key: String): SharedPreferences = app.getSharedPreferences(key, Context.MODE_PRIVATE)
+private fun provideFiltersPreferences(app: Application, key: String): SharedPreferences =
+    app.getSharedPreferences(key, Context.MODE_PRIVATE)
