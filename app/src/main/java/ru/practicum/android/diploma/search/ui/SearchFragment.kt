@@ -34,6 +34,7 @@ class SearchFragment : Fragment() {
     private var onScrollLister: RecyclerView.OnScrollListener? = null
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
+    private var vacancyAmount: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -166,6 +167,12 @@ class SearchFragment : Fragment() {
         if (vacancies.isNotEmpty()) {
             isLastPageReached = vacancies.size < SearchVacancyUseCase.DEFAULT_VACANCIES_PER_PAGE
             vacancyAdapter.pagination(vacancies)
+            binding.tvVacancyAmount.text =
+                requireContext().resources.getQuantityString(
+                    R.plurals.vacancies,
+                    vacancyAmount ?: 0,
+                    vacancyAmount ?: 0
+                )
         }
         if (error is SearchState.NetworkError) {
             showToast(getString(R.string.pagination_error_error_connection))
@@ -187,6 +194,7 @@ class SearchFragment : Fragment() {
                 searchVacanciesResult.numOfResults,
                 searchVacanciesResult.numOfResults
             )
+        vacancyAmount = searchVacanciesResult.numOfResults
         setStatus(SearchStatus.SUCCESS)
     }
 
