@@ -44,7 +44,7 @@ class FavoritesFragment : Fragment() {
         adapter!!.itemClickListener = { _, vacancy ->
             findNavController().navigate(
                 R.id.action_favoritesFragment_to_vacanciesFragment,
-                VacancyDetailFragment.createArgs(vacancy.id)
+                bundleOf("vacancy_id" to vacancy.id)
             )
             Log.d("StateFavorite", "State = ${vacancy.isFavorite}")
         }

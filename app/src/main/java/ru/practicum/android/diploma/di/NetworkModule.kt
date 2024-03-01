@@ -45,6 +45,7 @@ val networkModule = module {
 
     single {
         Room.databaseBuilder(androidContext(), AppDatabase::class.java, "get_vacancy_db")
+            .fallbackToDestructiveMigration()
             .build()
     }
 }
