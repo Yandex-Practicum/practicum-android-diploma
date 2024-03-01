@@ -7,7 +7,7 @@ sealed interface DetailState {
     data object Loading : DetailState
 
     data class Content(
-        val vacancyDetail : VacancyDetail
+        val vacancyDetail: VacancyDetail
     ) : DetailState
 
     data class Error(

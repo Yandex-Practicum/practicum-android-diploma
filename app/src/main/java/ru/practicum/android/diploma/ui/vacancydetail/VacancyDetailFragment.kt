@@ -123,6 +123,9 @@ class VacancyDetailFragment : Fragment() {
     }
 
     private fun setView(vacancyDetail: VacancyDetail) {
+        val newImageRes =
+            if (vacancyDetail.isFavorite) R.drawable.like_icon_off_in_on else R.drawable.like_icon_off
+        binding.ivbuttonLike.setImageResource(newImageRes)
         binding.tvvacancyName.text = vacancyDetail.name
         checkIfNotNull(vacancyDetail.salary, binding.tvsalary)
         showIcon(vacancyDetail)

@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import ru.practicum.android.diploma.data.db.entyti.VacancyDetailEntity
+import ru.practicum.android.diploma.domain.models.detail.VacancyDetail
 
 @Dao
 interface VacancyDtoDao {
@@ -16,5 +17,11 @@ interface VacancyDtoDao {
     suspend fun deleteVacancy(vacancyId: Int)
 
     @Query("SELECT * FROM vacancy_table")
-    suspend fun getAllTrack(): List<VacancyDetailEntity>
+    suspend fun getAllVacancy(): List<VacancyDetailEntity>
+
+    @Query("SELECT * FROM vacancy_table WHERE id=:id")
+    suspend fun getVacancyId(id: String): VacancyDetail
+
+    @Query("SELECT id FROM vacancy_table")
+    suspend fun getAllIdVacancy(): List<String>
 }

@@ -2,6 +2,8 @@ package ru.practicum.android.diploma.presentation.favorite
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.practicum.android.diploma.R
@@ -16,19 +18,21 @@ class FavoriteViewHolder(
         .inflate(R.layout.vacancy_item, parent, false)
 ) {
 
-    private val _binding: VacancyItemBinding? = null
-    private val binding get() = _binding!!
+    private val nameText: TextView = itemView.findViewById(R.id.tv_vacancy_name)
+    private val departmentText: TextView = itemView.findViewById(R.id.department)
+    private val salaryText: TextView = itemView.findViewById(R.id.salary)
+    private val image: ImageView = itemView.findViewById(R.id.iv_company)
 
     fun bind(vacancy: VacancyDetail) {
-        binding.tvVacancyName.text = vacancy.name
-        binding.department.text = vacancy.description
-        binding.tvVacancyName.text = vacancy.name
+        nameText.text = vacancy.name
+        departmentText.text = vacancy.employerName
+        salaryText.text = vacancy.salary
 
-        Glide.with(binding.ivCompany)
-            .load(vacancy.vacancyLink)
-            .placeholder(R.drawable.ic_launcher_foreground)
+        Glide.with(itemView)
+            .load(vacancy.employerUrl)
+            .placeholder(R.drawable.placeholder_company_icon)
             .centerCrop()
-            .into(binding.ivCompany)
+            .into(image)
     }
-
 }
+

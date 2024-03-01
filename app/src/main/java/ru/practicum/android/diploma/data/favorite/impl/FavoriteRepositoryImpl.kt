@@ -20,8 +20,16 @@ class FavoriteRepositoryImpl(
         appDatabase.vacancyDtoDao().deleteVacancy(vacancyId)
     }
 
+    override suspend fun getAppIdVacancy(): List<String> {
+        return appDatabase.vacancyDtoDao().getAllIdVacancy()
+    }
+
+    override suspend fun getVacancyId(id: String): VacancyDetail {
+        return appDatabase.vacancyDtoDao().getVacancyId(id)
+    }
+
     override fun getListVacancy(): Flow<List<VacancyDetail>> = flow {
-        val vacancy = appDatabase.vacancyDtoDao().getAllTrack()
+        val vacancy = appDatabase.vacancyDtoDao().getAllVacancy()
         emit(vacancy.mapToVacancyDetail())
     }
 }

@@ -1,18 +1,22 @@
 package ru.practicum.android.diploma.ui.favorites
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.VacancyDetailDtoResponse
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFavoritesBinding
 import ru.practicum.android.diploma.domain.models.detail.VacancyDetail
 import ru.practicum.android.diploma.presentation.favorite.FavoriteAdapter
 import ru.practicum.android.diploma.presentation.favorite.FavoriteVacancyState
 import ru.practicum.android.diploma.ui.favorites.viewmodel.FavoriteViewModel
+import ru.practicum.android.diploma.ui.vacancydetail.VacancyDetailFragment
 
 class FavoritesFragment : Fragment() {
 
@@ -33,9 +37,18 @@ class FavoritesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         adapter = FavoriteAdapter(requireContext())
         binding.favoriteVacancyRecycler.adapter = adapter
         binding.favoriteVacancyRecycler.layoutManager = LinearLayoutManager(requireContext())
+
+        adapter!!.itemClickListener = { _, vacancy ->
+            findNavController().navigate(
+                R.id.action_favoritesFragment_to_vacanciesFragment,
+                VacancyDetailFragment.createArgs(vacancy.id)
+            )
+            Log.d("StateFavorite", "State = ${vacancy.isFavorite}")
+        }
 
         viewModel.fillData()
 
@@ -80,17 +93,18 @@ class FavoritesFragment : Fragment() {
         binding.favoriteNothingFound.visibility = View.GONE
         binding.favoriteVacancyProgressBar.visibility = View.GONE
 
-        adapter?.vacancy?.clear()
-        adapter?.vacancy?.addAll(vacancy)
+        adapter?.vacancyList?.clear()
+        adapter?.vacancyList?.addAll(vacancy)
         adapter?.notifyDataSetChanged()
     }
 
     companion object {
+
+        private const val SAVE_VACANCY = "SAVE_VACANCY"
+
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FavoritesFragment().apply {
-                arguments = Bundle().apply {
-                }
-            }
+        fun newInstance(vacancy: VacancyDetail): Bundle {
+            return bundleOf(SAVE_VACANCY to vacancy)
+        }
     }
 }
