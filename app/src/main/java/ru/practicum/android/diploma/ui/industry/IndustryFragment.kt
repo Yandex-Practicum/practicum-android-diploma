@@ -45,7 +45,7 @@ class IndustryFragment : Fragment() {
         industry.add(RecyclerItem("Отрасль 12"))
         industry.add(RecyclerItem("Отрасль 13"))
 
-        val adapter = CountryAdapter(industry)
+        val adapter = IndustryAdapter(industry)
         binding.regionRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.regionRecycler.adapter = adapter
     }
