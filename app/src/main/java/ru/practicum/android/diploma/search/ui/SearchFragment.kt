@@ -78,7 +78,7 @@ class SearchFragment : Fragment() {
         binding.vacancyRecycler.adapter = vacancyAdapter
         binding.vacancyRecycler.layoutManager = LinearLayoutManager(requireContext())
         setPaginationListener()
-        binding.searchToolbar.setOnClickListener{
+        binding.searchToolbar.setOnClickListener {
             findNavController().navigate(R.id.action_searchFragment_to_filterFragment)
         }
     }

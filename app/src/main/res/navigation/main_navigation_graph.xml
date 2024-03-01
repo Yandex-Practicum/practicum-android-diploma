@@ -60,7 +60,7 @@
     </fragment>
     <fragment
         android:id="@+id/placeSelectorFragment"
-        android:name="ru.practicum.android.diploma.filter.placeOfJob.PlaceSelectorFragment"
+        android:name="ru.practicum.android.diploma.filter.placeselector.PlaceSelectorFragment"
         android:label="PlaceSelectorFragment">
         <action
             android:id="@+id/action_placeSelectorFragment_to_regionFragment"
@@ -82,7 +82,7 @@
     </fragment>
     <fragment
         android:id="@+id/countryFragment"
-        android:name="ru.practicum.android.diploma.filter.placeOfJob.country.CountryFragment"
+        android:name="ru.practicum.android.diploma.filter.placeselector.country.CountryFragment"
         android:label="CountryFragment">
         <action
             android:id="@+id/action_countryFragment_to_placeSelectorFragment"
@@ -90,7 +90,7 @@
     </fragment>
     <fragment
         android:id="@+id/regionFragment"
-        android:name="ru.practicum.android.diploma.filter.placeOfJob.region.RegionFragment"
+        android:name="ru.practicum.android.diploma.filter.placeselector.region.RegionFragment"
         android:label="RegionFragment">
         <action
             android:id="@+id/action_regionFragment_to_placeSelectorFragment"

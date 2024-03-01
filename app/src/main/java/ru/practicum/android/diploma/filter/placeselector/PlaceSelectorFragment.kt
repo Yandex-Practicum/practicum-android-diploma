@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.filter.placeOfJob
+package ru.practicum.android.diploma.filter.placeselector
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,11 +1,10 @@
-package ru.practicum.android.diploma.filter.placeOfJob.region
+package ru.practicum.android.diploma.filter.placeselector.region
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
 import ru.practicum.android.diploma.databinding.FragmentRegionBinding
 
 class RegionFragment : Fragment() {
