@@ -37,7 +37,6 @@ class FavoritesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         adapter = FavoriteAdapter(requireContext())
         binding.favoriteVacancyRecycler.adapter = adapter
         binding.favoriteVacancyRecycler.layoutManager = LinearLayoutManager(requireContext())
