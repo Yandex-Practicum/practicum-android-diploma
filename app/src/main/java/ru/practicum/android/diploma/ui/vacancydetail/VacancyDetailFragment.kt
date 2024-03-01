@@ -20,15 +20,6 @@ import ru.practicum.android.diploma.ui.similarvacancies.SimilarVacanciesFragment
 import ru.practicum.android.diploma.ui.vacancydetail.viewmodel.DetailViewModel
 
 class VacancyDetailFragment : Fragment() {
-
-    companion object {
-        private const val VACANCYID = "vacancy_id"
-        fun createArgs(vacancyId: String): Bundle =
-            bundleOf(
-                VACANCYID to vacancyId
-            )
-    }
-
     private val vacancyDetailViewModel by viewModel<DetailViewModel>()
     private var _binding: FragmentVacancyDetailBinding? = null
     private val binding get() = _binding!!
@@ -69,8 +60,13 @@ class VacancyDetailFragment : Fragment() {
             shareVacancy(vacancyLink)
         }
 
+        vacancyDetailViewModel.observeState().observe(viewLifecycleOwner) {
+            renderState(it)
+        }
+
         binding.ivbuttonLike.setOnClickListener {
             //сделать лайк/анлайк
+            vacancyDetailViewModel.onFavoriteClicked()
         }
 
         binding.bbuttonSimilar.setOnClickListener {
@@ -79,7 +75,18 @@ class VacancyDetailFragment : Fragment() {
                 SimilarVacanciesFragment.createArgs(vacancyId)
             )
         }
+    }
 
+    private fun renderState(state: DetailState) {
+        when (state) {
+            is DetailState.Loading -> {}
+            is DetailState.Error -> {}
+            is DetailState.Content -> {
+                val newImageRes =
+                    if (state.vacancyDetail.isFavorite) R.drawable.like_icon_off_in_on else R.drawable.like_icon_off
+                binding.ivbuttonLike.setImageResource(newImageRes)
+            }
+        }
     }
 
     private fun render(state: DetailState) {
@@ -116,6 +123,9 @@ class VacancyDetailFragment : Fragment() {
     }
 
     private fun setView(vacancyDetail: VacancyDetail) {
+        val newImageRes =
+            if (vacancyDetail.isFavorite) R.drawable.like_icon_off_in_on else R.drawable.like_icon_off
+        binding.ivbuttonLike.setImageResource(newImageRes)
         binding.tvvacancyName.text = vacancyDetail.name
         checkIfNotNull(vacancyDetail.salary, binding.tvsalary)
         showIcon(vacancyDetail)
@@ -185,5 +195,13 @@ class VacancyDetailFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        private const val VACANCYID = "vacancy_id"
+        fun createArgs(vacancyId: String): Bundle =
+            bundleOf(
+                VACANCYID to vacancyId
+            )
     }
 }

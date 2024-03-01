@@ -36,6 +36,8 @@
         android:id="@+id/favorite_vacancy_recycler"
         android:layout_width="@dimen/margin_0"
         android:layout_height="@dimen/margin_0"
+        android:layout_marginHorizontal="@dimen/margin_16"
+        android:layout_marginVertical="@dimen/margin_9"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

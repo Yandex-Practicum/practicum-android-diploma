@@ -7,30 +7,24 @@ import androidx.room.PrimaryKey
 
 
 @Entity(tableName = "vacancy_table")
-data class VacancyDetailDtoEntity(
+data class VacancyDetailEntity(
     @PrimaryKey @ColumnInfo(name = "id")
-    val vacancyId: String,
-    val url: String,
+    val id: String,
     val name: String,
     val area: String,
-    val salaryCurrency: String?,
-    val salaryFrom: Int?,
-    val salaryTo: Int?,
-    val salaryGross: Boolean?,
-    val experience: String?,
-    val schedule: String?,
+    val vacancyLink: String,
     val contactName: String?,
     val contactEmail: String?,
-    val phones: String?,
+    val contactPhone: String?,
     val contactComment: String?,
-    val logoUrl: String?,
-    val logoUrl90: String?,
-    val logoUrl240: String?,
-    val address: String?,
-    val employerUrl: String?,
     val employerName: String?,
+    val employerUrl: String?,
+    val salary: String?,
+    val schedule: String?,
     val employment: String?,
-    val keySkills: String?,
+    val experience: String?,
+    val keySkills: String,
     val description: String,
+    val isFavorite: Boolean
 )
 

@@ -72,6 +72,7 @@ class MainFragment : Fragment() {
         binding.filterImageView.setOnClickListener {
             findNavController()
                 .navigate(R.id.action_mainFragment_to_filtersFragment)
+
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
