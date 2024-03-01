@@ -20,7 +20,7 @@ data class DetailVacancy(
     val employmentName: String?,
     val experienceId: String?,
     val experienceName: String?,
-    val keySkillsNames: List<String>?,
+    val keySkillsNames: List<String>? = null,
     val name: String?,
     val salaryCurrency: String?,
     val salaryFrom: Int?,

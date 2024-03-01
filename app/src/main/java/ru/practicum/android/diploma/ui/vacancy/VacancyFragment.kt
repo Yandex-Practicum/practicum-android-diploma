@@ -122,10 +122,11 @@ class VacancyFragment : Fragment() {
 
             }
             createDiscription(vacancy.description)
-            vacancy.keySkillsNames?.let { createKeySkills(it) }
-            createKeySkills(vacancy.keySkillsNames!!)
+            if (!vacancy.keySkillsNames.isNullOrEmpty()) {
+                createKeySkills(vacancy.keySkillsNames)
+            }
             createContacts(vacancy)
-            if (vacancy.isFavorite.isFavorite){
+            if (vacancy.isFavorite.isFavorite) {
                 binding.buttonAddToFavorites.visibility = GONE
                 binding.buttonDeleteFromFavorites.visibility = VISIBLE
             }
@@ -135,10 +136,13 @@ class VacancyFragment : Fragment() {
     fun createContacts(vacancy: DetailVacancy) {
         with(binding) {
             if (
-                vacancy.contactsName == null ||
-                vacancy.contactsEmail == null ||
-                vacancy.contactsPhones == null
+                vacancy.contactsName.isNullOrEmpty() &&
+                vacancy.contactsEmail.isNullOrEmpty() &&
+                vacancy.contactsPhones.isNullOrEmpty()
             ) {
+                contactPersonData.visibility = GONE
+                contactPersonEmailData.visibility = GONE
+                contactPersonPhoneData.visibility = GONE
                 contactInformation.visibility = GONE
                 contactPerson.visibility = GONE
                 contactInformation.visibility = GONE
@@ -160,21 +164,27 @@ class VacancyFragment : Fragment() {
             }
         }
     }
+
     private fun createDiscription(description: String?) {
         binding.tvDescription.text = HtmlCompat.fromHtml(
             description?.replace(Regex("<li>\\s<p>|<li>"), "<li>\u00A0") ?: "",
             HtmlCompat.FROM_HTML_SEPARATOR_LINE_BREAK_LIST_ITEM
         )
     }
-    private fun createKeySkills(keySkills: List<String?>) {
+
+    private fun createKeySkills(keySkills: List<String?>?) {
         with(binding) {
-            if (keySkills.isEmpty()) {
+            if (keySkills.isNullOrEmpty()) {
                 keySkillsRecyclerView.visibility = GONE
                 binding.keySkills.visibility = GONE
             } else {
+                keySkillsRecyclerView.visibility = VISIBLE
+                binding.keySkills.visibility = VISIBLE
                 var skills = ""
                 keySkills.forEach { skill ->
-                    skills += "• ${skill}\n"
+                    if (!(skill.isNullOrEmpty() || skill == "")) {
+                       skills += "• ${skill}\n"
+                    }
                 }
                 keySkillsRecyclerView.text = skills
             }

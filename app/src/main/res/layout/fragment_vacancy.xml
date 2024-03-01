@@ -170,7 +170,8 @@
                 android:text="@string/key_skills_text"
                 android:textSize="@dimen/font_size_22"
                 app:layout_constraintStart_toStartOf="@id/card_view_company"
-                app:layout_constraintTop_toBottomOf="@id/tv_description" />
+                app:layout_constraintTop_toBottomOf="@id/tv_description"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/key_skills_recycler_view"
@@ -182,7 +183,8 @@
                 app:layout_constraintEnd_toEndOf="@id/card_view_company"
                 app:layout_constraintStart_toStartOf="@id/card_view_company"
                 app:layout_constraintTop_toBottomOf="@id/key_skills"
-                tools:itemCount="5" />
+                tools:itemCount="5"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/contact_information"
