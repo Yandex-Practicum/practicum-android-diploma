@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.filter.ui
+package ru.practicum.android.diploma.filter.placeOfJob
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,33 +8,34 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.databinding.FragmentFilterBinding
+import ru.practicum.android.diploma.databinding.FragmentPlaceSelectorBinding
 
-class FilterFragment : Fragment() {
+class PlaceSelectorFragment : Fragment() {
 
-    private var _binding: FragmentFilterBinding? = null
+    private var _binding: FragmentPlaceSelectorBinding? = null
     private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentFilterBinding.inflate(inflater, container, false)
+        _binding = FragmentPlaceSelectorBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.placeOfJob.setOnClickListener {
-            findNavController().navigate(R.id.action_filterFragment_to_placeSelectorFragment)
+        binding.country.setOnClickListener {
+            findNavController().navigate(R.id.action_placeSelectorFragment_to_countryFragment)
         }
-        binding.branchOfJob.setOnClickListener {
-            findNavController().navigate(R.id.action_filterFragment_to_branchFragment)
+        binding.country.setOnClickListener {
+            findNavController().navigate(R.id.action_placeSelectorFragment_to_regionFragment)
         }
         setFragmentResultListener("requestKey") { requestKey, bundle ->
             val country = bundle.getString("countryKey")
             val region = bundle.getString("regionKey")
-            val branch = bundle.getString("branchKey")
         }
+
     }
 }

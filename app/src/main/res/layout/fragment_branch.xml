@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/filterToolbar"
+        android:id="@+id/filterToolbarBranch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -13,31 +14,23 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_arrow_back"
         app:navigationIconTint="?attr/colorOnPrimary"
-        app:title="@string/bar_filter_setup"
+        app:title="@string/bar_branch_of_work"
         app:titleTextAppearance="@style/MaterialToolbarTextStyle" />
 
-    <TextView
-        android:id="@+id/placeOfJob"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="Место Работы"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/filterToolbar" />
-
-    <TextView
-        android:id="@+id/branchOfJob"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="Отрасль"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/placeOfJob" />
-
     <EditText
-        android:id="@+id/salaryInput"
+        android:id="@+id/branchEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/branchOfJob" />
+        app:layout_constraintTop_toBottomOf="@id/filterToolbarBranch" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/branchRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/branchEditText"
+        tools:itemCount="20"
+        tools:listitem="@layout/branch_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
