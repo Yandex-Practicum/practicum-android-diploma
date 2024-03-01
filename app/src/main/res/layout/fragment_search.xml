@@ -165,6 +165,11 @@
             android:visibility="gone"
             tools:visibility="gone" />
 
+        <include
+            android:id="@+id/error_server"
+            layout="@layout/error_server"
+            android:visibility="gone"
+            tools:visibility="gone" />
 
         <ProgressBar
             android:id="@+id/progress_bar"

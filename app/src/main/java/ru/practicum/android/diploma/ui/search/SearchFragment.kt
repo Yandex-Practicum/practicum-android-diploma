@@ -66,6 +66,7 @@ class SearchFragment : Fragment() {
                         binding.recyclerVacancyLayout.visible()
                         binding.vacancyList.gone()
                         binding.errorNoInternet.noInternetLayout.gone()
+                        binding.errorServer.noInternetLayout.gone()
                         binding.errorFailedGetCat.errorFailedGetCat.visible()
                         binding.progressBar.gone()
                         binding.searchMessage.visible()
@@ -74,24 +75,27 @@ class SearchFragment : Fragment() {
 
                     SearchState.Loaded -> {
                         controlSearchButton()
+                        binding.imageSearchNotStarted.gone()
+                        binding.recyclerVacancyLayout.visible()
+                        binding.vacancyList.visible()
+                        binding.errorNoInternet.noInternetLayout.gone()
+                        binding.errorServer.noInternetLayout.gone()
+                        binding.progressBar.gone()
+                        binding.searchMessage.visible()
+                        binding.searchMessage.text = "Найдено ${(it as SearchState.Loaded).counter} вакансий"
+                        binding.errorFailedGetCat.errorFailedGetCat.gone()
+                    }
+
+                    SearchState.Loading -> {
+                        controlSearchButton()
                         try {
                             val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
                             imm?.hideSoftInputFromWindow(binding.editText.windowToken, 0)
                         } catch (_:Throwable) {}
                         binding.imageSearchNotStarted.gone()
-                        binding.recyclerVacancyLayout.visible()
-                        binding.errorNoInternet.noInternetLayout.gone()
-                        binding.progressBar.gone()
-                        binding.searchMessage.visible()
-                        binding.searchMessage.text = "Найдено ${(it as SearchState.Loaded).counter} вакансий"
-
-                    }
-
-                    SearchState.Loading -> {
-                        controlSearchButton()
-                        binding.imageSearchNotStarted.gone()
                         binding.recyclerVacancyLayout.gone()
                         binding.errorNoInternet.noInternetLayout.gone()
+                        binding.errorServer.noInternetLayout.gone()
                         binding.progressBar.visible()
                         binding.searchMessage.gone()
                     }
@@ -101,6 +105,16 @@ class SearchFragment : Fragment() {
                         binding.imageSearchNotStarted.gone()
                         binding.recyclerVacancyLayout.gone()
                         binding.errorNoInternet.noInternetLayout.visible()
+                        binding.errorServer.noInternetLayout.gone()
+                        binding.progressBar.gone()
+                        binding.searchMessage.gone()
+                    }
+                    SearchState.ServerError -> {
+                        controlSearchButton()
+                        binding.imageSearchNotStarted.gone()
+                        binding.recyclerVacancyLayout.gone()
+                        binding.errorNoInternet.noInternetLayout.gone()
+                        binding.errorServer.noInternetLayout.visible()
                         binding.progressBar.gone()
                         binding.searchMessage.gone()
                     }
@@ -110,6 +124,7 @@ class SearchFragment : Fragment() {
                         binding.imageSearchNotStarted.gone()
                         binding.recyclerVacancyLayout.gone()
                         binding.errorNoInternet.noInternetLayout.gone()
+                        binding.errorServer.noInternetLayout.gone()
                         binding.progressBar.gone()
                         binding.searchMessage.gone()
                     }
@@ -120,6 +135,7 @@ class SearchFragment : Fragment() {
                         binding.imageSearchNotStarted.visible()
                         binding.recyclerVacancyLayout.gone()
                         binding.errorNoInternet.noInternetLayout.gone()
+                        binding.errorServer.noInternetLayout.gone()
                         binding.progressBar.gone()
                         binding.searchMessage.gone()
                     }
