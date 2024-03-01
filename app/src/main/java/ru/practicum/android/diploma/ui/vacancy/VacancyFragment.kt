@@ -75,6 +75,9 @@ class VacancyFragment : Fragment() {
                 }
             }
         }
+        binding.buttonShare.setOnClickListener {
+            viewModel.shareVacancy()
+        }
     }
 
     private fun reRender(){

@@ -62,7 +62,8 @@ class Convertors {
             logoUrl = vacancy.employer?.logoUrlsDto?.original,
             logoUrl90 = vacancy.employer?.logoUrlsDto?.art90,
             logoUrl240 = vacancy.employer?.logoUrlsDto?.art240,
-            employerUrl = vacancy.employer?.logoUrlsDto?.art240
+            employerUrl = vacancy.employer?.logoUrlsDto?.art240,
+            url = vacancy.url
         )
     }
 

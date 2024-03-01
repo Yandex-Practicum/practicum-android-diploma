@@ -35,4 +35,6 @@ interface HhApi {
 
     @GET("areas/industries")
     suspend fun filterIndustry(): IndustryResponse
+
+
 }

@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.data.search.network.Resource
 import ru.practicum.android.diploma.domain.api.CheckOnLikeRepository
 import ru.practicum.android.diploma.domain.api.DeleteDataRepository
+import ru.practicum.android.diploma.domain.api.ExternalNavigator
 import ru.practicum.android.diploma.domain.api.SaveDataRepository
 import ru.practicum.android.diploma.domain.models.DetailVacancy
 import ru.practicum.android.diploma.domain.search.VacancyInteractor
@@ -23,13 +24,14 @@ class VacancyViewModel(
     private val deleteVacancyRepository: DeleteDataRepository,
     private val saveVacancyRepository: SaveDataRepository,
     private val convertor: DetailsConverter,
-    private val likeRepository: CheckOnLikeRepository
+    private val likeRepository: CheckOnLikeRepository,
+    private val externalNavigator: ExternalNavigator
 ) : ViewModel() {
 
     private val _vacancyState = MutableLiveData<VacancyState>()
     val vacancyState: LiveData<VacancyState> = _vacancyState
     private var vacancy: DetailVacancy = DetailVacancy("","","","",false,"","", listOf(""),"","","","","","","",
-        listOf(""),"","",0,false,0,"","","","","","")
+        listOf(""),"","",0,false,0,"","","","","","","")
     private var likeIndicator = MutableLiveData<Boolean>()
     private var likeJob: Job? = null
 
@@ -114,7 +116,15 @@ class VacancyViewModel(
         return likeIndicator
     }
 
+    fun shareVacancy() {
+        if (vacancyState.value is VacancyState.Content) {
+            val screenState = vacancyState.value as VacancyState.Content
+            externalNavigator.share("https://ekaterinburg.hh.ru/vacancy/${screenState.vacancy.id}")
+        }
+    }
+
     companion object {
         const val BUTTON_PRESSING_DELAY = 300L
     }
 }
+
