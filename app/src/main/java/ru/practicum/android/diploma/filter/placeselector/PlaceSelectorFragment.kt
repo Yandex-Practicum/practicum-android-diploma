@@ -36,6 +36,5 @@ class PlaceSelectorFragment : Fragment() {
             val country = bundle.getString("countryKey")
             val region = bundle.getString("regionKey")
         }
-
     }
 }
