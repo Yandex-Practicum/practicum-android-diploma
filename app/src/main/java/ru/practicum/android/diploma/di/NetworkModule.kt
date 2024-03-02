@@ -19,6 +19,9 @@ val networkModule = module {
     single<OkHttpClient> {
         OkHttpClient
             .Builder()
+            .addInterceptor(
+                HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
+            )
             .addInterceptor { chain ->
                 chain.run {
                     proceed(

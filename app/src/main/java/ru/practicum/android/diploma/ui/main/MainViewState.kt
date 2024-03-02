@@ -5,6 +5,6 @@ import ru.practicum.android.diploma.domain.models.Vacancy
 
 data class MainViewState (
     val state: SearchState? = null,
-    val foundVacancies: String? = null,
+    var foundVacancies: String? = null,
     val findVacancyPagination: PagingData<Vacancy> = PagingData.empty()
 )

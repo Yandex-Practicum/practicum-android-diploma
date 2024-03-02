@@ -6,6 +6,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.google.gson.Gson
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +14,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.data.filters.FiltersRepository
 import ru.practicum.android.diploma.domain.api.SearchRepository
+import ru.practicum.android.diploma.domain.models.Filter
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.presentation.main.VacanciesPagingSource
 import ru.practicum.android.diploma.ui.main.MainViewState
@@ -21,7 +24,8 @@ import ru.practicum.android.diploma.ui.main.SearchState
 import ru.practicum.android.diploma.util.Resource
 
 class MainViewModel(
-    private val repository: SearchRepository
+    private val repository: SearchRepository,
+    private val filtersRepository: FiltersRepository
 ) : ViewModel() {
 
     private val state = MutableStateFlow(MainViewState())
@@ -30,15 +34,18 @@ class MainViewModel(
     var flow: Flow<PagingData<Vacancy>> = emptyFlow()
         private set
 
-    private fun subscribeVacanciesPagination(query: String) {
+    private var query: String = ""
+
+    private fun subscribeVacanciesPagination(params: Map<String, String>) {
         vacancyJob?.cancel()
         flow = Pager(PagingConfig(pageSize = 20)) {
-            VacanciesPagingSource(repository, query)
+            VacanciesPagingSource(repository, params)
         }.flow.cachedIn(viewModelScope)
         state.update { it.copy(state = SearchState.Content(emptyList())) }
     }
 
     fun onSearch(text: String) {
+        query = text
         if (text.isEmpty()) {
             state.update { it.copy(state = null) }
             return
@@ -46,15 +53,41 @@ class MainViewModel(
 
         state.update { it.copy(state = SearchState.Loading) }
         viewModelScope.launch {
-            searchRequest(text)
+            searchRequest()
         }
     }
 
-    private fun searchRequest(text: String) {
-        if (text.isNotEmpty()) {
+    private fun searchRequest() {
+        if (query.isNotEmpty()) {
             viewModelScope.launch {
                 state.update { it.copy(state = SearchState.Loading) }
-                val result = repository.vacanciesPagination(query = text, nextPage = 1)
+                val filter = filtersRepository.getFilters()
+
+                val params = mutableMapOf("text" to query)
+                params["page"] = "1"
+
+                filter.salary?.let {
+                    params["salary"] = filter.region.toString()
+                }
+
+                filter.onlyWithSalary?.let {
+                    params["only_with_salary"] = filter.onlyWithSalary.toString()
+                }
+
+                //todo: все фильтры которые закоментированны нужно передавать id
+//                filter.country?.let {
+//                    params["area"] = filter.country.toString()
+//                }
+
+//                filter.region?.let {
+//                    params["area"] = filter.region.toString()
+//                }
+//
+//                filter.industry?.let {
+//                    params["industry"] = filter.region.toString()
+//                }
+
+                val result = repository.vacanciesPagination(params)
 
                 if (result is Resource.Success) {
                     val founded = result.data?.foundedVacancies?.toString()?.let {
@@ -68,10 +101,17 @@ class MainViewModel(
                     state.update { it.copy(foundVacancies = founded) }
                 }
 
-                subscribeVacanciesPagination(text)
+                subscribeVacanciesPagination(params)
             }
         } else {
             state.update { it.copy(state = SearchState.Empty) }
         }
     }
+
+    fun updatesFilters(gson: String) {
+        val filter = Gson().fromJson(gson, Filter::class.java)
+        filtersRepository.setFilter(filter)
+        searchRequest()
+    }
+
 }

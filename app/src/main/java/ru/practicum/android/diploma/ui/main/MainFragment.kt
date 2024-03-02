@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -50,10 +51,16 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupMainRecycler()
 
+        setFragmentResultListener("requestKey") { key, bundle ->
+            val filterGson = bundle.getString("key") ?: return@setFragmentResultListener
+            viewModel.updatesFilters(filterGson)
+        }
+
         binding.searchEditText.onTextChange {
             binding.searchContainer.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
             binding.searchContainer.endIconDrawable = requireContext().getDrawable(R.drawable.ic_clear)
             binding.clearButton.isEnabled = true
+            binding.clearButton.visibleOrGone(binding.clearButton.isEnabled)
         }
 
         binding.searchEditText.onTextChangeDebounce()
@@ -67,6 +74,8 @@ class MainFragment : Fragment() {
         binding.clearButton.setOnClickListener {
             clearSearchText()
             viewModel.onSearch("")
+            viewModel.observeState().value.foundVacancies = null
+            binding.tvRvHeader.visibility = View.GONE
         }
 
         binding.filterImageView.setOnClickListener {
@@ -125,6 +134,16 @@ class MainFragment : Fragment() {
         }
         binding.searchRecyclerView.adapter = adapter
         binding.searchRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        if (binding.searchEditText.text.toString().isNotEmpty()) {
+            binding.searchContainer.endIconMode = TextInputLayout.END_ICON_CUSTOM
+            binding.searchContainer.endIconDrawable = requireContext().getDrawable(R.drawable.ic_clear)
+            binding.clearButton.isEnabled = true
+        }
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")

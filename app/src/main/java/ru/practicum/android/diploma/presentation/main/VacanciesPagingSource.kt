@@ -9,15 +9,18 @@ import ru.practicum.android.diploma.util.Resource
 
 class VacanciesPagingSource(
     private val repository: SearchRepository,
-    private val query: String
+    private val params: Map<String, String>
 ): PagingSource<Int, Vacancy>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Vacancy> {
         try {
             // Start refresh at page 1 if undefined.
             val nextPageNumber = params.key ?: 1
+            val currentParams = this.params.toMutableMap()
 
-            val response = repository.vacanciesPagination(query, nextPageNumber)
+            currentParams["page"] = nextPageNumber.toString()
+
+            val response = repository.vacanciesPagination(currentParams)
 
             val (vacancies, pages) = when (response) {
                 is Resource.Success -> {(response.data as SearchingVacancies).vacancies to response.data.pages}
