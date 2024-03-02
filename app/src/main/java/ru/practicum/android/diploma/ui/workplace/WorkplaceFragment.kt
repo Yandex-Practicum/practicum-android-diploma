@@ -1,29 +1,21 @@
-package ru.practicum.android.diploma.ui.filters
+package ru.practicum.android.diploma.ui.workplace
 
 import android.os.Bundle
-
-import android.text.Layout
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.databinding.FiltersItemBinding
 import ru.practicum.android.diploma.databinding.FragmentFiltersBinding
+import ru.practicum.android.diploma.databinding.FragmentWorkplaceBinding
 
-class FiltersFragment : Fragment() {
+class WorkplaceFragment : Fragment() {
 
-    private lateinit var binding: FragmentFiltersBinding
+    private lateinit var binding: FragmentWorkplaceBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View    {
-        binding = FragmentFiltersBinding.inflate(inflater, container, false)
+        binding = FragmentWorkplaceBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -34,15 +26,15 @@ class FiltersFragment : Fragment() {
             findNavController().navigateUp()
         }
 
-        binding.workplace.setOnClickListener {
+        binding.country.setOnClickListener {
             findNavController().navigate(
-                R.id.action_filtersFragment_to_workplaceFragment,
+                R.id.action_workplaceFragment_to_countryFragment,
             )
         }
 
-        binding.industry.setOnClickListener {
+        binding.region.setOnClickListener {
             findNavController().navigate(
-                R.id.action_filtersFragment_to_industryFragment,
+                R.id.action_workplaceFragment_to_regionFragment,
             )
         }
 
