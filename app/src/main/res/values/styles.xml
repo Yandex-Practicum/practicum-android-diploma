@@ -79,7 +79,7 @@
     </style>
 
     <style name="CountryOrRegionItemTextStyle">
-        <item name="android:fontFamily">@font/ys_display_regular"</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
         <item name="android:textColor">?attr/colorOnPrimary</item>
         <item name="android:textSize">@dimen/tv_filter_s</item>
     </style>
