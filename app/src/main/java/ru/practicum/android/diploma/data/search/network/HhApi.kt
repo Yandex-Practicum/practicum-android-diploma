@@ -5,6 +5,7 @@ import retrofit2.http.Headers
 import retrofit2.http.Path
 import retrofit2.http.QueryMap
 import ru.practicum.android.diploma.BuildConfig
+import ru.practicum.android.diploma.data.dto.fields.CountryDto
 import ru.practicum.android.diploma.data.dto.fields.DetailVacancyDto
 import ru.practicum.android.diploma.data.response.AreaResponse
 import ru.practicum.android.diploma.data.response.CountryResponse
@@ -30,7 +31,7 @@ interface HhApi {
     @GET("areas")
     suspend fun filterArea(): AreaResponse
     @GET("areas/countries")
-    suspend fun filterCountry(): CountryResponse
+    suspend fun filterCountry(): List<CountryDto>
 
     //@GET("areas/{area_id}")
     //suspend fun filterRegion(@Path("area_id") areaId: String): RegionResponse

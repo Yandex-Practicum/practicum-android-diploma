@@ -53,9 +53,11 @@ class RetrofitNetworkClient(
                 }
 
                 is CountriesRequest -> withContext(Dispatchers.IO) {
-                    response = service.filterCountry()
-                    Log.d("list", response.toString())
-                    response.apply { resultCode = SUCCESS_RESULT_CODE }
+                    val result = service.filterCountry()
+                    response.apply {
+                        countriesList = result
+                        resultCode = SUCCESS_RESULT_CODE
+                    }
                 }
 
                 else -> {
