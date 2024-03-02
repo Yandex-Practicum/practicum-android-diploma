@@ -1,60 +1,203 @@
 package ru.practicum.android.diploma.ui.vacancydetail
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.databinding.FragmentVacancyDetailBinding
+import ru.practicum.android.diploma.domain.models.detail.VacancyDetail
+import ru.practicum.android.diploma.ui.similarvacancies.SimilarVacanciesFragment
+import ru.practicum.android.diploma.ui.vacancydetail.viewmodel.DetailViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [VacancyDetailFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class VacancyDetailFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private val vacancyDetailViewModel: DetailViewModel by activityViewModel()
+    private var _binding: FragmentVacancyDetailBinding? = null
+    private val binding get() = _binding!!
+    private var vacancyLink = ""
+    private var vacancyId = ""
+    private var convertedVacancyId = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_vacancy_detail, container, false)
+    ): View {
+        _binding = FragmentVacancyDetailBinding.inflate(inflater, container, false)
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        convertedVacancyId = requireArguments().getString(VACANCYID)!!
+
+        vacancyDetailViewModel.searchDetailInformation(convertedVacancyId)
+
+        vacancyDetailViewModel.observeState().observe(viewLifecycleOwner) {
+            render(it)
+        }
+
+        binding.navigationToolbar.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().popBackStack()
+            }
+        })
+
+        binding.ivbuttonShare.setOnClickListener {
+            shareVacancy(vacancyLink)
+        }
+
+        vacancyDetailViewModel.observeState().observe(viewLifecycleOwner) {
+            renderState(it)
+        }
+
+        binding.ivbuttonLike.setOnClickListener {
+            vacancyDetailViewModel.onFavoriteClicked()
+        }
+
+        binding.bbuttonSimilar.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_vacanciesFragment_to_similarVacanciesFragment,
+                SimilarVacanciesFragment.createArgs(vacancyId)
+            )
+        }
+    }
+
+    private fun renderState(state: DetailState) {
+        when (state) {
+            is DetailState.Loading -> {}
+            is DetailState.Error -> {}
+            is DetailState.Content -> {
+                val newImageRes =
+                    if (state.vacancyDetail.isFavorite) R.drawable.like_icon_off_in_on else R.drawable.like_icon_off
+                binding.ivbuttonLike.setImageResource(newImageRes)
+            }
+        }
+    }
+
+    private fun render(state: DetailState) {
+        when (state) {
+            is DetailState.Loading -> showLoading()
+            is DetailState.Error -> showError(state.errorMessage)
+            is DetailState.Content -> showContent(state.vacancyDetail)
+        }
+    }
+
+    private fun showLoading() {
+        binding.progressBar.visibility = View.VISIBLE
+        binding.clvacancy.visibility = View.GONE
+        binding.ivplaceholderImage.visibility = View.GONE
+        binding.tvplaceholderMessage.visibility = View.GONE
+    }
+
+    private fun showError(errorMessage: Int) {
+        binding.progressBar.visibility = View.GONE
+        binding.clvacancy.visibility = View.GONE
+        binding.ivplaceholderImage.visibility = View.VISIBLE
+        binding.tvplaceholderMessage.visibility = View.VISIBLE
+        binding.tvplaceholderMessage.setText(errorMessage)
+    }
+
+    private fun showContent(vacancyDetail: VacancyDetail) {
+        binding.progressBar.visibility = View.GONE
+        binding.clvacancy.visibility = View.VISIBLE
+        binding.ivplaceholderImage.visibility = View.GONE
+        binding.tvplaceholderMessage.visibility = View.GONE
+        setView(vacancyDetail)
+        vacancyLink = vacancyDetail.vacancyLink
+        vacancyId = vacancyDetail.id
+    }
+
+    private fun setView(vacancyDetail: VacancyDetail) {
+        val newImageRes =
+            if (vacancyDetail.isFavorite) R.drawable.like_icon_off_in_on else R.drawable.like_icon_off
+        binding.ivbuttonLike.setImageResource(newImageRes)
+        binding.tvvacancyName.text = vacancyDetail.name
+        checkIfNotNull(vacancyDetail.salary, binding.tvsalary)
+        showIcon(vacancyDetail)
+        binding.tvcompanyName.text = vacancyDetail.employerName
+        binding.tvcompanyArea.text = vacancyDetail.area
+        if (checkIfNotNull(vacancyDetail.experience, binding.tvexperience)) {
+            binding.tvexperiencelabel.visibility = View.VISIBLE
+        }
+        showEmploymentAndSchedule(vacancyDetail)
+        binding.tvdescription.setText(Html.fromHtml(vacancyDetail.description, Html.FROM_HTML_MODE_COMPACT))
+        //пока только один скилл
+        if (checkIfNotNull(vacancyDetail.keySkills, binding.tvkeySkills)) {
+            binding.tvkeySkillsLabel.visibility = View.VISIBLE
+        }
+        showContacts(vacancyDetail)
+    }
+
+    private fun checkIfNotNull(vacancyDetailItem: String?, view: TextView): Boolean {
+        return if (vacancyDetailItem != null) {
+            view.visibility = View.VISIBLE
+            view.text = vacancyDetailItem
+            true
+        } else {
+            view.visibility = View.GONE
+            false
+        }
+    }
+
+    private fun showIcon(vacancyDetail: VacancyDetail) {
+        Glide.with(this)
+            .load(vacancyDetail.employerUrl)
+            .placeholder(R.drawable.placeholder_company_icon)
+            .centerCrop()
+            .into(binding.ivcompanyIcon)
+    }
+
+    private fun showEmploymentAndSchedule(vacancyDetail: VacancyDetail) {
+        val checkEmployment = checkIfNotNull(vacancyDetail.employment, binding.tvemployment)
+        val checkSchedule = checkIfNotNull(vacancyDetail.schedule, binding.tvschedule)
+        if (checkEmployment && checkSchedule) binding.tvcomma.visibility = View.VISIBLE
+    }
+
+    private fun showContacts(vacancyDetail: VacancyDetail) {
+        val checkContactName = checkIfNotNull(vacancyDetail.contactName, binding.tvcontactName)
+        val checkContactEmail = checkIfNotNull(vacancyDetail.contactEmail, binding.tvcontactEmail)
+        //пока только один телефон и коммент
+        val checkContactPhone = checkIfNotNull(vacancyDetail.contactPhone, binding.tvcontactPhone)
+        val checkContactComment = checkIfNotNull(vacancyDetail.contactComment, binding.tvcontactComment)
+        if (checkContactName || checkContactEmail || checkContactPhone || checkContactComment) {
+            binding.tvcontactsLabel.visibility = View.VISIBLE
+        }
+        if (checkContactName) binding.tvcontactNameLabel.visibility = View.VISIBLE
+        if (checkContactEmail) binding.tvcontactEmailLabel.visibility = View.VISIBLE
+        if (checkContactPhone) binding.tvcontactPhoneLabel.visibility = View.VISIBLE
+        if (checkContactComment) binding.tvcontactCommentLabel.visibility = View.VISIBLE
+    }
+
+    private fun shareVacancy(link: String) {
+        val shareIntent = Intent(Intent.ACTION_SEND)
+        shareIntent.type = "text/plain"
+        shareIntent.putExtra(Intent.EXTRA_TEXT, link)
+        val chooserIntent = Intent.createChooser(shareIntent, null)
+        chooserIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        requireContext().startActivity(chooserIntent)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment VacanciesFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            VacancyDetailFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        private var VACANCYID = "vacancy_id"
     }
 }

@@ -1,0 +1,135 @@
+Index: app/src/main/java/ru/practicum/android/diploma/data/vacancylist/dto/VacanciesSearchRequest.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.data.vacancylist.dto\r\n\r\ndata class VacanciesSearchRequest(\r\n    val queryMap: String\r\n)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/data/vacancylist/dto/VacanciesSearchRequest.kt b/app/src/main/java/ru/practicum/android/diploma/data/vacancylist/dto/VacanciesSearchRequest.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/data/vacancylist/dto/VacanciesSearchRequest.kt	(revision ad1f5ce332711c11740ffa7d6ab9b943cd0a80d8)
++++ b/app/src/main/java/ru/practicum/android/diploma/data/vacancylist/dto/VacanciesSearchRequest.kt	(date 1708939655687)
+@@ -1,5 +1,5 @@
+ package ru.practicum.android.diploma.data.vacancylist.dto
+ 
+ data class VacanciesSearchRequest(
+-    val queryMap: String
++    val queryMap: HashMap<String, String>
+ )
+Index: app/src/main/java/ru/practicum/android/diploma/data/network/JobVacancySearchApi.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.data.network\r\n\r\nimport retrofit2.http.GET\r\nimport retrofit2.http.Headers\r\nimport retrofit2.http.Path\r\nimport retrofit2.http.QueryMap\r\nimport ru.practicum.android.diploma.BuildConfig\r\nimport ru.practicum.android.diploma.data.vacancydetail.dto.DetailResponse\r\nimport ru.practicum.android.diploma.data.vacancylist.dto.VacanciesRemote\r\nimport ru.practicum.android.diploma.data.vacancylist.dto.VacanciesSearchResponse\r\n\r\ninterface JobVacancySearchApi {\r\n\r\n    // Запрос списка вакансий\r\n    @Headers(HEADER_AUTH, HEADER_USER)\r\n    @GET(\"/vacancies\")\r\n    suspend fun getVacancyList(@QueryMap options: Map<String, String>): VacanciesRemote\r\n\r\n    // Запрос детальной информации о вакансии\r\n    @Headers(HEADER_AUTH, HEADER_USER)\r\n    @GET(\"/vacancies/{vacancy_id}\")\r\n    suspend fun getVacancyDetail(@Path(\"vacancy_id\") id: String): DetailResponse\r\n\r\n    companion object {\r\n        const val HEADER_AUTH = \"Authorization: Bearer ${BuildConfig.HH_ACCESS_TOKEN}\"\r\n        const val HEADER_USER = \"HH-User-Agent: Application Name (makss.impeks@gmail.com)\"\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/data/network/JobVacancySearchApi.kt b/app/src/main/java/ru/practicum/android/diploma/data/network/JobVacancySearchApi.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/data/network/JobVacancySearchApi.kt	(revision ad1f5ce332711c11740ffa7d6ab9b943cd0a80d8)
++++ b/app/src/main/java/ru/practicum/android/diploma/data/network/JobVacancySearchApi.kt	(date 1708939655690)
+@@ -14,7 +14,7 @@
+     // Запрос списка вакансий
+     @Headers(HEADER_AUTH, HEADER_USER)
+     @GET("/vacancies")
+-    suspend fun getVacancyList(@QueryMap options: Map<String, String>): VacanciesRemote
++    suspend fun getVacancyList(@QueryMap options: Map<String, String>): VacanciesSearchResponse
+ 
+     // Запрос детальной информации о вакансии
+     @Headers(HEADER_AUTH, HEADER_USER)
+Index: app/src/main/java/ru/practicum/android/diploma/data/network/RetrofitNetworkClient.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.data.network\r\n\r\nimport android.content.Context\r\nimport android.net.ConnectivityManager\r\nimport android.net.NetworkCapabilities\r\nimport retrofit2.Retrofit\r\nimport retrofit2.converter.gson.GsonConverterFactory\r\nimport ru.practicum.android.diploma.data.NetworkClient\r\nimport ru.practicum.android.diploma.data.Response\r\nimport ru.practicum.android.diploma.data.ResponseCodes\r\nimport ru.practicum.android.diploma.data.vacancydetail.dto.DetailRequest\r\nimport ru.practicum.android.diploma.data.vacancylist.dto.VacanciesSearchRequest\r\n\r\nclass RetrofitNetworkClient(\r\n    private val context: Context,\r\n    private val jobVacancySearchApi: JobVacancySearchApi\r\n) : NetworkClient {\r\n\r\n    override suspend fun doRequest(dto: Any): Response {\r\n        if (!isConnected()) {\r\n            return Response().apply { resultCode = ResponseCodes.NO_CONNECTION }\r\n        }\r\n\r\n        return when (dto) {\r\n            is VacanciesSearchRequest ->\r\n                try {\r\n                    val response = jobVacancySearchApi.getVacancyDetail(dto.queryMap)\r\n                    response.apply { resultCode = ResponseCodes.SUCCESS }\r\n                } catch (e: Throwable) {\r\n                Response().apply { resultCode = ResponseCodes.ERROR }\r\n            }\r\n\r\n            is DetailRequest ->\r\n                try {\r\n                    val response = jobVacancySearchApi.getVacancyDetail(dto.id)\r\n                    response.apply { resultCode = ResponseCodes.SUCCESS }\r\n                } catch (e: Throwable) {\r\n                Response().apply { resultCode = ResponseCodes.ERROR }\r\n            }\r\n\r\n            else ->\r\n                Response().apply { resultCode = ResponseCodes.ERROR }\r\n        }\r\n    }\r\n\r\n    private fun isConnected(): Boolean {\r\n        val connectivityManager = context.getSystemService(\r\n            Context.CONNECTIVITY_SERVICE\r\n        ) as ConnectivityManager\r\n        val capabilities =\r\n            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)\r\n        if (capabilities != null) {\r\n            when {\r\n                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> return true\r\n                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> return true\r\n                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> return true\r\n            }\r\n        }\r\n        return false\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/data/network/RetrofitNetworkClient.kt b/app/src/main/java/ru/practicum/android/diploma/data/network/RetrofitNetworkClient.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/data/network/RetrofitNetworkClient.kt	(revision ad1f5ce332711c11740ffa7d6ab9b943cd0a80d8)
++++ b/app/src/main/java/ru/practicum/android/diploma/data/network/RetrofitNetworkClient.kt	(date 1708939655684)
+@@ -24,7 +24,7 @@
+         return when (dto) {
+             is VacanciesSearchRequest ->
+                 try {
+-                    val response = jobVacancySearchApi.getVacancyDetail(dto.queryMap)
++                    val response = jobVacancySearchApi.getVacancyList(dto.queryMap)
+                     response.apply { resultCode = ResponseCodes.SUCCESS }
+                 } catch (e: Throwable) {
+                 Response().apply { resultCode = ResponseCodes.ERROR }
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_19_02_2024_16_33__Changes_.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_19_02_2024_16_33__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_19_02_2024_16_33__Changes_.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_19_02_2024_16_33__Changes_.xml	(revision ad1f5ce332711c11740ffa7d6ab9b943cd0a80d8)
++++ /dev/null	(revision ad1f5ce332711c11740ffa7d6ab9b943cd0a80d8)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_19_02_2024_16_33_[Changes]" date="1708349628044" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_02_2024_16_33_[Changes]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 19.02.2024 16:33 [Changes]" />
+-</changelist>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_19_02_2024_16_33_[Changes]/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_19_02_2024_16_33_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_19_02_2024_16_33_[Changes]/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_19_02_2024_16_33_[Changes]/shelved.patch	(revision ad1f5ce332711c11740ffa7d6ab9b943cd0a80d8)
++++ /dev/null	(revision ad1f5ce332711c11740ffa7d6ab9b943cd0a80d8)
+@@ -1,24 +0,0 @@
+-Index: app/src/main/res/menu/navigation_items.xml
+-===================================================================
+-diff --git a/app/src/main/res/menu/navigation_items.xml b/app/src/main/res/menu/navigation_items.xml
+-deleted file mode 100644
+---- a/app/src/main/res/menu/navigation_items.xml	(revision e7262675d67db0d443453f8bddb782e4b37af089)
+-+++ /dev/null	(revision e7262675d67db0d443453f8bddb782e4b37af089)
+-@@ -1,17 +0,0 @@
+--<?xml version="1.0" encoding="utf-8"?>
+--<menu xmlns:android="http://schemas.android.com/apk/res/android">
+--    <item
+--        android:id="@+id/mainFragment"
+--        android:icon="@drawable/ic_bottom_main"
+--        android:title="@string/activity_bottom_search" />
+--
+--    <item
+--        android:id="@+id/favoritesFragment"
+--        android:icon="@drawable/ic_bottom_favorite"
+--        android:title="@string/activity_bottom_favorite" />
+--
+--    <item
+--        android:id="@+id/countryFragment"
+--        android:icon="@drawable/ic_bottom_team"
+--        android:title="@string/activity_bottom_team" />
+--</menu>
+Index: .idea/shelf/Uncommitted_changes_before_Checkout_at_20_02_2024_10_22__Changes_.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Checkout_at_20_02_2024_10_22__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Checkout_at_20_02_2024_10_22__Changes_.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Checkout_at_20_02_2024_10_22__Changes_.xml	(revision ad1f5ce332711c11740ffa7d6ab9b943cd0a80d8)
++++ /dev/null	(revision ad1f5ce332711c11740ffa7d6ab9b943cd0a80d8)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Checkout_at_20_02_2024_10_22_[Changes]" date="1708413781246" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20_02_2024_10_22_[Changes]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 20.02.2024 10:22 [Changes]" />
+-</changelist>
+\ No newline at end of file
+Index: app/src/main/java/ru/practicum/android/diploma/ui/main/viewmodel/MainViewModel.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.ui.main.viewmodel\r\n\r\nimport android.util.Log\r\nimport androidx.lifecycle.ViewModel\r\nimport androidx.lifecycle.viewModelScope\r\nimport kotlinx.coroutines.delay\r\nimport kotlinx.coroutines.flow.MutableStateFlow\r\nimport kotlinx.coroutines.flow.asStateFlow\r\nimport kotlinx.coroutines.flow.update\r\nimport kotlinx.coroutines.launch\r\nimport ru.practicum.android.diploma.data.vacancylist.dto.VacanciesSearchRequest\r\nimport ru.practicum.android.diploma.domain.api.Resource\r\nimport ru.practicum.android.diploma.domain.api.SearchRepository\r\nimport ru.practicum.android.diploma.domain.models.main.Vacancy\r\nimport ru.practicum.android.diploma.ui.main.MainViewState\r\nimport ru.practicum.android.diploma.ui.main.SearchState\r\n\r\nclass MainViewModel(\r\n    val repository: SearchRepository\r\n) : ViewModel() {\r\n    private val state = MutableStateFlow(MainViewState())\r\n    fun observeState() = state.asStateFlow()\r\n\r\n    fun onSearch(text: String) {\r\n        if (text.isEmpty()) {\r\n            state.update { it.copy(state = null) }\r\n            return\r\n        }\r\n        state.update { it.copy(state = SearchState.Loading) }\r\n\r\n        viewModelScope.launch {\r\n            val vacancies = try {\r\n                 repository.getVacancyByQuery(text)\r\n            } catch (e: Exception) {\r\n                state.update { it.copy(state = SearchState.Error) }\r\n                return@launch\r\n            }\r\n\r\n            if (vacancies.isEmpty()) {\r\n                state.update { it.copy(state = SearchState.Empty) }\r\n            } else {\r\n                state.update { it.copy(state = SearchState.Content(vacancies)) }\r\n            }\r\n        }\r\n    }\r\n\r\n    var vacancyList: List<Vacancy>? = ArrayList()\r\n\r\n    private fun searchRequest(text: String) {\r\n        if (text.isNotEmpty()) {\r\n            state.update { it.copy(state = SearchState.Loading) }\r\n\r\n            val hm = HashMap<String, String>()\r\n            hm.put(text, text)\r\n\r\n            viewModelScope.launch {\r\n                repository.makeRequest(VacanciesSearchRequest(text))\r\n                    .collect { vacancies ->\r\n                        when (vacancies) {\r\n                            is Resource.Error -> {\r\n                                state.update { it.copy(state = SearchState.Error) }\r\n                                Log.d(\"SearchState\", \"Error\")\r\n                            }\r\n                            is Resource.Success -> {\r\n                                vacancyList = vacancies.data\r\n                                if (vacancyList?.isEmpty() == true) {\r\n                                    state.update { it.copy(state = SearchState.Empty) }\r\n                                    Log.d(\"SearchState\", \"Empty\")\r\n                                } else {\r\n                                    state.update { it.copy(state = SearchState.Content(vacancyList)) }\r\n                                    Log.d(\"SearchState\", \"Data\")\r\n                                }\r\n                            }\r\n                        }\r\n                    }\r\n            }\r\n        }\r\n    }\r\n\r\n    private fun processResult(foundVacancy: List<Vacancy>?) {\r\n        val vacancy = mutableListOf<Vacancy>()\r\n\r\n        if (foundVacancy != null) {\r\n            vacancy.addAll(foundVacancy)\r\n        }\r\n\r\n        when {\r\n            vacancy.isEmpty() -> {\r\n                state.update { it.copy(state = SearchState.Empty) }\r\n            }\r\n            else -> {\r\n                state.update { it.copy(state = SearchState.Content(vacancyList)) }\r\n            }\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/ui/main/viewmodel/MainViewModel.kt b/app/src/main/java/ru/practicum/android/diploma/ui/main/viewmodel/MainViewModel.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/ui/main/viewmodel/MainViewModel.kt	(revision ad1f5ce332711c11740ffa7d6ab9b943cd0a80d8)
++++ b/app/src/main/java/ru/practicum/android/diploma/ui/main/viewmodel/MainViewModel.kt	(date 1708940241326)
+@@ -51,10 +51,10 @@
+             state.update { it.copy(state = SearchState.Loading) }
+ 
+             val hm = HashMap<String, String>()
+-            hm.put(text, text)
++            hm[text] = text
+ 
+             viewModelScope.launch {
+-                repository.makeRequest(VacanciesSearchRequest(text))
++                repository.makeRequest(VacanciesSearchRequest(hm))
+                     .collect { vacancies ->
+                         when (vacancies) {
+                             is Resource.Error -> {
+diff --git a/.idea/shelf/Uncommitted_changes_before_Checkout_at_20_02_2024_10_22_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Checkout_at_20_02_2024_10_22_[Changes]/shelved.patch
+deleted file mode 100644

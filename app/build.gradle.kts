@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("ru.practicum.android.diploma.plugins.developproperties")
+    kotlin("kapt")
 }
 
 android {
@@ -57,7 +58,7 @@ dependencies {
     implementation(libs.glide.material)
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.navigation.ui.ktx)
-    annotationProcessor(libs.glide.annotationProcessor)
+    kapt(libs.glide.annotationProcessor)
 
     // Koin
     implementation(libs.koin)
@@ -65,10 +66,12 @@ dependencies {
     // Room
     implementation(libs.room)
     implementation(libs.room.ktx)
+    kapt(libs.room.kapt)
 
     // UI layer libraries
     implementation(libs.ui.material)
     implementation(libs.ui.constraintLayout)
+    implementation("androidx.paging:paging-runtime:3.2.1")
 
     // region Unit tests
     testImplementation(libs.unitTests.junit)
