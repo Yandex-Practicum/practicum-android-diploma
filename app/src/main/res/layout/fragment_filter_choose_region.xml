@@ -4,23 +4,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
+    <ImageButton
+        android:id="@+id/arrowBackButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/margin_20"
+        android:layout_marginStart="@dimen/margin_16"
+        android:background="@android:color/transparent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/back_arrow"
-        app:title="@string/choosing_region" />
+        android:src="@drawable/arrow_back_24px" />
+
+    <TextView
+        android:id="@+id/toolbarText"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/toolbar_height"
+        style="@style/TextStyleToolbar"
+        android:layout_marginStart="@dimen/margin_16"
+        android:gravity="center_vertical"
+        android:text="@string/choosing_region"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/arrowBackButton"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/choosing_region"
         style="@style/fragment_filters_textInput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginEnd="@dimen/margin_16"
         app:boxBackgroundColor="#00000000"
         app:boxBackgroundMode="filled"
         app:boxStrokeWidth="0dp"
@@ -32,7 +45,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarText"
         app:placeholderText="@string/enter_region"
         >
 
@@ -77,7 +90,7 @@
         style="@style/ScreenTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/margin_16"
         android:text="@string/no_region"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
