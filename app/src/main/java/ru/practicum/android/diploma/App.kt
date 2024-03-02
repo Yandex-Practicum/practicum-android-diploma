@@ -8,8 +8,8 @@ import ru.practicum.android.diploma.di.FavouriteModule
 import ru.practicum.android.diploma.di.FavouriteViewModule
 import ru.practicum.android.diploma.di.FiltersModules
 import ru.practicum.android.diploma.di.SearchModules
-import ru.practicum.android.diploma.di.VacancyModule
 import ru.practicum.android.diploma.di.industriesModule
+import ru.practicum.android.diploma.di.VacancyModule
 
 class App : Application() {
 
@@ -24,7 +24,7 @@ class App : Application() {
                 FavouriteViewModule,
                 SearchModules,
                 VacancyModule,
-                industriesModule
+                industriesModule,
                 FiltersModules
             )
         }

@@ -26,13 +26,7 @@ class FilterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.linearLayoutCompat2.setOnClickListener {
-            findNavController().navigate(R.id.chooseIndustryFragment)
-        }
-        parentFragmentManager.setFragmentResultListener(ChooseIndustryFragment.REQUEST_KEY, viewLifecycleOwner) { _, bundle ->
-            val industry = bundle.getString(ChooseIndustryFragment.INDUSTRY_KEY)
-            binding.department1.setText(industry)
-        }
+
     }
 
     override fun onDestroyView() {

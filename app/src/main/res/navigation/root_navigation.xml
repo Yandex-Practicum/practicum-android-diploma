@@ -69,8 +69,8 @@
     </fragment>
     <fragment
         android:id="@+id/chooseIndustryFragment"
-        android:name="ru.practicum.android.diploma.ui.filters.FiltersIndustryFragment"
-        android:label="FilterIndustryFragment" />
+        android:name="ru.practicum.android.diploma.ui.filter.ChooseIndustryFragment"
+        android:label="ChooseIndustryFragment" />
     <fragment
         android:id="@+id/filterPlaceOfWorkFragment"
         android:name="ru.practicum.android.diploma.ui.filters.FiltersPlaceOfWorkFragment"
