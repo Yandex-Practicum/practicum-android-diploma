@@ -8,6 +8,7 @@ sealed class SearchState {
     }
 
     object NoInternet : SearchState()
+    object ServerError :SearchState()
     object FailedToGetList : SearchState()
     object Start : SearchState()
 }

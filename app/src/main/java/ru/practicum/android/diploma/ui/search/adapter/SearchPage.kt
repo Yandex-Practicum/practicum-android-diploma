@@ -2,6 +2,8 @@ package ru.practicum.android.diploma.ui.search.adapter
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import ru.practicum.android.diploma.data.Constant.NO_CONNECTIVITY_MESSAGE
+import ru.practicum.android.diploma.data.Constant.SERVER_ERROR
 import ru.practicum.android.diploma.data.Constant.STATIC_PAGE_SIZE
 import ru.practicum.android.diploma.data.Constant.SUCCESS_RESULT_CODE
 import ru.practicum.android.diploma.data.search.network.Resource
@@ -42,7 +44,13 @@ class SearchPage(
                 LoadResult.Error(ConnectException())
             }
         } else {
-            LoadResult.Error(NullPointerException())
+            when (response.code) {
+                SERVER_ERROR -> LoadResult.Error(ServerError())
+                NO_CONNECTIVITY_MESSAGE -> LoadResult.Error(ConnectException())
+                else -> LoadResult.Error(NullPointerException())
+            }
         }
     }
 }
+
+class ServerError : Exception()

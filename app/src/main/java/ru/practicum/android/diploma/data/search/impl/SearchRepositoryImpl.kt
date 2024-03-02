@@ -51,6 +51,7 @@ class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRep
 
     override suspend fun getDetailVacancy(id: String): Flow<Resource<DetailVacancy>> = flow {
         val response = networkClient.doRequest(DetailVacancyRequest(id))
+        networkClient.doRequest(DetailVacancyRequest(id))
         when (response.resultCode) {
             Constant.NO_CONNECTIVITY_MESSAGE -> {
                 emit(Resource(code = Constant.NO_CONNECTIVITY_MESSAGE))

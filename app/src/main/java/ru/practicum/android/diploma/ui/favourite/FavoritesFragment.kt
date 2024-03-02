@@ -49,8 +49,7 @@ class FavoritesFragment : Fragment() {
             val bundle = Bundle()
             Log.d("bundle", "$bundle")
             bundle.putParcelable("vacancyId", it)
-            TODO("Navigation to details of vacancy")
-            // navController.navigate(R.id.action_favoritesFragment_to_vacancyDetailsFragment, bundle)
+            navController.navigate(R.id.action_favouriteFragment_to_vacancyFragment, bundle)
         }
         binding.rvVacancies.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         binding.rvVacancies.adapter = vacanciesAdapter

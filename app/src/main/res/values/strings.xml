@@ -71,4 +71,9 @@
     <string name="salary_to">до %1$s %2$s</string>
     <string name="salary_from_to">от %1$s до %2$s %3$s</string>
     <string name="similar_vacancies">Похожие вакансии</string>
+    <string name="text_plain">text/plain</string>
+    <string name="tel">tel:%1$s</string>
+    <string name="no_applications_found">На Вашем устройстве нет подходящего приложения</string>
+    <string name="something_went_wrong">Что-то пошло не так…</string>
+    <string name="uri_mailto">mailto:</string>
 </resources>
