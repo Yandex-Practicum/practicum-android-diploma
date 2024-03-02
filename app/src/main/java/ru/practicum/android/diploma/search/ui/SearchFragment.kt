@@ -78,6 +78,10 @@ class SearchFragment : Fragment() {
         binding.vacancyRecycler.adapter = vacancyAdapter
         binding.vacancyRecycler.layoutManager = LinearLayoutManager(requireContext())
         setPaginationListener()
+        binding.searchToolbar.setOnMenuItemClickListener {
+            findNavController().navigate(R.id.action_searchFragment_to_filterFragment)
+            true
+        }
     }
 
     private fun setPaginationListener() {
