@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -15,8 +16,10 @@ class ChooseIndustryFragment: Fragment() {
     private var _binding: FragmentFilterChooseIndustryBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModel<ChooseIndustryViewModel>()
-    private var adapter = IndustriesAdapter {
-        binding.textView2.isVisible = it != -1
+    var currentIndustryName : String = ""
+    private var adapter = IndustriesAdapter { checkedId, industryName ->
+        binding.textView2.isVisible = checkedId != -1
+        currentIndustryName = industryName
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentFilterChooseIndustryBinding.inflate(inflater, container, false)
@@ -31,6 +34,10 @@ class ChooseIndustryFragment: Fragment() {
             viewModel.filterIndustries(text.toString())
         }
         binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+        binding.textView2.setOnClickListener {
+            parentFragmentManager.setFragmentResult(REQUEST_KEY, bundleOf(INDUSTRY_KEY to currentIndustryName))
             findNavController().popBackStack()
         }
         viewModel.industriesState.observe(viewLifecycleOwner) { state ->
@@ -48,5 +55,9 @@ class ChooseIndustryFragment: Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+    companion object {
+        const val REQUEST_KEY = "KEY"
+        const val INDUSTRY_KEY = "INDUSTRY"
     }
 }

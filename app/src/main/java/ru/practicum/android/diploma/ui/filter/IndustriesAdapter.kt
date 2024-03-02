@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.data.response.IndustryResponse
 import ru.practicum.android.diploma.databinding.ListOfIndustryBinding
 import ru.practicum.android.diploma.domain.models.Industry
 
-class IndustriesAdapter(val onCLick: (Int) -> Unit): RecyclerView.Adapter<IndustryViewHolder>() {
+class IndustriesAdapter(val onCLick: (Int, String) -> Unit): RecyclerView.Adapter<IndustryViewHolder>() {
     var data: List<Industry> = emptyList()
     var checkedRadioButtonId: Int = -1
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IndustryViewHolder {
@@ -26,12 +26,12 @@ class IndustriesAdapter(val onCLick: (Int) -> Unit): RecyclerView.Adapter<Indust
         holder.binding.radioButton.isChecked = checkedRadioButtonId == position
         holder.binding.root.setOnClickListener {
             checkedRadioButtonId = position
-            onCLick.invoke(checkedRadioButtonId)
+            onCLick.invoke(checkedRadioButtonId, data[checkedRadioButtonId].name)
             notifyDataSetChanged()
         }
         holder.binding.radioButton.setOnClickListener {
             checkedRadioButtonId = position
-            onCLick.invoke(checkedRadioButtonId)
+            onCLick.invoke(checkedRadioButtonId, data[checkedRadioButtonId].name)
             notifyDataSetChanged()
         }
     }
