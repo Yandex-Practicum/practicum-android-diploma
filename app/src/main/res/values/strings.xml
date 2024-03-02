@@ -23,7 +23,7 @@
     <string name="phone">Телефон</string>
     <string name="comment">Комментарий</string>
     <string name="similar_vacancy">Похожие вакансии</string>
-    <string name="comma">, </string>
+    <string name="comma">, \u0020</string>
     <string name="server_error">Ошибка сервера</string>
     <string name="search_request">Введите запрос</string>
     <string name="filter_settings">Настройки фильтрации</string>

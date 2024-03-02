@@ -25,7 +25,7 @@
             android:padding="@dimen/margin_1"
             app:strokeColor="@color/YP_Light_Gray"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_launcher_foreground"
+            android:src="@drawable/ic_vacancy_placeholder"
             app:shapeAppearanceOverlay="@style/rounded_12"
             android:background="@color/bottom_nav_back"/>
     </com.google.android.material.card.MaterialCardView>

@@ -1,0 +1,32 @@
+Index: .idea/deploymentTargetDropDown.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"deploymentTargetDropDown\">\r\n    <value>\r\n      <entry key=\"app\">\r\n        <State>\r\n          <runningDeviceTargetSelectedWithDropDown>\r\n            <Target>\r\n              <type value=\"RUNNING_DEVICE_TARGET\" />\r\n              <deviceKey>\r\n                <Key>\r\n                  <type value=\"VIRTUAL_DEVICE_PATH\" />\r\n                  <value value=\"C:\\Users\\mark6\\.android\\avd\\Pixel_2_API_31_1.avd\" />\r\n                </Key>\r\n              </deviceKey>\r\n            </Target>\r\n          </runningDeviceTargetSelectedWithDropDown>\r\n          <timeTargetWasSelectedWithDropDown value=\"2024-02-20T19:13:10.055111Z\" />\r\n        </State>\r\n      </entry>\r\n    </value>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/deploymentTargetDropDown.xml b/.idea/deploymentTargetDropDown.xml
+--- a/.idea/deploymentTargetDropDown.xml	(revision df3df8428859a5336aab42b9207995b128ebf7c7)
++++ b/.idea/deploymentTargetDropDown.xml	(date 1708936352951)
+@@ -3,20 +3,7 @@
+   <component name="deploymentTargetDropDown">
+     <value>
+       <entry key="app">
+-        <State>
+-          <runningDeviceTargetSelectedWithDropDown>
+-            <Target>
+-              <type value="RUNNING_DEVICE_TARGET" />
+-              <deviceKey>
+-                <Key>
+-                  <type value="VIRTUAL_DEVICE_PATH" />
+-                  <value value="C:\Users\mark6\.android\avd\Pixel_2_API_31_1.avd" />
+-                </Key>
+-              </deviceKey>
+-            </Target>
+-          </runningDeviceTargetSelectedWithDropDown>
+-          <timeTargetWasSelectedWithDropDown value="2024-02-20T19:13:10.055111Z" />
+-        </State>
++        <State />
+       </entry>
+     </value>
+   </component>

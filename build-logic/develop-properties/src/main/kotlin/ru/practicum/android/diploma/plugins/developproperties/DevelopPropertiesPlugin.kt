@@ -4,7 +4,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.create
 import java.io.StringReader
-import java.util.*
+import java.util.Properties
 
 /**
  * Хранилище значений, прочитанных из файла develop.properties
@@ -13,7 +13,7 @@ import java.util.*
  */
 @Suppress("detekt.UnnecessaryAbstractClass")
 abstract class DevelopPropertiesPluginExtension {
-    var hhAccessToken = ""
+    var hhAccessToken = "APPLRKAEGP85JKN46QO2879BNG9GEJD0QARKN5OKGAOUCEEHAFVSDUN9ND5FOJT1"
 }
 
 class DevelopPropertiesPlugin : Plugin<Project> {

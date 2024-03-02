@@ -9,6 +9,7 @@ data class VacanciesRemote (
 data class VacancyRemote(
     val id: String,
     val name: String,
+    val department: String,
     val salary: SalaryRemote,
     val address: AddressRemote,
     val employer: EmployerRemote
@@ -30,7 +31,7 @@ data class EmployerRemote(
 )
 
 data class LogoUrlRemote (
-    @SerializedName("90") val small: String,
-    @SerializedName("240") val medium: String,
-    val original: String
+    @SerializedName("90") val small: String?,
+    @SerializedName("240") val medium: String?,
+    val original: String?
 )

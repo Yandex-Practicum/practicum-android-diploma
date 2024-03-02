@@ -1,60 +1,109 @@
 package ru.practicum.android.diploma.ui.favorites
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.databinding.FragmentFavoritesBinding
+import ru.practicum.android.diploma.domain.models.detail.VacancyDetail
+import ru.practicum.android.diploma.presentation.favorite.FavoriteAdapter
+import ru.practicum.android.diploma.presentation.favorite.FavoriteVacancyState
+import ru.practicum.android.diploma.ui.favorites.viewmodel.FavoriteViewModel
+import ru.practicum.android.diploma.ui.vacancydetail.VacancyDetailFragment
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [FavoritesFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class FavoritesFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentFavoritesBinding? = null
+    private val binding get() = _binding!!
+
+    private val viewModel by viewModel<FavoriteViewModel>()
+    private var adapter: FavoriteAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorites, container, false)
+    ): View {
+        _binding = FragmentFavoritesBinding.inflate(layoutInflater)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        adapter = FavoriteAdapter(requireContext())
+        binding.favoriteVacancyRecycler.adapter = adapter
+        binding.favoriteVacancyRecycler.layoutManager = LinearLayoutManager(requireContext())
+
+        adapter!!.itemClickListener = { _, vacancy ->
+            findNavController().navigate(
+                R.id.action_favoritesFragment_to_vacanciesFragment,
+                bundleOf("vacancy_id" to vacancy.id)
+            )
+            Log.d("StateFavorite", "State = ${vacancy.isFavorite}")
+        }
+
+        viewModel.fillData()
+
+        viewModel.vacancyState().observe(viewLifecycleOwner) {
+            render(it)
+        }
+    }
+
+    private fun render(state: FavoriteVacancyState) {
+        when (state) {
+            is FavoriteVacancyState.Error -> showNothing()
+            is FavoriteVacancyState.EmptyList -> showEmpty()
+            is FavoriteVacancyState.Loading -> showLoading()
+            is FavoriteVacancyState.Content -> showContent(state.vacancy)
+        }
+    }
+
+    private fun showEmpty() {
+        binding.favoriteVacancyRecycler.visibility = View.GONE
+        binding.favoriteEmptyList.visibility = View.VISIBLE
+        binding.favoriteNothingFound.visibility = View.GONE
+        binding.favoriteVacancyProgressBar.visibility = View.GONE
+    }
+
+    private fun showLoading() {
+        binding.favoriteVacancyRecycler.visibility = View.GONE
+        binding.favoriteEmptyList.visibility = View.GONE
+        binding.favoriteNothingFound.visibility = View.GONE
+        binding.favoriteVacancyProgressBar.visibility = View.VISIBLE
+    }
+
+    private fun showNothing() {
+        binding.favoriteVacancyRecycler.visibility = View.GONE
+        binding.favoriteEmptyList.visibility = View.GONE
+        binding.favoriteNothingFound.visibility = View.VISIBLE
+        binding.favoriteVacancyProgressBar.visibility = View.GONE
+    }
+
+    private fun showContent(vacancy: List<VacancyDetail>) {
+        binding.favoriteVacancyRecycler.visibility = View.VISIBLE
+        binding.favoriteEmptyList.visibility = View.GONE
+        binding.favoriteNothingFound.visibility = View.GONE
+        binding.favoriteVacancyProgressBar.visibility = View.GONE
+
+        adapter?.vacancyList?.clear()
+        adapter?.vacancyList?.addAll(vacancy)
+        adapter?.notifyDataSetChanged()
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FavoritesFragment.
-         */
-        // TODO: Rename and change types and number of parameters
+
+        private const val SAVE_VACANCY = "SAVE_VACANCY"
+
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FavoritesFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        fun newInstance(vacancy: VacancyDetail): Bundle {
+            return bundleOf(SAVE_VACANCY to vacancy)
+        }
     }
 }

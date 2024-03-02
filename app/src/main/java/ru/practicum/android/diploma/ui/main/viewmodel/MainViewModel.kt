@@ -1,96 +1,77 @@
 package ru.practicum.android.diploma.ui.main.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.delay
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.data.vacancylist.dto.VacanciesSearchRequest
-import ru.practicum.android.diploma.domain.api.Resource
 import ru.practicum.android.diploma.domain.api.SearchRepository
-import ru.practicum.android.diploma.domain.models.main.Vacancy
+import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.presentation.main.VacanciesPagingSource
 import ru.practicum.android.diploma.ui.main.MainViewState
 import ru.practicum.android.diploma.ui.main.SearchState
+import ru.practicum.android.diploma.util.Resource
 
 class MainViewModel(
-    val repository: SearchRepository
+    private val repository: SearchRepository
 ) : ViewModel() {
+
     private val state = MutableStateFlow(MainViewState())
     fun observeState() = state.asStateFlow()
+    private var vacancyJob: Job? = null
+    var flow: Flow<PagingData<Vacancy>> = emptyFlow()
+        private set
+
+    private fun subscribeVacanciesPagination(query: String) {
+        vacancyJob?.cancel()
+        flow = Pager(PagingConfig(pageSize = 20)) {
+            VacanciesPagingSource(repository, query)
+        }.flow.cachedIn(viewModelScope)
+        state.update { it.copy(state = SearchState.Content(emptyList())) }
+    }
 
     fun onSearch(text: String) {
         if (text.isEmpty()) {
             state.update { it.copy(state = null) }
             return
         }
+
         state.update { it.copy(state = SearchState.Loading) }
-
         viewModelScope.launch {
-            val vacancies = try {
-                 repository.getVacancyByQuery(text)
-            } catch (e: Exception) {
-                state.update { it.copy(state = SearchState.Error) }
-                return@launch
-            }
-
-            if (vacancies.isEmpty()) {
-                state.update { it.copy(state = SearchState.Empty) }
-            } else {
-                state.update { it.copy(state = SearchState.Content(vacancies)) }
-            }
+            searchRequest(text)
         }
     }
-
-    var vacancyList: List<Vacancy>? = ArrayList()
 
     private fun searchRequest(text: String) {
         if (text.isNotEmpty()) {
-            state.update { it.copy(state = SearchState.Loading) }
-
-            val hm = HashMap<String, String>()
-            hm.put(text, text)
-
             viewModelScope.launch {
-                repository.makeRequest(VacanciesSearchRequest(text))
-                    .collect { vacancies ->
-                        when (vacancies) {
-                            is Resource.Error -> {
-                                state.update { it.copy(state = SearchState.Error) }
-                                Log.d("SearchState", "Error")
-                            }
-                            is Resource.Success -> {
-                                vacancyList = vacancies.data
-                                if (vacancyList?.isEmpty() == true) {
-                                    state.update { it.copy(state = SearchState.Empty) }
-                                    Log.d("SearchState", "Empty")
-                                } else {
-                                    state.update { it.copy(state = SearchState.Content(vacancyList)) }
-                                    Log.d("SearchState", "Data")
-                                }
-                            }
+                state.update { it.copy(state = SearchState.Loading) }
+                val result = repository.vacanciesPagination(query = text, nextPage = 1)
+
+                if (result is Resource.Success) {
+                    val founded = result.data?.foundedVacancies?.toString()?.let {
+                        if (it != "0") {
+                            "Найдено $it вакансий"
+                        } else {
+                            "Таких вакансий нет"
                         }
-                    }
-            }
-        }
-    }
+                    } ?: "Таких вакансий нет"
 
-    private fun processResult(foundVacancy: List<Vacancy>?) {
-        val vacancy = mutableListOf<Vacancy>()
+                    state.update { it.copy(foundVacancies = founded) }
+                }
 
-        if (foundVacancy != null) {
-            vacancy.addAll(foundVacancy)
-        }
-
-        when {
-            vacancy.isEmpty() -> {
-                state.update { it.copy(state = SearchState.Empty) }
+                subscribeVacanciesPagination(text)
             }
-            else -> {
-                state.update { it.copy(state = SearchState.Content(vacancyList)) }
-            }
+        } else {
+            state.update { it.copy(state = SearchState.Empty) }
         }
     }
 }
