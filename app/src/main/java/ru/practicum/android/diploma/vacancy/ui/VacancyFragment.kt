@@ -66,7 +66,7 @@ class VacancyFragment : Fragment() {
             is VacancyScreenState.Loading -> showProgressBar()
             is VacancyScreenState.Error -> showError()
             is VacancyScreenState.Content -> {
-                setContent(vacancyScreenState.vacancy, viewModel.getFavouritesStatus())
+                setContent(vacancyScreenState.vacancy, vacancyScreenState.isFavourite)
                 showContent()
             }
         }

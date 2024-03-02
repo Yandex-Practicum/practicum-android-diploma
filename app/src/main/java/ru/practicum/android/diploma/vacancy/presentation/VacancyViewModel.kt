@@ -28,7 +28,6 @@ class VacancyViewModel(
 
     init {
         getDetailVacancyById(id)
-        setFavouritesStatus()
     }
 
     fun observeState(): LiveData<VacancyScreenState> = stateLiveData
@@ -40,8 +39,7 @@ class VacancyViewModel(
                 when (it) {
                     is Resource.Success -> {
                         vacancy = it.data!!
-                        renderState(VacancyScreenState.Content(it.data))
-
+                        checkInFavourites(vacancy!!)
                     }
 
                     is Resource.InternetError -> renderState(VacancyScreenState.Error)
@@ -67,16 +65,6 @@ class VacancyViewModel(
         stateLiveData.postValue(vacancyScreenState)
     }
 
-    fun getFavouritesStatus(): Boolean {
-        return isInFavourites
-    }
-
-    private fun setFavouritesStatus() {
-        viewModelScope.launch {
-            isInFavourites = addToFavouritesInteractor.checkVacancyInFavourites(id)
-        }
-    }
-
     fun setFavourites() {
         viewModelScope.launch {
             if (isInFavourites) {
@@ -86,6 +74,13 @@ class VacancyViewModel(
                 addToFavouritesInteractor.addToFavourites(vacancy!!)
                 isInFavourites = true
             }
+        }
+    }
+
+    private fun checkInFavourites(detailVacancy: DetailVacancy) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val isFavourite = addToFavouritesInteractor.checkVacancyInFavourites(id)
+            renderState(VacancyScreenState.Content(detailVacancy, isFavourite))
         }
     }
 }
