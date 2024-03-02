@@ -9,6 +9,9 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentPlaceSelectorBinding
+import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.COUNTRY_KEY
+import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.FILTER_RECEIVER_KEY
+import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.REGION_KEY
 
 class PlaceSelectorFragment : Fragment() {
 
@@ -29,12 +32,12 @@ class PlaceSelectorFragment : Fragment() {
         binding.country.setOnClickListener {
             findNavController().navigate(R.id.action_placeSelectorFragment_to_countryFragment)
         }
-        binding.country.setOnClickListener {
+        binding.region.setOnClickListener {
             findNavController().navigate(R.id.action_placeSelectorFragment_to_regionFragment)
         }
-        setFragmentResultListener("requestKey") { requestKey, bundle ->
-            val country = bundle.getString("countryKey")
-            val region = bundle.getString("regionKey")
+        setFragmentResultListener(FILTER_RECEIVER_KEY) { requestKey, bundle ->
+            val country = bundle.getString(COUNTRY_KEY)
+            val region = bundle.getString(REGION_KEY)
         }
     }
 }

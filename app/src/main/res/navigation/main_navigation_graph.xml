@@ -22,10 +22,18 @@
         android:label="FilterFragment">
         <action
             android:id="@+id/action_filterFragment_to_branchFragment"
-            app:destination="@id/branchFragment" />
+            app:destination="@id/branchFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_filterFragment_to_placeSelectorFragment"
-            app:destination="@id/placeSelectorFragment" />
+            app:destination="@id/placeSelectorFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -64,13 +72,25 @@
         android:label="PlaceSelectorFragment">
         <action
             android:id="@+id/action_placeSelectorFragment_to_regionFragment"
-            app:destination="@id/regionFragment" />
+            app:destination="@id/regionFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_placeSelectorFragment_to_countryFragment"
-            app:destination="@id/countryFragment" />
+            app:destination="@id/countryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_placeSelectorFragment_to_filterFragment"
-            app:destination="@id/filterFragment" />
+            app:destination="@id/filterFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/branchFragment"
@@ -78,7 +98,11 @@
         android:label="BranchFragment">
         <action
             android:id="@+id/action_branchFragment_to_filterFragment"
-            app:destination="@id/filterFragment" />
+            app:destination="@id/filterFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/countryFragment"
@@ -86,7 +110,11 @@
         android:label="CountryFragment">
         <action
             android:id="@+id/action_countryFragment_to_placeSelectorFragment"
-            app:destination="@id/placeSelectorFragment" />
+            app:destination="@id/placeSelectorFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/regionFragment"
@@ -94,6 +122,10 @@
         android:label="RegionFragment">
         <action
             android:id="@+id/action_regionFragment_to_placeSelectorFragment"
-            app:destination="@id/placeSelectorFragment" />
+            app:destination="@id/placeSelectorFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 </navigation>

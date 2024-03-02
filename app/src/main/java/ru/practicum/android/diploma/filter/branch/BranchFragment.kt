@@ -5,7 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
+import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.databinding.FragmentBranchBinding
+import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.BRANCH_KEY
+import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.FILTER_RECEIVER_KEY
 
 class BranchFragment : Fragment() {
 
@@ -23,11 +27,14 @@ class BranchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.filterToolbarBranch.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
         val branch = "Результат, который нужно отправить"
         val branchBundle = Bundle().apply {
-            putString("branchKey", branch)
+            putString(BRANCH_KEY, branch)
         }
-        parentFragmentManager.setFragmentResult("requestKey", branchBundle)
+       setFragmentResult(FILTER_RECEIVER_KEY, branchBundle)
     }
 }
 

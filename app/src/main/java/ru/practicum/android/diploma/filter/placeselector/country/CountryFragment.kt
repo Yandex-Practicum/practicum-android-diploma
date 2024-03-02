@@ -5,7 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
+import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.databinding.FragmentCountryBinding
+import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.COUNTRY_KEY
+import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.FILTER_RECEIVER_KEY
 
 class CountryFragment : Fragment() {
 
@@ -23,10 +27,13 @@ class CountryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.filterToolbarCountry.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
         val country = "Результат, который нужно отправить"
         val countryBundle = Bundle().apply {
-            putString("countryKey", country)
+            putString(COUNTRY_KEY, country)
         }
-        parentFragmentManager.setFragmentResult("requestKey", countryBundle)
+       setFragmentResult(FILTER_RECEIVER_KEY, countryBundle)
     }
 }
