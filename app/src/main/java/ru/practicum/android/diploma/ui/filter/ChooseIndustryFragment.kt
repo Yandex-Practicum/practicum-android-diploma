@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.FragmentFilterChooseIndustryBinding
@@ -12,7 +13,9 @@ class ChooseIndustryFragment: Fragment() {
     private var _binding: FragmentFilterChooseIndustryBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModel<ChooseIndustryViewModel>()
-    private var adapter = IndustriesAdapter()
+    private var adapter = IndustriesAdapter {
+        binding.textView2.isVisible = it != -1
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentFilterChooseIndustryBinding.inflate(inflater, container, false)
         return binding.root
@@ -27,7 +30,9 @@ class ChooseIndustryFragment: Fragment() {
                 IndustriesState.Error -> {}
                 IndustriesState.Initial -> Unit
                 IndustriesState.Loading -> {}
-                is IndustriesState.Success -> {adapter.updateList(state.data)}
+                is IndustriesState.Success -> {
+                    adapter.updateList(state.data)
+                }
             }
         }
     }
