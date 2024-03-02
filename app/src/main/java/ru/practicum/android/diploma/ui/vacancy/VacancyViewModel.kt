@@ -30,14 +30,18 @@ class VacancyViewModel(
 
     private val _vacancyState = MutableLiveData<VacancyState>()
     val vacancyState: LiveData<VacancyState> = _vacancyState
-    private var vacancy: DetailVacancy = DetailVacancy("","","","",false,"","", listOf(""),"","","","","","","",
-        listOf(""),"","",0,false,0,"","","","","","","")
+    private var vacancy: DetailVacancy = DetailVacancy(
+        "", "", "", "", false, listOf("").toString(), "", listOf(""), "", "", "", listOf("").toString(), "", "",
+        0.toString(),
+        listOf(), 0.toString(), "", 0, false, 0, "", "", "", "", "", "", ""
+    )
     private var likeIndicator = MutableLiveData<Boolean>()
     private var likeJob: Job? = null
 
     private fun renderState(state: VacancyState) {
         _vacancyState.postValue(state)
     }
+
     fun getVacancyDetail(id: String) {
         if (id.isNotEmpty()) {
             renderState(VacancyState.Loading)
@@ -67,24 +71,26 @@ class VacancyViewModel(
             if (
                 (vacancyState.value as VacancyState.Content)
                     .vacancy
-                    .isFavorite
-                    .isFavorite
+                    ?.isFavorite
+                    ?.isFavorite!!
             ) {
                 _vacancyState.postValue(
                     (_vacancyState.value as VacancyState.Content).apply {
-                        vacancy.isFavorite.isFavorite = false
+                        vacancy!!.isFavorite.isFavorite = false
                     }
                 )
                 viewModelScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
-                    deleteVacancyRepository.delete((vacancyState.value as VacancyState.Content)
-                        .vacancy.id)
+                    deleteVacancyRepository.delete(
+                        (vacancyState.value as VacancyState.Content)
+                            .vacancy!!.id
+                    )
                     Log.d("delete", "Deleted from fav")
                     //Log.d("deleted","${vacancyState.value as VacancyState.Content).vacancy.id}")
                 }
             } else {
                 _vacancyState.postValue(
                     (_vacancyState.value as VacancyState.Content).apply {
-                        vacancy.isFavorite.isFavorite = true
+                        vacancy!!.isFavorite.isFavorite = true
                     }
                 )
                 viewModelScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
@@ -119,9 +125,10 @@ class VacancyViewModel(
     fun shareVacancy() {
         if (vacancyState.value is VacancyState.Content) {
             val screenState = vacancyState.value as VacancyState.Content
-            externalNavigator.share("https://ekaterinburg.hh.ru/vacancy/${screenState.vacancy.id}")
+            externalNavigator.share("https://ekaterinburg.hh.ru/vacancy/${screenState.vacancy!!.id}")
         }
     }
+
 
     companion object {
         const val BUTTON_PRESSING_DELAY = 300L

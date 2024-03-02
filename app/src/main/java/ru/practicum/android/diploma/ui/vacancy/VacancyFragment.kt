@@ -1,5 +1,7 @@
 package ru.practicum.android.diploma.ui.vacancy
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,7 +9,6 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -19,6 +20,7 @@ import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
 import ru.practicum.android.diploma.domain.models.DetailVacancy
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.util.ConvertSalary
+
 
 class VacancyFragment : Fragment() {
 
@@ -53,16 +55,17 @@ class VacancyFragment : Fragment() {
             val vacancyId = it.id.toString()
             //findNavController().navigate(R.id.action_vacancyFragment_to_similarVacanciesFragment, SimilarVacanciesFragment.createArgs(vacancyId))
         }
-        if (vacancyId == null){
+        if (vacancyId == null) {
             onDestroy()
         }
+
         viewModel.onLikedCheck(vacancyId!!).observe(requireActivity()) { likeIndicator ->
             if (!likeIndicator) {
                 binding.buttonAddToFavorites.visibility = VISIBLE
                 binding.buttonDeleteFromFavorites.visibility = GONE
                 _vacancy?.isFavorite?.isFavorite = false
                 binding.buttonAddToFavorites.setOnClickListener {
-                    Log.d("FragmentVacancy","Press on like :)")
+                    Log.d("FragmentVacancy", "Press on like :)")
                     viewModel.clickOnButton()
                 }
             } else {
@@ -70,7 +73,7 @@ class VacancyFragment : Fragment() {
                 binding.buttonDeleteFromFavorites.visibility = VISIBLE
                 _vacancy?.isFavorite?.isFavorite = true
                 binding.buttonDeleteFromFavorites.setOnClickListener {
-                    Log.d("FragmentVacancy","Press on dislike :(")
+                    Log.d("FragmentVacancy", "Press on dislike :(")
                     viewModel.clickOnButton()
                 }
             }
@@ -80,7 +83,7 @@ class VacancyFragment : Fragment() {
         }
     }
 
-    private fun reRender(){
+    private fun reRender() {
         viewModel.vacancyState.observe(viewLifecycleOwner) { state ->
             render(state)
         }
@@ -138,25 +141,17 @@ class VacancyFragment : Fragment() {
 
     fun createContacts(vacancy: DetailVacancy) {
         with(binding) {
-            if (
-                vacancy.contactsName.isNullOrEmpty() &&
-                vacancy.contactsEmail.isNullOrEmpty() &&
-                vacancy.contactsPhones.isNullOrEmpty()
-            ) {
-                contactPersonData.visibility = GONE
-                contactPersonEmailData.visibility = GONE
-                contactPersonPhoneData.visibility = GONE
-                contactInformation.visibility = GONE
-                contactPerson.visibility = GONE
-                contactInformation.visibility = GONE
-                contactPersonEmail.visibility = GONE
-                contactPersonPhone.visibility = GONE
-            }
             if (vacancy.contactsName != null) {
                 contactPersonData.text = vacancy.contactsName
+            } else {
+                contactPerson.visibility = GONE
+                contactPersonData.visibility = GONE
             }
             if (vacancy.contactsEmail != null) {
                 contactPersonEmailData.text = vacancy.contactsEmail
+            } else {
+                contactPersonEmail.visibility = GONE
+                contactPersonEmailData.visibility = GONE
             }
             if (vacancy.contactsPhones != null) {
                 var phones = ""
@@ -164,6 +159,17 @@ class VacancyFragment : Fragment() {
                     phones += " ${phone}\n"
                 }
                 contactPersonPhoneData.text = phones
+                contactPersonPhoneData.setOnClickListener {
+                    val callIntent = Intent(Intent.ACTION_CALL)
+                    callIntent.setData(Uri.parse(phones))
+                    startActivity(callIntent)
+                }
+            } else {
+                contactPersonPhoneData.visibility = GONE
+                contactPersonPhone.visibility = GONE
+            }
+            if (vacancy.contactsName.isNullOrEmpty() and vacancy.contactsEmail.isNullOrEmpty() and vacancy.contactsPhones.isNullOrEmpty()) {
+                contactInformation.visibility = GONE
             }
         }
     }
@@ -186,17 +192,19 @@ class VacancyFragment : Fragment() {
                 var skills = ""
                 keySkills.forEach { skill ->
                     if (!(skill.isNullOrEmpty() || skill == "")) {
-                       skills += "• ${skill}\n"
+                        skills += "• ${skill}\n"
                     }
                 }
                 keySkillsRecyclerView.text = skills
             }
         }
     }
+
     private fun loading() {
         binding.progressBar.visibility = VISIBLE
         binding.fragmentNotifications.visibility = GONE
     }
+
     private fun content(data: DetailVacancy) {
         binding.progressBar.visibility = GONE
         initViews(data)
@@ -210,6 +218,7 @@ class VacancyFragment : Fragment() {
         binding.progressBar.visibility = GONE
         binding.fragmentNotifications.visibility = GONE
     }
+
     private fun connectionError() {
         with(binding) {
             progressBar.visibility = GONE
@@ -218,13 +227,13 @@ class VacancyFragment : Fragment() {
             ivServerError.visibility = VISIBLE
         }
     }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
+
     companion object {
         const val ARGS_VACANCY = "vacancyId"
-        fun createArgs(vacancyId: String): Bundle =
-            bundleOf(ARGS_VACANCY to vacancyId)
     }
 }
