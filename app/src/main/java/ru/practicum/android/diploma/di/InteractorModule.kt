@@ -3,7 +3,6 @@ package ru.practicum.android.diploma.di
 import org.koin.dsl.module
 import ru.practicum.android.diploma.favourites.domain.api.AddToFavouritesInteractor
 import ru.practicum.android.diploma.favourites.domain.api.GetFavouritesInteractor
-import ru.practicum.android.diploma.favourites.domain.api.GetFavouritesRepository
 import ru.practicum.android.diploma.favourites.domain.impl.AddToFavouritestInteractorImpl
 import ru.practicum.android.diploma.favourites.domain.impl.GetFavourtiesInteractorImpl
 import ru.practicum.android.diploma.search.domain.usecase.SearchVacancyUseCase

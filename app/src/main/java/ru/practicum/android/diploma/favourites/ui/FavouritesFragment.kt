@@ -52,7 +52,6 @@ class FavouritesFragment : Fragment() {
     }
 
     private fun renderState(state: FavouritesState) {
-
         when (state) {
             FavouritesState.SUCCESS -> {
                 adapter!!.updateVacancyList(favouritesViewModel.favouritesListMutable.value!!)
