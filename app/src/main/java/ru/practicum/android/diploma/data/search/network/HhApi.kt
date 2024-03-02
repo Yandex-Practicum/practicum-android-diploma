@@ -9,6 +9,7 @@ import ru.practicum.android.diploma.data.dto.fields.DetailVacancyDto
 import ru.practicum.android.diploma.data.response.CountryResponse
 import ru.practicum.android.diploma.data.response.IndustryResponse
 import ru.practicum.android.diploma.data.response.RegionResponse
+import ru.practicum.android.diploma.domain.models.Industry
 
 interface HhApi {
 
@@ -33,8 +34,6 @@ interface HhApi {
     @GET("areas/{area_id}")
     suspend fun filterRegion(@Path("area_id") areaId: String): RegionResponse
 
-    @GET("areas/industries")
-    suspend fun filterIndustry(): IndustryResponse
-
-
+    @GET("industries")
+    suspend fun filterIndustry(): List<Industry>
 }

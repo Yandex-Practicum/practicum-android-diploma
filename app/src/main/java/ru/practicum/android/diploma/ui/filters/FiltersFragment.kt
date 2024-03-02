@@ -19,6 +19,7 @@ import ru.practicum.android.diploma.presentation.filters.FiltersViewModel
 import ru.practicum.android.diploma.ui.search.gone
 import ru.practicum.android.diploma.ui.search.visible
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.ui.filter.ChooseIndustryFragment
 
 class FiltersFragment : Fragment() {
 
@@ -42,6 +43,14 @@ class FiltersFragment : Fragment() {
         initButtonListeners()
         initTextListeners()
         initFilterSettings()
+
+        binding.industryLayout.setOnClickListener {
+            findNavController().navigate(R.id.chooseIndustryFragment)
+        }
+        parentFragmentManager.setFragmentResultListener(ChooseIndustryFragment.REQUEST_KEY, viewLifecycleOwner) { _, bundle ->
+            val industry = bundle.getString(ChooseIndustryFragment.INDUSTRY_KEY)
+            binding.industry.setText(industry)
+        }
     }
 
     private fun initButtonListeners() {
