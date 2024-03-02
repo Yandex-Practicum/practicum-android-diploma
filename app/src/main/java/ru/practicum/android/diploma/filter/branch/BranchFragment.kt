@@ -34,7 +34,7 @@ class BranchFragment : Fragment() {
         val branchBundle = Bundle().apply {
             putString(BRANCH_KEY, branch)
         }
-       setFragmentResult(FILTER_RECEIVER_KEY, branchBundle)
+        setFragmentResult(FILTER_RECEIVER_KEY, branchBundle)
     }
 }
 

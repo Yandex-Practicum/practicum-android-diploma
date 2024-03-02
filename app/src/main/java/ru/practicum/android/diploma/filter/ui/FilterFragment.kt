@@ -40,6 +40,7 @@ class FilterFragment : Fragment() {
             val branch = bundle.getString(BRANCH_KEY)
         }
     }
+
     companion object {
         const val BRANCH_KEY = "branchKey"
         const val REGION_KEY = "regionKey"

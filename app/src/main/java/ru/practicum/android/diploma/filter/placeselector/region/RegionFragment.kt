@@ -34,7 +34,7 @@ class RegionFragment : Fragment() {
         val regionBundle = Bundle().apply {
             putString(REGION_KEY, region)
         }
-       setFragmentResult(FILTER_RECEIVER_KEY, regionBundle)
+        setFragmentResult(FILTER_RECEIVER_KEY, regionBundle)
     }
 
 }
