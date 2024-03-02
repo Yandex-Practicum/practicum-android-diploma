@@ -52,11 +52,10 @@
     </style>
 
     <style name="fragment_filters_textInput" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
-        <item name="boxBackgroundColor">@color/black</item>
-        <item name="android:textColorHint">@color/gray</item>
-        <item name="hintTextColor">@color/white</item>
-        <item name="placeholderTextColor">@color/white</item>
-
+        <item name="boxBackgroundColor">@color/white</item>
+        <!-- <item name="android:textColorHint">@color/gray</item> -->
+        <!-- <item name="hintTextColor">?attr/colorOnPrimary</item> -->
+        <!-- <item name="placeholderTextColor">@color/gray</item> -->
     </style>
 
     <style name="fragment_filters_expected_salary" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">

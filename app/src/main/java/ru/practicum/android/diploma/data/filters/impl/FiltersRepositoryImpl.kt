@@ -4,20 +4,14 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.data.Constant
 import ru.practicum.android.diploma.data.Convertors
-import ru.practicum.android.diploma.data.dto.fields.DetailVacancyDto
 import ru.practicum.android.diploma.data.filters.FiltersRepository
 import ru.practicum.android.diploma.data.response.CountryResponse
 import ru.practicum.android.diploma.data.search.network.CountriesRequest
-import ru.practicum.android.diploma.data.search.network.DetailVacancyRequest
-import ru.practicum.android.diploma.data.search.network.JobSearchRequest
 import ru.practicum.android.diploma.data.search.network.NetworkClient
 import ru.practicum.android.diploma.data.search.network.Resource
-import ru.practicum.android.diploma.data.search.network.SearchListDto
 import ru.practicum.android.diploma.data.storage.impl.FiltersLocalStorage
 import ru.practicum.android.diploma.domain.filters.model.FiltersSettings
 import ru.practicum.android.diploma.domain.models.Country
-import ru.practicum.android.diploma.domain.models.DetailVacancy
-import ru.practicum.android.diploma.domain.models.VacancyData
 
 class FiltersRepositoryImpl(
     private val filtersLocalStorage: FiltersLocalStorage,
@@ -41,14 +35,7 @@ class FiltersRepositoryImpl(
             }
 
             Constant.SUCCESS_RESULT_CODE -> {
-                //emit(Resource(data = Convertors().convertorToCountry(response as CountryResponse)))
-                val result = response as CountryResponse
-                Resource(
-                    data = result
-                        //.map { countryDto -> Convertors().convertorToCountry(countryDto) }
-                        ,
-                    code = Constant.SUCCESS_RESULT_CODE
-                )
+                emit(Resource(data = response.countriesList.map { countryDto ->  Convertors().convertorToCountry(countryDto) }, code = Constant.SUCCESS_RESULT_CODE))
             }
 
             else -> {

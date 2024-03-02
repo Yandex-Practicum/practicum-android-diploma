@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.data.search.network.Resource
 import ru.practicum.android.diploma.domain.filters.FiltersInteractor
+import ru.practicum.android.diploma.domain.models.CountriesList
 import ru.practicum.android.diploma.domain.models.Country
 
 class FiltersCountryViewModel(
@@ -30,21 +31,25 @@ class FiltersCountryViewModel(
     }
 
     private fun loadCountries(foundCountries: Resource<List<Country>>) {
-        countries.clear()
         if (foundCountries.code == 200) {
             if (foundCountries.data != null) {
-                countries.addAll(foundCountries.data)
+                var countriesList: ArrayList<Country> = ArrayList()
+                for (country in foundCountries.data) {
+                    if (CountriesList.containsCountry(country.name)) {
+                        countriesList.add(country)
+                    }
+                }
+                countriesList.add(Country("", "Другие страны", ""))
+                countries.clear()
+                countries.addAll(countriesList)
                 filtersCountriesStateLiveData.postValue(FiltersCountriesState.Content(countries))
-                Log.d("Countries", "Получили список стран")
             }
             else {
                 filtersCountriesStateLiveData.postValue(FiltersCountriesState.Empty)
-                Log.d("Countries", "Пустой список стран")
             }
         }
         else {
             filtersCountriesStateLiveData.postValue(FiltersCountriesState.Error)
-            Log.d("Countries", "Ошибка")
         }
     }
 }

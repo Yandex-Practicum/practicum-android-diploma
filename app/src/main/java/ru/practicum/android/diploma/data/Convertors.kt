@@ -6,6 +6,7 @@ import ru.practicum.android.diploma.data.dto.fields.EmployerDto
 import ru.practicum.android.diploma.data.dto.fields.KeySkillsDto
 import ru.practicum.android.diploma.data.dto.fields.PhoneNumsDto
 import ru.practicum.android.diploma.data.dto.fields.VacancyDto
+import ru.practicum.android.diploma.data.response.CountryResponse
 import ru.practicum.android.diploma.data.search.network.SearchListDto
 import ru.practicum.android.diploma.domain.models.Country
 import ru.practicum.android.diploma.domain.models.DetailVacancy

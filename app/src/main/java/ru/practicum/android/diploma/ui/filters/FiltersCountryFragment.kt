@@ -14,6 +14,7 @@ import ru.practicum.android.diploma.presentation.filters.FiltersCountriesState
 import ru.practicum.android.diploma.presentation.filters.FiltersCountryViewModel
 import ru.practicum.android.diploma.ui.filters.recycler.FilterAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.R
 
 
 class FiltersCountryFragment : Fragment() {
@@ -41,13 +42,14 @@ class FiltersCountryFragment : Fragment() {
             render(it)
         }
 
-        countriesAdapter = FilterAdapter {
-            val navController = findNavController()
-            val bundle = Bundle()
-            Log.d("bundle", "$bundle")
-            bundle.putParcelable("vacancyId", it)
-            // navController.navigate(R.id.action_favoritesFragment_to_vacancyDetailsFragment, bundle)
-        }
+        countriesAdapter = FilterAdapter(object : FilterAdapter.CountryClickListener {
+            override fun onCountryClick(country: Country) {
+                val bundle = Bundle().apply {
+                    putParcelable("country", country)
+                }
+                findNavController().navigate(R.id.action_filtersCountryFragment_to_filterPlaceOfWorkFragment, bundle)
+            }
+        })
 
         binding.countryList.adapter = countriesAdapter
         binding.countryList.layoutManager =
