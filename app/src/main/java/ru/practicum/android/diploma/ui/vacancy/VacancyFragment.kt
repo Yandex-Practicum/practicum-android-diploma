@@ -149,6 +149,11 @@ class VacancyFragment : Fragment() {
             }
             if (vacancy.contactsEmail != null) {
                 contactPersonEmailData.text = vacancy.contactsEmail
+                contactPersonEmailData.setOnClickListener {
+                    Intent(Intent.ACTION_SENDTO).apply {
+                        data = Uri.parse("mailto:" + "${vacancy.contactsEmail}")
+                    }
+                }
             } else {
                 contactPersonEmail.visibility = GONE
                 contactPersonEmailData.visibility = GONE
@@ -160,9 +165,9 @@ class VacancyFragment : Fragment() {
                 }
                 contactPersonPhoneData.text = phones
                 contactPersonPhoneData.setOnClickListener {
-                    val callIntent = Intent(Intent.ACTION_CALL)
-                    callIntent.setData(Uri.parse(phones))
-                    startActivity(callIntent)
+                    Intent(Intent.ACTION_DIAL).apply {
+                        data = Uri.parse("tel:" + "$phones")
+                    }
                 }
             } else {
                 contactPersonPhoneData.visibility = GONE

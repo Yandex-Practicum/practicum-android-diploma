@@ -20,7 +20,6 @@
         android:visibility="gone" />
 
 
-
     <ScrollView
         android:id="@+id/fragment_notifications"
         android:layout_width="match_parent"
@@ -169,9 +168,9 @@
                 android:fontFamily="@font/ys_display_bold"
                 android:text="@string/key_skills_text"
                 android:textSize="@dimen/font_size_22"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="@id/card_view_company"
-                app:layout_constraintTop_toBottomOf="@id/tv_description"
-                android:visibility="gone"/>
+                app:layout_constraintTop_toBottomOf="@id/tv_description" />
 
             <TextView
                 android:id="@+id/key_skills_recycler_view"
@@ -180,11 +179,11 @@
                 android:layout_marginTop="8dp"
                 android:paddingStart="@dimen/margin_16"
                 android:paddingEnd="@dimen/margin_16"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="@id/card_view_company"
                 app:layout_constraintStart_toStartOf="@id/card_view_company"
                 app:layout_constraintTop_toBottomOf="@id/key_skills"
-                tools:itemCount="5"
-                android:visibility="gone"/>
+                tools:itemCount="5" />
 
             <TextView
                 android:id="@+id/contact_information"
@@ -237,6 +236,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/ys_display_medium"
                 android:text="@string/contact_person_email_data_text"
+                android:textColor="@color/blue"
                 android:textSize="@dimen/font_size_16"
                 app:layout_constraintStart_toStartOf="@id/card_view_company"
                 app:layout_constraintTop_toBottomOf="@id/contact_person_email" />
@@ -259,6 +259,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/ys_display_medium"
                 android:text="@string/contact_person_phone_data_text"
+                android:textColor="@color/blue"
                 android:textSize="@dimen/font_size_16"
                 app:layout_constraintStart_toStartOf="@id/card_view_company"
                 app:layout_constraintTop_toBottomOf="@id/contact_person_phone" />
