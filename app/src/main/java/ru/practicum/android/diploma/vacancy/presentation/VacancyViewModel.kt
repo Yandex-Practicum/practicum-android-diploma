@@ -5,11 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.singleOrNull
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.core.domain.model.DetailVacancy
 import ru.practicum.android.diploma.favourites.domain.api.AddToFavouritesInteractor
-import ru.practicum.android.diploma.favourites.domain.api.GetFavouritesInteractor
 import ru.practicum.android.diploma.util.Resource
 import ru.practicum.android.diploma.vacancy.domain.usecase.DetailVacancyUseCase
 import ru.practicum.android.diploma.vacancy.domain.usecase.MakeCallUseCase
@@ -22,7 +20,6 @@ class VacancyViewModel(
     private val sendEmailUseCase: SendEmailUseCase,
     private val shareVacancyUseCase: ShareVacancyUseCase,
     private val addToFavouritesInteractor: AddToFavouritesInteractor,
-    private val getFavouritesInteractor: GetFavouritesInteractor,
     private val id: Long
 ) : ViewModel() {
     private val stateLiveData = MutableLiveData<VacancyScreenState>()
@@ -82,10 +79,8 @@ class VacancyViewModel(
 
     private fun checkInFavourites(detailVacancy: DetailVacancy) {
         viewModelScope.launch(Dispatchers.IO) {
-            val vacancies = getFavouritesInteractor.getFavouritesList().singleOrNull()
-            val isFavorite = vacancies?.contains(detailVacancy) == true
-            renderState(VacancyScreenState.Content(detailVacancy, isFavorite))
-
+            val isFavourite = addToFavouritesInteractor.checkVacancyInFavourites(id)
+            renderState(VacancyScreenState.Content(detailVacancy, isFavourite))
         }
     }
 }
