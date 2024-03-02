@@ -12,18 +12,54 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_arrow_back"
-        app:navigationIconTint="?attr/colorOnPrimary"
-        app:title="@string/bar_country"
-        app:titleTextAppearance="@style/MaterialToolbarTextStyle" />
+        app:navigationIconTint="?attr/colorOnPrimary" />
+
+    <TextView
+        style="@style/MaterialToolbarTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_56dp"
+        android:layout_marginTop="@dimen/search_margin_s"
+        android:text="@string/bar_country"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/countryRecycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/filterToolbarCountry"
         tools:itemCount="20"
         tools:listitem="@layout/country_region_view" />
+
+    <ImageView
+        android:id="@+id/imageViewServerError"
+        android:layout_width="match_parent"
+        android:layout_height="223dp"
+        android:importantForAccessibility="no"
+        android:src="@drawable/placeholder_region_response_error"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewServerError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/border_margin"
+        android:fontFamily="@font/ys_display_medium"
+        android:gravity="center"
+        android:text="@string/placeholder_cannot_get_list_of_regions"
+        android:textColor="?attr/colorOnPrimary"
+        android:textSize="@dimen/tv_placeholder_errors_size"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageViewServerError" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
