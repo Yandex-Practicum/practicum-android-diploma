@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import ru.practicum.android.diploma.databinding.FragmentCountryBinding
 
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import ru.practicum.android.diploma.R
 
 class CountryFragment : Fragment() {
@@ -38,7 +39,14 @@ class CountryFragment : Fragment() {
         countries.add(RecyclerItem("Узбекистан"))
         countries.add(RecyclerItem("Другие регионы"))
         val adapter = CountryAdapter(countries)
+        adapter.itemClickListener = { _, item ->
+            val bundle = Bundle()
+            bundle.putString("key", item.name)
+            setFragmentResult("requestKey", bundle)
+            findNavController().popBackStack()
+        }
         binding.countryRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.countryRecycler.adapter = adapter
+
     }
 }

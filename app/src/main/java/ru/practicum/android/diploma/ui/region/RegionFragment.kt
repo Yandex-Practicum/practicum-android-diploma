@@ -10,6 +10,7 @@ import ru.practicum.android.diploma.databinding.FragmentRegionBinding
 import ru.practicum.android.diploma.ui.country.RecyclerItem
 import ru.practicum.android.diploma.ui.country.CountryAdapter
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import ru.practicum.android.diploma.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -49,6 +50,12 @@ class RegionFragment : Fragment() {
         regions.add(RecyclerItem("Регион 13"))
 
         val adapter = CountryAdapter(regions)
+        adapter.itemClickListener = { _, item ->
+            val bundle = Bundle()
+            bundle.putString("keyRegion", item.name)
+            setFragmentResult("requestKeyRegion", bundle)
+            findNavController().popBackStack()
+        }
         binding.regionRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.regionRecycler.adapter = adapter
     }
