@@ -6,4 +6,5 @@ import ru.practicum.android.diploma.util.Resource
 
 interface DetailVacancyRepository {
     fun getDetailVacancyById(id: Long): Flow<Resource<DetailVacancy>>
+    suspend fun getDetailVacancyByIdFromDb(id: Long): DetailVacancy?
 }

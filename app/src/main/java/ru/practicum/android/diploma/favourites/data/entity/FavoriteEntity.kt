@@ -25,5 +25,6 @@ data class FavoriteEntity(
     val employerName: String,
     val city: String,
     val insertionTime: Long = Date().time,
-    val alternateUrl: String
+    val alternateUrl: String,
+    val area: String
 )

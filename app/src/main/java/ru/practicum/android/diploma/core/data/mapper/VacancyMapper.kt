@@ -44,7 +44,9 @@ object VacancyMapper {
             employerLogoUrl = getActualLogo(detailVacancy.employerInfo?.companyLogoUrls),
             employerName = detailVacancy.employerInfo?.companyName.orEmpty(),
             city = detailVacancy.locationInfo?.city.orEmpty(),
-            alternateUrl = detailVacancy.alternateUrl
+            alternateUrl = detailVacancy.alternateUrl,
+            area = detailVacancy.area?.name.orEmpty()
+
         )
     }
 
@@ -68,7 +70,8 @@ object VacancyMapper {
                 employerLogoUrl = employerLogoUrl,
                 employerName = employerName,
                 city = city,
-                alternateUrl = alternateUrl
+                alternateUrl = alternateUrl,
+                area = area
             )
         }
     }
@@ -93,7 +96,8 @@ object VacancyMapper {
                 employerLogoUrl = employerLogoUrl,
                 employerName = employerName,
                 city = city,
-                alternateUrl = alternateUrl
+                alternateUrl = alternateUrl,
+                area = area
             )
         }
     }
