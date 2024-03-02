@@ -8,6 +8,7 @@
         <item name="colorOnSecondary">@color/white</item>
         <item name="android:statusBarColor">?attr/colorPrimary</item>
         <item name="editTextColor">@color/gray</item>
+        <item name="android:windowBackground">@color/black</item>
         <!-- Customize your theme here. -->
     </style>
 
