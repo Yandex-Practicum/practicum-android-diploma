@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.databinding.FragmentFilterChooseCountryBinding
-import ru.practicum.android.diploma.databinding.FragmentFilterChoosePlaceOfWorkBinding
 
 class FiltersCountryFragment : Fragment() {
 
