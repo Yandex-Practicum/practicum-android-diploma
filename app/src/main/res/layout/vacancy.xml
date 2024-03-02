@@ -14,7 +14,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/ic_toast"
-            android:contentDescription="@string/todo" />
+            android:contentDescription="@string/todo"
+            tools:src="@tools:sample/avatars"/>
     </FrameLayout>
 
     <LinearLayout
