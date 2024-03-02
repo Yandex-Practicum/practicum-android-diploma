@@ -20,7 +20,7 @@ data class DetailVacancy(
     val employmentName: String?,
     val experienceId: String?,
     val experienceName: String?,
-    val keySkillsNames: List<String>?,
+    val keySkillsNames: List<String>? = null,
     val name: String?,
     val salaryCurrency: String?,
     val salaryFrom: Int?,
@@ -32,6 +32,7 @@ data class DetailVacancy(
     val logoUrl90: String?,
     val logoUrl240: String?,
     val employerUrl: String?,
+    val url: String?
 ) : Parcelable {
     val isFavorite: FavBooleanClass = FavBooleanClass()
     override fun equals(other: Any?): Boolean {

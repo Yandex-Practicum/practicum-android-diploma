@@ -128,7 +128,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/search_message" />
+                app:layout_constraintTop_toBottomOf="@+id/search_message"
+                tools:listitem="@layout/vacancy"/>
 
             <TextView
                 android:id="@+id/search_message"
@@ -165,6 +166,11 @@
             android:visibility="gone"
             tools:visibility="gone" />
 
+        <include
+            android:id="@+id/error_server"
+            layout="@layout/error_server"
+            android:visibility="gone"
+            tools:visibility="gone" />
 
         <ProgressBar
             android:id="@+id/progress_bar"

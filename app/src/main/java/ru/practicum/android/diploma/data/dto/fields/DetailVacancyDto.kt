@@ -17,4 +17,5 @@ data class DetailVacancyDto(
     val name: String,
     val salary: SalaryDto?,
     val schedule: ScheduleDto?,
+    val url: String?,
 ) : Response()

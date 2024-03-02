@@ -6,6 +6,7 @@ import org.koin.core.context.GlobalContext.startKoin
 import ru.practicum.android.diploma.di.DBModule
 import ru.practicum.android.diploma.di.FavouriteModule
 import ru.practicum.android.diploma.di.FavouriteViewModule
+import ru.practicum.android.diploma.di.FiltersModules
 import ru.practicum.android.diploma.di.SearchModules
 import ru.practicum.android.diploma.di.VacancyModule
 import ru.practicum.android.diploma.di.industriesModule
@@ -24,6 +25,7 @@ class App : Application() {
                 SearchModules,
                 VacancyModule,
                 industriesModule
+                FiltersModules
             )
         }
     }

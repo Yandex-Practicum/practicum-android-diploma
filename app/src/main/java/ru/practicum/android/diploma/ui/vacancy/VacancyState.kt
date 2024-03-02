@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.ui.vacancy
 
+import ru.practicum.android.diploma.data.dto.favourites.room.VacancyDetails
 import ru.practicum.android.diploma.domain.models.DetailVacancy
 
 sealed interface VacancyState {

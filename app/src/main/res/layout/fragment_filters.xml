@@ -1,129 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.team.TeamFragment">
+    android:layout_height="match_parent" >
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
+    <ImageButton
+        android:id="@+id/arrowBackButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/margin_20"
+        android:layout_marginStart="@dimen/margin_16"
+        android:background="@android:color/transparent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/back_arrow"
-        app:title="@string/filter" />
+        android:src="@drawable/arrow_back_24px" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayoutCompat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="26dp"
-        android:gravity="center"
-        android:orientation="horizontal"
+    <TextView
+        android:id="@+id/toolbarText"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/toolbar_height"
+        style="@style/TextStyleToolbar"
+        android:layout_marginStart="@dimen/margin_16"
+        android:gravity="center_vertical"
+        android:text="@string/filter"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/fragment_filters_textInput"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:focusable="auto"
-            android:hint="@string/place_of_work"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="0dp"
-            app:cursorColor="#003772E7"
-            app:layout_constraintEnd_toStartOf="@+id/place_of_work_arrow"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/place_of_work"
-                style="@style/gray_16_regular"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusable="false"
-                android:paddingStart="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <ImageView
-            android:id="@+id/place_of_work_arrow"
-            style="@style/gray_16_regular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/arrow"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayoutCompat2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat">
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/fragment_filters_textInput"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:focusable="auto"
-            android:hint="@string/department"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="0dp"
-            app:cursorColor="#003772E7"
-            app:layout_constraintEnd_toStartOf="@+id/department_arrow"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/department1"
-                style="@style/gray_16_regular"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusable="false"
-                android:paddingStart="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <ImageView
-            android:id="@+id/department_arrow"
-            style="@style/gray_16_regular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/arrow"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintStart_toEndOf="@id/arrowBackButton"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/expected_salary"
+        android:id="@+id/place_of_work_layout"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/item_height"
+        style="@style/fragment_filters_textInput"
+        android:layout_marginTop="@dimen/margin_16"
+        android:focusable="auto"
+        android:hint="@string/place_of_work"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:cursorColor="#003772E7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbarText">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/place_of_work"
+            style="@style/gray_16_regular"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="false"
+            android:paddingStart="@dimen/margin_16"
+            android:paddingEnd="56dp"
+            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/place_of_work_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/arrow_forward_24px"
+        android:layout_marginEnd="@dimen/margin_16"
+        app:layout_constraintBottom_toBottomOf="@id/place_of_work_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/place_of_work_layout" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/industry_layout"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/item_height"
+        style="@style/fragment_filters_textInput"
+        android:focusable="auto"
+        android:hint="@string/department"
+        android:clickable="true"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:cursorColor="#003772E7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/place_of_work_layout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/industry"
+            style="@style/gray_16_regular"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="false"
+            android:paddingStart="@dimen/margin_16"
+            android:paddingEnd="56dp"
+            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/industry_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/arrow_forward_24px"
+        android:layout_marginEnd="@dimen/margin_16"
+        app:layout_constraintBottom_toBottomOf="@id/industry_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/industry_layout" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/expected_salary_layout"
         style="@style/fragment_filters_expected_salary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_24"
+        android:layout_marginEnd="@dimen/margin_16"
         android:hint="@string/expected_salary"
         app:placeholderText="@string/enter_amount"
         app:boxBackgroundColor="#00000000"
@@ -137,86 +130,90 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
-
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat2">
+        app:layout_constraintTop_toBottomOf="@+id/industry_layout">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/expected_salary1"
+            android:id="@+id/expected_salary"
             style="@style/TextStyleMedium16_500"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@drawable/expected_salary"
+            android:inputType="number"
             app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat2"
-            android:textColor="@color/black"
-            />
+            android:textColor="@color/black" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayoutCompat3"
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/clear_button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="44dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/expected_salary">
-
-        <TextView
-            android:id="@+id/place_of_work2"
-            style="@style/black_16_regular"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/not_show_without_salary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/place_of_work_arrow2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.517" />
-
-        <com.google.android.material.checkbox.MaterialCheckBox
-            android:id="@+id/place_of_work_arrow2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            app:buttonCompat="@drawable/selertor_checkbox_buttons"
-            app:buttonTint="@color/blue"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_marginEnd="@dimen/margin_4"
+        android:src="@drawable/ic_clear_button"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/expected_salary_layout"
+        app:layout_constraintTop_toTopOf="@id/expected_salary_layout"
+        app:layout_constraintBottom_toBottomOf="@id/expected_salary_layout" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/salary_only"
+        style="@style/black_16_regular"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/item_height"
+        android:layout_marginTop="@dimen/margin_24"
+        android:paddingStart="@dimen/margin_16"
+        android:paddingEnd="@dimen/margin_16"
+        android:text="@string/not_show_without_salary"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toStartOf="@+id/salary_only_checkbox"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/expected_salary_layout" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/salary_only_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_4"
+        android:checked="false"
+        app:buttonCompat="@drawable/selector_checkbox_buttons"
+        app:buttonTint="@color/blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/salary_only"
+        app:layout_constraintBottom_toBottomOf="@id/salary_only" />
+
+    <TextView
+        android:id="@+id/applyButton"
         style="@style/white_16_medium"
         android:layout_width="match_parent"
-        android:layout_height="59dp"
-        android:layout_marginStart="17dp"
-        android:layout_marginEnd="17dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="@dimen/item_height"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:layout_marginBottom="@dimen/margin_8"
         android:background="@drawable/expected_salary"
         android:backgroundTint="@color/blue"
         android:gravity="center"
         android:text="@string/apply"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        android:visibility="gone"
+        app:layout_goneMarginBottom="@dimen/margin_24"
+        app:layout_constraintBottom_toTopOf="@id/resetButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/resetButton"
+        style="@style/white_16_medium"
         android:layout_width="match_parent"
-        android:layout_height="59dp"
-        android:layout_marginStart="17dp"
-        android:layout_marginEnd="17dp"
-        android:layout_marginBottom="24dp"
+        android:layout_height="@dimen/item_height"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:layout_marginBottom="@dimen/margin_24"
         android:background="@drawable/expected_salary"
         android:backgroundTint="#003772E7"
         android:fontFamily="@font/ys_display_medium"
         android:gravity="center"
         android:text="@string/throw_off"
         android:textColor="@color/red"
-        android:textSize="16sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

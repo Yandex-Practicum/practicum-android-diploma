@@ -24,6 +24,7 @@ import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.models.VacancyData
 import ru.practicum.android.diploma.domain.search.SearchInteractor
 import ru.practicum.android.diploma.ui.search.adapter.SearchPage
+import ru.practicum.android.diploma.ui.search.adapter.ServerError
 import ru.practicum.android.diploma.util.UtilsDebounce
 import java.net.ConnectException
 
@@ -77,6 +78,7 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
             is LoadState.Error -> when (refresh.error) {
                 is ConnectException -> searchState.value = SearchState.NoInternet
                 is NullPointerException -> searchState.value = SearchState.FailedToGetList
+                is ServerError -> searchState.value = SearchState.ServerError
             }
 
             LoadState.Loading -> {}

@@ -62,7 +62,8 @@ class Convertors {
             logoUrl = vacancy.employer?.logoUrlsDto?.original,
             logoUrl90 = vacancy.employer?.logoUrlsDto?.art90,
             logoUrl240 = vacancy.employer?.logoUrlsDto?.art240,
-            employerUrl = vacancy.employer?.logoUrlsDto?.art240
+            employerUrl = vacancy.employer?.logoUrlsDto?.art240,
+            url = vacancy.url
         )
     }
 
@@ -87,7 +88,16 @@ class Convertors {
     }
 
     private fun createKeySkills(keySkills: List<KeySkillsDto>?): List<String>? {
-        return (listOf((keySkills?.map { it.name } ?: emptyList()).toString()))!!
+        var i = 0
+        keySkills?.forEach {
+            if (it.toString().isNotEmpty()) {
+                i = +1
+            }
+        }
+        if (i == 0){
+            return null
+        }
+            return (listOf((keySkills?.map { it.name } ?: emptyList()).toString()))!!
     }
 
 }
