@@ -3,8 +3,10 @@ package ru.practicum.android.diploma.core.data.mapper
 import android.text.Html
 import androidx.room.TypeConverter
 import ru.practicum.android.diploma.core.data.network.dto.CompanyLogoUrlsDto
+import ru.practicum.android.diploma.core.data.network.dto.CountryDto
 import ru.practicum.android.diploma.core.data.network.dto.DetailVacancyResponse
 import ru.practicum.android.diploma.core.data.network.dto.ShortVacancyDto
+import ru.practicum.android.diploma.core.domain.model.Country
 import ru.practicum.android.diploma.core.domain.model.DetailVacancy
 import ru.practicum.android.diploma.core.domain.model.ShortVacancy
 import ru.practicum.android.diploma.favourites.data.entity.FavoriteEntity
@@ -98,6 +100,15 @@ object VacancyMapper {
                 city = city,
                 alternateUrl = alternateUrl,
                 area = area
+            )
+        }
+    }
+
+    fun mapToDomain(country: CountryDto): Country {
+        return with(country) {
+            Country(
+                id = id,
+                name = name
             )
         }
     }

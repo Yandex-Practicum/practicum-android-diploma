@@ -102,6 +102,33 @@ class RetrofitNetworkClient(
         }
     }
 
+    override suspend fun getCountries(): Response {
+        if (!connectionChecker.isConnected()) {
+            return Response().apply { resultCode = NETWORK_ERROR_CODE }
+        }
+        return withContext(Dispatchers.IO) {
+            executeRequestGetCountries(hhApi)
+        }
+    }
+
+    private suspend fun executeRequestGetCountries(hhApi: HhApi): Response {
+        return try {
+            val response = hhApi.getCountries()
+            val body = response.body()
+            if (response.isSuccessful && body != null) {
+                body.apply { resultCode = SUCCESSFUL_CODE }
+            } else {
+                Response().apply { resultCode = response.code() }
+            }
+        } catch (e: SocketTimeoutException) {
+            Log.e(RetrofitNetworkClient::class.java.simpleName, e.stackTraceToString())
+            Response().apply { resultCode = NETWORK_ERROR_CODE }
+        } catch (e: IOException) {
+            Log.e(RetrofitNetworkClient::class.java.simpleName, e.stackTraceToString())
+            Response().apply { resultCode = EXCEPTION_ERROR_CODE }
+        }
+    }
+
     companion object {
         const val SUCCESSFUL_CODE = 200
         const val EXCEPTION_ERROR_CODE = -2

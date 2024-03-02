@@ -12,4 +12,5 @@ interface NetworkClient {
     ): Response
 
     suspend fun getDetailVacancyById(id: Long): Response
+    suspend fun getCountries(): Response
 }
