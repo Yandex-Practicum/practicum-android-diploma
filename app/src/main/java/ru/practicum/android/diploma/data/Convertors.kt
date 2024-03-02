@@ -1,12 +1,14 @@
 package ru.practicum.android.diploma.data
 
-import ru.practicum.android.diploma.data.dto.fields.AreaDto
+import ru.practicum.android.diploma.data.dto.fields.CountryDto
 import ru.practicum.android.diploma.data.dto.fields.DetailVacancyDto
 import ru.practicum.android.diploma.data.dto.fields.EmployerDto
 import ru.practicum.android.diploma.data.dto.fields.KeySkillsDto
 import ru.practicum.android.diploma.data.dto.fields.PhoneNumsDto
 import ru.practicum.android.diploma.data.dto.fields.VacancyDto
+import ru.practicum.android.diploma.data.response.CountryResponse
 import ru.practicum.android.diploma.data.search.network.SearchListDto
+import ru.practicum.android.diploma.domain.models.Country
 import ru.practicum.android.diploma.domain.models.DetailVacancy
 import ru.practicum.android.diploma.domain.models.SearchList
 import ru.practicum.android.diploma.domain.models.Vacancy
@@ -67,7 +69,15 @@ class Convertors {
         )
     }
 
-    private fun createAreaName(area: AreaDto?): String? {
+    fun convertorToCountry(country: CountryDto): Country {
+        return Country(
+            id = country.id,
+            name = country.name ?: "",
+            url = country.url ?: "",
+        )
+    }
+
+    private fun createAreaName(area: CountryDto?): String? {
         return if (area?.name == null) {
             null
         } else {

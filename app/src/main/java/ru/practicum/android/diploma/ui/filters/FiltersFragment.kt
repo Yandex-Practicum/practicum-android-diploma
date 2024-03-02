@@ -157,8 +157,6 @@ class FiltersFragment : Fragment() {
             binding.applyButton.gone()
         } else {
             binding.applyButton.visible()
-            Log.d("filters_salaryOnlyCheckbox", binding.salaryOnlyCheckbox.isChecked.toString())
-            Log.d("prefs_salaryOnlyCheckbox", filterSettings.salaryOnlyCheckbox.toString())
         }
     }
 

@@ -16,6 +16,7 @@ import ru.practicum.android.diploma.domain.filters.FiltersInteractor
 import ru.practicum.android.diploma.data.filters.impl.FiltersRepositoryImpl
 import ru.practicum.android.diploma.domain.filters.impl.FiltersInteractorImpl
 import ru.practicum.android.diploma.presentation.filters.FiltersViewModel
+import ru.practicum.android.diploma.presentation.filters.FiltersCountryViewModel
 
 private const val FILTERS_PREFS = "FILTERS_PREFS"
 
@@ -24,6 +25,7 @@ val FiltersModules = module {
     singleOf(::FiltersRepositoryImpl).bind<FiltersRepository>()
     factoryOf(::FiltersInteractorImpl).bind<FiltersInteractor>()
     viewModelOf(::FiltersViewModel)
+    viewModelOf(::FiltersCountryViewModel)
 
     single(qualifier = named("filtersPrefs")) {
         provideFiltersPreferences(androidApplication(), FILTERS_PREFS)
