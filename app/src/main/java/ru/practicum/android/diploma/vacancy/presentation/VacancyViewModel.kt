@@ -78,13 +78,15 @@ class VacancyViewModel(
     }
 
     fun setFavourites() {
-        viewModelScope.launch {
-            if (isInFavourites) {
-                addToFavouritesInteractor.removeFromFavourites(vacancy!!)
-                isInFavourites = false
-            } else {
-                addToFavouritesInteractor.addToFavourites(vacancy!!)
-                isInFavourites = true
+        if (vacancy != null) {
+            viewModelScope.launch {
+                if (isInFavourites) {
+                    addToFavouritesInteractor.removeFromFavourites(vacancy!!)
+                    isInFavourites = false
+                } else {
+                    addToFavouritesInteractor.addToFavourites(vacancy!!)
+                    isInFavourites = true
+                }
             }
         }
     }

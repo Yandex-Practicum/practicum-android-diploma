@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.di
 import org.koin.dsl.module
 import ru.practicum.android.diploma.favourites.domain.api.AddToFavouritesInteractor
 import ru.practicum.android.diploma.favourites.domain.api.GetFavouritesInteractor
+import ru.practicum.android.diploma.favourites.domain.api.GetFavouritesRepository
 import ru.practicum.android.diploma.favourites.domain.impl.AddToFavouritestInteractorImpl
 import ru.practicum.android.diploma.favourites.domain.impl.GetFavourtiesInteractorImpl
 import ru.practicum.android.diploma.search.domain.usecase.SearchVacancyUseCase
@@ -12,26 +13,26 @@ import ru.practicum.android.diploma.vacancy.domain.usecase.SendEmailUseCase
 import ru.practicum.android.diploma.vacancy.domain.usecase.ShareVacancyUseCase
 
 val interactorModule = module {
-    single {
+    factory {
         DetailVacancyUseCase(detailVacancyRepository = get())
     }
-    single {
+    factory {
         MakeCallUseCase(externalNavigator = get())
     }
-    single {
+    factory {
         SendEmailUseCase(externalNavigator = get())
     }
 
-    single {
+    factory {
         ShareVacancyUseCase(externalNavigator = get())
     }
-    single {
+    factory {
         SearchVacancyUseCase(searchVacancyRepository = get())
     }
-    single<GetFavouritesInteractor> {
+    factory<GetFavouritesInteractor> {
         GetFavourtiesInteractorImpl(get())
     }
-    single<AddToFavouritesInteractor> {
+    factory<AddToFavouritesInteractor> {
         AddToFavouritestInteractorImpl(get())
     }
 }
