@@ -21,23 +21,24 @@ class SearchRepositoryImpl(
     private val filtersLocalStorage: FiltersLocalStorage
 ) : SearchRepository {
 
-    private val prefs = filtersLocalStorage.getPrefs()
-
-    private val countryId = prefs.countryId
-    private val regionId = prefs.regionId
-    private val industryId = prefs.industryId
-    private val salary = prefs.expectedSalary
-    private val salaryOnly = prefs.salaryOnlyCheckbox
-
     override suspend fun search(expression: String, page: Int): Resource<VacancyData> {
+        val prefs = filtersLocalStorage.getPrefs()
+
+        val countryId = prefs.countryId
+        val regionId = prefs.regionId
+        val industryId = prefs.industryId
+        val salary = prefs.expectedSalary
+        val salaryOnly = prefs.salaryOnlyCheckbox
+
         val options = mutableMapOf<String, String>()
 
         if(countryId.isNotEmpty()) {
-            options[Constant.AREA] = countryId
-        }
-
-        if(regionId.isNotEmpty()) {
-            options[Constant.AREA] = regionId
+            if(regionId.isNotEmpty()) {
+                options[Constant.AREA] = regionId
+            }
+            else {
+                options[Constant.AREA] = countryId
+            }
         }
 
         if(industryId.isNotEmpty()) {

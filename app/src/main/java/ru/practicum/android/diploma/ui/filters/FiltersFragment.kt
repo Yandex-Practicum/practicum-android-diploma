@@ -139,18 +139,32 @@ class FiltersFragment : Fragment() {
     }
 
     private fun savePrefs() {
-        val countryId: String = ""
-        val regionId: String = ""
-        val industryId: String = ""
+        filterSettings = viewModel.getPrefs()
+        var countryId: String
+        val regionId: String
+        val industryId: String
+
         if (country != null) {
-            val countryId = country!!.id
+            countryId = country!!.id
         }
+        else {
+            countryId = filterSettings.countryId
+        }
+
         if (region != null) {
-            val regionId = region!!.id
+            regionId = region!!.id
         }
+        else {
+            regionId = filterSettings.regionId
+        }
+
         if (industry != null) {
-            val industryId = industry!!.id
+            industryId = industry!!.id
         }
+        else {
+            industryId = filterSettings.industryId
+        }
+
         viewModel.savePrefs(
             FiltersSettings(
                 binding.placeOfWork.text.toString(),
