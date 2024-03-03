@@ -6,7 +6,7 @@
     style="@style/CountryOrRegionItemTextStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingVertical="@dimen/padding_16dp"
+    android:paddingVertical="@dimen/padding_20dp"
     android:paddingStart="@dimen/padding_16dp"
     android:paddingEnd="@dimen/padding_24dp"
     app:drawableRightCompat="@drawable/ic_arrow_forward"
