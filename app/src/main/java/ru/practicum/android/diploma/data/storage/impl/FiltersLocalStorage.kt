@@ -6,7 +6,7 @@ import ru.practicum.android.diploma.domain.filters.model.FiltersSettings
 
 class FiltersLocalStorage(private val sharedPreferences: SharedPreferences) : FiltersStorage {
 
-    private companion object {
+    companion object {
         const val FILTERS_PLACE = "FILTERS_PLACE"
         const val FILTERS_COUNTRY_ID = "FILTERS_COUNTRY_ID"
         const val FILTERS_REGION_ID = "FILTERS_REGION_ID"

@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.data.search.impl
 
+import android.content.SharedPreferences
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.data.Constant
@@ -10,11 +11,23 @@ import ru.practicum.android.diploma.data.search.network.JobSearchRequest
 import ru.practicum.android.diploma.data.search.network.NetworkClient
 import ru.practicum.android.diploma.data.search.network.Resource
 import ru.practicum.android.diploma.data.search.network.SearchListDto
+import ru.practicum.android.diploma.data.storage.impl.FiltersLocalStorage
 import ru.practicum.android.diploma.domain.models.DetailVacancy
 import ru.practicum.android.diploma.domain.models.VacancyData
 import ru.practicum.android.diploma.domain.search.SearchRepository
 
-class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRepository {
+class SearchRepositoryImpl(
+    private val networkClient: NetworkClient,
+    private val filtersLocalStorage: FiltersLocalStorage
+) : SearchRepository {
+
+    private val prefs = filtersLocalStorage.getPrefs()
+
+    private val countryId = prefs.countryId
+    private val regionId = prefs.regionId
+    private val industryId = prefs.industryId
+    private val salary = prefs.expectedSalary
+    private val salaryOnly = prefs.salaryOnlyCheckbox
 
     override suspend fun search(expression: String, page: Int): Resource<VacancyData> {
         val options = HashMap<String, String>()
@@ -22,6 +35,26 @@ class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRep
         options[Constant.PAGE] = page.toString()
         options[Constant.PER_PAGE] = Constant.PER_PAGE_ITEMS
         options[Constant.TEXT] = expression
+
+        if(countryId.isNotEmpty()) {
+            //options[Constant.AREA] = countryId
+        }
+
+        if(regionId.isNotEmpty()) {
+            //options[Constant.AREA] = regionId
+        }
+
+        if(industryId.isNotEmpty()) {
+            //options[Constant.INDUSTRY] = industryId
+        }
+
+        if(salary.isNotEmpty()) {
+            //options[Constant.SALARY] = salary
+        }
+
+        if(salaryOnly) {
+            //options[Constant.ONLY_WITH_SALARY] = salaryOnly.toString()
+        }
 
         val response = networkClient.search(JobSearchRequest(options))
         return when (response.resultCode) {

@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterChoosePlaceOfWorkBinding
+import ru.practicum.android.diploma.domain.models.Area
 import ru.practicum.android.diploma.domain.models.Country
 import ru.practicum.android.diploma.ui.filter.ChooseIndustryFragment
 
@@ -17,6 +18,8 @@ class FiltersPlaceOfWorkFragment : Fragment() {
 
     private var _binding: FragmentFilterChoosePlaceOfWorkBinding? = null
     private val binding get() = _binding!!
+    private var country: Country? = null
+    private var region: Area? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -32,12 +35,7 @@ class FiltersPlaceOfWorkFragment : Fragment() {
         initListeners()
         initFilters()
 
-        parentFragmentManager.setFragmentResultListener(FiltersCountryFragment.REQUEST_KEY, viewLifecycleOwner) { _, bundle ->
-            val country: Country? = bundle.getParcelable(FiltersCountryFragment.COUNTRY)
-            if (country != null) {
-                binding.country.setText(country.name)
-            }
-        }
+
     }
 
     private fun initListeners() {
@@ -54,23 +52,26 @@ class FiltersPlaceOfWorkFragment : Fragment() {
         }
 
         binding.textView2.setOnClickListener {
-
+            parentFragmentManager.setFragmentResult(REQUEST_KEY, bundleOf(
+                COUNTRY_KEY to country,
+                REGION_KEY to region))
+            findNavController().popBackStack()
         }
     }
 
     private fun initFilters() {
-        val country: Country? = arguments?.getParcelable("country")
-
-        if (country != null) {
-            if (country.name.isNotEmpty()) {
-                binding.country.setText(country.name)
+        parentFragmentManager.setFragmentResultListener(FiltersCountryFragment.REQUEST_KEY, viewLifecycleOwner) { _, bundle ->
+            country = bundle.getParcelable(FiltersCountryFragment.COUNTRY_KEY)
+            if (country != null) {
+                binding.country.setText(country!!.name)
             }
         }
     }
 
     companion object {
-        const val REQUEST_KEY = "KEY"
+        const val REQUEST_KEY = "PLACE_KEY"
         const val COUNTRY_KEY = "COUNTRY"
+        const val REGION_KEY = "REGION"
     }
 
 }
