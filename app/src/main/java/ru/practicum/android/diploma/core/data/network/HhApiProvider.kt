@@ -11,7 +11,7 @@ object HhApiProvider {
     private const val BASE_URL = "https://api.hh.ru/"
     val hhService: HhApi by lazy { buildRetrofit() }
 
-    private fun buildRetrofit(): HhApi {
+    fun buildRetrofit(): HhApi {
         val interceptor = HttpLoggingInterceptor()
         if (BuildConfig.DEBUG) {
             interceptor.level = HttpLoggingInterceptor.Level.BODY

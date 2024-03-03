@@ -6,7 +6,7 @@ import retrofit2.http.Headers
 import retrofit2.http.Path
 import retrofit2.http.QueryMap
 import ru.practicum.android.diploma.BuildConfig
-import ru.practicum.android.diploma.core.data.network.dto.CountryResponse
+import ru.practicum.android.diploma.core.data.network.dto.CountryDto
 import ru.practicum.android.diploma.core.data.network.dto.DetailVacancyResponse
 import ru.practicum.android.diploma.core.data.network.dto.SearchVacanciesResponse
 
@@ -30,7 +30,7 @@ interface HhApi {
         "HH-User-Agent: JobSeeker/${BuildConfig.VERSION_NAME} (${BuildConfig.DEVELOPER_EMAIL})"
     )
     @GET("/areas/countries")
-    suspend fun getCountries(): Response<CountryResponse>
+    suspend fun getCountries(): Response<List<CountryDto>>
 }
 
 enum class HhApiQuery(val value: String) {

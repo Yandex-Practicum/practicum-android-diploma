@@ -4,6 +4,7 @@ import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.core.data.NetworkClient
+import ru.practicum.android.diploma.core.data.network.dto.CountryResponse
 import ru.practicum.android.diploma.core.data.network.dto.Response
 import ru.practicum.android.diploma.core.domain.model.SearchFilterParameters
 import java.io.IOException
@@ -73,13 +74,13 @@ class RetrofitNetworkClient(
     }
 
     override suspend fun getCountries(): Response {
-        if (!connectionChecker.isConnected()) {
-            return Response().apply { resultCode = NETWORK_ERROR_CODE }
+        val retrofitResponse = hhApi.getCountries()
+        val response = if (retrofitResponse.isSuccessful) {
+            retrofit2.Response.success(CountryResponse(retrofitResponse.body() ?: emptyList()))
+        } else {
+            retrofit2.Response.error(retrofitResponse.code(), retrofitResponse.errorBody()!!)
         }
-        return withContext(Dispatchers.IO) {
-            val response = hhApi.getCountries()
-            getResponse(response)
-        }
+        return getResponse(response)
     }
 
     private fun <T : Response> getResponse(retrofitResponse: retrofit2.Response<T>): Response {
