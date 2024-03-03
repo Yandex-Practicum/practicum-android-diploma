@@ -30,6 +30,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/regionEditText"
         tools:itemCount="20"
-        tools:listitem="@layout/country_region_view" />
+        tools:listitem="@layout/text_button_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
