@@ -37,23 +37,23 @@ class SearchRepositoryImpl(
         options[Constant.TEXT] = expression
 
         if(countryId.isNotEmpty()) {
-            //options[Constant.AREA] = countryId
+            options[Constant.AREA] = countryId
         }
 
         if(regionId.isNotEmpty()) {
-            //options[Constant.AREA] = regionId
+            options[Constant.AREA] = regionId
         }
 
         if(industryId.isNotEmpty()) {
-            //options[Constant.INDUSTRY] = industryId
+            options[Constant.INDUSTRY] = industryId
         }
 
         if(salary.isNotEmpty()) {
-            //options[Constant.SALARY] = salary
+            options[Constant.SALARY] = salary
         }
 
         if(salaryOnly) {
-            //options[Constant.ONLY_WITH_SALARY] = salaryOnly.toString()
+            options[Constant.ONLY_WITH_SALARY] = salaryOnly.toString()
         }
 
         val response = networkClient.search(JobSearchRequest(options))
