@@ -35,27 +35,14 @@ class RetrofitNetworkClient(
         perPage: Int,
         hhApi: HhApi
     ): Response {
-        return try {
-            val queryMap = mutableMapOf(
-                HhApiQuery.PAGE.value to page.toString(),
-                HhApiQuery.PER_PAGE.value to perPage.toString(),
-                HhApiQuery.SEARCH_TEXT.value to searchText
-            )
-            queryMap.putAll(getQueryFilterMap(filterParameters))
-            val response = hhApi.getVacancies(queryMap)
-            val body = response.body()
-            if (response.isSuccessful && body != null) {
-                body.apply { resultCode = SUCCESSFUL_CODE }
-            } else {
-                Response().apply { resultCode = response.code() }
-            }
-        } catch (e: SocketTimeoutException) {
-            Log.e(RetrofitNetworkClient::class.java.simpleName, e.stackTraceToString())
-            Response().apply { resultCode = NETWORK_ERROR_CODE }
-        } catch (e: IOException) {
-            Log.e(RetrofitNetworkClient::class.java.simpleName, e.stackTraceToString())
-            Response().apply { resultCode = EXCEPTION_ERROR_CODE }
-        }
+        val queryMap = mutableMapOf(
+            HhApiQuery.PAGE.value to page.toString(),
+            HhApiQuery.PER_PAGE.value to perPage.toString(),
+            HhApiQuery.SEARCH_TEXT.value to searchText
+        )
+        queryMap.putAll(getQueryFilterMap(filterParameters))
+        val response = hhApi.getVacancies(queryMap)
+        return getResponse(response)
     }
 
     private fun getQueryFilterMap(filterParameters: SearchFilterParameters): Map<String, String> {
@@ -80,25 +67,8 @@ class RetrofitNetworkClient(
             return Response().apply { resultCode = NETWORK_ERROR_CODE }
         }
         return withContext(Dispatchers.IO) {
-            executeRequestGetDetailVacancyById(id, hhApi)
-        }
-    }
-
-    private suspend fun executeRequestGetDetailVacancyById(id: Long, hhApi: HhApi): Response {
-        return try {
             val response = hhApi.getVacancy(id)
-            val body = response.body()
-            if (response.isSuccessful && body != null) {
-                body.apply { resultCode = SUCCESSFUL_CODE }
-            } else {
-                Response().apply { resultCode = response.code() }
-            }
-        } catch (e: SocketTimeoutException) {
-            Log.e(RetrofitNetworkClient::class.java.simpleName, e.stackTraceToString())
-            Response().apply { resultCode = NETWORK_ERROR_CODE }
-        } catch (e: IOException) {
-            Log.e(RetrofitNetworkClient::class.java.simpleName, e.stackTraceToString())
-            Response().apply { resultCode = EXCEPTION_ERROR_CODE }
+            getResponse(response)
         }
     }
 
@@ -107,18 +77,18 @@ class RetrofitNetworkClient(
             return Response().apply { resultCode = NETWORK_ERROR_CODE }
         }
         return withContext(Dispatchers.IO) {
-            executeRequestGetCountries(hhApi)
+            val response = hhApi.getCountries()
+            getResponse(response)
         }
     }
 
-    private suspend fun executeRequestGetCountries(hhApi: HhApi): Response {
+    private fun <T : Response> getResponse(retrofitResponse: retrofit2.Response<T>): Response {
         return try {
-            val response = hhApi.getCountries()
-            val body = response.body()
-            if (response.isSuccessful && body != null) {
+            val body = retrofitResponse.body()
+            if (retrofitResponse.isSuccessful && body != null) {
                 body.apply { resultCode = SUCCESSFUL_CODE }
             } else {
-                Response().apply { resultCode = response.code() }
+                Response().apply { resultCode = retrofitResponse.code() }
             }
         } catch (e: SocketTimeoutException) {
             Log.e(RetrofitNetworkClient::class.java.simpleName, e.stackTraceToString())
