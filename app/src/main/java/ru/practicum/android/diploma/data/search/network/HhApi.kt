@@ -8,9 +8,6 @@ import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.data.dto.fields.CountryDto
 import ru.practicum.android.diploma.data.dto.fields.DetailVacancyDto
 import ru.practicum.android.diploma.data.response.AreaResponse
-import ru.practicum.android.diploma.data.response.CountryResponse
-import ru.practicum.android.diploma.data.response.IndustryResponse
-import ru.practicum.android.diploma.data.response.RegionResponse
 import ru.practicum.android.diploma.domain.models.Industry
 
 interface HhApi {

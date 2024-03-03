@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterChoosePlaceOfWorkBinding
 import ru.practicum.android.diploma.domain.models.Country
+import ru.practicum.android.diploma.ui.filter.ChooseIndustryFragment
 
 class FiltersPlaceOfWorkFragment : Fragment() {
 
@@ -30,6 +31,13 @@ class FiltersPlaceOfWorkFragment : Fragment() {
 
         initListeners()
         initFilters()
+
+        parentFragmentManager.setFragmentResultListener(FiltersCountryFragment.REQUEST_KEY, viewLifecycleOwner) { _, bundle ->
+            val country: Country? = bundle.getParcelable(FiltersCountryFragment.COUNTRY)
+            if (country != null) {
+                binding.country.setText(country.name)
+            }
+        }
     }
 
     private fun initListeners() {
@@ -44,6 +52,10 @@ class FiltersPlaceOfWorkFragment : Fragment() {
         binding.region.setOnClickListener {
             findNavController().navigate(R.id.action_filterPlaceOfWorkFragment_to_filtersRegionFragment)
         }
+
+        binding.textView2.setOnClickListener {
+
+        }
     }
 
     private fun initFilters() {
@@ -57,18 +69,8 @@ class FiltersPlaceOfWorkFragment : Fragment() {
     }
 
     companion object {
-        private const val ARGS_COUNTRY_ID = "countryId"
-        private const val ARGS_COUNTRY = "country"
-        private const val ARGS_AREA_ID = "areaId"
-        private const val ARGS_AREA = "area"
-
-        fun createArgs(countryId: String?, country: String?, areaId: String?,
-                       area: String?): Bundle =
-            bundleOf(
-                ARGS_COUNTRY_ID to countryId,
-                ARGS_COUNTRY to country,
-                ARGS_AREA_ID to areaId,
-                ARGS_AREA to area
-            )
+        const val REQUEST_KEY = "KEY"
+        const val COUNTRY_KEY = "COUNTRY"
     }
+
 }

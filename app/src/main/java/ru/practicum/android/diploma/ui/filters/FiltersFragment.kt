@@ -47,9 +47,15 @@ class FiltersFragment : Fragment() {
         binding.industryLayout.setOnClickListener {
             findNavController().navigate(R.id.chooseIndustryFragment)
         }
+
         parentFragmentManager.setFragmentResultListener(ChooseIndustryFragment.REQUEST_KEY, viewLifecycleOwner) { _, bundle ->
             val industry = bundle.getString(ChooseIndustryFragment.INDUSTRY_KEY)
             binding.industry.setText(industry)
+        }
+
+        parentFragmentManager.setFragmentResultListener(FiltersPlaceOfWorkFragment.REQUEST_KEY, viewLifecycleOwner) { _, bundle ->
+            val placeOfWork = bundle.getString(FiltersPlaceOfWorkFragment.COUNTRY_KEY)
+            binding.placeOfWork.setText(placeOfWork)
         }
     }
 
@@ -118,14 +124,14 @@ class FiltersFragment : Fragment() {
     }
 
     private fun savePrefs() {
-        viewModel.savePrefs(
-            FiltersSettings(
-                binding.placeOfWork.text.toString(),
-                binding.industry.text.toString(),
-                binding.expectedSalary.text.toString(),
-                binding.salaryOnlyCheckbox.isChecked
-            )
-        )
+        //viewModel.savePrefs(
+        //    FiltersSettings(
+        //        binding.placeOfWork.text.toString(),
+        //        binding.industry.text.toString(),
+        //        binding.expectedSalary.text.toString(),
+        //        binding.salaryOnlyCheckbox.isChecked
+        //    )
+        //)
     }
 
     private fun hideKeyboard() {
@@ -161,10 +167,10 @@ class FiltersFragment : Fragment() {
     }
 
     private fun resetFilters() {
-        binding.placeOfWork.setText("")
-        binding.industry.setText("")
-        binding.expectedSalary.setText("")
-        binding.salaryOnlyCheckbox.isChecked = false
+        //binding.placeOfWork.setText("")
+        //binding.industry.setText("")
+        //binding.expectedSalary.setText("")
+        //binding.salaryOnlyCheckbox.isChecked = false
         binding.resetButton.gone()
         viewModel.clearPrefs()
         initFilterSettings()

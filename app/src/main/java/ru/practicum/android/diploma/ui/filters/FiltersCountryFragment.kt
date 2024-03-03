@@ -47,7 +47,9 @@ class FiltersCountryFragment : Fragment() {
                 val bundle = Bundle().apply {
                     putParcelable("country", country)
                 }
-                findNavController().navigate(R.id.action_filtersCountryFragment_to_filterPlaceOfWorkFragment, bundle)
+                findNavController().navigateUp().apply {
+                    arguments = bundle
+                }
             }
         })
 
@@ -87,5 +89,10 @@ class FiltersCountryFragment : Fragment() {
         countriesAdapter!!.countriesList.addAll(countries)
         countriesAdapter!!.notifyDataSetChanged()
 
+    }
+
+    companion object {
+        const val REQUEST_KEY = "KEY"
+        const val COUNTRY = "COUNTRY"
     }
 }
