@@ -30,11 +30,7 @@ class SearchRepositoryImpl(
     private val salaryOnly = prefs.salaryOnlyCheckbox
 
     override suspend fun search(expression: String, page: Int): Resource<VacancyData> {
-        val options = HashMap<String, String>()
-
-        options[Constant.PAGE] = page.toString()
-        options[Constant.PER_PAGE] = Constant.PER_PAGE_ITEMS
-        options[Constant.TEXT] = expression
+        val options = mutableMapOf<String, String>()
 
         if(countryId.isNotEmpty()) {
             options[Constant.AREA] = countryId
@@ -55,6 +51,10 @@ class SearchRepositoryImpl(
         if(salaryOnly) {
             options[Constant.ONLY_WITH_SALARY] = salaryOnly.toString()
         }
+
+        options[Constant.PAGE] = page.toString()
+        options[Constant.PER_PAGE] = Constant.PER_PAGE_ITEMS
+        options[Constant.TEXT] = expression
 
         val response = networkClient.search(JobSearchRequest(options))
         return when (response.resultCode) {

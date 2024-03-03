@@ -11,10 +11,13 @@ import ru.practicum.android.diploma.data.response.AreaResponse
 import ru.practicum.android.diploma.domain.models.Industry
 
 interface HhApi {
+    /*
     @Headers(
         "Authorization: Bearer ${BuildConfig.HH_ACCESS_TOKEN}",
         "HH-User-Agent: HHLiteJob/1.0(ya.tarannov@yandex.ru)"
     )
+
+     */
 
     @GET("vacancies")
     suspend fun jobSearch(
