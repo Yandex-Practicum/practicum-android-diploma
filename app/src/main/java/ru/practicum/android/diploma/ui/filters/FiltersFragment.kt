@@ -19,6 +19,9 @@ import ru.practicum.android.diploma.presentation.filters.FiltersViewModel
 import ru.practicum.android.diploma.ui.search.gone
 import ru.practicum.android.diploma.ui.search.visible
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.domain.models.Area
+import ru.practicum.android.diploma.domain.models.Country
+import ru.practicum.android.diploma.domain.models.Industry
 import ru.practicum.android.diploma.ui.filter.ChooseIndustryFragment
 
 class FiltersFragment : Fragment() {
@@ -27,6 +30,9 @@ class FiltersFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: FiltersViewModel by viewModel()
     private lateinit var filterSettings: FiltersSettings
+    private var country: Country? = null
+    private var region: Area? = null
+    private var industry: Industry? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,9 +53,24 @@ class FiltersFragment : Fragment() {
         binding.industryLayout.setOnClickListener {
             findNavController().navigate(R.id.chooseIndustryFragment)
         }
+
         parentFragmentManager.setFragmentResultListener(ChooseIndustryFragment.REQUEST_KEY, viewLifecycleOwner) { _, bundle ->
             val industry = bundle.getString(ChooseIndustryFragment.INDUSTRY_KEY)
             binding.industry.setText(industry)
+        }
+
+        parentFragmentManager.setFragmentResultListener(FiltersPlaceOfWorkFragment.REQUEST_KEY, viewLifecycleOwner) { _, bundle ->
+            country = bundle.getParcelable(FiltersPlaceOfWorkFragment.COUNTRY_KEY)
+            region = bundle.getParcelable(FiltersPlaceOfWorkFragment.REGION_KEY)
+            if (country != null) {
+                if (region != null) {
+                    val place = country!!.name + getString(R.string.divider) + region!!.name
+                    binding.placeOfWork.setText(place)
+                }
+                else {
+                    binding.placeOfWork.setText(country!!.name)
+                }
+            }
         }
     }
 
@@ -118,10 +139,39 @@ class FiltersFragment : Fragment() {
     }
 
     private fun savePrefs() {
+        filterSettings = viewModel.getPrefs()
+        var countryId: String
+        val regionId: String
+        val industryId: String
+
+        if (country != null) {
+            countryId = country!!.id
+        }
+        else {
+            countryId = filterSettings.countryId
+        }
+
+        if (region != null) {
+            regionId = region!!.id
+        }
+        else {
+            regionId = filterSettings.regionId
+        }
+
+        if (industry != null) {
+            industryId = industry!!.id
+        }
+        else {
+            industryId = filterSettings.industryId
+        }
+
         viewModel.savePrefs(
             FiltersSettings(
                 binding.placeOfWork.text.toString(),
+                countryId,
+                regionId,
                 binding.industry.text.toString(),
+                industryId,
                 binding.expectedSalary.text.toString(),
                 binding.salaryOnlyCheckbox.isChecked
             )
@@ -161,10 +211,10 @@ class FiltersFragment : Fragment() {
     }
 
     private fun resetFilters() {
-        binding.placeOfWork.setText("")
-        binding.industry.setText("")
-        binding.expectedSalary.setText("")
-        binding.salaryOnlyCheckbox.isChecked = false
+        //binding.placeOfWork.setText("")
+        //binding.industry.setText("")
+        //binding.expectedSalary.setText("")
+        //binding.salaryOnlyCheckbox.isChecked = false
         binding.resetButton.gone()
         viewModel.clearPrefs()
         initFilterSettings()

@@ -16,8 +16,7 @@ import java.io.IOException
 
 class RetrofitNetworkClient(
     private val service: HhApi,
-    private val context: Context,
-    private val gson: Gson
+    private val context: Context
 ) : NetworkClient {
 
     override suspend fun search(dto: JobSearchRequest): Response {

@@ -10,12 +10,16 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterChoosePlaceOfWorkBinding
+import ru.practicum.android.diploma.domain.models.Area
 import ru.practicum.android.diploma.domain.models.Country
+import ru.practicum.android.diploma.ui.filter.ChooseIndustryFragment
 
 class FiltersPlaceOfWorkFragment : Fragment() {
 
     private var _binding: FragmentFilterChoosePlaceOfWorkBinding? = null
     private val binding get() = _binding!!
+    private var country: Country? = null
+    private var region: Area? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,6 +34,8 @@ class FiltersPlaceOfWorkFragment : Fragment() {
 
         initListeners()
         initFilters()
+
+
     }
 
     private fun initListeners() {
@@ -44,31 +50,28 @@ class FiltersPlaceOfWorkFragment : Fragment() {
         binding.region.setOnClickListener {
             findNavController().navigate(R.id.action_filterPlaceOfWorkFragment_to_filtersRegionFragment)
         }
+
+        binding.textView2.setOnClickListener {
+            parentFragmentManager.setFragmentResult(REQUEST_KEY, bundleOf(
+                COUNTRY_KEY to country,
+                REGION_KEY to region))
+            findNavController().popBackStack()
+        }
     }
 
     private fun initFilters() {
-        val country: Country? = arguments?.getParcelable("country")
-
-        if (country != null) {
-            if (country.name.isNotEmpty()) {
-                binding.country.setText(country.name)
+        parentFragmentManager.setFragmentResultListener(FiltersCountryFragment.REQUEST_KEY, viewLifecycleOwner) { _, bundle ->
+            country = bundle.getParcelable(FiltersCountryFragment.COUNTRY_KEY)
+            if (country != null) {
+                binding.country.setText(country!!.name)
             }
         }
     }
 
     companion object {
-        private const val ARGS_COUNTRY_ID = "countryId"
-        private const val ARGS_COUNTRY = "country"
-        private const val ARGS_AREA_ID = "areaId"
-        private const val ARGS_AREA = "area"
-
-        fun createArgs(countryId: String?, country: String?, areaId: String?,
-                       area: String?): Bundle =
-            bundleOf(
-                ARGS_COUNTRY_ID to countryId,
-                ARGS_COUNTRY to country,
-                ARGS_AREA_ID to areaId,
-                ARGS_AREA to area
-            )
+        const val REQUEST_KEY = "PLACE_KEY"
+        const val COUNTRY_KEY = "COUNTRY"
+        const val REGION_KEY = "REGION"
     }
+
 }

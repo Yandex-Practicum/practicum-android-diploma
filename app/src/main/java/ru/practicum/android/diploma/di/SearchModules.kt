@@ -33,10 +33,10 @@ val SearchModules = module {
     }
 
     single<SearchRepository> {
-        SearchRepositoryImpl(get())
+        SearchRepositoryImpl(get(), get())
     }
     single<NetworkClient> {
-        RetrofitNetworkClient(get(), get(), get())
+        RetrofitNetworkClient(get(), get())
     }
 
     factory<SearchInteractor> {

@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +16,7 @@ import ru.practicum.android.diploma.presentation.filters.FiltersCountryViewModel
 import ru.practicum.android.diploma.ui.filters.recycler.FilterAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.ui.filter.ChooseIndustryFragment
 
 
 class FiltersCountryFragment : Fragment() {
@@ -42,14 +44,10 @@ class FiltersCountryFragment : Fragment() {
             render(it)
         }
 
-        countriesAdapter = FilterAdapter(object : FilterAdapter.CountryClickListener {
-            override fun onCountryClick(country: Country) {
-                val bundle = Bundle().apply {
-                    putParcelable("country", country)
-                }
-                findNavController().navigate(R.id.action_filtersCountryFragment_to_filterPlaceOfWorkFragment, bundle)
-            }
-        })
+        countriesAdapter = FilterAdapter { country ->
+            parentFragmentManager.setFragmentResult(REQUEST_KEY, bundleOf(COUNTRY_KEY to country))
+            findNavController().popBackStack()
+        }
 
         binding.countryList.adapter = countriesAdapter
         binding.countryList.layoutManager =
@@ -87,5 +85,10 @@ class FiltersCountryFragment : Fragment() {
         countriesAdapter!!.countriesList.addAll(countries)
         countriesAdapter!!.notifyDataSetChanged()
 
+    }
+
+    companion object {
+        const val REQUEST_KEY = "COUNTRY_KEY"
+        const val COUNTRY_KEY = "COUNTRY"
     }
 }

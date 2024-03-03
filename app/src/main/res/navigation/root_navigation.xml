@@ -85,17 +85,9 @@
     <fragment
         android:id="@+id/filtersCountryFragment"
         android:name="ru.practicum.android.diploma.ui.filters.FiltersCountryFragment"
-        android:label="FiltersCountryFragment" >
-        <action
-            android:id="@+id/action_filtersCountryFragment_to_filterPlaceOfWorkFragment"
-            app:destination="@id/filterPlaceOfWorkFragment" />
-    </fragment>
+        android:label="FiltersCountryFragment" />
     <fragment
         android:id="@+id/filtersRegionFragment"
         android:name="ru.practicum.android.diploma.ui.filters.FiltersRegionFragment"
-        android:label="FiltersRegionFragment" >
-        <action
-            android:id="@+id/action_filtersRegionFragment_to_filterPlaceOfWorkFragment"
-            app:destination="@id/filterPlaceOfWorkFragment" />
-    </fragment>
+        android:label="FiltersRegionFragment" />
 </navigation>
