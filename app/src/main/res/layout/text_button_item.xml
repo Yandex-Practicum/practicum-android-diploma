@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tvCountryOrRegion"
+    style="@style/CountryOrRegionItemTextStyle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="@dimen/padding_20dp"
+    android:background="?android:attr/selectableItemBackground"
+    android:paddingStart="@dimen/padding_16dp"
+    android:paddingEnd="@dimen/padding_24dp"
+    app:drawableRightCompat="@drawable/ic_arrow_forward"
+    app:drawableTint="?attr/colorOnPrimary"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:text="Россия" />

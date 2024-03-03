@@ -89,7 +89,7 @@
         android:layout_height="0dp"
         android:layout_margin="@dimen/padding_16dp"
         tools:itemCount="20"
-        tools:listitem="@layout/country_region_view"
+        tools:listitem="@layout/text_button_item"
         android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@id/regionSearchLayout"
         app:layout_constraintStart_toStartOf="parent"
