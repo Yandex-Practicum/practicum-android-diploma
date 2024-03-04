@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.presentation.main
+package ru.practicum.android.diploma.presentation.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,13 +6,13 @@ import androidx.paging.PagingDataAdapter
 import ru.practicum.android.diploma.databinding.VacancyItemBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
 
-class PagingMainAdapter(
+class PagingSearchAdapter(
     private val onClick: (String) -> Unit
-) : PagingDataAdapter<Vacancy, MainViewHolder>(DiffUtil()) {
+) : PagingDataAdapter<Vacancy, SearchViewHolder>(DiffUtil()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return MainViewHolder(
+        return SearchViewHolder(
             VacancyItemBinding.inflate(
                 layoutInflater,
                 parent,
@@ -21,7 +21,7 @@ class PagingMainAdapter(
         )
     }
 
-    override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item, onClick)
     }

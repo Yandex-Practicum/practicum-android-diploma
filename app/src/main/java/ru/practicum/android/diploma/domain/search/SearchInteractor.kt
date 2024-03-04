@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.domain.main
+package ru.practicum.android.diploma.domain.search
 
 import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.domain.models.main.SearchingVacancies
