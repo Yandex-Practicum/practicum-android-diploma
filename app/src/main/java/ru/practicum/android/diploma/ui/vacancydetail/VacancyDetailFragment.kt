@@ -149,8 +149,7 @@ class VacancyDetailFragment : Fragment() {
             if (vacancyDetail.isFavorite) R.drawable.like_icon_off_in_on else R.drawable.like_icon_off
         binding.ivbuttonLike.setImageResource(newImageRes)
         binding.tvvacancyName.text = vacancyDetail.name
-        vacancyDetail.salary?.replace(",", " ") ?:  vacancyDetail.salary
-        checkIfNotNull(vacancyDetail.salary, binding.tvsalary)
+        checkIfNotNullSalary(vacancyDetail.salary, binding.tvsalary)
         showIcon(vacancyDetail)
         binding.tvcompanyName.text = vacancyDetail.employerName
         binding.tvcompanyArea.text = vacancyDetail.area
@@ -174,6 +173,17 @@ class VacancyDetailFragment : Fragment() {
         } else {
             view.visibility = View.GONE
             binding.tvkeySkillsLabel.visibility = View.GONE
+        }
+    }
+
+    private fun checkIfNotNullSalary(itemString: String?, view: TextView): Boolean {
+        return if (itemString != null) {
+            view.visibility = View.VISIBLE
+            view.text = itemString.replace(",", " ")
+            true
+        } else {
+            view.visibility = View.GONE
+            false
         }
     }
 
