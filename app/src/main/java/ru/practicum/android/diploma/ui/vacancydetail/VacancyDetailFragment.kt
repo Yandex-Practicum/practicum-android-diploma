@@ -1,31 +1,45 @@
 package ru.practicum.android.diploma.ui.vacancydetail
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.Html
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentVacancyDetailBinding
 import ru.practicum.android.diploma.domain.models.detail.VacancyDetail
+import ru.practicum.android.diploma.domain.models.detail.VacancyPhoneAndComment
+import ru.practicum.android.diploma.presentation.detail.DetailAdapter
+import ru.practicum.android.diploma.presentation.favorite.FavoriteAdapter
 import ru.practicum.android.diploma.ui.similarvacancies.SimilarVacanciesFragment
 import ru.practicum.android.diploma.ui.vacancydetail.viewmodel.DetailViewModel
+import ru.practicum.android.diploma.util.checkIfNotNull
+import ru.practicum.android.diploma.util.extensions.visibleOrGone
+import java.util.Collections
 
 class VacancyDetailFragment : Fragment() {
 
     private val vacancyDetailViewModel: DetailViewModel by activityViewModel()
     private var _binding: FragmentVacancyDetailBinding? = null
+    private var adapter: DetailAdapter? = null
     private val binding get() = _binding!!
     private var vacancyLink = ""
+    private var email = ""
     private var vacancyId = ""
     private var convertedVacancyId = ""
+    private var phonesAndComments = mutableListOf<VacancyPhoneAndComment>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +57,10 @@ class VacancyDetailFragment : Fragment() {
 
         vacancyDetailViewModel.searchDetailInformation(convertedVacancyId)
 
+        adapter = DetailAdapter(requireContext())
+        binding.phonesAndCommentsRecyclerView.adapter = adapter
+        binding.phonesAndCommentsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+
         vacancyDetailViewModel.observeState().observe(viewLifecycleOwner) {
             render(it)
         }
@@ -59,6 +77,10 @@ class VacancyDetailFragment : Fragment() {
 
         binding.ivbuttonShare.setOnClickListener {
             shareVacancy(vacancyLink)
+        }
+
+        binding.tvcontactEmail.setOnClickListener{
+            openEmail(email)
         }
 
         vacancyDetailViewModel.observeState().observe(viewLifecycleOwner) {
@@ -131,26 +153,50 @@ class VacancyDetailFragment : Fragment() {
         showIcon(vacancyDetail)
         binding.tvcompanyName.text = vacancyDetail.employerName
         binding.tvcompanyArea.text = vacancyDetail.area
-        if (checkIfNotNull(vacancyDetail.experience, binding.tvexperience)) {
-            binding.tvexperiencelabel.visibility = View.VISIBLE
-        }
+        binding.tvexperiencelabel.visibleOrGone(
+            checkIfNotNull(
+                vacancyDetail.experience,
+                binding.tvexperience))
         showEmploymentAndSchedule(vacancyDetail)
         binding.tvdescription.setText(Html.fromHtml(vacancyDetail.description, Html.FROM_HTML_MODE_COMPACT))
-        //пока только один скилл
-        if (checkIfNotNull(vacancyDetail.keySkills, binding.tvkeySkills)) {
-            binding.tvkeySkillsLabel.visibility = View.VISIBLE
-        }
+        checkKeySkills(vacancyDetail.keySkills, binding.tvkeySkills)
         showContacts(vacancyDetail)
     }
 
-    private fun checkIfNotNull(vacancyDetailItem: String?, view: TextView): Boolean {
-        return if (vacancyDetailItem != null) {
+    private fun checkKeySkills(vacancyDetailItemList: List<String?>, view: TextView) {
+        if (vacancyDetailItemList.isNotEmpty()) {
             view.visibility = View.VISIBLE
-            view.text = vacancyDetailItem
-            true
+            binding.tvkeySkillsLabel.visibility = View.VISIBLE
+            view.text =  vacancyDetailItemList
+                .joinToString(separator = "\n"){
+                    HtmlCompat.fromHtml("&#8226  $it", HtmlCompat.FROM_HTML_MODE_LEGACY) }
         } else {
             view.visibility = View.GONE
-            false
+            binding.tvkeySkillsLabel.visibility = View.GONE
+        }
+    }
+
+    private fun checkPhonesAndComments(
+        phonesList: List<String?>,
+        commentsList: List<String?>,
+    ): Boolean {
+        return if (phonesList.isNotEmpty() || commentsList.isNotEmpty()) {
+            binding.phonesAndCommentsRecyclerView.visibility = View.VISIBLE
+            val maxValue = phonesList.size.coerceAtLeast(commentsList.size)
+            phonesAndComments = (1 .. maxValue).map{
+                VacancyPhoneAndComment(
+                    contactPhone = phonesList[it-1],
+                    contactComment = commentsList[it-1]
+                )
+            }.toMutableList()
+
+            adapter?.phoneAndCommentList?.clear()
+            adapter?.phoneAndCommentList?.addAll(phonesAndComments)
+            adapter?.notifyDataSetChanged()
+        true
+        } else {
+            binding.phonesAndCommentsRecyclerView.visibility = View.GONE
+        false
         }
     }
 
@@ -165,31 +211,45 @@ class VacancyDetailFragment : Fragment() {
     private fun showEmploymentAndSchedule(vacancyDetail: VacancyDetail) {
         val checkEmployment = checkIfNotNull(vacancyDetail.employment, binding.tvemployment)
         val checkSchedule = checkIfNotNull(vacancyDetail.schedule, binding.tvschedule)
-        if (checkEmployment && checkSchedule) binding.tvcomma.visibility = View.VISIBLE
+        binding.tvcomma.visibleOrGone(checkEmployment && checkSchedule)
     }
 
     private fun showContacts(vacancyDetail: VacancyDetail) {
-        val checkContactName = checkIfNotNull(vacancyDetail.contactName, binding.tvcontactName)
-        val checkContactEmail = checkIfNotNull(vacancyDetail.contactEmail, binding.tvcontactEmail)
-        //пока только один телефон и коммент
-        val checkContactPhone = checkIfNotNull(vacancyDetail.contactPhone, binding.tvcontactPhone)
-        val checkContactComment = checkIfNotNull(vacancyDetail.contactComment, binding.tvcontactComment)
-        if (checkContactName || checkContactEmail || checkContactPhone || checkContactComment) {
-            binding.tvcontactsLabel.visibility = View.VISIBLE
-        }
-        if (checkContactName) binding.tvcontactNameLabel.visibility = View.VISIBLE
-        if (checkContactEmail) binding.tvcontactEmailLabel.visibility = View.VISIBLE
-        if (checkContactPhone) binding.tvcontactPhoneLabel.visibility = View.VISIBLE
-        if (checkContactComment) binding.tvcontactCommentLabel.visibility = View.VISIBLE
+        val checkContactName = checkIfNotNull(
+            vacancyDetail.contactName,
+            binding.tvcontactName)
+
+        val checkContactEmail = checkIfNotNull(
+            vacancyDetail.contactEmail,
+            binding.tvcontactEmail)
+        if(checkContactEmail) email = vacancyDetail.contactEmail!!
+
+        val checkPhonesAndComments = checkPhonesAndComments(
+            vacancyDetail.contactPhones,
+            vacancyDetail.contactComments)
+
+        binding.tvcontactsLabel.visibleOrGone(checkContactName
+            || checkContactEmail
+            || checkPhonesAndComments)
+
+        binding.tvcontactNameLabel.visibleOrGone(checkContactName)
+        binding.tvcontactEmailLabel.visibleOrGone(checkContactEmail)
     }
 
     private fun shareVacancy(link: String) {
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.type = "text/plain"
         shareIntent.putExtra(Intent.EXTRA_TEXT, link)
-        val chooserIntent = Intent.createChooser(shareIntent, null)
+        val chooserIntent = Intent.createChooser(shareIntent, "Поделиться")
         chooserIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         requireContext().startActivity(chooserIntent)
+    }
+
+    private fun openEmail(emailData: String) {
+        val emailIntent = Intent(Intent.ACTION_SENDTO)
+        emailIntent.data = Uri.parse("mailto:$emailData")
+        emailIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        requireContext().startActivity(emailIntent)
     }
 
     override fun onDestroyView() {

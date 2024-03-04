@@ -7,15 +7,15 @@ data class VacancyDetail(
     val vacancyLink: String,
     val contactName: String?,
     val contactEmail: String?,
-    val contactPhone: String?,
-    val contactComment: String?,
+    val contactPhones: List<String?>,
+    val contactComments: List<String?>,
     val employerName: String?,
     val employerUrl: String?,
     val salary: String?,
     val schedule: String?,
     val employment: String?,
     val experience: String?,
-    val keySkills: String,
+    val keySkills: List<String?>,
     val description: String,
     val isFavorite: Boolean = false
 )

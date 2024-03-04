@@ -16,7 +16,7 @@ object VacancyConverter {
         )
     }
 
-    private fun formatSalary(salary: Salary?): String {
+    fun formatSalary(salary: Salary?): String {
         if (salary == null) return "Зарплата не указана"
 
         val currency = when (salary.currency) {

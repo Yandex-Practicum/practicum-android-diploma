@@ -1,5 +1,8 @@
 package ru.practicum.android.diploma.data.converters
 
+import android.util.Log
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import ru.practicum.android.diploma.data.db.entyti.VacancyDetailEntity
 import ru.practicum.android.diploma.data.dto.responseUnits.Employer
 import ru.practicum.android.diploma.data.dto.responseUnits.LogoUrls
@@ -16,6 +19,7 @@ import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.Vacancy
 import ru.practicum.android.diploma.domain.models.detail.VacancyDetail
 
 object VacancyDetailDbConverter {
+    private val itemType = object : TypeToken<List<String?>>() {}.type
 
     fun VacancyDetailEntity.mapToVacancyDetail(): VacancyDetail {
         return VacancyDetail(
@@ -25,21 +29,22 @@ object VacancyDetailDbConverter {
             vacancyLink = vacancyLink,
             contactName = contactName,
             contactEmail = contactEmail,
-            contactPhone = contactPhone,
-            contactComment = contactComment,
+            contactPhones = createListFromJson(contactPhone),
+            contactComments = createListFromJson(contactComment),
             employerName = employerName,
             employerUrl = employerUrl,
             salary = salary,
             schedule = schedule,
             employment = employment,
             experience = experience,
-            keySkills = keySkills,
+            keySkills = createListFromJson(keySkills),
             description = description,
             isFavorite = true
         )
     }
 
     fun VacancyDetail.mapToVacancyDetailEntity(): VacancyDetailEntity {
+
         return VacancyDetailEntity(
             id = id,
             name = name,
@@ -47,15 +52,15 @@ object VacancyDetailDbConverter {
             vacancyLink = vacancyLink,
             contactName = contactName,
             contactEmail = contactEmail,
-            contactPhone = contactPhone,
-            contactComment = contactComment,
+            contactPhone = createJsonFromList(contactPhones),
+            contactComment = createJsonFromList(contactComments),
             employerName = employerName,
             employerUrl = employerUrl,
             salary = salary,
             schedule = schedule,
             employment = employment,
             experience = experience,
-            keySkills = keySkills,
+            keySkills = createJsonFromList(keySkills),
             description = description,
             isFavorite = true
         )
@@ -72,20 +77,20 @@ object VacancyDetailDbConverter {
             vacancyLink = vacancyLink,
             contactName = contacts?.name,
             contactEmail = contacts?.email,
-            contactPhone = "buildPhoneNumbers(contacts?.phones)",
-            contactComment = "buildPhoneComments(contacts?.phones)",
+            contactPhones = buildPhoneNumbers(contacts?.phones),
+            contactComments = buildPhoneComments(contacts?.phones),
             employerName = employer?.name,
             employerUrl = employer?.logoUrls?.original,
-            salary = "от ${salary?.from} до ${salary?.to}",
+            salary = VacancyConverter.formatSalary(salary),
             schedule = schedule?.name,
             employment = employment?.name,
             experience = experience?.name,
-            keySkills = "buildKeySkills(keySkills)",
+            keySkills = buildKeySkills(keySkills),
             description = description
         )
     }
 
-    fun buildPhoneNumbers(phones: Array<Phones>?): List<String?> {
+    fun buildPhoneNumbers(phones: List<Phones>?): List<String?> {
         var phoneString: String
         val phoneList = mutableListOf<String>()
         phones?.forEach {
@@ -95,7 +100,7 @@ object VacancyDetailDbConverter {
         return phoneList
     }
 
-    fun buildPhoneComments(phones: Array<Phones>?): List<String?> {
+    fun buildPhoneComments(phones: List<Phones>?): List<String?> {
         val commentList = mutableListOf<String?>()
         phones?.forEach {
             commentList.add(it.comment)
@@ -109,5 +114,13 @@ object VacancyDetailDbConverter {
             skillsList.add(it.name)
         }
         return skillsList
+    }
+
+    fun createJsonFromList(list: List<String?>): String {
+        return Gson().toJson(list)
+    }
+
+    fun createListFromJson(json: String?): List<String?>{
+        return Gson().fromJson(json, itemType)
     }
 }
