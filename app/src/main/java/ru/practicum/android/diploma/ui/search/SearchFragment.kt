@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.main
+package ru.practicum.android.diploma.ui.search
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -20,20 +21,20 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.databinding.FragmentMainBinding
-import ru.practicum.android.diploma.presentation.main.PagingMainAdapter
-import ru.practicum.android.diploma.ui.main.viewmodel.MainViewModel
+import ru.practicum.android.diploma.databinding.FragmentSearchBinding
+import ru.practicum.android.diploma.presentation.search.PagingSearchAdapter
+import ru.practicum.android.diploma.ui.search.viewmodel.SearchViewModel
 import ru.practicum.android.diploma.util.extensions.onTextChange
 import ru.practicum.android.diploma.util.extensions.onTextChangeDebounce
 import ru.practicum.android.diploma.util.extensions.visibleOrGone
 
-class MainFragment : Fragment() {
+class SearchFragment : Fragment() {
 
-    private val viewModel by viewModel<MainViewModel>()
+    private val viewModel by viewModel<SearchViewModel>()
 
-    private var _binding: FragmentMainBinding? = null
+    private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
-    private lateinit var adapter: PagingMainAdapter
+    private lateinit var adapter: PagingSearchAdapter
 
     private var searchJob: Job? = null
 
@@ -42,7 +43,7 @@ class MainFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        _binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -50,10 +51,16 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupMainRecycler()
 
+        setFragmentResultListener("requestKey") { key, bundle ->
+            val filterGson = bundle.getString("key") ?: return@setFragmentResultListener
+            viewModel.updatesFilters(filterGson)
+        }
+
         binding.searchEditText.onTextChange {
             binding.searchContainer.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
             binding.searchContainer.endIconDrawable = requireContext().getDrawable(R.drawable.ic_clear)
             binding.clearButton.isEnabled = true
+            binding.clearButton.visibleOrGone(binding.clearButton.isEnabled)
         }
 
         binding.searchEditText.onTextChangeDebounce()
@@ -67,6 +74,8 @@ class MainFragment : Fragment() {
         binding.clearButton.setOnClickListener {
             clearSearchText()
             viewModel.onSearch("")
+            viewModel.observeState().value.foundVacancies = null
+            binding.tvRvHeader.visibility = View.GONE
         }
 
         binding.filterImageView.setOnClickListener {
@@ -120,11 +129,21 @@ class MainFragment : Fragment() {
     }
 
     private fun setupMainRecycler() {
-        adapter = PagingMainAdapter {
+        adapter = PagingSearchAdapter {
             findNavController().navigate(R.id.action_mainFragment_to_vacanciesFragment, bundleOf("vacancy_id" to it))
         }
         binding.searchRecyclerView.adapter = adapter
         binding.searchRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        if (binding.searchEditText.text.toString().isNotEmpty()) {
+            binding.searchContainer.endIconMode = TextInputLayout.END_ICON_CUSTOM
+            binding.searchContainer.endIconDrawable = requireContext().getDrawable(R.drawable.ic_clear)
+            binding.clearButton.isEnabled = true
+        }
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")

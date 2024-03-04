@@ -54,13 +54,13 @@ class SearchRepositoryImpl(
         }
     }
 
-    override suspend fun vacanciesPagination(query: String, nextPage: Int): Resource<SearchingVacancies> {
+    override suspend fun vacanciesPagination(params: Map<String, String>): Resource<SearchingVacancies> {
         return withContext(Dispatchers.IO) {
             try {
-                val params = mapOf(
-                    "text" to query,
-                    "page" to nextPage.toString()
-                )
+//                val params = mapOf(
+//                    "text" to query,
+//                    "page" to nextPage.toString()
+//                )
                 val response = api.getFullListVacancy(params)
                 Resource.Success(SearchingVacancies(
                     response.items?.map { it.toVacancy() } ?: emptyList(),
