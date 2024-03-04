@@ -83,7 +83,7 @@
     </fragment>
     <fragment
         android:id="@+id/industryFragment"
-        android:name="ru.practicum.android.diploma.ui.industry.IndustryFragment"
+        android:name="ru.practicum.android.diploma.ui.industries.IndustriesFragment"
         android:label="fragment_industry"
         tools:layout="@layout/fragment_industry" />
 </navigation>

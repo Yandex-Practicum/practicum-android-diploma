@@ -59,7 +59,6 @@ class DetailViewModel(
 
     fun renderState(detailState: DetailState) {
         stateLiveData.postValue(detailState)
-
     }
 
     fun onFavoriteClicked() {
