@@ -37,6 +37,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
+                    android:id="@+id/workplace_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -71,6 +72,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
+                    android:id="@+id/industry_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -104,14 +106,14 @@
             android:background="@drawable/rounded_edittext">
 
             <EditText
-                android:id="@+id/Edit"
+                android:id="@+id/edit"
                 style="@style/Text_Standard"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:hint="@string/enter_sum"
                 android:imeOptions="actionDone"
-                android:inputType="text"
+                android:inputType="number"
                 android:lines="1"
                 android:maxLength="25"
                 android:paddingStart="8dp"
@@ -147,6 +149,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
+                    android:button="@drawable/cb_selector"
                     android:buttonTint="@color/YP_Blue"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
