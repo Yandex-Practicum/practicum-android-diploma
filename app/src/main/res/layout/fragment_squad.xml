@@ -9,18 +9,19 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/squad_toolbar"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" >
+        
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            style="@style/Text_Header"
             android:gravity="center_vertical"
-            android:text="@string/squad"
-            android:textSize="22sp"
-            android:textStyle="bold" />
+            android:text="@string/squad"/>
+
     </androidx.appcompat.widget.Toolbar>
 
     <TextView

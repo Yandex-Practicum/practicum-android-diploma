@@ -13,8 +13,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:title="Поиск вакансий">
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/favorite_text"
+            style="@style/Text_Header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/search_heading"
+            android:textColor="@color/black_white" />
 
         <FrameLayout
             android:id="@+id/filterButton"
@@ -148,12 +155,11 @@
         android:layout_width="match_parent"
         android:layout_height="223dp"
         android:layout_marginHorizontal="16dp"
+        android:src="@drawable/state_image_start_search"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchContainer"
-        android:src="@drawable/state_image_start_search"
-        tools:visibility="invisible"
-        />
+        tools:visibility="invisible" />
 
     <LinearLayout
         android:id="@+id/placeholderError"

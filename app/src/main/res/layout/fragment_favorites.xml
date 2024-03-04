@@ -25,7 +25,7 @@
         style="@style/Text_Header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/margin_16"
+        android:padding="@dimen/margin_19"
         android:text="@string/bottomFavorites"
         android:textColor="@color/black_white"
         app:layout_constraintEnd_toEndOf="parent"

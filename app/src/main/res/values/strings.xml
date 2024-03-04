@@ -43,4 +43,6 @@
     <string name="chose">Выбрать</string>
     <string name="remove">Сбросить</string>
 
+    <string name="search_heading">Поиск вакансий</string>
+
 </resources>
