@@ -46,7 +46,6 @@ class FavoritesFragment : Fragment() {
                 R.id.action_favoritesFragment_to_vacanciesFragment,
                 bundleOf("vacancy_id" to vacancy.id)
             )
-            Log.d("StateFavorite", "State = ${vacancy.isFavorite}")
         }
 
         viewModel.fillData()
@@ -100,15 +99,5 @@ class FavoritesFragment : Fragment() {
         adapter?.vacancyList?.clear()
         adapter?.vacancyList?.addAll(vacancy)
         adapter?.notifyDataSetChanged()
-    }
-
-    companion object {
-
-        private const val SAVE_VACANCY = "SAVE_VACANCY"
-
-        @JvmStatic
-        fun newInstance(vacancy: VacancyDetail): Bundle {
-            return bundleOf(SAVE_VACANCY to vacancy)
-        }
     }
 }
