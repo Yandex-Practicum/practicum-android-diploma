@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/item_height">
+
+    <TextView
+        android:id="@+id/country"
+        style="@style/TextStyleRegular16_400"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_gravity="center|start"
+        android:ellipsize="end"
+        android:maxLines="1"
+        tools:text="Другие регионы" />
+
+    <ImageView
+        android:id="@+id/arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|end"
+        android:src="@drawable/arrow_forward_24px"
+        android:layout_marginEnd="@dimen/margin_16"  />
+
+</FrameLayout>
