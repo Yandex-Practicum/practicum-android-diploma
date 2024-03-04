@@ -116,6 +116,7 @@
         android:background="@drawable/expected_salary"
         android:backgroundTint="@color/blue"
         android:gravity="center"
+        android:visibility="gone"
         android:text="@string/choose"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
