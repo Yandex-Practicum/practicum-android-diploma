@@ -17,6 +17,8 @@ import ru.practicum.android.diploma.ui.filters.recycler.FilterAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.ui.filter.ChooseIndustryFragment
+import ru.practicum.android.diploma.ui.search.gone
+import ru.practicum.android.diploma.ui.search.visible
 
 
 class FiltersCountryFragment : Fragment() {
@@ -68,19 +70,22 @@ class FiltersCountryFragment : Fragment() {
     }
 
     private fun showLoading() {
-
+        binding.progressBar.visible()
     }
 
     private fun showError() {
-
+        binding.progressBar.gone()
+        binding.errorFailedGet.visible()
     }
 
     private fun showEmpty() {
-
+        binding.progressBar.gone()
+        binding.errorFailedGet.visible()
     }
 
     private fun showContent(countries: List<Country>) {
-
+        binding.progressBar.gone()
+        binding.errorFailedGet.gone()
         countriesAdapter!!.countriesList.clear()
         countriesAdapter!!.countriesList.addAll(countries)
         countriesAdapter!!.notifyDataSetChanged()

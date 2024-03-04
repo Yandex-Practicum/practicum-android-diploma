@@ -13,6 +13,8 @@ import ru.practicum.android.diploma.databinding.FragmentFilterChoosePlaceOfWorkB
 import ru.practicum.android.diploma.domain.models.Area
 import ru.practicum.android.diploma.domain.models.Country
 import ru.practicum.android.diploma.ui.filter.ChooseIndustryFragment
+import ru.practicum.android.diploma.ui.search.gone
+import ru.practicum.android.diploma.ui.search.visible
 
 class FiltersPlaceOfWorkFragment : Fragment() {
 
@@ -34,8 +36,6 @@ class FiltersPlaceOfWorkFragment : Fragment() {
 
         initListeners()
         initFilters()
-
-
     }
 
     private fun initListeners() {
@@ -64,6 +64,7 @@ class FiltersPlaceOfWorkFragment : Fragment() {
             country = bundle.getParcelable(FiltersCountryFragment.COUNTRY_KEY)
             if (country != null) {
                 binding.country.setText(country!!.name)
+                binding.textView2.visible()
             }
         }
     }

@@ -211,10 +211,6 @@ class FiltersFragment : Fragment() {
     }
 
     private fun resetFilters() {
-        //binding.placeOfWork.setText("")
-        //binding.industry.setText("")
-        //binding.expectedSalary.setText("")
-        //binding.salaryOnlyCheckbox.isChecked = false
         binding.resetButton.gone()
         viewModel.clearPrefs()
         initFilterSettings()
