@@ -1,7 +1,10 @@
 package ru.practicum.android.diploma.di
 
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import ru.practicum.android.diploma.data.favorite.impl.FavoriteRepositoryImpl
+import ru.practicum.android.diploma.data.filters.FiltersRepository
+import ru.practicum.android.diploma.data.filters.FiltersRepositoryImpl
 import ru.practicum.android.diploma.data.industries.IndustriesRepositoryImpl
 import ru.practicum.android.diploma.data.vacancydetail.DetailRepositoryImpl
 import ru.practicum.android.diploma.data.vacancylist.SearchRepositoryImpl
@@ -26,5 +29,9 @@ val repositoryModule = module {
 
     single<IndustriesRepository> {
         IndustriesRepositoryImpl(get())
+    }
+
+    single<FiltersRepository> {
+        FiltersRepositoryImpl(androidContext())
     }
 }
