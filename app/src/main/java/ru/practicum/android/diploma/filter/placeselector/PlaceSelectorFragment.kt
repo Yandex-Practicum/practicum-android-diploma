@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.filter.placeselector
 
-import android.os.Build.VERSION_CODES.P
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +17,6 @@ import ru.practicum.android.diploma.databinding.FragmentPlaceSelectorBinding
 import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.COUNTRY_KEY
 import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.FILTER_RECEIVER_KEY
 import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.REGION_KEY
-import ru.practicum.android.diploma.search.ui.SearchFragmentDirections
 
 class PlaceSelectorFragment : Fragment() {
 
@@ -83,8 +81,11 @@ class PlaceSelectorFragment : Fragment() {
     }
 
     private fun changeIcon(editText: EditText, view: ImageView) {
-        if (editText.text.isEmpty()) view.setImageResource(R.drawable.ic_arrow_forward)
-        else view.setImageResource(R.drawable.ic_close)
+        if (editText.text.isEmpty()) {
+            view.setImageResource(R.drawable.ic_arrow_forward)
+        } else {
+            view.setImageResource(R.drawable.ic_close)
+        }
     }
 
     private fun clearInput(editText: EditText, view: ImageView) {
