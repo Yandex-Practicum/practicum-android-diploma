@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.data.response
 
+import ru.practicum.android.diploma.data.dto.fields.CountryDto
 import ru.practicum.android.diploma.data.search.network.Response
-import ru.practicum.android.diploma.domain.models.Countries
 
-data class CountryResponse(val results: List<Countries>) : Response()
+data class CountryResponse(val results: List<CountryDto>) : Response()
+

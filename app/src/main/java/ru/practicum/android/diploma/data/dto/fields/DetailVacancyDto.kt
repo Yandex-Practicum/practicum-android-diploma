@@ -5,7 +5,7 @@ import ru.practicum.android.diploma.data.search.network.Response
 
 data class DetailVacancyDto(
     val id: String,
-    val area: AreaDto?,
+    val area: CountryDto?,
     val contacts: ContactsDto?,
     val description: String?,
     val employer: EmployerDto?,

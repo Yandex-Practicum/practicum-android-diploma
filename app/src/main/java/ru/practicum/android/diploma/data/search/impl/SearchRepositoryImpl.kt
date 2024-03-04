@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.data.search.impl
 
+import android.content.SharedPreferences
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.data.Constant
@@ -10,14 +11,47 @@ import ru.practicum.android.diploma.data.search.network.JobSearchRequest
 import ru.practicum.android.diploma.data.search.network.NetworkClient
 import ru.practicum.android.diploma.data.search.network.Resource
 import ru.practicum.android.diploma.data.search.network.SearchListDto
+import ru.practicum.android.diploma.data.storage.impl.FiltersLocalStorage
 import ru.practicum.android.diploma.domain.models.DetailVacancy
 import ru.practicum.android.diploma.domain.models.VacancyData
 import ru.practicum.android.diploma.domain.search.SearchRepository
 
-class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRepository {
+class SearchRepositoryImpl(
+    private val networkClient: NetworkClient,
+    private val filtersLocalStorage: FiltersLocalStorage
+) : SearchRepository {
 
     override suspend fun search(expression: String, page: Int): Resource<VacancyData> {
-        val options = HashMap<String, String>()
+        val prefs = filtersLocalStorage.getPrefs()
+
+        val countryId = prefs.countryId
+        val regionId = prefs.regionId
+        val industryId = prefs.industryId
+        val salary = prefs.expectedSalary
+        val salaryOnly = prefs.salaryOnlyCheckbox
+
+        val options = mutableMapOf<String, String>()
+
+        if(countryId.isNotEmpty()) {
+            if(regionId.isNotEmpty()) {
+                options[Constant.AREA] = regionId
+            }
+            else {
+                options[Constant.AREA] = countryId
+            }
+        }
+
+        if(industryId.isNotEmpty()) {
+            options[Constant.INDUSTRY] = industryId
+        }
+
+        if(salary.isNotEmpty()) {
+            options[Constant.SALARY] = salary
+        }
+
+        if(salaryOnly) {
+            options[Constant.ONLY_WITH_SALARY] = salaryOnly.toString()
+        }
 
         options[Constant.PAGE] = page.toString()
         options[Constant.PER_PAGE] = Constant.PER_PAGE_ITEMS

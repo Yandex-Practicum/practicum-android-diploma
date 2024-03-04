@@ -38,8 +38,6 @@
         android:hint="@string/country"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
-        app:cursorColor="#003772E7"
-        app:hintTextColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbarText">
@@ -51,6 +49,7 @@
             android:layout_height="match_parent"
             android:focusable="false"
             android:paddingStart="@dimen/margin_16"
+            android:color="?attr/colorOnPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

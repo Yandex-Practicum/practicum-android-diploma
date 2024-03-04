@@ -4,12 +4,15 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.telephony.DisconnectCause.SERVER_ERROR
+import android.util.Log
+import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import ru.practicum.android.diploma.data.Constant.NO_CONNECTIVITY_MESSAGE
 import ru.practicum.android.diploma.data.Constant.SUCCESS_RESULT_CODE
 import java.io.IOException
+
 
 class RetrofitNetworkClient(
     private val service: HhApi,
@@ -48,6 +51,14 @@ class RetrofitNetworkClient(
                     response.apply { resultCode = SUCCESS_RESULT_CODE }
                 }
 
+                is CountriesRequest -> withContext(Dispatchers.IO) {
+                    val result = service.filterCountry()
+                    response.apply {
+                        countriesList = result
+                        resultCode = SUCCESS_RESULT_CODE
+                    }
+                }
+                
                 is IndustriesRequest -> withContext(Dispatchers.IO) {
                     val result = service.filterIndustry()
                     response.apply {

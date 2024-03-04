@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.di
 
 import DetailsConverter
 import androidx.room.Room
+import com.google.gson.Gson
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import ru.practicum.android.diploma.data.dto.favourites.room.VacancyConverter
@@ -20,4 +21,6 @@ val DBModule = module {
     factory { VacancyDetailsConverter }
     factory { DetailsConverter() }
     factory { VacancyShortMapper }
+
+    single { Gson() }
 }

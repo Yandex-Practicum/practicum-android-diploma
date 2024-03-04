@@ -13,5 +13,8 @@ object Constant {
     const val PER_PAGE = "per_page"
     const val TEXT = "text"
     const val STATIC_PAGE_SIZE = 20
-
+    const val AREA = "area"
+    const val INDUSTRY = "industry"
+    const val SALARY = "salary"
+    const val ONLY_WITH_SALARY = "only_with_salary"
 }

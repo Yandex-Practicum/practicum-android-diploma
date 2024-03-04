@@ -22,10 +22,10 @@ class App : Application() {
                 DBModule,
                 FavouriteModule,
                 FavouriteViewModule,
-                SearchModules,
                 VacancyModule,
                 industriesModule,
-                FiltersModules
+                FiltersModules,
+                SearchModules
             )
         }
     }
