@@ -32,7 +32,7 @@ interface HhApi {
 
     @GET("areas")
     suspend fun filterArea(): AreaResponse
-    @GET("areas/countries")
+    @GET("areas")
     suspend fun filterCountry(): List<CountryDto>
 
     //@GET("areas/{area_id}")

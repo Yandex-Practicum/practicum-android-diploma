@@ -1,18 +1,23 @@
 package ru.practicum.android.diploma.domain.models
 
-enum class CountriesList(val countryName: String) {
-    RUSSIA("Россия"),
-    UKRAINE("Украина"),
-    KAZAKHSTAN("Казахстан"),
-    AZERBAIJAN("Азербайджан"),
-    BELARUS("Беларусь"),
-    GEORGIA("Грузия"),
-    KYRGYZSTAN("Кыргызстан"),
-    UZBEKISTAN("Узбекистан");
+class CountrySortOrder {
+
+    val customOrder = listOf(
+        "Россия",
+        "Украина",
+        "Казахстан",
+        "Азербайджан",
+        "Беларусь",
+        "Грузия",
+        "Кыргызстан",
+        "Узбекистан",
+        "Другие регионы"
+    )
 
     companion object {
-        fun containsCountry(countryName: String): Boolean {
-            return values().any { it.countryName == countryName }
+        fun sortCountriesListManually(countries: List<Country>): List<Country> {
+            val sortOrder = CountrySortOrder()
+            return countries.sortedBy { sortOrder.customOrder.indexOf(it.name) }
         }
     }
 }

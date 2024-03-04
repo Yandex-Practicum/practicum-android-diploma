@@ -73,7 +73,7 @@ class Convertors {
         return Country(
             id = country.id,
             name = country.name ?: "",
-            url = country.url ?: "",
+            parentId = country.parentId ?: "",
         )
     }
 

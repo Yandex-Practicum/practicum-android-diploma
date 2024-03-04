@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.presentation.filters
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,8 +8,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.data.search.network.Resource
 import ru.practicum.android.diploma.domain.filters.FiltersInteractor
-import ru.practicum.android.diploma.domain.models.CountriesList
 import ru.practicum.android.diploma.domain.models.Country
+import ru.practicum.android.diploma.domain.models.CountrySortOrder
 
 class FiltersCountryViewModel(
     private val filterInteractor: FiltersInteractor,
@@ -33,13 +32,8 @@ class FiltersCountryViewModel(
     private fun loadCountries(foundCountries: Resource<List<Country>>) {
         if (foundCountries.code == 200) {
             if (foundCountries.data != null) {
-                var countriesList: ArrayList<Country> = ArrayList()
-                for (country in foundCountries.data) {
-                    if (CountriesList.containsCountry(country.name)) {
-                        countriesList.add(country)
-                    }
-                }
-                countriesList.add(Country("", "Другие страны", ""))
+                var countriesList = CountrySortOrder.sortCountriesListManually(foundCountries.data)
+
                 countries.clear()
                 countries.addAll(countriesList)
                 filtersCountriesStateLiveData.postValue(FiltersCountriesState.Content(countries))
