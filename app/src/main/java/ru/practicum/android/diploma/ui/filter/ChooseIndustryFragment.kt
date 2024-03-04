@@ -11,15 +11,16 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.FragmentFilterChooseIndustryBinding
+import ru.practicum.android.diploma.domain.models.Industry
 
 class ChooseIndustryFragment: Fragment() {
     private var _binding: FragmentFilterChooseIndustryBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModel<ChooseIndustryViewModel>()
-    var currentIndustryName : String = ""
-    private var adapter = IndustriesAdapter { checkedId, industryName ->
+    lateinit var currentIndustry : Industry
+    private var adapter = IndustriesAdapter { checkedId, industry ->
         binding.textView2.isVisible = checkedId != -1
-        currentIndustryName = industryName
+        currentIndustry = industry
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentFilterChooseIndustryBinding.inflate(inflater, container, false)
@@ -37,7 +38,7 @@ class ChooseIndustryFragment: Fragment() {
             findNavController().popBackStack()
         }
         binding.textView2.setOnClickListener {
-            parentFragmentManager.setFragmentResult(REQUEST_KEY, bundleOf(INDUSTRY_KEY to currentIndustryName))
+            parentFragmentManager.setFragmentResult(REQUEST_KEY, bundleOf(INDUSTRY_KEY to currentIndustry))
             findNavController().popBackStack()
         }
         viewModel.industriesState.observe(viewLifecycleOwner) { state ->
