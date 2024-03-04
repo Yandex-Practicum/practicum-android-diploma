@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.main
+package ru.practicum.android.diploma.ui.search
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -21,20 +21,20 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.databinding.FragmentMainBinding
-import ru.practicum.android.diploma.presentation.main.PagingMainAdapter
-import ru.practicum.android.diploma.ui.main.viewmodel.MainViewModel
+import ru.practicum.android.diploma.databinding.FragmentSearchBinding
+import ru.practicum.android.diploma.presentation.search.PagingSearchAdapter
+import ru.practicum.android.diploma.ui.search.viewmodel.SearchViewModel
 import ru.practicum.android.diploma.util.extensions.onTextChange
 import ru.practicum.android.diploma.util.extensions.onTextChangeDebounce
 import ru.practicum.android.diploma.util.extensions.visibleOrGone
 
-class MainFragment : Fragment() {
+class SearchFragment : Fragment() {
 
-    private val viewModel by viewModel<MainViewModel>()
+    private val viewModel by viewModel<SearchViewModel>()
 
-    private var _binding: FragmentMainBinding? = null
+    private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
-    private lateinit var adapter: PagingMainAdapter
+    private lateinit var adapter: PagingSearchAdapter
 
     private var searchJob: Job? = null
 
@@ -43,7 +43,7 @@ class MainFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        _binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -129,7 +129,7 @@ class MainFragment : Fragment() {
     }
 
     private fun setupMainRecycler() {
-        adapter = PagingMainAdapter {
+        adapter = PagingSearchAdapter {
             findNavController().navigate(R.id.action_mainFragment_to_vacanciesFragment, bundleOf("vacancy_id" to it))
         }
         binding.searchRecyclerView.adapter = adapter

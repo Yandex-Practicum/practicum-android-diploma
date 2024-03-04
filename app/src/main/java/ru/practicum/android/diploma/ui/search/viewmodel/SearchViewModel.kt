@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.main.viewmodel
+package ru.practicum.android.diploma.ui.search.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,17 +18,17 @@ import ru.practicum.android.diploma.data.filters.FiltersRepository
 import ru.practicum.android.diploma.domain.api.SearchRepository
 import ru.practicum.android.diploma.domain.models.Filter
 import ru.practicum.android.diploma.domain.models.Vacancy
-import ru.practicum.android.diploma.presentation.main.VacanciesPagingSource
-import ru.practicum.android.diploma.ui.main.MainViewState
-import ru.practicum.android.diploma.ui.main.SearchState
+import ru.practicum.android.diploma.presentation.search.VacanciesPagingSource
+import ru.practicum.android.diploma.ui.search.SearchViewState
+import ru.practicum.android.diploma.ui.search.SearchState
 import ru.practicum.android.diploma.util.Resource
 
-class MainViewModel(
+class SearchViewModel(
     private val repository: SearchRepository,
     private val filtersRepository: FiltersRepository
 ) : ViewModel() {
 
-    private val state = MutableStateFlow(MainViewState())
+    private val state = MutableStateFlow(SearchViewState())
     fun observeState() = state.asStateFlow()
     private var vacancyJob: Job? = null
     var flow: Flow<PagingData<Vacancy>> = emptyFlow()
@@ -89,19 +89,23 @@ class MainViewModel(
 
                 val result = repository.vacanciesPagination(params)
 
-                if (result is Resource.Success) {
-                    val founded = result.data?.foundedVacancies?.toString()?.let {
-                        if (it != "0") {
-                            "Найдено $it вакансий"
-                        } else {
-                            "Таких вакансий нет"
-                        }
-                    } ?: "Таких вакансий нет"
+                when (result) {
+                    is Resource.Success -> {
+                        val founded = result.data?.foundedVacancies?.toString()?.let {
+                            if (it != "0") {
+                                "Найдено $it вакансий"
+                            } else {
+                                "Таких вакансий нет"
+                            }
+                        } ?: "Таких вакансий нет"
 
-                    state.update { it.copy(foundVacancies = founded) }
+                        state.update { it.copy(foundVacancies = founded) }
+                        subscribeVacanciesPagination(params)
+                    }
+                    is Resource.Error -> {
+                        state.update { it.copy(state = SearchState.Error) }
+                    }
                 }
-
-                subscribeVacanciesPagination(params)
             }
         } else {
             state.update { it.copy(state = SearchState.Empty) }

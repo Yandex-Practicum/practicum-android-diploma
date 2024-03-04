@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.presentation.main
+package ru.practicum.android.diploma.presentation.search
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState

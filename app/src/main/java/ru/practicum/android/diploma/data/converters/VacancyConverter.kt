@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.data.converters
 
+import android.icu.text.DecimalFormat
 import ru.practicum.android.diploma.data.dto.responseUnits.Salary
 import ru.practicum.android.diploma.data.dto.responseUnits.VacancyDto
 import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.KeySkillVacancyDetail
@@ -85,14 +86,22 @@ object VacancyConverter {
         val stringBuilder = StringBuilder()
 
         salary.from?.let {
-            stringBuilder.append("от ${salary.from} ")
+            stringBuilder.append("от ${formatSalary(salary.from)} ")
         }
 
         salary.to?.let {
-            stringBuilder.append("до ${salary.to} ")
+            stringBuilder.append("до ${formatSalary(salary.to)} ")
         }
         stringBuilder.append("$currency")
 
         return stringBuilder.toString()
+    }
+
+    private fun formatSalary(salary: Int): String {
+        val df = DecimalFormat()
+        df.isGroupingUsed = true
+        df.groupingSize = 3
+
+        return df.format(salary)
     }
 }

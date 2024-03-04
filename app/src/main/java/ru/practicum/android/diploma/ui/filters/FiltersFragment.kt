@@ -57,7 +57,7 @@ class FiltersFragment : Fragment() {
 //            val industry = binding.industryValue.text.toString()
 //            val salary = binding.edit.text.toString()
 //            val result= Filter(country, region, industry, salary, check)
-            val result = Filter(onlyWithSalary = true)
+            val result = Filter(onlyWithSalary = binding.checkBox.isChecked)
             bundle.putString("key", Gson().toJson(result))
             setFragmentResult("requestKey", bundle)
             findNavController().popBackStack()
