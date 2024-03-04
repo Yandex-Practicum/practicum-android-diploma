@@ -4,13 +4,11 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.Html
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -22,12 +20,10 @@ import ru.practicum.android.diploma.databinding.FragmentVacancyDetailBinding
 import ru.practicum.android.diploma.domain.models.detail.VacancyDetail
 import ru.practicum.android.diploma.domain.models.detail.VacancyPhoneAndComment
 import ru.practicum.android.diploma.presentation.detail.DetailAdapter
-import ru.practicum.android.diploma.presentation.favorite.FavoriteAdapter
 import ru.practicum.android.diploma.ui.similarvacancies.SimilarVacanciesFragment
 import ru.practicum.android.diploma.ui.vacancydetail.viewmodel.DetailViewModel
 import ru.practicum.android.diploma.util.checkIfNotNull
 import ru.practicum.android.diploma.util.extensions.visibleOrGone
-import java.util.Collections
 
 class VacancyDetailFragment : Fragment() {
 
@@ -79,7 +75,7 @@ class VacancyDetailFragment : Fragment() {
             shareVacancy(vacancyLink)
         }
 
-        binding.tvcontactEmail.setOnClickListener{
+        binding.tvcontactEmail.setOnClickListener {
             openEmail(email)
         }
 
@@ -156,7 +152,9 @@ class VacancyDetailFragment : Fragment() {
         binding.tvexperiencelabel.visibleOrGone(
             checkIfNotNull(
                 vacancyDetail.experience,
-                binding.tvexperience))
+                binding.tvexperience
+            )
+        )
         showEmploymentAndSchedule(vacancyDetail)
         binding.tvdescription.setText(Html.fromHtml(vacancyDetail.description, Html.FROM_HTML_MODE_COMPACT))
         checkKeySkills(vacancyDetail.keySkills, binding.tvkeySkills)
@@ -167,9 +165,10 @@ class VacancyDetailFragment : Fragment() {
         if (vacancyDetailItemList.isNotEmpty()) {
             view.visibility = View.VISIBLE
             binding.tvkeySkillsLabel.visibility = View.VISIBLE
-            view.text =  vacancyDetailItemList
-                .joinToString(separator = "\n"){
-                    HtmlCompat.fromHtml("&#8226  $it", HtmlCompat.FROM_HTML_MODE_LEGACY) }
+            view.text = vacancyDetailItemList
+                .joinToString(separator = "\n") {
+                    HtmlCompat.fromHtml("&#8226  $it", HtmlCompat.FROM_HTML_MODE_LEGACY)
+                }
         } else {
             view.visibility = View.GONE
             binding.tvkeySkillsLabel.visibility = View.GONE
@@ -194,20 +193,20 @@ class VacancyDetailFragment : Fragment() {
         return if (phonesList.isNotEmpty() || commentsList.isNotEmpty()) {
             binding.phonesAndCommentsRecyclerView.visibility = View.VISIBLE
             val maxValue = phonesList.size.coerceAtLeast(commentsList.size)
-            phonesAndComments = (1 .. maxValue).map{
+            phonesAndComments = (1..maxValue).map {
                 VacancyPhoneAndComment(
-                    contactPhone = phonesList[it-1],
-                    contactComment = commentsList[it-1]
+                    contactPhone = phonesList[it - 1],
+                    contactComment = commentsList[it - 1]
                 )
             }.toMutableList()
 
             adapter?.phoneAndCommentList?.clear()
             adapter?.phoneAndCommentList?.addAll(phonesAndComments)
             adapter?.notifyDataSetChanged()
-        true
+            true
         } else {
             binding.phonesAndCommentsRecyclerView.visibility = View.GONE
-        false
+            false
         }
     }
 
@@ -228,20 +227,25 @@ class VacancyDetailFragment : Fragment() {
     private fun showContacts(vacancyDetail: VacancyDetail) {
         val checkContactName = checkIfNotNull(
             vacancyDetail.contactName,
-            binding.tvcontactName)
+            binding.tvcontactName
+        )
 
         val checkContactEmail = checkIfNotNull(
             vacancyDetail.contactEmail,
-            binding.tvcontactEmail)
-        if(checkContactEmail) email = vacancyDetail.contactEmail!!
+            binding.tvcontactEmail
+        )
+        if (checkContactEmail) email = vacancyDetail.contactEmail!!
 
         val checkPhonesAndComments = checkPhonesAndComments(
             vacancyDetail.contactPhones,
-            vacancyDetail.contactComments)
+            vacancyDetail.contactComments
+        )
 
-        binding.tvcontactsLabel.visibleOrGone(checkContactName
-            || checkContactEmail
-            || checkPhonesAndComments)
+        binding.tvcontactsLabel.visibleOrGone(
+            checkContactName
+                || checkContactEmail
+                || checkPhonesAndComments
+        )
 
         binding.tvcontactNameLabel.visibleOrGone(checkContactName)
         binding.tvcontactEmailLabel.visibleOrGone(checkContactEmail)

@@ -19,11 +19,10 @@ class FiltersRepositoryImpl(
 
     override fun getFilters(): Filter {
         val filterGson = prefs.getString(FILTER_KEY, "").takeIf { it?.isNotEmpty() ?: false }
-        return filterGson?.let{
+        return filterGson?.let {
             Gson().fromJson(filterGson, Filter::class.java)
         } ?: Filter()
     }
-
 
     companion object {
         private const val FILTER_KEY = "filter"

@@ -1,11 +1,11 @@
 package ru.practicum.android.diploma.ui.workplace
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
@@ -19,7 +19,7 @@ class WorkplaceFragment : Fragment() {
     private val viewModel by viewModel<WorkplaceViewModel>()
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View    {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentWorkplaceBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -43,7 +43,6 @@ class WorkplaceFragment : Fragment() {
             )
         }
 
-
 //        viewModel.observeState().observe(viewLifecycleOwner) {
 //            binding.countryName.text = it
 //            binding.countryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Black))
@@ -61,11 +60,11 @@ class WorkplaceFragment : Fragment() {
             binding.regionName.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Black))
         }
 
-        binding.button.setOnClickListener{
+        binding.button.setOnClickListener {
             val country = binding.countryName.text
             val region = binding.regionName.text
             val bundle = Bundle()
-            if (region!="Регион")
+            if (region != "Регион")
                 bundle.putString("keyPlace", "$country, $region")
             else
                 bundle.putString("keyPlace", "$country")

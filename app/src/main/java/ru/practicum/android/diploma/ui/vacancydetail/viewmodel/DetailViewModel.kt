@@ -82,6 +82,7 @@ class DetailViewModel(
             }
         }
     }
+
     private fun DetailState.getCurrentIfReady(): DetailState.Content? =
         if (this is DetailState.Content) this else null
 }

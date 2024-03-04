@@ -9,11 +9,11 @@ import ru.practicum.android.diploma.util.Resource
 
 class DetailInteractorImpl(
     private val detailRepository: DetailRepository
-): DetailInteractor {
+) : DetailInteractor {
 
     override fun searchDetailInformation(vacancyId: String): Flow<Pair<VacancyDetail?, Int?>> {
         return detailRepository.searchDetailInformation(vacancyId).map { resource ->
-            when(resource) {
+            when (resource) {
                 is Resource.Success -> Pair(resource.data, null)
                 is Resource.Error -> Pair(null, resource.message)
             }

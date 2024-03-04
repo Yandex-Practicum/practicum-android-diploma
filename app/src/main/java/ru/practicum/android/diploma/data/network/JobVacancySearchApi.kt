@@ -25,6 +25,4 @@ interface JobVacancySearchApi {
     // Запрос списка вакансий
     @GET("/industries")
     suspend fun getAllIndustries(@Path("industries") industries: String): IndustriesResponse
-
-
 }

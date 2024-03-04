@@ -1,17 +1,16 @@
 package ru.practicum.android.diploma.ui.industries
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.data.response.Industries
 import ru.practicum.android.diploma.databinding.FragmentIndustryBinding
 import ru.practicum.android.diploma.presentation.industries.IndustriesViewModel
-import ru.practicum.android.diploma.ui.favorites.viewmodel.FavoriteViewModel
 
 
 class IndustriesFragment : Fragment() {
@@ -34,7 +33,7 @@ class IndustriesFragment : Fragment() {
         val industry = ArrayList<Industries>()
 
         viewModel.observeState().observe(viewLifecycleOwner) { state ->
-            when(state) {
+            when (state) {
                 is IndustriesState.Content -> industry.addAll(state.vacancyDetail)
                 is IndustriesState.Error -> ""
                 is IndustriesState.Loading -> ""

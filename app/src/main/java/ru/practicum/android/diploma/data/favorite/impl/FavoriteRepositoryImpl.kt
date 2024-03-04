@@ -3,7 +3,6 @@ package ru.practicum.android.diploma.data.favorite.impl
 import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import ru.practicum.android.diploma.data.converters.VacancyDetailDbConverter
 import ru.practicum.android.diploma.data.converters.VacancyDetailDbConverter.mapToVacancyDetail
 import ru.practicum.android.diploma.data.converters.VacancyDetailDbConverter.mapToVacancyDetailEntity
 import ru.practicum.android.diploma.data.db.AppDatabase

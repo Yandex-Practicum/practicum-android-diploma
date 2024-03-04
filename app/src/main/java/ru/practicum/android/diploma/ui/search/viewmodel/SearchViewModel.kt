@@ -19,8 +19,8 @@ import ru.practicum.android.diploma.domain.api.SearchRepository
 import ru.practicum.android.diploma.domain.models.Filter
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.presentation.search.VacanciesPagingSource
-import ru.practicum.android.diploma.ui.search.SearchViewState
 import ru.practicum.android.diploma.ui.search.SearchState
+import ru.practicum.android.diploma.ui.search.SearchViewState
 import ru.practicum.android.diploma.util.Resource
 
 class SearchViewModel(
@@ -102,6 +102,7 @@ class SearchViewModel(
                         state.update { it.copy(foundVacancies = founded) }
                         subscribeVacanciesPagination(params)
                     }
+
                     is Resource.Error -> {
                         state.update { it.copy(state = SearchState.Error) }
                     }

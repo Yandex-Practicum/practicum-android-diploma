@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.data.response.Industries
 import ru.practicum.android.diploma.databinding.IndustryItemBinding
 
-class IndustriesAdapter (private val industries: ArrayList<Industries>) : RecyclerView.Adapter<IndustriesViewHolder>() {
+class IndustriesAdapter(private val industries: ArrayList<Industries>) : RecyclerView.Adapter<IndustriesViewHolder>() {
 
     var itemClickListener: ((Int, Industries) -> Unit)? = null
 
@@ -20,6 +20,7 @@ class IndustriesAdapter (private val industries: ArrayList<Industries>) : Recycl
             )
         )
     }
+
     override fun onBindViewHolder(holder: IndustriesViewHolder, position: Int) {
         val country = industries[position]
         holder.bind(country)

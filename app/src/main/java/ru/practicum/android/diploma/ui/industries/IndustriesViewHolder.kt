@@ -6,7 +6,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.response.Industries
 import ru.practicum.android.diploma.databinding.IndustryItemBinding
 
-class IndustriesViewHolder(private val binding: IndustryItemBinding): RecyclerView.ViewHolder(binding.root) {
+class IndustriesViewHolder(private val binding: IndustryItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
 
     fun bind(recyclerItem: Industries) {

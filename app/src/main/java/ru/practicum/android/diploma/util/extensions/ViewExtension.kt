@@ -19,7 +19,6 @@ fun EditText.onTextChange(callback: (text: String) -> Unit) {
         }
 
         override fun afterTextChanged(p0: Editable?) {}
-
     }
     addTextChangedListener(textWatcher)
 }

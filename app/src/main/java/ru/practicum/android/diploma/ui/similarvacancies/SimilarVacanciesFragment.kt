@@ -14,7 +14,8 @@ class SimilarVacanciesFragment : Fragment() {
         private const val VACANCYID = "vacancyId"
         fun createArgs(vacancyId: String): Bundle =
             bundleOf(
-                VACANCYID to vacancyId)
+                VACANCYID to vacancyId
+            )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

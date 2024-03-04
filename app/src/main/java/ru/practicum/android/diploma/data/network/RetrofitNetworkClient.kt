@@ -10,7 +10,6 @@ import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.Response
 import ru.practicum.android.diploma.data.ResponseCodes
 import ru.practicum.android.diploma.data.request.IndustriesRequest
-import ru.practicum.android.diploma.data.response.Industries
 import ru.practicum.android.diploma.data.vacancydetail.dto.DetailRequest
 import ru.practicum.android.diploma.data.vacancylist.dto.VacanciesSearchRequest
 

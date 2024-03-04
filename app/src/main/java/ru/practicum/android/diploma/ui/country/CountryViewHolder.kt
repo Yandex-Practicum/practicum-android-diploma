@@ -5,8 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FiltersItemBinding
 
-class CountryViewHolder (private val binding: FiltersItemBinding): RecyclerView.ViewHolder(binding.root) {
-
+class CountryViewHolder(private val binding: FiltersItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(recyclerItem: RecyclerItem) {
         binding.textView.text = recyclerItem.name

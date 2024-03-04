@@ -12,7 +12,7 @@ import ru.practicum.android.diploma.ui.industries.IndustriesState
 
 class IndustriesViewModel(
     val interactor: IndustriesInteractor
-): ViewModel() {
+) : ViewModel() {
 
     private val stateLiveData = MutableLiveData<IndustriesState>()
     fun observeState(): LiveData<IndustriesState> = stateLiveData
@@ -23,6 +23,7 @@ class IndustriesViewModel(
     init {
         loadIndustries("5")
     }
+
     fun loadIndustries(industries: String) {
         viewModelScope.launch {
             interactor.searchIndustries(industries)
