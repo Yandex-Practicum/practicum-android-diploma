@@ -146,7 +146,7 @@
     <ImageView
         android:id="@+id/imageBinoculars"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="223dp"
         android:layout_marginHorizontal="16dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -157,7 +157,7 @@
 
     <LinearLayout
         android:id="@+id/placeholderError"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:visibility="visible"
@@ -167,8 +167,8 @@
         app:layout_constraintTop_toBottomOf="@+id/searchContainer">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="223dp"
             android:background="@drawable/state_image_nothing_found" />
 
         <TextView
@@ -182,7 +182,7 @@
 
     <LinearLayout
         android:id="@+id/placeholderNoConnection"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:visibility="visible"
@@ -192,8 +192,8 @@
         app:layout_constraintTop_toBottomOf="@+id/searchContainer">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="223dp"
             android:background="@drawable/state_image_no_internet" />
 
         <TextView
