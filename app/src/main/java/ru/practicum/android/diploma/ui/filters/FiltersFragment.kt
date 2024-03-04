@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.ui.filters
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Parcelable
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -9,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.core.os.BundleCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -19,6 +21,7 @@ import ru.practicum.android.diploma.presentation.filters.FiltersViewModel
 import ru.practicum.android.diploma.ui.search.gone
 import ru.practicum.android.diploma.ui.search.visible
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.domain.models.Industry
 import ru.practicum.android.diploma.ui.filter.ChooseIndustryFragment
 
 class FiltersFragment : Fragment() {
@@ -48,8 +51,8 @@ class FiltersFragment : Fragment() {
             findNavController().navigate(R.id.chooseIndustryFragment)
         }
         parentFragmentManager.setFragmentResultListener(ChooseIndustryFragment.REQUEST_KEY, viewLifecycleOwner) { _, bundle ->
-            val industry = bundle.getString(ChooseIndustryFragment.INDUSTRY_KEY)
-            binding.industry.setText(industry)
+            val industry = BundleCompat.getParcelable(bundle, ChooseIndustryFragment.INDUSTRY_KEY, Industry::class.java)
+            binding.industry.setText(industry?.name)
         }
     }
 
