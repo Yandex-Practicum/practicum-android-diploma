@@ -20,7 +20,7 @@ interface VacancyDtoDao {
     suspend fun getAllVacancy(): List<VacancyDetailEntity>
 
     @Query("SELECT * FROM vacancy_table WHERE id=:id")
-    suspend fun getVacancyId(id: String): VacancyDetail
+    suspend fun getVacancyId(id: String): VacancyDetailEntity
 
     @Query("SELECT id FROM vacancy_table")
     suspend fun getAllIdVacancy(): List<String>
