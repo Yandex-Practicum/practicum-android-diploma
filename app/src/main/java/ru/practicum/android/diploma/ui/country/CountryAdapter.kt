@@ -19,6 +19,7 @@ class CountryAdapter(private val recyclerItem: ArrayList<RecyclerItem>) : Recycl
             )
         )
     }
+
     override fun onBindViewHolder(holder: CountryViewHolder, position: Int) {
         val country = recyclerItem[position]
         holder.bind(country)

@@ -4,14 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.practicum.android.diploma.databinding.FragmentRegionBinding
-import ru.practicum.android.diploma.ui.country.RecyclerItem
 import ru.practicum.android.diploma.ui.country.CountryAdapter
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
-import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.ui.country.RecyclerItem
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -19,10 +18,11 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 class RegionFragment : Fragment() {
-    private lateinit var binding: FragmentRegionBinding
+    private var _binding: FragmentRegionBinding? = null
+    private val binding get() = _binding!!
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View    {
-        binding = FragmentRegionBinding.inflate(inflater, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        _binding = FragmentRegionBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -32,7 +32,6 @@ class RegionFragment : Fragment() {
         binding.vacancyToolbar.setOnClickListener {
             findNavController().navigateUp()
         }
-
 
         val regions = ArrayList<RecyclerItem>()
         regions.add(RecyclerItem("Регион 1"))
@@ -56,7 +55,8 @@ class RegionFragment : Fragment() {
             setFragmentResult("requestKeyRegion", bundle)
             findNavController().popBackStack()
         }
-        binding.regionRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.regionRecycler.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.regionRecycler.adapter = adapter
     }
 }

@@ -1,5 +1,5 @@
 package ru.practicum.android.diploma.ui.country
 
-data class RecyclerItem (
+data class RecyclerItem(
     val name: String
 )

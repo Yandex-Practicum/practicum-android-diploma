@@ -18,7 +18,7 @@ class FiltersFragment : Fragment() {
 
     private lateinit var binding: FragmentFiltersBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View    {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentFiltersBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -50,14 +50,13 @@ class FiltersFragment : Fragment() {
 
         binding.apply.setOnClickListener {
             val bundle = Bundle()
-//            val place = binding.workplaceValue.text.split(", ")
-//            val country = place[0]
-//            val region = place[1]
-//            val check = binding.checkBox.isChecked
-//            val industry = binding.industryValue.text.toString()
-//            val salary = binding.edit.text.toString()
-//            val result= Filter(country, region, industry, salary, check)
-            val result = Filter(onlyWithSalary = binding.checkBox.isChecked)
+            val place = binding.workplaceValue.text.split(", ")
+            val country = place[0]
+            val region = place[1]
+            val check = binding.checkBox.isChecked
+            val industry = binding.industryValue.text.toString()
+            val salary = binding.edit.text.toString()
+            val result = Filter(country, region, industry, salary, check)
             bundle.putString("key", Gson().toJson(result))
             setFragmentResult("requestKey", bundle)
             findNavController().popBackStack()

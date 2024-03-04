@@ -1,21 +1,8 @@
 package ru.practicum.android.diploma.data.converters
 
-import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import ru.practicum.android.diploma.data.db.entyti.VacancyDetailEntity
-import ru.practicum.android.diploma.data.dto.responseUnits.Employer
-import ru.practicum.android.diploma.data.dto.responseUnits.LogoUrls
-import ru.practicum.android.diploma.data.dto.responseUnits.Salary
-import ru.practicum.android.diploma.data.dto.responseUnits.VacancyArea
-import ru.practicum.android.diploma.data.dto.responseUnits.VacancyType
-import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.Contacts
-import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.Employment
-import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.Experience
-import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.KeySkillVacancyDetail
-import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.Phones
-import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.Schedule
-import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.VacancyDetailDtoResponse
 import ru.practicum.android.diploma.domain.models.detail.VacancyDetail
 
 object VacancyDetailDbConverter {
@@ -72,7 +59,7 @@ object VacancyDetailDbConverter {
         return Gson().toJson(list)
     }
 
-    fun createListFromJson(json: String?): List<String?>{
+    fun createListFromJson(json: String?): List<String?> {
         return Gson().fromJson(json, itemType)
     }
 }

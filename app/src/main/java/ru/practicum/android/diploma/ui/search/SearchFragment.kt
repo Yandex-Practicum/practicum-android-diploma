@@ -81,7 +81,6 @@ class SearchFragment : Fragment() {
         binding.filterImageView.setOnClickListener {
             findNavController()
                 .navigate(R.id.action_mainFragment_to_filtersFragment)
-
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -115,12 +114,11 @@ class SearchFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.flow.collect{
+                viewModel.flow.collect {
                     adapter.submitData(it)
                 }
             }
         }
-
     }
 
     override fun onDestroyView() {

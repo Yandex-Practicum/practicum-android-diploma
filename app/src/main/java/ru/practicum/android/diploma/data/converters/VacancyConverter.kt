@@ -34,7 +34,7 @@ object VacancyConverter {
             "GEL" -> "\u20BE"
             "UAH" -> "\u20b4"
             "UZS" -> "Soʻm"
-                else -> ""
+            else -> ""
         }
 
         val stringBuilder = StringBuilder()

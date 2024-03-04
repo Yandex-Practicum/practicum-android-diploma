@@ -3,6 +3,8 @@ package ru.practicum.android.diploma.data.network
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.QueryMap
+import ru.practicum.android.diploma.data.response.AreasResponse
+import ru.practicum.android.diploma.data.response.IndustriesResponse
 import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.VacancyDetailDtoResponse
 import ru.practicum.android.diploma.data.vacancylist.dto.VacanciesSearchResponse
 
@@ -15,4 +17,12 @@ interface JobVacancySearchApi {
     // Запрос детальной информации о вакансии
     @GET("/vacancies/{vacancy_id}")
     suspend fun getVacancyDetail(@Path("vacancy_id") id: String): VacancyDetailDtoResponse
+
+    // Запрос списка областей
+    @GET("/areas")
+    suspend fun getAllAreas(@Path("areas") areas: String): List<AreasResponse>
+
+    // Запрос списка вакансий
+    @GET("/industries")
+    suspend fun getAllIndustries(@Path("industries") industries: String): IndustriesResponse
 }

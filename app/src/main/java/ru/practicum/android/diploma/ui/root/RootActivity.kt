@@ -12,7 +12,7 @@ import ru.practicum.android.diploma.databinding.ActivityRootBinding
 class RootActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRootBinding
-  
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRootBinding.inflate(layoutInflater)
@@ -24,22 +24,27 @@ class RootActivity : AppCompatActivity() {
         binding.bottomNavigationView.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            when(destination.id) {
+            when (destination.id) {
                 R.id.filtersFragment, R.id.vacanciesFragment -> {
                     binding.bottomNavigationView.visibility = View.GONE
                 }
+
                 R.id.countryFragment -> {
                     binding.bottomNavigationView.visibility = View.GONE
                 }
+
                 R.id.industryFragment -> {
                     binding.bottomNavigationView.visibility = View.GONE
                 }
+
                 R.id.regionFragment -> {
                     binding.bottomNavigationView.visibility = View.GONE
                 }
+
                 R.id.workplaceFragment -> {
                     binding.bottomNavigationView.visibility = View.GONE
                 }
+
                 else -> {
                     binding.bottomNavigationView.visibility = View.VISIBLE
                 }
@@ -53,5 +58,4 @@ class RootActivity : AppCompatActivity() {
     private fun networkRequestExample(accessToken: String) {
         // ...
     }
-
 }

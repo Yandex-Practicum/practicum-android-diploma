@@ -26,7 +26,7 @@ class PagingSearchAdapter(
         holder.bind(item, onClick)
     }
 
-    class DiffUtil: androidx.recyclerview.widget.DiffUtil.ItemCallback<Vacancy>() {
+    class DiffUtil : androidx.recyclerview.widget.DiffUtil.ItemCallback<Vacancy>() {
         override fun areItemsTheSame(oldItem: Vacancy, newItem: Vacancy): Boolean {
             return oldItem.id == newItem.id
         }
@@ -35,5 +35,4 @@ class PagingSearchAdapter(
             return oldItem == newItem
         }
     }
-
 }

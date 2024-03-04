@@ -24,5 +24,4 @@ class SearchViewHolder(private val binding: VacancyItemBinding) : RecyclerView.V
 
         binding.root.setOnClickListener { onClick.invoke(vacancy.id) }
     }
-
 }

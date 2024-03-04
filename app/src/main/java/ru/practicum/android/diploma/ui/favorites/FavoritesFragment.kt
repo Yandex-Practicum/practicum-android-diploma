@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.ui.favorites
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +15,6 @@ import ru.practicum.android.diploma.domain.models.detail.VacancyDetail
 import ru.practicum.android.diploma.presentation.favorite.FavoriteAdapter
 import ru.practicum.android.diploma.presentation.favorite.FavoriteVacancyState
 import ru.practicum.android.diploma.ui.favorites.viewmodel.FavoriteViewModel
-import ru.practicum.android.diploma.ui.vacancydetail.VacancyDetailFragment
 
 class FavoritesFragment : Fragment() {
 

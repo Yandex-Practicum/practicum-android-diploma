@@ -4,19 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.practicum.android.diploma.databinding.FragmentCountryBinding
 
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
-import ru.practicum.android.diploma.R
-
 class CountryFragment : Fragment() {
     private lateinit var binding: FragmentCountryBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View    {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentCountryBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -45,7 +42,8 @@ class CountryFragment : Fragment() {
             setFragmentResult("requestKey", bundle)
             findNavController().popBackStack()
         }
-        binding.countryRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.countryRecycler.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.countryRecycler.adapter = adapter
 
     }
