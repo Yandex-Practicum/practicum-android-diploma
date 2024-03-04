@@ -80,7 +80,8 @@ object VacancyConverter {
             "BYR" -> "\u0042\u0072"
             "GEL" -> "\u20BE"
             "UAH" -> "\u20b4"
-            else -> ""
+            "UZS" -> "Soʻm"
+                else -> ""
         }
 
         val stringBuilder = StringBuilder()

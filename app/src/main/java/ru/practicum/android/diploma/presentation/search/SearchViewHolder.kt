@@ -13,7 +13,7 @@ class SearchViewHolder(private val binding: VacancyItemBinding) : RecyclerView.V
         if (vacancy == null) return
 
         binding.department.text = vacancy.employer
-        binding.salary.text = vacancy.salary
+        binding.salary.text = vacancy.salary?.replace(",", " ") ?: vacancy.salary
         binding.tvVacancyName.text = "${vacancy.name}, ${vacancy.area}"
 
         Glide.with(binding.ivCompany)
