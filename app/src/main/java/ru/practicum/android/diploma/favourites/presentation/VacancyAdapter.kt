@@ -8,8 +8,9 @@ import ru.practicum.android.diploma.core.domain.model.DetailVacancy
 
 class VacancyAdapter(
     private val clickVacancyListener: ClickVacancyListener,
-    private val vacancys: List<DetailVacancy>
 ) : RecyclerView.Adapter<FavouritesVacancyViewHolder>() {
+
+    private var vacancies = listOf<DetailVacancy>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavouritesVacancyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.vacancy_view, parent, false)
@@ -17,13 +18,17 @@ class VacancyAdapter(
     }
 
     override fun onBindViewHolder(holder: FavouritesVacancyViewHolder, position: Int) {
-        holder.bind(vacancys[position])
+        holder.bind(vacancies[position])
         holder.itemView.setOnClickListener {
-            clickVacancyListener.onVacancyClick(vacancys[position].id)
+            clickVacancyListener.onVacancyClick(vacancies[position].id)
         }
     }
 
-    override fun getItemCount() = vacancys.size
+    fun updateVacancyList(vacancyList: List<DetailVacancy>) {
+        vacancies = vacancyList
+    }
+
+    override fun getItemCount() = vacancies.size
 
     fun interface ClickVacancyListener {
         fun onVacancyClick(vacancyId: Long)

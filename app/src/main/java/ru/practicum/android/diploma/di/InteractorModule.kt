@@ -12,26 +12,26 @@ import ru.practicum.android.diploma.vacancy.domain.usecase.SendEmailUseCase
 import ru.practicum.android.diploma.vacancy.domain.usecase.ShareVacancyUseCase
 
 val interactorModule = module {
-    single {
+    factory {
         DetailVacancyUseCase(detailVacancyRepository = get())
     }
-    single {
+    factory {
         MakeCallUseCase(externalNavigator = get())
     }
-    single {
+    factory {
         SendEmailUseCase(externalNavigator = get())
     }
 
-    single {
+    factory {
         ShareVacancyUseCase(externalNavigator = get())
     }
-    single {
+    factory {
         SearchVacancyUseCase(searchVacancyRepository = get())
     }
-    single<GetFavouritesInteractor> {
+    factory<GetFavouritesInteractor> {
         GetFavourtiesInteractorImpl(get())
     }
-    single<AddToFavouritesInteractor> {
+    factory<AddToFavouritesInteractor> {
         AddToFavouritestInteractorImpl(get())
     }
 }

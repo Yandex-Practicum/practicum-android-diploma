@@ -12,4 +12,12 @@ interface NetworkClient {
     ): Response
 
     suspend fun getDetailVacancyById(id: Long): Response
+
+    suspend fun getIndustries(): Response
+
+    companion object {
+        const val SUCCESSFUL_CODE = 200
+        const val EXCEPTION_ERROR_CODE = -2
+        const val NETWORK_ERROR_CODE = -1
+    }
 }

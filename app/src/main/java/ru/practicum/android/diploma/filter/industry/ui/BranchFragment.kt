@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.filter.branch
+package ru.practicum.android.diploma.filter.industry.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,7 +20,7 @@ class BranchFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentBranchBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -37,4 +37,3 @@ class BranchFragment : Fragment() {
         setFragmentResult(FILTER_RECEIVER_KEY, branchBundle)
     }
 }
-
