@@ -4,6 +4,10 @@ import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.core.data.NetworkClient
+import ru.practicum.android.diploma.core.data.NetworkClient.Companion.EXCEPTION_ERROR_CODE
+import ru.practicum.android.diploma.core.data.NetworkClient.Companion.NETWORK_ERROR_CODE
+import ru.practicum.android.diploma.core.data.NetworkClient.Companion.SUCCESSFUL_CODE
+import ru.practicum.android.diploma.core.data.network.dto.GetIndustriesResponse
 import ru.practicum.android.diploma.core.data.network.dto.Response
 import ru.practicum.android.diploma.core.domain.model.SearchFilterParameters
 import java.io.IOException
@@ -102,9 +106,30 @@ class RetrofitNetworkClient(
         }
     }
 
-    companion object {
-        const val SUCCESSFUL_CODE = 200
-        const val EXCEPTION_ERROR_CODE = -2
-        const val NETWORK_ERROR_CODE = -1
+    override suspend fun getIndustries(): Response {
+        val retrofitResponse = hhApi.getIndustries()
+        val response = if (retrofitResponse.isSuccessful) {
+            retrofit2.Response.success(GetIndustriesResponse(retrofitResponse.body() ?: emptyList()))
+        } else {
+            retrofit2.Response.error(retrofitResponse.code(), retrofitResponse.errorBody()!!)
+        }
+        return getResponse(response)
+    }
+
+    private fun <T : Response> getResponse(retrofitResponse: retrofit2.Response<T>): Response {
+        return try {
+            val body = retrofitResponse.body()
+            if (retrofitResponse.isSuccessful && body != null) {
+                body.apply { resultCode = SUCCESSFUL_CODE }
+            } else {
+                Response().apply { resultCode = retrofitResponse.code() }
+            }
+        } catch (e: SocketTimeoutException) {
+            Log.e(RetrofitNetworkClient::class.java.simpleName, e.stackTraceToString())
+            Response().apply { resultCode = NETWORK_ERROR_CODE }
+        } catch (e: IOException) {
+            Log.e(RetrofitNetworkClient::class.java.simpleName, e.stackTraceToString())
+            Response().apply { resultCode = EXCEPTION_ERROR_CODE }
+        }
     }
 }

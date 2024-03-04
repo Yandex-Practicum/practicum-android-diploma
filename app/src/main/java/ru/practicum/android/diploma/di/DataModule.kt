@@ -7,7 +7,7 @@ import ru.practicum.android.diploma.core.data.NetworkClient
 import ru.practicum.android.diploma.core.data.network.ConnectionChecker
 import ru.practicum.android.diploma.core.data.network.ConnectionCheckerImpl
 import ru.practicum.android.diploma.core.data.network.HhApi
-import ru.practicum.android.diploma.core.data.network.HhApiProvider
+import ru.practicum.android.diploma.core.data.network.HhApiRetrofitBuilder
 import ru.practicum.android.diploma.core.data.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.favourites.data.db.AppDatabase
 import ru.practicum.android.diploma.vacancy.data.ExternalNavigatorImpl
@@ -33,6 +33,6 @@ val dataModule = module {
         ConnectionCheckerImpl(context = androidContext())
     }
     single<HhApi> {
-        HhApiProvider.hhService
+        HhApiRetrofitBuilder.buildRetrofit()
     }
 }

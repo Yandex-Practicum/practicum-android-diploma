@@ -6,7 +6,7 @@ import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import ru.practicum.android.diploma.core.data.NetworkClient
-import ru.practicum.android.diploma.core.data.network.HhApiProvider
+import ru.practicum.android.diploma.core.data.network.HhApiRetrofitBuilder
 import ru.practicum.android.diploma.core.data.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.core.domain.model.SearchFilterParameters
 import ru.practicum.android.diploma.search.data.SearchVacancyRepositoryImpl
@@ -16,7 +16,7 @@ import ru.practicum.android.diploma.util.Resource
 
 class SearchVacancyUseCaseTest {
     private val networkClient: NetworkClient =
-        RetrofitNetworkClient(HhApiProvider.hhService) { true }
+        RetrofitNetworkClient(HhApiRetrofitBuilder.buildRetrofit()) { true }
     private val searchVacancyRepository: SearchVacancyRepository = SearchVacancyRepositoryImpl(networkClient)
     private val searchVacancyUseCase = SearchVacancyUseCase(searchVacancyRepository)
 
