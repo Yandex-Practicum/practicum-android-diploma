@@ -56,6 +56,11 @@ class FavoritesFragment : Fragment() {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun render(state: FavoriteVacancyState) {
         when (state) {
             is FavoriteVacancyState.Error -> showNothing()
