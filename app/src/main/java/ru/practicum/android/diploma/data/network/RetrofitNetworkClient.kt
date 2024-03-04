@@ -25,7 +25,7 @@ class RetrofitNetworkClient(
 
         if ((dto !is VacanciesSearchRequest)
             && (dto !is DetailRequest)
-            && (dto !is IndustriesRequest)
+            && dto !is IndustriesRequest
         ) {
             return Response().apply { resultCode = ResponseCodes.ERROR }
         }

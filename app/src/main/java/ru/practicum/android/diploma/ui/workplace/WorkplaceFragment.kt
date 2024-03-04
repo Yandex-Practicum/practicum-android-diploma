@@ -15,12 +15,13 @@ import ru.practicum.android.diploma.databinding.FragmentWorkplaceBinding
 
 class WorkplaceFragment : Fragment() {
 
-    private lateinit var binding: FragmentWorkplaceBinding
+    private var _binding: FragmentWorkplaceBinding? = null
+    private val binding get() = _binding!!
+
     private val viewModel by viewModel<WorkplaceViewModel>()
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentWorkplaceBinding.inflate(inflater, container, false)
+        _binding = FragmentWorkplaceBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -64,10 +65,11 @@ class WorkplaceFragment : Fragment() {
             val country = binding.countryName.text
             val region = binding.regionName.text
             val bundle = Bundle()
-            if (region != "Регион")
+            if (region != "Регион") {
                 bundle.putString("keyPlace", "$country, $region")
-            else
+            } else {
                 bundle.putString("keyPlace", "$country")
+            }
             setFragmentResult("requestKeyPlace", bundle)
             findNavController().navigateUp()
         }

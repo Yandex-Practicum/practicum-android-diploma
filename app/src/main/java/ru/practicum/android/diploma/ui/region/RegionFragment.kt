@@ -18,10 +18,11 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 class RegionFragment : Fragment() {
-    private lateinit var binding: FragmentRegionBinding
+    private var _binding: FragmentRegionBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentRegionBinding.inflate(inflater, container, false)
+        _binding = FragmentRegionBinding.inflate(inflater, container, false)
         return binding.root
     }
 

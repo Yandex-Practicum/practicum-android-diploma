@@ -12,14 +12,14 @@ import ru.practicum.android.diploma.data.response.Industries
 import ru.practicum.android.diploma.databinding.FragmentIndustryBinding
 import ru.practicum.android.diploma.presentation.industries.IndustriesViewModel
 
-
 class IndustriesFragment : Fragment() {
 
     private val viewModel by viewModel<IndustriesViewModel>()
-    private lateinit var binding: FragmentIndustryBinding
+    private var _binding: FragmentIndustryBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentIndustryBinding.inflate(inflater, container, false)
+        _binding = FragmentIndustryBinding.inflate(inflater, container, false)
         return binding.root
     }
 
