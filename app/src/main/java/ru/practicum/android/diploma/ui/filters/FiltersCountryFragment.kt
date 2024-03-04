@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.ui.filters
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,8 +14,6 @@ import ru.practicum.android.diploma.presentation.filters.FiltersCountriesState
 import ru.practicum.android.diploma.presentation.filters.FiltersCountryViewModel
 import ru.practicum.android.diploma.ui.filters.recycler.FilterAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.ui.filter.ChooseIndustryFragment
 import ru.practicum.android.diploma.ui.search.gone
 import ru.practicum.android.diploma.ui.search.visible
 

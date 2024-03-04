@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -12,8 +11,6 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterChoosePlaceOfWorkBinding
 import ru.practicum.android.diploma.domain.models.Area
 import ru.practicum.android.diploma.domain.models.Country
-import ru.practicum.android.diploma.ui.filter.ChooseIndustryFragment
-import ru.practicum.android.diploma.ui.search.gone
 import ru.practicum.android.diploma.ui.search.visible
 
 class FiltersPlaceOfWorkFragment : Fragment() {
