@@ -64,6 +64,7 @@
     <string name="pagination_error_server_error">Произошла ошибка</string>
     <string name="hint_country">Страна</string>
     <string name="hint_region">Регион</string>
+    <string name="select">Выбрать</string>
 
     <plurals name="vacancies">
         <item quantity="zero">%1$d вакансий</item>
