@@ -149,6 +149,7 @@ class VacancyDetailFragment : Fragment() {
             if (vacancyDetail.isFavorite) R.drawable.like_icon_off_in_on else R.drawable.like_icon_off
         binding.ivbuttonLike.setImageResource(newImageRes)
         binding.tvvacancyName.text = vacancyDetail.name
+        vacancyDetail.salary?.replace(",", " ") ?:  vacancyDetail.salary
         checkIfNotNull(vacancyDetail.salary, binding.tvsalary)
         showIcon(vacancyDetail)
         binding.tvcompanyName.text = vacancyDetail.employerName

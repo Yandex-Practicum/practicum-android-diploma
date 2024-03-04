@@ -68,53 +68,6 @@ object VacancyDetailDbConverter {
     fun List<VacancyDetailEntity>.mapToVacancyDetail(): List<VacancyDetail> =
         map { it.mapToVacancyDetail() }
 
-    fun VacancyDetailDtoResponse.toVacancyDetail(): VacancyDetail {
-        return VacancyDetail(
-            id = id,
-            name = name,
-            area = area.name,
-            vacancyLink = vacancyLink,
-            contactName = contacts?.name,
-            contactEmail = contacts?.email,
-            contactPhones = buildPhoneNumbers(contacts?.phones),
-            contactComments = buildPhoneComments(contacts?.phones),
-            employerName = employer?.name,
-            employerUrl = employer?.logoUrls?.original,
-            salary = VacancyConverter.formatSalary(salary),
-            schedule = schedule?.name,
-            employment = employment?.name,
-            experience = experience?.name,
-            keySkills = buildKeySkills(keySkills),
-            description = description
-        )
-    }
-
-    fun buildPhoneNumbers(phones: List<Phones>?): List<String?> {
-        var phoneString: String
-        val phoneList = mutableListOf<String>()
-        phones?.forEach {
-            phoneString = "+${it.country} (${it.city}) ${it.number}"
-            phoneList.add(phoneString)
-        }
-        return phoneList
-    }
-
-    fun buildPhoneComments(phones: List<Phones>?): List<String?> {
-        val commentList = mutableListOf<String?>()
-        phones?.forEach {
-            commentList.add(it.comment)
-        }
-        return commentList
-    }
-
-    fun buildKeySkills(keySkills: List<KeySkillVacancyDetail>): List<String> {
-        val skillsList = mutableListOf<String>()
-        keySkills.forEach {
-            skillsList.add(it.name)
-        }
-        return skillsList
-    }
-
     fun createJsonFromList(list: List<String?>): String {
         return Gson().toJson(list)
     }
