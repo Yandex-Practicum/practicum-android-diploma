@@ -7,5 +7,5 @@ import ru.practicum.android.diploma.util.Resource
 interface SearchRepository {
     fun makeRequest(queryMap: Map<String, String>): Flow<Resource<SearchingVacancies>>
 
-    suspend fun vacanciesPagination(query: String, nextPage: Int): Resource<SearchingVacancies>
+    suspend fun vacanciesPagination(params: Map<String, String>): Resource<SearchingVacancies>
 }

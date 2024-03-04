@@ -44,7 +44,6 @@ object VacancyDetailDbConverter {
     }
 
     fun VacancyDetail.mapToVacancyDetailEntity(): VacancyDetailEntity {
-
         return VacancyDetailEntity(
             id = id,
             name = name,
