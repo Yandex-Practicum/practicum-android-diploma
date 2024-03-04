@@ -62,6 +62,8 @@
     <string name="tv_detail_vacancy_keySkill">· %1$s\n</string>
     <string name="pagination_error_error_connection">Проверьте подключение к интернету</string>
     <string name="pagination_error_server_error">Произошла ошибка</string>
+    <string name="hint_country">Страна</string>
+    <string name="hint_region">Регион</string>
 
     <plurals name="vacancies">
         <item quantity="zero">%1$d вакансий</item>

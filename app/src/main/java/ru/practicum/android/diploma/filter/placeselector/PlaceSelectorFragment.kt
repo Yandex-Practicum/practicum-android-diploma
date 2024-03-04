@@ -29,7 +29,7 @@ class PlaceSelectorFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.country.setOnClickListener {
+        binding.countryNavigation.setOnClickListener {
             findNavController().navigate(R.id.action_placeSelectorFragment_to_countryFragment)
         }
         binding.region.setOnClickListener {
