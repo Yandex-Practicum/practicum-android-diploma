@@ -1,4 +1,5 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,28 +9,90 @@
         android:id="@+id/filterToolbarRegion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_arrow_back"
         app:navigationIconTint="?attr/colorOnPrimary"
         app:title="@string/bar_region"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:titleTextAppearance="@style/MaterialToolbarTextStyle" />
+
+    <LinearLayout
+        android:id="@+id/regionSearchLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_background"
+        android:orientation="horizontal"
+        android:layout_marginStart="@dimen/padding_16dp"
+        android:layout_marginEnd="@dimen/padding_16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/filterToolbarRegion"
+        >
 
     <EditText
         android:id="@+id/regionEditText"
-        android:layout_width="match_parent"
+        style="@style/EditTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/edit_text_height_size"
+        android:background="@drawable/edit_text_background"
+        android:hint="@string/edit_text_hint_region"
+        android:importantForAutofill="no"
+        android:layout_weight="1"
+        android:paddingEnd="64dp"
+        android:layout_marginStart="@dimen/padding_16dp"
+        android:layout_marginEnd="@dimen/padding_16dp"
+        tools:ignore="RtlSymmetry"
+        />
+
+    <ImageView
+        android:id="@+id/icSearchOrCross"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/filterToolbarRegion" />
+        android:layout_marginEnd="@dimen/search_margin_m"
+        android:importantForAccessibility="no"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_search"/>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/errorPlaceholder"
+        android:layout_width="328dp"
+        android:layout_height="223dp"
+        android:importantForAccessibility="no"
+        android:layout_marginTop="128dp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        tools:src="@drawable/placeholder_region_response_error"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/placeholderText"
+        app:layout_constraintTop_toBottomOf="@id/regionSearchLayout"
+        />
+    <TextView
+        android:id="@+id/placeholderText"
+        style="@style/ErrorTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:gravity="top"
+        android:layout_gravity="center"
+        tools:text="@string/placeholder_no_such_region"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/errorPlaceholder"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/regionRecycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/regionEditText"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/padding_16dp"
         tools:itemCount="20"
-        tools:listitem="@layout/text_button_item" />
-
+        tools:listitem="@layout/text_button_item"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@id/regionSearchLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
