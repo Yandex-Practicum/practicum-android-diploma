@@ -9,7 +9,6 @@ import ru.practicum.android.diploma.domain.api.DetailRepository
 import ru.practicum.android.diploma.domain.api.SearchRepository
 import ru.practicum.android.diploma.domain.favorite.FavoriteRepository
 import ru.practicum.android.diploma.domain.industries.IndustriesRepository
-import ru.practicum.android.diploma.domain.industries.impl.IndustriesInteractorImpl
 
 val repositoryModule = module {
 
