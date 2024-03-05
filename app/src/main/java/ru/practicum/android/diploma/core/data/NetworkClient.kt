@@ -17,6 +17,11 @@ interface NetworkClient {
 
     suspend fun getCountries(): Response
 
+    suspend fun getAreas(): Response
+
+    suspend fun getAreasById(id: String): Response
+
+
     companion object {
         const val SUCCESSFUL_CODE = 200
         const val EXCEPTION_ERROR_CODE = -2
