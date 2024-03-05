@@ -1,7 +1,5 @@
 package ru.practicum.android.diploma.domain.models.detail
 
-import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.Address
-
 data class VacancyDetail(
     val id: String,
     val name: String,
