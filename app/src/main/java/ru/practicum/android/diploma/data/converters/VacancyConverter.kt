@@ -38,6 +38,7 @@ object VacancyConverter {
             employment = employment?.name,
             experience = experience?.name,
             keySkills = buildKeySkills(keySkills),
+            address = createAddress(address),
             description = description
         )
     }
