@@ -148,7 +148,7 @@ class VacancyDetailFragment : Fragment() {
         checkIfNotNullSalary(vacancyDetail.salary, binding.tvsalary)
         showIcon(vacancyDetail)
         binding.tvcompanyName.text = vacancyDetail.employerName
-        binding.tvcompanyArea.text = vacancyDetail.area
+        binding.tvcompanyArea.text = vacancyDetail.address ?: vacancyDetail.area
         binding.tvexperiencelabel.visibleOrGone(
             checkIfNotNull(
                 vacancyDetail.experience,

@@ -5,4 +5,9 @@
         <item name="itemTextColor">@drawable/bottom_navigation_tab_bar_dark</item>
         <item name="android:background">@color/YP_Black</item>
     </style>
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">22sp</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textColor">@color/white_universal</item>
+    </style>
 </resources>

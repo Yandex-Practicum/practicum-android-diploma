@@ -23,4 +23,5 @@ class VacancyDetailDtoResponse(
     @SerializedName("key_skills")
     val keySkills: List<KeySkillVacancyDetail>, // Список ключевых навыков
     val description: String, // Описание в html, не менее 200 символов
+    val address: Address?, // Адрес
 ) : Response()

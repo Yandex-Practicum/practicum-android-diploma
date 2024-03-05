@@ -17,7 +17,7 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/navigation_toolbar"
-            style="@style/Text_Header"
+            app:titleTextAppearance="@style/Toolbar.TitleText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:title="@string/vacancy"
@@ -116,53 +116,60 @@
                 android:layout_height="match_parent"
                 android:layout_marginBottom="@dimen/margin_16">
 
-                <ImageView
-                    android:id="@+id/ivcompany_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_16"
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card"
+                    android:layout_width="@dimen/edit_text_height"
+                    android:layout_height="@dimen/edit_text_height"
                     android:layout_marginStart="@dimen/margin_16"
-                    android:gravity="center_vertical"
-                    android:src="@drawable/placeholder_company_icon"
-                    android:background="@drawable/company_icon"
+                    android:layout_marginTop="@dimen/margin_16"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="0dp"
+                    app:cardBackgroundColor="@color/YP_Light_Gray"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent">
+                    app:layout_constraintTop_toTopOf="parent">
 
-                </ImageView>
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/ivcompany_icon"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/company_icon"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_vacancy_placeholder"
+                        app:shapeAppearanceOverlay="@style/rounded_12" />
+                </com.google.android.material.card.MaterialCardView>
 
                 <TextView
                     android:id="@+id/tvcompany_name"
                     style="@style/Text_Header_Company_Card"
-                    android:textFontWeight="500"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_8"
                     android:layout_marginTop="@dimen/margin_16"
                     android:layout_marginEnd="@dimen/margin_16"
-                    android:layout_marginStart="@dimen/margin_8"
-                    app:layout_constraintHorizontal_bias="0.0"
                     android:ellipsize="end"
+                    android:textFontWeight="500"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/ivcompany_icon"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@id/card"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Еда,kffdsfdsgk fdsga fwqefgfdshhds">
-                </TextView>
+                    tools:text="Еда,kffdsfdsgk fdsga fwqefgfdshhds"/>
 
                 <TextView
                     android:id="@+id/tvcompany_area"
                     style="@style/Text_Standard_Company_Card"
-                    android:textFontWeight="400"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/margin_16"
                     android:layout_marginStart="@dimen/margin_8"
-                    app:layout_constraintHorizontal_bias="0.0"
+                    android:layout_marginEnd="@dimen/margin_16"
                     android:ellipsize="end"
+                    android:textFontWeight="400"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/ivcompany_icon"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@id/card"
                     app:layout_constraintTop_toBottomOf="@id/tvcompany_name"
-                    tools:text="Москваhrthrth6h53 grtgh3 45tg2t423t t4342t43t">
-                </TextView>
+                    tools:text="Москваhrthrth6h53 grtgh3 45tg2t423t t4342t43t"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </FrameLayout>
 

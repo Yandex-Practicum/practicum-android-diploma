@@ -26,6 +26,7 @@ object VacancyDetailDbConverter {
             experience = experience,
             keySkills = createListFromJson(keySkills),
             description = description,
+            address = address,
             isFavorite = true
         )
     }
@@ -48,6 +49,7 @@ object VacancyDetailDbConverter {
             experience = experience,
             keySkills = createJsonFromList(keySkills),
             description = description,
+            address = address,
             isFavorite = true
         )
     }
