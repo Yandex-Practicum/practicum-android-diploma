@@ -4,6 +4,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.QueryMap
+import ru.practicum.android.diploma.core.data.network.dto.AreasDto
 import ru.practicum.android.diploma.core.data.network.dto.DetailVacancyResponse
 import ru.practicum.android.diploma.core.data.network.dto.IndustryDto
 import ru.practicum.android.diploma.core.data.network.dto.SearchVacanciesResponse
@@ -17,6 +18,12 @@ interface HhApi {
 
     @GET("industries")
     suspend fun getIndustries(): Response<List<IndustryDto>>
+
+    @GET("areas")
+    suspend fun getAreas(): Response<List<AreasDto>>
+
+    @GET("areas/{area_id}")
+    suspend fun getAreasById(@Path("vacancy_id") id: String): Response<List<AreasDto>>
 }
 
 enum class HhApiQuery(val value: String) {

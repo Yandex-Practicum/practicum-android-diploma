@@ -7,6 +7,7 @@ import ru.practicum.android.diploma.core.data.NetworkClient
 import ru.practicum.android.diploma.core.data.NetworkClient.Companion.EXCEPTION_ERROR_CODE
 import ru.practicum.android.diploma.core.data.NetworkClient.Companion.NETWORK_ERROR_CODE
 import ru.practicum.android.diploma.core.data.NetworkClient.Companion.SUCCESSFUL_CODE
+import ru.practicum.android.diploma.core.data.network.dto.GetAreasResponse
 import ru.practicum.android.diploma.core.data.network.dto.GetIndustriesResponse
 import ru.practicum.android.diploma.core.data.network.dto.Response
 import ru.practicum.android.diploma.core.domain.model.SearchFilterParameters
@@ -110,6 +111,26 @@ class RetrofitNetworkClient(
         val retrofitResponse = hhApi.getIndustries()
         val response = if (retrofitResponse.isSuccessful) {
             retrofit2.Response.success(GetIndustriesResponse(retrofitResponse.body() ?: emptyList()))
+        } else {
+            retrofit2.Response.error(retrofitResponse.code(), retrofitResponse.errorBody()!!)
+        }
+        return getResponse(response)
+    }
+
+    override suspend fun getAreas(): Response {
+        val retrofitResponse = hhApi.getAreas()
+        val response = if (retrofitResponse.isSuccessful) {
+            retrofit2.Response.success(GetAreasResponse(retrofitResponse.body() ?: emptyList()))
+        } else {
+            retrofit2.Response.error(retrofitResponse.code(), retrofitResponse.errorBody()!!)
+        }
+        return getResponse(response)
+    }
+
+    override suspend fun getAreasById(id: String): Response {
+        val retrofitResponse = hhApi.getAreas()
+        val response = if (retrofitResponse.isSuccessful) {
+            retrofit2.Response.success(GetAreasResponse(retrofitResponse.body() ?: emptyList()))
         } else {
             retrofit2.Response.error(retrofitResponse.code(), retrofitResponse.errorBody()!!)
         }
