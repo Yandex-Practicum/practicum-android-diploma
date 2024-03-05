@@ -80,14 +80,15 @@
         android:layout_marginVertical="@dimen/padding_24dp"
         android:background="@drawable/edit_text_background"
         android:focusableInTouchMode="true"
-        android:hint="Ожидаемая зарплата"
+        android:hint="@string/expected_salary"
+        android:textColorHint="?attr/hintTextColor"
         android:textSize="12sp"
         app:cursorColor="@color/yp_blue"
         app:expandedHintEnabled="false"
         app:hintTextColor="@color/yp_blue"
         app:layout_constraintTop_toBottomOf="@id/branchOfJob"
         app:placeholderText="Введите сумму"
-        app:placeholderTextColor="@color/yp_gray">
+        app:placeholderTextColor="?attr/hintTextColor">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/salaryInputEditText"
@@ -108,6 +109,7 @@
         android:layout_marginEnd="@dimen/search_margin_m"
         android:importantForAccessibility="no"
         android:src="@drawable/ic_close"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/salaryInputLayout"
         app:layout_constraintEnd_toEndOf="@id/salaryInputLayout"
         app:layout_constraintTop_toTopOf="@+id/salaryInputLayout" />
