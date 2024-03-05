@@ -63,7 +63,5 @@ class IndustriesFragment : Fragment() {
 //        industry.add(Industries("11", "Отрасль 11"))
 //        industry.add(Industries("12", "Отрасль 12"))
 //        industry.add(Industries("13", "Отрасль 13"))
-
-
     }
 }
