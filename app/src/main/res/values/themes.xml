@@ -9,6 +9,13 @@
         <item name="android:textCursorDrawable">@drawable/color_cursor</item>
     </style>
 
+    <style name="Button.Theme.PracticumAndroidDiploma" parent="Base.Theme.PracticumAndroidDiploma">
+
+        <item name="colorPrimary">@color/YP_Blue</item>
+        <item name="buttonTint">@color/YP_Blue</item>
+
+    </style>
+
     <style name="Theme.PracticumAndroidDiploma" parent="Base.Theme.PracticumAndroidDiploma" />
 
     <style name="rvTextStyle" parent="Theme.MaterialComponents.DayNight.DarkActionBar">

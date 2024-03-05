@@ -1,6 +1,8 @@
 package ru.practicum.android.diploma.ui.filters
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +28,9 @@ class FiltersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.apply.visibility = View.GONE
+        binding.remove.visibility = View.GONE
+
         binding.vacancyToolbar.setOnClickListener {
             findNavController().navigateUp()
         }
@@ -42,10 +47,140 @@ class FiltersFragment : Fragment() {
             )
         }
 
+
+
+        val textWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+                val place = binding.workplaceValue.text
+                val check = binding.checkBox.isChecked
+                val salary = binding.edit
+                if (place != "Место работы" || check || salary.text.isNotEmpty()){
+                    binding.apply.visibility = View.VISIBLE
+                    binding.remove.visibility = View.VISIBLE
+                }
+                else{
+                    binding.apply.visibility = View.GONE
+                    binding.remove.visibility = View.GONE
+                }
+
+                binding.clearIcon.visibility
+                if (s?.isNotEmpty() == true) {
+                    binding.clearIcon.visibility = View.VISIBLE
+                    binding.expectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Blue))
+                }
+                else{
+                    binding.clearIcon.visibility = View.GONE
+                    binding.expectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Text_Gray))
+                }
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val place = binding.workplaceValue.text
+                val check = binding.checkBox.isChecked
+                val salary = binding.edit
+                if (place != "Место работы" || check || salary.text.isNotEmpty()){
+                    binding.apply.visibility = View.VISIBLE
+                    binding.remove.visibility = View.VISIBLE
+                }
+                else{
+                    binding.apply.visibility = View.GONE
+                    binding.remove.visibility = View.GONE
+                }
+
+                if (s?.isNotEmpty() == true) {
+                    binding.clearIcon.visibility = View.VISIBLE
+                    binding.expectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Blue))
+                }
+                else{
+                    binding.clearIcon.visibility = View.GONE
+                    binding.expectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Text_Gray))
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                val place = binding.workplaceValue.text
+                val check = binding.checkBox.isChecked
+                val salary = binding.edit
+                if (place != "Место работы" || check || salary.text.isNotEmpty()){
+                    binding.apply.visibility = View.VISIBLE
+                    binding.remove.visibility = View.VISIBLE
+                }
+                else{
+                    binding.apply.visibility = View.GONE
+                    binding.remove.visibility = View.GONE
+                }
+
+                if (s?.isNotEmpty() == true) {
+                    binding.clearIcon.visibility = View.VISIBLE
+                    binding.expectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Blue))
+                }
+                else{
+                    binding.clearIcon.visibility = View.GONE
+                    binding.expectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Text_Gray))
+                }
+            }
+        }
+        binding.edit.addTextChangedListener(textWatcher)
+
+        binding.clearIcon.setOnClickListener{
+            binding.edit.setText("")
+        }
+
+        binding.edit.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
+            if (hasFocus) {
+                if (binding.edit.text.isNotEmpty()) {
+                    binding.clearIcon.visibility = View.VISIBLE
+                    binding.expectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Blue))
+                }
+                else{
+                    binding.clearIcon.visibility = View.GONE
+                    binding.expectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Text_Gray))
+                }
+            } else {
+                binding.clearIcon.visibility = View.GONE
+                if (binding.edit.text.isNotEmpty()) {
+                    binding.expectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Black))
+                }
+                else{
+                    binding.expectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Text_Gray))
+                }
+            }
+        }
+
+        binding.checkBox.setOnCheckedChangeListener{ buttonView, isChecked ->
+            val place = binding.workplaceValue.text
+            val check = binding.checkBox.isChecked
+            val salary = binding.edit
+            if (place != "Место работы" || check || salary.text.isNotEmpty()){
+                binding.apply.visibility = View.VISIBLE
+                binding.remove.visibility = View.VISIBLE
+            }
+            else{
+                binding.apply.visibility = View.GONE
+                binding.remove.visibility = View.GONE
+            }
+        }
+
         setFragmentResultListener("requestKeyPlace") { _, result ->
             val data = result.getString("keyPlace")
             binding.workplaceValue.text = data
             binding.workplaceValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Black))
+            val place = binding.workplaceValue.text
+            val check = binding.checkBox.isChecked
+            val salary = binding.edit
+            if (place != "Место работы" || check || salary.text.isNotEmpty()){
+                binding.apply.visibility = View.VISIBLE
+                binding.remove.visibility = View.VISIBLE
+            }
+            else{
+                binding.apply.visibility = View.GONE
+                binding.remove.visibility = View.GONE
+            }
+
+            if (place != "Место работы"){
+                binding.workplace
+            }
         }
 
         binding.apply.setOnClickListener {

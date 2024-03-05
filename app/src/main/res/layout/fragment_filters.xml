@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.filters.FiltersFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:theme="@style/Button.Theme.PracticumAndroidDiploma">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -50,6 +51,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
+                    android:id="@+id/workplace_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
@@ -85,6 +87,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
+                    android:id="@+id/industry_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
@@ -105,6 +108,16 @@
             android:layout_marginEnd="16dp"
             android:background="@drawable/rounded_edittext">
 
+            <TextView
+                android:id="@+id/expected_salary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/expected_salary"
+                android:paddingStart="@dimen/margin_16"
+                android:paddingTop="@dimen/margin_8"
+                android:textColor="@color/YP_Text_Gray"
+                style="@style/Text_Small"/>
+
             <EditText
                 android:id="@+id/edit"
                 style="@style/Text_Standard"
@@ -116,10 +129,22 @@
                 android:inputType="number"
                 android:lines="1"
                 android:maxLength="25"
-                android:paddingStart="8dp"
+                android:paddingStart="@dimen/margin_16"
+                android:paddingTop="@dimen/margin_16"
                 android:singleLine="true"
                 android:textColorHint="@color/YP_Text_Gray"
                 android:textCursorDrawable="@color/YP_Blue" />
+
+            <ImageView
+                android:id="@+id/clearIcon"
+                android:visibility="gone"
+                android:layout_height="match_parent"
+                android:layout_width="@dimen/margin_24"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/margin_16"
+                app:srcCompat="@drawable/close_icon"
+                app:tint="@color/YP_Black"
+                />
 
         </FrameLayout>
 
@@ -173,12 +198,12 @@
         android:text="@string/chose"
 
         android:textAllCaps="false"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/remove"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/remove"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
