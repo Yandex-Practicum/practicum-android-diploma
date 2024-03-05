@@ -101,7 +101,7 @@ class SearchViewModel(
 
                         state.update { it.copy(foundVacancies = founded) }
                         subscribeVacanciesPagination(params)
-                        if(founded == "Таких вакансий нет"){
+                        if (founded == "Таких вакансий нет") {
                             state.update { it.copy(state = SearchState.Empty) }
                         }
                     }
@@ -121,5 +121,4 @@ class SearchViewModel(
         filtersRepository.setFilter(filter)
         searchRequest()
     }
-
 }

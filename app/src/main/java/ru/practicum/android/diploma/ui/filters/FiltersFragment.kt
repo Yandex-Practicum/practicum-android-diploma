@@ -8,13 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
-import com.google.gson.Gson
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFiltersBinding
-import ru.practicum.android.diploma.domain.models.Filter
 
 class FiltersFragment : Fragment() {
 
@@ -47,19 +44,15 @@ class FiltersFragment : Fragment() {
             )
         }
 
-
-
         val textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
                 val place = binding.workplaceValue.text
                 val check = binding.checkBox.isChecked
                 val salary = binding.edit
-                if (place != "Место работы" || check || salary.text.isNotEmpty()){
+                if (place != "Место работы" || check || salary.text.isNotEmpty()) {
                     binding.apply.visibility = View.VISIBLE
                     binding.remove.visibility = View.VISIBLE
-                }
-                else{
+                } else {
                     binding.apply.visibility = View.GONE
                     binding.remove.visibility = View.GONE
                 }
@@ -68,8 +61,7 @@ class FiltersFragment : Fragment() {
                 if (s?.isNotEmpty() == true) {
                     binding.clearIcon.visibility = View.VISIBLE
                     binding.expectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Blue))
-                }
-                else{
+                } else {
                     binding.clearIcon.visibility = View.GONE
                     binding.expectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Text_Gray))
                 }
@@ -79,11 +71,10 @@ class FiltersFragment : Fragment() {
                 val place = binding.workplaceValue.text
                 val check = binding.checkBox.isChecked
                 val salary = binding.edit
-                if (place != "Место работы" || check || salary.text.isNotEmpty()){
+                if (place != "Место работы" || check || salary.text.isNotEmpty()) {
                     binding.apply.visibility = View.VISIBLE
                     binding.remove.visibility = View.VISIBLE
-                }
-                else{
+                } else {
                     binding.apply.visibility = View.GONE
                     binding.remove.visibility = View.GONE
                 }
@@ -91,8 +82,7 @@ class FiltersFragment : Fragment() {
                 if (s?.isNotEmpty() == true) {
                     binding.clearIcon.visibility = View.VISIBLE
                     binding.expectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Blue))
-                }
-                else{
+                } else {
                     binding.clearIcon.visibility = View.GONE
                     binding.expectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Text_Gray))
                 }
@@ -102,11 +92,10 @@ class FiltersFragment : Fragment() {
                 val place = binding.workplaceValue.text
                 val check = binding.checkBox.isChecked
                 val salary = binding.edit
-                if (place != "Место работы" || check || salary.text.isNotEmpty()){
+                if (place != "Место работы" || check || salary.text.isNotEmpty()) {
                     binding.apply.visibility = View.VISIBLE
                     binding.remove.visibility = View.VISIBLE
-                }
-                else{
+                } else {
                     binding.apply.visibility = View.GONE
                     binding.remove.visibility = View.GONE
                 }
@@ -114,8 +103,7 @@ class FiltersFragment : Fragment() {
                 if (s?.isNotEmpty() == true) {
                     binding.clearIcon.visibility = View.VISIBLE
                     binding.expectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Blue))
-                }
-                else{
+                } else {
                     binding.clearIcon.visibility = View.GONE
                     binding.expectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Text_Gray))
                 }
@@ -123,7 +111,7 @@ class FiltersFragment : Fragment() {
         }
         binding.edit.addTextChangedListener(textWatcher)
 
-        binding.clearIcon.setOnClickListener{
+        binding.clearIcon.setOnClickListener {
             binding.edit.setText("")
         }
 
@@ -132,8 +120,7 @@ class FiltersFragment : Fragment() {
                 if (binding.edit.text.isNotEmpty()) {
                     binding.clearIcon.visibility = View.VISIBLE
                     binding.expectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Blue))
-                }
-                else{
+                } else {
                     binding.clearIcon.visibility = View.GONE
                     binding.expectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Text_Gray))
                 }
@@ -141,22 +128,20 @@ class FiltersFragment : Fragment() {
                 binding.clearIcon.visibility = View.GONE
                 if (binding.edit.text.isNotEmpty()) {
                     binding.expectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Black))
-                }
-                else{
+                } else {
                     binding.expectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Text_Gray))
                 }
             }
         }
 
-        binding.checkBox.setOnCheckedChangeListener{ buttonView, isChecked ->
+        binding.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
             val place = binding.workplaceValue.text
             val check = binding.checkBox.isChecked
             val salary = binding.edit
-            if (place != "Место работы" || check || salary.text.isNotEmpty()){
+            if (place != "Место работы" || check || salary.text.isNotEmpty()) {
                 binding.apply.visibility = View.VISIBLE
                 binding.remove.visibility = View.VISIBLE
-            }
-            else{
+            } else {
                 binding.apply.visibility = View.GONE
                 binding.remove.visibility = View.GONE
             }
@@ -169,19 +154,17 @@ class FiltersFragment : Fragment() {
             val place = binding.workplaceValue.text
             val check = binding.checkBox.isChecked
             val salary = binding.edit
-            if (place != "Место работы" || check || salary.text.isNotEmpty()){
+            if (place != "Место работы" || check || salary.text.isNotEmpty()) {
                 binding.apply.visibility = View.VISIBLE
                 binding.remove.visibility = View.VISIBLE
-            }
-            else{
+            } else {
                 binding.apply.visibility = View.GONE
                 binding.remove.visibility = View.GONE
             }
 
-            if (place != "Место работы"){
+            if (place != "Место работы") {
                 binding.workplaceView.setImageResource(R.drawable.close_icon)
-            }
-            else
+            } else
                 binding.workplaceView.setImageResource(R.drawable.arrow_forward)
         }
 
