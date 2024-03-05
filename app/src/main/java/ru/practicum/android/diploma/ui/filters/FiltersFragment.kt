@@ -49,16 +49,16 @@ class FiltersFragment : Fragment() {
         }
 
         binding.apply.setOnClickListener {
-            val bundle = Bundle()
-            val place = binding.workplaceValue.text.split(", ")
-            val country = place[0]
-            val region = place[1]
-            val check = binding.checkBox.isChecked
-            val industry = binding.industryValue.text.toString()
-            val salary = binding.edit.text.toString()
-            val result = Filter(country, region, industry, salary, check)
-            bundle.putString("key", Gson().toJson(result))
-            setFragmentResult("requestKey", bundle)
+//            val bundle = Bundle()
+//            val place = binding.workplaceValue.text.split(", ")
+//            val country = place[0]
+//            val region = place[1]
+//            val check = binding.checkBox.isChecked
+//            val industry = binding.industryValue.text.toString()
+//            val salary = binding.edit.text.toString()
+//            val result = Filter(country, region, industry, salary, check)
+//            bundle.putString("key", Gson().toJson(result))
+//            setFragmentResult("requestKey", bundle)
             findNavController().popBackStack()
         }
     }

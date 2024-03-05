@@ -21,12 +21,12 @@ class IndustriesViewModel(
     val industries: LiveData<List<Industries>> get() = _industries
 
     init {
-        loadIndustries("5")
+        loadIndustries()
     }
 
-    fun loadIndustries(industries: String) {
+    fun loadIndustries() {
         viewModelScope.launch {
-            interactor.searchIndustries(industries)
+            interactor.searchIndustries()
                 .collect() { pair ->
                     processResult(pair.first, pair.second)
                 }

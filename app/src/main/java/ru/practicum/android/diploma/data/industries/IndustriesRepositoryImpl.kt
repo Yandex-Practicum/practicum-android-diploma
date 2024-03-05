@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.data.industries
 
+import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.data.NetworkClient
@@ -13,20 +14,21 @@ import ru.practicum.android.diploma.util.Resource
 class IndustriesRepositoryImpl(
     val networkClient: NetworkClient
 ) : IndustriesRepository {
-    override fun searchIndustries(industries: String): Flow<Resource<List<Industries>>> = flow {
-        val response = networkClient.doRequest(IndustriesRequest(industries))
+    override fun searchIndustries(): Flow<Resource<List<Industries>>> = flow {
+        val response = networkClient.doRequest(IndustriesRequest)
 
         when (response.resultCode) {
             ResponseCodes.DEFAULT -> emit(Resource.Error(response.resultCode.code))
             ResponseCodes.SUCCESS -> {
                 try {
                     with(response as IndustriesResponse) {
-                        val data = this.industries.map {
+                        val data = this.result.map {
                             Industries(
                                 id = it.id,
                                 name = it.name
                             )
                         }
+                        Log.d("StateData", "Состояние = $data")
                         emit(Resource.Success(data))
                     }
                 } catch (e: Throwable) {

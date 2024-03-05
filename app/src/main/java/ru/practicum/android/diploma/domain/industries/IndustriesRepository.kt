@@ -6,5 +6,5 @@ import ru.practicum.android.diploma.util.Resource
 
 interface IndustriesRepository {
 
-    fun searchIndustries(industries: String): Flow<Resource<List<Industries>>>
+    fun searchIndustries(): Flow<Resource<List<Industries>>>
 }

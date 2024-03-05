@@ -33,8 +33,8 @@ class RetrofitNetworkClient(
         return withContext(Dispatchers.IO) {
             try {
                 val response = when (dto) {
-                    is IndustriesRequest -> async { jobVacancySearchApi.getAllIndustries(dto.industries) }
                     is VacanciesSearchRequest -> async { jobVacancySearchApi.getFullListVacancy(dto.queryMap) }
+                    is IndustriesRequest -> async { jobVacancySearchApi.getAllIndustries() }
                     else -> async { jobVacancySearchApi.getVacancyDetail((dto as DetailRequest).id) }
                 }.await()
                 response.apply { resultCode = ResponseCodes.SUCCESS }

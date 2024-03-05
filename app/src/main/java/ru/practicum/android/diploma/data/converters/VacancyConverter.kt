@@ -22,44 +22,6 @@ object VacancyConverter {
         )
     }
 
-    private fun formatSalary(salary: Salary?): String {
-        if (salary == null) return "Зарплата не указана"
-
-        val currency = when (salary.currency) {
-            "RUR" -> "₽"
-            "EUR" -> "€"
-            "KZT" -> "₸"
-            "AZN" -> "\u20BC"
-            "USD" -> "$"
-            "BYR" -> "\u0042\u0072"
-            "GEL" -> "\u20BE"
-            "UAH" -> "\u20b4"
-            "UZS" -> "Soʻm"
-            else -> ""
-        }
-
-        val stringBuilder = StringBuilder()
-
-        salary.from?.let {
-            stringBuilder.append("от ${formatSalary(salary.from)} ")
-        }
-
-        salary.to?.let {
-            stringBuilder.append("до ${formatSalary(salary.to)} ")
-        }
-        stringBuilder.append(currency)
-
-        return stringBuilder.toString()
-    }
-
-    private fun formatSalary(salary: Int): String {
-        val df = DecimalFormat()
-        df.isGroupingUsed = true
-        df.groupingSize = 3
-
-        return df.format(salary)
-    }
-
     fun VacancyDetailDtoResponse.toVacancyDetail(): VacancyDetail {
         return VacancyDetail(
             id = id,
@@ -91,7 +53,45 @@ object VacancyConverter {
         } else { null }
     }
 
-    private fun buildPhoneNumbers(phones: List<Phones>?): List<String?> {
+    fun formatSalary(salary: Salary?): String {
+        if (salary == null) return "Зарплата не указана"
+
+        val currency = when (salary.currency) {
+            "RUR" -> "₽"
+            "EUR" -> "€"
+            "KZT" -> "₸"
+            "AZN" -> "\u20BC"
+            "USD" -> "$"
+            "BYR" -> "\u0042\u0072"
+            "GEL" -> "\u20BE"
+            "UAH" -> "\u20b4"
+            "UZS" -> "Soʻm"
+            else -> ""
+        }
+
+        val stringBuilder = StringBuilder()
+
+        salary.from?.let {
+            stringBuilder.append("от ${formatSalary(salary.from)} ")
+        }
+
+        salary.to?.let {
+            stringBuilder.append("до ${formatSalary(salary.to)} ")
+        }
+        stringBuilder.append("$currency")
+
+        return stringBuilder.toString()
+    }
+
+    private fun formatSalary(salary: Int): String {
+        val df = DecimalFormat()
+        df.isGroupingUsed = true
+        df.groupingSize = 3
+
+        return df.format(salary)
+    }
+
+    fun buildPhoneNumbers(phones: List<Phones>?): List<String?> {
         var phoneString: String
         val phoneList = mutableListOf<String>()
         phones?.forEach {
@@ -101,7 +101,7 @@ object VacancyConverter {
         return phoneList
     }
 
-    private fun buildPhoneComments(phones: List<Phones>?): List<String?> {
+    fun buildPhoneComments(phones: List<Phones>?): List<String?> {
         val commentList = mutableListOf<String?>()
         phones?.forEach {
             commentList.add(it.comment)
