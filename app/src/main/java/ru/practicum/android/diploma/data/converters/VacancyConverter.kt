@@ -90,7 +90,7 @@ object VacancyConverter {
         return phoneList
     }
 
-    private fun buildPhoneComments(phones: List<Phones>?): List<String?> {
+    fun buildPhoneComments(phones: List<Phones>?): List<String?> {
         val commentList = mutableListOf<String?>()
         phones?.forEach {
             commentList.add(it.comment)
