@@ -44,5 +44,6 @@
     <string name="remove">Сбросить</string>
 
     <string name="search_heading">Поиск вакансий</string>
+    <string name="expected_salary">Ожидаемая зарплата</string>
 
 </resources>

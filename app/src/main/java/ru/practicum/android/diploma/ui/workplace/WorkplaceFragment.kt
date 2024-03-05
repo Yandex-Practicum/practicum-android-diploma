@@ -18,10 +18,33 @@ class WorkplaceFragment : Fragment() {
     private var _binding: FragmentWorkplaceBinding? = null
     private val binding get() = _binding!!
 
+    private var savedText: String? = null
+
     private val viewModel by viewModel<WorkplaceViewModel>()
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val countyText = binding.countryName
+        outState.putString(COUNTRY_TEXT, countyText.text.toString())
+        val regionText = binding.regionName
+        outState.putString(REGION_TEXT, regionText.text.toString())
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        // Восстановление сохраненного текста, если он есть
+        savedInstanceState?.getString("COUNTRY_TEXT")?.let {
+            savedText = it
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentWorkplaceBinding.inflate(inflater, container, false)
+        // Восстановление сохраненного текста, если он ест
+        savedText?.let {
+            binding.countryName.text = it
+        }
+
         return binding.root
     }
 
@@ -74,5 +97,9 @@ class WorkplaceFragment : Fragment() {
             findNavController().navigateUp()
         }
 
+    }
+    companion object {
+        const val COUNTRY_TEXT = "COUNTRY_TEXT"
+        const val REGION_TEXT = "REGION_TEXT"
     }
 }

@@ -26,6 +26,11 @@
         <item name="android:fontFamily">@font/ys_display_regular</item>
     </style>
 
+    <style name="Text_Small">
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+    </style>
+
     <style name="Text_Header_Company_Card">
         <item name="android:textSize">22sp</item>
         <item name="android:fontFamily">@font/ys_display_medium</item>
