@@ -22,7 +22,7 @@ object VacancyConverter {
         )
     }
 
-    fun formatSalary(salary: Salary?): String {
+    private fun formatSalary(salary: Salary?): String {
         if (salary == null) return "Зарплата не указана"
 
         val currency = when (salary.currency) {
@@ -82,7 +82,7 @@ object VacancyConverter {
         )
     }
 
-    fun createAddress(address: Address?): String? {
+    private fun createAddress(address: Address?): String? {
         return if (address != null) {
             val city = if (address.city != null) "${address.city}, " else ""
             val street = if (address.street != null) "${address.street}, " else ""
@@ -91,7 +91,7 @@ object VacancyConverter {
         } else {null}
     }
 
-    fun buildPhoneNumbers(phones: List<Phones>?): List<String?> {
+    private fun buildPhoneNumbers(phones: List<Phones>?): List<String?> {
         var phoneString: String
         val phoneList = mutableListOf<String>()
         phones?.forEach {
@@ -101,7 +101,7 @@ object VacancyConverter {
         return phoneList
     }
 
-    fun buildPhoneComments(phones: List<Phones>?): List<String?> {
+    private fun buildPhoneComments(phones: List<Phones>?): List<String?> {
         val commentList = mutableListOf<String?>()
         phones?.forEach {
             commentList.add(it.comment)
@@ -109,7 +109,7 @@ object VacancyConverter {
         return commentList
     }
 
-    fun buildKeySkills(keySkills: List<KeySkillVacancyDetail>): List<String> {
+    private fun buildKeySkills(keySkills: List<KeySkillVacancyDetail>): List<String> {
         val skillsList = mutableListOf<String>()
         keySkills.forEach {
             skillsList.add(it.name)
