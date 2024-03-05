@@ -47,7 +47,7 @@ object VacancyConverter {
         salary.to?.let {
             stringBuilder.append("до ${formatSalary(salary.to)} ")
         }
-        stringBuilder.append("$currency")
+        stringBuilder.append(currency)
 
         return stringBuilder.toString()
     }
@@ -88,7 +88,7 @@ object VacancyConverter {
             val street = if (address.street != null) "${address.street}, " else ""
             val building = if (address.building != null) "${address.building}" else ""
             "$city$street$building"
-        } else {null}
+        } else { null }
     }
 
     private fun buildPhoneNumbers(phones: List<Phones>?): List<String?> {
