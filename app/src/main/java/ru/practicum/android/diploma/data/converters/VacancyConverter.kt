@@ -21,6 +21,27 @@ object VacancyConverter {
         )
     }
 
+    fun VacancyDetailDtoResponse.toVacancyDetail(): VacancyDetail {
+        return VacancyDetail(
+            id = id,
+            name = name,
+            area = area.name,
+            vacancyLink = vacancyLink,
+            contactName = contacts?.name,
+            contactEmail = contacts?.email,
+            contactPhones = buildPhoneNumbers(contacts?.phones),
+            contactComments = buildPhoneComments(contacts?.phones),
+            employerName = employer?.name,
+            employerUrl = employer?.logoUrls?.original,
+            salary = formatSalary(salary),
+            schedule = schedule?.name,
+            employment = employment?.name,
+            experience = experience?.name,
+            keySkills = buildKeySkills(keySkills),
+            description = description
+        )
+    }
+
     fun formatSalary(salary: Salary?): String {
         if (salary == null) return "Зарплата не указана"
 
@@ -57,27 +78,6 @@ object VacancyConverter {
         df.groupingSize = 3
 
         return df.format(salary)
-    }
-
-    fun VacancyDetailDtoResponse.toVacancyDetail(): VacancyDetail {
-        return VacancyDetail(
-            id = id,
-            name = name,
-            area = area.name,
-            vacancyLink = vacancyLink,
-            contactName = contacts?.name,
-            contactEmail = contacts?.email,
-            contactPhones = buildPhoneNumbers(contacts?.phones),
-            contactComments = buildPhoneComments(contacts?.phones),
-            employerName = employer?.name,
-            employerUrl = employer?.logoUrls?.original,
-            salary = formatSalary(salary),
-            schedule = schedule?.name,
-            employment = employment?.name,
-            experience = experience?.name,
-            keySkills = buildKeySkills(keySkills),
-            description = description
-        )
     }
 
     fun buildPhoneNumbers(phones: List<Phones>?): List<String?> {

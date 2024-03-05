@@ -5,10 +5,10 @@ import ru.practicum.android.diploma.data.response.IndustriesResponse
 
 object IndustriesConverter {
 
-    fun IndustriesResponse.mapToIndustries(): Industries {
-        return Industries(
-            id = id,
-            name = name
-        )
-    }
+//    fun IndustriesResponse.mapToIndustries(): Industries {
+//        return Industries(
+//            id = id,
+//            name = name
+//        )
+//    }
 }

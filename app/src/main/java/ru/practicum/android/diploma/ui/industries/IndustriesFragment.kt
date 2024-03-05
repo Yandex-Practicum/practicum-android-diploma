@@ -32,6 +32,8 @@ class IndustriesFragment : Fragment() {
 
         val industry = ArrayList<Industries>()
 
+        viewModel.loadIndustries()
+
         viewModel.observeState().observe(viewLifecycleOwner) { state ->
             when (state) {
                 is IndustriesState.Content -> industry.addAll(state.vacancyDetail)
