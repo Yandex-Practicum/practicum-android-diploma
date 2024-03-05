@@ -179,8 +179,10 @@ class FiltersFragment : Fragment() {
             }
 
             if (place != "Место работы"){
-                binding.workplace
+                binding.workplaceView.setImageResource(R.drawable.close_icon)
             }
+            else
+                binding.workplaceView.setImageResource(R.drawable.arrow_forward)
         }
 
         binding.apply.setOnClickListener {
