@@ -4,8 +4,7 @@ import ru.practicum.android.diploma.data.Response
 
 data class IndustriesResponse(
     val result: List<IndustriesAllDeal>
-): Response()
-
+) : Response()
 
 data class IndustriesAllDeal(
     val id: String,
