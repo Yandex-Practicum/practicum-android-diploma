@@ -23,7 +23,7 @@ class IndustriesRepositoryImpl(
                 try {
                     val industriesResponse = response as IndustriesResponse
                     val industriesAllDealList = industriesResponse.mapToIndustriesAllDeal()
-                    emit(Resource.Success((listOf(industriesAllDealList))))
+                    emit(Resource.Success(listOf(industriesAllDealList)))
                 } catch (e: Throwable) {
                     emit(Resource.Error(response.resultCode.code))
                 }
