@@ -22,6 +22,29 @@ object VacancyConverter {
         )
     }
 
+    fun VacancyDetailDtoResponse.toVacancyDetail(): VacancyDetail {
+        return VacancyDetail(
+            id = id,
+            name = name,
+            area = area.name,
+            vacancyLink = vacancyLink,
+            contactName = contacts?.name,
+            contactEmail = contacts?.email,
+            contactPhones = buildPhoneNumbers(contacts?.phones),
+            contactComments = buildPhoneComments(contacts?.phones),
+            employerName = employer?.name,
+            employerUrl = employer?.logoUrls?.original,
+            salary = formatSalary(salary),
+            schedule = schedule?.name,
+            employment = employment?.name,
+            experience = experience?.name,
+            keySkills = buildKeySkills(keySkills),
+            address = createAddress(address),
+            description = description
+        )
+    }
+
+
     private fun formatSalary(salary: Salary?): String {
         if (salary == null) return "Зарплата не указана"
 
@@ -60,27 +83,6 @@ object VacancyConverter {
         return df.format(salary)
     }
 
-    fun VacancyDetailDtoResponse.toVacancyDetail(): VacancyDetail {
-        return VacancyDetail(
-            id = id,
-            name = name,
-            area = area.name,
-            vacancyLink = vacancyLink,
-            contactName = contacts?.name,
-            contactEmail = contacts?.email,
-            contactPhones = buildPhoneNumbers(contacts?.phones),
-            contactComments = buildPhoneComments(contacts?.phones),
-            employerName = employer?.name,
-            employerUrl = employer?.logoUrls?.original,
-            salary = formatSalary(salary),
-            schedule = schedule?.name,
-            employment = employment?.name,
-            experience = experience?.name,
-            keySkills = buildKeySkills(keySkills),
-            address = createAddress(address),
-            description = description
-        )
-    }
 
     private fun createAddress(address: Address?): String? {
         return if (address != null) {
