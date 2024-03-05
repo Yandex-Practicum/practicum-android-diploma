@@ -38,7 +38,7 @@ class FiltersFragment : Fragment() {
 
         binding.industry.setOnClickListener {
             findNavController().navigate(
-                R.id.action_filtersFragment_to_industryFragment,
+                R.id.action_filtersFragment_to_industryFragment
             )
         }
 

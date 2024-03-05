@@ -2,17 +2,17 @@ package ru.practicum.android.diploma.data.response
 
 import ru.practicum.android.diploma.data.Response
 
-data class IndustriesResponse(
-    val result: List<IndustriesAllDeal>
-) : Response()
+//data class IndustriesResponse(
+//    val result: List<IndustriesDtoAllDeal>
+//) : Response()
 
-data class IndustriesAllDeal(
+data class IndustriesResponse(
     val id: String,
     val name: String,
-    val industries: List<Industries>
-)
+    val industries: List<IndustriesDto>
+) : Response()
 
-data class Industries(
+data class IndustriesDto(
     val id: String,
     val name: String
 )

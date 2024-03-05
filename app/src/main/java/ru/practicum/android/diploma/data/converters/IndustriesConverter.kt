@@ -1,14 +1,13 @@
 package ru.practicum.android.diploma.data.converters
 
-import ru.practicum.android.diploma.data.response.Industries
 import ru.practicum.android.diploma.data.response.IndustriesResponse
+import ru.practicum.android.diploma.domain.industries.IndustriesAllDeal
 
 object IndustriesConverter {
-
-//    fun IndustriesResponse.mapToIndustries(): Industries {
-//        return Industries(
-//            id = id,
-//            name = name
-//        )
-//    }
+    fun IndustriesResponse.mapToIndustriesAllDeal(): IndustriesAllDeal {
+        return IndustriesAllDeal(
+            id = id,
+            name = name
+        )
+    }
 }
