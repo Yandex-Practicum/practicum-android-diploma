@@ -22,9 +22,9 @@ class FavoriteViewHolder(
     private val image: ImageView = itemView.findViewById(R.id.iv_company)
 
     fun bind(vacancy: VacancyDetail) {
-        nameText.text = vacancy.name
+        nameText.text = "${vacancy.name}, ${vacancy.area}"
         departmentText.text = vacancy.employerName
-        salaryText.text = vacancy.salary
+        salaryText.text = vacancy.salary?.replace(",", " ") ?: vacancy.salary
 
         Glide.with(itemView)
             .load(vacancy.employerUrl)

@@ -44,8 +44,16 @@ object VacancyConverter {
         )
     }
 
+    private fun createAddress(address: Address?): String? {
+        return if (address != null) {
+            val city = if (address.city != null) "${address.city}, " else ""
+            val street = if (address.street != null) "${address.street}, " else ""
+            val building = if (address.building != null) "${address.building}" else ""
+            "$city$street$building"
+        } else { null }
+    }
 
-    private fun formatSalary(salary: Salary?): String {
+    fun formatSalary(salary: Salary?): String {
         if (salary == null) return "Зарплата не указана"
 
         val currency = when (salary.currency) {
@@ -70,7 +78,7 @@ object VacancyConverter {
         salary.to?.let {
             stringBuilder.append("до ${formatSalary(salary.to)} ")
         }
-        stringBuilder.append(currency)
+        stringBuilder.append("$currency")
 
         return stringBuilder.toString()
     }
@@ -83,17 +91,7 @@ object VacancyConverter {
         return df.format(salary)
     }
 
-
-    private fun createAddress(address: Address?): String? {
-        return if (address != null) {
-            val city = if (address.city != null) "${address.city}, " else ""
-            val street = if (address.street != null) "${address.street}, " else ""
-            val building = if (address.building != null) "${address.building}" else ""
-            "$city$street$building"
-        } else { null }
-    }
-
-    private fun buildPhoneNumbers(phones: List<Phones>?): List<String?> {
+    fun buildPhoneNumbers(phones: List<Phones>?): List<String?> {
         var phoneString: String
         val phoneList = mutableListOf<String>()
         phones?.forEach {
@@ -103,7 +101,7 @@ object VacancyConverter {
         return phoneList
     }
 
-    private fun buildPhoneComments(phones: List<Phones>?): List<String?> {
+    fun buildPhoneComments(phones: List<Phones>?): List<String?> {
         val commentList = mutableListOf<String?>()
         phones?.forEach {
             commentList.add(it.comment)
