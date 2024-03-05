@@ -13,6 +13,7 @@ import ru.practicum.android.diploma.databinding.FragmentCountryBinding
 class CountryFragment : Fragment() {
     private lateinit var binding: FragmentCountryBinding
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentCountryBinding.inflate(inflater, container, false)
         return binding.root
