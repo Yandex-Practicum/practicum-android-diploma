@@ -80,12 +80,12 @@ class PlaceSelectorFragment : Fragment() {
     }
 
     private fun changeIcon(editText: EditText, view: ImageView) {
-        editText.doOnTextChanged {  text, _, _, _ ->
+        editText.doOnTextChanged { text, _, _, _ ->
             if (text.isNullOrEmpty()) {
                 view.setImageResource(R.drawable.ic_arrow_forward)
             } else {
                 view.setImageResource(R.drawable.ic_close)
-                    view.setOnClickListener {
+                view.setOnClickListener {
                     editText.setText("")
                     changeIcon(editText, view)
                 }
