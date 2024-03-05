@@ -56,7 +56,8 @@
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/navigation_toolbar">
+        app:layout_constraintTop_toBottomOf="@id/navigation_toolbar"
+        android:textCursorDrawable="@drawable/color_cursor">
 
         <EditText
             android:id="@+id/searchEditText"
@@ -66,11 +67,13 @@
             android:drawableEnd="@drawable/ic_search"
             android:drawablePadding="@dimen/margin_16"
             android:hint="@string/search_request"
+            android:background="@drawable/shape_on_search_screen"
             android:imeOptions="actionDone|flagNoExtractUi"
             android:inputType="textNoSuggestions"
             android:maxLines="1"
             android:textColor="@color/black"
-            android:textColorHint="@color/YP_Text_Gray" />
+            android:textColorHint="@color/YP_Text_Gray"
+            android:textCursorDrawable="@drawable/color_cursor"/>
 
 
     </com.google.android.material.textfield.TextInputLayout>

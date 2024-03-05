@@ -89,7 +89,7 @@ class SearchFragment : Fragment() {
                     binding.progressBar.visibleOrGone(state.state is SearchState.Loading)
                     binding.searchRecyclerView.visibleOrGone(state.state is SearchState.Content || state.state is SearchState.Loading)
                     binding.imageBinoculars.visibleOrGone(state.state == null)
-                    binding.placeholderError.visibleOrGone(state.state is SearchState.Empty)
+                    binding.placeholderError.visibleOrGone(state.state is SearchState.Empty ||(state.state is SearchState.Content && searchJob == null))
                     binding.placeholderNoConnection.visibleOrGone(state.state is SearchState.Error)
 
                     binding.tvRvHeader.visibleOrGone(state.foundVacancies != null && state.state !is SearchState.Error)

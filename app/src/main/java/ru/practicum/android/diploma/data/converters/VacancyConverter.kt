@@ -90,7 +90,7 @@ object VacancyConverter {
         return phoneList
     }
 
-    fun buildPhoneComments(phones: List<Phones>?): List<String?> {
+    private fun buildPhoneComments(phones: List<Phones>?): List<String?> {
         val commentList = mutableListOf<String?>()
         phones?.forEach {
             commentList.add(it.comment)
@@ -98,7 +98,7 @@ object VacancyConverter {
         return commentList
     }
 
-    fun buildKeySkills(keySkills: List<KeySkillVacancyDetail>): List<String> {
+    private fun buildKeySkills(keySkills: List<KeySkillVacancyDetail>): List<String> {
         val skillsList = mutableListOf<String>()
         keySkills.forEach {
             skillsList.add(it.name)

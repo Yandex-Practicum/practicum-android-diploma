@@ -25,6 +25,7 @@ data class VacancyDetailEntity(
     val experience: String?,
     val keySkills: String,
     val description: String,
+    val address: String?,
     val isFavorite: Boolean
 )
 
