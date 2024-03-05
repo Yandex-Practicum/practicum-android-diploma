@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.data.converters
 import android.icu.text.DecimalFormat
 import ru.practicum.android.diploma.data.dto.responseUnits.Salary
 import ru.practicum.android.diploma.data.dto.responseUnits.VacancyDto
+import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.Address
 import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.KeySkillVacancyDetail
 import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.Phones
 import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.VacancyDetailDtoResponse
@@ -76,8 +77,18 @@ object VacancyConverter {
             employment = employment?.name,
             experience = experience?.name,
             keySkills = buildKeySkills(keySkills),
+            address = createAddress(address),
             description = description
         )
+    }
+
+    fun createAddress(address: Address?): String? {
+        return if(address != null){
+            val city = if(address.city != null) "${address.city}, " else ""
+            val street = if(address.street != null) "${address.street}, " else ""
+            val building = if(address.building != null) "${address.building}" else ""
+            "$city$street$building"
+        } else null
     }
 
     fun buildPhoneNumbers(phones: List<Phones>?): List<String?> {

@@ -48,5 +48,10 @@
         <item name="android:fontFamily">@font/ys_display_medium</item>
         <item name="cornerRadius">@dimen/margin_16</item>
     </style>
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">22sp</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textColor">@color/YP_Black</item>
+    </style>
 
 </resources>
