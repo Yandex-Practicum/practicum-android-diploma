@@ -19,7 +19,12 @@ class FavouritesFragment : Fragment() {
     private var _binding: FragmentFavouritesBinding? = null
     private val binding get() = _binding!!
 
-    private var adapter: VacancyAdapter? = null
+    private val adapter: VacancyAdapter? by lazy {
+        VacancyAdapter {
+            onVacancyClick(it)
+        }
+
+    }
 
     private val favouritesViewModel by viewModel<FavouritesViewModel>()
 
@@ -38,21 +43,18 @@ class FavouritesFragment : Fragment() {
         favouritesViewModel.getFavouritesList()
 
         favouritesViewModel.favouritesStatus.observe(viewLifecycleOwner) {
-            setElement(it)
+            renderState(it)
         }
+
+        binding.vacancyRecycler.layoutManager = LinearLayoutManager(requireContext())
+        binding.vacancyRecycler.adapter = adapter!!
+
     }
 
-    private fun setElement(state: FavouritesState) {
+    private fun renderState(state: FavouritesState) {
         when (state) {
             FavouritesState.SUCCESS -> {
-                val vacancyList = favouritesViewModel.favouritesList.value
-
-                adapter = VacancyAdapter({
-                    onVacancyClick(it)
-                }, vacancyList!!)
-
-                binding.vacancyRecycler.layoutManager = LinearLayoutManager(requireContext())
-                binding.vacancyRecycler.adapter = adapter
+                adapter!!.updateVacancyList(favouritesViewModel.favouritesListMutable.value!!)
                 adapter!!.notifyDataSetChanged()
             }
 
@@ -66,7 +68,7 @@ class FavouritesFragment : Fragment() {
                 binding.placeholderText.setText(R.string.placeholder_list_is_empty)
             }
         }
-        if (favouritesViewModel.favouritesList.value.isNullOrEmpty()) {
+        if (favouritesViewModel.favouritesListMutable.value.isNullOrEmpty()) {
             binding.errorPlaceholder.visibility = View.VISIBLE
             binding.placeholderText.visibility = View.VISIBLE
             binding.vacancyRecycler.visibility = View.GONE

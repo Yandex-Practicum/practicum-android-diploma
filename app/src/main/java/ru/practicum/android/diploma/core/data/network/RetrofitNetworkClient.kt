@@ -4,6 +4,10 @@ import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.core.data.NetworkClient
+import ru.practicum.android.diploma.core.data.NetworkClient.Companion.EXCEPTION_ERROR_CODE
+import ru.practicum.android.diploma.core.data.NetworkClient.Companion.NETWORK_ERROR_CODE
+import ru.practicum.android.diploma.core.data.NetworkClient.Companion.SUCCESSFUL_CODE
+import ru.practicum.android.diploma.core.data.network.dto.GetIndustriesResponse
 import ru.practicum.android.diploma.core.data.network.dto.CountryResponse
 import ru.practicum.android.diploma.core.data.network.dto.Response
 import ru.practicum.android.diploma.core.domain.model.SearchFilterParameters
@@ -83,6 +87,16 @@ class RetrofitNetworkClient(
         return getResponse(response)
     }
 
+    override suspend fun getIndustries(): Response {
+        val retrofitResponse = hhApi.getIndustries()
+        val response = if (retrofitResponse.isSuccessful) {
+            retrofit2.Response.success(GetIndustriesResponse(retrofitResponse.body() ?: emptyList()))
+        } else {
+            retrofit2.Response.error(retrofitResponse.code(), retrofitResponse.errorBody()!!)
+        }
+        return getResponse(response)
+    }
+
     private fun <T : Response> getResponse(retrofitResponse: retrofit2.Response<T>): Response {
         return try {
             val body = retrofitResponse.body()
@@ -98,11 +112,5 @@ class RetrofitNetworkClient(
             Log.e(RetrofitNetworkClient::class.java.simpleName, e.stackTraceToString())
             Response().apply { resultCode = EXCEPTION_ERROR_CODE }
         }
-    }
-
-    companion object {
-        const val SUCCESSFUL_CODE = 200
-        const val EXCEPTION_ERROR_CODE = -2
-        const val NETWORK_ERROR_CODE = -1
     }
 }

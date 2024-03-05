@@ -94,7 +94,7 @@
     </fragment>
     <fragment
         android:id="@+id/branchFragment"
-        android:name="ru.practicum.android.diploma.filter.branch.BranchFragment"
+        android:name="ru.practicum.android.diploma.filter.industry.ui.BranchFragment"
         android:label="BranchFragment">
         <action
             android:id="@+id/action_branchFragment_to_filterFragment"

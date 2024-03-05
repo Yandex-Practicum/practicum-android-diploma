@@ -14,8 +14,7 @@ const val CLICK_DEBOUNCE_DELAY = 1000L
 
 class FavouritesViewModel(private val getFavouritesInteractor: GetFavouritesInteractor) : ViewModel() {
 
-    private var favouritesListMutable = MutableLiveData<List<DetailVacancy>>()
-    val favouritesList: LiveData<List<DetailVacancy>> = favouritesListMutable
+    var favouritesListMutable = MutableLiveData<List<DetailVacancy>>()
 
     private var favouritesStatusMutable = MutableLiveData<FavouritesState>()
     val favouritesStatus: LiveData<FavouritesState> = favouritesStatusMutable
@@ -23,15 +22,15 @@ class FavouritesViewModel(private val getFavouritesInteractor: GetFavouritesInte
     private var isClickAllowed = true
 
     fun getFavouritesList() {
+        favouritesListMutable.value = listOf()
         viewModelScope.launch {
             getFavouritesInteractor.getFavouritesList().collect {
-                favouritesListMutable.postValue(listOf())
                 if (it == null) {
                     favouritesStatusMutable.postValue(FavouritesState.ERROR)
                 } else if (it.isEmpty()) {
                     favouritesStatusMutable.postValue(FavouritesState.EMPTY_RESULT)
                 } else {
-                    favouritesListMutable.postValue(it)
+                    favouritesListMutable.value = it
                     favouritesStatusMutable.postValue(FavouritesState.SUCCESS)
                 }
             }
