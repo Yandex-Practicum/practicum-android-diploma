@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.coroutineScope
@@ -51,8 +52,6 @@ class PlaceSelectorFragment : Fragment() {
         binding.regionNavigation.setOnClickListener {
             findNavController().navigate(R.id.action_placeSelectorFragment_to_regionFragment)
         }
-        clearInput(binding.countryText, binding.countryIcon)
-        clearInput(binding.regionText, binding.regionIcon)
     }
 
     private fun getData() {
@@ -81,18 +80,15 @@ class PlaceSelectorFragment : Fragment() {
     }
 
     private fun changeIcon(editText: EditText, view: ImageView) {
-        if (editText.text.isEmpty()) {
-            view.setImageResource(R.drawable.ic_arrow_forward)
-        } else {
-            view.setImageResource(R.drawable.ic_close)
-        }
-    }
-
-    private fun clearInput(editText: EditText, view: ImageView) {
-        if (!editText.text.isNullOrEmpty()) {
-            view.setOnClickListener {
-                editText.setText("")
-                changeIcon(editText, view)
+        editText.doOnTextChanged {  text, _, _, _ ->
+            if (text.isNullOrEmpty()) {
+                view.setImageResource(R.drawable.ic_arrow_forward)
+            } else {
+                view.setImageResource(R.drawable.ic_close)
+                    view.setOnClickListener {
+                    editText.setText("")
+                    changeIcon(editText, view)
+                }
             }
         }
     }
