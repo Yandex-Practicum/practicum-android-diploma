@@ -101,6 +101,9 @@ class SearchViewModel(
 
                         state.update { it.copy(foundVacancies = founded) }
                         subscribeVacanciesPagination(params)
+                        if(founded == "Таких вакансий нет"){
+                            state.update { it.copy(state = SearchState.Empty) }
+                        }
                     }
 
                     is Resource.Error -> {
