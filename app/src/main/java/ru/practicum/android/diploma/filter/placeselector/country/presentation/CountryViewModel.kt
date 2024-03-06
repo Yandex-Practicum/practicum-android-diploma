@@ -31,9 +31,10 @@ class CountryViewModel(private val countryUseCase: GetCountriesUseCase) : ViewMo
                     is Resource.Success -> {
                         val countryList = it.data!!
                         val filteredCountries = countryList.filter { country ->
-                            StringUtils.getCountryList(country.name)}
+                            StringUtils.getCountryList(country.name)
+                        }
                         countries.addAll(filteredCountries)
-                        countries.add(Country("","Другие регионы"))
+                        countries.add(Country("", "Другие регионы"))
                         renderState(CountryScreenState.Content(countries))
                     }
 
