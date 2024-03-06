@@ -30,7 +30,7 @@ android:orientation="vertical">
     android:background="@drawable/rounded_edittext">
 
     <EditText
-        android:id="@+id/Edit"
+        android:id="@+id/edit"
         style="@style/Text_Standard"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -48,13 +48,20 @@ android:orientation="vertical">
         android:singleLine="true"
         android:textCursorDrawable="@drawable/color_cursor"/>
 
+    <View
+        android:id="@+id/click"
+        android:layout_width="40dp"
+        android:layout_height="56dp"
+        android:background="@android:color/transparent"
+        android:layout_gravity="end"
+        android:layout_marginEnd="@dimen/margin_8"/>
 
 </FrameLayout>
 
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="@dimen/margin_20">
+    android:layout_marginTop="@dimen/margin_16">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/region_recycler"

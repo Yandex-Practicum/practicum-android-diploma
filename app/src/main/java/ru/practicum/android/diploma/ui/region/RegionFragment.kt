@@ -1,9 +1,12 @@
 package ru.practicum.android.diploma.ui.region
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
@@ -31,6 +34,50 @@ class RegionFragment : Fragment() {
         binding.vacancyToolbar.setOnClickListener {
             findNavController().navigateUp()
         }
+
+        val textWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                if (binding.edit.text.isNotEmpty()){
+                    val newDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.close_icon)
+                    binding.edit.setCompoundDrawablesWithIntrinsicBounds(null, null, newDrawable, null)
+                }
+                else{
+                    val newDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_search)
+                    binding.edit.setCompoundDrawablesWithIntrinsicBounds(null, null, newDrawable, null)
+                }
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (binding.edit.text.isNotEmpty()){
+                    val newDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.close_icon)
+                    binding.edit.setCompoundDrawablesWithIntrinsicBounds(null, null, newDrawable, null)
+                }
+                else{
+                    val newDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_search)
+                    binding.edit.setCompoundDrawablesWithIntrinsicBounds(null, null, newDrawable, null)
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if (binding.edit.text.isNotEmpty()){
+                    val newDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.close_icon)
+                    binding.edit.setCompoundDrawablesWithIntrinsicBounds(null, null, newDrawable, null)
+                }
+                else{
+                    val newDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_search)
+                    binding.edit.setCompoundDrawablesWithIntrinsicBounds(null, null, newDrawable, null)
+                }
+            }
+        }
+        binding.edit.addTextChangedListener(textWatcher)
+
+        binding.click.setOnClickListener {
+            binding.edit.setText("")
+        }
+
+
+
+
 
         val regions = ArrayList<RecyclerItem>()
         regions.add(RecyclerItem("Регион 1"))

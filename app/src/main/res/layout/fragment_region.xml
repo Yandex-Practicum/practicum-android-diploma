@@ -29,6 +29,8 @@ android:orientation="vertical">
         android:layout_marginTop="@dimen/margin_8"
         android:background="@drawable/rounded_edittext">
 
+
+
         <EditText
             android:id="@+id/edit"
             style="@style/Text_Standard"
@@ -47,6 +49,15 @@ android:orientation="vertical">
             android:imeOptions="actionDone"
             android:singleLine="true"
             android:textCursorDrawable="@drawable/color_cursor"/>
+
+        <View
+            android:id="@+id/click"
+            android:clickable="true"
+            android:layout_width="40dp"
+            android:layout_height="56dp"
+            android:background="@android:color/transparent"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/margin_8"/>
 
     </FrameLayout>
 
