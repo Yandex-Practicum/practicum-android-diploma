@@ -8,6 +8,7 @@
         android:id="@+id/filterToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:contentInsetStartWithNavigation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -22,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="@dimen/tv_filter_margin_s"
-        android:hint="Место работы"
+        android:hint="@string/tv_place_of_job"
         app:layout_constraintTop_toBottomOf="@id/filterToolbar">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -49,7 +50,7 @@
         style="@style/FilterStyle"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:hint="Отрасль"
+        android:hint="@string/tv_branch"
         app:layout_constraintTop_toBottomOf="@id/placeOfJob">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -87,7 +88,7 @@
         app:expandedHintEnabled="false"
         app:hintTextColor="@color/yp_blue"
         app:layout_constraintTop_toBottomOf="@id/branchOfJob"
-        app:placeholderText="Введите сумму"
+        app:placeholderText="@string/edit_text_hint_salary_amount"
         app:placeholderTextColor="?attr/hintTextColor">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -143,11 +144,12 @@
         android:id="@+id/btApproveFilters"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginHorizontal="34dp"
+        android:layout_marginHorizontal="@dimen/tv_filter_margin_s"
         android:layout_marginBottom="8dp"
         android:backgroundTint="@color/yp_blue"
         android:fontFamily="@font/ys_display_medium"
-        android:text="Применить"
+        android:letterSpacing="0"
+        android:text="@string/bt_select"
         android:textAllCaps="false"
         android:textColor="@color/yp_white"
         android:textSize="@dimen/tv_filter_s"
@@ -158,11 +160,12 @@
         android:id="@+id/btResetFilters"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginHorizontal="34dp"
+        android:layout_marginHorizontal="@dimen/tv_filter_margin_s"
         android:layout_marginBottom="@dimen/tv_filter_margin_m"
         android:background="@android:color/transparent"
         android:fontFamily="@font/ys_display_medium"
-        android:text="Сбросить"
+        android:letterSpacing="0"
+        android:text="@string/bt_reset"
         android:textAllCaps="false"
         android:textColor="@color/yp_red"
         android:textSize="@dimen/tv_filter_s"
