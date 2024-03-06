@@ -109,7 +109,7 @@ class RetrofitNetworkClient(
     }
 
     override suspend fun getAreasById(id: String): Response {
-        val retrofitResponse = hhApi.getAreas()
+        val retrofitResponse = hhApi.getAreasById(id)
         val response = if (retrofitResponse.isSuccessful) {
             retrofit2.Response.success(GetAreasResponse(retrofitResponse.body() ?: emptyList()))
         } else {

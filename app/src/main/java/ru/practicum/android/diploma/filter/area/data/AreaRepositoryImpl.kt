@@ -26,9 +26,6 @@ class AreaRepositoryImpl(
         when (response.resultCode) {
             NetworkClient.SUCCESSFUL_CODE -> {
                 var data = (response as GetAreasResponse).areas
-                if (!id.isNullOrEmpty()) {
-                   data = data.filter { !it.parentId.isNullOrEmpty() }
-                }
 
                 while (isExistNested(data)) {
                     data = data.flatMap {
@@ -39,6 +36,11 @@ class AreaRepositoryImpl(
                         }
                     }
                 }
+
+                if (!id.isNullOrEmpty()) {
+                    data = data.filter { !it.parentId.isNullOrEmpty() }
+                }
+
                 emit(Result.Success(data.mapToDomain()))
             }
 
