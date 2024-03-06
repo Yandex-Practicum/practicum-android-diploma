@@ -11,5 +11,6 @@ object IndustriesConverter {
         )
     }
 
-    fun List<ParentIndustries>.mapToIndustriesAllDeal(): List<ParentIndustriesAllDeal> = map { it.mapToIndustriesAllDeal() }
+    fun List<ParentIndustries>.mapToIndustriesAllDeal(): List<ParentIndustriesAllDeal> =
+        map { it.mapToIndustriesAllDeal() }
 }
