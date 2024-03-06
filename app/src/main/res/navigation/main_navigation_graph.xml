@@ -118,7 +118,7 @@
     </fragment>
     <fragment
         android:id="@+id/regionFragment"
-        android:name="ru.practicum.android.diploma.filter.placeselector.region.RegionFragment"
+        android:name="ru.practicum.android.diploma.filter.area.ui.RegionFragment"
         android:label="RegionFragment">
         <action
             android:id="@+id/action_regionFragment_to_placeSelectorFragment"
