@@ -22,7 +22,6 @@ import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.COUNTRY_I
 import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.COUNTRY_KEY
 import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.FILTER_RECEIVER_KEY
 import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.REGION_KEY
-import ru.practicum.android.diploma.vacancy.ui.VacancyFragmentArgs
 
 class RegionFragment : Fragment() {
 

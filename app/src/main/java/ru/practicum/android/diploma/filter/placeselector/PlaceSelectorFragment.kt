@@ -51,7 +51,10 @@ class PlaceSelectorFragment : Fragment() {
             findNavController().navigate(R.id.action_placeSelectorFragment_to_countryFragment)
         }
         binding.regionNavigation.setOnClickListener {
-            val action = PlaceSelectorFragmentDirections.actionPlaceSelectorFragmentToRegionFragment(countryId, countryName)
+            val action = PlaceSelectorFragmentDirections.actionPlaceSelectorFragmentToRegionFragment(
+                countryId,
+                countryName
+            )
             findNavController().navigate(action)
         }
     }
