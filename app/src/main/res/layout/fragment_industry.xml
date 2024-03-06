@@ -34,16 +34,20 @@ android:orientation="vertical">
         style="@style/Text_Standard"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:hint="@string/enter_region"
+        android:drawableEnd="@drawable/ic_search"
+        android:drawablePadding="@dimen/margin_16"
+        android:hint="@string/enter_industry"
         android:inputType="text"
         android:lines="1"
         android:maxLength="25"
         android:background="@android:color/transparent"
-        android:paddingStart="8dp"
-        android:textCursorDrawable="@color/YP_Blue"
+        android:paddingStart="@dimen/margin_16"
+        android:paddingEnd="@dimen/margin_16"
         android:textColorHint="@color/YP_Text_Gray"
         android:imeOptions="actionDone"
-        android:singleLine="true"/>
+        android:singleLine="true"
+        android:textCursorDrawable="@drawable/color_cursor"/>
+
 
 </FrameLayout>
 

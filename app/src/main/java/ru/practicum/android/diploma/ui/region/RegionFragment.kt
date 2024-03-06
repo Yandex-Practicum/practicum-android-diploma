@@ -8,14 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.textfield.TextInputLayout
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentRegionBinding
 import ru.practicum.android.diploma.ui.country.CountryAdapter
 import ru.practicum.android.diploma.ui.country.RecyclerItem
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import ru.practicum.android.diploma.util.extensions.onTextChange
+import ru.practicum.android.diploma.util.extensions.visibleOrGone
 
 class RegionFragment : Fragment() {
     private var _binding: FragmentRegionBinding? = null
@@ -59,4 +58,5 @@ class RegionFragment : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.regionRecycler.adapter = adapter
     }
+
 }
