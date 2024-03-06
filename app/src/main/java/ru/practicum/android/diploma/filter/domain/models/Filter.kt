@@ -7,6 +7,3 @@ data class Filter(
     val salary: Int,
     val showWithSalary: Boolean
 )
-
-
-
