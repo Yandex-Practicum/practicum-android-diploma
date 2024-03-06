@@ -17,15 +17,20 @@ class AreaRepositoryImpl(
 ) : AreaRepository {
     override fun getAreas(id: String): Flow<Result<List<Area>, AreaError>> = flow {
         val response: Response
-        if (id.isNullOrEmpty()) {
-            response = networkClient.getAreas()
-        } else {
-            response = networkClient.getAreasById(id)
-        }
+        response = networkClient.getAreas()
 
         when (response.resultCode) {
             NetworkClient.SUCCESSFUL_CODE -> {
                 var data = (response as GetAreasResponse).areas
+
+                if (!id.isNullOrEmpty()) {
+                    for (area in data) {
+                        if (area.id.equals(id)) {
+                            data = listOf(area)
+                            break
+                        }
+                    }
+                }
 
                 while (isExistNested(data)) {
                     data = data.flatMap {
