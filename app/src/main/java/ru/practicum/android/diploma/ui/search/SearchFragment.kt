@@ -73,7 +73,7 @@ class SearchFragment : Fragment() {
             .onEach {
                 val query = it?.toString().orEmpty()
                 viewModel.onSearch(query)
-                hideKeyBoard()
+//                hideKeyBoard()
             }
             .launchIn(lifecycleScope)
 
@@ -113,7 +113,6 @@ class SearchFragment : Fragment() {
                         searchJob?.cancel()
                         searchJob = null
                     }
-
                 }
             }
         }

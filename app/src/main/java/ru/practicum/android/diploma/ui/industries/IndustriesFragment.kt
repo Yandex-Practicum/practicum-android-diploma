@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import ru.practicum.android.diploma.data.response.Industries
 import ru.practicum.android.diploma.databinding.FragmentIndustryBinding
+import ru.practicum.android.diploma.domain.industries.IndustriesAllDeal
 import ru.practicum.android.diploma.presentation.industries.IndustriesViewModel
 
 class IndustriesFragment : Fragment() {
@@ -26,17 +26,25 @@ class IndustriesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val adapter = IndustriesAdapter()
+        binding.regionRecycler.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.regionRecycler.adapter = adapter
+
+        val industry = ArrayList<IndustriesAllDeal>()
+
+        viewModel.loadIndustries()
+
         binding.vacancyToolbar.setOnClickListener {
             findNavController().navigateUp()
         }
 
-        val industry = ArrayList<Industries>()
-
-        viewModel.loadIndustries()
-
         viewModel.observeState().observe(viewLifecycleOwner) { state ->
             when (state) {
-                is IndustriesState.Content -> industry.addAll(state.vacancyDetail)
+                is IndustriesState.Content -> {
+                    adapter.industriesList.addAll(state.industries)
+                    adapter.notifyDataSetChanged()
+                }
                 is IndustriesState.Error -> ""
                 is IndustriesState.Loading -> ""
             }
@@ -55,10 +63,5 @@ class IndustriesFragment : Fragment() {
 //        industry.add(Industries("11", "Отрасль 11"))
 //        industry.add(Industries("12", "Отрасль 12"))
 //        industry.add(Industries("13", "Отрасль 13"))
-
-        val adapter = IndustriesAdapter(industry)
-        binding.regionRecycler.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.regionRecycler.adapter = adapter
     }
 }
