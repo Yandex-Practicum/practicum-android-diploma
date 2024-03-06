@@ -9,7 +9,10 @@ import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.Response
 import ru.practicum.android.diploma.data.ResponseCodes
+import ru.practicum.android.diploma.data.request.AreasRequest
+import ru.practicum.android.diploma.data.request.CountryByIdRequest
 import ru.practicum.android.diploma.data.request.IndustriesRequest
+import ru.practicum.android.diploma.data.response.AreasResponse
 import ru.practicum.android.diploma.data.response.IndustriesResponse
 import ru.practicum.android.diploma.data.vacancydetail.dto.DetailRequest
 import ru.practicum.android.diploma.data.vacancylist.dto.VacanciesSearchRequest
@@ -26,7 +29,9 @@ class RetrofitNetworkClient(
 
         if ((dto !is VacanciesSearchRequest)
             && (dto !is DetailRequest)
-            && dto !is IndustriesRequest
+            && (dto !is IndustriesRequest)
+            && (dto !is AreasRequest)
+            && dto !is CountryByIdRequest
         ) {
             return Response().apply { resultCode = ResponseCodes.ERROR }
         }
@@ -36,6 +41,8 @@ class RetrofitNetworkClient(
                 val response = when (dto) {
                     is VacanciesSearchRequest -> async { jobVacancySearchApi.getFullListVacancy(dto.queryMap) }
                     is IndustriesRequest -> async { getIndustries() }
+                    is AreasRequest -> async { getAreas() }
+                    is CountryByIdRequest -> async { jobVacancySearchApi.getAreaId(dto.countryId) }
                     else -> async { jobVacancySearchApi.getVacancyDetail((dto as DetailRequest).id) }
                 }.await()
                 response.apply { resultCode = ResponseCodes.SUCCESS }
@@ -52,6 +59,19 @@ class RetrofitNetworkClient(
                 IndustriesResponse(industries).apply { resultCode = ResponseCodes.SUCCESS }
             } else {
                 // Создание экземпляра вашего класса Response с кодом ошибки сервера
+                Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
+            }
+        } catch (e: Exception) {
+            Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
+        }
+    }
+
+    private suspend fun getAreas(): Response {
+        return try {
+            val areas = jobVacancySearchApi.getAllAreas()
+            if (areas.isNotEmpty()) {
+                AreasResponse(areas).apply { resultCode = ResponseCodes.SUCCESS }
+            } else {
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
             }
         } catch (e: Exception) {

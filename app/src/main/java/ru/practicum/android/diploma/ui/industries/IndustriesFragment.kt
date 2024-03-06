@@ -31,8 +31,6 @@ class IndustriesFragment : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.regionRecycler.adapter = adapter
 
-        val industry = ArrayList<ParentIndustriesAllDeal>()
-
         viewModel.loadIndustries()
 
         binding.vacancyToolbar.setOnClickListener {
@@ -63,5 +61,10 @@ class IndustriesFragment : Fragment() {
 //        industry.add(Industries("11", "Отрасль 11"))
 //        industry.add(Industries("12", "Отрасль 12"))
 //        industry.add(Industries("13", "Отрасль 13"))
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
