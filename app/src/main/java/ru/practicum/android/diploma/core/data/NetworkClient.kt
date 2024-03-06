@@ -15,6 +15,8 @@ interface NetworkClient {
 
     suspend fun getIndustries(): Response
 
+    suspend fun getCountries(): Response
+
     suspend fun getAreas(): Response
 
     suspend fun getAreasById(id: String): Response

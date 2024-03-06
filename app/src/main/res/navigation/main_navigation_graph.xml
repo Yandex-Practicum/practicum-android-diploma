@@ -20,6 +20,12 @@
         android:id="@+id/filterFragment"
         android:name="ru.practicum.android.diploma.filter.ui.FilterFragment"
         android:label="FilterFragment">
+        <argument
+            android:name="country"
+            app:argType="string" />
+        <argument
+            android:name="region"
+            app:argType="string" />
         <action
             android:id="@+id/action_filterFragment_to_branchFragment"
             app:destination="@id/branchFragment"
