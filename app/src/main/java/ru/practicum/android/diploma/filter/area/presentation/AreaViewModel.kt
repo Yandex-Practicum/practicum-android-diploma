@@ -38,7 +38,7 @@ class AreaViewModel(private val areaUseCase: GetAreasByTextUseCase) : ViewModel(
                     if ((it as Result.Error).errorType is AreaError.GetError) {
                         renderState(AreaScreenState.GetError)
                     } else {
-                        renderState(AreaScreenState.GetError)
+                        renderState(AreaScreenState.EmptyError)
                     }
                 }
             }

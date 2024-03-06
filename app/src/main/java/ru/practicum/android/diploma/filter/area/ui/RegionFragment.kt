@@ -70,12 +70,12 @@ class RegionFragment : Fragment() {
     }
 
     private fun showError(areaScreenState: AreaScreenState) {
-        if (areaScreenState is AreaScreenState.EmptyError) {
-            binding.errorPlaceholder.setImageDrawable(R.drawable.placeholder_nothing_found.toDrawable())
-            binding.placeholderText.text = R.string.placeholder_no_such_region.toString()
+        if (areaScreenState is AreaScreenState.GetError) {
+            binding.errorPlaceholder.setImageResource(R.drawable.placeholder_region_response_error)
+            binding.placeholderText.setText(R.string.placeholder_cannot_get_list_of_regions)
         } else {
-            binding.errorPlaceholder.setImageDrawable(R.drawable.placeholder_region_response_error.toDrawable())
-            binding.placeholderText.text = R.string.placeholder_cannot_get_list_of_regions.toString()
+            binding.errorPlaceholder.setImageResource(R.drawable.placeholder_nothing_found)
+            binding.placeholderText.setText(R.string.placeholder_no_such_region)
         }
         binding.errorPlaceholder.visibility = View.VISIBLE
         binding.placeholderText.visibility = View.VISIBLE
