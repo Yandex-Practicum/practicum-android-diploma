@@ -4,12 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.databinding.IndustryItemBinding
-import ru.practicum.android.diploma.domain.industries.IndustriesAllDeal
+import ru.practicum.android.diploma.domain.industries.ParentIndustriesAllDeal
 
 class IndustriesAdapter() : RecyclerView.Adapter<IndustriesViewHolder>() {
 
-    val industriesList = ArrayList<IndustriesAllDeal>()
-    var itemClickListener: ((Int, IndustriesAllDeal) -> Unit)? = null
+    val industriesList = ArrayList<ParentIndustriesAllDeal>()
+    var itemClickListener: ((Int, ParentIndustriesAllDeal) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IndustriesViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)

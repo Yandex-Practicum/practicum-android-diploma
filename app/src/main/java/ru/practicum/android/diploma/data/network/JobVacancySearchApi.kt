@@ -4,7 +4,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.QueryMap
 import ru.practicum.android.diploma.data.response.AreasResponse
-import ru.practicum.android.diploma.data.response.IndustriesResponse
+import ru.practicum.android.diploma.data.response.ParentIndustries
 import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.VacancyDetailDtoResponse
 import ru.practicum.android.diploma.data.vacancylist.dto.VacanciesSearchResponse
 
@@ -24,5 +24,5 @@ interface JobVacancySearchApi {
 
     // Запрос списка вакансий
     @GET("/industries")
-    suspend fun getAllIndustries(): List<IndustriesResponse>
+    suspend fun getAllIndustries(): List<ParentIndustries>
 }
