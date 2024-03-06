@@ -112,7 +112,7 @@
     </fragment>
     <fragment
         android:id="@+id/countryFragment"
-        android:name="ru.practicum.android.diploma.filter.placeselector.country.CountryFragment"
+        android:name="ru.practicum.android.diploma.filter.placeselector.country.ui.CountryFragment"
         android:label="CountryFragment">
         <action
             android:id="@+id/action_countryFragment_to_placeSelectorFragment"

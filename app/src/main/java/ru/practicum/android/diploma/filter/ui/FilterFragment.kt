@@ -83,6 +83,7 @@ class FilterFragment : Fragment() {
         const val BRANCH_KEY = "branchKey"
         const val REGION_KEY = "regionKey"
         const val COUNTRY_KEY = "countryKey"
+        const val COUNTRY_ID_KEY = "countryIdKey"
         const val FILTER_RECEIVER_KEY = "filter_receiver_key"
     }
 }
