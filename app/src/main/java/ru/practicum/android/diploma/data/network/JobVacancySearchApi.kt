@@ -20,9 +20,9 @@ interface JobVacancySearchApi {
 
     // Запрос списка областей
     @GET("/areas")
-    suspend fun getAllAreas(@Path("areas") areas: String): List<AreasResponse>
+    suspend fun getAllAreas(): List<AreasResponse>
 
     // Запрос списка вакансий
     @GET("/industries")
-    suspend fun getAllIndustries(@Path("industries") industries: String): IndustriesResponse
+    suspend fun getAllIndustries(): List<IndustriesResponse>
 }

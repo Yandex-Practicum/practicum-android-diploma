@@ -3,12 +3,13 @@ package ru.practicum.android.diploma.ui.industries
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ru.practicum.android.diploma.data.response.Industries
 import ru.practicum.android.diploma.databinding.IndustryItemBinding
+import ru.practicum.android.diploma.domain.industries.IndustriesAllDeal
 
-class IndustriesAdapter(private val industries: ArrayList<Industries>) : RecyclerView.Adapter<IndustriesViewHolder>() {
+class IndustriesAdapter() : RecyclerView.Adapter<IndustriesViewHolder>() {
 
-    var itemClickListener: ((Int, Industries) -> Unit)? = null
+    val industriesList = ArrayList<IndustriesAllDeal>()
+    var itemClickListener: ((Int, IndustriesAllDeal) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IndustriesViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -22,10 +23,10 @@ class IndustriesAdapter(private val industries: ArrayList<Industries>) : Recycle
     }
 
     override fun onBindViewHolder(holder: IndustriesViewHolder, position: Int) {
-        val country = industries[position]
+        val country = industriesList[position]
         holder.bind(country)
         holder.itemView.setOnClickListener { itemClickListener?.invoke(position, country) }
     }
 
-    override fun getItemCount(): Int = industries.size
+    override fun getItemCount(): Int = industriesList.size
 }

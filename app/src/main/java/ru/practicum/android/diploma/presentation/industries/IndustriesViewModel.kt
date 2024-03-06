@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.data.response.Industries
+import ru.practicum.android.diploma.domain.industries.IndustriesAllDeal
 import ru.practicum.android.diploma.domain.industries.IndustriesInteractor
 import ru.practicum.android.diploma.ui.industries.IndustriesState
 
@@ -17,23 +17,23 @@ class IndustriesViewModel(
     private val stateLiveData = MutableLiveData<IndustriesState>()
     fun observeState(): LiveData<IndustriesState> = stateLiveData
 
-    private val _industries = MutableLiveData<List<Industries>>()
-    val industries: LiveData<List<Industries>> get() = _industries
+    private val _industries = MutableLiveData<List<IndustriesAllDeal>>()
+    val industries: LiveData<List<IndustriesAllDeal>> get() = _industries
 
     init {
-        loadIndustries("5")
+        loadIndustries()
     }
 
-    fun loadIndustries(industries: String) {
+    fun loadIndustries() {
         viewModelScope.launch {
-            interactor.searchIndustries(industries)
+            interactor.searchIndustries()
                 .collect() { pair ->
                     processResult(pair.first, pair.second)
                 }
         }
     }
 
-    private fun processResult(industriesDetail: List<Industries>?, errorMessage: Int?) {
+    private fun processResult(industriesDetail: List<IndustriesAllDeal>?, errorMessage: Int?) {
         when {
             errorMessage != null -> {
                 renderState(
@@ -46,7 +46,7 @@ class IndustriesViewModel(
             else -> {
                 renderState(
                     IndustriesState.Content(
-                        vacancyDetail = industriesDetail!!
+                        industries = industriesDetail!!
                     )
                 )
             }

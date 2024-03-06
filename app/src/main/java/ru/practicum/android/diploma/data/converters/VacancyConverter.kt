@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.data.converters
 import android.icu.text.DecimalFormat
 import ru.practicum.android.diploma.data.dto.responseUnits.Salary
 import ru.practicum.android.diploma.data.dto.responseUnits.VacancyDto
+import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.Address
 import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.KeySkillVacancyDetail
 import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.Phones
 import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.VacancyDetailDtoResponse
@@ -19,6 +20,37 @@ object VacancyConverter {
             salary = formatSalary(salary),
             employerImgUrl = employer.logoUrls?.art240
         )
+    }
+
+    fun VacancyDetailDtoResponse.toVacancyDetail(): VacancyDetail {
+        return VacancyDetail(
+            id = id,
+            name = name,
+            area = area.name,
+            vacancyLink = vacancyLink,
+            contactName = contacts?.name,
+            contactEmail = contacts?.email,
+            contactPhones = buildPhoneNumbers(contacts?.phones),
+            contactComments = buildPhoneComments(contacts?.phones),
+            employerName = employer?.name,
+            employerUrl = employer?.logoUrls?.original,
+            salary = formatSalary(salary),
+            schedule = schedule?.name,
+            employment = employment?.name,
+            experience = experience?.name,
+            keySkills = buildKeySkills(keySkills),
+            address = createAddress(address),
+            description = description
+        )
+    }
+
+    private fun createAddress(address: Address?): String? {
+        return if (address != null) {
+            val city = if (address.city != null) "${address.city}, " else ""
+            val street = if (address.street != null) "${address.street}, " else ""
+            val building = if (address.building != null) "${address.building}" else ""
+            "$city$street$building"
+        } else { null }
     }
 
     fun formatSalary(salary: Salary?): String {
@@ -59,27 +91,6 @@ object VacancyConverter {
         return df.format(salary)
     }
 
-    fun VacancyDetailDtoResponse.toVacancyDetail(): VacancyDetail {
-        return VacancyDetail(
-            id = id,
-            name = name,
-            area = area.name,
-            vacancyLink = vacancyLink,
-            contactName = contacts?.name,
-            contactEmail = contacts?.email,
-            contactPhones = buildPhoneNumbers(contacts?.phones),
-            contactComments = buildPhoneComments(contacts?.phones),
-            employerName = employer?.name,
-            employerUrl = employer?.logoUrls?.original,
-            salary = formatSalary(salary),
-            schedule = schedule?.name,
-            employment = employment?.name,
-            experience = experience?.name,
-            keySkills = buildKeySkills(keySkills),
-            description = description
-        )
-    }
-
     fun buildPhoneNumbers(phones: List<Phones>?): List<String?> {
         var phoneString: String
         val phoneList = mutableListOf<String>()
@@ -98,7 +109,7 @@ object VacancyConverter {
         return commentList
     }
 
-    fun buildKeySkills(keySkills: List<KeySkillVacancyDetail>): List<String> {
+    private fun buildKeySkills(keySkills: List<KeySkillVacancyDetail>): List<String> {
         val skillsList = mutableListOf<String>()
         keySkills.forEach {
             skillsList.add(it.name)
