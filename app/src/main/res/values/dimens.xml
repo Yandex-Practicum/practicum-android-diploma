@@ -28,6 +28,7 @@
     <dimen name="tv_amount_of_vacancies_from_edit_text_margin">18dp</dimen>
     <dimen name="tv_region_country_vertical_margin">14dp</dimen>
     <dimen name="tv_filter_margin_m">24dp</dimen>
+    <dimen name="tv_filter_margin_s">16dp</dimen>
     <dimen name="tv_detailed_vacancy_margin_xs">4dp</dimen>
     <dimen name="tv_detailed_vacancy_margin_s">8dp</dimen>
     <dimen name="tv_detailed_vacancy_margin_m">16dp</dimen>
