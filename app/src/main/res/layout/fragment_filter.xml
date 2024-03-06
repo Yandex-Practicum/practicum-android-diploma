@@ -8,6 +8,7 @@
         android:id="@+id/filterToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:contentInsetStartWithNavigation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -16,28 +17,159 @@
         app:title="@string/bar_filter_setup"
         app:titleTextAppearance="@style/MaterialToolbarTextStyle" />
 
-    <TextView
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/placeOfJob"
+        style="@style/FilterStyle"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="Место Работы"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/filterToolbar" />
+        android:layout_height="60dp"
+        android:layout_marginTop="@dimen/tv_filter_margin_s"
+        android:hint="@string/tv_place_of_job"
+        app:layout_constraintTop_toBottomOf="@id/filterToolbar">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/placeOfJobText"
+            style="@style/FilterEditTextStyle" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <FrameLayout
+        android:id="@+id/placeOfJobNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/placeOfJob"
+        app:layout_constraintTop_toTopOf="@id/placeOfJob">
+
+        <ImageView
+            android:id="@+id/placeOfJobIcon"
+            style="@style/FilterNavigationIconStyle"
+            android:importantForAccessibility="no"
+            android:visibility="visible" />
+    </FrameLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/branchOfJob"
+        style="@style/FilterStyle"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="@string/tv_branch"
+        app:layout_constraintTop_toBottomOf="@id/placeOfJob">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/branchOfJobText"
+            style="@style/FilterEditTextStyle" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <FrameLayout
+        android:id="@+id/branchOfJobNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/branchOfJob"
+        app:layout_constraintTop_toTopOf="@id/branchOfJob">
+
+        <ImageView
+            android:id="@+id/branchOfJobIcon"
+            style="@style/FilterNavigationIconStyle"
+            android:importantForAccessibility="no"
+            android:visibility="visible" />
+    </FrameLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/salaryInputLayout"
+        style="@style/FilterStyle"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="@dimen/padding_24dp"
+        android:background="@drawable/edit_text_background"
+        android:focusableInTouchMode="true"
+        android:hint="@string/expected_salary"
+        android:textColorHint="?attr/hintTextColor"
+        android:textSize="12sp"
+        app:cursorColor="@color/yp_blue"
+        app:expandedHintEnabled="false"
+        app:hintTextColor="@color/yp_blue"
+        app:layout_constraintTop_toBottomOf="@id/branchOfJob"
+        app:placeholderText="@string/edit_text_hint_salary_amount"
+        app:placeholderTextColor="?attr/hintTextColor">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/salaryInputEditText"
+            style="@style/EditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/edit_text_background"
+            android:inputType="number"
+            android:paddingEnd="64dp"
+            android:textColor="?attr/colorOnPrimary"
+            android:visibility="visible" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/clearInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/search_margin_m"
+        android:importantForAccessibility="no"
+        android:src="@drawable/ic_close"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/salaryInputLayout"
+        app:layout_constraintEnd_toEndOf="@id/salaryInputLayout"
+        app:layout_constraintTop_toTopOf="@+id/salaryInputLayout" />
 
     <TextView
-        android:id="@+id/branchOfJob"
+        android:id="@+id/tvWithSalalry"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="Отрасль"
+        android:layout_height="60dp"
+        android:layout_marginVertical="@dimen/padding_24dp"
+        android:fontFamily="@font/ys_display_regular"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="@dimen/tv_filter_margin_s"
+        android:text="@string/tv_dont_show_without_salary"
+        android:textSize="@dimen/tv_filter_s"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/placeOfJob" />
+        app:layout_constraintTop_toBottomOf="@id/salaryInputLayout" />
 
-    <EditText
-        android:id="@+id/salaryInput"
-        android:layout_width="match_parent"
+    <CheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/branchOfJob" />
+        android:layout_gravity="center_vertical|end"
+        android:layout_marginEnd="6dp"
+        android:buttonTint="@color/yp_blue"
+        app:layout_constraintBottom_toBottomOf="@id/tvWithSalalry"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvWithSalalry" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btApproveFilters"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="@dimen/tv_filter_margin_s"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/yp_blue"
+        android:fontFamily="@font/ys_display_medium"
+        android:letterSpacing="0"
+        android:text="@string/bt_select"
+        android:textAllCaps="false"
+        android:textColor="@color/yp_white"
+        android:textSize="@dimen/tv_filter_s"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@id/btResetFilters" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btResetFilters"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="@dimen/tv_filter_margin_s"
+        android:layout_marginBottom="@dimen/tv_filter_margin_m"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/ys_display_medium"
+        android:letterSpacing="0"
+        android:text="@string/bt_reset"
+        android:textAllCaps="false"
+        android:textColor="@color/yp_red"
+        android:textSize="@dimen/tv_filter_s"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
