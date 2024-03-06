@@ -26,8 +26,6 @@ class AreaFilterRequestTest {
             Assert.assertTrue(it is Result.Success)
             Assert.assertTrue((it as Result.Success).data.isNotEmpty())
         }
-
-
     }
 
     @Test

@@ -2,7 +2,7 @@ package ru.practicum.android.diploma.core.data.network.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class AreasDto (
+data class AreasDto(
     @SerializedName("id")
     val id: String,
     @SerializedName("name")

@@ -34,6 +34,4 @@ val repositoryModule = module {
     single<AreaRepository> {
         AreaRepositoryImpl(networkClient = get())
     }
-
-
 }
