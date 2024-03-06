@@ -5,6 +5,7 @@ import ru.practicum.android.diploma.favourites.domain.api.AddToFavouritesInterac
 import ru.practicum.android.diploma.favourites.domain.api.GetFavouritesInteractor
 import ru.practicum.android.diploma.favourites.domain.impl.AddToFavouritestInteractorImpl
 import ru.practicum.android.diploma.favourites.domain.impl.GetFavourtiesInteractorImpl
+import ru.practicum.android.diploma.filter.domain.usecase.GetCountriesUseCase
 import ru.practicum.android.diploma.search.domain.usecase.SearchVacancyUseCase
 import ru.practicum.android.diploma.vacancy.domain.usecase.DetailVacancyUseCase
 import ru.practicum.android.diploma.vacancy.domain.usecase.MakeCallUseCase
@@ -33,5 +34,8 @@ val interactorModule = module {
     }
     factory<AddToFavouritesInteractor> {
         AddToFavouritestInteractorImpl(get())
+    }
+    factory {
+        GetCountriesUseCase(filterRepository = get())
     }
 }

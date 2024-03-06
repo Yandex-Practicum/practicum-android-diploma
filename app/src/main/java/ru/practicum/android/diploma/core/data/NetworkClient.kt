@@ -15,6 +15,8 @@ interface NetworkClient {
 
     suspend fun getIndustries(): Response
 
+    suspend fun getCountries(): Response
+
     companion object {
         const val SUCCESSFUL_CODE = 200
         const val EXCEPTION_ERROR_CODE = -2
