@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="@dimen/tv_filter_margin_s"
-        android:hint="@string/hint_country"
+        android:hint="@string/tv_country"
         app:layout_constraintTop_toBottomOf="@id/filterToolbarPlace">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -46,7 +46,7 @@
         style="@style/FilterStyle"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:hint="@string/hint_region"
+        android:hint="@string/tv_region"
         app:layout_constraintTop_toBottomOf="@id/country">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -71,11 +71,11 @@
         android:id="@+id/selectButton"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginHorizontal="34dp"
+        android:layout_marginHorizontal="@dimen/tv_filter_margin_s"
         android:layout_marginBottom="@dimen/tv_filter_margin_m"
         android:backgroundTint="@color/yp_blue"
         android:fontFamily="@font/ys_display_medium"
-        android:text="@string/select"
+        android:text="@string/bt_select"
         android:textAllCaps="false"
         android:textColor="@color/yp_white"
         android:textSize="@dimen/tv_filter_s"

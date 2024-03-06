@@ -106,7 +106,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center_vertical|end</item>
-        <item name="android:paddingEnd">@dimen/tv_filter_margin_m</item>
+        <item name="android:paddingEnd">@dimen/tv_filter_margin_s</item>
         <item name="android:src">@drawable/ic_arrow_forward</item>
     </style>
 

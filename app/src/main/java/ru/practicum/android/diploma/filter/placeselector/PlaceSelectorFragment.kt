@@ -9,10 +9,7 @@ import android.widget.ImageView
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
-import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentPlaceSelectorBinding
 import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.COUNTRY_KEY
@@ -23,8 +20,6 @@ class PlaceSelectorFragment : Fragment() {
 
     private var _binding: FragmentPlaceSelectorBinding? = null
     private val binding get() = _binding!!
-    var country: String = ""
-    var region: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,17 +50,18 @@ class PlaceSelectorFragment : Fragment() {
     }
 
     private fun getData() {
-        setFragmentResultListener(FILTER_RECEIVER_KEY) { requestKey, bundle ->
-            country = bundle.getString(COUNTRY_KEY).toString()
-            region = bundle.getString(REGION_KEY).toString()
+        setFragmentResultListener(FILTER_RECEIVER_KEY) { _, bundle ->
+            binding.countryText.setText(bundle.getString(COUNTRY_KEY).toString())
+            binding.regionText.setText(bundle.getString(REGION_KEY).toString())
+            if (binding.countryText.text.isNullOrEmpty() && binding.regionText.text.isNullOrEmpty()) {
+                binding.selectButton.visibility = View.GONE
+            } else {
+                binding.selectButton.visibility = View.VISIBLE
+            }
         }
     }
 
     private fun initUi() {
-        viewLifecycleOwner.lifecycle.coroutineScope.launch(Dispatchers.Main) {
-            binding.countryText.setText(country)
-            binding.regionText.setText(region)
-        }
         changeIcon(binding.countryText, binding.countryIcon)
         changeIcon(binding.regionText, binding.regionIcon)
         if (binding.countryText.text.isNullOrEmpty() && binding.regionText.text.isNullOrEmpty()) {
@@ -74,7 +70,10 @@ class PlaceSelectorFragment : Fragment() {
             binding.selectButton.visibility = View.VISIBLE
         }
         binding.selectButton.setOnClickListener {
-            val action = PlaceSelectorFragmentDirections.actionPlaceSelectorFragmentToFilterFragment(country, region)
+            val action = PlaceSelectorFragmentDirections.actionPlaceSelectorFragmentToFilterFragment(
+                binding.countryText.text.toString(),
+                binding.regionText.text.toString()
+            )
             findNavController().navigate(action)
         }
     }
