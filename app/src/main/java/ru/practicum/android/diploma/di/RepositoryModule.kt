@@ -30,10 +30,7 @@ val repositoryModule = module {
     single<FilterRepository> {
         FilterRepositoryImpl(networkClient = get())
     }
-
     single<AreaRepository> {
         AreaRepositoryImpl(networkClient = get())
     }
-
-
 }

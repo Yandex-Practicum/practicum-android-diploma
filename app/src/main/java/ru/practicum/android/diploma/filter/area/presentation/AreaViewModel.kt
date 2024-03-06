@@ -7,12 +7,10 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.core.data.network.dto.GetAreasResponse
 import ru.practicum.android.diploma.favourites.presentation.CLICK_DEBOUNCE_DELAY
 import ru.practicum.android.diploma.filter.area.domain.model.Area
 import ru.practicum.android.diploma.filter.area.domain.model.AreaError
 import ru.practicum.android.diploma.filter.area.domain.usecase.GetAreasByTextUseCase
-import ru.practicum.android.diploma.util.Resource
 import ru.practicum.android.diploma.util.Result
 
 class AreaViewModel(private val areaUseCase: GetAreasByTextUseCase) : ViewModel() {
