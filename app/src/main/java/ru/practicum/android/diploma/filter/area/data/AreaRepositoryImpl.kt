@@ -14,7 +14,7 @@ import ru.practicum.android.diploma.util.Result
 
 class AreaRepositoryImpl(
     private val networkClient: NetworkClient
-): AreaRepository {
+) : AreaRepository {
     override fun getAreas(id: String): Flow<Result<List<Area>, AreaError>> = flow {
         val response: Response
         if (id.isNullOrEmpty()) {
@@ -32,7 +32,7 @@ class AreaRepositoryImpl(
                         if (it.areas.isNullOrEmpty()) {
                             listOf(it)
                         } else {
-                            it.areas?: emptyList()
+                            it.areas ?: emptyList()
                         }
                     }
                 }
@@ -51,10 +51,11 @@ class AreaRepositoryImpl(
     }
 
     private fun isExistNested(list: List<AreasDto>): Boolean {
-        list.forEach{
+        list.forEach {
             if (!it.areas.isNullOrEmpty()) {
                 return true
             }
         }
         return false
-    }}
+    }
+}

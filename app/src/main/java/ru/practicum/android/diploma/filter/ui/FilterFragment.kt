@@ -1,9 +1,14 @@
 package ru.practicum.android.diploma.filter.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
+import android.widget.ImageView
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
@@ -25,19 +30,52 @@ class FilterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initListeners()
+        getData()
+    }
+
+    private fun initListeners() {
         binding.filterToolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
-        binding.placeOfJob.setOnClickListener {
+        binding.placeOfJobNavigation.setOnClickListener {
             findNavController().navigate(R.id.action_filterFragment_to_placeSelectorFragment)
         }
-        binding.branchOfJob.setOnClickListener {
+        binding.branchOfJobNavigation.setOnClickListener {
             findNavController().navigate(R.id.action_filterFragment_to_branchFragment)
         }
+        changeIcon(binding.branchOfJobText, binding.branchOfJobIcon)
+        changeIcon(binding.placeOfJobText, binding.placeOfJobIcon)
+        binding.salaryInputEditText.doOnTextChanged { text, _, _, _ ->
+            if (text.isNullOrEmpty()) {
+                binding.clearInput.visibility = View.GONE
+            } else {
+                binding.clearInput.visibility = View.VISIBLE
+            }
+        }
+        binding.clearInput.setOnClickListener {
+            binding.salaryInputEditText.setText("")
+            val inputMethodManager =
+                requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+            inputMethodManager?.hideSoftInputFromWindow(binding.salaryInputEditText.windowToken, 0)
+        }
+    }
+
+    private fun getData() {
         setFragmentResultListener(FILTER_RECEIVER_KEY) { requestKey, bundle ->
             val country = bundle.getString(COUNTRY_KEY)
             val region = bundle.getString(REGION_KEY)
             val branch = bundle.getString(BRANCH_KEY)
+        }
+    }
+
+    private fun changeIcon(editText: EditText, view: ImageView) {
+        editText.doOnTextChanged { text, _, _, _ ->
+            if (text.isNullOrEmpty()) {
+                view.visibility = View.VISIBLE
+            } else {
+                view.visibility = View.GONE
+            }
         }
     }
 
