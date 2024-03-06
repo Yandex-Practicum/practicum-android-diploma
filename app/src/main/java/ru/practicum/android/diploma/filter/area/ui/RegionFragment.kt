@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import androidx.core.graphics.drawable.toDrawable
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
@@ -28,8 +27,8 @@ class RegionFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel by viewModel<AreaViewModel>()
 
-    private var areaAdapter: AreaAdapter = AreaAdapter {
-        area -> transitionToPlaceSelector(area.name)
+    private var areaAdapter: AreaAdapter = AreaAdapter { area ->
+        transitionToPlaceSelector(area.name)
     }
 
     private var countryId = ""
@@ -93,7 +92,6 @@ class RegionFragment : Fragment() {
 
     private fun transitionToPlaceSelector(area: String) {
         if (viewModel.clickDebounce()) {
-
             val areaBundle = Bundle().apply {
                 putString(REGION_KEY, area)
             }
@@ -124,6 +122,4 @@ class RegionFragment : Fragment() {
             true
         }
     }
-
-
 }
