@@ -54,4 +54,17 @@ object StringUtils {
             }
         }
     }
+
+    fun getCountryList(name: String): Boolean {
+        return name in listOf(
+            "Россия",
+            "Украина",
+            "Казахстан",
+            "Азербайджан",
+            "Беларусь",
+            "Грузия",
+            "Кыргызстан",
+            "Узбекистан"
+        )
+    }
 }

@@ -11,6 +11,7 @@ import ru.practicum.android.diploma.core.domain.model.Country
 import ru.practicum.android.diploma.favourites.presentation.CLICK_DEBOUNCE_DELAY
 import ru.practicum.android.diploma.filter.domain.usecase.GetCountriesUseCase
 import ru.practicum.android.diploma.util.Resource
+import ru.practicum.android.diploma.util.StringUtils
 
 class CountryViewModel(private val countryUseCase: GetCountriesUseCase) : ViewModel() {
     private val stateLiveData = MutableLiveData<CountryScreenState>()
@@ -28,7 +29,11 @@ class CountryViewModel(private val countryUseCase: GetCountriesUseCase) : ViewMo
             countryUseCase.execute().collect {
                 when (it) {
                     is Resource.Success -> {
-                        countries.addAll(it.data!!)
+                        val countryList = it.data!!
+                        val filteredCountries = countryList.filter { country ->
+                            StringUtils.getCountryList(country.name)}
+                        countries.addAll(filteredCountries)
+                        countries.add(Country("","Другие регионы"))
                         renderState(CountryScreenState.Content(countries))
                     }
 
