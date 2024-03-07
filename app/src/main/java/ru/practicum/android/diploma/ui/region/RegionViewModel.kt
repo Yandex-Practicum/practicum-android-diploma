@@ -16,10 +16,6 @@ class RegionViewModel(
     private val stateLiveData = MutableLiveData<RegionState>()
     fun observeState(): LiveData<RegionState> = stateLiveData
 
-    init {
-//        loadRegion("113")
-    }
-
     fun loadRegion(regionId: String) {
         viewModelScope.launch {
             regionInteractor.searchRegion(regionId)
