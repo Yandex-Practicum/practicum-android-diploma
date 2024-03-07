@@ -157,8 +157,10 @@ class SearchFragment : Fragment() {
 
     private fun hideKeyBoard() {
         _binding?.let {
-            val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+            val inputMethodManager =
+                requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
             inputMethodManager?.hideSoftInputFromWindow(binding.searchEditText.windowToken, 0)
         }
     }
+
 }
