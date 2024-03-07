@@ -11,13 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.textfield.TextInputLayout
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentRegionBinding
 import ru.practicum.android.diploma.ui.country.CountryAdapter
 import ru.practicum.android.diploma.ui.country.RecyclerItem
-import ru.practicum.android.diploma.util.extensions.onTextChange
-import ru.practicum.android.diploma.util.extensions.visibleOrGone
 
 class RegionFragment : Fragment() {
     private var _binding: FragmentRegionBinding? = null
