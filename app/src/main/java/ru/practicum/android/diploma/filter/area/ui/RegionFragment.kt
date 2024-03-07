@@ -40,7 +40,7 @@ class RegionFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentRegionBinding.inflate(inflater, container, false)
         return binding.root
     }
