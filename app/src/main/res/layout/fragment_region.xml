@@ -11,7 +11,7 @@ android:orientation="vertical">
     android:id="@+id/vacancy_toolbar"
     style="@style/Text_Header"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="64dp"
     app:title="@string/chose_region"
     app:navigationIcon="@drawable/arrow_back"
     app:layout_constraintEnd_toEndOf="parent"
@@ -24,33 +24,47 @@ android:orientation="vertical">
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginEnd="@dimen/margin_16"
         android:layout_marginTop="@dimen/margin_8"
         android:background="@drawable/rounded_edittext">
 
+
+
         <EditText
-            android:id="@+id/Edit"
+            android:id="@+id/edit"
             style="@style/Text_Standard"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:drawableEnd="@drawable/ic_search"
+            android:drawablePadding="@dimen/margin_16"
             android:hint="@string/enter_region"
             android:inputType="text"
             android:lines="1"
             android:maxLength="25"
             android:background="@android:color/transparent"
-            android:paddingStart="8dp"
-            android:textCursorDrawable="@color/YP_Blue"
+            android:paddingStart="@dimen/margin_16"
+            android:paddingEnd="@dimen/margin_16"
             android:textColorHint="@color/YP_Text_Gray"
             android:imeOptions="actionDone"
-            android:singleLine="true"/>
+            android:singleLine="true"
+            android:textCursorDrawable="@drawable/color_cursor"/>
+
+        <View
+            android:id="@+id/click"
+            android:clickable="true"
+            android:layout_width="40dp"
+            android:layout_height="56dp"
+            android:background="@android:color/transparent"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/margin_8"/>
 
     </FrameLayout>
 
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="@dimen/margin_20">
+    android:layout_marginTop="@dimen/margin_16">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/region_recycler"
