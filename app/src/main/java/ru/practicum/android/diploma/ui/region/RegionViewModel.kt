@@ -17,7 +17,7 @@ class RegionViewModel(
     fun observeState(): LiveData<RegionState> = stateLiveData
 
     init {
-        loadRegion("113")
+//        loadRegion("113")
     }
 
     fun loadRegion(regionId: String) {

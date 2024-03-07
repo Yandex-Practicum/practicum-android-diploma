@@ -48,7 +48,8 @@ class RegionFragment : Fragment() {
         viewModel.observeState().observe(viewLifecycleOwner) { state ->
             when (state) {
                 is RegionState.Content -> {
-                    adapter.countryList.addAll(state.regionId.areas.map { it.mapToCountry() })
+                    adapter.countryList.addAll(state.regionId.areas.map { it.mapToCountry() }.sortedBy { it.name })
+                    adapter.notifyDataSetChanged()
                 }
 
                 is RegionState.Error -> ""

@@ -41,12 +41,11 @@ class CountryFragment : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.countryRecycler.adapter = adapter
 
-        viewModel.loadCountry()
-
         viewModel.observeState().observe(viewLifecycleOwner) { state ->
             when (state) {
                 is CountryState.Content -> {
                     adapter.countryList.addAll(state.region)
+                    adapter.notifyDataSetChanged()
                 }
 
                 is CountryState.Error -> ""
