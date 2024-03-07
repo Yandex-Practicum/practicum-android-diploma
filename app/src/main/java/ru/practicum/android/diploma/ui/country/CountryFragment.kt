@@ -15,7 +15,7 @@ import ru.practicum.android.diploma.ui.search.viewmodel.SearchViewModel
 
 class CountryFragment : Fragment() {
 
-    private val viewModel by viewModel<SearchViewModel>()
+    private val viewModel by viewModel<CountryViewModel>()
     private var _binding: FragmentCountryBinding? = null
     private val binding get() = _binding!!
 
@@ -31,16 +31,6 @@ class CountryFragment : Fragment() {
             findNavController().navigateUp()
         }
 
-//        val countries = ArrayList<RecyclerItem>()
-//        countries.add(RecyclerItem("Россия"))
-//        countries.add(RecyclerItem("Украина"))
-//        countries.add(RecyclerItem("Казахстан"))
-//        countries.add(RecyclerItem("Азербайджан"))
-//        countries.add(RecyclerItem("Беларусь"))
-//        countries.add(RecyclerItem("Грузия"))
-//        countries.add(RecyclerItem("Кыргыстан"))
-//        countries.add(RecyclerItem("Узбекистан"))
-//        countries.add(RecyclerItem("Другие регионы"))
         val adapter = CountryAdapter()
         adapter.itemClickListener = { _, item ->
             val bundle = Bundle()
@@ -53,19 +43,17 @@ class CountryFragment : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.countryRecycler.adapter = adapter
 
-        adapter.countryList.addAll(
-            arrayListOf(
-                Country("7584", "113", "Россия"),
-                Country("7332", "112", "Украина"),
-                Country("7123", "111", "Казахстан"),
-                Country("2134", "110", "Азербайджан"),
-                Country("1231", "114", "Беларусь"),
-                Country("7612", "115", "Грузия"),
-                Country("7543", "116", "Кыргыстан"),
-                Country("7213", "123", "Узбекистан"),
-                Country("2211", "119", "Другие регионы")
-            ),
-        )
+        viewModel.loadCountry()
+
+        viewModel.observeState().observe(viewLifecycleOwner) { state ->
+            when(state) {
+                is CountryState.Content -> {
+                    adapter.countryList.addAll(state.region)
+                }
+                is CountryState.Error -> ""
+                is CountryState.Loading -> ""
+            }
+        }
     }
 
     override fun onDestroyView() {

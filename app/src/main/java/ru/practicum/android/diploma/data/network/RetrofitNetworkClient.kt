@@ -9,7 +9,7 @@ import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.Response
 import ru.practicum.android.diploma.data.ResponseCodes
-import ru.practicum.android.diploma.data.request.AreasRequest
+import ru.practicum.android.diploma.data.request.CountryRequest
 import ru.practicum.android.diploma.data.request.RegionByIdRequest
 import ru.practicum.android.diploma.data.request.IndustriesRequest
 import ru.practicum.android.diploma.data.response.AreasResponse
@@ -30,7 +30,7 @@ class RetrofitNetworkClient(
         if ((dto !is VacanciesSearchRequest)
             && (dto !is DetailRequest)
             && (dto !is IndustriesRequest)
-            && (dto !is AreasRequest)
+            && (dto !is CountryRequest)
             && dto !is RegionByIdRequest
         ) {
             return Response().apply { resultCode = ResponseCodes.ERROR }
@@ -41,7 +41,7 @@ class RetrofitNetworkClient(
                 val response = when (dto) {
                     is VacanciesSearchRequest -> async { jobVacancySearchApi.getFullListVacancy(dto.queryMap) }
                     is IndustriesRequest -> async { getIndustries() }
-                    is AreasRequest -> async { getAreas() }
+                    is CountryRequest -> async { getAreas() }
                     is RegionByIdRequest -> async { jobVacancySearchApi.getAreaId(dto.countryId) }
                     else -> async { jobVacancySearchApi.getVacancyDetail((dto as DetailRequest).id) }
                 }.await()

@@ -31,10 +31,10 @@ val viewModelModule = module {
     }
 
     single {
-        CountryViewModel()
+        CountryViewModel(get())
     }
 
     single {
-        RegionViewModel()
+        RegionViewModel(get())
     }
 }
