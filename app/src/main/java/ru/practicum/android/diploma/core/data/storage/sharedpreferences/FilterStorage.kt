@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.core.sharedpreferences
+package ru.practicum.android.diploma.core.data.storage.sharedpreferences
 
 import ru.practicum.android.diploma.filter.domain.models.FilterType
 

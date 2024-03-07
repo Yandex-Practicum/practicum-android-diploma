@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.core.sharedpreferences
+package ru.practicum.android.diploma.core.data.storage.sharedpreferences
 
 import android.content.SharedPreferences
 import ru.practicum.android.diploma.filter.domain.models.FilterType
@@ -10,17 +10,17 @@ class FilterStorageImpl(private val sharedPreferences: SharedPreferences) : Filt
             filters.forEach { filter ->
                 when (filter) {
                     is FilterType.Country -> {
-                        putInt(COUNTRY_ID_KEY, filter.id)
+                        putString(COUNTRY_ID_KEY, filter.id)
                         putString(COUNTRY_NAME_KEY, filter.name)
                     }
 
                     is FilterType.Region -> {
-                        putInt(REGION_ID_KEY, filter.id)
+                        putString(REGION_ID_KEY, filter.id)
                         putString(REGION_NAME_KEY, filter.name)
                     }
 
                     is FilterType.Industry -> {
-                        putInt(INDUSTRY_ID_KEY, filter.id)
+                        putString(INDUSTRY_ID_KEY, filter.id)
                         putString(INDUSTRY_NAME_KEY, filter.name)
                     }
 
@@ -51,30 +51,30 @@ class FilterStorageImpl(private val sharedPreferences: SharedPreferences) : Filt
 
     override fun addCountryFilter(filters: MutableList<FilterType>) {
         sharedPreferences.apply {
-            val countryId = getInt(COUNTRY_ID_KEY, 0)
+            val countryId = getString(COUNTRY_ID_KEY, "")
             val countryName = getString(COUNTRY_NAME_KEY, "") ?: ""
-            if (countryId != 0 && countryName.isNotBlank()) {
-                filters.add(FilterType.Country(countryId, countryName))
+            if (countryId != "" && countryName.isNotBlank()) {
+                filters.add(FilterType.Country(countryId ?: "", countryName))
             }
         }
     }
 
     override fun addRegionFilter(filters: MutableList<FilterType>) {
         sharedPreferences.apply {
-            val regionId = getInt(REGION_ID_KEY, 0)
+            val regionId = getString(REGION_ID_KEY, "")
             val regionName = getString(REGION_NAME_KEY, "") ?: ""
-            if (regionId != 0 && regionName.isNotBlank()) {
-                filters.add(FilterType.Region(regionId, regionName))
+            if (regionId != "" && regionName.isNotBlank()) {
+                filters.add(FilterType.Region(regionId ?: "", regionName))
             }
         }
     }
 
     override fun addIndustryFilter(filters: MutableList<FilterType>) {
         sharedPreferences.apply {
-            val industryId = getInt(INDUSTRY_ID_KEY, 0)
+            val industryId = getString(INDUSTRY_ID_KEY, "")
             val industryName = getString(INDUSTRY_NAME_KEY, "") ?: ""
-            if (industryId != 0 && industryName.isNotBlank()) {
-                filters.add(FilterType.Industry(industryId, industryName))
+            if (industryId != "" && industryName.isNotBlank()) {
+                filters.add(FilterType.Industry(industryId ?: "", industryName))
             }
         }
     }
