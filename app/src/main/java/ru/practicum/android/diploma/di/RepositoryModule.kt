@@ -5,6 +5,8 @@ import ru.practicum.android.diploma.favourites.data.AddToFavouritesRepositoryImp
 import ru.practicum.android.diploma.favourites.data.GetFavouritesRepositoryImpl
 import ru.practicum.android.diploma.favourites.domain.api.AddToFavouritesRepository
 import ru.practicum.android.diploma.favourites.domain.api.GetFavouritesRepository
+import ru.practicum.android.diploma.filter.area.data.AreaRepositoryImpl
+import ru.practicum.android.diploma.filter.area.domain.api.AreaRepository
 import ru.practicum.android.diploma.filter.data.FilterRepositoryImpl
 import ru.practicum.android.diploma.filter.domain.api.FilterRepository
 import ru.practicum.android.diploma.search.data.SearchVacancyRepositoryImpl
@@ -28,5 +30,7 @@ val repositoryModule = module {
     single<FilterRepository> {
         FilterRepositoryImpl(networkClient = get())
     }
-
+    single<AreaRepository> {
+        AreaRepositoryImpl(networkClient = get())
+    }
 }
