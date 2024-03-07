@@ -31,21 +31,10 @@ class AreaRepositoryImpl(
                         }
                     }
                 }
-
-                while (isExistNested(data)) {
-                    data = data.flatMap {
-                        if (it.areas.isNullOrEmpty()) {
-                            listOf(it)
-                        } else {
-                            it.areas ?: emptyList()
-                        }
-                    }
-                }
-
+                data = unCoverList(data)
                 if (!id.isNullOrEmpty()) {
                     data = data.filter { !it.parentId.isNullOrEmpty() }
                 }
-
                 emit(Result.Success(data.mapToDomain()))
             }
 
@@ -53,6 +42,20 @@ class AreaRepositoryImpl(
                 emit(Result.Error(AreaError.GetError))
             }
         }
+    }
+
+    private fun unCoverList(data: List<AreasDto>): List<AreasDto> {
+        var newData = data
+        while (isExistNested(data)) {
+            newData = newData.flatMap {
+                if (it.areas.isNullOrEmpty()) {
+                    listOf(it)
+                } else {
+                    it.areas ?: emptyList()
+                }
+            }
+        }
+        return newData
     }
 
     private fun isExistNested(list: List<AreasDto>): Boolean {

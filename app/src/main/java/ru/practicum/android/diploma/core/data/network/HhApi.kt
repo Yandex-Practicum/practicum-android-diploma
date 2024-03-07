@@ -4,9 +4,8 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.QueryMap
-
-import ru.practicum.android.diploma.core.data.network.dto.CountryDto
 import ru.practicum.android.diploma.core.data.network.dto.AreasDto
+import ru.practicum.android.diploma.core.data.network.dto.CountryDto
 import ru.practicum.android.diploma.core.data.network.dto.DetailVacancyResponse
 import ru.practicum.android.diploma.core.data.network.dto.IndustryDto
 import ru.practicum.android.diploma.core.data.network.dto.SearchVacanciesResponse

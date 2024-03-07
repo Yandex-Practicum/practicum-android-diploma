@@ -65,7 +65,7 @@ class FilterFragment : Fragment() {
         setFragmentResultListener(FILTER_RECEIVER_KEY) { requestKey, bundle ->
             val country = bundle.getString(COUNTRY_KEY)
             val region = bundle.getString(REGION_KEY)
-            val branch = bundle.getString(BRANCH_KEY)
+            val branch = bundle.getString(INDUSTRY_NAME_KEY)
         }
     }
 
@@ -80,7 +80,8 @@ class FilterFragment : Fragment() {
     }
 
     companion object {
-        const val BRANCH_KEY = "branchKey"
+        const val INDUSTRY_ID_KEY = "INDUSTRY_ID_KEY"
+        const val INDUSTRY_NAME_KEY = "INDUSTRY_NAME_KEY"
         const val REGION_KEY = "regionKey"
         const val COUNTRY_KEY = "countryKey"
         const val COUNTRY_ID_KEY = "countryIdKey"
