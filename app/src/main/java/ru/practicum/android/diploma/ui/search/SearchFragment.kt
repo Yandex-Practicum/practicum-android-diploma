@@ -2,13 +2,11 @@ package ru.practicum.android.diploma.ui.search
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
@@ -23,7 +21,6 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import org.koin.androidx.scope.scopeActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
@@ -73,7 +70,7 @@ class SearchFragment : Fragment() {
             .onEach {
                 val query = it?.toString().orEmpty()
                 viewModel.onSearch(query)
-//                hideKeyBoard()
+                hideKeyBoard()
             }
             .launchIn(lifecycleScope)
 
@@ -159,8 +156,9 @@ class SearchFragment : Fragment() {
     }
 
     private fun hideKeyBoard() {
-        val inputMethodManager =
-            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-        inputMethodManager?.hideSoftInputFromWindow(binding.searchEditText.windowToken, 0)
+        _binding?.let {
+            val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+            inputMethodManager?.hideSoftInputFromWindow(binding.searchEditText.windowToken, 0)
+        }
     }
 }

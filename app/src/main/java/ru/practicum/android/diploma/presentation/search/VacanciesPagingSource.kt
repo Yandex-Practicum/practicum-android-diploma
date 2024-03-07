@@ -9,7 +9,8 @@ import ru.practicum.android.diploma.util.Resource
 
 class VacanciesPagingSource(
     private val repository: SearchRepository,
-    private val params: Map<String, String>
+    private val params: Map<String, String>,
+    private val isSimilar: Boolean = false
 ) : PagingSource<Int, Vacancy>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Vacancy> {
@@ -20,7 +21,7 @@ class VacanciesPagingSource(
 
             currentParams["page"] = nextPageNumber.toString()
 
-            val response = repository.vacanciesPagination(currentParams)
+            val response = if (!isSimilar) repository.vacanciesPagination(currentParams) else repository.vacanciesPagination(currentParams)
 
             val (vacancies, pages) = when (response) {
                 is Resource.Success -> {
