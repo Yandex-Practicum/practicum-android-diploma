@@ -7,9 +7,9 @@ import ru.practicum.android.diploma.core.data.NetworkClient
 import ru.practicum.android.diploma.core.data.NetworkClient.Companion.EXCEPTION_ERROR_CODE
 import ru.practicum.android.diploma.core.data.NetworkClient.Companion.NETWORK_ERROR_CODE
 import ru.practicum.android.diploma.core.data.NetworkClient.Companion.SUCCESSFUL_CODE
+import ru.practicum.android.diploma.core.data.network.dto.CountryResponse
 import ru.practicum.android.diploma.core.data.network.dto.GetAreasResponse
 import ru.practicum.android.diploma.core.data.network.dto.GetIndustriesResponse
-import ru.practicum.android.diploma.core.data.network.dto.CountryResponse
 import ru.practicum.android.diploma.core.data.network.dto.Response
 import ru.practicum.android.diploma.core.domain.model.SearchFilterParameters
 import java.io.IOException
