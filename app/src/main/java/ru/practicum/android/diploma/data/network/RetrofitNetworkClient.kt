@@ -3,14 +3,16 @@ package ru.practicum.android.diploma.data.network
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.Response
 import ru.practicum.android.diploma.data.ResponseCodes
+import ru.practicum.android.diploma.data.request.CountryRequest
+import ru.practicum.android.diploma.data.request.RegionByIdRequest
 import ru.practicum.android.diploma.data.request.IndustriesRequest
+import ru.practicum.android.diploma.data.response.AreasResponse
 import ru.practicum.android.diploma.data.response.IndustriesResponse
 import ru.practicum.android.diploma.data.vacancydetail.dto.DetailRequest
 import ru.practicum.android.diploma.data.vacancylist.dto.VacanciesSearchRequest
@@ -25,19 +27,22 @@ class RetrofitNetworkClient(
             return Response().apply { resultCode = ResponseCodes.NO_CONNECTION }
         }
 
-        if ((dto !is VacanciesSearchRequest)
-            && (dto !is DetailRequest)
+        if (dto !is VacanciesSearchRequest
+            && dto !is DetailRequest
             && dto !is IndustriesRequest
+            && dto !is CountryRequest
+            && dto !is RegionByIdRequest
         ) {
             return Response().apply { resultCode = ResponseCodes.ERROR }
         }
 
         return withContext(Dispatchers.IO) {
             try {
-                Log.d("ResultIndustries", "Retrofit перед запросом")
                 val response = when (dto) {
                     is VacanciesSearchRequest -> async { jobVacancySearchApi.getFullListVacancy(dto.queryMap) }
                     is IndustriesRequest -> async { getIndustries() }
+                    is CountryRequest -> async { getAreas() }
+                    is RegionByIdRequest -> async { jobVacancySearchApi.getAreaId(dto.countryId) }
                     else -> async { jobVacancySearchApi.getVacancyDetail((dto as DetailRequest).id) }
                 }.await()
                 response.apply { resultCode = ResponseCodes.SUCCESS }
@@ -51,18 +56,25 @@ class RetrofitNetworkClient(
         return try {
             val industries = jobVacancySearchApi.getAllIndustries()
             if (industries.isNotEmpty()) {
-                val firstIndustriesResponse = industries.first()
-                IndustriesResponse(
-                    id = firstIndustriesResponse.id,
-                    name = firstIndustriesResponse.name,
-                    industries = firstIndustriesResponse.industries
-                ).apply { resultCode = ResponseCodes.SUCCESS }
+                IndustriesResponse(industries).apply { resultCode = ResponseCodes.SUCCESS }
             } else {
                 // Создание экземпляра вашего класса Response с кодом ошибки сервера
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
             }
         } catch (e: Exception) {
-            // Создание экземпляра вашего класса Response с кодом ошибки сервера
+            Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
+        }
+    }
+
+    private suspend fun getAreas(): Response {
+        return try {
+            val areas = jobVacancySearchApi.getAllAreas()
+            if (areas.isNotEmpty()) {
+                AreasResponse(areas).apply { resultCode = ResponseCodes.SUCCESS }
+            } else {
+                Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
+            }
+        } catch (e: Exception) {
             Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
         }
     }

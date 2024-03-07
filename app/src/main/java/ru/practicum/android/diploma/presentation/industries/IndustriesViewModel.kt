@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.domain.industries.IndustriesAllDeal
+import ru.practicum.android.diploma.domain.industries.ParentIndustriesAllDeal
 import ru.practicum.android.diploma.domain.industries.IndustriesInteractor
 import ru.practicum.android.diploma.ui.industries.IndustriesState
 
@@ -17,8 +17,8 @@ class IndustriesViewModel(
     private val stateLiveData = MutableLiveData<IndustriesState>()
     fun observeState(): LiveData<IndustriesState> = stateLiveData
 
-    private val _industries = MutableLiveData<List<IndustriesAllDeal>>()
-    val industries: LiveData<List<IndustriesAllDeal>> get() = _industries
+//    private val _industries = MutableLiveData<List<ParentIndustriesAllDeal>>()
+//    val industries: LiveData<List<ParentIndustriesAllDeal>> get() = _industries
 
     init {
         loadIndustries()
@@ -33,7 +33,7 @@ class IndustriesViewModel(
         }
     }
 
-    private fun processResult(industriesDetail: List<IndustriesAllDeal>?, errorMessage: Int?) {
+    private fun processResult(industriesDetail: List<ParentIndustriesAllDeal>?, errorMessage: Int?) {
         when {
             errorMessage != null -> {
                 renderState(

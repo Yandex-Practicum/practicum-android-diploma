@@ -4,10 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.databinding.FiltersItemBinding
+import ru.practicum.android.diploma.domain.country.Country
 
-class CountryAdapter(private val recyclerItem: ArrayList<RecyclerItem>) : RecyclerView.Adapter<CountryViewHolder>() {
+class CountryAdapter : RecyclerView.Adapter<CountryViewHolder>() {
 
-    var itemClickListener: ((Int, RecyclerItem) -> Unit)? = null
+    val countryList = ArrayList<Country>()
+    var itemClickListener: ((Int, Country) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -21,10 +23,10 @@ class CountryAdapter(private val recyclerItem: ArrayList<RecyclerItem>) : Recycl
     }
 
     override fun onBindViewHolder(holder: CountryViewHolder, position: Int) {
-        val country = recyclerItem[position]
+        val country = countryList[position]
         holder.bind(country)
         holder.itemView.setOnClickListener { itemClickListener?.invoke(position, country) }
     }
 
-    override fun getItemCount(): Int = recyclerItem.size
+    override fun getItemCount(): Int = countryList.size
 }
