@@ -8,14 +8,17 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.FragmentCountryBinding
 
 class CountryFragment : Fragment() {
-    private lateinit var binding: FragmentCountryBinding
 
+    private val viewModel by viewModel<CountryViewModel>()
+    private var _binding: FragmentCountryBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentCountryBinding.inflate(inflater, container, false)
+        _binding = FragmentCountryBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -26,26 +29,34 @@ class CountryFragment : Fragment() {
             findNavController().navigateUp()
         }
 
-        val countries = ArrayList<RecyclerItem>()
-        countries.add(RecyclerItem("Россия"))
-        countries.add(RecyclerItem("Украина"))
-        countries.add(RecyclerItem("Казахстан"))
-        countries.add(RecyclerItem("Азербайджан"))
-        countries.add(RecyclerItem("Беларусь"))
-        countries.add(RecyclerItem("Грузия"))
-        countries.add(RecyclerItem("Кыргыстан"))
-        countries.add(RecyclerItem("Узбекистан"))
-        countries.add(RecyclerItem("Другие регионы"))
-        val adapter = CountryAdapter(countries)
+        val adapter = CountryAdapter()
         adapter.itemClickListener = { _, item ->
             val bundle = Bundle()
             bundle.putString("key", item.name)
             setFragmentResult("requestKey", bundle)
             findNavController().popBackStack()
         }
+
         binding.countryRecycler.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.countryRecycler.adapter = adapter
 
+        viewModel.loadCountry()
+
+        viewModel.observeState().observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is CountryState.Content -> {
+                    adapter.countryList.addAll(state.region)
+                }
+
+                is CountryState.Error -> ""
+                is CountryState.Loading -> ""
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
