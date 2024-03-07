@@ -10,4 +10,11 @@
         <item name="android:fontFamily">@font/ys_display_medium</item>
         <item name="android:textColor">@color/white_universal</item>
     </style>
+
+    <style name="SearchEditText" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="android:backgroundTint">@color/YP_Light_Gray</item>
+        <item name="tint">@color/YP_Text_Gray</item>
+        <item name="android:textColorHint">@color/YP_White</item>
+        <item name="colorAccent">@color/YP_Blue</item>
+    </style>
 </resources>

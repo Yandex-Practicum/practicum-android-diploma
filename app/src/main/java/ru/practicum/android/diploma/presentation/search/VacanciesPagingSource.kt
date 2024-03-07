@@ -9,7 +9,7 @@ import ru.practicum.android.diploma.util.Resource
 
 class VacanciesPagingSource(
     private val repository: SearchRepository,
-    private val params: Map<String, String>
+    private val params: Map<String, String>,
 ) : PagingSource<Int, Vacancy>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Vacancy> {
