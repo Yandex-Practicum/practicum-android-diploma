@@ -3,9 +3,9 @@ package ru.practicum.android.diploma.di
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import ru.practicum.android.diploma.favourites.presentation.FavouritesViewModel
-import ru.practicum.android.diploma.filter.placeselector.country.presentation.CountryViewModel
 import ru.practicum.android.diploma.filter.area.presentation.AreaViewModel
 import ru.practicum.android.diploma.filter.industry.presentation.BranchViewModel
+import ru.practicum.android.diploma.filter.placeselector.country.presentation.CountryViewModel
 import ru.practicum.android.diploma.search.presentation.SearchViewModel
 import ru.practicum.android.diploma.vacancy.presentation.VacancyViewModel
 

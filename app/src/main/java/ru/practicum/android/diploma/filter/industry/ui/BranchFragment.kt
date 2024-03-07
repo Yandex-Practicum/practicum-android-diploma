@@ -20,8 +20,9 @@ import ru.practicum.android.diploma.filter.industry.domain.model.Industry
 import ru.practicum.android.diploma.filter.industry.presentation.BranchAdapter
 import ru.practicum.android.diploma.filter.industry.presentation.BranchScreenState
 import ru.practicum.android.diploma.filter.industry.presentation.BranchViewModel
-import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.BRANCH_KEY
 import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.FILTER_RECEIVER_KEY
+import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.INDUSTRY_ID_KEY
+import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.INDUSTRY_NAME_KEY
 
 class BranchFragment : Fragment() {
 
@@ -29,8 +30,11 @@ class BranchFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModel<BranchViewModel>()
-    private var branchAdapter: BranchAdapter =
-        BranchAdapter { }
+    private var branchAdapter: BranchAdapter = BranchAdapter { industry, index ->
+        viewModel.onSelectIndustryEvent(industry, index)
+    }
+    private var selectedIndustry: Industry? = null
+    private var selectedIndex: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,15 +47,11 @@ class BranchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel.getBranches(binding.search.text.toString())
-
+        viewModel.getBranches(binding.search.text.toString(), selectedIndustry)
         viewModel.observeState().observe(viewLifecycleOwner) {
             render(it)
         }
-
         initListeners()
-
         binding.branchRecycler.adapter = branchAdapter
         binding.branchRecycler.layoutManager = LinearLayoutManager(requireContext())
         binding.branchRecycler.isVisible = true
@@ -61,8 +61,7 @@ class BranchFragment : Fragment() {
     private fun render(branchScreenState: BranchScreenState) {
         when (branchScreenState) {
             is BranchScreenState.Error -> showError()
-            is BranchScreenState.Content -> showContent(branchScreenState.branches)
-
+            is BranchScreenState.Content -> showContent(branchScreenState)
         }
     }
 
@@ -71,9 +70,25 @@ class BranchFragment : Fragment() {
         binding.btnSave.isVisible = false
     }
 
-    private fun showContent(branches: ArrayList<Industry>) {
+    private fun showContent(content: BranchScreenState.Content) {
+        val newIndustries = content.branches.map { it to false }.toMutableList()
+        if (content.selectedIndex != null && content.selectedIndustry != null) {
+            for (i in content.branches.indices) {
+                if (selectedIndustry?.id == content.branches[i].id) {
+                    selectedIndex = i
+                    newIndustries[i] = newIndustries[i].copy(second = false)
+                    break
+                }
+            }
+            newIndustries[content.selectedIndex] = newIndustries[content.selectedIndex].copy(second = true)
+            selectedIndustry = content.selectedIndustry
+            selectedIndex = content.selectedIndex
+            binding.btnSave.isVisible = true
+        } else {
+            binding.btnSave.isVisible = false
+        }
         branchAdapter.branches.clear()
-        branchAdapter.branches.addAll(branches)
+        branchAdapter.branches.addAll(newIndustries)
         branchAdapter.notifyDataSetChanged()
         binding.branchRecycler.isVisible = true
     }
@@ -86,7 +101,8 @@ class BranchFragment : Fragment() {
         binding.btnSave.setOnClickListener {
             if (viewModel.clickDebounce()) {
                 val branchBundle = Bundle().apply {
-                    putString(BRANCH_KEY, branchAdapter.branchName)
+                    putString(INDUSTRY_NAME_KEY, selectedIndustry?.name ?: "")
+                    putString(INDUSTRY_ID_KEY, selectedIndustry?.id ?: "")
                 }
                 setFragmentResult(FILTER_RECEIVER_KEY, branchBundle)
                 findNavController().popBackStack()
@@ -94,7 +110,7 @@ class BranchFragment : Fragment() {
         }
 
         binding.search.doOnTextChanged { text, _, _, _ ->
-            viewModel.getBranches(binding.search.text.toString()!!)
+            viewModel.getBranches(binding.search.text.toString(), selectedIndustry)
             if (text.isNullOrEmpty()) {
                 binding.btnClear.setImageResource(R.drawable.ic_search)
             } else {
@@ -107,7 +123,7 @@ class BranchFragment : Fragment() {
         }
         binding.search.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                viewModel.getBranches(binding.search.text.toString()!!)
+                viewModel.getBranches(binding.search.text.toString(), selectedIndustry)
                 val inputMethodManager =
                     requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
                 inputMethodManager?.hideSoftInputFromWindow(binding.search.windowToken, 0)
