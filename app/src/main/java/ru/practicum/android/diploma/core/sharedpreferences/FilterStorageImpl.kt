@@ -1,125 +1,141 @@
 package ru.practicum.android.diploma.core.sharedpreferences
 
 import android.content.SharedPreferences
-import com.google.gson.Gson
-import ru.practicum.android.diploma.filter.domain.models.Filter
+import ru.practicum.android.diploma.filter.domain.models.FilterType
 
-class FilterStorageImpl(private val sharedPreferences: SharedPreferences, private val gson: Gson) : FilterStorage {
-    override fun saveCountry(country: String) {
-        sharedPreferences.edit()
-            .putString(COUNTRY_KEY, country)
-            .apply()
-    }
+class FilterStorageImpl(private val sharedPreferences: SharedPreferences) : FilterStorage {
 
-    override fun saveRegion(region: String) {
-        sharedPreferences.edit()
-            .putString(REGION_KEY, region)
-            .apply()
-    }
+    override fun saveFilters(filters: List<FilterType>) {
+        with(sharedPreferences.edit()) {
+            filters.forEach { filter ->
+                when (filter) {
+                    is FilterType.Country -> {
+                        putInt(COUNTRY_ID_KEY, filter.id)
+                        putString(COUNTRY_NAME_KEY, filter.name)
+                    }
 
-    override fun saveIndustry(industry: String) {
-        sharedPreferences.edit()
-            .putString(INDUSTRY_KEY, industry)
-            .apply()
-    }
+                    is FilterType.Region -> {
+                        putInt(REGION_ID_KEY, filter.id)
+                        putString(REGION_NAME_KEY, filter.name)
+                    }
 
-    override fun saveSalary(salary: Int) {
-        sharedPreferences.edit()
-            .putInt(SALARY_KEY, salary)
-            .apply()
-    }
+                    is FilterType.Industry -> {
+                        putInt(INDUSTRY_ID_KEY, filter.id)
+                        putString(INDUSTRY_NAME_KEY, filter.name)
+                    }
 
-    override fun saveShowWithSalary(isChecked: Boolean) {
-        sharedPreferences.edit()
-            .putBoolean(IsCHECKED_KEY, isChecked)
-            .apply()
-    }
+                    is FilterType.Salary -> {
+                        putInt(SALARY_AMOUNT_KEY, filter.amount)
+                    }
 
-    override fun getCountry(): String {
-        return sharedPreferences.getString(COUNTRY_KEY, "") ?: ""
-    }
-
-    override fun getRegion(): String {
-        return sharedPreferences.getString(REGION_KEY, "") ?: ""
-    }
-
-    override fun getIndustry(): String {
-        return sharedPreferences.getString(INDUSTRY_KEY, "") ?: ""
-    }
-
-    override fun getSalary(): Int {
-        return sharedPreferences.getInt(SALARY_KEY, 0)
-    }
-
-    override fun getShowWithSalary(): Boolean {
-        return sharedPreferences.getBoolean(IsCHECKED_KEY, false)
-    }
-
-    override fun deleteCountry() {
-        sharedPreferences.edit()
-            .remove(COUNTRY_KEY)
-            .apply()
-    }
-
-    override fun deleteRegion() {
-        sharedPreferences.edit()
-            .remove(REGION_KEY)
-            .apply()
-    }
-
-    override fun deleteIndustry() {
-        sharedPreferences.edit()
-            .remove(INDUSTRY_KEY)
-            .apply()
-    }
-
-    override fun deleteSalary() {
-        sharedPreferences.edit()
-            .remove(SALARY_KEY)
-            .apply()
-    }
-
-    override fun deleteShowWithSalary() {
-        sharedPreferences.edit()
-            .remove(IsCHECKED_KEY)
-            .apply()
-    }
-
-    override fun getFilter(): Filter {
-        val country = getCountry()
-        val region = getRegion()
-        val industry = getIndustry()
-        val salary = getSalary()
-        val showWithSalary = getShowWithSalary()
-        var filter = Filter(
-            country = country,
-            region = region,
-            industry = industry,
-            salary = salary,
-            showWithSalary = showWithSalary
-        )
-        val filtersJson = sharedPreferences.getString(FILTER_KEY, null)
-        if (filtersJson != null) {
-            val savedFilter = gson.fromJson(filtersJson, Filter::class.java)
-            filter = savedFilter
+                    is FilterType.ShowWithSalaryFlag -> {
+                        putBoolean(SHOW_WITH_SALARY_FLAG_KEY, filter.flag)
+                    }
+                }
+            }
+            apply()
         }
-        return filter
     }
 
-    override fun clearFilter() {
-        deleteCountry()
-        deleteRegion()
-        deleteIndustry()
-        deleteSalary()
-        deleteShowWithSalary()
+    override fun getFilters(): List<FilterType> {
+        val filters = mutableListOf<FilterType>()
+
+        sharedPreferences.apply {
+            val countryId = getInt(COUNTRY_ID_KEY, 0)
+            val countryName = getString(COUNTRY_NAME_KEY, "") ?: ""
+            if (countryId != 0 && countryName.isNotBlank()) {
+                filters.add(FilterType.Country(countryId, countryName))
+            }
+
+            val regionId = getInt(REGION_ID_KEY, 0)
+            val regionName = getString(REGION_NAME_KEY, "") ?: ""
+            if (regionId != 0 && regionName.isNotBlank()) {
+                filters.add(FilterType.Region(regionId, regionName))
+            }
+
+            val industryId = getInt(INDUSTRY_ID_KEY, 0)
+            val industryName = getString(INDUSTRY_NAME_KEY, "") ?: ""
+            if (industryId != 0 && industryName.isNotBlank()) {
+                filters.add(FilterType.Industry(industryId, industryName))
+            }
+
+            val salaryAmount = getInt(SALARY_AMOUNT_KEY, 0)
+            if (salaryAmount != 0) {
+                filters.add(FilterType.Salary(salaryAmount))
+            }
+
+            val showWithSalaryFlag = getBoolean(SHOW_WITH_SALARY_FLAG_KEY, false)
+            filters.add(FilterType.ShowWithSalaryFlag(showWithSalaryFlag))
+        }
+
+        return filters
+    }
+
+    override fun deleteFilter(filterType: FilterType) {
+        when (filterType) {
+            is FilterType.Country -> {
+                with(sharedPreferences.edit()) {
+                    remove(COUNTRY_ID_KEY)
+                    remove(COUNTRY_NAME_KEY)
+                    apply()
+                }
+            }
+
+            is FilterType.Region -> {
+                with(sharedPreferences.edit()) {
+                    remove(REGION_ID_KEY)
+                    remove(REGION_NAME_KEY)
+                    apply()
+                }
+            }
+
+            is FilterType.Industry -> {
+                with(sharedPreferences.edit()) {
+                    remove(INDUSTRY_ID_KEY)
+                    remove(INDUSTRY_NAME_KEY)
+                    apply()
+                }
+            }
+
+            is FilterType.Salary -> {
+                with(sharedPreferences.edit()) {
+                    remove(SALARY_AMOUNT_KEY)
+                    apply()
+                }
+            }
+
+            is FilterType.ShowWithSalaryFlag -> {
+                with(sharedPreferences.edit()) {
+                    remove(SHOW_WITH_SALARY_FLAG_KEY)
+                    apply()
+                }
+            }
+        }
+    }
+
+    override fun clearFilters() {
+        with(sharedPreferences.edit()) {
+            remove(COUNTRY_ID_KEY)
+            remove(COUNTRY_NAME_KEY)
+            remove(REGION_ID_KEY)
+            remove(REGION_NAME_KEY)
+            remove(INDUSTRY_ID_KEY)
+            remove(INDUSTRY_NAME_KEY)
+            remove(SALARY_AMOUNT_KEY)
+            remove(SHOW_WITH_SALARY_FLAG_KEY)
+            apply()
+        }
     }
 
     companion object {
-        private const val FILTER_KEY = "FILTER_KEY"
-        private const val COUNTRY_KEY = "COUNTRY_KEY"
-        private const val REGION_KEY = "REGION_KEY"
-        private const val INDUSTRY_KEY = "INDUSTRY_KEY"
-        private const val SALARY_KEY = "SALARY_KEY"
-        private const val IsCHECKED_KEY = "IsCHECKED_KEY"
+        private const val FILTER_PREF_NAME = "filter_prefs"
+        private const val COUNTRY_ID_KEY = "country_id"
+        private const val COUNTRY_NAME_KEY = "country_name"
+        private const val REGION_ID_KEY = "region_id"
+        private const val REGION_NAME_KEY = "region_name"
+        private const val INDUSTRY_ID_KEY = "industry_id"
+        private const val INDUSTRY_NAME_KEY = "industry_name"
+        private const val SALARY_AMOUNT_KEY = "salary_amount"
+        private const val SHOW_WITH_SALARY_FLAG_KEY = "show_with_salary_flag"
     }
 }
