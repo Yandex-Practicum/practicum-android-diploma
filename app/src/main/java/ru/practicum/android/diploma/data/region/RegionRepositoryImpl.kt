@@ -21,7 +21,7 @@ class RegionRepositoryImpl(
             ResponseCodes.DEFAULT -> emit(Resource.Error(response.resultCode.code))
             ResponseCodes.SUCCESS -> {
                 try {
-                    val region = (response as AreaDto)
+                    val region = response as AreaDto
                     emit(Resource.Success(region.mapToCountry()))
                 } catch (e: Throwable) {
                     emit(Resource.Error(response.resultCode.code))
