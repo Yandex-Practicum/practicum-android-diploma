@@ -10,8 +10,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.FragmentCountryBinding
-import ru.practicum.android.diploma.domain.country.Country
-import ru.practicum.android.diploma.ui.search.viewmodel.SearchViewModel
 
 class CountryFragment : Fragment() {
 
@@ -46,10 +44,11 @@ class CountryFragment : Fragment() {
         viewModel.loadCountry()
 
         viewModel.observeState().observe(viewLifecycleOwner) { state ->
-            when(state) {
+            when (state) {
                 is CountryState.Content -> {
                     adapter.countryList.addAll(state.region)
                 }
+
                 is CountryState.Error -> ""
                 is CountryState.Loading -> ""
             }

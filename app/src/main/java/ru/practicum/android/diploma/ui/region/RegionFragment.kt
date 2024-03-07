@@ -46,10 +46,11 @@ class RegionFragment : Fragment() {
         viewModel.loadRegion("113")
 
         viewModel.observeState().observe(viewLifecycleOwner) { state ->
-            when(state) {
+            when (state) {
                 is RegionState.Content -> {
                     adapter.countryList.addAll(state.regionId.areas.map { it.mapToCountry() })
                 }
+
                 is RegionState.Error -> ""
                 is RegionState.Loading -> ""
             }
