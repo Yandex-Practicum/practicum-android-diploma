@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.FragmentIndustryBinding
-import ru.practicum.android.diploma.domain.industries.IndustriesAllDeal
+import ru.practicum.android.diploma.domain.industries.ParentIndustriesAllDeal
 import ru.practicum.android.diploma.presentation.industries.IndustriesViewModel
 
 class IndustriesFragment : Fragment() {
@@ -31,7 +31,7 @@ class IndustriesFragment : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.regionRecycler.adapter = adapter
 
-        val industry = ArrayList<IndustriesAllDeal>()
+        val industry = ArrayList<ParentIndustriesAllDeal>()
 
         viewModel.loadIndustries()
 

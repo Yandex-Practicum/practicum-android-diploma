@@ -3,7 +3,6 @@ package ru.practicum.android.diploma.data.network
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
@@ -34,7 +33,6 @@ class RetrofitNetworkClient(
 
         return withContext(Dispatchers.IO) {
             try {
-                Log.d("ResultIndustries", "Retrofit перед запросом")
                 val response = when (dto) {
                     is VacanciesSearchRequest -> async { jobVacancySearchApi.getFullListVacancy(dto.queryMap) }
                     is IndustriesRequest -> async { getIndustries() }
@@ -51,18 +49,12 @@ class RetrofitNetworkClient(
         return try {
             val industries = jobVacancySearchApi.getAllIndustries()
             if (industries.isNotEmpty()) {
-                val firstIndustriesResponse = industries.first()
-                IndustriesResponse(
-                    id = firstIndustriesResponse.id,
-                    name = firstIndustriesResponse.name,
-                    industries = firstIndustriesResponse.industries
-                ).apply { resultCode = ResponseCodes.SUCCESS }
+                IndustriesResponse(industries).apply { resultCode = ResponseCodes.SUCCESS }
             } else {
                 // Создание экземпляра вашего класса Response с кодом ошибки сервера
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
             }
         } catch (e: Exception) {
-            // Создание экземпляра вашего класса Response с кодом ошибки сервера
             Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
         }
     }

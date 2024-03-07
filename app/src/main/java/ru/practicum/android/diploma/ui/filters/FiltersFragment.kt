@@ -15,10 +15,11 @@ import ru.practicum.android.diploma.databinding.FragmentFiltersBinding
 
 class FiltersFragment : Fragment() {
 
-    private lateinit var binding: FragmentFiltersBinding
+    private var _binding: FragmentFiltersBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentFiltersBinding.inflate(inflater, container, false)
+        _binding = FragmentFiltersBinding.inflate(inflater, container, false)
         return binding.root
     }
 
