@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/left_border"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/right_border"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp" />
+
+    <TextView
+        android:id="@+id/tvcontact_phone_label"
+        style="@style/Text_Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/phone"
+        android:layout_marginTop="@dimen/margin_16"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/left_border"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="visible">
+    </TextView>
+
+    <TextView
+        android:id="@+id/tvcontact_phone"
+        style="@style/Text_Standard"
+        android:textFontWeight="400"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_4"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:ellipsize="end"
+        app:layout_constraintEnd_toEndOf="@id/right_border"
+        app:layout_constraintStart_toStartOf="@id/left_border"
+        app:layout_constraintTop_toBottomOf="@id/tvcontact_phone_label"
+        android:clickable="true"
+        android:textColor="@color/YP_Blue"
+        tools:text="+7(904)329-27-71">
+    </TextView>
+
+    <TextView
+        android:id="@+id/tvcontact_comment_label"
+        style="@style/Text_Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/comment"
+        android:layout_marginTop="@dimen/margin_16"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/left_border"
+        app:layout_constraintTop_toBottomOf="@id/tvcontact_phone"
+        android:visibility="visible">
+    </TextView>
+
+    <TextView
+        android:id="@+id/tvcontact_comment"
+        style="@style/Text_Standard"
+        android:textFontWeight="400"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_4"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:ellipsize="end"
+        app:layout_constraintEnd_toEndOf="@id/right_border"
+        app:layout_constraintStart_toStartOf="@id/left_border"
+        app:layout_constraintTop_toBottomOf="@id/tvcontact_comment_label"
+        tools:text="Заполнить анкету по форме можно на нашем сайте и тд и тп">
+    </TextView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
