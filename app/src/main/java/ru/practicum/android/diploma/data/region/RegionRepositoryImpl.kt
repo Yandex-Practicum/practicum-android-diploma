@@ -1,22 +1,15 @@
 package ru.practicum.android.diploma.data.region
 
-import android.graphics.HardwareBufferRenderer.RenderRequest
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.ResponseCodes
 import ru.practicum.android.diploma.data.converters.AreaConverter.mapToCountry
-import ru.practicum.android.diploma.data.converters.VacancyConverter.toVacancyDetail
 import ru.practicum.android.diploma.data.request.RegionByIdRequest
 import ru.practicum.android.diploma.data.response.AreaDto
-import ru.practicum.android.diploma.data.response.AreasResponse
-import ru.practicum.android.diploma.data.response.IndustriesResponse
-import ru.practicum.android.diploma.data.vacancydetail.dto.DetailRequest
-import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.VacancyDetailDtoResponse
 import ru.practicum.android.diploma.domain.country.Country
 import ru.practicum.android.diploma.domain.region.RegionRepository
 import ru.practicum.android.diploma.util.Resource
-import ru.practicum.android.diploma.util.industries.IndustryMapper
 
 class RegionRepositoryImpl(
     val networkClient: NetworkClient

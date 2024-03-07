@@ -6,13 +6,10 @@ import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.ResponseCodes
 import ru.practicum.android.diploma.data.converters.AreaConverter.mapToCountryList
 import ru.practicum.android.diploma.data.request.CountryRequest
-import ru.practicum.android.diploma.data.request.IndustriesRequest
 import ru.practicum.android.diploma.data.response.AreasResponse
-import ru.practicum.android.diploma.data.response.IndustriesResponse
 import ru.practicum.android.diploma.domain.country.Country
 import ru.practicum.android.diploma.domain.country.CountryRepository
 import ru.practicum.android.diploma.util.Resource
-import ru.practicum.android.diploma.util.industries.IndustryMapper
 
 class CountryRepositoryImpl(
     val networkClient: NetworkClient
@@ -25,7 +22,8 @@ class CountryRepositoryImpl(
             ResponseCodes.DEFAULT -> emit(Resource.Error(response.resultCode.code))
             ResponseCodes.SUCCESS -> {
                 try {
-                    emit(Resource.Success(
+                    emit(
+                        Resource.Success(
                             (response as AreasResponse).area.mapToCountryList().sortedBy { it.id }.reversed()
                         )
                     )

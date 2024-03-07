@@ -27,10 +27,10 @@ class RetrofitNetworkClient(
             return Response().apply { resultCode = ResponseCodes.NO_CONNECTION }
         }
 
-        if ((dto !is VacanciesSearchRequest)
-            && (dto !is DetailRequest)
-            && (dto !is IndustriesRequest)
-            && (dto !is CountryRequest)
+        if (dto !is VacanciesSearchRequest
+            && dto !is DetailRequest
+            && dto !is IndustriesRequest
+            && dto !is CountryRequest
             && dto !is RegionByIdRequest
         ) {
             return Response().apply { resultCode = ResponseCodes.ERROR }
