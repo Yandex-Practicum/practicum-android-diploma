@@ -49,7 +49,7 @@ class FilterStorageImpl(private val sharedPreferences: SharedPreferences) : Filt
         return filters
     }
 
-    override fun addCountryFilter(filters: MutableList<FilterType>) {
+    private fun addCountryFilter(filters: MutableList<FilterType>) {
         sharedPreferences.apply {
             val countryId = getString(COUNTRY_ID_KEY, "")
             val countryName = getString(COUNTRY_NAME_KEY, "") ?: ""
@@ -59,7 +59,7 @@ class FilterStorageImpl(private val sharedPreferences: SharedPreferences) : Filt
         }
     }
 
-    override fun addRegionFilter(filters: MutableList<FilterType>) {
+    private fun addRegionFilter(filters: MutableList<FilterType>) {
         sharedPreferences.apply {
             val regionId = getString(REGION_ID_KEY, "")
             val regionName = getString(REGION_NAME_KEY, "") ?: ""
@@ -69,7 +69,7 @@ class FilterStorageImpl(private val sharedPreferences: SharedPreferences) : Filt
         }
     }
 
-    override fun addIndustryFilter(filters: MutableList<FilterType>) {
+    private fun addIndustryFilter(filters: MutableList<FilterType>) {
         sharedPreferences.apply {
             val industryId = getString(INDUSTRY_ID_KEY, "")
             val industryName = getString(INDUSTRY_NAME_KEY, "") ?: ""
@@ -79,7 +79,7 @@ class FilterStorageImpl(private val sharedPreferences: SharedPreferences) : Filt
         }
     }
 
-    override fun addSalaryFilter(filters: MutableList<FilterType>) {
+    private fun addSalaryFilter(filters: MutableList<FilterType>) {
         sharedPreferences.apply {
             val salaryAmount = getInt(SALARY_AMOUNT_KEY, 0)
             if (salaryAmount != 0) {
@@ -88,7 +88,7 @@ class FilterStorageImpl(private val sharedPreferences: SharedPreferences) : Filt
         }
     }
 
-    override fun addShowWithSalaryFlagFilter(filters: MutableList<FilterType>) {
+    private fun addShowWithSalaryFlagFilter(filters: MutableList<FilterType>) {
         sharedPreferences.apply {
             val showWithSalaryFlag = getBoolean(SHOW_WITH_SALARY_FLAG_KEY, false)
             filters.add(FilterType.ShowWithSalaryFlag(showWithSalaryFlag))
@@ -147,8 +147,17 @@ class FilterStorageImpl(private val sharedPreferences: SharedPreferences) : Filt
             remove(INDUSTRY_NAME_KEY)
             remove(SALARY_AMOUNT_KEY)
             remove(SHOW_WITH_SALARY_FLAG_KEY)
+            remove(IS_FILTER_APPLIED)
             apply()
         }
+    }
+
+    override fun isFilterApplied(): Boolean {
+        return sharedPreferences.getBoolean(IS_FILTER_APPLIED, false)
+    }
+
+    override fun setFilterApplied(isApplied: Boolean) {
+        sharedPreferences.edit().putBoolean(IS_FILTER_APPLIED, isApplied).apply()
     }
 
     companion object {
@@ -160,5 +169,6 @@ class FilterStorageImpl(private val sharedPreferences: SharedPreferences) : Filt
         private const val INDUSTRY_NAME_KEY = "industry_name"
         private const val SALARY_AMOUNT_KEY = "salary_amount"
         private const val SHOW_WITH_SALARY_FLAG_KEY = "show_with_salary_flag"
+        private const val IS_FILTER_APPLIED = "IS_FILTER_APPLIED"
     }
 }

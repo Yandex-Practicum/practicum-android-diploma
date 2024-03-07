@@ -9,7 +9,6 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -18,10 +17,6 @@ import ru.practicum.android.diploma.databinding.FragmentRegionBinding
 import ru.practicum.android.diploma.filter.area.domain.model.Area
 import ru.practicum.android.diploma.filter.area.presentation.AreaScreenState
 import ru.practicum.android.diploma.filter.area.presentation.AreaViewModel
-import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.COUNTRY_ID_KEY
-import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.COUNTRY_KEY
-import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.FILTER_RECEIVER_KEY
-import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.REGION_KEY
 
 class RegionFragment : Fragment() {
 
@@ -30,7 +25,7 @@ class RegionFragment : Fragment() {
     private val viewModel by viewModel<AreaViewModel>()
 
     private var areaAdapter: AreaAdapter = AreaAdapter { area ->
-        transitionToPlaceSelector(area.name)
+        transitionToPlaceSelector(area)
     }
 
     private var countryId = ""
@@ -97,14 +92,9 @@ class RegionFragment : Fragment() {
         binding.errorPlaceholder.visibility = View.GONE
     }
 
-    private fun transitionToPlaceSelector(area: String) {
+    private fun transitionToPlaceSelector(area: Area) {
         if (viewModel.clickDebounce()) {
-            val areaBundle = Bundle().apply {
-                putString(REGION_KEY, area)
-                putString(COUNTRY_KEY, countryName)
-                putString(COUNTRY_ID_KEY, countryId)
-            }
-            setFragmentResult(FILTER_RECEIVER_KEY, areaBundle)
+            viewModel.saveArea(area)
             findNavController().popBackStack()
         }
     }

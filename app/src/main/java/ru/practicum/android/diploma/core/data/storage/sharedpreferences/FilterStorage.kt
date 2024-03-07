@@ -7,9 +7,6 @@ interface FilterStorage {
     fun getFilters(): List<FilterType>
     fun deleteFilter(filterType: FilterType)
     fun clearFilters()
-    fun addCountryFilter(filters: MutableList<FilterType>)
-    fun addRegionFilter(filters: MutableList<FilterType>)
-    fun addIndustryFilter(filters: MutableList<FilterType>)
-    fun addSalaryFilter(filters: MutableList<FilterType>)
-    fun addShowWithSalaryFlagFilter(filters: MutableList<FilterType>)
+    fun isFilterApplied(): Boolean
+    fun setFilterApplied(isApplied: Boolean)
 }

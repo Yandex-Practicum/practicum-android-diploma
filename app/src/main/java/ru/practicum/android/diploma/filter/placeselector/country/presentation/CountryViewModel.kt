@@ -9,11 +9,15 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.core.domain.model.Country
 import ru.practicum.android.diploma.favourites.presentation.CLICK_DEBOUNCE_DELAY
-import ru.practicum.android.diploma.filter.domain.usecase.GetCountriesUseCase
+import ru.practicum.android.diploma.filter.placeselector.country.domain.usecase.GetCountriesUseCase
+import ru.practicum.android.diploma.filter.placeselector.country.domain.usecase.SaveCountryFilterUseCase
 import ru.practicum.android.diploma.util.Resource
 import ru.practicum.android.diploma.util.StringUtils
 
-class CountryViewModel(private val countryUseCase: GetCountriesUseCase) : ViewModel() {
+class CountryViewModel(
+    private val countryUseCase: GetCountriesUseCase,
+    private val saveCountryFilterUseCase: SaveCountryFilterUseCase
+) : ViewModel() {
     private val stateLiveData = MutableLiveData<CountryScreenState>()
     private var isClickAllowed = true
     private val countries: ArrayList<Country> = arrayListOf()
@@ -59,5 +63,9 @@ class CountryViewModel(private val countryUseCase: GetCountriesUseCase) : ViewMo
             }
         }
         return current
+    }
+
+    fun saveCountry(country: Country) {
+        saveCountryFilterUseCase.execute(country)
     }
 }
