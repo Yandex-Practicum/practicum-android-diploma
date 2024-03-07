@@ -18,6 +18,8 @@ import ru.practicum.android.diploma.databinding.FragmentRegionBinding
 import ru.practicum.android.diploma.filter.area.domain.model.Area
 import ru.practicum.android.diploma.filter.area.presentation.AreaScreenState
 import ru.practicum.android.diploma.filter.area.presentation.AreaViewModel
+import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.COUNTRY_ID_KEY
+import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.COUNTRY_KEY
 import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.FILTER_RECEIVER_KEY
 import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.REGION_KEY
 
@@ -32,12 +34,13 @@ class RegionFragment : Fragment() {
     }
 
     private var countryId = ""
+    private var countryName = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentRegionBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -48,7 +51,10 @@ class RegionFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        viewModel.getAreas("", "")
+        countryId = RegionFragmentArgs.fromBundle(requireArguments()).countryId
+        countryName = RegionFragmentArgs.fromBundle(requireArguments()).countryName
+
+        viewModel.getAreas("", countryId)
 
         viewModel.observeState().observe(viewLifecycleOwner) {
             render(it)
@@ -58,6 +64,7 @@ class RegionFragment : Fragment() {
         binding.regionRecycler.layoutManager = LinearLayoutManager(requireContext())
 
         setupListeners()
+
     }
 
     private fun render(areaScreenState: AreaScreenState) {
@@ -94,6 +101,8 @@ class RegionFragment : Fragment() {
         if (viewModel.clickDebounce()) {
             val areaBundle = Bundle().apply {
                 putString(REGION_KEY, area)
+                putString(COUNTRY_KEY, countryName)
+                putString(COUNTRY_ID_KEY, countryId)
             }
             setFragmentResult(FILTER_RECEIVER_KEY, areaBundle)
             findNavController().popBackStack()

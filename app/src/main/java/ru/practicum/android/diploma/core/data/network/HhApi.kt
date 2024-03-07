@@ -24,7 +24,7 @@ interface HhApi {
     suspend fun getAreas(): Response<List<AreasDto>>
 
     @GET("areas/{area_id}")
-    suspend fun getAreasById(@Path("vacancy_id") id: String): Response<List<AreasDto>>
+    suspend fun getAreasById(@Path("area_id") id: String): Response<List<AreasDto>>
 
     @GET("/areas/countries")
     suspend fun getCountries(): Response<List<CountryDto>>

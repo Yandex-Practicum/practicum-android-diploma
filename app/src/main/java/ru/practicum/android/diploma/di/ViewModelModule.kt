@@ -27,6 +27,7 @@ val viewModelModule = module {
     viewModel {
         FavouritesViewModel(get())
     }
+
     viewModel {
         CountryViewModel(countryUseCase = get())
     }
@@ -34,9 +35,7 @@ val viewModelModule = module {
     viewModel {
         AreaViewModel(areaUseCase = get())
     }
-
     viewModel {
         BranchViewModel(getIndustryByTextUseCase = get())
     }
-
 }
