@@ -11,7 +11,7 @@ import ru.practicum.android.diploma.domain.region.RegionInteractor
 
 class RegionViewModel(
     val regionInteractor: RegionInteractor
-): ViewModel() {
+) : ViewModel() {
 
     private val stateLiveData = MutableLiveData<RegionState>()
     fun observeState(): LiveData<RegionState> = stateLiveData

@@ -11,7 +11,7 @@ import ru.practicum.android.diploma.domain.country.CountryInteractor
 
 class CountryViewModel(
     private val countryInteractor: CountryInteractor
-): ViewModel() {
+) : ViewModel() {
 
     private val stateLiveData = MutableLiveData<CountryState>()
     fun observeState(): LiveData<CountryState> = stateLiveData
