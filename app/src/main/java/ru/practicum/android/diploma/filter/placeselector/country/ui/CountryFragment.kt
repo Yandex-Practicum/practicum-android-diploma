@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -14,9 +13,6 @@ import ru.practicum.android.diploma.core.domain.model.Country
 import ru.practicum.android.diploma.databinding.FragmentCountryBinding
 import ru.practicum.android.diploma.filter.placeselector.country.presentation.CountryScreenState
 import ru.practicum.android.diploma.filter.placeselector.country.presentation.CountryViewModel
-import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.COUNTRY_ID_KEY
-import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.COUNTRY_KEY
-import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.FILTER_RECEIVER_KEY
 
 class CountryFragment : Fragment() {
 
@@ -53,7 +49,6 @@ class CountryFragment : Fragment() {
         when (countryScreenState) {
             is CountryScreenState.Error -> showError()
             is CountryScreenState.Content -> showContent(countryScreenState.countries)
-
         }
     }
 
@@ -72,11 +67,7 @@ class CountryFragment : Fragment() {
 
     private fun transitionToPlaceSelector(country: String, countryId: String) {
         if (viewModel.clickDebounce()) {
-            val countryBundle = Bundle().apply {
-                putString(COUNTRY_KEY, country)
-                putString(COUNTRY_ID_KEY, countryId)
-            }
-            setFragmentResult(FILTER_RECEIVER_KEY, countryBundle)
+            viewModel.saveCountry(Country(id = countryId, name = country))
             findNavController().popBackStack()
         }
     }

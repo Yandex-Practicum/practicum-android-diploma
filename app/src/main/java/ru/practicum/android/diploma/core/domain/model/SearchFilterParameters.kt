@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.core.domain.model
 
-class SearchFilterParameters(
+data class SearchFilterParameters(
     val regionId: String = "",
     val industriesId: String = "",
     val salary: String = "",

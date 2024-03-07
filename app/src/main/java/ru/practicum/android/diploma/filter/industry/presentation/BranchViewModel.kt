@@ -10,9 +10,13 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.favourites.presentation.CLICK_DEBOUNCE_DELAY
 import ru.practicum.android.diploma.filter.industry.domain.model.Industry
 import ru.practicum.android.diploma.filter.industry.domain.usecase.GetIndustriesByTextUseCase
+import ru.practicum.android.diploma.filter.industry.domain.usecase.SaveIndustryUseCase
 import ru.practicum.android.diploma.util.Result
 
-class BranchViewModel(private val getIndustryByTextUseCase: GetIndustriesByTextUseCase) : ViewModel() {
+class BranchViewModel(
+    private val getIndustryByTextUseCase: GetIndustriesByTextUseCase,
+    private val saveIndustryUseCase: SaveIndustryUseCase
+) : ViewModel() {
     private val stateLiveData = MutableLiveData<BranchScreenState>()
     private var isClickAllowed = true
     private val branches: ArrayList<Industry> = arrayListOf()
@@ -64,6 +68,10 @@ class BranchViewModel(private val getIndustryByTextUseCase: GetIndustriesByTextU
 
     private fun renderState(branchScreenState: BranchScreenState) {
         stateLiveData.postValue(branchScreenState)
+    }
+
+    fun saveIndustry(industry: Industry) {
+        saveIndustryUseCase.execute(industry)
     }
 
     fun clickDebounce(): Boolean {

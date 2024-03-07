@@ -10,7 +10,6 @@ import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -20,9 +19,6 @@ import ru.practicum.android.diploma.filter.industry.domain.model.Industry
 import ru.practicum.android.diploma.filter.industry.presentation.BranchAdapter
 import ru.practicum.android.diploma.filter.industry.presentation.BranchScreenState
 import ru.practicum.android.diploma.filter.industry.presentation.BranchViewModel
-import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.FILTER_RECEIVER_KEY
-import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.INDUSTRY_ID_KEY
-import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.INDUSTRY_NAME_KEY
 
 class BranchFragment : Fragment() {
 
@@ -100,11 +96,9 @@ class BranchFragment : Fragment() {
 
         binding.btnSave.setOnClickListener {
             if (viewModel.clickDebounce()) {
-                val branchBundle = Bundle().apply {
-                    putString(INDUSTRY_NAME_KEY, selectedIndustry?.name ?: "")
-                    putString(INDUSTRY_ID_KEY, selectedIndustry?.id ?: "")
+                selectedIndustry?.let { industry ->
+                    viewModel.saveIndustry(industry)
                 }
-                setFragmentResult(FILTER_RECEIVER_KEY, branchBundle)
                 findNavController().popBackStack()
             }
         }

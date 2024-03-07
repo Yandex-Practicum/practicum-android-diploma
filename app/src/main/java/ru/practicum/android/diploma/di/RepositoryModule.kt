@@ -28,7 +28,7 @@ val repositoryModule = module {
         AddToFavouritesRepositoryImpl(appDatabase = get())
     }
     single<FilterRepository> {
-        FilterRepositoryImpl(networkClient = get())
+        FilterRepositoryImpl(networkClient = get(), filterStorage = get())
     }
     single<AreaRepository> {
         AreaRepositoryImpl(networkClient = get())

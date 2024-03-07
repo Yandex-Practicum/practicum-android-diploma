@@ -8,22 +8,27 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterBinding
+import ru.practicum.android.diploma.filter.presentation.FilterState
+import ru.practicum.android.diploma.filter.presentation.FilterViewModel
 
 class FilterFragment : Fragment() {
 
     private var _binding: FragmentFilterBinding? = null
     private val binding get() = _binding!!
+    private val viewModel by viewModel<FilterViewModel>()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentFilterBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -59,14 +64,49 @@ class FilterFragment : Fragment() {
                 requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
             inputMethodManager?.hideSoftInputFromWindow(binding.salaryInputEditText.windowToken, 0)
         }
+        binding.btApproveFilters.setOnClickListener {
+            viewModel.onBtnSaveClickEvent(
+                salary = binding.salaryInputEditText.text.toString(),
+                isChecked = binding.checkbox.isChecked
+            )
+            findNavController().popBackStack()
+        }
+        binding.btResetFilters.setOnClickListener {
+            viewModel.onBtnResetClickEvent()
+        }
     }
 
     private fun getData() {
-        setFragmentResultListener(FILTER_RECEIVER_KEY) { requestKey, bundle ->
-            val country = bundle.getString(COUNTRY_KEY)
-            val region = bundle.getString(REGION_KEY)
-            val branch = bundle.getString(INDUSTRY_NAME_KEY)
+        viewModel.init()
+        viewModel.state.observe(viewLifecycleOwner) {
+            binding.placeOfJobText.setText(it.country?.name ?: "")
+            if (it.country != null && it.area != null) {
+                binding.placeOfJobText.setText(
+                    getString(
+                        R.string.tv_job_title_and_region,
+                        it.country.name,
+                        it.area.name
+                    )
+                )
+            } else if (it.area != null) {
+                binding.placeOfJobText.setText(it.area.name)
+            }
+            binding.branchOfJobText.setText(it.industry?.name ?: "")
+            binding.checkbox.isChecked = it.isNotShowWithoutSalary
+            binding.salaryInputEditText.setText(if (it.salary == null) "" else it.salary.toString())
+            if (isAvailableApplyFilters(it)) {
+                binding.btResetFilters.isVisible = false
+                binding.btApproveFilters.isVisible = false
+            } else {
+                binding.btResetFilters.isVisible = true
+                binding.btApproveFilters.isVisible = true
+            }
         }
+    }
+
+    private fun isAvailableApplyFilters(state: FilterState): Boolean {
+        return state.country == null && state.area == null && state.salary == null
+            && !state.isNotShowWithoutSalary && state.industry == null
     }
 
     private fun changeIcon(editText: EditText, view: ImageView) {
@@ -77,14 +117,5 @@ class FilterFragment : Fragment() {
                 view.visibility = View.GONE
             }
         }
-    }
-
-    companion object {
-        const val INDUSTRY_ID_KEY = "INDUSTRY_ID_KEY"
-        const val INDUSTRY_NAME_KEY = "INDUSTRY_NAME_KEY"
-        const val REGION_KEY = "regionKey"
-        const val COUNTRY_KEY = "countryKey"
-        const val COUNTRY_ID_KEY = "countryIdKey"
-        const val FILTER_RECEIVER_KEY = "filter_receiver_key"
     }
 }

@@ -8,19 +8,16 @@ import android.widget.EditText
 import android.widget.ImageView
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentPlaceSelectorBinding
-import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.COUNTRY_ID_KEY
-import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.COUNTRY_KEY
-import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.FILTER_RECEIVER_KEY
-import ru.practicum.android.diploma.filter.ui.FilterFragment.Companion.REGION_KEY
 
 class PlaceSelectorFragment : Fragment() {
 
     private var _binding: FragmentPlaceSelectorBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: PlaceSelectorViewModel by viewModel()
 
     private var countryName: String = ""
     private var countryId: String = ""
@@ -30,10 +27,9 @@ class PlaceSelectorFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentPlaceSelectorBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,23 +56,19 @@ class PlaceSelectorFragment : Fragment() {
     }
 
     private fun getData() {
-        setFragmentResultListener(FILTER_RECEIVER_KEY) { _, bundle ->
-            if (bundle.getString(REGION_KEY).toString().equals("null")) {
-                regionName = ""
-            } else {
-                regionName = bundle.getString(REGION_KEY).toString()!!
+        viewModel.state.observe(viewLifecycleOwner) {
+            it.country?.let { country ->
+                countryId = country.id
             }
-            countryName = bundle.getString(COUNTRY_KEY).toString()!!
-            countryId = bundle.getString(COUNTRY_ID_KEY).toString()!!
-            binding.countryText.setText(countryName)
-            binding.regionText.setText(regionName)
-
-            if (regionName.isEmpty() && countryName.isEmpty()) {
+            binding.countryText.setText(it.country?.name ?: "")
+            binding.regionText.setText(it.area?.name ?: "")
+            if (it.area?.name.isNullOrEmpty() && it.country?.name.isNullOrEmpty()) {
                 binding.selectButton.visibility = View.GONE
             } else {
                 binding.selectButton.visibility = View.VISIBLE
             }
         }
+        viewModel.init()
     }
 
     private fun initUi() {
@@ -88,11 +80,8 @@ class PlaceSelectorFragment : Fragment() {
             binding.selectButton.visibility = View.VISIBLE
         }
         binding.selectButton.setOnClickListener {
-            val action = PlaceSelectorFragmentDirections.actionPlaceSelectorFragmentToFilterFragment(
-                binding.countryText.text.toString(),
-                binding.regionText.text.toString()
-            )
-            findNavController().navigate(action)
+            viewModel.onBtnSelectClickEvent()
+            findNavController().popBackStack()
         }
     }
 

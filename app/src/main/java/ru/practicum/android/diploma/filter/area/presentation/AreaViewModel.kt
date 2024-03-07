@@ -11,9 +11,13 @@ import ru.practicum.android.diploma.favourites.presentation.CLICK_DEBOUNCE_DELAY
 import ru.practicum.android.diploma.filter.area.domain.model.Area
 import ru.practicum.android.diploma.filter.area.domain.model.AreaError
 import ru.practicum.android.diploma.filter.area.domain.usecase.GetAreasByTextUseCase
+import ru.practicum.android.diploma.filter.area.domain.usecase.SaveAreaUseCase
 import ru.practicum.android.diploma.util.Result
 
-class AreaViewModel(private val areaUseCase: GetAreasByTextUseCase) : ViewModel() {
+class AreaViewModel(
+    private val areaUseCase: GetAreasByTextUseCase,
+    private val saveAreaUseCase: SaveAreaUseCase
+) : ViewModel() {
     private val stateLiveData = MutableLiveData<AreaScreenState>()
     private var isClickAllowed = true
     private val areas: ArrayList<Area> = arrayListOf()
@@ -45,6 +49,10 @@ class AreaViewModel(private val areaUseCase: GetAreasByTextUseCase) : ViewModel(
 
     private fun renderState(areaScreenState: AreaScreenState) {
         stateLiveData.postValue(areaScreenState)
+    }
+
+    fun saveArea(area: Area) {
+        saveAreaUseCase.execute(area = area)
     }
 
     fun clickDebounce(): Boolean {

@@ -11,10 +11,17 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.core.domain.model.SearchFilterParameters
 import ru.practicum.android.diploma.core.domain.model.SearchVacanciesResult
 import ru.practicum.android.diploma.favourites.presentation.CLICK_DEBOUNCE_DELAY
+import ru.practicum.android.diploma.filter.domain.models.FilterType
+import ru.practicum.android.diploma.filter.domain.usecase.GetApplyFilterFlagUseCase
+import ru.practicum.android.diploma.filter.domain.usecase.GetFiltersUseCase
 import ru.practicum.android.diploma.search.domain.usecase.SearchVacancyUseCase
 import ru.practicum.android.diploma.util.Resource
 
-class SearchViewModel(private val searchVacancyUseCase: SearchVacancyUseCase) : ViewModel() {
+class SearchViewModel(
+    private val searchVacancyUseCase: SearchVacancyUseCase,
+    private val getFiltersUseCase: GetFiltersUseCase,
+    private val getApplyFilterFlagUseCase: GetApplyFilterFlagUseCase
+) : ViewModel() {
     private var isClickAllowed = true
     private val stateLiveData = MutableLiveData<SearchState>(SearchState.Default)
     private var isSearchByPageAllowed = true
@@ -42,13 +49,47 @@ class SearchViewModel(private val searchVacancyUseCase: SearchVacancyUseCase) : 
 
     fun searchByButton(searchText: String, filterParameters: SearchFilterParameters) {
         if (searchText.isNotEmpty()) {
+            searchByTextJob?.cancel()
             viewModelScope.launch(Dispatchers.IO) {
                 renderState(SearchState.Loading)
-                searchVacancyUseCase.execute(searchText, 0, filterParameters).collect {
+                searchVacancyUseCase.execute(searchText, 0, getFilterParameters()).collect {
                     processSearchByTextResult(it)
                 }
             }
         }
+    }
+
+    private fun getFilterParameters(): SearchFilterParameters {
+        if (!getApplyFilterFlagUseCase.execute()) {
+            return SearchFilterParameters()
+        }
+        var parameters = SearchFilterParameters()
+        getFiltersUseCase.execute().forEach {
+            when (it) {
+                is FilterType.Country -> {
+                    if (parameters.regionId.isEmpty()) {
+                        parameters = parameters.copy(regionId = it.id)
+                    }
+                }
+
+                is FilterType.Region -> {
+                    parameters = parameters.copy(regionId = it.id)
+                }
+
+                is FilterType.Salary -> {
+                    parameters = parameters.copy(salary = it.amount.toString())
+                }
+
+                is FilterType.Industry -> {
+                    parameters = parameters.copy(industriesId = it.id)
+                }
+
+                is FilterType.ShowWithSalaryFlag -> {
+                    parameters = parameters.copy(isOnlyWithSalary = it.flag)
+                }
+            }
+        }
+        return parameters
     }
 
     fun searchByText(searchText: String, filterParameters: SearchFilterParameters) {
@@ -58,7 +99,7 @@ class SearchViewModel(private val searchVacancyUseCase: SearchVacancyUseCase) : 
                 delay(SEARCH_DEBOUNCE_DELAY)
                 previousSearchText = searchText
                 renderState(SearchState.Loading)
-                searchVacancyUseCase.execute(searchText, 0, filterParameters).collect {
+                searchVacancyUseCase.execute(searchText, 0, getFilterParameters()).collect {
                     processSearchByTextResult(it)
                 }
             }
