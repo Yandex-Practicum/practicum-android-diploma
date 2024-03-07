@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentIndustryBinding
-import ru.practicum.android.diploma.domain.industries.ParentIndustriesAllDeal
 import ru.practicum.android.diploma.presentation.industries.IndustriesViewModel
 
 class IndustriesFragment : Fragment() {
@@ -47,6 +46,7 @@ class IndustriesFragment : Fragment() {
                     adapter.industriesList.addAll(state.industries)
                     adapter.notifyDataSetChanged()
                 }
+
                 is IndustriesState.Error -> ""
                 is IndustriesState.Loading -> ""
             }
@@ -54,33 +54,30 @@ class IndustriesFragment : Fragment() {
 
         val textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                if (binding.edit.text.isNotEmpty()){
+                if (binding.edit.text.isNotEmpty()) {
                     val newDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.close_icon)
                     binding.edit.setCompoundDrawablesWithIntrinsicBounds(null, null, newDrawable, null)
-                }
-                else{
+                } else {
                     val newDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_search)
                     binding.edit.setCompoundDrawablesWithIntrinsicBounds(null, null, newDrawable, null)
                 }
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (binding.edit.text.isNotEmpty()){
+                if (binding.edit.text.isNotEmpty()) {
                     val newDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.close_icon)
                     binding.edit.setCompoundDrawablesWithIntrinsicBounds(null, null, newDrawable, null)
-                }
-                else{
+                } else {
                     val newDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_search)
                     binding.edit.setCompoundDrawablesWithIntrinsicBounds(null, null, newDrawable, null)
                 }
             }
 
             override fun afterTextChanged(s: Editable?) {
-                if (binding.edit.text.isNotEmpty()){
+                if (binding.edit.text.isNotEmpty()) {
                     val newDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.close_icon)
                     binding.edit.setCompoundDrawablesWithIntrinsicBounds(null, null, newDrawable, null)
-                }
-                else{
+                } else {
                     val newDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_search)
                     binding.edit.setCompoundDrawablesWithIntrinsicBounds(null, null, newDrawable, null)
                 }
@@ -91,19 +88,10 @@ class IndustriesFragment : Fragment() {
         binding.click.setOnClickListener {
             binding.edit.setText("")
         }
+    }
 
-//        industry.add(Industries("1", "Отрасль 1"))
-//        industry.add(Industries("2", "Отрасль 2"))
-//        industry.add(Industries("3", "Отрасль 3"))
-//        industry.add(Industries("4", "Отрасль 4"))
-//        industry.add(Industries("5", "Отрасль 5"))
-//        industry.add(Industries("6", "Отрасль 6"))
-//        industry.add(Industries("7", "Отрасль 7"))
-//        industry.add(Industries("8", "Отрасль 8"))
-//        industry.add(Industries("9", "Отрасль 9"))
-//        industry.add(Industries("10", "Отрасль 10"))
-//        industry.add(Industries("11", "Отрасль 11"))
-//        industry.add(Industries("12", "Отрасль 12"))
-//        industry.add(Industries("13", "Отрасль 13"))
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

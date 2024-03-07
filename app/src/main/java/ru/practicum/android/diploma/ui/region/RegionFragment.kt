@@ -11,13 +11,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import ru.practicum.android.diploma.R
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.converters.AreaConverter.mapToCountry
 import ru.practicum.android.diploma.databinding.FragmentRegionBinding
 import ru.practicum.android.diploma.ui.country.CountryAdapter
-import ru.practicum.android.diploma.ui.country.RecyclerItem
-
 
 class RegionFragment : Fragment() {
 
@@ -39,33 +37,30 @@ class RegionFragment : Fragment() {
 
         val textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                if (binding.edit.text.isNotEmpty()){
+                if (binding.edit.text.isNotEmpty()) {
                     val newDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.close_icon)
                     binding.edit.setCompoundDrawablesWithIntrinsicBounds(null, null, newDrawable, null)
-                }
-                else{
+                } else {
                     val newDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_search)
                     binding.edit.setCompoundDrawablesWithIntrinsicBounds(null, null, newDrawable, null)
                 }
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (binding.edit.text.isNotEmpty()){
+                if (binding.edit.text.isNotEmpty()) {
                     val newDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.close_icon)
                     binding.edit.setCompoundDrawablesWithIntrinsicBounds(null, null, newDrawable, null)
-                }
-                else{
+                } else {
                     val newDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_search)
                     binding.edit.setCompoundDrawablesWithIntrinsicBounds(null, null, newDrawable, null)
                 }
             }
 
             override fun afterTextChanged(s: Editable?) {
-                if (binding.edit.text.isNotEmpty()){
+                if (binding.edit.text.isNotEmpty()) {
                     val newDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.close_icon)
                     binding.edit.setCompoundDrawablesWithIntrinsicBounds(null, null, newDrawable, null)
-                }
-                else{
+                } else {
                     val newDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_search)
                     binding.edit.setCompoundDrawablesWithIntrinsicBounds(null, null, newDrawable, null)
                 }
@@ -77,26 +72,7 @@ class RegionFragment : Fragment() {
             binding.edit.setText("")
         }
 
-
-
-
-
-        val regions = ArrayList<RecyclerItem>()
-        regions.add(RecyclerItem("Регион 1"))
-        regions.add(RecyclerItem("Регион 2"))
-        regions.add(RecyclerItem("Регион 3"))
-        regions.add(RecyclerItem("Регион 4"))
-        regions.add(RecyclerItem("Регион 5"))
-        regions.add(RecyclerItem("Регион 6"))
-        regions.add(RecyclerItem("Регион 7"))
-        regions.add(RecyclerItem("Регион 8"))
-        regions.add(RecyclerItem("Регион 9"))
-        regions.add(RecyclerItem("Регион 10"))
-        regions.add(RecyclerItem("Регион 11"))
-        regions.add(RecyclerItem("Регион 12"))
-        regions.add(RecyclerItem("Регион 13"))
-
-        val adapter = CountryAdapter(regions)
+        val adapter = CountryAdapter()
         adapter.itemClickListener = { _, item ->
             val bundle = Bundle()
             bundle.putString("keyRegion", item.name)
