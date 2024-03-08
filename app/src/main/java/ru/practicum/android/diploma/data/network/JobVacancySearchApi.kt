@@ -18,6 +18,10 @@ interface JobVacancySearchApi {
     @GET("/vacancies/{vacancy_id}")
     suspend fun getVacancyDetail(@Path("vacancy_id") id: String): VacancyDetailDtoResponse
 
+    // Запрос похожих вакансий
+    @GET("/vacancies/{vacancy_id}/similar_vacancies")
+    suspend fun getSimilarVacancies(@Path("vacancy_id") id: String): VacanciesSearchResponse
+
     // Запрос списка областей
     @GET("/areas")
     suspend fun getAllAreas(): List<AreasResponse>

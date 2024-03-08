@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.KeySkil
 import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.Phones
 import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.VacancyDetailDtoResponse
 import ru.practicum.android.diploma.domain.models.Vacancy
-import ru.practicum.android.diploma.domain.models.detail.VacancyDetail
+import ru.practicum.android.diploma.domain.detail.VacancyDetail
 
 object VacancyConverter {
     fun VacancyDto.toVacancy(): Vacancy {

@@ -7,7 +7,7 @@ import ru.practicum.android.diploma.data.converters.VacancyDetailDbConverter.map
 import ru.practicum.android.diploma.data.converters.VacancyDetailDbConverter.mapToVacancyDetailEntity
 import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.domain.favorite.FavoriteRepository
-import ru.practicum.android.diploma.domain.models.detail.VacancyDetail
+import ru.practicum.android.diploma.domain.detail.VacancyDetail
 
 class FavoriteRepositoryImpl(
     val appDatabase: AppDatabase
