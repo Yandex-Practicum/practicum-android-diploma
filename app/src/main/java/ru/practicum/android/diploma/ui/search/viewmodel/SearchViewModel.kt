@@ -7,7 +7,6 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.google.gson.Gson
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -30,14 +29,12 @@ class SearchViewModel(
 
     private val state = MutableStateFlow(SearchViewState())
     fun observeState() = state.asStateFlow()
-    private var vacancyJob: Job? = null
     var flow: Flow<PagingData<Vacancy>> = emptyFlow()
         private set
 
     private var query: String = ""
 
     private fun subscribeVacanciesPagination(params: Map<String, String>) {
-        vacancyJob?.cancel()
         flow = Pager(PagingConfig(pageSize = 20)) {
             VacanciesPagingSource(repository, params)
         }.flow.cachedIn(viewModelScope)

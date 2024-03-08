@@ -28,7 +28,7 @@
             android:layout_width="@dimen/edit_text_height"
             android:layout_height="@dimen/edit_text_height"
             android:layout_gravity="end"
-            android:layout_marginRight="@dimen/margin_8">
+            android:layout_marginEnd="@dimen/margin_8">
 
 
             <ImageView
@@ -54,26 +54,27 @@
         app:boxStrokeColor="@color/edittextlayot_box"
         app:endIconDrawable="@drawable/ic_search"
         app:hintEnabled="false"
+        app:endIconTint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/navigation_toolbar"
-        android:textCursorDrawable="@drawable/color_cursor">
+        android:theme="@style/SearchEditText">
 
         <EditText
             android:id="@+id/searchEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_marginHorizontal="@dimen/margin_16"
+            android:layout_marginVertical="@dimen/margin_8"
             android:drawableEnd="@drawable/ic_search"
             android:drawablePadding="@dimen/margin_16"
             android:hint="@string/search_request"
-            android:background="@drawable/shape_on_search_screen"
             android:imeOptions="actionDone|flagNoExtractUi"
             android:inputType="textNoSuggestions"
             android:maxLines="1"
             android:textColor="@color/black"
-            android:textColorHint="@color/YP_Text_Gray"
-            android:textCursorDrawable="@drawable/color_cursor"/>
+            />
 
 
     </com.google.android.material.textfield.TextInputLayout>

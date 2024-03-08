@@ -17,8 +17,8 @@ class IndustriesViewModel(
     private val stateLiveData = MutableLiveData<IndustriesState>()
     fun observeState(): LiveData<IndustriesState> = stateLiveData
 
-    private val _industries = MutableLiveData<List<ParentIndustriesAllDeal>>()
-    val industries: LiveData<List<ParentIndustriesAllDeal>> get() = _industries
+//    private val _industries = MutableLiveData<List<ParentIndustriesAllDeal>>()
+//    val industries: LiveData<List<ParentIndustriesAllDeal>> get() = _industries
 
     init {
         loadIndustries()
