@@ -156,7 +156,12 @@ class VacancyDetailFragment : Fragment() {
             )
         )
         showEmploymentAndSchedule(vacancyDetail)
-        binding.tvdescription.setText(Html.fromHtml(vacancyDetail.description, Html.FROM_HTML_MODE_COMPACT))
+        binding.tvdescription.setText(
+            Html.fromHtml(
+                vacancyDetail.description,
+                Html.FROM_HTML_SEPARATOR_LINE_BREAK_LIST_ITEM
+            )
+        )
         checkKeySkills(vacancyDetail.keySkills, binding.tvkeySkills)
         showContacts(vacancyDetail)
     }
@@ -167,7 +172,7 @@ class VacancyDetailFragment : Fragment() {
             binding.tvkeySkillsLabel.visibility = View.VISIBLE
             view.text = vacancyDetailItemList
                 .joinToString(separator = "\n") {
-                    HtmlCompat.fromHtml("&#8226  $it", HtmlCompat.FROM_HTML_MODE_LEGACY)
+                    HtmlCompat.fromHtml("&#8226  $it", HtmlCompat.FROM_HTML_SEPARATOR_LINE_BREAK_LIST_ITEM)
                 }
         } else {
             view.visibility = View.GONE
