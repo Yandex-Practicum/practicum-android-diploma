@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.ui.region
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -16,6 +17,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.converters.AreaConverter.mapToCountry
 import ru.practicum.android.diploma.databinding.FragmentRegionBinding
 import ru.practicum.android.diploma.ui.country.CountryAdapter
+import ru.practicum.android.diploma.ui.country.CountryFragment
 
 class RegionFragment : Fragment() {
 
@@ -30,6 +32,8 @@ class RegionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val sharedPrefs = context?.getSharedPreferences(CountryFragment.COUNTRY_PREFERENCES, Context.MODE_PRIVATE)
 
         binding.vacancyToolbar.setOnClickListener {
             findNavController().navigateUp()
@@ -77,6 +81,8 @@ class RegionFragment : Fragment() {
             val bundle = Bundle()
             bundle.putString("keyRegion", item.name)
             setFragmentResult("requestKeyRegion", bundle)
+            sharedPrefs?.edit()?.putString(REGION_TEXT, item.name)?.apply()
+            sharedPrefs?.edit()?.putString(REGION_ID, item.id)?.apply()
             findNavController().popBackStack()
         }
 
@@ -102,5 +108,10 @@ class RegionFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        const val REGION_TEXT = "region_text"
+        const val REGION_ID = "region_id"
     }
 }

@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.ui.country
 
+import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,7 @@ class CountryFragment : Fragment() {
     private var _binding: FragmentCountryBinding? = null
     private val binding get() = _binding!!
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentCountryBinding.inflate(inflater, container, false)
         return binding.root
@@ -24,6 +26,8 @@ class CountryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val sharedPrefs = context?.getSharedPreferences(COUNTRY_PREFERENCES, MODE_PRIVATE)
 
         binding.vacancyToolbar.setOnClickListener {
             findNavController().navigateUp()
@@ -34,6 +38,8 @@ class CountryFragment : Fragment() {
             val bundle = Bundle()
             bundle.putString("key", item.name)
             setFragmentResult("requestKey", bundle)
+            sharedPrefs?.edit()?.putString(COUNTRY_TEXT, item.name)?.apply()
+            sharedPrefs?.edit()?.putString(COUNTRY_ID, item.id)?.apply()
             findNavController().popBackStack()
         }
 
@@ -57,5 +63,11 @@ class CountryFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        const val COUNTRY_PREFERENCES = "country_preferences"
+        const val COUNTRY_TEXT = "country_text"
+        const val COUNTRY_ID = "country_id"
     }
 }
