@@ -95,18 +95,18 @@ class FilterFragment : Fragment() {
             binding.checkbox.isChecked = it.isNotShowWithoutSalary
             binding.salaryInputEditText.setText(if (it.salary == null) "" else it.salary.toString())
             if (isAvailableApplyFilters(it)) {
-                binding.btResetFilters.isVisible = false
-                binding.btApproveFilters.isVisible = false
-            } else {
                 binding.btResetFilters.isVisible = true
                 binding.btApproveFilters.isVisible = true
+            } else {
+                binding.btResetFilters.isVisible = false
+                binding.btApproveFilters.isVisible = false
             }
         }
     }
 
     private fun isAvailableApplyFilters(state: FilterState): Boolean {
-        return state.country == null && state.area == null && state.salary == null
-            && !state.isNotShowWithoutSalary && state.industry == null
+        return state.country !== null || state.area !== null || state.salary !== null
+            || state.isNotShowWithoutSalary || state.industry !== null
     }
 
     private fun changeIcon(editText: EditText, view: ImageView) {
