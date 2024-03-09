@@ -23,7 +23,7 @@ class VacancyViewModel(
     private val id: Long
 ) : ViewModel() {
     private val stateLiveData = MutableLiveData<VacancyScreenState>()
-    private var isInFavourites: Boolean = false
+    private var isFavourite: Boolean = false
     private var vacancy: DetailVacancy? = null
 
     init {
@@ -68,12 +68,12 @@ class VacancyViewModel(
     fun setFavourites() {
         if (vacancy != null) {
             viewModelScope.launch {
-                if (isInFavourites) {
+                if (isFavourite) {
                     addToFavouritesInteractor.removeFromFavourites(vacancy!!)
-                    isInFavourites = false
+                    isFavourite = false
                 } else {
                     addToFavouritesInteractor.addToFavourites(vacancy!!)
-                    isInFavourites = true
+                    isFavourite = true
                 }
             }
         }
@@ -81,7 +81,7 @@ class VacancyViewModel(
 
     private fun checkInFavourites(detailVacancy: DetailVacancy) {
         viewModelScope.launch(Dispatchers.IO) {
-            val isFavourite = addToFavouritesInteractor.checkVacancyInFavourites(id)
+            isFavourite = addToFavouritesInteractor.checkVacancyInFavourites(id)
             renderState(VacancyScreenState.Content(detailVacancy, isFavourite))
         }
     }
