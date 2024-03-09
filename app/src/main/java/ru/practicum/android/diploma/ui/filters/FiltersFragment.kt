@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.ui.filters
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,6 +13,7 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFiltersBinding
+import ru.practicum.android.diploma.ui.country.CountryFragment
 
 class FiltersFragment : Fragment() {
 
@@ -28,6 +30,9 @@ class FiltersFragment : Fragment() {
 
         binding.apply.visibility = View.GONE
         binding.remove.visibility = View.GONE
+
+        val sharedPrefs = context?.getSharedPreferences(CountryFragment.COUNTRY_PREFERENCES, Context.MODE_PRIVATE)
+
 
         binding.vacancyToolbar.setOnClickListener {
             findNavController().navigateUp()
@@ -188,5 +193,11 @@ class FiltersFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        const val COUNTRY_PREFERENCES = "country_preferences"
+        const val COUNTRY_TEXT = "country_text"
+        const val COUNTRY_ID = "country_id"
     }
 }

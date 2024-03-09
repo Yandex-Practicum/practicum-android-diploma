@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.ui.workplace
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentWorkplaceBinding
+import ru.practicum.android.diploma.ui.country.CountryFragment
 
 class WorkplaceFragment : Fragment() {
 
@@ -22,21 +24,21 @@ class WorkplaceFragment : Fragment() {
 
     private val viewModel by viewModel<WorkplaceViewModel>()
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        val countyText = binding.countryName
-        outState.putString(COUNTRY_TEXT, countyText.text.toString())
-        val regionText = binding.regionName
-        outState.putString(REGION_TEXT, regionText.text.toString())
-    }
-
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-        // Восстановление сохраненного текста, если он есть
-        savedInstanceState?.getString("COUNTRY_TEXT")?.let {
-            savedText = it
-        }
-    }
+//    override fun onSaveInstanceState(outState: Bundle) {
+//        super.onSaveInstanceState(outState)
+//        val countyText = binding.countryName
+//        outState.putString(COUNTRY_TEXT, countyText.text.toString())
+//        val regionText = binding.regionName
+//        outState.putString(REGION_TEXT, regionText.text.toString())
+//    }
+//
+//    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+//        super.onViewStateRestored(savedInstanceState)
+//        // Восстановление сохраненного текста, если он есть
+//        savedInstanceState?.getString("COUNTRY_TEXT")?.let {
+//            savedText = it
+//        }
+//    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentWorkplaceBinding.inflate(inflater, container, false)
@@ -50,6 +52,11 @@ class WorkplaceFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val sharedPrefs = context?.getSharedPreferences(CountryFragment.COUNTRY_PREFERENCES, Context.MODE_PRIVATE)
+
+        binding.countryName.text = sharedPrefs?.getString(COUNTRY_TEXT, "") ?: "Страна"
+
 
         binding.vacancyToolbar.setOnClickListener {
             findNavController().navigateUp()
@@ -99,7 +106,10 @@ class WorkplaceFragment : Fragment() {
 
     }
     companion object {
-        const val COUNTRY_TEXT = "COUNTRY_TEXT"
-        const val REGION_TEXT = "REGION_TEXT"
+//        const val COUNTRY_TEXT = "COUNTRY_TEXT"
+//        const val REGION_TEXT = "REGION_TEXT"
+        const val COUNTRY_PREFERENCES = "country_preferences"
+        const val COUNTRY_TEXT = "country_text"
+        const val COUNTRY_ID = "country_id"
     }
 }
