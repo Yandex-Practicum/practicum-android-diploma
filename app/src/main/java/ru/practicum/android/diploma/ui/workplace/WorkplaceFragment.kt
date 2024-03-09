@@ -13,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentWorkplaceBinding
-import ru.practicum.android.diploma.ui.country.CountryFragment
 
 class WorkplaceFragment : Fragment() {
 
@@ -35,8 +34,7 @@ class WorkplaceFragment : Fragment() {
         if (sharedPrefs?.getString(COUNTRY_TEXT, "")?.isNotEmpty() == true) {
             binding.countryName.text = sharedPrefs.getString(COUNTRY_TEXT, "")
             binding.countryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Black))
-        }
-        else {
+        } else {
             binding.countryName.text = "Страна"
             binding.countryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Text_Gray))
         }
@@ -44,8 +42,7 @@ class WorkplaceFragment : Fragment() {
         if (sharedPrefs?.getString(REGION_TEXT, "")?.isNotEmpty() == true) {
             binding.regionName.text = sharedPrefs.getString(REGION_TEXT, "")
             binding.regionName.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Black))
-        }
-        else {
+        } else {
             binding.regionName.text = "Регион"
             binding.regionName.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Text_Gray))
         }
@@ -98,6 +95,7 @@ class WorkplaceFragment : Fragment() {
         }
 
     }
+
     companion object {
         const val COUNTRY_PREFERENCES = "country_preferences"
         const val COUNTRY_TEXT = "country_text"
