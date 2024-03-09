@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFiltersBinding
 import ru.practicum.android.diploma.ui.country.CountryFragment
+import ru.practicum.android.diploma.ui.workplace.WorkplaceFragment
 
 class FiltersFragment : Fragment() {
 
@@ -31,7 +32,20 @@ class FiltersFragment : Fragment() {
         binding.apply.visibility = View.GONE
         binding.remove.visibility = View.GONE
 
-        val sharedPrefs = context?.getSharedPreferences(CountryFragment.COUNTRY_PREFERENCES, Context.MODE_PRIVATE)
+        val sharedPrefs = context?.getSharedPreferences(WorkplaceFragment.COUNTRY_PREFERENCES, Context.MODE_PRIVATE)
+
+        var countryText = "Страна"
+        var regionText = "Регион"
+        if (sharedPrefs?.getString(WorkplaceFragment.COUNTRY_TEXT, "")?.isNotEmpty() == true) {
+            countryText = sharedPrefs.getString(WorkplaceFragment.COUNTRY_TEXT, "")!!
+            binding.workplaceValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Black))
+        }
+        if (sharedPrefs?.getString(WorkplaceFragment.REGION_TEXT, "")?.isNotEmpty() == true) {
+            regionText = sharedPrefs.getString(WorkplaceFragment.REGION_TEXT, "")!!
+        }
+
+        binding.workplaceValue.text = "$countryText, $regionText"
+
 
 
         binding.vacancyToolbar.setOnClickListener {

@@ -20,42 +20,35 @@ class WorkplaceFragment : Fragment() {
     private var _binding: FragmentWorkplaceBinding? = null
     private val binding get() = _binding!!
 
-    private var savedText: String? = null
-
     private val viewModel by viewModel<WorkplaceViewModel>()
-
-//    override fun onSaveInstanceState(outState: Bundle) {
-//        super.onSaveInstanceState(outState)
-//        val countyText = binding.countryName
-//        outState.putString(COUNTRY_TEXT, countyText.text.toString())
-//        val regionText = binding.regionName
-//        outState.putString(REGION_TEXT, regionText.text.toString())
-//    }
-//
-//    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-//        super.onViewStateRestored(savedInstanceState)
-//        // Восстановление сохраненного текста, если он есть
-//        savedInstanceState?.getString("COUNTRY_TEXT")?.let {
-//            savedText = it
-//        }
-//    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentWorkplaceBinding.inflate(inflater, container, false)
-        // Восстановление сохраненного текста, если он ест
-        savedText?.let {
-            binding.countryName.text = it
-        }
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val sharedPrefs = context?.getSharedPreferences(CountryFragment.COUNTRY_PREFERENCES, Context.MODE_PRIVATE)
+        val sharedPrefs = context?.getSharedPreferences(COUNTRY_PREFERENCES, Context.MODE_PRIVATE)
 
-        binding.countryName.text = sharedPrefs?.getString(COUNTRY_TEXT, "") ?: "Страна"
+        if (sharedPrefs?.getString(COUNTRY_TEXT, "")?.isNotEmpty() == true) {
+            binding.countryName.text = sharedPrefs.getString(COUNTRY_TEXT, "")
+            binding.countryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Black))
+        }
+        else {
+            binding.countryName.text = "Страна"
+            binding.countryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Text_Gray))
+        }
+
+        if (sharedPrefs?.getString(REGION_TEXT, "")?.isNotEmpty() == true) {
+            binding.regionName.text = sharedPrefs.getString(REGION_TEXT, "")
+            binding.regionName.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Black))
+        }
+        else {
+            binding.regionName.text = "Регион"
+            binding.regionName.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Text_Gray))
+        }
 
 
         binding.vacancyToolbar.setOnClickListener {
@@ -106,10 +99,10 @@ class WorkplaceFragment : Fragment() {
 
     }
     companion object {
-//        const val COUNTRY_TEXT = "COUNTRY_TEXT"
-//        const val REGION_TEXT = "REGION_TEXT"
         const val COUNTRY_PREFERENCES = "country_preferences"
         const val COUNTRY_TEXT = "country_text"
         const val COUNTRY_ID = "country_id"
+        const val REGION_TEXT = "region_text"
+        const val REGION_ID = "region_id"
     }
 }
