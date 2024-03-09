@@ -34,18 +34,40 @@ class FiltersFragment : Fragment() {
         val sharedPrefs = context?.getSharedPreferences(WorkplaceFragment.COUNTRY_PREFERENCES, Context.MODE_PRIVATE)
 
         var countryText = "Страна"
-        var regionText = "Регион"
+        var regionText = ""
         if (sharedPrefs?.getString(WorkplaceFragment.COUNTRY_TEXT, "")?.isNotEmpty() == true) {
             countryText = sharedPrefs.getString(WorkplaceFragment.COUNTRY_TEXT, "")!!
             binding.workplaceValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Black))
+            binding.workplaceValue.text = "$countryText"
+            binding.workplaceView.setImageResource(R.drawable.close_icon)
+            binding.workplaceView.isClickable = true
+        }
+        else{
+            binding.workplaceView.setImageResource(R.drawable.arrow_forward)
+            binding.workplaceView.isClickable = false
         }
         if (sharedPrefs?.getString(WorkplaceFragment.REGION_TEXT, "")?.isNotEmpty() == true) {
             regionText = sharedPrefs.getString(WorkplaceFragment.REGION_TEXT, "")!!
+            binding.workplaceValue.text = "$countryText, $regionText"
         }
 
-        binding.workplaceValue.text = "$countryText, $regionText"
+        binding.workplaceView.setOnClickListener {
+            binding.workplaceValue.text = "Место работы"
+            binding.workplaceValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Text_Gray))
+            binding.workplaceView.setImageResource(R.drawable.arrow_forward)
+            binding.workplaceValue.isClickable = false
+            sharedPrefs?.edit()?.putString(WorkplaceFragment.COUNTRY_TEXT, "")?.apply()
+            sharedPrefs?.edit()?.putString(WorkplaceFragment.COUNTRY_ID, "")?.apply()
+            sharedPrefs?.edit()?.putString(WorkplaceFragment.REGION_TEXT, "")?.apply()
+            sharedPrefs?.edit()?.putString(WorkplaceFragment.REGION_ID, "")?.apply()
+        }
 
-
+        binding.industryView.setOnClickListener {
+            binding.industryValue.text = "Отрасль"
+            binding.industryValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Text_Gray))
+            binding.industryView.setImageResource(R.drawable.arrow_forward)
+            binding.industryView.isClickable = false
+        }
 
         binding.vacancyToolbar.setOnClickListener {
             findNavController().navigateUp()
@@ -186,6 +208,24 @@ class FiltersFragment : Fragment() {
             } else {
                 binding.workplaceView.setImageResource(R.drawable.arrow_forward)
             }
+        }
+
+        if (sharedPrefs?.getString(WorkplaceFragment.COUNTRY_TEXT, "")?.isNotEmpty() == true || binding.edit.text.isNotEmpty() || binding.checkBox.isChecked){
+            binding.apply.visibility = View.VISIBLE
+            binding.remove.visibility = View.VISIBLE
+        }
+
+        binding.remove.setOnClickListener {
+            binding.workplaceValue.text = "Место работы"
+            binding.workplaceValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Text_Gray))
+            binding.workplaceView.setImageResource(R.drawable.arrow_forward)
+            binding.workplaceValue.isClickable = false
+            sharedPrefs?.edit()?.putString(WorkplaceFragment.COUNTRY_TEXT, "")?.apply()
+            sharedPrefs?.edit()?.putString(WorkplaceFragment.COUNTRY_ID, "")?.apply()
+            sharedPrefs?.edit()?.putString(WorkplaceFragment.REGION_TEXT, "")?.apply()
+            sharedPrefs?.edit()?.putString(WorkplaceFragment.REGION_ID, "")?.apply()
+            binding.checkBox.isChecked = false
+            binding.edit.setText("")
         }
 
         binding.apply.setOnClickListener {

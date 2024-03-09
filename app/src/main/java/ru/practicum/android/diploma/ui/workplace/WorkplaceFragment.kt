@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentWorkplaceBinding
+import ru.practicum.android.diploma.ui.country.CountryFragment
 
 class WorkplaceFragment : Fragment() {
 
@@ -34,17 +35,43 @@ class WorkplaceFragment : Fragment() {
         if (sharedPrefs?.getString(COUNTRY_TEXT, "")?.isNotEmpty() == true) {
             binding.countryName.text = sharedPrefs.getString(COUNTRY_TEXT, "")
             binding.countryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Black))
+            binding.countryButton.setImageResource(R.drawable.close_icon)
+            binding.countryButton.isClickable = true
         } else {
             binding.countryName.text = "Страна"
             binding.countryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Text_Gray))
+            binding.countryButton.setImageResource(R.drawable.arrow_forward)
+            binding.countryButton.isClickable = false
         }
 
         if (sharedPrefs?.getString(REGION_TEXT, "")?.isNotEmpty() == true) {
             binding.regionName.text = sharedPrefs.getString(REGION_TEXT, "")
             binding.regionName.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Black))
+            binding.regionButton.setImageResource(R.drawable.close_icon)
+            binding.regionButton.isClickable = true
         } else {
             binding.regionName.text = "Регион"
             binding.regionName.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Text_Gray))
+            binding.regionButton.setImageResource(R.drawable.arrow_forward)
+            binding.regionButton.isClickable = false
+        }
+
+        binding.countryButton.setOnClickListener {
+            binding.countryName.text = "Страна"
+            binding.countryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Text_Gray))
+            binding.countryButton.setImageResource(R.drawable.arrow_forward)
+            binding.countryButton.isClickable = false
+            sharedPrefs?.edit()?.putString(COUNTRY_TEXT, "")?.apply()
+            sharedPrefs?.edit()?.putString(COUNTRY_ID, "")?.apply()
+        }
+
+        binding.regionButton.setOnClickListener {
+            binding.regionName.text = "Регион"
+            binding.regionName.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Text_Gray))
+            binding.regionButton.setImageResource(R.drawable.arrow_forward)
+            binding.regionButton.isClickable = false
+            sharedPrefs?.edit()?.putString(REGION_TEXT, "")?.apply()
+            sharedPrefs?.edit()?.putString(REGION_ID, "")?.apply()
         }
 
 
