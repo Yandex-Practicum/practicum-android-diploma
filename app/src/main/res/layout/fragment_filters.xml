@@ -38,6 +38,18 @@
                 android:layout_height="match_parent">
 
                 <TextView
+                    android:id="@+id/workplace_hint"
+                    style="@style/Text_Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/margin_16"
+                    android:paddingTop="@dimen/margin_4"
+                    android:text="@string/workplace"
+                    android:textColor="@color/black_white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
                     android:id="@+id/workplace_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -73,6 +85,18 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/industry_hint"
+                    style="@style/Text_Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/margin_16"
+                    android:paddingTop="@dimen/margin_4"
+                    android:text="@string/industry"
+                    android:textColor="@color/black_white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/industry_value"

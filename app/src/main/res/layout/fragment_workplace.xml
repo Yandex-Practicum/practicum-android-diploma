@@ -38,6 +38,18 @@ android:orientation="vertical">
                 android:layout_height="match_parent">
 
                 <TextView
+                    android:id="@+id/coutry_hint"
+                    style="@style/Text_Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/margin_16"
+                    android:paddingTop="@dimen/margin_4"
+                    android:text="@string/country"
+                    android:textColor="@color/black_white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
                     android:id="@+id/country_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -73,6 +85,18 @@ android:orientation="vertical">
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/region_hint"
+                    style="@style/Text_Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/margin_16"
+                    android:paddingTop="@dimen/margin_4"
+                    android:text="@string/region"
+                    android:textColor="@color/black_white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/region_name"

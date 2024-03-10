@@ -30,6 +30,8 @@ class FiltersFragment : Fragment() {
 
         binding.apply.visibility = View.GONE
         binding.remove.visibility = View.GONE
+        binding.workplaceHint.visibility = View.GONE
+        binding.industryHint.visibility = View.GONE
 
         val sharedPrefs = context?.getSharedPreferences(WorkplaceFragment.COUNTRY_PREFERENCES, Context.MODE_PRIVATE)
 
@@ -41,10 +43,12 @@ class FiltersFragment : Fragment() {
             binding.workplaceValue.text = "$countryText"
             binding.workplaceView.setImageResource(R.drawable.close_icon)
             binding.workplaceView.isClickable = true
+            binding.workplaceHint.visibility = View.VISIBLE
         }
         else{
             binding.workplaceView.setImageResource(R.drawable.arrow_forward)
             binding.workplaceView.isClickable = false
+            binding.workplaceHint.visibility = View.GONE
         }
         if (sharedPrefs?.getString(WorkplaceFragment.REGION_TEXT, "")?.isNotEmpty() == true) {
             regionText = sharedPrefs.getString(WorkplaceFragment.REGION_TEXT, "")!!
@@ -56,6 +60,7 @@ class FiltersFragment : Fragment() {
             binding.workplaceValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Text_Gray))
             binding.workplaceView.setImageResource(R.drawable.arrow_forward)
             binding.workplaceValue.isClickable = false
+            binding.workplaceHint.visibility = View.GONE
             sharedPrefs?.edit()?.putString(WorkplaceFragment.COUNTRY_TEXT, "")?.apply()
             sharedPrefs?.edit()?.putString(WorkplaceFragment.COUNTRY_ID, "")?.apply()
             sharedPrefs?.edit()?.putString(WorkplaceFragment.REGION_TEXT, "")?.apply()
@@ -67,6 +72,7 @@ class FiltersFragment : Fragment() {
             binding.industryValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Text_Gray))
             binding.industryView.setImageResource(R.drawable.arrow_forward)
             binding.industryView.isClickable = false
+            binding.industryHint.visibility = View.GONE
         }
 
         binding.vacancyToolbar.setOnClickListener {
@@ -225,6 +231,8 @@ class FiltersFragment : Fragment() {
             sharedPrefs?.edit()?.putString(WorkplaceFragment.REGION_TEXT, "")?.apply()
             sharedPrefs?.edit()?.putString(WorkplaceFragment.REGION_ID, "")?.apply()
             binding.checkBox.isChecked = false
+            binding.workplaceHint.visibility = View.GONE
+            binding.industryHint.visibility = View.GONE
             binding.edit.setText("")
         }
 
