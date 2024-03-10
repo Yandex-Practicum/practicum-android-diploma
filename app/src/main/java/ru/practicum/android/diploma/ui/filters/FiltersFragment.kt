@@ -11,8 +11,10 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
+import com.google.gson.Gson
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFiltersBinding
+import ru.practicum.android.diploma.domain.models.Filter
 import ru.practicum.android.diploma.ui.workplace.WorkplaceFragment
 
 class FiltersFragment : Fragment() {
@@ -237,17 +239,17 @@ class FiltersFragment : Fragment() {
             binding.edit.setText("")
         }
 
+        val sharedPreferences = context?.getSharedPreferences(FILTER_PREFERENCES, Context.MODE_PRIVATE)
+
         binding.apply.setOnClickListener {
-//            val bundle = Bundle()
-//            val place = binding.workplaceValue.text.split(", ")
-//            val country = place[0]
-//            val region = place[1]
-//            val check = binding.checkBox.isChecked
-//            val industry = binding.industryValue.text.toString()
-//            val salary = binding.edit.text.toString()
-//            val result = Filter(country, region, industry, salary, check)
-//            bundle.putString("key", Gson().toJson(result))
-//            setFragmentResult("requestKey", bundle)
+            val place = binding.workplaceValue.text.split(", ")
+            val country = place[0]
+            val region = place[1]
+            val check = binding.checkBox.isChecked
+            val industry = binding.industryValue.text.toString()
+            val salary = binding.edit.text.toString()
+            val result = Filter(country, region, industry, salary, check)
+            sharedPreferences?.edit()?.putString(FILTER, Gson().toJson(result))?.apply()
             findNavController().popBackStack()
         }
     }
@@ -258,8 +260,7 @@ class FiltersFragment : Fragment() {
     }
 
     companion object {
-        const val COUNTRY_PREFERENCES = "country_preferences"
-        const val COUNTRY_TEXT = "country_text"
-        const val COUNTRY_ID = "country_id"
+        const val FILTER_PREFERENCES = "filter_preferences"
+        const val FILTER = "filter"
     }
 }
