@@ -13,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentWorkplaceBinding
-import ru.practicum.android.diploma.ui.country.CountryFragment
 
 class WorkplaceFragment : Fragment() {
 

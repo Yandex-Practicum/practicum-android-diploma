@@ -44,8 +44,7 @@ class FiltersFragment : Fragment() {
             binding.workplaceView.setImageResource(R.drawable.close_icon)
             binding.workplaceView.isClickable = true
             binding.workplaceHint.visibility = View.VISIBLE
-        }
-        else{
+        } else {
             binding.workplaceView.setImageResource(R.drawable.arrow_forward)
             binding.workplaceView.isClickable = false
             binding.workplaceHint.visibility = View.GONE
@@ -216,7 +215,9 @@ class FiltersFragment : Fragment() {
             }
         }
 
-        if (sharedPrefs?.getString(WorkplaceFragment.COUNTRY_TEXT, "")?.isNotEmpty() == true || binding.edit.text.isNotEmpty() || binding.checkBox.isChecked){
+        if (sharedPrefs?.getString(WorkplaceFragment.COUNTRY_TEXT, "")
+                ?.isNotEmpty() == true || binding.edit.text.isNotEmpty() || binding.checkBox.isChecked
+        ) {
             binding.apply.visibility = View.VISIBLE
             binding.remove.visibility = View.VISIBLE
         }

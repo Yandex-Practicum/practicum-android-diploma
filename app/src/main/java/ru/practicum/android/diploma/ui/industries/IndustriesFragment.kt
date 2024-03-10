@@ -8,12 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentIndustryBinding
 import ru.practicum.android.diploma.presentation.industries.IndustriesViewModel
+import ru.practicum.android.diploma.ui.country.CountryAdapter
+import ru.practicum.android.diploma.ui.region.RegionFragment
 
 class IndustriesFragment : Fragment() {
 
@@ -35,6 +38,11 @@ class IndustriesFragment : Fragment() {
         binding.regionRecycler.adapter = adapter
 
         viewModel.loadIndustries()
+
+        adapter.itemClickListener = { _, item ->
+
+            findNavController().navigateUp()
+        }
 
         binding.vacancyToolbar.setOnClickListener {
             findNavController().navigateUp()
@@ -88,6 +96,8 @@ class IndustriesFragment : Fragment() {
         binding.click.setOnClickListener {
             binding.edit.setText("")
         }
+
+
     }
 
     override fun onDestroyView() {
