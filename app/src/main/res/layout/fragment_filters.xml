@@ -58,6 +58,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/black_white"
                     app:srcCompat="@drawable/arrow_forward" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -94,6 +95,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/black_white"
                     app:srcCompat="@drawable/arrow_forward" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -106,6 +108,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="@dimen/margin_20"
             android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/white_gray"
             android:background="@drawable/rounded_edittext">
 
             <TextView
@@ -115,7 +118,7 @@
                 android:text="@string/expected_salary"
                 android:paddingStart="@dimen/margin_16"
                 android:paddingTop="@dimen/margin_8"
-                android:textColor="@color/YP_Text_Gray"
+                android:textColor="@color/gray_white"
                 style="@style/Text_Small"/>
 
             <EditText
@@ -132,7 +135,8 @@
                 android:paddingStart="@dimen/margin_16"
                 android:paddingTop="@dimen/margin_16"
                 android:singleLine="true"
-                android:textColorHint="@color/YP_Text_Gray"
+                android:textColor="@color/YP_Black"
+                android:textColorHint="@color/gray_white"
                 android:textCursorDrawable="@color/YP_Blue" />
 
             <ImageView
@@ -163,7 +167,7 @@
                     android:layout_marginStart="16dp"
                     android:fontFamily="@font/ys_display_regular"
                     android:text="Не показывать без зарплаты"
-                    android:textColor="@color/dark_theme_item"
+                    android:textColor="@color/black_white"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

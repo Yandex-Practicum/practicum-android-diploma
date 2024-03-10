@@ -44,7 +44,7 @@ android:orientation="vertical">
                     android:layout_marginStart="16dp"
                     android:fontFamily="@font/ys_display_regular"
                     android:text="@string/country"
-                    android:textColor="@color/YP_Text_Gray"
+                    android:textColor="@color/gray_white"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -58,7 +58,8 @@ android:orientation="vertical">
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/arrow_forward" />
+                    app:srcCompat="@drawable/arrow_forward"
+                    app:tint="@color/black_white" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -80,7 +81,7 @@ android:orientation="vertical">
                     android:layout_marginStart="16dp"
                     android:fontFamily="@font/ys_display_regular"
                     android:text="@string/region"
-                    android:textColor="@color/YP_Text_Gray"
+                    android:textColor="@color/gray_white"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -94,7 +95,8 @@ android:orientation="vertical">
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/arrow_forward" />
+                    app:srcCompat="@drawable/arrow_forward"
+                    app:tint="@color/black_white" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
