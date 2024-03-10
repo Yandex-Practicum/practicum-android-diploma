@@ -36,6 +36,11 @@ class IndustriesFragment : Fragment() {
 
         viewModel.loadIndustries()
 
+        adapter.itemClickListener = { _, item ->
+
+            findNavController().navigateUp()
+        }
+
         binding.vacancyToolbar.setOnClickListener {
             findNavController().navigateUp()
         }
@@ -88,6 +93,8 @@ class IndustriesFragment : Fragment() {
         binding.click.setOnClickListener {
             binding.edit.setText("")
         }
+
+
     }
 
     override fun onDestroyView() {

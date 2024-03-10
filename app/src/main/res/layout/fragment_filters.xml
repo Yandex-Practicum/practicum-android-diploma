@@ -38,6 +38,18 @@
                 android:layout_height="match_parent">
 
                 <TextView
+                    android:id="@+id/workplace_hint"
+                    style="@style/Text_Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/margin_16"
+                    android:paddingTop="@dimen/margin_4"
+                    android:text="@string/workplace"
+                    android:textColor="@color/black_white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
                     android:id="@+id/workplace_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -58,6 +70,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/black_white"
                     app:srcCompat="@drawable/arrow_forward" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -72,6 +85,18 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/industry_hint"
+                    style="@style/Text_Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/margin_16"
+                    android:paddingTop="@dimen/margin_4"
+                    android:text="@string/industry"
+                    android:textColor="@color/black_white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/industry_value"
@@ -94,6 +119,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/black_white"
                     app:srcCompat="@drawable/arrow_forward" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -106,6 +132,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="@dimen/margin_20"
             android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/white_gray"
             android:background="@drawable/rounded_edittext">
 
             <TextView
@@ -115,7 +142,7 @@
                 android:text="@string/expected_salary"
                 android:paddingStart="@dimen/margin_16"
                 android:paddingTop="@dimen/margin_8"
-                android:textColor="@color/YP_Text_Gray"
+                android:textColor="@color/gray_white"
                 style="@style/Text_Small"/>
 
             <EditText
@@ -132,7 +159,8 @@
                 android:paddingStart="@dimen/margin_16"
                 android:paddingTop="@dimen/margin_16"
                 android:singleLine="true"
-                android:textColorHint="@color/YP_Text_Gray"
+                android:textColor="@color/YP_Black"
+                android:textColorHint="@color/gray_white"
                 android:textCursorDrawable="@color/YP_Blue" />
 
             <ImageView
@@ -163,7 +191,7 @@
                     android:layout_marginStart="16dp"
                     android:fontFamily="@font/ys_display_regular"
                     android:text="Не показывать без зарплаты"
-                    android:textColor="@color/dark_theme_item"
+                    android:textColor="@color/black_white"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

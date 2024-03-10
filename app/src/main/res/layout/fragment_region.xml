@@ -27,6 +27,7 @@ android:orientation="vertical">
         android:layout_marginStart="@dimen/margin_16"
         android:layout_marginEnd="@dimen/margin_16"
         android:layout_marginTop="@dimen/margin_8"
+        android:backgroundTint="@color/white_gray"
         android:background="@drawable/rounded_edittext">
 
 
@@ -45,7 +46,7 @@ android:orientation="vertical">
             android:background="@android:color/transparent"
             android:paddingStart="@dimen/margin_16"
             android:paddingEnd="@dimen/margin_16"
-            android:textColorHint="@color/YP_Text_Gray"
+            android:textColorHint="@color/gray_white"
             android:imeOptions="actionDone"
             android:singleLine="true"
             android:textCursorDrawable="@drawable/color_cursor"/>

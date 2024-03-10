@@ -38,26 +38,40 @@ android:orientation="vertical">
                 android:layout_height="match_parent">
 
                 <TextView
+                    android:id="@+id/coutry_hint"
+                    style="@style/Text_Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/margin_16"
+                    android:paddingTop="@dimen/margin_4"
+                    android:text="@string/country"
+                    android:textColor="@color/black_white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
                     android:id="@+id/country_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:fontFamily="@font/ys_display_regular"
                     android:text="@string/country"
-                    android:textColor="@color/YP_Text_Gray"
+                    android:textColor="@color/gray_white"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
+                    android:id="@+id/country_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/arrow_forward" />
+                    app:srcCompat="@drawable/arrow_forward"
+                    app:tint="@color/black_white" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -73,26 +87,40 @@ android:orientation="vertical">
                 android:layout_height="match_parent">
 
                 <TextView
+                    android:id="@+id/region_hint"
+                    style="@style/Text_Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/margin_16"
+                    android:paddingTop="@dimen/margin_4"
+                    android:text="@string/region"
+                    android:textColor="@color/black_white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
                     android:id="@+id/region_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:fontFamily="@font/ys_display_regular"
                     android:text="@string/region"
-                    android:textColor="@color/YP_Text_Gray"
+                    android:textColor="@color/gray_white"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
+                    android:id="@+id/region_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/arrow_forward" />
+                    app:srcCompat="@drawable/arrow_forward"
+                    app:tint="@color/black_white" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
