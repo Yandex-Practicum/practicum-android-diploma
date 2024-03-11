@@ -10,16 +10,23 @@ import ru.practicum.android.diploma.domain.country.Country
 import ru.practicum.android.diploma.domain.region.RegionInteractor
 
 class RegionViewModel(
-    val regionInteractor: RegionInteractor
+    val regionInteractor: RegionInteractor,
 ) : ViewModel() {
 
     private val stateLiveData = MutableLiveData<RegionState>()
     fun observeState(): LiveData<RegionState> = stateLiveData
 
     fun loadRegion(regionId: String) {
+        if (regionId.isEmpty()) {
+            // Выбрать значение по умолчанию или выполнить другие действия
+            renderState(RegionState.Empty)
+            return
+        }
+
+        renderState(RegionState.Loading)
         viewModelScope.launch {
             regionInteractor.searchRegion(regionId)
-                .collect() { pair ->
+                .collect { pair ->
                     processResult(pair.first, pair.second)
                 }
         }

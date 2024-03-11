@@ -34,10 +34,7 @@ class IndustriesFragment : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.regionRecycler.adapter = adapter
 
-        viewModel.loadIndustries()
-
         adapter.itemClickListener = { _, item ->
-
             findNavController().navigateUp()
         }
 

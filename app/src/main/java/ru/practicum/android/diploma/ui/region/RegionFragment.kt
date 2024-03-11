@@ -18,12 +18,15 @@ import ru.practicum.android.diploma.data.converters.AreaConverter.mapToCountry
 import ru.practicum.android.diploma.databinding.FragmentRegionBinding
 import ru.practicum.android.diploma.ui.country.CountryAdapter
 import ru.practicum.android.diploma.ui.country.CountryFragment
+import ru.practicum.android.diploma.ui.workplace.WorkplaceFragment
 
 class RegionFragment : Fragment() {
 
     private val viewModel by viewModel<RegionViewModel>()
     private var _binding: FragmentRegionBinding? = null
     private val binding get() = _binding!!
+
+    private var regionId: String? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentRegionBinding.inflate(inflater, container, false)
@@ -34,6 +37,7 @@ class RegionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val sharedPrefs = context?.getSharedPreferences(CountryFragment.COUNTRY_PREFERENCES, Context.MODE_PRIVATE)
+        regionId = sharedPrefs?.getString(WorkplaceFragment.COUNTRY_ID, "")
 
         binding.vacancyToolbar.setOnClickListener {
             findNavController().navigateUp()
@@ -90,17 +94,20 @@ class RegionFragment : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.regionRecycler.adapter = adapter
 
-        viewModel.loadRegion("113")
+        viewModel.loadRegion(regionId ?: "")
 
         viewModel.observeState().observe(viewLifecycleOwner) { state ->
             when (state) {
                 is RegionState.Content -> {
+                    showContent()
+                    adapter.countryList.clear()
                     adapter.countryList.addAll(state.regionId.areas.map { it.mapToCountry() }.sortedBy { it.name })
                     adapter.notifyDataSetChanged()
                 }
 
+                is RegionState.Empty -> ""
                 is RegionState.Error -> ""
-                is RegionState.Loading -> ""
+                is RegionState.Loading -> showLoading()
             }
         }
     }
@@ -108,6 +115,16 @@ class RegionFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun showContent() {
+        binding.regionRecycler.visibility = View.VISIBLE
+        binding.regionProgressBar.visibility = View.GONE
+    }
+
+    private fun showLoading() {
+        binding.regionRecycler.visibility = View.GONE
+        binding.regionProgressBar.visibility = View.VISIBLE
     }
 
     companion object {
