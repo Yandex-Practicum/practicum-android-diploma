@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.data.converters.VacancyConverter.toVacancyDe
 import ru.practicum.android.diploma.data.vacancydetail.dto.DetailRequest
 import ru.practicum.android.diploma.data.vacancydetail.dto.responseunits.VacancyDetailDtoResponse
 import ru.practicum.android.diploma.domain.api.DetailRepository
-import ru.practicum.android.diploma.domain.models.detail.VacancyDetail
+import ru.practicum.android.diploma.domain.detail.VacancyDetail
 import ru.practicum.android.diploma.util.Resource
 
 class DetailRepositoryImpl(

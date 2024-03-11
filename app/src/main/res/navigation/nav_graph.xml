@@ -68,7 +68,11 @@
         android:id="@+id/similarVacanciesFragment"
         android:name="ru.practicum.android.diploma.ui.similarvacancies.SimilarVacanciesFragment"
         android:label="fragment_similar_vacancies"
-        tools:layout="@layout/fragment_similar_vacancies" />
+        tools:layout="@layout/fragment_similar_vacancies" >
+        <action
+            android:id="@+id/action_similarVacanciesFragment_to_vacanciesFragment"
+            app:destination="@id/vacanciesFragment" />
+    </fragment>
     <fragment
         android:id="@+id/workplaceFragment"
         android:name="ru.practicum.android.diploma.ui.workplace.WorkplaceFragment"

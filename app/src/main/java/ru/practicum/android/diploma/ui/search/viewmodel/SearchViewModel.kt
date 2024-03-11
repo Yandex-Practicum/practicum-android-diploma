@@ -36,7 +36,7 @@ class SearchViewModel(
 
     private fun subscribeVacanciesPagination(params: Map<String, String>) {
         flow = Pager(PagingConfig(pageSize = 20)) {
-            VacanciesPagingSource(repository, params)
+            VacanciesPagingSource(repository, params, null, null)
         }.flow.cachedIn(viewModelScope)
         state.update { it.copy(state = SearchState.Content(emptyList())) }
     }

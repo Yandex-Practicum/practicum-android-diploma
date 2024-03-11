@@ -3,7 +3,7 @@ package ru.practicum.android.diploma.presentation.detail
 import android.content.Context
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ru.practicum.android.diploma.domain.models.detail.VacancyPhoneAndComment
+import ru.practicum.android.diploma.domain.detail.VacancyPhoneAndComment
 
 class DetailAdapter(
     val context: Context

@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.presentation.favorite
 
-import ru.practicum.android.diploma.domain.models.detail.VacancyDetail
+import ru.practicum.android.diploma.domain.detail.VacancyDetail
 
 sealed interface FavoriteVacancyState {
 

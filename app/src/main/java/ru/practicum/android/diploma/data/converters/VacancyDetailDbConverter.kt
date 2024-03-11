@@ -3,7 +3,7 @@ package ru.practicum.android.diploma.data.converters
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import ru.practicum.android.diploma.data.db.entyti.VacancyDetailEntity
-import ru.practicum.android.diploma.domain.models.detail.VacancyDetail
+import ru.practicum.android.diploma.domain.detail.VacancyDetail
 
 object VacancyDetailDbConverter {
     private val itemType = object : TypeToken<List<String?>>() {}.type
