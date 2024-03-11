@@ -1,7 +1,5 @@
 package ru.practicum.android.diploma.ui.region
 
-import android.content.Context
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,13 +24,11 @@ class RegionViewModel(
         }
 
         renderState(RegionState.Loading)
-        Log.d("RegionState", "Прокидываем во ViewModel 1 ID = $regionId")
         viewModelScope.launch {
             regionInteractor.searchRegion(regionId)
                 .collect { pair ->
                     processResult(pair.first, pair.second)
                 }
-            Log.d("RegionState", "Прокидываем во ViewModel 2 ID = $regionId")
         }
     }
 

@@ -4,12 +4,10 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
@@ -96,14 +94,12 @@ class RegionFragment : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.regionRecycler.adapter = adapter
 
-        Log.d("RegionState", "Прокидываем во фрагменте ID = $regionId")
-        viewModel.loadRegion(regionId ?: "0")
+        viewModel.loadRegion(regionId ?: "")
 
         viewModel.observeState().observe(viewLifecycleOwner) { state ->
             when (state) {
                 is RegionState.Content -> {
-                    binding.regionRecycler.visibility = View.VISIBLE
-                    binding.regionProgressBar.visibility = View.GONE
+                    showContent()
                     adapter.countryList.clear()
                     adapter.countryList.addAll(state.regionId.areas.map { it.mapToCountry() }.sortedBy { it.name })
                     adapter.notifyDataSetChanged()
@@ -121,8 +117,9 @@ class RegionFragment : Fragment() {
         _binding = null
     }
 
-    private fun showContent(){
-
+    private fun showContent() {
+        binding.regionRecycler.visibility = View.VISIBLE
+        binding.regionProgressBar.visibility = View.GONE
     }
 
     private fun showLoading() {
