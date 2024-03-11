@@ -64,7 +64,8 @@ class SimilarVacanciesFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.observeState().collect { state ->
                     binding.progressBar.visibleOrGone(state.state is SearchState.Loading)
-                    binding.similarVacanciesRecyclerView.visibleOrGone(state.state is SearchState.Content || state.state is SearchState.Loading)
+                    binding.similarVacanciesRecyclerView.visibleOrGone(
+                        state.state is SearchState.Content || state.state is SearchState.Loading)
                     binding.placeholderError.visibleOrGone(state.state is SearchState.Empty)
                     binding.placeholderNoConnection.visibleOrGone(state.state is SearchState.Error)
 
@@ -98,7 +99,9 @@ class SimilarVacanciesFragment : Fragment() {
 
     private fun setupMainRecycler() {
         adapter = PagingSearchAdapter {
-            findNavController().navigate(R.id.action_similarVacanciesFragment_to_vacanciesFragment, bundleOf("vacancy_id" to it))
+            findNavController().navigate(
+                R.id.action_similarVacanciesFragment_to_vacanciesFragment,
+                bundleOf("vacancy_id" to it))
         }
         binding.similarVacanciesRecyclerView.adapter = adapter
         binding.similarVacanciesRecyclerView.layoutManager = LinearLayoutManager(requireContext())

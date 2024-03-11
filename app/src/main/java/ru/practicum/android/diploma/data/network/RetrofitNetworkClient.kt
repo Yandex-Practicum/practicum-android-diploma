@@ -41,8 +41,10 @@ class RetrofitNetworkClient(
         return withContext(Dispatchers.IO) {
             try {
                 val response = when (dto) {
-                    is VacanciesSearchRequest -> async { jobVacancySearchApi.getFullListVacancy(dto.queryMap) }
-                    is SimilarVacanciesRequest -> async { jobVacancySearchApi.getSimilarVacancies(dto.id, dto.pageNumber) }
+                    is VacanciesSearchRequest -> async {
+                        jobVacancySearchApi.getFullListVacancy(dto.queryMap) }
+                    is SimilarVacanciesRequest -> async {
+                        jobVacancySearchApi.getSimilarVacancies(dto.id, dto.pageNumber) }
                     is IndustriesRequest -> async { getIndustries() }
                     is CountryRequest -> async { getAreas() }
                     is RegionByIdRequest -> async { jobVacancySearchApi.getAreaId(dto.countryId) }
