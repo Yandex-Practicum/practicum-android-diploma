@@ -15,7 +15,7 @@ class IndustriesRepositoryImpl(
     val networkClient: NetworkClient
 ) : IndustriesRepository {
     override fun searchIndustries(): Flow<Resource<List<ParentIndustriesAllDeal>>> = flow {
-        val response = networkClient.doRequest(IndustriesRequest)
+        val response = networkClient.doRequestFilter(IndustriesRequest)
 
         when (response.resultCode) {
             ResponseCodes.DEFAULT -> emit(Resource.Error(response.resultCode.code))
