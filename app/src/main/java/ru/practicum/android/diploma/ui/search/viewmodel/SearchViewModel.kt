@@ -76,9 +76,9 @@ class SearchViewModel(
                     params["area"] = filter.country.toString()
                 }
 
-//                filter.region?.let {
-//                    params["area"] = filter.region.toString()
-//                }
+                filter.region?.let {
+                    params["area"] = filter.region.toString()
+                }
 //
 //                filter.industry?.let {
 //                    params["industry"] = filter.region.toString()

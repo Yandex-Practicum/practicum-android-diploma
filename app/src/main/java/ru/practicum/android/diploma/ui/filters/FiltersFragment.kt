@@ -15,6 +15,7 @@ import com.google.gson.Gson
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFiltersBinding
 import ru.practicum.android.diploma.domain.models.Filter
+import ru.practicum.android.diploma.ui.country.CountryFragment
 import ru.practicum.android.diploma.ui.workplace.WorkplaceFragment
 
 class FiltersFragment : Fragment() {
@@ -242,15 +243,16 @@ class FiltersFragment : Fragment() {
         val sharedPreferences = context?.getSharedPreferences(FILTER_PREFERENCES, Context.MODE_PRIVATE)
 
         binding.apply.setOnClickListener {
-            var country = null
-            var region = null
-            /*if(binding.workplaceValue.text.isNotEmpty()){
+            var country: String? = null
+            var region: String? = null
+
+            if(binding.workplaceValue.text.isNotEmpty()){
                 val place = binding.workplaceValue.text.split(", ")
                 if(place.size == 2){
-                    country = place[0]
-                    region = place[1]
+                    country = sharedPrefs?.getString(WorkplaceFragment.COUNTRY_ID, "")
+                    region = sharedPrefs?.getString(WorkplaceFragment.REGION_ID, "")
                 }
-            }*/
+            }
 
             var industry = null
 

@@ -47,7 +47,7 @@ class WorkplaceFragment : Fragment() {
 
         if (sharedPrefs?.getString(REGION_TEXT, "")?.isNotEmpty() == true) {
             binding.regionName.text = sharedPrefs.getString(REGION_TEXT, "")
-            binding.regionName.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Black))
+            binding.regionName.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_white))
             binding.regionButton.setImageResource(R.drawable.close_icon)
             binding.regionButton.isClickable = true
             binding.regionHint.visibility = View.VISIBLE
