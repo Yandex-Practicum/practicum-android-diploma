@@ -21,13 +21,13 @@ class VacanciesPagingSource(
             val nextPageNumber = params.key ?: 1
             var response: Resource<SearchingVacancies>? = null
 
-            if(searchRepository != null) {
+            if (searchRepository != null) {
                 val currentParams = this.params!!.toMutableMap()
                 currentParams["page"] = nextPageNumber.toString()
                 response = searchRepository.vacanciesPagination(currentParams)
-            } else if(similarRepository != null) {
+            } else if (similarRepository != null) {
                 var page: Int = nextPageNumber
-                response = similarRepository.similarVacanciesPagination(vacancyId!!,page)
+                response = similarRepository.similarVacanciesPagination(vacancyId!!, page)
             }
 
             val (vacancies, pages) = when (response) {

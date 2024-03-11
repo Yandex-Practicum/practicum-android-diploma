@@ -26,19 +26,17 @@ class SimilarRepositoryImpl(
             ResponseCodes.DEFAULT -> emit(Resource.Error(response.resultCode.code))
             ResponseCodes.SUCCESS -> {
                 try {
-                    val result = (response as VacanciesSearchResponse)
+                    val result = response as VacanciesSearchResponse
                     val vacancies = result.items?.map {
                         it.toVacancy()
                     }
                     if (vacancies != null) {
-
                         val searchingVacancies = SearchingVacancies(
                             vacancies = vacancies,
                             pages = result.found,
                             page = result.page,
                             foundedVacancies = result.found
                         )
-
                         emit(Resource.Success(searchingVacancies))
                     } else {
                         emit(Resource.Error(response.resultCode.code))

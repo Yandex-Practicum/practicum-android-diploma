@@ -97,9 +97,9 @@ object VacancyConverter {
         phones?.forEach {
             phoneString = "+${it.country}" +
                 " (${it.city}) " +
-                "${it.number.substring(0,3)}-" +
-                "${it.number.substring(3,5)}-" +
-                it.number.substring(5,7)
+                "${it.number.substring(0, 3)}-" +
+                "${it.number.substring(3, 5)}-" +
+                it.number.substring(5, 7)
             phoneList.add(phoneString)
         }
         return phoneList

@@ -15,16 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.databinding.FragmentSimilarVacanciesBinding
 import ru.practicum.android.diploma.presentation.search.PagingSearchAdapter
 import ru.practicum.android.diploma.ui.search.SearchState
-import ru.practicum.android.diploma.ui.search.viewmodel.SearchViewModel
 import ru.practicum.android.diploma.ui.similarvacancies.viewmodel.SimilarViewModel
-import ru.practicum.android.diploma.ui.vacancydetail.VacancyDetailFragment
-import ru.practicum.android.diploma.ui.vacancydetail.viewmodel.DetailViewModel
 import ru.practicum.android.diploma.util.extensions.visibleOrGone
 
 class SimilarVacanciesFragment : Fragment() {
@@ -95,7 +90,6 @@ class SimilarVacanciesFragment : Fragment() {
             }
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
