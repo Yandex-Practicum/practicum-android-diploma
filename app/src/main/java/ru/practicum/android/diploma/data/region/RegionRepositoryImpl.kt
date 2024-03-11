@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.data.region
 
+import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.data.NetworkClient
@@ -16,6 +17,7 @@ class RegionRepositoryImpl(
 ) : RegionRepository {
     override fun searchRegion(regionId: String): Flow<Resource<Country>> = flow {
         val response = networkClient.doRequest(RegionByIdRequest(regionId))
+        Log.d("RegionState", "Прокидываем в Repository ID = $regionId")
 
         when (response.resultCode) {
             ResponseCodes.DEFAULT -> emit(Resource.Error(response.resultCode.code))
