@@ -75,12 +75,12 @@
             android:id="@+id/tvvacancy_name"
             style="@style/Text_Main_Header"
             android:textFontWeight="700"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_24"
             app:layout_constraintHorizontal_bias="0.0"
             android:ellipsize="end"
-            app:layout_constraintEnd_toEndOf="@id/rightBorder"
+            app:layout_constraintEnd_toStartOf="@id/rightBorder"
             app:layout_constraintStart_toStartOf="@id/leftBorder"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Android-разработчик">
@@ -90,12 +90,12 @@
             android:id="@+id/tvsalary"
             style="@style/Text_Header"
             android:textFontWeight="500"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_4"
             app:layout_constraintHorizontal_bias="0.0"
             android:ellipsize="end"
-            app:layout_constraintEnd_toEndOf="@id/rightBorder"
+            app:layout_constraintEnd_toStartOf="@id/rightBorder"
             app:layout_constraintStart_toStartOf="@id/leftBorder"
             app:layout_constraintTop_toBottomOf="@id/tvvacancy_name"
             tools:text="от 100 000 ₽">
@@ -154,7 +154,7 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@id/card"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Еда,kffdsfdsgk fdsga fwqefgfdshhds"/>
+                    tools:text="Еда,kffdsfdsgk fdsga fwqefgf "/>
 
                 <TextView
                     android:id="@+id/tvcompany_area"

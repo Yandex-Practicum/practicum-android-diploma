@@ -33,23 +33,18 @@ class SimilarViewModel(
     private var vacancyJob: Job? = null
     var flow: Flow<PagingData<Vacancy>> = emptyFlow()
 
-    private var query: String = ""
+    private var currentVacancyId: String = ""
 
-    private fun subscribeVacanciesPagination(params: Map<String, String>) {
+    private fun subscribeVacanciesPagination(vacancyId: String) {
         vacancyJob?.cancel()
         flow = Pager(PagingConfig(pageSize = 20)) {
-            VacanciesPagingSource(null, repository, params)
+            VacanciesPagingSource(null, null, repository, vacancyId)
         }.flow.cachedIn(viewModelScope)
         state.update { it.copy(state = SearchState.Content(emptyList())) }
     }
 
-    fun onSearch(text: String) {
-        query = text
-        if (text.isEmpty()) {
-            state.update { it.copy(state = null) }
-            return
-        }
-
+    fun onSearch(vacancyId: String) {
+        currentVacancyId = vacancyId
         state.update { it.copy(state = SearchState.Loading) }
         viewModelScope.launch {
             searchRequest()
@@ -57,67 +52,24 @@ class SimilarViewModel(
     }
 
     private fun searchRequest() {
-        if (query.isNotEmpty()) {
-            viewModelScope.launch {
-                state.update { it.copy(state = SearchState.Loading) }
-                val filter = filtersRepository.getFilters()
+        viewModelScope.launch {
+            state.update { it.copy(state = SearchState.Loading) }
 
-                val params = mutableMapOf("text" to query)
-                params["page"] = "1"
+            val result = repository.similarVacanciesPagination(currentVacancyId, 1)
 
-                filter.salary?.let {
-                    params["salary"] = filter.region.toString()
-                }
-
-                filter.onlyWithSalary?.let {
-                    params["only_with_salary"] = filter.onlyWithSalary.toString()
-                }
-
-                //todo: все фильтры которые закоментированны нужно передавать id
-//                filter.country?.let {
-//                    params["area"] = filter.country.toString()
-//                }
-
-//                filter.region?.let {
-//                    params["area"] = filter.region.toString()
-//                }
-//
-//                filter.industry?.let {
-//                    params["industry"] = filter.region.toString()
-//                }
-
-                val result = repository.vacanciesPagination(params)
-
-                when (result) {
-                    is Resource.Success -> {
-                        val founded = result.data?.foundedVacancies?.toString()?.let {
-                            if (it != "0") {
-                                "Найдено $it вакансий"
-                            } else {
-                                "Таких вакансий нет"
-                            }
-                        } ?: "Таких вакансий нет"
-
-                        state.update { it.copy(foundVacancies = founded) }
-                        subscribeVacanciesPagination(params)
-                        if (founded == "Таких вакансий нет") {
-                            state.update { it.copy(state = SearchState.Empty) }
-                        }
+            when (result) {
+                is Resource.Success -> {
+                    val founded = result.data?.foundedVacancies ?: state.update { it.copy(state = SearchState.Empty) }
+                    if (founded == 0) {
+                        state.update { it.copy(state = SearchState.Empty) }
                     }
-
-                    is Resource.Error -> {
-                        state.update { it.copy(state = SearchState.Error) }
-                    }
+                    subscribeVacanciesPagination(currentVacancyId)
+                }
+                is Resource.Error -> {
+                    state.update { it.copy(state = SearchState.Error) }
                 }
             }
-        } else {
-            state.update { it.copy(state = SearchState.Empty) }
         }
     }
 
-    fun updatesFilters(gson: String) {
-        val filter = Gson().fromJson(gson, Filter::class.java)
-        filtersRepository.setFilter(filter)
-        searchRequest()
-    }
 }

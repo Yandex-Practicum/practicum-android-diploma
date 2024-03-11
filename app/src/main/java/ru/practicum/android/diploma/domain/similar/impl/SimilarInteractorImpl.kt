@@ -11,8 +11,8 @@ class SimilarInteractorImpl(
     private val similarRepository: SimilarRepository
 ) : SimilarInteractor {
 
-    override fun searchSimilarVacancies(vacancyId: String): Flow<Pair<SearchingVacancies?, Int?>> {
-        return similarRepository.searchSimilarVacancies(vacancyId).map { resource ->
+    override fun searchSimilarVacancies(vacancyId: String, page: Int): Flow<Pair<SearchingVacancies?, Int?>> {
+        return similarRepository.searchSimilarVacancies(vacancyId, page).map { resource ->
             when (resource) {
                 is Resource.Success -> Pair(resource.data, null)
                 is Resource.Error -> Pair(null, resource.message)

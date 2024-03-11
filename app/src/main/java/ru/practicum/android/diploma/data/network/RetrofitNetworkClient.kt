@@ -15,6 +15,7 @@ import ru.practicum.android.diploma.data.request.IndustriesRequest
 import ru.practicum.android.diploma.data.response.AreasResponse
 import ru.practicum.android.diploma.data.response.IndustriesResponse
 import ru.practicum.android.diploma.data.vacancydetail.dto.DetailRequest
+import ru.practicum.android.diploma.data.vacancylist.dto.SimilarVacanciesRequest
 import ru.practicum.android.diploma.data.vacancylist.dto.VacanciesSearchRequest
 
 class RetrofitNetworkClient(
@@ -32,6 +33,7 @@ class RetrofitNetworkClient(
             && dto !is IndustriesRequest
             && dto !is CountryRequest
             && dto !is RegionByIdRequest
+            && dto !is SimilarVacanciesRequest
         ) {
             return Response().apply { resultCode = ResponseCodes.ERROR }
         }
@@ -40,6 +42,7 @@ class RetrofitNetworkClient(
             try {
                 val response = when (dto) {
                     is VacanciesSearchRequest -> async { jobVacancySearchApi.getFullListVacancy(dto.queryMap) }
+                    is SimilarVacanciesRequest -> async { jobVacancySearchApi.getSimilarVacancies(dto.id, dto.pageNumber) }
                     is IndustriesRequest -> async { getIndustries() }
                     is CountryRequest -> async { getAreas() }
                     is RegionByIdRequest -> async { jobVacancySearchApi.getAreaId(dto.countryId) }

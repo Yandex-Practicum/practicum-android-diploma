@@ -19,8 +19,8 @@ class SimilarRepositoryImpl(
     private val api: JobVacancySearchApi
 ) : SimilarRepository {
 
-    override fun searchSimilarVacancies(vacancyId: String): Flow<Resource<SearchingVacancies>> = flow {
-        val response = networkClient.doRequest(SimilarVacanciesRequest(vacancyId))
+    override fun searchSimilarVacancies(vacancyId: String, page: Int): Flow<Resource<SearchingVacancies>> = flow {
+        val response = networkClient.doRequest(SimilarVacanciesRequest(vacancyId, page))
 
         when (response.resultCode) {
             ResponseCodes.DEFAULT -> emit(Resource.Error(response.resultCode.code))
@@ -54,14 +54,10 @@ class SimilarRepositoryImpl(
         }
     }
 
-    override suspend fun vacanciesPagination(vacancyId: String): Resource<SearchingVacancies> {
+    override suspend fun similarVacanciesPagination(vacancyId: String, page: Int): Resource<SearchingVacancies> {
         return withContext(Dispatchers.IO) {
             try {
-//                val params = mapOf(
-//                    "text" to query,
-//                    "page" to nextPage.toString()
-//                )
-                val response = api.getSimilarVacancies(vacancyId)
+                val response = api.getSimilarVacancies(vacancyId, page)
                 Resource.Success(SearchingVacancies(
                     response.items?.map { it.toVacancy() } ?: emptyList(),
                     pages = response.pages,

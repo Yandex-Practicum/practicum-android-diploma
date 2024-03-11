@@ -5,5 +5,5 @@ import ru.practicum.android.diploma.domain.models.main.SearchingVacancies
 
 interface SimilarInteractor {
 
-    fun searchSimilarVacancies(vacancyId: String): Flow<Pair<SearchingVacancies?, Int?>>
+    fun searchSimilarVacancies(vacancyId: String, page: Int): Flow<Pair<SearchingVacancies?, Int?>>
 }

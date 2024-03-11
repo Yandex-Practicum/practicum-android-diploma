@@ -4,9 +4,9 @@ import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.domain.models.main.SearchingVacancies
 import ru.practicum.android.diploma.util.Resource
 
-interface SimilarRepository : SearchRepository {
+interface SimilarRepository {
 
-    fun searchSimilarVacancies(vacancyId: String): Flow<Resource<SearchingVacancies>>
+    fun searchSimilarVacancies(vacancyId: String, page: Int): Flow<Resource<SearchingVacancies>>
 
-    suspend fun vacanciesPagination(vacancyId: String): Resource<SearchingVacancies>
+    suspend fun similarVacanciesPagination(vacancyId: String, page: Int): Resource<SearchingVacancies>
 }

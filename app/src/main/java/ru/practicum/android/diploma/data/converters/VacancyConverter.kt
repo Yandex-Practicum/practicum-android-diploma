@@ -46,8 +46,8 @@ object VacancyConverter {
 
     private fun createAddress(address: Address?): String? {
         return if (address != null) {
-            val city = if (address.city != null) "${address.city}, " else ""
-            val street = if (address.street != null) "${address.street}, " else ""
+            val city = if (address.city != null) "${address.city} " else ""
+            val street = if (address.street != null) ", ${address.street}, " else ""
             val building = if (address.building != null) "${address.building}" else ""
             "$city$street$building"
         } else { null }
@@ -95,7 +95,11 @@ object VacancyConverter {
         var phoneString: String
         val phoneList = mutableListOf<String>()
         phones?.forEach {
-            phoneString = "+${it.country} (${it.city}) ${it.number}"
+            phoneString = "+${it.country}" +
+                " (${it.city}) " +
+                "${it.number.substring(0,3)}-" +
+                "${it.number.substring(3,5)}-" +
+                it.number.substring(5,7)
             phoneList.add(phoneString)
         }
         return phoneList
