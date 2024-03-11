@@ -242,13 +242,28 @@ class FiltersFragment : Fragment() {
         val sharedPreferences = context?.getSharedPreferences(FILTER_PREFERENCES, Context.MODE_PRIVATE)
 
         binding.apply.setOnClickListener {
-            val place = binding.workplaceValue.text.split(", ")
-            val country = place[0]
-            val region = place[1]
+            var country = null
+            var region = null
+            /*if(binding.workplaceValue.text.isNotEmpty()){
+                val place = binding.workplaceValue.text.split(", ")
+                if(place.size == 2){
+                    country = place[0]
+                    region = place[1]
+                }
+            }*/
+
+            var industry = null
+
+            /*if(binding.industryValue.text.isNotEmpty()){
+                industry = binding.industryValue.text.toString()
+            }*/
+
             val check = binding.checkBox.isChecked
-            val industry = binding.industryValue.text.toString()
-            val salary = binding.edit.text.toString()
-            val result = Filter(country, region, industry, salary, check)
+            var salary = binding.edit.text.toString()
+            if(salary.isEmpty()){
+                salary = "5000"
+            }
+            val result = Filter(salary = salary, onlyWithSalary = check, country = country, region = region, industry = industry)
             sharedPreferences?.edit()?.putString(FILTER, Gson().toJson(result))?.apply()
             findNavController().popBackStack()
         }

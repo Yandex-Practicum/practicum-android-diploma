@@ -8,7 +8,7 @@ class FiltersRepositoryImpl(
     private val context: Context
 ) : FiltersRepository {
 
-    private val prefs = context.getSharedPreferences("filters", Context.MODE_PRIVATE)
+    private val prefs = context.getSharedPreferences(FILTER_PREFERENCES, Context.MODE_PRIVATE)
 
     override fun setFilter(filter: Filter) {
         prefs
@@ -26,5 +26,6 @@ class FiltersRepositoryImpl(
 
     companion object {
         private const val FILTER_KEY = "filter"
+        private const val FILTER_PREFERENCES = "filter_preferences"
     }
 }
