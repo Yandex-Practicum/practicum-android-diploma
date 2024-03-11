@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.ui.region
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -18,6 +19,12 @@ class RegionViewModel(
     fun observeState(): LiveData<RegionState> = stateLiveData
 
     fun loadRegion(regionId: String) {
+        if (regionId.isEmpty()) {
+            // Выбрать значение по умолчанию или выполнить другие действия
+            renderState(RegionState.Empty)
+            return
+        }
+
         renderState(RegionState.Loading)
         Log.d("RegionState", "Прокидываем во ViewModel 1 ID = $regionId")
         viewModelScope.launch {

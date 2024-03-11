@@ -97,7 +97,7 @@ class RegionFragment : Fragment() {
         binding.regionRecycler.adapter = adapter
 
         Log.d("RegionState", "Прокидываем во фрагменте ID = $regionId")
-        viewModel.loadRegion(regionId ?: "")
+        viewModel.loadRegion(regionId ?: "0")
 
         viewModel.observeState().observe(viewLifecycleOwner) { state ->
             when (state) {
@@ -109,6 +109,7 @@ class RegionFragment : Fragment() {
                     adapter.notifyDataSetChanged()
                 }
 
+                is RegionState.Empty -> ""
                 is RegionState.Error -> ""
                 is RegionState.Loading -> showLoading()
             }
