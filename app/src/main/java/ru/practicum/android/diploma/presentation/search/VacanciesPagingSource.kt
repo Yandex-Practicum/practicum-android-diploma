@@ -18,7 +18,7 @@ class VacanciesPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Vacancy> {
         try {
             // Start refresh at page 1 if undefined.
-            val nextPageNumber = params.key ?: 1
+            val nextPageNumber = params.key ?: 0
             var response: Resource<SearchingVacancies>? = null
 
             if (searchRepository != null) {

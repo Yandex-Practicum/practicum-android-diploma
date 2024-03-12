@@ -40,7 +40,7 @@ val viewModelModule = module {
         RegionViewModel(get())
     }
 
-    single {
+    viewModel {
         SimilarViewModel(get())
     }
 }

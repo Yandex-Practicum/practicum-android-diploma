@@ -14,7 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.activityViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSimilarVacanciesBinding
 import ru.practicum.android.diploma.presentation.search.PagingSearchAdapter
@@ -24,7 +24,7 @@ import ru.practicum.android.diploma.util.extensions.visibleOrGone
 
 class SimilarVacanciesFragment : Fragment() {
 
-    private val viewModel: SimilarViewModel by activityViewModel()
+    private val viewModel: SimilarViewModel by viewModel()
 
     private var _binding: FragmentSimilarVacanciesBinding? = null
     private val binding get() = _binding!!

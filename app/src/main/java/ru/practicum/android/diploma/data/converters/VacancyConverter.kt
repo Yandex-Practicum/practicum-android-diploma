@@ -46,9 +46,9 @@ object VacancyConverter {
 
     private fun createAddress(address: Address?): String? {
         return if (address != null) {
-            val city = if (address.city != null) "${address.city} " else ""
-            val street = if (address.street != null) ", ${address.street}, " else ""
-            val building = if (address.building != null) "${address.building}" else ""
+            val city = if (address.city != null) "${address.city}" else ""
+            val street = if (address.street != null) ", ${address.street}" else ""
+            val building = if (address.building != null) ", ${address.building}" else ""
             "$city$street$building"
         } else { null }
     }
