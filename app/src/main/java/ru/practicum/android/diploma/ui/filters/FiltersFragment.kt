@@ -96,7 +96,7 @@ class FiltersFragment : Fragment() {
         }
 
         val checked = sharedPrefs?.getString(CHECKBOX, "")
-        binding.checkBox.isChecked = checked=="1"
+        binding.checkBox.isChecked = checked == "1"
 
         binding.edit.setText(sharedPrefs?.getString(SALARY, ""))
 
@@ -281,7 +281,8 @@ class FiltersFragment : Fragment() {
         }
 
         val sharedPreferences = context?.getSharedPreferences(FILTER_PREFERENCES, Context.MODE_PRIVATE)
-        val sharedPreferencesInd = context?.getSharedPreferences(IndustriesFragment.INDUSTRIES_PREFERENCES, Context.MODE_PRIVATE)
+        val sharedPreferencesInd =
+            context?.getSharedPreferences(IndustriesFragment.INDUSTRIES_PREFERENCES, Context.MODE_PRIVATE)
 
         binding.apply.setOnClickListener {
 
@@ -290,7 +291,7 @@ class FiltersFragment : Fragment() {
 
 
             var industry: String? = null
-            if(binding.industryValue.text.isNotEmpty()){
+            if (binding.industryValue.text.isNotEmpty()) {
                 industry = sharedPreferencesInd?.getString(IndustriesFragment.INDUSTRIES_ID, "")
             }
 
