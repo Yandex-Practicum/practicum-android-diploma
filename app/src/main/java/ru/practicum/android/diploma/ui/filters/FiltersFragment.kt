@@ -274,11 +274,12 @@ class FiltersFragment : Fragment() {
         }
 
         val sharedPreferences = context?.getSharedPreferences(FILTER_PREFERENCES, Context.MODE_PRIVATE)
+        val sharedPreferencesInd = context?.getSharedPreferences(IndustriesFragment.INDUSTRIES_PREFERENCES, Context.MODE_PRIVATE)
 
         binding.apply.setOnClickListener {
+
             var country: String? = null
             var region: String? = null
-
             if (binding.workplaceValue.text.isNotEmpty()) {
                 val place = binding.workplaceValue.text.split(", ")
                 if (place.size == 2) {
@@ -287,17 +288,18 @@ class FiltersFragment : Fragment() {
                 }
             }
 
-            var industry = null
-
-            /*if(binding.industryValue.text.isNotEmpty()){
-                industry = binding.industryValue.text.toString()
-            }*/
+            var industry: String? = null
+            if(binding.industryValue.text.isNotEmpty()){
+                industry = sharedPreferencesInd?.getString(IndustriesFragment.INDUSTRIES_ID, "")
+            }
 
             val check = binding.checkBox.isChecked
-            var salary = binding.edit.text.toString()
-            if (salary.isEmpty()) {
-                salary = "5000"
+
+            var salary: String? = null
+            if (binding.edit.text.toString().isNotEmpty()) {
+                salary = binding.edit.text.toString()
             }
+
             val result =
                 Filter(salary = salary, onlyWithSalary = check, country = country, region = region, industry = industry)
             sharedPreferences?.edit()?.putString(FILTER, Gson().toJson(result))?.apply()

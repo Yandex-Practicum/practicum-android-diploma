@@ -71,7 +71,6 @@ class SearchViewModel(
                     params["only_with_salary"] = filter.onlyWithSalary.toString()
                 }
 
-                //todo: все фильтры которые закоментированны нужно передавать id
                 filter.country?.let {
                     params["area"] = filter.country.toString()
                 }
@@ -79,14 +78,12 @@ class SearchViewModel(
                 filter.region?.let {
                     params["area"] = filter.region.toString()
                 }
-//
-//                filter.industry?.let {
-//                    params["industry"] = filter.region.toString()
-//                }
 
-                val result = repository.vacanciesPagination(params)
+                filter.industry?.let {
+                    params["industry"] = filter.industry.toString()
+                }
 
-                when (result) {
+                when (val result = repository.vacanciesPagination(params)) {
                     is Resource.Success -> {
                         val founded = result.data?.foundedVacancies?.toString()?.let {
                             if (it != "0") {
