@@ -59,6 +59,7 @@ class IndustriesFragment : Fragment() {
             when (state) {
                 is IndustriesState.Content -> {
                     adapter.industriesList.addAll(state.industries)
+                    adapter.filteredList.addAll(state.industries)
                     adapter.notifyDataSetChanged()
                 }
 
@@ -89,6 +90,7 @@ class IndustriesFragment : Fragment() {
             }
 
             override fun afterTextChanged(s: Editable?) {
+                adapter.filter(s.toString())
                 if (binding.edit.text.isNotEmpty()) {
                     val newDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.close_icon)
                     binding.edit.setCompoundDrawablesWithIntrinsicBounds(null, null, newDrawable, null)
