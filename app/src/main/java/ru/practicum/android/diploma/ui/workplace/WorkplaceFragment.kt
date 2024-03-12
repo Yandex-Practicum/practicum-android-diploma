@@ -35,7 +35,7 @@ class WorkplaceFragment : Fragment() {
 
         if (sharedPrefs?.getString(COUNTRY_TEXT, "")?.isNotEmpty() == true) {
             binding.countryName.text = sharedPrefs.getString(COUNTRY_TEXT, "")
-            binding.countryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Black))
+            binding.countryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_white))
             binding.countryButton.setImageResource(R.drawable.close_icon)
             binding.countryButton.isClickable = true
             binding.coutryHint.visibility = View.VISIBLE
@@ -105,13 +105,13 @@ class WorkplaceFragment : Fragment() {
         setFragmentResultListener("requestKey") { _, result ->
             val data = result.getString("key")
             binding.countryName.text = data
-            binding.countryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Black))
+            binding.countryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_white))
         }
 
         setFragmentResultListener("requestKeyRegion") { _, result ->
             val data = result.getString("keyRegion")
             binding.regionName.text = data
-            binding.regionName.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Black))
+            binding.regionName.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_white))
         }
 
         binding.button.setOnClickListener {

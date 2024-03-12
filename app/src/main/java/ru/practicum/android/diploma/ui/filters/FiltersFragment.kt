@@ -46,7 +46,7 @@ class FiltersFragment : Fragment() {
 
         if (sharedPrefs?.getString(WorkplaceFragment.COUNTRY_TEXT, "")?.isNotEmpty() == true) {
             countryText = sharedPrefs.getString(WorkplaceFragment.COUNTRY_TEXT, "")!!
-            binding.workplaceValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Black))
+            binding.workplaceValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_white))
             binding.workplaceValue.text = "$countryText"
             binding.workplaceView.setImageResource(R.drawable.close_icon)
             binding.workplaceView.isClickable = true
@@ -62,7 +62,7 @@ class FiltersFragment : Fragment() {
         }
         if (sharedPrefsIndustries?.getString(IndustriesFragment.INDUSTRIES_TEXT, "")?.isNotEmpty() == true) {
             industriesText = sharedPrefsIndustries.getString(IndustriesFragment.INDUSTRIES_TEXT, "")!!
-            binding.industryValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Black))
+            binding.industryValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_white))
             binding.industryValue.text = "$industriesText"
             binding.industryView.setImageResource(R.drawable.close_icon)
             binding.industryView.isClickable = true
@@ -94,6 +94,11 @@ class FiltersFragment : Fragment() {
             sharedPrefsIndustries?.edit()?.putString(IndustriesFragment.INDUSTRIES_TEXT, "")?.apply()
             sharedPrefsIndustries?.edit()?.putString(IndustriesFragment.INDUSTRIES_ID, "")?.apply()
         }
+
+        val checked = sharedPrefs?.getString(CHECKBOX, "")
+        binding.checkBox.isChecked = checked=="1"
+
+        binding.edit.setText(sharedPrefs?.getString(SALARY, ""))
 
         binding.vacancyToolbar.setOnClickListener {
             findNavController().navigateUp()
@@ -197,7 +202,7 @@ class FiltersFragment : Fragment() {
             } else {
                 binding.clearIcon.visibility = View.GONE
                 if (binding.edit.text.isNotEmpty()) {
-                    binding.expectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Black))
+                    binding.expectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_white))
                 } else {
                     binding.expectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Text_Gray))
                 }
@@ -223,8 +228,8 @@ class FiltersFragment : Fragment() {
             val dataIndustry = result.getString("keyIndustries")
             binding.workplaceValue.text = dataCountry
             binding.industryValue.text = dataIndustry
-            binding.workplaceValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Black))
-            binding.industryValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Black))
+            binding.workplaceValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_white))
+            binding.industryValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_white))
             val place = binding.workplaceValue.text
             val check = binding.checkBox.isChecked
             val salary = binding.edit
@@ -265,6 +270,8 @@ class FiltersFragment : Fragment() {
             sharedPrefs?.edit()?.putString(WorkplaceFragment.COUNTRY_ID, "")?.apply()
             sharedPrefs?.edit()?.putString(WorkplaceFragment.REGION_TEXT, "")?.apply()
             sharedPrefs?.edit()?.putString(WorkplaceFragment.REGION_ID, "")?.apply()
+            sharedPrefs?.edit()?.putString(CHECKBOX, "")?.apply()
+            sharedPrefs?.edit()?.putString(SALARY, "")?.apply()
             sharedPrefsIndustries?.edit()?.putString(IndustriesFragment.INDUSTRIES_TEXT, "")?.apply()
             sharedPrefsIndustries?.edit()?.putString(IndustriesFragment.INDUSTRIES_ID, "")?.apply()
             binding.checkBox.isChecked = false
@@ -278,15 +285,9 @@ class FiltersFragment : Fragment() {
 
         binding.apply.setOnClickListener {
 
-            var country: String? = null
-            var region: String? = null
-            if (binding.workplaceValue.text.isNotEmpty()) {
-                val place = binding.workplaceValue.text.split(", ")
-                if (place.size == 2) {
-                    country = sharedPrefs?.getString(WorkplaceFragment.COUNTRY_ID, "")
-                    region = sharedPrefs?.getString(WorkplaceFragment.REGION_ID, "")
-                }
-            }
+            val country = sharedPrefs?.getString(WorkplaceFragment.COUNTRY_ID, "")
+            val region = sharedPrefs?.getString(WorkplaceFragment.REGION_ID, "")
+
 
             var industry: String? = null
             if(binding.industryValue.text.isNotEmpty()){
@@ -294,11 +295,14 @@ class FiltersFragment : Fragment() {
             }
 
             val check = binding.checkBox.isChecked
+            sharedPrefs?.edit()?.putString(CHECKBOX, if (check) "1" else "0")?.apply()
 
             var salary: String? = null
             if (binding.edit.text.toString().isNotEmpty()) {
                 salary = binding.edit.text.toString()
             }
+            sharedPrefs?.edit()?.putString(SALARY, salary)?.apply()
+
 
             val result =
                 Filter(salary = salary, onlyWithSalary = check, country = country, region = region, industry = industry)
@@ -315,5 +319,7 @@ class FiltersFragment : Fragment() {
     companion object {
         const val FILTER_PREFERENCES = "filter_preferences"
         const val FILTER = "filter"
+        const val CHECKBOX = "checkbox"
+        const val SALARY = "salary"
     }
 }
