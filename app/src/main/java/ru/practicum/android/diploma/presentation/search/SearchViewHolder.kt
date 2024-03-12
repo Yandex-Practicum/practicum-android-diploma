@@ -19,7 +19,7 @@ class SearchViewHolder(private val binding: VacancyItemBinding) : RecyclerView.V
         Glide.with(binding.ivCompany)
             .load(vacancy.employerImgUrl)
             .placeholder(R.drawable.placeholder_company_icon)
-            .centerCrop()
+            .centerInside()
             .into(binding.ivCompany)
 
         binding.root.setOnClickListener { onClick.invoke(vacancy.id) }

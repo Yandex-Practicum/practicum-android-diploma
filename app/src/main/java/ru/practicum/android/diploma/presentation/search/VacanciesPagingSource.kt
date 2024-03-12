@@ -17,7 +17,6 @@ class VacanciesPagingSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Vacancy> {
         try {
-            // Start refresh at page 1 if undefined.
             val nextPageNumber = params.key ?: 0
             var response: Resource<SearchingVacancies>? = null
 
@@ -44,12 +43,10 @@ class VacanciesPagingSource(
 
             return LoadResult.Page(
                 data = vacancies,
-                prevKey = null, // Only paging forward.
+                prevKey = null,
                 nextKey = nextPage
             )
         } catch (e: Exception) {
-            // Handle errors in this block and return LoadResult.Error for
-            // expected errors (such as a network failure).
             return LoadResult.Error(e)
         }
     }

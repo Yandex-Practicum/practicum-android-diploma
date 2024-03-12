@@ -83,9 +83,7 @@ class SearchViewModel(
                     params["industry"] = filter.industry.toString()
                 }
 
-                val result = repository.vacanciesPagination(params)
-
-                when (result) {
+                when (val result = repository.vacanciesPagination(params)) {
                     is Resource.Success -> {
                         val founded = result.data?.foundedVacancies?.toString()?.let {
                             if (it != "0") {
