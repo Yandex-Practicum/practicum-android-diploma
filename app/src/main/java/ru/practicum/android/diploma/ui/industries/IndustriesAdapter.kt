@@ -8,6 +8,13 @@ import ru.practicum.android.diploma.domain.industries.ParentIndustriesAllDeal
 
 class IndustriesAdapter() : RecyclerView.Adapter<IndustriesViewHolder>() {
 
+    fun setSelectedPosition(position: Int) {
+        selectedPosition = position
+        notifyDataSetChanged() // Обновляем адаптер для обновления состояний элементов списка
+    }
+
+    private var selectedPosition: Int = RecyclerView.NO_POSITION
+
     val industriesList = ArrayList<ParentIndustriesAllDeal>()
     var itemClickListener: ((Int, ParentIndustriesAllDeal) -> Unit)? = null
 
@@ -23,9 +30,14 @@ class IndustriesAdapter() : RecyclerView.Adapter<IndustriesViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: IndustriesViewHolder, position: Int) {
-        val country = industriesList[position]
-        holder.bind(country)
-        holder.itemView.setOnClickListener { itemClickListener?.invoke(position, country) }
+        val industries = industriesList[position]
+        holder.bind(industries)
+        holder.itemView.setOnClickListener {
+            selectedPosition = position
+            notifyDataSetChanged() // Обновляем адаптер для обновления состояний CheckBox
+            itemClickListener?.invoke(position, industries)
+        }
+        holder.bindSelection(selectedPosition == position)
     }
 
     override fun getItemCount(): Int = industriesList.size

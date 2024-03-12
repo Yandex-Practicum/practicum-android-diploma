@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.ui.workplace
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +31,7 @@ class WorkplaceFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val sharedPrefs = context?.getSharedPreferences(COUNTRY_PREFERENCES, Context.MODE_PRIVATE)
+        Log.d("StateShared", "В WorkplaceFragment country = ${sharedPrefs?.getString(COUNTRY_TEXT, "")}")
 
         if (sharedPrefs?.getString(COUNTRY_TEXT, "")?.isNotEmpty() == true) {
             binding.countryName.text = sharedPrefs.getString(COUNTRY_TEXT, "")
@@ -122,7 +124,7 @@ class WorkplaceFragment : Fragment() {
                 bundle.putString("keyPlace", "$country")
             }
             setFragmentResult("requestKeyPlace", bundle)
-            findNavController().navigateUp()
+            findNavController().popBackStack()
         }
     }
 
