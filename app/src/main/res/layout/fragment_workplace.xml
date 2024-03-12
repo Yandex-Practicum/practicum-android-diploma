@@ -128,7 +128,7 @@ android:orientation="vertical">
 
     </LinearLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <TextView
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -136,9 +136,10 @@ android:orientation="vertical">
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="24dp"
         android:text="@string/choose"
-        android:textAllCaps="false"
-        style="@style/ChoseButtonStyle"
-        android:background="@color/YP_Blue"
+        style="@style/Text_Label"
+        android:textColor="@color/white"
+        android:background="@drawable/rounder"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

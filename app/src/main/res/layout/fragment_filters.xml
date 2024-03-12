@@ -213,18 +213,18 @@
         </FrameLayout>
     </LinearLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <TextView
         android:id="@+id/apply"
-        style="@style/ChoseButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:textColor="@color/white"
+        style="@style/Text_Label"
         android:layout_marginBottom="32dp"
-        android:background="@color/YP_Blue"
+        android:background="@drawable/rounder"
         android:text="@string/choose"
-
-        android:textAllCaps="false"
+        android:gravity="center"
         app:layout_constraintBottom_toTopOf="@+id/remove"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -234,10 +234,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
-        android:fontFamily="@font/ys_display_regular"
+        style="@style/Text_Label"
         android:text="@string/remove"
         android:textColor="@color/red"
-        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
