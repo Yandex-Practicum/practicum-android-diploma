@@ -79,7 +79,6 @@ class WorkplaceFragment : Fragment() {
             binding.regionHint.visibility = View.GONE
         }
 
-
         binding.vacancyToolbar.setOnClickListener {
             findNavController().navigateUp()
         }
@@ -125,7 +124,6 @@ class WorkplaceFragment : Fragment() {
             setFragmentResult("requestKeyPlace", bundle)
             findNavController().navigateUp()
         }
-
     }
 
     companion object {

@@ -16,7 +16,7 @@ class RegionRepositoryImpl(
     val networkClient: NetworkClient
 ) : RegionRepository {
     override fun searchRegion(regionId: String): Flow<Resource<Country>> = flow {
-        val response = networkClient.doRequest(RegionByIdRequest(regionId))
+        val response = networkClient.doRequestFilter(RegionByIdRequest(regionId))
         Log.d("RegionState", "Прокидываем в Repository ID = $regionId")
 
         when (response.resultCode) {
