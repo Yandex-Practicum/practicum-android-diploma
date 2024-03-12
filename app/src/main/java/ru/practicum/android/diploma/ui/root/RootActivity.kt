@@ -31,7 +31,7 @@ class RootActivity : AppCompatActivity() {
                 R.id.industryFragment,
                 R.id.regionFragment,
                 R.id.workplaceFragment,
-                R.id.similarVacanciesFragment-> {
+                R.id.similarVacanciesFragment -> {
                     binding.bottomNavigationView.visibility = View.GONE
                     binding.horizontalLine.visibility = View.GONE
                 }
