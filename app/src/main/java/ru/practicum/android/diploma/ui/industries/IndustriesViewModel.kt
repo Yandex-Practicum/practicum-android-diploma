@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.presentation.industries
+package ru.practicum.android.diploma.ui.industries
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.industries.ParentIndustriesAllDeal
 import ru.practicum.android.diploma.domain.industries.IndustriesInteractor
-import ru.practicum.android.diploma.ui.industries.IndustriesState
+import ru.practicum.android.diploma.presentation.industries.IndustriesState
 
 class IndustriesViewModel(
     val interactor: IndustriesInteractor

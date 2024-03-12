@@ -16,7 +16,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentIndustryBinding
 import ru.practicum.android.diploma.domain.industries.ParentIndustriesAllDeal
-import ru.practicum.android.diploma.presentation.industries.IndustriesViewModel
+import ru.practicum.android.diploma.presentation.industries.IndustriesAdapter
+import ru.practicum.android.diploma.presentation.industries.IndustriesState
 
 class IndustriesFragment : Fragment() {
 

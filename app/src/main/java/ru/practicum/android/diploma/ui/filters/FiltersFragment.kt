@@ -12,13 +12,17 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import com.google.gson.Gson
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFiltersBinding
 import ru.practicum.android.diploma.domain.models.Filter
+import ru.practicum.android.diploma.ui.country.CountryViewModel
 import ru.practicum.android.diploma.ui.industries.IndustriesFragment
 import ru.practicum.android.diploma.ui.workplace.WorkplaceFragment
 
 class FiltersFragment : Fragment() {
+
+    private val viewModel by viewModel<FilterViewModel>()
 
     private var _binding: FragmentFiltersBinding? = null
     private val binding get() = _binding!!
@@ -43,6 +47,7 @@ class FiltersFragment : Fragment() {
         var countryText = "Страна"
         var regionText = ""
         var industriesText = ""
+
 
         if (sharedPrefs?.getString(WorkplaceFragment.COUNTRY_TEXT, "")?.isNotEmpty() == true) {
             countryText = sharedPrefs.getString(WorkplaceFragment.COUNTRY_TEXT, "")!!
@@ -99,6 +104,17 @@ class FiltersFragment : Fragment() {
         binding.checkBox.isChecked = checked == "1"
 
         binding.edit.setText(sharedPrefs?.getString(SALARY, ""))
+
+        viewModel.countryState.observe(viewLifecycleOwner) { country ->
+            viewModel.regionState.observe(viewLifecycleOwner) { region ->
+                binding.workplaceValue.text = country.countryName
+
+            }
+        }
+
+        viewModel.industriesState.observe(viewLifecycleOwner) { industries ->
+            binding.industryValue.text = industries.industriesName
+        }
 
         binding.vacancyToolbar.setOnClickListener {
             findNavController().navigateUp()
