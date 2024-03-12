@@ -10,8 +10,8 @@ import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.Response
 import ru.practicum.android.diploma.data.ResponseCodes
 import ru.practicum.android.diploma.data.request.CountryRequest
-import ru.practicum.android.diploma.data.request.RegionByIdRequest
 import ru.practicum.android.diploma.data.request.IndustriesRequest
+import ru.practicum.android.diploma.data.request.RegionByIdRequest
 import ru.practicum.android.diploma.data.response.AreasResponse
 import ru.practicum.android.diploma.data.response.IndustriesResponse
 import ru.practicum.android.diploma.data.vacancydetail.dto.DetailRequest
@@ -30,9 +30,6 @@ class RetrofitNetworkClient(
 
         if (dto !is VacanciesSearchRequest
             && dto !is DetailRequest
-            && dto !is IndustriesRequest
-            && dto !is CountryRequest
-            && dto !is RegionByIdRequest
             && dto !is SimilarVacanciesRequest
         ) {
             return Response().apply { resultCode = ResponseCodes.ERROR }
@@ -42,13 +39,40 @@ class RetrofitNetworkClient(
             try {
                 val response = when (dto) {
                     is VacanciesSearchRequest -> async {
-                        jobVacancySearchApi.getFullListVacancy(dto.queryMap) }
+                        jobVacancySearchApi.getFullListVacancy(dto.queryMap)
+                    }
+
                     is SimilarVacanciesRequest -> async {
-                        jobVacancySearchApi.getSimilarVacancies(dto.id, dto.pageNumber) }
+                        jobVacancySearchApi.getSimilarVacancies(dto.id, dto.pageNumber)
+                    }
+
+                    else -> async { jobVacancySearchApi.getVacancyDetail((dto as DetailRequest).id) }
+                }.await()
+                response.apply { resultCode = ResponseCodes.SUCCESS }
+            } catch (e: Throwable) {
+                Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
+            }
+        }
+    }
+
+    override suspend fun doRequestFilter(dto: Any): Response {
+        if (!isConnected()) {
+            return Response().apply { resultCode = ResponseCodes.NO_CONNECTION }
+        }
+
+        if (dto !is IndustriesRequest
+            && dto !is CountryRequest
+            && dto !is RegionByIdRequest
+        ) {
+            return Response().apply { resultCode = ResponseCodes.ERROR }
+        }
+
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = when (dto) {
                     is IndustriesRequest -> async { getIndustries() }
                     is CountryRequest -> async { getAreas() }
-                    is RegionByIdRequest -> async { jobVacancySearchApi.getAreaId(dto.countryId) }
-                    else -> async { jobVacancySearchApi.getVacancyDetail((dto as DetailRequest).id) }
+                    else -> async { jobVacancySearchApi.getAreaId((dto as RegionByIdRequest).countryId) }
                 }.await()
                 response.apply { resultCode = ResponseCodes.SUCCESS }
             } catch (e: Throwable) {
@@ -99,4 +123,5 @@ class RetrofitNetworkClient(
         }
         return false
     }
+
 }

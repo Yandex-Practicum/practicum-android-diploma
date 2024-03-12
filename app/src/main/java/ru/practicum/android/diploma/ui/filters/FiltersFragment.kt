@@ -15,6 +15,7 @@ import com.google.gson.Gson
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFiltersBinding
 import ru.practicum.android.diploma.domain.models.Filter
+import ru.practicum.android.diploma.ui.industries.IndustriesFragment
 import ru.practicum.android.diploma.ui.workplace.WorkplaceFragment
 
 class FiltersFragment : Fragment() {
@@ -36,12 +37,16 @@ class FiltersFragment : Fragment() {
         binding.industryHint.visibility = View.GONE
 
         val sharedPrefs = context?.getSharedPreferences(WorkplaceFragment.COUNTRY_PREFERENCES, Context.MODE_PRIVATE)
+        val sharedPrefsIndustries =
+            context?.getSharedPreferences(IndustriesFragment.INDUSTRIES_PREFERENCES, Context.MODE_PRIVATE)
 
         var countryText = "Страна"
         var regionText = ""
+        var industriesText = ""
+
         if (sharedPrefs?.getString(WorkplaceFragment.COUNTRY_TEXT, "")?.isNotEmpty() == true) {
             countryText = sharedPrefs.getString(WorkplaceFragment.COUNTRY_TEXT, "")!!
-            binding.workplaceValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Black))
+            binding.workplaceValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_white))
             binding.workplaceValue.text = "$countryText"
             binding.workplaceView.setImageResource(R.drawable.close_icon)
             binding.workplaceView.isClickable = true
@@ -54,6 +59,18 @@ class FiltersFragment : Fragment() {
         if (sharedPrefs?.getString(WorkplaceFragment.REGION_TEXT, "")?.isNotEmpty() == true) {
             regionText = sharedPrefs.getString(WorkplaceFragment.REGION_TEXT, "")!!
             binding.workplaceValue.text = "$countryText, $regionText"
+        }
+        if (sharedPrefsIndustries?.getString(IndustriesFragment.INDUSTRIES_TEXT, "")?.isNotEmpty() == true) {
+            industriesText = sharedPrefsIndustries.getString(IndustriesFragment.INDUSTRIES_TEXT, "")!!
+            binding.industryValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_white))
+            binding.industryValue.text = "$industriesText"
+            binding.industryView.setImageResource(R.drawable.close_icon)
+            binding.industryView.isClickable = true
+            binding.industryHint.visibility = View.VISIBLE
+        } else {
+            binding.industryView.setImageResource(R.drawable.arrow_forward)
+            binding.industryView.isClickable = false
+            binding.industryHint.visibility = View.GONE
         }
 
         binding.workplaceView.setOnClickListener {
@@ -74,7 +91,14 @@ class FiltersFragment : Fragment() {
             binding.industryView.setImageResource(R.drawable.arrow_forward)
             binding.industryView.isClickable = false
             binding.industryHint.visibility = View.GONE
+            sharedPrefsIndustries?.edit()?.putString(IndustriesFragment.INDUSTRIES_TEXT, "")?.apply()
+            sharedPrefsIndustries?.edit()?.putString(IndustriesFragment.INDUSTRIES_ID, "")?.apply()
         }
+
+        val checked = sharedPrefs?.getString(CHECKBOX, "")
+        binding.checkBox.isChecked = checked == "1"
+
+        binding.edit.setText(sharedPrefs?.getString(SALARY, ""))
 
         binding.vacancyToolbar.setOnClickListener {
             findNavController().navigateUp()
@@ -97,7 +121,8 @@ class FiltersFragment : Fragment() {
                 val place = binding.workplaceValue.text
                 val check = binding.checkBox.isChecked
                 val salary = binding.edit
-                if (place != "Место работы" || check || salary.text.isNotEmpty()) {
+                val industries = binding.industryValue.text
+                if (place != "Место работы" || industries != "Отрасль" || check || salary.text.isNotEmpty()) {
                     binding.apply.visibility = View.VISIBLE
                     binding.remove.visibility = View.VISIBLE
                 } else {
@@ -119,7 +144,8 @@ class FiltersFragment : Fragment() {
                 val place = binding.workplaceValue.text
                 val check = binding.checkBox.isChecked
                 val salary = binding.edit
-                if (place != "Место работы" || check || salary.text.isNotEmpty()) {
+                val industries = binding.industryValue.text
+                if (place != "Место работы" || industries != "Отрасль" || check || salary.text.isNotEmpty()) {
                     binding.apply.visibility = View.VISIBLE
                     binding.remove.visibility = View.VISIBLE
                 } else {
@@ -140,7 +166,8 @@ class FiltersFragment : Fragment() {
                 val place = binding.workplaceValue.text
                 val check = binding.checkBox.isChecked
                 val salary = binding.edit
-                if (place != "Место работы" || check || salary.text.isNotEmpty()) {
+                val industries = binding.industryValue.text
+                if (place != "Место работы" || industries != "Отрасль" || check || salary.text.isNotEmpty()) {
                     binding.apply.visibility = View.VISIBLE
                     binding.remove.visibility = View.VISIBLE
                 } else {
@@ -175,7 +202,7 @@ class FiltersFragment : Fragment() {
             } else {
                 binding.clearIcon.visibility = View.GONE
                 if (binding.edit.text.isNotEmpty()) {
-                    binding.expectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Black))
+                    binding.expectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_white))
                 } else {
                     binding.expectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Text_Gray))
                 }
@@ -186,7 +213,8 @@ class FiltersFragment : Fragment() {
             val place = binding.workplaceValue.text
             val check = binding.checkBox.isChecked
             val salary = binding.edit
-            if (place != "Место работы" || check || salary.text.isNotEmpty()) {
+            val industries = binding.industryValue.text
+            if (place != "Место работы" || industries != "Отрасль" || check || salary.text.isNotEmpty()) {
                 binding.apply.visibility = View.VISIBLE
                 binding.remove.visibility = View.VISIBLE
             } else {
@@ -196,13 +224,17 @@ class FiltersFragment : Fragment() {
         }
 
         setFragmentResultListener("requestKeyPlace") { _, result ->
-            val data = result.getString("keyPlace")
-            binding.workplaceValue.text = data
-            binding.workplaceValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Black))
+            val dataCountry = result.getString("keyPlace")
+            val dataIndustry = result.getString("keyIndustries")
+            binding.workplaceValue.text = dataCountry
+            binding.industryValue.text = dataIndustry
+            binding.workplaceValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_white))
+            binding.industryValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_white))
             val place = binding.workplaceValue.text
             val check = binding.checkBox.isChecked
             val salary = binding.edit
-            if (place != "Место работы" || check || salary.text.isNotEmpty()) {
+            val industries = binding.industryValue.text
+            if (place != "Место работы" || industries != "Отрасль" || check || salary.text.isNotEmpty()) {
                 binding.apply.visibility = View.VISIBLE
                 binding.remove.visibility = View.VISIBLE
             } else {
@@ -218,6 +250,8 @@ class FiltersFragment : Fragment() {
         }
 
         if (sharedPrefs?.getString(WorkplaceFragment.COUNTRY_TEXT, "")
+                ?.isNotEmpty() == true ||
+            sharedPrefs?.getString(IndustriesFragment.INDUSTRIES_TEXT, "")
                 ?.isNotEmpty() == true || binding.edit.text.isNotEmpty() || binding.checkBox.isChecked
         ) {
             binding.apply.visibility = View.VISIBLE
@@ -226,13 +260,20 @@ class FiltersFragment : Fragment() {
 
         binding.remove.setOnClickListener {
             binding.workplaceValue.text = "Место работы"
+            binding.industryValue.text = "Отрасль"
             binding.workplaceValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Text_Gray))
+            binding.industryValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Text_Gray))
             binding.workplaceView.setImageResource(R.drawable.arrow_forward)
+            binding.industryView.setImageResource(R.drawable.arrow_forward)
             binding.workplaceValue.isClickable = false
             sharedPrefs?.edit()?.putString(WorkplaceFragment.COUNTRY_TEXT, "")?.apply()
             sharedPrefs?.edit()?.putString(WorkplaceFragment.COUNTRY_ID, "")?.apply()
             sharedPrefs?.edit()?.putString(WorkplaceFragment.REGION_TEXT, "")?.apply()
             sharedPrefs?.edit()?.putString(WorkplaceFragment.REGION_ID, "")?.apply()
+            sharedPrefs?.edit()?.putString(CHECKBOX, "")?.apply()
+            sharedPrefs?.edit()?.putString(SALARY, "")?.apply()
+            sharedPrefsIndustries?.edit()?.putString(IndustriesFragment.INDUSTRIES_TEXT, "")?.apply()
+            sharedPrefsIndustries?.edit()?.putString(IndustriesFragment.INDUSTRIES_ID, "")?.apply()
             binding.checkBox.isChecked = false
             binding.workplaceHint.visibility = View.GONE
             binding.industryHint.visibility = View.GONE
@@ -240,15 +281,32 @@ class FiltersFragment : Fragment() {
         }
 
         val sharedPreferences = context?.getSharedPreferences(FILTER_PREFERENCES, Context.MODE_PRIVATE)
+        val sharedPreferencesInd =
+            context?.getSharedPreferences(IndustriesFragment.INDUSTRIES_PREFERENCES, Context.MODE_PRIVATE)
 
         binding.apply.setOnClickListener {
-            val place = binding.workplaceValue.text.split(", ")
-            val country = place[0]
-            val region = place[1]
+
+            val country = sharedPrefs?.getString(WorkplaceFragment.COUNTRY_ID, "")
+            val region = sharedPrefs?.getString(WorkplaceFragment.REGION_ID, "")
+
+
+            var industry: String? = null
+            if (binding.industryValue.text.isNotEmpty()) {
+                industry = sharedPreferencesInd?.getString(IndustriesFragment.INDUSTRIES_ID, "")
+            }
+
             val check = binding.checkBox.isChecked
-            val industry = binding.industryValue.text.toString()
-            val salary = binding.edit.text.toString()
-            val result = Filter(country, region, industry, salary, check)
+            sharedPrefs?.edit()?.putString(CHECKBOX, if (check) "1" else "0")?.apply()
+
+            var salary: String? = null
+            if (binding.edit.text.toString().isNotEmpty()) {
+                salary = binding.edit.text.toString()
+            }
+            sharedPrefs?.edit()?.putString(SALARY, salary)?.apply()
+
+
+            val result =
+                Filter(salary = salary, onlyWithSalary = check, country = country, region = region, industry = industry)
             sharedPreferences?.edit()?.putString(FILTER, Gson().toJson(result))?.apply()
             findNavController().popBackStack()
         }
@@ -262,5 +320,7 @@ class FiltersFragment : Fragment() {
     companion object {
         const val FILTER_PREFERENCES = "filter_preferences"
         const val FILTER = "filter"
+        const val CHECKBOX = "checkbox"
+        const val SALARY = "salary"
     }
 }

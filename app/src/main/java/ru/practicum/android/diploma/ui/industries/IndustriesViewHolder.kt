@@ -10,7 +10,12 @@ class IndustriesViewHolder(private val binding: IndustryItemBinding) : RecyclerV
 
     fun bind(industries: ParentIndustriesAllDeal) {
         binding.textView.text = industries.name
+        binding.checkBoxIndustry.isChecked = industries.isChecked
         val textColor = ContextCompat.getColor(itemView.context, R.color.black)
         binding.textView.setTextColor(textColor)
+    }
+
+    fun bindSelection(isSelected: Boolean) {
+        binding.checkBoxIndustry.isChecked = isSelected
     }
 }

@@ -49,6 +49,7 @@ class SearchFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupMainRecycler()
@@ -136,6 +137,7 @@ class SearchFragment : Fragment() {
         binding.searchRecyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onStart() {
         super.onStart()
 

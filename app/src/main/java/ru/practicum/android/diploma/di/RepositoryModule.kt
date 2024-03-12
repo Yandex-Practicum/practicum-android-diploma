@@ -22,7 +22,7 @@ import ru.practicum.android.diploma.domain.region.RegionRepository
 val repositoryModule = module {
 
     single<SearchRepository> {
-        SearchRepositoryImpl(get(), get())
+        SearchRepositoryImpl(get())
     }
 
     single<DetailRepository> {
