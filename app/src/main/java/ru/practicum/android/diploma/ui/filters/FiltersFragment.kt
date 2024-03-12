@@ -281,18 +281,26 @@ class FiltersFragment : Fragment() {
         }
 
         val sharedPreferences = context?.getSharedPreferences(FILTER_PREFERENCES, Context.MODE_PRIVATE)
-        val sharedPreferencesInd =
-            context?.getSharedPreferences(IndustriesFragment.INDUSTRIES_PREFERENCES, Context.MODE_PRIVATE)
+        val sharedPreferencesInd = context?.getSharedPreferences(IndustriesFragment.INDUSTRIES_PREFERENCES, Context.MODE_PRIVATE)
 
         binding.apply.setOnClickListener {
 
-            val country = sharedPrefs?.getString(WorkplaceFragment.COUNTRY_ID, "")
-            val region = sharedPrefs?.getString(WorkplaceFragment.REGION_ID, "")
-
+            var country: String? = null
+            var region: String? = null
+            if (binding.workplaceValue.text.isNotEmpty()) {
+                val place = binding.workplaceValue.text.split(", ")
+                if (place.size == 2) {
+                    country = sharedPrefs?.getString(WorkplaceFragment.COUNTRY_ID, null)
+                    region = sharedPrefs?.getString(WorkplaceFragment.REGION_ID, null)
+                }
+                if(place.size == 1){
+                    country = sharedPrefs?.getString(WorkplaceFragment.COUNTRY_ID, null)
+                }
+            }
 
             var industry: String? = null
-            if (binding.industryValue.text.isNotEmpty()) {
-                industry = sharedPreferencesInd?.getString(IndustriesFragment.INDUSTRIES_ID, "")
+            if(binding.industryValue.text.isNotEmpty()){
+                industry = sharedPreferencesInd?.getString(IndustriesFragment.INDUSTRIES_ID, null)
             }
 
             val check = binding.checkBox.isChecked
@@ -302,8 +310,6 @@ class FiltersFragment : Fragment() {
             if (binding.edit.text.toString().isNotEmpty()) {
                 salary = binding.edit.text.toString()
             }
-            sharedPrefs?.edit()?.putString(SALARY, salary)?.apply()
-
 
             val result =
                 Filter(salary = salary, onlyWithSalary = check, country = country, region = region, industry = industry)
