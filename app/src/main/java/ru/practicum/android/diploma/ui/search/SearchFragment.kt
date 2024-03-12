@@ -95,8 +95,8 @@ class SearchFragment : Fragment() {
                     binding.imageBinoculars.visibleOrGone(state.state == null)
                     binding.placeholderError.visibleOrGone(state.state is SearchState.Empty)
                     binding.placeholderNoConnection.visibleOrGone(state.state is SearchState.Error)
-
                     binding.tvRvHeader.visibleOrGone(state.foundVacancies != null && state.state !is SearchState.Error)
+                    binding.serverError.visibleOrGone(state.state is SearchState.ServerError)
                     state.foundVacancies?.let {
                         binding.tvRvHeader.text = it
                     }

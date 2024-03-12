@@ -6,4 +6,6 @@ sealed interface Resource<T> {
 
     class Error<T>(val message: Int?, val data: T? = null) : Resource<T>
 
+    class ServerError<T>(val message: Int?, val data: T? = null) : Resource<T>
+
 }

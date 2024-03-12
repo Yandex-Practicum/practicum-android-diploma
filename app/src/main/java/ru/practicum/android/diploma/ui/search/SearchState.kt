@@ -10,4 +10,6 @@ sealed interface SearchState {
     ) : SearchState
 
     data object Error : SearchState
+
+    data object ServerError : SearchState
 }

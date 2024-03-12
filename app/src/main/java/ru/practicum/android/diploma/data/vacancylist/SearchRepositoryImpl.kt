@@ -23,7 +23,10 @@ class SearchRepositoryImpl(
                     foundedVacancies = response.found
                 ))
             } catch (e: Exception) {
-                Resource.Error(0)
+                if(e is RuntimeException){
+                    Resource.ServerError(500)
+                }
+                else{Resource.Error(0)}
             }
         }
     }

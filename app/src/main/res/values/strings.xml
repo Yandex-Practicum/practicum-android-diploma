@@ -46,5 +46,6 @@
     <string name="search_heading">Поиск вакансий</string>
     <string name="expected_salary">Ожидаемая зарплата</string>
     <string name="enter_industry">Введите отрасль</string>
+    <string name="server_error_search">Ошибка сервера</string>
 
 </resources>

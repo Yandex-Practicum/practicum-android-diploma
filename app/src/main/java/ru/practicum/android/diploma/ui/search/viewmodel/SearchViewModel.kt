@@ -103,6 +103,9 @@ class SearchViewModel(
                     is Resource.Error -> {
                         state.update { it.copy(state = SearchState.Error) }
                     }
+                    is Resource.ServerError -> {
+                        state.update { it.copy(state = SearchState.ServerError) }
+                    }
                 }
             }
         } else {
