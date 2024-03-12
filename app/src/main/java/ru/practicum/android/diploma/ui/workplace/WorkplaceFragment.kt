@@ -32,6 +32,8 @@ class WorkplaceFragment : Fragment() {
 
         val sharedPrefs = context?.getSharedPreferences(COUNTRY_PREFERENCES, Context.MODE_PRIVATE)
         Log.d("StateShared", "В WorkplaceFragment country = ${sharedPrefs?.getString(COUNTRY_TEXT, "")}")
+        binding.button.visibility = View.GONE
+
 
         if (sharedPrefs?.getString(COUNTRY_TEXT, "")?.isNotEmpty() == true) {
             binding.countryName.text = sharedPrefs.getString(COUNTRY_TEXT, "")
@@ -39,12 +41,14 @@ class WorkplaceFragment : Fragment() {
             binding.countryButton.setImageResource(R.drawable.close_icon)
             binding.countryButton.isClickable = true
             binding.coutryHint.visibility = View.VISIBLE
+            binding.button.visibility = View.VISIBLE
         } else {
             binding.countryName.text = "Страна"
             binding.countryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Text_Gray))
             binding.countryButton.setImageResource(R.drawable.arrow_forward)
             binding.countryButton.isClickable = false
             binding.coutryHint.visibility = View.GONE
+            binding.button.visibility = View.GONE
         }
 
         if (sharedPrefs?.getString(REGION_TEXT, "")?.isNotEmpty() == true) {
@@ -68,7 +72,15 @@ class WorkplaceFragment : Fragment() {
             binding.countryButton.isClickable = false
             sharedPrefs?.edit()?.putString(COUNTRY_TEXT, "")?.apply()
             sharedPrefs?.edit()?.putString(COUNTRY_ID, "")?.apply()
+            sharedPrefs?.edit()?.putString(REGION_TEXT, "")?.apply()
+            sharedPrefs?.edit()?.putString(REGION_ID, "")?.apply()
             binding.coutryHint.visibility = View.GONE
+            binding.button.visibility = View.GONE
+            binding.regionName.text = "Регион"
+            binding.regionName.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Text_Gray))
+            binding.regionButton.setImageResource(R.drawable.arrow_forward)
+            binding.regionButton.isClickable = false
+            binding.regionHint.visibility = View.GONE
         }
 
         binding.regionButton.setOnClickListener {
