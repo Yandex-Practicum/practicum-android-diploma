@@ -286,6 +286,9 @@ class FiltersFragment : Fragment() {
                     country = sharedPrefs?.getString(WorkplaceFragment.COUNTRY_ID, "")
                     region = sharedPrefs?.getString(WorkplaceFragment.REGION_ID, "")
                 }
+                if(place.size == 1){
+                    country = sharedPrefs?.getString(WorkplaceFragment.COUNTRY_ID, "")
+                }
             }
 
             var industry: String? = null
