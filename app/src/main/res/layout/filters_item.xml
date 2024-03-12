@@ -17,7 +17,7 @@
             android:text="Место работы"
             android:fontFamily="@font/ys_display_regular"
             android:textSize="16dp"
-            android:textColor="@color/YP_Text_Gray"
+            android:textColor="@color/black_white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

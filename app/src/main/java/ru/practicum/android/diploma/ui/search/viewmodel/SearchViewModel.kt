@@ -64,7 +64,7 @@ class SearchViewModel(
                 params["page"] = "1"
 
                 filter.salary?.let {
-                    params["salary"] = filter.region.toString()
+                    params["salary"] = filter.salary.toString()
                 }
 
                 filter.onlyWithSalary?.let {
@@ -72,13 +72,13 @@ class SearchViewModel(
                 }
 
                 //todo: все фильтры которые закоментированны нужно передавать id
-//                filter.country?.let {
-//                    params["area"] = filter.country.toString()
-//                }
+                filter.country?.let {
+                    params["area"] = filter.country.toString()
+                }
 
-//                filter.region?.let {
-//                    params["area"] = filter.region.toString()
-//                }
+                filter.region?.let {
+                    params["area"] = filter.region.toString()
+                }
 //
 //                filter.industry?.let {
 //                    params["industry"] = filter.region.toString()

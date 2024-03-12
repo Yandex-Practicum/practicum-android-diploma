@@ -15,6 +15,7 @@ import com.google.gson.Gson
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFiltersBinding
 import ru.practicum.android.diploma.domain.models.Filter
+import ru.practicum.android.diploma.ui.country.CountryFragment
 import ru.practicum.android.diploma.ui.workplace.WorkplaceFragment
 
 class FiltersFragment : Fragment() {
@@ -242,13 +243,29 @@ class FiltersFragment : Fragment() {
         val sharedPreferences = context?.getSharedPreferences(FILTER_PREFERENCES, Context.MODE_PRIVATE)
 
         binding.apply.setOnClickListener {
-            val place = binding.workplaceValue.text.split(", ")
-            val country = place[0]
-            val region = place[1]
+            var country: String? = null
+            var region: String? = null
+
+            if(binding.workplaceValue.text.isNotEmpty()){
+                val place = binding.workplaceValue.text.split(", ")
+                if(place.size == 2){
+                    country = sharedPrefs?.getString(WorkplaceFragment.COUNTRY_ID, "")
+                    region = sharedPrefs?.getString(WorkplaceFragment.REGION_ID, "")
+                }
+            }
+
+            var industry = null
+
+            /*if(binding.industryValue.text.isNotEmpty()){
+                industry = binding.industryValue.text.toString()
+            }*/
+
             val check = binding.checkBox.isChecked
-            val industry = binding.industryValue.text.toString()
-            val salary = binding.edit.text.toString()
-            val result = Filter(country, region, industry, salary, check)
+            var salary = binding.edit.text.toString()
+            if(salary.isEmpty()){
+                salary = "5000"
+            }
+            val result = Filter(salary = salary, onlyWithSalary = check, country = country, region = region, industry = industry)
             sharedPreferences?.edit()?.putString(FILTER, Gson().toJson(result))?.apply()
             findNavController().popBackStack()
         }
