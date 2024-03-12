@@ -20,7 +20,7 @@ class SearchRepositoryImpl(
                     response.items?.map { it.toVacancy() } ?: emptyList(),
                     pages = response.pages,
                     page = response.page,
-                    foundedVacancies = response.found
+                    foundedVacancies = response.found,
                 ))
             } catch (e: Exception) {
                 Resource.Error(0)
