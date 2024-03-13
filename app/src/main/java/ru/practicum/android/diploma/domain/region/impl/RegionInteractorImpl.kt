@@ -18,6 +18,7 @@ class RegionInteractorImpl(
             when (resource) {
                 is Resource.Success -> Pair(resource.data, null)
                 is Resource.Error -> Pair(null, resource.message)
+                is Resource.ServerError -> Pair(null, 500)
             }
         }
     }
