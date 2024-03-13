@@ -12,7 +12,7 @@ import ru.practicum.android.diploma.domain.filter.datashared.RegionShared
 import ru.practicum.android.diploma.domain.filter.datashared.SalaryBooleanShared
 import ru.practicum.android.diploma.domain.filter.datashared.SalaryTextShared
 
-class FilterInfoRepositoryImpl(private val context: Context): FilterInfoRepository {
+class FilterInfoRepositoryImpl(private val context: Context) : FilterInfoRepository {
 
     companion object {
         private const val PREFS_NAME = "FilterInfoPrefs"
