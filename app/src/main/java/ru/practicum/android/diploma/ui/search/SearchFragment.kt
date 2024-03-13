@@ -60,10 +60,17 @@ class SearchFragment : Fragment() {
         }
 
         binding.searchEditText.onTextChange {
-            binding.searchContainer.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
-            binding.searchContainer.endIconDrawable = requireContext().getDrawable(R.drawable.ic_clear)
+            //binding.searchContainer.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
+            //binding.searchContainer.endIconDrawable = requireContext().getDrawable(R.drawable.ic_clear)
+            binding.searchEditText.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_clear, 0)
             binding.clearButton.isEnabled = true
             binding.clearButton.visibleOrGone(binding.clearButton.isEnabled)
+            if(binding.searchEditText.text.toString().isEmpty()){
+                binding.searchEditText.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_search, 0)
+                binding.clearButton.isEnabled = false
+                binding.clearButton.visibleOrGone(binding.clearButton.isEnabled)
+                binding.tvRvHeader.visibility = View.GONE
+            }
         }
 
         binding.searchEditText.onTextChangeDebounce()
@@ -143,19 +150,25 @@ class SearchFragment : Fragment() {
         super.onStart()
 
         if (binding.searchEditText.text.toString().isNotEmpty()) {
-            binding.searchContainer.endIconMode = TextInputLayout.END_ICON_CUSTOM
-            binding.searchContainer.endIconDrawable = requireContext().getDrawable(R.drawable.ic_clear)
+            //binding.searchContainer.endIconMode = TextInputLayout.END_ICON_CUSTOM
+            //binding.searchContainer.endIconDrawable = requireContext().getDrawable(R.drawable.ic_clear)
+            binding.searchEditText.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_clear, 0)
             binding.clearButton.isEnabled = true
+        }
+        else{
+            binding.searchEditText.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_search, 0)
+            binding.clearButton.isEnabled = false
         }
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun clearSearchText() {
         binding.searchEditText.setText("")
-        binding.searchContainer.endIconMode = TextInputLayout.END_ICON_CUSTOM
-        binding.searchContainer.endIconDrawable = requireContext().getDrawable(R.drawable.ic_search)
+        //binding.searchContainer.endIconMode = TextInputLayout.END_ICON_CUSTOM
+        //binding.searchContainer.endIconDrawable = requireContext().getDrawable(R.drawable.ic_search)
         binding.clearButton.isEnabled = false
         binding.tvRvHeader.visibility = View.GONE
+        binding.searchEditText.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_search, 0)
     }
 
     private fun hideKeyBoard() {
