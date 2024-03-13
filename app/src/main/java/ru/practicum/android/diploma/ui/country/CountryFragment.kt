@@ -57,6 +57,7 @@ class CountryFragment : Fragment() {
             when (state) {
                 is CountryState.Content -> {
                     adapter.countryList.addAll(state.region)
+                    adapter.filteredList.addAll(state.region)
                     adapter.notifyDataSetChanged()
                 }
 

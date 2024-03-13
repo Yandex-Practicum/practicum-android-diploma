@@ -38,8 +38,8 @@ class RegionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        val sharedPrefs = context?.getSharedPreferences(CountryFragment.COUNTRY_PREFERENCES, Context.MODE_PRIVATE)
-//        regionId = sharedPrefs?.getString(WorkplaceFragment.COUNTRY_ID, "")
+        val sharedPrefs = context?.getSharedPreferences(CountryFragment.COUNTRY_PREFERENCES, Context.MODE_PRIVATE)
+        regionId = sharedPrefs?.getString(WorkplaceFragment.COUNTRY_ID, "")
 
         binding.vacancyToolbar.setOnClickListener {
             findNavController().navigateUp()
@@ -67,6 +67,7 @@ class RegionFragment : Fragment() {
             }
 
             override fun afterTextChanged(s: Editable?) {
+                adapter.filter(s.toString())
                 if (binding.edit.text.isNotEmpty()) {
                     val newDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.close_icon)
                     binding.edit.setCompoundDrawablesWithIntrinsicBounds(null, null, newDrawable, null)
@@ -110,7 +111,9 @@ class RegionFragment : Fragment() {
                 is RegionState.Content -> {
                     showContent()
                     adapter.countryList.clear()
+                    adapter.filteredList.clear()
                     adapter.countryList.addAll(state.regionId.areas.map { it.mapToCountry() }.sortedBy { it.name })
+                    adapter.filteredList.addAll(state.regionId.areas.map { it.mapToCountry() }.sortedBy { it.name })
                     adapter.notifyDataSetChanged()
                 }
 
