@@ -47,7 +47,7 @@ class FiltersFragment : Fragment() {
                         )
                     )
                 }
-            }, 2000)
+            }, DELAY)
         }
     }
 
@@ -66,16 +66,20 @@ class FiltersFragment : Fragment() {
 
         viewModel.countryState.observe(viewLifecycleOwner) { country ->
             if (country != null) {
-                if (regionName != null) {
-                    binding.workplaceValue.text = "${country.countryName}, $regionName"
-                } else {
-                    binding.workplaceValue.text = country.countryName
-                }
+                binding.workplaceValue.text = country.countryName
                 binding.workplaceValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_white))
                 binding.workplaceView.setImageResource(R.drawable.close_icon)
                 binding.workplaceView.isClickable = true
                 binding.workplaceHint.visibility = View.VISIBLE
                 binding.filterFunctionButton.visibility = View.VISIBLE
+
+                viewModel.regionState.observe(viewLifecycleOwner) { region ->
+                    if (region != null) {
+                        binding.workplaceValue.text = country.countryName + ", " + region.regionName
+                    } else {
+                        binding.workplaceValue.text = country.countryName
+                    }
+                }
             } else {
                 binding.workplaceView.setImageResource(R.drawable.arrow_forward)
                 binding.workplaceView.isClickable = false
@@ -180,5 +184,9 @@ class FiltersFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        const val DELAY = 2000L
     }
 }
