@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.ui.region
 
-import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,16 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.converters.AreaConverter.mapToCountry
 import ru.practicum.android.diploma.databinding.FragmentRegionBinding
+import ru.practicum.android.diploma.domain.filter.datashared.RegionShared
 import ru.practicum.android.diploma.ui.country.CountryAdapter
-import ru.practicum.android.diploma.ui.country.CountryFragment
-import ru.practicum.android.diploma.ui.workplace.WorkplaceFragment
 
 class RegionFragment : Fragment() {
 
@@ -35,9 +32,26 @@ class RegionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val adapter = CountryAdapter()
-        val sharedPrefs = context?.getSharedPreferences(CountryFragment.COUNTRY_PREFERENCES, Context.MODE_PRIVATE)
-        regionId = sharedPrefs?.getString(WorkplaceFragment.COUNTRY_ID, "")
+        adapter.itemClickListener = { _, item ->
+            viewModel.setRegionInfo(
+                RegionShared(
+                    regionId = item.id,
+                    regionParentId = item.parentId,
+                    regionName = item.name
+                )
+            )
+            findNavController().popBackStack()
+        }
+
+        binding.click.setOnClickListener {
+            binding.edit.setText("")
+        }
+
+        binding.regionRecycler.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.regionRecycler.adapter = adapter
 
         binding.vacancyToolbar.setOnClickListener {
             findNavController().navigateUp()
@@ -75,27 +89,8 @@ class RegionFragment : Fragment() {
                 }
             }
         }
+
         binding.edit.addTextChangedListener(textWatcher)
-
-        binding.click.setOnClickListener {
-            binding.edit.setText("")
-        }
-
-
-        adapter.itemClickListener = { _, item ->
-            val bundle = Bundle()
-            bundle.putString("keyRegion", item.name)
-            setFragmentResult("requestKeyRegion", bundle)
-            sharedPrefs?.edit()?.putString(REGION_TEXT, item.name)?.apply()
-            sharedPrefs?.edit()?.putString(REGION_ID, item.id)?.apply()
-            findNavController().popBackStack()
-        }
-
-        binding.regionRecycler.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.regionRecycler.adapter = adapter
-
-        viewModel.loadRegion(regionId ?: "")
 
         viewModel.observeState().observe(viewLifecycleOwner) { state ->
             when (state) {
@@ -128,10 +123,5 @@ class RegionFragment : Fragment() {
     private fun showLoading() {
         binding.regionRecycler.visibility = View.GONE
         binding.regionProgressBar.visibility = View.VISIBLE
-    }
-
-    companion object {
-        const val REGION_TEXT = "region_text"
-        const val REGION_ID = "region_id"
     }
 }

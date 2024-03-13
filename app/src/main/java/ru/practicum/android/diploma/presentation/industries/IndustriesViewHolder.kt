@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.industries
+package ru.practicum.android.diploma.presentation.industries
 
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView

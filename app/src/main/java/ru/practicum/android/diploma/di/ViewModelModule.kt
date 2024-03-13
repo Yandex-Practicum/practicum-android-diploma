@@ -2,9 +2,10 @@ package ru.practicum.android.diploma.di
 
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
-import ru.practicum.android.diploma.presentation.industries.IndustriesViewModel
 import ru.practicum.android.diploma.ui.country.CountryViewModel
 import ru.practicum.android.diploma.ui.favorites.viewmodel.FavoriteViewModel
+import ru.practicum.android.diploma.ui.filters.FilterViewModel
+import ru.practicum.android.diploma.ui.industries.IndustriesViewModel
 import ru.practicum.android.diploma.ui.region.RegionViewModel
 import ru.practicum.android.diploma.ui.search.viewmodel.SearchViewModel
 import ru.practicum.android.diploma.ui.similarvacancies.viewmodel.SimilarViewModel
@@ -21,11 +22,11 @@ val viewModelModule = module {
         FavoriteViewModel(get())
     }
     viewModel {
-        WorkplaceViewModel()
+        WorkplaceViewModel(get())
     }
 
     viewModel {
-        IndustriesViewModel(get())
+        IndustriesViewModel(get(), get())
     }
 
     viewModel {
@@ -33,14 +34,18 @@ val viewModelModule = module {
     }
 
     viewModel {
-        CountryViewModel(get())
+        CountryViewModel(get(), get())
     }
 
     viewModel {
-        RegionViewModel(get())
+        RegionViewModel(get(), get())
     }
 
-    single {
+    viewModel {
         SimilarViewModel(get())
+    }
+
+    viewModel {
+        FilterViewModel(get())
     }
 }

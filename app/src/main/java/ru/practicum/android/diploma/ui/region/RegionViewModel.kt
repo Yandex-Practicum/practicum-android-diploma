@@ -7,14 +7,35 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.country.Country
+import ru.practicum.android.diploma.domain.filter.FilterInfoRepository
+import ru.practicum.android.diploma.domain.filter.datashared.CountryShared
+import ru.practicum.android.diploma.domain.filter.datashared.RegionShared
 import ru.practicum.android.diploma.domain.region.RegionInteractor
 
 class RegionViewModel(
-    val regionInteractor: RegionInteractor,
+    private val regionInteractor: RegionInteractor,
+    private val filterInfoRepository: FilterInfoRepository
 ) : ViewModel() {
 
     private val stateLiveData = MutableLiveData<RegionState>()
     fun observeState(): LiveData<RegionState> = stateLiveData
+
+    private val _countryState = MutableLiveData<CountryShared?>()
+    val countryState: LiveData<CountryShared?> = _countryState
+
+    init {
+        viewModelScope.launch {
+            // Получаем значение countryFlow из репозитория
+            val country = filterInfoRepository.getCountryFlow().value
+            _countryState.value = country
+            // Передаем countryId в loadRegion()
+            country?.let { country ->
+                country.countryId?.let { countryId ->
+                    loadRegion(countryId)
+                }
+            }
+        }
+    }
 
     fun loadRegion(regionId: String) {
         if (regionId.isEmpty()) {
@@ -54,5 +75,9 @@ class RegionViewModel(
 
     fun renderState(regionState: RegionState) {
         stateLiveData.postValue(regionState)
+    }
+
+    fun setRegionInfo(region: RegionShared) {
+        filterInfoRepository.setRegionFlow(region)
     }
 }
