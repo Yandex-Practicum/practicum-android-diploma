@@ -53,6 +53,4 @@ class WorkplaceViewModel(
     fun setRegionInfo(region: RegionShared?) {
         filterInfoRepository.setRegionFlow(region)
     }
-
-
 }
