@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.ui.country
 
 import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.FragmentCountryBinding
+import ru.practicum.android.diploma.domain.filter.datashared.CountryShared
 
 class CountryFragment : Fragment() {
 
@@ -35,11 +37,15 @@ class CountryFragment : Fragment() {
 
         val adapter = CountryAdapter()
         adapter.itemClickListener = { _, item ->
-            val bundle = Bundle()
-            bundle.putString("key", item.name)
-            setFragmentResult("requestKey", bundle)
-            sharedPrefs?.edit()?.putString(COUNTRY_TEXT, item.name)?.apply()
-            sharedPrefs?.edit()?.putString(COUNTRY_ID, item.id)?.apply()
+//            val bundle = Bundle()
+//            bundle.putString("key", item.name)
+//            setFragmentResult("requestKey", bundle)
+//            sharedPrefs?.edit()?.putString(COUNTRY_TEXT, item.name)?.apply()
+//            sharedPrefs?.edit()?.putString(COUNTRY_ID, item.id)?.apply()
+            viewModel.setCountryInfo(CountryShared(
+                countryId = item.id,
+                countryName = item.name
+            ))
             findNavController().popBackStack()
         }
 

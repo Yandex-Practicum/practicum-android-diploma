@@ -23,11 +23,11 @@ val viewModelModule = module {
         FavoriteViewModel(get())
     }
     viewModel {
-        WorkplaceViewModel()
+        WorkplaceViewModel(get())
     }
 
     viewModel {
-        IndustriesViewModel(get())
+        IndustriesViewModel(get(), get())
     }
 
     viewModel {
@@ -35,11 +35,11 @@ val viewModelModule = module {
     }
 
     viewModel {
-        CountryViewModel(get())
+        CountryViewModel(get(), get())
     }
 
     viewModel {
-        RegionViewModel(get())
+        RegionViewModel(get(), get())
     }
 
     viewModel {
@@ -47,6 +47,6 @@ val viewModelModule = module {
     }
 
     viewModel {
-        FilterViewModel(androidContext())
+        FilterViewModel(get())
     }
 }

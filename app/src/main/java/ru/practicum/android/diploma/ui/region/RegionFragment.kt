@@ -16,6 +16,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.converters.AreaConverter.mapToCountry
 import ru.practicum.android.diploma.databinding.FragmentRegionBinding
+import ru.practicum.android.diploma.domain.filter.datashared.CountryShared
+import ru.practicum.android.diploma.domain.filter.datashared.RegionShared
 import ru.practicum.android.diploma.ui.country.CountryAdapter
 import ru.practicum.android.diploma.ui.country.CountryFragment
 import ru.practicum.android.diploma.ui.workplace.WorkplaceFragment
@@ -36,8 +38,8 @@ class RegionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val sharedPrefs = context?.getSharedPreferences(CountryFragment.COUNTRY_PREFERENCES, Context.MODE_PRIVATE)
-        regionId = sharedPrefs?.getString(WorkplaceFragment.COUNTRY_ID, "")
+//        val sharedPrefs = context?.getSharedPreferences(CountryFragment.COUNTRY_PREFERENCES, Context.MODE_PRIVATE)
+//        regionId = sharedPrefs?.getString(WorkplaceFragment.COUNTRY_ID, "")
 
         binding.vacancyToolbar.setOnClickListener {
             findNavController().navigateUp()
@@ -82,11 +84,18 @@ class RegionFragment : Fragment() {
 
         val adapter = CountryAdapter()
         adapter.itemClickListener = { _, item ->
-            val bundle = Bundle()
-            bundle.putString("keyRegion", item.name)
-            setFragmentResult("requestKeyRegion", bundle)
-            sharedPrefs?.edit()?.putString(REGION_TEXT, item.name)?.apply()
-            sharedPrefs?.edit()?.putString(REGION_ID, item.id)?.apply()
+//            val bundle = Bundle()
+//            bundle.putString("keyRegion", item.name)
+//            setFragmentResult("requestKeyRegion", bundle)
+//            sharedPrefs?.edit()?.putString(REGION_TEXT, item.name)?.apply()
+//            sharedPrefs?.edit()?.putString(REGION_ID, item.id)?.apply()
+            viewModel.setRegionInfo(
+                RegionShared(
+                    regionId = item.id,
+                    regionParentId = item.parentId,
+                    regionName = item.name
+                )
+            )
             findNavController().popBackStack()
         }
 
@@ -94,7 +103,7 @@ class RegionFragment : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.regionRecycler.adapter = adapter
 
-        viewModel.loadRegion(regionId ?: "")
+//        viewModel.loadRegion(regionId ?: "")
 
         viewModel.observeState().observe(viewLifecycleOwner) { state ->
             when (state) {

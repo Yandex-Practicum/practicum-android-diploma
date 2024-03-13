@@ -52,6 +52,9 @@ room-ktx = "androidx.room:room-ktx:2.6.1"
 # Koin
 koin = "io.insert-koin:koin-android:3.3.0"
 
+# Json
+json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0"
+
 # UI layer libraries
 ui-material = "com.google.android.material:material:1.10.0"
 ui-constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.4"

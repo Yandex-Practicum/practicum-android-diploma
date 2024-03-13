@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.ui.industries
 
-import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,12 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentIndustryBinding
+import ru.practicum.android.diploma.domain.filter.datashared.IndustriesShared
 import ru.practicum.android.diploma.domain.industries.ParentIndustriesAllDeal
 import ru.practicum.android.diploma.presentation.industries.IndustriesAdapter
 import ru.practicum.android.diploma.presentation.industries.IndustriesState
@@ -34,8 +33,6 @@ class IndustriesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val sharedPrefsIndustries = context?.getSharedPreferences(INDUSTRIES_PREFERENCES, Context.MODE_PRIVATE)
 
         val adapter = IndustriesAdapter()
         binding.regionRecycler.layoutManager =
@@ -101,11 +98,12 @@ class IndustriesFragment : Fragment() {
         }
 
         binding.industriesButtonChoose.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putString("keyIndustries", selectedIndustries?.name)
-            setFragmentResult("requestKeyIndustries", bundle)
-            sharedPrefsIndustries?.edit()?.putString(INDUSTRIES_TEXT, selectedIndustries?.name)?.apply()
-            sharedPrefsIndustries?.edit()?.putString(INDUSTRIES_ID, selectedIndustries?.id)?.apply()
+            viewModel.setIndustriesInfo(
+                IndustriesShared(
+                    industriesId = selectedIndustries?.id,
+                    industriesName = selectedIndustries?.name
+                )
+            )
             findNavController().popBackStack()
         }
 
@@ -119,11 +117,5 @@ class IndustriesFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    companion object {
-        const val INDUSTRIES_PREFERENCES = "industries_preferences"
-        const val INDUSTRIES_TEXT = "industries_text"
-        const val INDUSTRIES_ID = "industries_id"
     }
 }
