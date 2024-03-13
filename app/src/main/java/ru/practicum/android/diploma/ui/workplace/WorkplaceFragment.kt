@@ -17,7 +17,6 @@ class WorkplaceFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModel<WorkplaceViewModel>()
-    var countryId: String? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentWorkplaceBinding.inflate(inflater, container, false)
@@ -27,13 +26,10 @@ class WorkplaceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        countryId = viewModel.countryState.value?.countryId
-
         viewModel.getCountryInfo()
         viewModel.getRegionInfo()
 
         viewModel.countryState.observe(viewLifecycleOwner) { country ->
-            countryId = country?.countryId
             if (country != null) {
                 binding.countryName.text = country.countryName
                 binding.countryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_white))
@@ -49,21 +45,21 @@ class WorkplaceFragment : Fragment() {
                 binding.coutryHint.visibility = View.GONE
                 binding.button.visibility = View.GONE
             }
-        }
 
-        viewModel.regionState.observe(viewLifecycleOwner) { region ->
-            if (region != null && region.regionParentId == countryId) {
-                binding.regionName.text = region.regionName
-                binding.regionName.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_white))
-                binding.regionButton.setImageResource(R.drawable.close_icon)
-                binding.regionButton.isClickable = true
-                binding.regionHint.visibility = View.VISIBLE
-            } else {
-                binding.regionName.text = "Регион"
-                binding.regionName.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Text_Gray))
-                binding.regionButton.setImageResource(R.drawable.arrow_forward)
-                binding.regionButton.isClickable = false
-                binding.regionHint.visibility = View.GONE
+            viewModel.regionState.observe(viewLifecycleOwner) { region ->
+                if (region != null && region.regionParentId == country?.countryId) {
+                    binding.regionName.text = region.regionName
+                    binding.regionName.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_white))
+                    binding.regionButton.setImageResource(R.drawable.close_icon)
+                    binding.regionButton.isClickable = true
+                    binding.regionHint.visibility = View.VISIBLE
+                } else {
+                    binding.regionName.text = "Регион"
+                    binding.regionName.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Text_Gray))
+                    binding.regionButton.setImageResource(R.drawable.arrow_forward)
+                    binding.regionButton.isClickable = false
+                    binding.regionHint.visibility = View.GONE
+                }
             }
         }
 

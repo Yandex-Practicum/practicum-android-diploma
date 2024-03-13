@@ -107,7 +107,7 @@ class FiltersFragment : Fragment() {
         }
 
         viewModel.salaryTextState.observe(viewLifecycleOwner) { salaryText ->
-            if (salaryText?.salary!!.isNotEmpty()) {
+            if (salaryText?.salary?.isNotEmpty() == true) {
                 binding.expectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_white))
                 binding.edit.setText(salaryText.salary)
                 binding.edit.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_white))
