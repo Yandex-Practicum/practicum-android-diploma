@@ -36,11 +36,6 @@ class WorkplaceFragment : Fragment() {
         viewModel.countryState.observe(viewLifecycleOwner) { country ->
             countryId = country?.countryId
             if (country != null) {
-                Toast.makeText(
-                    requireContext(),
-                    "Всё работает хорошо countryName = ${country.countryName}",
-                    Toast.LENGTH_LONG
-                ).show()
                 binding.countryName.text = country.countryName
                 binding.countryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_white))
                 binding.countryButton.setImageResource(R.drawable.close_icon)
@@ -59,11 +54,6 @@ class WorkplaceFragment : Fragment() {
 
         viewModel.regionState.observe(viewLifecycleOwner) { region ->
             if (region != null && region.regionParentId == countryId) {
-                Toast.makeText(
-                    requireContext(),
-                    "Всё работает хорошо regionName = ${region.regionName}",
-                    Toast.LENGTH_LONG
-                ).show()
                 binding.regionName.text = region.regionName
                 binding.regionName.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_white))
                 binding.regionButton.setImageResource(R.drawable.close_icon)
