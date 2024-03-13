@@ -52,7 +52,7 @@ val repositoryModule = module {
     }
 
     single<SimilarRepository> {
-        SimilarRepositoryImpl(get(), get())
+        SimilarRepositoryImpl(get())
     }
 
     single<FilterInfoRepository> {
