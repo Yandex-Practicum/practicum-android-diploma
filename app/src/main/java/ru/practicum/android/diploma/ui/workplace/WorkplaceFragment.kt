@@ -116,12 +116,4 @@ class WorkplaceFragment : Fragment() {
             findNavController().popBackStack()
         }
     }
-
-    companion object {
-        const val COUNTRY_PREFERENCES = "country_preferences"
-        const val COUNTRY_TEXT = "country_text"
-        const val COUNTRY_ID = "country_id"
-        const val REGION_TEXT = "region_text"
-        const val REGION_ID = "region_id"
-    }
 }
