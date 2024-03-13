@@ -63,8 +63,6 @@ class WorkplaceFragment : Fragment() {
             }
         }
 
-
-
         binding.countryButton.setOnClickListener {
             binding.countryName.text = "Страна"
             binding.countryName.setTextColor(ContextCompat.getColor(requireContext(), R.color.YP_Text_Gray))
