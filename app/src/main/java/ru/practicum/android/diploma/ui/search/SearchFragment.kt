@@ -110,6 +110,7 @@ class SearchFragment : Fragment() {
                     } else {
                         searchJob?.cancel()
                         searchJob = null
+
                     }
                 }
             }
