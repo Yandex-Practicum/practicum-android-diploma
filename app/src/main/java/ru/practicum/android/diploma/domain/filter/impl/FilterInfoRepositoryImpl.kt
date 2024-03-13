@@ -14,14 +14,7 @@ import ru.practicum.android.diploma.domain.filter.datashared.SalaryTextShared
 
 class FilterInfoRepositoryImpl(private val context: Context) : FilterInfoRepository {
 
-    companion object {
-        private const val PREFS_NAME = "FilterInfoPrefs"
-        private const val KEY_COUNTRY = "country"
-        private const val KEY_REGION = "region"
-        private const val KEY_INDUSTRIES = "industries"
-        private const val KEY_SALARY_TEXT = "salary_text"
-        private const val KEY_SALARY_BOOLEAN = "salary_boolean"
-    }
+
 
     private val gson = Gson()
 
@@ -116,5 +109,14 @@ class FilterInfoRepositoryImpl(private val context: Context) : FilterInfoReposit
     private fun loadSalaryBooleanState(): SalaryBooleanShared? {
         val json = sharedPreferences.getString(KEY_SALARY_BOOLEAN, null)
         return gson.fromJson(json, SalaryBooleanShared::class.java)
+    }
+
+    companion object {
+        private const val PREFS_NAME = "FilterInfoPrefs"
+        private const val KEY_COUNTRY = "country"
+        private const val KEY_REGION = "region"
+        private const val KEY_INDUSTRIES = "industries"
+        private const val KEY_SALARY_TEXT = "salary_text"
+        private const val KEY_SALARY_BOOLEAN = "salary_boolean"
     }
 }
