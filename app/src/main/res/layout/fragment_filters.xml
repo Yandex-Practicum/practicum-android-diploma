@@ -203,6 +203,7 @@
                     android:layout_marginEnd="4dp"
                     android:button="@drawable/cb_selector"
                     android:buttonTint="@color/YP_Blue"
+                    android:checked="false"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -213,33 +214,44 @@
         </FrameLayout>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/apply"
+    <LinearLayout
+        android:id="@+id/filter_function_button"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:textColor="@color/white"
-        style="@style/Text_Label"
-        android:layout_marginBottom="32dp"
-        android:background="@drawable/rounder"
-        android:text="@string/choose"
-        android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/remove"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/remove"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        style="@style/Text_Label"
-        android:text="@string/remove"
-        android:textColor="@color/red"
+        android:orientation="vertical"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
 
+        <TextView
+            android:id="@+id/apply"
+            style="@style/Text_Label"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/rounder"
+            android:gravity="center"
+            android:text="@string/choose"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/remove"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/remove"
+            style="@style/Text_Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="32dp"
+            android:text="@string/remove"
+            android:textColor="@color/red"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

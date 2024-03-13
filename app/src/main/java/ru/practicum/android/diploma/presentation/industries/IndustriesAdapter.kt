@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.industries
+package ru.practicum.android.diploma.presentation.industries
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -17,6 +17,7 @@ class IndustriesAdapter() : RecyclerView.Adapter<IndustriesViewHolder>() {
 
     val industriesList = ArrayList<ParentIndustriesAllDeal>()
     var itemClickListener: ((Int, ParentIndustriesAllDeal) -> Unit)? = null
+    val filteredList = ArrayList<ParentIndustriesAllDeal>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IndustriesViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -30,7 +31,7 @@ class IndustriesAdapter() : RecyclerView.Adapter<IndustriesViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: IndustriesViewHolder, position: Int) {
-        val industries = industriesList[position]
+        val industries = filteredList[position]
         holder.bind(industries)
         holder.itemView.setOnClickListener {
             selectedPosition = position
@@ -40,5 +41,19 @@ class IndustriesAdapter() : RecyclerView.Adapter<IndustriesViewHolder>() {
         holder.bindSelection(selectedPosition == position)
     }
 
-    override fun getItemCount(): Int = industriesList.size
+    override fun getItemCount(): Int = filteredList.size
+
+    fun filter(text: String) {
+        filteredList.clear()
+        if (text.isEmpty()) {
+            filteredList.addAll(industriesList)
+        } else {
+            for (item in industriesList) {
+                if (item.name.contains(text, ignoreCase = true)) {
+                    filteredList.add(item)
+                }
+            }
+        }
+        notifyDataSetChanged()
+    }
 }

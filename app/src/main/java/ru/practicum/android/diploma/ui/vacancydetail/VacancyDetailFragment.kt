@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import org.koin.androidx.viewmodel.ext.android.activityViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentVacancyDetailBinding
 import ru.practicum.android.diploma.domain.detail.VacancyDetail
@@ -27,7 +27,7 @@ import ru.practicum.android.diploma.util.extensions.visibleOrGone
 
 class VacancyDetailFragment : Fragment() {
 
-    private val vacancyDetailViewModel: DetailViewModel by activityViewModel()
+    private val vacancyDetailViewModel: DetailViewModel by viewModel()
     private var _binding: FragmentVacancyDetailBinding? = null
     private var adapter: DetailAdapter? = null
     private val binding get() = _binding!!

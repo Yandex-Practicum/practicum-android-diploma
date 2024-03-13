@@ -16,6 +16,8 @@ import ru.practicum.android.diploma.domain.api.SearchRepository
 import ru.practicum.android.diploma.domain.api.SimilarRepository
 import ru.practicum.android.diploma.domain.country.CountryRepository
 import ru.practicum.android.diploma.domain.favorite.FavoriteRepository
+import ru.practicum.android.diploma.domain.filter.FilterInfoRepository
+import ru.practicum.android.diploma.domain.filter.impl.FilterInfoRepositoryImpl
 import ru.practicum.android.diploma.domain.industries.IndustriesRepository
 import ru.practicum.android.diploma.domain.region.RegionRepository
 
@@ -50,6 +52,10 @@ val repositoryModule = module {
     }
 
     single<SimilarRepository> {
-        SimilarRepositoryImpl(get(), get())
+        SimilarRepositoryImpl(get())
+    }
+
+    single<FilterInfoRepository> {
+        FilterInfoRepositoryImpl(androidContext())
     }
 }

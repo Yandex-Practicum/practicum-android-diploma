@@ -68,6 +68,9 @@ dependencies {
     implementation(libs.room.ktx)
     kapt(libs.room.kapt)
 
+    // Json
+    implementation(libs.json)
+
     // UI layer libraries
     implementation(libs.ui.material)
     implementation(libs.ui.constraintLayout)
