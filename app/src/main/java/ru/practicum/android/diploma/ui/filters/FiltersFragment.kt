@@ -29,11 +29,15 @@ class FiltersFragment : Fragment() {
 
     val textWatcher = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
+            if (start > 0) {
+                binding.clearIcon.visibility = View.VISIBLE
+            } else {
+                binding.clearIcon.visibility = View.GONE
+            }
         }
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
+            binding.clearIcon.visibility = View.VISIBLE
         }
 
         override fun afterTextChanged(s: Editable?) {
@@ -169,6 +173,8 @@ class FiltersFragment : Fragment() {
             viewModel.setWorkplaceInfo(null, null)
             viewModel.setIndustriesInfo(null)
             viewModel.setSalaryTextInfo(null)
+            viewModel.setSalaryBooleanInfo(null)
+            binding.filterFunctionButton.visibility = View.GONE
         }
 
         binding.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
