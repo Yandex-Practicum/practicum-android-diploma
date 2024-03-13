@@ -146,7 +146,7 @@ class FiltersFragment : Fragment() {
         binding.edit.addTextChangedListener(textWatcher)
 
         binding.clearIcon.setOnClickListener {
-            binding.edit.setText("")
+            binding.edit.setText("1")
         }
 
         binding.vacancyToolbar.setOnClickListener {

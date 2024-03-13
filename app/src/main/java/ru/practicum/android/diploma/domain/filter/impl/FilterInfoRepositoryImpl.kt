@@ -18,7 +18,7 @@ class FilterInfoRepositoryImpl(private val context: Context) : FilterInfoReposit
 
     private val gson = Gson()
 
-    private val sharedPreferences: SharedPreferences by lazy {
+     val sharedPreferences: SharedPreferences by lazy {
         context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     }
 
@@ -112,11 +112,11 @@ class FilterInfoRepositoryImpl(private val context: Context) : FilterInfoReposit
     }
 
     companion object {
-        private const val PREFS_NAME = "FilterInfoPrefs"
-        private const val KEY_COUNTRY = "country"
-        private const val KEY_REGION = "region"
-        private const val KEY_INDUSTRIES = "industries"
-        private const val KEY_SALARY_TEXT = "salary_text"
-        private const val KEY_SALARY_BOOLEAN = "salary_boolean"
+         const val PREFS_NAME = "FilterInfoPrefs"
+         const val KEY_COUNTRY = "country"
+         const val KEY_REGION = "region"
+         const val KEY_INDUSTRIES = "industries"
+         const val KEY_SALARY_TEXT = "salary_text"
+         const val KEY_SALARY_BOOLEAN = "salary_boolean"
     }
 }

@@ -1,7 +1,5 @@
 package ru.practicum.android.diploma.ui.search.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
@@ -17,12 +15,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.data.filters.FiltersRepository
 import ru.practicum.android.diploma.domain.api.SearchRepository
-import ru.practicum.android.diploma.domain.filter.FilterInfoRepository
-import ru.practicum.android.diploma.domain.filter.datashared.CountryShared
-import ru.practicum.android.diploma.domain.filter.datashared.IndustriesShared
-import ru.practicum.android.diploma.domain.filter.datashared.RegionShared
-import ru.practicum.android.diploma.domain.filter.datashared.SalaryBooleanShared
-import ru.practicum.android.diploma.domain.filter.datashared.SalaryTextShared
 import ru.practicum.android.diploma.domain.models.Filter
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.presentation.search.VacanciesPagingSource
@@ -32,83 +24,8 @@ import ru.practicum.android.diploma.util.Resource
 
 class SearchViewModel(
     private val repository: SearchRepository,
-    private val filtersRepository: FiltersRepository,
-    private val filterInfoRepository : FilterInfoRepository
+    private val filtersRepository: FiltersRepository
 ) : ViewModel() {
-
-    private val _countryState = MutableLiveData<CountryShared?>()
-    val countryState: LiveData<CountryShared?> = _countryState
-
-    private val _regionState = MutableLiveData<RegionShared?>()
-    val regionState: LiveData<RegionShared?> = _regionState
-
-    private val _industriesState = MutableLiveData<IndustriesShared?>()
-    val industriesState: LiveData<IndustriesShared?> = _industriesState
-
-    private val _salaryTextState = MutableLiveData<SalaryTextShared?>()
-    val salaryTextState: LiveData<SalaryTextShared?> = _salaryTextState
-
-    private val _salaryBooleanState = MutableLiveData<SalaryBooleanShared?>()
-    val salaryBooleanState: LiveData<SalaryBooleanShared?> = _salaryBooleanState
-
-    init {
-        initFilterInfo()
-    }
-
-    fun initFilterInfo() {
-        initCountryInfo()
-        initRegionInfo()
-        initIndustriesInfo()
-        initSalaryTextInfo()
-        initSalaryBooleanInfo()
-    }
-
-    fun initCountryInfo() {
-        viewModelScope.launch {
-            filterInfoRepository.getCountryFlow()
-                .collect() { country ->
-                    _countryState.postValue(country)
-                }
-        }
-    }
-
-    fun initRegionInfo() {
-        viewModelScope.launch {
-            filterInfoRepository.getRegionFlow()
-                .collect() { region ->
-                    _regionState.postValue(region)
-                }
-        }
-    }
-
-    fun initIndustriesInfo() {
-        viewModelScope.launch {
-            filterInfoRepository.getIndustriesFlow()
-                .collect() { industries ->
-                    _industriesState.postValue(industries)
-                }
-        }
-    }
-
-    fun initSalaryTextInfo() {
-        viewModelScope.launch {
-            filterInfoRepository.getSalaryTextFlow()
-                .collect() { salary ->
-                    _salaryTextState.postValue(salary)
-                }
-
-        }
-    }
-
-    fun initSalaryBooleanInfo() {
-        viewModelScope.launch {
-            filterInfoRepository.getSalaryBooleanFlow()
-                .collect() { salary ->
-                    _salaryBooleanState.postValue(salary)
-                }
-
-        }
-    }
 
     private val state = MutableStateFlow(SearchViewState())
     fun observeState() = state.asStateFlow()
@@ -147,23 +64,23 @@ class SearchViewModel(
                 params["page"] = "1"
 
                 filter.salary?.let {
-                    params["salary"] = salaryTextState.value?.salary.toString()
+                    params["salary"] = filter.salary.toString()
                 }
 
                 filter.onlyWithSalary?.let {
-                    params["only_with_salary"] = salaryBooleanState.value?.isChecked.toString()
+                    params["only_with_salary"] = filter.onlyWithSalary.toString()
                 }
 
                 filter.country?.let {
-                    params["area"] = countryState.value?.countryId.toString()
+                    params["area"] = filter.country.toString()
                 }
 
                 filter.region?.let {
-                    params["area"] = regionState.value?.regionId.toString()
+                    params["area"] = filter.region.toString()
                 }
 
                 filter.industry?.let {
-                    params["industry"] = industriesState.value?.industriesId.toString()
+                    params["industry"] = filter.industry.toString()
                 }
 
                 when (val result = repository.vacanciesPagination(params)) {
