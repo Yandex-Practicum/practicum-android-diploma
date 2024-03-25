@@ -25,6 +25,8 @@ dependencyResolutionManagement {
     }
 }
 
+
+
 /**
  * renamed from 'gradle' to prevent IDE resolution conflict:
  * usages of "typesafe project accessors", e.g. `projects.gradle.someProject` was red in IDE

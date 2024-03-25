@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="bottom_navigation_view">
+        <item name="itemIconTint">@drawable/bottom_navigation_tab_bar</item>
+        <item name="itemTextColor">@drawable/bottom_navigation_tab_bar</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="rounded_12">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/margin_12</item>
+    </style>
+
+    <style name="Text_Main_Header">
+        <item name="android:textSize">32sp</item>
+        <item name="android:fontFamily">@font/ys_display_bold</item>
+    </style>
+
+    <style name="Text_Header">
+        <item name="android:textSize">22sp</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+    </style>
+
+    <style name="Text_Standard">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+    </style>
+
+    <style name="Text_Small">
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+    </style>
+
+    <style name="Text_Header_Company_Card">
+        <item name="android:textSize">22sp</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textColor">@color/YP_Black</item>
+    </style>
+
+    <style name="Text_Standard_Company_Card">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textColor">@color/YP_Black</item>
+    </style>
+
+    <style name="Text_Label">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+    </style>
+    <style name="ChoseButtonStyle">
+        <item name="android:textColor">@color/white_universal</item>
+        <item name="android:textSize">@dimen/button_text</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="cornerRadius">@dimen/margin_16</item>
+    </style>
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">22sp</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textColor">@color/YP_Black</item>
+    </style>
+
+    <style name="SearchEditText" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="android:backgroundTint">@color/YP_Light_Gray</item>
+        <item name="tint">@color/YP_Text_Gray</item>
+        <item name="android:textColorHint">@color/YP_Text_Gray</item>
+        <item name="colorAccent">@color/YP_Blue</item>
+    </style>
+
+</resources>
