@@ -76,7 +76,6 @@ dependencies {
     // UI layer libraries
     implementation(libs.ui.material)
     implementation(libs.ui.constraintLayout)
-    implementation(libs.navigation.fragment)
 
     // region Unit tests
     testImplementation(libs.unitTests.junit)
