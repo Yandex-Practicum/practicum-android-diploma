@@ -37,25 +37,22 @@ class RetrofitNetworkClient(
                     else -> async { searchVacanciesApi.getVacancyDetail((dto as DetailRequest).id) }
                 }.await()
                 response.apply { resultCode = ResponseCodes.SUCCESS }
-            } catch (e: Throwable) {
+            } catch (e: Exception) {
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
+                throw e
             }
         }
     }
 
+
     private fun isConnected(): Boolean {
-        val connectivityManager = context.getSystemService(
-            Context.CONNECTIVITY_SERVICE
-        ) as ConnectivityManager
-        val capabilities =
-            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-        if (capabilities != null) {
-            when {
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> return true
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> return true
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> return true
-            }
-        }
-        return false
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+
+        return capabilities?.run {
+            return hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
+        } ?: false
     }
 }

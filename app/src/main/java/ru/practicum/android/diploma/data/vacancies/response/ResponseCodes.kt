@@ -7,3 +7,5 @@ enum class ResponseCodes(val code: Int) {
     ERROR(400),
     SERVER_ERROR(500)
 }
+
+

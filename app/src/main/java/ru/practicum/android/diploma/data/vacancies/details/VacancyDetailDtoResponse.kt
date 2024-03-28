@@ -1,7 +1,12 @@
-package ru.practicum.android.diploma.data.vacancies.details.dto
+package ru.practicum.android.diploma.data.vacancies.details
 
 import com.google.gson.annotations.SerializedName
 import org.jetbrains.annotations.Async
+import ru.practicum.android.diploma.data.vacancies.details.dto.Address
+import ru.practicum.android.diploma.data.vacancies.details.dto.Contacts
+import ru.practicum.android.diploma.data.vacancies.details.dto.Employment
+import ru.practicum.android.diploma.data.vacancies.details.dto.Experience
+import ru.practicum.android.diploma.data.vacancies.details.dto.KeySkillVacancyDetail
 import ru.practicum.android.diploma.data.vacancies.dto.list.Employer
 import ru.practicum.android.diploma.data.vacancies.dto.list.Salary
 import ru.practicum.android.diploma.data.vacancies.dto.list.VacancyArea
