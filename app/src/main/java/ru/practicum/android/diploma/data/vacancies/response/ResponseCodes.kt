@@ -1,11 +1,11 @@
 package ru.practicum.android.diploma.data.vacancies.response
 
 enum class ResponseCodes(val code: Int) {
-    DEFAULT(0),
-    NO_CONNECTION(-1),
-    SUCCESS(200),
-    ERROR(400),
-    SERVER_ERROR(500)
+    DEFAULT(ResponseCodeConstants.DEFAULT),
+    NO_CONNECTION(ResponseCodeConstants.NO_CONNECTION),
+    SUCCESS(ResponseCodeConstants.SUCCESS),
+    ERROR(ResponseCodeConstants.ERROR),
+    SERVER_ERROR(ResponseCodeConstants.SERVER_ERROR)
 }
 
 
