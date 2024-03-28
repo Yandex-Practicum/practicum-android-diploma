@@ -6,10 +6,10 @@ import android.net.NetworkCapabilities
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
+import ru.practicum.android.diploma.data.vacancies.details.DetailRequest
 import ru.practicum.android.diploma.data.vacancies.dto.VacanciesSearchRequest
 import ru.practicum.android.diploma.data.vacancies.response.Response
 import ru.practicum.android.diploma.data.vacancies.response.ResponseCodes
-import ru.practicum.android.diploma.data.vacancydetail.dto.DetailRequest
 
 class RetrofitNetworkClient(
     private val context: Context,
@@ -33,13 +33,11 @@ class RetrofitNetworkClient(
                     is VacanciesSearchRequest -> async {
                         searchVacanciesApi.getListVacancy(dto.queryMap)
                     }
-
                     else -> async { searchVacanciesApi.getVacancyDetail((dto as DetailRequest).id) }
                 }.await()
                 response.apply { resultCode = ResponseCodes.SUCCESS }
             } catch (e: Exception) {
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
-                throw e
             }
         }
     }
