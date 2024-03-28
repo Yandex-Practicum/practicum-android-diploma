@@ -18,15 +18,25 @@ class RetrofitNetworkClient(
 
     override suspend fun doRequest(dto: Any): Response {
         if (!isConnected()) {
-            return Response().apply { resultCode = ResponseCodes.NO_CONNECTION }
+            return createNoConnectionResponse()
         }
 
-        if (dto !is VacanciesSearchRequest
-            && dto !is DetailRequest
-        ) {
-            return Response().apply { resultCode = ResponseCodes.ERROR }
+        if (!isValidDto(dto)) {
+            return createErrorResponse()
         }
 
+        return executeRequest(dto)
+    }
+
+    private suspend fun createNoConnectionResponse(): Response {
+        return Response().apply { resultCode = ResponseCodes.NO_CONNECTION }
+    }
+
+    private fun isValidDto(dto: Any): Boolean {
+        return dto is VacanciesSearchRequest || dto is DetailRequest
+    }
+
+    private suspend fun executeRequest(dto: Any): Response {
         return withContext(Dispatchers.IO) {
             try {
                 val response = when (dto) {
@@ -36,10 +46,14 @@ class RetrofitNetworkClient(
                     else -> async { searchVacanciesApi.getVacancyDetail((dto as DetailRequest).id) }
                 }.await()
                 response.apply { resultCode = ResponseCodes.SUCCESS }
-            } catch (e: Exception) {
+            } catch (e: Throwable) {
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
             }
         }
+    }
+
+    private fun createErrorResponse(): Response {
+        return Response().apply { resultCode = ResponseCodes.ERROR }
     }
 
     private fun isConnected(): Boolean {
