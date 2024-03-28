@@ -7,5 +7,3 @@ enum class ResponseCodes(val code: Int) {
     ERROR(ResponseCodeConstants.ERROR),
     SERVER_ERROR(ResponseCodeConstants.SERVER_ERROR)
 }
-
-
