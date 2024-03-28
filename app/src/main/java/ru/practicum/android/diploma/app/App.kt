@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.app
 import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
+import ru.practicum.android.diploma.di.dataModule
 import ru.practicum.android.diploma.di.networkModule
 
 class App : Application() {
@@ -12,7 +13,7 @@ class App : Application() {
 
         startKoin {
             androidContext(this@App)
-            modules(networkModule)
+            modules(networkModule, dataModule)
         }
     }
 }
