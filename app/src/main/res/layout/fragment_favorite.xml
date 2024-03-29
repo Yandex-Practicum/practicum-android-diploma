@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/fragment_favorite_background"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <Toolbar
@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/fragment_favorite_title_height"
         android:title="@string/fragment_favorite_title"
-        android:titleTextColor="@color/fragment_favorite_text" />
+        android:titleTextColor="@color/black" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -50,7 +50,7 @@
                 android:layout_marginTop="@dimen/fragment_favorite_side_margins"
                 android:gravity="center"
                 android:text="@string/fragment_favorite_empty_list"
-                android:textColor="@color/fragment_favorite_text" />
+                android:textColor="@color/black" />
         </LinearLayout>
 
         <!-- GET LIST ERROR FRAME -->
@@ -76,7 +76,7 @@
                 android:layout_marginTop="@dimen/fragment_favorite_side_margins"
                 android:gravity="center"
                 android:text="@string/fragment_favorite_get_list_error"
-                android:textColor="@color/fragment_favorite_text" />
+                android:textColor="@color/black" />
         </LinearLayout>
 
     </FrameLayout>

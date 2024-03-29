@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="fragment_favorite_background">#1A1B22</color>
-    <color name="fragment_favorite_text">#FDFDFD</color>
-
     <color name="black">#FDFDFD</color>
     <color name="white">#1A1B22</color>
 
