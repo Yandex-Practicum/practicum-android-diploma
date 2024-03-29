@@ -10,4 +10,10 @@
         <item name="android:textAllCaps">false</item>
     </style>
 
+    <style name="NavigationView">
+        <item name="itemIconTint">@drawable/bottom_navigation_tab_bar</item>
+        <item name="itemTextColor">@drawable/bottom_navigation_tab_bar</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
 </resources>

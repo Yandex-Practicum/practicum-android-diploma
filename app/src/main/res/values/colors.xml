@@ -4,4 +4,10 @@
     <color name="white_or_black">#FDFDFD</color>
     <color name="black_or_white">#1A1B22</color>
 
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="light_grey">#AEAFB4</color>
+    <color name="blue">#3772E7</color>
+    <color name="red">#EC0000</color>
+
 </resources>
