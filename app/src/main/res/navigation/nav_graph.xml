@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_searchFragment_to_fragmentDetails"
             app:destination="@id/fragmentDetails" />
+        <action
+            android:id="@+id/action_searchFragment_to_filterAllFragment"
+            app:destination="@id/filterAllFragment" />
     </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
@@ -33,4 +36,43 @@
         android:name="ru.practicum.android.diploma.ui.details.FragmentDetails"
         android:label="FragmentDetails"
         tools:layout="@layout/fragment_details" />
+    <fragment
+        android:id="@+id/filterAllFragment"
+        android:name="ru.practicum.android.diploma.ui.filter.FilterAllFragment"
+        android:label="FilterAllFragment"
+        tools:layout="@layout/fragment_all_filter">
+        <action
+            android:id="@+id/action_filterAllFragment_to_workplaceFragment"
+            app:destination="@id/workplaceFragment" />
+        <action
+            android:id="@+id/action_filterAllFragment_to_industriesFragment"
+            app:destination="@id/industriesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/workplaceFragment"
+        android:name="ru.practicum.android.diploma.ui.filter.workplace.WorkplaceFragment"
+        android:label="WorkplaceFragment"
+        tools:layout="@layout/fragment_workplace">
+        <action
+            android:id="@+id/action_workplaceFragment_to_countFragment"
+            app:destination="@id/countFragment" />
+        <action
+            android:id="@+id/action_workplaceFragment_to_regionFragment"
+            app:destination="@id/regionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/industriesFragment"
+        android:name="ru.practicum.android.diploma.ui.filter.industries.IndustriesFragment"
+        android:label="IndustriesFragment"
+        tools:layout="@layout/fragment_industries"/>
+    <fragment
+        android:id="@+id/countFragment"
+        android:name="ru.practicum.android.diploma.ui.filter.workplace.count.CountFragment"
+        android:label="CountFragment"
+        tools:layout="@layout/fragment_count"/>
+    <fragment
+        android:id="@+id/regionFragment"
+        android:name="ru.practicum.android.diploma.ui.filter.workplace.region.RegionFragment"
+        android:label="RegionFragment"
+        tools:layout="@layout/fragment_region"/>
 </navigation>
