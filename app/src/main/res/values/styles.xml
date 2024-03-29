@@ -16,4 +16,30 @@
         <item name="android:background">@color/white</item>
     </style>
 
+
+    <style name="bold32_font">
+        <item name="android:fontFamily">@font/ys_display_bold</item>
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <style name="medium22_font">
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="medium16_font">
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="regular16_font">
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="regular12_font">
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
 </resources>
