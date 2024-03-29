@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_or_black"
+    android:orientation="vertical">
+
+    <Toolbar
+        style="@style/fragment_favorite_font"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fragment_favorite_title_height"
+        android:title="@string/fragment_favorite_title"
+        android:titleTextColor="@color/black_or_white" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <!-- FAVORITE ITEMS RECYCLER VIEW -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/favorite_items_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="20" />
+
+
+        <!-- EMPTY LIST FRAME -->
+        <LinearLayout
+            android:id="@+id/empty_list_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/fragment_favorite_side_margins"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:src="@drawable/spiral" />
+
+            <TextView
+                style="@style/fragment_favorite_font"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/fragment_favorite_side_margins"
+                android:gravity="center"
+                android:text="@string/fragment_favorite_empty_list"
+                android:textColor="@color/black_or_white" />
+        </LinearLayout>
+
+
+        <!-- GET LIST ERROR FRAME -->
+        <LinearLayout
+            android:id="@+id/get_list_error_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/fragment_favorite_side_margins"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:src="@drawable/spiral" />
+
+            <TextView
+                style="@style/fragment_favorite_font"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/fragment_favorite_side_margins"
+                android:gravity="center"
+                android:text="@string/fragment_favorite_get_list_error"
+                android:textColor="@color/black_or_white" />
+        </LinearLayout>
+
+
+    </FrameLayout>
+</LinearLayout>
