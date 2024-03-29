@@ -41,7 +41,7 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="@dimen/fragment_favorite_images_height"
                 android:src="@drawable/spiral" />
 
             <TextView
@@ -68,7 +68,7 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="@dimen/fragment_favorite_images_height"
                 android:src="@drawable/spiral" />
 
             <TextView
