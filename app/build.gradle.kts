@@ -2,11 +2,16 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("ru.practicum.android.diploma.plugins.developproperties")
+    kotlin("kapt")
 }
 
 android {
     namespace = "ru.practicum.android.diploma"
     compileSdk = libs.versions.compileSdk.get().toInt()
+
+    buildFeatures {
+        viewBinding = true
+    }
 
     defaultConfig {
         applicationId = "ru.practicum.android.diploma"
@@ -42,6 +47,31 @@ android {
 dependencies {
     implementation(libs.androidX.core)
     implementation(libs.androidX.appCompat)
+
+    // Koin
+    implementation(libs.koin)
+
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.gson)
+    implementation(libs.retrofit.converter)
+    implementation(libs.logging.interceptor)
+    implementation(libs.okhttp)
+
+    // Room
+    implementation(libs.room)
+    implementation(libs.room.ktx)
+    kapt(libs.room.kapt)
+
+    // Glide
+    implementation(libs.glide)
+    implementation(libs.glide.material)
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.navigation.ui.ktx)
+    kapt(libs.glide.annotationProcessor)
+
+    // Json
+    implementation(libs.json)
 
     // UI layer libraries
     implementation(libs.ui.material)
