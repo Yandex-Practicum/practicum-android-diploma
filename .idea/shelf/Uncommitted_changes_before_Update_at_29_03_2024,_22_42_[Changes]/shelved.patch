@@ -1,0 +1,16 @@
+Index: .gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># IntelliJ\n*.iml\n/.idea/caches\n/.idea/libraries\n/.idea/modules.xml\n/.idea/workspace.xml\n/.idea/navEditor.xml\n/.idea/assetWizardSettings.xml\n/.idea/kotlinc.xml\n/.idea/gradle.xml\n/.idea/compiler.xml\n/.idea/misc.xml\n\n# Gradle files\n.gradle/\nbuild/\nout/\n\n# Local configuration file (sdk path, etc)\nlocal.properties\ndevelop.properties\n\n# Gradle-profiler data\nprofile-out*/\ngradle-user-home/\n*.hprof\n\n# Android Studio generated files and folders\ncaptures/\n.externalNativeBuild/\n.cxx/\noutput.json\n\n# Built application files\n*.apk\n*.aar\n*.ap_\n*.aab\n\n# Keystore files\n*.jks\n*.keystore\n\n# Google Services (e.g. APIs or Firebase)\ngoogle-services.json\n\n# OS specific\n.DS_Store\n*.log\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.gitignore b/.gitignore
+--- a/.gitignore	(revision afddb82ff180215797cc4008bd3a8258bfad4bad)
++++ b/.gitignore	(date 1711734152851)
+@@ -47,3 +47,5 @@
+ # OS specific
+ .DS_Store
+ *.log
++/.idea/deploymentTargetDropDown.xml
++/.idea/migrations.xml
