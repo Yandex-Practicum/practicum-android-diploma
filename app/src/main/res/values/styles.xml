@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- NO COLOR -->
     <style name="fragment_favorite_font">
         <item name="android:fontFamily">@font/ys_display_medium</item>
-        <!--<item name="android:textFontWeight">@integer/fragment_favorite_font_weight</item>-->
         <item name="android:fontWeight">@integer/fragment_favorite_font_weight</item>
         <item name="android:textSize">@dimen/fragment_favorite_text_size</item>
         <item name="android:textAllCaps">false</item>
     </style>
-
 </resources>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white_or_black"
+    android:background="@color/fragment_favorite_background"
     android:orientation="vertical">
 
     <Toolbar
@@ -12,12 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/fragment_favorite_title_height"
         android:title="@string/fragment_favorite_title"
-        android:titleTextColor="@color/black_or_white" />
+        android:titleTextColor="@color/fragment_favorite_text" />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <!-- FAVORITE ITEMS RECYCLER VIEW -->
         <androidx.recyclerview.widget.RecyclerView
@@ -27,7 +26,6 @@
             android:visibility="visible"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:itemCount="20" />
-
 
         <!-- EMPTY LIST FRAME -->
         <LinearLayout
@@ -52,9 +50,8 @@
                 android:layout_marginTop="@dimen/fragment_favorite_side_margins"
                 android:gravity="center"
                 android:text="@string/fragment_favorite_empty_list"
-                android:textColor="@color/black_or_white" />
+                android:textColor="@color/fragment_favorite_text" />
         </LinearLayout>
-
 
         <!-- GET LIST ERROR FRAME -->
         <LinearLayout
@@ -79,9 +76,8 @@
                 android:layout_marginTop="@dimen/fragment_favorite_side_margins"
                 android:gravity="center"
                 android:text="@string/fragment_favorite_get_list_error"
-                android:textColor="@color/black_or_white" />
+                android:textColor="@color/fragment_favorite_text" />
         </LinearLayout>
-
 
     </FrameLayout>
 </LinearLayout>

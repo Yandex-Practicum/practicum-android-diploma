@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="white_or_black">#FDFDFD</color>
-    <color name="black_or_white">#1A1B22</color>
+    <color name="fragment_favorite_background">#FDFDFD</color>
+    <color name="fragment_favorite_text">#1A1B22</color>
 
 </resources>
