@@ -1,6 +1,13 @@
 <resources>
+  
     <string name="app_name">Practicum-Android-Diploma</string>
+
+    <string name="fragment_favorite_title">Избранное</string>
+    <string name="fragment_favorite_empty_list">Список пуст</string>
+    <string name="fragment_favorite_get_list_error">Не удалось получить\nсписок вакансий</string>
+
     <string name="bottomSearch">Главная</string>
     <string name="bottomFavorite">Избранное</string>
     <string name="bottomTeam">Команда</string>
+
 </resources>
