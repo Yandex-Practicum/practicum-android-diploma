@@ -40,7 +40,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/fragment_favorite_images_height"
-                android:src="@drawable/spiral" />
+                android:src="@drawable/state_image_empty" />
 
             <TextView
                 style="@style/fragment_favorite_font"
@@ -61,7 +61,7 @@
             android:layout_gravity="center"
             android:layout_margin="@dimen/fragment_favorite_side_margins"
             android:orientation="vertical"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="match_parent"
