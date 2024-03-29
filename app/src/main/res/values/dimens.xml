@@ -5,4 +5,6 @@
     <dimen name="fragment_favorite_images_height">256dp</dimen>
     <dimen name="fragment_favorite_text_size">22sp</dimen>
     <integer name="fragment_favorite_font_weight">500</integer>
+
+    <dimen name="margin">16dp</dimen>
 </resources>
