@@ -10,7 +10,7 @@
     <Toolbar
         style="@style/medium22_font"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/fragment_favorite_title_height"
+        android:layout_height="@dimen/fragment_default_title_height"
         android:title="@string/fragment_favorite_title"
         android:titleTextColor="@color/black" />
 

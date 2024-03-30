@@ -17,4 +17,12 @@
     <string name="developer_dmitry">Жаринов Дмитрий</string>
     <string name="developer_igor">Игорь Шипицын</string>
 
+    <string name="contacts">Контакты</string>
+    <string name="contact_name">Контактное лицо</string>
+    <string name="email">E-mail</string>
+    <string name="vacancy">Вакансия</string>
+    <string name="vacancy_description">Описание вакансии</string>
+    <string name="needed_experience">Требуемый опыт</string>
+    <string name="phone">Телефон</string>
+
 </resources>
