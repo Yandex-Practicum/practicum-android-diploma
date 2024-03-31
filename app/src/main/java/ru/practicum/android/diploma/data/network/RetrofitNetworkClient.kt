@@ -33,7 +33,6 @@ class RetrofitNetworkClient(
     }
 
     private suspend fun executeRequest(dto: Any): Response {
-
         if (!isValidDto(dto)) {
             return createErrorResponse()
         }
@@ -47,7 +46,7 @@ class RetrofitNetworkClient(
                     else -> async { searchVacanciesApi.getVacancyDetail((dto as DetailRequest).id) }
                 }.await()
                 response.apply { resultCode = ResponseCodes.SUCCESS }
-            } catch (e: Throwable) {
+            } catch (e: IllegalArgumentException) {
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
             }
         }
