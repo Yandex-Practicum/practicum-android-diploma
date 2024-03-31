@@ -25,6 +25,10 @@
     <string name="needed_experience">Требуемый опыт</string>
     <string name="phone">Телефон</string>
 
+    <string name="country_selection">Выбор страны</string>
+    <string name="region_selection">Выбор региона</string>
+    <string name="enter_region">Введите регион</string>
+
     <string name="vacancy_search">Поиск вакансий</string>
     <string name="enter_request">Введите запрос</string>
     <string name="no_internet">Нет интернета</string>

@@ -67,9 +67,9 @@
         tools:layout="@layout/fragment_industries"/>
     <fragment
         android:id="@+id/countFragment"
-        android:name="ru.practicum.android.diploma.ui.filter.workplace.count.CountFragment"
+        android:name="ru.practicum.android.diploma.ui.filter.workplace.country.CountryFragment"
         android:label="CountFragment"
-        tools:layout="@layout/fragment_count"/>
+        tools:layout="@layout/fragment_country"/>
     <fragment
         android:id="@+id/regionFragment"
         android:name="ru.practicum.android.diploma.ui.filter.workplace.region.RegionFragment"

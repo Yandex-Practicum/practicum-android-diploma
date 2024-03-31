@@ -9,6 +9,7 @@
     <integer name="fragment_favorite_font_weight">500</integer>
     
     <dimen name="vacancy_details_card_view_height">80dp</dimen>
+    <dimen name="region_cell_view_height">60dp</dimen>
 
     <dimen name="xxs_margin">4dp</dimen>
     <dimen name="xs_margin">8dp</dimen>
