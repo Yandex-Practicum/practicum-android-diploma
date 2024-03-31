@@ -43,14 +43,13 @@ class RetrofitNetworkClient(
                     is VacanciesSearchRequest -> async {
                         searchVacanciesApi.getListVacancy(dto.queryMap)
                     }
-                    else -> async { searchVacanciesApi.getVacancyDetail((dto as DetailRequest).id) }
+                    is DetailRequest -> async {
+                        searchVacanciesApi.getVacancyDetail(dto.id)
+                    }
+                    else -> throw IllegalArgumentException("Invalid DTO type: $dto")
                 }.await()
                 response.apply { resultCode = ResponseCodes.SUCCESS }
-            } catch (e: IllegalArgumentException) {
-                Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
             } catch (e: Throwable) {
-                Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
-            } catch (e: NullPointerException) {
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
             }
         }
