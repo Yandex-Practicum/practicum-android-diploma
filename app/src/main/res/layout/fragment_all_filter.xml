@@ -4,15 +4,224 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Это фрагмент ФИЛЬТРА ОБЩИЙ"
-        app:layout_constraintStart_toStartOf="parent"
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/filter_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fragment_default_title_height"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/back_icon"
+        app:title="@string/filter_all"
+        app:titleTextAppearance="@style/medium22_font" />
+
+    <LinearLayout
+        android:id="@+id/filter_workplace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_22"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:padding="@dimen/margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/filter_toolbar">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/filter_text_workplace"
+                style="@style/regular12_font"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:text="@string/filter_count"
+                android:textColor="@color/text_black_white"
+                android:visibility="gone" />
+
+            <TextView
+                style="@style/regular16_font"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/filter_workplace"
+                android:padding="2dp" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/filter_ic_workplace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/arrow_forward_24px" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/filter_industries"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:padding="@dimen/margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/filter_workplace">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/filter_text_industries"
+                style="@style/regular12_font"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:text="@string/filter_industries"
+                android:textColor="@color/text_black_white"
+                android:visibility="gone" />
+
+            <TextView
+                style="@style/regular16_font"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/filter_industries"
+                android:padding="2dp" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/filter_ic_industries"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/arrow_forward_24px" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/filter_sum_salary"
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:layout_marginHorizontal="@dimen/margin"
+        android:layout_marginTop="@dimen/dimen_22"
+        android:background="@drawable/rounded_edittext"
+        android:backgroundTint="@color/light_grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/filter_industries">
+
+        <TextView
+            android:id="@+id/expected_salary"
+            style="@style/regular12_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/filter_expected_salary"
+            android:paddingStart="@dimen/margin"
+            android:paddingTop="8dp"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/filter_text_salary"
+            style="@style/regular16_font"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:hint="@string/filter_enter_amount"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:lines="1"
+            android:maxLength="25"
+            android:paddingStart="16dp"
+            android:paddingTop="16dp"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey"
+            android:textCursorDrawable="@color/blue" />
+
+        <ImageView
+            android:id="@+id/clearIcon"
+            android:layout_width="24dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/margin"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_close_24px"
+            app:tint="@color/black" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/filter_without_salaries"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_22"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/filter_sum_salary">
+
+        <TextView
+            style="@style/regular16_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:layout_weight="1"
+            android:text="@string/filter_without_salary" />
+
+        <CheckBox
+            android:id="@+id/filter_function_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:buttonTint="@color/blue" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/filter_function_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/filter_function_apply"
+            style="@style/medium16_font"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginEnd="@dimen/margin"
+            android:layout_marginBottom="@dimen/xl_margin"
+            android:background="@drawable/filter_button_rounded"
+            android:gravity="center"
+            android:text="@string/filter_apply"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/remove"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/filter_function_remove"
+            style="@style/medium16_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/xl_margin"
+            android:text="@string/filter_remove"
+            android:textColor="@color/red"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
