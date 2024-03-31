@@ -48,6 +48,10 @@ class RetrofitNetworkClient(
                 response.apply { resultCode = ResponseCodes.SUCCESS }
             } catch (e: IllegalArgumentException) {
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
+            } catch (e: Throwable) {
+                Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
+            } catch (e: NullPointerException) {
+                Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
             }
         }
     }
