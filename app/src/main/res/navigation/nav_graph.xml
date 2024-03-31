@@ -12,10 +12,14 @@
         tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_searchFragment_to_fragmentDetails"
-            app:destination="@id/fragmentDetails" />
+            app:destination="@id/fragmentDetails"
+            app:enterAnim="@anim/fade_in"
+            app:popEnterAnim="@anim/fade_in" />
         <action
             android:id="@+id/action_searchFragment_to_filterAllFragment"
-            app:destination="@id/filterAllFragment" />
+            app:destination="@id/filterAllFragment"
+            app:enterAnim="@anim/fade_in"
+            app:popEnterAnim="@anim/fade_in" />
     </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
@@ -24,7 +28,9 @@
         tools:layout="@layout/fragment_favorite">
         <action
             android:id="@+id/action_favoriteFragment_to_fragmentDetails"
-            app:destination="@id/fragmentDetails" />
+            app:destination="@id/fragmentDetails"
+            app:enterAnim="@anim/fade_in"
+            app:popEnterAnim="@anim/fade_in" />
     </fragment>
     <fragment
         android:id="@+id/teamFragment"
@@ -43,10 +49,14 @@
         tools:layout="@layout/fragment_all_filter">
         <action
             android:id="@+id/action_filterAllFragment_to_workplaceFragment"
-            app:destination="@id/workplaceFragment" />
+            app:destination="@id/workplaceFragment"
+            app:enterAnim="@anim/fade_in"
+            app:popEnterAnim="@anim/fade_in" />
         <action
             android:id="@+id/action_filterAllFragment_to_industriesFragment"
-            app:destination="@id/industriesFragment" />
+            app:destination="@id/industriesFragment"
+            app:enterAnim="@anim/fade_in"
+            app:popEnterAnim="@anim/fade_in" />
     </fragment>
     <fragment
         android:id="@+id/workplaceFragment"
@@ -55,10 +65,14 @@
         tools:layout="@layout/fragment_workplace">
         <action
             android:id="@+id/action_workplaceFragment_to_countFragment"
-            app:destination="@id/countFragment" />
+            app:destination="@id/countFragment"
+            app:enterAnim="@anim/fade_in"
+            app:popEnterAnim="@anim/fade_in" />
         <action
             android:id="@+id/action_workplaceFragment_to_regionFragment"
-            app:destination="@id/regionFragment" />
+            app:destination="@id/regionFragment"
+            app:enterAnim="@anim/fade_in"
+            app:popEnterAnim="@anim/fade_in" />
     </fragment>
     <fragment
         android:id="@+id/industriesFragment"
