@@ -7,12 +7,12 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <Toolbar
-        style="@style/medium22_font"
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/fragment_default_title_height"
-        android:title="@string/fragment_favorite_title"
-        android:titleTextColor="@color/black" />
+        app:title="@string/fragment_favorite_title"
+        app:titleTextAppearance="@style/medium22_font"/>
 
     <FrameLayout
         android:layout_width="match_parent"
