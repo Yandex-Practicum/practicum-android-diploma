@@ -12,7 +12,7 @@ import ru.practicum.android.diploma.domain.models.VacancyDetails
 
 class VacancyDetailsRepositoryImpl(
     private val networkClient: NetworkClient
-): VacancyDetailsRepository {
+) : VacancyDetailsRepository {
     override suspend fun getVacancyDetails(id: String): Flow<VacancyDetails> = flow {
         val response = networkClient.doRequest(DetailRequest(id))
 
@@ -32,4 +32,4 @@ class VacancyDetailsRepositoryImpl(
     }
 }
 
-class VacancyDetailsException(message: String): Exception(message)
+class VacancyDetailsException(message: String) : Exception(message)

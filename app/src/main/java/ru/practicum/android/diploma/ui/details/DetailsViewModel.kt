@@ -7,14 +7,11 @@ import ru.practicum.android.diploma.domain.api.details.VacancyDetailsInteractor
 
 class DetailsViewModel(
     private val interactor: VacancyDetailsInteractor
-): ViewModel() {
+) : ViewModel() {
 
     fun onViewCreated() {
         viewModelScope.launch {
-            interactor.getVacancyDetails("93176064").collect() {
-                // TODO: (s.bogachev) realise UI
-                println("#### VACANCY ${it.name}")
-            }
+            interactor.getVacancyDetails("93176064").collect() { }
         }
     }
 }
