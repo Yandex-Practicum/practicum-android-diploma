@@ -25,4 +25,9 @@
     <string name="needed_experience">Требуемый опыт</string>
     <string name="phone">Телефон</string>
 
+    <string name="vacancy_search">Поиск вакансий</string>
+    <string name="enter_request">Введите запрос</string>
+    <string name="no_internet">Нет интернета</string>
+    <string name="no_vacancy">Не удалось получить список вакансий</string>
+
 </resources>
