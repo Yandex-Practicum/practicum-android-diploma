@@ -21,10 +21,6 @@ class RetrofitNetworkClient(
             return createNoConnectionResponse()
         }
 
-        if (!isValidDto(dto)) {
-            return createErrorResponse()
-        }
-
         return executeRequest(dto)
     }
 
@@ -37,13 +33,20 @@ class RetrofitNetworkClient(
     }
 
     private suspend fun executeRequest(dto: Any): Response {
+        if (!isValidDto(dto)) {
+            return createErrorResponse()
+        }
+
         return withContext(Dispatchers.IO) {
             try {
                 val response = when (dto) {
                     is VacanciesSearchRequest -> async {
                         searchVacanciesApi.getListVacancy(dto.queryMap)
                     }
-                    else -> async { searchVacanciesApi.getVacancyDetail((dto as DetailRequest).id) }
+                    is DetailRequest -> async {
+                        searchVacanciesApi.getVacancyDetail(dto.id)
+                    }
+                    else -> throw IllegalArgumentException("Invalid DTO type: $dto")
                 }.await()
                 response.apply { resultCode = ResponseCodes.SUCCESS }
             } catch (e: Throwable) {
