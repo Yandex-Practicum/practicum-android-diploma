@@ -33,9 +33,9 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
-        android:layout_width="0dp"
-        android:layout_height="75dp"
         style="@style/NavigationView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:elevation="0dp"
         app:itemTextAppearanceActive="@style/BottomNavigationText"
         app:itemTextAppearanceInactive="@style/BottomNavigationText"
