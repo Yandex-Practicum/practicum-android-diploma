@@ -1,12 +1,12 @@
 package ru.practicum.android.diploma.data.vacancies.details
 
 import com.google.gson.annotations.SerializedName
-import org.jetbrains.annotations.Async
 import ru.practicum.android.diploma.data.vacancies.details.dto.Address
 import ru.practicum.android.diploma.data.vacancies.details.dto.Contacts
 import ru.practicum.android.diploma.data.vacancies.details.dto.Employment
 import ru.practicum.android.diploma.data.vacancies.details.dto.Experience
 import ru.practicum.android.diploma.data.vacancies.details.dto.KeySkillVacancyDetail
+import ru.practicum.android.diploma.data.vacancies.details.dto.Schedule
 import ru.practicum.android.diploma.data.vacancies.dto.list.Employer
 import ru.practicum.android.diploma.data.vacancies.dto.list.Salary
 import ru.practicum.android.diploma.data.vacancies.dto.list.VacancyArea
@@ -22,7 +22,7 @@ data class VacancyDetailDtoResponse(
     val contacts: Contacts?, // Контакты
     val employer: Employer?, // Работодатель
     val salary: Salary?, // Зарплата
-    val schedule: Async.Schedule?, // График работы
+    val schedule: Schedule?, // График работы
     val type: VacancyType, // Тип вакансии
     val employment: Employment?, // Тип занятости
     val experience: Experience?, // Опыт работы
