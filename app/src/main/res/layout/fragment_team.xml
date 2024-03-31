@@ -6,19 +6,19 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <Toolbar
-        style="@style/medium22_font"
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/fragment_default_title_height"
-        android:title="@string/bottomTeam"
-        android:titleTextColor="@color/black" />
+        app:title="@string/bottomTeam"
+        app:titleTextAppearance="@style/medium22_font"/>
 
     <TextView
         style="@style/bold32_font"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="@dimen/margin"
         android:text="@string/developers"
         android:textColor="@color/black" />
 
@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="@dimen/l_margin"
         android:text="@string/developer_maksim"
         android:textColor="@color/black" />
 
