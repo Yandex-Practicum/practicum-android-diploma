@@ -52,7 +52,7 @@
         <item name="boxBackgroundColor">@color/search_bar_background</item>
         <item name="boxStrokeWidth">0dp</item>
         <item name="boxStrokeWidthFocused">0dp</item>
-
     </style>
+
 
 </resources>

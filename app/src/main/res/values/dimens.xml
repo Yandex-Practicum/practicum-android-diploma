@@ -20,4 +20,6 @@
 
     <dimen name="corner_radius">12dp</dimen>
 
+    <dimen name="dimen_22">22dp</dimen>
+
 </resources>

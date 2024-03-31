@@ -30,4 +30,14 @@
     <string name="no_internet">Нет интернета</string>
     <string name="no_vacancy">Не удалось получить список вакансий</string>
 
+    <string name="filter_all">Настрокий фильтрации</string>
+    <string name="filter_count">Страна</string>
+    <string name="filter_workplace">Место работы</string>
+    <string name="filter_industries">Отрасль</string>
+    <string name="filter_expected_salary">Ожидаемая зарплата</string>
+    <string name="filter_enter_amount">Введите сумму</string>
+    <string name="filter_without_salary">Не показывать без зарплаты</string>
+    <string name="filter_apply">Применить</string>
+    <string name="filter_remove">Сбросить</string>
+
 </resources>
