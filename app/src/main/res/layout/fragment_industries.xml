@@ -2,17 +2,58 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Это фрагмент ВАКАНСИИ"
-        app:layout_constraintStart_toStartOf="parent"
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/industries_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fragment_default_title_height"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/back_icon"
+        app:title="Выбор отрасли"
+        app:titleTextAppearance="@style/medium22_font" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ti_search"
+        style="@style/searchBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginHorizontal="@dimen/margin"
+        android:layout_marginVertical="@dimen/xs_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/industries_toolbar">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/search"
+            style="@style/regular16_font"
+            android:textColorHint="@color/search_bar_hint"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/fragment_textview_height"
+            android:autofillHints="none"
+            android:hint="Введите отрасль"
+            android:inputType="text"
+            android:maxLength="128"
+            android:singleLine="true" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin"
+        android:clipToPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ti_search"
+        app:layout_constraintVertical_bias="0.0"
+        tools:itemCount="5"
+        tools:listitem="@layout/industries_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
