@@ -21,10 +21,6 @@ class RetrofitNetworkClient(
             return createNoConnectionResponse()
         }
 
-        if (!isValidDto(dto)) {
-            return createErrorResponse()
-        }
-
         return executeRequest(dto)
     }
 
@@ -37,6 +33,11 @@ class RetrofitNetworkClient(
     }
 
     private suspend fun executeRequest(dto: Any): Response {
+
+        if (!isValidDto(dto)) {
+            return createErrorResponse()
+        }
+
         return withContext(Dispatchers.IO) {
             try {
                 val response = when (dto) {
