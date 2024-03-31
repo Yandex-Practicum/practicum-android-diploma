@@ -4,15 +4,107 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Это фрагмент МЕСТА РАБОТЫ"
-        app:layout_constraintStart_toStartOf="parent"
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/workplace_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fragment_default_title_height"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:navigationIcon="@drawable/back_icon"
+        app:title="@string/filter_choosing_place_to_work"
+        app:titleTextAppearance="@style/medium22_font" />
 
+    <LinearLayout
+        android:id="@+id/workplace_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_22"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:padding="@dimen/margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/workplace_toolbar">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/workplace_visible_count"
+                style="@style/regular12_font"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:text="@string/filter_count"
+                android:textColor="@color/text_black_white"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/workplace_text_count"
+                style="@style/regular16_font"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/filter_count"
+                android:padding="2dp" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/workplace_ic_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/arrow_forward_24px" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/workplace_region"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:padding="@dimen/margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/workplace_count">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/workplace_visible_region"
+                style="@style/regular12_font"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:text="@string/filter_region"
+                android:textColor="@color/text_black_white"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/workplace_text_region"
+                style="@style/regular16_font"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/filter_region"
+                android:padding="2dp" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/workplace_ic_region"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/arrow_forward_24px" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

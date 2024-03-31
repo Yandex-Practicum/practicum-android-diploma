@@ -34,7 +34,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/filter_text_workplace"
+                android:id="@+id/filter_visible_workplace"
                 style="@style/regular12_font"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -44,6 +44,7 @@
                 android:visibility="gone" />
 
             <TextView
+                android:id="@+id/filter_text_workplace"
                 style="@style/regular16_font"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -79,7 +80,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/filter_text_industries"
+                android:id="@+id/filter_visible_industries"
                 style="@style/regular12_font"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -89,6 +90,7 @@
                 android:visibility="gone" />
 
             <TextView
+                android:id="@+id/filter_text_industries"
                 style="@style/regular16_font"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -35,5 +35,4 @@ class FilterAllFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }
