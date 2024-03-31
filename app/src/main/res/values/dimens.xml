@@ -15,4 +15,7 @@
     <dimen name="xl_margin">32dp</dimen>
 
     <dimen name="medium_icon_size">48dp</dimen>
+
+    <dimen name="corner_radius">12dp</dimen>
+
 </resources>

@@ -2,6 +2,7 @@
 <resources>
 
     <color name="black.universal">#1A1B22</color>
+    <color name="white.universal">#FDFDFD</color>
 
     <color name="black">#1A1B22</color>
     <color name="white">#FDFDFD</color>
@@ -11,4 +12,8 @@
     <color name="red">#F56B6C</color>
     <color name="background">#1A1B2280</color>
 
+    <!--search bar должен быть серым в ночной теме, в дизайне цветов это не отражено...-->
+    <color name="search_bar_background">#E6E8EB</color>
+    <!--та же история с hint , в дизайне цветов это не отражено...-->
+    <color name="search_bar_hint">#AEAFB4</color>
 </resources>
