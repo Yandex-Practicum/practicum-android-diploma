@@ -42,80 +42,54 @@
 
     </LinearLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/searchContainerConstraintLayout"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/fragment_textview_height"
-        android:layout_gravity="center"
-        android:background="@drawable/rounded_corner_background_12"
-        android:backgroundTint="@color/light_grey"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/navigationBar"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="@dimen/xs_margin"
-        android:layout_marginHorizontal="@dimen/margin">
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/searchTextInputLayout"
+        style="@style/searchBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginHorizontal="@dimen/margin"
+        android:layout_marginVertical="@dimen/xs_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/navigationBar">
 
-        <EditText
-            android:id="@+id/search_text_field"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/search"
             style="@style/regular16_font"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:background="@null"
-            android:fontFamily="@font/ys_display_regular"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/fragment_textview_height"
+            android:autofillHints="none"
             android:hint="@string/enter_region"
-            android:imeOptions="actionDone"
             android:inputType="text"
-            android:lines="1"
+            android:maxLength="128"
             android:singleLine="true"
-            android:textColor="@color/black"
-            android:textColorHint="@color/grey"
-            android:textCursorDrawable="@drawable/text_edit_cursor"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/search_image_view"
-            android:layout_marginStart="@dimen/margin"
-            android:layout_marginEnd="@dimen/xs_margin" />
+            android:textColorHint="@color/search_bar_hint" />
 
-        <ImageView
-            android:id="@+id/search_image_view"
-            android:layout_width="@dimen/medium_icon_size"
-            android:layout_height="@dimen/medium_icon_size"
-            android:layout_gravity="end"
-            android:foreground="?attr/selectableItemBackground"
-            android:scaleType="center"
-            android:src="@drawable/ic_search_24px"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginEnd="@dimen/xxs_margin" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/searchContainerConstraintLayout"
+        android:layout_marginTop="@dimen/margin"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="@dimen/margin" />
-    
+        app:layout_constraintTop_toBottomOf="@id/searchTextInputLayout" />
+
     <LinearLayout
         android:id="@+id/errorContainerLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/margin"
+        android:layout_marginTop="@dimen/xs_margin"
         android:gravity="center"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/searchContainerConstraintLayout"
+        app:layout_constraintBottom_toBottomOf="@id/errorContentBottomGuideline"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/errorContentBottomGuideline"
-        android:layout_marginTop="@dimen/xs_margin"
-        android:layout_marginHorizontal="@dimen/margin">
+        app:layout_constraintTop_toBottomOf="@id/searchTextInputLayout">
 
         <ImageView
             android:id="@+id/errorImageView"
@@ -125,13 +99,13 @@
 
         <TextView
             android:id="@+id/errorTextView"
+            style="@style/medium22_font"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/medium22_font"
-            android:textColor="@color/black"
-            tools:text="Такого региона"
+            android:layout_marginTop="@dimen/margin"
             android:textAlignment="center"
-            android:layout_marginTop="@dimen/margin" />
+            android:textColor="@color/black"
+            tools:text="Такого региона" />
 
     </LinearLayout>
 
