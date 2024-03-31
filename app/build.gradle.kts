@@ -10,6 +10,7 @@ android {
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     buildFeatures {
+        buildConfig = true
         viewBinding = true
     }
 
@@ -37,11 +38,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
-    }
-
-    buildFeatures {
-        buildConfig = true
-        viewBinding = true
     }
 }
 
