@@ -16,8 +16,6 @@ import ru.practicum.android.diploma.data.vacancies.details.DetailRequest
 import ru.practicum.android.diploma.data.vacancies.dto.VacanciesSearchRequest
 import ru.practicum.android.diploma.data.vacancies.response.Response
 import ru.practicum.android.diploma.data.vacancies.response.ResponseCodes
-import java.io.IOException
-import kotlin.coroutines.cancellation.CancellationException
 
 class RetrofitNetworkClient(
     private val context: Context,
@@ -76,7 +74,7 @@ class RetrofitNetworkClient(
                     else -> throw IllegalArgumentException("Invalid DTO type: $dto")
                 }.await()
                 response.apply { resultCode = ResponseCodes.SUCCESS }
-            } catch (e: Throwable) {
+            } catch (e: HttpException) {
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
             }
         }
@@ -114,7 +112,7 @@ class RetrofitNetworkClient(
                 // Создание экземпляра вашего класса Response с кодом ошибки сервера
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
             }
-        } catch (e: IllegalArgumentException) {
+        } catch (e: HttpException) {
             Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
         }
     }
@@ -127,7 +125,7 @@ class RetrofitNetworkClient(
             } else {
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
             }
-        } catch (e: IllegalArgumentException) {
+        } catch (e: HttpException) {
             Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
         }
     }
