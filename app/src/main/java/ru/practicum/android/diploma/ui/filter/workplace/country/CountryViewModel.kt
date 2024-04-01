@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.domain.filter.datashared.CountryShared
 
 class CountryViewModel(
     val filterRepositoryFlow: FilterRepositoryFlow
-): ViewModel() {
+) : ViewModel() {
 
     private val stateLiveData = MutableLiveData<CountryState>()
     fun observeState(): LiveData<CountryState> = stateLiveData
