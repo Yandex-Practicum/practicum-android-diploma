@@ -128,7 +128,7 @@ class RetrofitNetworkClient(
             } else {
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
             }
-        } catch (e: Throwable) {
+        } catch (e: IOException) {
             Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
             throw e
         }
