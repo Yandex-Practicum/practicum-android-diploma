@@ -6,6 +6,7 @@ import android.net.NetworkCapabilities
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 import ru.practicum.android.diploma.data.filter.country.CountryRequest
 import ru.practicum.android.diploma.data.filter.country.response.AreasResponse
 import ru.practicum.android.diploma.data.filter.industries.IndustriesRequest
@@ -98,14 +99,7 @@ class RetrofitNetworkClient(
                     else -> throw IllegalArgumentException("Invalid DTO type: $dto")
                 }.await()
                 response.apply { resultCode = ResponseCodes.SUCCESS }
-            } catch (e: CancellationException) {
-                // В случае отмены задачи можно выполнить соответствующие действия
-                Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
-            } catch (e: IOException) {
-                // Обработка ошибок ввода-вывода (например, проблемы с сетью)
-                Response().apply { resultCode = ResponseCodes.ERROR }
-            } catch (e: Exception) {
-                // Обработка других исключений
+            } catch (e: HttpException) {
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
             }
         }
