@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.data.network
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.widget.Toast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
@@ -74,9 +75,11 @@ class RetrofitNetworkClient(
                     else -> throw IllegalArgumentException("Invalid DTO type: $dto")
                 }.await()
                 response.apply { resultCode = ResponseCodes.SUCCESS }
-            } catch (e: HttpException) {
+            } catch (e: Throwable) {
+                Toast.makeText(context, "Получили ошибку $e", Toast.LENGTH_LONG).show()
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
             }
+
         }
     }
 
@@ -97,7 +100,8 @@ class RetrofitNetworkClient(
                     else -> throw IllegalArgumentException("Invalid DTO type: $dto")
                 }.await()
                 response.apply { resultCode = ResponseCodes.SUCCESS }
-            } catch (e: HttpException) {
+            } catch (e: Throwable) {
+                Toast.makeText(context, "Получили ошибку $e", Toast.LENGTH_LONG).show()
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
             }
         }
@@ -112,7 +116,8 @@ class RetrofitNetworkClient(
                 // Создание экземпляра вашего класса Response с кодом ошибки сервера
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
             }
-        } catch (e: HttpException) {
+        } catch (e: Throwable) {
+            Toast.makeText(context, "Получили ошибку $e", Toast.LENGTH_LONG).show()
             Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
         }
     }
@@ -125,7 +130,8 @@ class RetrofitNetworkClient(
             } else {
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
             }
-        } catch (e: HttpException) {
+        } catch (e: Throwable) {
+            Toast.makeText(context, "Получили ошибку $e", Toast.LENGTH_LONG).show()
             Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
         }
     }
