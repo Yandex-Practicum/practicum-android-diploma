@@ -1,9 +1,11 @@
 package ru.practicum.android.diploma.ui.search
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -34,9 +36,13 @@ class SearchFragment : Fragment() {
         vacancyAdapter =
             VacancyAdapter(onClick)
 
+        binding.rvVacancy.adapter = vacancyAdapter
+
         binding.searchFilter.setOnClickListener {
             findNavController().navigate(R.id.action_searchFragment_to_filterAllFragment)
         }
+
+        viewModel.search("Грузчик")
 
         viewModel.observeState().observe(viewLifecycleOwner) {
             render(it)
@@ -53,24 +59,48 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun showDefaultState() {
-        TODO("Not yet implemented")
+    private fun showDefaultState() = with(binding){
+        ivStartSearch.isVisible = true
+        progressBar.isVisible = false
+        rvVacancy.isVisible = false
+        noInternetGroup.isVisible = false
+        nothingFoundGroup.isVisible = false
     }
 
-    private fun showContent(vacancies: List<Vacancy>) {
-        TODO("Not yet implemented")
+    private fun showContent(vacancies: List<Vacancy>) = with(binding){
+        ivStartSearch.isVisible = false
+        progressBar.isVisible = false
+        rvVacancy.isVisible = true
+        noInternetGroup.isVisible = false
+        nothingFoundGroup.isVisible = false
+
+        vacancyAdapter.clearVacancies()
+        vacancyAdapter.addVacancies(vacancies)
+        vacancyAdapter.notifyDataSetChanged()
     }
 
-    private fun showLoading() {
-        TODO("Not yet implemented")
+    private fun showLoading() = with(binding){
+        ivStartSearch.isVisible = false
+        progressBar.isVisible = true
+        rvVacancy.isVisible = false
+        noInternetGroup.isVisible = false
+        nothingFoundGroup.isVisible = false
     }
 
-    private fun showNoInternetState() {
-        TODO("Not yet implemented")
+    private fun showNoInternetState() = with(binding){
+        ivStartSearch.isVisible = false
+        progressBar.isVisible = false
+        rvVacancy.isVisible = false
+        noInternetGroup.isVisible = true
+        nothingFoundGroup.isVisible = false
     }
 
-    private fun showEmptyVacanciesState() {
-        TODO("Not yet implemented")
+    private fun showEmptyVacanciesState() = with(binding) {
+        ivStartSearch.isVisible = false
+        progressBar.isVisible = false
+        rvVacancy.isVisible = false
+        noInternetGroup.isVisible = false
+        nothingFoundGroup.isVisible = true
     }
 
     override fun onDestroyView() {

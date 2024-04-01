@@ -14,20 +14,20 @@ import ru.practicum.android.diploma.domain.models.vacacy.VacancyResponse
 class VacanciesSearchRepositoryImpl(
     private val networkClient: NetworkClient
 ) : VacanciesSearchRepository {
-    override suspend fun getVacancies(queryMap: Map<String, String>): Flow<VacancyResponse> = flow {
+    override suspend fun getVacancies(queryMap: Map<String, String>): Flow<Pair<VacancyResponse?, String?>> = flow {
         val response = networkClient.doRequest(VacanciesSearchRequest(queryMap))
 
         when (response.resultCode) {
             ResponseCodes.SUCCESS -> {
                 if (response is VacanciesSearchDtoResponse) {
-                    emit(VacanciesSearchMapper.map(response))
+                    emit(Pair(VacanciesSearchMapper.map(response), null))
                 } else {
                     throw Exception("Result is not valid model")
                 }
             }
 
             else -> {
-                throw Exception("Network error")
+                emit(Pair(null, "Network Error"))
             }
         }
     }

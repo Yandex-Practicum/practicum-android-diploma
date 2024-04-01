@@ -5,5 +5,5 @@ import ru.practicum.android.diploma.domain.models.vacacy.VacancyResponse
 
 interface VacanciesSearchRepository {
 
-    suspend fun getVacancies(queryMap: Map<String, String>): Flow<VacancyResponse>
+    suspend fun getVacancies(queryMap: Map<String, String>): Flow<Pair<VacancyResponse?, String?>>
 }
