@@ -4,13 +4,13 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.QueryMap
 import ru.practicum.android.diploma.data.vacancies.details.VacancyDetailDtoResponse
-import ru.practicum.android.diploma.data.vacancies.dto.VacanciesSearchResponse
+import ru.practicum.android.diploma.data.vacancies.dto.VacanciesSearchDtoResponse
 
 interface SearchVacanciesApi {
 
     // Запрос списка вакансий
     @GET("/vacancies")
-    suspend fun getListVacancy(@QueryMap response: Map<String, String>): VacanciesSearchResponse
+    suspend fun getListVacancy(@QueryMap response: Map<String, String>): VacanciesSearchDtoResponse
 
     // Запрос детальной информации о вакансии
     @GET("/vacancies/{vacancy_id}")
