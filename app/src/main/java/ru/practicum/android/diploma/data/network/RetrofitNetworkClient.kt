@@ -114,7 +114,7 @@ class RetrofitNetworkClient(
                 // Создание экземпляра вашего класса Response с кодом ошибки сервера
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
             }
-        } catch (e: Throwable) {
+        } catch (e: IOException) {
             Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
             throw e
         }
