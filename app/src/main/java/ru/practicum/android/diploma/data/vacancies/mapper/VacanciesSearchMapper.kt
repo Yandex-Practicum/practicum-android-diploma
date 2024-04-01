@@ -17,11 +17,10 @@ import ru.practicum.android.diploma.domain.models.vacacy.VacancyArea
 import ru.practicum.android.diploma.domain.models.vacacy.VacancyResponse
 import ru.practicum.android.diploma.domain.models.vacacy.VacancyType
 
-
 object VacanciesSearchMapper {
     fun map(vacancy: VacanciesSearchDtoResponse): VacancyResponse {
         return VacancyResponse(
-            items = vacancy.items?.map { map(it) } ?: emptyList(),
+            items = vacancy.items?.map { mapVacancy(it) } ?: emptyList(),
             found = vacancy.found,
             page = vacancy.page,
             pages = vacancy.pages,
@@ -29,19 +28,19 @@ object VacanciesSearchMapper {
         )
     }
 
-    private fun map(vacancyDto: VacancyDto): Vacancy {
+    private fun mapVacancy(vacancyDto: VacancyDto): Vacancy {
         return Vacancy(
             id = vacancyDto.id,
-            department = map(vacancyDto.department),
+            department = mapDepartment(vacancyDto.department),
             name = vacancyDto.name,
-            area = map(vacancyDto.area),
-            employer = map(vacancyDto.employer),
-            salary = map(vacancyDto.salary),
-            type = map(vacancyDto.type),
+            area = mapArea(vacancyDto.area),
+            employer = mapEmployee(vacancyDto.employer),
+            salary = mapSalary(vacancyDto.salary),
+            type = mapVacancyType(vacancyDto.type),
         )
     }
 
-    private fun map(departmentDto: DepartmentDto?): Department? {
+    private fun mapDepartment(departmentDto: DepartmentDto?): Department? {
         if (departmentDto == null) return null
         return Department(
             id = departmentDto.id,
@@ -49,7 +48,7 @@ object VacanciesSearchMapper {
         )
     }
 
-    private fun map(vacancyAreaDto: VacancyAreaDto): VacancyArea {
+    private fun mapArea(vacancyAreaDto: VacancyAreaDto): VacancyArea {
         return VacancyArea(
             id = vacancyAreaDto.id,
             name = vacancyAreaDto.name,
@@ -57,17 +56,17 @@ object VacanciesSearchMapper {
         )
     }
 
-    private fun map(employerDto: EmployerDto): Employer {
+    private fun mapEmployee(employerDto: EmployerDto): Employer {
         return Employer(
             id = employerDto.id,
-            logoUrls = map(employerDto.logoUrls),
+            logoUrls = mapLogo(employerDto.logoUrls),
             name = employerDto.name,
             trusted = employerDto.trusted,
             vacanciesUrl = employerDto.vacanciesUrl
         )
     }
 
-    private fun map(logoUrlsDto: LogoUrlsDto?): LogoUrls? {
+    private fun mapLogo(logoUrlsDto: LogoUrlsDto?): LogoUrls? {
         if (logoUrlsDto == null) return null
         return LogoUrls(
             art90 = logoUrlsDto.art90,
@@ -76,7 +75,7 @@ object VacanciesSearchMapper {
         )
     }
 
-    private fun map(salaryDto: SalaryDto?): Salary? {
+    private fun mapSalary(salaryDto: SalaryDto?): Salary? {
         if (salaryDto == null) return null
         return Salary(
             currency = salaryDto.currency,
@@ -86,7 +85,7 @@ object VacanciesSearchMapper {
         )
     }
 
-    private fun map(vacancyTypeDto: VacancyTypeDto): VacancyType {
+    private fun mapVacancyType(vacancyTypeDto: VacancyTypeDto): VacancyType {
         return VacancyType(
             id = vacancyTypeDto.id,
             name = vacancyTypeDto.name,

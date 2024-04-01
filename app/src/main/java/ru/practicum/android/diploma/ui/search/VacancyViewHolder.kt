@@ -23,7 +23,6 @@ class VacancyViewHolder(
             tvVacancySalary.text = vacancy.salary.currency.toString()
         }
 
-
         Glide.with(itemView)
             .load(vacancy.employer?.logoUrls?.art90)
             .placeholder(R.drawable.logo_placeholder).error(R.drawable.logo_placeholder)

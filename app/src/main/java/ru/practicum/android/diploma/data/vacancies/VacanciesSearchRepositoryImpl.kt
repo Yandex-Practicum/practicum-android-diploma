@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.data.vacancies
 
-
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.data.network.NetworkClient
@@ -19,16 +18,18 @@ class VacanciesSearchRepositoryImpl(
 
         when (response.resultCode) {
             ResponseCodes.SUCCESS -> {
-                if (response is VacanciesSearchDtoResponse) {
-                    emit(Pair(VacanciesSearchMapper.map(response), null))
-                } else {
-                    throw Exception("Result is not valid model")
-                }
+                emit(Pair(VacanciesSearchMapper.map(response as VacanciesSearchDtoResponse), null))
             }
 
-            else -> {
-                emit(Pair(null, "Network Error"))
+            ResponseCodes.NO_CONNECTION -> {
+                emit(Pair(null, "no connection"))
             }
+
+            ResponseCodes.SERVER_ERROR -> {
+                emit(Pair(null, "Server error"))
+            }
+
+            else -> emit(Pair(null, "error"))
         }
     }
 

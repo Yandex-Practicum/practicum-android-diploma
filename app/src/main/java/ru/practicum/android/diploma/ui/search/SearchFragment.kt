@@ -23,15 +23,17 @@ class SearchFragment : Fragment() {
 
     private val viewModel by viewModel<SearchViewModel>()
 
-    private lateinit var vacancyAdapter: VacancyAdapter
+    private val vacancyAdapter by lazy {
+        VacancyAdapter(onClick)
+    }
 
     private val inputMethodManager by lazy {
         requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
     }
 
-
     private val onClick: (Vacancy) -> Unit = {
-        //TODO тут происходит обработка клика на вакансию
+        //тут происходит обработка клика на вакансию
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -41,8 +43,6 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        vacancyAdapter =
-            VacancyAdapter(onClick)
 
         binding.rvVacancy.adapter = vacancyAdapter
 
@@ -148,7 +148,6 @@ class SearchFragment : Fragment() {
             search.clearFocus()
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
