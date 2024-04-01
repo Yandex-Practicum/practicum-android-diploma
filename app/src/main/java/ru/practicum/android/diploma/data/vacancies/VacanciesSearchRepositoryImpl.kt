@@ -1,9 +1,10 @@
 package ru.practicum.android.diploma.data.vacancies
 
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.data.network.NetworkClient
-import ru.practicum.android.diploma.data.vacancies.dto.VacanciesSearchRequest
 import ru.practicum.android.diploma.data.vacancies.dto.VacanciesSearchDtoResponse
+import ru.practicum.android.diploma.data.vacancies.dto.VacanciesSearchRequest
 import ru.practicum.android.diploma.data.vacancies.mapper.VacanciesSearchMapper
 import ru.practicum.android.diploma.data.vacancies.response.ResponseCodes
 import ru.practicum.android.diploma.domain.api.search.VacanciesSearchRepository
