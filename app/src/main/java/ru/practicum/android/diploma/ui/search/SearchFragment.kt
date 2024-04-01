@@ -32,8 +32,7 @@ class SearchFragment : Fragment() {
     }
 
     private val onClick: (Vacancy) -> Unit = {
-        //тут происходит обработка клика на вакансию
-
+        // тут происходит обработка клика на вакансию
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
