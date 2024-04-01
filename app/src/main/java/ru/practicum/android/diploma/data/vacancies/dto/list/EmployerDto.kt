@@ -8,5 +8,5 @@ data class EmployerDto(
     val logoUrls: LogoUrlsDto?,
     val name: String,
     val trusted: Boolean,
-    val vacanciesUrl: String
+    val vacanciesUrl: String?
 )

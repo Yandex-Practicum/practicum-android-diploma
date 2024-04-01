@@ -21,7 +21,7 @@ import ru.practicum.android.diploma.domain.models.vacacy.VacancyType
 object VacanciesSearchMapper {
     fun map(vacancy: VacanciesSearchDtoResponse): VacancyResponse {
         return VacancyResponse(
-            items = vacancy.items?.map { map(it) },
+            items = vacancy.items?.map { map(it) } ?: emptyList(),
             found = vacancy.found,
             page = vacancy.page,
             pages = vacancy.pages,

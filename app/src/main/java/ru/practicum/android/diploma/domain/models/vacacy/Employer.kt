@@ -5,5 +5,5 @@ data class Employer(
     val logoUrls: LogoUrls?,
     val name: String,
     val trusted: Boolean,
-    val vacanciesUrl: String
+    val vacanciesUrl: String?
 )
