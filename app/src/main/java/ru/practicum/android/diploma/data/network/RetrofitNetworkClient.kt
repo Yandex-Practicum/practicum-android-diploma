@@ -74,11 +74,9 @@ class RetrofitNetworkClient(
                     else -> throw IllegalArgumentException("Invalid DTO type: $dto")
                 }.await()
                 response.apply { resultCode = ResponseCodes.SUCCESS }
-            } catch (e: IOException) {
-                Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
             } catch (e: IllegalArgumentException) {
-            Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
-        }
+                Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
+            }
         }
     }
 
@@ -99,7 +97,7 @@ class RetrofitNetworkClient(
                     else -> throw IllegalArgumentException("Invalid DTO type: $dto")
                 }.await()
                 response.apply { resultCode = ResponseCodes.SUCCESS }
-            } catch (e: IOException) {
+            } catch (e: IllegalArgumentException) {
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
             }
         }
@@ -114,11 +112,9 @@ class RetrofitNetworkClient(
                 // Создание экземпляра вашего класса Response с кодом ошибки сервера
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
             }
-        } catch (e: Exception) {
-            Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
         } catch (e: IllegalArgumentException) {
-        Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
-    }
+            Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
+        }
     }
 
     private suspend fun getAreas(): Response {
@@ -129,8 +125,6 @@ class RetrofitNetworkClient(
             } else {
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
             }
-        } catch (e: Exception) {
-            Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
         } catch (e: IllegalArgumentException) {
             Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
         }
