@@ -15,6 +15,7 @@ import ru.practicum.android.diploma.data.vacancies.details.DetailRequest
 import ru.practicum.android.diploma.data.vacancies.dto.VacanciesSearchRequest
 import ru.practicum.android.diploma.data.vacancies.response.Response
 import ru.practicum.android.diploma.data.vacancies.response.ResponseCodes
+import java.io.IOException
 
 class RetrofitNetworkClient(
     private val context: Context,
@@ -54,7 +55,6 @@ class RetrofitNetworkClient(
         return dto is CountryRequest || dto is RegionByIdRequest || dto is IndustriesRequest
     }
 
-
     private suspend fun executeRequest(dto: Any): Response {
         if (!isValidDto(dto)) {
             return createErrorResponse()
@@ -74,7 +74,7 @@ class RetrofitNetworkClient(
                     else -> throw IllegalArgumentException("Invalid DTO type: $dto")
                 }.await()
                 response.apply { resultCode = ResponseCodes.SUCCESS }
-            } catch (e: Throwable) {
+            } catch (e: IOException) {
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
             }
         }
@@ -97,7 +97,7 @@ class RetrofitNetworkClient(
                     else -> throw IllegalArgumentException("Invalid DTO type: $dto")
                 }.await()
                 response.apply { resultCode = ResponseCodes.SUCCESS }
-            } catch (e: Throwable) {
+            } catch (e: IOException) {
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
             }
         }
