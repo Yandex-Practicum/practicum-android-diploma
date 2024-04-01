@@ -5,26 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_picture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="@android:color/transparent"
-        android:foreground="@drawable/vacancy_view_logo_background"
+        android:layout_marginTop="@dimen/xs_margin"
+        app:cardCornerRadius="@dimen/corner_radius"
         app:cardElevation="0dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/light_grey"
+        app:strokeWidth="1dp">
 
         <ImageView
             android:id="@+id/iv_logo"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:scaleType="center"
+            android:background="@color/white"
             android:src="@drawable/logo_placeholder" />
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
     <TextView
         android:id="@+id/tv_vacancy_name"
