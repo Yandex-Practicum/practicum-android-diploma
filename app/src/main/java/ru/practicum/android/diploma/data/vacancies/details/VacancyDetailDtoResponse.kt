@@ -7,23 +7,23 @@ import ru.practicum.android.diploma.data.vacancies.details.dto.Employment
 import ru.practicum.android.diploma.data.vacancies.details.dto.Experience
 import ru.practicum.android.diploma.data.vacancies.details.dto.KeySkillVacancyDetail
 import ru.practicum.android.diploma.data.vacancies.details.dto.Schedule
-import ru.practicum.android.diploma.data.vacancies.dto.list.Employer
-import ru.practicum.android.diploma.data.vacancies.dto.list.Salary
-import ru.practicum.android.diploma.data.vacancies.dto.list.VacancyArea
-import ru.practicum.android.diploma.data.vacancies.dto.list.VacancyType
+import ru.practicum.android.diploma.data.vacancies.dto.list.EmployerDto
+import ru.practicum.android.diploma.data.vacancies.dto.list.SalaryDto
+import ru.practicum.android.diploma.data.vacancies.dto.list.VacancyAreaDto
+import ru.practicum.android.diploma.data.vacancies.dto.list.VacancyTypeDto
 import ru.practicum.android.diploma.data.vacancies.response.Response
 
 data class VacancyDetailDtoResponse(
     val id: String,
     val name: String,
-    val area: VacancyArea, // Регион
+    val area: VacancyAreaDto, // Регион
     @SerializedName("alternate_url")
     val vacancyLink: String, // Ссылка на представление вакансии на сайте
     val contacts: Contacts?, // Контакты
-    val employer: Employer?, // Работодатель
-    val salary: Salary?, // Зарплата
+    val employer: EmployerDto?, // Работодатель
+    val salary: SalaryDto?, // Зарплата
     val schedule: Schedule?, // График работы
-    val type: VacancyType, // Тип вакансии
+    val type: VacancyTypeDto, // Тип вакансии
     val employment: Employment?, // Тип занятости
     val experience: Experience?, // Опыт работы
     @SerializedName("key_skills")

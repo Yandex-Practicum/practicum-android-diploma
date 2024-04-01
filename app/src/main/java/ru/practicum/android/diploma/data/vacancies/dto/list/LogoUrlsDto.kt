@@ -2,7 +2,7 @@ package ru.practicum.android.diploma.data.vacancies.dto.list
 
 import com.google.gson.annotations.SerializedName
 
-data class LogoUrls(
+data class LogoUrlsDto(
     @SerializedName("90")
     val art90: String?,
     @SerializedName("240")

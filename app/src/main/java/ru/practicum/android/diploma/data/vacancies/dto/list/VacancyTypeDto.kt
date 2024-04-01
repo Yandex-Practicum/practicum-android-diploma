@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.data.vacancies.dto.list
 
-data class VacancyArea(
+data class VacancyTypeDto(
     val id: String,
-    val name: String,
-    val url: String
+    val name: String
 )
