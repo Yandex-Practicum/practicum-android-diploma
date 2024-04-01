@@ -76,8 +76,8 @@ class RetrofitNetworkClient(
                 }.await()
                 response.apply { resultCode = ResponseCodes.SUCCESS }
             } catch (e: Throwable) {
-                Toast.makeText(context, "Получили ошибку $e", Toast.LENGTH_LONG).show()
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
+                throw e
             }
 
         }
@@ -101,8 +101,8 @@ class RetrofitNetworkClient(
                 }.await()
                 response.apply { resultCode = ResponseCodes.SUCCESS }
             } catch (e: Throwable) {
-                Toast.makeText(context, "Получили ошибку $e", Toast.LENGTH_LONG).show()
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
+                throw e
             }
         }
     }
@@ -117,8 +117,8 @@ class RetrofitNetworkClient(
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
             }
         } catch (e: Throwable) {
-            Toast.makeText(context, "Получили ошибку $e", Toast.LENGTH_LONG).show()
             Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
+            throw e
         }
     }
 
@@ -131,8 +131,8 @@ class RetrofitNetworkClient(
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
             }
         } catch (e: Throwable) {
-            Toast.makeText(context, "Получили ошибку $e", Toast.LENGTH_LONG).show()
             Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
+            throw e
         }
     }
 
