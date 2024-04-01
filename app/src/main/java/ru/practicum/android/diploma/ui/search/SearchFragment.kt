@@ -1,11 +1,14 @@
 package ru.practicum.android.diploma.ui.search
 
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -21,6 +24,11 @@ class SearchFragment : Fragment() {
     private val viewModel by viewModel<SearchViewModel>()
 
     private lateinit var vacancyAdapter: VacancyAdapter
+
+    private val inputMethodManager by lazy {
+        requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+    }
+
 
     private val onClick: (Vacancy) -> Unit = {
         //TODO тут происходит обработка клика на вакансию
@@ -38,11 +46,13 @@ class SearchFragment : Fragment() {
 
         binding.rvVacancy.adapter = vacancyAdapter
 
+        bindKeyboardSearchButton()
+        bindTextWatcher()
+        bindCrossButton()
+
         binding.searchFilter.setOnClickListener {
             findNavController().navigate(R.id.action_searchFragment_to_filterAllFragment)
         }
-
-        viewModel.search("Грузчик")
 
         viewModel.observeState().observe(viewLifecycleOwner) {
             render(it)
@@ -59,7 +69,7 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun showDefaultState() = with(binding){
+    private fun showDefaultState() = with(binding) {
         ivStartSearch.isVisible = true
         progressBar.isVisible = false
         rvVacancy.isVisible = false
@@ -67,7 +77,7 @@ class SearchFragment : Fragment() {
         nothingFoundGroup.isVisible = false
     }
 
-    private fun showContent(vacancies: List<Vacancy>) = with(binding){
+    private fun showContent(vacancies: List<Vacancy>) = with(binding) {
         ivStartSearch.isVisible = false
         progressBar.isVisible = false
         rvVacancy.isVisible = true
@@ -79,7 +89,7 @@ class SearchFragment : Fragment() {
         vacancyAdapter.notifyDataSetChanged()
     }
 
-    private fun showLoading() = with(binding){
+    private fun showLoading() = with(binding) {
         ivStartSearch.isVisible = false
         progressBar.isVisible = true
         rvVacancy.isVisible = false
@@ -87,7 +97,7 @@ class SearchFragment : Fragment() {
         nothingFoundGroup.isVisible = false
     }
 
-    private fun showNoInternetState() = with(binding){
+    private fun showNoInternetState() = with(binding) {
         ivStartSearch.isVisible = false
         progressBar.isVisible = false
         rvVacancy.isVisible = false
@@ -102,6 +112,43 @@ class SearchFragment : Fragment() {
         noInternetGroup.isVisible = false
         nothingFoundGroup.isVisible = true
     }
+
+    private fun bindKeyboardSearchButton() {
+        binding.search.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                viewModel.search(binding.search.text.toString())
+                true
+            }
+            false
+        }
+    }
+
+    private fun bindTextWatcher() = with(binding) {
+        search.addTextChangedListener(
+            onTextChanged = { s, _, _, _ ->
+                if (s.isNullOrEmpty()) {
+                    ivSearch.isVisible = true
+                    ivCross.isVisible = false
+                } else {
+                    ivSearch.isVisible = false
+                    ivCross.isVisible = true
+                }
+            }
+        )
+    }
+
+    private fun bindCrossButton() = with(binding) {
+        ivCross.setOnClickListener {
+            search.setText("")
+            showDefaultState()
+            inputMethodManager?.hideSoftInputFromWindow(
+                view?.windowToken,
+                0
+            )
+            search.clearFocus()
+        }
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

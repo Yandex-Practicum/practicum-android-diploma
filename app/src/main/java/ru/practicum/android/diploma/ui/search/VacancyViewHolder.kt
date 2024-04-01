@@ -14,11 +14,11 @@ class VacancyViewHolder(
         tvVacancyName.text = vacancy.name
         tvVacancyType.text = vacancy.type.name
         if (vacancy.salary?.to != null) {
-            tvVacancySalary.text = vacancy.salary.to.toString()
+            tvVacancySalary.text = "${itemView.context.getString(R.string.to)} ${vacancy.salary.to}"
         } else if (vacancy.salary?.from != null) {
-            tvVacancySalary.text = vacancy.salary.from.toString()
+            tvVacancySalary.text = "${itemView.context.getString(R.string.from)} ${vacancy.salary.from}"
         } else if (vacancy.salary?.gross != null) {
-            tvVacancySalary.text = vacancy.salary.gross.toString()
+            tvVacancySalary.text = "${itemView.context.getString(R.string.gross)} ${vacancy.salary.to}"
         } else if (vacancy.salary?.currency != null) {
             tvVacancySalary.text = vacancy.salary.currency.toString()
         }

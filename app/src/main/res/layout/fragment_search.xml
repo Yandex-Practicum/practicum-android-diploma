@@ -47,12 +47,36 @@
             android:layout_height="@dimen/fragment_textview_height"
             android:autofillHints="none"
             android:hint="@string/enter_request"
+            android:imeOptions="actionSearch"
             android:inputType="text"
             android:maxLength="128"
             android:singleLine="true"
             android:textColorHint="@color/search_bar_hint" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/iv_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin"
+        android:src="@drawable/ic_search_24px"
+        app:layout_constraintBottom_toBottomOf="@+id/ti_search"
+        app:layout_constraintEnd_toEndOf="@+id/ti_search"
+        app:layout_constraintTop_toTopOf="@+id/ti_search" />
+
+    <ImageView
+        android:id="@+id/iv_cross"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:src="@drawable/ic_close_24px"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/ti_search"
+        app:layout_constraintEnd_toEndOf="@+id/ti_search"
+        app:layout_constraintTop_toTopOf="@+id/ti_search" />
 
     <TextView
         android:id="@+id/iv_search_info"
