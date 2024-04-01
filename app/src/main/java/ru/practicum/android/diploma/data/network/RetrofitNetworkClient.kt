@@ -96,7 +96,7 @@ class RetrofitNetworkClient(
                     else -> throw IllegalArgumentException("Invalid DTO type: $dto")
                 }.await()
                 response.apply { resultCode = ResponseCodes.SUCCESS }
-            } catch (e: IllegalArgumentException) {
+            } catch (e: Throwable) {
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
             }
         }
