@@ -3,11 +3,10 @@ package ru.practicum.android.diploma.data.network
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.widget.Toast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
-import retrofit2.HttpException
+import okio.IOException
 import ru.practicum.android.diploma.data.filter.country.CountryRequest
 import ru.practicum.android.diploma.data.filter.country.response.AreasResponse
 import ru.practicum.android.diploma.data.filter.industries.IndustriesRequest
@@ -77,7 +76,6 @@ class RetrofitNetworkClient(
                 response.apply { resultCode = ResponseCodes.SUCCESS }
             } catch (e: Throwable) {
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
-                throw e
             }
 
         }
@@ -100,7 +98,7 @@ class RetrofitNetworkClient(
                     else -> throw IllegalArgumentException("Invalid DTO type: $dto")
                 }.await()
                 response.apply { resultCode = ResponseCodes.SUCCESS }
-            } catch (e: Throwable) {
+            } catch (e: IOException) {
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
                 throw e
             }
