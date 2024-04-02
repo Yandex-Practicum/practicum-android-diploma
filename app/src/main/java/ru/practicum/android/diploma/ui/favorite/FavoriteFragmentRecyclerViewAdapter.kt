@@ -7,9 +7,9 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.vacacy.Vacancy
 
 class FavoriteFragmentRecyclerViewAdapter(
-    private val vacancies : List<Vacancy>,
+    private val vacancies: List<Vacancy>,
     private val vacancyClicked: (Vacancy) -> Unit
-):RecyclerView.Adapter<FavoriteFragmentRecyclerViewViewHolder>() {
+) : RecyclerView.Adapter<FavoriteFragmentRecyclerViewViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteFragmentRecyclerViewViewHolder {
         val view = LayoutInflater
@@ -23,7 +23,7 @@ class FavoriteFragmentRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: FavoriteFragmentRecyclerViewViewHolder, position: Int) {
-        holder.bind( vacancies[position] )
+        holder.bind(vacancies[position])
     }
 
     override fun getItemCount(): Int = vacancies.size

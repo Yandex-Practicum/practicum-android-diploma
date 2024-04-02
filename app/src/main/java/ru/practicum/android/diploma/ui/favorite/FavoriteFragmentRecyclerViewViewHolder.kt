@@ -14,18 +14,17 @@ class FavoriteFragmentRecyclerViewViewHolder(
     private val vacancyClicked: (Vacancy) -> Unit
 ) : RecyclerView.ViewHolder(itemView) {
 
-    private val vacancy_company_logo: ImageView = itemView.findViewById(R.id.iv_logo)
-    private val vacancy_title: TextView = itemView.findViewById(R.id.tv_vacancy_name)
-    private val vacancy_company: TextView = itemView.findViewById(R.id.tv_vacancy_type)
-    private val vacancy_salary: TextView = itemView.findViewById(R.id.tv_vacancy_salary)
+    private val vacancyCompanyLogo: ImageView = itemView.findViewById(R.id.iv_logo)
+    private val vacancyTitle: TextView = itemView.findViewById(R.id.tv_vacancy_name)
+    private val vacancyCompany: TextView = itemView.findViewById(R.id.tv_vacancy_type)
+    private val vacancySalary: TextView = itemView.findViewById(R.id.tv_vacancy_salary)
 
     fun bind(model: Vacancy) {
+        vacancyTitle.text = model.name
+        vacancyCompany.text = model.employer?.name ?: ""
 
-        vacancy_title.text = model.name
-        vacancy_company.text = model.employer?.name ?: ""
-
-        //TODO("добавить форматтер з/п")
-        vacancy_salary.text =
+        // TODO("добавить форматтер з/п")
+        vacancySalary.text =
             "от ${model.salary?.from ?: ""} до ${model.salary?.to ?: ""} ${model.salary?.currency ?: ""}END"
                 .replace("от  до  END", "Зарплата не указана")
                 .replace("от  ", "")
@@ -37,7 +36,7 @@ class FavoriteFragmentRecyclerViewViewHolder(
             .load(model.employer?.logoUrls ?: "")
             .placeholder(R.drawable.spiral)
             .transform(CenterCrop())
-            .into(vacancy_company_logo)
+            .into(vacancyCompanyLogo)
 
         itemView.setOnClickListener { vacancyClicked(model) }
     }

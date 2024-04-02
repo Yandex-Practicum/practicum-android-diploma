@@ -5,8 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.practicum.android.diploma.domain.models.vacacy.Vacancy
 
-
-class FavoriteFragmentViewModel() : ViewModel() {
+class FavoriteFragmentViewModel : ViewModel() {
 
     private var state = MutableLiveData<FavoriteFragmentUpdate>(
         FavoriteFragmentUpdate.EmptyVacancyList

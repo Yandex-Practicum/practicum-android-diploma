@@ -21,9 +21,8 @@ class FavoriteFragment : Fragment() {
     private val data = ArrayList<Vacancy>()
     private lateinit var recyclerView: RecyclerView
 
-    private val vacancyClicked : (Vacancy) -> Unit = {
-
-        //pass data to new fragment
+    private val vacancyClicked: (Vacancy) -> Unit = {
+        // TODO("передача :Vacancy в фрагмент ДеталиВакансии")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -36,7 +35,7 @@ class FavoriteFragment : Fragment() {
 
         recyclerView = binding.favoriteItemsRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = FavoriteFragmentRecyclerViewAdapter(data,vacancyClicked)
+        recyclerView.adapter = FavoriteFragmentRecyclerViewAdapter(data, vacancyClicked)
 
         viewModel.getState().observe(viewLifecycleOwner) {
             when (it) {
@@ -58,7 +57,7 @@ class FavoriteFragment : Fragment() {
                     binding.getListErrorFrame.visibility = View.INVISIBLE
 
                     data.clear()
-                    data.addAll( it.vacancies )
+                    data.addAll(it.vacancies)
                     recyclerView.adapter?.notifyDataSetChanged()
                 }
             }
