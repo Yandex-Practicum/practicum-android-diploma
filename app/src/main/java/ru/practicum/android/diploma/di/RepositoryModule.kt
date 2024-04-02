@@ -26,6 +26,6 @@ val repositoryModule = module {
     }
 
     factory<FilterRepositoryFlow> {
-        FilterRepositoryFlowImpl(get(named("filtersPrefs")))
+        FilterRepositoryFlowImpl(get())
     }
 }

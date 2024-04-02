@@ -1,21 +1,18 @@
 package ru.practicum.android.diploma.data.filter.storage.impl
 
 import android.content.SharedPreferences
+import com.google.gson.Gson
 import ru.practicum.android.diploma.data.filter.storage.FiltersStorage
+import ru.practicum.android.diploma.domain.filter.datashared.CountryShared
+import ru.practicum.android.diploma.domain.filter.datashared.IndustriesShared
+import ru.practicum.android.diploma.domain.filter.datashared.RegionShared
+import ru.practicum.android.diploma.domain.filter.datashared.SalaryBooleanShared
+import ru.practicum.android.diploma.domain.filter.datashared.SalaryTextShared
 import ru.practicum.android.diploma.domain.models.FiltersSettings
 
 class FiltersLocalStorage(private val sharedPreferences: SharedPreferences) : FiltersStorage {
 
-    companion object {
-        const val FILTERS_COUNTRY = "FILTERS_COUNTRY"
-        const val FILTERS_COUNTRY_ID = "FILTERS_COUNTRY_ID"
-        const val FILTERS_REGION = "FILTERS_REGION"
-        const val FILTERS_REGION_ID = "FILTERS_REGION_ID"
-        const val FILTERS_INDUSTRY = "FILTERS_INDUSTRY"
-        const val FILTERS_INDUSTRY_ID = "FILTERS_INDUSTRY_ID"
-        const val FILTERS_SALARY = "FILTERS_SALARY"
-        const val FILTERS_SALARY_ONLY = "FILTERS_SALARY_ONLY"
-    }
+    private val gson = Gson()
 
     override fun getPrefs(): FiltersSettings {
         return FiltersSettings(
@@ -50,5 +47,72 @@ class FiltersLocalStorage(private val sharedPreferences: SharedPreferences) : Fi
         sharedPreferences.edit().remove(FILTERS_INDUSTRY_ID).apply()
         sharedPreferences.edit().remove(FILTERS_SALARY).apply()
         sharedPreferences.edit().remove(FILTERS_SALARY_ONLY).apply()
+    }
+
+    fun saveCountryState(country: CountryShared?) {
+        val json = gson.toJson(country)
+        sharedPreferences.edit().putString(KEY_COUNTRY, json).apply()
+    }
+
+    fun loadCountryState(): CountryShared? {
+        val json = sharedPreferences.getString(KEY_COUNTRY, null)
+        return gson.fromJson(json, CountryShared::class.java)
+    }
+
+    fun saveRegionState(region: RegionShared?) {
+        val json = gson.toJson(region)
+        sharedPreferences.edit().putString(KEY_REGION, json).apply()
+    }
+
+    fun loadRegionState(): RegionShared? {
+        val json = sharedPreferences.getString(KEY_REGION, null)
+        return gson.fromJson(json, RegionShared::class.java)
+    }
+
+    fun saveIndustriesState(industries: IndustriesShared?) {
+        val json = gson.toJson(industries)
+        sharedPreferences.edit().putString(KEY_INDUSTRIES, json).apply()
+    }
+
+    fun loadIndustriesState(): IndustriesShared? {
+        val json = sharedPreferences.getString(KEY_INDUSTRIES, null)
+        return gson.fromJson(json, IndustriesShared::class.java)
+    }
+
+    fun saveSalaryTextState(salary: SalaryTextShared?) {
+        val json = gson.toJson(salary)
+        sharedPreferences.edit().putString(KEY_SALARY_TEXT, json).apply()
+    }
+
+    fun loadSalaryTextState(): SalaryTextShared? {
+        val json = sharedPreferences.getString(KEY_SALARY_TEXT, null)
+        return gson.fromJson(json, SalaryTextShared::class.java)
+    }
+
+    fun saveSalaryBooleanState(salary: SalaryBooleanShared?) {
+        val json = gson.toJson(salary)
+        sharedPreferences.edit().putString(KEY_SALARY_BOOLEAN, json).apply()
+    }
+
+    fun loadSalaryBooleanState(): SalaryBooleanShared? {
+        val json = sharedPreferences.getString(KEY_SALARY_BOOLEAN, null)
+        return gson.fromJson(json, SalaryBooleanShared::class.java)
+    }
+
+    companion object {
+        const val FILTERS_COUNTRY = "FILTERS_COUNTRY"
+        const val FILTERS_COUNTRY_ID = "FILTERS_COUNTRY_ID"
+        const val FILTERS_REGION = "FILTERS_REGION"
+        const val FILTERS_REGION_ID = "FILTERS_REGION_ID"
+        const val FILTERS_INDUSTRY = "FILTERS_INDUSTRY"
+        const val FILTERS_INDUSTRY_ID = "FILTERS_INDUSTRY_ID"
+        const val FILTERS_SALARY = "FILTERS_SALARY"
+        const val FILTERS_SALARY_ONLY = "FILTERS_SALARY_ONLY"
+
+        const val KEY_COUNTRY = "country"
+        const val KEY_REGION = "region"
+        const val KEY_INDUSTRIES = "industries"
+        const val KEY_SALARY_TEXT = "salary_text"
+        const val KEY_SALARY_BOOLEAN = "salary_boolean"
     }
 }
