@@ -51,4 +51,6 @@
     <string name="from">от</string>
     <string name="gross">до налогов</string>
 
+    <string name="server_error">Ошибка сервера</string>
+
 </resources>
