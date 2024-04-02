@@ -23,6 +23,8 @@ class FavoriteFragmentRecyclerViewViewHolder(
 
         vacancy_title.text = model.name
         vacancy_company.text = model.employer?.name ?: ""
+
+        //TODO("добавить форматтер з/п")
         vacancy_salary.text =
             "от ${model.salary?.from ?: ""} до ${model.salary?.to ?: ""} ${model.salary?.currency ?: ""}END"
                 .replace("от  до  END", "Зарплата не указана")
@@ -37,7 +39,7 @@ class FavoriteFragmentRecyclerViewViewHolder(
             .transform(CenterCrop())
             .into(vacancy_company_logo)
 
-        itemView.setOnClickListener{ vacancyClicked(model) }
+        itemView.setOnClickListener { vacancyClicked(model) }
     }
 
 }
