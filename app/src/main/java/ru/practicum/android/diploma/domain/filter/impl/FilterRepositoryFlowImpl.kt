@@ -11,7 +11,7 @@ import ru.practicum.android.diploma.domain.filter.datashared.RegionShared
 import ru.practicum.android.diploma.domain.filter.datashared.SalaryBooleanShared
 import ru.practicum.android.diploma.domain.filter.datashared.SalaryTextShared
 
-class FilterInfoRepositoryFlowImpl(private val sharedPreferences: SharedPreferences) : FilterRepositoryFlow {
+class FilterRepositoryFlowImpl(private val sharedPreferences: SharedPreferences) : FilterRepositoryFlow {
 
     private val gson = Gson()
 
