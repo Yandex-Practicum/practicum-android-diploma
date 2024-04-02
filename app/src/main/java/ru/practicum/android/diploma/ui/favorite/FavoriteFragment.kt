@@ -19,10 +19,10 @@ class FavoriteFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val data = ArrayList<Vacancy>()
-    private lateinit var recyclerView: RecyclerView
+    private var recyclerView: RecyclerView? = null
 
     private val vacancyClicked: (Vacancy) -> Unit = {
-        // TODO("передача :Vacancy в фрагмент ДеталиВакансии")
+        // передача :Vacancy в фрагмент ДеталиВакансии
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -34,8 +34,8 @@ class FavoriteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         recyclerView = binding.favoriteItemsRecyclerView
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = FavoriteFragmentRecyclerViewAdapter(data, vacancyClicked)
+        recyclerView?.layoutManager = LinearLayoutManager(context)
+        recyclerView?.adapter = FavoriteFragmentRecyclerViewAdapter(data, vacancyClicked)
 
         viewModel.getState().observe(viewLifecycleOwner) {
             when (it) {
@@ -58,7 +58,7 @@ class FavoriteFragment : Fragment() {
 
                     data.clear()
                     data.addAll(it.vacancies)
-                    recyclerView.adapter?.notifyDataSetChanged()
+                    recyclerView?.adapter?.notifyDataSetChanged()
                 }
             }
         }
