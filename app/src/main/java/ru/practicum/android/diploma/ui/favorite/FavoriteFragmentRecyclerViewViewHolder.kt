@@ -23,7 +23,7 @@ class FavoriteFragmentRecyclerViewViewHolder(
         vacancyTitle.text = model.name
         vacancyCompany.text = model.employer?.name ?: ""
 
-        //добавить форматтер з/п
+        // добавить форматтер з/п
         vacancySalary.text =
             "от ${model.salary?.from ?: ""} до ${model.salary?.to ?: ""} ${model.salary?.currency ?: ""}END"
                 .replace("от  до  END", "Зарплата не указана")
