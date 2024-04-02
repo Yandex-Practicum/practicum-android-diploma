@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.data.filter.country.impl
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import okio.IOException
 import ru.practicum.android.diploma.data.converter.AreaConverter.mapToCountryList
 import ru.practicum.android.diploma.data.filter.country.CountryRequest
 import ru.practicum.android.diploma.data.filter.country.response.AreasResponse
@@ -27,7 +28,7 @@ class CountryRepositoryImpl(
                             (response as AreasResponse).area.mapToCountryList().sortedBy { it.id }.reversed()
                         )
                     )
-                } catch (e: Throwable) {
+                } catch (e: IOException) {
                     emit(Resource.Error(response.resultCode.code))
                 }
             }

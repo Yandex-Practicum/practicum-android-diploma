@@ -16,8 +16,12 @@ class CountryInteractorImpl(
             when (resource) {
                 is Resource.Success -> Pair(resource.data, null)
                 is Resource.Error -> Pair(null, resource.message)
-                is Resource.ServerError -> Pair(null, 500)
+                is Resource.ServerError -> Pair(null, SERVER_ERROR_CODE)
             }
         }
+    }
+
+    companion object {
+        const val SERVER_ERROR_CODE = 500
     }
 }

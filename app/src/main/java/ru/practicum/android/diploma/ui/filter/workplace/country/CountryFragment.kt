@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.FragmentCountryBinding
 import ru.practicum.android.diploma.domain.filter.datashared.CountryShared
-import ru.practicum.android.diploma.ui.country.CountryAdapter
+import ru.practicum.android.diploma.ui.filter.workplace.country.adapter.CountryAdapter
 
 class CountryFragment : Fragment() {
 
