@@ -30,6 +30,7 @@ class CountryRepositoryImpl(
                     )
                 } catch (e: IOException) {
                     emit(Resource.Error(response.resultCode.code))
+                    throw e
                 }
             }
 
