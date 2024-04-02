@@ -10,33 +10,33 @@ import ru.practicum.android.diploma.data.network.NetworkClient
 import ru.practicum.android.diploma.data.vacancies.response.ResponseCodes
 import ru.practicum.android.diploma.domain.country.Country
 import ru.practicum.android.diploma.domain.country.CountryRepository
-import ru.practicum.android.diploma.util.Resource
+import ru.practicum.android.diploma.util.ResourceContentSearch
 
 class CountryRepositoryImpl(
     val networkClient: NetworkClient
 ) : CountryRepository {
 
-    override fun searchRegion(): Flow<Resource<List<Country>>> = flow {
+    override fun searchRegion(): Flow<ResourceContentSearch<List<Country>>> = flow {
         val response = networkClient.doRequestFilter(CountryRequest)
 
         when (response.resultCode) {
-            ResponseCodes.DEFAULT -> emit(Resource.Error(response.resultCode.code))
+            ResponseCodes.DEFAULT -> emit(ResourceContentSearch.ErrorSearch(response.resultCode.code))
             ResponseCodes.SUCCESS -> {
                 try {
                     emit(
-                        Resource.Success(
+                        ResourceContentSearch.SuccessSearch(
                             (response as AreasResponse).area.mapToCountryList().sortedBy { it.id }.reversed()
                         )
                     )
                 } catch (e: IOException) {
-                    emit(Resource.Error(response.resultCode.code))
+                    emit(ResourceContentSearch.ErrorSearch(response.resultCode.code))
                     throw e
                 }
             }
 
-            ResponseCodes.ERROR -> emit(Resource.Error(response.resultCode.code))
-            ResponseCodes.NO_CONNECTION -> emit(Resource.Error(response.resultCode.code))
-            ResponseCodes.SERVER_ERROR -> emit(Resource.Error(response.resultCode.code))
+            ResponseCodes.ERROR -> emit(ResourceContentSearch.ErrorSearch(response.resultCode.code))
+            ResponseCodes.NO_CONNECTION -> emit(ResourceContentSearch.ErrorSearch(response.resultCode.code))
+            ResponseCodes.SERVER_ERROR -> emit(ResourceContentSearch.ErrorSearch(response.resultCode.code))
         }
     }
 }

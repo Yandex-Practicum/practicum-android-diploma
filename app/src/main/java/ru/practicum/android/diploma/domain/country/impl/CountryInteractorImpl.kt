@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.map
 import ru.practicum.android.diploma.domain.country.Country
 import ru.practicum.android.diploma.domain.country.CountryInteractor
 import ru.practicum.android.diploma.domain.country.CountryRepository
-import ru.practicum.android.diploma.util.Resource
+import ru.practicum.android.diploma.util.ResourceContentSearch
 
 class CountryInteractorImpl(
     val countryRepository: CountryRepository
@@ -14,9 +14,9 @@ class CountryInteractorImpl(
     override fun searchIndustries(): Flow<Pair<List<Country>?, Int?>> {
         return countryRepository.searchRegion().map { resource ->
             when (resource) {
-                is Resource.Success -> Pair(resource.data, null)
-                is Resource.Error -> Pair(null, resource.message)
-                is Resource.ServerError -> Pair(null, SERVER_ERROR_CODE)
+                is ResourceContentSearch.SuccessSearch -> Pair(resource.data, null)
+                is ResourceContentSearch.ErrorSearch -> Pair(null, resource.message)
+                is ResourceContentSearch.ServerErrorSearch -> Pair(null, SERVER_ERROR_CODE)
             }
         }
     }
