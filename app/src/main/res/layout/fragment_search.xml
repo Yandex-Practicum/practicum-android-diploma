@@ -43,19 +43,42 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/search"
             style="@style/regular16_font"
-            android:textColorHint="@color/search_bar_hint"
             android:layout_width="match_parent"
             android:layout_height="@dimen/fragment_textview_height"
             android:autofillHints="none"
             android:hint="@string/enter_request"
+            android:imeOptions="actionSearch"
             android:inputType="text"
             android:maxLength="128"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:textColorHint="@color/search_bar_hint" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
+    <ImageView
+        android:id="@+id/iv_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin"
+        android:src="@drawable/ic_search_24px"
+        app:layout_constraintBottom_toBottomOf="@+id/ti_search"
+        app:layout_constraintEnd_toEndOf="@+id/ti_search"
+        app:layout_constraintTop_toTopOf="@+id/ti_search" />
+
+    <ImageView
+        android:id="@+id/iv_cross"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:src="@drawable/ic_close_24px"
         android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/ti_search"
+        app:layout_constraintEnd_toEndOf="@+id/ti_search"
+        app:layout_constraintTop_toTopOf="@+id/ti_search" />
+
+    <TextView
         android:id="@+id/iv_search_info"
         style="@style/regular16_font"
         android:layout_width="wrap_content"
@@ -66,21 +89,24 @@
         android:paddingVertical="4dp"
         android:text="Таких вакансий нет"
         android:textColor="@color/white.universal"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ti_search" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_vacancy"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="48dp"
         android:clipToPadding="true"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:listitem="@layout/vacancy_view"
-        tools:itemCount="5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ti_search" />
+        app:layout_constraintTop_toBottomOf="@+id/ti_search"
+        tools:itemCount="5"
+        tools:listitem="@layout/vacancy_view" />
 
     <ImageView
         android:id="@+id/iv_start_search"
@@ -92,6 +118,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ti_search"
         tools:visibility="gone" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/no_internet_group"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:constraint_referenced_ids="iv_no_internet,tv_no_internet" />
 
     <ImageView
         android:id="@+id/iv_no_internet"
@@ -114,11 +147,19 @@
         android:layout_marginTop="@dimen/margin"
         android:gravity="center"
         android:text="@string/no_internet"
+        android:textColor="@color/black"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_no_internet" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/nothing_found_group"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:constraint_referenced_ids="iv_nothing_found,tv_nothing_found" />
 
     <ImageView
         android:id="@+id/iv_nothing_found"
@@ -141,6 +182,7 @@
         android:layout_marginTop="@dimen/margin"
         android:gravity="center"
         android:text="@string/no_vacancy"
+        android:textColor="@color/black"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

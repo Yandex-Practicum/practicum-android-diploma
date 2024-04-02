@@ -2,7 +2,7 @@ package ru.practicum.android.diploma.di
 
 import org.koin.dsl.module
 import ru.practicum.android.diploma.domain.api.details.VacancyDetailsInteractor
-import ru.practicum.android.diploma.domain.api.details.VacancyDetailsInteractorImpl
+import ru.practicum.android.diploma.domain.impl.VacancyDetailsInteractorImpl
 
 val interactorModule = module {
 

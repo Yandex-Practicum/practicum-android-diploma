@@ -47,4 +47,8 @@
 
     <string name="filter_choosing_place_to_work">Выбор места работы</string>
 
+    <string name="to">до</string>
+    <string name="from">от</string>
+    <string name="gross">до налогов</string>
+
 </resources>

@@ -41,13 +41,11 @@
 
     <style name="searchBar" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="endIconMode">custom</item>
-        <item name="endIconDrawable">@drawable/ic_search_24px</item>
         <item name="boxCornerRadiusBottomEnd">@dimen/corner_radius</item>
         <item name="boxCornerRadiusBottomStart">@dimen/corner_radius</item>
         <item name="boxCornerRadiusTopEnd">@dimen/corner_radius</item>
         <item name="boxCornerRadiusTopStart">@dimen/corner_radius</item>
         <item name="cursorColor">@color/blue</item>
-        <item name="endIconTint">@color/black.universal</item>
         <item name="hintEnabled">false</item>
         <item name="boxBackgroundColor">@color/search_bar_background</item>
         <item name="boxStrokeWidth">0dp</item>

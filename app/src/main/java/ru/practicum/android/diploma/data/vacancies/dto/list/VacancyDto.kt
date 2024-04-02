@@ -2,10 +2,10 @@ package ru.practicum.android.diploma.data.vacancies.dto.list
 
 data class VacancyDto(
     val id: String,
-    val department: Department?,
+    val department: DepartmentDto?,
     val name: String,
-    val area: VacancyArea, // Регион
-    val employer: Employer, // Работодатель
-    val salary: Salary?, // Зарплата
-    val type: VacancyType, // Тип вакансии
+    val area: VacancyAreaDto, // Регион
+    val employer: EmployerDto, // Работодатель
+    val salary: SalaryDto?, // Зарплата
+    val type: VacancyTypeDto, // Тип вакансии
 )

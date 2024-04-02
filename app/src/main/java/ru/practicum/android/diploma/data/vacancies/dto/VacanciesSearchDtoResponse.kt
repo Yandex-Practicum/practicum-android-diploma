@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import ru.practicum.android.diploma.data.vacancies.dto.list.VacancyDto
 import ru.practicum.android.diploma.data.vacancies.response.Response
 
-data class VacanciesSearchResponse(
+data class VacanciesSearchDtoResponse(
     val items: List<VacancyDto>?, // Список вакансий
     val found: Int, // Найдено результатов
     val page: Int, // Номер страницы
