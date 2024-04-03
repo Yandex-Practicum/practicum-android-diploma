@@ -22,7 +22,6 @@ val filterModule = module {
         FilterRepositoryRegionFlowImpl(get())
     }
 
-
     factory<FilterRepositoryIndustriesFlow> {
         FilterRepositoryIndustriesFlowImpl(get())
     }

@@ -4,7 +4,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import ru.practicum.android.diploma.data.filter.storage.impl.FiltersLocalStorage
 import ru.practicum.android.diploma.domain.filter.FilterRepositoryRegionFlow
-import ru.practicum.android.diploma.domain.filter.datashared.CountryShared
 import ru.practicum.android.diploma.domain.filter.datashared.RegionShared
 
 class FilterRepositoryRegionFlowImpl(

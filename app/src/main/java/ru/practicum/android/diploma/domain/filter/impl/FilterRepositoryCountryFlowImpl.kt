@@ -6,7 +6,9 @@ import ru.practicum.android.diploma.data.filter.storage.impl.FiltersLocalStorage
 import ru.practicum.android.diploma.domain.filter.FilterRepositoryCountryFlow
 import ru.practicum.android.diploma.domain.filter.datashared.CountryShared
 
-class FilterRepositoryCountryFlowImpl(private val sharedPreferences: FiltersLocalStorage) : FilterRepositoryCountryFlow {
+class FilterRepositoryCountryFlowImpl(
+    private val sharedPreferences: FiltersLocalStorage
+) : FilterRepositoryCountryFlow {
 
     private val countryFlow: MutableStateFlow<CountryShared?> = MutableStateFlow(sharedPreferences.loadCountryState())
 
