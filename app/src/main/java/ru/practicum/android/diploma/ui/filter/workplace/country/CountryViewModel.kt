@@ -8,12 +8,12 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.country.Country
 import ru.practicum.android.diploma.domain.country.CountryInteractor
-import ru.practicum.android.diploma.domain.filter.FilterRepositoryFlow
+import ru.practicum.android.diploma.domain.filter.FilterRepositoryCountryFlow
 import ru.practicum.android.diploma.domain.filter.datashared.CountryShared
 
 class CountryViewModel(
     private val countryInteractor: CountryInteractor,
-    val filterRepositoryFlow: FilterRepositoryFlow
+    val filterRepositoryCountryFlow: FilterRepositoryCountryFlow
 ) : ViewModel() {
 
     private val stateLiveData = MutableLiveData<CountryState>()
@@ -58,6 +58,6 @@ class CountryViewModel(
     }
 
     fun setCountryInfo(country: CountryShared) {
-        filterRepositoryFlow.setCountryFlow(country)
+        filterRepositoryCountryFlow.setCountryFlow(country)
     }
 }

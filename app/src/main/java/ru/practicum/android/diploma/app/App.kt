@@ -5,6 +5,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import ru.practicum.android.diploma.di.dataModule
 import ru.practicum.android.diploma.di.dbModule
+import ru.practicum.android.diploma.di.filterModule
 import ru.practicum.android.diploma.di.interactorModule
 import ru.practicum.android.diploma.di.networkModule
 import ru.practicum.android.diploma.di.repositoryModule
@@ -17,7 +18,7 @@ class App : Application() {
 
         startKoin {
             androidContext(this@App)
-            modules(networkModule, dataModule, dbModule, repositoryModule, interactorModule, viewModelModule)
+            modules(networkModule, dataModule, dbModule, repositoryModule, interactorModule, viewModelModule, filterModule)
         }
     }
 }
