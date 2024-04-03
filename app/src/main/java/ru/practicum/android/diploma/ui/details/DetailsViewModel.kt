@@ -18,8 +18,8 @@ class DetailsViewModel(
     private val stateLiveData = MutableLiveData<DetailsViewState>()
     fun observeState(): LiveData<DetailsViewState> = stateLiveData
 
-    fun onViewCreated(fragment: FragmentDetails) {
-        val vacancyId = fragment.requireArguments().getString(FragmentDetails.vacancyIdKey)
+    fun onViewCreated(fragment: DetailsFragment) {
+        val vacancyId = fragment.requireArguments().getString(DetailsFragment.vacancyIdKey)
         if (vacancyId == null) {
             assert(false) { "Vacancy id should be passed" }
             return
@@ -61,7 +61,7 @@ class DetailsViewModel(
 
         if (from != null) {
             // TODO: (s.bogachev) use formatter
-            text += "${context.getString(R.string.from)} $to "
+            text += "${context.getString(R.string.from)} $from "
         }
         if (to != null) {
             // TODO: (s.bogachev) use formatter

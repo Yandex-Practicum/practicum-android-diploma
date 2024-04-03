@@ -16,7 +16,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.domain.models.vacacy.Vacancy
-import ru.practicum.android.diploma.ui.details.FragmentDetails
+import ru.practicum.android.diploma.ui.details.DetailsFragment
 
 class SearchFragment : Fragment() {
 
@@ -36,7 +36,7 @@ class SearchFragment : Fragment() {
     private val onClick: (Vacancy) -> Unit = {
         findNavController().navigate(
             R.id.action_searchFragment_to_fragmentDetails,
-            bundleOf(FragmentDetails.vacancyIdKey to it.id)
+            bundleOf(DetailsFragment.vacancyIdKey to it.id)
         )
     }
 
