@@ -68,7 +68,7 @@ dependencies {
     kapt(libs.glide.annotationProcessor)
 
     // Json
-    implementation(libs.json)
+    implementation(libs.kotlinx.serialization.json)
 
     // UI layer libraries
     implementation(libs.ui.material)
