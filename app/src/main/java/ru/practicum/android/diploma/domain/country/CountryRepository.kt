@@ -4,5 +4,5 @@ import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.util.ResourceContentSearch
 
 interface CountryRepository {
-    fun searchRegion(): Flow<ResourceContentSearch<List<Country>>>
+    fun searchCountry(): Flow<ResourceContentSearch<List<Country>>>
 }
