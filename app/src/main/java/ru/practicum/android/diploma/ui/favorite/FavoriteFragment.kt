@@ -21,8 +21,22 @@ class FavoriteFragment : Fragment() {
     private val data = ArrayList<Vacancy>()
     private var recyclerView: RecyclerView? = null
 
-    private val vacancyClicked: (Vacancy) -> Unit = {
-        // передача :Vacancy в фрагмент ДеталиВакансии
+    private fun showEmptyVacancyList() {
+        binding.favoriteItemsRecyclerView.visibility = View.INVISIBLE
+        binding.emptyListFrame.visibility = View.VISIBLE
+        binding.getListErrorFrame.visibility = View.INVISIBLE
+    }
+
+    private fun showGetVacanciesError() {
+        binding.favoriteItemsRecyclerView.visibility = View.INVISIBLE
+        binding.emptyListFrame.visibility = View.INVISIBLE
+        binding.getListErrorFrame.visibility = View.VISIBLE
+    }
+
+    private fun showVacancyList() {
+        binding.favoriteItemsRecyclerView.visibility = View.VISIBLE
+        binding.emptyListFrame.visibility = View.INVISIBLE
+        binding.getListErrorFrame.visibility = View.INVISIBLE
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -35,27 +49,24 @@ class FavoriteFragment : Fragment() {
 
         recyclerView = binding.favoriteItemsRecyclerView
         recyclerView?.layoutManager = LinearLayoutManager(context)
-        recyclerView?.adapter = FavoriteFragmentRecyclerViewAdapter(data, vacancyClicked)
+        recyclerView?.adapter = FavoriteFragmentRecyclerViewAdapter(data).apply {
+            vacancyClicked = {
+                // передача :Vacancy в фрагмент ДеталиВакансии
+            }
+        }
 
         viewModel.getState().observe(viewLifecycleOwner) {
             when (it) {
                 is FavoriteFragmentUpdate.EmptyVacancyList -> {
-                    binding.favoriteItemsRecyclerView.visibility = View.INVISIBLE
-                    binding.emptyListFrame.visibility = View.VISIBLE
-                    binding.getListErrorFrame.visibility = View.INVISIBLE
+                    showEmptyVacancyList()
                 }
 
                 is FavoriteFragmentUpdate.GetVacanciesError -> {
-                    binding.favoriteItemsRecyclerView.visibility = View.INVISIBLE
-                    binding.emptyListFrame.visibility = View.INVISIBLE
-                    binding.getListErrorFrame.visibility = View.VISIBLE
+                    showGetVacanciesError()
                 }
 
                 is FavoriteFragmentUpdate.VacancyList -> {
-                    binding.favoriteItemsRecyclerView.visibility = View.VISIBLE
-                    binding.emptyListFrame.visibility = View.INVISIBLE
-                    binding.getListErrorFrame.visibility = View.INVISIBLE
-
+                    showVacancyList()
                     data.clear()
                     data.addAll(it.vacancies)
                     recyclerView?.adapter?.notifyDataSetChanged()
