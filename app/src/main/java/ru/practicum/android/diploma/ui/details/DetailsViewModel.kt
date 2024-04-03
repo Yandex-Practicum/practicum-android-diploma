@@ -72,6 +72,7 @@ class DetailsViewModel(
     }
 
     private fun formatPrice(price: String): String {
-        return price.reversed().chunked(3).reversed().joinToString(" ") { it.reversed() }
+        val chunkSize = 3
+        return price.reversed().chunked(chunkSize).reversed().joinToString(" ") { it.reversed() }
     }
 }
