@@ -13,6 +13,7 @@
 
     <dimen name="xxs_margin">4dp</dimen>
     <dimen name="xs_margin">8dp</dimen>
+    <dimen name="s_margin">12dp</dimen>
     <dimen name="margin">16dp</dimen>
     <dimen name="l_margin">24dp</dimen>
     <dimen name="xl_margin">32dp</dimen>

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -15,6 +16,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.domain.models.vacacy.Vacancy
+import ru.practicum.android.diploma.ui.details.FragmentDetails
 
 class SearchFragment : Fragment() {
 
@@ -32,7 +34,10 @@ class SearchFragment : Fragment() {
     }
 
     private val onClick: (Vacancy) -> Unit = {
-        // тут происходит обработка клика на вакансию
+        findNavController().navigate(
+            R.id.action_searchFragment_to_fragmentDetails,
+            bundleOf(FragmentDetails.vacancyIdKey to it.id)
+        )
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
