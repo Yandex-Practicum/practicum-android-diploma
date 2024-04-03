@@ -72,7 +72,10 @@ class DetailsViewModel(
     }
 
     private fun formatPrice(price: String): String {
-        val sizeOfMoneyPart = 3
         return price.reversed().chunked(sizeOfMoneyPart).reversed().joinToString(" ") { it.reversed() }
+    }
+
+    companion object {
+        const val sizeOfMoneyPart = 3
     }
 }
