@@ -1,7 +1,7 @@
 package ru.practicum.android.diploma.ui.details
 
 sealed interface DetailsViewState {
-    data object Loading: DetailsViewState
+    data object Loading : DetailsViewState
     data class Content(
         val name: String,
         val salary: String?,
@@ -14,5 +14,5 @@ sealed interface DetailsViewState {
         val contactName: String?,
         val contactEmail: String?,
         val contactsPhones: List<String>?
-    ): DetailsViewState
+    ) : DetailsViewState
 }

@@ -57,6 +57,7 @@ class DetailsFragment : Fragment() {
                 binding.progressBar.isVisible = true
                 binding.scrollView.isVisible = false
             }
+
             is DetailsViewState.Content -> {
                 binding.vacancyTitleTextView.text = state.name
                 setTextOrHide(state.salary, binding.salaryTextView)
@@ -66,10 +67,16 @@ class DetailsFragment : Fragment() {
                 setTextOrHide(state.employment, binding.employmentTypeTextView)
                 setTextOrHide(state.contactName, binding.contactNameTextView, binding.contactNameContainerLinearLayout)
                 setTextOrHide(state.contactEmail, binding.emailTextView, binding.emailContainerLinearLayout)
-                setTextOrHide(state.contactsPhones?.first(), binding.contactPhoneTextView, binding.contactPhoneContainerLinearLayout)
+                setTextOrHide(
+                    state.contactsPhones?.first(),
+                    binding.contactPhoneTextView,
+                    binding.contactPhoneContainerLinearLayout
+                )
 
-                binding.contactsTitleTextView.isVisible =
-                    !(state.contactName.isNullOrEmpty() && state.contactEmail.isNullOrEmpty() && state.contactsPhones.isNullOrEmpty())
+                binding.contactsTitleTextView.isVisible = !(
+                    state.contactName.isNullOrEmpty()
+                        && state.contactEmail.isNullOrEmpty()
+                        && state.contactsPhones.isNullOrEmpty())
 
                 binding.vacancyDescriptionTextView.text = Html.fromHtml(state.description)
 

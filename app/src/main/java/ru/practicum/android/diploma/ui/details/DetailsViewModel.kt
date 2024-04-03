@@ -51,8 +51,8 @@ class DetailsViewModel(
         stateLiveData.postValue(content)
     }
 
-    private fun formatSalary(salary: Salary?, context: Context) : String? {
-        if (salary == null) { return null }
+    private fun formatSalary(salary: Salary?, context: Context): String? {
+        if (salary == null) return null
 
         var text = ""
         val from = salary.from
