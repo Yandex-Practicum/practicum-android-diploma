@@ -60,16 +60,18 @@ class DetailsViewModel(
         val currency = salary.currency
 
         if (from != null) {
-            // TODO: (s.bogachev) use formatter
-            text += "${context.getString(R.string.from)} $from "
+            text += "${context.getString(R.string.from)} ${formatPrice(from.toString())} "
         }
         if (to != null) {
-            // TODO: (s.bogachev) use formatter
-            text += "${context.getString(R.string.to)} $to "
+            text += "${context.getString(R.string.to)} ${formatPrice(to.toString())} "
         }
         if (text.isNotEmpty() && currency != null) {
             text += currency
         }
         return text.ifEmpty { null }
+    }
+
+    private fun formatPrice(price: String): String {
+        return price.reversed().chunked(3).reversed().joinToString(" ") { it.reversed() }
     }
 }
