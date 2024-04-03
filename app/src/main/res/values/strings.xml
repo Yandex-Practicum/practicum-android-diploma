@@ -51,6 +51,8 @@
     <string name="from">от</string>
     <string name="gross">до налогов</string>
 
+    <string name="server_error">Ошибка сервера</string>
+
     <plurals name="years_of_experience">
         <item quantity="zero">%1$d лет</item>
         <item quantity="one">%1$d года</item>

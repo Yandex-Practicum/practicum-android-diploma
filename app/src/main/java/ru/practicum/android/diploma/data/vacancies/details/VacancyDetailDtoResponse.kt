@@ -7,10 +7,10 @@ import ru.practicum.android.diploma.data.vacancies.details.dto.Employment
 import ru.practicum.android.diploma.data.vacancies.details.dto.Experience
 import ru.practicum.android.diploma.data.vacancies.details.dto.KeySkillVacancyDetail
 import ru.practicum.android.diploma.data.vacancies.details.dto.Schedule
-import ru.practicum.android.diploma.data.vacancies.dto.list.EmployerDto
-import ru.practicum.android.diploma.data.vacancies.dto.list.SalaryDto
-import ru.practicum.android.diploma.data.vacancies.dto.list.VacancyAreaDto
-import ru.practicum.android.diploma.data.vacancies.dto.list.VacancyTypeDto
+import ru.practicum.android.diploma.data.vacancies.details.dto.EmployerDto
+import ru.practicum.android.diploma.data.vacancies.details.dto.SalaryDto
+import ru.practicum.android.diploma.data.vacancies.details.dto.VacancyAreaDto
+import ru.practicum.android.diploma.data.vacancies.details.dto.VacancyTypeDto
 import ru.practicum.android.diploma.data.vacancies.response.Response
 
 data class VacancyDetailDtoResponse(

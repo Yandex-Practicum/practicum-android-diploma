@@ -15,8 +15,8 @@ interface SearchVacanciesApi {
     suspend fun getListVacancy(@QueryMap response: Map<String, String>): VacanciesSearchDtoResponse
 
     // Запрос детальной информации о вакансии
-    @GET("/vacancies/{vacancy_id}")
-    suspend fun getVacancyDetail(@Path("vacancy_id") id: String): VacancyDetailDtoResponse
+    @GET("/vacancies/{vacancyId}")
+    suspend fun getVacancyDetail(@Path("vacancyId") id: String): VacancyDetailDtoResponse
 
     // Запрос списка областей
     @GET("/areas")
