@@ -55,9 +55,12 @@ class RegionFragment : Fragment() {
                     when (state) {
                         is RegionState.Content -> {
                             showContent()
+
                             adapter.regionList.clear()
                             adapter.regionList.addAll(state.regionId.areas.map { it.mapToCountry() }
-                                .sortedBy { it.name })
+                                .sortedBy { it.name }
+                            )
+
                             adapter.notifyDataSetChanged()
                         }
 

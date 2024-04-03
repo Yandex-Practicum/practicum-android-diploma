@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.filter.workplace.country.adapter
+package ru.practicum.android.diploma.ui.filter.workplace.region.adapter
 
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView

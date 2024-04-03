@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.databinding.RegionCellViewBinding
 import ru.practicum.android.diploma.domain.country.Country
-import ru.practicum.android.diploma.ui.filter.workplace.country.adapter.RegionViewHolder
 
 class RegionAdapter : RecyclerView.Adapter<RegionViewHolder>() {
 

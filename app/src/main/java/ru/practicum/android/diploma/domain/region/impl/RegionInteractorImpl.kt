@@ -16,8 +16,12 @@ class RegionInteractorImpl(
             when (resource) {
                 is ResourceContentSearch.SuccessSearch -> Pair(resource.data, null)
                 is ResourceContentSearch.ErrorSearch -> Pair(null, resource.message)
-                is ResourceContentSearch.ServerErrorSearch -> Pair(null, 500)
+                is ResourceContentSearch.ServerErrorSearch -> Pair(null, SERVER_ERROR)
             }
         }
+    }
+
+    companion object {
+        const val SERVER_ERROR = 500
     }
 }

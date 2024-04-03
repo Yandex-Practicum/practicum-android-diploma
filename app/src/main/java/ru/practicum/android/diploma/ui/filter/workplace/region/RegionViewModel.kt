@@ -41,7 +41,7 @@ class RegionViewModel(
     fun loadRegion(regionId: String) {
         if (regionId.isEmpty()) {
             // Выбрать значение по умолчанию или выполнить другие действия
-            renderState(RegionState.Empty(200))
+            renderState(RegionState.Empty(REGION_CONTENT))
             return
         }
 
@@ -88,8 +88,6 @@ class RegionViewModel(
                 }
             }
         }
-
-
     }
 
     private fun renderState(regionState: RegionState) {
@@ -98,5 +96,9 @@ class RegionViewModel(
 
     fun setRegionInfo(region: RegionShared) {
         filterRepositoryRegionFlow.setRegionFlow(region)
+    }
+
+    companion object {
+        const val REGION_CONTENT = 200
     }
 }

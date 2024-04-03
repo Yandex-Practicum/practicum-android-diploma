@@ -1,8 +1,8 @@
 package ru.practicum.android.diploma.data.filter.region.impl
 
-import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import okio.IOException
 import ru.practicum.android.diploma.data.converter.AreaConverter.mapToCountry
 import ru.practicum.android.diploma.data.filter.country.dto.AreaDtoResponse
 import ru.practicum.android.diploma.data.filter.region.RegionByIdRequest
@@ -24,8 +24,9 @@ class RegionRepositoryImpl(
                 try {
                     val region = response as AreaDtoResponse
                     emit(ResourceContentSearch.SuccessSearch(region.mapToCountry()))
-                } catch (e: Throwable) {
+                } catch (e: IOException) {
                     emit(ResourceContentSearch.ErrorSearch(response.resultCode.code))
+                    throw e
                 }
             }
 
