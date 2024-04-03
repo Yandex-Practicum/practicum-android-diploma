@@ -11,7 +11,7 @@ class CountryInteractorImpl(
     val countryRepository: CountryRepository
 ) : CountryInteractor {
 
-    override fun searCountry(): Flow<Pair<List<Country>?, Int?>> {
+    override fun searchCountry(): Flow<Pair<List<Country>?, Int?>> {
         return countryRepository.searchCountry().map { resource ->
             when (resource) {
                 is ResourceContentSearch.SuccessSearch -> Pair(resource.data, null)
