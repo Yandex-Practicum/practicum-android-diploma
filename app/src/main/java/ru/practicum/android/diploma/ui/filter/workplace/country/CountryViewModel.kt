@@ -26,7 +26,7 @@ class CountryViewModel(
     fun loadCountry() {
         renderState(CountryState.Loading)
         viewModelScope.launch {
-            countryInteractor.searchIndustries()
+            countryInteractor.searCountry()
                 .collect { pair ->
                     processResult(pair.first, pair.second)
                 }

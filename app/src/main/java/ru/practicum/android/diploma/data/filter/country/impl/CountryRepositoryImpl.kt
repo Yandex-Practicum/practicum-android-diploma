@@ -16,7 +16,7 @@ class CountryRepositoryImpl(
     val networkClient: NetworkClient
 ) : CountryRepository {
 
-    override fun searchRegion(): Flow<ResourceContentSearch<List<Country>>> = flow {
+    override fun searchCountry(): Flow<ResourceContentSearch<List<Country>>> = flow {
         val response = networkClient.doRequestFilter(CountryRequest)
 
         when (response.resultCode) {
