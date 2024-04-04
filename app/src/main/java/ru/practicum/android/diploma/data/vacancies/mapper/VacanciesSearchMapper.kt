@@ -1,13 +1,13 @@
 package ru.practicum.android.diploma.data.vacancies.mapper
 
-import ru.practicum.android.diploma.data.vacancies.dto.VacanciesSearchDtoResponse
-import ru.practicum.android.diploma.data.vacancies.dto.list.DepartmentDto
 import ru.practicum.android.diploma.data.vacancies.details.dto.EmployerDto
-import ru.practicum.android.diploma.data.vacancies.dto.list.LogoUrlsDto
 import ru.practicum.android.diploma.data.vacancies.details.dto.SalaryDto
 import ru.practicum.android.diploma.data.vacancies.details.dto.VacancyAreaDto
-import ru.practicum.android.diploma.data.vacancies.dto.list.VacancyDto
 import ru.practicum.android.diploma.data.vacancies.details.dto.VacancyTypeDto
+import ru.practicum.android.diploma.data.vacancies.dto.VacanciesSearchDtoResponse
+import ru.practicum.android.diploma.data.vacancies.dto.list.DepartmentDto
+import ru.practicum.android.diploma.data.vacancies.dto.list.LogoUrlsDto
+import ru.practicum.android.diploma.data.vacancies.dto.list.VacancyDto
 import ru.practicum.android.diploma.domain.models.vacacy.Department
 import ru.practicum.android.diploma.domain.models.vacacy.Employer
 import ru.practicum.android.diploma.domain.models.vacacy.LogoUrls

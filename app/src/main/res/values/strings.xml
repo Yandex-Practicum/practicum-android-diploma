@@ -55,4 +55,12 @@
     <string name="nothing_found">Не удалось получить список</string>
     <string name="no_such_region">Такого региона нет</string>
 
+    <plurals name="years_of_experience">
+        <item quantity="zero">%1$d лет</item>
+        <item quantity="one">%1$d года</item>
+        <item quantity="few">%1$d лет</item>
+        <item quantity="many">%1$d лет</item>
+        <item quantity="other">%1$d лет</item>
+    </plurals>
+
 </resources>

@@ -2,13 +2,13 @@ package ru.practicum.android.diploma.data.vacancies.details
 
 import com.google.gson.annotations.SerializedName
 import ru.practicum.android.diploma.data.vacancies.details.dto.Address
-import ru.practicum.android.diploma.data.vacancies.details.dto.Contacts
+import ru.practicum.android.diploma.data.vacancies.details.dto.ContactsDto
+import ru.practicum.android.diploma.data.vacancies.details.dto.EmployerDto
 import ru.practicum.android.diploma.data.vacancies.details.dto.Employment
 import ru.practicum.android.diploma.data.vacancies.details.dto.Experience
 import ru.practicum.android.diploma.data.vacancies.details.dto.KeySkillVacancyDetail
-import ru.practicum.android.diploma.data.vacancies.details.dto.Schedule
-import ru.practicum.android.diploma.data.vacancies.details.dto.EmployerDto
 import ru.practicum.android.diploma.data.vacancies.details.dto.SalaryDto
+import ru.practicum.android.diploma.data.vacancies.details.dto.Schedule
 import ru.practicum.android.diploma.data.vacancies.details.dto.VacancyAreaDto
 import ru.practicum.android.diploma.data.vacancies.details.dto.VacancyTypeDto
 import ru.practicum.android.diploma.data.vacancies.response.Response
@@ -19,7 +19,7 @@ data class VacancyDetailDtoResponse(
     val area: VacancyAreaDto, // Регион
     @SerializedName("alternate_url")
     val vacancyLink: String, // Ссылка на представление вакансии на сайте
-    val contacts: Contacts?, // Контакты
+    val contacts: ContactsDto?, // Контакты
     val employer: EmployerDto?, // Работодатель
     val salary: SalaryDto?, // Зарплата
     val schedule: Schedule?, // График работы
