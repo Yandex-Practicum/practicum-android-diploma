@@ -13,7 +13,7 @@ import ru.practicum.android.diploma.domain.models.vacacy.Vacancy
 
 class FavoriteFragment : Fragment() {
 
-    private val viewModel by viewModel<FavoriteFragmentViewModel>()
+    private val viewModel by viewModel<FavoriteViewModel>()
 
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
@@ -57,15 +57,15 @@ class FavoriteFragment : Fragment() {
 
         viewModel.getState().observe(viewLifecycleOwner) {
             when (it) {
-                is FavoriteFragmentUpdate.EmptyVacancyList -> {
+                is FavoriteUpdate.EmptyVacancyList -> {
                     showEmptyVacancyList()
                 }
 
-                is FavoriteFragmentUpdate.GetVacanciesError -> {
+                is FavoriteUpdate.GetVacanciesError -> {
                     showGetVacanciesError()
                 }
 
-                is FavoriteFragmentUpdate.VacancyList -> {
+                is FavoriteUpdate.VacancyList -> {
                     showVacancyList()
                     data.clear()
                     data.addAll(it.vacancies)
