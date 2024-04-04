@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.di
 
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import ru.practicum.android.diploma.domain.filter.FilterRepositoryCountryFlow
 import ru.practicum.android.diploma.domain.filter.FilterRepositoryIndustriesFlow
@@ -11,6 +12,8 @@ import ru.practicum.android.diploma.domain.filter.impl.FilterRepositoryIndustrie
 import ru.practicum.android.diploma.domain.filter.impl.FilterRepositoryRegionFlowImpl
 import ru.practicum.android.diploma.domain.filter.impl.FilterRepositorySalaryBooleanFlowImpl
 import ru.practicum.android.diploma.domain.filter.impl.FilterRepositorySalaryTextFlowImpl
+import ru.practicum.android.diploma.domain.filter.test.FilterInfoRepository
+import ru.practicum.android.diploma.domain.filter.test.FilterInfoRepositoryImpl
 
 val filterModule = module {
 
@@ -33,4 +36,6 @@ val filterModule = module {
     factory<FilterRepositorySalaryBooleanFlow> {
         FilterRepositorySalaryBooleanFlowImpl(get())
     }
+
+
 }
