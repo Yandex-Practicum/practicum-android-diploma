@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.ui.filter.workplace
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,6 +24,7 @@ class WorkplaceViewModel(
         viewModelScope.launch {
             filterRepositoryCountryFlow.getCountryFlow()
                 .collect { country ->
+                    Log.d("StateMyCountry", "WorkplaceViewModel = $country")
                     _countryState.postValue(country)
                 }
         }

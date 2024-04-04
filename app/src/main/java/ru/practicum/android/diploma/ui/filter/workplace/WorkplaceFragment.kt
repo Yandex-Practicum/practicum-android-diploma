@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.ui.filter.workplace
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,8 +28,9 @@ class WorkplaceFragment : Fragment() {
 
 //        viewModel.getCountryInfo()
 
-        viewModel.countryState.observe(viewLifecycleOwner) {
-            Toast.makeText(requireContext(), "Стейт отображается $it", Toast.LENGTH_SHORT).show()
+        viewModel.countryState.observe(viewLifecycleOwner) { country ->
+            Log.d("StateMyCountry", "Мы получили во фрагменте $country")
+
         }
 
         binding.workplaceCount.setOnClickListener {

@@ -9,8 +9,6 @@ import ru.practicum.android.diploma.data.vacancies.VacancyDetailsRepositoryImpl
 import ru.practicum.android.diploma.domain.api.details.VacancyDetailsRepository
 import ru.practicum.android.diploma.domain.api.search.VacanciesSearchRepository
 import ru.practicum.android.diploma.domain.country.CountryRepository
-import ru.practicum.android.diploma.domain.filter.test.FilterInfoRepository
-import ru.practicum.android.diploma.domain.filter.test.FilterInfoRepositoryImpl
 import ru.practicum.android.diploma.domain.region.RegionRepository
 
 val repositoryModule = module {
@@ -29,9 +27,5 @@ val repositoryModule = module {
 
     factory<RegionRepository> {
         RegionRepositoryImpl(get())
-    }
-
-    single<FilterInfoRepository> {
-        FilterInfoRepositoryImpl(androidContext())
     }
 }

@@ -12,30 +12,26 @@ import ru.practicum.android.diploma.domain.filter.impl.FilterRepositoryIndustrie
 import ru.practicum.android.diploma.domain.filter.impl.FilterRepositoryRegionFlowImpl
 import ru.practicum.android.diploma.domain.filter.impl.FilterRepositorySalaryBooleanFlowImpl
 import ru.practicum.android.diploma.domain.filter.impl.FilterRepositorySalaryTextFlowImpl
-import ru.practicum.android.diploma.domain.filter.test.FilterInfoRepository
-import ru.practicum.android.diploma.domain.filter.test.FilterInfoRepositoryImpl
 
 val filterModule = module {
 
-    factory<FilterRepositoryCountryFlow> {
+    single<FilterRepositoryCountryFlow> {
         FilterRepositoryCountryFlowImpl(get())
     }
 
-    factory<FilterRepositoryRegionFlow> {
+    single<FilterRepositoryRegionFlow> {
         FilterRepositoryRegionFlowImpl(get())
     }
 
-    factory<FilterRepositoryIndustriesFlow> {
+    single<FilterRepositoryIndustriesFlow> {
         FilterRepositoryIndustriesFlowImpl(get())
     }
 
-    factory<FilterRepositorySalaryTextFlow> {
+    single<FilterRepositorySalaryTextFlow> {
         FilterRepositorySalaryTextFlowImpl(get())
     }
 
-    factory<FilterRepositorySalaryBooleanFlow> {
+    single<FilterRepositorySalaryBooleanFlow> {
         FilterRepositorySalaryBooleanFlowImpl(get())
     }
-
-
 }
