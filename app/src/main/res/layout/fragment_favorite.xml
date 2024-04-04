@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/fragment_default_title_height"
         app:title="@string/fragment_favorite_title"
-        app:titleTextAppearance="@style/medium22_font"/>
+        app:titleTextAppearance="@style/medium22_font" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             android:id="@+id/favorite_items_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible"
+            android:visibility="invisible"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:itemCount="20" />
 
@@ -35,7 +35,7 @@
             android:layout_gravity="center"
             android:layout_margin="@dimen/fragment_favorite_side_margins"
             android:orientation="vertical"
-            android:visibility="visible">
+            android:visibility="invisible">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -61,12 +61,12 @@
             android:layout_gravity="center"
             android:layout_margin="@dimen/fragment_favorite_side_margins"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="invisible">
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/fragment_favorite_images_height"
-                android:src="@drawable/spiral" />
+                android:src="@drawable/state_image_nothing_found" />
 
             <TextView
                 style="@style/medium22_font"
