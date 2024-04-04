@@ -53,6 +53,10 @@ class CountryFragment : Fragment() {
                 is CountryState.Loading -> ""
             }
         }
+
+        binding.backImageView.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     override fun onDestroyView() {

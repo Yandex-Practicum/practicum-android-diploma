@@ -52,5 +52,7 @@
     <string name="gross">до налогов</string>
 
     <string name="server_error">Ошибка сервера</string>
+    <string name="nothing_found">Не удалось получить список</string>
+    <string name="no_such_region">Такого региона нет</string>
 
 </resources>
