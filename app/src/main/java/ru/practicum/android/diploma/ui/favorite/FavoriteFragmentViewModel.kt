@@ -10,7 +10,5 @@ class FavoriteFragmentViewModel : ViewModel() {
         FavoriteFragmentUpdate.EmptyVacancyList
     )
 
-    fun getState(): LiveData<FavoriteFragmentUpdate> {
-        return state
-    }
+    fun getState(): LiveData<FavoriteFragmentUpdate> = state
 }
