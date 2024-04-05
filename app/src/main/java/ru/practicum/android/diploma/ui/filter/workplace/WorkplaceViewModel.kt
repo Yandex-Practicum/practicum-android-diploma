@@ -39,7 +39,7 @@ class WorkplaceViewModel(
             launch {
                 filterRepositoryRegionFlow.getRegionFlow()
                     .collect { region ->
-                        debugLog(TAG) { "filterRepositoryCountryFlow, collect: country = $region" }
+                        debugLog(TAG) { "filterRepositoryCountryFlow, collect: region = $region" }
                         _regionState.postValue(region)
                     }
             }
