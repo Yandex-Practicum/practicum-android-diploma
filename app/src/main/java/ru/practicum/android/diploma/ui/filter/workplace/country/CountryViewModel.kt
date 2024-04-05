@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.ui.filter.workplace.country
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -58,6 +59,7 @@ class CountryViewModel(
     }
 
     fun setCountryInfo(country: CountryShared) {
+        Log.d("StateMyCountry", "Мы получили в CountryViewModel $country")
         filterRepositoryCountryFlow.setCountryFlow(country)
     }
 }

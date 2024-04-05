@@ -59,6 +59,7 @@
     </LinearLayout>
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/margin"
@@ -108,6 +109,7 @@
                     tools:text="Android-разработчик" />
 
                 <TextView
+                    android:id="@+id/salaryTextView"
                     style="@style/medium22_font"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -187,6 +189,7 @@
                     android:textColor="@color/black" />
 
                 <TextView
+                    android:id="@+id/experience_text_view"
                     style="@style/regular16_font"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -265,6 +268,7 @@
                     android:textColor="@color/black" />
 
                 <TextView
+                    android:id="@+id/contactNameTextView"
                     style="@style/regular16_font"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -292,6 +296,7 @@
                     android:textColor="@color/black" />
 
                 <TextView
+                    android:id="@+id/emailTextView"
                     style="@style/regular16_font"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -302,7 +307,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/phoneContainerLinearLayout"
+                android:id="@+id/contactPhoneContainerLinearLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin"
@@ -319,6 +324,7 @@
                     android:textColor="@color/black" />
 
                 <TextView
+                    android:id="@+id/contactPhoneTextView"
                     style="@style/regular16_font"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -331,5 +337,16 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/blue"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/navigationBar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

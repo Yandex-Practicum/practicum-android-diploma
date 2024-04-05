@@ -14,23 +14,23 @@ import ru.practicum.android.diploma.domain.filter.impl.FilterRepositorySalaryTex
 
 val filterModule = module {
 
-    factory<FilterRepositoryCountryFlow> {
+    single<FilterRepositoryCountryFlow> {
         FilterRepositoryCountryFlowImpl(get())
     }
 
-    factory<FilterRepositoryRegionFlow> {
+    single<FilterRepositoryRegionFlow> {
         FilterRepositoryRegionFlowImpl(get())
     }
 
-    factory<FilterRepositoryIndustriesFlow> {
+    single<FilterRepositoryIndustriesFlow> {
         FilterRepositoryIndustriesFlowImpl(get())
     }
 
-    factory<FilterRepositorySalaryTextFlow> {
+    single<FilterRepositorySalaryTextFlow> {
         FilterRepositorySalaryTextFlowImpl(get())
     }
 
-    factory<FilterRepositorySalaryBooleanFlow> {
+    single<FilterRepositorySalaryBooleanFlow> {
         FilterRepositorySalaryBooleanFlowImpl(get())
     }
 }
