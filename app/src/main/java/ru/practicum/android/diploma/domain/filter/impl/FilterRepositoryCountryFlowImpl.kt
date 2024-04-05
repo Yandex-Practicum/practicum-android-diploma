@@ -13,8 +13,8 @@ class FilterRepositoryCountryFlowImpl(
     private val countryFlow: MutableStateFlow<CountryShared?> = MutableStateFlow(sharedPreferences.loadCountryState())
 
     override fun setCountryFlow(country: CountryShared?) {
-        countryFlow.value = country
         sharedPreferences.saveCountryState(country)
+        countryFlow.value = country
     }
 
     override fun getCountryFlow(): StateFlow<CountryShared?> = countryFlow

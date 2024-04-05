@@ -44,6 +44,7 @@
     <string name="filter_without_salary">Не показывать без зарплаты</string>
     <string name="filter_apply">Применить</string>
     <string name="filter_remove">Сбросить</string>
+    <string name="filter_choice">Выбрать</string>
 
     <string name="filter_choosing_place_to_work">Выбор места работы</string>
 

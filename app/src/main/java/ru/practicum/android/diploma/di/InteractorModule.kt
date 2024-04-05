@@ -14,11 +14,11 @@ val interactorModule = module {
         VacancyDetailsInteractorImpl(get())
     }
 
-    factory<CountryInteractor> {
+    single<CountryInteractor> {
         CountryInteractorImpl(get())
     }
 
-    factory<RegionInteractor> {
+    single<RegionInteractor> {
         RegionInteractorImpl(get())
     }
 }

@@ -106,5 +106,23 @@
             android:layout_gravity="center"
             app:srcCompat="@drawable/arrow_forward_24px" />
 
+
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/workplace_button_apply"
+        style="@style/medium16_font"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginEnd="@dimen/margin"
+        android:layout_marginBottom="@dimen/xl_margin"
+        android:background="@drawable/filter_button_rounded"
+        android:gravity="center"
+        android:text="@string/filter_choice"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
