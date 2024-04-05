@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.di
 
-import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import ru.practicum.android.diploma.data.filter.country.impl.CountryRepositoryImpl
 import ru.practicum.android.diploma.data.filter.region.impl.RegionRepositoryImpl
