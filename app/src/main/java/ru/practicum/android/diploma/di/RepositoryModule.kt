@@ -25,7 +25,7 @@ val repositoryModule = module {
         CountryRepositoryImpl(get())
     }
 
-    factory<RegionRepository> {
+    single<RegionRepository> {
         RegionRepositoryImpl(get())
     }
 }

@@ -1,11 +1,9 @@
 package ru.practicum.android.diploma.ui.filter.workplace
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -13,6 +11,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentWorkplaceBinding
 
 class WorkplaceFragment : Fragment() {
+
     private var _binding: FragmentWorkplaceBinding? = null
     private val binding get() = _binding!!
 
@@ -26,11 +25,50 @@ class WorkplaceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        viewModel.getCountryInfo()
-
         viewModel.countryState.observe(viewLifecycleOwner) { country ->
-            Log.d("StateMyCountry", "Мы получили во фрагменте $country")
+            if (country != null) {
+                binding.workplaceTextCount.text = country.countryName
+                binding.workplaceIcCount.setImageResource(R.drawable.ic_close_24px)
+                binding.workplaceIcCount.isClickable = true
+                binding.workplaceVisibleCount.visibility = View.VISIBLE
+                binding.workplaceButtonApply.visibility = View.VISIBLE
+            } else {
+                binding.workplaceTextCount.text = "Страна"
+                binding.workplaceIcCount.setImageResource(R.drawable.arrow_forward_24px)
+                binding.workplaceIcCount.isClickable = false
+                binding.workplaceVisibleCount.visibility = View.GONE
+                binding.workplaceButtonApply.visibility = View.GONE
+            }
 
+            viewModel.regionState.observe(viewLifecycleOwner) { region ->
+                if (region != null && region.regionParentId == country?.countryId) {
+                    binding.workplaceTextRegion.text = region.regionName
+                    binding.workplaceIcRegion.setImageResource(R.drawable.ic_close_24px)
+                    binding.workplaceIcRegion.isClickable = true
+                    binding.workplaceVisibleRegion.visibility = View.VISIBLE
+                } else {
+                    binding.workplaceTextRegion.text = "Регион"
+                    binding.workplaceIcRegion.setImageResource(R.drawable.arrow_forward_24px)
+                    binding.workplaceIcRegion.isClickable = false
+                    binding.workplaceVisibleRegion.visibility = View.GONE
+                }
+            }
+        }
+
+        binding.workplaceIcCount.setOnClickListener {
+            binding.workplaceTextCount.text = "Страна"
+            binding.workplaceIcCount.setImageResource(R.drawable.arrow_forward_24px)
+            binding.workplaceIcCount.isClickable = false
+            binding.workplaceVisibleCount.visibility = View.GONE
+            viewModel.setCountryInfo(null)
+        }
+
+        binding.workplaceIcRegion.setOnClickListener {
+            binding.workplaceTextRegion.text = "Регион"
+            binding.workplaceIcRegion.setImageResource(R.drawable.arrow_forward_24px)
+            binding.workplaceIcRegion.isClickable = false
+            binding.workplaceVisibleRegion.visibility = View.GONE
+            viewModel.setRegionInfo(null)
         }
 
         binding.workplaceCount.setOnClickListener {
@@ -41,12 +79,12 @@ class WorkplaceFragment : Fragment() {
             findNavController().navigate(R.id.action_workplaceFragment_to_regionFragment)
         }
 
-        binding.workplaceToolbar.setOnClickListener {
+        binding.workplaceButtonApply.setOnClickListener {
             findNavController().navigateUp()
         }
 
-        binding.workplaceButtonApply.setOnClickListener {
-            findNavController().popBackStack()
+        binding.workplaceToolbar.setOnClickListener {
+            findNavController().navigateUp()
         }
     }
 
