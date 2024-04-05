@@ -24,6 +24,8 @@
         android:layout_gravity="center_vertical"
         android:layout_marginHorizontal="@dimen/margin"
         android:layout_marginVertical="@dimen/xs_margin"
+        app:endIconDrawable="@drawable/ic_search_24px"
+        app:endIconTint="@color/black.universal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/industries_toolbar">
@@ -34,10 +36,12 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/fragment_textview_height"
             android:autofillHints="none"
-            android:hint="Введите отрасль"
+            android:hint="@string/fragment_industries_search_hint"
+            android:imeOptions="actionSearch"
             android:inputType="text"
             android:maxLength="128"
             android:singleLine="true"
+            android:textColor="@color/black.universal"
             android:textColorHint="@color/search_bar_hint" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -95,8 +99,8 @@
         android:background="@drawable/filter_button_rounded"
         android:gravity="center"
         android:text="@string/filter_select"
-        android:textColor="@color/white"
-        android:visibility="gone"
+        android:textColor="@color/white.universal"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

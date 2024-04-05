@@ -9,7 +9,7 @@
     android:paddingEnd="6dp">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/industry_name"
         style="@style/regular16_font"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,12 +24,14 @@
         android:layout_gravity="center">
 
         <RadioButton
+            android:id="@+id/industry_radio_button"
             style="@style/radio_button"
             android:layout_width="30dp"
             android:layout_height="24dp"
             android:layout_gravity="center"
             android:buttonTint="@color/blue"
-            android:checked="false" />
+            android:checked="false"
+            android:clickable="false" />
     </FrameLayout>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

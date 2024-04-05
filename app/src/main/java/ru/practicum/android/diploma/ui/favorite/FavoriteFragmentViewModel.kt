@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModel
 
 class FavoriteFragmentViewModel : ViewModel() {
 
-    private var state = MutableLiveData<FavoriteFragmentUpdate>(
-        FavoriteFragmentUpdate.EmptyVacancyList
+    private var state = MutableLiveData<FavoriteUpdate>(
+        FavoriteUpdate.EmptyVacancyList
     )
 
-    fun getState(): LiveData<FavoriteFragmentUpdate> = state
+    fun getState(): LiveData<FavoriteUpdate> = state
 }

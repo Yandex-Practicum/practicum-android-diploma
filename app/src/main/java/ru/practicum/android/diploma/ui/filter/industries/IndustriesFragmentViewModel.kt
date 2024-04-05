@@ -34,7 +34,13 @@ class IndustriesFragmentViewModel(
         if (errorMessage != null) {
             state.postValue(IndustriesFragmentUpdate.GetIndustriesError)
         } else if (industriesList is List<ChildIndustry>) {
-            state.postValue(IndustriesFragmentUpdate.IndustriesList(industriesList))
+            state.postValue(IndustriesFragmentUpdate.IndustriesList(
+                industriesList.map { ChildIndustryWithSelection(
+                    id = it.id,
+                    name = it.name,
+                    selected = false
+                ) }
+            ))
         }
     }
 }
