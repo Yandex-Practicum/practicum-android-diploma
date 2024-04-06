@@ -2,12 +2,12 @@ package ru.practicum.android.diploma.data.repositories
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import java.io.IOException
 import ru.practicum.android.diploma.data.filter.industries.IndustriesRequest
 import ru.practicum.android.diploma.data.network.NetworkClient
 import ru.practicum.android.diploma.data.vacancies.response.ResponseCodes
 import ru.practicum.android.diploma.domain.industries.IndustriesRepository
 import ru.practicum.android.diploma.util.ResourceContentSearch
-import java.io.IOException
 import ru.practicum.android.diploma.data.converter.IndustriesConverter.convert
 import ru.practicum.android.diploma.data.filter.industries.IndustriesResponse
 import ru.practicum.android.diploma.domain.models.industries.ChildIndustry
