@@ -24,6 +24,8 @@ class DetailsViewModel(
     private val stateLiveData = MutableLiveData<DetailsViewState>()
     fun observeState(): LiveData<DetailsViewState> = stateLiveData
 
+    private var vacancyDetails: VacancyDetails? = null
+
     fun onViewCreated(fragment: DetailsFragment) {
         val vacancyId = fragment.requireArguments().getString(DetailsFragment.vacancyIdKey)
         if (vacancyId == null) {
@@ -35,16 +37,15 @@ class DetailsViewModel(
 
         viewModelScope.launch {
             interactor.getVacancyDetails(vacancyId).collect() {
+                vacancyDetails = it
                 updateModel(it, fragment.requireContext())
             }
         }
     }
 
     fun writeEmail() {
-        val content = stateLiveData.value as? DetailsViewState.Content
-        if (content?.contactEmail != null) {
-            externalNavigator.writeEmail(content.contactEmail)
-        }
+        val email = vacancyDetails?.contacts?.email ?: return
+        externalNavigator.writeEmail(email)
     }
 
     fun call(context: Context) {
@@ -54,11 +55,8 @@ class DetailsViewModel(
             ).collect() {
                 when (it) {
                     is PermissionResult.Granted -> {
-                        val content = stateLiveData.value as? DetailsViewState.Content
-                        val phone = content?.contactsPhones?.first()
-                        if (phone != null) {
-                            externalNavigator.call(phone)
-                        }
+                        val phone = vacancyDetails?.contacts?.phones?.first() ?: return@collect
+                        externalNavigator.call(phone)
                     }
                     is PermissionResult.Denied.DeniedPermanently -> {
                         externalNavigator.openApplicationSettings()
@@ -72,6 +70,11 @@ class DetailsViewModel(
                 }
             }
         }
+    }
+
+    fun shareVacancy() {
+        val vacancy = vacancyDetails ?: return
+        externalNavigator.share(vacancy.link)
     }
 
     private fun updateModel(vacancy: VacancyDetails, context: Context) {

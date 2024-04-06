@@ -12,7 +12,7 @@ class ExternalNavigatorImpl(
     override fun writeEmail(address: String) {
         val shareIntent = Intent(Intent.ACTION_SENDTO).apply {
             data = Uri.parse("mailto:")
-            putExtra(Intent.EXTRA_EMAIL, address)
+            putExtra(Intent.EXTRA_EMAIL, arrayOf(address))
         }
         val chooserIntent = Intent.createChooser(shareIntent, null).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -25,6 +25,17 @@ class ExternalNavigatorImpl(
             data = Uri.parse("tel:$phone")
         }
         val chooserIntent = Intent.createChooser(callIntent, null).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        context.startActivity(chooserIntent)
+    }
+
+    override fun share(url: String) {
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_TEXT, url)
+        }
+        val chooserIntent = Intent.createChooser(intent, null).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
         context.startActivity(chooserIntent)

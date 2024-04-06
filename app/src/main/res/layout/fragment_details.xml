@@ -43,6 +43,7 @@
             android:layout_gravity="center"
             android:src="@drawable/share"
             android:layout_marginEnd="@dimen/xs_margin"
+            android:foreground="?attr/selectableItemBackground"
             app:tint="@color/black"
             />
 
@@ -53,6 +54,7 @@
             android:layout_gravity="center"
             android:src="@drawable/favourite_empty"
             android:layout_marginEnd="@dimen/xs_margin"
+            android:foreground="?attr/selectableItemBackground"
             app:tint="@color/black"
             />
         

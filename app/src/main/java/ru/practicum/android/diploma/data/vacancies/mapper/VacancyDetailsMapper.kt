@@ -22,7 +22,8 @@ object VacancyDetailsMapper {
             experience = vacancy.experience?.name,
             employment = vacancy.employment?.name,
             description = vacancy.description,
-            contacts = mapContacts(vacancy.contacts)
+            contacts = mapContacts(vacancy.contacts),
+            link = vacancy.vacancyLink
         )
     }
 
