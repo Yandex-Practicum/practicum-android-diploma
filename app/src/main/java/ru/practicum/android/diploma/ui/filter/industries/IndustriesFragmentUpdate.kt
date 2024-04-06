@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.ui.filter.industries
 
 sealed class IndustriesFragmentUpdate {
-
     data object GetIndustriesError : IndustriesFragmentUpdate()
 
     data class IndustriesList(
@@ -10,5 +9,5 @@ sealed class IndustriesFragmentUpdate {
 
     data class FilteredIndustry(
         val industry: ChildIndustryWithSelection
-    ):IndustriesFragmentUpdate()
+    ) : IndustriesFragmentUpdate()
 }
