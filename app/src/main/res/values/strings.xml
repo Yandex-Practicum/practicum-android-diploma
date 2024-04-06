@@ -8,6 +8,7 @@
 
     <string name="fragment_industries_get_list_error">Не удалось получить\nсписок отраслей</string>
     <string name="fragment_industries_search_hint">Введите отрасль</string>
+    <string name="fragment_industries_toolbar_title">Выбор отрасли</string>
 
     <string name="bottomSearch">Главная</string>
     <string name="bottomFavorite">Избранное</string>

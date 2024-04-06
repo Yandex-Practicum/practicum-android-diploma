@@ -63,15 +63,17 @@ class IndustriesFragmentViewModel(
     fun applyFilters() {
         viewModelScope.launch {
             filterRepositoryIndustriesFlow.getIndustriesFlow().collect { industryShared ->
-                state.postValue(
-                    IndustriesFragmentUpdate.FilteredIndustry(
-                        ChildIndustryWithSelection(
-                            id = industryShared?.industriesId ?: "",
-                            name = industryShared?.industriesName ?: "",
-                            selected = true
+                if (industryShared is IndustriesShared) {
+                    state.postValue(
+                        IndustriesFragmentUpdate.FilteredIndustry(
+                            ChildIndustryWithSelection(
+                                id = industryShared.industriesId ?: "",
+                                name = industryShared.industriesName ?: "",
+                                selected = true
+                            )
                         )
                     )
-                )
+                }
             }
         }
     }

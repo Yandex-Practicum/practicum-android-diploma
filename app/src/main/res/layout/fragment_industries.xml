@@ -13,7 +13,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/back_icon"
-        app:title="Выбор отрасли"
+        app:title="@string/fragment_industries_toolbar_title"
         app:titleTextAppearance="@style/medium22_font" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -24,6 +24,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginHorizontal="@dimen/margin"
         android:layout_marginVertical="@dimen/xs_margin"
+        app:endIconMode="custom"
         app:endIconDrawable="@drawable/ic_search_24px"
         app:endIconTint="@color/black.universal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +38,7 @@
             android:layout_height="@dimen/fragment_textview_height"
             android:autofillHints="none"
             android:hint="@string/fragment_industries_search_hint"
-            android:imeOptions="actionSearch"
+            android:imeOptions="actionDone"
             android:inputType="text"
             android:maxLength="128"
             android:singleLine="true"

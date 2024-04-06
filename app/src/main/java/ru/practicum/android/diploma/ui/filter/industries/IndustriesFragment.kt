@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -40,6 +41,8 @@ class IndustriesFragment : Fragment() {
     private var applyButton: TextView? = null
     private var toolbar: MaterialToolbar? = null
 
+    private var filterJob: Job? = null
+
     private fun showIndustriesWithoutSelectButton() {
         binding.industriesRecyclerView.visibility = View.VISIBLE
         binding.industriesFilterApply.visibility = View.GONE
@@ -59,6 +62,7 @@ class IndustriesFragment : Fragment() {
     }
 
     private fun resetFilter() {
+        filterJob?.cancel()
         showIndustriesWithoutSelectButton()
 
         filteredData.clear()
@@ -69,7 +73,8 @@ class IndustriesFragment : Fragment() {
     }
 
     private fun filterTextInputDebounced() {
-        viewLifecycleOwner.lifecycleScope.launch {
+        filterJob?.cancel()
+        filterJob = viewLifecycleOwner.lifecycleScope.launch {
             delay(FILTER_DEBOUNCE_DELAY_MILLIS)
             filterTextInput()
         }
@@ -98,6 +103,18 @@ class IndustriesFragment : Fragment() {
         } else {
             resetFilter()
         }
+    }
+
+    private fun setTextInputIconSearch() {
+        textInputLayout!!.endIconMode = TextInputLayout.END_ICON_NONE
+        textInputLayout!!.endIconDrawable =
+            AppCompatResources.getDrawable(requireContext(), R.drawable.ic_search_24px)
+    }
+
+    private fun setTextInputIconRemove() {
+        textInputLayout!!.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
+        textInputLayout!!.endIconDrawable =
+            AppCompatResources.getDrawable(requireContext(), R.drawable.ic_close_24px)
     }
 
     override fun onCreateView(
@@ -137,23 +154,23 @@ class IndustriesFragment : Fragment() {
         textInput!!.addTextChangedListener(
             onTextChanged = { charSequence, _, _, _ ->
                 if (charSequence.isNullOrEmpty()) {
-                    textInputLayout!!.endIconMode = TextInputLayout.END_ICON_NONE
-                    textInputLayout!!.endIconDrawable =
-                        AppCompatResources.getDrawable(requireContext(), R.drawable.ic_search_24px)
-
+                    setTextInputIconSearch()
                     clearSelection()
                     resetFilter()
-
                 } else {
-                    textInputLayout!!.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
-                    textInputLayout!!.endIconDrawable =
-                        AppCompatResources.getDrawable(requireContext(), R.drawable.ic_close_24px)
-
+                    setTextInputIconRemove()
                     clearSelection()
                     filterTextInputDebounced()
                 }
             }
         )
+
+        textInput!!.requestFocus()
+
+        // не устанавливаются иконки ??? fix=принудительно запускать addTextChangedListener
+        textInput!!.setText("x")
+        textInput!!.setText("")
+        // не устанавливаются иконки ??? fix=принудительно запускать addTextChangedListener
 
         recyclerView = binding.industriesRecyclerView
         recyclerView?.layoutManager = LinearLayoutManager(context)
@@ -191,18 +208,22 @@ class IndustriesFragment : Fragment() {
                     filteredData.addAll(originalData)
 
                     recyclerView?.adapter?.notifyDataSetChanged()
+
                     showIndustriesWithoutSelectButton()
 
                     viewModel.applyFilters()
                 }
 
                 is IndustriesFragmentUpdate.FilteredIndustry -> {
-                    textInput!!.setText(it.industry.name)
                     textInput!!.requestFocus()
+                    textInput!!.setText(it.industry.name)
                     textInput!!.setSelection(it.industry.name.length)
+                    (requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)
+                        ?.showSoftInput(textInput, 0)
                 }
             }
         }
+
     }
 
     override fun onDestroyView() {
