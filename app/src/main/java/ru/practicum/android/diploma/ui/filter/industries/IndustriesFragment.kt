@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +18,8 @@ import ru.practicum.android.diploma.databinding.FragmentIndustriesBinding
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
@@ -30,9 +33,12 @@ class IndustriesFragment : Fragment() {
     private val originalData = ArrayList<ChildIndustryWithSelection>()
     private val filteredData = ArrayList<ChildIndustryWithSelection>()
     private var oldSelectedItem: Int = -1
+
     private var recyclerView: RecyclerView? = null
     private var textInputLayout: TextInputLayout? = null
     private var textInput: TextInputEditText? = null
+    private var applyButton: TextView? = null
+    private var toolbar: MaterialToolbar? = null
 
     private fun showIndustriesWithoutSelectButton() {
         binding.industriesRecyclerView.visibility = View.VISIBLE
@@ -83,7 +89,7 @@ class IndustriesFragment : Fragment() {
         if (textInput?.text.toString().length >= FILTER_TEXT_MIN_LENGTH_INT) {
 
             filteredData.clear()
-            filteredData.addAll(originalData.filter { it.name.contains(textInput?.text.toString()) })
+            filteredData.addAll(originalData.filter { it.name.contains(textInput?.text.toString(), true) })
             if (filteredData.size == 1) {
                 filteredData[0].selected = true
                 oldSelectedItem = 0
@@ -103,6 +109,15 @@ class IndustriesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        toolbar = binding.industriesToolbar
+        toolbar!!.setOnClickListener { findNavController().popBackStack() }
+
+        applyButton = binding.industriesFilterApply
+        applyButton!!.setOnClickListener {
+            viewModel.saveFilteredIndustry(filteredData[oldSelectedItem])
+            findNavController().popBackStack()
+        }
 
         textInputLayout = binding.tiSearch
 
@@ -176,6 +191,19 @@ class IndustriesFragment : Fragment() {
 
                     recyclerView?.adapter?.notifyDataSetChanged()
                     showIndustriesWithoutSelectButton()
+
+                    viewModel.applyFilters()
+                }
+
+                is IndustriesFragmentUpdate.FilteredIndustry -> {
+
+                    //textInputLayout!!.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
+                    //textInputLayout!!.endIconDrawable =
+                    //    AppCompatResources.getDrawable(requireContext(), R.drawable.ic_close_24px)
+
+                    textInput!!.setText(it.industry.name)
+                    textInput!!.requestFocus()
+                    textInput!!.setSelection(it.industry.name.length)
                 }
             }
         }

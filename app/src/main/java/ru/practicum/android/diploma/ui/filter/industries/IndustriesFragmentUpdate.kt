@@ -8,4 +8,7 @@ sealed class IndustriesFragmentUpdate {
         val industries: List<ChildIndustryWithSelection>
     ) : IndustriesFragmentUpdate()
 
+    data class FilteredIndustry(
+        val industry: ChildIndustryWithSelection
+    ):IndustriesFragmentUpdate()
 }

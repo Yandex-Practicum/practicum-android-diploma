@@ -39,5 +39,5 @@ val viewModelModule = module {
 
     viewModel { FavoriteFragmentViewModel() }
 
-    viewModel { IndustriesFragmentViewModel( get() ) }
+    viewModel { IndustriesFragmentViewModel( get(), get() ) }
 }
