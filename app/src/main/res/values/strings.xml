@@ -25,6 +25,8 @@
     <string name="needed_experience">Требуемый опыт</string>
     <string name="phone">Телефон</string>
 
+    <string name="call_permission_text">Для осуществления звонка необходимо получить Ваше разрешение</string>
+
     <string name="country_selection">Выбор страны</string>
     <string name="region_selection">Выбор региона</string>
     <string name="enter_region">Введите регион</string>

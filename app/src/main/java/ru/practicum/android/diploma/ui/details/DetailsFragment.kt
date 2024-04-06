@@ -46,6 +46,9 @@ class DetailsFragment : Fragment() {
         binding.emailTextView.setOnClickListener {
             viewModel.writeEmail()
         }
+        binding.contactPhoneTextView.setOnClickListener {
+            viewModel.call(requireContext())
+        }
     }
 
     private fun setUpObservers() {

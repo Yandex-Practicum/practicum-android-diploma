@@ -51,6 +51,9 @@ glide-annotationProcessor = "com.github.bumptech.glide:compiler:4.14.2"
 navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
 
+# Peko
+peko = "com.markodevcic:peko:3.0.4"
+
 # Поддержка корутин
 room-ktx = "androidx.room:room-ktx:2.6.1"
 

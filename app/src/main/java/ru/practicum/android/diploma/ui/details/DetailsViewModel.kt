@@ -1,20 +1,24 @@
 package ru.practicum.android.diploma.ui.details
 
+import android.Manifest
 import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.markodevcic.peko.PermissionRequester
+import com.markodevcic.peko.PermissionResult
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.api.details.VacancyDetailsInteractor
 import ru.practicum.android.diploma.domain.models.VacancyDetails
 import ru.practicum.android.diploma.domain.models.vacacy.Salary
-import ru.practicum.android.diploma.domain.sharing.SharingInteractor
+import ru.practicum.android.diploma.domain.sharing.ExternalNavigator
 
 class DetailsViewModel(
     private val interactor: VacancyDetailsInteractor,
-    private val sharingInteractor: SharingInteractor
+    private val externalNavigator: ExternalNavigator
 ) : ViewModel() {
 
     private val stateLiveData = MutableLiveData<DetailsViewState>()
@@ -39,7 +43,34 @@ class DetailsViewModel(
     fun writeEmail() {
         val content = stateLiveData.value as? DetailsViewState.Content
         if (content?.contactEmail != null) {
-            sharingInteractor.writeEmail(content.contactEmail)
+            externalNavigator.writeEmail(content.contactEmail)
+        }
+    }
+
+    fun call(context: Context) {
+        viewModelScope.launch {
+            PermissionRequester.instance().request(
+                Manifest.permission.CALL_PHONE
+            ).collect() {
+                when (it) {
+                    is PermissionResult.Granted -> {
+                        val content = stateLiveData.value as? DetailsViewState.Content
+                        val phone = content?.contactsPhones?.first()
+                        if (phone != null) {
+                            externalNavigator.call(phone)
+                        }
+                    }
+                    is PermissionResult.Denied.DeniedPermanently -> {
+                        externalNavigator.openApplicationSettings()
+                    }
+                    is PermissionResult.Denied.NeedsRationale -> {
+                        Toast.makeText(context, context.getString(R.string.call_permission_text), Toast.LENGTH_LONG).show()
+                    }
+                    is PermissionResult.Cancelled -> {
+                        return@collect
+                    }
+                }
+            }
         }
     }
 
@@ -54,8 +85,8 @@ class DetailsViewModel(
             employment = vacancy.employment,
             description = vacancy.description,
             contactName = vacancy.contacts?.name,
-            contactEmail = vacancy.contacts?.email ?: "gileren8613@yandex.ru",
-            contactsPhones = vacancy.contacts?.phones ?: listOf("79161234567")
+            contactEmail = vacancy.contacts?.email,
+            contactsPhones = vacancy.contacts?.phones
         )
         stateLiveData.postValue(content)
     }

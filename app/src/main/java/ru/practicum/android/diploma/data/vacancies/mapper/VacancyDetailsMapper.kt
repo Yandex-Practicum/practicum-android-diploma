@@ -61,7 +61,7 @@ object VacancyDetailsMapper {
         return Contacts(
             email = contacts.email,
             name = contacts.name,
-            phones = contacts.phones?.map { it.formatted }
+            phones = contacts.phones?.map { "+${it.country} (${it.city}) ${it.number}" }
         )
     }
 }

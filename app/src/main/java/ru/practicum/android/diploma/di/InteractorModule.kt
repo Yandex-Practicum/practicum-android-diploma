@@ -7,8 +7,6 @@ import ru.practicum.android.diploma.domain.country.impl.CountryInteractorImpl
 import ru.practicum.android.diploma.domain.impl.VacancyDetailsInteractorImpl
 import ru.practicum.android.diploma.domain.region.RegionInteractor
 import ru.practicum.android.diploma.domain.region.impl.RegionInteractorImpl
-import ru.practicum.android.diploma.domain.sharing.SharingInteractor
-import ru.practicum.android.diploma.domain.sharing.SharingInteractorImpl
 
 val interactorModule = module {
 
@@ -22,9 +20,5 @@ val interactorModule = module {
 
     single<RegionInteractor> {
         RegionInteractorImpl(get())
-    }
-
-    factory<SharingInteractor> {
-        SharingInteractorImpl(get())
     }
 }
