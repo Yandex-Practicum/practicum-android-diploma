@@ -15,11 +15,9 @@ import ru.practicum.android.diploma.domain.models.industries.ChildIndustry
 class IndustriesRepositoryImpl(
     private val networkClient: NetworkClient
 ) : IndustriesRepository {
-
     override fun getIndustries(): Flow<ResourceContentSearch<List<ChildIndustry>>> = flow {
         val response = networkClient.doRequestFilter(IndustriesRequest)
         when (response.resultCode) {
-
             ResponseCodes.DEFAULT
             -> emit(ResourceContentSearch.ErrorSearch(response.resultCode.code))
 
@@ -47,7 +45,5 @@ class IndustriesRepositoryImpl(
                 }
             }
         }
-
     }
-
 }
