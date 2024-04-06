@@ -5,10 +5,10 @@ import ru.practicum.android.diploma.domain.api.details.VacancyDetailsInteractor
 import ru.practicum.android.diploma.domain.country.CountryInteractor
 import ru.practicum.android.diploma.domain.country.impl.CountryInteractorImpl
 import ru.practicum.android.diploma.domain.impl.VacancyDetailsInteractorImpl
-import ru.practicum.android.diploma.domain.region.RegionInteractor
-import ru.practicum.android.diploma.domain.region.impl.RegionInteractorImpl
 import ru.practicum.android.diploma.domain.industries.IndustriesInteractor
 import ru.practicum.android.diploma.domain.industries.IndustriesInteractorImpl
+import ru.practicum.android.diploma.domain.region.RegionInteractor
+import ru.practicum.android.diploma.domain.region.impl.RegionInteractorImpl
 
 val interactorModule = module {
 
