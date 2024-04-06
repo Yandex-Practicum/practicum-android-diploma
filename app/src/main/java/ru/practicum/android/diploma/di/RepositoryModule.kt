@@ -13,7 +13,6 @@ import ru.practicum.android.diploma.domain.country.CountryRepository
 import ru.practicum.android.diploma.domain.region.RegionRepository
 
 val repositoryModule = module {
-
     factory<VacancyDetailsRepository> {
         VacancyDetailsRepositoryImpl(get())
     }
@@ -30,8 +29,7 @@ val repositoryModule = module {
         RegionRepositoryImpl(get())
     }
 
-    single<IndustriesRepository>{
+    single<IndustriesRepository> {
         IndustriesRepositoryImpl(get())
     }
-
 }
