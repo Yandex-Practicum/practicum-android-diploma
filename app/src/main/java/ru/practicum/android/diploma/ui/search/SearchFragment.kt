@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.ui.search
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -66,7 +67,7 @@ class SearchFragment : Fragment() {
     private fun render(state: SearchViewState) {
         when (state) {
             is SearchViewState.Default -> showDefaultState()
-            is SearchViewState.Content -> showContent(state.vacancies)
+            is SearchViewState.Content -> showContent(state.vacancies, state.found)
             is SearchViewState.Loading -> showLoading()
             is SearchViewState.NoInternet -> showNoInternetState()
             is SearchViewState.EmptyVacancies -> showEmptyVacanciesState()
@@ -79,14 +80,24 @@ class SearchFragment : Fragment() {
         rvVacancy.isVisible = false
         noInternetGroup.isVisible = false
         nothingFoundGroup.isVisible = false
+        tvSearchInfo.isVisible = false
     }
 
-    private fun showContent(vacancies: List<Vacancy>) = with(binding) {
+    @SuppressLint("SetTextI18n")
+    private fun showContent(vacancies: List<Vacancy>, found: Int) = with(binding) {
         ivStartSearch.isVisible = false
         progressBar.isVisible = false
         rvVacancy.isVisible = true
         noInternetGroup.isVisible = false
         nothingFoundGroup.isVisible = false
+        tvSearchInfo.isVisible = true
+        tvSearchInfo.text = "Найдено ${
+            resources.getQuantityString(
+                R.plurals.plurals_vacancies,
+                found,
+                found,
+            )
+        }"
 
         vacancyAdapter.clearVacancies()
         vacancyAdapter.addVacancies(vacancies)
@@ -99,6 +110,7 @@ class SearchFragment : Fragment() {
         rvVacancy.isVisible = false
         noInternetGroup.isVisible = false
         nothingFoundGroup.isVisible = false
+        tvSearchInfo.isVisible = false
     }
 
     private fun showNoInternetState() = with(binding) {
@@ -107,6 +119,7 @@ class SearchFragment : Fragment() {
         rvVacancy.isVisible = false
         noInternetGroup.isVisible = true
         nothingFoundGroup.isVisible = false
+        tvSearchInfo.isVisible = false
     }
 
     private fun showEmptyVacanciesState() = with(binding) {
@@ -115,6 +128,8 @@ class SearchFragment : Fragment() {
         rvVacancy.isVisible = false
         noInternetGroup.isVisible = false
         nothingFoundGroup.isVisible = true
+        tvSearchInfo.isVisible = true
+        tvSearchInfo.text = resources.getString(R.string.no_such_vacancies)
     }
 
     private fun bindKeyboardSearchButton() {

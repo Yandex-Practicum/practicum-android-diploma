@@ -21,11 +21,11 @@ class SearchViewModel(
             stateLiveData.postValue(SearchViewState.Loading)
             vacancySearchRepository.getVacancies(mapOf("text" to text)).collect {
                 if (it.first != null) {
-                    val vacancies = (it.first as VacancyResponse).items
-                    if (vacancies.isEmpty()) {
+                    val response = (it.first as VacancyResponse)
+                    if (response.items.isEmpty()) {
                         stateLiveData.postValue(SearchViewState.EmptyVacancies)
                     } else {
-                        stateLiveData.postValue(SearchViewState.Content(vacancies))
+                        stateLiveData.postValue(SearchViewState.Content(response.items, response.found))
                     }
 
                 } else if (it.second != null) {
