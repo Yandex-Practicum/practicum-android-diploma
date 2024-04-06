@@ -62,7 +62,11 @@ class DetailsViewModel(
                         externalNavigator.openApplicationSettings()
                     }
                     is PermissionResult.Denied.NeedsRationale -> {
-                        Toast.makeText(context, context.getString(R.string.call_permission_text), Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            context,
+                            context.getString(R.string.call_permission_text),
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                     is PermissionResult.Cancelled -> {
                         return@collect
