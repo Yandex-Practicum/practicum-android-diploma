@@ -109,6 +109,7 @@ class IndustriesFragment : Fragment() {
         return binding.root
     }
 
+    @Suppress("detekt:LongMethod")
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?
