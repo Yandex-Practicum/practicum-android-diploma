@@ -6,7 +6,6 @@ import ru.practicum.android.diploma.domain.models.industries.ChildIndustry
 object IndustriesConverter {
 
     fun List<ParentIndustriesResponse>.convert(): List<ChildIndustry> {
-
         val childIndustries = ArrayList<ChildIndustry>()
 
         this.forEach { parentIndustry ->

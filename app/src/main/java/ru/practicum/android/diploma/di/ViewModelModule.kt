@@ -37,7 +37,11 @@ val viewModelModule = module {
         WorkplaceViewModel(get(), get())
     }
 
-    viewModel { FavoriteFragmentViewModel() }
+    viewModel {
+        FavoriteFragmentViewModel()
+    }
 
-    viewModel { IndustriesFragmentViewModel(get(), get()) }
+    viewModel {
+        IndustriesFragmentViewModel(get(), get())
+    }
 }
