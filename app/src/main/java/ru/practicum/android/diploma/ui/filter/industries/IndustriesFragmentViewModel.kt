@@ -58,11 +58,9 @@ class IndustriesFragmentViewModel(
                 industriesName = industry.name
             )
         )
-
-
     }
 
-    fun applyFilters(){
+    fun applyFilters() {
         viewModelScope.launch {
             filterRepositoryIndustriesFlow.getIndustriesFlow().collect { industryShared ->
                 state.postValue(

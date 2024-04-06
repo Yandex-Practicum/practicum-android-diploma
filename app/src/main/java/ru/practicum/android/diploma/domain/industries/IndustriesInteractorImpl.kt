@@ -5,7 +5,6 @@ import kotlinx.coroutines.flow.map
 import ru.practicum.android.diploma.domain.models.industries.ChildIndustry
 import ru.practicum.android.diploma.util.ResourceContentSearch
 
-
 class IndustriesInteractorImpl(
     private val industriesRepository: IndustriesRepository
 ) : IndustriesInteractor {
