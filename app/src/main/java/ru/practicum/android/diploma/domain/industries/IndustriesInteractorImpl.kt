@@ -11,7 +11,6 @@ class IndustriesInteractorImpl(
     override fun getIndustries(): Flow<Pair<List<ChildIndustry>?, Int?>> =
         industriesRepository.getIndustries().map { resource ->
             when (resource) {
-
                 is ResourceContentSearch.SuccessSearch
                 -> Pair(resource.data, null)
 
