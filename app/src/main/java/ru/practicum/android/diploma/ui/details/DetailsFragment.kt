@@ -43,6 +43,9 @@ class DetailsFragment : Fragment() {
         binding.backImageView.setOnClickListener {
             findNavController().navigateUp()
         }
+        binding.emailTextView.setOnClickListener {
+            viewModel.writeEmail()
+        }
     }
 
     private fun setUpObservers() {

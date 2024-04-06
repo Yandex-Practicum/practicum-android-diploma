@@ -10,9 +10,11 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.api.details.VacancyDetailsInteractor
 import ru.practicum.android.diploma.domain.models.VacancyDetails
 import ru.practicum.android.diploma.domain.models.vacacy.Salary
+import ru.practicum.android.diploma.domain.sharing.SharingInteractor
 
 class DetailsViewModel(
-    private val interactor: VacancyDetailsInteractor
+    private val interactor: VacancyDetailsInteractor,
+    private val sharingInteractor: SharingInteractor
 ) : ViewModel() {
 
     private val stateLiveData = MutableLiveData<DetailsViewState>()
@@ -34,6 +36,13 @@ class DetailsViewModel(
         }
     }
 
+    fun writeEmail() {
+        val content = stateLiveData.value as? DetailsViewState.Content
+        if (content?.contactEmail != null) {
+            sharingInteractor.writeEmail(content.contactEmail)
+        }
+    }
+
     private fun updateModel(vacancy: VacancyDetails, context: Context) {
         val content = DetailsViewState.Content(
             name = vacancy.name,
@@ -45,8 +54,8 @@ class DetailsViewModel(
             employment = vacancy.employment,
             description = vacancy.description,
             contactName = vacancy.contacts?.name,
-            contactEmail = vacancy.contacts?.email,
-            contactsPhones = vacancy.contacts?.phones
+            contactEmail = vacancy.contacts?.email ?: "gileren8613@yandex.ru",
+            contactsPhones = vacancy.contacts?.phones ?: listOf("79161234567")
         )
         stateLiveData.postValue(content)
     }
