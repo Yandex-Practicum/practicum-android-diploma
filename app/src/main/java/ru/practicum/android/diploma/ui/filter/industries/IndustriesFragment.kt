@@ -87,7 +87,6 @@ class IndustriesFragment : Fragment() {
         clearSelection()
 
         if (textInput?.text.toString().length >= FILTER_TEXT_MIN_LENGTH_INT) {
-
             filteredData.clear()
             filteredData.addAll(originalData.filter { it.name.contains(textInput?.text.toString(), true) })
             if (filteredData.size == 1) {
@@ -101,13 +100,15 @@ class IndustriesFragment : Fragment() {
         }
     }
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentIndustriesBinding.inflate(layoutInflater)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         toolbar = binding.industriesToolbar
@@ -131,7 +132,6 @@ class IndustriesFragment : Fragment() {
         textInput!!.addTextChangedListener(
             onTextChanged = { charSequence, _, _, _ ->
                 if (charSequence.isNullOrEmpty()) {
-
                     textInputLayout!!.endIconMode = TextInputLayout.END_ICON_NONE
                     textInputLayout!!.endIconDrawable =
                         AppCompatResources.getDrawable(requireContext(), R.drawable.ic_search_24px)
@@ -140,7 +140,6 @@ class IndustriesFragment : Fragment() {
                     resetFilter()
 
                 } else {
-
                     textInputLayout!!.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
                     textInputLayout!!.endIconDrawable =
                         AppCompatResources.getDrawable(requireContext(), R.drawable.ic_close_24px)
@@ -155,8 +154,6 @@ class IndustriesFragment : Fragment() {
         recyclerView?.layoutManager = LinearLayoutManager(context)
         recyclerView?.adapter = IndustriesFragmentRecyclerViewAdapter(filteredData).apply {
             industryNumberClicked = { newSelectedItem ->
-
-                //Log.d("CLICKED", "item clicked ${ filteredData[listNumber].name }")
                 if (oldSelectedItem >= 0) {
                     filteredData[oldSelectedItem].selected = false
                 }
@@ -166,10 +163,11 @@ class IndustriesFragment : Fragment() {
                 recyclerView?.adapter?.notifyItemChanged(newSelectedItem)
                 oldSelectedItem = newSelectedItem
 
-                (requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)?.hideSoftInputFromWindow(
-                    view.windowToken,
-                    0
-                )
+                (requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)
+                    ?.hideSoftInputFromWindow(
+                        view.windowToken,
+                        0
+                    )
                 showIndustriesWithSelectButton()
             }
         }
@@ -181,8 +179,6 @@ class IndustriesFragment : Fragment() {
                 }
 
                 is IndustriesFragmentUpdate.IndustriesList -> {
-                    //Log.d("DATA INCOME", it.industries.size.toString() )
-
                     originalData.clear()
                     originalData.addAll(it.industries)
 
@@ -196,11 +192,6 @@ class IndustriesFragment : Fragment() {
                 }
 
                 is IndustriesFragmentUpdate.FilteredIndustry -> {
-
-                    //textInputLayout!!.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
-                    //textInputLayout!!.endIconDrawable =
-                    //    AppCompatResources.getDrawable(requireContext(), R.drawable.ic_close_24px)
-
                     textInput!!.setText(it.industry.name)
                     textInput!!.requestFocus()
                     textInput!!.setSelection(it.industry.name.length)

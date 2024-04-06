@@ -8,8 +8,6 @@ import ru.practicum.android.diploma.R
 class IndustriesFragmentRecyclerViewAdapter(
     private val industries: List<ChildIndustryWithSelection>
 ) : RecyclerView.Adapter<IndustriesFragmentRecyclerViewViewHolder>() {
-
-    //var industryClicked: (ChildIndustryWithSelection) -> Unit = {}
     var industryNumberClicked: (Int) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IndustriesFragmentRecyclerViewViewHolder {
@@ -20,14 +18,13 @@ class IndustriesFragmentRecyclerViewAdapter(
                 parent,
                 false
             )
-        return IndustriesFragmentRecyclerViewViewHolder(view) //, industryClicked)
+        return IndustriesFragmentRecyclerViewViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: IndustriesFragmentRecyclerViewViewHolder, position: Int) {
         holder.bind(industries[position])
         holder.itemView.setOnClickListener {
             industryNumberClicked(position)
-            //Log.d("CLICKED", "at item#${ position }")
         }
     }
 
