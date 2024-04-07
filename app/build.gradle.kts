@@ -67,6 +67,10 @@ dependencies {
     implementation(libs.navigation.ui.ktx)
     kapt(libs.glide.annotationProcessor)
 
+    //Paging3
+    implementation(libs.paging.runtime)
+    //implementation(libs.paging.compose)
+
     // Json
     implementation(libs.kotlinx.serialization.json)
 
