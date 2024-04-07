@@ -55,8 +55,10 @@ class DetailsViewModel(
             ).collect() {
                 when (it) {
                     is PermissionResult.Granted -> {
-                        val phone = vacancyDetails?.contacts?.phones?.first() ?: return@collect
-                        externalNavigator.call(phone)
+                        val phone = vacancyDetails?.contacts?.phones?.first()
+                        if (phone != null) {
+                            externalNavigator.call(phone)
+                        }
                     }
                     is PermissionResult.Denied.DeniedPermanently -> {
                         externalNavigator.openApplicationSettings()
@@ -68,9 +70,7 @@ class DetailsViewModel(
                             Toast.LENGTH_LONG
                         ).show()
                     }
-                    is PermissionResult.Cancelled -> {
-                        return@collect
-                    }
+                    is PermissionResult.Cancelled -> {}
                 }
             }
         }
