@@ -149,7 +149,7 @@
             android:textCursorDrawable="@color/blue" />
 
         <ImageView
-            android:id="@+id/clearIcon"
+            android:id="@+id/filter_salary_clear"
             android:layout_width="24dp"
             android:layout_height="match_parent"
             android:layout_gravity="end"
