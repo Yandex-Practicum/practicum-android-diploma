@@ -76,29 +76,29 @@ class CountryFragment : Fragment() {
 
     private fun showContent() {
         binding.recyclerView.visibility = View.VISIBLE
-        binding.errorContainerLinearLayout.visibility = View.GONE
-        binding.countryProgressBar.visibility = View.GONE
+        binding.errorContainer.visibility = View.GONE
+        binding.progressBar.visibility = View.GONE
     }
 
     private fun showLoading() {
         binding.recyclerView.visibility = View.GONE
-        binding.errorContainerLinearLayout.visibility = View.GONE
-        binding.countryProgressBar.visibility = View.VISIBLE
+        binding.errorContainer.visibility = View.GONE
+        binding.progressBar.visibility = View.VISIBLE
     }
 
     private fun showError(errorMessage: String) {
         binding.recyclerView.visibility = View.GONE
-        binding.errorContainerLinearLayout.visibility = View.VISIBLE
+        binding.errorContainer.visibility = View.VISIBLE
         binding.errorImageView.setImageResource(R.drawable.state_image_error_get_list)
         binding.errorTextView.text = errorMessage
-        binding.countryProgressBar.visibility = View.GONE
+        binding.progressBar.visibility = View.GONE
     }
 
     private fun showEmpty(message: String) {
         binding.recyclerView.visibility = View.GONE
-        binding.errorContainerLinearLayout.visibility = View.VISIBLE
+        binding.errorContainer.visibility = View.VISIBLE
         binding.errorImageView.setImageResource(R.drawable.state_image_nothing_found)
         binding.errorTextView.text = message
-        binding.countryProgressBar.visibility = View.GONE
+        binding.progressBar.visibility = View.GONE
     }
 }

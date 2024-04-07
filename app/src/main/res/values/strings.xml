@@ -63,6 +63,7 @@
     <string name="server_error">Ошибка сервера</string>
     <string name="nothing_found">Не удалось получить список</string>
     <string name="no_such_region">Такого региона нет</string>
+    <string name="no_such_industry">Такой отрасли нет</string>
 
     <plurals name="years_of_experience">
         <item quantity="zero">%1$d лет</item>

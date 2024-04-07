@@ -36,7 +36,7 @@
         tools:listItem="@layout/region_cell_view"/>
 
     <LinearLayout
-        android:id="@+id/errorContainerLinearLayout"
+        android:id="@+id/errorContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginHorizontal="@dimen/margin"
@@ -67,7 +67,7 @@
     </LinearLayout>
 
     <ProgressBar
-        android:id="@+id/country_progressBar"
+        android:id="@+id/progressBar"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_gravity="center"
