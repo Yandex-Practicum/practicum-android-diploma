@@ -6,6 +6,10 @@
     <string name="fragment_favorite_empty_list">Список пуст</string>
     <string name="fragment_favorite_get_list_error">Не удалось получить\nсписок вакансий</string>
 
+    <string name="fragment_industries_get_list_error">Не удалось получить\nсписок отраслей</string>
+    <string name="fragment_industries_search_hint">Введите отрасль</string>
+    <string name="fragment_industries_toolbar_title">Выбор отрасли</string>
+
     <string name="bottomSearch">Главная</string>
     <string name="bottomFavorite">Избранное</string>
     <string name="bottomTeam">Команда</string>
@@ -46,6 +50,7 @@
     <string name="filter_enter_amount">Введите сумму</string>
     <string name="filter_without_salary">Не показывать без зарплаты</string>
     <string name="filter_apply">Применить</string>
+    <string name="filter_select">Выбрать</string>
     <string name="filter_remove">Сбросить</string>
     <string name="filter_choice">Выбрать</string>
 

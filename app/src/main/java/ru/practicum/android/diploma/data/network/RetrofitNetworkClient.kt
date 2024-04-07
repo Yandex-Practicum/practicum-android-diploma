@@ -61,6 +61,7 @@ class RetrofitNetworkClient(
         }
 
         return withContext(Dispatchers.IO) {
+            @Suppress("detekt:TooGenericExceptionCaught", "detekt:SwallowedException")
             try {
                 val response = when (dto) {
                     is VacanciesSearchRequest -> async {
@@ -74,6 +75,7 @@ class RetrofitNetworkClient(
                     else -> throw IllegalArgumentException("Invalid DTO type: $dto")
                 }.await()
                 response.apply { resultCode = ResponseCodes.SUCCESS }
+
             } catch (e: Throwable) {
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
             }

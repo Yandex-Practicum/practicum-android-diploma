@@ -1,19 +1,13 @@
 package ru.practicum.android.diploma.ui.filter.industries
 
-import ru.practicum.android.diploma.domain.country.Country
+sealed class IndustriesState {
+    data object GetIndustriesError : IndustriesState()
 
-sealed interface IndustriesState {
-    data object Loading : IndustriesState
+    data class IndustriesList(
+        val industries: List<ChildIndustryWithSelection>
+    ) : IndustriesState()
 
-    data class Empty(
-        val message: Int
-    ) : IndustriesState
-
-    data class Content(
-        val region: List<Country>
-    ) : IndustriesState
-
-    data class Error(
-        val errorMessage: Int
-    ) : IndustriesState
+    data class FilteredIndustry(
+        val industry: ChildIndustryWithSelection
+    ) : IndustriesState()
 }
