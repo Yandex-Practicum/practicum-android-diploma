@@ -67,6 +67,9 @@ dependencies {
     implementation(libs.navigation.ui.ktx)
     kapt(libs.glide.annotationProcessor)
 
+    // Peko
+    implementation(libs.peko)
+
     // Json
     implementation(libs.kotlinx.serialization.json)
 

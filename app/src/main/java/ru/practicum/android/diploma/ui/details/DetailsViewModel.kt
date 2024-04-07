@@ -1,22 +1,30 @@
 package ru.practicum.android.diploma.ui.details
 
+import android.Manifest
 import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.markodevcic.peko.PermissionRequester
+import com.markodevcic.peko.PermissionResult
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.api.details.VacancyDetailsInteractor
 import ru.practicum.android.diploma.domain.models.VacancyDetails
 import ru.practicum.android.diploma.domain.models.vacacy.Salary
+import ru.practicum.android.diploma.domain.sharing.ExternalNavigator
 
 class DetailsViewModel(
-    private val interactor: VacancyDetailsInteractor
+    private val interactor: VacancyDetailsInteractor,
+    private val externalNavigator: ExternalNavigator
 ) : ViewModel() {
 
     private val stateLiveData = MutableLiveData<DetailsViewState>()
     fun observeState(): LiveData<DetailsViewState> = stateLiveData
+
+    private var vacancyDetails: VacancyDetails? = null
 
     fun onViewCreated(fragment: DetailsFragment) {
         val vacancyId = fragment.requireArguments().getString(DetailsFragment.vacancyIdKey)
@@ -29,9 +37,48 @@ class DetailsViewModel(
 
         viewModelScope.launch {
             interactor.getVacancyDetails(vacancyId).collect() {
+                vacancyDetails = it
                 updateModel(it, fragment.requireContext())
             }
         }
+    }
+
+    fun writeEmail() {
+        val email = vacancyDetails?.contacts?.email ?: return
+        externalNavigator.writeEmail(email)
+    }
+
+    fun call(context: Context) {
+        viewModelScope.launch {
+            PermissionRequester.instance().request(
+                Manifest.permission.CALL_PHONE
+            ).collect() {
+                when (it) {
+                    is PermissionResult.Granted -> {
+                        val phone = vacancyDetails?.contacts?.phones?.first()
+                        if (phone != null) {
+                            externalNavigator.call(phone)
+                        }
+                    }
+                    is PermissionResult.Denied.DeniedPermanently -> {
+                        externalNavigator.openApplicationSettings()
+                    }
+                    is PermissionResult.Denied.NeedsRationale -> {
+                        Toast.makeText(
+                            context,
+                            context.getString(R.string.call_permission_text),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                    is PermissionResult.Cancelled -> {}
+                }
+            }
+        }
+    }
+
+    fun shareVacancy() {
+        val vacancy = vacancyDetails ?: return
+        externalNavigator.share(vacancy.link)
     }
 
     private fun updateModel(vacancy: VacancyDetails, context: Context) {

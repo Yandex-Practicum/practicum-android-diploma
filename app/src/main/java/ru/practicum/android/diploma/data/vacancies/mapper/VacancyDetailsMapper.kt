@@ -22,7 +22,8 @@ object VacancyDetailsMapper {
             experience = vacancy.experience?.name,
             employment = vacancy.employment?.name,
             description = vacancy.description,
-            contacts = mapContacts(vacancy.contacts)
+            contacts = mapContacts(vacancy.contacts),
+            link = vacancy.vacancyLink
         )
     }
 
@@ -61,7 +62,7 @@ object VacancyDetailsMapper {
         return Contacts(
             email = contacts.email,
             name = contacts.name,
-            phones = contacts.phones?.map { it.formatted }
+            phones = contacts.phones?.map { "+${it.country} (${it.city}) ${it.number}" }
         )
     }
 }
