@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.R
 
-class IndustriesFragmentRecyclerViewAdapter(
+class IndustriesRecyclerViewAdapter(
     private val industries: List<ChildIndustryWithSelection>
-) : RecyclerView.Adapter<IndustriesFragmentRecyclerViewViewHolder>() {
+) : RecyclerView.Adapter<IndustriesRecyclerViewViewHolder>() {
     var industryNumberClicked: (Int) -> Unit = {}
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IndustriesFragmentRecyclerViewViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IndustriesRecyclerViewViewHolder {
         val view = LayoutInflater
             .from(parent.context)
             .inflate(
@@ -18,10 +18,10 @@ class IndustriesFragmentRecyclerViewAdapter(
                 parent,
                 false
             )
-        return IndustriesFragmentRecyclerViewViewHolder(view)
+        return IndustriesRecyclerViewViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: IndustriesFragmentRecyclerViewViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: IndustriesRecyclerViewViewHolder, position: Int) {
         holder.bind(industries[position])
         holder.itemView.setOnClickListener {
             industryNumberClicked(position)

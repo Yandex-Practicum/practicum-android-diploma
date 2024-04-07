@@ -27,7 +27,7 @@ import ru.practicum.android.diploma.databinding.FragmentIndustriesBinding
 
 class IndustriesFragment : Fragment() {
 
-    private val viewModel by viewModel<IndustriesFragmentViewModel>()
+    private val viewModel by viewModel<IndustriesViewModel>()
     private var _binding: FragmentIndustriesBinding? = null
     private val binding get() = _binding!!
 
@@ -174,7 +174,7 @@ class IndustriesFragment : Fragment() {
 
         recyclerView = binding.industriesRecyclerView
         recyclerView?.layoutManager = LinearLayoutManager(context)
-        recyclerView?.adapter = IndustriesFragmentRecyclerViewAdapter(filteredData).apply {
+        recyclerView?.adapter = IndustriesRecyclerViewAdapter(filteredData).apply {
             industryNumberClicked = { newSelectedItem ->
                 if (oldSelectedItem >= 0) {
                     filteredData[oldSelectedItem].selected = false
@@ -194,15 +194,15 @@ class IndustriesFragment : Fragment() {
             }
         }
 
-        viewModel.getState().observe(viewLifecycleOwner) {
-            when (it) {
-                is IndustriesFragmentUpdate.GetIndustriesError -> {
+        viewModel.getState().observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is IndustriesState.GetIndustriesError -> {
                     showGetIndustriesError()
                 }
 
-                is IndustriesFragmentUpdate.IndustriesList -> {
+                is IndustriesState.IndustriesList -> {
                     originalData.clear()
-                    originalData.addAll(it.industries)
+                    originalData.addAll(state.industries)
 
                     filteredData.clear()
                     filteredData.addAll(originalData)
@@ -214,10 +214,10 @@ class IndustriesFragment : Fragment() {
                     viewModel.applyFilters()
                 }
 
-                is IndustriesFragmentUpdate.FilteredIndustry -> {
+                is IndustriesState.FilteredIndustry -> {
                     textInput!!.requestFocus()
-                    textInput!!.setText(it.industry.name)
-                    textInput!!.setSelection(it.industry.name.length)
+                    textInput!!.setText(state.industry.name)
+                    textInput!!.setSelection(state.industry.name.length)
                     (requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)
                         ?.showSoftInput(textInput, 0)
                 }

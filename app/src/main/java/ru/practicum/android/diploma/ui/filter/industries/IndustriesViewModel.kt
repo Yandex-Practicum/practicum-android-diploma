@@ -10,13 +10,13 @@ import ru.practicum.android.diploma.domain.filter.datashared.IndustriesShared
 import ru.practicum.android.diploma.domain.industries.IndustriesInteractor
 import ru.practicum.android.diploma.domain.models.industries.ChildIndustry
 
-class IndustriesFragmentViewModel(
+class IndustriesViewModel(
     private val industriesInteractor: IndustriesInteractor,
     private val filterRepositoryIndustriesFlow: FilterRepositoryIndustriesFlow
 ) : ViewModel() {
 
-    private var state = MutableLiveData<IndustriesFragmentUpdate>()
-    fun getState(): LiveData<IndustriesFragmentUpdate> = state
+    private var _state = MutableLiveData<IndustriesState>()
+    fun getState(): LiveData<IndustriesState> = _state
 
     init {
         getIndustriesAndLoadFilteredIndustry()
@@ -37,9 +37,9 @@ class IndustriesFragmentViewModel(
 
     private fun processResult(industriesList: List<ChildIndustry>?, errorMessage: Int?) {
         if (errorMessage != null) {
-            state.postValue(IndustriesFragmentUpdate.GetIndustriesError)
+            _state.postValue(IndustriesState.GetIndustriesError)
         } else if (industriesList is List<ChildIndustry>) {
-            state.postValue(IndustriesFragmentUpdate.IndustriesList(
+            _state.postValue(IndustriesState.IndustriesList(
                 industriesList.map {
                     ChildIndustryWithSelection(
                         id = it.id,
@@ -64,8 +64,8 @@ class IndustriesFragmentViewModel(
         viewModelScope.launch {
             filterRepositoryIndustriesFlow.getIndustriesFlow().collect { industryShared ->
                 if (industryShared is IndustriesShared) {
-                    state.postValue(
-                        IndustriesFragmentUpdate.FilteredIndustry(
+                    _state.postValue(
+                        IndustriesState.FilteredIndustry(
                             ChildIndustryWithSelection(
                                 id = industryShared.industriesId ?: "",
                                 name = industryShared.industriesName ?: "",

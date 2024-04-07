@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.R
 
-class IndustriesFragmentRecyclerViewViewHolder(
+class IndustriesRecyclerViewViewHolder(
     itemView: View
 ) : RecyclerView.ViewHolder(itemView) {
     private val industryName: TextView = itemView.findViewById(R.id.industry_name)
