@@ -6,13 +6,13 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.vacacy.Vacancy
 
-class FavoriteFragmentRecyclerViewAdapter(
+class FavoriteVacanciesRecyclerViewAdapter(
     private val vacancies: List<Vacancy>
-) : RecyclerView.Adapter<FavoriteFragmentRecyclerViewViewHolder>() {
+) : RecyclerView.Adapter<FavoriteVacanciesRecyclerViewViewHolder>() {
 
     var vacancyClicked: (Vacancy) -> Unit = {}
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteFragmentRecyclerViewViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteVacanciesRecyclerViewViewHolder {
         val view = LayoutInflater
             .from(parent.context)
             .inflate(
@@ -20,10 +20,10 @@ class FavoriteFragmentRecyclerViewAdapter(
                 parent,
                 false
             )
-        return FavoriteFragmentRecyclerViewViewHolder(view, vacancyClicked)
+        return FavoriteVacanciesRecyclerViewViewHolder(view, vacancyClicked)
     }
 
-    override fun onBindViewHolder(holder: FavoriteFragmentRecyclerViewViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FavoriteVacanciesRecyclerViewViewHolder, position: Int) {
         holder.bind(vacancies[position])
     }
 
