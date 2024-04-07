@@ -37,10 +37,6 @@ val viewModelModule = module {
     }
 
     viewModel {
-        FavoriteVacanciesViewModel()
-    }
-
-    viewModel {
         IndustriesViewModel(get(), get())
     }
 }
