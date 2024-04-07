@@ -12,12 +12,16 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.PagingData
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.domain.models.vacacy.Vacancy
 import ru.practicum.android.diploma.ui.details.DetailsFragment
+import ru.practicum.android.diploma.ui.search.recycler.VacancyAdapter
 
 class SearchFragment : Fragment() {
 
@@ -26,7 +30,7 @@ class SearchFragment : Fragment() {
 
     private val viewModel by viewModel<SearchViewModel>()
 
-    private val vacancyAdapter by lazy {
+    private val vacancyAdapter by lazy(LazyThreadSafetyMode.NONE) {
         VacancyAdapter(onClick)
     }
 
@@ -34,10 +38,10 @@ class SearchFragment : Fragment() {
         requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
     }
 
-    private val onClick: (Vacancy) -> Unit = {
+    private val onClick: (Vacancy?) -> Unit = {
         findNavController().navigate(
             R.id.action_searchFragment_to_fragmentDetails,
-            bundleOf(DetailsFragment.vacancyIdKey to it.id)
+            bundleOf(DetailsFragment.vacancyIdKey to it?.id)
         )
     }
 
@@ -84,7 +88,7 @@ class SearchFragment : Fragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun showContent(vacancies: List<Vacancy>, found: Int) = with(binding) {
+    private fun showContent(vacancies: PagingData<Vacancy>, found: Int) = with(binding) {
         ivStartSearch.isVisible = false
         progressBar.isVisible = false
         rvVacancy.isVisible = true
@@ -99,9 +103,12 @@ class SearchFragment : Fragment() {
             )
         }"
 
-        vacancyAdapter.clearVacancies()
-        vacancyAdapter.addVacancies(vacancies)
-        vacancyAdapter.notifyDataSetChanged()
+        lifecycleScope.launch {
+            vacancyAdapter.submitData(vacancies)
+        }
+        //vacancyAdapter.clearVacancies()
+        //vacancyAdapter.addVacancies(vacancies)
+        //vacancyAdapter.notifyDataSetChanged()
     }
 
     private fun showLoading() = with(binding) {
@@ -135,7 +142,7 @@ class SearchFragment : Fragment() {
     private fun bindKeyboardSearchButton() {
         binding.search.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                viewModel.search(binding.search.text.toString())
+                viewModel.search(binding.search.text.toString(), 1)
                 true
             }
             false

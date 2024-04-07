@@ -34,7 +34,6 @@ androidX-appCompat = "androidx.appcompat:appcompat:1.6.1"
 
 # Paging3
 paging-runtime = "androidx.paging:paging-runtime:3.2.1"
-paging-compose = "androidx.paging:paging-compose:3.2.1"
 
 # Koin
 koin = "io.insert-koin:koin-android:3.3.0"

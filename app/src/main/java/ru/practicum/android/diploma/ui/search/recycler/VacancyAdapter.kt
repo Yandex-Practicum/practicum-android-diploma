@@ -1,31 +1,31 @@
-package ru.practicum.android.diploma.ui.search
+package ru.practicum.android.diploma.ui.search.recycler
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.paging.PagingDataAdapter
 import ru.practicum.android.diploma.databinding.VacancyViewBinding
 import ru.practicum.android.diploma.domain.models.vacacy.Vacancy
 
 class VacancyAdapter(
-    private val onClick: (Vacancy) -> Unit
-) : RecyclerView.Adapter<VacancyViewHolder>() {
+    private val onClick: (Vacancy?) -> Unit
+) : PagingDataAdapter<Vacancy, VacancyViewHolder>(VacancyDiffItemCallback) {
 
-    private val vacancies = mutableListOf<Vacancy>()
+    //private val vacancies = mutableListOf<Vacancy>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VacancyViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = VacancyViewBinding.inflate(inflater, parent, false)
         return VacancyViewHolder(binding)
     }
 
-    override fun getItemCount(): Int = vacancies.size
+    //override fun getItemCount(): Int = vacancies.size
 
     override fun onBindViewHolder(holder: VacancyViewHolder, position: Int) {
-        holder.bind(vacancies[position], onClick)
+        holder.bind(getItem(position), onClick)
     }
 
-    fun clearVacancies() = vacancies.clear()
+   /* fun clearVacancies() = vacancies.clear()
 
     fun addVacancies(vacancies: List<Vacancy>) =
-        this.vacancies.addAll(vacancies)
+        this.vacancies.addAll(vacancies)*/
 
 }

@@ -13,8 +13,9 @@ import ru.practicum.android.diploma.domain.models.vacacy.VacancyResponse
 class VacanciesSearchRepositoryImpl(
     private val networkClient: NetworkClient
 ) : VacanciesSearchRepository {
-    override suspend fun getVacancies(queryMap: Map<String, String>): Flow<Pair<VacancyResponse?, String?>> = flow {
-        val response = networkClient.doRequest(VacanciesSearchRequest(queryMap))
+    override suspend fun getVacancies(query: String, page: Int): Flow<Pair<VacancyResponse?, String?>> = flow {
+        val response =
+            networkClient.doRequest(VacanciesSearchRequest(mapOf("text" to query, "page" to page.toString())))
 
         when (response.resultCode) {
             ResponseCodes.SUCCESS -> {

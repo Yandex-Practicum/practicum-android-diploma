@@ -4,22 +4,32 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.domain.api.search.VacanciesSearchRepository
-import ru.practicum.android.diploma.domain.models.vacacy.VacancyResponse
+import ru.practicum.android.diploma.domain.api.search.SearchPagingRepository
 
 class SearchViewModel(
-    private val vacancySearchRepository: VacanciesSearchRepository
+    //private val vacancySearchRepository: VacanciesSearchRepository
+    private val searchPagingRepository: SearchPagingRepository
 ) : ViewModel() {
 
     private val stateLiveData = MutableLiveData<SearchViewState>()
 
     fun observeState(): LiveData<SearchViewState> = stateLiveData
 
-    fun search(text: String) {
+    fun search(text: String, page: Int) {
         viewModelScope.launch {
             stateLiveData.postValue(SearchViewState.Loading)
-            vacancySearchRepository.getVacancies(mapOf("text" to text)).collect {
+            searchPagingRepository.getSearchPaging(text).cachedIn(viewModelScope).collect {
+                stateLiveData.postValue(SearchViewState.Content(it, 0))
+            }
+        }
+    }
+
+    /*fun search(text: String, page: Int) {
+        viewModelScope.launch {
+            stateLiveData.postValue(SearchViewState.Loading)
+            vacancySearchRepository.getVacancies(text, page).collect {
                 if (it.first != null) {
                     val response = (it.first as VacancyResponse)
                     if (response.items.isEmpty()) {
@@ -33,5 +43,5 @@ class SearchViewModel(
                 }
             }
         }
-    }
+    }*/
 }
