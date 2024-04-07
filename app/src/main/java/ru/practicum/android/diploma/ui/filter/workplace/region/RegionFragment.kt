@@ -73,7 +73,7 @@ class RegionFragment : Fragment() {
             }
         }
 
-        binding.backImageView.setOnClickListener {
+        binding.regionToolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
     }

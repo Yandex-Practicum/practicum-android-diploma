@@ -8,9 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentCountryBinding
 import ru.practicum.android.diploma.domain.filter.datashared.CountryShared
 import ru.practicum.android.diploma.ui.filter.workplace.country.adapter.CountryAdapter
+import ru.practicum.android.diploma.ui.filter.workplace.region.RegionState
 
 class CountryFragment : Fragment() {
 
@@ -45,22 +47,58 @@ class CountryFragment : Fragment() {
         viewModel.observeState().observe(viewLifecycleOwner) { state ->
             when (state) {
                 is CountryState.Content -> {
+                    showContent()
+
                     adapter.countryList.addAll(state.region)
+                    //TODO Отсортировать список стран, как указано в макете
                     adapter.notifyDataSetChanged()
                 }
 
-                is CountryState.Error -> ""
-                is CountryState.Loading -> ""
+                is CountryState.Empty -> showEmpty(getString(state.message))
+                is CountryState.Error -> showError(getString(state.errorMessage))
+                is CountryState.Loading -> showLoading()
             }
         }
 
-        binding.backImageView.setOnClickListener {
+        binding.countryToolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
+        }
+
+        binding.countryToolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun showContent() {
+        binding.recyclerView.visibility = View.VISIBLE
+        binding.errorContainerLinearLayout.visibility = View.GONE
+        binding.countryProgressBar.visibility = View.GONE
+    }
+
+    private fun showLoading() {
+        binding.recyclerView.visibility = View.GONE
+        binding.errorContainerLinearLayout.visibility = View.GONE
+        binding.countryProgressBar.visibility = View.VISIBLE
+    }
+
+    private fun showError(errorMessage: String) {
+        binding.recyclerView.visibility = View.GONE
+        binding.errorContainerLinearLayout.visibility = View.VISIBLE
+        binding.errorImageView.setImageResource(R.drawable.state_image_error_get_list)
+        binding.errorTextView.text = errorMessage
+        binding.countryProgressBar.visibility = View.GONE
+    }
+
+    private fun showEmpty(message: String) {
+        binding.recyclerView.visibility = View.GONE
+        binding.errorContainerLinearLayout.visibility = View.VISIBLE
+        binding.errorImageView.setImageResource(R.drawable.state_image_nothing_found)
+        binding.errorTextView.text = message
+        binding.countryProgressBar.visibility = View.GONE
     }
 }

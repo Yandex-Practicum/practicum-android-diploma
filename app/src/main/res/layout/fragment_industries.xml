@@ -12,9 +12,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/back_icon"
-        app:title="Выбор отрасли"
-        app:titleTextAppearance="@style/medium22_font" />
+        app:navigationIcon="@drawable/back_icon">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/medium22_font"
+            android:text="@string/industry_selection"
+            android:textColor="@color/black" />
+
+    </com.google.android.material.appbar.MaterialToolbar>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ti_search"
@@ -43,6 +50,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/margin"
@@ -55,5 +63,51 @@
         app:layout_constraintVertical_bias="0.0"
         tools:itemCount="5"
         tools:listitem="@layout/industries_view" />
+
+    <LinearLayout
+        android:id="@+id/errorContainerLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/margin"
+        android:layout_marginTop="@dimen/margin"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/industries_toolbar"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:id="@+id/errorImageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/state_image_error_get_list" />
+
+        <TextView
+            android:id="@+id/errorTextView"
+            style="@style/medium22_font"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:text="@string/nothing_found"/>
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/country_progressBar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin"
+        android:indeterminate="false"
+        android:indeterminateTint="@color/blue"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ti_search"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

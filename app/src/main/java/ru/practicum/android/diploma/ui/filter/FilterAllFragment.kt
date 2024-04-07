@@ -29,6 +29,10 @@ class FilterAllFragment : Fragment() {
         binding.filterIndustries.setOnClickListener {
             findNavController().navigate(R.id.action_filterAllFragment_to_industriesFragment)
         }
+
+        binding.filterToolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
     override fun onDestroyView() {
