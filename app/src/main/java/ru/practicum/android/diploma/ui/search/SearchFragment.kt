@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.ui.search
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,10 +37,6 @@ class SearchFragment : Fragment() {
 
     private var searchJob: Job? = null
 
-    private val vacancyAdapter by lazy(LazyThreadSafetyMode.NONE) {
-        VacancyAdapter(onClick)
-    }
-
     private val inputMethodManager by lazy {
         requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
     }
@@ -50,6 +47,8 @@ class SearchFragment : Fragment() {
             bundleOf(DetailsFragment.vacancyIdKey to it?.id)
         )
     }
+
+    private var vacancyAdapter: VacancyAdapter = VacancyAdapter(onClick)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentSearchBinding.inflate(layoutInflater)
@@ -65,6 +64,7 @@ class SearchFragment : Fragment() {
         bindKeyboardSearchButton()
         bindTextWatcher()
         bindCrossButton()
+        //checkTextInputLayoutIsEmpty()
 
         binding.searchFilter.setOnClickListener {
             findNavController().navigate(R.id.action_searchFragment_to_filterAllFragment)
@@ -107,14 +107,22 @@ class SearchFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun showSearchInfo(found: Int) = with(binding) {
-        tvSearchInfo.isVisible = true
-        tvSearchInfo.text = "Найдено ${
-            resources.getQuantityString(
-                R.plurals.plurals_vacancies,
-                found,
-                found,
-            )
-        }"
+        if (found == -1) {
+            tvSearchInfo.isVisible = false
+        } else if (found == 0) {
+            tvSearchInfo.isVisible = true
+            tvSearchInfo.text = resources.getString(R.string.no_such_vacancies)
+        } else {
+            tvSearchInfo.isVisible = true
+            tvSearchInfo.text = "Найдено ${
+                resources.getQuantityString(
+                    R.plurals.plurals_vacancies,
+                    found,
+                    found,
+                )
+            }"
+        }
+
     }
 
     private fun bindVacancyAdapter() {
@@ -126,6 +134,10 @@ class SearchFragment : Fragment() {
     }
 
     private fun showDefaultState() = with(binding) {
+        vacancyAdapter = VacancyAdapter(onClick)
+        bindVacancyAdapter()
+        viewModel.clearFoundLiveData()
+
         ivStartSearch.isVisible = true
         progressBar.isVisible = false
         rvVacancy.isVisible = false
@@ -167,7 +179,7 @@ class SearchFragment : Fragment() {
         noInternetGroup.isVisible = false
         nothingFoundGroup.isVisible = true
         tvSearchInfo.isVisible = true
-        tvSearchInfo.text = resources.getString(R.string.no_such_vacancies)
+        //tvSearchInfo.text = resources.getString(R.string.no_such_vacancies)
     }
 
     private fun bindKeyboardSearchButton() {
@@ -186,7 +198,7 @@ class SearchFragment : Fragment() {
     private fun bindTextWatcher() = with(binding) {
         search.addTextChangedListener(
             onTextChanged = { s, _, _, _ ->
-                if (s.isNullOrEmpty()) {
+                if (s.toString().isEmpty()) {
                     ivSearch.isVisible = true
                     ivCross.isVisible = false
                 } else {
@@ -213,6 +225,15 @@ class SearchFragment : Fragment() {
             search.clearFocus()
         }
     }
+
+    /*private fun checkTextInputLayoutIsEmpty() = with(binding) {
+        search.setText(viewModel.lastQuery)
+        Log.d("last query",search.text.toString())
+        if (search.text.toString().isNotEmpty()) {
+            ivSearch.isVisible = false
+            ivCross.isVisible = true
+        }
+    }*/
 
     override fun onDestroyView() {
         super.onDestroyView()
