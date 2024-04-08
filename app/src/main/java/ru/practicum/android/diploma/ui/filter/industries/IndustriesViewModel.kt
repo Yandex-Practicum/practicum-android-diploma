@@ -39,20 +39,23 @@ class IndustriesViewModel(
 
     private fun processResult(industriesList: List<ChildIndustry>?, errorMessage: Int?) {
         if (errorMessage != null) {
-            _state.postValue(IndustriesState.Error(
-                errorMessage = R.string.server_error
+            _state.postValue(
+                IndustriesState.Error(
+                    errorMessage = R.string.server_error
                 )
             )
         } else if (industriesList is List<ChildIndustry>) {
-            _state.postValue(IndustriesState.IndustriesList(
-                industriesList.map {
-                    ChildIndustryWithSelection(
-                        id = it.id,
-                        name = it.name,
-                        selected = false
-                    )
-                }
-            ))
+            _state.postValue(
+                IndustriesState.IndustriesList(
+                    industriesList.map {
+                        ChildIndustryWithSelection(
+                            id = it.id,
+                            name = it.name,
+                            selected = false
+                        )
+                    }
+                )
+            )
         }
     }
 

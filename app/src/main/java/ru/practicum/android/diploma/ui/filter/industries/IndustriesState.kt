@@ -1,7 +1,5 @@
 package ru.practicum.android.diploma.ui.filter.industries
 
-import ru.practicum.android.diploma.ui.filter.workplace.country.CountryState
-
 sealed interface IndustriesState {
     data object Loading : IndustriesState
     data class Empty(

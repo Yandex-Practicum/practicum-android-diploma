@@ -82,8 +82,8 @@
         tools:visibility="visible"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/industries_filter_apply"
-        app:layout_constraintTop_toBottomOf="@id/recyclerView">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ti_search">
 
         <ImageView
             android:id="@+id/errorImageView"

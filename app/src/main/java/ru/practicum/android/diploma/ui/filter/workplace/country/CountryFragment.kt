@@ -12,7 +12,6 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentCountryBinding
 import ru.practicum.android.diploma.domain.filter.datashared.CountryShared
 import ru.practicum.android.diploma.ui.filter.workplace.country.adapter.CountryAdapter
-import ru.practicum.android.diploma.ui.filter.workplace.region.RegionState
 
 class CountryFragment : Fragment() {
 
@@ -50,7 +49,7 @@ class CountryFragment : Fragment() {
                     showContent()
 
                     adapter.countryList.addAll(state.region)
-                    //TODO Отсортировать список стран, как указано в макете
+                    // TODO Отсортировать список стран, как указано в макете
                     adapter.notifyDataSetChanged()
                 }
 

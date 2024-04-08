@@ -24,7 +24,6 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentIndustriesBinding
-import ru.practicum.android.diploma.ui.filter.workplace.country.CountryState
 
 class IndustriesFragment : Fragment() {
 
@@ -211,8 +210,6 @@ class IndustriesFragment : Fragment() {
                 is IndustriesState.Loading -> showLoading()
             }
         }
-
-
     }
 
     override fun onDestroyView() {
