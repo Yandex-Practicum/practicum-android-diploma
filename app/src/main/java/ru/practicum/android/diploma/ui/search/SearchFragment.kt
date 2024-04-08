@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.ui.search
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,10 +37,6 @@ class SearchFragment : Fragment() {
 
     private var searchJob: Job? = null
 
-    private val vacancyAdapter by lazy(LazyThreadSafetyMode.NONE) {
-        VacancyAdapter(onClick)
-    }
-
     private val inputMethodManager by lazy {
         requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
     }
@@ -50,6 +47,8 @@ class SearchFragment : Fragment() {
             bundleOf(DetailsFragment.vacancyIdKey to it?.id)
         )
     }
+
+    private var vacancyAdapter: VacancyAdapter = VacancyAdapter(onClick)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentSearchBinding.inflate(layoutInflater)
@@ -78,15 +77,20 @@ class SearchFragment : Fragment() {
 
     private fun addListenerToVacancyAdapter() {
         vacancyAdapter.addLoadStateListener {
+            Log.d("adapterState", it.toString())
+
             if (it.source.refresh is LoadState.Error) {
+                viewModel.isCrossPressed = false
                 showNoInternetState()
             }
 
             if (it.source.refresh is LoadState.Loading) {
+                viewModel.isCrossPressed = false
                 showLoading()
             }
 
             if (it.refresh is LoadState.NotLoading && vacancyAdapter.itemCount == 0) {
+                viewModel.isCrossPressed = false
                 showEmptyVacanciesState()
             }
 
@@ -94,7 +98,12 @@ class SearchFragment : Fragment() {
                 showContent()
             }
 
+            if (viewModel.isCrossPressed) {
+                showDefaultState()
+            }
+
             if (it.append is LoadState.Error) {
+                viewModel.isCrossPressed = false
                 Snackbar.make(
                     requireContext(),
                     requireView(),
@@ -107,14 +116,22 @@ class SearchFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun showSearchInfo(found: Int) = with(binding) {
-        tvSearchInfo.isVisible = true
-        tvSearchInfo.text = "Найдено ${
-            resources.getQuantityString(
-                R.plurals.plurals_vacancies,
-                found,
-                found,
-            )
-        }"
+        if (found == -1) {
+            tvSearchInfo.isVisible = false
+        } else if (found == 0) {
+            tvSearchInfo.isVisible = true
+            tvSearchInfo.text = resources.getString(R.string.no_such_vacancies)
+        } else {
+            tvSearchInfo.isVisible = true
+            tvSearchInfo.text = "Найдено ${
+                resources.getQuantityString(
+                    R.plurals.plurals_vacancies,
+                    found,
+                    found,
+                )
+            }"
+        }
+
     }
 
     private fun bindVacancyAdapter() {
@@ -126,6 +143,8 @@ class SearchFragment : Fragment() {
     }
 
     private fun showDefaultState() = with(binding) {
+        viewModel.clearFoundLiveData()
+
         ivStartSearch.isVisible = true
         progressBar.isVisible = false
         rvVacancy.isVisible = false
@@ -167,15 +186,18 @@ class SearchFragment : Fragment() {
         noInternetGroup.isVisible = false
         nothingFoundGroup.isVisible = true
         tvSearchInfo.isVisible = true
-        tvSearchInfo.text = resources.getString(R.string.no_such_vacancies)
     }
 
     private fun bindKeyboardSearchButton() {
         binding.search.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                searchJob?.cancel()
-                searchJob = lifecycleScope.launch {
-                    viewModel.search(binding.search.text.toString()).collect { vacancyAdapter.submitData(it) }
+                if (viewModel.lastQuery != binding.search.text.toString() && "" != binding.search.text.toString()) {
+                    Log.e("search", "${viewModel.lastQuery} != ${binding.search.text}")
+                    viewModel.lastQuery = binding.search.text.toString()
+                    searchJob?.cancel()
+                    searchJob = lifecycleScope.launch {
+                        viewModel.search(binding.search.text.toString()).collect { vacancyAdapter.submitData(it) }
+                    }
                 }
                 true
             }
@@ -186,15 +208,20 @@ class SearchFragment : Fragment() {
     private fun bindTextWatcher() = with(binding) {
         search.addTextChangedListener(
             onTextChanged = { s, _, _, _ ->
-                if (s.isNullOrEmpty()) {
+                if (s.toString().isEmpty()) {
                     ivSearch.isVisible = true
                     ivCross.isVisible = false
                 } else {
-                    searchJob?.cancel()
-                    searchJob = lifecycleScope.launch {
-                        delay(SEARCH_DEBOUNCE_DELAY)
-                        viewModel.search(binding.search.text.toString()).collect { vacancyAdapter.submitData(it) }
+                    if (viewModel.lastQuery != search.text.toString()) {
+                        Log.d("search", "${viewModel.lastQuery} != ${binding.search.text}")
+                        searchJob?.cancel()
+                        searchJob = lifecycleScope.launch {
+                            delay(SEARCH_DEBOUNCE_DELAY)
+                            viewModel.lastQuery = binding.search.text.toString()
+                            viewModel.search(search.text.toString()).collect { vacancyAdapter.submitData(it) }
+                        }
                     }
+
                     ivSearch.isVisible = false
                     ivCross.isVisible = true
                 }
@@ -205,6 +232,7 @@ class SearchFragment : Fragment() {
     private fun bindCrossButton() = with(binding) {
         ivCross.setOnClickListener {
             search.setText("")
+            viewModel.isCrossPressed = true
             showDefaultState()
             inputMethodManager?.hideSoftInputFromWindow(
                 view?.windowToken,
