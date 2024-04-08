@@ -39,13 +39,11 @@ class RegionViewModel(
     }
 
     fun loadRegion(regionId: String) {
-
         if (regionId.isEmpty()) {
             // Выбрать значение по умолчанию или выполнить другие действия
             renderState(RegionState.Empty(REGION_CONTENT))
             return
         }
-
 
         renderState(RegionState.Loading)
         viewModelScope.launch {
@@ -56,7 +54,7 @@ class RegionViewModel(
         }
     }
 
-    // TODO Поправить логику выполнения, вывод ошибок при загрузке
+    // Поправить логику выполнения, вывод ошибок при загрузке
     private fun processResult(regionList: Country?, errorMessage: Int?) {
         when {
             errorMessage != null -> {

@@ -49,7 +49,7 @@ class CountryFragment : Fragment() {
                     showContent()
 
                     adapter.countryList.addAll(state.region)
-                    // TODO Отсортировать список стран, как указано в макете
+                    // Отсортировать список стран, как указано в макете
                     adapter.notifyDataSetChanged()
                 }
 
