@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:padding="2dp"
                 android:text="@string/filter_workplace"
-                android:textColor="@color/grey"
+                android:textColor="@color/black"
                 android:visibility="gone" />
 
             <TextView
@@ -99,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:padding="2dp"
                 android:text="@string/filter_industries"
-                android:textColor="@color/grey"
+                android:textColor="@color/black"
                 android:visibility="gone" />
 
             <TextView
@@ -134,11 +134,11 @@
         app:layout_constraintTop_toBottomOf="@id/filter_industries">
 
         <TextView
-            android:id="@+id/expected_salary"
+            android:id="@+id/filter_expected_salary"
             style="@style/regular12_font"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/filter_expected_salary"
+            android:text="@string/filter_expected_salary"
             android:paddingStart="@dimen/margin"
             android:paddingTop="8dp"
             android:textColor="@color/black" />
@@ -162,7 +162,7 @@
             android:textCursorDrawable="@color/blue" />
 
         <ImageView
-            android:id="@+id/clearIcon"
+            android:id="@+id/filter_salary_clear"
             android:layout_width="24dp"
             android:layout_height="match_parent"
             android:layout_gravity="end"
@@ -197,7 +197,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:buttonTint="@color/blue" />
+            android:button="@drawable/cb_selector_filter"
+            android:buttonTint="@color/blue"
+            android:checked="false"/>
 
     </LinearLayout>
 
