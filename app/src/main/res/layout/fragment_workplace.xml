@@ -26,11 +26,12 @@
     <LinearLayout
         android:id="@+id/workplace_count"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/fragment_default_item_height"
         android:layout_marginTop="@dimen/dimen_22"
         android:layout_weight="1"
         android:orientation="horizontal"
-        android:padding="@dimen/margin"
+        android:paddingStart="@dimen/margin"
+        android:paddingEnd="@dimen/margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/workplace_toolbar">
@@ -39,6 +40,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_gravity="center"
             android:orientation="vertical">
 
             <TextView
@@ -73,10 +75,11 @@
     <LinearLayout
         android:id="@+id/workplace_region"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/fragment_default_item_height"
         android:layout_weight="1"
         android:orientation="horizontal"
-        android:padding="@dimen/margin"
+        android:paddingStart="@dimen/margin"
+        android:paddingEnd="@dimen/margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/workplace_count">
@@ -85,6 +88,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_gravity="center"
             android:orientation="vertical">
 
             <TextView
