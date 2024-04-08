@@ -72,75 +72,91 @@ class FilterAllFragment : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("SetTextI18n", "SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        observeCountryState()
+        observeIndustriesState()
+        observeSalarySum()
+        observeSalaryBoolean()
+        bindTextWatcher()
+        bindOnClickListeners()
+        bindNavigationListeners()
+    }
+
+    @SuppressLint("SetTextI18n", "SuspiciousIndentation")
+    private fun observeCountryState() = with(binding) {
         viewModel.countryState.observe(viewLifecycleOwner) { country ->
             if (country != null) {
-                binding.filterTextWorkplace.text = country.countryName
-                binding.filterIcWorkplace.setImageResource(R.drawable.ic_close_24px)
-                binding.filterIcWorkplace.isClickable = true
-                binding.filterVisibleWorkplace.visibility = View.VISIBLE
+                filterTextWorkplace.text = country.countryName
+                filterIcWorkplace.setImageResource(R.drawable.ic_close_24px)
+                filterIcWorkplace.isClickable = true
+                filterVisibleWorkplace.visibility = View.VISIBLE
 
                 viewModel.regionState.observe(viewLifecycleOwner) { region ->
                     if (region != null) {
-                        binding.filterTextWorkplace.text = country.countryName + ", " + region.regionName
+                        filterTextWorkplace.text = country.countryName + ", " + region.regionName
                     }
                 }
             } else {
-                binding.filterTextWorkplace.text = "Место работы"
-                binding.filterTextWorkplace.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey))
-                binding.filterIcWorkplace.setImageResource(R.drawable.arrow_forward_24px)
-                binding.filterIcWorkplace.isClickable = false
-                binding.filterVisibleWorkplace.visibility = View.GONE
+                filterTextWorkplace.text = "Место работы"
+                filterTextWorkplace.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey))
+                filterIcWorkplace.setImageResource(R.drawable.arrow_forward_24px)
+                filterIcWorkplace.isClickable = false
+                filterVisibleWorkplace.visibility = View.GONE
             }
         }
+    }
 
+    private fun observeIndustriesState() = with(binding) {
         viewModel.industriesState.observe(viewLifecycleOwner) { industries ->
             if (industries != null) {
-                binding.filterTextIndustries.text = industries.industriesName
-                binding.filterIcIndustries.setImageResource(R.drawable.ic_close_24px)
-                binding.filterIcIndustries.isClickable = true
-                binding.filterVisibleIndustries.visibility = View.VISIBLE
+                filterTextIndustries.text = industries.industriesName
+                filterIcIndustries.setImageResource(R.drawable.ic_close_24px)
+                filterIcIndustries.isClickable = true
+                filterVisibleIndustries.visibility = View.VISIBLE
 
             } else {
-                binding.filterTextIndustries.text = "Отрасль"
-                binding.filterTextIndustries.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey))
-                binding.filterIcIndustries.setImageResource(R.drawable.arrow_forward_24px)
-                binding.filterIcIndustries.isClickable = false
-                binding.filterVisibleIndustries.visibility = View.GONE
+                filterTextIndustries.text = "Отрасль"
+                filterTextIndustries.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey))
+                filterIcIndustries.setImageResource(R.drawable.arrow_forward_24px)
+                filterIcIndustries.isClickable = false
+                filterVisibleIndustries.visibility = View.GONE
             }
         }
+    }
 
+    private fun observeSalarySum() = with(binding) {
         viewModel.salarySum.observe(viewLifecycleOwner) { salarySum ->
             if (salarySum?.salary?.isNotEmpty() == true) {
-                binding.filterExpectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
-                binding.filterTextSalary.setText(salarySum.salary)
-                binding.filterTextSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                binding.filterSalaryClear.visibility = View.VISIBLE
-                binding.filterSalaryClear.isClickable = true
-                binding.filterFunctionButton.visibility = View.VISIBLE
+                filterExpectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
+                filterTextSalary.setText(salarySum.salary)
+                filterTextSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                filterSalaryClear.visibility = View.VISIBLE
+                filterSalaryClear.isClickable = true
+                filterFunctionButton.visibility = View.VISIBLE
             } else {
-                binding.filterExpectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey))
-                binding.filterTextSalary.setText("")
-                binding.filterTextSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey))
-                binding.filterSalaryClear.visibility = View.GONE
+                filterExpectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey))
+                filterTextSalary.setText("")
+                filterTextSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey))
+                filterSalaryClear.visibility = View.GONE
             }
         }
+    }
 
+    private fun observeSalaryBoolean() = with(binding) {
         viewModel.salaryBoolean.observe(viewLifecycleOwner) { salaryBoolean ->
             debugLog(TAG) { "filterFunctionCheckbox, isChecked = ${salaryBoolean?.isChecked}" }
-            binding.filterFunctionCheckbox.isChecked = salaryBoolean?.isChecked ?: false
+            filterFunctionCheckbox.isChecked = salaryBoolean?.isChecked ?: false
         }
+    }
 
-        binding.filterTextSalary.addTextChangedListener(textWatcher)
-
-        binding.filterSalaryClear.setOnClickListener {
+    private fun bindOnClickListeners() = with(binding) {
+        filterSalaryClear.setOnClickListener {
             viewModel.setSalarySumInfo(null)
         }
 
-        binding.filterFunctionCheckbox.setOnCheckedChangeListener { _, isChecked ->
+        filterFunctionCheckbox.setOnCheckedChangeListener { _, isChecked ->
             // Обновляем состояние флажка в viewModel
             viewModel.setSalaryBooleanInfo(
                 SalaryBooleanShared(
@@ -149,36 +165,42 @@ class FilterAllFragment : Fragment() {
             )
         }
 
-        binding.filterFunctionApply.setOnClickListener {
-            findNavController().navigateUp()
-        }
-
-        binding.filterIcWorkplace.setOnClickListener {
+        filterIcWorkplace.setOnClickListener {
             viewModel.setCountryInfo(null)
             viewModel.setRegionInfo(null)
         }
 
-        binding.filterIcIndustries.setOnClickListener {
+        filterIcIndustries.setOnClickListener {
             viewModel.setIndustriesInfo(null)
         }
 
-        binding.filterFunctionRemove.setOnClickListener {
+        filterFunctionRemove.setOnClickListener {
             viewModel.setCountryInfo(null)
             viewModel.setRegionInfo(null)
             viewModel.setIndustriesInfo(null)
             viewModel.setSalarySumInfo(null)
             viewModel.setSalaryBooleanInfo(SalaryBooleanShared(false))
         }
+    }
 
-        binding.filterWorkplace.setOnClickListener {
+    private fun bindTextWatcher() = with(binding) {
+        filterTextSalary.addTextChangedListener(textWatcher)
+    }
+
+    private fun bindNavigationListeners() = with(binding) {
+        filterFunctionApply.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
+        filterWorkplace.setOnClickListener {
             findNavController().navigate(R.id.action_filterAllFragment_to_workplaceFragment)
         }
 
-        binding.filterIndustries.setOnClickListener {
+        filterIndustries.setOnClickListener {
             findNavController().navigate(R.id.action_filterAllFragment_to_industriesFragment)
         }
 
-        binding.filterToolbar.setOnClickListener {
+        filterToolbar.setOnClickListener {
             findNavController().navigateUp()
         }
     }

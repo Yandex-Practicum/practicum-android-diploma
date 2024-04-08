@@ -17,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
@@ -189,6 +190,11 @@ class SearchFragment : Fragment() {
                     ivSearch.isVisible = true
                     ivCross.isVisible = false
                 } else {
+                    searchJob?.cancel()
+                    searchJob = lifecycleScope.launch {
+                        delay(SEARCH_DEBOUNCE_DELAY)
+                        viewModel.search(binding.search.text.toString()).collect { vacancyAdapter.submitData(it) }
+                    }
                     ivSearch.isVisible = false
                     ivCross.isVisible = true
                 }
@@ -211,5 +217,10 @@ class SearchFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        searchJob?.cancel()
+    }
+
+    companion object {
+        const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
 }

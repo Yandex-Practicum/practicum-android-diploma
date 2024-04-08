@@ -19,16 +19,16 @@ class SearchViewModel(
     private val searchPagingRepository: SearchPagingRepository
 ) : ViewModel() {
 
-    private val stateLiveData = MutableLiveData<Int>()
+    private val foundLiveData = MutableLiveData<Int>()
 
-    fun observeState(): LiveData<Int> = stateLiveData
+    fun observeState(): LiveData<Int> = foundLiveData
 
     fun search(text: String): Flow<PagingData<Vacancy>> {
         viewModelScope.launch {
             vacancySearchRepository.getVacancies(text, 1).collect {
                 if (it.first != null) {
                     Log.d("searchFound()", (it.first as VacancyResponse).found.toString())
-                    stateLiveData.postValue((it.first as VacancyResponse).found)
+                    foundLiveData.postValue((it.first as VacancyResponse).found)
                 }
             }
         }
