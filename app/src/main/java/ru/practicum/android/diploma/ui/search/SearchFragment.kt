@@ -65,8 +65,6 @@ class SearchFragment : Fragment() {
         bindTextWatcher()
         bindCrossButton()
 
-
-
         binding.searchFilter.setOnClickListener {
             findNavController().navigate(R.id.action_searchFragment_to_filterAllFragment)
         }
@@ -79,7 +77,6 @@ class SearchFragment : Fragment() {
 
     private fun addListenerToVacancyAdapter() {
         vacancyAdapter.addLoadStateListener {
-
             if (it.source.refresh is LoadState.Error) {
                 showNoInternetState()
             }

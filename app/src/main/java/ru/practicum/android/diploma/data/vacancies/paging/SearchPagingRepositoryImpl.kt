@@ -13,7 +13,7 @@ class SearchPagingRepositoryImpl(private val vacanciesSearchRepository: Vacancie
     override fun getSearchPaging(query: String): Flow<PagingData<Vacancy>> {
         return Pager(
             config = PagingConfig(pageSize = 20, initialLoadSize = 20),
-            //Тадаааам, вот такая вот фабрика (её нет)
+            // Тадаааам, вот такая вот фабрика (её нет)
             pagingSourceFactory = { SearchPageSource(vacanciesSearchRepository, query) }
         ).flow
     }

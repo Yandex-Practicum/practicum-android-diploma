@@ -23,8 +23,6 @@ class SearchViewModel(
 
     fun observeState(): LiveData<Int> = stateLiveData
 
-
-
     fun search(text: String): Flow<PagingData<Vacancy>> {
         viewModelScope.launch {
             vacancySearchRepository.getVacancies(text, 1).collect {
