@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/filter_toolbar"
@@ -16,9 +16,9 @@
         app:titleTextAppearance="@style/medium22_font">
 
         <TextView
+            style="@style/medium22_font"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/medium22_font"
             android:text="@string/filter_all"
             android:textColor="@color/black" />
 
@@ -40,8 +40,8 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_gravity="center"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
@@ -60,7 +60,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/filter_workplace"
-                android:padding="2dp" />
+                android:padding="2dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/grey" />
 
         </LinearLayout>
 
@@ -69,7 +71,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            app:srcCompat="@drawable/arrow_forward_24px" />
+            app:srcCompat="@drawable/arrow_forward_24px"
+            app:tint="@color/black" />
 
     </LinearLayout>
 
@@ -88,8 +91,8 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_gravity="center"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
@@ -108,7 +111,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/filter_industries"
-                android:padding="2dp" />
+                android:padding="2dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/grey" />
 
         </LinearLayout>
 
@@ -117,7 +122,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            app:srcCompat="@drawable/arrow_forward_24px" />
+            app:srcCompat="@drawable/arrow_forward_24px"
+            app:tint="@color/black" />
 
     </LinearLayout>
 
@@ -138,14 +144,13 @@
             style="@style/regular12_font"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/filter_expected_salary"
             android:paddingStart="@dimen/margin"
             android:paddingTop="8dp"
+            android:text="@string/filter_expected_salary"
             android:textColor="@color/all_filters_sum_hint" />
 
         <EditText
             android:id="@+id/filter_text_salary"
-            android:textAppearance="@style/regular16_font"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
@@ -157,6 +162,7 @@
             android:paddingStart="16dp"
             android:paddingTop="16dp"
             android:singleLine="true"
+            android:textAppearance="@style/regular16_font"
             android:textColor="@color/black.universal"
             android:textColorHint="@color/all_filters_sum_hint"
             android:textCursorDrawable="@color/blue" />
@@ -186,11 +192,11 @@
             style="@style/regular16_font"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_margin="@dimen/margin"
             android:layout_weight="1"
-            android:layout_gravity="center"
-            android:textColor="@color/black"
-            android:text="@string/filter_without_salary" />
+            android:text="@string/filter_without_salary"
+            android:textColor="@color/black" />
 
         <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/filter_function_checkbox"
@@ -198,8 +204,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginEnd="9dp"
-            android:theme="@style/checkBoxStyle"
-            android:checked="false"/>
+            android:checked="false"
+            android:theme="@style/checkBoxStyle" />
 
     </LinearLayout>
 
@@ -208,10 +214,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible">
 
         <TextView
             android:id="@+id/filter_function_apply"
@@ -226,29 +232,29 @@
             android:text="@string/filter_apply"
             android:textColor="@color/white.universal"
             android:visibility="gone"
-            tools:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/filter_function_remove"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_goneMarginBottom="@dimen/l_margin"/>
+            app:layout_goneMarginBottom="@dimen/l_margin"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/filter_function_remove"
             style="@style/medium16_font"
             android:layout_width="match_parent"
             android:layout_height="@dimen/fragment_default_item_height"
+            android:layout_gravity="center"
             android:layout_marginStart="@dimen/margin"
             android:layout_marginEnd="@dimen/margin"
-            android:layout_gravity="center"
             android:layout_marginBottom="@dimen/l_margin"
-            android:text="@string/filter_remove"
             android:gravity="center"
+            android:text="@string/filter_remove"
             android:textColor="@color/red"
             android:visibility="gone"
-            tools:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="visible" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
