@@ -43,24 +43,6 @@ class IndustriesFragment : Fragment() {
 
     private var filterJob: Job? = null
 
-    private fun showIndustriesWithoutSelectButton() {
-        binding.industriesRecyclerView.visibility = View.VISIBLE
-        binding.industriesFilterApply.visibility = View.GONE
-        binding.getIndustriesErrorFrame.visibility = View.GONE
-    }
-
-    private fun showIndustriesWithSelectButton() {
-        binding.industriesRecyclerView.visibility = View.VISIBLE
-        binding.industriesFilterApply.visibility = View.VISIBLE
-        binding.getIndustriesErrorFrame.visibility = View.GONE
-    }
-
-    private fun showGetIndustriesError() {
-        binding.industriesRecyclerView.visibility = View.GONE
-        binding.industriesFilterApply.visibility = View.GONE
-        binding.getIndustriesErrorFrame.visibility = View.VISIBLE
-    }
-
     private fun resetFilter() {
         filterJob?.cancel()
         showIndustriesWithoutSelectButton()
@@ -70,6 +52,7 @@ class IndustriesFragment : Fragment() {
 
         recyclerView?.adapter?.notifyDataSetChanged()
         recyclerView?.scrollToPosition(0)
+
     }
 
     private fun filterTextInputDebounced() {
@@ -98,6 +81,9 @@ class IndustriesFragment : Fragment() {
                 filteredData[0].selected = true
                 oldSelectedItem = 0
                 showIndustriesWithSelectButton()
+            }
+            if (filteredData.size == 0) {
+                showEmpty(getString(R.string.no_such_industry))
             }
             recyclerView?.adapter?.notifyDataSetChanged()
         } else {
@@ -172,7 +158,7 @@ class IndustriesFragment : Fragment() {
         textInput!!.setText("")
         // не устанавливаются иконки ??? fix=принудительно запускать addTextChangedListener
 
-        recyclerView = binding.industriesRecyclerView
+        recyclerView = binding.recyclerView
         recyclerView?.layoutManager = LinearLayoutManager(context)
         recyclerView?.adapter = IndustriesRecyclerViewAdapter(filteredData).apply {
             industryNumberClicked = { newSelectedItem ->
@@ -196,9 +182,6 @@ class IndustriesFragment : Fragment() {
 
         viewModel.getState().observe(viewLifecycleOwner) { state ->
             when (state) {
-                is IndustriesState.GetIndustriesError -> {
-                    showGetIndustriesError()
-                }
 
                 is IndustriesState.IndustriesList -> {
                     originalData.clear()
@@ -221,14 +204,55 @@ class IndustriesFragment : Fragment() {
                     (requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)
                         ?.showSoftInput(textInput, 0)
                 }
+
+                is IndustriesState.Empty -> showEmpty(getString(state.message))
+                is IndustriesState.Error -> showError(getString(state.errorMessage))
+                is IndustriesState.Loading -> showLoading()
             }
         }
-
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun showIndustriesWithoutSelectButton() {
+        binding.recyclerView.visibility = View.VISIBLE
+        binding.industriesFilterApply.visibility = View.GONE
+        binding.errorContainer.visibility = View.GONE
+        binding.progressBar.visibility = View.GONE
+    }
+
+    private fun showIndustriesWithSelectButton() {
+        binding.recyclerView.visibility = View.VISIBLE
+        binding.industriesFilterApply.visibility = View.VISIBLE
+        binding.errorContainer.visibility = View.GONE
+        binding.progressBar.visibility = View.GONE
+    }
+
+    private fun showLoading() {
+        binding.recyclerView.visibility = View.GONE
+        binding.errorContainer.visibility = View.GONE
+        binding.progressBar.visibility = View.VISIBLE
+    }
+
+    private fun showError(errorMessage: String) {
+        binding.recyclerView.visibility = View.GONE
+        binding.industriesFilterApply.visibility = View.GONE
+        binding.errorContainer.visibility = View.VISIBLE
+        binding.errorImageView.setImageResource(R.drawable.state_image_error_get_list)
+        binding.errorTextView.text = errorMessage
+        binding.progressBar.visibility = View.GONE
+    }
+
+    private fun showEmpty(message: String) {
+        binding.recyclerView.visibility = View.GONE
+        binding.industriesFilterApply.visibility = View.GONE
+        binding.errorContainer.visibility = View.VISIBLE
+        binding.errorImageView.setImageResource(R.drawable.state_image_nothing_found)
+        binding.errorTextView.text = message
+        binding.progressBar.visibility = View.GONE
     }
 
     private companion object {

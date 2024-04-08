@@ -54,9 +54,16 @@ class RegionViewModel(
         }
     }
 
-    private fun processResult(industriesDetail: Country?, errorMessage: Int?) {
+    // Поправить логику выполнения, вывод ошибок при загрузке
+    private fun processResult(regionList: Country?, errorMessage: Int?) {
         when {
             errorMessage != null -> {
+                renderState(
+                    RegionState.Error(
+                        errorMessage = R.string.server_error
+                    )
+                )
+
                 if (errorMessage == -1) {
                     renderState(
                         RegionState.Error(
@@ -70,13 +77,14 @@ class RegionViewModel(
                         )
                     )
                 }
+
             }
 
             else -> {
-                if (industriesDetail != null) {
+                if (regionList != null) {
                     renderState(
                         RegionState.Content(
-                            regionId = industriesDetail
+                            regionId = regionList
                         )
                     )
                 } else {

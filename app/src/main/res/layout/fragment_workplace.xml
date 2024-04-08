@@ -12,17 +12,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/back_icon"
-        app:title="@string/filter_choosing_place_to_work"
-        app:titleTextAppearance="@style/medium22_font" />
+        app:titleTextAppearance="@style/medium22_font" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/medium22_font"
+            android:text="@string/filter_choosing_place_to_work"
+            android:textColor="@color/black" />
+
+    </com.google.android.material.appbar.MaterialToolbar>
 
     <LinearLayout
         android:id="@+id/workplace_count"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/fragment_default_item_height"
         android:layout_marginTop="@dimen/dimen_22"
         android:layout_weight="1"
         android:orientation="horizontal"
-        android:padding="@dimen/margin"
+        android:paddingStart="@dimen/margin"
+        android:paddingEnd="@dimen/margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/workplace_toolbar">
@@ -31,6 +40,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_gravity="center"
             android:orientation="vertical">
 
             <TextView
@@ -40,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:padding="2dp"
                 android:text="@string/filter_count"
-                android:textColor="@color/text_black_white"
+                android:textColor="@color/grey"
                 android:visibility="gone" />
 
             <TextView
@@ -65,10 +75,11 @@
     <LinearLayout
         android:id="@+id/workplace_region"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/fragment_default_item_height"
         android:layout_weight="1"
         android:orientation="horizontal"
-        android:padding="@dimen/margin"
+        android:paddingStart="@dimen/margin"
+        android:paddingEnd="@dimen/margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/workplace_count">
@@ -77,6 +88,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_gravity="center"
             android:orientation="vertical">
 
             <TextView
@@ -86,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:padding="2dp"
                 android:text="@string/filter_region"
-                android:textColor="@color/text_black_white"
+                android:textColor="@color/grey"
                 android:visibility="gone" />
 
             <TextView

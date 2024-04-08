@@ -13,8 +13,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/vacancy_search"
-        app:titleTextAppearance="@style/medium22_font" />
+        app:titleTextAppearance="@style/medium22_font">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/medium22_font"
+            android:text="@string/vacancy_search"
+            android:textColor="@color/black" />
+
+    </com.google.android.material.appbar.MaterialToolbar>
 
     <ImageView
         android:id="@+id/search_filter"
