@@ -23,7 +23,11 @@ class WorkplaceFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    @Suppress("detekt:LongMethod")
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.countryState.observe(viewLifecycleOwner) { country ->

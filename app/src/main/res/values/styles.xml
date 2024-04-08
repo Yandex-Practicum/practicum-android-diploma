@@ -52,5 +52,8 @@
         <item name="boxStrokeWidthFocused">0dp</item>
     </style>
 
+    <style name="radio_button" parent="Widget.MaterialComponents.CompoundButton.RadioButton">
+        <item name="buttonTint">@color/blue</item>
+    </style>
 
 </resources>
