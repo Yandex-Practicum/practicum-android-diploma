@@ -26,7 +26,6 @@ val interactorModule = module {
         RegionInteractorImpl(get())
     }
 
-
     single<SearchPagingRepository> {
         SearchPagingRepositoryImpl(get())
     }
@@ -34,5 +33,4 @@ val interactorModule = module {
     factory<IndustriesInteractor> {
         IndustriesInteractorImpl(get())
     }
-    
 }

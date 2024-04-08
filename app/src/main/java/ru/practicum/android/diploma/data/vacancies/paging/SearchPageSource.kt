@@ -5,6 +5,7 @@ import androidx.paging.PagingState
 import ru.practicum.android.diploma.domain.api.search.VacanciesSearchRepository
 import ru.practicum.android.diploma.domain.models.vacacy.Vacancy
 import ru.practicum.android.diploma.domain.models.vacacy.VacancyResponse
+import java.net.SocketTimeoutException
 
 class SearchPageSource(
     private val vacancySearchRepository: VacanciesSearchRepository,
@@ -23,7 +24,7 @@ class SearchPageSource(
             var response: Pair<VacancyResponse?, String?>? = null
             vacancySearchRepository.getVacancies(query, page).collect { response = it }
             if (response?.first != null) {
-                val vacancyResponse = (response?.first as VacancyResponse)
+                val vacancyResponse = response?.first as VacancyResponse
 
                 val nextKey = if (vacancyResponse.pages > vacancyResponse.page) page + 1 else null
                 val prevKey = if (page == 1) null else page - 1
@@ -32,7 +33,7 @@ class SearchPageSource(
             } else {
                 LoadResult.Error(Exception("No internet"))
             }
-        } catch (e: Exception) {
+        } catch (e: SocketTimeoutException) {
             LoadResult.Error(e)
         }
 

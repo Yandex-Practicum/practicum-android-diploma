@@ -23,8 +23,8 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.domain.models.vacacy.Vacancy
 import ru.practicum.android.diploma.ui.details.DetailsFragment
-import ru.practicum.android.diploma.ui.search.recycler.ReposLoadStateAdapter
 import ru.practicum.android.diploma.ui.search.recycler.VacancyAdapter
+import ru.practicum.android.diploma.ui.search.recycler.VacancyLoaderStateAdapter
 
 class SearchFragment : Fragment() {
 
@@ -119,8 +119,8 @@ class SearchFragment : Fragment() {
     private fun bindVacancyAdapter() {
         binding.rvVacancy.adapter =
             vacancyAdapter.withLoadStateHeaderAndFooter(
-                header = ReposLoadStateAdapter(),
-                footer = ReposLoadStateAdapter()
+                header = VacancyLoaderStateAdapter(),
+                footer = VacancyLoaderStateAdapter()
             )
     }
 

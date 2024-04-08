@@ -8,7 +8,7 @@ import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.databinding.VacancyLoadStateBinding
 
-class ReposLoadStateAdapter : LoadStateAdapter<ReposLoadStateAdapter.ViewHolder>() {
+class VacancyLoaderStateAdapter : LoadStateAdapter<VacancyLoaderStateAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, loadState: LoadState) = holder.bind(loadState)
 
