@@ -121,11 +121,11 @@
         app:layout_constraintTop_toBottomOf="@id/filter_industries">
 
         <TextView
-            android:id="@+id/expected_salary"
+            android:id="@+id/filter_expected_salary"
             style="@style/regular12_font"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/filter_expected_salary"
+            android:text="@string/filter_expected_salary"
             android:paddingStart="@dimen/margin"
             android:paddingTop="8dp"
             android:textColor="@color/black" />
@@ -182,7 +182,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:buttonTint="@color/blue" />
+            android:button="@drawable/cb_selector_filter"
+            android:buttonTint="@color/blue"
+            android:checked="false"/>
 
     </LinearLayout>
 
