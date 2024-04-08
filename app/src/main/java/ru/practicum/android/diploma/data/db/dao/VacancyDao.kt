@@ -16,9 +16,11 @@ interface VacancyDao {
     suspend fun deleteVacancy(vacancyId: String)
 
     @Query("SELECT * FROM favourites_table")
-    fun getVacancyList(): Flow<List<VacancyEntity>>
+    fun getVacancyList(): Flow<VacancyEntity>
 
     @Query("SELECT * FROM favourites_table WHERE id = :vacancyId LIMIT 1")
     suspend fun getVacancyById(vacancyId: String): VacancyEntity?
 
+    @Query("SELECT COUNT(*) FROM favourites_table WHERE id = :vacancyId")
+    suspend fun isVacancyFavorite(vacancyId: String): Int
 }
