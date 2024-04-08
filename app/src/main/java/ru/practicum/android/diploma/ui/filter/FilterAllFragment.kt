@@ -84,8 +84,9 @@ class FilterAllFragment : Fragment() {
                 binding.filterVisibleWorkplace.visibility = View.VISIBLE
 
                 viewModel.regionState.observe(viewLifecycleOwner) { region ->
-                    if (region != null)
+                    if (region != null) {
                         binding.filterTextWorkplace.text = country.countryName + ", " + region.regionName
+                    }
                 }
             } else {
                 binding.filterTextWorkplace.text = "Место работы"
