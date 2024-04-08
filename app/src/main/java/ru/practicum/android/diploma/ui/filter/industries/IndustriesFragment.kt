@@ -182,7 +182,6 @@ class IndustriesFragment : Fragment() {
 
         viewModel.getState().observe(viewLifecycleOwner) { state ->
             when (state) {
-
                 is IndustriesState.IndustriesList -> {
                     originalData.clear()
                     originalData.addAll(state.industries)
