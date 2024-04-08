@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:padding="2dp"
                 android:text="@string/filter_count"
-                android:textColor="@color/grey"
+                android:textColor="@color/black"
                 android:visibility="gone" />
 
             <TextView
@@ -98,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:padding="2dp"
                 android:text="@string/filter_region"
-                android:textColor="@color/grey"
+                android:textColor="@color/black"
                 android:visibility="gone" />
 
             <TextView
