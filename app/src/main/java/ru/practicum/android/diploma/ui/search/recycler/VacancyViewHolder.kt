@@ -6,10 +6,16 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.VacancyViewBinding
 import ru.practicum.android.diploma.domain.models.vacacy.Vacancy
 import ru.practicum.android.diploma.util.CurrencySymbol
+import java.text.NumberFormat
 
 class VacancyViewHolder(
     private val binding: VacancyViewBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
+
+    private val numberFormat: NumberFormat by lazy {
+        NumberFormat.getInstance()
+    }
+
 
     fun bind(vacancy: Vacancy?, onClick: (Vacancy?) -> Unit) = with(binding) {
         tvVacancyName.text = vacancy?.name
@@ -34,13 +40,13 @@ class VacancyViewHolder(
             salaryStringBuilder.append(itemView.context.getString(R.string.salary_not_specified))
         } else {
             if (vacancy.salary.from != null) {
-                salaryStringBuilder.append("${itemView.context.getString(R.string.from)} ${vacancy.salary.from}")
+                salaryStringBuilder.append("${itemView.context.getString(R.string.from)} ${numberFormat.format(vacancy.salary.from)}")
             }
             if (vacancy.salary.to != null) {
                 if (salaryStringBuilder.isNotEmpty()) {
                     salaryStringBuilder.append(" ")
                 }
-                salaryStringBuilder.append("${itemView.context.getString(R.string.to)} ${vacancy.salary.to}")
+                salaryStringBuilder.append("${itemView.context.getString(R.string.to)} ${numberFormat.format(vacancy.salary.to)}")
             }
 
             if (vacancy.salary.currency != null && (vacancy.salary.from != null || vacancy.salary.to != null)) {

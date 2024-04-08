@@ -27,12 +27,12 @@ class SearchViewModel(
         viewModelScope.launch {
             vacancySearchRepository.getVacancies(text, 1).collect {
                 if (it.first != null) {
-                    Log.e("searchFound()", (it.first as VacancyResponse).found.toString())
+                    Log.d("searchFound()", (it.first as VacancyResponse).found.toString())
                     stateLiveData.postValue((it.first as VacancyResponse).found)
                 }
             }
         }
-        Log.e("searchPading", text)
+        Log.d("searchPading", text)
         return searchPagingRepository.getSearchPaging(text).cachedIn(viewModelScope)
     }
 }
