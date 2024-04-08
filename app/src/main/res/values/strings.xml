@@ -33,6 +33,7 @@
 
     <string name="country_selection">Выбор страны</string>
     <string name="region_selection">Выбор региона</string>
+    <string name="industry_selection">Выбор отрасли</string>
     <string name="enter_region">Введите регион</string>
 
     <string name="vacancy_search">Поиск вакансий</string>
@@ -42,7 +43,7 @@
     <string name="check_internet_connection">Проверьте подключение к сети</string>
     <string name="retry">Повторить</string>
 
-    <string name="filter_all">Настрокий фильтрации</string>
+    <string name="filter_all">Настройки фильтрации</string>
     <string name="filter_count">Страна</string>
     <string name="filter_region">Регион</string>
     <string name="filter_workplace">Место работы</string>
@@ -64,6 +65,7 @@
     <string name="server_error">Ошибка сервера</string>
     <string name="nothing_found">Не удалось получить список</string>
     <string name="no_such_region">Такого региона нет</string>
+    <string name="no_such_industry">Такой отрасли нет</string>
 
     <plurals name="years_of_experience">
         <item quantity="zero">%1$d лет</item>

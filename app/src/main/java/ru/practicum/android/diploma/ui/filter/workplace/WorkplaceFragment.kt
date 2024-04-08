@@ -95,6 +95,10 @@ class WorkplaceFragment : Fragment() {
         binding.workplaceToolbar.setOnClickListener {
             findNavController().navigateUp()
         }
+
+        binding.workplaceToolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
     override fun onDestroyView() {

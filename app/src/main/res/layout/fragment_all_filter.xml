@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/filter_toolbar"
@@ -12,17 +13,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/back_icon"
-        app:title="@string/filter_all"
-        app:titleTextAppearance="@style/medium22_font" />
+        app:titleTextAppearance="@style/medium22_font">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/medium22_font"
+            android:text="@string/filter_all"
+            android:textColor="@color/black" />
+
+    </com.google.android.material.appbar.MaterialToolbar>
 
     <LinearLayout
         android:id="@+id/filter_workplace"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_22"
+        android:layout_height="@dimen/fragment_default_item_height"
+        android:layout_marginTop="@dimen/margin"
         android:layout_weight="1"
         android:orientation="horizontal"
-        android:padding="@dimen/margin"
+        android:paddingStart="@dimen/margin"
+        android:paddingEnd="@dimen/margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/filter_toolbar">
@@ -31,6 +41,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_gravity="center"
             android:orientation="vertical">
 
             <TextView
@@ -39,8 +50,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="2dp"
-                android:text="@string/filter_count"
-                android:textColor="@color/text_black_white"
+                android:text="@string/filter_workplace"
+                android:textColor="@color/grey"
                 android:visibility="gone" />
 
             <TextView
@@ -65,10 +76,11 @@
     <LinearLayout
         android:id="@+id/filter_industries"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/fragment_default_item_height"
         android:layout_weight="1"
         android:orientation="horizontal"
-        android:padding="@dimen/margin"
+        android:paddingStart="@dimen/margin"
+        android:paddingEnd="@dimen/margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/filter_workplace">
@@ -77,6 +89,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_gravity="center"
             android:orientation="vertical">
 
             <TextView
@@ -86,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:padding="2dp"
                 android:text="@string/filter_industries"
-                android:textColor="@color/text_black_white"
+                android:textColor="@color/grey"
                 android:visibility="gone" />
 
             <TextView
@@ -113,7 +126,7 @@
         android:layout_width="match_parent"
         android:layout_height="51dp"
         android:layout_marginHorizontal="@dimen/margin"
-        android:layout_marginTop="@dimen/dimen_22"
+        android:layout_marginTop="@dimen/l_margin"
         android:background="@drawable/rounded_edittext"
         android:backgroundTint="@color/light_grey"
         app:layout_constraintEnd_toEndOf="parent"
@@ -163,18 +176,20 @@
     <LinearLayout
         android:id="@+id/filter_without_salaries"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_22"
+        android:layout_height="@dimen/fragment_default_item_height"
+        android:layout_marginTop="@dimen/l_margin"
         android:layout_weight="1"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@id/filter_sum_salary">
 
         <TextView
             style="@style/regular16_font"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"
             android:layout_weight="1"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
             android:text="@string/filter_without_salary" />
 
         <CheckBox
@@ -193,7 +208,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="visible"
+        tools:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -202,27 +217,35 @@
             android:id="@+id/filter_function_apply"
             style="@style/medium16_font"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="@dimen/fragment_default_item_height"
             android:layout_marginStart="@dimen/margin"
             android:layout_marginEnd="@dimen/margin"
-            android:layout_marginBottom="@dimen/xl_margin"
+            android:layout_marginBottom="@dimen/xs_margin"
             android:background="@drawable/filter_button_rounded"
             android:gravity="center"
             android:text="@string/filter_apply"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toTopOf="@+id/remove"
+            android:textColor="@color/white.universal"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/filter_function_remove"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_goneMarginBottom="@dimen/l_margin"/>
 
         <TextView
             android:id="@+id/filter_function_remove"
             style="@style/medium16_font"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/fragment_default_item_height"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginEnd="@dimen/margin"
             android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/xl_margin"
+            android:layout_marginBottom="@dimen/l_margin"
             android:text="@string/filter_remove"
+            android:gravity="center"
             android:textColor="@color/red"
+            android:visibility="gone"
+            tools:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
