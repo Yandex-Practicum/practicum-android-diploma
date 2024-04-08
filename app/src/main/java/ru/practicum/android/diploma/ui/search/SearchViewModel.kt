@@ -1,47 +1,40 @@
 package ru.practicum.android.diploma.ui.search
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.search.SearchPagingRepository
+import ru.practicum.android.diploma.domain.api.search.VacanciesSearchRepository
+import ru.practicum.android.diploma.domain.models.vacacy.Vacancy
+import ru.practicum.android.diploma.domain.models.vacacy.VacancyResponse
 
 class SearchViewModel(
-    //private val vacancySearchRepository: VacanciesSearchRepository
+    private val vacancySearchRepository: VacanciesSearchRepository,
     private val searchPagingRepository: SearchPagingRepository
 ) : ViewModel() {
 
-    private val stateLiveData = MutableLiveData<SearchViewState>()
+    private val stateLiveData = MutableLiveData<Int>()
 
-    fun observeState(): LiveData<SearchViewState> = stateLiveData
+    fun observeState(): LiveData<Int> = stateLiveData
 
-    fun search(text: String, page: Int) {
+
+
+    fun search(text: String): Flow<PagingData<Vacancy>> {
         viewModelScope.launch {
-            stateLiveData.postValue(SearchViewState.Loading)
-            searchPagingRepository.getSearchPaging(text).cachedIn(viewModelScope).collect {
-                stateLiveData.postValue(SearchViewState.Content(it, 0))
-            }
-        }
-    }
-
-    /*fun search(text: String, page: Int) {
-        viewModelScope.launch {
-            stateLiveData.postValue(SearchViewState.Loading)
-            vacancySearchRepository.getVacancies(text, page).collect {
+            vacancySearchRepository.getVacancies(text, 1).collect {
                 if (it.first != null) {
-                    val response = (it.first as VacancyResponse)
-                    if (response.items.isEmpty()) {
-                        stateLiveData.postValue(SearchViewState.EmptyVacancies)
-                    } else {
-                        stateLiveData.postValue(SearchViewState.Content(response.items, response.found))
-                    }
-
-                } else if (it.second != null) {
-                    stateLiveData.postValue(SearchViewState.NoInternet)
+                    Log.e("searchFound()", (it.first as VacancyResponse).found.toString())
+                    stateLiveData.postValue((it.first as VacancyResponse).found)
                 }
             }
         }
-    }*/
+        Log.e("searchPading", text)
+        return searchPagingRepository.getSearchPaging(text).cachedIn(viewModelScope)
+    }
 }

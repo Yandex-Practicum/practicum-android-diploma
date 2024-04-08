@@ -33,6 +33,8 @@
     <string name="enter_request">Введите запрос</string>
     <string name="no_internet">Нет интернета</string>
     <string name="no_vacancy">Не удалось получить список вакансий</string>
+    <string name="check_internet_connection">Проверьте подключение к сети</string>
+    <string name="retry">Повторить</string>
 
     <string name="filter_all">Настрокий фильтрации</string>
     <string name="filter_count">Страна</string>

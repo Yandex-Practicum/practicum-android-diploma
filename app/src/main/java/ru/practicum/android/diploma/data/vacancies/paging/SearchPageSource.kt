@@ -11,39 +11,30 @@ class SearchPageSource(
     private val query: String,
 ) : PagingSource<Int, Vacancy>() {
     override fun getRefreshKey(state: PagingState<Int, Vacancy>): Int? {
-        val anchorPosition = state.anchorPosition ?: return null
-        val page = state.closestPageToPosition(anchorPosition) ?: return null
-        return page.prevKey?.plus(1) ?: page.nextKey?.minus(1)
+        return state.anchorPosition?.let { anchorPosition ->
+            state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
+                ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
+        }
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Vacancy> {
-        if (query.isEmpty()) {
-            return LoadResult.Page(emptyList(), null, null)
-        }
-        val page: Int = params.key ?: 1
-
-        var response: Pair<VacancyResponse?, String?>? = null
-        vacancySearchRepository.getVacancies(query, page).collect { response = it }
-
-        if (response?.first != null) {
-            val responseVacancy = (response?.first as VacancyResponse)
-            if (responseVacancy.items.isEmpty()) {
-                return LoadResult.Error(Exception("Empty"))
-                //stateLiveData.postValue(SearchViewState.EmptyVacancies)
-            } else {
+        return try {
+            val page: Int = params.key ?: 1
+            var response: Pair<VacancyResponse?, String?>? = null
+            vacancySearchRepository.getVacancies(query, page).collect { response = it }
+            if (response?.first != null) {
                 val vacancyResponse = (response?.first as VacancyResponse)
 
-                var nextKey = if (vacancyResponse.pages > vacancyResponse.page) page + 1 else null
+                val nextKey = if (vacancyResponse.pages > vacancyResponse.page) page + 1 else null
                 val prevKey = if (page == 1) null else page - 1
-                return LoadResult.Page(vacancyResponse.items, prevKey, nextKey)
-                //stateLiveData.postValue(SearchViewState.Content(vacancyResponse.items, vacancyResponse.found))
+                LoadResult.Page(vacancyResponse.items, prevKey, nextKey)
+
+            } else {
+                LoadResult.Error(Exception("No internet"))
             }
-
-        } else {
-            return LoadResult.Error(Exception(response?.second))
-            //stateLiveData.postValue(SearchViewState.NoInternet)
+        } catch (e: Exception) {
+            LoadResult.Error(e)
         }
-
 
     }
 }
