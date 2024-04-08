@@ -42,12 +42,12 @@ class FilterAllFragment : Fragment() {
 
             if (s?.isNotEmpty() == true) {
                 binding.filterExpectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
-                binding.filterTextSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                binding.filterTextSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_universal))
                 binding.filterSalaryClear.visibility = View.VISIBLE
                 binding.filterFunctionButton.visibility = View.VISIBLE
             } else {
-                binding.filterExpectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey))
-                binding.filterTextSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey))
+                binding.filterExpectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.all_filters_sum_hint))
+                binding.filterTextSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.all_filters_sum_hint))
                 binding.filterSalaryClear.visibility = View.GONE
             }
         }
@@ -131,14 +131,14 @@ class FilterAllFragment : Fragment() {
             if (salarySum?.salary?.isNotEmpty() == true) {
                 filterExpectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
                 filterTextSalary.setText(salarySum.salary)
-                filterTextSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                filterTextSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_universal))
                 filterSalaryClear.visibility = View.VISIBLE
                 filterSalaryClear.isClickable = true
                 filterFunctionButton.visibility = View.VISIBLE
             } else {
-                filterExpectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey))
+                filterExpectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.all_filters_sum_hint))
                 filterTextSalary.setText("")
-                filterTextSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey))
+                filterTextSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_universal))
                 filterSalaryClear.visibility = View.GONE
             }
         }

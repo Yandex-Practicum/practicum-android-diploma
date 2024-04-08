@@ -128,7 +128,7 @@
         android:layout_marginHorizontal="@dimen/margin"
         android:layout_marginTop="@dimen/l_margin"
         android:background="@drawable/rounded_edittext"
-        android:backgroundTint="@color/light_grey"
+        android:backgroundTint="@color/search_bar_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/filter_industries">
@@ -141,11 +141,11 @@
             android:text="@string/filter_expected_salary"
             android:paddingStart="@dimen/margin"
             android:paddingTop="8dp"
-            android:textColor="@color/black" />
+            android:textColor="@color/all_filters_sum_hint" />
 
         <EditText
             android:id="@+id/filter_text_salary"
-            style="@style/regular16_font"
+            android:textAppearance="@style/regular16_font"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
@@ -157,8 +157,8 @@
             android:paddingStart="16dp"
             android:paddingTop="16dp"
             android:singleLine="true"
-            android:textColor="@color/black"
-            android:textColorHint="@color/grey"
+            android:textColor="@color/black.universal"
+            android:textColorHint="@color/all_filters_sum_hint"
             android:textCursorDrawable="@color/blue" />
 
         <ImageView
@@ -169,7 +169,7 @@
             android:layout_marginEnd="@dimen/margin"
             android:visibility="gone"
             app:srcCompat="@drawable/ic_close_24px"
-            app:tint="@color/black" />
+            app:tint="@color/black.universal" />
 
     </FrameLayout>
 
@@ -192,13 +192,13 @@
             android:textColor="@color/black"
             android:text="@string/filter_without_salary" />
 
-        <CheckBox
+        <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/filter_function_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:button="@drawable/cb_selector_filter"
-            android:buttonTint="@color/blue"
+            android:layout_marginEnd="9dp"
+            android:theme="@style/checkBoxStyle"
             android:checked="false"/>
 
     </LinearLayout>

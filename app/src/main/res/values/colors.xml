@@ -17,5 +17,7 @@
     <!--та же история с hint , в дизайне цветов это не отражено...-->
     <color name="search_bar_hint">#AEAFB4</color>
 
+    <color name="all_filters_sum_hint">#AEAFB4</color>
+
     <color name="text_black_white">#49454F</color>
 </resources>
