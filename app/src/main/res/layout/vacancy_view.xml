@@ -22,8 +22,8 @@
             android:id="@+id/iv_logo"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:scaleType="center"
             android:background="@color/white"
+            android:scaleType="center"
             android:src="@drawable/logo_placeholder" />
 
     </com.google.android.material.card.MaterialCardView>
@@ -38,6 +38,7 @@
         android:layout_marginEnd="@dimen/margin"
         android:ellipsize="end"
         android:maxLines="3"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cv_picture"
         app:layout_constraintTop_toTopOf="parent"
@@ -50,6 +51,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/tv_vacancy_name"
         app:layout_constraintStart_toStartOf="@+id/tv_vacancy_name"
         app:layout_constraintTop_toBottomOf="@+id/tv_vacancy_name"
@@ -63,6 +65,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:paddingBottom="@dimen/xs_margin"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/tv_vacancy_name"
         app:layout_constraintStart_toStartOf="@+id/tv_vacancy_name"
         app:layout_constraintTop_toBottomOf="@+id/tv_vacancy_type"
