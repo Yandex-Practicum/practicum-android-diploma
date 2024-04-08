@@ -70,6 +70,9 @@ dependencies {
     // Paging3
     implementation(libs.paging.runtime)
 
+    // Peko
+    implementation(libs.peko)
+
     // Json
     implementation(libs.kotlinx.serialization.json)
 

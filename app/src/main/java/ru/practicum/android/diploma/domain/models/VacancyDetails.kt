@@ -13,5 +13,6 @@ data class VacancyDetails(
     val experience: String?,
     val employment: String?,
     val description: String,
-    val contacts: Contacts?
+    val contacts: Contacts?,
+    val link: String
 )

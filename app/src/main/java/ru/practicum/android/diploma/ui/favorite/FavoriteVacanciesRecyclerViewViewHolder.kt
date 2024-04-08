@@ -9,7 +9,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.vacacy.Vacancy
 
-class FavoriteFragmentRecyclerViewViewHolder(
+class FavoriteVacanciesRecyclerViewViewHolder(
     itemView: View,
     private val vacancyClicked: (Vacancy) -> Unit
 ) : RecyclerView.ViewHolder(itemView) {

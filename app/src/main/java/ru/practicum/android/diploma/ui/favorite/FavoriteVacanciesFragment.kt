@@ -11,9 +11,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.FragmentFavoriteBinding
 import ru.practicum.android.diploma.domain.models.vacacy.Vacancy
 
-class FavoriteFragment : Fragment() {
+class FavoriteVacanciesFragment : Fragment() {
 
-    private val viewModel by viewModel<FavoriteViewModel>()
+    private val viewModel by viewModel<FavoriteVacanciesViewModel>()
 
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
@@ -49,26 +49,26 @@ class FavoriteFragment : Fragment() {
 
         recyclerView = binding.favoriteItemsRecyclerView
         recyclerView?.layoutManager = LinearLayoutManager(context)
-        recyclerView?.adapter = FavoriteFragmentRecyclerViewAdapter(data).apply {
+        recyclerView?.adapter = FavoriteVacanciesRecyclerViewAdapter(data).apply {
             vacancyClicked = {
                 // передача :Vacancy в фрагмент ДеталиВакансии
             }
         }
 
-        viewModel.getState().observe(viewLifecycleOwner) {
-            when (it) {
-                is FavoriteUpdate.EmptyVacancyList -> {
+        viewModel.getState().observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is FavoriteVacanciesState.EmptyVacancyList -> {
                     showEmptyVacancyList()
                 }
 
-                is FavoriteUpdate.GetVacanciesError -> {
+                is FavoriteVacanciesState.GetVacanciesError -> {
                     showGetVacanciesError()
                 }
 
-                is FavoriteUpdate.VacancyList -> {
+                is FavoriteVacanciesState.VacancyList -> {
                     showVacancyList()
                     data.clear()
-                    data.addAll(it.vacancies)
+                    data.addAll(state.vacancies)
                     recyclerView?.adapter?.notifyDataSetChanged()
                 }
             }
