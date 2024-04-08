@@ -19,6 +19,8 @@ class SearchViewModel(
     private val searchPagingRepository: SearchPagingRepository
 ) : ViewModel() {
 
+    var isCrossPressed = false
+    var lastQuery = ""
     private val foundLiveData = MutableLiveData<Int>()
 
     fun observeState(): LiveData<Int> = foundLiveData
