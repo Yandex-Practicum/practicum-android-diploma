@@ -16,7 +16,6 @@ class VacancyViewHolder(
         NumberFormat.getInstance()
     }
 
-
     fun bind(vacancy: Vacancy?, onClick: (Vacancy?) -> Unit) = with(binding) {
         tvVacancyName.text = vacancy?.name
         tvVacancyType.text = vacancy?.type?.name
@@ -35,24 +34,51 @@ class VacancyViewHolder(
 
     private fun makeSalaryString(vacancy: Vacancy?): StringBuilder {
         val salaryStringBuilder = StringBuilder()
-
         if (vacancy?.salary?.from == null && vacancy?.salary?.to == null) {
             salaryStringBuilder.append(itemView.context.getString(R.string.salary_not_specified))
         } else {
-            if (vacancy.salary.from != null) {
-                salaryStringBuilder.append("${itemView.context.getString(R.string.from)} ${numberFormat.format(vacancy.salary.from)}")
-            }
-            if (vacancy.salary.to != null) {
-                if (salaryStringBuilder.isNotEmpty()) {
-                    salaryStringBuilder.append(" ")
-                }
-                salaryStringBuilder.append("${itemView.context.getString(R.string.to)} ${numberFormat.format(vacancy.salary.to)}")
-            }
+            salaryStringBuilder.appendSalaryBuilderFrom(vacancy)
+            salaryStringBuilder.appendSalaryBuilderTo(vacancy)
 
             if (vacancy.salary.currency != null && (vacancy.salary.from != null || vacancy.salary.to != null)) {
                 salaryStringBuilder.append(" ${CurrencySymbol.get(vacancy.salary.currency)}")
             }
         }
         return salaryStringBuilder
+    }
+
+    private fun StringBuilder.appendSalaryBuilderFrom(vacancy: Vacancy) {
+        if (vacancy.salary?.from != null) {
+            append(
+                "${
+                    itemView.context.getString(
+                        R.string.from
+                    )
+                } ${
+                    numberFormat.format(
+                        vacancy.salary.from
+                    )
+                }"
+            )
+        }
+    }
+
+    private fun StringBuilder.appendSalaryBuilderTo(vacancy: Vacancy) {
+        if (vacancy.salary?.to != null) {
+            if (isNotEmpty()) {
+                append(" ")
+            }
+            append(
+                "${
+                    itemView.context.getString(
+                        R.string.to
+                    )
+                } ${
+                    numberFormat.format(
+                        vacancy.salary.to
+                    )
+                }"
+            )
+        }
     }
 }
