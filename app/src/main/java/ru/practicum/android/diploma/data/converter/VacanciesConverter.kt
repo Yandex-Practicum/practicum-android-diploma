@@ -5,7 +5,7 @@ import ru.practicum.android.diploma.domain.models.vacacy.Vacancy
 
 object VacanciesConverter {
 
-    fun Vacancy.convert():VacancyEntity{
+    /*fun Vacancy.convert():VacancyEntity{
         return VacancyEntity(
             id = this.id,
             url = this.employer?.logoUrls ?: "",
@@ -13,6 +13,6 @@ object VacanciesConverter {
             area = area.name
 
         )
-    }
+    }*/
 
 }
