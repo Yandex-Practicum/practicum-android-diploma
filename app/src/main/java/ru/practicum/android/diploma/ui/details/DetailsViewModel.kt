@@ -15,6 +15,8 @@ import ru.practicum.android.diploma.domain.api.details.VacancyDetailsInteractor
 import ru.practicum.android.diploma.domain.models.VacancyDetails
 import ru.practicum.android.diploma.domain.models.vacacy.Salary
 import ru.practicum.android.diploma.domain.sharing.ExternalNavigator
+import ru.practicum.android.diploma.util.CurrencySymbol
+
 
 class DetailsViewModel(
     private val interactor: VacancyDetailsInteractor,
@@ -104,7 +106,7 @@ class DetailsViewModel(
         var text = ""
         val from = salary.from
         val to = salary.to
-        val currency = salary.currency
+        val currency = CurrencySymbol.get(salary.currency)
 
         if (from != null) {
             text += "${context.getString(R.string.from)} ${formatPrice(from.toString())} "
