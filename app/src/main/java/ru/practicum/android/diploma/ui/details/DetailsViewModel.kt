@@ -47,6 +47,8 @@ class DetailsViewModel(
                 }
             } catch (e: VacancyDetailsException) {
                 stateLiveData.postValue(DetailsViewState.Error)
+            } catch (e: Exception) {
+                //
             }
         }
     }
