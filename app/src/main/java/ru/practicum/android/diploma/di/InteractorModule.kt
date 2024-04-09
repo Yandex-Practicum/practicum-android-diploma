@@ -13,7 +13,7 @@ import ru.practicum.android.diploma.domain.region.impl.RegionInteractorImpl
 val interactorModule = module {
 
     factory<VacancyDetailsInteractor> {
-        VacancyDetailsInteractorImpl(get())
+        VacancyDetailsInteractorImpl(get(), get())
     }
 
     single<CountryInteractor> {

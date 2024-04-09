@@ -52,6 +52,9 @@ class DetailsFragment : Fragment() {
         binding.contactPhoneTextView.setOnClickListener {
             viewModel.call(requireContext())
         }
+        binding.favoriteIcon.setOnClickListener{
+            viewModel.favoriteIconClicked()
+        }
     }
 
     private fun setUpObservers() {
@@ -98,6 +101,18 @@ class DetailsFragment : Fragment() {
 
                 binding.progressBar.isVisible = false
                 binding.scrollView.isVisible = true
+
+                checkIsVacancyFavorite()
+            }
+
+            is DetailsViewState.IsVacancyFavorite -> {
+                if(state.isFavorite){
+                    binding.iconIsFavorite.visibility = View.VISIBLE
+                    binding.iconIsNotFavorite.visibility = View.INVISIBLE
+                }else{
+                    binding.iconIsFavorite.visibility = View.INVISIBLE
+                    binding.iconIsNotFavorite.visibility = View.VISIBLE
+                }
             }
         }
     }
@@ -112,6 +127,11 @@ class DetailsFragment : Fragment() {
             container?.isVisible = true
         }
     }
+
+    private fun checkIsVacancyFavorite(){
+        viewModel.isVacancyFavorite()
+    }
+
 
     companion object {
         const val vacancyIdKey = "vacancyDetails.id.key"

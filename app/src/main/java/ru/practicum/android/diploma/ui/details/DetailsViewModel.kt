@@ -60,9 +60,11 @@ class DetailsViewModel(
                             externalNavigator.call(phone)
                         }
                     }
+
                     is PermissionResult.Denied.DeniedPermanently -> {
                         externalNavigator.openApplicationSettings()
                     }
+
                     is PermissionResult.Denied.NeedsRationale -> {
                         Toast.makeText(
                             context,
@@ -70,6 +72,7 @@ class DetailsViewModel(
                             Toast.LENGTH_LONG
                         ).show()
                     }
+
                     is PermissionResult.Cancelled -> {}
                 }
             }
@@ -121,6 +124,36 @@ class DetailsViewModel(
     private fun formatPrice(price: String): String {
         return price.reversed().chunked(sizeOfMoneyPart).reversed().joinToString(" ") { it.reversed() }
     }
+
+    fun favoriteIconClicked() {
+        vacancyDetails?.let {
+            viewModelScope.launch {
+                if (interactor.isVacancyFavorite(vacancyDetails?.id ?: "")) {
+                    interactor.makeVacancyNormal(it.id)
+                    stateLiveData.postValue(
+                        DetailsViewState.IsVacancyFavorite(false)
+                    )
+                } else {
+                    interactor.makeVacancyFavorite(it)
+                    stateLiveData.postValue(
+                        DetailsViewState.IsVacancyFavorite(true)
+                    )
+                }
+            }
+
+        }
+    }
+
+    fun isVacancyFavorite() {
+        viewModelScope.launch {
+            stateLiveData.postValue(
+                DetailsViewState.IsVacancyFavorite(
+                    interactor.isVacancyFavorite(vacancyDetails?.id ?: "")
+                )
+            )
+        }
+    }
+
 
     companion object {
         const val sizeOfMoneyPart = 3

@@ -30,7 +30,7 @@ class FavoriteVacanciesRepositoryImpl(
     }
 
     override suspend fun isVacancyFavorite(vacancyId: String): Boolean {
-        return appDB.favoriteVacanciesDao().isVacancyFavorite(vacancyId) == 1
+        return appDB.favoriteVacanciesDao().isVacancyFavorite(vacancyId) > 0
     }
 
 }
