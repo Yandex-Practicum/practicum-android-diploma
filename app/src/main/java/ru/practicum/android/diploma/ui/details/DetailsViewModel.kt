@@ -46,12 +46,8 @@ class DetailsViewModel(
                     updateModel(it, fragment.requireContext())
                 }
             }
-            catch (e: Exception) {
-                if (e is VacancyDetailsException) {
-                    stateLiveData.postValue(DetailsViewState.Error)
-                } else {
-                    // Обработка других исключений, если необходимо
-                }
+            catch (e: VacancyDetailsException) {
+                stateLiveData.postValue(DetailsViewState.Error)
             }
         }
     }
