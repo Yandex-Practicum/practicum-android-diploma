@@ -71,7 +71,11 @@ class DetailsFragment : Fragment() {
                 binding.vacancyTitleTextView.text = state.name
                 setTextOrHide(state.salary, binding.salaryTextView)
                 setTextOrHide(state.companyName, binding.companyTitleTextView)
-                setTextOrHide(state.city, binding.companyCityTextView)
+                if (state.fullAddress.isNullOrEmpty()) {
+                    binding.companyCityTextView.text = state.areaName
+                } else {
+                    binding.companyCityTextView.text = state.fullAddress
+                }
                 setTextOrHide(state.experience, binding.experienceTextView, binding.experienceLinearLayout)
                 setTextOrHide(state.employment, binding.employmentTypeTextView)
                 setTextOrHide(state.contactName, binding.contactNameTextView, binding.contactNameContainerLinearLayout)
