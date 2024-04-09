@@ -65,6 +65,13 @@ class DetailsFragment : Fragment() {
             is DetailsViewState.Loading -> {
                 binding.progressBar.isVisible = true
                 binding.scrollView.isVisible = false
+                binding.errorContainer.isVisible = false
+            }
+
+            is DetailsViewState.Error -> {
+                binding.progressBar.isVisible = false
+                binding.scrollView.isVisible = false
+                binding.errorContainer.isVisible = true
             }
 
             is DetailsViewState.Content -> {
@@ -102,6 +109,7 @@ class DetailsFragment : Fragment() {
 
                 binding.progressBar.isVisible = false
                 binding.scrollView.isVisible = true
+                binding.errorContainer.isVisible = false
             }
         }
     }
