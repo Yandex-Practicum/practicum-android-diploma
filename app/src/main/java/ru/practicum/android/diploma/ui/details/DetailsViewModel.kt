@@ -70,9 +70,11 @@ class DetailsViewModel(
                             externalNavigator.call(phone)
                         }
                     }
+
                     is PermissionResult.Denied.DeniedPermanently -> {
                         externalNavigator.openApplicationSettings()
                     }
+
                     is PermissionResult.Denied.NeedsRationale -> {
                         Toast.makeText(
                             context,
@@ -80,6 +82,7 @@ class DetailsViewModel(
                             Toast.LENGTH_LONG
                         ).show()
                     }
+
                     is PermissionResult.Cancelled -> {}
                 }
             }
