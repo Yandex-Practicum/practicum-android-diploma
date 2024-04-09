@@ -73,8 +73,7 @@ class DetailsFragment : Fragment() {
                 setTextOrHide(state.companyName, binding.companyTitleTextView)
                 if (state.fullAddress.isNullOrEmpty()) {
                     binding.companyCityTextView.text = state.areaName
-                }
-                else {
+                } else {
                     binding.companyCityTextView.text = state.fullAddress
                 }
                 setTextOrHide(state.experience, binding.experienceTextView, binding.experienceLinearLayout)
