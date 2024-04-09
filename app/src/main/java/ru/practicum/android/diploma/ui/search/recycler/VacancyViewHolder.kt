@@ -7,8 +7,6 @@ import ru.practicum.android.diploma.databinding.VacancyViewBinding
 import ru.practicum.android.diploma.domain.models.vacacy.Vacancy
 import ru.practicum.android.diploma.util.CurrencySymbol
 import ru.practicum.android.diploma.util.SalaryFormatter
-import java.text.NumberFormat
-import java.util.Locale
 
 class VacancyViewHolder(
     private val binding: VacancyViewBinding,

@@ -18,7 +18,6 @@ import ru.practicum.android.diploma.domain.sharing.ExternalNavigator
 import ru.practicum.android.diploma.util.CurrencySymbol
 import ru.practicum.android.diploma.util.SalaryFormatter
 
-
 class DetailsViewModel(
     private val interactor: VacancyDetailsInteractor,
     private val externalNavigator: ExternalNavigator
