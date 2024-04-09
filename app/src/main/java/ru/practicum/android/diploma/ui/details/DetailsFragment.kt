@@ -97,7 +97,7 @@ class DetailsFragment : Fragment() {
                 Glide.with(binding.companyImageView)
                     .load(state.companyLogo)
                     .transform(RoundedCorners(cornerRadius))
-                    .placeholder(R.drawable.spiral)
+                    .placeholder(R.drawable.logo_placeholder)
                     .into(binding.companyImageView)
 
                 binding.progressBar.isVisible = false

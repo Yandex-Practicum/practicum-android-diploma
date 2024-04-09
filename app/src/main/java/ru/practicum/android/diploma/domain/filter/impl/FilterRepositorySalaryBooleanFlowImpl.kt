@@ -13,9 +13,9 @@ class FilterRepositorySalaryBooleanFlowImpl(
     private val salaryBooleanFlow: MutableStateFlow<SalaryBooleanShared?> =
         MutableStateFlow(sharedPreferences.loadSalaryBooleanState())
 
-    override fun setSalaryBooleanFlow(salaryBoolean: SalaryBooleanShared?) {
-        salaryBooleanFlow.value = salaryBoolean
-        sharedPreferences.saveSalaryBooleanState(salaryBoolean)
+    override fun setSalaryBooleanFlow(salary: SalaryBooleanShared?) {
+        salaryBooleanFlow.value = salary
+        sharedPreferences.saveSalaryBooleanState(salary)
     }
 
     override fun getSalaryBooleanFlow(): StateFlow<SalaryBooleanShared?> = salaryBooleanFlow

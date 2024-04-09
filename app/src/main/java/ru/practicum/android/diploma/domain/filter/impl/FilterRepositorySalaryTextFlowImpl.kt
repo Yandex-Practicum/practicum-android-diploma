@@ -13,9 +13,9 @@ class FilterRepositorySalaryTextFlowImpl(
     private val salaryTextFlow: MutableStateFlow<SalaryTextShared?> =
         MutableStateFlow(sharedPreferences.loadSalaryTextState())
 
-    override fun setSalaryTextFlow(salaryText: SalaryTextShared?) {
-        salaryTextFlow.value = salaryText
-        sharedPreferences.saveSalaryTextState(salaryText)
+    override fun setSalaryTextFlow(salary: SalaryTextShared?) {
+        salaryTextFlow.value = salary
+        sharedPreferences.saveSalaryTextState(salary)
     }
 
     override fun getSalaryTextFlow(): StateFlow<SalaryTextShared?> = salaryTextFlow

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -37,7 +38,7 @@ class WorkplaceFragment : Fragment() {
                 binding.workplaceVisibleCount.visibility = View.VISIBLE
                 binding.workplaceButtonApply.visibility = View.VISIBLE
             } else {
-                binding.workplaceTextCount.text = "Страна"
+                binding.workplaceTextCount.hint = "Страна"
                 binding.workplaceIcCount.setImageResource(R.drawable.arrow_forward_24px)
                 binding.workplaceIcCount.isClickable = false
                 binding.workplaceVisibleCount.visibility = View.GONE
@@ -52,6 +53,7 @@ class WorkplaceFragment : Fragment() {
                     binding.workplaceVisibleRegion.visibility = View.VISIBLE
                 } else {
                     binding.workplaceTextRegion.text = "Регион"
+                    binding.workplaceTextRegion.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey))
                     binding.workplaceIcRegion.setImageResource(R.drawable.arrow_forward_24px)
                     binding.workplaceIcRegion.isClickable = false
                     binding.workplaceVisibleRegion.visibility = View.GONE
@@ -61,14 +63,17 @@ class WorkplaceFragment : Fragment() {
 
         binding.workplaceIcCount.setOnClickListener {
             binding.workplaceTextCount.text = "Страна"
+            binding.workplaceTextCount.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey))
             binding.workplaceIcCount.setImageResource(R.drawable.arrow_forward_24px)
             binding.workplaceIcCount.isClickable = false
             binding.workplaceVisibleCount.visibility = View.GONE
             viewModel.setCountryInfo(null)
+            viewModel.setRegionInfo(null)
         }
 
         binding.workplaceIcRegion.setOnClickListener {
             binding.workplaceTextRegion.text = "Регион"
+            binding.workplaceTextRegion.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey))
             binding.workplaceIcRegion.setImageResource(R.drawable.arrow_forward_24px)
             binding.workplaceIcRegion.isClickable = false
             binding.workplaceVisibleRegion.visibility = View.GONE
@@ -88,6 +93,10 @@ class WorkplaceFragment : Fragment() {
         }
 
         binding.workplaceToolbar.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
+        binding.workplaceToolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
     }

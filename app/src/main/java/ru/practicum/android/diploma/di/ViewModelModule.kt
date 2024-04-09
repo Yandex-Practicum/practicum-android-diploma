@@ -4,6 +4,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import ru.practicum.android.diploma.ui.details.DetailsViewModel
 import ru.practicum.android.diploma.ui.favorite.FavoriteVacanciesViewModel
+import ru.practicum.android.diploma.ui.filter.FilterAllViewModel
 import ru.practicum.android.diploma.ui.filter.industries.IndustriesViewModel
 import ru.practicum.android.diploma.ui.filter.workplace.WorkplaceViewModel
 import ru.practicum.android.diploma.ui.filter.workplace.country.CountryViewModel
@@ -17,7 +18,7 @@ val viewModelModule = module {
     }
 
     viewModel {
-        SearchViewModel(get())
+        SearchViewModel(get(), get())
     }
 
     viewModel {
@@ -38,5 +39,9 @@ val viewModelModule = module {
 
     viewModel {
         IndustriesViewModel(get(), get())
+    }
+
+    viewModel {
+        FilterAllViewModel(get(), get(), get(), get(), get())
     }
 }

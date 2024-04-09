@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.filter.FilterRepositoryIndustriesFlow
 import ru.practicum.android.diploma.domain.filter.datashared.IndustriesShared
 import ru.practicum.android.diploma.domain.industries.IndustriesInteractor
@@ -23,6 +24,7 @@ class IndustriesViewModel(
     }
 
     private fun getIndustriesAndLoadFilteredIndustry() {
+        _state.postValue(IndustriesState.Loading)
         viewModelScope.launch {
             industriesInteractor
                 .getIndustries()
@@ -37,17 +39,23 @@ class IndustriesViewModel(
 
     private fun processResult(industriesList: List<ChildIndustry>?, errorMessage: Int?) {
         if (errorMessage != null) {
-            _state.postValue(IndustriesState.GetIndustriesError)
+            _state.postValue(
+                IndustriesState.Error(
+                    errorMessage = R.string.server_error
+                )
+            )
         } else if (industriesList is List<ChildIndustry>) {
-            _state.postValue(IndustriesState.IndustriesList(
-                industriesList.map {
-                    ChildIndustryWithSelection(
-                        id = it.id,
-                        name = it.name,
-                        selected = false
-                    )
-                }
-            ))
+            _state.postValue(
+                IndustriesState.IndustriesList(
+                    industriesList.map {
+                        ChildIndustryWithSelection(
+                            id = it.id,
+                            name = it.name,
+                            selected = false
+                        )
+                    }
+                )
+            )
         }
     }
 
