@@ -30,7 +30,6 @@ class FavoriteVacanciesRecyclerViewViewHolder(
                 .replace("от  ", "")
                 .replace("до  ", "")
                 .replace("END", "")
-
         Glide
             .with(itemView)
             .load(model.employer?.logoUrls?.original ?: "")
