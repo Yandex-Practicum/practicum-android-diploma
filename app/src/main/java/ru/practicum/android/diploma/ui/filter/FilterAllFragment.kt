@@ -46,8 +46,12 @@ class FilterAllFragment : Fragment() {
                 binding.filterSalaryClear.visibility = View.VISIBLE
                 binding.filterFunctionButton.visibility = View.VISIBLE
             } else {
-                binding.filterExpectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.all_filters_sum_hint))
-                binding.filterTextSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.all_filters_sum_hint))
+                binding.filterExpectedSalary.setTextColor(
+                    ContextCompat.getColor(requireContext(), R.color.all_filters_sum_hint)
+                )
+                binding.filterTextSalary.setTextColor(
+                    ContextCompat.getColor(requireContext(), R.color.all_filters_sum_hint)
+                )
                 binding.filterSalaryClear.visibility = View.GONE
             }
         }
@@ -136,7 +140,9 @@ class FilterAllFragment : Fragment() {
                 filterSalaryClear.isClickable = true
                 filterFunctionButton.visibility = View.VISIBLE
             } else {
-                filterExpectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.all_filters_sum_hint))
+                filterExpectedSalary.setTextColor(
+                    ContextCompat.getColor(requireContext(), R.color.all_filters_sum_hint)
+                )
                 filterTextSalary.setText("")
                 filterTextSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_universal))
                 filterSalaryClear.visibility = View.GONE
