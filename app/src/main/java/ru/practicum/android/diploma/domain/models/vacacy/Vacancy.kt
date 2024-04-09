@@ -5,7 +5,7 @@ data class Vacancy(
     val department: Department?,
     val name: String,
     val area: VacancyArea, // Регион
-    val employer: Employer?, // Работодатель
+    val employer: Employer, // Работодатель
     val salary: Salary?, // Зарплата
     val type: VacancyType, // Тип вакансии
 )
