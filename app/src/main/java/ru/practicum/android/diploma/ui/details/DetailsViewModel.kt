@@ -39,6 +39,7 @@ class DetailsViewModel(
         stateLiveData.postValue(DetailsViewState.Loading)
 
         viewModelScope.launch {
+            @Suppress("detekt:SwallowedException")
             try {
                 interactor.getVacancyDetails(vacancyId).collect {
                     vacancyDetails = it

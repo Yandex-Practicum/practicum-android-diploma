@@ -60,6 +60,7 @@ class DetailsFragment : Fragment() {
         }
     }
 
+    @Suppress("detekt:LongMethod")
     private fun renderState(state: DetailsViewState) {
         when (state) {
             is DetailsViewState.Loading -> {
