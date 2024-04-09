@@ -8,6 +8,8 @@ sealed interface DetailsViewState {
         val companyLogo: String?,
         val companyName: String?,
         val city: String?,
+        val fullAddress: String?,
+        val areaName: String,
         val experience: String?,
         val employment: String?,
         val description: String,

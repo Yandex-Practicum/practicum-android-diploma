@@ -90,6 +90,8 @@ class DetailsViewModel(
             companyLogo = vacancy.employer?.logoUrls?.art90,
             companyName = vacancy.employer?.name,
             city = vacancy.city,
+            fullAddress = vacancy.fullAddress,
+            areaName = vacancy.areaName,
             experience = vacancy.experience,
             employment = vacancy.employment,
             description = vacancy.description,
