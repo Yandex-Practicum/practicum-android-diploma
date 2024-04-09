@@ -4,6 +4,5 @@ import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.domain.models.VacancyDetails
 
 interface FavoriteInteractor {
-    suspend fun getAllFavoriteVacancies() : Flow<VacancyDetails>
+    suspend fun getAllFavoriteVacancies(): Flow<VacancyDetails>
 }
-

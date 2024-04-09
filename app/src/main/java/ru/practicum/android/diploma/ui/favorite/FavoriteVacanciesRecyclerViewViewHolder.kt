@@ -5,7 +5,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.FitCenter
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.VacancyDetails
@@ -36,7 +35,7 @@ class FavoriteVacanciesRecyclerViewViewHolder(
             .with(itemView)
             .load(model.employer?.logoUrls?.original ?: "")
             .placeholder(R.drawable.spiral)
-            //.transform(CenterCrop())
+            // .transform(CenterCrop())
             .transform(FitCenter())
             .into(vacancyCompanyLogo)
 
