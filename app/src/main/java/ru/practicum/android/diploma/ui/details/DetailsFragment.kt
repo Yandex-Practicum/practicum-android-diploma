@@ -52,7 +52,7 @@ class DetailsFragment : Fragment() {
         binding.contactPhoneTextView.setOnClickListener {
             viewModel.call(requireContext())
         }
-        binding.favoriteIcon.setOnClickListener{
+        binding.favoriteIcon.setOnClickListener {
             viewModel.favoriteIconClicked()
         }
     }
@@ -106,10 +106,10 @@ class DetailsFragment : Fragment() {
             }
 
             is DetailsViewState.IsVacancyFavorite -> {
-                if(state.isFavorite){
+                if (state.isFavorite) {
                     binding.iconIsFavorite.visibility = View.VISIBLE
                     binding.iconIsNotFavorite.visibility = View.INVISIBLE
-                }else{
+                } else {
                     binding.iconIsFavorite.visibility = View.INVISIBLE
                     binding.iconIsNotFavorite.visibility = View.VISIBLE
                 }
@@ -128,7 +128,7 @@ class DetailsFragment : Fragment() {
         }
     }
 
-    private fun checkIsVacancyFavorite(){
+    private fun checkIsVacancyFavorite() {
         viewModel.isVacancyFavorite()
     }
 
