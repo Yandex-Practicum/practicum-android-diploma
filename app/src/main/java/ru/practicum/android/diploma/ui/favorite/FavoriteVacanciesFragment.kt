@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.FragmentFavoriteBinding
-import ru.practicum.android.diploma.domain.models.vacacy.Vacancy
+import ru.practicum.android.diploma.domain.models.VacancyDetails
 
 class FavoriteVacanciesFragment : Fragment() {
 
@@ -18,7 +18,7 @@ class FavoriteVacanciesFragment : Fragment() {
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
 
-    private val data = ArrayList<Vacancy>()
+    private val data = ArrayList<VacancyDetails>()
     private var recyclerView: RecyclerView? = null
 
     private fun showEmptyVacancyList() {
@@ -73,6 +73,11 @@ class FavoriteVacanciesFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.reloadFavoriteVacancies()
     }
 
     override fun onDestroyView() {

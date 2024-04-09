@@ -4,6 +4,8 @@ import org.koin.dsl.module
 import ru.practicum.android.diploma.domain.api.details.VacancyDetailsInteractor
 import ru.practicum.android.diploma.domain.country.CountryInteractor
 import ru.practicum.android.diploma.domain.country.impl.CountryInteractorImpl
+import ru.practicum.android.diploma.domain.favorite.FavoriteInteractor
+import ru.practicum.android.diploma.domain.favorite.FavoriteInteractorImpl
 import ru.practicum.android.diploma.domain.impl.VacancyDetailsInteractorImpl
 import ru.practicum.android.diploma.domain.industries.IndustriesInteractor
 import ru.practicum.android.diploma.domain.industries.IndustriesInteractorImpl
@@ -24,7 +26,11 @@ val interactorModule = module {
         RegionInteractorImpl(get())
     }
 
-    factory<IndustriesInteractor> {
+    single<IndustriesInteractor> {
         IndustriesInteractorImpl(get())
+    }
+
+    single<FavoriteInteractor> {
+        FavoriteInteractorImpl(get())
     }
 }
