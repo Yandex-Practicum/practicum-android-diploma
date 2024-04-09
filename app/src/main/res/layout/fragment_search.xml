@@ -13,8 +13,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/vacancy_search"
-        app:titleTextAppearance="@style/medium22_font" />
+        app:titleTextAppearance="@style/medium22_font">
+
+        <TextView
+            style="@style/medium22_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/vacancy_search"
+            android:textColor="@color/black" />
+
+    </com.google.android.material.appbar.MaterialToolbar>
 
     <ImageView
         android:id="@+id/search_filter"
@@ -51,6 +59,7 @@
             android:inputType="text"
             android:maxLength="128"
             android:singleLine="true"
+            android:textColor="@color/black.universal"
             android:textColorHint="@color/search_bar_hint" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -78,8 +87,22 @@
         app:layout_constraintEnd_toEndOf="@+id/ti_search"
         app:layout_constraintTop_toTopOf="@+id/ti_search" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_vacancy"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingTop="48dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ti_search"
+        tools:itemCount="5"
+        tools:listitem="@layout/vacancy_view" />
+
     <TextView
-        android:id="@+id/iv_search_info"
+        android:id="@+id/tv_search_info"
         style="@style/regular16_font"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -93,20 +116,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ti_search" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_vacancy"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="48dp"
-        android:clipToPadding="true"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ti_search"
-        tools:itemCount="5"
-        tools:listitem="@layout/vacancy_view" />
 
     <ImageView
         android:id="@+id/iv_start_search"

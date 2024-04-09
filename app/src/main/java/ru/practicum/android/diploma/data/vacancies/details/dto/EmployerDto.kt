@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import ru.practicum.android.diploma.data.vacancies.dto.list.LogoUrlsDto
 
 data class EmployerDto(
-    val id: String,
+    val id: String?,
     @SerializedName("logo_urls")
     val logoUrls: LogoUrlsDto?,
     val name: String,

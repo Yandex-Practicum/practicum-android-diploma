@@ -56,4 +56,9 @@
         <item name="buttonTint">@color/blue</item>
     </style>
 
+    <style name="checkBoxStyle" parent="Base.Theme.AppCompat">
+        <item name="colorAccent">@color/blue</item>
+        <item name="android:textColorSecondary">@color/blue</item>
+    </style>
+
 </resources>
