@@ -80,7 +80,6 @@ class SearchFragment : Fragment() {
             Log.d("adapterState", it.toString())
 
             if (it.source.refresh is LoadState.Error) {
-                viewModel.isCrossPressed = false
                 showNoInternetState()
             }
 
@@ -90,11 +89,10 @@ class SearchFragment : Fragment() {
             }
 
             if (it.refresh is LoadState.NotLoading && vacancyAdapter.itemCount == 0) {
-                viewModel.isCrossPressed = false
                 showEmptyVacanciesState()
             }
 
-            if (it.source.refresh is LoadState.NotLoading) {
+            if (it.source.refresh is LoadState.NotLoading && vacancyAdapter.itemCount != 0) {
                 showContent()
             }
 

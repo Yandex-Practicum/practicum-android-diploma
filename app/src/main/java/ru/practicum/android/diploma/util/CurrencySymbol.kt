@@ -1,7 +1,7 @@
 package ru.practicum.android.diploma.util
 
 object CurrencySymbol {
-    fun get(currency: String): String =
+    fun get(currency: String?): String =
         when (currency) {
             "AZN" -> "₼"
             "BYR" -> "Br"
@@ -13,6 +13,7 @@ object CurrencySymbol {
             "UAH" -> "₴"
             "USD" -> "$"
             "UZS" -> "Soʻm"
-            else -> ""
+            null -> ""
+            else -> currency
         }
 }

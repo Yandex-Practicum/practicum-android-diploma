@@ -6,19 +6,15 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.VacancyViewBinding
 import ru.practicum.android.diploma.domain.models.vacacy.Vacancy
 import ru.practicum.android.diploma.util.CurrencySymbol
-import java.text.NumberFormat
+import ru.practicum.android.diploma.util.SalaryFormatter
 
 class VacancyViewHolder(
     private val binding: VacancyViewBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    private val numberFormat: NumberFormat by lazy {
-        NumberFormat.getInstance()
-    }
-
     fun bind(vacancy: Vacancy?, onClick: (Vacancy?) -> Unit) = with(binding) {
-        tvVacancyName.text = vacancy?.name
-        tvVacancyType.text = vacancy?.type?.name
+        tvVacancyName.text = "${vacancy?.name}, ${vacancy?.area?.name}"
+        tvVacancyType.text = vacancy?.employer?.name
 
         tvVacancySalary.text = makeSalaryString(vacancy)
 
@@ -55,8 +51,8 @@ class VacancyViewHolder(
                         R.string.from
                     )
                 } ${
-                    numberFormat.format(
-                        vacancy.salary.from
+                    SalaryFormatter.format(
+                        vacancy.salary.from.toString()
                     )
                 }"
             )
@@ -74,8 +70,8 @@ class VacancyViewHolder(
                         R.string.to
                     )
                 } ${
-                    numberFormat.format(
-                        vacancy.salary.to
+                    SalaryFormatter.format(
+                        vacancy.salary.to.toString()
                     )
                 }"
             )
