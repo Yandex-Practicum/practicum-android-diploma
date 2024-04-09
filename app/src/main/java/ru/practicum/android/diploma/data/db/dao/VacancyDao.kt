@@ -4,7 +4,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.data.db.model.VacancyEntity
 
 @Dao
@@ -16,7 +15,7 @@ interface VacancyDao {
     suspend fun deleteVacancy(vacancyId: String)
 
     @Query("SELECT * FROM favorite_vacancies_table")
-    fun getAllVacancies(): Flow<VacancyEntity>
+    fun getAllVacancies(): List<VacancyEntity>
 
     @Query("SELECT * FROM favorite_vacancies_table WHERE id = :vacancyId LIMIT 1")
     suspend fun getVacancyById(vacancyId: String): VacancyEntity?

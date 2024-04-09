@@ -26,7 +26,7 @@ data class VacancyEntity(
 
 
     // Vacancy entity fields --------------------------------
-    val departmentId: String?,
+    /*val departmentId: String?,
     val departmentName: String?,
 
     val areaId: String,
@@ -34,7 +34,7 @@ data class VacancyEntity(
     val areaUrl: String,
 
     val typeId: String,
-    val typeName: String,
+    val typeName: String,*/
     // Vacancy entity fields --------------------------------
 
 
@@ -46,7 +46,7 @@ data class VacancyEntity(
 
     val contactEmail: String?,
     val contactName: String?,
-    val contactPhones: String?,
+    val contactPhonesJson: String?,
 
     val link: String
     // VacancyDetails entity fields -------------------------
