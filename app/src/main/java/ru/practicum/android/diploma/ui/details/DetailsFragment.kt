@@ -103,7 +103,7 @@ class DetailsFragment : Fragment() {
                 binding.progressBar.isVisible = false
                 binding.scrollView.isVisible = true
 
-                checkIsVacancyFavorite()
+                checkIfVacancyFavorite()
             }
 
             is DetailsViewState.IsVacancyFavorite -> {
@@ -129,7 +129,7 @@ class DetailsFragment : Fragment() {
         }
     }
 
-    private fun checkIsVacancyFavorite() {
+    private fun checkIfVacancyFavorite() {
         viewModel.isVacancyFavorite()
     }
 
