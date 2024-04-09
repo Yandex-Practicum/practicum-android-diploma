@@ -38,15 +38,13 @@ class DetailsViewModel(
 
         stateLiveData.postValue(DetailsViewState.Loading)
 
-
         viewModelScope.launch {
             try {
                 interactor.getVacancyDetails(vacancyId).collect {
                     vacancyDetails = it
                     updateModel(it, fragment.requireContext())
                 }
-            }
-            catch (e: VacancyDetailsException) {
+            } catch (e: VacancyDetailsException) {
                 stateLiveData.postValue(DetailsViewState.Error)
             }
         }
