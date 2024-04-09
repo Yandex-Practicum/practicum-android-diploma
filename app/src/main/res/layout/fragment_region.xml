@@ -62,6 +62,7 @@
             android:inputType="text"
             android:maxLength="128"
             android:singleLine="true"
+            android:textColor="@color/black.universal"
             android:textColorHint="@color/search_bar_hint" />
 
     </com.google.android.material.textfield.TextInputLayout>
