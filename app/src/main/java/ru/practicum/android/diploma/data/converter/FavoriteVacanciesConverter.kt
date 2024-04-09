@@ -11,6 +11,7 @@ import ru.practicum.android.diploma.domain.models.vacacy.Salary
 
 object FavoriteVacanciesConverter {
 
+    @Suppress("detekt:LongMethod")
     fun VacancyDetails.convert(): VacancyEntity = VacancyEntity(
         id = this.id,
         name = this.name,
@@ -52,32 +53,41 @@ object FavoriteVacanciesConverter {
         link = this.link
     )
 
-
+    @Suppress("detekt:LongMethod")
     fun VacancyEntity.convert(): VacancyDetails = VacancyDetails(
         id = this.id,
         name = this.name,
 
-        salary = if (!this.salaryCurrency.isNullOrBlank())
+        salary = if (!this.salaryCurrency.isNullOrBlank()) {
             Salary(
                 currency = this.salaryCurrency,
                 from = this.salaryFrom,
                 gross = this.salaryGross,
                 to = this.salaryTo
-            ) else null,
+            )
+        } else {
+            null
+        },
 
-        employer = if (!this.employerId.isNullOrBlank())
+        employer = if (!this.employerId.isNullOrBlank()) {
             Employer(
                 id = this.employerId,
-                logoUrls = if (!this.employerLogoUrlOriginal.isNullOrBlank())
+                logoUrls = if (!this.employerLogoUrlOriginal.isNullOrBlank()) {
                     LogoUrls(
                         art90 = this.employerLogoUrl90,
                         art240 = this.employerLogoUrl240,
                         original = this.employerLogoUrlOriginal
-                    ) else null,
+                    )
+                } else {
+                    null
+                },
                 name = this.name,
                 trusted = this.employerIsTrusted ?: false,
                 vacanciesUrl = this.employerVacanciesUrl
-            ) else null,
+            )
+        } else {
+            null
+        },
 
         city = this.city,
         experience = this.experience,
@@ -88,12 +98,19 @@ object FavoriteVacanciesConverter {
             this.contactEmail.isNullOrBlank() &&
             this.contactName.isNullOrBlank() &&
             this.contactPhonesJson.isNullOrBlank()
-        ) null else Contacts(
-            email = this.contactEmail,
-            name = this.contactName,
-            phones = if (this.contactPhonesJson.isNullOrBlank()) null else
-                Gson().fromJson<List<String>>(this.contactPhonesJson, object : TypeToken<List<String>>() {}.type)
-        ),
+        ) {
+            null
+        } else {
+            Contacts(
+                email = this.contactEmail,
+                name = this.contactName,
+                phones = if (this.contactPhonesJson.isNullOrBlank()) {
+                    null
+                } else {
+                    Gson().fromJson<List<String>>(this.contactPhonesJson, object : TypeToken<List<String>>() {}.type)
+                }
+            )
+        },
 
         link = this.link
     )

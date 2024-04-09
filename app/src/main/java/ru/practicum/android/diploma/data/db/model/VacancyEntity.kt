@@ -24,7 +24,6 @@ data class VacancyEntity(
     val salaryTo: Int?,
     // Vacancy & VacancyDetails entities fields -------------
 
-
     // Vacancy entity fields --------------------------------
     /*val departmentId: String?,
     val departmentName: String?,
@@ -36,7 +35,6 @@ data class VacancyEntity(
     val typeId: String,
     val typeName: String,*/
     // Vacancy entity fields --------------------------------
-
 
     // VacancyDetails entity fields -------------------------
     val city: String?,

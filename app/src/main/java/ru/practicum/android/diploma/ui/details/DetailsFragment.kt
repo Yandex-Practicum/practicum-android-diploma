@@ -63,6 +63,7 @@ class DetailsFragment : Fragment() {
         }
     }
 
+    @Suppress("detekt:LongMethod")
     private fun renderState(state: DetailsViewState) {
         when (state) {
             is DetailsViewState.Loading -> {
@@ -131,7 +132,6 @@ class DetailsFragment : Fragment() {
     private fun checkIsVacancyFavorite() {
         viewModel.isVacancyFavorite()
     }
-
 
     companion object {
         const val vacancyIdKey = "vacancyDetails.id.key"
