@@ -76,6 +76,7 @@ class FilterAllFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n", "SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
