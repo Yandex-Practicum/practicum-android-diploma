@@ -80,6 +80,7 @@ class FilterAllFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        observeFilterAllState()
         observeCountryState()
         observeIndustriesState()
         observeSalarySum()
@@ -87,6 +88,17 @@ class FilterAllFragment : Fragment() {
         bindTextWatcher()
         bindOnClickListeners()
         bindNavigationListeners()
+    }
+
+    private fun observeFilterAllState() = with(binding) {
+        viewModel.filterAllState.observe(viewLifecycleOwner) { state ->
+            debugLog(TAG) { "filterAllState, state = $state" }
+            when (state) {
+                is FilterAllState.Content -> filterFunctionButton.visibility = View.VISIBLE
+                is FilterAllState.Empty -> filterFunctionButton.visibility = View.GONE
+                else -> { filterFunctionButton.visibility = View.GONE }
+            }
+        }
     }
 
     @SuppressLint("SetTextI18n", "SuspiciousIndentation")
