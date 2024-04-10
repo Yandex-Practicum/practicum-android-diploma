@@ -91,12 +91,20 @@ class FilterAllFragment : Fragment() {
     }
 
     private fun observeFilterAllState() = with(binding) {
-        viewModel.filterAllState.observe(viewLifecycleOwner) { state ->
-            debugLog(TAG) { "filterAllState, state = $state" }
-            when (state) {
-                is FilterAllState.Content -> filterFunctionButton.visibility = View.VISIBLE
-                is FilterAllState.Empty -> filterFunctionButton.visibility = View.GONE
-                else -> { filterFunctionButton.visibility = View.GONE }
+        viewModel.countryState.observe(viewLifecycleOwner) { country ->
+            viewModel.industriesState.observe(viewLifecycleOwner) { industries ->
+                viewModel.salarySum.observe(viewLifecycleOwner) { salaryText ->
+                    viewModel.salaryBoolean.observe(viewLifecycleOwner) { salaryBoolean ->
+                        if (country != null || industries != null
+                            || salaryText?.salary?.isNotEmpty() == true
+                            || salaryBoolean?.isChecked == true
+                        ) {
+                            filterFunctionButton.visibility = View.VISIBLE
+                        } else {
+                            filterFunctionButton.visibility = View.GONE
+                        }
+                    }
+                }
             }
         }
     }
