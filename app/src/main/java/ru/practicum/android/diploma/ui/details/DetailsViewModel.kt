@@ -108,7 +108,8 @@ class DetailsViewModel(
             description = vacancy.description,
             contactName = vacancy.contacts?.name,
             contactEmail = vacancy.contacts?.email,
-            contactsPhones = vacancy.contacts?.phones
+            contactsPhones = vacancy.contacts?.phones,
+            keySkills = vacancy.keySkills
         )
         stateLiveData.postValue(content)
     }

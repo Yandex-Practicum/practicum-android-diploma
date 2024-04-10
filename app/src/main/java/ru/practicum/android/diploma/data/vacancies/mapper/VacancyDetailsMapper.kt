@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.data.vacancies.mapper
 import ru.practicum.android.diploma.data.vacancies.details.VacancyDetailDtoResponse
 import ru.practicum.android.diploma.data.vacancies.details.dto.ContactsDto
 import ru.practicum.android.diploma.data.vacancies.details.dto.EmployerDto
+import ru.practicum.android.diploma.data.vacancies.details.dto.KeySkillVacancyDetail
 import ru.practicum.android.diploma.data.vacancies.details.dto.SalaryDto
 import ru.practicum.android.diploma.data.vacancies.dto.list.LogoUrlsDto
 import ru.practicum.android.diploma.domain.models.VacancyDetails
@@ -26,6 +27,7 @@ object VacancyDetailsMapper {
             description = vacancy.description,
             contacts = mapContacts(vacancy.contacts),
             link = vacancy.vacancyLink,
+            keySkills = mapKeySkills(vacancy.keySkills)
         )
     }
 
@@ -66,5 +68,14 @@ object VacancyDetailsMapper {
             name = contacts.name,
             phones = contacts.phones?.map { "+${it.country} (${it.city}) ${it.number}" }
         )
+    }
+
+    private fun mapKeySkills(keySkills: List<KeySkillVacancyDetail>): String {
+        if (keySkills.isEmpty()) return ""
+        var skillsList = ""
+        for (skill in keySkills) {
+            skillsList += "• " + skill.name + "\n"
+        }
+        return skillsList
     }
 }
