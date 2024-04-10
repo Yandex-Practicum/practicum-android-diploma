@@ -76,9 +76,11 @@ class FilterAllFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n", "SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        observeFilterAllState()
         observeCountryState()
         observeIndustriesState()
         observeSalarySum()
@@ -86,6 +88,26 @@ class FilterAllFragment : Fragment() {
         bindTextWatcher()
         bindOnClickListeners()
         bindNavigationListeners()
+    }
+
+    private fun observeFilterAllState() = with(binding) {
+        viewModel.countryState.observe(viewLifecycleOwner) { country ->
+            viewModel.industriesState.observe(viewLifecycleOwner) { industries ->
+                viewModel.salarySum.observe(viewLifecycleOwner) { salaryText ->
+                    viewModel.salaryBoolean.observe(viewLifecycleOwner) { salaryBoolean ->
+                        if (country != null || industries != null) {
+                            filterFunctionButton.visibility = View.VISIBLE
+                        } else if (salaryText?.salary?.isNotEmpty() == true
+                            || salaryBoolean?.isChecked == true
+                        ) {
+                            filterFunctionButton.visibility = View.VISIBLE
+                        } else {
+                            filterFunctionButton.visibility = View.GONE
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @SuppressLint("SetTextI18n", "SuspiciousIndentation")
@@ -119,7 +141,6 @@ class FilterAllFragment : Fragment() {
                 filterIcIndustries.setImageResource(R.drawable.ic_close_24px)
                 filterIcIndustries.isClickable = true
                 filterVisibleIndustries.visibility = View.VISIBLE
-
             } else {
                 filterTextIndustries.text = "Отрасль"
                 filterTextIndustries.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey))
@@ -138,7 +159,6 @@ class FilterAllFragment : Fragment() {
                 filterTextSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_universal))
                 filterSalaryClear.visibility = View.VISIBLE
                 filterSalaryClear.isClickable = true
-                filterFunctionButton.visibility = View.VISIBLE
             } else {
                 filterExpectedSalary.setTextColor(
                     ContextCompat.getColor(requireContext(), R.color.all_filters_sum_hint)
