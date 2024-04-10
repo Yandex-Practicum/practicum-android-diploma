@@ -11,6 +11,7 @@ import com.markodevcic.peko.PermissionRequester
 import com.markodevcic.peko.PermissionResult
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.data.vacancies.VacancyDetailsException
 import ru.practicum.android.diploma.domain.api.details.VacancyDetailsInteractor
 import ru.practicum.android.diploma.domain.models.VacancyDetails
 import ru.practicum.android.diploma.domain.models.vacacy.Salary
@@ -38,9 +39,16 @@ class DetailsViewModel(
         stateLiveData.postValue(DetailsViewState.Loading)
 
         viewModelScope.launch {
-            interactor.getVacancyDetails(vacancyId).collect() {
-                vacancyDetails = it
-                updateModel(it, fragment.requireContext())
+            @Suppress("detekt:TooGenericExceptionCaught", "detekt:SwallowedException")
+            try {
+                interactor.getVacancyDetails(vacancyId).collect {
+                    vacancyDetails = it
+                    updateModel(it, fragment.requireContext())
+                }
+            } catch (e: VacancyDetailsException) {
+                stateLiveData.postValue(DetailsViewState.Error)
+            } catch (e: Exception) {
+                //
             }
         }
     }
@@ -62,9 +70,11 @@ class DetailsViewModel(
                             externalNavigator.call(phone)
                         }
                     }
+
                     is PermissionResult.Denied.DeniedPermanently -> {
                         externalNavigator.openApplicationSettings()
                     }
+
                     is PermissionResult.Denied.NeedsRationale -> {
                         Toast.makeText(
                             context,
@@ -72,6 +82,7 @@ class DetailsViewModel(
                             Toast.LENGTH_LONG
                         ).show()
                     }
+
                     is PermissionResult.Cancelled -> {}
                 }
             }

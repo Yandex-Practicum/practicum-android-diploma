@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.ui.details
 
 sealed interface DetailsViewState {
     data object Loading : DetailsViewState
+    data object Error : DetailsViewState
     data class Content(
         val name: String,
         val salary: String?,
