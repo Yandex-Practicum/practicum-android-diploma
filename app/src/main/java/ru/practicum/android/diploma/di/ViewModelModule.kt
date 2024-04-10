@@ -30,7 +30,7 @@ val viewModelModule = module {
     }
 
     viewModel {
-        FavoriteVacanciesViewModel()
+        FavoriteVacanciesViewModel(get())
     }
 
     viewModel {

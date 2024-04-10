@@ -134,6 +134,39 @@ class DetailsViewModel(
         return text.ifEmpty { null }
     }
 
+    /*private fun formatPrice(price: String): String {
+        return price.reversed().chunked(sizeOfMoneyPart).reversed().joinToString(" ") { it.reversed() }
+    }*/
+
+    fun favoriteIconClicked() {
+        vacancyDetails?.let {
+            viewModelScope.launch {
+                if (interactor.isVacancyFavorite(vacancyDetails?.id ?: "")) {
+                    interactor.makeVacancyNormal(it.id)
+                    stateLiveData.postValue(
+                        DetailsViewState.IsVacancyFavorite(false)
+                    )
+                } else {
+                    interactor.makeVacancyFavorite(it)
+                    stateLiveData.postValue(
+                        DetailsViewState.IsVacancyFavorite(true)
+                    )
+                }
+            }
+
+        }
+    }
+
+    fun isVacancyFavorite() {
+        viewModelScope.launch {
+            stateLiveData.postValue(
+                DetailsViewState.IsVacancyFavorite(
+                    interactor.isVacancyFavorite(vacancyDetails?.id ?: "")
+                )
+            )
+        }
+    }
+
     companion object {
         const val sizeOfMoneyPart = 3
     }
