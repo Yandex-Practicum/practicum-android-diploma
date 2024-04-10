@@ -115,6 +115,7 @@ object FavoriteVacanciesConverter {
             )
         },
 
-        link = this.link
+        link = this.link,
+        keySkills = this.id
     )
 }
