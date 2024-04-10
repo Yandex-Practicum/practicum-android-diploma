@@ -95,8 +95,9 @@ class FilterAllFragment : Fragment() {
             viewModel.industriesState.observe(viewLifecycleOwner) { industries ->
                 viewModel.salarySum.observe(viewLifecycleOwner) { salaryText ->
                     viewModel.salaryBoolean.observe(viewLifecycleOwner) { salaryBoolean ->
-                        if (country != null || industries != null
-                            || salaryText?.salary?.isNotEmpty() == true
+                        if (country != null || industries != null) {
+                            filterFunctionButton.visibility = View.VISIBLE
+                        } else if (salaryText?.salary?.isNotEmpty() == true
                             || salaryBoolean?.isChecked == true
                         ) {
                             filterFunctionButton.visibility = View.VISIBLE
