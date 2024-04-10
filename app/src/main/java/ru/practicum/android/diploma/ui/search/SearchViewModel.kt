@@ -11,12 +11,24 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.search.SearchPagingRepository
 import ru.practicum.android.diploma.domain.api.search.VacanciesSearchRepository
+import ru.practicum.android.diploma.domain.debugLog
+import ru.practicum.android.diploma.domain.filter.FilterRepositoryCountryFlow
+import ru.practicum.android.diploma.domain.filter.FilterRepositoryIndustriesFlow
+import ru.practicum.android.diploma.domain.filter.FilterRepositoryRegionFlow
+import ru.practicum.android.diploma.domain.filter.FilterRepositorySalaryBooleanFlow
+import ru.practicum.android.diploma.domain.filter.FilterRepositorySalaryTextFlow
 import ru.practicum.android.diploma.domain.models.vacacy.Vacancy
 import ru.practicum.android.diploma.domain.models.vacacy.VacancyResponse
+import ru.practicum.android.diploma.ui.filter.FilterAllViewModel
 
 class SearchViewModel(
     private val vacancySearchRepository: VacanciesSearchRepository,
-    private val searchPagingRepository: SearchPagingRepository
+    private val searchPagingRepository: SearchPagingRepository,
+    private val filterRepositoryCountryFlow: FilterRepositoryCountryFlow,
+    private val filterRepositoryRegionFlow: FilterRepositoryRegionFlow,
+    private val filterRepositoryIndustriesFlow: FilterRepositoryIndustriesFlow,
+    private val filterRepositorySalaryTextFlow: FilterRepositorySalaryTextFlow,
+    private val filterRepositorySalaryBooleanFlow: FilterRepositorySalaryBooleanFlow
 ) : ViewModel() {
 
     var isCrossPressed = false
@@ -24,6 +36,45 @@ class SearchViewModel(
     private val foundLiveData = MutableLiveData<Int>()
 
     fun observeState(): LiveData<Int> = foundLiveData
+
+    init {
+        with(viewModelScope) {
+            launch {
+                filterRepositoryCountryFlow.getCountryFlow()
+                    .collect { country ->
+                        Log.e("CountryFlow", country.toString())
+                    }
+            }
+
+            launch {
+                filterRepositoryRegionFlow.getRegionFlow()
+                    .collect { region ->
+                        Log.e("regionFlow", region.toString())
+                    }
+            }
+
+            launch {
+                filterRepositoryIndustriesFlow.getIndustriesFlow()
+                    .collect { industries ->
+                        Log.e("industriesFlow", industries.toString())
+                    }
+            }
+
+            launch {
+                filterRepositorySalaryTextFlow.getSalaryTextFlow()
+                    .collect { salarySum ->
+                        Log.e("salarySumFlow", salarySum.toString())
+                    }
+            }
+
+            launch {
+                filterRepositorySalaryBooleanFlow.getSalaryBooleanFlow()
+                    .collect { salaryBoolean ->
+                        Log.e("salaryBooleanFlow", salaryBoolean.toString())
+                    }
+            }
+        }
+    }
 
     fun search(text: String): Flow<PagingData<Vacancy>> {
         viewModelScope.launch {

@@ -62,9 +62,11 @@ class FilterAllFragment : Fragment() {
             handler.postDelayed({
                 s?.toString()?.let {
                     viewModel.setSalarySumInfo(
-                        SalaryTextShared(
-                            salary = it
-                        )
+                        if (s.isNotEmpty()) {
+                            SalaryTextShared(
+                                salary = it
+                            )
+                        } else null
                     )
                 }
             }, DELAY)
@@ -98,7 +100,7 @@ class FilterAllFragment : Fragment() {
                         if (country != null || industries != null) {
                             filterFunctionButton.visibility = View.VISIBLE
                         } else if (salaryText?.salary?.isNotEmpty() == true
-                            || salaryBoolean?.isChecked == true
+                            || salaryBoolean != null
                         ) {
                             filterFunctionButton.visibility = View.VISIBLE
                         } else {
@@ -172,8 +174,8 @@ class FilterAllFragment : Fragment() {
 
     private fun observeSalaryBoolean() = with(binding) {
         viewModel.salaryBoolean.observe(viewLifecycleOwner) { salaryBoolean ->
-            debugLog(TAG) { "filterFunctionCheckbox, isChecked = ${salaryBoolean?.isChecked}" }
-            filterFunctionCheckbox.isChecked = salaryBoolean?.isChecked ?: false
+            debugLog(TAG) { "filterFunctionCheckbox, isChecked = ${salaryBoolean != null}" }
+            filterFunctionCheckbox.isChecked = salaryBoolean != null
         }
     }
 
@@ -185,9 +187,11 @@ class FilterAllFragment : Fragment() {
         filterFunctionCheckbox.setOnCheckedChangeListener { _, isChecked ->
             // Обновляем состояние флажка в viewModel
             viewModel.setSalaryBooleanInfo(
-                SalaryBooleanShared(
-                    isChecked = isChecked
-                )
+                if (isChecked) {
+                    SalaryBooleanShared
+                } else {
+                    null
+                }
             )
         }
 
@@ -205,7 +209,7 @@ class FilterAllFragment : Fragment() {
             viewModel.setRegionInfo(null)
             viewModel.setIndustriesInfo(null)
             viewModel.setSalarySumInfo(null)
-            viewModel.setSalaryBooleanInfo(SalaryBooleanShared(false))
+            viewModel.setSalaryBooleanInfo(null)
         }
     }
 
