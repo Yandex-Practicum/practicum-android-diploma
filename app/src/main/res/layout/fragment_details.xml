@@ -137,7 +137,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/companyInfoCardView"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/vacancy_details_card_view_height"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin"
                 android:background="@drawable/rounded_corner_background_12"
                 android:backgroundTint="@color/light_grey"
@@ -149,6 +149,8 @@
                     android:id="@+id/companyImageView"
                     android:layout_width="@dimen/medium_icon_size"
                     android:layout_height="@dimen/medium_icon_size"
+                    android:layout_marginTop="@dimen/margin"
+                    android:layout_marginBottom="@dimen/margin"
                     android:layout_marginStart="@dimen/margin"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -171,6 +173,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black.universal"
+                        android:maxLines="2"
+                        android:ellipsize="end"
                         tools:text="Еда" />
 
                     <TextView
@@ -179,6 +183,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black.universal"
+                        android:maxLines="2"
+                        android:ellipsize="end"
                         tools:text="Москва" />
 
                 </LinearLayout>
@@ -357,6 +363,38 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/errorContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/margin"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/navigationBar"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:id="@+id/errorImageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/state_image_server_error_vacancy" />
+
+        <TextView
+            android:id="@+id/errorTextView"
+            style="@style/medium22_font"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:text="@string/server_error"/>
+
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/progressBar"

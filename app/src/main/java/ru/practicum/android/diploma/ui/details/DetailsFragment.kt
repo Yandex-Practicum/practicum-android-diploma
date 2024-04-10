@@ -69,13 +69,24 @@ class DetailsFragment : Fragment() {
             is DetailsViewState.Loading -> {
                 binding.progressBar.isVisible = true
                 binding.scrollView.isVisible = false
+                binding.errorContainer.isVisible = false
+            }
+
+            is DetailsViewState.Error -> {
+                binding.progressBar.isVisible = false
+                binding.scrollView.isVisible = false
+                binding.errorContainer.isVisible = true
             }
 
             is DetailsViewState.Content -> {
                 binding.vacancyTitleTextView.text = state.name
                 setTextOrHide(state.salary, binding.salaryTextView)
                 setTextOrHide(state.companyName, binding.companyTitleTextView)
-                setTextOrHide(state.city, binding.companyCityTextView)
+                if (state.fullAddress.isNullOrEmpty()) {
+                    binding.companyCityTextView.text = state.areaName
+                } else {
+                    binding.companyCityTextView.text = state.fullAddress
+                }
                 setTextOrHide(state.experience, binding.experienceTextView, binding.experienceLinearLayout)
                 setTextOrHide(state.employment, binding.employmentTypeTextView)
                 setTextOrHide(state.contactName, binding.contactNameTextView, binding.contactNameContainerLinearLayout)
@@ -102,6 +113,7 @@ class DetailsFragment : Fragment() {
 
                 binding.progressBar.isVisible = false
                 binding.scrollView.isVisible = true
+                binding.errorContainer.isVisible = false
 
                 checkIfVacancyFavorite()
             }

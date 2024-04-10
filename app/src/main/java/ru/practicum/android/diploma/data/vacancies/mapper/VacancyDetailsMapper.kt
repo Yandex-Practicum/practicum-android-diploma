@@ -19,11 +19,13 @@ object VacancyDetailsMapper {
             salary = mapSalary(vacancy.salary),
             employer = mapEmployee(vacancy.employer),
             city = vacancy.address?.city,
+            fullAddress = vacancy.address?.raw,
+            areaName = vacancy.area.name,
             experience = vacancy.experience?.name,
             employment = vacancy.employment?.name,
             description = vacancy.description,
             contacts = mapContacts(vacancy.contacts),
-            link = vacancy.vacancyLink
+            link = vacancy.vacancyLink,
         )
     }
 
