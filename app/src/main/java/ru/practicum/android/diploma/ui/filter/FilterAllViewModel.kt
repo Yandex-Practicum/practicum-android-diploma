@@ -49,20 +49,22 @@ class FilterAllViewModel(
     }
 
     private fun observeStateChanges() {
-        _countryState.observeForever { country ->
-            observeStateFilterNotNull(country, _industriesState.value)
-        }
+        viewModelScope.launch {
+            _countryState.observeForever { country ->
+                observeStateFilterNotNull(country, _industriesState.value)
+            }
 
-        _industriesState.observeForever { industries ->
-            observeStateFilterNotNull(_countryState.value, industries)
-        }
+            _industriesState.observeForever { industries ->
+                observeStateFilterNotNull(_countryState.value, industries)
+            }
 
-        _salarySum.observeForever { salaryText ->
-            observeStateFilterIsEmpty(salaryText)
-        }
+            _salarySum.observeForever { salaryText ->
+                observeStateFilterIsEmpty(salaryText)
+            }
 
-        _salaryBoolean.observeForever { salaryBoolean ->
-            observeStateFilterBoolean(salaryBoolean)
+            _salaryBoolean.observeForever { salaryBoolean ->
+                observeStateFilterBoolean(salaryBoolean)
+            }
         }
     }
 

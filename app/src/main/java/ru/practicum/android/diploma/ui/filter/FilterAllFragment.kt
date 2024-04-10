@@ -132,7 +132,6 @@ class FilterAllFragment : Fragment() {
                 filterIcIndustries.setImageResource(R.drawable.ic_close_24px)
                 filterIcIndustries.isClickable = true
                 filterVisibleIndustries.visibility = View.VISIBLE
-
             } else {
                 filterTextIndustries.text = "Отрасль"
                 filterTextIndustries.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey))
@@ -151,7 +150,6 @@ class FilterAllFragment : Fragment() {
                 filterTextSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_universal))
                 filterSalaryClear.visibility = View.VISIBLE
                 filterSalaryClear.isClickable = true
-                filterFunctionButton.visibility = View.VISIBLE
             } else {
                 filterExpectedSalary.setTextColor(
                     ContextCompat.getColor(requireContext(), R.color.all_filters_sum_hint)
