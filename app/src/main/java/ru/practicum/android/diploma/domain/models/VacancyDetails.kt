@@ -10,9 +10,12 @@ data class VacancyDetails(
     val salary: Salary?,
     val employer: Employer?,
     val city: String?,
+    val fullAddress: String?,
+    val areaName: String,
     val experience: String?,
     val employment: String?,
     val description: String,
     val contacts: Contacts?,
-    val link: String
+    val link: String,
+    val keySkills: String
 )

@@ -1,11 +1,11 @@
 package ru.practicum.android.diploma.ui.details
 
 import android.os.Bundle
-import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -52,6 +52,9 @@ class DetailsFragment : Fragment() {
         binding.contactPhoneTextView.setOnClickListener {
             viewModel.call(requireContext())
         }
+        binding.favoriteIcon.setOnClickListener {
+            viewModel.favoriteIconClicked()
+        }
     }
 
     private fun setUpObservers() {
@@ -60,18 +63,30 @@ class DetailsFragment : Fragment() {
         }
     }
 
+    @Suppress("detekt:LongMethod")
     private fun renderState(state: DetailsViewState) {
         when (state) {
             is DetailsViewState.Loading -> {
                 binding.progressBar.isVisible = true
                 binding.scrollView.isVisible = false
+                binding.errorContainer.isVisible = false
+            }
+
+            is DetailsViewState.Error -> {
+                binding.progressBar.isVisible = false
+                binding.scrollView.isVisible = false
+                binding.errorContainer.isVisible = true
             }
 
             is DetailsViewState.Content -> {
                 binding.vacancyTitleTextView.text = state.name
                 setTextOrHide(state.salary, binding.salaryTextView)
                 setTextOrHide(state.companyName, binding.companyTitleTextView)
-                setTextOrHide(state.city, binding.companyCityTextView)
+                if (state.fullAddress.isNullOrEmpty()) {
+                    binding.companyCityTextView.text = state.areaName
+                } else {
+                    binding.companyCityTextView.text = state.fullAddress
+                }
                 setTextOrHide(state.experience, binding.experienceTextView, binding.experienceLinearLayout)
                 setTextOrHide(state.employment, binding.employmentTypeTextView)
                 setTextOrHide(state.contactName, binding.contactNameTextView, binding.contactNameContainerLinearLayout)
@@ -81,23 +96,44 @@ class DetailsFragment : Fragment() {
                     binding.contactPhoneTextView,
                     binding.contactPhoneContainerLinearLayout
                 )
+                setTextOrHide(
+                    state.keySkills,
+                    binding.keySkillsTextView,
+                    binding.keySkillsContainerLinearLayout
+                )
 
                 binding.contactsTitleTextView.isVisible = !(
                     state.contactName.isNullOrEmpty()
                         && state.contactEmail.isNullOrEmpty()
                         && state.contactsPhones.isNullOrEmpty())
 
-                binding.vacancyDescriptionTextView.text = Html.fromHtml(state.description)
+                binding.vacancyDescriptionTextView.text = HtmlCompat.fromHtml(
+                    state.description.replace(Regex("<li>\\s<p>|<li>"), "<li> "),
+                    HtmlCompat.FROM_HTML_SEPARATOR_LINE_BREAK_LIST_ITEM
+                )
 
                 val cornerRadius = requireContext().resources.getDimensionPixelSize(R.dimen.s_margin)
                 Glide.with(binding.companyImageView)
                     .load(state.companyLogo)
                     .transform(RoundedCorners(cornerRadius))
-                    .placeholder(R.drawable.spiral)
+                    .placeholder(R.drawable.logo_placeholder)
                     .into(binding.companyImageView)
 
                 binding.progressBar.isVisible = false
                 binding.scrollView.isVisible = true
+                binding.errorContainer.isVisible = false
+
+                checkIfVacancyFavorite()
+            }
+
+            is DetailsViewState.IsVacancyFavorite -> {
+                if (state.isFavorite) {
+                    binding.iconIsFavorite.visibility = View.VISIBLE
+                    binding.iconIsNotFavorite.visibility = View.INVISIBLE
+                } else {
+                    binding.iconIsFavorite.visibility = View.INVISIBLE
+                    binding.iconIsNotFavorite.visibility = View.VISIBLE
+                }
             }
         }
     }
@@ -111,6 +147,10 @@ class DetailsFragment : Fragment() {
             textView.isVisible = true
             container?.isVisible = true
         }
+    }
+
+    private fun checkIfVacancyFavorite() {
+        viewModel.isVacancyFavorite()
     }
 
     companion object {

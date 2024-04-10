@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/workplace_toolbar"
@@ -12,12 +12,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/back_icon"
-        app:titleTextAppearance="@style/medium22_font" >
+        app:titleTextAppearance="@style/medium22_font">
 
         <TextView
+            style="@style/medium22_font"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/medium22_font"
             android:text="@string/filter_choosing_place_to_work"
             android:textColor="@color/black" />
 
@@ -39,8 +39,8 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_gravity="center"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
@@ -59,7 +59,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/filter_count"
-                android:padding="2dp" />
+                android:padding="2dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/grey" />
 
         </LinearLayout>
 
@@ -68,7 +70,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            app:srcCompat="@drawable/arrow_forward_24px" />
+            app:srcCompat="@drawable/arrow_forward_24px"
+            app:tint="@color/black" />
 
     </LinearLayout>
 
@@ -87,8 +90,8 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_gravity="center"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
@@ -107,7 +110,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/filter_region"
-                android:padding="2dp" />
+                android:padding="2dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/grey" />
 
         </LinearLayout>
 
@@ -116,7 +121,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            app:srcCompat="@drawable/arrow_forward_24px" />
+            app:srcCompat="@drawable/arrow_forward_24px"
+            app:tint="@color/black" />
 
 
     </LinearLayout>
@@ -132,9 +138,9 @@
         android:background="@drawable/filter_button_rounded"
         android:gravity="center"
         android:text="@string/filter_choice"
-        android:textColor="@color/white"
+        android:textColor="@color/white.universal"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

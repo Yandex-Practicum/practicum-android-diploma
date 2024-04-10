@@ -11,10 +11,13 @@ import com.markodevcic.peko.PermissionRequester
 import com.markodevcic.peko.PermissionResult
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.data.vacancies.VacancyDetailsException
 import ru.practicum.android.diploma.domain.api.details.VacancyDetailsInteractor
 import ru.practicum.android.diploma.domain.models.VacancyDetails
 import ru.practicum.android.diploma.domain.models.vacacy.Salary
 import ru.practicum.android.diploma.domain.sharing.ExternalNavigator
+import ru.practicum.android.diploma.util.CurrencySymbol
+import ru.practicum.android.diploma.util.SalaryFormatter
 
 class DetailsViewModel(
     private val interactor: VacancyDetailsInteractor,
@@ -36,9 +39,16 @@ class DetailsViewModel(
         stateLiveData.postValue(DetailsViewState.Loading)
 
         viewModelScope.launch {
-            interactor.getVacancyDetails(vacancyId).collect() {
-                vacancyDetails = it
-                updateModel(it, fragment.requireContext())
+            @Suppress("detekt:TooGenericExceptionCaught", "detekt:SwallowedException")
+            try {
+                interactor.getVacancyDetails(vacancyId).collect {
+                    vacancyDetails = it
+                    updateModel(it, fragment.requireContext())
+                }
+            } catch (e: VacancyDetailsException) {
+                stateLiveData.postValue(DetailsViewState.Error)
+            } catch (e: Exception) {
+                //
             }
         }
     }
@@ -60,9 +70,11 @@ class DetailsViewModel(
                             externalNavigator.call(phone)
                         }
                     }
+
                     is PermissionResult.Denied.DeniedPermanently -> {
                         externalNavigator.openApplicationSettings()
                     }
+
                     is PermissionResult.Denied.NeedsRationale -> {
                         Toast.makeText(
                             context,
@@ -70,6 +82,7 @@ class DetailsViewModel(
                             Toast.LENGTH_LONG
                         ).show()
                     }
+
                     is PermissionResult.Cancelled -> {}
                 }
             }
@@ -88,12 +101,15 @@ class DetailsViewModel(
             companyLogo = vacancy.employer?.logoUrls?.art90,
             companyName = vacancy.employer?.name,
             city = vacancy.city,
+            fullAddress = vacancy.fullAddress,
+            areaName = vacancy.areaName,
             experience = vacancy.experience,
             employment = vacancy.employment,
             description = vacancy.description,
             contactName = vacancy.contacts?.name,
             contactEmail = vacancy.contacts?.email,
-            contactsPhones = vacancy.contacts?.phones
+            contactsPhones = vacancy.contacts?.phones,
+            keySkills = vacancy.keySkills
         )
         stateLiveData.postValue(content)
     }
@@ -104,13 +120,13 @@ class DetailsViewModel(
         var text = ""
         val from = salary.from
         val to = salary.to
-        val currency = salary.currency
+        val currency = CurrencySymbol.get(salary.currency)
 
         if (from != null) {
-            text += "${context.getString(R.string.from)} ${formatPrice(from.toString())} "
+            text += "${context.getString(R.string.from)} ${SalaryFormatter.format(from.toString())} "
         }
         if (to != null) {
-            text += "${context.getString(R.string.to)} ${formatPrice(to.toString())} "
+            text += "${context.getString(R.string.to)} ${SalaryFormatter.format(to.toString())} "
         }
         if (text.isNotEmpty() && currency != null) {
             text += currency
@@ -118,8 +134,37 @@ class DetailsViewModel(
         return text.ifEmpty { null }
     }
 
-    private fun formatPrice(price: String): String {
+    /*private fun formatPrice(price: String): String {
         return price.reversed().chunked(sizeOfMoneyPart).reversed().joinToString(" ") { it.reversed() }
+    }*/
+
+    fun favoriteIconClicked() {
+        vacancyDetails?.let {
+            viewModelScope.launch {
+                if (interactor.isVacancyFavorite(vacancyDetails?.id ?: "")) {
+                    interactor.makeVacancyNormal(it.id)
+                    stateLiveData.postValue(
+                        DetailsViewState.IsVacancyFavorite(false)
+                    )
+                } else {
+                    interactor.makeVacancyFavorite(it)
+                    stateLiveData.postValue(
+                        DetailsViewState.IsVacancyFavorite(true)
+                    )
+                }
+            }
+
+        }
+    }
+
+    fun isVacancyFavorite() {
+        viewModelScope.launch {
+            stateLiveData.postValue(
+                DetailsViewState.IsVacancyFavorite(
+                    interactor.isVacancyFavorite(vacancyDetails?.id ?: "")
+                )
+            )
+        }
     }
 
     companion object {

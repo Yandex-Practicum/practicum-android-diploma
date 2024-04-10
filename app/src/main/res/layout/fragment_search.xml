@@ -16,9 +16,9 @@
         app:titleTextAppearance="@style/medium22_font">
 
         <TextView
+            style="@style/medium22_font"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/medium22_font"
             android:text="@string/vacancy_search"
             android:textColor="@color/black" />
 
@@ -59,6 +59,7 @@
             android:inputType="text"
             android:maxLength="128"
             android:singleLine="true"
+            android:textColor="@color/black.universal"
             android:textColorHint="@color/search_bar_hint" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -90,8 +91,8 @@
         android:id="@+id/rv_vacancy"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:paddingTop="48dp"
         android:clipToPadding="false"
+        android:paddingTop="48dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

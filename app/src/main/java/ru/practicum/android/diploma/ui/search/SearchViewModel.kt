@@ -19,20 +19,26 @@ class SearchViewModel(
     private val searchPagingRepository: SearchPagingRepository
 ) : ViewModel() {
 
-    private val stateLiveData = MutableLiveData<Int>()
+    var isCrossPressed = false
+    var lastQuery = ""
+    private val foundLiveData = MutableLiveData<Int>()
 
-    fun observeState(): LiveData<Int> = stateLiveData
+    fun observeState(): LiveData<Int> = foundLiveData
 
     fun search(text: String): Flow<PagingData<Vacancy>> {
         viewModelScope.launch {
             vacancySearchRepository.getVacancies(text, 1).collect {
                 if (it.first != null) {
-                    Log.e("searchFound()", (it.first as VacancyResponse).found.toString())
-                    stateLiveData.postValue((it.first as VacancyResponse).found)
+                    Log.d("searchFound", (it.first as VacancyResponse).found.toString())
+                    foundLiveData.postValue((it.first as VacancyResponse).found)
                 }
             }
         }
-        Log.e("searchPading", text)
+        Log.d("searchPaging", text)
         return searchPagingRepository.getSearchPaging(text).cachedIn(viewModelScope)
+    }
+
+    fun clearFoundLiveData() {
+        foundLiveData.value = -1
     }
 }
