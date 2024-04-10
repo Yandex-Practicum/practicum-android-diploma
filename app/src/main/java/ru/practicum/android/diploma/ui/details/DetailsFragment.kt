@@ -106,9 +106,8 @@ class DetailsFragment : Fragment() {
                         && state.contactsPhones.isNullOrEmpty())
 
                 binding.vacancyDescriptionTextView.text = HtmlCompat.fromHtml(
-                    state.description
-                        .replace(Regex("<li>\\s<p>|<li>"), "<li> "),
-                        HtmlCompat.FROM_HTML_SEPARATOR_LINE_BREAK_LIST_ITEM
+                    state.description.replace(Regex("<li>\\s<p>|<li>"), "<li> "),
+                    HtmlCompat.FROM_HTML_SEPARATOR_LINE_BREAK_LIST_ITEM
                 )
 
                 val cornerRadius = requireContext().resources.getDimensionPixelSize(R.dimen.s_margin)
