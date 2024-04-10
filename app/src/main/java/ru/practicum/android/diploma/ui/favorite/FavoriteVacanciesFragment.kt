@@ -4,12 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFavoriteBinding
 import ru.practicum.android.diploma.domain.models.VacancyDetails
+import ru.practicum.android.diploma.ui.details.DetailsFragment
 
 class FavoriteVacanciesFragment : Fragment() {
 
@@ -52,6 +56,10 @@ class FavoriteVacanciesFragment : Fragment() {
         recyclerView?.adapter = FavoriteVacanciesRecyclerViewAdapter(data).apply {
             vacancyClicked = {
                 // передача :Vacancy в фрагмент ДеталиВакансии
+                findNavController().navigate(
+                    R.id.action_favoriteFragment_to_fragmentDetails,
+                    bundleOf(DetailsFragment.vacancyIdKey to it.id)
+                )
             }
         }
 
@@ -68,7 +76,7 @@ class FavoriteVacanciesFragment : Fragment() {
                 is FavoriteVacanciesState.VacancyList -> {
                     showVacancyList()
                     data.clear()
-                    data.addAll(state.vacancies)
+                    data.addAll(state.vacancies.reversed())
                     recyclerView?.adapter?.notifyDataSetChanged()
                 }
             }
