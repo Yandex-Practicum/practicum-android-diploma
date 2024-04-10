@@ -26,6 +26,7 @@
     <string name="email">E-mail</string>
     <string name="vacancy">Вакансия</string>
     <string name="vacancy_description">Описание вакансии</string>
+    <string name="key_skills">Ключевые навыки</string>
     <string name="needed_experience">Требуемый опыт</string>
     <string name="phone">Телефон</string>
 

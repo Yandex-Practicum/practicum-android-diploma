@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -93,13 +94,21 @@ class DetailsFragment : Fragment() {
                     binding.contactPhoneTextView,
                     binding.contactPhoneContainerLinearLayout
                 )
+                setTextOrHide(
+                    state.keySkills,
+                    binding.keySkillsTextView,
+                    binding.keySkillsContainerLinearLayout
+                )
 
                 binding.contactsTitleTextView.isVisible = !(
                     state.contactName.isNullOrEmpty()
                         && state.contactEmail.isNullOrEmpty()
                         && state.contactsPhones.isNullOrEmpty())
 
-                binding.vacancyDescriptionTextView.text = Html.fromHtml(state.description)
+                binding.vacancyDescriptionTextView.text = HtmlCompat.fromHtml(
+                    state.description.replace(Regex("<li>\\s<p>|<li>"), "<li> "),
+                    HtmlCompat.FROM_HTML_SEPARATOR_LINE_BREAK_LIST_ITEM
+                )
 
                 val cornerRadius = requireContext().resources.getDimensionPixelSize(R.dimen.s_margin)
                 Glide.with(binding.companyImageView)

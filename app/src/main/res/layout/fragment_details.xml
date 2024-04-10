@@ -246,6 +246,35 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/keySkillsContainerLinearLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/l_margin"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="visible"
+                app:layout_constraintLeft_toLeftOf="@id/main_content_left_guideline"
+                app:layout_constraintRight_toRightOf="@id/main_content_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/vacancyDescriptionContainerLinearLayout">
+
+                <TextView
+                    style="@style/medium22_font"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/key_skills"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/keySkillsTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin"
+                    android:textColor="@color/black"
+                    tools:text="- Знание классических алгоритмов и структуры данных" />
+
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/contactsTitleTextView"
                 style="@style/medium22_font"
@@ -256,7 +285,7 @@
                 android:textColor="@color/black"
                 app:layout_constraintLeft_toLeftOf="@id/main_content_left_guideline"
                 app:layout_constraintRight_toRightOf="@id/main_content_right_guideline"
-                app:layout_constraintTop_toBottomOf="@id/vacancyDescriptionContainerLinearLayout" />
+                app:layout_constraintTop_toBottomOf="@id/keySkillsContainerLinearLayout" />
 
             <LinearLayout
                 android:id="@+id/contactNameContainerLinearLayout"
