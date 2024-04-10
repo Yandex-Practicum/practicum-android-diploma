@@ -208,10 +208,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:visibility="visible"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        >
 
         <TextView
             android:id="@+id/filter_function_apply"
@@ -225,8 +224,6 @@
             android:gravity="center"
             android:text="@string/filter_apply"
             android:textColor="@color/white.universal"
-            android:visibility="gone"
-            tools:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/filter_function_remove"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -244,8 +241,6 @@
             android:text="@string/filter_remove"
             android:gravity="center"
             android:textColor="@color/red"
-            android:visibility="gone"
-            tools:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

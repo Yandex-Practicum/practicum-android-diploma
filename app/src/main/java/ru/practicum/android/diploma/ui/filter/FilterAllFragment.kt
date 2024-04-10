@@ -75,6 +75,15 @@ class FilterAllFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.filterAllState.observe(viewLifecycleOwner) { state ->
+            debugLog(TAG) { "filterAllState, state = $state" }
+            when (state) {
+                is FilterAllState.Content -> binding.filterFunctionButton.visibility = View.VISIBLE
+                is FilterAllState.Empty -> binding.filterFunctionButton.visibility = View.GONE
+                else -> {binding.filterFunctionButton.visibility = View.GONE}
+            }
+        }
+
         viewModel.countryState.observe(viewLifecycleOwner) { country ->
             if (country != null) {
                 binding.filterTextWorkplace.text = country.countryName
@@ -134,10 +143,6 @@ class FilterAllFragment : Fragment() {
 
         binding.filterTextSalary.addTextChangedListener(textWatcher)
 
-        binding.filterSalaryClear.setOnClickListener {
-            viewModel.setSalarySumInfo(null)
-        }
-
         binding.filterFunctionCheckbox.setOnCheckedChangeListener { _, isChecked ->
             // Обновляем состояние флажка в viewModel
             viewModel.setSalaryBooleanInfo(
@@ -149,6 +154,10 @@ class FilterAllFragment : Fragment() {
 
         binding.filterFunctionApply.setOnClickListener {
             findNavController().navigateUp()
+        }
+
+        binding.filterSalaryClear.setOnClickListener {
+            viewModel.setSalarySumInfo(null)
         }
 
         binding.filterIcWorkplace.setOnClickListener {

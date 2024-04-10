@@ -25,6 +25,9 @@ class FilterAllViewModel(
     private val filterRepositorySalaryBooleanFlow: FilterRepositorySalaryBooleanFlow
 ) : ViewModel() {
 
+    private var _filterAllState = MutableLiveData<FilterAllState?>()
+    val filterAllState: LiveData<FilterAllState?> = _filterAllState
+
     private var _countryState = MutableLiveData<CountryShared?>()
     val countryState: LiveData<CountryShared?> = _countryState
 
@@ -42,6 +45,51 @@ class FilterAllViewModel(
 
     init {
         initSubscribe()
+        observeStateChanges()
+    }
+
+    private fun observeStateChanges() {
+        _countryState.observeForever { country ->
+            observeStateFilterNotNull(country, _industriesState.value)
+        }
+
+        _industriesState.observeForever { industries ->
+            observeStateFilterNotNull(_countryState.value, industries)
+        }
+
+        _salarySum.observeForever { salaryText ->
+            observeStateFilterIsEmpty(salaryText)
+        }
+
+        _salaryBoolean.observeForever { salaryBoolean ->
+            observeStateFilterBoolean(salaryBoolean)
+        }
+    }
+
+    private fun observeStateFilterNotNull(country: CountryShared?, industries: IndustriesShared?) {
+        debugLog(FilterAllFragment.TAG) { "CountryShared, state = $country\nIndustriesShared, state = $industries " }
+        if (country != null || industries != null) {
+            _filterAllState.postValue(FilterAllState.Content)
+        } else {
+            _filterAllState.postValue(FilterAllState.Empty)
+        }
+    }
+
+    private fun observeStateFilterIsEmpty(salary: SalaryTextShared?) {
+        if (salary?.salary?.isNotEmpty() == true) {
+            _filterAllState.postValue(FilterAllState.Content)
+        } else {
+            _filterAllState.postValue(FilterAllState.Empty)
+        }
+    }
+
+    private fun observeStateFilterBoolean(salary: SalaryBooleanShared?) {
+        debugLog(TAG) { "observeStateFilterBoolean, collect: salary = $salary" }
+        if (salary?.isChecked == true) {
+            _filterAllState.postValue(FilterAllState.Content)
+        } else {
+            _filterAllState.postValue(FilterAllState.Empty)
+        }
     }
 
     private fun initSubscribe() {
