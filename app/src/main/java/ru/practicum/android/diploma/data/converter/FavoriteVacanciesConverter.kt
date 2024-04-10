@@ -90,6 +90,9 @@ object FavoriteVacanciesConverter {
         },
 
         city = this.city,
+        // Новый параметр fullAddress и areaName
+        fullAddress = this.employment,
+        areaName = this.name,
         experience = this.experience,
         employment = this.employment,
         description = this.description,
