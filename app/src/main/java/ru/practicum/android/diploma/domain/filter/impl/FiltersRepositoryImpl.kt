@@ -41,9 +41,9 @@ class FiltersRepositoryImpl(
                                     area = area,
                                     industry = industries?.industriesId,
                                     salary = salaryText?.salary,
-                                    salaryBoolean = (salaryBoolean != null).toString(),
+                                    salaryBoolean = if (salaryBoolean != null) "true" else null,
                                 )
-                                Log.e("filters", filtersFlow.value.toString())
+                                Log.d("filters source", filtersFlow.value.toString())
                             }
                         }
                     }
