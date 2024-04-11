@@ -75,6 +75,11 @@ class SearchFragment : Fragment() {
 
     }
 
+    override fun onStart() {
+        super.onStart()
+        viewModel.updateFilters()
+    }
+
     private fun addListenerToVacancyAdapter() {
         vacancyAdapter.addLoadStateListener {
             Log.d("adapterState", it.toString())

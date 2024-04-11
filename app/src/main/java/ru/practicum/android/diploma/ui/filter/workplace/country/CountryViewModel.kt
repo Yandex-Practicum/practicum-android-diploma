@@ -10,11 +10,13 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.country.Country
 import ru.practicum.android.diploma.domain.country.CountryInteractor
 import ru.practicum.android.diploma.domain.filter.FilterRepositoryCountryFlow
+import ru.practicum.android.diploma.domain.filter.FilterRepositoryRegionFlow
 import ru.practicum.android.diploma.domain.filter.datashared.CountryShared
 
 class CountryViewModel(
     private val countryInteractor: CountryInteractor,
-    val filterRepositoryCountryFlow: FilterRepositoryCountryFlow
+    private val filterRepositoryCountryFlow: FilterRepositoryCountryFlow,
+    private val filterRepositoryRegionFlow: FilterRepositoryRegionFlow,
 ) : ViewModel() {
 
     private val stateLiveData = MutableLiveData<CountryState>()
@@ -24,7 +26,7 @@ class CountryViewModel(
         loadCountry()
     }
 
-    fun loadCountry() {
+    private fun loadCountry() {
         renderState(CountryState.Loading)
         viewModelScope.launch {
             countryInteractor.searchCountry()
@@ -54,12 +56,14 @@ class CountryViewModel(
         }
     }
 
-    fun renderState(countryState: CountryState) {
+    private fun renderState(countryState: CountryState) {
         stateLiveData.postValue(countryState)
     }
 
     fun setCountryInfo(country: CountryShared) {
         Log.d("StateMyCountry", "Мы получили в CountryViewModel $country")
         filterRepositoryCountryFlow.setCountryFlow(country)
+        // Если выбрали другой город, то регион сбрасываем
+        filterRepositoryRegionFlow.setRegionFlow(null)
     }
 }

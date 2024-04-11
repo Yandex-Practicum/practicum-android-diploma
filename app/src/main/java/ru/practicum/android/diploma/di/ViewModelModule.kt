@@ -18,11 +18,11 @@ val viewModelModule = module {
     }
 
     viewModel {
-        SearchViewModel(get(), get())
+        SearchViewModel(get(), get(), get())
     }
 
     viewModel {
-        CountryViewModel(get(), get())
+        CountryViewModel(get(), get(), get())
     }
 
     viewModel {

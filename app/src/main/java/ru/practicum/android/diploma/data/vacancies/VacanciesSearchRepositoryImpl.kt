@@ -5,33 +5,44 @@ import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.data.network.NetworkClient
 import ru.practicum.android.diploma.data.vacancies.dto.VacanciesSearchDtoResponse
 import ru.practicum.android.diploma.data.vacancies.dto.VacanciesSearchRequest
+import ru.practicum.android.diploma.data.vacancies.mapper.VacanciesFilterMapper
 import ru.practicum.android.diploma.data.vacancies.mapper.VacanciesSearchMapper
 import ru.practicum.android.diploma.data.vacancies.response.ResponseCodes
 import ru.practicum.android.diploma.domain.api.search.VacanciesSearchRepository
+import ru.practicum.android.diploma.domain.models.Filters
 import ru.practicum.android.diploma.domain.models.vacacy.VacancyResponse
 
 class VacanciesSearchRepositoryImpl(
     private val networkClient: NetworkClient
 ) : VacanciesSearchRepository {
-    override suspend fun getVacancies(query: String, page: Int): Flow<Pair<VacancyResponse?, String?>> = flow {
-        val response =
-            networkClient.doRequest(VacanciesSearchRequest(mapOf("text" to query, "page" to page.toString())))
+    override suspend fun getVacancies(
+        query: String,
+        page: Int,
+        filters: Filters
+    ): Flow<Pair<VacancyResponse?, String?>> =
+        flow {
+            val response =
+                networkClient.doRequest(
+                    VacanciesSearchRequest(
+                        VacanciesFilterMapper.map(query, page, filters)
+                    )
+                )
 
-        when (response.resultCode) {
-            ResponseCodes.SUCCESS -> {
-                emit(Pair(VacanciesSearchMapper.map(response as VacanciesSearchDtoResponse), null))
+            when (response.resultCode) {
+                ResponseCodes.SUCCESS -> {
+                    emit(Pair(VacanciesSearchMapper.map(response as VacanciesSearchDtoResponse), null))
+                }
+
+                ResponseCodes.NO_CONNECTION -> {
+                    emit(Pair(null, "no connection"))
+                }
+
+                ResponseCodes.SERVER_ERROR -> {
+                    emit(Pair(null, "Server error"))
+                }
+
+                else -> emit(Pair(null, "error"))
             }
-
-            ResponseCodes.NO_CONNECTION -> {
-                emit(Pair(null, "no connection"))
-            }
-
-            ResponseCodes.SERVER_ERROR -> {
-                emit(Pair(null, "Server error"))
-            }
-
-            else -> emit(Pair(null, "error"))
         }
-    }
 
 }

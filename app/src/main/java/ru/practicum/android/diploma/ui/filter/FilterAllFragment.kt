@@ -2,8 +2,6 @@ package ru.practicum.android.diploma.ui.filter
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -25,8 +23,6 @@ class FilterAllFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModel<FilterAllViewModel>()
-
-    val handler = Handler(Looper.getMainLooper())
 
     private val textWatcher = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -57,17 +53,7 @@ class FilterAllFragment : Fragment() {
         }
 
         override fun afterTextChanged(s: Editable?) {
-            handler.removeCallbacksAndMessages(null)
-
-            handler.postDelayed({
-                s?.toString()?.let {
-                    viewModel.setSalarySumInfo(
-                        SalaryTextShared(
-                            salary = it
-                        )
-                    )
-                }
-            }, DELAY)
+            /*NOTHING*/
         }
     }
 
@@ -98,7 +84,7 @@ class FilterAllFragment : Fragment() {
                         if (country != null || industries != null) {
                             filterFunctionButton.visibility = View.VISIBLE
                         } else if (salaryText?.salary?.isNotEmpty() == true
-                            || salaryBoolean?.isChecked == true
+                            || salaryBoolean != null
                         ) {
                             filterFunctionButton.visibility = View.VISIBLE
                         } else {
@@ -172,8 +158,8 @@ class FilterAllFragment : Fragment() {
 
     private fun observeSalaryBoolean() = with(binding) {
         viewModel.salaryBoolean.observe(viewLifecycleOwner) { salaryBoolean ->
-            debugLog(TAG) { "filterFunctionCheckbox, isChecked = ${salaryBoolean?.isChecked}" }
-            filterFunctionCheckbox.isChecked = salaryBoolean?.isChecked ?: false
+            debugLog(TAG) { "filterFunctionCheckbox, isChecked = ${salaryBoolean != null}" }
+            filterFunctionCheckbox.isChecked = salaryBoolean != null
         }
     }
 
@@ -185,9 +171,11 @@ class FilterAllFragment : Fragment() {
         filterFunctionCheckbox.setOnCheckedChangeListener { _, isChecked ->
             // Обновляем состояние флажка в viewModel
             viewModel.setSalaryBooleanInfo(
-                SalaryBooleanShared(
-                    isChecked = isChecked
-                )
+                if (isChecked) {
+                    SalaryBooleanShared
+                } else {
+                    null
+                }
             )
         }
 
@@ -205,7 +193,7 @@ class FilterAllFragment : Fragment() {
             viewModel.setRegionInfo(null)
             viewModel.setIndustriesInfo(null)
             viewModel.setSalarySumInfo(null)
-            viewModel.setSalaryBooleanInfo(SalaryBooleanShared(false))
+            viewModel.setSalaryBooleanInfo(null)
         }
     }
 
@@ -215,6 +203,15 @@ class FilterAllFragment : Fragment() {
 
     private fun bindNavigationListeners() = with(binding) {
         filterFunctionApply.setOnClickListener {
+            viewModel.setSalarySumInfo(
+                if (filterTextSalary.text.toString().isNotEmpty()) {
+                    SalaryTextShared(
+                        salary = filterTextSalary.text.toString()
+                    )
+                } else {
+                    null
+                }
+            )
             findNavController().navigateUp()
         }
 
@@ -238,6 +235,5 @@ class FilterAllFragment : Fragment() {
 
     companion object {
         const val TAG = "FilterAllFragment"
-        const val DELAY = 2000L
     }
 }
