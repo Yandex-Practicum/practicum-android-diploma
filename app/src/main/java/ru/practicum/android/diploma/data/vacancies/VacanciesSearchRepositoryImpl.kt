@@ -15,7 +15,11 @@ import ru.practicum.android.diploma.domain.models.vacacy.VacancyResponse
 class VacanciesSearchRepositoryImpl(
     private val networkClient: NetworkClient
 ) : VacanciesSearchRepository {
-    override suspend fun getVacancies(query: String, page: Int, filters: Filters): Flow<Pair<VacancyResponse?, String?>> =
+    override suspend fun getVacancies(
+        query: String,
+        page: Int,
+        filters: Filters
+    ): Flow<Pair<VacancyResponse?, String?>> =
         flow {
             val response =
                 networkClient.doRequest(

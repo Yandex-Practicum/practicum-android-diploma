@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.ui.search
 
 import android.util.Log
-import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,25 +12,15 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.search.SearchPagingRepository
 import ru.practicum.android.diploma.domain.api.search.VacanciesSearchRepository
-import ru.practicum.android.diploma.domain.debugLog
-import ru.practicum.android.diploma.domain.filter.FilterRepositoryCountryFlow
-import ru.practicum.android.diploma.domain.filter.FilterRepositoryIndustriesFlow
-import ru.practicum.android.diploma.domain.filter.FilterRepositoryRegionFlow
-import ru.practicum.android.diploma.domain.filter.FilterRepositorySalaryBooleanFlow
-import ru.practicum.android.diploma.domain.filter.FilterRepositorySalaryTextFlow
+import ru.practicum.android.diploma.domain.filter.FiltersRepository
 import ru.practicum.android.diploma.domain.models.Filters
 import ru.practicum.android.diploma.domain.models.vacacy.Vacancy
 import ru.practicum.android.diploma.domain.models.vacacy.VacancyResponse
-import ru.practicum.android.diploma.ui.filter.FilterAllViewModel
 
 class SearchViewModel(
     private val vacancySearchRepository: VacanciesSearchRepository,
     private val searchPagingRepository: SearchPagingRepository,
-    private val filterRepositoryCountryFlow: FilterRepositoryCountryFlow,
-    private val filterRepositoryRegionFlow: FilterRepositoryRegionFlow,
-    private val filterRepositoryIndustriesFlow: FilterRepositoryIndustriesFlow,
-    private val filterRepositorySalaryTextFlow: FilterRepositorySalaryTextFlow,
-    private val filterRepositorySalaryBooleanFlow: FilterRepositorySalaryBooleanFlow
+    private val filtersRepository: FiltersRepository,
 ) : ViewModel() {
 
     var isCrossPressed = false
@@ -40,36 +29,22 @@ class SearchViewModel(
 
     fun observeState(): LiveData<Int> = foundLiveData
 
-    private var filters = Filters()
+    private var filters: Filters = Filters()
 
     fun updateFilters() {
         viewModelScope.launch {
-            filterRepositoryCountryFlow.getCountryFlow().collect { county ->
-                filterRepositoryRegionFlow.getRegionFlow().collect { region ->
-                    filterRepositoryIndustriesFlow.getIndustriesFlow().collect { industries ->
-                        filterRepositorySalaryTextFlow.getSalaryTextFlow().collect { salaryText ->
-                            filterRepositorySalaryBooleanFlow.getSalaryBooleanFlow().collect { salaryBoolean ->
-                                var area = county?.countryId
-                                if (region != null) {
-                                    area = region.regionId
-                                }
-                                filters = Filters(
-                                    area = area,
-                                    industry = industries?.industriesId,
-                                    salary = salaryText?.salary,
-                                    salaryBoolean = (salaryBoolean != null).toString(),
-                                )
-                                Log.d("filters", filters.toString())
-                            }
-                        }
-                    }
-                }
+            filtersRepository.getFiltersFlow().collect {
+                filters = it
             }
         }
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        filtersRepository.cancelJob()
+    }
+
     fun search(text: String): Flow<PagingData<Vacancy>> {
-        //val filters = getAllFilters()
         viewModelScope.launch {
             vacancySearchRepository.getVacancies(text, 0, filters).collect {
                 if (it.first != null) {

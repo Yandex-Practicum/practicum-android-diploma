@@ -2,8 +2,6 @@ package ru.practicum.android.diploma.ui.filter
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -25,8 +23,6 @@ class FilterAllFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModel<FilterAllViewModel>()
-
-    val handler = Handler(Looper.getMainLooper())
 
     private val textWatcher = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -57,19 +53,7 @@ class FilterAllFragment : Fragment() {
         }
 
         override fun afterTextChanged(s: Editable?) {
-            handler.removeCallbacksAndMessages(null)
-
-            handler.postDelayed({
-                s?.toString()?.let {
-                    viewModel.setSalarySumInfo(
-                        if (s.isNotEmpty()) {
-                            SalaryTextShared(
-                                salary = it
-                            )
-                        } else null
-                    )
-                }
-            }, DELAY)
+            /*NOTHING*/
         }
     }
 
@@ -219,6 +203,15 @@ class FilterAllFragment : Fragment() {
 
     private fun bindNavigationListeners() = with(binding) {
         filterFunctionApply.setOnClickListener {
+            viewModel.setSalarySumInfo(
+                if (filterTextSalary.text.toString().isNotEmpty()) {
+                    SalaryTextShared(
+                        salary = filterTextSalary.text.toString()
+                    )
+                } else {
+                    null
+                }
+            )
             findNavController().navigateUp()
         }
 
@@ -242,6 +235,5 @@ class FilterAllFragment : Fragment() {
 
     companion object {
         const val TAG = "FilterAllFragment"
-        const val DELAY = 2000L
     }
 }

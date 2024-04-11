@@ -22,5 +22,4 @@ object VacanciesFilterMapper {
         return result
     }
 
-
 }
