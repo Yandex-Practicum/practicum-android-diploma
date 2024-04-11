@@ -22,14 +22,14 @@ class SearchPageSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Vacancy> {
         return try {
-            val page: Int = params.key ?: 1
+            val page: Int = params.key ?: 0
             var response: Pair<VacancyResponse?, String?>? = null
             vacancySearchRepository.getVacancies(query, page, filters).collect { response = it }
             if (response?.first != null) {
                 val vacancyResponse = response?.first as VacancyResponse
 
                 val nextKey = if (vacancyResponse.pages > vacancyResponse.page) page + 1 else null
-                val prevKey = if (page == 1) null else page - 1
+                val prevKey = if (page == 0) null else page - 1
                 LoadResult.Page(vacancyResponse.items, prevKey, nextKey)
 
             } else {
