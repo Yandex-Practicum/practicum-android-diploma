@@ -74,7 +74,7 @@ class FavoriteRecyclerViewViewHolder(
         return df.format(salary)
     }
 
-    companion object{
+    companion object {
         const val GROUPING_SIZE = 3
     }
 }
