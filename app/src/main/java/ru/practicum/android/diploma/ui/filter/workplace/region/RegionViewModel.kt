@@ -58,6 +58,27 @@ class RegionViewModel(
         }
     }
 
+//    private fun loadRegion(regionId: String) {
+//        if (regionId == null) {
+//            renderState(RegionState.Loading)
+//            viewModelScope.launch {
+//
+//                regionInteractor.searchRegion(regionId)
+//                    .collect { pair ->
+//                        processResult(pair.first, pair.second)
+//                    }
+//            }
+//        } else {
+//            renderState(RegionState.Loading)
+//            viewModelScope.launch {
+//                regionInteractor.searchRegion(regionId)
+//                    .collect { pair ->
+//                        processResult(pair.first, pair.second)
+//                    }
+//            }
+//        }
+//    }
+
     // Поправить логику выполнения, вывод ошибок при загрузке
     private fun processResult(regionList: Country?, errorMessage: Int?) {
         when {
