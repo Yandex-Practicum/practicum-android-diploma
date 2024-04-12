@@ -11,7 +11,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.VacancyDetails
 import ru.practicum.android.diploma.domain.models.vacacy.Salary
 
-class FavoriteVacanciesRecyclerViewViewHolder(
+class FavoriteRecyclerViewViewHolder(
     itemView: View,
     private val vacancyClicked: (VacancyDetails) -> Unit
 ) : RecyclerView.ViewHolder(itemView) {
@@ -35,7 +35,6 @@ class FavoriteVacanciesRecyclerViewViewHolder(
 
         itemView.setOnClickListener { vacancyClicked(model) }
     }
-
 
     private fun formatSalary(salary: Salary?): String {
         if (salary == null) return "Зарплата не указана"
@@ -70,8 +69,12 @@ class FavoriteVacanciesRecyclerViewViewHolder(
     private fun formatSalary(salary: Int): String {
         val df = DecimalFormat()
         df.isGroupingUsed = true
-        df.groupingSize = 3
+        df.groupingSize = GROUPING_SIZE
 
         return df.format(salary)
+    }
+
+    companion object{
+        const val GROUPING_SIZE = 3
     }
 }
