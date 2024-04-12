@@ -44,11 +44,6 @@ class RegionViewModel(
     }
 
     private fun loadRegion(regionId: String) {
-        debugLog(TAG) { "loadRegion, regionId = $regionId" }
-        if (regionId.isNullOrEmpty()) {
-            debugLog(TAG) { "loadRegion, regionId.isNullOrEmpty() = $regionId" }
-        }
-
         renderState(RegionState.Loading)
         viewModelScope.launch {
             regionInteractor.searchRegion(regionId)
