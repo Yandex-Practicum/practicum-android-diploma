@@ -11,7 +11,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.VacancyDetails
 import ru.practicum.android.diploma.domain.models.vacacy.Salary
 
-class FavoriteRecyclerViewViewHolder(
+class FavoriteViewHolder(
     itemView: View,
     private val vacancyClicked: (VacancyDetails) -> Unit
 ) : RecyclerView.ViewHolder(itemView) {
@@ -29,7 +29,7 @@ class FavoriteRecyclerViewViewHolder(
         Glide
             .with(itemView)
             .load(model.employer?.logoUrls?.original ?: "")
-            .placeholder(R.drawable.spiral)
+            .placeholder(R.drawable.logo_placeholder)
             .transform(FitCenter())
             .into(vacancyCompanyLogo)
 

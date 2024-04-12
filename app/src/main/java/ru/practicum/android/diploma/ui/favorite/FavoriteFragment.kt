@@ -35,7 +35,7 @@ class FavoriteFragment : Fragment() {
 
         recyclerView = binding.favoriteItemsRecyclerView
         recyclerView?.layoutManager = LinearLayoutManager(context)
-        recyclerView?.adapter = FavoriteRecyclerViewAdapter(data).apply {
+        recyclerView?.adapter = FavoriteAdapter(data).apply {
             vacancyClicked = {
                 findNavController().navigate(
                     R.id.action_favoriteFragment_to_fragmentDetails,
