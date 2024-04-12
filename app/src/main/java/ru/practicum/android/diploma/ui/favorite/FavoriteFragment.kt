@@ -15,15 +15,64 @@ import ru.practicum.android.diploma.databinding.FragmentFavoriteBinding
 import ru.practicum.android.diploma.domain.models.VacancyDetails
 import ru.practicum.android.diploma.ui.details.DetailsFragment
 
-class FavoriteVacanciesFragment : Fragment() {
+class FavoriteFragment : Fragment() {
 
-    private val viewModel by viewModel<FavoriteVacanciesViewModel>()
+    private val viewModel by viewModel<FavoriteViewModel>()
 
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
 
     private val data = ArrayList<VacancyDetails>()
     private var recyclerView: RecyclerView? = null
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        _binding = FragmentFavoriteBinding.inflate(layoutInflater)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        recyclerView = binding.favoriteItemsRecyclerView
+        recyclerView?.layoutManager = LinearLayoutManager(context)
+        recyclerView?.adapter = FavoriteVacanciesRecyclerViewAdapter(data).apply {
+            vacancyClicked = {
+                findNavController().navigate(
+                    R.id.action_favoriteFragment_to_fragmentDetails,
+                    bundleOf(DetailsFragment.vacancyIdKey to it.id)
+                )
+            }
+        }
+
+        viewModel.getState().observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is FavoriteState.EmptyList -> {
+                    showEmptyVacancyList()
+                }
+
+                is FavoriteState.Error -> {
+                    showGetVacanciesError()
+                }
+
+                is FavoriteState.VacancyList -> {
+                    showVacancyList()
+                    data.clear()
+                    data.addAll(state.vacancies.reversed())
+                    recyclerView?.adapter?.notifyDataSetChanged()
+                }
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.reloadFavoriteVacancies()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
     private fun showEmptyVacancyList() {
         binding.favoriteItemsRecyclerView.visibility = View.INVISIBLE
@@ -43,53 +92,4 @@ class FavoriteVacanciesFragment : Fragment() {
         binding.getListErrorFrame.visibility = View.INVISIBLE
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = FragmentFavoriteBinding.inflate(layoutInflater)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        recyclerView = binding.favoriteItemsRecyclerView
-        recyclerView?.layoutManager = LinearLayoutManager(context)
-        recyclerView?.adapter = FavoriteVacanciesRecyclerViewAdapter(data).apply {
-            vacancyClicked = {
-                // передача :Vacancy в фрагмент ДеталиВакансии
-                findNavController().navigate(
-                    R.id.action_favoriteFragment_to_fragmentDetails,
-                    bundleOf(DetailsFragment.vacancyIdKey to it.id)
-                )
-            }
-        }
-
-        viewModel.getState().observe(viewLifecycleOwner) { state ->
-            when (state) {
-                is FavoriteVacanciesState.EmptyVacancyList -> {
-                    showEmptyVacancyList()
-                }
-
-                is FavoriteVacanciesState.GetVacanciesError -> {
-                    showGetVacanciesError()
-                }
-
-                is FavoriteVacanciesState.VacancyList -> {
-                    showVacancyList()
-                    data.clear()
-                    data.addAll(state.vacancies.reversed())
-                    recyclerView?.adapter?.notifyDataSetChanged()
-                }
-            }
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.reloadFavoriteVacancies()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }

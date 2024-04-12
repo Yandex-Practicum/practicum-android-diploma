@@ -48,7 +48,7 @@ class DetailsViewModel(
             } catch (e: VacancyDetailsException) {
                 stateLiveData.postValue(DetailsViewState.Error)
             } catch (e: Exception) {
-                //
+                stateLiveData.postValue(DetailsViewState.Error)
             }
         }
     }
@@ -133,10 +133,6 @@ class DetailsViewModel(
         }
         return text.ifEmpty { null }
     }
-
-    /*private fun formatPrice(price: String): String {
-        return price.reversed().chunked(sizeOfMoneyPart).reversed().joinToString(" ") { it.reversed() }
-    }*/
 
     fun favoriteIconClicked() {
         vacancyDetails?.let {

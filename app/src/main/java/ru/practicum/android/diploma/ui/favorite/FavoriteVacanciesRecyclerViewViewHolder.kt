@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.ui.favorite
 
+import android.icu.text.DecimalFormat
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -8,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.FitCenter
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.VacancyDetails
+import ru.practicum.android.diploma.domain.models.vacacy.Salary
 
 class FavoriteVacanciesRecyclerViewViewHolder(
     itemView: View,
@@ -22,22 +24,54 @@ class FavoriteVacanciesRecyclerViewViewHolder(
     fun bind(model: VacancyDetails) {
         vacancyTitle.text = model.name
         vacancyCompany.text = model.employer?.name ?: ""
+        vacancySalary.text = formatSalary(model.salary).replace(",", " ")
 
-        // добавить форматтер з/п
-        vacancySalary.text =
-            "от ${model.salary?.from ?: ""} до ${model.salary?.to ?: ""} ${model.salary?.currency ?: ""}END"
-                .replace("от  до  END", "Зарплата не указана")
-                .replace("от  ", "")
-                .replace("до  ", "")
-                .replace("END", "")
         Glide
             .with(itemView)
             .load(model.employer?.logoUrls?.original ?: "")
             .placeholder(R.drawable.spiral)
-            // .transform(CenterCrop())
             .transform(FitCenter())
             .into(vacancyCompanyLogo)
 
         itemView.setOnClickListener { vacancyClicked(model) }
+    }
+
+
+    private fun formatSalary(salary: Salary?): String {
+        if (salary == null) return "Зарплата не указана"
+
+        val currency = when (salary.currency) {
+            "RUR" -> "₽"
+            "EUR" -> "€"
+            "KZT" -> "₸"
+            "AZN" -> "\u20BC"
+            "USD" -> "$"
+            "BYR" -> "\u0042\u0072"
+            "GEL" -> "\u20BE"
+            "UAH" -> "\u20b4"
+            "UZS" -> "Soʻm"
+            else -> ""
+        }
+
+        val stringBuilder = StringBuilder()
+
+        salary.from?.let {
+            stringBuilder.append("от ${formatSalary(salary.from)} ")
+        }
+
+        salary.to?.let {
+            stringBuilder.append("до ${formatSalary(salary.to)} ")
+        }
+        stringBuilder.append("$currency")
+
+        return stringBuilder.toString()
+    }
+
+    private fun formatSalary(salary: Int): String {
+        val df = DecimalFormat()
+        df.isGroupingUsed = true
+        df.groupingSize = 3
+
+        return df.format(salary)
     }
 }

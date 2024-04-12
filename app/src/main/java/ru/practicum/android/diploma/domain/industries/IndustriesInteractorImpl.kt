@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.domain.industries
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import ru.practicum.android.diploma.data.vacancies.response.ResponseCodeConstants
 import ru.practicum.android.diploma.domain.models.industries.ChildIndustry
 import ru.practicum.android.diploma.util.ResourceContentSearch
 
@@ -18,11 +19,7 @@ class IndustriesInteractorImpl(
                 -> Pair(null, resource.message)
 
                 is ResourceContentSearch.ServerErrorSearch
-                -> Pair(null, SERVER_ERROR_CODE)
+                -> Pair(null, ResponseCodeConstants.SERVER_ERROR)
             }
         }
-
-    companion object {
-        const val SERVER_ERROR_CODE = 500
-    }
 }

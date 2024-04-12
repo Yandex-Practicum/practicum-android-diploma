@@ -29,18 +29,6 @@ object FavoriteVacanciesConverter {
         salaryGross = this.salary?.gross,
         salaryTo = this.salary?.to,
 
-        // delete ? ---------------------------
-        /*departmentId = "",
-        departmentName = "",
-
-        areaId = "",
-        areaName = "",
-        areaUrl = "",
-
-        typeId = "",
-        typeName = "",*/
-        // delete ? ---------------------------
-
         city = this.city,
         experience = this.experience,
         employment = this.employment,
@@ -90,7 +78,6 @@ object FavoriteVacanciesConverter {
         },
 
         city = this.city,
-        // Новый параметр fullAddress и areaName
         fullAddress = this.employment,
         areaName = this.name,
         experience = this.experience,
@@ -118,4 +105,5 @@ object FavoriteVacanciesConverter {
         link = this.link,
         keySkills = this.id
     )
+
 }
