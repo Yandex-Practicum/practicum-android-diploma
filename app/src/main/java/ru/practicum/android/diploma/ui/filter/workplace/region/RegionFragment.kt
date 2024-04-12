@@ -15,6 +15,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.converter.AreaConverter.mapToCountry
 import ru.practicum.android.diploma.databinding.FragmentRegionBinding
+import ru.practicum.android.diploma.domain.filter.datashared.CountryShared
 import ru.practicum.android.diploma.domain.filter.datashared.RegionShared
 import ru.practicum.android.diploma.ui.filter.workplace.region.adapter.RegionAdapter
 
@@ -34,7 +35,6 @@ class RegionFragment : Fragment() {
         return binding.root
     }
 
-    @Suppress("detekt:LongMethod")
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?
@@ -48,6 +48,12 @@ class RegionFragment : Fragment() {
                     regionId = item.id,
                     regionParentId = item.parentId,
                     regionName = item.name
+                )
+            )
+            viewModel.setCountryInfo(
+                CountryShared(
+                    countryId = item.parentId,
+                    countryName = null
                 )
             )
             findNavController().popBackStack()

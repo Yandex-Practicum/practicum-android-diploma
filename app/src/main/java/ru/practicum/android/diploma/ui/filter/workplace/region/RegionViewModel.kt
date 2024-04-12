@@ -1,5 +1,7 @@
 package ru.practicum.android.diploma.ui.filter.workplace.region
 
+import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,6 +9,8 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.country.Country
+import ru.practicum.android.diploma.domain.country.CountryInteractor
+import ru.practicum.android.diploma.domain.debugLog
 import ru.practicum.android.diploma.domain.filter.FilterRepositoryCountryFlow
 import ru.practicum.android.diploma.domain.filter.FilterRepositoryRegionFlow
 import ru.practicum.android.diploma.domain.filter.datashared.CountryShared
@@ -16,7 +20,8 @@ import ru.practicum.android.diploma.domain.region.RegionInteractor
 class RegionViewModel(
     private val filterRepositoryCountryFlow: FilterRepositoryCountryFlow,
     private val filterRepositoryRegionFlow: FilterRepositoryRegionFlow,
-    private val regionInteractor: RegionInteractor
+    private val regionInteractor: RegionInteractor,
+    private val countryInteractor: CountryInteractor,
 ) : ViewModel() {
 
     private val stateLiveData = MutableLiveData<RegionState>()
@@ -38,11 +43,10 @@ class RegionViewModel(
         }
     }
 
-    fun loadRegion(regionId: String) {
-        if (regionId.isEmpty()) {
-            // Выбрать значение по умолчанию или выполнить другие действия
-            renderState(RegionState.Empty(REGION_CONTENT))
-            return
+    private fun loadRegion(regionId: String) {
+        debugLog(TAG) { "loadRegion, regionId = $regionId" }
+        if (regionId.isNullOrEmpty()) {
+            debugLog(TAG) { "loadRegion, regionId.isNullOrEmpty() = $regionId" }
         }
 
         renderState(RegionState.Loading)
@@ -106,7 +110,12 @@ class RegionViewModel(
         filterRepositoryRegionFlow.setRegionFlow(region)
     }
 
+    fun setCountryInfo(country: CountryShared) {
+        filterRepositoryCountryFlow.setCountryFlow(country)
+    }
+
     companion object {
         const val REGION_CONTENT = 200
+        const val TAG = "RegionViewModel"
     }
 }
