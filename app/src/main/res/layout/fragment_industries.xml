@@ -42,6 +42,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/search"
             android:paddingEnd="@dimen/fragment_industries_text_input_edit_text_end_icon_padding"
+            android:paddingStart="@dimen/fragment_industries_text_input_edit_text_end_icon_padding"
             style="@style/regular16_font"
             android:layout_width="match_parent"
             android:layout_height="@dimen/fragment_textview_height"
