@@ -5,13 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.domain.api.search.SearchPagingRepository
 import ru.practicum.android.diploma.domain.api.search.VacanciesSearchRepository
 import ru.practicum.android.diploma.domain.filter.FiltersRepository
 import ru.practicum.android.diploma.domain.models.Filters
@@ -20,15 +17,13 @@ import ru.practicum.android.diploma.domain.models.vacacy.VacancyResponse
 
 class SearchViewModel(
     private val vacancySearchRepository: VacanciesSearchRepository,
-    private val searchPagingRepository: SearchPagingRepository,
     private val filtersRepository: FiltersRepository,
 ) : ViewModel() {
 
-    var isCrossPressed = false
     var lastQuery = ""
-    private val foundLiveData = MutableLiveData<Int>()
+    private val stateLiveData = MutableLiveData<SearchViewState>()
 
-    fun observeState(): LiveData<Int> = foundLiveData
+    fun observeState(): LiveData<SearchViewState> = stateLiveData
 
     // Флоу со значинием не пустые ли фильтры, для отображения кнопки фильтров
     val isExistFiltersFlow = flow {
@@ -40,7 +35,7 @@ class SearchViewModel(
     }
 
     // Флоу с фильтрами
-    val filtersFlow = flow {
+    private val filtersFlow = flow {
         filtersRepository.getFiltersFlow().collect {
             emit(it)
         }
@@ -51,24 +46,23 @@ class SearchViewModel(
         filtersRepository.cancelJob()
     }
 
-    fun search(text: String, filters: Filters): Flow<PagingData<Vacancy>> {
-        searchFoundVacancies(text, filters)
-        Log.d("searchPaging", text)
-        return searchPagingRepository.getSearchPaging(text, filters).cachedIn(viewModelScope)
-    }
-
-    private fun searchFoundVacancies(text: String, filters: Filters) {
+    fun search(text: String) {
         viewModelScope.launch {
-            vacancySearchRepository.getVacancies(text, 0, filters).collect { pair ->
-                if (pair.first != null) {
-                    Log.d("searchFound", (pair.first as VacancyResponse).found.toString())
-                    foundLiveData.postValue((pair.first as VacancyResponse).found)
+            filtersFlow.collect { filters ->
+                vacancySearchRepository.getVacancies(text, 0, filters).collect {
+                    if (it.first != null) {
+                        val response = (it.first as VacancyResponse)
+                        if (response.items.isEmpty()) {
+                            stateLiveData.postValue(SearchViewState.EmptyVacancies)
+                        } else {
+                            stateLiveData.postValue(SearchViewState.Content(response.items, response.found))
+                        }
+
+                    } else if (it.second != null) {
+                        stateLiveData.postValue(SearchViewState.NoInternet)
+                    }
                 }
             }
         }
-    }
-
-    fun clearFoundLiveData() {
-        foundLiveData.value = -1
     }
 }

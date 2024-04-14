@@ -15,7 +15,6 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.paging.LoadState
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -26,7 +25,6 @@ import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.domain.models.vacacy.Vacancy
 import ru.practicum.android.diploma.ui.details.DetailsFragment
 import ru.practicum.android.diploma.ui.search.recycler.VacancyAdapter
-import ru.practicum.android.diploma.ui.search.recycler.VacancyLoaderStateAdapter
 
 class SearchFragment : Fragment() {
 
@@ -58,7 +56,6 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        addListenerToVacancyAdapter()
         bindVacancyAdapter()
 
         bindKeyboardSearchButton()
@@ -70,7 +67,7 @@ class SearchFragment : Fragment() {
         }
 
         viewModel.observeState().observe(viewLifecycleOwner) {
-            showSearchInfo(it)
+            render(it)
         }
 
     }
@@ -78,6 +75,16 @@ class SearchFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         bindFilterButtonIcon()
+    }
+
+    private fun render(state: SearchViewState) {
+        when (state) {
+            is SearchViewState.Default -> showDefaultState()
+            is SearchViewState.Content -> showContent(state.vacancies, state.found)
+            is SearchViewState.Loading -> showLoading()
+            is SearchViewState.NoInternet -> showNoInternetState()
+            is SearchViewState.EmptyVacancies -> showEmptyVacanciesState()
+        }
     }
 
     private fun bindFilterButtonIcon() = with(binding) {
@@ -88,43 +95,6 @@ class SearchFragment : Fragment() {
                 } else {
                     searchFilter.setImageResource(R.drawable.ic_filter_off_24px)
                 }
-            }
-        }
-    }
-
-    private fun addListenerToVacancyAdapter() {
-        vacancyAdapter.addLoadStateListener {
-            Log.d("adapterState", it.toString())
-
-            if (it.source.refresh is LoadState.Error) {
-                showNoInternetState()
-            }
-
-            if (it.source.refresh is LoadState.Loading) {
-                viewModel.isCrossPressed = false
-                showLoading()
-            }
-
-            if (it.refresh is LoadState.NotLoading && vacancyAdapter.itemCount == 0) {
-                showEmptyVacanciesState()
-            }
-
-            if (it.source.refresh is LoadState.NotLoading && vacancyAdapter.itemCount != 0) {
-                showContent()
-            }
-
-            if (viewModel.isCrossPressed) {
-                showDefaultState()
-            }
-
-            if (it.append is LoadState.Error) {
-                viewModel.isCrossPressed = false
-                Snackbar.make(
-                    requireContext(),
-                    requireView(),
-                    resources.getString(R.string.check_internet_connection),
-                    Snackbar.LENGTH_INDEFINITE
-                ).setAction(R.string.retry) { vacancyAdapter.retry() }.show()
             }
         }
     }
@@ -146,20 +116,23 @@ class SearchFragment : Fragment() {
                 )
             }"
         }
+    }
 
+    private fun makeSnackbar() {
+        Snackbar.make(
+            requireContext(),
+            requireView(),
+            resources.getString(R.string.check_internet_connection),
+            Snackbar.LENGTH_INDEFINITE
+        ).setAction(R.string.retry) { /*vacancyAdapter.retry()*/ }.show()
     }
 
     private fun bindVacancyAdapter() {
         binding.rvVacancy.adapter =
-            vacancyAdapter.withLoadStateHeaderAndFooter(
-                header = VacancyLoaderStateAdapter(),
-                footer = VacancyLoaderStateAdapter()
-            )
+            vacancyAdapter
     }
 
     private fun showDefaultState() = with(binding) {
-        viewModel.clearFoundLiveData()
-
         ivStartSearch.isVisible = true
         progressBar.isVisible = false
         rvVacancy.isVisible = false
@@ -168,12 +141,23 @@ class SearchFragment : Fragment() {
         tvSearchInfo.isVisible = false
     }
 
-    private fun showContent() = with(binding) {
+    @SuppressLint("SetTextI18n")
+    private fun showContent(vacancies: List<Vacancy>, found: Int) = with(binding) {
         ivStartSearch.isVisible = false
         progressBar.isVisible = false
         rvVacancy.isVisible = true
         noInternetGroup.isVisible = false
         nothingFoundGroup.isVisible = false
+        tvSearchInfo.isVisible = true
+        tvSearchInfo.text = "Найдено ${
+            resources.getQuantityString(
+                R.plurals.plurals_vacancies,
+                found,
+                found,
+            )
+        }"
+
+        vacancyAdapter.submitList(vacancies)
     }
 
     private fun showLoading() = with(binding) {
@@ -211,10 +195,7 @@ class SearchFragment : Fragment() {
 
                     searchJob?.cancel()
                     searchJob = lifecycleScope.launch {
-                        viewModel.filtersFlow.collect { filters ->
-                            viewModel.search(binding.search.text.toString(), filters)
-                                .collect { vacancyAdapter.submitData(it) }
-                        }
+                        viewModel.search(binding.search.text.toString())
                     }
                 }
                 true
@@ -237,10 +218,7 @@ class SearchFragment : Fragment() {
                             delay(SEARCH_DEBOUNCE_DELAY)
                             viewModel.lastQuery = binding.search.text.toString()
 
-                            viewModel.filtersFlow.collect { filters ->
-                                viewModel.search(search.text.toString(), filters)
-                                    .collect { vacancyAdapter.submitData(it) }
-                            }
+                            viewModel.search(search.text.toString())
                         }
                     }
 
@@ -254,7 +232,7 @@ class SearchFragment : Fragment() {
     private fun bindCrossButton() = with(binding) {
         ivCross.setOnClickListener {
             search.setText("")
-            viewModel.isCrossPressed = true
+
             showDefaultState()
             inputMethodManager?.hideSoftInputFromWindow(
                 view?.windowToken,
