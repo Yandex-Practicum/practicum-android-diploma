@@ -10,7 +10,7 @@ sealed interface RegionState {
     ) : RegionState
 
     data class Content(
-        val regionId: Country
+        val regions: List<Country>
     ) : RegionState
 
     data class Error(

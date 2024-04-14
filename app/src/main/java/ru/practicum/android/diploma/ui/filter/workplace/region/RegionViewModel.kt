@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.data.converter.AreaConverter.mapToCountry
 import ru.practicum.android.diploma.domain.country.Country
 import ru.practicum.android.diploma.domain.filter.FilterRepositoryCountryFlow
 import ru.practicum.android.diploma.domain.filter.FilterRepositoryRegionFlow
@@ -23,6 +24,7 @@ class RegionViewModel(
     fun observeState(): LiveData<RegionState> = stateLiveData
 
     private val _countryState = MutableLiveData<CountryShared?>()
+    private var regions: List<Country> = listOf()
 
     init {
         viewModelScope.launch {
@@ -54,6 +56,21 @@ class RegionViewModel(
         }
     }
 
+    fun search(text: String) {
+        val filteredRegions = regions.filter { it.name?.lowercase()?.contains(text.lowercase()) == true }
+        if (filteredRegions.isEmpty()) {
+            renderState(
+                RegionState.Empty(
+                    message = R.string.no_such_region
+                )
+            )
+        } else {
+            renderState(
+                RegionState.Content(filteredRegions)
+            )
+        }
+    }
+
     // Поправить логику выполнения, вывод ошибок при загрузке
     private fun processResult(regionList: Country?, errorMessage: Int?) {
         when {
@@ -82,10 +99,11 @@ class RegionViewModel(
 
             else -> {
                 if (regionList != null) {
+                    regions = regionList.areas
+                        .map { it.mapToCountry() }
+                        .sortedBy { it.name }
                     renderState(
-                        RegionState.Content(
-                            regionId = regionList
-                        )
+                        RegionState.Content(regions)
                     )
                 } else {
                     renderState(
