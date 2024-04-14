@@ -75,26 +75,13 @@ class RegionViewModel(
     private fun processResult(regionList: Country?, errorMessage: Int?) {
         when {
             errorMessage != null -> {
-                renderState(
-                    RegionState.Error(
-                        errorMessage = R.string.server_error
-                    )
-                )
-
                 if (errorMessage == -1) {
-                    renderState(
-                        RegionState.Error(
-                            errorMessage = R.string.nothing_found
-                        )
-                    )
+                    renderState(RegionState.Error.NO_CONNECTION)
+                } else if (errorMessage == SERVER_ERROR) {
+                    renderState(RegionState.Error.SERVER_ERROR)
                 } else {
-                    renderState(
-                        RegionState.Empty(
-                            message = R.string.no_such_region
-                        )
-                    )
+                    renderState(RegionState.Error.NOTHING_FOUND)
                 }
-
             }
 
             else -> {
@@ -126,5 +113,6 @@ class RegionViewModel(
 
     companion object {
         const val REGION_CONTENT = 200
+        const val SERVER_ERROR = 500
     }
 }

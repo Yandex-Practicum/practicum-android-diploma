@@ -74,7 +74,7 @@ class RegionFragment : Fragment() {
                         }
 
                         is RegionState.Empty -> showEmpty(getString(state.message))
-                        is RegionState.Error -> showError(getString(state.errorMessage))
+                        is RegionState.Error -> showError(state)
                         is RegionState.Loading -> showLoading()
                     }
                 }
@@ -103,12 +103,19 @@ class RegionFragment : Fragment() {
         binding.progressBar.visibility = View.VISIBLE
     }
 
-    private fun showError(errorMessage: String) {
+    private fun showError(error: RegionState.Error) {
         binding.recyclerView.visibility = View.GONE
         binding.errorContainer.visibility = View.VISIBLE
-        binding.errorImageView.setImageResource(R.drawable.state_image_error_get_list)
-        binding.errorTextView.text = errorMessage
+        binding.errorTextView.text = getString(error.errorMessage)
         binding.progressBar.visibility = View.GONE
+
+        with(binding.errorImageView) {
+            when (error) {
+                RegionState.Error.SERVER_ERROR -> setImageResource(R.drawable.state_image_server_error_search)
+                RegionState.Error.NO_CONNECTION -> setImageResource(R.drawable.state_image_no_internet)
+                RegionState.Error.NOTHING_FOUND -> setImageResource(R.drawable.state_image_error_get_list)
+            }
+        }
     }
 
     private fun showEmpty(message: String) {
