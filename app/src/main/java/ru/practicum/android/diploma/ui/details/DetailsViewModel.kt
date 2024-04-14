@@ -56,9 +56,8 @@ class DetailsViewModel(
                 } else {
                     stateLiveData.postValue(DetailsViewState.Error)
                 }
-
             } catch (e: Exception) {
-                //
+                stateLiveData.postValue(DetailsViewState.Error)
             }
         }
     }
