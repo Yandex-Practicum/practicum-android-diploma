@@ -154,6 +154,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:hint="@string/filter_enter_amount"
             android:imeOptions="actionDone"
             android:inputType="number"
@@ -165,7 +167,7 @@
             android:textAppearance="@style/regular16_font"
             android:textColor="@color/black.universal"
             android:textColorHint="@color/all_filters_sum_hint"
-            android:textCursorDrawable="@color/blue" />
+            android:textCursorDrawable="@drawable/blue_cursor" />
 
         <ImageView
             android:id="@+id/filter_salary_clear"
