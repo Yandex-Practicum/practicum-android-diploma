@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -133,6 +134,7 @@ class FilterAllFragment : Fragment() {
     private fun bindOnClickListeners() = with(binding) {
         filterSalaryClear.setOnClickListener {
             filterTextSalary.setText("")
+            hideKeyboard(binding.filterTextSalary)
             viewModel.setSalarySumInfo(null)
         }
 
@@ -166,14 +168,16 @@ class FilterAllFragment : Fragment() {
     }
 
     private fun bindTextWatcher() = with(binding) {
-        filterTextSalary.setOnEditorActionListener { v, actionId, event ->
+        filterTextSalary.setOnEditorActionListener { textView, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 filterTextSalary.clearFocus()
-                val inputMethodManager = requireContext().getSystemService(
-                    Context.INPUT_METHOD_SERVICE
-                ) as InputMethodManager
-                inputMethodManager.hideSoftInputFromWindow(v.windowToken, 0)
+                hideKeyboard(textView)
                 filterExpectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_universal))
+                viewModel.setSalarySumInfo(
+                    SalaryTextShared(
+                        salary = filterTextSalary.text.toString()
+                    )
+                )
                 true
             } else {
                 false
@@ -234,6 +238,13 @@ class FilterAllFragment : Fragment() {
         filterToolbar.setOnClickListener {
             findNavController().navigateUp()
         }
+    }
+
+    private fun hideKeyboard(v: TextView) {
+        val inputMethodManager = requireContext().getSystemService(
+            Context.INPUT_METHOD_SERVICE
+        ) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(v.windowToken, 0)
     }
 
     override fun onDestroyView() {
