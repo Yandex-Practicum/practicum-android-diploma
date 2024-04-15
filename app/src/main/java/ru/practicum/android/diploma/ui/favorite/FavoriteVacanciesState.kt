@@ -6,7 +6,7 @@ sealed class FavoriteVacanciesState {
 
     data object EmptyVacancyList : FavoriteVacanciesState()
 
-    data object GetVacanciesError : FavoriteVacanciesState()
+    data object VacanciesError : FavoriteVacanciesState()
 
     data class VacancyList(
         val vacancies: List<VacancyDetails>

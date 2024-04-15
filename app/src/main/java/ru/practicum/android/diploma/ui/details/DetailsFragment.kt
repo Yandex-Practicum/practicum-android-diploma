@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -111,7 +112,7 @@ class DetailsFragment : Fragment() {
             viewModel.writeEmail()
         }
         binding.contactPhoneTextView.setOnClickListener {
-            viewModel.call(requireContext())
+            viewModel.call()
         }
         binding.favoriteIcon.setOnClickListener {
             viewModel.favoriteIconClicked()
@@ -150,6 +151,14 @@ class DetailsFragment : Fragment() {
 
             is DetailsViewState.IsVacancyFavorite -> {
                 showFavoriteVacancyButton(state.isFavorite)
+            }
+
+            is DetailsViewState.ToastPermissionDenied -> {
+                Toast.makeText(
+                    context,
+                    getString(R.string.call_permission_text),
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
     }

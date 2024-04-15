@@ -69,7 +69,7 @@ class FavoriteVacanciesFragment : Fragment() {
                     showEmptyVacancyList()
                 }
 
-                is FavoriteVacanciesState.GetVacanciesError -> {
+                is FavoriteVacanciesState.VacanciesError -> {
                     showGetVacanciesError()
                 }
 

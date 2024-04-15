@@ -2,7 +2,6 @@ package ru.practicum.android.diploma.ui.details
 
 import android.Manifest
 import android.content.Context
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -67,7 +66,7 @@ class DetailsViewModel(
         externalNavigator.writeEmail(email)
     }
 
-    fun call(context: Context) {
+    fun call() {
         viewModelScope.launch {
             PermissionRequester.instance().request(
                 Manifest.permission.CALL_PHONE
@@ -85,11 +84,7 @@ class DetailsViewModel(
                     }
 
                     is PermissionResult.Denied.NeedsRationale -> {
-                        Toast.makeText(
-                            context,
-                            context.getString(R.string.call_permission_text),
-                            Toast.LENGTH_LONG
-                        ).show()
+                       stateLiveData.postValue(DetailsViewState.ToastPermissionDenied)
                     }
 
                     is PermissionResult.Cancelled -> {}

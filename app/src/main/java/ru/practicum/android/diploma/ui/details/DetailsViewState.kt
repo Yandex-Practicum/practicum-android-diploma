@@ -6,6 +6,8 @@ sealed interface DetailsViewState {
 
     data object Error : DetailsViewState
 
+    data object ToastPermissionDenied : DetailsViewState
+
     data class Content(
         val name: String,
         val salary: String?,
