@@ -2,15 +2,10 @@ package ru.practicum.android.diploma.ui.search.recycler
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.databinding.VacancyLoadStateBinding
 import ru.practicum.android.diploma.databinding.VacancyViewBinding
 import ru.practicum.android.diploma.domain.models.vacacy.Vacancy
-import ru.practicum.android.diploma.ui.favorite.FavoriteVacanciesRecyclerViewViewHolder
 
 class VacancyAdapter(
     private val onClick: (Vacancy) -> Unit
@@ -54,9 +49,8 @@ class VacancyAdapter(
     }
 
     fun addVacancies(vacancies: List<Vacancy>) {
-        currentList.clear()
         currentList.addAll(vacancies)
-        notifyDataSetChanged()
+        notifyItemRangeInserted(currentList.size - 1, vacancies.size)
     }
 
     fun addLoadingView() {
@@ -66,6 +60,13 @@ class VacancyAdapter(
 
     fun removeLoadingView() {
         currentList.removeAt(itemCount - 1)
+        notifyItemRemoved(currentList.size)
+    }
+
+    fun clearList() {
+        val size = currentList.size
+        currentList.clear()
+        notifyItemRangeRemoved(0, size)
     }
 
     companion object {

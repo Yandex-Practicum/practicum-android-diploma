@@ -23,7 +23,7 @@ class SearchViewModel(
     var lastQuery = ""
     private var currentPage = 0
     private var maxPagers = 0
-    private var vacanciesList = mutableListOf<Vacancy>()
+    //private var vacanciesList = mutableListOf<Vacancy>()
     private val stateLiveData = MutableLiveData<SearchViewState>()
 
     fun observeState(): LiveData<SearchViewState> = stateLiveData
@@ -63,7 +63,7 @@ class SearchViewModel(
         lastQuery = ""
         currentPage = 0
         maxPagers = 0
-        vacanciesList = mutableListOf()
+        //vacanciesList = mutableListOf()
     }
 
     fun search(text: String) {
@@ -79,6 +79,7 @@ class SearchViewModel(
                         if (response.items.isEmpty()) {
                             stateLiveData.postValue(SearchViewState.EmptyVacancies)
                         } else {
+                            //TODO Сделать правильное добавление элементов
                             //vacanciesList.addAll(response.items)
                             stateLiveData.postValue(SearchViewState.Content(response.items, response.found))
                         }

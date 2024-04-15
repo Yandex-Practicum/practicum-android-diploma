@@ -145,6 +145,7 @@ class SearchFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun showContent(vacancies: List<Vacancy>, found: Int) = with(binding) {
+        Log.e("shown", vacancies.toString())
         ivStartSearch.isVisible = false
         progressBar.isVisible = false
         rvVacancy.isVisible = true
@@ -161,7 +162,6 @@ class SearchFragment : Fragment() {
 
         vacancyAdapter.removeLoadingView()
         vacancyAdapter.addVacancies(vacancies)
-        //vacancyAdapter.submitList(vacancies)
     }
 
     private fun showLoading() = with(binding) {
@@ -234,6 +234,7 @@ class SearchFragment : Fragment() {
     private fun bindCrossButton() = with(binding) {
         ivCross.setOnClickListener {
             search.setText("")
+            vacancyAdapter.clearList()
 
             viewModel.setDefaultState()
             inputMethodManager?.hideSoftInputFromWindow(
