@@ -196,7 +196,6 @@ class FilterAllFragment : Fragment() {
                     binding.filterExpectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
                     binding.filterSalaryClear.visibility = View.VISIBLE
                     binding.filterSalaryClear.isClickable = true
-                    binding.filterFunctionButton.visibility = View.VISIBLE
                 } else {
                     binding.filterExpectedSalary.setTextColor(
                         ContextCompat.getColor(requireContext(), R.color.all_filters_sum_hint)
