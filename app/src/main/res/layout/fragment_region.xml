@@ -67,6 +67,29 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <ImageView
+        android:id="@+id/ivSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin"
+        android:src="@drawable/ic_search_24px"
+        app:layout_constraintBottom_toBottomOf="@+id/searchTextInputLayout"
+        app:layout_constraintEnd_toEndOf="@+id/searchTextInputLayout"
+        app:layout_constraintTop_toTopOf="@+id/searchTextInputLayout" />
+
+    <ImageView
+        android:id="@+id/ivCross"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:src="@drawable/ic_close_24px"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/searchTextInputLayout"
+        app:layout_constraintEnd_toEndOf="@+id/searchTextInputLayout"
+        app:layout_constraintTop_toTopOf="@+id/searchTextInputLayout" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
