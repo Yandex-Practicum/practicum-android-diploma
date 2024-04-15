@@ -154,7 +154,7 @@ class IndustriesFragment : Fragment() {
         textInput!!.requestFocus()
 
         // не устанавливаются иконки ??? fix=принудительно запускать addTextChangedListener
-        textInput!!.setText("x")
+        textInput!!.setText(" ")
         textInput!!.setText("")
         // не устанавливаются иконки ??? fix=принудительно запускать addTextChangedListener
 

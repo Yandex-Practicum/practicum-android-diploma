@@ -26,6 +26,7 @@ class RegionViewModel(
     fun observeState(): LiveData<RegionState> = stateLiveData
 
     private val _countryState = MutableLiveData<CountryShared?>()
+    private var regions: List<Country> = listOf()
 
     init {
         viewModelScope.launch {
@@ -76,39 +77,42 @@ class RegionViewModel(
         }
     }
 
+    fun search(text: String) {
+        val filteredRegions = regions.filter { it.name?.lowercase()?.contains(text.lowercase()) == true }
+        if (filteredRegions.isEmpty()) {
+            renderState(
+                RegionState.Empty(
+                    message = R.string.no_such_region
+                )
+            )
+        } else {
+            renderState(
+                RegionState.Content(filteredRegions)
+            )
+        }
+    }
+
     // Поправить логику выполнения, вывод ошибок при загрузке
     private fun processResult(regionList: Country?, errorMessage: Int?) {
         debugLog(TAG) { "processResult: region = $regionList" }
         when {
             errorMessage != null -> {
-                renderState(
-                    RegionState.Error(
-                        errorMessage = R.string.server_error
-                    )
-                )
-
                 if (errorMessage == -1) {
-                    renderState(
-                        RegionState.Error(
-                            errorMessage = R.string.nothing_found
-                        )
-                    )
+                    renderState(RegionState.Error.NO_CONNECTION)
+                } else if (errorMessage == SERVER_ERROR) {
+                    renderState(RegionState.Error.SERVER_ERROR)
                 } else {
-                    renderState(
-                        RegionState.Empty(
-                            message = R.string.no_such_region
-                        )
-                    )
+                    renderState(RegionState.Error.NOTHING_FOUND)
                 }
-
             }
 
             else -> {
                 if (regionList != null) {
+                    regions = regionList.areas
+                        .map { it.mapToCountry() }
+                        .sortedBy { it.name }
                     renderState(
-                        RegionState.Content(
-                            regionId = regionList
-                        )
+                        RegionState.Content(regions)
                     )
                 } else {
                     renderState(
@@ -134,6 +138,8 @@ class RegionViewModel(
     }
 
     companion object {
+        const val REGION_CONTENT = 200
+        const val SERVER_ERROR = 500
         const val TAG = "RegionViewModel"
     }
 }
