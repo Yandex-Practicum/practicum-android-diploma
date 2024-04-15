@@ -207,7 +207,9 @@ class FilterAllFragment : Fragment() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                binding.filterExpectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_universal))
+                binding.filterExpectedSalary.setTextColor(
+                    ContextCompat.getColor(requireContext(), R.color.black_universal)
+                )
             }
         })
     }
