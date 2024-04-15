@@ -193,13 +193,10 @@ class SearchFragment : Fragment() {
     private fun bindKeyboardSearchButton() {
         binding.search.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                if (viewModel.lastQuery != binding.search.text.toString()) {
-                    viewModel.crossPressed = false
-                    searchJob?.cancel()
-                    searchJob = lifecycleScope.launch {
-                        viewModel.clearPagingInfo()
-                        viewModel.search(binding.search.text.toString())
-                    }
+                searchJob?.cancel()
+                searchJob = lifecycleScope.launch {
+                    viewModel.clearPagingInfo()
+                    viewModel.search(binding.search.text.toString())
                 }
                 true
             }
@@ -215,15 +212,14 @@ class SearchFragment : Fragment() {
                     ivCross.isVisible = false
                     searchJob?.cancel()
                 } else {
-                    /* searchJob?.cancel()
-                     searchJob = lifecycleScope.launch {
-                         if (viewModel.lastQuery != s.toString()) {
-                             viewModel.crossPressed = true
-                             delay(SEARCH_DEBOUNCE_DELAY)
-                             viewModel.clearPagingInfo()
-                             viewModel.search(search.text.toString())
-                         }
-                     }*/
+                    searchJob?.cancel()
+                    searchJob = lifecycleScope.launch {
+                        if (viewModel.lastQuery != s.toString()) {
+                            delay(SEARCH_DEBOUNCE_DELAY)
+                            viewModel.clearPagingInfo()
+                            viewModel.search(search.text.toString())
+                        }
+                    }
 
                     ivSearch.isVisible = false
                     ivCross.isVisible = true
@@ -236,7 +232,6 @@ class SearchFragment : Fragment() {
         ivCross.setOnClickListener {
             search.setText("")
             vacancyAdapter.clearList()
-            viewModel.crossPressed = true
 
             viewModel.setDefaultState()
             inputMethodManager?.hideSoftInputFromWindow(
