@@ -168,8 +168,10 @@ class FilterAllFragment : Fragment() {
     private fun bindTextWatcher() = with(binding) {
         filterTextSalary.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                filterTextSalary.clearFocus() // снимаем фокус с EditText
-                val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                filterTextSalary.clearFocus()
+                val inputMethodManager = requireContext().getSystemService(
+                    Context.INPUT_METHOD_SERVICE
+                ) as InputMethodManager
                 inputMethodManager.hideSoftInputFromWindow(v.windowToken, 0)
                 filterExpectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_universal))
                 true
