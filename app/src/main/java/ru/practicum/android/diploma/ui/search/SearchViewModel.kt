@@ -8,7 +8,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.search.SearchPagingRepository
 import ru.practicum.android.diploma.domain.api.search.VacanciesSearchRepository
@@ -29,13 +30,19 @@ class SearchViewModel(
 
     fun observeState(): LiveData<Int> = foundLiveData
 
-    private var filters: Filters = Filters()
+    // Флоу со значинием не пустые ли фильтры, для отображения кнопки фильтров
+    val isExistFiltersFlow = flow {
+        filtersRepository.getFiltersFlow().map {
+            it != Filters()
+        }.collect {
+            emit(it)
+        }
+    }
 
-    fun updateFilters() {
-        viewModelScope.launch {
-            filtersRepository.getFiltersFlow().collect {
-                filters = it
-            }
+    // Флоу с фильтрами
+    val filtersFlow = flow {
+        filtersRepository.getFiltersFlow().collect {
+            emit(it)
         }
     }
 
@@ -44,17 +51,21 @@ class SearchViewModel(
         filtersRepository.cancelJob()
     }
 
-    fun search(text: String): Flow<PagingData<Vacancy>> {
+    fun search(text: String, filters: Filters): Flow<PagingData<Vacancy>> {
+        searchFoundVacancies(text, filters)
+        Log.d("searchPaging", text)
+        return searchPagingRepository.getSearchPaging(text, filters).cachedIn(viewModelScope)
+    }
+
+    private fun searchFoundVacancies(text: String, filters: Filters) {
         viewModelScope.launch {
-            vacancySearchRepository.getVacancies(text, 0, filters).collect {
-                if (it.first != null) {
-                    Log.d("searchFound", (it.first as VacancyResponse).found.toString())
-                    foundLiveData.postValue((it.first as VacancyResponse).found)
+            vacancySearchRepository.getVacancies(text, 0, filters).collect { pair ->
+                if (pair.first != null) {
+                    Log.d("searchFound", (pair.first as VacancyResponse).found.toString())
+                    foundLiveData.postValue((pair.first as VacancyResponse).found)
                 }
             }
         }
-        Log.d("searchPaging", text)
-        return searchPagingRepository.getSearchPaging(text, filters).cachedIn(viewModelScope)
     }
 
     fun clearFoundLiveData() {

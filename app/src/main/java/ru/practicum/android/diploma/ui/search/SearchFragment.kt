@@ -75,9 +75,21 @@ class SearchFragment : Fragment() {
 
     }
 
-    override fun onStart() {
-        super.onStart()
-        viewModel.updateFilters()
+    override fun onResume() {
+        super.onResume()
+        bindFilterButtonIcon()
+    }
+
+    private fun bindFilterButtonIcon() = with(binding) {
+        lifecycleScope.launch {
+            viewModel.isExistFiltersFlow.collect {
+                if (it) {
+                    searchFilter.setImageResource(R.drawable.ic_filter_on_24px)
+                } else {
+                    searchFilter.setImageResource(R.drawable.ic_filter_off_24px)
+                }
+            }
+        }
     }
 
     private fun addListenerToVacancyAdapter() {
@@ -194,12 +206,15 @@ class SearchFragment : Fragment() {
     private fun bindKeyboardSearchButton() {
         binding.search.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                if (viewModel.lastQuery != binding.search.text.toString() && "" != binding.search.text.toString()) {
-                    Log.e("search", "${viewModel.lastQuery} != ${binding.search.text}")
+                if ("" != binding.search.text.toString()) {
                     viewModel.lastQuery = binding.search.text.toString()
+
                     searchJob?.cancel()
                     searchJob = lifecycleScope.launch {
-                        viewModel.search(binding.search.text.toString()).collect { vacancyAdapter.submitData(it) }
+                        viewModel.filtersFlow.collect { filters ->
+                            viewModel.search(binding.search.text.toString(), filters)
+                                .collect { vacancyAdapter.submitData(it) }
+                        }
                     }
                 }
                 true
@@ -221,7 +236,11 @@ class SearchFragment : Fragment() {
                         searchJob = lifecycleScope.launch {
                             delay(SEARCH_DEBOUNCE_DELAY)
                             viewModel.lastQuery = binding.search.text.toString()
-                            viewModel.search(search.text.toString()).collect { vacancyAdapter.submitData(it) }
+
+                            viewModel.filtersFlow.collect { filters ->
+                                viewModel.search(search.text.toString(), filters)
+                                    .collect { vacancyAdapter.submitData(it) }
+                            }
                         }
                     }
 
