@@ -63,7 +63,7 @@
     <string name="from">от</string>
     <string name="salary_not_specified">Зарплата не указана</string>
 
-    <string name="server_error">Ошибка сервера</string>
+    <string name="server_error">Не удалось получить\nсписок</string>
     <string name="nothing_found">Не удалось получить список</string>
     <string name="no_such_region">Такого региона нет</string>
     <string name="no_such_industry">Такой отрасли нет</string>
