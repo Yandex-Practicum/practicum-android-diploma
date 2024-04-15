@@ -29,7 +29,7 @@ class FavoriteVacanciesRecyclerViewViewHolder(
 
         if (salaryFrom != salaryTo) {
             vacancySalary.text =
-                "от ${salaryFrom} до ${salaryTo} ${model.salary?.currency ?: ""}END"
+                "от $salaryFrom до $salaryTo ${model.salary?.currency ?: ""}END"
                     .replace("от  до  END", itemView.resources.getString(R.string.salary_not_specified))
                     .replace("от  ", "")
                     .replace("до  ", "")
@@ -38,7 +38,7 @@ class FavoriteVacanciesRecyclerViewViewHolder(
                     .replace("до", itemView.resources.getString(R.string.to))
         } else {
             vacancySalary.text =
-                "${salaryTo} ${model.salary?.currency ?: ""}END"
+                "$salaryTo ${model.salary?.currency ?: ""}END"
                     .replace(" END", itemView.resources.getString(R.string.salary_not_specified))
                     .replace("END", "")
         }

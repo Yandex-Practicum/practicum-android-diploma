@@ -84,7 +84,7 @@ class DetailsViewModel(
                     }
 
                     is PermissionResult.Denied.NeedsRationale -> {
-                       stateLiveData.postValue(DetailsViewState.ToastPermissionDenied)
+                        stateLiveData.postValue(DetailsViewState.ToastPermissionDenied)
                     }
 
                     is PermissionResult.Cancelled -> {}
