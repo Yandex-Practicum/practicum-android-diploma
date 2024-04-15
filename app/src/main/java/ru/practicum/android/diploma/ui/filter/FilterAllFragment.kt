@@ -26,11 +26,13 @@ class FilterAllFragment : Fragment() {
 
     private val textWatcher = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            /*
             if (start > 0) {
                 binding.filterSalaryClear.visibility = View.VISIBLE
             } else {
                 binding.filterSalaryClear.visibility = View.GONE
             }
+            */
         }
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -39,7 +41,13 @@ class FilterAllFragment : Fragment() {
             if (s?.isNotEmpty() == true) {
                 binding.filterExpectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
                 binding.filterTextSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_universal))
-                binding.filterSalaryClear.visibility = View.VISIBLE
+                /*
+                if (binding.filterTextSalary.hasFocus()) {
+                    binding.filterSalaryClear.visibility = View.VISIBLE
+                    binding.filterSalaryClear.isClickable = true
+                }
+
+                 */
                 binding.filterFunctionButton.visibility = View.VISIBLE
             } else {
                 binding.filterExpectedSalary.setTextColor(
@@ -143,8 +151,12 @@ class FilterAllFragment : Fragment() {
                 filterExpectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
                 filterTextSalary.setText(salarySum.salary)
                 filterTextSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_universal))
-                filterSalaryClear.visibility = View.VISIBLE
-                filterSalaryClear.isClickable = true
+                /*
+                if (filterTextSalary.hasFocus()) {
+                    filterSalaryClear.visibility = View.VISIBLE
+                    filterSalaryClear.isClickable = true
+                }
+                */
             } else {
                 filterExpectedSalary.setTextColor(
                     ContextCompat.getColor(requireContext(), R.color.all_filters_sum_hint)
