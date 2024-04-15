@@ -60,8 +60,10 @@ class VacancyAdapter(
     }
 
     fun removeLoadingView() {
-        currentList.removeAt(itemCount - 1)
-        notifyItemRemoved(currentList.size)
+        if (currentList.isNotEmpty()) {
+            currentList.removeAt(itemCount - 1)
+            notifyItemRemoved(currentList.size)
+        }
     }
 
     fun clearList() {

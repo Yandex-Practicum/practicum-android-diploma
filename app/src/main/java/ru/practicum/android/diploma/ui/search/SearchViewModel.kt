@@ -68,8 +68,11 @@ class SearchViewModel(
     }
 
     fun search(text: String) {
-        //stateLiveData.value = SearchViewState.Loading
-        stateLiveData.value = SearchViewState.RecyclerLoading
+        if (vacanciesList.isEmpty()) {
+            stateLiveData.value = SearchViewState.Loading
+        } else {
+            stateLiveData.value = SearchViewState.RecyclerLoading
+        }
         viewModelScope.launch {
             filtersFlow.collect { filters ->
                 vacancySearchRepository.getVacancies(text, currentPage, filters).collect {
@@ -80,7 +83,6 @@ class SearchViewModel(
                         if (response.items.isEmpty()) {
                             stateLiveData.postValue(SearchViewState.EmptyVacancies)
                         } else {
-                            //TODO Сделать правильное добавление элементов
                             vacanciesList.addAll(response.items)
                             stateLiveData.postValue(SearchViewState.Content(vacanciesList, response.found))
                         }
