@@ -39,6 +39,67 @@ class DetailsFragment : Fragment() {
         _binding = null
     }
 
+    private fun showLoading() {
+        binding.progressBar.isVisible = true
+        binding.scrollView.isVisible = false
+        binding.errorContainer.isVisible = false
+    }
+
+    private fun showError() {
+        binding.progressBar.isVisible = false
+        binding.scrollView.isVisible = false
+        binding.errorContainer.isVisible = true
+    }
+
+    private fun showScrollViewData() {
+        binding.progressBar.isVisible = false
+        binding.scrollView.isVisible = true
+        binding.errorContainer.isVisible = false
+    }
+
+    private fun showFavoriteVacancyButton(isFavorite: Boolean) {
+        if (isFavorite) {
+            binding.iconIsFavorite.visibility = View.VISIBLE
+            binding.iconIsNotFavorite.visibility = View.INVISIBLE
+        } else {
+            binding.iconIsFavorite.visibility = View.INVISIBLE
+            binding.iconIsNotFavorite.visibility = View.VISIBLE
+        }
+    }
+
+    private fun setTextFields(data: DetailsViewState.Content) {
+        binding.vacancyTitleTextView.text = data.name
+        setTextOrHide(data.salary, binding.salaryTextView)
+        setTextOrHide(data.companyName, binding.companyTitleTextView)
+        if (data.fullAddress.isNullOrEmpty()) {
+            binding.companyCityTextView.text = data.areaName
+        } else {
+            binding.companyCityTextView.text = data.fullAddress
+        }
+        setTextOrHide(data.experience, binding.experienceTextView, binding.experienceLinearLayout)
+        setTextOrHide(data.employment, binding.employmentTypeTextView)
+        setTextOrHide(data.contactName, binding.contactNameTextView, binding.contactNameContainerLinearLayout)
+        setTextOrHide(data.contactEmail, binding.emailTextView, binding.emailContainerLinearLayout)
+        setTextOrHide(
+            data.contactsPhones?.first(),
+            binding.contactPhoneTextView,
+            binding.contactPhoneContainerLinearLayout
+        )
+        setTextOrHide(
+            data.keySkills,
+            binding.keySkillsTextView,
+            binding.keySkillsContainerLinearLayout
+        )
+        binding.contactsTitleTextView.isVisible = !(
+            data.contactName.isNullOrEmpty()
+                && data.contactEmail.isNullOrEmpty()
+                && data.contactsPhones.isNullOrEmpty())
+        binding.vacancyDescriptionTextView.text = HtmlCompat.fromHtml(
+            data.description.replace(Regex("<li>\\s<p>|<li>"), "<li> "),
+            HtmlCompat.FROM_HTML_SEPARATOR_LINE_BREAK_LIST_ITEM
+        )
+    }
+
     private fun setUpListeners() {
         binding.backImageView.setOnClickListener {
             findNavController().navigateUp()
@@ -63,77 +124,32 @@ class DetailsFragment : Fragment() {
         }
     }
 
-    @Suppress("detekt:LongMethod")
     private fun renderState(state: DetailsViewState) {
         when (state) {
             is DetailsViewState.Loading -> {
-                binding.progressBar.isVisible = true
-                binding.scrollView.isVisible = false
-                binding.errorContainer.isVisible = false
+                showLoading()
             }
 
             is DetailsViewState.Error -> {
-                binding.progressBar.isVisible = false
-                binding.scrollView.isVisible = false
-                binding.errorContainer.isVisible = true
+                showError()
             }
 
             is DetailsViewState.Content -> {
-                binding.vacancyTitleTextView.text = state.name
-                setTextOrHide(state.salary, binding.salaryTextView)
-                setTextOrHide(state.companyName, binding.companyTitleTextView)
-                if (state.fullAddress.isNullOrEmpty()) {
-                    binding.companyCityTextView.text = state.areaName
-                } else {
-                    binding.companyCityTextView.text = state.fullAddress
-                }
-                setTextOrHide(state.experience, binding.experienceTextView, binding.experienceLinearLayout)
-                setTextOrHide(state.employment, binding.employmentTypeTextView)
-                setTextOrHide(state.contactName, binding.contactNameTextView, binding.contactNameContainerLinearLayout)
-                setTextOrHide(state.contactEmail, binding.emailTextView, binding.emailContainerLinearLayout)
-                setTextOrHide(
-                    state.contactsPhones?.first(),
-                    binding.contactPhoneTextView,
-                    binding.contactPhoneContainerLinearLayout
-                )
-                setTextOrHide(
-                    state.keySkills,
-                    binding.keySkillsTextView,
-                    binding.keySkillsContainerLinearLayout
-                )
-
-                binding.contactsTitleTextView.isVisible = !(
-                    state.contactName.isNullOrEmpty()
-                        && state.contactEmail.isNullOrEmpty()
-                        && state.contactsPhones.isNullOrEmpty())
-
-                binding.vacancyDescriptionTextView.text = HtmlCompat.fromHtml(
-                    state.description.replace(Regex("<li>\\s<p>|<li>"), "<li> "),
-                    HtmlCompat.FROM_HTML_SEPARATOR_LINE_BREAK_LIST_ITEM
-                )
-
+                setTextFields(state)
                 val cornerRadius = requireContext().resources.getDimensionPixelSize(R.dimen.s_margin)
+
                 Glide.with(binding.companyImageView)
                     .load(state.companyLogo)
                     .transform(RoundedCorners(cornerRadius))
                     .placeholder(R.drawable.logo_placeholder)
                     .into(binding.companyImageView)
 
-                binding.progressBar.isVisible = false
-                binding.scrollView.isVisible = true
-                binding.errorContainer.isVisible = false
-
+                showScrollViewData()
                 checkIfVacancyFavorite()
             }
 
             is DetailsViewState.IsVacancyFavorite -> {
-                if (state.isFavorite) {
-                    binding.iconIsFavorite.visibility = View.VISIBLE
-                    binding.iconIsNotFavorite.visibility = View.INVISIBLE
-                } else {
-                    binding.iconIsFavorite.visibility = View.INVISIBLE
-                    binding.iconIsNotFavorite.visibility = View.VISIBLE
-                }
+                showFavoriteVacancyButton(state.isFavorite)
             }
         }
     }
