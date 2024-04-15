@@ -61,7 +61,6 @@ class CountryViewModel(
     }
 
     fun setCountryInfo(country: CountryShared) {
-        Log.d("StateMyCountry", "Мы получили в CountryViewModel $country")
         filterRepositoryCountryFlow.setCountryFlow(country)
         // Если выбрали другой город, то регион сбрасываем
         filterRepositoryRegionFlow.setRegionFlow(null)

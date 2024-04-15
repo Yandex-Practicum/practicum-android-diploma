@@ -4,27 +4,32 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.converter.AreaConverter.mapToCountry
+import ru.practicum.android.diploma.data.vacancies.response.ResponseCodeConstants
 import ru.practicum.android.diploma.domain.country.Country
 import ru.practicum.android.diploma.domain.country.CountryInteractor
+import ru.practicum.android.diploma.domain.country.CountryRepositoryFlow
 import ru.practicum.android.diploma.domain.debugLog
 import ru.practicum.android.diploma.domain.filter.FilterRepositoryCountryFlow
 import ru.practicum.android.diploma.domain.filter.FilterRepositoryRegionFlow
 import ru.practicum.android.diploma.domain.filter.datashared.CountryShared
 import ru.practicum.android.diploma.domain.filter.datashared.RegionShared
 import ru.practicum.android.diploma.domain.region.RegionInteractor
+import ru.practicum.android.diploma.ui.filter.workplace.country.CountryState
 
 class RegionViewModel(
     private val filterRepositoryCountryFlow: FilterRepositoryCountryFlow,
     private val filterRepositoryRegionFlow: FilterRepositoryRegionFlow,
+    private val countryRepositoryFlow: CountryRepositoryFlow,
     private val regionInteractor: RegionInteractor,
     private val countryInteractor: CountryInteractor,
 ) : ViewModel() {
 
-    private val stateLiveData = MutableLiveData<RegionState>()
-    fun observeState(): LiveData<RegionState> = stateLiveData
+    private val stateLiveDataRegion = MutableLiveData<RegionState>()
+    fun observeStateRegion(): LiveData<RegionState> = stateLiveDataRegion
 
     private val _countryState = MutableLiveData<CountryShared?>()
     private var regions: List<Country> = listOf()
@@ -36,36 +41,37 @@ class RegionViewModel(
             _countryState.value = country
             // Передаем countryId в loadRegion()
             if (country != null && !country.countryId.isNullOrEmpty()) {
-                country?.let { country ->
+                country.let { country ->
                     country.countryId?.let { countryId ->
                         loadRegion(countryId)
                         countryInteractor.searchCountry()
                     }
                 }
             } else {
-                debugLog(TAG) { "init: country = $country и state = ${_countryState.value?.countryId}" }
                 loadCountry()
             }
-
         }
     }
 
     private fun loadCountry() {
+        val regionAll = mutableListOf<Country>()
+        renderState(RegionState.Loading)
         viewModelScope.launch {
             countryInteractor.searchCountry()
                 .collect { pair ->
                     pair.first?.forEach { country ->
-                        debugLog(TAG) { "loadCountry: country = $country" }
                         regionInteractor.searchRegion(country.id)
                             .collect { region ->
-                                // Тут стоит добавлять в новый список
-                                debugLog(TAG) { "loadCountry: region = $region" }
-                                processResult(region.first, pair.second)
+                                regionAll.addAll(region.first!!.areas.map { it.mapToCountry() })
+                                debugLog(TAG) { "loadCountry: region = ${regionAll.map { it.name }}" }
                             }
                     }
                 }
+            renderState(RegionState.Content(regionAll.sortedBy { it.name }))
+            debugLog(TAG) { "loadCountry: в конце корутины regionAll = ${regionAll.map { it.name }}" }
         }
-        debugLog(TAG) { "loadCountry: countryAllRegion = $" }
+        debugLog(TAG) { "loadCountry: после корутины regionAll = ${regionAll.map { it.name }}" }
+
     }
 
     private fun loadRegion(regionId: String) {
@@ -95,12 +101,11 @@ class RegionViewModel(
 
     // Поправить логику выполнения, вывод ошибок при загрузке
     private fun processResult(regionList: Country?, errorMessage: Int?) {
-        debugLog(TAG) { "processResult: region = $regionList" }
         when {
             errorMessage != null -> {
                 if (errorMessage == -1) {
                     renderState(RegionState.Error.NO_CONNECTION)
-                } else if (errorMessage == SERVER_ERROR) {
+                } else if (errorMessage == ResponseCodeConstants.SERVER_ERROR) {
                     renderState(RegionState.Error.SERVER_ERROR)
                 } else {
                     renderState(RegionState.Error.NOTHING_FOUND)
@@ -127,7 +132,7 @@ class RegionViewModel(
     }
 
     private fun renderState(regionState: RegionState) {
-        stateLiveData.postValue(regionState)
+        stateLiveDataRegion.postValue(regionState)
     }
 
     fun setRegionInfo(region: RegionShared) {
@@ -138,9 +143,22 @@ class RegionViewModel(
         filterRepositoryCountryFlow.setCountryFlow(country)
     }
 
+    fun getCountry(parentId: String?) {
+        val countryAll = countryRepositoryFlow.getCountryFlow().value
+        debugLog(TAG) { "getCountry" }
+        countryAll.forEach {  country ->
+            if (country.id == parentId) {
+                setCountryInfo(
+                    CountryShared(
+                        countryId = null,
+                        countryName = null
+                    )
+                )
+            }
+        }
+    }
+
     companion object {
-        const val REGION_CONTENT = 200
-        const val SERVER_ERROR = 500
         const val TAG = "RegionViewModel"
     }
 }

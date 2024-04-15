@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentWorkplaceBinding
+import ru.practicum.android.diploma.domain.debugLog
 
 class WorkplaceFragment : Fragment() {
 
@@ -32,6 +33,7 @@ class WorkplaceFragment : Fragment() {
 
         viewModel.countryState.observe(viewLifecycleOwner) { country ->
             if (country != null) {
+                debugLog(TAG) { "countryState: country = $country" }
                 binding.workplaceTextCount.text = country.countryName
                 binding.workplaceIcCount.setImageResource(R.drawable.ic_close_24px)
                 binding.workplaceIcCount.isClickable = true
@@ -47,6 +49,7 @@ class WorkplaceFragment : Fragment() {
 
             viewModel.regionState.observe(viewLifecycleOwner) { region ->
                 if (region != null && region.regionParentId == country?.countryId) {
+                    debugLog(TAG) { "regionState: region = $region" }
                     binding.workplaceTextRegion.text = region.regionName
                     binding.workplaceIcRegion.setImageResource(R.drawable.ic_close_24px)
                     binding.workplaceIcRegion.isClickable = true
@@ -104,5 +107,9 @@ class WorkplaceFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        const val TAG = "WorkplaceFragment"
     }
 }

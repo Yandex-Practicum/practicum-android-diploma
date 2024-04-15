@@ -10,6 +10,8 @@ import ru.practicum.android.diploma.data.vacancies.VacancyDetailsRepositoryImpl
 import ru.practicum.android.diploma.domain.api.details.VacancyDetailsRepository
 import ru.practicum.android.diploma.domain.api.search.VacanciesSearchRepository
 import ru.practicum.android.diploma.domain.country.CountryRepository
+import ru.practicum.android.diploma.domain.country.CountryRepositoryFlow
+import ru.practicum.android.diploma.domain.country.CountryRepositoryFlowImpl
 import ru.practicum.android.diploma.domain.favorite.FavoriteVacanciesRepository
 import ru.practicum.android.diploma.domain.filter.FiltersRepository
 import ru.practicum.android.diploma.domain.filter.impl.FiltersRepositoryImpl
@@ -43,5 +45,9 @@ val repositoryModule = module {
 
     single<FiltersRepository> {
         FiltersRepositoryImpl(get(), get(), get(), get(), get())
+    }
+
+    single<CountryRepositoryFlow> {
+        CountryRepositoryFlowImpl(get())
     }
 }

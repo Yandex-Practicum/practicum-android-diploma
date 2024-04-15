@@ -27,7 +27,7 @@ val viewModelModule = module {
     }
 
     viewModel {
-        RegionViewModel(get(), get(), get(), get())
+        RegionViewModel(get(), get(), get(), get(), get())
     }
 
     viewModel {
