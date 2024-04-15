@@ -21,6 +21,9 @@ class SearchViewModel(
 ) : ViewModel() {
 
     var lastQuery = ""
+    private var currentPage = 0
+    private var maxPagers = 0
+    private var vacanciesList = mutableListOf<Vacancy>()
     private val stateLiveData = MutableLiveData<SearchViewState>()
 
     fun observeState(): LiveData<SearchViewState> = stateLiveData
@@ -46,15 +49,37 @@ class SearchViewModel(
         filtersRepository.cancelJob()
     }
 
+    fun onLastItemReached() {
+        if (currentPage < maxPagers && stateLiveData.value is SearchViewState.Content) {
+            search(lastQuery)
+        }
+    }
+
+    fun setDefaultState() {
+        stateLiveData.value = SearchViewState.Default
+    }
+
+    fun clearPagingInfo() {
+        lastQuery = ""
+        currentPage = 0
+        maxPagers = 0
+        vacanciesList = mutableListOf()
+    }
+
     fun search(text: String) {
+        //stateLiveData.value = SearchViewState.Loading
+        stateLiveData.value = SearchViewState.RecyclerLoading
         viewModelScope.launch {
             filtersFlow.collect { filters ->
-                vacancySearchRepository.getVacancies(text, 0, filters).collect {
+                vacancySearchRepository.getVacancies(text, currentPage, filters).collect {
                     if (it.first != null) {
                         val response = (it.first as VacancyResponse)
+                        maxPagers = response.pages
+                        currentPage = response.page + 1
                         if (response.items.isEmpty()) {
                             stateLiveData.postValue(SearchViewState.EmptyVacancies)
                         } else {
+                            //vacanciesList.addAll(response.items)
                             stateLiveData.postValue(SearchViewState.Content(response.items, response.found))
                         }
 
@@ -64,5 +89,6 @@ class SearchViewModel(
                 }
             }
         }
+        lastQuery = text
     }
 }

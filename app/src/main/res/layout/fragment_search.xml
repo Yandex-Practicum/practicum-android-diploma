@@ -88,6 +88,7 @@
         app:layout_constraintTop_toTopOf="@+id/ti_search" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:visibility="gone"
         android:id="@+id/rv_vacancy"
         android:layout_width="0dp"
         android:layout_height="0dp"

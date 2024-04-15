@@ -15,6 +15,8 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -61,6 +63,7 @@ class SearchFragment : Fragment() {
         bindKeyboardSearchButton()
         bindTextWatcher()
         bindCrossButton()
+        bindAddOnScrollListener()
 
         binding.searchFilter.setOnClickListener {
             findNavController().navigate(R.id.action_searchFragment_to_filterAllFragment)
@@ -84,8 +87,26 @@ class SearchFragment : Fragment() {
             is SearchViewState.Loading -> showLoading()
             is SearchViewState.NoInternet -> showNoInternetState()
             is SearchViewState.EmptyVacancies -> showEmptyVacanciesState()
+            is SearchViewState.RecyclerLoading -> vacancyAdapter.addLoadingView()
         }
     }
+
+    private fun bindAddOnScrollListener() = with(binding) {
+        rvVacancy.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                if (dy > 0) {
+                    val pos = (rvVacancy.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                    val itemsCount = vacancyAdapter.itemCount
+                    if (pos >= itemsCount - 1) {
+                        viewModel.onLastItemReached()
+                    }
+                }
+            }
+        })
+    }
+
 
     private fun bindFilterButtonIcon() = with(binding) {
         lifecycleScope.launch {
@@ -96,25 +117,6 @@ class SearchFragment : Fragment() {
                     searchFilter.setImageResource(R.drawable.ic_filter_off_24px)
                 }
             }
-        }
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun showSearchInfo(found: Int) = with(binding) {
-        if (found == -1) {
-            tvSearchInfo.isVisible = false
-        } else if (found == 0) {
-            tvSearchInfo.isVisible = true
-            tvSearchInfo.text = resources.getString(R.string.no_such_vacancies)
-        } else {
-            tvSearchInfo.isVisible = true
-            tvSearchInfo.text = "Найдено ${
-                resources.getQuantityString(
-                    R.plurals.plurals_vacancies,
-                    found,
-                    found,
-                )
-            }"
         }
     }
 
@@ -157,7 +159,9 @@ class SearchFragment : Fragment() {
             )
         }"
 
-        vacancyAdapter.submitList(vacancies)
+        vacancyAdapter.removeLoadingView()
+        vacancyAdapter.addVacancies(vacancies)
+        //vacancyAdapter.submitList(vacancies)
     }
 
     private fun showLoading() = with(binding) {
@@ -190,11 +194,10 @@ class SearchFragment : Fragment() {
     private fun bindKeyboardSearchButton() {
         binding.search.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                if ("" != binding.search.text.toString()) {
-                    viewModel.lastQuery = binding.search.text.toString()
-
+                if (viewModel.lastQuery != "") {
                     searchJob?.cancel()
                     searchJob = lifecycleScope.launch {
+                        viewModel.clearPagingInfo()
                         viewModel.search(binding.search.text.toString())
                     }
                 }
@@ -210,14 +213,13 @@ class SearchFragment : Fragment() {
                 if (s.toString().isEmpty()) {
                     ivSearch.isVisible = true
                     ivCross.isVisible = false
+                    searchJob?.cancel()
                 } else {
-                    if (viewModel.lastQuery != search.text.toString()) {
-                        Log.d("search", "${viewModel.lastQuery} != ${binding.search.text}")
-                        searchJob?.cancel()
-                        searchJob = lifecycleScope.launch {
+                    searchJob?.cancel()
+                    searchJob = lifecycleScope.launch {
+                        if (viewModel.lastQuery != s.toString()) {
                             delay(SEARCH_DEBOUNCE_DELAY)
-                            viewModel.lastQuery = binding.search.text.toString()
-
+                            viewModel.clearPagingInfo()
                             viewModel.search(search.text.toString())
                         }
                     }
@@ -233,7 +235,7 @@ class SearchFragment : Fragment() {
         ivCross.setOnClickListener {
             search.setText("")
 
-            showDefaultState()
+            viewModel.setDefaultState()
             inputMethodManager?.hideSoftInputFromWindow(
                 view?.windowToken,
                 0

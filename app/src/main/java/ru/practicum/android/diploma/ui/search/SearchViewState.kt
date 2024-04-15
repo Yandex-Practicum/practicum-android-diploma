@@ -9,6 +9,8 @@ sealed interface SearchViewState {
     // Прогресс бар
     data object Loading : SearchViewState
 
+    data object RecyclerLoading : SearchViewState
+
     // Картинка нет интернета
     data object NoInternet : SearchViewState
 
