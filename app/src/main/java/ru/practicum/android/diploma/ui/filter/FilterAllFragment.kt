@@ -1,12 +1,15 @@
 package ru.practicum.android.diploma.ui.filter
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -23,47 +26,6 @@ class FilterAllFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModel<FilterAllViewModel>()
-
-    private val textWatcher = object : TextWatcher {
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            /*
-            if (start > 0) {
-                binding.filterSalaryClear.visibility = View.VISIBLE
-            } else {
-                binding.filterSalaryClear.visibility = View.GONE
-            }
-            */
-        }
-
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            binding.filterSalaryClear.visibility = View.VISIBLE
-
-            if (s?.isNotEmpty() == true) {
-                binding.filterExpectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
-                binding.filterTextSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_universal))
-                /*
-                if (binding.filterTextSalary.hasFocus()) {
-                    binding.filterSalaryClear.visibility = View.VISIBLE
-                    binding.filterSalaryClear.isClickable = true
-                }
-
-                 */
-                binding.filterFunctionButton.visibility = View.VISIBLE
-            } else {
-                binding.filterExpectedSalary.setTextColor(
-                    ContextCompat.getColor(requireContext(), R.color.all_filters_sum_hint)
-                )
-                binding.filterTextSalary.setTextColor(
-                    ContextCompat.getColor(requireContext(), R.color.all_filters_sum_hint)
-                )
-                binding.filterSalaryClear.visibility = View.GONE
-            }
-        }
-
-        override fun afterTextChanged(s: Editable?) {
-            /*NOTHING*/
-        }
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentAllFilterBinding.inflate(layoutInflater)
@@ -150,19 +112,12 @@ class FilterAllFragment : Fragment() {
             if (salarySum?.salary?.isNotEmpty() == true) {
                 filterExpectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
                 filterTextSalary.setText(salarySum.salary)
-                filterTextSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_universal))
-                /*
-                if (filterTextSalary.hasFocus()) {
-                    filterSalaryClear.visibility = View.VISIBLE
-                    filterSalaryClear.isClickable = true
-                }
-                */
+                filterSalaryClear.visibility = View.VISIBLE
             } else {
                 filterExpectedSalary.setTextColor(
                     ContextCompat.getColor(requireContext(), R.color.all_filters_sum_hint)
                 )
                 filterTextSalary.setText("")
-                filterTextSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_universal))
                 filterSalaryClear.visibility = View.GONE
             }
         }
@@ -177,6 +132,7 @@ class FilterAllFragment : Fragment() {
 
     private fun bindOnClickListeners() = with(binding) {
         filterSalaryClear.setOnClickListener {
+            filterTextSalary.setText("")
             viewModel.setSalarySumInfo(null)
         }
 
@@ -210,7 +166,45 @@ class FilterAllFragment : Fragment() {
     }
 
     private fun bindTextWatcher() = with(binding) {
-        filterTextSalary.addTextChangedListener(textWatcher)
+        filterTextSalary.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                filterTextSalary.clearFocus() // снимаем фокус с EditText
+                val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputMethodManager.hideSoftInputFromWindow(v.windowToken, 0)
+                filterExpectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_universal))
+                true
+            } else {
+                false
+            }
+        }
+
+        filterTextSalary.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                /*NOTHING*/
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding.filterSalaryClear.visibility = View.VISIBLE
+
+                if (s?.isNotEmpty() == true) {
+                    binding.filterExpectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
+                    binding.filterSalaryClear.visibility = View.VISIBLE
+                    binding.filterSalaryClear.isClickable = true
+                    binding.filterFunctionButton.visibility = View.VISIBLE
+                } else {
+                    binding.filterExpectedSalary.setTextColor(
+                        ContextCompat.getColor(requireContext(), R.color.all_filters_sum_hint)
+                    )
+                    binding.filterSalaryClear.visibility = View.GONE
+                    binding.filterTextSalary.clearFocus()
+
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                /*NOTHING*/
+            }
+        })
     }
 
     private fun bindNavigationListeners() = with(binding) {
