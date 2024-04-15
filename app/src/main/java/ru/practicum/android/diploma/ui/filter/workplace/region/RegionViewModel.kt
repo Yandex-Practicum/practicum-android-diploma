@@ -1,11 +1,13 @@
 package ru.practicum.android.diploma.ui.filter.workplace.region
 
 import android.content.Context
+import android.graphics.Region
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.country.Country
@@ -38,6 +40,7 @@ class RegionViewModel(
             country?.let { country ->
                 country.countryId?.let { countryId ->
                     loadRegion(countryId)
+                    countryInteractor.searchCountry()
                 }
             }
         }
@@ -52,27 +55,6 @@ class RegionViewModel(
                 }
         }
     }
-
-//    private fun loadRegion(regionId: String) {
-//        if (regionId == null) {
-//            renderState(RegionState.Loading)
-//            viewModelScope.launch {
-//
-//                regionInteractor.searchRegion(regionId)
-//                    .collect { pair ->
-//                        processResult(pair.first, pair.second)
-//                    }
-//            }
-//        } else {
-//            renderState(RegionState.Loading)
-//            viewModelScope.launch {
-//                regionInteractor.searchRegion(regionId)
-//                    .collect { pair ->
-//                        processResult(pair.first, pair.second)
-//                    }
-//            }
-//        }
-//    }
 
     // Поправить логику выполнения, вывод ошибок при загрузке
     private fun processResult(regionList: Country?, errorMessage: Int?) {
