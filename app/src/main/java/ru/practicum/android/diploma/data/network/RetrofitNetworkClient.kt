@@ -7,6 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
 import okio.IOException
+import retrofit2.HttpException
 import ru.practicum.android.diploma.data.filter.country.CountryRequest
 import ru.practicum.android.diploma.data.filter.country.response.AreasResponse
 import ru.practicum.android.diploma.data.filter.industries.IndustriesRequest
@@ -16,6 +17,7 @@ import ru.practicum.android.diploma.data.vacancies.details.DetailRequest
 import ru.practicum.android.diploma.data.vacancies.dto.VacanciesSearchRequest
 import ru.practicum.android.diploma.data.vacancies.response.Response
 import ru.practicum.android.diploma.data.vacancies.response.ResponseCodes
+import java.net.SocketTimeoutException
 
 class RetrofitNetworkClient(
     private val context: Context,
@@ -61,22 +63,21 @@ class RetrofitNetworkClient(
         }
 
         return withContext(Dispatchers.IO) {
-            @Suppress("detekt:TooGenericExceptionCaught", "detekt:SwallowedException")
             try {
                 val response = when (dto) {
-                    is VacanciesSearchRequest -> async {
+                    is VacanciesSearchRequest -> {
                         searchVacanciesApi.getListVacancy(dto.queryMap)
                     }
 
-                    is DetailRequest -> async {
+                    is DetailRequest -> {
                         searchVacanciesApi.getVacancyDetail(dto.id)
                     }
 
                     else -> throw IllegalArgumentException("Invalid DTO type: $dto")
-                }.await()
+                }
                 response.apply { resultCode = ResponseCodes.SUCCESS }
 
-            } catch (e: Throwable) {
+            } catch (e: IOException) {
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
             }
 
