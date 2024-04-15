@@ -111,7 +111,7 @@ class FilterAllFragment : Fragment() {
     private fun observeSalarySum() = with(binding) {
         viewModel.salarySum.observe(viewLifecycleOwner) { salarySum ->
             if (salarySum?.salary?.isNotEmpty() == true) {
-                filterExpectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
+                filterExpectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_universal))
                 filterTextSalary.setText(salarySum.salary)
                 filterSalaryClear.visibility = View.VISIBLE
             } else {

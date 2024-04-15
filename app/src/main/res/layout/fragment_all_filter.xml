@@ -167,7 +167,11 @@
             android:textAppearance="@style/regular16_font"
             android:textColor="@color/black.universal"
             android:textColorHint="@color/all_filters_sum_hint"
-            android:textCursorDrawable="@drawable/blue_cursor" />
+            android:textCursorDrawable="@drawable/blue_cursor"
+            android:textSelectHandle="@drawable/blue_cursor_center_handle"
+            android:textSelectHandleLeft="@drawable/blue_cursor_left_handle"
+            android:textSelectHandleRight="@drawable/blue_cursor_right_handle"
+            android:textColorHighlight="@color/blue"/>
 
         <ImageView
             android:id="@+id/filter_salary_clear"
