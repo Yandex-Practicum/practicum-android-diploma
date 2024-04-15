@@ -161,7 +161,7 @@ class SearchFragment : Fragment() {
         }"
 
         vacancyAdapter.removeLoadingView()
-        vacancyAdapter.addVacancies(vacancies)
+        vacancyAdapter.updateVacancies(vacancies)
     }
 
     private fun showLoading() = with(binding) {

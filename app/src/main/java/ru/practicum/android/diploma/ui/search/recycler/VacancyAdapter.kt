@@ -48,9 +48,10 @@ class VacancyAdapter(
         }
     }
 
-    fun addVacancies(vacancies: List<Vacancy>) {
+    fun updateVacancies(vacancies: List<Vacancy>) {
+        currentList.clear()
         currentList.addAll(vacancies)
-        notifyItemRangeInserted(currentList.size - 1, vacancies.size)
+        notifyDataSetChanged()
     }
 
     fun addLoadingView() {
