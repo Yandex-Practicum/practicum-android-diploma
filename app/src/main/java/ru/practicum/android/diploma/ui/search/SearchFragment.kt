@@ -145,20 +145,18 @@ class SearchFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun showContent(vacancies: List<Vacancy>, found: Int) = with(binding) {
-        Log.e("shown", vacancies.toString())
         ivStartSearch.isVisible = false
         progressBar.isVisible = false
         rvVacancy.isVisible = true
         noInternetGroup.isVisible = false
         nothingFoundGroup.isVisible = false
         tvSearchInfo.isVisible = true
-        tvSearchInfo.text = "Найдено ${
+        tvSearchInfo.text =
             resources.getQuantityString(
                 R.plurals.plurals_vacancies,
                 found,
                 found,
             )
-        }"
 
         vacancyAdapter.removeLoadingView()
         vacancyAdapter.updateVacancies(vacancies)
@@ -189,12 +187,14 @@ class SearchFragment : Fragment() {
         noInternetGroup.isVisible = false
         nothingFoundGroup.isVisible = true
         tvSearchInfo.isVisible = true
+        tvSearchInfo.text = getString(R.string.no_such_vacancies)
     }
 
     private fun bindKeyboardSearchButton() {
         binding.search.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                if (viewModel.lastQuery != "") {
+                if (viewModel.lastQuery != binding.search.text.toString()) {
+                    viewModel.crossPressed = false
                     searchJob?.cancel()
                     searchJob = lifecycleScope.launch {
                         viewModel.clearPagingInfo()
@@ -215,14 +215,15 @@ class SearchFragment : Fragment() {
                     ivCross.isVisible = false
                     searchJob?.cancel()
                 } else {
-                    searchJob?.cancel()
-                    searchJob = lifecycleScope.launch {
-                        if (viewModel.lastQuery != s.toString()) {
-                            delay(SEARCH_DEBOUNCE_DELAY)
-                            viewModel.clearPagingInfo()
-                            viewModel.search(search.text.toString())
-                        }
-                    }
+                    /* searchJob?.cancel()
+                     searchJob = lifecycleScope.launch {
+                         if (viewModel.lastQuery != s.toString()) {
+                             viewModel.crossPressed = true
+                             delay(SEARCH_DEBOUNCE_DELAY)
+                             viewModel.clearPagingInfo()
+                             viewModel.search(search.text.toString())
+                         }
+                     }*/
 
                     ivSearch.isVisible = false
                     ivCross.isVisible = true
@@ -235,6 +236,7 @@ class SearchFragment : Fragment() {
         ivCross.setOnClickListener {
             search.setText("")
             vacancyAdapter.clearList()
+            viewModel.crossPressed = true
 
             viewModel.setDefaultState()
             inputMethodManager?.hideSoftInputFromWindow(

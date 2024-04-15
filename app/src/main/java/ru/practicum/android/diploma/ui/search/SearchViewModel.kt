@@ -25,6 +25,8 @@ class SearchViewModel(
     private var maxPagers = 0
     private var vacanciesList = mutableListOf<Vacancy>()
 
+    var crossPressed = false
+
     private val stateLiveData = MutableLiveData<SearchViewState>()
 
     fun observeState(): LiveData<SearchViewState> = stateLiveData
@@ -34,13 +36,6 @@ class SearchViewModel(
         filtersRepository.getFiltersFlow().map {
             it != Filters()
         }.collect {
-            emit(it)
-        }
-    }
-
-    // Флоу с фильтрами
-    private val filtersFlow = flow {
-        filtersRepository.getFiltersFlow().collect {
             emit(it)
         }
     }
@@ -74,21 +69,23 @@ class SearchViewModel(
             stateLiveData.value = SearchViewState.RecyclerLoading
         }
         viewModelScope.launch {
-            filtersFlow.collect { filters ->
-                vacancySearchRepository.getVacancies(text, currentPage, filters).collect {
-                    if (it.first != null) {
-                        val response = (it.first as VacancyResponse)
-                        maxPagers = response.pages
-                        currentPage = response.page + 1
-                        if (response.items.isEmpty()) {
-                            stateLiveData.postValue(SearchViewState.EmptyVacancies)
-                        } else {
-                            vacanciesList.addAll(response.items)
-                            stateLiveData.postValue(SearchViewState.Content(vacanciesList, response.found))
-                        }
+            filtersRepository.getFiltersFlow().collect { filters ->
+                if (!crossPressed) {
+                    vacancySearchRepository.getVacancies(text, currentPage, filters).collect {
+                        if (it.first != null) {
+                            val response = (it.first as VacancyResponse)
+                            maxPagers = response.pages
+                            currentPage = response.page + 1
+                            if (response.items.isEmpty()) {
+                                stateLiveData.postValue(SearchViewState.EmptyVacancies)
+                            } else {
+                                vacanciesList.addAll(response.items)
+                                stateLiveData.postValue(SearchViewState.Content(vacanciesList, response.found))
+                            }
 
-                    } else if (it.second != null) {
-                        stateLiveData.postValue(SearchViewState.NoInternet)
+                        } else if (it.second != null) {
+                            stateLiveData.postValue(SearchViewState.NoInternet)
+                        }
                     }
                 }
             }
