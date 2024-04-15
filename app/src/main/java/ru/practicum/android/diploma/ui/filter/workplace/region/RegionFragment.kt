@@ -50,12 +50,7 @@ class RegionFragment : Fragment() {
                     regionName = item.name
                 )
             )
-            viewModel.setCountryInfo(
-                CountryShared(
-                    countryId = item.parentId,
-                    countryName = null
-                )
-            )
+
             findNavController().popBackStack()
         }
 

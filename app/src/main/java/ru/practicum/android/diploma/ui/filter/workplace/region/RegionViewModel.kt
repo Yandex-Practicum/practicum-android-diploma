@@ -1,13 +1,9 @@
 package ru.practicum.android.diploma.ui.filter.workplace.region
 
-import android.content.Context
-import android.graphics.Region
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.country.Country
@@ -37,13 +33,37 @@ class RegionViewModel(
             val country = filterRepositoryCountryFlow.getCountryFlow().value
             _countryState.value = country
             // Передаем countryId в loadRegion()
-            country?.let { country ->
-                country.countryId?.let { countryId ->
-                    loadRegion(countryId)
-                    countryInteractor.searchCountry()
+            if (country != null && !country.countryId.isNullOrEmpty()) {
+                country?.let { country ->
+                    country.countryId?.let { countryId ->
+                        loadRegion(countryId)
+                        countryInteractor.searchCountry()
+                    }
                 }
+            } else {
+                debugLog(TAG) { "init: country = $country и state = ${_countryState.value?.countryId}" }
+                loadCountry()
             }
+
         }
+    }
+
+    private fun loadCountry() {
+        viewModelScope.launch {
+            countryInteractor.searchCountry()
+                .collect { pair ->
+                    pair.first?.forEach { country ->
+                        debugLog(TAG) { "loadCountry: country = $country" }
+                        regionInteractor.searchRegion(country.id)
+                            .collect { region ->
+                                // Тут стоит добавлять в новый список
+                                debugLog(TAG) { "loadCountry: region = $region" }
+                                processResult(region.first, pair.second)
+                            }
+                    }
+                }
+        }
+        debugLog(TAG) { "loadCountry: countryAllRegion = $" }
     }
 
     private fun loadRegion(regionId: String) {
@@ -58,6 +78,7 @@ class RegionViewModel(
 
     // Поправить логику выполнения, вывод ошибок при загрузке
     private fun processResult(regionList: Country?, errorMessage: Int?) {
+        debugLog(TAG) { "processResult: region = $regionList" }
         when {
             errorMessage != null -> {
                 renderState(
@@ -113,7 +134,6 @@ class RegionViewModel(
     }
 
     companion object {
-        const val REGION_CONTENT = 200
         const val TAG = "RegionViewModel"
     }
 }

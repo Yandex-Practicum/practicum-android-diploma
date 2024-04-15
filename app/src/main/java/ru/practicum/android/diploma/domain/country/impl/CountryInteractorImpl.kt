@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.domain.country.CountryRepository
 import ru.practicum.android.diploma.util.ResourceContentSearch
 
 class CountryInteractorImpl(
-    val countryRepository: CountryRepository
+    private val countryRepository: CountryRepository
 ) : CountryInteractor {
 
     override fun searchCountry(): Flow<Pair<List<Country>?, Int?>> {
