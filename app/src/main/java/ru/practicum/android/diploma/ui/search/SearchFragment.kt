@@ -23,6 +23,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.data.vacancies.response.ResponseCodes
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.domain.models.vacacy.Vacancy
 import ru.practicum.android.diploma.ui.details.DetailsFragment
@@ -36,6 +37,8 @@ class SearchFragment : Fragment() {
     private val viewModel by viewModel<SearchViewModel>()
 
     private var searchJob: Job? = null
+
+    private var currentState: SearchViewState? = null
 
     private val inputMethodManager by lazy {
         requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
@@ -81,6 +84,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun render(state: SearchViewState) {
+        currentState = state
         when (state) {
             is SearchViewState.Default -> showDefaultState()
             is SearchViewState.Content -> showContent(state.vacancies, state.found)
@@ -88,6 +92,17 @@ class SearchFragment : Fragment() {
             is SearchViewState.NoInternet -> showNoInternetState()
             is SearchViewState.EmptyVacancies -> showEmptyVacanciesState()
             is SearchViewState.RecyclerLoading -> vacancyAdapter.addLoadingView()
+            is SearchViewState.RecyclerError -> {
+                vacancyAdapter.removeLoadingView()
+                makeSnackbar(
+                    if (state.errorMessage == ResponseCodes.NO_CONNECTION.code.toString()) {
+                        getString(R.string.check_internet_connection)
+                    } else {
+                        getString(R.string.error_occurred)
+                    }
+                ).show()
+
+            }
         }
     }
 
@@ -100,6 +115,9 @@ class SearchFragment : Fragment() {
                     val pos = (rvVacancy.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
                     val itemsCount = vacancyAdapter.itemCount
                     if (pos >= itemsCount - 1) {
+                        if (currentState is SearchViewState.RecyclerError) {
+                            viewModel.setContentState()
+                        }
                         viewModel.onLastItemReached()
                     }
                 }
@@ -120,14 +138,14 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun makeSnackbar() {
+    private fun makeSnackbar(errorMessage: String) =
         Snackbar.make(
             requireContext(),
             requireView(),
-            resources.getString(R.string.check_internet_connection),
-            Snackbar.LENGTH_INDEFINITE
-        ).setAction(R.string.retry) { /*vacancyAdapter.retry()*/ }.show()
-    }
+            errorMessage,
+            Snackbar.LENGTH_SHORT
+        ) //.setAction(R.string.retry) { viewModel.onLastItemReached() }
+
 
     private fun bindVacancyAdapter() {
         binding.rvVacancy.adapter =
@@ -158,7 +176,6 @@ class SearchFragment : Fragment() {
                 found,
             )
 
-        vacancyAdapter.removeLoadingView()
         vacancyAdapter.updateVacancies(vacancies)
     }
 

@@ -1,11 +1,9 @@
 package ru.practicum.android.diploma.ui.search
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -24,6 +22,7 @@ class SearchViewModel(
     private var currentPage = 0
     private var maxPagers = 0
     private var vacanciesList = mutableListOf<Vacancy>()
+    private var vacanciesFound = 0
     private var filters = Filters()
 
     private val stateLiveData = MutableLiveData<SearchViewState>()
@@ -62,6 +61,10 @@ class SearchViewModel(
         stateLiveData.value = SearchViewState.Default
     }
 
+    fun setContentState() {
+        stateLiveData.value = SearchViewState.Content(vacanciesList, vacanciesFound)
+    }
+
     fun clearPagingInfo() {
         lastQuery = ""
         currentPage = 0
@@ -85,11 +88,16 @@ class SearchViewModel(
                         stateLiveData.postValue(SearchViewState.EmptyVacancies)
                     } else {
                         vacanciesList.addAll(response.items)
-                        stateLiveData.postValue(SearchViewState.Content(vacanciesList, response.found))
+                        vacanciesFound = response.found
+                        stateLiveData.postValue(SearchViewState.Content(vacanciesList, vacanciesFound))
                     }
 
                 } else if (it.second != null) {
-                    stateLiveData.postValue(SearchViewState.NoInternet)
+                    if (vacanciesList.isEmpty()) {
+                        stateLiveData.postValue(SearchViewState.NoInternet)
+                    }else{
+                        stateLiveData.postValue(SearchViewState.RecyclerError(it.second as String))
+                    }
                 }
             }
         }

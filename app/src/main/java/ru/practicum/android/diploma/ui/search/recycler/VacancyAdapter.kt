@@ -49,6 +49,7 @@ class VacancyAdapter(
     }
 
     fun updateVacancies(vacancies: List<Vacancy>) {
+        removeLoadingView()
         currentList.clear()
         currentList.addAll(vacancies)
         notifyDataSetChanged()

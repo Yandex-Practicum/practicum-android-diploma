@@ -34,11 +34,11 @@ class VacanciesSearchRepositoryImpl(
                 }
 
                 ResponseCodes.NO_CONNECTION -> {
-                    emit(Pair(null, "no connection"))
+                    emit(Pair(null, ResponseCodes.NO_CONNECTION.code.toString()))
                 }
 
                 ResponseCodes.SERVER_ERROR -> {
-                    emit(Pair(null, "Server error"))
+                    emit(Pair(null, ResponseCodes.SERVER_ERROR.code.toString()))
                 }
 
                 else -> emit(Pair(null, "error"))
