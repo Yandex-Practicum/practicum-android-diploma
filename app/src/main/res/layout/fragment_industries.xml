@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/industries_toolbar"
@@ -13,12 +13,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/back_icon"
-        app:titleTextAppearance="@style/medium22_font" >
+        app:titleTextAppearance="@style/medium22_font">
 
         <TextView
+            style="@style/medium22_font"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/medium22_font"
             android:text="@string/fragment_industries_toolbar_title"
             android:textColor="@color/black" />
 
@@ -32,8 +32,8 @@
         android:layout_gravity="center_vertical"
         android:layout_marginHorizontal="@dimen/margin"
         android:layout_marginVertical="@dimen/xs_margin"
-        app:endIconMode="custom"
         app:endIconDrawable="@drawable/ic_search_24px"
+        app:endIconMode="custom"
         app:endIconTint="@color/black.universal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,8 +41,6 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/search"
-            android:paddingEnd="@dimen/fragment_industries_text_input_edit_text_padding"
-            android:paddingStart="@dimen/fragment_industries_text_input_edit_text_padding"
             style="@style/regular16_font"
             android:layout_width="match_parent"
             android:layout_height="@dimen/fragment_textview_height"
@@ -51,14 +49,16 @@
             android:imeOptions="actionDone"
             android:inputType="text"
             android:maxLength="128"
+            android:paddingStart="@dimen/fragment_industries_text_input_edit_text_padding_start"
+            android:paddingEnd="@dimen/fragment_industries_text_input_edit_text_padding_end"
             android:singleLine="true"
             android:textColor="@color/black.universal"
+            android:textColorHighlight="@color/blue"
             android:textColorHint="@color/search_bar_hint"
             android:textCursorDrawable="@drawable/blue_cursor"
             android:textSelectHandle="@drawable/blue_cursor_center_handle"
             android:textSelectHandleLeft="@drawable/blue_cursor_left_handle"
-            android:textSelectHandleRight="@drawable/blue_cursor_right_handle"
-            android:textColorHighlight="@color/blue"/>
+            android:textSelectHandleRight="@drawable/blue_cursor_right_handle" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -67,8 +67,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/margin"
-        android:clipToPadding="true"
         android:layout_marginBottom="@dimen/margin"
+        android:clipToPadding="true"
         app:layout_constraintBottom_toTopOf="@id/industries_filter_apply"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -87,11 +87,11 @@
         android:gravity="center"
         android:orientation="vertical"
         android:visibility="gone"
-        tools:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ti_search">
+        app:layout_constraintTop_toBottomOf="@id/ti_search"
+        tools:visibility="visible">
 
         <ImageView
             android:id="@+id/errorImageView"
@@ -108,7 +108,7 @@
             android:layout_marginTop="@dimen/fragment_favorite_side_margins"
             android:gravity="center"
             android:textColor="@color/black"
-            tools:text="Такого региона нет"/>
+            tools:text="Такого региона нет" />
     </LinearLayout>
 
     <TextView
@@ -135,10 +135,10 @@
         android:indeterminate="false"
         android:indeterminateTint="@color/blue"
         android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ti_search"
-        app:layout_constraintBottom_toBottomOf="parent"
         tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
