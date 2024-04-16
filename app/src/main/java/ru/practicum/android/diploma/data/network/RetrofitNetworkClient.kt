@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.data.network
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
@@ -61,22 +62,22 @@ class RetrofitNetworkClient(
         }
 
         return withContext(Dispatchers.IO) {
-            @Suppress("detekt:TooGenericExceptionCaught", "detekt:SwallowedException")
             try {
                 val response = when (dto) {
-                    is VacanciesSearchRequest -> async {
+                    is VacanciesSearchRequest -> {
                         searchVacanciesApi.getListVacancy(dto.queryMap)
                     }
 
-                    is DetailRequest -> async {
+                    is DetailRequest -> {
                         searchVacanciesApi.getVacancyDetail(dto.id)
                     }
 
                     else -> throw IllegalArgumentException("Invalid DTO type: $dto")
-                }.await()
+                }
                 response.apply { resultCode = ResponseCodes.SUCCESS }
 
-            } catch (e: Throwable) {
+            } catch (e: IOException) {
+                Log.e("Exception", e.message.toString())
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
             }
 

@@ -4,8 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.domain.models.Filters
 import ru.practicum.android.diploma.domain.models.vacacy.VacancyResponse
 
-interface VacanciesSearchRepository {
-
+interface VacancySearchInteractor {
     fun getVacancies(
         query: String,
         page: Int,

@@ -8,15 +8,15 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.favorite.FavoriteInteractor
 import ru.practicum.android.diploma.domain.models.VacancyDetails
 
-class FavoriteVacanciesViewModel(
+class FavoriteViewModel(
     private val favoriteInteractor: FavoriteInteractor
 ) : ViewModel() {
 
-    private var _state = MutableLiveData<FavoriteVacanciesState>(
-        FavoriteVacanciesState.EmptyVacancyList
+    private var _state = MutableLiveData<FavoriteState>(
+        FavoriteState.EmptyList
     )
 
-    fun getState(): LiveData<FavoriteVacanciesState> = _state
+    fun getState(): LiveData<FavoriteState> = _state
 
     fun reloadFavoriteVacancies() {
         viewModelScope.launch {
@@ -25,9 +25,9 @@ class FavoriteVacanciesViewModel(
                 data.add(it)
             }
             if (data.size > 0) {
-                _state.postValue(FavoriteVacanciesState.VacancyList(data))
+                _state.postValue(FavoriteState.VacancyList(data))
             } else {
-                _state.postValue(FavoriteVacanciesState.EmptyVacancyList)
+                _state.postValue(FavoriteState.EmptyList)
             }
         }
     }

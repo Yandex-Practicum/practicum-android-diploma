@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentRegionBinding
+import ru.practicum.android.diploma.domain.debugLog
 import ru.practicum.android.diploma.domain.filter.datashared.RegionShared
 import ru.practicum.android.diploma.ui.filter.workplace.region.adapter.RegionAdapter
 
@@ -35,7 +36,6 @@ class RegionFragment : Fragment() {
         return binding.root
     }
 
-    @Suppress("detekt:LongMethod")
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?
@@ -51,6 +51,11 @@ class RegionFragment : Fragment() {
                     regionName = item.name
                 )
             )
+
+            viewModel.getCountry(item.parentId)
+
+            debugLog(TAG) { "adapter.itemClickListener = ${item.name}, ${item.parentId}" }
+
             findNavController().popBackStack()
         }
 
@@ -62,7 +67,7 @@ class RegionFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.observeState().observe(viewLifecycleOwner) { state ->
+                viewModel.observeStateRegion().observe(viewLifecycleOwner) { state ->
                     when (state) {
                         is RegionState.Content -> {
                             showContent()
@@ -147,5 +152,9 @@ class RegionFragment : Fragment() {
         ivCross.setOnClickListener {
             search.text = null
         }
+    }
+
+    companion object {
+        const val TAG = "RegionFragment"
     }
 }

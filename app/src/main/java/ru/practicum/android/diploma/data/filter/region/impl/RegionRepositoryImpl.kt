@@ -13,7 +13,7 @@ import ru.practicum.android.diploma.domain.region.RegionRepository
 import ru.practicum.android.diploma.util.ResourceContentSearch
 
 class RegionRepositoryImpl(
-    val networkClient: NetworkClient
+    private val networkClient: NetworkClient
 ) : RegionRepository {
     override fun searchRegion(regionId: String): Flow<ResourceContentSearch<Country>> = flow {
         val response = networkClient.doRequestFilter(RegionByIdRequest(regionId))

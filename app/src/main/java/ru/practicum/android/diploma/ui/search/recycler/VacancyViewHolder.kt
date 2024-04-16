@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.ui.search.recycler
 
+import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.practicum.android.diploma.R
@@ -12,14 +13,15 @@ class VacancyViewHolder(
     private val binding: VacancyViewBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(vacancy: Vacancy?, onClick: (Vacancy?) -> Unit) = with(binding) {
-        tvVacancyName.text = "${vacancy?.name}, ${vacancy?.area?.name}"
-        tvVacancyType.text = vacancy?.employer?.name
+    @SuppressLint("SetTextI18n")
+    fun bind(vacancy: Vacancy, onClick: (Vacancy) -> Unit) = with(binding) {
+        tvVacancyName.text = "${vacancy.name}, ${vacancy.area.name}"
+        tvVacancyType.text = vacancy.employer.name
 
         tvVacancySalary.text = makeSalaryString(vacancy)
 
         Glide.with(itemView)
-            .load(vacancy?.employer?.logoUrls?.art90)
+            .load(vacancy.employer.logoUrls?.art90)
             .placeholder(R.drawable.logo_placeholder).error(R.drawable.logo_placeholder)
             .centerCrop().into(ivLogo)
 
@@ -28,9 +30,9 @@ class VacancyViewHolder(
         }
     }
 
-    private fun makeSalaryString(vacancy: Vacancy?): StringBuilder {
+    private fun makeSalaryString(vacancy: Vacancy): StringBuilder {
         val salaryStringBuilder = StringBuilder()
-        if (vacancy?.salary?.from == null && vacancy?.salary?.to == null) {
+        if (vacancy.salary?.from == null && vacancy.salary?.to == null) {
             salaryStringBuilder.append(itemView.context.getString(R.string.salary_not_specified))
         } else {
             salaryStringBuilder.appendSalaryBuilderFrom(vacancy)

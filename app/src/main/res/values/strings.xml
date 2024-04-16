@@ -42,6 +42,7 @@
     <string name="no_internet">Нет интернета</string>
     <string name="no_vacancy">Не удалось получить список вакансий</string>
     <string name="check_internet_connection">Проверьте подключение к сети</string>
+    <string name="error_occurred">Произошла ошибка</string>
     <string name="retry">Повторить</string>
 
     <string name="filter_all">Настройки фильтрации</string>
@@ -77,13 +78,14 @@
     </plurals>
 
     <plurals name="plurals_vacancies">
-        <item quantity="zero">%1$d вакансий</item>
-        <item quantity="one">%1$d вакансия</item>
-        <item quantity="two">%1$d вакансии</item>
-        <item quantity="few">%1$d вакансии</item>
-        <item quantity="many">%1$d вакансий</item>
-        <item quantity="other">%1$d вакансий</item>
+        <item quantity="zero">Найдено %1$d вакансий</item>
+        <item quantity="one">Найдена %1$d вакансия</item>
+        <item quantity="two">Найдено %1$d вакансии</item>
+        <item quantity="few">Найдено %1$d вакансии</item>
+        <item quantity="many">Найдено %1$d вакансий</item>
+        <item quantity="other">Найдено %1$d вакансий</item>
     </plurals>
     <string name="no_such_vacancies">Таких вакансий нет</string>
+
 
 </resources>
