@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.ui.search.recycler
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -27,7 +28,11 @@ class VacancyAdapter(
             }
 
             else -> {
-                throw RuntimeException("There is no type that matches the type $viewType + make sure your using types correctly")
+                val exception = RuntimeException(
+                    "There is no type that matches the type $viewType + make sure your using types correctly"
+                )
+                Log.e("RuntimeException", exception.message.toString())
+                throw exception
             }
         }
     }

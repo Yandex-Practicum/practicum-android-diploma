@@ -3,7 +3,6 @@ package ru.practicum.android.diploma.ui.search
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -125,7 +124,6 @@ class SearchFragment : Fragment() {
         })
     }
 
-
     private fun bindFilterButtonIcon() = with(binding) {
         lifecycleScope.launch {
             viewModel.isExistFiltersFlow.collect {
@@ -144,8 +142,7 @@ class SearchFragment : Fragment() {
             requireView(),
             errorMessage,
             Snackbar.LENGTH_SHORT
-        ) //.setAction(R.string.retry) { viewModel.onLastItemReached() }
-
+        ) // .setAction(R.string.retry) { viewModel.onLastItemReached() }
 
     private fun bindVacancyAdapter() {
         binding.rvVacancy.adapter =

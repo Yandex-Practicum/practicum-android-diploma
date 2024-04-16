@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.domain.api.search.VacanciesSearchRepository
 import ru.practicum.android.diploma.domain.api.search.VacancySearchInteractor
 import ru.practicum.android.diploma.domain.filter.FiltersRepository
 import ru.practicum.android.diploma.domain.models.Filters
@@ -82,26 +81,32 @@ class SearchViewModel(
         viewModelScope.launch {
             vacancySearchInteractor.getVacancies(text, currentPage, filters).collect {
                 if (it.first != null) {
-                    val response = (it.first as VacancyResponse)
-                    maxPagers = response.pages
-                    currentPage = response.page + 1
-                    if (response.items.isEmpty()) {
-                        stateLiveData.postValue(SearchViewState.EmptyVacancies)
-                    } else {
-                        vacanciesList.addAll(response.items)
-                        vacanciesFound = response.found
-                        stateLiveData.postValue(SearchViewState.Content(vacanciesList, vacanciesFound))
-                    }
-
+                    handleResponse(it.first as VacancyResponse)
                 } else if (it.second != null) {
-                    if (vacanciesList.isEmpty()) {
-                        stateLiveData.postValue(SearchViewState.NoInternet)
-                    }else{
-                        stateLiveData.postValue(SearchViewState.RecyclerError(it.second as String))
-                    }
+                    handleError(it.second as String)
                 }
             }
         }
         lastQuery = text
+    }
+
+    private fun handleResponse(response: VacancyResponse) {
+        maxPagers = response.pages
+        currentPage = response.page + 1
+        if (response.items.isEmpty()) {
+            stateLiveData.postValue(SearchViewState.EmptyVacancies)
+        } else {
+            vacanciesList.addAll(response.items)
+            vacanciesFound = response.found
+            stateLiveData.postValue(SearchViewState.Content(vacanciesList, vacanciesFound))
+        }
+    }
+
+    private fun handleError(error: String) {
+        if (vacanciesList.isEmpty()) {
+            stateLiveData.postValue(SearchViewState.NoInternet)
+        } else {
+            stateLiveData.postValue(SearchViewState.RecyclerError(error))
+        }
     }
 }
