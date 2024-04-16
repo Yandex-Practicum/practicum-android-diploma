@@ -11,11 +11,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentRegionBinding
+import ru.practicum.android.diploma.domain.country.Country
 import ru.practicum.android.diploma.domain.debugLog
 import ru.practicum.android.diploma.domain.filter.datashared.RegionShared
 import ru.practicum.android.diploma.ui.filter.workplace.region.adapter.RegionAdapter
@@ -26,6 +26,8 @@ class RegionFragment : Fragment() {
 
     private var _binding: FragmentRegionBinding? = null
     private val binding get() = _binding!!
+
+    private var adapter = RegionAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,7 +44,38 @@ class RegionFragment : Fragment() {
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = RegionAdapter()
+        bindItemClickListener()
+
+        binding.recyclerView.adapter = adapter
+        bindTextWatcher()
+        bindClearSearch()
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.observeStateRegion().observe(viewLifecycleOwner) { state ->
+                    render(state)
+                }
+            }
+        }
+
+        binding.regionToolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+    }
+
+    private fun render(state: RegionState) {
+        when (state) {
+            is RegionState.Content -> {
+                showContent(state.regions)
+            }
+
+            is RegionState.Empty -> showEmpty(getString(state.message))
+            is RegionState.Error -> showError(state)
+            is RegionState.Loading -> showLoading()
+        }
+    }
+
+    private fun bindItemClickListener() {
         adapter.itemClickListener = { _, item ->
             viewModel.setRegionInfo(
                 RegionShared(
@@ -58,37 +91,6 @@ class RegionFragment : Fragment() {
 
             findNavController().popBackStack()
         }
-
-        binding.recyclerView.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.recyclerView.adapter = adapter
-        bindTextWatcher()
-        bindClearSearch()
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.observeStateRegion().observe(viewLifecycleOwner) { state ->
-                    when (state) {
-                        is RegionState.Content -> {
-                            showContent()
-
-                            adapter.regionList.clear()
-                            adapter.regionList.addAll(state.regions)
-
-                            adapter.notifyDataSetChanged()
-                        }
-
-                        is RegionState.Empty -> showEmpty(getString(state.message))
-                        is RegionState.Error -> showError(state)
-                        is RegionState.Loading -> showLoading()
-                    }
-                }
-            }
-        }
-
-        binding.regionToolbar.setNavigationOnClickListener {
-            findNavController().popBackStack()
-        }
     }
 
     override fun onDestroyView() {
@@ -96,10 +98,15 @@ class RegionFragment : Fragment() {
         _binding = null
     }
 
-    private fun showContent() {
+    private fun showContent(regions: List<Country>) {
         binding.recyclerView.visibility = View.VISIBLE
         binding.errorContainer.visibility = View.GONE
         binding.progressBar.visibility = View.GONE
+
+        adapter.regionList.clear()
+        adapter.regionList.addAll(regions)
+
+        adapter.notifyDataSetChanged()
     }
 
     private fun showLoading() {

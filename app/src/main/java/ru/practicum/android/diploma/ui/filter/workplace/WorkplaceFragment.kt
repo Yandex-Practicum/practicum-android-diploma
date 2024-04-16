@@ -11,6 +11,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentWorkplaceBinding
 import ru.practicum.android.diploma.domain.debugLog
+import ru.practicum.android.diploma.domain.filter.datashared.CountryShared
+import ru.practicum.android.diploma.domain.filter.datashared.RegionShared
 
 class WorkplaceFragment : Fragment() {
 
@@ -24,7 +26,6 @@ class WorkplaceFragment : Fragment() {
         return binding.root
     }
 
-    @Suppress("detekt:LongMethod")
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?
@@ -32,74 +33,89 @@ class WorkplaceFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.countryState.observe(viewLifecycleOwner) { country ->
-            if (country != null) {
-                debugLog(TAG) { "countryState: country = $country" }
-                binding.workplaceTextCount.text = country.countryName
-                binding.workplaceIcCount.setImageResource(R.drawable.ic_close_24px)
-                binding.workplaceIcCount.isClickable = true
-                binding.workplaceVisibleCount.visibility = View.VISIBLE
-                binding.workplaceButtonApply.visibility = View.VISIBLE
-            } else {
-                binding.workplaceTextCount.hint = "Страна"
-                binding.workplaceIcCount.setImageResource(R.drawable.arrow_forward_24px)
-                binding.workplaceIcCount.isClickable = false
-                binding.workplaceVisibleCount.visibility = View.GONE
-                binding.workplaceButtonApply.visibility = View.GONE
-            }
+            bindCountry(country)
 
             viewModel.regionState.observe(viewLifecycleOwner) { region ->
-                if (region != null && region.regionParentId == country?.countryId) {
-                    debugLog(TAG) { "regionState: region = $region" }
-                    binding.workplaceTextRegion.text = region.regionName
-                    binding.workplaceIcRegion.setImageResource(R.drawable.ic_close_24px)
-                    binding.workplaceIcRegion.isClickable = true
-                    binding.workplaceVisibleRegion.visibility = View.VISIBLE
-                } else {
-                    binding.workplaceTextRegion.text = "Регион"
-                    binding.workplaceTextRegion.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey))
-                    binding.workplaceIcRegion.setImageResource(R.drawable.arrow_forward_24px)
-                    binding.workplaceIcRegion.isClickable = false
-                    binding.workplaceVisibleRegion.visibility = View.GONE
-                }
+                bindRegion(region, country)
             }
         }
 
-        binding.workplaceIcCount.setOnClickListener {
-            binding.workplaceTextCount.text = "Страна"
-            binding.workplaceTextCount.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey))
-            binding.workplaceIcCount.setImageResource(R.drawable.arrow_forward_24px)
-            binding.workplaceIcCount.isClickable = false
-            binding.workplaceVisibleCount.visibility = View.GONE
+        bindOnClickListeners()
+        bindNavigation()
+    }
+
+    private fun bindCountry(country: CountryShared?) = with(binding) {
+        if (country != null) {
+            debugLog(TAG) { "countryState: country = $country" }
+            workplaceTextCount.text = country.countryName
+            workplaceIcCount.setImageResource(R.drawable.ic_close_24px)
+            workplaceIcCount.isClickable = true
+            workplaceVisibleCount.visibility = View.VISIBLE
+            workplaceButtonApply.visibility = View.VISIBLE
+        } else {
+            workplaceTextCount.hint = "Страна"
+            workplaceIcCount.setImageResource(R.drawable.arrow_forward_24px)
+            workplaceIcCount.isClickable = false
+            workplaceVisibleCount.visibility = View.GONE
+            workplaceButtonApply.visibility = View.GONE
+        }
+    }
+
+    private fun bindRegion(region: RegionShared?, country: CountryShared?) = with(binding) {
+        if (region != null && region.regionParentId == country?.countryId) {
+            debugLog(TAG) { "regionState: region = $region" }
+            workplaceTextRegion.text = region.regionName
+            workplaceIcRegion.setImageResource(R.drawable.ic_close_24px)
+            workplaceIcRegion.isClickable = true
+            workplaceVisibleRegion.visibility = View.VISIBLE
+        } else {
+            workplaceTextRegion.text = "Регион"
+            workplaceTextRegion.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey))
+            workplaceIcRegion.setImageResource(R.drawable.arrow_forward_24px)
+            workplaceIcRegion.isClickable = false
+            workplaceVisibleRegion.visibility = View.GONE
+        }
+    }
+
+    private fun bindOnClickListeners() = with(binding) {
+        workplaceIcCount.setOnClickListener {
+            workplaceTextCount.text = "Страна"
+            workplaceTextCount.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey))
+            workplaceIcCount.setImageResource(R.drawable.arrow_forward_24px)
+            workplaceIcCount.isClickable = false
+            workplaceVisibleCount.visibility = View.GONE
             viewModel.setCountryInfo(null)
             viewModel.setRegionInfo(null)
         }
 
-        binding.workplaceIcRegion.setOnClickListener {
-            binding.workplaceTextRegion.text = "Регион"
-            binding.workplaceTextRegion.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey))
-            binding.workplaceIcRegion.setImageResource(R.drawable.arrow_forward_24px)
-            binding.workplaceIcRegion.isClickable = false
-            binding.workplaceVisibleRegion.visibility = View.GONE
+        workplaceIcRegion.setOnClickListener {
+            workplaceTextRegion.text = "Регион"
+            workplaceTextRegion.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey))
+            workplaceIcRegion.setImageResource(R.drawable.arrow_forward_24px)
+            workplaceIcRegion.isClickable = false
+            workplaceVisibleRegion.visibility = View.GONE
             viewModel.setRegionInfo(null)
         }
+    }
 
-        binding.workplaceCount.setOnClickListener {
+    private fun bindNavigation() = with(binding) {
+        workplaceCount.setOnClickListener {
             findNavController().navigate(R.id.action_workplaceFragment_to_countFragment)
         }
 
-        binding.workplaceRegion.setOnClickListener {
+        workplaceRegion.setOnClickListener {
             findNavController().navigate(R.id.action_workplaceFragment_to_regionFragment)
         }
 
-        binding.workplaceButtonApply.setOnClickListener {
+        workplaceButtonApply.setOnClickListener {
             findNavController().navigateUp()
         }
 
-        binding.workplaceToolbar.setOnClickListener {
+        workplaceToolbar.setOnClickListener {
             findNavController().navigateUp()
         }
 
-        binding.workplaceToolbar.setNavigationOnClickListener {
+        workplaceToolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
     }
