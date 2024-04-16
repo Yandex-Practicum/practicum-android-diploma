@@ -14,6 +14,10 @@ class VacancyDetailsInteractorImpl(
         return vacancyDetailsRepository.getVacancyDetails(id)
     }
 
+    override suspend fun getVacancyFromDatabase(id: String): VacancyDetails? {
+        return favoriteVacanciesRepository.getVacancyById(id)
+    }
+
     override suspend fun makeVacancyFavorite(vacancy: VacancyDetails) {
         favoriteVacanciesRepository.insertVacancy(vacancy)
     }

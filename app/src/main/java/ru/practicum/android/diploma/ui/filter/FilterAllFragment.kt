@@ -1,12 +1,16 @@
 package ru.practicum.android.diploma.ui.filter
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -23,39 +27,6 @@ class FilterAllFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModel<FilterAllViewModel>()
-
-    private val textWatcher = object : TextWatcher {
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            if (start > 0) {
-                binding.filterSalaryClear.visibility = View.VISIBLE
-            } else {
-                binding.filterSalaryClear.visibility = View.GONE
-            }
-        }
-
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            binding.filterSalaryClear.visibility = View.VISIBLE
-
-            if (s?.isNotEmpty() == true) {
-                binding.filterExpectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
-                binding.filterTextSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_universal))
-                binding.filterSalaryClear.visibility = View.VISIBLE
-                binding.filterFunctionButton.visibility = View.VISIBLE
-            } else {
-                binding.filterExpectedSalary.setTextColor(
-                    ContextCompat.getColor(requireContext(), R.color.all_filters_sum_hint)
-                )
-                binding.filterTextSalary.setTextColor(
-                    ContextCompat.getColor(requireContext(), R.color.all_filters_sum_hint)
-                )
-                binding.filterSalaryClear.visibility = View.GONE
-            }
-        }
-
-        override fun afterTextChanged(s: Editable?) {
-            /*NOTHING*/
-        }
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentAllFilterBinding.inflate(layoutInflater)
@@ -140,17 +111,14 @@ class FilterAllFragment : Fragment() {
     private fun observeSalarySum() = with(binding) {
         viewModel.salarySum.observe(viewLifecycleOwner) { salarySum ->
             if (salarySum?.salary?.isNotEmpty() == true) {
-                filterExpectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
+                filterExpectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_universal))
                 filterTextSalary.setText(salarySum.salary)
-                filterTextSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_universal))
                 filterSalaryClear.visibility = View.VISIBLE
-                filterSalaryClear.isClickable = true
             } else {
                 filterExpectedSalary.setTextColor(
                     ContextCompat.getColor(requireContext(), R.color.all_filters_sum_hint)
                 )
                 filterTextSalary.setText("")
-                filterTextSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_universal))
                 filterSalaryClear.visibility = View.GONE
             }
         }
@@ -165,6 +133,8 @@ class FilterAllFragment : Fragment() {
 
     private fun bindOnClickListeners() = with(binding) {
         filterSalaryClear.setOnClickListener {
+            filterTextSalary.setText("")
+            hideKeyboard(binding.filterTextSalary)
             viewModel.setSalarySumInfo(null)
         }
 
@@ -198,7 +168,50 @@ class FilterAllFragment : Fragment() {
     }
 
     private fun bindTextWatcher() = with(binding) {
-        filterTextSalary.addTextChangedListener(textWatcher)
+        filterTextSalary.setOnEditorActionListener { textView, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                filterTextSalary.clearFocus()
+                hideKeyboard(textView)
+                filterExpectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_universal))
+                viewModel.setSalarySumInfo(
+                    SalaryTextShared(
+                        salary = filterTextSalary.text.toString()
+                    )
+                )
+                true
+            } else {
+                false
+            }
+        }
+
+        filterTextSalary.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                /*NOTHING*/
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding.filterSalaryClear.visibility = View.VISIBLE
+
+                if (s?.isNotEmpty() == true) {
+                    binding.filterExpectedSalary.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
+                    binding.filterSalaryClear.visibility = View.VISIBLE
+                    binding.filterSalaryClear.isClickable = true
+                } else {
+                    binding.filterExpectedSalary.setTextColor(
+                        ContextCompat.getColor(requireContext(), R.color.all_filters_sum_hint)
+                    )
+                    binding.filterSalaryClear.visibility = View.GONE
+                    binding.filterTextSalary.clearFocus()
+
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                binding.filterExpectedSalary.setTextColor(
+                    ContextCompat.getColor(requireContext(), R.color.black_universal)
+                )
+            }
+        })
     }
 
     private fun bindNavigationListeners() = with(binding) {
@@ -226,6 +239,13 @@ class FilterAllFragment : Fragment() {
         filterToolbar.setOnClickListener {
             findNavController().navigateUp()
         }
+    }
+
+    private fun hideKeyboard(v: TextView) {
+        val inputMethodManager = requireContext().getSystemService(
+            Context.INPUT_METHOD_SERVICE
+        ) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(v.windowToken, 0)
     }
 
     override fun onDestroyView() {
