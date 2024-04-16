@@ -108,7 +108,7 @@
             android:layout_marginTop="@dimen/fragment_favorite_side_margins"
             android:gravity="center"
             android:textColor="@color/black"
-            tools:text="Такого региона нет" />
+            tools:text="Такой отрасли нет" />
     </LinearLayout>
 
     <TextView

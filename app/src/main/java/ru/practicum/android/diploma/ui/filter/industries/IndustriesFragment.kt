@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -72,16 +73,17 @@ class IndustriesFragment : Fragment() {
     }
 
     private fun filterTextInput() {
-        clearSelection()
+
+        //clearSelection()
 
         if (textInput?.text.toString().length >= FILTER_TEXT_MIN_LENGTH_INT) {
             filteredData.clear()
             filteredData.addAll(originalData.filter { it.name.contains(textInput?.text.toString(), true) })
-            if (filteredData.size == 1) {
+/*            if (filteredData.size == 1) {
                 filteredData[0].selected = true
                 oldSelectedItem = 0
                 showIndustriesWithSelectButton()
-            }
+            }*/
             if (filteredData.size == 0) {
                 showEmpty(getString(R.string.no_such_industry))
             }
@@ -92,15 +94,28 @@ class IndustriesFragment : Fragment() {
     }
 
     private fun setTextInputIconSearch() {
-        textInputLayout!!.endIconMode = TextInputLayout.END_ICON_NONE
+        //textInputLayout!!.endIconMode = TextInputLayout.END_ICON_NONE
         textInputLayout!!.endIconDrawable =
             AppCompatResources.getDrawable(requireContext(), R.drawable.ic_search_24px)
     }
 
     private fun setTextInputIconRemove() {
-        textInputLayout!!.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
+        //textInputLayout!!.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
         textInputLayout!!.endIconDrawable =
             AppCompatResources.getDrawable(requireContext(), R.drawable.ic_close_24px)
+    }
+
+    private fun hideSoftKeyboard(){
+        (requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)
+            ?.hideSoftInputFromWindow(
+                view?.windowToken,
+                0
+            )
+    }
+
+    private fun showSoftKeyboard(){
+        (requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)
+            ?.showSoftInput(textInput, 0)
     }
 
     override fun onCreateView(
@@ -112,7 +127,6 @@ class IndustriesFragment : Fragment() {
         return binding.root
     }
 
-    @Suppress("detekt:LongMethod")
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?
@@ -128,12 +142,11 @@ class IndustriesFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        textInputLayout = binding.tiSearch
-
         textInput = binding.search
         textInput!!.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                filterTextInputDebounced()
+                //filterTextInputDebounced()
+                textInput!!.clearFocus()
             }
             false
         }
@@ -141,22 +154,30 @@ class IndustriesFragment : Fragment() {
             onTextChanged = { charSequence, _, _, _ ->
                 if (charSequence.isNullOrEmpty()) {
                     setTextInputIconSearch()
-                    clearSelection()
+                    //clearSelection()
                     resetFilter()
                 } else {
                     setTextInputIconRemove()
-                    clearSelection()
+                    //clearSelection()
                     filterTextInputDebounced()
                 }
             }
         )
 
-        textInput!!.requestFocus()
+        textInputLayout = binding.tiSearch
+        textInputLayout!!.setEndIconOnClickListener {
 
+            textInput!!.setText("")
+            textInput!!.clearFocus()
+            hideSoftKeyboard()
+        }
+
+        //textInput!!.requestFocus()
         // не устанавливаются иконки ??? fix=принудительно запускать addTextChangedListener
-        textInput!!.setText(" ")
-        textInput!!.setText("")
+        //textInput!!.setText(" ")
+        //textInput!!.setText("")
         // не устанавливаются иконки ??? fix=принудительно запускать addTextChangedListener
+        //textInput!!.clearFocus()
 
         recyclerView = binding.recyclerView
         recyclerView?.layoutManager = LinearLayoutManager(context)
@@ -171,11 +192,8 @@ class IndustriesFragment : Fragment() {
                 recyclerView?.adapter?.notifyItemChanged(newSelectedItem)
                 oldSelectedItem = newSelectedItem
 
-                (requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)
-                    ?.hideSoftInputFromWindow(
-                        view.windowToken,
-                        0
-                    )
+                hideSoftKeyboard()
+
                 showIndustriesWithSelectButton()
             }
         }
@@ -200,8 +218,8 @@ class IndustriesFragment : Fragment() {
                     textInput!!.requestFocus()
                     textInput!!.setText(state.industry.name)
                     textInput!!.setSelection(state.industry.name.length)
-                    (requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)
-                        ?.showSoftInput(textInput, 0)
+
+                    showSoftKeyboard()
                 }
 
                 is IndustriesState.Empty -> showEmpty(getString(state.message))
