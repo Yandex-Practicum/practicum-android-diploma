@@ -8,13 +8,14 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.search.VacanciesSearchRepository
+import ru.practicum.android.diploma.domain.api.search.VacancySearchInteractor
 import ru.practicum.android.diploma.domain.filter.FiltersRepository
 import ru.practicum.android.diploma.domain.models.Filters
 import ru.practicum.android.diploma.domain.models.vacacy.Vacancy
 import ru.practicum.android.diploma.domain.models.vacacy.VacancyResponse
 
 class SearchViewModel(
-    private val vacancySearchRepository: VacanciesSearchRepository,
+    private val vacancySearchInteractor: VacancySearchInteractor,
     private val filtersRepository: FiltersRepository,
 ) : ViewModel() {
 
@@ -79,7 +80,7 @@ class SearchViewModel(
             stateLiveData.value = SearchViewState.RecyclerLoading
         }
         viewModelScope.launch {
-            vacancySearchRepository.getVacancies(text, currentPage, filters).collect {
+            vacancySearchInteractor.getVacancies(text, currentPage, filters).collect {
                 if (it.first != null) {
                     val response = (it.first as VacancyResponse)
                     maxPagers = response.pages
