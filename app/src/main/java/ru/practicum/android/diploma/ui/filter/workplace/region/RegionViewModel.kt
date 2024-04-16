@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.converter.AreaConverter.mapToCountry
@@ -18,7 +17,6 @@ import ru.practicum.android.diploma.domain.filter.FilterRepositoryRegionFlow
 import ru.practicum.android.diploma.domain.filter.datashared.CountryShared
 import ru.practicum.android.diploma.domain.filter.datashared.RegionShared
 import ru.practicum.android.diploma.domain.region.RegionInteractor
-import ru.practicum.android.diploma.ui.filter.workplace.country.CountryState
 
 class RegionViewModel(
     private val filterRepositoryCountryFlow: FilterRepositoryCountryFlow,
@@ -145,16 +143,14 @@ class RegionViewModel(
 
     fun getCountry(parentId: String?) {
         val countryAll = countryRepositoryFlow.getCountryFlow().value
-        debugLog(TAG) { "getCountry" }
-        countryAll.forEach {  country ->
-            if (country.id == parentId) {
-                setCountryInfo(
-                    CountryShared(
-                        countryId = null,
-                        countryName = null
-                    )
+        debugLog(TAG) { "getCountry: countryAll = ${countryAll.map { it.value }}" }
+        countryAll.forEach { country ->
+            setCountryInfo(
+                CountryShared(
+                    countryId = parentId,
+                    countryName = countryAll[parentId?.toInt()]
                 )
-            }
+            )
         }
     }
 

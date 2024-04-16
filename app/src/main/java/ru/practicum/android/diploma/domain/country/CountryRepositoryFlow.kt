@@ -5,5 +5,5 @@ import ru.practicum.android.diploma.domain.filter.datashared.CountryShared
 
 interface CountryRepositoryFlow {
 
-    fun getCountryFlow(): StateFlow<List<Country>>
+    fun getCountryFlow(): StateFlow<Map<Int, String>>
 }
