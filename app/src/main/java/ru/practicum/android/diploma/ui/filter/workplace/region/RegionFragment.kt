@@ -16,7 +16,6 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentRegionBinding
-import ru.practicum.android.diploma.domain.country.Country
 import ru.practicum.android.diploma.domain.debugLog
 import ru.practicum.android.diploma.domain.filter.datashared.RegionShared
 import ru.practicum.android.diploma.ui.filter.workplace.region.adapter.RegionAdapter
