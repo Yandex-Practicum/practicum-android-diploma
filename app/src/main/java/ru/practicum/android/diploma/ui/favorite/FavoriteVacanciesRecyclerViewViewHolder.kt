@@ -46,8 +46,7 @@ class FavoriteVacanciesRecyclerViewViewHolder(
         Glide
             .with(itemView)
             .load(model.employer?.logoUrls?.original ?: "")
-            .placeholder(R.drawable.spiral)
-            // .transform(CenterCrop())
+            .placeholder(R.drawable.logo_placeholder)
             .transform(FitCenter())
             .into(vacancyCompanyLogo)
 
