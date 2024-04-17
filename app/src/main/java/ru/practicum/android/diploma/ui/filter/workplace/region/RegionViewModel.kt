@@ -58,6 +58,7 @@ class RegionViewModel(
             countryInteractor.searchCountry()
                 .collect { pair ->
                     pair.first?.forEach { country ->
+                        if (country.id.contains(OTHER_REGIONS_ID)) return@collect
                         regionInteractor.searchRegion(country.id)
                             .collect { region ->
                                 regionAll.addAll(region.first!!.areas.map { it.mapToCountry() })
@@ -156,5 +157,6 @@ class RegionViewModel(
 
     companion object {
         const val TAG = "RegionViewModel"
+        const val OTHER_REGIONS_ID = "1001"
     }
 }
