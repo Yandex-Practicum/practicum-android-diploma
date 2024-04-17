@@ -37,21 +37,21 @@ class RegionViewModel(
             // Получаем значение countryFlow из репозитория
             val country = filterRepositoryCountryFlow.getCountryFlow().value
             _countryState.value = country
-            // Передаем countryId в loadRegion()
+            // Передаем countryId в loadCurrentRegions()
             if (country != null && !country.countryId.isNullOrEmpty()) {
                 country.let { country ->
                     country.countryId?.let { countryId ->
-                        loadRegion(countryId)
+                        loadCurrentRegions(countryId)
                         countryInteractor.searchCountry()
                     }
                 }
             } else {
-                loadCountry()
+                loadAllRegions()
             }
         }
     }
 
-    private fun loadCountry() {
+    private fun loadAllRegions() {
         val regionAll = mutableListOf<Country>()
         renderState(RegionState.Loading)
         viewModelScope.launch {
@@ -67,13 +67,14 @@ class RegionViewModel(
                         }
                     }
                 }
+            regions = regionAll.sortedBy { it.name }
             renderState(RegionState.Content(regionAll.sortedBy { it.name }))
             debugLog(TAG) { "loadCountry: в конце корутины regionAll = ${regionAll.map { it.name }}" }
         }
         debugLog(TAG) { "loadCountry: после корутины regionAll = ${regionAll.map { it.name }}" }
     }
 
-    private fun loadRegion(regionId: String) {
+    private fun loadCurrentRegions(regionId: String) {
         renderState(RegionState.Loading)
         viewModelScope.launch {
             regionInteractor.searchRegion(regionId)
@@ -119,6 +120,7 @@ class RegionViewModel(
                     renderState(
                         RegionState.Content(regions)
                     )
+                    debugLog(TAG) { "regions = $regions" }
                 } else {
                     renderState(
                         RegionState.Empty(
