@@ -101,15 +101,23 @@ class DetailsFragment : Fragment() {
             binding.keySkillsTextView,
             binding.keySkillsContainerLinearLayout
         )
-        setTextOrHide(contactName, binding.contactNameTextView,
-            binding.contactNameContainerLinearLayout)
-        setTextOrHide(contactEmail, binding.emailTextView,
-            binding.emailContainerLinearLayout)
-        setTextOrHide(contactPhone,
+        setTextOrHide(
+            contactName,
+            binding.contactNameTextView,
+            binding.contactNameContainerLinearLayout
+        )
+        setTextOrHide(
+            contactEmail,
+            binding.emailTextView,
+            binding.emailContainerLinearLayout
+        )
+        setTextOrHide(
+            contactPhone,
             binding.contactPhoneTextView,
             binding.contactPhoneContainerLinearLayout
         )
-        setTextOrHide(contactComment,
+        setTextOrHide(
+            contactComment,
             binding.contactCommentTextView,
             binding.contactCommentContainerLinearLayout
         )

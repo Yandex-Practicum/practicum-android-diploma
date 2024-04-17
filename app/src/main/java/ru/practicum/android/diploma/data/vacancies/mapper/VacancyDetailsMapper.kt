@@ -66,8 +66,13 @@ object VacancyDetailsMapper {
         return Contacts(
             email = contactsDto.email,
             name = contactsDto.name,
-            if (!contactsDto.phones.isNullOrEmpty()) "+${contactsDto.phones?.get(0)?.country} (${contactsDto.phones?.get(0)?.city}) ${contactsDto.phones?.get(0)?.number}" else null,
-            if (!contactsDto.phones.isNullOrEmpty()) contactsDto.phones?.get(0)?.comment else null
+            if (!contactsDto.phones.isNullOrEmpty()) {
+                "+${contactsDto.phones?.get(0)?.country} (${contactsDto.phones?.get(0)?.city}) " +
+                    "${contactsDto.phones?.get(0)?.number}"
+            } else null,
+            if (!contactsDto.phones.isNullOrEmpty()) {
+                contactsDto.phones?.get(0)?.comment
+            } else null
         )
     }
 

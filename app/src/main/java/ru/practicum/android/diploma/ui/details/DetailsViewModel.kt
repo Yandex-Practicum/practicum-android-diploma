@@ -123,8 +123,12 @@ class DetailsViewModel(
         stateLiveData.postValue(content)
     }
 
-    fun favoriteIconClicked(contactEmail: String?, contactName: String?,
-                            contactPhone: String?, contactComment: String?) {
+    fun favoriteIconClicked(
+        contactEmail: String?,
+        contactName: String?,
+        contactPhone: String?,
+        contactComment: String?
+    ) {
         val vacancyWithContacts = vacancyDetails?.copy(
             contacts = Contacts(
                 contactEmail,

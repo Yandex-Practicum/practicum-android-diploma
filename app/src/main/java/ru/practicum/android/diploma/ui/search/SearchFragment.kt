@@ -52,7 +52,7 @@ class SearchFragment : Fragment() {
                 DetailsFragment.vacancyEmailKey to it?.contacts?.email,
                 DetailsFragment.vacancyPhoneKey to it?.contacts?.phone,
                 DetailsFragment.vacancyCommentKey to it?.contacts?.comment
-                )
+            )
         )
     }
 
