@@ -43,7 +43,7 @@ class CountryViewModel(
             errorMessage != null -> {
                 renderState(
                     CountryState.Error(
-                        errorMessage = R.string.server_error
+                        errorMessage = R.string.nothing_found
                     )
                 )
             }
