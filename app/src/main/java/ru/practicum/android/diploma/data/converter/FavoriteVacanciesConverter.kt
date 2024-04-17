@@ -38,7 +38,8 @@ object FavoriteVacanciesConverter {
         contactName = this.contacts?.name,
         contactPhonesJson = Gson().toJson(this.contacts?.phones),
 
-        link = this.link
+        link = this.link,
+        keySkills = this.keySkills
     )
 
     @Suppress("detekt:LongMethod")
@@ -103,7 +104,7 @@ object FavoriteVacanciesConverter {
         },
 
         link = this.link,
-        keySkills = this.id
+        keySkills = this.keySkills
     )
 
 }
