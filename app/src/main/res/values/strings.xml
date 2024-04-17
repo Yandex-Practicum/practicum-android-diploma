@@ -29,6 +29,7 @@
     <string name="key_skills">Ключевые навыки</string>
     <string name="needed_experience">Требуемый опыт</string>
     <string name="phone">Телефон</string>
+    <string name="comment">Комментарий</string>
 
     <string name="call_permission_text">Для осуществления звонка необходимо получить Ваше разрешение</string>
 

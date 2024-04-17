@@ -23,7 +23,8 @@ sealed interface DetailsViewState {
         val description: String,
         val contactName: String?,
         val contactEmail: String?,
-        val contactsPhones: List<String>?,
+        val contactPhone: String?,
+        val contactComment: String?,
         val keySkills: String
     ) : DetailsViewState
 

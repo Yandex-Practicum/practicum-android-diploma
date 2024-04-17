@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.data.vacancies.mapper
 
+import ru.practicum.android.diploma.data.vacancies.details.dto.ContactsDto
 import ru.practicum.android.diploma.data.vacancies.details.dto.EmployerDto
 import ru.practicum.android.diploma.data.vacancies.details.dto.SalaryDto
 import ru.practicum.android.diploma.data.vacancies.details.dto.VacancyAreaDto
@@ -8,6 +9,7 @@ import ru.practicum.android.diploma.data.vacancies.dto.VacanciesSearchDtoRespons
 import ru.practicum.android.diploma.data.vacancies.dto.list.DepartmentDto
 import ru.practicum.android.diploma.data.vacancies.dto.list.LogoUrlsDto
 import ru.practicum.android.diploma.data.vacancies.dto.list.VacancyDto
+import ru.practicum.android.diploma.domain.models.vacacy.Contacts
 import ru.practicum.android.diploma.domain.models.vacacy.Department
 import ru.practicum.android.diploma.domain.models.vacacy.Employer
 import ru.practicum.android.diploma.domain.models.vacacy.LogoUrls
@@ -37,6 +39,7 @@ object VacanciesSearchMapper {
             employer = mapEmployee(vacancyDto.employer),
             salary = mapSalary(vacancyDto.salary),
             type = mapVacancyType(vacancyDto.type),
+            contacts = mapContacts(vacancyDto.contacts),
         )
     }
 
@@ -89,6 +92,16 @@ object VacanciesSearchMapper {
         return VacancyType(
             id = vacancyTypeDto.id,
             name = vacancyTypeDto.name,
+        )
+    }
+
+    private fun mapContacts(contactsDto: ContactsDto?): Contacts? {
+        if (contactsDto == null) return null
+        return Contacts(
+            email = contactsDto.email,
+            name = contactsDto.name,
+            if (!contactsDto.phones.isNullOrEmpty()) "+${contactsDto.phones?.get(0)?.country} (${contactsDto.phones?.get(0)?.city}) ${contactsDto.phones?.get(0)?.number}" else null,
+            if (!contactsDto.phones.isNullOrEmpty()) contactsDto.phones?.get(0)?.comment else null
         )
     }
 }

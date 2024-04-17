@@ -23,6 +23,11 @@ class DetailsFragment : Fragment() {
 
     private val viewModel by viewModel<DetailsViewModel>()
 
+    private var contactName: String? = null
+    private var contactEmail: String? = null
+    private var contactPhone: String? = null
+    private var contactComment: String? = null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentDetailsBinding.inflate(layoutInflater)
         setUpListeners()
@@ -34,6 +39,7 @@ class DetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val vacancyId = requireArguments().getString(vacancyIdKey)
+
         if (vacancyId == null) {
             assert(false) { "Vacancy id should be passed" }
             return
@@ -75,6 +81,11 @@ class DetailsFragment : Fragment() {
     }
 
     private fun setTextFields(data: DetailsViewState.Content) {
+        contactName = data.contactName ?: requireArguments().getString(vacancyNameKey)
+        contactEmail = data.contactEmail ?: requireArguments().getString(vacancyEmailKey)
+        contactPhone = data.contactPhone ?: requireArguments().getString(vacancyPhoneKey)
+        contactComment = data.contactComment ?: requireArguments().getString(vacancyCommentKey)
+
         binding.vacancyTitleTextView.text = data.name
         setSalary(data.salaryFrom, data.salaryTo, data.currency)
         setTextOrHide(data.companyName, binding.companyTitleTextView)
@@ -85,22 +96,29 @@ class DetailsFragment : Fragment() {
         }
         setTextOrHide(data.experience, binding.experienceTextView, binding.experienceLinearLayout)
         setTextOrHide(data.employment, binding.employmentTypeTextView)
-        setTextOrHide(data.contactName, binding.contactNameTextView, binding.contactNameContainerLinearLayout)
-        setTextOrHide(data.contactEmail, binding.emailTextView, binding.emailContainerLinearLayout)
-        setTextOrHide(
-            data.contactsPhones?.firstOrNull(),
-            binding.contactPhoneTextView,
-            binding.contactPhoneContainerLinearLayout
-        )
         setTextOrHide(
             data.keySkills,
             binding.keySkillsTextView,
             binding.keySkillsContainerLinearLayout
         )
+        setTextOrHide(contactName, binding.contactNameTextView,
+            binding.contactNameContainerLinearLayout)
+        setTextOrHide(contactEmail, binding.emailTextView,
+            binding.emailContainerLinearLayout)
+        setTextOrHide(contactPhone,
+            binding.contactPhoneTextView,
+            binding.contactPhoneContainerLinearLayout
+        )
+        setTextOrHide(contactComment,
+            binding.contactCommentTextView,
+            binding.contactCommentContainerLinearLayout
+        )
         binding.contactsTitleTextView.isVisible = !(
-            data.contactName.isNullOrEmpty()
-                && data.contactEmail.isNullOrEmpty()
-                && data.contactsPhones.isNullOrEmpty())
+            contactName.isNullOrEmpty()
+                && contactEmail.isNullOrEmpty()
+                && contactPhone.isNullOrEmpty()
+                && contactComment.isNullOrEmpty()
+            )
         binding.vacancyDescriptionTextView.text = HtmlCompat.fromHtml(
             data.description.replace(Regex("<li>\\s<p>|<li>"), "<li> "),
             HtmlCompat.FROM_HTML_SEPARATOR_LINE_BREAK_LIST_ITEM
@@ -115,13 +133,18 @@ class DetailsFragment : Fragment() {
             viewModel.shareVacancy()
         }
         binding.emailTextView.setOnClickListener {
-            viewModel.writeEmail()
+            viewModel.writeEmail(contactEmail)
         }
         binding.contactPhoneTextView.setOnClickListener {
-            viewModel.call()
+            viewModel.call(contactPhone)
         }
         binding.favoriteIcon.setOnClickListener {
-            viewModel.favoriteIconClicked()
+            viewModel.favoriteIconClicked(
+                contactName,
+                contactEmail,
+                contactPhone,
+                contactComment
+            )
         }
     }
 
@@ -205,5 +228,9 @@ class DetailsFragment : Fragment() {
 
     companion object {
         const val vacancyIdKey = "vacancyDetails.id.key"
+        const val vacancyNameKey = "vacancyDetails.name.key"
+        const val vacancyEmailKey = "vacancyDetails.email.key"
+        const val vacancyPhoneKey = "vacancyDetails.phone.key"
+        const val vacancyCommentKey = "vacancyDetails.comment.key"
     }
 }

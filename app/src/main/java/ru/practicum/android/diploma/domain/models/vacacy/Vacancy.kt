@@ -8,4 +8,5 @@ data class Vacancy(
     val employer: Employer, // Работодатель
     val salary: Salary?, // Зарплата
     val type: VacancyType, // Тип вакансии
+    val contacts: Contacts?
 )

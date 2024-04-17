@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.data.converter
 
-import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import ru.practicum.android.diploma.data.db.model.VacancyEntity
 import ru.practicum.android.diploma.domain.models.VacancyDetails
@@ -36,7 +35,8 @@ object FavoriteVacanciesConverter {
 
         contactEmail = this.contacts?.email,
         contactName = this.contacts?.name,
-        contactPhonesJson = Gson().toJson(this.contacts?.phones),
+        contactPhone = this.contacts?.phone,
+        contactComment = this.contacts?.comment,
 
         link = this.link,
         keySkills = this.keySkills
@@ -88,18 +88,17 @@ object FavoriteVacanciesConverter {
         contacts = if (
             this.contactEmail.isNullOrBlank() &&
             this.contactName.isNullOrBlank() &&
-            this.contactPhonesJson.isNullOrBlank()
+            this.contactPhone.isNullOrBlank() &&
+            this.contactComment.isNullOrBlank()
+
         ) {
             null
         } else {
             Contacts(
                 email = this.contactEmail,
                 name = this.contactName,
-                phones = if (this.contactPhonesJson.isNullOrBlank()) {
-                    null
-                } else {
-                    Gson().fromJson<List<String>>(this.contactPhonesJson, object : TypeToken<List<String>>() {}.type)
-                }
+                phone = this.contactPhone,
+                comment = this.contactComment
             )
         },
 

@@ -46,7 +46,13 @@ class SearchFragment : Fragment() {
     private val onClick: (Vacancy?) -> Unit = {
         findNavController().navigate(
             R.id.action_searchFragment_to_fragmentDetails,
-            bundleOf(DetailsFragment.vacancyIdKey to it?.id)
+            bundleOf(
+                DetailsFragment.vacancyIdKey to it?.id,
+                DetailsFragment.vacancyNameKey to it?.contacts?.name,
+                DetailsFragment.vacancyEmailKey to it?.contacts?.email,
+                DetailsFragment.vacancyPhoneKey to it?.contacts?.phone,
+                DetailsFragment.vacancyCommentKey to it?.contacts?.comment
+                )
         )
     }
 

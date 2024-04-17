@@ -383,6 +383,35 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/contactCommentContainerLinearLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toLeftOf="@id/main_content_left_guideline"
+                app:layout_constraintRight_toRightOf="@id/main_content_right_guideline"
+                app:layout_constraintTop_toBottomOf="@id/contactPhoneContainerLinearLayout">
+
+                <TextView
+                    style="@style/medium16_font"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/comment"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/contactCommentTextView"
+                    style="@style/regular16_font"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/xxs_margin"
+                    android:layout_marginBottom="@dimen/l_margin"
+                    android:textColor="@color/black"
+                    tools:text="Заполнить анкету по форме можно на нашем сайте" />
+
+            </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
