@@ -58,9 +58,9 @@ class RegionViewModel(
             countryInteractor.searchCountry()
                 .collect { pair ->
                     pair.first?.forEach { country ->
-                        if (country.id.contains(OTHER_REGIONS_ID)) return@collect
                         regionInteractor.searchRegion(country.id)
                             .collect { region ->
+                                if (country.id.contains(OTHER_REGIONS_ID)) return@collect
                                 regionAll.addAll(region.first!!.areas.map { it.mapToCountry() })
                                 debugLog(TAG) { "loadCountry: region = ${regionAll.map { it.name }}" }
                             }
