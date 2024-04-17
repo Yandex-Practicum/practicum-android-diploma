@@ -44,7 +44,6 @@ class IndustriesFragment : Fragment() {
     private var filterJob: Job? = null
 
     private fun resetFilter() {
-
         if (oldSelectedItem >= 0) {
             showIndustriesWithSelectButton()
         } else {
@@ -88,13 +87,13 @@ class IndustriesFragment : Fragment() {
     }
 
     private fun setTextInputIconSearch() {
-        //textInputLayout!!.endIconMode = TextInputLayout.END_ICON_NONE
+        // textInputLayout!!.endIconMode = TextInputLayout.END_ICON_NONE
         textInputLayout!!.endIconDrawable =
             AppCompatResources.getDrawable(requireContext(), R.drawable.ic_search_24px)
     }
 
     private fun setTextInputIconRemove() {
-        //textInputLayout!!.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
+        // textInputLayout!!.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
         textInputLayout!!.endIconDrawable =
             AppCompatResources.getDrawable(requireContext(), R.drawable.ic_close_24px)
     }
@@ -107,9 +106,87 @@ class IndustriesFragment : Fragment() {
             )
     }
 
-    private fun showSoftKeyboard() {
+    /*private fun showSoftKeyboard() {
         (requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)
             ?.showSoftInput(textInput, 0)
+    }*/
+
+    private fun setStatesObserver() {
+        viewModel.getState().observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is IndustriesState.IndustriesList -> {
+                    originalData.clear()
+                    originalData.addAll(state.industries)
+
+                    filteredData.clear()
+                    filteredData.addAll(originalData)
+
+                    recyclerView?.adapter?.notifyDataSetChanged()
+                    showIndustriesWithoutSelectButton()
+                    viewModel.getSavedIndustry()
+                }
+
+                is IndustriesState.SavedIndustry -> {
+                    filteredData.filter { it.id == state.industry.id }.forEach { it.selected = true }
+                    recyclerView?.adapter?.notifyDataSetChanged()
+
+                    originalData.filter { it.id == state.industry.id }.forEach { it.selected = true }
+                    oldSelectedItem = originalData.indexOfFirst { it.id == state.industry.id }
+
+                    showIndustriesWithSelectButton()
+                }
+
+                is IndustriesState.Empty -> showEmpty(getString(state.message))
+                is IndustriesState.Error -> showError(getString(state.errorMessage))
+                is IndustriesState.Loading -> showLoading()
+            }
+        }
+    }
+
+    private fun setRecyclerView() {
+        recyclerView = binding.recyclerView
+        recyclerView?.layoutManager = LinearLayoutManager(context)
+        recyclerView?.adapter = IndustriesRecyclerViewAdapter(filteredData).apply {
+            industryNumberClicked = { newSelectedItem ->
+                filteredData.forEach { it.selected = false }
+                if (oldSelectedItem >= 0) {
+                    originalData[oldSelectedItem].selected = false
+                }
+
+                filteredData[newSelectedItem].selected = true
+                originalData
+                    .filter { it.id == filteredData[newSelectedItem].id }
+                    .forEach { it.selected = true }
+
+                recyclerView?.adapter?.notifyDataSetChanged()
+                oldSelectedItem = originalData.indexOfFirst { it.id == filteredData[newSelectedItem].id }
+
+                hideSoftKeyboard()
+                textInput!!.clearFocus()
+
+                showIndustriesWithSelectButton()
+            }
+        }
+    }
+
+    private fun setTextInputTextChangedListener() {
+        textInput!!.addTextChangedListener(
+            onTextChanged = { charSequence, _, _, _ ->
+                if (charSequence.isNullOrEmpty()) {
+                    setTextInputIconSearch()
+
+                    if (originalData.size > 0) {
+                        resetFilter()
+                    }
+                } else {
+                    setTextInputIconRemove()
+
+                    if (originalData.size > 0) {
+                        filterTextInputDebounced()
+                    }
+                }
+            }
+        )
     }
 
     override fun onCreateView(
@@ -144,23 +221,7 @@ class IndustriesFragment : Fragment() {
             }
             false
         }
-        textInput!!.addTextChangedListener(
-            onTextChanged = { charSequence, _, _, _ ->
-                if (charSequence.isNullOrEmpty()) {
-                    setTextInputIconSearch()
-
-                    if (originalData.size > 0) {
-                        resetFilter()
-                    }
-                } else {
-                    setTextInputIconRemove()
-
-                    if (originalData.size > 0) {
-                        filterTextInputDebounced()
-                    }
-                }
-            }
-        )
+        setTextInputTextChangedListener()
 
         textInputLayout = binding.tiSearch
         textInputLayout!!.setEndIconOnClickListener {
@@ -169,59 +230,8 @@ class IndustriesFragment : Fragment() {
             hideSoftKeyboard()
         }
 
-        recyclerView = binding.recyclerView
-        recyclerView?.layoutManager = LinearLayoutManager(context)
-        recyclerView?.adapter = IndustriesRecyclerViewAdapter(filteredData).apply {
-            industryNumberClicked = { newSelectedItem ->
-                filteredData.forEach { it.selected = false }
-                if (oldSelectedItem >= 0) {
-                    originalData[oldSelectedItem].selected = false
-                }
-
-                filteredData[newSelectedItem].selected = true
-                originalData
-                    .filter { it.id == filteredData[newSelectedItem].id }
-                    .forEach { it.selected = true }
-
-                recyclerView?.adapter?.notifyDataSetChanged()
-                oldSelectedItem = originalData.indexOfFirst { it.id == filteredData[newSelectedItem].id }
-
-                hideSoftKeyboard()
-                textInput!!.clearFocus()
-
-                showIndustriesWithSelectButton()
-            }
-        }
-
-        viewModel.getState().observe(viewLifecycleOwner) { state ->
-            when (state) {
-                is IndustriesState.IndustriesList -> {
-                    originalData.clear()
-                    originalData.addAll(state.industries)
-
-                    filteredData.clear()
-                    filteredData.addAll(originalData)
-
-                    recyclerView?.adapter?.notifyDataSetChanged()
-                    showIndustriesWithoutSelectButton()
-                    viewModel.getSavedIndustry()
-                }
-
-                is IndustriesState.SavedIndustry -> {
-                    filteredData.filter { it.id == state.industry.id }.forEach { it.selected = true }
-                    recyclerView?.adapter?.notifyDataSetChanged()
-
-                    originalData.filter { it.id == state.industry.id }.forEach { it.selected = true }
-                    oldSelectedItem = originalData.indexOfFirst { it.id == state.industry.id }
-
-                    showIndustriesWithSelectButton()
-                }
-
-                is IndustriesState.Empty -> showEmpty(getString(state.message))
-                is IndustriesState.Error -> showError(getString(state.errorMessage))
-                is IndustriesState.Loading -> showLoading()
-            }
-        }
+        setRecyclerView()
+        setStatesObserver()
     }
 
     override fun onDestroyView() {
