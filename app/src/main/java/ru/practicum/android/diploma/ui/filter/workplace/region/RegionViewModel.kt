@@ -58,18 +58,19 @@ class RegionViewModel(
             countryInteractor.searchCountry()
                 .collect { pair ->
                     pair.first?.forEach { country ->
-                        regionInteractor.searchRegion(country.id)
-                            .collect { region ->
-                                regionAll.addAll(region.first!!.areas.map { it.mapToCountry() })
-                                debugLog(TAG) { "loadCountry: region = ${regionAll.map { it.name }}" }
-                            }
+                        if (!country.id.contains(OTHER_REGIONS_ID)) {
+                            regionInteractor.searchRegion(country.id)
+                                .collect { region ->
+                                    regionAll.addAll(region.first!!.areas.map { it.mapToCountry() })
+                                    debugLog(TAG) { "loadCountry: region = ${regionAll.map { it.name }}" }
+                                }
+                        }
                     }
                 }
             renderState(RegionState.Content(regionAll.sortedBy { it.name }))
             debugLog(TAG) { "loadCountry: в конце корутины regionAll = ${regionAll.map { it.name }}" }
         }
         debugLog(TAG) { "loadCountry: после корутины regionAll = ${regionAll.map { it.name }}" }
-
     }
 
     private fun loadRegion(regionId: String) {
@@ -156,5 +157,6 @@ class RegionViewModel(
 
     companion object {
         const val TAG = "RegionViewModel"
+        const val OTHER_REGIONS_ID = "1001"
     }
 }
