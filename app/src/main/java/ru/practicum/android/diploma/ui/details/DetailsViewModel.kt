@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.ui.details
 
 import android.Manifest
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,13 +8,10 @@ import androidx.lifecycle.viewModelScope
 import com.markodevcic.peko.PermissionRequester
 import com.markodevcic.peko.PermissionResult
 import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.vacancies.VacancyDetailsException
 import ru.practicum.android.diploma.domain.api.details.VacancyDetailsInteractor
 import ru.practicum.android.diploma.domain.models.VacancyDetails
-import ru.practicum.android.diploma.domain.models.vacacy.Salary
 import ru.practicum.android.diploma.domain.sharing.ExternalNavigator
-import ru.practicum.android.diploma.util.CurrencySymbol
 import ru.practicum.android.diploma.util.SalaryFormatter
 
 class DetailsViewModel(
@@ -28,13 +24,7 @@ class DetailsViewModel(
 
     private var vacancyDetails: VacancyDetails? = null
 
-    fun onViewCreated(fragment: DetailsFragment) {
-        val vacancyId = fragment.requireArguments().getString(DetailsFragment.vacancyIdKey)
-        if (vacancyId == null) {
-            assert(false) { "Vacancy id should be passed" }
-            return
-        }
-
+    fun onViewCreated(vacancyId: String) {
         stateLiveData.postValue(DetailsViewState.Loading)
 
         viewModelScope.launch {
@@ -42,14 +32,14 @@ class DetailsViewModel(
             try {
                 detailsInteractor.getVacancyDetails(vacancyId).collect {
                     vacancyDetails = it
-                    updateModel(it, fragment.requireContext())
+                    updateModel(it)
                 }
             } catch (e: VacancyDetailsException) {
                 if (!e.message.isNullOrBlank() && e.message == "Network error") {
                     val dbVacancy = detailsInteractor.getVacancyFromDatabase(vacancyId)
                     if (dbVacancy != null) {
                         vacancyDetails = dbVacancy
-                        updateModel(dbVacancy, fragment.requireContext())
+                        updateModel(dbVacancy)
                     }
 
                 } else {
@@ -98,10 +88,14 @@ class DetailsViewModel(
         externalNavigator.share(vacancy.link)
     }
 
-    private fun updateModel(vacancy: VacancyDetails, context: Context) {
+    private fun updateModel(vacancy: VacancyDetails) {
+        val salaryFrom = vacancy.salary?.from
+        val salaryTo = vacancy.salary?.to
         val content = DetailsViewState.Content(
             name = vacancy.name,
-            salary = formatSalary(vacancy.salary, context),
+            salaryFrom = if (salaryFrom != null) SalaryFormatter.format(salaryFrom.toString()) else null,
+            salaryTo = if (salaryTo != null) SalaryFormatter.format(salaryTo.toString()) else null,
+            currency = vacancy.salary?.currency,
             companyLogo = vacancy.employer?.logoUrls?.art90,
             companyName = vacancy.employer?.name,
             city = vacancy.city,
@@ -116,26 +110,6 @@ class DetailsViewModel(
             keySkills = vacancy.keySkills
         )
         stateLiveData.postValue(content)
-    }
-
-    private fun formatSalary(salary: Salary?, context: Context): String? {
-        if (salary == null) return null
-
-        var text = ""
-        val from = salary.from
-        val to = salary.to
-        val currency = CurrencySymbol.get(salary.currency)
-
-        if (from != null) {
-            text += "${context.getString(R.string.from)} ${SalaryFormatter.format(from.toString())} "
-        }
-        if (to != null) {
-            text += "${context.getString(R.string.to)} ${SalaryFormatter.format(to.toString())} "
-        }
-        if (text.isNotEmpty() && currency != null) {
-            text += currency
-        }
-        return text.ifEmpty { null }
     }
 
     fun favoriteIconClicked() {

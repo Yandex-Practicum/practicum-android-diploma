@@ -32,7 +32,13 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.onViewCreated(this)
+
+        val vacancyId = requireArguments().getString(vacancyIdKey)
+        if (vacancyId == null) {
+            assert(false) { "Vacancy id should be passed" }
+            return
+        }
+        viewModel.onViewCreated(vacancyId)
     }
 
     override fun onDestroyView() {
@@ -70,7 +76,7 @@ class DetailsFragment : Fragment() {
 
     private fun setTextFields(data: DetailsViewState.Content) {
         binding.vacancyTitleTextView.text = data.name
-        setTextOrHide(data.salary, binding.salaryTextView)
+        setSalary(data.salaryFrom, data.salaryTo, data.currency)
         setTextOrHide(data.companyName, binding.companyTitleTextView)
         if (data.fullAddress.isNullOrEmpty()) {
             binding.companyCityTextView.text = data.areaName
@@ -171,6 +177,25 @@ class DetailsFragment : Fragment() {
             textView.text = text
             textView.isVisible = true
             container?.isVisible = true
+        }
+    }
+
+    private fun setSalary(from: String?, to: String?, currency: String?) {
+        var text = ""
+        if (from != null) {
+            text += "${requireContext().getString(R.string.from)} $from "
+        }
+        if (to != null) {
+            text += "${requireContext().getString(R.string.to)} $to "
+        }
+        if (text.isNotEmpty()) {
+            if (currency != null) {
+                text += currency
+            }
+            binding.salaryTextView.text = text
+            binding.salaryTextView.isVisible = true
+        } else {
+            binding.salaryTextView.isVisible = false
         }
     }
 

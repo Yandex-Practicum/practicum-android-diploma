@@ -10,7 +10,9 @@ sealed interface DetailsViewState {
 
     data class Content(
         val name: String,
-        val salary: String?,
+        val salaryFrom: String?,
+        val salaryTo: String?,
+        val currency: String?,
         val companyLogo: String?,
         val companyName: String?,
         val city: String?,
