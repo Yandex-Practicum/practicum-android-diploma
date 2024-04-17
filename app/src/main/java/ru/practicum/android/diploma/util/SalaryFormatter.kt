@@ -6,7 +6,7 @@ object SalaryFormatter {
     fun format(salary: String) =
         salary
             .reversed()
-            .chunked(DetailsViewModel.sizeOfMoneyPart)
+            .chunked(DetailsViewModel.SIZE_OF_MONEY_PART)
             .reversed()
             .joinToString(" ") {
                 it.reversed()
