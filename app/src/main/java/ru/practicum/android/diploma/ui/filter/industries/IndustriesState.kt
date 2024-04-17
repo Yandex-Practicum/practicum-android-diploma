@@ -10,7 +10,7 @@ sealed interface IndustriesState {
         val industries: List<ChildIndustryWithSelection>
     ) : IndustriesState
 
-    data class FilteredIndustry(
+    data class SavedIndustry(
         val industry: ChildIndustryWithSelection
     ) : IndustriesState
 

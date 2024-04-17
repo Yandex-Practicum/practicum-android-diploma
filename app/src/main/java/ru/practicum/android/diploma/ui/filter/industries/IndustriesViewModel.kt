@@ -20,10 +20,10 @@ class IndustriesViewModel(
     fun getState(): LiveData<IndustriesState> = _state
 
     init {
-        getIndustriesAndLoadFilteredIndustry()
+        getIndustriesList()
     }
 
-    private fun getIndustriesAndLoadFilteredIndustry() {
+    private fun getIndustriesList() {
         _state.postValue(IndustriesState.Loading)
         viewModelScope.launch {
             industriesInteractor
@@ -59,7 +59,7 @@ class IndustriesViewModel(
         }
     }
 
-    fun saveFilteredIndustry(industry: ChildIndustryWithSelection) {
+    fun saveSelectedIndustry(industry: ChildIndustryWithSelection) {
         filterRepositoryIndustriesFlow.setIndustriesFlow(
             IndustriesShared(
                 industriesId = industry.id,
@@ -68,12 +68,12 @@ class IndustriesViewModel(
         )
     }
 
-    fun applyFilters() {
+    fun getSavedIndustry() {
         viewModelScope.launch {
             filterRepositoryIndustriesFlow.getIndustriesFlow().collect { industryShared ->
                 if (industryShared is IndustriesShared) {
                     _state.postValue(
-                        IndustriesState.FilteredIndustry(
+                        IndustriesState.SavedIndustry(
                             ChildIndustryWithSelection(
                                 id = industryShared.industriesId ?: "",
                                 name = industryShared.industriesName ?: "",
