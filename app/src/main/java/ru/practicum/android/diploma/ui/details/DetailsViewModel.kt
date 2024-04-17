@@ -142,6 +142,6 @@ class DetailsViewModel(
     }
 
     companion object {
-        const val sizeOfMoneyPart = 3
+        const val SIZE_OF_MONEY_PART = 3
     }
 }
