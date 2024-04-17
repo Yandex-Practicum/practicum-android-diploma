@@ -88,7 +88,7 @@ class DetailsFragment : Fragment() {
         setTextOrHide(data.contactName, binding.contactNameTextView, binding.contactNameContainerLinearLayout)
         setTextOrHide(data.contactEmail, binding.emailTextView, binding.emailContainerLinearLayout)
         setTextOrHide(
-            data.contactsPhones?.first(),
+            data.contactsPhones?.firstOrNull(),
             binding.contactPhoneTextView,
             binding.contactPhoneContainerLinearLayout
         )
