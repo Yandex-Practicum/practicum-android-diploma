@@ -44,15 +44,20 @@ class IndustriesFragment : Fragment() {
     private var filterJob: Job? = null
 
     private fun resetFilter() {
+
+        if (oldSelectedItem >= 0) {
+            showIndustriesWithSelectButton()
+        } else {
+            showIndustriesWithoutSelectButton()
+        }
+
         filterJob?.cancel()
-        showIndustriesWithoutSelectButton()
 
         filteredData.clear()
         filteredData.addAll(originalData)
 
         recyclerView?.adapter?.notifyDataSetChanged()
         recyclerView?.scrollToPosition(0)
-
     }
 
     private fun filterTextInputDebounced() {
@@ -63,32 +68,22 @@ class IndustriesFragment : Fragment() {
         }
     }
 
-    private fun clearSelection() {
-        if (oldSelectedItem >= 0) {
-            filteredData[oldSelectedItem].selected = false
-        }
-        oldSelectedItem = -1
-        showIndustriesWithoutSelectButton()
-    }
-
     private fun filterTextInput() {
-
-        //clearSelection()
-
-        if (textInput?.text.toString().length >= FILTER_TEXT_MIN_LENGTH_INT) {
+        if (originalData.size > 0 &&
+            textInput?.text.toString().length >= FILTER_TEXT_MIN_LENGTH_INT
+        ) {
             filteredData.clear()
             filteredData.addAll(originalData.filter { it.name.contains(textInput?.text.toString(), true) })
-            /*            if (filteredData.size == 1) {
-                            filteredData[0].selected = true
-                            oldSelectedItem = 0
-                            showIndustriesWithSelectButton()
-                        }*/
             if (filteredData.size == 0) {
                 showEmpty(getString(R.string.no_such_industry))
+            } else {
+                if (oldSelectedItem >= 0) {
+                    showIndustriesWithSelectButton()
+                } else {
+                    showIndustriesWithoutSelectButton()
+                }
             }
             recyclerView?.adapter?.notifyDataSetChanged()
-        } else {
-            resetFilter()
         }
     }
 
@@ -144,8 +139,8 @@ class IndustriesFragment : Fragment() {
         textInput = binding.search
         textInput!!.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                //filterTextInputDebounced()
                 textInput!!.clearFocus()
+                hideSoftKeyboard()
             }
             false
         }
@@ -153,36 +148,31 @@ class IndustriesFragment : Fragment() {
             onTextChanged = { charSequence, _, _, _ ->
                 if (charSequence.isNullOrEmpty()) {
                     setTextInputIconSearch()
-                    //clearSelection()
-                    resetFilter()
+
+                    if (originalData.size > 0) {
+                        resetFilter()
+                    }
                 } else {
                     setTextInputIconRemove()
-                    //clearSelection()
-                    filterTextInputDebounced()
+
+                    if (originalData.size > 0) {
+                        filterTextInputDebounced()
+                    }
                 }
             }
         )
 
         textInputLayout = binding.tiSearch
         textInputLayout!!.setEndIconOnClickListener {
-
             textInput!!.setText("")
             textInput!!.clearFocus()
             hideSoftKeyboard()
         }
 
-        //textInput!!.requestFocus()
-        // не устанавливаются иконки ??? fix=принудительно запускать addTextChangedListener
-        //textInput!!.setText(" ")
-        //textInput!!.setText("")
-        // не устанавливаются иконки ??? fix=принудительно запускать addTextChangedListener
-        //textInput!!.clearFocus()
-
         recyclerView = binding.recyclerView
         recyclerView?.layoutManager = LinearLayoutManager(context)
         recyclerView?.adapter = IndustriesRecyclerViewAdapter(filteredData).apply {
             industryNumberClicked = { newSelectedItem ->
-
                 filteredData.forEach { it.selected = false }
                 if (oldSelectedItem >= 0) {
                     originalData[oldSelectedItem].selected = false
@@ -194,7 +184,7 @@ class IndustriesFragment : Fragment() {
                     .forEach { it.selected = true }
 
                 recyclerView?.adapter?.notifyDataSetChanged()
-                oldSelectedItem =  originalData.indexOfFirst { it.id == filteredData[newSelectedItem].id }
+                oldSelectedItem = originalData.indexOfFirst { it.id == filteredData[newSelectedItem].id }
 
                 hideSoftKeyboard()
                 textInput!!.clearFocus()
@@ -213,26 +203,18 @@ class IndustriesFragment : Fragment() {
                     filteredData.addAll(originalData)
 
                     recyclerView?.adapter?.notifyDataSetChanged()
-
                     showIndustriesWithoutSelectButton()
-
                     viewModel.getSavedIndustry()
                 }
 
                 is IndustriesState.SavedIndustry -> {
-
-                    //textInput!!.requestFocus()
-                    //textInput!!.setText(state.industry.name)
-                    //textInput!!.setSelection(state.industry.name.length)
-
-                    //showSoftKeyboard()
-
                     filteredData.filter { it.id == state.industry.id }.forEach { it.selected = true }
                     recyclerView?.adapter?.notifyDataSetChanged()
 
                     originalData.filter { it.id == state.industry.id }.forEach { it.selected = true }
                     oldSelectedItem = originalData.indexOfFirst { it.id == state.industry.id }
 
+                    showIndustriesWithSelectButton()
                 }
 
                 is IndustriesState.Empty -> showEmpty(getString(state.message))
@@ -263,6 +245,7 @@ class IndustriesFragment : Fragment() {
 
     private fun showLoading() {
         binding.recyclerView.visibility = View.GONE
+        binding.industriesFilterApply.visibility = View.GONE
         binding.errorContainer.visibility = View.GONE
         binding.progressBar.visibility = View.VISIBLE
     }
