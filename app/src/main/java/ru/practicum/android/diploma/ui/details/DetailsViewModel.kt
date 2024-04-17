@@ -31,9 +31,19 @@ class DetailsViewModel(
         viewModelScope.launch {
             @Suppress("detekt:TooGenericExceptionCaught", "detekt:SwallowedException")
             try {
+                val dbVacancy = detailsInteractor.getVacancyFromDatabase(vacancyId)
+                var vacancyContacts: Contacts? = null
+                if (dbVacancy != null) {
+                    vacancyContacts = Contacts(
+                        dbVacancy.contacts?.email,
+                        dbVacancy.contacts?.name,
+                        dbVacancy.contacts?.phone,
+                        dbVacancy.contacts?.comment
+                    )
+                }
                 detailsInteractor.getVacancyDetails(vacancyId).collect {
                     vacancyDetails = it
-                    updateModel(it)
+                    updateModel(it.copy(contacts = vacancyContacts))
                 }
             } catch (e: VacancyDetailsException) {
                 if (!e.message.isNullOrBlank() && e.message == "Network error") {
@@ -113,12 +123,12 @@ class DetailsViewModel(
         stateLiveData.postValue(content)
     }
 
-    fun favoriteIconClicked(contactName: String?, contactEmail: String?,
+    fun favoriteIconClicked(contactEmail: String?, contactName: String?,
                             contactPhone: String?, contactComment: String?) {
         val vacancyWithContacts = vacancyDetails?.copy(
             contacts = Contacts(
-                contactName,
                 contactEmail,
+                contactName,
                 contactPhone,
                 contactComment
             )

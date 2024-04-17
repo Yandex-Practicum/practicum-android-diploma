@@ -140,8 +140,8 @@ class DetailsFragment : Fragment() {
         }
         binding.favoriteIcon.setOnClickListener {
             viewModel.favoriteIconClicked(
-                contactName,
                 contactEmail,
+                contactName,
                 contactPhone,
                 contactComment
             )
