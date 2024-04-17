@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -79,11 +78,11 @@ class IndustriesFragment : Fragment() {
         if (textInput?.text.toString().length >= FILTER_TEXT_MIN_LENGTH_INT) {
             filteredData.clear()
             filteredData.addAll(originalData.filter { it.name.contains(textInput?.text.toString(), true) })
-/*            if (filteredData.size == 1) {
-                filteredData[0].selected = true
-                oldSelectedItem = 0
-                showIndustriesWithSelectButton()
-            }*/
+            /*            if (filteredData.size == 1) {
+                            filteredData[0].selected = true
+                            oldSelectedItem = 0
+                            showIndustriesWithSelectButton()
+                        }*/
             if (filteredData.size == 0) {
                 showEmpty(getString(R.string.no_such_industry))
             }
@@ -105,7 +104,7 @@ class IndustriesFragment : Fragment() {
             AppCompatResources.getDrawable(requireContext(), R.drawable.ic_close_24px)
     }
 
-    private fun hideSoftKeyboard(){
+    private fun hideSoftKeyboard() {
         (requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)
             ?.hideSoftInputFromWindow(
                 view?.windowToken,
@@ -113,7 +112,7 @@ class IndustriesFragment : Fragment() {
             )
     }
 
-    private fun showSoftKeyboard(){
+    private fun showSoftKeyboard() {
         (requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)
             ?.showSoftInput(textInput, 0)
     }
@@ -138,7 +137,7 @@ class IndustriesFragment : Fragment() {
 
         applyButton = binding.industriesFilterApply
         applyButton!!.setOnClickListener {
-            viewModel.saveFilteredIndustry(filteredData[oldSelectedItem])
+            viewModel.saveSelectedIndustry(originalData[oldSelectedItem])
             findNavController().popBackStack()
         }
 
@@ -183,16 +182,22 @@ class IndustriesFragment : Fragment() {
         recyclerView?.layoutManager = LinearLayoutManager(context)
         recyclerView?.adapter = IndustriesRecyclerViewAdapter(filteredData).apply {
             industryNumberClicked = { newSelectedItem ->
-                if (oldSelectedItem >= 0) {
-                    filteredData[oldSelectedItem].selected = false
-                }
-                filteredData[newSelectedItem].selected = true
 
-                recyclerView?.adapter?.notifyItemChanged(oldSelectedItem)
-                recyclerView?.adapter?.notifyItemChanged(newSelectedItem)
-                oldSelectedItem = newSelectedItem
+                filteredData.forEach { it.selected = false }
+                if (oldSelectedItem >= 0) {
+                    originalData[oldSelectedItem].selected = false
+                }
+
+                filteredData[newSelectedItem].selected = true
+                originalData
+                    .filter { it.id == filteredData[newSelectedItem].id }
+                    .forEach { it.selected = true }
+
+                recyclerView?.adapter?.notifyDataSetChanged()
+                oldSelectedItem =  originalData.indexOfFirst { it.id == filteredData[newSelectedItem].id }
 
                 hideSoftKeyboard()
+                textInput!!.clearFocus()
 
                 showIndustriesWithSelectButton()
             }
@@ -211,15 +216,23 @@ class IndustriesFragment : Fragment() {
 
                     showIndustriesWithoutSelectButton()
 
-                    viewModel.applyFilters()
+                    viewModel.getSavedIndustry()
                 }
 
-                is IndustriesState.FilteredIndustry -> {
-                    textInput!!.requestFocus()
-                    textInput!!.setText(state.industry.name)
-                    textInput!!.setSelection(state.industry.name.length)
+                is IndustriesState.SavedIndustry -> {
 
-                    showSoftKeyboard()
+                    //textInput!!.requestFocus()
+                    //textInput!!.setText(state.industry.name)
+                    //textInput!!.setSelection(state.industry.name.length)
+
+                    //showSoftKeyboard()
+
+                    filteredData.filter { it.id == state.industry.id }.forEach { it.selected = true }
+                    recyclerView?.adapter?.notifyDataSetChanged()
+
+                    originalData.filter { it.id == state.industry.id }.forEach { it.selected = true }
+                    oldSelectedItem = originalData.indexOfFirst { it.id == state.industry.id }
+
                 }
 
                 is IndustriesState.Empty -> showEmpty(getString(state.message))
