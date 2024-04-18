@@ -33,7 +33,6 @@ class FilterAllFragment : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("SetTextI18n", "SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -67,7 +66,7 @@ class FilterAllFragment : Fragment() {
         }
     }
 
-    @SuppressLint("SetTextI18n", "SuspiciousIndentation")
+    @SuppressLint("SetTextI18n")
     private fun observeCountryState() = with(binding) {
         viewModel.countryState.observe(viewLifecycleOwner) { country ->
             if (country != null) {
@@ -225,6 +224,7 @@ class FilterAllFragment : Fragment() {
                     null
                 }
             )
+            viewModel.updateSearchResults()
             findNavController().navigateUp()
         }
 

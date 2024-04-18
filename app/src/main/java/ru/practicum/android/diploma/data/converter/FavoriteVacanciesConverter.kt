@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.data.converter
 
-import com.google.gson.reflect.TypeToken
 import ru.practicum.android.diploma.data.db.model.VacancyEntity
 import ru.practicum.android.diploma.domain.models.VacancyDetails
 import ru.practicum.android.diploma.domain.models.vacacy.Contacts
