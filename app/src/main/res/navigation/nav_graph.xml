@@ -13,13 +13,17 @@
         <action
             android:id="@+id/action_searchFragment_to_fragmentDetails"
             app:destination="@id/fragmentDetails"
-            app:enterAnim="@anim/fade_in"
-            app:popEnterAnim="@anim/fade_in" />
+            app:enterAnim="@anim/slide_in_bot"
+            app:exitAnim="@anim/slide_out_top"
+            app:popEnterAnim="@anim/slide_in_bot"
+            app:popExitAnim="@anim/slide_out_top" />
         <action
             android:id="@+id/action_searchFragment_to_filterAllFragment"
             app:destination="@id/filterAllFragment"
-            app:enterAnim="@anim/fade_in"
-            app:popEnterAnim="@anim/fade_in" />
+            app:enterAnim="@anim/slide_in_bot"
+            app:exitAnim="@anim/slide_out_top"
+
+            />
     </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
@@ -29,8 +33,10 @@
         <action
             android:id="@+id/action_favoriteFragment_to_fragmentDetails"
             app:destination="@id/fragmentDetails"
-            app:enterAnim="@anim/fade_in"
-            app:popEnterAnim="@anim/fade_in" />
+            app:enterAnim="@anim/slide_in_bot"
+            app:exitAnim="@anim/slide_out_top"
+            app:popEnterAnim="@anim/slide_in_bot"
+            app:popExitAnim="@anim/slide_out_top" />
     </fragment>
     <fragment
         android:id="@+id/teamFragment"
