@@ -41,7 +41,7 @@ class IndustriesViewModel(
         if (errorMessage != null) {
             _state.postValue(
                 IndustriesState.Error(
-                    errorMessage = R.string.server_error
+                    errorMessage = R.string.nothing_found
                 )
             )
         } else if (industriesList is List<ChildIndustry>) {

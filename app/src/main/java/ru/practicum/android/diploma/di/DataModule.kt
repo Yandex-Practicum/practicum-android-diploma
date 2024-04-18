@@ -33,7 +33,7 @@ val dataModule = module {
     single {
         Retrofit.Builder()
             .baseUrl(Endpoint.HeadHunter.baseUrl)
-            .client(get())
+//            .client(get())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(SearchVacanciesApi::class.java)

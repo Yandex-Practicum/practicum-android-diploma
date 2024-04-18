@@ -28,7 +28,7 @@ val repositoryModule = module {
     }
 
     single<CountryRepository> {
-        CountryRepositoryImpl(get())
+        CountryRepositoryImpl(get(), get())
     }
 
     single<RegionRepository> {
@@ -50,4 +50,6 @@ val repositoryModule = module {
     single<CountryRepositoryFlow> {
         CountryRepositoryFlowImpl(get())
     }
+
+    single { listOf("Россия", "Украина", "Казахстан", "Азербайджан", "Беларусь", "Грузия", "Кыргызстан", "Узбекистан") }
 }

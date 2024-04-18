@@ -13,7 +13,8 @@ import ru.practicum.android.diploma.domain.country.CountryRepository
 import ru.practicum.android.diploma.util.ResourceContentSearch
 
 class CountryRepositoryImpl(
-    val networkClient: NetworkClient
+    val networkClient: NetworkClient,
+    val customOrder: List<String>
 ) : CountryRepository {
 
     override fun searchCountry(): Flow<ResourceContentSearch<List<Country>>> = flow {
@@ -23,11 +24,13 @@ class CountryRepositoryImpl(
             ResponseCodes.DEFAULT -> emit(ResourceContentSearch.ErrorSearch(response.resultCode.code))
             ResponseCodes.SUCCESS -> {
                 try {
-                    emit(
-                        ResourceContentSearch.SuccessSearch(
-                            (response as AreasResponse).area.mapToCountryList().sortedBy { it.id }.reversed()
-                        )
-                    )
+                    val countries = (response as AreasResponse).area.mapToCountryList()
+
+                    val sortedCountries = countries.sortedWith(compareBy { country ->
+                        !customOrder.contains(country.name)
+                    })
+
+                    emit(ResourceContentSearch.SuccessSearch(sortedCountries))
                 } catch (e: IOException) {
                     emit(ResourceContentSearch.ErrorSearch(response.resultCode.code))
                     throw e

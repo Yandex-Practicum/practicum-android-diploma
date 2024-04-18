@@ -51,6 +51,8 @@ class DetailsViewModel(
                     if (dbVacancy != null) {
                         vacancyDetails = dbVacancy
                         updateModel(dbVacancy)
+                    } else {
+                        stateLiveData.postValue(DetailsViewState.Error)
                     }
                 } else {
                     stateLiveData.postValue(DetailsViewState.Error)
