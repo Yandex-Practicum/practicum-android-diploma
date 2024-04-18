@@ -61,12 +61,18 @@ object VacancyDetailsMapper {
         )
     }
 
-    private fun mapContacts(contacts: ContactsDto?): Contacts? {
-        if (contacts == null) return null
+    private fun mapContacts(contactsDto: ContactsDto?): Contacts? {
+        if (contactsDto == null) return null
         return Contacts(
-            email = contacts.email,
-            name = contacts.name,
-            phones = contacts.phones?.map { "+${it.country} (${it.city}) ${it.number}" }
+            email = contactsDto.email,
+            name = contactsDto.name,
+            if (!contactsDto.phones.isNullOrEmpty()) {
+                "+${contactsDto.phones?.get(0)?.country} (${contactsDto.phones?.get(0)?.city}) " +
+                    "${contactsDto.phones?.get(0)?.number}"
+            } else { null },
+            if (!contactsDto.phones.isNullOrEmpty()) {
+                contactsDto.phones?.get(0)?.comment
+            } else { null }
         )
     }
 

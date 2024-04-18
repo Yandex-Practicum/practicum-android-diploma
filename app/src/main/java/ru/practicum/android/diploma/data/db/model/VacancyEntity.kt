@@ -29,7 +29,8 @@ data class VacancyEntity(
 
     val contactEmail: String?,
     val contactName: String?,
-    val contactPhonesJson: String?,
+    val contactPhone: String?,
+    val contactComment: String?,
 
     val link: String,
     val keySkills: String

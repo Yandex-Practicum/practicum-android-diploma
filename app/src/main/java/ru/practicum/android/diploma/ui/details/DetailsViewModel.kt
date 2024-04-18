@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.data.vacancies.VacancyDetailsException
 import ru.practicum.android.diploma.domain.api.details.VacancyDetailsInteractor
 import ru.practicum.android.diploma.domain.models.VacancyDetails
+import ru.practicum.android.diploma.domain.models.vacacy.Contacts
 import ru.practicum.android.diploma.domain.sharing.ExternalNavigator
 import ru.practicum.android.diploma.util.SalaryFormatter
 
@@ -30,9 +31,19 @@ class DetailsViewModel(
         viewModelScope.launch {
             @Suppress("detekt:TooGenericExceptionCaught", "detekt:SwallowedException")
             try {
+                val dbVacancy = detailsInteractor.getVacancyFromDatabase(vacancyId)
+                var vacancyContacts: Contacts? = null
+                if (dbVacancy != null) {
+                    vacancyContacts = Contacts(
+                        dbVacancy.contacts?.email,
+                        dbVacancy.contacts?.name,
+                        dbVacancy.contacts?.phone,
+                        dbVacancy.contacts?.comment
+                    )
+                }
                 detailsInteractor.getVacancyDetails(vacancyId).collect {
                     vacancyDetails = it
-                    updateModel(it)
+                    updateModel(it.copy(contacts = vacancyContacts))
                 }
             } catch (e: VacancyDetailsException) {
                 if (!e.message.isNullOrBlank() && e.message == "Network error") {
@@ -52,19 +63,19 @@ class DetailsViewModel(
         }
     }
 
-    fun writeEmail() {
-        val email = vacancyDetails?.contacts?.email ?: return
-        externalNavigator.writeEmail(email)
+    fun writeEmail(email: String?) {
+        if (email != null) {
+            externalNavigator.writeEmail(email)
+        }
     }
 
-    fun call() {
+    fun call(phone: String?) {
         viewModelScope.launch {
             PermissionRequester.instance().request(
                 Manifest.permission.CALL_PHONE
             ).collect() {
                 when (it) {
                     is PermissionResult.Granted -> {
-                        val phone = vacancyDetails?.contacts?.phones?.first()
                         if (phone != null) {
                             externalNavigator.call(phone)
                         }
@@ -107,16 +118,30 @@ class DetailsViewModel(
             description = vacancy.description,
             contactName = vacancy.contacts?.name,
             contactEmail = vacancy.contacts?.email,
-            contactsPhones = vacancy.contacts?.phones,
+            contactPhone = vacancy.contacts?.phone,
+            contactComment = vacancy.contacts?.comment,
             keySkills = vacancy.keySkills
         )
         stateLiveData.postValue(content)
     }
 
-    fun favoriteIconClicked() {
-        vacancyDetails?.let {
+    fun favoriteIconClicked(
+        contactEmail: String?,
+        contactName: String?,
+        contactPhone: String?,
+        contactComment: String?
+    ) {
+        val vacancyWithContacts = vacancyDetails?.copy(
+            contacts = Contacts(
+                contactEmail,
+                contactName,
+                contactPhone,
+                contactComment
+            )
+        )
+        vacancyWithContacts?.let {
             viewModelScope.launch {
-                if (detailsInteractor.isVacancyFavorite(vacancyDetails?.id ?: "")) {
+                if (detailsInteractor.isVacancyFavorite(vacancyWithContacts.id ?: "")) {
                     detailsInteractor.makeVacancyNormal(it.id)
                     stateLiveData.postValue(
                         DetailsViewState.IsVacancyFavorite(false)
