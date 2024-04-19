@@ -32,8 +32,10 @@ class CountryViewModel(
             countryInteractor.searchCountry()
                 .collect { pair ->
                     processResult(pair.first, pair.second)
-                    debugLog(TAG) { "Список стран: countryName = ${pair.first?.map { it.name }}, " +
-                        "countryId = ${pair.first?.map { it.id }}\n" }
+                    debugLog(TAG) {
+                        "Список стран: countryName = ${pair.first?.map { it.name }}, " +
+                            "countryId = ${pair.first?.map { it.id }}\n"
+                    }
                 }
         }
     }
