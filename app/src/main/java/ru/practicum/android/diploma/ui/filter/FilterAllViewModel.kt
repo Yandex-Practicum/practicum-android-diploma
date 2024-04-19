@@ -11,6 +11,7 @@ import ru.practicum.android.diploma.domain.filter.FilterRepositoryIndustriesFlow
 import ru.practicum.android.diploma.domain.filter.FilterRepositoryRegionFlow
 import ru.practicum.android.diploma.domain.filter.FilterRepositorySalaryBooleanFlow
 import ru.practicum.android.diploma.domain.filter.FilterRepositorySalaryTextFlow
+import ru.practicum.android.diploma.domain.filter.FilterUpdateFlowRepository
 import ru.practicum.android.diploma.domain.filter.datashared.CountryShared
 import ru.practicum.android.diploma.domain.filter.datashared.IndustriesShared
 import ru.practicum.android.diploma.domain.filter.datashared.RegionShared
@@ -22,7 +23,8 @@ class FilterAllViewModel(
     private val filterRepositoryRegionFlow: FilterRepositoryRegionFlow,
     private val filterRepositoryIndustriesFlow: FilterRepositoryIndustriesFlow,
     private val filterRepositorySalaryTextFlow: FilterRepositorySalaryTextFlow,
-    private val filterRepositorySalaryBooleanFlow: FilterRepositorySalaryBooleanFlow
+    private val filterRepositorySalaryBooleanFlow: FilterRepositorySalaryBooleanFlow,
+    private val filterUpdateFlowRepository: FilterUpdateFlowRepository,
 ) : ViewModel() {
 
     private var _countryState = MutableLiveData<CountryShared?>()
@@ -85,6 +87,12 @@ class FilterAllViewModel(
                         _salaryBoolean.postValue(salaryBoolean)
                     }
             }
+        }
+    }
+
+    fun updateSearchResults() {
+        viewModelScope.launch {
+            filterUpdateFlowRepository.emitFlow()
         }
     }
 

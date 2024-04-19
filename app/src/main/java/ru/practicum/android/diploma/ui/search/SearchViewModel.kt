@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.ui.search
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,6 +9,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.search.VacancySearchInteractor
+import ru.practicum.android.diploma.domain.filter.FilterUpdateFlowRepository
 import ru.practicum.android.diploma.domain.filter.FiltersRepository
 import ru.practicum.android.diploma.domain.models.Filters
 import ru.practicum.android.diploma.domain.models.vacacy.Vacancy
@@ -16,6 +18,7 @@ import ru.practicum.android.diploma.domain.models.vacacy.VacancyResponse
 class SearchViewModel(
     private val vacancySearchInteractor: VacancySearchInteractor,
     private val filtersRepository: FiltersRepository,
+    private val filterUpdateFlowRepository: FilterUpdateFlowRepository,
 ) : ViewModel() {
 
     var lastQuery = ""
@@ -30,9 +33,20 @@ class SearchViewModel(
     fun observeState(): LiveData<SearchViewState> = stateLiveData
 
     init {
+
         viewModelScope.launch {
             filtersRepository.getFiltersFlow().collect {
+                Log.e("filter", "filter collected $it")
                 filters = it
+            }
+        }
+
+        viewModelScope.launch {
+            filterUpdateFlowRepository.getFlow().collect {
+                val query = lastQuery
+                clearPagingInfo()
+                Log.e("flow", "flow collected $it")
+                search(query, it)
             }
         }
     }
@@ -72,7 +86,7 @@ class SearchViewModel(
         vacanciesList = mutableListOf()
     }
 
-    fun search(text: String) {
+    fun search(text: String, filters: Filters = this.filters) {
         if (vacanciesList.isEmpty()) {
             stateLiveData.value = SearchViewState.Loading
         } else {
@@ -80,6 +94,7 @@ class SearchViewModel(
         }
         viewModelScope.launch {
             vacancySearchInteractor.getVacancies(text, currentPage, filters).collect {
+                Log.e("searched", it.toString())
                 if (it.first != null) {
                     handleResponse(it.first as VacancyResponse)
                 } else if (it.second != null) {
