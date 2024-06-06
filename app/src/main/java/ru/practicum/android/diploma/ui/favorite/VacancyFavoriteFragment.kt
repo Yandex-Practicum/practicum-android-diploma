@@ -11,7 +11,7 @@ class VacancyFavoriteFragment : Fragment() {
     private var _binding: FragmentVacancyFavoriteBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentVacancyFavoriteBinding.inflate(inflater, container, false)
         return _binding?.root
     }
