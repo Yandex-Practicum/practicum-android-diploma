@@ -1,3 +1,124 @@
 <resources>
-    <string name="app_name">Practicum-Android-Diploma</string>
+    <string name="app_name">Praktikum HH API v.9.3</string>
+    <string name="home">Главная</string>
+    <string name="favorite">Избранное</string>
+    <string name="team">Команда</string>
+    <string name="title_home">Поиск вакансий</string>
+    <string name="title_vacancies">Вакансия</string>
+    <string name="title_filtration">Настройки фильтрации</string>
+    <string name="title_favorite">Избранное</string>
+    <string name="title_industry">Выбор отрасли</string>
+    <string name="title_team">Команда</string>
+
+    <!-- SEARCH FRAGMENT-->
+    <string name="search_hint">Введите запрос</string>
+    <string name="search_vacancy_not_found">Таких вакансий нет</string>
+    <string name="search_vacancy_list_not_found">Не удалось получить \n список вакансий</string>
+    <string name="search_no_connection">Нет интернета</string>
+    <string name="search_server_error">Ошибка сервера</string>
+    <string name="found_vacancies_count">Найдено %1$d вакансий</string>
+
+    <!-- TEAM FRAGMENT-->
+    <string name="about">Над приложением работали</string>
+    <string name="anton_vishkin">Антон Вышкин</string>
+    <string name="anton_ignatov">Антон Игнатов</string>
+    <string name="kate_mahova">Екатерина Махова</string>
+    <string name="milan_isaev">Милан Исаев</string>
+
+    <!-- SALARY-->
+    <string name="salary_not_specified">Зарплата не указана</string>
+    <string name="salary_from">от %1$s %2$s</string>
+    <string name="salary_to">до %1$s %2$s</string>
+    <string name="salary_from_to">от %1$s до %2$s %3$s</string>
+
+    <!-- VACANCY FRAGMENT-->
+    <string name="android_developer">Android-разработчик</string>
+    <string name="company_name">Еда</string>
+    <string name="vacancy_salary">от 100 000 ₽</string>
+    <string name="vacancy_town">Москва</string>
+    <string name="experience">Требуемый опыт</string>
+    <string name="years_of_experience">От 1 года до 3 лет</string>
+    <string name="schedule">Полная занятость. Удаленная работа.</string>
+    <string name="responsibilities_label">Обязанности</string>
+    <string name="responsibilities">
+        \t\t• \t\t Разрабатывать новую функциональность \n
+        \t\t\t\t приложения\n
+        \t\t• \t\t Помогать с интеграцией нашего SDK в другие \n
+        \t\t\t\t приложения\n
+        \t\t• \t\t Проектировать большие новые модули\n
+        \t\t• \t\t Писать UI- и unit-тесты\n
+        \t\t• \t\t Следить за работоспособностью сервиса и \n
+        \t\t\t\t устранять технический долг
+        \n
+        \n
+        <b>Требования</b>\n
+        \t\t• \t\t100% Kotlin\n
+        \t\t• \t\tWebRTC\n
+        \t\t• \t\tCI по модели Trunk Based Development
+        \n
+        \n
+        <b>Условия</b>\n
+        \t\t• \t\t сильная команда, с которой можно расти\n
+        \t\t• \t\t возможность влиять на процесс и результат\n
+        \t\t• \t\t расширенная программа ДМС: стоматология,\n
+        \t\t\t\t обследования, вызов врача на дом и многое\n \t\t\t\t другое
+    </string>
+    <string name="job_description_label">Описание вакансии</string>
+    <string name="job_description">Требования</string>
+    <string name="requirements">• \t\t100% Kotlin\n• \t\tWebRTC\n• \t\tCI по модели Trunk Based Development</string>
+    <string name="conditions_label">Условия</string>
+    <string name="conditions">• \t\tсильная команда, с которой можно расти\n• \t\t возможность влиять на процесс и результат\n• \t\t расширенная программа ДМС: стоматология, обследования, вызов врача на дом и многое другое</string>
+    <string name="key_skills_label">Ключевые навыки</string>
+    <string name="key_skills">
+        \t\t• \t\t Знание классических алгоритмов и структуры \n
+        \t\t\t\t данных\n
+        \t\t• \t\t Программирование для Android больше одного\n
+        \t\t\t\t года\n
+        \t\t• \t\t Знание WebRTC</string>
+    <string name="contacts_label">Контакты</string>
+    <string name="contacts_person_label">Контактное лицо</string>
+    <string name="contacts">Ирина</string>
+    <string name="e_mail_label">E-mail</string>
+    <string name="irina_mail_ru">irina@mail.ru</string>
+    <string name="telephone">Телефон</string>
+    <string name="telephone_number">+7 (904) 329–27–71</string>
+    <string name="comment_label">Коментарии</string>
+    <string name="comments">Заполнить эту анкету вы можете на нашем сайте</string>
+    <string name="favorite_empty_list">Список пуст</string>
+    <string name="country">Страна</string>
+    <string name="region">Регион</string>
+    <string name="cant_find_list">Не удалось получить \n  список</string>
+    <string name="select">Выбрать</string>
+    <string name="pick_regions">Выбор региона</string>
+    <string name="pick_job_location">Выбор места работы</string>
+    <string name="pick_country">Выбор страны</string>
+    <string name="russia">Россия</string>
+
+    <!-- DETAILS VACANCY FRAGMENT-->
+    <string name="details_vacancy_error">Не удалось получить сведения о вакансии</string>
+
+    <!-- INDUSTRY FRAGMENT-->
+    <string name="industry_hint">Введите отрасль</string>
+    <string name="industry_not_found">Такой отрасли нет</string>
+    <string name="industry_button_select">Выбрать</string>
+    <string name="industry_text_test">Авиационная, вертолетная и аэрокосмическая промышленность</string>
+    <string name="industry_it_test">IT</string>
+    <string name="region_hint">Введите регион</string>
+
+    <!-- FILTRATION FRAGMENT-->
+    <string name="filtration_work_area_hint">Место работы</string>
+    <string name="filtration_industry_hint">Отрасль</string>
+    <string name="filtration_waiting_salary">Ожидаемая зарплата</string>
+    <string name="filtration_not_show_without_salary">Не показывать без зарплаты</string>
+    <string name="filtration_salary_placeholder">Введите сумму</string>
+    <string name="filtration_remove_button">Сбросить</string>
+    <string name="filtration_save_button">Применить</string>
+    <string name="moscow_region">Московская область</string>
+    <string name="empty_region">Такого региона нет</string>
+    <string name="detailes_comments_label">Комментарии</string>
+    <string name="comments_detales">Заполнить анкету по форме можно на нашем сайте</string>
+    <string name="tvRequirementsLabel">Требования</string>
+    <string name="tvConditionsLabel">Условия</string>
+    <string name="tvJobResponsibilityLabel">Обязанности</string>
+
 </resources>

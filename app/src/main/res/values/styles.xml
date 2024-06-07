@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Toolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">@color/whiteDay</item>
+    </style>
+
+    <style name="ToolbarTextAppearance">
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textColor">@color/whiteDay</item>
+        <item name="android:shadowColor">@color/blackDay</item>
+    </style>
+
+    <style name="ToolbarTextAppearance.Title">
+        <item name="android:textSize">@dimen/text_22</item>
+    </style>
+
+    <style name="MyToolbar">
+        <item name="theme">@style/ThemeOverlay.AppCompat.Dark</item>
+        <item name="android:background">@color/whiteDay</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+    </style>
+
+    <style name="bottom_navigation_view">
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textColor">@color/blackDay</item>
+        <item name="android:background">@color/whiteDay</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="itemIconTint">@drawable/bottom_navigation_tab_bar</item>
+        <item name="itemTextColor">@drawable/bottom_navigation_tab_bar</item>
+    </style>
+
+    <style name="searchEditText">
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textColorHint">@color/gray</item>
+        <item name="android:textColor">@color/blackUniversal</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textCursorDrawable">@color/blue</item>
+        <item name="android:paddingVertical">16dp</item>
+        <item name="android:paddingHorizontal">16dp</item>
+        <item name="android:lines">1</item>
+        <item name="android:maxLength">40</item>
+        <item name="android:backgroundTint">@color/lightGray</item>
+        <item name="android:background">@drawable/ic_edit_text_background</item>
+        <item name="android:inputType">text</item>
+        <item name="android:imeOptions">actionDone</item>
+    </style>
+
+    <style name="search_vacancy_result">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textColor">@color/whiteUniversal</item>
+        <item name="android:background">@drawable/ic_search_result_background</item>
+    </style>
+
+    <style name="placeholder_text">
+        <item name="android:textSize">@dimen/text_22</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textColor">@color/blackUniversal</item>
+    </style>
+
+    <style name="vacancy_view_header_text">
+        <item name="android:textSize">@dimen/text_22</item>
+        <item name="android:textColor">@color/blackUniversal</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+    </style>
+
+    <style name="vacancy_view_regular_text">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/blackUniversal</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+    </style>
+
+    <!-- VACANCY FRAGMENT-->
+
+    <style name="vacancy_details_header_text">
+        <item name="android:textSize">32sp</item>
+        <item name="android:textColor">@color/blackUniversal</item>
+        <item name="android:fontFamily">@font/ys_display_bold</item>
+    </style>
+
+    <style name="vacancy_salary_text">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/blackUniversal</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+    </style>
+
+    <style name="vacancy_company_text">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/blackUniversal</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+    </style>
+
+    <style name="vacancy_location_text">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/blackUniversal</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+    </style>
+
+    <style name="experience_text">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/blackUniversal</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+    </style>
+
+    <style name="phone_and_mail_text">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+    </style>
+
+    <style name="pick_location_hint">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+    </style>
+
+    <style name="select_btn_text">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textColor">@color/whiteUniversal</item>
+        <item name="android:background">@drawable/ic_search_result_background</item>
+    </style>
+
+    <style name="reset_btn_text">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textColor">@color/red</item>
+    </style>
+
+
+    <!-- Стиль для TextInputLayout -->
+    <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundMode">none</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <!-- Стиль для TextInputEditText -->
+    <style name="TextInputEditText" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:textColorHint">@color/gray</item>
+        <item name="android:textColor">@color/blackUniversal</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+    </style>
+
+    <style name="industry_button_select">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textColor">@color/whiteUniversal</item>
+    </style>
+
+    <style name="industry_item">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textColor">@color/blackUniversal</item>
+    </style>
+  
+</resources>
