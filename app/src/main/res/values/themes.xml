@@ -1,9 +1,13 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
-    <style name="Base.Theme.PracticumAndroidDiploma" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.PracticumAndroidDiploma" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:textColor">@color/blackDay</item>
+        <item name="hintTextColor">@color/gray</item>
+        <item name="background">@color/whiteUniversal</item>
+        <item name="colorSecondary">@color/blackUniversal</item>
+        <item name="colorSecondaryVariant">@color/whiteUniversal</item>
+        <item name="colorOnSecondary">@color/lightGray</item>
+        <item name="android:statusBarColor">?attr/colorSecondaryVariant</item>
     </style>
-
-    <style name="Theme.PracticumAndroidDiploma" parent="Base.Theme.PracticumAndroidDiploma" />
 </resources>
