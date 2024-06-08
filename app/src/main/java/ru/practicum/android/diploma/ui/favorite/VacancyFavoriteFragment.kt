@@ -23,10 +23,10 @@ class VacancyFavoriteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        toolbarSetup()
+        setupToolbar()
     }
 
-    private fun toolbarSetup() {
+    private fun setupToolbar() {
         toolbar.title = getString(R.string.title_favorite)
         toolbar.menu.findItem(R.id.share).isVisible = false
         toolbar.menu.findItem(R.id.favorite).isVisible = false
