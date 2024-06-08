@@ -7,7 +7,7 @@ import kotlinx.coroutines.launch
 
 class Debounce {
     private var job: Job? = null
-    fun <T> debounce(
+    fun <T> debounceFunction(
         delayMillis: Long,
         coroutineScope: CoroutineScope,
         useLastParam: Boolean,
