@@ -14,9 +14,14 @@ class RootActivity : AppCompatActivity() {
         ActivityRootBinding.inflate(layoutInflater)
     }
 
+    val toolbar get() = binding.toolbar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        menuInflater.inflate(R.menu.toolbar, binding.toolbar.menu)
+        binding.toolbar.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fcvRootConteiner) as NavHostFragment
