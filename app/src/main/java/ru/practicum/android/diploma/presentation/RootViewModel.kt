@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.domain.api.ThemeSettingsInteractor
 class RootViewModel(
     private val themeSettingsInteractor: ThemeSettingsInteractor
 ) : ViewModel() {
-    private val _observeTheme=MutableLiveData<Boolean>()
+    private val _observeTheme = MutableLiveData<Boolean>()
     val observeTheme: LiveData<Boolean> get() = _observeTheme
     /*
     We install the theme when launching the application

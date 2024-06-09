@@ -7,7 +7,7 @@ import ru.practicum.android.diploma.domain.api.ThemeSettingsRepository
 
 class ThemeSettingsRepositoryImpl(private val sharedPreferences: SharedPreferences) : ThemeSettingsRepository {
 
-    private val THEME_KEY = "theme_key"
+    private val _themeKey = "theme_key"
     override fun installTheme(): Boolean {
         val isThemeDark = readTheme()
         return switchTheme(isThemeDark)
@@ -27,14 +27,14 @@ class ThemeSettingsRepositoryImpl(private val sharedPreferences: SharedPreferenc
     }
 
     private fun readTheme(): Boolean {
-        val json = sharedPreferences.getString(THEME_KEY, false.toString()) ?: return false
+        val json = sharedPreferences.getString(_themeKey, false.toString()) ?: return false
         return Gson().fromJson(json, Boolean::class.java)
     }
 
     private fun writeTheme(themeBooleanValue: Boolean) {
         val json = Gson().toJson(themeBooleanValue)
         sharedPreferences.edit()
-            .putString(THEME_KEY, json)
+            .putString(_themeKey, json)
             .apply()
     }
 
