@@ -10,6 +10,7 @@ targetSdk = "33"
 # Detekt
 detekt = "1.23.3"
 detektTwitterComposeRules ="0.0.26"
+kotlin = "1.9.0"
 
 [libraries]
 
@@ -66,5 +67,7 @@ glide-compiler = "com.github.bumptech.glide:compiler:4.14.2"
 # Navigation Graph
 navigation-fragment = "androidx.navigation:navigation-fragment-ktx:2.7.7"
 navigation-ui = "androidx.navigation:navigation-ui-ktx:2.7.7"
+[plugins]
+jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 
 [bundles]
