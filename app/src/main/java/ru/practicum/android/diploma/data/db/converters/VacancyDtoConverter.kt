@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data.converters
+package ru.practicum.android.diploma.data.db.converters
 
 import ru.practicum.android.diploma.data.db.ContactsEntity
 import ru.practicum.android.diploma.data.db.PhoneEntity
