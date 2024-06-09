@@ -4,4 +4,3 @@ import org.koin.dsl.module
 
 val filtrationModule = module {
 }
-
