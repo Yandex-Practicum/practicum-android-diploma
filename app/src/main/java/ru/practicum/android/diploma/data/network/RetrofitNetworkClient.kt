@@ -8,6 +8,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import ru.practicum.android.diploma.BuildConfig
+import ru.practicum.android.diploma.data.dto.CountriesRequest
+import ru.practicum.android.diploma.data.dto.CountriesResponse
+import ru.practicum.android.diploma.data.dto.CurrencyRequest
+import ru.practicum.android.diploma.data.dto.CurrencyResponse
+import ru.practicum.android.diploma.data.dto.IndustryRequest
+import ru.practicum.android.diploma.data.dto.IndustryResponse
+import ru.practicum.android.diploma.data.dto.Response
+import ru.practicum.android.diploma.data.dto.SearchRequest
+import ru.practicum.android.diploma.data.dto.SearchResponse
+import ru.practicum.android.diploma.data.dto.VacancyDetailsRequest
+import ru.practicum.android.diploma.data.dto.VacancyDetailsResponse
 import java.io.IOException
 
 class RetrofitNetworkClient(
@@ -58,7 +69,7 @@ class RetrofitNetworkClient(
         try {
             val response =
                 headHunterApi.getVacancyDetails(BEARER_TOKEN, vacancyId)
-            return VacancyDetailsResponse(response).apply { resultCode = CLIENT_SUCCESS_RESULT_CODE }
+            return VacancyDetailsResponse(response.body()).apply { resultCode = CLIENT_SUCCESS_RESULT_CODE }
         } catch (e: IOException) {
             Log.e(NETWORK_ERROR, e.toString())
             return VacancyDetailsResponse(null).apply { resultCode = CLIENT_ERROR_RESULT_CODE }
@@ -69,7 +80,7 @@ class RetrofitNetworkClient(
         try {
             val response =
                 headHunterApi.getCurrencies(BEARER_TOKEN)
-            return CurrencyResponse(response.currency).apply { resultCode = CLIENT_SUCCESS_RESULT_CODE }
+            return response.apply { resultCode = CLIENT_SUCCESS_RESULT_CODE }
         } catch (e: IOException) {
             Log.e(NETWORK_ERROR, e.toString())
             return CurrencyResponse(null).apply { resultCode = CLIENT_ERROR_RESULT_CODE }
@@ -108,7 +119,7 @@ class RetrofitNetworkClient(
     private suspend fun doCountriesRequest(): Response {
         try {
             val countries = headHunterApi.getCountries()
-            return CountriesResponse(countries).apply {
+            return CountriesResponse(countries.body()).apply {
                 resultCode = CLIENT_SUCCESS_RESULT_CODE
             }
         } catch (e: HttpException) {
