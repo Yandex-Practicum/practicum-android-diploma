@@ -7,6 +7,20 @@
     android:layout_height="match_parent"
     tools:context=".ui.root.RootActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/MyToolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/fcvRootConteiner"
+        android:minHeight="?attr/actionBarSize"
+        android:visibility="visible"
+        app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:titleTextAppearance="@style/ToolbarTextAppearance.Title" />
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fcvRootConteiner"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -17,7 +31,7 @@
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:navGraph="@navigation/root_navigation_graph" />
 
     <LinearLayout
