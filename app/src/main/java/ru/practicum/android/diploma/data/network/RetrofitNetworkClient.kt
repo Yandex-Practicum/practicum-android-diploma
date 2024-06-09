@@ -10,7 +10,6 @@ import retrofit2.HttpException
 import ru.practicum.android.diploma.BuildConfig
 import java.io.IOException
 
-
 class RetrofitNetworkClient(
     private val headHunterApi: HeadHunterApi,
     private val context: Context

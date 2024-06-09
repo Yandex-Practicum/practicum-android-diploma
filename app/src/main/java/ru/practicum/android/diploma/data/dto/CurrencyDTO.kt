@@ -5,4 +5,3 @@ data class CurrencyDTO(
     val name: String,
     val abbr: String,
 )
-

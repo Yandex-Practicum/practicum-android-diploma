@@ -40,4 +40,3 @@ interface HeadHunterApi {
     @GET("areas/{parent_id}")
     suspend fun getRegions(@Path("parent_id") parentId: String?): List<AreaDTO>
 }
-
