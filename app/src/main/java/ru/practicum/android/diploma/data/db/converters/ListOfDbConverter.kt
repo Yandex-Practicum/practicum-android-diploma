@@ -1,11 +1,11 @@
-package ru.practicum.android.diploma.data.converters
+package ru.practicum.android.diploma.data.db.converters
 
-import PhoneEntity
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import ru.practicum.android.diploma.data.db.PhoneEntity
 
-class ConverterForListOfDb {
+class ListOfDbConverter {
     @TypeConverter
     fun fromString(value: String): List<String> {
         val listType = object : TypeToken<List<String>>() {}.type

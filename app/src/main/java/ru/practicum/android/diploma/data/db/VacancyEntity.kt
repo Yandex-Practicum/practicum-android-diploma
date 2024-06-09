@@ -1,3 +1,5 @@
+package ru.practicum.android.diploma.data.db
+
 import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
