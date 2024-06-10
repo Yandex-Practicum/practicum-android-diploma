@@ -1,13 +1,12 @@
 package ru.practicum.android.diploma.util
 
 import android.app.Application
-import androidx.appcompat.app.AppCompatDelegate
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 
 class App : Application() {
-    private var darkTheme = false
+    // private var darkTheme = false
 
     // private var sharedPref: SharedPreferences = getSharedPreferences(PRACTICUM_EXAMPLE_PREFERENCES, MODE_PRIVATE)
     override fun onCreate() {
