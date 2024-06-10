@@ -8,6 +8,7 @@ import org.koin.core.context.startKoin
 
 class App : Application() {
     private var darkTheme = false
+
     // private var sharedPref: SharedPreferences = getSharedPreferences(PRACTICUM_EXAMPLE_PREFERENCES, MODE_PRIVATE)
     override fun onCreate() {
         super.onCreate()
@@ -28,16 +29,16 @@ class App : Application() {
 //        }
     }
 
-    private fun switchTheme(darkThemeEnabled: Boolean) {
-        darkTheme = darkThemeEnabled
-        AppCompatDelegate.setDefaultNightMode(
-            if (darkThemeEnabled) {
-                AppCompatDelegate.MODE_NIGHT_YES
-            } else {
-                AppCompatDelegate.MODE_NIGHT_NO
-            }
-        )
+//    private fun switchTheme(darkThemeEnabled: Boolean) {
+//        darkTheme = darkThemeEnabled
+//        AppCompatDelegate.setDefaultNightMode(
+//            if (darkThemeEnabled) {
+//                AppCompatDelegate.MODE_NIGHT_YES
+//            } else {
+//                AppCompatDelegate.MODE_NIGHT_NO
+//            }
+//        )
 //        getSharedPreferences(PRACTICUM_EXAMPLE_PREFERENCES, MODE_PRIVATE).edit().putBoolean(_themeKey, darkThemeEnabled)
 //            .apply()
-    }
+//    }
 }
