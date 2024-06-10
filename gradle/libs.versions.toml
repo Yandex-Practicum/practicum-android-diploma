@@ -37,4 +37,7 @@ unitTests-junit = "junit:junit:4.13.2"
 uiTests-junitExt = "androidx.test.ext:junit:1.1.5"
 uiTests-espressoCore = "androidx.test.espresso:espresso-core:3.5.1"
 
+# DI Koin
+koin = "io.insert-koin:koin-android:3.5.3"
+
 [bundles]
