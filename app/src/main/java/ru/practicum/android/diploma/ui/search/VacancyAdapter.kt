@@ -19,7 +19,6 @@ class VacancyAdapter(
     override fun getItemCount(): Int = vacancyList.size
 
     override fun onBindViewHolder(holder: VacancyViewHolder, position: Int) {
-
         holder.bind(vacancyList[position], onClickListener)
     }
 
