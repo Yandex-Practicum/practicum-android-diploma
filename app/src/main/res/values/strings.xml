@@ -120,5 +120,7 @@
     <string name="tvRequirementsLabel">Требования</string>
     <string name="tvConditionsLabel">Условия</string>
     <string name="tvJobResponsibilityLabel">Обязанности</string>
+    <string name="salary_half_mask">от 1%%1$s %2%2$s</string>
+    <string name="salary_full_mask">от %1%1$s до %2%2$s %3%3$s</string>
 
 </resources>
