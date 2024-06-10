@@ -1,13 +1,13 @@
 package ru.practicum.android.diploma.data.network
 
-import ru.practicum.android.diploma.data.dto.VacancyResponse
-import ru.practicum.android.diploma.data.dto.VacancyDetails
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.Path
 import retrofit2.http.QueryMap
+import ru.practicum.android.diploma.data.dto.VacancyDetails
+import ru.practicum.android.diploma.data.dto.VacancyResponse
 
 interface HeadHunterApi {
     @Headers("User-Agent: YourAppName (nyud91@gmail.com)")

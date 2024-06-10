@@ -49,7 +49,6 @@ class VacancyRepository(private val networkClient: HeadHunterNetworkClient) {
     }
 
     companion object {
-        private const val TOKEN = "Bearer APPLRO2GGE350U5M54G5SAOIA52SMR6DH2RDCT4AH2I6O59JEOE6GETL8R0QJE2J"
         private const val SUCCESS_CODE = 200
         private const val ERROR_CODE = 400
     }
