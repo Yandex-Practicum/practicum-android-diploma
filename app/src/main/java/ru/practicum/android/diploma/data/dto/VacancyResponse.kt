@@ -4,7 +4,6 @@ data class VacancyResponse(
     val items: List<Vacancy>,
     val page: Int,
     val pages: Int,
-    val per_page: Int,
+    val perPage: Int,
     val total: Int
 )
-

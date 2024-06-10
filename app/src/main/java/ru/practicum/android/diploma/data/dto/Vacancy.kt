@@ -13,5 +13,3 @@ data class Vacancy(
     @SerializedName("published_at") val publishedAt: String,
     val url: String
 )
-
-
