@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/llVacancyView"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="9dp"
+    android:orientation="horizontal">
+
+    <FrameLayout
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/ic_vacancy_background">
+
+        <ImageView
+            android:id="@+id/ivIconVacancy"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"
+            android:padding="1dp"
+            android:src="@drawable/vacancies_placeholder" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="12dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvVacancyName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            style="@style/vacancy_view_header_text"
+            tools:text="@string/java_developer_omsk" />
+
+        <TextView
+            android:id="@+id/tvVacancyCompany"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/vacancy_view_regular_text"
+            tools:text="@string/market" />
+
+        <TextView
+            android:id="@+id/tvVacancySalary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/vacancy_view_regular_text"
+            tools:text="@string/no_salary" />
+    </LinearLayout>
+</LinearLayout>
