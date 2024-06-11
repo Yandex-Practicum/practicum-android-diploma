@@ -3,4 +3,10 @@
     <string name="general">Главная</string>
     <string name="favorites">Избранное</string>
     <string name="team">Команда</string>
+    <string name="developer_name_1">Паркин Даниил - лид</string>
+    <string name="developer_name_2">Чарухин Денис</string>
+    <string name="developer_name_3">Шахидов Ахмед</string>
+    <string name="developer_name_4">Гурова Надежда</string>
+    <string name="developer_name_5">Газарова Полина</string>
+    <string name="team_members">Над приложением работали</string>
 </resources>
