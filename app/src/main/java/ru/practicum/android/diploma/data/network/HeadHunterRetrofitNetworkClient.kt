@@ -3,10 +3,11 @@ package ru.practicum.android.diploma.data.network
 import retrofit2.Response
 import ru.practicum.android.diploma.data.dto.VacancyDetails
 import ru.practicum.android.diploma.data.dto.VacancyResponse
+import ru.practicum.android.diploma.BuildConfig
 
 class HeadHunterRetrofitNetworkClient(private val api: HeadHunterApi) : HeadHunterNetworkClient {
     companion object {
-        private const val AUTHORIZATION_HEADER = "Bearer TOKEN"
+        private const val AUTHORIZATION_HEADER = "Bearer ${BuildConfig.HH_ACCESS_TOKEN}"
     }
 
     override suspend fun getVacancies(filters: Map<String, String>): Response<VacancyResponse> {
