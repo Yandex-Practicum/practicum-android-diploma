@@ -1,39 +1,40 @@
 package ru.practicum.android.diploma.data.db.converters
 
-import ru.practicum.android.diploma.data.db.ContactsEntity
-import ru.practicum.android.diploma.data.db.PhoneEntity
-import ru.practicum.android.diploma.data.db.SalaryEntity
-import ru.practicum.android.diploma.data.db.VacancyEntity
+import ru.practicum.android.diploma.data.dto.ContactsDto
+import ru.practicum.android.diploma.data.dto.KeySkillDto
+import ru.practicum.android.diploma.data.dto.PhoneDto
+import ru.practicum.android.diploma.data.dto.SalaryDto
+import ru.practicum.android.diploma.data.dto.VacancyDto
 import ru.practicum.android.diploma.domain.models.Contacts
 import ru.practicum.android.diploma.domain.models.Phone
 import ru.practicum.android.diploma.domain.models.Salary
 import ru.practicum.android.diploma.domain.models.Vacancy
 
 class VacancyDtoConverter {
-    fun map(vacancyEntity: VacancyEntity): Vacancy {
-        return with(vacancyEntity) {
+    fun map(vacancyDto: VacancyDto): Vacancy {
+        return with(vacancyDto) {
             Vacancy(
                 id = id,
                 vacancyName = vacancyName,
-                companyName = companyName,
+                companyName = employer.name,
                 alternateUrl = alternateUrl,
-                logoUrl = logoUrl,
-                area = area,
-                employment = employment,
-                experience = experience,
+                logoUrl = employer.logo?.big,
+                area = area.name,
+                employment = employment?.name,
+                experience = experience?.name,
                 salary = createSalary(salary),
                 description = description,
-                keySkills = keySkills,
+                keySkills = extractKeySkills(keySkills),
                 contacts = createContacts(contacts),
                 comment = comment,
-                schedule = schedule,
-                address = address
+                schedule = schedule?.name,
+                address = address?.fullAddress
             )
         }
     }
 
-    private fun createSalary(salaryEntity: SalaryEntity?): Salary? {
-        return salaryEntity?.let {
+    private fun createSalary(salaryDto: SalaryDto?): Salary? {
+        return salaryDto?.let {
             Salary(
                 currency = it.currency,
                 from = it.from,
@@ -43,8 +44,8 @@ class VacancyDtoConverter {
         }
     }
 
-    private fun createContacts(contactsEntity: ContactsEntity?): Contacts? {
-        return contactsEntity?.let {
+    private fun createContacts(contactsDto: ContactsDto?): Contacts? {
+        return contactsDto?.let {
             Contacts(
                 email = it.email,
                 name = it.name,
@@ -53,8 +54,8 @@ class VacancyDtoConverter {
         }
     }
 
-    private fun createPhone(phoneEntity: PhoneEntity?): Phone? {
-        return phoneEntity?.let {
+    private fun createPhone(phoneDto: PhoneDto?): Phone? {
+        return phoneDto?.let {
             Phone(
                 city = it.city,
                 comment = it.comment,
@@ -64,57 +65,7 @@ class VacancyDtoConverter {
         }
     }
 
-    fun map(vacancy: Vacancy): VacancyEntity {
-        return with(vacancy) {
-            VacancyEntity(
-                id = id,
-                vacancyName = vacancyName,
-                companyName = companyName,
-                alternateUrl = alternateUrl,
-                logoUrl = logoUrl,
-                area = area,
-                employment = employment,
-                experience = experience,
-                salary = createSalaryEntity(salary),
-                description = description,
-                keySkills = keySkills,
-                contacts = createContactsEntity(contacts),
-                comment = comment,
-                schedule = schedule,
-                address = address
-            )
-        }
-    }
-
-    private fun createSalaryEntity(salary: Salary?): SalaryEntity? {
-        return salary?.let {
-            SalaryEntity(
-                currency = it.currency,
-                from = it.from,
-                gross = it.gross,
-                to = it.to
-            )
-        }
-    }
-
-    private fun createContactsEntity(contacts: Contacts?): ContactsEntity? {
-        return contacts?.let {
-            ContactsEntity(
-                email = it.email,
-                name = it.name,
-                phones = it.phones?.map { createPhoneEntity(it) }
-            )
-        }
-    }
-
-    private fun createPhoneEntity(phone: Phone?): PhoneEntity? {
-        return phone?.let {
-            PhoneEntity(
-                city = it.city,
-                comment = it.comment,
-                country = it.country,
-                number = it.number
-            )
-        }
+    private fun extractKeySkills(keySkills: List<KeySkillDto>?): List<String?> {
+        return keySkills?.map { it.name } ?: emptyList()
     }
 }
