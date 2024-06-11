@@ -10,14 +10,14 @@ import ru.practicum.android.diploma.data.dto.VacancyDetails
 import ru.practicum.android.diploma.data.dto.VacancyResponse
 
 interface HeadHunterApi {
-    @Headers("User-Agent: YourAppName (nyud91@gmail.com)")
+    @Headers("User-Agent: DreamJob (shahidow@mail.com)")
     @GET("vacancies")
     suspend fun getVacancies(
         @Header("Authorization") token: String,
         @QueryMap filters: Map<String, String>
     ): Response<VacancyResponse>
 
-    @Headers("User-Agent: YourAppName (nyud91@gmail.com)")
+    @Headers("User-Agent: DreamJob (shahidow@mail.com)")
     @GET("vacancies/{id}")
     suspend fun getVacancyDetails(
         @Header("Authorization") token: String,

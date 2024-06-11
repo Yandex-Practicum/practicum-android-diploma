@@ -1,0 +1,159 @@
+Index: app/src/main/java/ru/practicum/android/diploma/data/network/HeadHunterApi.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.data.network\r\n\r\nimport retrofit2.Response\r\nimport retrofit2.http.GET\r\nimport retrofit2.http.Header\r\nimport retrofit2.http.Headers\r\nimport retrofit2.http.Path\r\nimport retrofit2.http.QueryMap\r\nimport ru.practicum.android.diploma.data.dto.VacancyDetails\r\nimport ru.practicum.android.diploma.data.dto.VacancyResponse\r\n\r\ninterface HeadHunterApi {\r\n    @Headers(\"User-Agent: YourAppName (nyud91@gmail.com)\")\r\n    @GET(\"vacancies\")\r\n    suspend fun getVacancies(\r\n        @Header(\"Authorization\") token: String,\r\n        @QueryMap filters: Map<String, String>\r\n    ): Response<VacancyResponse>\r\n\r\n    @Headers(\"User-Agent: YourAppName (nyud91@gmail.com)\")\r\n    @GET(\"vacancies/{id}\")\r\n    suspend fun getVacancyDetails(\r\n        @Header(\"Authorization\") token: String,\r\n        @Path(\"id\") id: String\r\n    ): Response<VacancyDetails>\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/data/network/HeadHunterApi.kt b/app/src/main/java/ru/practicum/android/diploma/data/network/HeadHunterApi.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/data/network/HeadHunterApi.kt	(revision dd33b9940251a116fbc7ef2a9f7bfc94f42c3f0e)
++++ b/app/src/main/java/ru/practicum/android/diploma/data/network/HeadHunterApi.kt	(date 1718113961086)
+@@ -10,14 +10,14 @@
+ import ru.practicum.android.diploma.data.dto.VacancyResponse
+ 
+ interface HeadHunterApi {
+-    @Headers("User-Agent: YourAppName (nyud91@gmail.com)")
++    @Headers("User-Agent: DreamJob (shahidow@mail.com)")
+     @GET("vacancies")
+     suspend fun getVacancies(
+         @Header("Authorization") token: String,
+         @QueryMap filters: Map<String, String>
+     ): Response<VacancyResponse>
+ 
+-    @Headers("User-Agent: YourAppName (nyud91@gmail.com)")
++    @Headers("User-Agent: DreamJob (shahidow@mail.com)")
+     @GET("vacancies/{id}")
+     suspend fun getVacancyDetails(
+         @Header("Authorization") token: String,
+Index: app/src/main/java/ru/practicum/android/diploma/presentation/RootViewModel.kt
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/presentation/RootViewModel.kt b/app/src/main/java/ru/practicum/android/diploma/presentation/RootViewModel.kt
+deleted file mode 100644
+--- a/app/src/main/java/ru/practicum/android/diploma/presentation/RootViewModel.kt	(revision dd33b9940251a116fbc7ef2a9f7bfc94f42c3f0e)
++++ /dev/null	(revision dd33b9940251a116fbc7ef2a9f7bfc94f42c3f0e)
+@@ -1,25 +0,0 @@
+-package ru.practicum.android.diploma.presentation
+-
+-import androidx.lifecycle.LiveData
+-import androidx.lifecycle.MutableLiveData
+-import androidx.lifecycle.ViewModel
+-import ru.practicum.android.diploma.domain.api.ThemeSettingsInteractor
+-
+-class RootViewModel(
+-    private val themeSettingsInteractor: ThemeSettingsInteractor
+-) : ViewModel() {
+-    private val _observeTheme = MutableLiveData<Boolean>()
+-    val observeTheme: LiveData<Boolean> get() = _observeTheme
+-    /*
+-    We install the theme when launching the application
+-    fun installTheme() {
+-        _observeTheme.postValue(themeSettingsInteractor.installTheme())
+-    }
+-
+-    Switching the application theme
+-    fun switchTheme(theme:Boolean){
+-        _observeTheme.postValue(themeSettingsInteractor.switchTheme(theme))
+-    }
+-    */
+-
+-}
+Index: app/src/main/java/ru/practicum/android/diploma/domain/impl/ThemeSettingsInteractorImpl.kt
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/domain/impl/ThemeSettingsInteractorImpl.kt b/app/src/main/java/ru/practicum/android/diploma/domain/impl/ThemeSettingsInteractorImpl.kt
+deleted file mode 100644
+--- a/app/src/main/java/ru/practicum/android/diploma/domain/impl/ThemeSettingsInteractorImpl.kt	(revision dd33b9940251a116fbc7ef2a9f7bfc94f42c3f0e)
++++ /dev/null	(revision dd33b9940251a116fbc7ef2a9f7bfc94f42c3f0e)
+@@ -1,15 +0,0 @@
+-package ru.practicum.android.diploma.domain.impl
+-
+-import ru.practicum.android.diploma.domain.api.ThemeSettingsInteractor
+-import ru.practicum.android.diploma.domain.api.ThemeSettingsRepository
+-
+-class ThemeSettingsInteractorImpl(private val themeSettingsRepository: ThemeSettingsRepository) :
+-    ThemeSettingsInteractor {
+-    override fun installTheme(): Boolean {
+-        return themeSettingsRepository.installTheme()
+-    }
+-
+-    override fun switchTheme(themeBooleanValue: Boolean): Boolean {
+-        return themeSettingsRepository.switchTheme(themeBooleanValue)
+-    }
+-}
+Index: app/src/main/java/ru/practicum/android/diploma/domain/api/ThemeSettingsInteractor.kt
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/domain/api/ThemeSettingsInteractor.kt b/app/src/main/java/ru/practicum/android/diploma/domain/api/ThemeSettingsInteractor.kt
+deleted file mode 100644
+--- a/app/src/main/java/ru/practicum/android/diploma/domain/api/ThemeSettingsInteractor.kt	(revision dd33b9940251a116fbc7ef2a9f7bfc94f42c3f0e)
++++ /dev/null	(revision dd33b9940251a116fbc7ef2a9f7bfc94f42c3f0e)
+@@ -1,6 +0,0 @@
+-package ru.practicum.android.diploma.domain.api
+-
+-interface ThemeSettingsInteractor {
+-    fun installTheme(): Boolean
+-    fun switchTheme(themeBooleanValue: Boolean): Boolean
+-}
+Index: app/src/main/java/ru/practicum/android/diploma/data/ThemeSettingsRepositoryImpl.kt
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/data/ThemeSettingsRepositoryImpl.kt b/app/src/main/java/ru/practicum/android/diploma/data/ThemeSettingsRepositoryImpl.kt
+deleted file mode 100644
+--- a/app/src/main/java/ru/practicum/android/diploma/data/ThemeSettingsRepositoryImpl.kt	(revision dd33b9940251a116fbc7ef2a9f7bfc94f42c3f0e)
++++ /dev/null	(revision dd33b9940251a116fbc7ef2a9f7bfc94f42c3f0e)
+@@ -1,45 +0,0 @@
+-package ru.practicum.android.diploma.data
+-
+-import android.content.SharedPreferences
+-import androidx.appcompat.app.AppCompatDelegate
+-import com.google.gson.Gson
+-import ru.practicum.android.diploma.domain.api.ThemeSettingsRepository
+-
+-class ThemeSettingsRepositoryImpl(private val sharedPreferences: SharedPreferences) : ThemeSettingsRepository {
+-
+-    private val _themeKey = "theme_key"
+-    override fun installTheme(): Boolean {
+-        val isThemeDark = readTheme()
+-        return switchTheme(isThemeDark)
+-    }
+-
+-    override fun switchTheme(themeBooleanValue: Boolean): Boolean {
+-        AppCompatDelegate.setDefaultNightMode(
+-            if (themeBooleanValue) {
+-                writeTheme(true)
+-                AppCompatDelegate.MODE_NIGHT_YES
+-            } else {
+-                writeTheme(false)
+-                AppCompatDelegate.MODE_NIGHT_NO
+-            }
+-        )
+-        return readTheme()
+-    }
+-
+-    private fun readTheme(): Boolean {
+-        val json = sharedPreferences.getString(_themeKey, false.toString()) ?: return false
+-        return Gson().fromJson(json, Boolean::class.java)
+-    }
+-
+-    private fun writeTheme(themeBooleanValue: Boolean) {
+-        val json = Gson().toJson(themeBooleanValue)
+-        sharedPreferences.edit()
+-            .putString(_themeKey, json)
+-            .apply()
+-    }
+-
+-    companion object {
+-        const val PRACTICUM_EXAMPLE_PREFERENCES = "practicum_example_preferences"
+-    }
+-
+-}
+Index: app/src/main/java/ru/practicum/android/diploma/domain/api/ThemeSettingsRepository.kt
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/domain/api/ThemeSettingsRepository.kt b/app/src/main/java/ru/practicum/android/diploma/domain/api/ThemeSettingsRepository.kt
+deleted file mode 100644
+--- a/app/src/main/java/ru/practicum/android/diploma/domain/api/ThemeSettingsRepository.kt	(revision dd33b9940251a116fbc7ef2a9f7bfc94f42c3f0e)
++++ /dev/null	(revision dd33b9940251a116fbc7ef2a9f7bfc94f42c3f0e)
+@@ -1,6 +0,0 @@
+-package ru.practicum.android.diploma.domain.api
+-
+-interface ThemeSettingsRepository {
+-    fun installTheme(): Boolean
+-    fun switchTheme(themeBooleanValue: Boolean): Boolean
+-}
