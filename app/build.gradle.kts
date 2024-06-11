@@ -42,6 +42,9 @@ android {
 }
 
 dependencies {
+    // region DI
+    implementation(libs.koin.android)
+
     implementation(libs.androidX.core)
     implementation(libs.androidX.appCompat)
 
