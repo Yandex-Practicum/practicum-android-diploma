@@ -7,8 +7,8 @@ import java.util.Locale
 
 object SalaryFormater {
     fun formaterForSalary(context: Context, from: Int?, to: Int?, currency: String?): String {
-        val fromOnly = context.getString(R.string.salary_half_mask)
-        val toOnly = context.getString(R.string.salary_half_mask)
+        val fromOnly = context.getString(R.string.salary_from_mask)
+        val toOnly = context.getString(R.string.salary_to_mask)
         val fromAndTo = context.getString(R.string.salary_full_mask)
 
         val numberFormat: NumberFormat = NumberFormat.getInstance(Locale("ru", "RU"))
@@ -23,7 +23,7 @@ object SalaryFormater {
             fromOnly != null && toOnly != null -> {
                 fromAndTo.format(numberFormat.format(from), numberFormat.format(to), currency) }
 
-            else -> "Зарплата не указана"
+            else -> context.getString(R.string.empty_salary)
         }
     }
 }
