@@ -120,5 +120,8 @@
     <string name="tvRequirementsLabel">Требования</string>
     <string name="tvConditionsLabel">Условия</string>
     <string name="tvJobResponsibilityLabel">Обязанности</string>
+    <string name="java_developer_omsk">Java-разработчик, Омск</string>
+    <string name="market">Маркет</string>
+    <string name="no_salary">Зарплата не указана</string>
 
 </resources>
