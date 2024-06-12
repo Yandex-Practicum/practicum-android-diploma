@@ -120,8 +120,16 @@
     <string name="tvRequirementsLabel">Требования</string>
     <string name="tvConditionsLabel">Условия</string>
     <string name="tvJobResponsibilityLabel">Обязанности</string>
+  
+    <!-- SALARY FORMATER-->
+    <string name="salary_from_mask">от %1$s %2$s</string>
+    <string name="salary_to_mask">до %1$s %2$s</string>
+    <string name="salary_full_mask">от %1$s до %2$s %3$s</string>
+    <string name="empty_salary">Зарплата не указана</string>
+
     <string name="java_developer_omsk">Java-разработчик, Омск</string>
     <string name="market">Маркет</string>
     <string name="no_salary">Зарплата не указана</string>
+
 
 </resources>
