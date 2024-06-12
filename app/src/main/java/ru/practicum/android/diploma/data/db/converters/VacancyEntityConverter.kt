@@ -1,9 +1,9 @@
 package ru.practicum.android.diploma.data.db.converters
 
-import ru.practicum.android.diploma.data.db.ContactsEntity
-import ru.practicum.android.diploma.data.db.PhoneEntity
-import ru.practicum.android.diploma.data.db.SalaryEntity
-import ru.practicum.android.diploma.data.db.VacancyEntity
+import ru.practicum.android.diploma.data.db.dao.models.ContactsEntity
+import ru.practicum.android.diploma.data.db.dao.models.PhoneEntity
+import ru.practicum.android.diploma.data.db.dao.models.SalaryEntity
+import ru.practicum.android.diploma.data.db.dao.models.VacancyEntity
 import ru.practicum.android.diploma.domain.models.Contacts
 import ru.practicum.android.diploma.domain.models.Phone
 import ru.practicum.android.diploma.domain.models.Salary

@@ -5,6 +5,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import ru.practicum.android.diploma.data.db.converters.ListOfDbConverter
 import ru.practicum.android.diploma.data.db.dao.FavoritesDao
+import ru.practicum.android.diploma.data.db.dao.models.VacancyEntity
 
 @Database(
     version = 1,

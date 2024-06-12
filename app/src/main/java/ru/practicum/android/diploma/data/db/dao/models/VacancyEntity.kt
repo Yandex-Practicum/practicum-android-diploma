@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data.db
+package ru.practicum.android.diploma.data.db.dao.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Embedded

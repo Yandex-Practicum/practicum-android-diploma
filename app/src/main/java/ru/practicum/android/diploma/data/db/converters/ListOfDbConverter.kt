@@ -3,7 +3,7 @@ package ru.practicum.android.diploma.data.db.converters
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import ru.practicum.android.diploma.data.db.PhoneEntity
+import ru.practicum.android.diploma.data.db.dao.models.PhoneEntity
 
 class ListOfDbConverter {
     @TypeConverter
