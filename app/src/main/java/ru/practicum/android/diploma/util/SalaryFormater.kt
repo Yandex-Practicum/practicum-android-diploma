@@ -15,13 +15,16 @@ object SalaryFormater {
 
         return when {
             fromOnly != null -> {
-                fromOnly.format(numberFormat.format(from), currency) }
+                fromOnly.format(numberFormat.format(from), currency)
+            }
 
             toOnly != null -> {
-                toOnly.format(numberFormat.format(to), currency) }
+                toOnly.format(numberFormat.format(to), currency)
+            }
 
             fromOnly != null && toOnly != null -> {
-                fromAndTo.format(numberFormat.format(from), numberFormat.format(to), currency) }
+                fromAndTo.format(numberFormat.format(from), numberFormat.format(to), currency)
+            }
 
             else -> context.getString(R.string.empty_salary)
         }
