@@ -11,7 +11,8 @@ import ru.practicum.android.diploma.data.db.dao.models.VacancyEntity
 
 @Database(
     version = 1,
-    entities = [VacancyEntity::class, CurrencyDictionaryEntity::class]
+    entities = [VacancyEntity::class, CurrencyDictionaryEntity::class],
+    exportSchema = false
 )
 @TypeConverters(ListOfDbConverter::class)
 abstract class AppDatabase : RoomDatabase() {
