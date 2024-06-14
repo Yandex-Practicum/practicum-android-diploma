@@ -6,9 +6,10 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.VacancyViewBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.util.SalaryFormater
 
 class VacancyViewHolder(private val binding: VacancyViewBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(vacancy: Vacancy, onClickListener: VacancyAdapter.OnClickListener) {
+    fun bind(vacancy: Vacancy, onClickListener: VacancyAdapter.OnClickListener, currencySymbol: String) {
         with(binding) {
             tvVacancyName.text = buildString {
                 append(vacancy.vacancyName)
@@ -17,6 +18,12 @@ class VacancyViewHolder(private val binding: VacancyViewBinding) : RecyclerView.
                 }
             }
             tvVacancyCompany.text = vacancy.employment
+            tvVacancySalary.text = SalaryFormater.formaterForSalary(
+                itemView.context,
+                vacancy.salary?.from,
+                vacancy.salary?.to,
+                currencySymbol
+            )
             Glide.with(itemView)
                 .load(vacancy.logoUrl)
                 .placeholder(R.drawable.vacancies_placeholder)
