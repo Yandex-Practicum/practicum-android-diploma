@@ -14,16 +14,16 @@ object SalaryFormater {
         val numberFormat: NumberFormat = NumberFormat.getInstance(Locale("ru", "RU"))
 
         return when {
-            fromOnly != null -> {
-                fromOnly.format(numberFormat.format(from), currency)
+            from != null && to == null -> {
+                String.format(fromOnly, numberFormat.format(from), currency)
             }
 
-            toOnly != null -> {
-                toOnly.format(numberFormat.format(to), currency)
+            from == null && to != null -> {
+                String.format(toOnly, numberFormat.format(to), currency)
             }
 
-            fromOnly != null && toOnly != null -> {
-                fromAndTo.format(numberFormat.format(from), numberFormat.format(to), currency)
+            from != null && to != null -> {
+                String.format(fromAndTo, numberFormat.format(from), numberFormat.format(to), currency)
             }
 
             else -> context.getString(R.string.empty_salary)
