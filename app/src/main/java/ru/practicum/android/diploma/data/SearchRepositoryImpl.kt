@@ -6,7 +6,7 @@ import ru.practicum.android.diploma.data.db.converters.VacancyDtoConverter
 import ru.practicum.android.diploma.data.dto.SearchRequest
 import ru.practicum.android.diploma.data.dto.SearchResponse
 import ru.practicum.android.diploma.data.network.NetworkClient
-import ru.practicum.android.diploma.domain.api.SearchRepository
+import ru.practicum.android.diploma.domain.api.search.SearchRepository
 import ru.practicum.android.diploma.domain.models.VacancyPage
 
 class SearchRepositoryImpl(
