@@ -9,4 +9,6 @@
     <color name="background">#801A1B22</color>
 
     <color name="black_day_white_night">@color/black</color>
+    <color name="vacancy_search_edit_text">@color/light_gray</color>
+    <color name="vacancy_search_text_color_hint">@color/gray</color>
 </resources>

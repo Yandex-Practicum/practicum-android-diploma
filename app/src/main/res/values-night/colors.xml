@@ -2,4 +2,6 @@
 <resources>
 
     <color name="black_day_white_night">@color/white</color>
+    <color name="vacancy_search_edit_text">@color/gray</color>
+    <color name="vacancy_search_text_color_hint">@color/white</color>
 </resources>
