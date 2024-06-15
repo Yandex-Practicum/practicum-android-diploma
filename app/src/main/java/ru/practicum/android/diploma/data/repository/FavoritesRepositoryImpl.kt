@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data
+package ru.practicum.android.diploma.data.repository
 
 import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.data.db.converters.VacancyEntityConverter
@@ -39,7 +39,7 @@ class FavoritesRepositoryImpl(
         appDatabase.favoritesDao().removeVacancyById(vacancyId)
     }
 
-    override suspend fun isVacancyFavorite(vacancy: Vacancy): Boolean {
-        return appDatabase.favoritesDao().isVacancyFavorite(vacancy.id) != 0
+    override suspend fun isVacancyFavorite(vacancyId: String): Boolean {
+        return appDatabase.favoritesDao().isVacancyFavorite(vacancyId) != 0
     }
 }

@@ -18,7 +18,7 @@ class VacancyViewHolder(private val binding: VacancyViewBinding) : RecyclerView.
                 }
             }
             tvVacancyCompany.text = vacancy.employment
-            tvVacancySalary.text = SalaryFormater.formaterForSalary(
+            tvVacancySalary.text = SalaryFormater.formatSalary(
                 itemView.context,
                 vacancy.salary?.from,
                 vacancy.salary?.to,

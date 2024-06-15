@@ -5,8 +5,8 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import ru.practicum.android.diploma.data.CurrencyRepositoryImpl
-import ru.practicum.android.diploma.data.DictionaryRepositoryImpl
+import ru.practicum.android.diploma.data.repository.CurrencyRepositoryImpl
+import ru.practicum.android.diploma.data.repository.DictionaryRepositoryImpl
 import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.data.db.converters.CurrencyConverter
 import ru.practicum.android.diploma.data.db.converters.ListOfDbConverter
