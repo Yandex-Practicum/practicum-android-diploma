@@ -8,7 +8,7 @@ interface FavoritesRepository {
     suspend fun getVacancyById(vacancyId: String): Vacancy
     suspend fun getFavoriteVacanciesPage(limit: Int, from: Int): VacancyPage
     suspend fun getAllFavorites(): List<Vacancy>
-    suspend fun isVacancyFavorite(vacancy: Vacancy): Boolean
+    suspend fun isVacancyFavorite(vacancyId: String): Boolean
     suspend fun removeVacancyFromFavorites(vacancy: Vacancy)
     suspend fun removeVacancyById(vacancyId: String)
 }

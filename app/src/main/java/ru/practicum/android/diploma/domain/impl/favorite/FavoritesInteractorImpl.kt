@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.domain.impl
+package ru.practicum.android.diploma.domain.impl.favorite
 
 import ru.practicum.android.diploma.domain.api.favorite.FavoritesInteractor
 import ru.practicum.android.diploma.domain.api.favorite.FavoritesRepository
@@ -22,8 +22,8 @@ class FavoritesInteractorImpl(private val repository: FavoritesRepository) : Fav
         return repository.getAllFavorites()
     }
 
-    override suspend fun isVacancyFavorite(vacancy: Vacancy): Boolean {
-        return repository.isVacancyFavorite(vacancy)
+    override suspend fun isVacancyFavorite(vacancyId: String): Boolean {
+        return repository.isVacancyFavorite(vacancyId)
     }
 
     override suspend fun removeVacancyFromFavorites(vacancy: Vacancy) {

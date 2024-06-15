@@ -6,27 +6,25 @@ import java.text.NumberFormat
 import java.util.Locale
 
 object SalaryFormater {
-    fun formaterForSalary(context: Context, from: Int?, to: Int?, currency: String?): String {
-        val fromOnly = context.getString(R.string.salary_from_mask)
-        val toOnly = context.getString(R.string.salary_to_mask)
-        val fromAndTo = context.getString(R.string.salary_full_mask)
-
+    fun formatSalary(context: Context, salaryFrom: Int?, salaryTo: Int?, currencySymbol: String?): String {
+        val fromText = context.getString(R.string.salary_from)
+        val toText = context.getString(R.string.salary_to)
+        val fromToText = context.getString(R.string.salary_from_to)
         val numberFormat: NumberFormat = NumberFormat.getInstance(Locale("ru", "RU"))
-
         return when {
-            from != null && to == null -> {
-                String.format(fromOnly, numberFormat.format(from), currency)
+            salaryFrom != null && salaryTo != null -> {
+                fromToText.format(numberFormat.format(salaryFrom), numberFormat.format(salaryTo), currencySymbol)
             }
 
-            from == null && to != null -> {
-                String.format(toOnly, numberFormat.format(to), currency)
+            salaryFrom != null -> {
+                fromText.format(numberFormat.format(salaryFrom), currencySymbol)
             }
 
-            from != null && to != null -> {
-                String.format(fromAndTo, numberFormat.format(from), numberFormat.format(to), currency)
+            salaryTo != null -> {
+                toText.format(numberFormat.format(salaryTo), currencySymbol)
             }
 
-            else -> context.getString(R.string.empty_salary)
+            else -> context.getString(R.string.salary_not_specified)
         }
     }
 }
