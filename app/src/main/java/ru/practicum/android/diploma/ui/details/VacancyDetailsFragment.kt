@@ -67,6 +67,8 @@ class VacancyDetailsFragment : Fragment() {
                 binding.apply {
                     ivPlaceholder.isVisible = true
                     tvPlaceholder.isVisible = true
+                    ivPlaceholder.setImageResource(R.drawable.server_error_cat)
+                    tvPlaceholder.setText(R.string.search_server_error)
                     nsvDetailsContent.isVisible = false
                 }
             }

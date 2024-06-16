@@ -20,7 +20,6 @@ class VacancyDetailsRepositoryImpl(
 
     override fun getVacancyDetails(vacancyId: String): Flow<VacancyDetailStatus<Vacancy>> = flow {
         val response = client.doRequest(VacancyDetailsRequest(vacancyId))
-        val code = response.resultCode
         when (response.resultCode) {
             CLIENT_SUCCESS_RESULT_CODE -> {
                 val detailsResponse = response as VacancyDetailsResponse
@@ -41,7 +40,7 @@ class VacancyDetailsRepositoryImpl(
             }
 
             else -> {
-                emit(VacancyDetailStatus.NoConnection())
+                emit(VacancyDetailStatus.NoConnection()) // SocketTimeoutException
             }
         }
     }
