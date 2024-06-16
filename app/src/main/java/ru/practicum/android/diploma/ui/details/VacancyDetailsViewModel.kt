@@ -84,7 +84,9 @@ class VacancyDetailsViewModel(
 
     fun getVacancyFromDb(vacancyId: String) {
         viewModelScope.launch(Dispatchers.IO) {
+            val currencyDictionary = dictionaryInteractor.getCurrencyDictionary()
             val vacancyFromDb = favoritesInteractor.getVacancyById(vacancyId)
+            currencySymbol = currencyDictionary[vacancyFromDb.salary?.currency]?.abbr ?: ""
             _stateLiveData.postValue(
                 VacancyDetailsState.Content(
                     vacancy = vacancyFromDb,
