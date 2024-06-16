@@ -6,17 +6,20 @@ import ru.practicum.android.diploma.domain.api.FavoritesVacancyInteractor
 import ru.practicum.android.diploma.domain.models.Vacancy
 
 class FavoritesVacancyInteractorImpl(
-    private val favoritesVacancyRepository: FavoritesVacancyRepository
+    //private val favoritesVacancyRepository: FavoritesVacancyRepository
 ) : FavoritesVacancyInteractor {
     override suspend fun getAllFavoritesVacancy(): Flow<List<Vacancy>> {
-        return favoritesVacancyRepository.getAllFavoritesVacancy()
+        TODO()
+        //return favoritesVacancyRepository.getAllFavoritesVacancy()
     }
 
     override suspend fun getOneFavoriteVacancy(vacancyId: String): Vacancy {
-        return favoritesVacancyRepository.getOneFavoriteVacancy(vacancyId)
+        TODO()
+        //return favoritesVacancyRepository.getOneFavoriteVacancy(vacancyId)
     }
 
     override suspend fun deleteFavoriteVacancy(vacancy: FavoriteVacancyEntity): Int {
-        return favoritesVacancyRepository.deleteFavoriteVacancy(vacancy)
+        TODO()
+        //return favoritesVacancyRepository.deleteFavoriteVacancy(vacancy)
     }
 }
