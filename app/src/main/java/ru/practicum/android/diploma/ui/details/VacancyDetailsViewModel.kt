@@ -6,9 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.data.dto.VacancyDetailsResponse
-import ru.practicum.android.diploma.data.repository.VacancyDetailsRepositoryImpl
 import ru.practicum.android.diploma.domain.api.details.VacancyDetailsInteractor
 import ru.practicum.android.diploma.domain.api.dictionary.DictionaryInteractor
 import ru.practicum.android.diploma.domain.api.favorite.FavoritesInteractor
@@ -31,26 +28,25 @@ class VacancyDetailsViewModel(
     fun fetchVacancyDetails(vacancyId: String) {
         renderState(VacancyDetailsState.Loading)
         viewModelScope.launch {
+            isFavorite = isVacancyFavorite(vacancyId)
             val currencyDictionary = dictionaryInteractor.getCurrencyDictionary()
             vacancyInteractor.getVacancyDetails(vacancyId).collect { result ->
                 result.onSuccess {
-                    isFavorite = isVacancyFavorite(vacancyId)
                     currencySymbol = currencyDictionary[it.salary?.currency]?.abbr ?: ""
                     renderState(VacancyDetailsState.Content(it, currencySymbol!!, isFavorite))
                 }
                 result.onFailure {
                     val resultCode = it.message
-                    when (resultCode) {
-                        INTERNAL_SERVER_ERROR_HTTP_CODE -> {
-                            renderState(VacancyDetailsState.Error)
-                        }
-
-                        else -> {
-                            isFavorite = isVacancyFavorite(vacancyId)
-                            if (isFavorite) {
-                                getVacancyFromDb(vacancyId)
-                            } else {
+                    if (isFavorite) {
+                        getVacancyFromDb(vacancyId)
+                    } else {
+                        when (resultCode) {
+                            NO_INTERNET_RESULT_CODE -> {
                                 renderState(VacancyDetailsState.NotInDb)
+                            }
+
+                            else -> {
+                                renderState(VacancyDetailsState.Error)
                             }
                         }
                     }
@@ -126,8 +122,6 @@ class VacancyDetailsViewModel(
     }
 
     companion object {
-        const val CLIENT_SUCCESS_RESULT_CODE = "200"
-        const val BAD_REQUEST_HTTP_CODE = "400"
-        const val INTERNAL_SERVER_ERROR_HTTP_CODE = "500"
+        const val NO_INTERNET_RESULT_CODE = "-1"
     }
 }
