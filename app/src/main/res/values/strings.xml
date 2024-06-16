@@ -9,4 +9,8 @@
     <string name="developer_name_4">Гурова Надежда</string>
     <string name="developer_name_5">Газарова Полина</string>
     <string name="team_members">Над приложением работали</string>
+    <string name="salary_is_not_specified">зарплата не указана</string>
+    <string name="from">"от"</string>
+    <string name="to">"до"</string>
+    <string name="comma">","</string>
 </resources>

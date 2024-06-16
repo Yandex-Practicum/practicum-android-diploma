@@ -8,4 +8,9 @@
     <dimen name="indent_20">20dp</dimen>
     <dimen name="indent_24">24dp</dimen>
     <dimen name="indent_32">32dp</dimen>
+    <dimen name="indent_48">48dp</dimen>
+    <dimen name="border_width_employer_logo">1dp</dimen>
+    <dimen name="padding_width_image_view_employer_logo">2dp</dimen>
+    <dimen name="margin_width_image_view_employer_logo">8dp</dimen>
+    <dimen name="corner_radius_employer_logo">12dp</dimen>
 </resources>
