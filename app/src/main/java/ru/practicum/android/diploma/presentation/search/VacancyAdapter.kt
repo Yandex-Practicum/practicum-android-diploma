@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.presentation.search
 
 import android.content.Context
-import android.net.Uri
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -14,17 +13,14 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.ItemVacancyViewBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
 
-class VacancyAdapter() :
+class VacancyAdapter :
     RecyclerView.Adapter<VacancyAdapter.VacancyViewHolder>() {
     private var vacancyList = arrayListOf<Vacancy>()
     private var itemVacancyClickListener: ItemVacancyClickInterface? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VacancyViewHolder {
         return VacancyViewHolder(
-            ItemVacancyViewBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            ), itemVacancyClickListener
+            ItemVacancyViewBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+            itemVacancyClickListener
         )
     }
 
@@ -77,7 +73,6 @@ class VacancyAdapter() :
             )
             employerName.text = vacancy.employerName
             vacancySalary.text = setSalary(vacancy)
-
 
             Glide.with(itemView)
                 .load(vacancy.employerLogoUrl)
