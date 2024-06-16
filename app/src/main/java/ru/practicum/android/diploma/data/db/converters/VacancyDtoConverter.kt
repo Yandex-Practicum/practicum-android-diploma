@@ -18,7 +18,7 @@ class VacancyDtoConverter {
                 vacancyName = vacancyName,
                 companyName = employer.name,
                 alternateUrl = alternateUrl,
-                logoUrl = employer.logo?.big,
+                logoUrl = employer.logo?.original,
                 area = area.name,
                 employment = employment?.name,
                 experience = experience?.name,
