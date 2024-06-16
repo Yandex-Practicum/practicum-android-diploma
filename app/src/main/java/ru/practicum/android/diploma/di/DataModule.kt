@@ -11,8 +11,6 @@ import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.data.network.HeadHunterApi
 import ru.practicum.android.diploma.data.network.HeadHunterNetworkClient
 import ru.practicum.android.diploma.data.network.HeadHunterRetrofitNetworkClient
-import ru.practicum.android.diploma.domain.api.FavoritesVacancyInteractor
-import ru.practicum.android.diploma.domain.impl.FavoritesVacancyInteractorImpl
 import ru.practicum.android.diploma.util.BASE_URL
 import ru.practicum.android.diploma.util.SHARED_PREFERENCES
 
