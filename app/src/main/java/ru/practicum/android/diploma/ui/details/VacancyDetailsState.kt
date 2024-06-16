@@ -8,5 +8,6 @@ sealed interface VacancyDetailsState {
     object NotInDb : VacancyDetailsState
     data class Content(val vacancy: Vacancy, val currencySymbol: String, val isFavorite: Boolean) :
         VacancyDetailsState
+
     data class NoConnection(val vacancy: Vacancy) : VacancyDetailsState
 }
