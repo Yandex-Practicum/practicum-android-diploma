@@ -92,6 +92,9 @@ class SearchFragment : Fragment() {
         viewModel.newPageLoading.observe(viewLifecycleOwner) {
             renderNewPageLoading(it)
         }
+        viewModel.nextPageError.observe(viewLifecycleOwner) {
+            renderNewPageError(it)
+        }
     }
 
     @Deprecated("Deprecated in Java")
@@ -120,15 +123,15 @@ class SearchFragment : Fragment() {
                 state.vacancyPage,
                 state.currencyDictionary
             )
-
-            is SearchState.LastPage -> renderLastPage()
-            is SearchState.NextPageError -> renderNewPageError()
         }
     }
 
-    private fun renderNewPageError() {
-        binding.progressBarBottom.isVisible = false
-        Toast.makeText(context, R.string.search_server_error, Toast.LENGTH_LONG).show()
+    private fun renderNewPageError(show: Boolean) {
+        if (show) {
+            binding.progressBarBottom.isVisible = false
+            Toast.makeText(context, R.string.search_server_error, Toast.LENGTH_LONG).show()
+            viewModel.newPageErrorToastShown()
+        }
     }
 
     private fun renderLastPage() {

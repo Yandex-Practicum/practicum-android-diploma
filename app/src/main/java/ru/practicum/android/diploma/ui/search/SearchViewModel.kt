@@ -30,6 +30,8 @@ class SearchViewModel(
     val stateSearch: LiveData<SearchState> get() = _stateSearch
     private val _newPageLoading = MutableLiveData(false)
     val newPageLoading: LiveData<Boolean> get() = _newPageLoading
+    private val _nextPageError = MutableLiveData(false)
+    val nextPageError: LiveData<Boolean> get() = _nextPageError
 
     private fun search(request: String, options: HashMap<String, String>) {
         if (request.isNullOrEmpty()) {
@@ -91,17 +93,25 @@ class SearchViewModel(
     private fun onSearchFailure(message: String?) {
         if (message != "-1") {
             if (currPage != 0 && currPage != null) {
-                renderState(SearchState.NextPageError)
+                showNewPageErrorToast()
             } else {
                 renderState(SearchState.ServerError(message ?: ""))
             }
         } else {
             if (currPage != 0 && currPage != null) {
-                renderState(SearchState.NextPageError)
+                showNewPageErrorToast()
             } else {
                 renderState(SearchState.NoConnection)
             }
         }
+    }
+
+    private fun showNewPageErrorToast() {
+        _nextPageError.postValue(true)
+    }
+
+    fun newPageErrorToastShown() {
+        _nextPageError.postValue(false)
     }
 
     private fun onSearchSuccess(page: VacancyPage, currencyDictionary: Map<String, Currency>) {
@@ -110,7 +120,7 @@ class SearchViewModel(
         Log.v("SEARCH", "page $currPage list ${page.vacancyList}")
         when {
             page.currPage == 0 && page.vacancyList.isEmpty() -> renderState(SearchState.Empty)
-            page.currPage != 0 && page.vacancyList.isEmpty() -> renderState(SearchState.LastPage)
+            page.currPage != 0 && page.vacancyList.isEmpty() -> _newPageLoading.postValue(false)
             else -> {
                 renderState(
                     SearchState.Content(
