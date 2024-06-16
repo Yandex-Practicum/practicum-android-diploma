@@ -63,7 +63,8 @@ class SearchFragment : Fragment() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (dy > 0) {
-                    val pos = (binding.rvSearch.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                    val pos =
+                        (binding.rvSearch.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
                     val itemsCount = _adapter?.itemCount ?: 0
                     if (pos >= itemsCount - 1) {
                         viewModel.onLastItemReached()
@@ -110,7 +111,11 @@ class SearchFragment : Fragment() {
             is SearchState.Empty -> renderSearchEmpty()
             is SearchState.NoConnection -> renderSearchNoConnection()
             is SearchState.ServerError -> renderSearchError()
-            is SearchState.Content -> renderSearchContent(state.vacancyPage, state.currencyDictionary)
+            is SearchState.Content -> renderSearchContent(
+                state.vacancyPage,
+                state.currencyDictionary
+            )
+
             is SearchState.LastPage -> renderLastPage()
             is SearchState.NextPageError -> renderNewPageError()
         }
@@ -183,7 +188,11 @@ class SearchFragment : Fragment() {
 
     private fun renderSearchNoConnection() {
         if (vacanciesList.size > 0) {
-            Snackbar.make(binding.rvSearch, getString(R.string.search_no_connection), Snackbar.LENGTH_LONG).show()
+            Snackbar.make(
+                binding.rvSearch,
+                getString(R.string.search_no_connection),
+                Snackbar.LENGTH_LONG
+            ).show()
             with(binding) {
                 tvButtonSearchResult.isVisible = true
                 rvSearch.isVisible = true
@@ -206,7 +215,10 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun renderSearchContent(vacancyPage: VacancyPage, currencyDictionary: Map<String, Currency>) {
+    private fun renderSearchContent(
+        vacancyPage: VacancyPage,
+        currencyDictionary: Map<String, Currency>
+    ) {
         _adapter?.vacancyList?.clear()
         _adapter?.vacancyList?.addAll(vacancyPage.vacancyList)
         vacanciesList.clear()
