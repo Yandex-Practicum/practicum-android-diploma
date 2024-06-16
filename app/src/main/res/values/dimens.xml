@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_size_12">12sp</dimen>
+    <dimen name="text_size_16">16sp</dimen>
+    <dimen name="text_size_22">22sp</dimen>
+    <dimen name="text_size_32">32sp</dimen>
+    <dimen name="indent_16">16dp</dimen>
+    <dimen name="indent_20">20dp</dimen>
+    <dimen name="indent_24">24dp</dimen>
+    <dimen name="indent_32">32dp</dimen>
+</resources>
