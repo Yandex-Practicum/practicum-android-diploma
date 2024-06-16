@@ -1,19 +1,61 @@
 [versions]
 
+activityKtx = "1.9.0"
+constraintlayoutCore = "1.0.4"
+fragmentKtx = "1.7.0"
+glide = "4.15.1"
+glideTransformations = "4.3.0"
+gson = "2.10.1"
 java = "VERSION_1_8"
 
 # Build constants
+koinAndroid = "3.3.0"
+lifecycleLivedataCoreKtx = "2.7.0"
+material = "1.12.0"
 minSdk = "26"
 compileSdk = "34"
+navigationFragmentKtx = "2.7.7"
+peko = "2.1.2"
+retrofit = "2.9.0"
+roomCompiler = "2.6.1"
+rxandroid = "3.0.0"
+rxjava = "2.2.21"
+rxjavaVersion = "3.1.3"
+rxpermissions = "0.12"
 targetSdk = "33"
 
 # Detekt
 detekt = "1.23.3"
-detektTwitterComposeRules ="0.0.26"
+detektTwitterComposeRules = "0.0.26"
+navigationFragment = "2.7.7"
+navigationUiKtx = "2.7.7"
+viewpager2 = "1.0.0"
+volley = "1.2.1"
 
 [libraries]
 
 # Detekt
+activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }
+compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
+constraintlayout-core = { module = "androidx.constraintlayout:constraintlayout-core", version.ref = "constraintlayoutCore" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+glide-transformations = { module = "jp.wasabeef:glide-transformations", version.ref = "glideTransformations" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinAndroid" }
+lifecycle-livedata-core-ktx = { module = "androidx.lifecycle:lifecycle-livedata-core-ktx", version.ref = "lifecycleLivedataCoreKtx" }
+material-v1110 = { module = "com.google.android.material:material", version.ref = "material" }
+navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+peko = { module = "com.markodevcic:peko", version.ref = "peko" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomCompiler" }
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomCompiler" }
+rxandroid = { module = "io.reactivex.rxjava3:rxandroid", version.ref = "rxandroid" }
+rxjava = { module = "io.reactivex.rxjava2:rxjava", version.ref = "rxjava" }
+rxjava3-rxjava = { module = "io.reactivex.rxjava3:rxjava", version.ref = "rxjavaVersion" }
+rxpermissions = { module = "com.github.tbruyelle:rxpermissions", version.ref = "rxpermissions" }
 staticAnalysis-detektPlugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
 staticAnalysis-detektCli = { module = "io.gitlab.arturbosch.detekt:detekt-cli", version.ref = "detekt" }
 staticAnalysis-detektApi = { module = "io.gitlab.arturbosch.detekt:detekt-api", version.ref = "detekt" }
@@ -23,11 +65,11 @@ staticAnalysis-detektLibraries = { module = "io.gitlab.arturbosch.detekt:detekt-
 staticAnalysis-detektTwitterComposeRules = { module = "com.twitter.compose.rules:detekt", version.ref = "detektTwitterComposeRules" }
 
 # AndroidX
-androidX-core = "androidx.core:core-ktx:1.12.0"
+androidX-core = "androidx.core:core-ktx:1.13.1"
 androidX-appCompat = "androidx.appcompat:appcompat:1.6.1"
 
 # UI layer libraries
-ui-material = "com.google.android.material:material:1.10.0"
+ui-material = "com.google.android.material:material:1.12.0"
 ui-constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.4"
 
 # Unit tests
@@ -36,5 +78,9 @@ unitTests-junit = "junit:junit:4.13.2"
 # UI tests
 uiTests-junitExt = "androidx.test.ext:junit:1.1.5"
 uiTests-espressoCore = "androidx.test.espresso:espresso-core:3.5.1"
+navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
+navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
+viewpager2 = { module = "androidx.viewpager2:viewpager2", version.ref = "viewpager2" }
+volley = { module = "com.android.volley:volley", version.ref = "volley" }
 
 [bundles]
