@@ -69,10 +69,11 @@ class RetrofitNetworkClient(
         try {
             val response =
                 headHunterApi.getVacancyDetails(BEARER_TOKEN, vacancyId)
-            return if (response.isSuccessful)
+            return if (response.isSuccessful) {
                 VacancyDetailsResponse(response.body()).apply { resultCode = CLIENT_SUCCESS_RESULT_CODE }
-            else
+            } else {
                 VacancyDetailsResponse(null).apply { resultCode = response.code() }
+            }
         } catch (e: IOException) {
             Log.e(NETWORK_ERROR, e.toString())
             return VacancyDetailsResponse(null).apply { resultCode = CLIENT_ERROR_RESULT_CODE }
