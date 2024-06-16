@@ -6,6 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.data.dto.VacancyDetailsResponse
+import ru.practicum.android.diploma.data.repository.VacancyDetailsRepositoryImpl
 import ru.practicum.android.diploma.domain.api.details.VacancyDetailsInteractor
 import ru.practicum.android.diploma.domain.api.dictionary.DictionaryInteractor
 import ru.practicum.android.diploma.domain.api.favorite.FavoritesInteractor
@@ -30,26 +33,26 @@ class VacancyDetailsViewModel(
         viewModelScope.launch {
             val currencyDictionary = dictionaryInteractor.getCurrencyDictionary()
             vacancyInteractor.getVacancyDetails(vacancyId).collect { result ->
-                when (result) {
-                    is VacancyDetailStatus.Loading -> renderState(VacancyDetailsState.Loading)
-
-                    is VacancyDetailStatus.Content -> {
-                        isFavorite = isVacancyFavorite(vacancyId)
-                        currencySymbol = currencyDictionary[result.data?.salary?.currency]?.abbr ?: ""
-                        renderState(VacancyDetailsState.Content(result.data!!, currencySymbol!!, isFavorite))
-                    }
-
-                    is VacancyDetailStatus.NoConnection -> {
-                        isFavorite = isVacancyFavorite(vacancyId)
-                        if (isFavorite) {
-                            getVacancyFromDb(vacancyId)
-                        } else {
-                            renderState(VacancyDetailsState.NotInDb)
+                result.onSuccess {
+                    isFavorite = isVacancyFavorite(vacancyId)
+                    currencySymbol = currencyDictionary[it.salary?.currency]?.abbr ?: ""
+                    renderState(VacancyDetailsState.Content(it, currencySymbol!!, isFavorite))
+                }
+                result.onFailure {
+                    val resultCode = it.message
+                    when (resultCode) {
+                        INTERNAL_SERVER_ERROR_HTTP_CODE -> {
+                            renderState(VacancyDetailsState.Error)
                         }
-                    }
 
-                    is VacancyDetailStatus.Error -> {
-                        renderState(VacancyDetailsState.Error)
+                        else -> {
+                            isFavorite = isVacancyFavorite(vacancyId)
+                            if (isFavorite) {
+                                getVacancyFromDb(vacancyId)
+                            } else {
+                                renderState(VacancyDetailsState.NotInDb)
+                            }
+                        }
                     }
                 }
             }
@@ -120,5 +123,11 @@ class VacancyDetailsViewModel(
         viewModelScope.launch {
             sharingInteractor.eMail(email)
         }
+    }
+
+    companion object {
+        const val CLIENT_SUCCESS_RESULT_CODE = "200"
+        const val BAD_REQUEST_HTTP_CODE = "400"
+        const val INTERNAL_SERVER_ERROR_HTTP_CODE = "500"
     }
 }
