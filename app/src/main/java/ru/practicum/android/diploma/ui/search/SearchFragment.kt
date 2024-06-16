@@ -75,6 +75,7 @@ class SearchFragment : Fragment() {
         binding.etButtonSearch.doOnTextChanged { text, _, _, _ ->
             hideIconEditText(text)
             if (binding.etButtonSearch.hasFocus()) {
+                vacanciesList.clear()
                 viewModel.searchDebounce(text.toString())
             }
         }
