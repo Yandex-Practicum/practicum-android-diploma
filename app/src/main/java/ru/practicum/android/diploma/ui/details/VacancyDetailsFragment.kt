@@ -33,10 +33,10 @@ class VacancyDetailsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         _binding = FragmentVacancyDetailsBinding.inflate(inflater, container, false)
         paramVacancyId = arguments?.getString(VACANCY_ID)
-        return _binding?.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

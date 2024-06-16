@@ -39,9 +39,9 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
-        return _binding?.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -86,11 +86,6 @@ class SearchFragment : Fragment() {
         viewModel.newPageLoading.observe(viewLifecycleOwner) {
             renderNewPageLoading(it)
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        toolbar.setNavigationIcon(null)
     }
 
     @Deprecated("Deprecated in Java")
@@ -214,6 +209,8 @@ class SearchFragment : Fragment() {
     private fun renderSearchContent(vacancyPage: VacancyPage, currencyDictionary: Map<String, Currency>) {
         _adapter?.vacancyList?.clear()
         _adapter?.vacancyList?.addAll(vacancyPage.vacancyList)
+        vacanciesList.clear()
+        vacanciesList.addAll(vacancyPage.vacancyList)
         _adapter?.currencyDictionary?.clear()
         _adapter?.currencyDictionary?.putAll(currencyDictionary)
         _adapter?.notifyDataSetChanged()
@@ -274,6 +271,11 @@ class SearchFragment : Fragment() {
                 false
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        toolbar.setNavigationIcon(null)
     }
 
     override fun onDestroyView() {
