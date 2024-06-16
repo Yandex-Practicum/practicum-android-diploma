@@ -33,7 +33,6 @@ class SearchFragment : Fragment() {
     private val viewModel by viewModel<SearchViewModel>()
     private val toolbar by lazy { (requireActivity() as RootActivity).toolbar }
     private var _adapter: VacancyAdapter? = null
-    private val vacanciesList: ArrayList<Vacancy> = arrayListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,7 +51,12 @@ class SearchFragment : Fragment() {
             Log.v("SEARCH", "state change curr state $it")
             render(it)
         }
-        _adapter = VacancyAdapter(vacanciesList, object : VacancyAdapter.OnClickListener {
+        val currentState = viewModel.stateSearch.value
+        val vacanciesList =
+            if (currentState is SearchState.Content) currentState.vacancyPage.vacancyList else listOf()
+        val vacanciesArrayList = arrayListOf<Vacancy>()
+        vacanciesArrayList.addAll(vacanciesList)
+        _adapter = VacancyAdapter(vacanciesArrayList, object : VacancyAdapter.OnClickListener {
             override fun onClick(vacancy: Vacancy) {
                 openFragmentVacancy(vacancyId = vacancy.id)
             }
@@ -75,7 +79,7 @@ class SearchFragment : Fragment() {
         binding.etButtonSearch.doOnTextChanged { text, _, _, _ ->
             hideIconEditText(text)
             if (binding.etButtonSearch.hasFocus()) {
-                vacanciesList.clear()
+                _adapter!!.vacancyList.clear()
                 viewModel.searchDebounce(text.toString())
             }
         }
@@ -188,7 +192,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun renderSearchNoConnection() {
-        if (vacanciesList.size > 0) {
+        if (_adapter?.vacancyList?.size!! > 0) {
             Snackbar.make(
                 binding.rvSearch,
                 getString(R.string.search_no_connection),
@@ -222,8 +226,6 @@ class SearchFragment : Fragment() {
     ) {
         _adapter?.vacancyList?.clear()
         _adapter?.vacancyList?.addAll(vacancyPage.vacancyList)
-        vacanciesList.clear()
-        vacanciesList.addAll(vacancyPage.vacancyList)
         _adapter?.currencyDictionary?.clear()
         _adapter?.currencyDictionary?.putAll(currencyDictionary)
         _adapter?.notifyDataSetChanged()
