@@ -72,14 +72,12 @@ class VacancyDetailsFragment : Fragment() {
                     nsvDetailsContent.isVisible = false
                 }
             }
-
             is VacancyDetailsState.Loading -> {
                 binding.apply {
                     nsvDetailsContent.isVisible = false
                     progressBar.isVisible = true
                 }
             }
-
             is VacancyDetailsState.Content -> {
                 val vacancyDetails = state.vacancy
                 toolbarSetup(vacancyDetails)
@@ -88,11 +86,9 @@ class VacancyDetailsFragment : Fragment() {
                 binding.progressBar.isVisible = false
                 binding.nsvDetailsContent.isVisible = true
             }
-
             is VacancyDetailsState.NoConnection -> {
                 viewModel.getVacancyFromDb(state.vacancy.id)
             }
-
             is VacancyDetailsState.NotInDb -> {
                 binding.apply {
                     ivPlaceholder.setImageResource(R.drawable.no_internet_scull)

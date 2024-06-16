@@ -28,28 +28,27 @@ class VacancyDetailsViewModel(
     fun fetchVacancyDetails(vacancyId: String) {
         renderState(VacancyDetailsState.Loading)
         viewModelScope.launch {
+            isFavorite = isVacancyFavorite(vacancyId)
             val currencyDictionary = dictionaryInteractor.getCurrencyDictionary()
             vacancyInteractor.getVacancyDetails(vacancyId).collect { result ->
-                when (result) {
-                    is VacancyDetailStatus.Loading -> renderState(VacancyDetailsState.Loading)
+                result.onSuccess {
+                    currencySymbol = currencyDictionary[it.salary?.currency]?.abbr ?: ""
+                    renderState(VacancyDetailsState.Content(it, currencySymbol!!, isFavorite))
+                }
+                result.onFailure {
+                    val resultCode = it.message
+                    if (isFavorite) {
+                        getVacancyFromDb(vacancyId)
+                    } else {
+                        when (resultCode) {
+                            NO_INTERNET_RESULT_CODE -> {
+                                renderState(VacancyDetailsState.NotInDb)
+                            }
 
-                    is VacancyDetailStatus.Content -> {
-                        isFavorite = isVacancyFavorite(vacancyId)
-                        currencySymbol = currencyDictionary[result.data?.salary?.currency]?.abbr ?: ""
-                        renderState(VacancyDetailsState.Content(result.data!!, currencySymbol!!, isFavorite))
-                    }
-
-                    is VacancyDetailStatus.NoConnection -> {
-                        isFavorite = isVacancyFavorite(vacancyId)
-                        if (isFavorite) {
-                            getVacancyFromDb(vacancyId)
-                        } else {
-                            renderState(VacancyDetailsState.NotInDb)
+                            else -> {
+                                renderState(VacancyDetailsState.Error)
+                            }
                         }
-                    }
-
-                    is VacancyDetailStatus.Error -> {
-                        renderState(VacancyDetailsState.Error)
                     }
                 }
             }
@@ -85,7 +84,9 @@ class VacancyDetailsViewModel(
 
     fun getVacancyFromDb(vacancyId: String) {
         viewModelScope.launch(Dispatchers.IO) {
+            val currencyDictionary = dictionaryInteractor.getCurrencyDictionary()
             val vacancyFromDb = favoritesInteractor.getVacancyById(vacancyId)
+            currencySymbol = currencyDictionary[vacancyFromDb.salary?.currency]?.abbr ?: ""
             _stateLiveData.postValue(
                 VacancyDetailsState.Content(
                     vacancy = vacancyFromDb,
@@ -120,5 +121,9 @@ class VacancyDetailsViewModel(
         viewModelScope.launch {
             sharingInteractor.eMail(email)
         }
+    }
+
+    companion object {
+        const val NO_INTERNET_RESULT_CODE = "-1"
     }
 }

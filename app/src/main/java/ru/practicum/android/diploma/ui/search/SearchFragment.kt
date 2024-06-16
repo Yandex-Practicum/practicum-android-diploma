@@ -134,10 +134,6 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun renderLastPage() {
-        binding.progressBarBottom.isVisible = false
-    }
-
     private fun renderNewPageLoading(showBottomProgressBar: Boolean) {
         binding.progressBarBottom.isVisible = showBottomProgressBar
     }
