@@ -3,14 +3,12 @@ package ru.practicum.android.diploma.data.repository
 import android.content.Context
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.db.converters.VacancyDtoConverter
 import ru.practicum.android.diploma.data.dto.VacancyDetailsRequest
 import ru.practicum.android.diploma.data.dto.VacancyDetailsResponse
 import ru.practicum.android.diploma.data.network.NetworkClient
 import ru.practicum.android.diploma.domain.api.details.VacancyDetailsRepository
 import ru.practicum.android.diploma.domain.models.Vacancy
-import ru.practicum.android.diploma.ui.details.VacancyDetailStatus
 
 class VacancyDetailsRepositoryImpl(
     private val client: NetworkClient,
@@ -33,6 +31,7 @@ class VacancyDetailsRepositoryImpl(
                     )
                 }
             }
+
             else -> {
                 emit(Result.failure(Throwable(response.resultCode.toString())))
             }
