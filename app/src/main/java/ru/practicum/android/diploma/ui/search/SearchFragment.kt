@@ -88,11 +88,6 @@ class SearchFragment : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        toolbar.setNavigationIcon(null)
-    }
-
     @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
@@ -214,6 +209,8 @@ class SearchFragment : Fragment() {
     private fun renderSearchContent(vacancyPage: VacancyPage, currencyDictionary: Map<String, Currency>) {
         _adapter?.vacancyList?.clear()
         _adapter?.vacancyList?.addAll(vacancyPage.vacancyList)
+        vacanciesList.clear()
+        vacanciesList.addAll(vacancyPage.vacancyList)
         _adapter?.currencyDictionary?.clear()
         _adapter?.currencyDictionary?.putAll(currencyDictionary)
         _adapter?.notifyDataSetChanged()
@@ -274,6 +271,11 @@ class SearchFragment : Fragment() {
                 false
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        toolbar.setNavigationIcon(null)
     }
 
     override fun onDestroyView() {
