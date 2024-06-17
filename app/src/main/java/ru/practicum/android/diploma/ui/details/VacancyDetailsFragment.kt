@@ -57,8 +57,7 @@ class VacancyDetailsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        toolbar.menu.findItem(R.id.share).isVisible = true
-        toolbar.menu.findItem(R.id.favorite).isVisible = true
+        updateToolbarIconsVisibility()
     }
 
     private fun renderState(state: VacancyDetailsState) {
@@ -70,8 +69,6 @@ class VacancyDetailsFragment : Fragment() {
                     ivPlaceholder.setImageResource(R.drawable.server_error_cat)
                     tvPlaceholder.setText(R.string.search_server_error)
                     nsvDetailsContent.isVisible = false
-                    toolbar.menu.findItem(R.id.share).isVisible = false
-                    toolbar.menu.findItem(R.id.favorite).isVisible = false
                 }
             }
             is VacancyDetailsState.Loading -> {
@@ -85,8 +82,6 @@ class VacancyDetailsFragment : Fragment() {
                 toolbarSetup(vacancyDetails)
                 showToolbarForDetailsVacancy(state.isFavorite)
                 showContent(state.vacancy, state.currencySymbol)
-                binding.progressBar.isVisible = false
-                binding.nsvDetailsContent.isVisible = true
             }
             is VacancyDetailsState.NoConnection -> {
                 viewModel.getVacancyFromDb(state.vacancy.id)
@@ -99,10 +94,20 @@ class VacancyDetailsFragment : Fragment() {
                     tvPlaceholder.isVisible = true
                     binding.progressBar.isVisible = false
                     nsvDetailsContent.isVisible = false
-                    toolbar.menu.findItem(R.id.share).isVisible = false
-                    toolbar.menu.findItem(R.id.favorite).isVisible = false
                 }
             }
+        }
+        updateToolbarIconsVisibility()
+    }
+
+    private fun updateToolbarIconsVisibility() {
+        val currentState = viewModel.stateLiveData.value
+        if (currentState is VacancyDetailsState.Content) {
+            toolbar.menu.findItem(R.id.share).isVisible = true
+            toolbar.menu.findItem(R.id.favorite).isVisible = true
+        } else {
+            toolbar.menu.findItem(R.id.share).isVisible = false
+            toolbar.menu.findItem(R.id.favorite).isVisible = false
         }
     }
 
@@ -239,8 +244,7 @@ class VacancyDetailsFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
-        toolbar.menu.findItem(R.id.share).isVisible = false
-        toolbar.menu.findItem(R.id.favorite).isVisible = false
+        updateToolbarIconsVisibility()
         toolbar.menu.findItem(R.id.filters).isVisible = false
     }
 
