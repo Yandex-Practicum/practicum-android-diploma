@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import ru.practicum.android.diploma.R
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
@@ -26,17 +28,22 @@ class SearchFragment : Fragment(), VacancyAdapter.ItemVacancyClickInterface {
         return binding.root
     }
 
-  /*  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         vacancyAdapter = VacancyAdapter()
         vacancyAdapter?.setInItemVacancyClickListener(this)
-        binding.recyclerviewVacancy.layoutManager = LinearLayoutManager(context)
-        binding.recyclerviewVacancy.adapter = vacancyAdapter
 
-        searchViewModel.vacancyList.observe(viewLifecycleOwner) { vacancyAdapter?.setVacancyList(it) }
+        // binding.searchRecyclerView = LinearLayoutManager(context)
+
+        binding.searchRecyclerView.adapter = vacancyAdapter
+
+        // searchViewModel.vacancyList.observe(viewLifecycleOwner) { vacancyAdapter?.setVacancyList(it) }
+
+        binding.filterButton.setOnClickListener {
+            findNavController().navigate(R.id.action_searchFragment_to_filtrationFragment)
+        }
     }
-*/
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
