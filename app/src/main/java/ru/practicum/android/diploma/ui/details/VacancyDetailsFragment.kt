@@ -108,7 +108,6 @@ class VacancyDetailsFragment : Fragment() {
         updateToolbarAndIconsVisibility(state)
     }
 
-
     private fun showContent(vacancy: Vacancy, currencySymbol: String) {
         if (vacancy != null) {
             currentVacancy = vacancy
