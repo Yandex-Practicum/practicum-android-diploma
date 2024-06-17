@@ -58,8 +58,8 @@ class VacancyDetailsFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         val currentState = viewModel.stateLiveData.value
-        if (currentState != null && currentVacancy != null) {
-            setupToolbar(currentVacancy!!, currentState)
+        if (currentState != null) {
+            setupToolbar(currentState)
         }
     }
 
@@ -109,7 +109,7 @@ class VacancyDetailsFragment : Fragment() {
         }
 
         if (state is VacancyDetailsState.Content) {
-            setupToolbar(state.vacancy, state)
+            setupToolbar(state)
         }
     }
 
@@ -219,8 +219,10 @@ class VacancyDetailsFragment : Fragment() {
         }
     }
 
-    private fun setupToolbar(vacancy: Vacancy, state: VacancyDetailsState?) {
+    private fun setupToolbar(state: VacancyDetailsState?) {
         if (state is VacancyDetailsState.Content) {
+            val vacancy = state.vacancy
+
             toolbar.menu.findItem(R.id.share).isVisible = true
             toolbar.menu.findItem(R.id.favorite).isVisible = true
             toolbar.menu.findItem(R.id.filters).isVisible = false
@@ -230,20 +232,19 @@ class VacancyDetailsFragment : Fragment() {
             } else {
                 toolbar.menu.findItem(R.id.favorite).setIcon(R.drawable.heart_icon)
             }
+
+            toolbar.menu.findItem(R.id.favorite).setOnMenuItemClickListener {
+                viewModel.addToFavorite(vacancy)
+                true
+            }
+            toolbar.menu.findItem(R.id.share).setOnMenuItemClickListener {
+                viewModel.shareApp(vacancy.alternateUrl!!)
+                true
+            }
         } else {
             toolbar.menu.findItem(R.id.share).isVisible = false
             toolbar.menu.findItem(R.id.favorite).isVisible = false
             toolbar.menu.findItem(R.id.filters).isVisible = false
-        }
-
-        // Устанавливаем слушатели для элементов меню
-        toolbar.menu.findItem(R.id.favorite).setOnMenuItemClickListener {
-            viewModel.addToFavorite(vacancy)
-            true
-        }
-        toolbar.menu.findItem(R.id.share).setOnMenuItemClickListener {
-            viewModel.shareApp(vacancy.alternateUrl!!)
-            true
         }
     }
 
