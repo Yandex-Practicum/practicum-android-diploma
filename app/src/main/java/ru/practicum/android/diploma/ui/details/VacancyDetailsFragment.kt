@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.ui.details
 
 import android.os.Bundle
 import android.text.Html
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -71,21 +72,27 @@ class VacancyDetailsFragment : Fragment() {
                     nsvDetailsContent.isVisible = false
                 }
             }
+
             is VacancyDetailsState.Loading -> {
                 binding.apply {
                     nsvDetailsContent.isVisible = false
                     progressBar.isVisible = true
                 }
             }
+
             is VacancyDetailsState.Content -> {
                 val vacancyDetails = state.vacancy
                 toolbarSetup(vacancyDetails)
                 showToolbarForDetailsVacancy(state.isFavorite)
                 showContent(state.vacancy, state.currencySymbol)
+                binding.progressBar.isVisible = false
+                binding.nsvDetailsContent.isVisible = true
             }
+
             is VacancyDetailsState.NoConnection -> {
                 viewModel.getVacancyFromDb(state.vacancy.id)
             }
+
             is VacancyDetailsState.NotInDb -> {
                 binding.apply {
                     ivPlaceholder.setImageResource(R.drawable.no_internet_scull)
@@ -244,7 +251,8 @@ class VacancyDetailsFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
-        updateToolbarIconsVisibility()
+        toolbar.menu.findItem(R.id.share).isVisible = false
+        toolbar.menu.findItem(R.id.favorite).isVisible = false
         toolbar.menu.findItem(R.id.filters).isVisible = false
     }
 
