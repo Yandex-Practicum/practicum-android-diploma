@@ -58,8 +58,8 @@ class VacancyDetailsFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         val currentState = viewModel.stateLiveData.value
-        if (currentState != null) {
-            updateToolbarAndIconsVisibility(currentState)
+        if (currentState != null && currentVacancy != null) {
+            setupToolbar(currentVacancy!!, currentState)
         }
     }
 
@@ -83,11 +83,13 @@ class VacancyDetailsFragment : Fragment() {
             }
 
             is VacancyDetailsState.Content -> {
-                val vacancyDetails = state.vacancy
-                toolbarSetup(vacancyDetails)
                 showContent(state.vacancy, state.currencySymbol)
-                binding.progressBar.isVisible = false
-                binding.nsvDetailsContent.isVisible = true
+                binding.apply {
+                    progressBar.isVisible = false
+                    nsvDetailsContent.isVisible = true
+                    binding.progressBar.isVisible = false
+                    binding.nsvDetailsContent.isVisible = true
+                }
             }
 
             is VacancyDetailsState.NoConnection -> {
@@ -105,7 +107,10 @@ class VacancyDetailsFragment : Fragment() {
                 }
             }
         }
-        updateToolbarAndIconsVisibility(state)
+
+        if (state is VacancyDetailsState.Content) {
+            setupToolbar(state.vacancy, state)
+        }
     }
 
     private fun showContent(vacancy: Vacancy, currencySymbol: String) {
@@ -214,21 +219,7 @@ class VacancyDetailsFragment : Fragment() {
         }
     }
 
-    private fun toolbarSetup(vacancy: Vacancy) {
-        toolbar.menu.findItem(R.id.share).isVisible = false
-        toolbar.menu.findItem(R.id.favorite).isVisible = false
-        toolbar.menu.findItem(R.id.filters).isVisible = false
-        toolbar.menu.findItem(R.id.favorite).setOnMenuItemClickListener {
-            viewModel.addToFavorite(vacancy)
-            true
-        }
-        toolbar.menu.findItem(R.id.share).setOnMenuItemClickListener {
-            viewModel.shareApp(vacancy.alternateUrl!!)
-            true
-        }
-    }
-
-    private fun updateToolbarAndIconsVisibility(state: VacancyDetailsState) {
+    private fun setupToolbar(vacancy: Vacancy, state: VacancyDetailsState?) {
         if (state is VacancyDetailsState.Content) {
             toolbar.menu.findItem(R.id.share).isVisible = true
             toolbar.menu.findItem(R.id.favorite).isVisible = true
@@ -243,6 +234,16 @@ class VacancyDetailsFragment : Fragment() {
             toolbar.menu.findItem(R.id.share).isVisible = false
             toolbar.menu.findItem(R.id.favorite).isVisible = false
             toolbar.menu.findItem(R.id.filters).isVisible = false
+        }
+
+        // Устанавливаем слушатели для элементов меню
+        toolbar.menu.findItem(R.id.favorite).setOnMenuItemClickListener {
+            viewModel.addToFavorite(vacancy)
+            true
+        }
+        toolbar.menu.findItem(R.id.share).setOnMenuItemClickListener {
+            viewModel.shareApp(vacancy.alternateUrl!!)
+            true
         }
     }
 
