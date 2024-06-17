@@ -57,8 +57,10 @@ class VacancyDetailsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        toolbar.menu.findItem(R.id.share).isVisible = true
-        toolbar.menu.findItem(R.id.favorite).isVisible = true
+        val currentState = viewModel.stateLiveData.value
+        if (currentState != null) {
+            setupToolbar(currentState)
+        }
     }
 
     private fun renderState(state: VacancyDetailsState) {
@@ -72,23 +74,28 @@ class VacancyDetailsFragment : Fragment() {
                     nsvDetailsContent.isVisible = false
                 }
             }
+
             is VacancyDetailsState.Loading -> {
                 binding.apply {
                     nsvDetailsContent.isVisible = false
                     progressBar.isVisible = true
                 }
             }
+
             is VacancyDetailsState.Content -> {
-                val vacancyDetails = state.vacancy
-                toolbarSetup(vacancyDetails)
-                showToolbarForDetailsVacancy(state.isFavorite)
                 showContent(state.vacancy, state.currencySymbol)
-                binding.progressBar.isVisible = false
-                binding.nsvDetailsContent.isVisible = true
+                binding.apply {
+                    progressBar.isVisible = false
+                    nsvDetailsContent.isVisible = true
+                    binding.progressBar.isVisible = false
+                    binding.nsvDetailsContent.isVisible = true
+                }
             }
+
             is VacancyDetailsState.NoConnection -> {
                 viewModel.getVacancyFromDb(state.vacancy.id)
             }
+
             is VacancyDetailsState.NotInDb -> {
                 binding.apply {
                     ivPlaceholder.setImageResource(R.drawable.no_internet_scull)
@@ -99,6 +106,10 @@ class VacancyDetailsFragment : Fragment() {
                     nsvDetailsContent.isVisible = false
                 }
             }
+        }
+
+        if (state is VacancyDetailsState.Content) {
+            setupToolbar(state)
         }
     }
 
@@ -208,28 +219,32 @@ class VacancyDetailsFragment : Fragment() {
         }
     }
 
-    private fun toolbarSetup(vacancy: Vacancy) {
-        toolbar.menu.findItem(R.id.share).isVisible = false
-        toolbar.menu.findItem(R.id.favorite).isVisible = false
-        toolbar.menu.findItem(R.id.filters).isVisible = false
-        toolbar.menu.findItem(R.id.favorite).setOnMenuItemClickListener {
-            viewModel.addToFavorite(vacancy)
-            true
-        }
-        toolbar.menu.findItem(R.id.share).setOnMenuItemClickListener {
-            viewModel.shareApp(vacancy.alternateUrl!!)
-            true
-        }
-    }
+    private fun setupToolbar(state: VacancyDetailsState?) {
+        if (state is VacancyDetailsState.Content) {
+            val vacancy = state.vacancy
 
-    private fun showToolbarForDetailsVacancy(isFavorite: Boolean) {
-        toolbar.menu.findItem(R.id.share).isVisible = true
-        toolbar.menu.findItem(R.id.favorite).isVisible = true
-        toolbar.menu.findItem(R.id.filters).isVisible = false
-        if (isFavorite) {
-            toolbar.menu.findItem(R.id.favorite).setIcon(R.drawable.heart_on_icon)
+            toolbar.menu.findItem(R.id.share).isVisible = true
+            toolbar.menu.findItem(R.id.favorite).isVisible = true
+            toolbar.menu.findItem(R.id.filters).isVisible = false
+
+            if (state.isFavorite) {
+                toolbar.menu.findItem(R.id.favorite).setIcon(R.drawable.heart_on_icon)
+            } else {
+                toolbar.menu.findItem(R.id.favorite).setIcon(R.drawable.heart_icon)
+            }
+
+            toolbar.menu.findItem(R.id.favorite).setOnMenuItemClickListener {
+                viewModel.addToFavorite(vacancy)
+                true
+            }
+            toolbar.menu.findItem(R.id.share).setOnMenuItemClickListener {
+                viewModel.shareApp(vacancy.alternateUrl!!)
+                true
+            }
         } else {
-            toolbar.menu.findItem(R.id.favorite).setIcon(R.drawable.heart_icon)
+            toolbar.menu.findItem(R.id.share).isVisible = false
+            toolbar.menu.findItem(R.id.favorite).isVisible = false
+            toolbar.menu.findItem(R.id.filters).isVisible = false
         }
     }
 
