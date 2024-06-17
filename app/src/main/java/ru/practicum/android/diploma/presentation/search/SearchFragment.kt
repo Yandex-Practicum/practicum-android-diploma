@@ -26,7 +26,7 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.filterButton.setOnClickListener{
+        binding.filterButton.setOnClickListener {
             findNavController().navigate(R.id.action_searchFragment_to_filtrationFragment)
         }
     }
