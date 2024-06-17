@@ -10,22 +10,29 @@ class FavoritesViewModel : ViewModel() {
     private val _favoriteVacancyScreenState = MutableLiveData<FavoritesVacancyViewState>()
     val favoriteVacancyScreenState: LiveData<FavoritesVacancyViewState> get() = _favoriteVacancyScreenState
     fun getAllFavoritesVacancy() {
-        /*  viewModelScope.launch {
-              favoritesVacancyInteractor.getAllFavoritesVacancy().collect {
-                  try {
-                      if (it.isEmpty()) {
-                          _favoriteVacancyScreenState.postValue(FavoritesVacancyViewState.FavoritesVacancyEmptyDataResult)
-                      } else {
-                          _favoriteVacancyScreenState.postValue(
-                              FavoritesVacancyViewState
-                                  .FavoritesVacancyDataResult(listOfFavoriteVacancy = it)
-                          )
-                      }
-                  } catch (e: Exception) {
-                      _favoriteVacancyScreenState.postValue(FavoritesVacancyViewState.FavoritesVacancyError)
-                  }
-              }
-          }
-         */
+        /*       viewModelScope.launch {
+                    favoritesVacancyInteractor.getAllFavoritesVacancy().collect {
+                        try {
+                            if (it.isEmpty()) {
+                                _favoriteVacancyScreenState.postValue(
+                                    FavoritesVacancyViewState
+                                        .FavoritesVacancyEmptyDataResult
+                                )
+                            } else {
+                                _favoriteVacancyScreenState.postValue(
+                                    FavoritesVacancyViewState
+                                        .FavoritesVacancyDataResult(
+                                            listOfFavoriteVacancy = it
+                                        )
+                                )
+                            }
+                        } catch (e: Exception) {
+                            _favoriteVacancyScreenState.postValue(
+                                FavoritesVacancyViewState.FavoritesVacancyError
+                            )
+                        }
+                    }
+                }
+        */
     }
 }
