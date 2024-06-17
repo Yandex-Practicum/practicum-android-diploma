@@ -36,6 +36,7 @@ class SearchFragment : Fragment(), VacancyAdapter.ItemVacancyClickInterface {
 
         binding.iconClear.setOnClickListener {
             binding.searchInput.setText("")
+            vm.clearSearchResults()
         }
 
         binding.searchInput.addTextChangedListener(object : TextWatcher {
