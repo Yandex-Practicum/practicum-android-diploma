@@ -4,6 +4,9 @@
     <dimen name="text_size_16">16sp</dimen>
     <dimen name="text_size_22">22sp</dimen>
     <dimen name="text_size_32">32sp</dimen>
+    <dimen name="indent_4">4dp</dimen>
+    <dimen name="indent_8">8dp</dimen>
+    <dimen name="indent_12">12dp</dimen>
     <dimen name="indent_16">16dp</dimen>
     <dimen name="indent_20">20dp</dimen>
     <dimen name="indent_24">24dp</dimen>
@@ -13,4 +16,5 @@
     <dimen name="padding_width_image_view_employer_logo">2dp</dimen>
     <dimen name="margin_width_image_view_employer_logo">8dp</dimen>
     <dimen name="corner_radius_employer_logo">12dp</dimen>
+    <dimen name="indent_56">56dp</dimen>
 </resources>

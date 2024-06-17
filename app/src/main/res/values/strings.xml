@@ -13,4 +13,8 @@
     <string name="from">"от"</string>
     <string name="to">"до"</string>
     <string name="comma">","</string>
+    <string name="filtering_settings">Настройки фильтрации</string>
+    <string name="vacancy_search">Поиск вакансий</string>
+    <string name="input_search_request">Введите запрос</string>
+    <string name="no_such_vacancies">Таких вакансий нет</string>
 </resources>
