@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import ru.practicum.android.diploma.R
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
@@ -45,13 +47,19 @@ class SearchFragment : Fragment(), VacancyAdapter.ItemVacancyClickInterface {
             }
         })
 
-        /*        vacancyAdapter = VacancyAdapter()
-                vacancyAdapter?.setInItemVacancyClickListener(this)
-                binding.recyclerviewVacancy.layoutManager = LinearLayoutManager(context)
-                binding.recyclerviewVacancy.adapter = vacancyAdapter
+        vacancyAdapter = VacancyAdapter()
+        vacancyAdapter?.setInItemVacancyClickListener(this)
 
-                searchViewModel.vacancyList.observe(viewLifecycleOwner) { vacancyAdapter?.setVacancyList(it) }
-        */
+        // binding.searchRecyclerView = LinearLayoutManager(context)
+
+        binding.searchRecyclerView.adapter = vacancyAdapter
+
+        // searchViewModel.vacancyList.observe(viewLifecycleOwner) { vacancyAdapter?.setVacancyList(it) }
+
+        binding.filterButton.setOnClickListener {
+            findNavController().navigate(R.id.action_searchFragment_to_filtrationFragment)
+        }
+
     }
 
     override fun onDestroyView() {
