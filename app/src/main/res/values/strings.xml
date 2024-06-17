@@ -9,4 +9,9 @@
     <string name="developer_name_4">Гурова Надежда</string>
     <string name="developer_name_5">Газарова Полина</string>
     <string name="team_members">Над приложением работали</string>
+    <string name="filtering_settings">Настройки фильтрации</string>
+    <string name="vacancy_search">Поиск вакансий</string>
+    <string name="input_search_request">Введите запрос</string>
+    <string name="no_such_vacancies">Таких вакансий нет</string>
+
 </resources>
