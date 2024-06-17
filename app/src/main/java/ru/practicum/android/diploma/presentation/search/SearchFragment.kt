@@ -1,10 +1,13 @@
 package ru.practicum.android.diploma.presentation.search
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
@@ -26,17 +29,31 @@ class SearchFragment : Fragment(), VacancyAdapter.ItemVacancyClickInterface {
         return binding.root
     }
 
-  /*  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        vacancyAdapter = VacancyAdapter()
-        vacancyAdapter?.setInItemVacancyClickListener(this)
-        binding.recyclerviewVacancy.layoutManager = LinearLayoutManager(context)
-        binding.recyclerviewVacancy.adapter = vacancyAdapter
+        binding.iconClear.setOnClickListener {
+            binding.searchInput.setText("")
+        }
 
-        searchViewModel.vacancyList.observe(viewLifecycleOwner) { vacancyAdapter?.setVacancyList(it) }
+        binding.searchInput.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(p0: Editable?) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding.iconSearch.isVisible = s.isNullOrEmpty()
+                binding.iconClear.isVisible = !s.isNullOrEmpty()
+            }
+        })
+
+        /*        vacancyAdapter = VacancyAdapter()
+                vacancyAdapter?.setInItemVacancyClickListener(this)
+                binding.recyclerviewVacancy.layoutManager = LinearLayoutManager(context)
+                binding.recyclerviewVacancy.adapter = vacancyAdapter
+
+                searchViewModel.vacancyList.observe(viewLifecycleOwner) { vacancyAdapter?.setVacancyList(it) }
+        */
     }
-*/
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
