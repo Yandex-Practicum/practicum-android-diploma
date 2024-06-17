@@ -57,7 +57,10 @@ class VacancyDetailsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        updateToolbarIconsVisibility()
+        val currentState = viewModel.stateLiveData.value
+        if (currentState != null) {
+            updateToolbarAndIconsVisibility(currentState)
+        }
     }
 
     private fun renderState(state: VacancyDetailsState) {
@@ -82,7 +85,6 @@ class VacancyDetailsFragment : Fragment() {
             is VacancyDetailsState.Content -> {
                 val vacancyDetails = state.vacancy
                 toolbarSetup(vacancyDetails)
-                showToolbarForDetailsVacancy(state.isFavorite)
                 showContent(state.vacancy, state.currencySymbol)
                 binding.progressBar.isVisible = false
                 binding.nsvDetailsContent.isVisible = true
@@ -103,19 +105,9 @@ class VacancyDetailsFragment : Fragment() {
                 }
             }
         }
-        updateToolbarIconsVisibility()
+        updateToolbarAndIconsVisibility(state)
     }
 
-    private fun updateToolbarIconsVisibility() {
-        val currentState = viewModel.stateLiveData.value
-        if (currentState is VacancyDetailsState.Content) {
-            toolbar.menu.findItem(R.id.share).isVisible = true
-            toolbar.menu.findItem(R.id.favorite).isVisible = true
-        } else {
-            toolbar.menu.findItem(R.id.share).isVisible = false
-            toolbar.menu.findItem(R.id.favorite).isVisible = false
-        }
-    }
 
     private fun showContent(vacancy: Vacancy, currencySymbol: String) {
         if (vacancy != null) {
@@ -237,14 +229,21 @@ class VacancyDetailsFragment : Fragment() {
         }
     }
 
-    private fun showToolbarForDetailsVacancy(isFavorite: Boolean) {
-        toolbar.menu.findItem(R.id.share).isVisible = true
-        toolbar.menu.findItem(R.id.favorite).isVisible = true
-        toolbar.menu.findItem(R.id.filters).isVisible = false
-        if (isFavorite) {
-            toolbar.menu.findItem(R.id.favorite).setIcon(R.drawable.heart_on_icon)
+    private fun updateToolbarAndIconsVisibility(state: VacancyDetailsState) {
+        if (state is VacancyDetailsState.Content) {
+            toolbar.menu.findItem(R.id.share).isVisible = true
+            toolbar.menu.findItem(R.id.favorite).isVisible = true
+            toolbar.menu.findItem(R.id.filters).isVisible = false
+
+            if (state.isFavorite) {
+                toolbar.menu.findItem(R.id.favorite).setIcon(R.drawable.heart_on_icon)
+            } else {
+                toolbar.menu.findItem(R.id.favorite).setIcon(R.drawable.heart_icon)
+            }
         } else {
-            toolbar.menu.findItem(R.id.favorite).setIcon(R.drawable.heart_icon)
+            toolbar.menu.findItem(R.id.share).isVisible = false
+            toolbar.menu.findItem(R.id.favorite).isVisible = false
+            toolbar.menu.findItem(R.id.filters).isVisible = false
         }
     }
 
