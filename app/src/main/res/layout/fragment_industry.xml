@@ -4,16 +4,121 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.root.RootActivity">
+    tools:context="ru.practicum.android.diploma.ui.industry.IndustryFragment">
 
-    <TextView
-        android:id="@+id/buildConfigReadExampleTextView"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/left_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="INDUSTRY"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/right_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp" />
+
+    <EditText
+        android:id="@+id/etSelectIndustry"
+        style="@style/searchEditText"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="8dp"
+        android:cursorVisible="true"
+        android:hint="@string/industry_hint"
+        android:imeOptions="actionDone"
+        android:singleLine="true"
+        android:textCursorDrawable="@drawable/search_et_cursor"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="Autofill,MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/ivClear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginEnd="16dp"
+        android:contentDescription="@string/industry_it_test"
+        android:src="@drawable/search_icon"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/etSelectIndustry"
+        app:layout_constraintEnd_toEndOf="@id/etSelectIndustry"
+        app:layout_constraintTop_toTopOf="@+id/etSelectIndustry" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/blue"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvIndustry"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:visibility="visible"
+        android:clipToPadding="false"
+        tools:itemCount="20"
+        android:layout_marginHorizontal="16dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etSelectIndustry"
+        app:layout_constraintBottom_toTopOf="@id/buttonSelectIndustry"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.0"
+        tools:listitem="@layout/industry_view" />
+
+    <ImageView
+        android:id="@+id/ivPlaceholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/search_server_error"
+        android:scaleType="centerInside"
+        android:src="@drawable/server_error_cat"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_max="223dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etSelectIndustry" />
+
+    <TextView
+        android:id="@+id/tvPlaceholder"
+        style="@style/placeholder_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textAlignment="center"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivPlaceholder"
+        tools:text="@string/industry_not_found" />
+
+    <TextView
+        android:id="@+id/buttonSelectIndustry"
+        style="industry_button_select"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/ic_search_result_background"
+        android:gravity="center"
+        android:text="@string/industry_button_select"
+        android:textColor="@color/whiteDay"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/right_guideline"
+        app:layout_constraintStart_toStartOf="@+id/left_guideline" />
 </androidx.constraintlayout.widget.ConstraintLayout>
