@@ -61,7 +61,7 @@
             android:layout_marginVertical="@dimen/indent_8"
             android:autofillHints="no"
             android:background="@drawable/background_search"
-            android:backgroundTint="@color/vacancy_search_edit_text"
+            android:backgroundTint="?attr/colorSecondaryVariant"
             android:fontFamily="@font/ys_display_regular"
             android:hint="@string/input_search_request"
             android:imeOptions="actionDone"
@@ -70,11 +70,12 @@
             android:paddingStart="@dimen/indent_16"
             android:singleLine="true"
             android:textColor="@color/black"
-            android:textColorHint="@color/vacancy_search_text_color_hint"
+            android:textColorHint="?attr/colorPrimaryVariant"
             android:textSize="@dimen/text_size_16"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:textCursorDrawable="@drawable/cursor_for_edittext"
             tools:ignore="RtlSymmetry,VisualLintTextFieldSize,TextContrastCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -161,7 +162,7 @@
             android:layout_marginTop="@dimen/indent_16"
             android:fontFamily="@font/ys_display_medium"
             android:gravity="center"
-            android:textColor="@color/black_day_white_night"
+            android:textColor="?attr/colorOnPrimary"
             android:textSize="@dimen/text_size_22" />
     </LinearLayout>
 
