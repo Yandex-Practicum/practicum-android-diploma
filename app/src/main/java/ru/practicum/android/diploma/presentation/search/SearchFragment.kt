@@ -12,8 +12,8 @@ import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import ru.practicum.android.diploma.R
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
 
@@ -39,7 +39,6 @@ class SearchFragment : Fragment(), VacancyAdapter.ItemVacancyClickInterface {
         val view = activity?.currentFocus ?: View(requireContext())
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
-    
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -51,9 +50,11 @@ class SearchFragment : Fragment(), VacancyAdapter.ItemVacancyClickInterface {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 // Метод пустой, но обязателен к реализации
             }
+
             override fun afterTextChanged(p0: Editable?) {
                 // Метод пустой, но обязателен к реализации
             }
+
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 binding.iconSearch.isVisible = s.isNullOrEmpty()
                 binding.iconClear.isVisible = !s.isNullOrEmpty()
