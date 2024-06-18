@@ -59,6 +59,7 @@ class SearchFragment : Fragment(), VacancyAdapter.ItemVacancyClickInterface {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 binding.iconSearch.isVisible = s.isNullOrEmpty()
                 binding.iconClear.isVisible = !s.isNullOrEmpty()
+                vm.searchDebounce(s.toString())
             }
         })
 
