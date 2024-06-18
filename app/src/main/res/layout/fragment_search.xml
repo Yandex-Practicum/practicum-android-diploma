@@ -71,11 +71,11 @@
             android:singleLine="true"
             android:textColor="@color/black"
             android:textColorHint="?attr/colorPrimaryVariant"
+            android:textCursorDrawable="@drawable/cursor_for_edittext"
             android:textSize="@dimen/text_size_16"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:textCursorDrawable="@drawable/cursor_for_edittext"
             tools:ignore="RtlSymmetry,VisualLintTextFieldSize,TextContrastCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -148,6 +148,7 @@
 
 
     <LinearLayout
+        android:id="@+id/searchPlaceholderLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
