@@ -5,7 +5,7 @@ import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import ru.practicum.android.diploma.data.dto.Vacancy
 import ru.practicum.android.diploma.data.dto.VacancyDetails
-import ru.practicum.android.diploma.mappers.VacancyResponseToDomainMapper
+import ru.practicum.android.diploma.data.mappers.VacancyResponseToDomainMapper
 import ru.practicum.android.diploma.data.network.HeadHunterNetworkClient
 import ru.practicum.android.diploma.domain.models.Vacancy as DomainVacancy
 import java.io.IOException
