@@ -32,6 +32,7 @@ class RootActivity : AppCompatActivity() {
                 R.id.filtrationFragment -> {
                     bottomNavigationView.visibility = View.GONE
                 }
+
                 else -> {
                     bottomNavigationView.visibility = View.VISIBLE
                 }

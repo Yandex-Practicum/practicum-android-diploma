@@ -20,6 +20,10 @@ class SearchViewModel(private val debounce: Debounce) : ViewModel() {
         }
     }
 
+    fun clearSearchResults() {
+        // searchState.postValue(SearchState.Default())
+    }
+
     fun searchVacancy(text: String) {
         // interactor.searchVacancy()
     }
