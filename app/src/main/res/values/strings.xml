@@ -17,4 +17,9 @@
     <string name="vacancy_search">Поиск вакансий</string>
     <string name="input_search_request">Введите запрос</string>
     <string name="no_such_vacancies">Таких вакансий нет</string>
+    <string name="no_internet_connection">Нет интернета</string>
+    <string name="server_error">Ошибка сервера</string>
+    <string name="count_get_list_of_vacancies">Не удалось получить список вакансий</string>
+    <string name="found">Найдено</string>
+    <string name="vacancy">вакансий</string>
 </resources>
