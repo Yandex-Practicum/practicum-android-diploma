@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="job_vacancy">Вакансия</string>
+    <string name="vacancy_description">Описание вакансии</string>
+    <string name="requirements">Требования</string>
+    <string name="conditions">Условия</string>
+    <string name="key_skills">Ключевые навыки</string>
+    <string name="Unavailable">Вакансия не найдена или\nудалена</string>
+</resources>
