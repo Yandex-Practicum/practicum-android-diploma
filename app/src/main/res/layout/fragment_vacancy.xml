@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="?attr/colorSecondary"
     android:paddingStart="16dp"
     android:paddingEnd="16dp">
 
@@ -36,7 +36,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/ys_display_medium"
                 android:text="@string/job_vacancy"
-                android:textColor="#000000"
+                android:textColor="?attr/colorOnPrimary"
                 android:textSize="22sp" />
 
             <ImageButton
@@ -92,7 +92,7 @@
                 android:fontFamily="@font/ys_display_medium"
                 android:gravity="center_horizontal"
                 android:text="@string/Unavailable"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnPrimary"
                 android:textSize="22sp" />
 
         </LinearLayout>
@@ -110,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/ys_display_bold"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnPrimary"
                 android:textSize="32sp"
                 tools:text="Android-разработчик" />
 
@@ -126,7 +126,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/ys_display_medium"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnPrimary"
                     android:textSize="22sp"
                     tools:text="от 100 000" />
 
@@ -136,7 +136,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:fontFamily="@font/ys_display_medium"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnPrimary"
                     android:textSize="22sp"
                     tools:text="₽" />
             </LinearLayout>
@@ -168,7 +168,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/ys_display_medium"
-                        android:textColor="@color/black"
+                        android:textColor="?attr/textInVacancyDatails"
                         android:textSize="22sp"
                         tools:text="Еда" />
 
@@ -177,7 +177,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/ys_display_regular"
-                        android:textColor="@color/black"
+                        android:textColor="?attr/textInVacancyDatails"
                         android:textSize="16sp"
                         tools:text="Москва" />
                 </LinearLayout>
@@ -190,7 +190,7 @@
                 android:fontFamily="@font/ys_display_medium"
                 android:paddingBottom="4dp"
                 android:text="@string/required_experience"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnPrimary"
                 android:textSize="16sp" />
 
             <LinearLayout
@@ -203,7 +203,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/ys_display_regular"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnPrimary"
                     android:textSize="16sp"
                     tools:text="От" />
 
@@ -213,7 +213,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:fontFamily="@font/ys_display_regular"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnPrimary"
                     android:textSize="16sp"
                     tools:text="1" />
 
@@ -223,7 +223,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:fontFamily="@font/ys_display_regular"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnPrimary"
                     android:textSize="16sp"
                     tools:text="до" />
 
@@ -233,7 +233,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:fontFamily="@font/ys_display_regular"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnPrimary"
                     android:textSize="16sp"
                     tools:text="3" />
 
@@ -243,7 +243,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:fontFamily="@font/ys_display_regular"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnPrimary"
                     android:textSize="16sp"
                     tools:text="лет" />
             </LinearLayout>
@@ -259,7 +259,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/ys_display_regular"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnPrimary"
                     android:textSize="16sp"
                     tools:text="Полная занятость" />
 
@@ -269,7 +269,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:fontFamily="@font/ys_display_regular"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnPrimary"
                     android:textSize="16sp"
                     tools:text="Удаленная работа" />
             </LinearLayout>
@@ -281,7 +281,7 @@
                 android:layout_marginBottom="16dp"
                 android:fontFamily="@font/ys_display_medium"
                 android:text="@string/vacancy_description"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnPrimary"
                 android:textSize="22sp" />
 
             <TextView
@@ -289,7 +289,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/ys_display_medium"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnPrimary"
                 android:textSize="16sp"
                 tools:text="Обязанности" />
 
@@ -298,7 +298,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/ys_display_regular"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnPrimary"
                 android:textSize="16sp"
                 tools:text="• Разрабатывать новую функциональность приложения\n• Помогать с интеграцией нашего SDK в другие приложения\n• Проектировать большие новые модули\n• Писать UI- и unit-тесты\n• Следить за работоспособностью сервиса и устранять технический долг" />
 
@@ -309,7 +309,7 @@
                 android:fontFamily="@font/ys_display_medium"
                 android:paddingBottom="4dp"
                 android:text="@string/requirements"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnPrimary"
                 android:textSize="16sp" />
 
             <TextView
@@ -317,7 +317,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/ys_display_regular"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnPrimary"
                 android:textSize="16sp"
                 tools:text="• 100% Kotlin\n• WebRTC\n• CI по модели Trunk Based Development" />
 
@@ -327,7 +327,7 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/ys_display_medium"
                 android:text="@string/conditions"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnPrimary"
                 android:textSize="16sp" />
 
             <TextView
@@ -335,7 +335,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="16dp"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnPrimary"
                 android:textSize="16sp"
                 tools:text="• Сильная команда, с которой можно расти\n• Возможность влиять на процесс и результат\n• Расширенная программа ДМС: стоматология, обследования, вызов врача на дом и многое другое" />
 
@@ -346,7 +346,7 @@
                 android:layout_marginBottom="16dp"
                 android:fontFamily="@font/ys_display_medium"
                 android:text="@string/key_skills"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnPrimary"
                 android:textSize="22sp" />
 
             <TextView
@@ -354,7 +354,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="16dp"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnPrimary"
                 android:textSize="16sp"
                 tools:text="• Знание классических алгоритмов и структуры данных\n• Программирование для Android больше одного года\n• Знание WebRTC" />
 
