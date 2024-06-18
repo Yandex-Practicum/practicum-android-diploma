@@ -21,4 +21,14 @@ class FavoritesVacancyInteractorImpl : FavoritesVacancyInteractor {
         TODO()
         // return favoritesVacancyRepository.deleteFavoriteVacancy(vacancy)
     }
+
+    override suspend fun insertFavoriteVacancy(vacancy: Vacancy) {
+        TODO("Not yet implemented")
+        // return favoritesVacancyRepository.insertFavoriteVacancy(vacancy)
+    }
+
+    override suspend fun getFavoriteIds(): List<String> {
+        TODO("Not yet implemented")
+        // return favoritesVacancyRepository.getFavoriteIds()
+    }
 }
