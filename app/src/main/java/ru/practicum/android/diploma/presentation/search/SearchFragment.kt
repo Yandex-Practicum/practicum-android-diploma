@@ -12,7 +12,6 @@ import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
@@ -119,7 +118,7 @@ class SearchFragment : Fragment(), VacancyAdapter.ItemVacancyClickInterface {
                }
            }
        }
-   */
+
     private fun setStateNetworkError() {
         binding.foundResultsMessage.visibility = View.GONE
         binding.searchRecyclerView.visibility = View.GONE
@@ -199,4 +198,6 @@ class SearchFragment : Fragment(), VacancyAdapter.ItemVacancyClickInterface {
     companion object {
         const val whitespace = " "
     }
+
+     */
 }
