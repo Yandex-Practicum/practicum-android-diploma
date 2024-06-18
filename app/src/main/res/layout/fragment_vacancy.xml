@@ -334,6 +334,7 @@
                 android:id="@+id/jobConditions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/ys_display_regular"
                 android:paddingBottom="16dp"
                 android:textColor="?attr/colorOnPrimary"
                 android:textSize="16sp"
@@ -353,10 +354,94 @@
                 android:id="@+id/keySkills"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/ys_display_regular"
                 android:paddingBottom="16dp"
                 android:textColor="?attr/colorOnPrimary"
                 android:textSize="16sp"
                 tools:text="• Знание классических алгоритмов и структуры данных\n• Программирование для Android больше одного года\n• Знание WebRTC" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/ys_display_medium"
+                android:text="@string/Contacts"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/ys_display_medium"
+                android:paddingBottom="4dp"
+                android:text="@string/contact_person"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/contactDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/ys_display_regular"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="16sp"
+                tools:text="Ирина" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ys_display_medium"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="16sp"
+                tools:text="E-mail" />
+
+            <TextView
+                android:id="@+id/e_mail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/ys_display_regular"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="16sp"
+                tools:text="irina@yandex.ru" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ys_display_medium"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="16sp"
+                tools:text="Телефон" />
+
+            <TextView
+                android:id="@+id/phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/ys_display_regular"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="16sp"
+                tools:text="+79043292771" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ys_display_medium"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="16sp"
+                tools:text="Комментарий" />
+
+            <TextView
+                android:id="@+id/comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ys_display_regular"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="16sp"
+                tools:text="Заполнить анкету по форме можно на нашем сайте" />
 
             <com.google.android.material.progressindicator.CircularProgressIndicator
                 android:id="@+id/loader"
