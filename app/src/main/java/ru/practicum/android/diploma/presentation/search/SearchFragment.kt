@@ -16,6 +16,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.util.VACANCY_KEY
 
 class SearchFragment : Fragment(), VacancyAdapter.ItemVacancyClickInterface {
 
@@ -83,7 +84,9 @@ class SearchFragment : Fragment(), VacancyAdapter.ItemVacancyClickInterface {
     }
 
     override fun onItemVacancyClick(vacancy: Vacancy) {
-        Log.d("search", "vacancy = ${vacancy.vacancyId}, ${vacancy.name}")
+        val bundle = Bundle()
+        bundle.putParcelable(VACANCY_KEY, vacancy)
+        findNavController().navigate(R.id.action_searchFragment_to_vacancyFragment, bundle)
     }
 
     /*    fun observeViewStateValues() {
