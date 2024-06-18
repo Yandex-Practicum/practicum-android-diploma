@@ -5,37 +5,44 @@ import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import ru.practicum.android.diploma.data.dto.Vacancy
 import ru.practicum.android.diploma.data.dto.VacancyDetails
+import ru.practicum.android.diploma.data.mappers.VacancyResponseToDomainMapper
 import ru.practicum.android.diploma.data.network.HeadHunterNetworkClient
+import ru.practicum.android.diploma.domain.models.Vacancy as DomainVacancy
 import java.io.IOException
 
-class VacancyRepository(private val networkClient: HeadHunterNetworkClient) {
+class VacancyRepository(
+    private val networkClient: HeadHunterNetworkClient,
+    private val vacancyMapper: VacancyResponseToDomainMapper
+) {
 
-    suspend fun getVacancies(filters: Map<String, String>): NetworkResponse {
+    suspend fun getVacancies(filters: Map<String, String>): NetworkResponse<List<DomainVacancy>> {
         return withContext(Dispatchers.IO) {
             try {
                 val response = networkClient.getVacancies(filters)
                 if (response.isSuccessful) {
                     val vacancies: List<Vacancy> = response.body()?.items ?: emptyList()
-                    NetworkResponse(vacancies, SUCCESS_CODE)
+                    val domainVacancies = vacancyMapper.map(vacancies)
+                    NetworkResponse(domainVacancies, SUCCESS_CODE)
                 } else {
                     val errorBody = response.errorBody()?.string() ?: "Unknown error"
-                    NetworkResponse(emptyList<Vacancy>(), ERROR_CODE, errorBody)
+                    NetworkResponse(emptyList(), ERROR_CODE, errorBody)
                 }
             } catch (ex: IOException) {
-                NetworkResponse(emptyList<Vacancy>(), ERROR_CODE, "Network error: ${ex.message}")
+                NetworkResponse(emptyList(), ERROR_CODE, "Network error: ${ex.message}")
             } catch (ex: HttpException) {
-                NetworkResponse(emptyList<Vacancy>(), ERROR_CODE, "HTTP error: ${ex.message}")
+                NetworkResponse(emptyList(), ERROR_CODE, "HTTP error: ${ex.message}")
             }
         }
     }
 
-    suspend fun getVacancyDetails(id: String): NetworkResponse {
+    suspend fun getVacancyDetails(id: String): NetworkResponse<DomainVacancy> {
         return withContext(Dispatchers.IO) {
             try {
                 val response = networkClient.getVacancy(id)
                 if (response.isSuccessful) {
                     val vacancyDetails: VacancyDetails = response.body() ?: throw NotFoundException("Vacancy not found")
-                    NetworkResponse(vacancyDetails, SUCCESS_CODE)
+                    val domainVacancyDetails = vacancyMapper.map(vacancyDetails)
+                    NetworkResponse(domainVacancyDetails, SUCCESS_CODE)
                 } else {
                     val errorBody = response.errorBody()?.string() ?: "Unknown error"
                     NetworkResponse(null, ERROR_CODE, errorBody)
@@ -54,8 +61,8 @@ class VacancyRepository(private val networkClient: HeadHunterNetworkClient) {
     }
 }
 
-data class NetworkResponse(
-    val data: Any?,
+data class NetworkResponse<T>(
+    val data: T?,
     val resultCode: Int,
     val errorMessage: String? = null
 )
