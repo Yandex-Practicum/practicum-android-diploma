@@ -1,5 +1,9 @@
 package ru.practicum.android.diploma.domain.models
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Vacancy(
     val vacancyId: String,
     val name: String,
@@ -19,4 +23,4 @@ data class Vacancy(
     val contactName: String?,
     val contactPhoneNumbers: List<String>,
     val contactComment: List<String>,
-)
+) : Parcelable

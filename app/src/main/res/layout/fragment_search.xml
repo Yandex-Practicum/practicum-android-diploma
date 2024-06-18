@@ -1,14 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.search.SearchFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/topBarVacancySearch"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/textViewVacancySearch"
+            style="@style/toolbar_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/indent_16"
+            android:layout_marginTop="@dimen/indent_20"
+            android:layout_marginBottom="@dimen/indent_20"
+            android:text="@string/vacancy_search"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/filterButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/filterButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/indent_20"
+            android:layout_marginEnd="@dimen/indent_20"
+            android:layout_marginBottom="@dimen/indent_20"
+            android:contentDescription="@string/filtering_settings"
+            android:src="@drawable/baseline_filter_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/searchLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBarVacancySearch">
+
+        <EditText
+            android:id="@+id/searchInput"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/indent_56"
+            android:layout_marginHorizontal="@dimen/indent_16"
+            android:layout_marginVertical="@dimen/indent_8"
+            android:autofillHints="no"
+            android:background="@drawable/background_search"
+            android:backgroundTint="?attr/colorSecondaryVariant"
+            android:fontFamily="@font/ys_display_regular"
+            android:hint="@string/input_search_request"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingStart="@dimen/indent_16"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textColorHint="?attr/colorPrimaryVariant"
+            android:textCursorDrawable="@drawable/cursor_for_edittext"
+            android:textSize="@dimen/text_size_16"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlSymmetry,VisualLintTextFieldSize,TextContrastCheck" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/iconSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginEnd="@dimen/indent_32"
+        android:contentDescription="@string/vacancy_search"
+        android:src="@drawable/baseline_search_24"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/searchLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topBarVacancySearch" />
+
+    <ImageView
+        android:id="@+id/iconClear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginEnd="@dimen/indent_32"
+        android:contentDescription="@string/vacancy_search"
+        android:src="@drawable/baseline_close_24"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/searchLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topBarVacancySearch" />
+
+    <TextView
+        android:id="@+id/foundResultsMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/indent_4"
+        android:background="@drawable/background_search"
+        android:backgroundTint="@color/blue"
+        android:paddingHorizontal="@dimen/indent_12"
+        android:paddingVertical="@dimen/indent_4"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_16"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchLayout"
+        tools:text="@string/no_such_vacancies" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/searchRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:visibility="visible"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/foundResultsMessage" />
+
+    <ProgressBar
+        android:id="@+id/searchProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/blue"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchLayout" />
+
+
+    <LinearLayout
+        android:id="@+id/searchPlaceholderLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchLayout"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/searchPlaceholderImage"
+            android:layout_width="328dp"
+            android:layout_height="223dp"
+            android:contentDescription="@string/vacancy_search"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/placeholder_man_search" />
+
+        <TextView
+            android:id="@+id/searchPlaceholderMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/indent_16"
+            android:fontFamily="@font/ys_display_medium"
+            android:gravity="center"
+            android:textColor="?attr/colorOnPrimary"
+            android:textSize="@dimen/text_size_22" />
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
