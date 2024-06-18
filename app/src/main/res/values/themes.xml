@@ -15,6 +15,7 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="android:windowBackground">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="textInVacancyDatails">@color/black</item>
     </style>
 
 </resources>

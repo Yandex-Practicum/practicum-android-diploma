@@ -23,4 +23,13 @@
     <string name="found">Найдено</string>
     <string name="vacancy">вакансий</string>
     <string name="empty_list">Список пуст</string>
+    <string name="job_vacancy">Вакансия</string>
+    <string name="required_experience">Требуемый опыт</string>
+    <string name="vacancy_description">Описание вакансии</string>
+    <string name="requirements">Требования</string>
+    <string name="conditions">Условия</string>
+    <string name="key_skills">Ключевые навыки</string>
+    <string name="Unavailable">Вакансия не найдена или\nудалена</string>
+    <string name="Contacts">Контакты</string>
+    <string name="contact_person">Контактное лицо</string>
 </resources>
