@@ -11,10 +11,9 @@ class Debounce(private val scope: CoroutineScope) {
         delayMillis: Long,
         action: (T) -> Unit,
     ): (T) -> Unit {
-        var debounceJob: Job? = null
         return { param: T ->
-            debounceJob?.cancel()
-            debounceJob = scope.launch {
+            job?.cancel()
+            job = scope.launch {
                 delay(delayMillis)
                 action(param)
             }
