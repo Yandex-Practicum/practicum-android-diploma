@@ -25,5 +25,5 @@ data class FavoriteVacancyEntity(
     val contactPhoneNumbers: String?,
     val contactComment: String?,
     val timestamp: Long,
-    val url:String
+    val url: String
 )
