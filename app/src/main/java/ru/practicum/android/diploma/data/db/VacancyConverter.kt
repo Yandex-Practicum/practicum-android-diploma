@@ -52,6 +52,7 @@ class VacancyConverter {
             contactName = vacancy.contactName,
             contactPhoneNumbers = convertStringToList(vacancy.contactPhoneNumbers),
             contactComment = convertStringToList(vacancy.contactComment),
+            isFavorite = true
         )
     }
 
