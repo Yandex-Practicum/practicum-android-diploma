@@ -34,18 +34,18 @@ class VacancyViewModel(
     }
 
     fun insertFavoriteVacancy() {
-        if (_currentVacancy != null) {
+        if (currentVacancy != null) {
             viewModelScope.launch {
-                favoritesVacancyInteractor.insertFavoriteVacancy(_currentVacancy!!)
+                favoritesVacancyInteractor.insertFavoriteVacancy(currentVacancy!!)
             }
             getFavoriteIds()
         }
     }
 
     fun deleteFavoriteVacancy() {
-        if (_currentVacancy != null) {
+        if (currentVacancy != null) {
             viewModelScope.launch {
-                favoritesVacancyInteractor.deleteFavoriteVacancy(_currentVacancy!!)
+                favoritesVacancyInteractor.deleteFavoriteVacancy(currentVacancy!!)
             }
             getFavoriteIds()
         }

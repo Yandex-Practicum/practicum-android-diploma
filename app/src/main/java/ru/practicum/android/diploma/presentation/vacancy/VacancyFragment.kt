@@ -41,7 +41,7 @@ class VacancyFragment : Fragment() {
         savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(VacancyViewModel::class.java)
+        viewModel = ViewModelProvider(this)[VacancyViewModel::class.java]
 
         val vacancyId = arguments?.getString(VACANCY_KEY) ?: return
 
@@ -82,6 +82,15 @@ class VacancyFragment : Fragment() {
         }
     }
 
+    private fun sendEmail(email: String) {
+        val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse("mailto:")
+            putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        startActivity(emailIntent)
+    }
+
     private fun setupPhoneButton() {
         binding.phone.setOnClickListener {
             viewModel?.currentVacancy?.contactPhoneNumbers?.firstOrNull()?.let { phone ->
@@ -90,13 +99,21 @@ class VacancyFragment : Fragment() {
         }
     }
 
+    private fun makePhoneCall(phone: String) {
+        val phoneIntent = Intent(Intent.ACTION_DIAL).apply {
+            data = Uri.parse("tel:$phone")
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        startActivity(phoneIntent)
+    }
+
     private fun showVacancyDetails(vacancy: Vacancy) {
         binding.loader.visibility = View.GONE
 
         setJobDetails(vacancy)
         setCompanyDetails(vacancy)
         setJobDescriptionAndSkills(vacancy)
-        setFavoriteButton(vacancy)
+        setFavoriteButton()
         setContactDetails(vacancy)
     }
 
@@ -129,9 +146,9 @@ class VacancyFragment : Fragment() {
         binding.keySkills.text = vacancy.skills.joinToString("\n")
     }
 
-    private fun setFavoriteButton(vacancy: Vacancy) {
-        binding.favoriteButtonOff.setOnClickListener { viewModel?.insertFavoriteVacancy(vacancy) }
-        binding.favoriteButtonOn.setOnClickListener { viewModel?.deleteFavoriteVacancy(vacancy) }
+    private fun setFavoriteButton() {
+        binding.favoriteButtonOff.setOnClickListener { viewModel?.insertFavoriteVacancy() }
+        binding.favoriteButtonOn.setOnClickListener { viewModel?.deleteFavoriteVacancy() }
     }
 
     private fun setContactDetails(vacancy: Vacancy) {
@@ -159,12 +176,12 @@ class VacancyFragment : Fragment() {
             binding.favoriteButtonOn.visibility = View.GONE
             binding.favoriteButtonOff.visibility = View.VISIBLE
         }
-        if (vacancy != null) {
-            // vacancyViewModel.setVacancy(vacancy)
-        }
+//        if (vacancy != null) {
+//            // vacancyViewModel.setVacancy(vacancy)
+//        }
         prepareViews()
     }
-    
+
     private fun prepareViews() {
         binding.favoriteButtonOff.setOnClickListener {
             // vacancyViewModel.insertFavoriteVacancy()
@@ -173,7 +190,7 @@ class VacancyFragment : Fragment() {
             // vacancyViewModel.deleteFavoriteVacancy()
         }
     }
-    
+
     companion object {
         private const val VACANCY_KEY = "vacancy_key"
     }
