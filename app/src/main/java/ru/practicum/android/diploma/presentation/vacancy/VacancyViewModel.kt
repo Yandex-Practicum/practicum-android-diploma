@@ -19,18 +19,22 @@ class VacancyViewModel(private val favoritesVacancyInteractor: FavoritesVacancyI
         _vacancyScreenState.postValue(VacancyViewState.VacancyDataDetail(vacancy = vacancy))
     }
 
-    fun insertFavoriteVacancy(vacancy: Vacancy) {
-        viewModelScope.launch {
-            favoritesVacancyInteractor.insertFavoriteVacancy(vacancy)
+    fun insertFavoriteVacancy() {
+        if (_currentVacancy != null) {
+            viewModelScope.launch {
+                favoritesVacancyInteractor.insertFavoriteVacancy(_currentVacancy!!)
+            }
+            getFavoriteIds()
         }
-        getFavoriteIds()
     }
 
-    fun deleteFavoriteVacancy(vacancy: Vacancy) {
-        viewModelScope.launch {
-            favoritesVacancyInteractor.deleteFavoriteVacancy(vacancy)
+    fun deleteFavoriteVacancy() {
+        if (_currentVacancy != null) {
+            viewModelScope.launch {
+                favoritesVacancyInteractor.deleteFavoriteVacancy(_currentVacancy!!)
+            }
+            getFavoriteIds()
         }
-        getFavoriteIds()
     }
 
     fun getFavoriteIds() {

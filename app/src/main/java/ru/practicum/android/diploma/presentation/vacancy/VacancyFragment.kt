@@ -15,6 +15,7 @@ class VacancyFragment : Fragment() {
     private var _binding: FragmentVacancyBinding? = null
     private val binding get() = _binding!!
 
+    // private val vacancyViewModel by viewModel<VacancyViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,6 +38,18 @@ class VacancyFragment : Fragment() {
         } else {
             arguments?.getParcelable(VACANCY_KEY)
         }
+        if (vacancy != null) {
+            // vacancyViewModel.setVacancy(vacancy)
+        }
+        prepareViews()
     }
 
+    private fun prepareViews() {
+        binding.favoriteButtonOff.setOnClickListener {
+            // vacancyViewModel.insertFavoriteVacancy()
+        }
+        binding.favoriteButtonOn.setOnClickListener {
+            // vacancyViewModel.deleteFavoriteVacancy()
+        }
+    }
 }
