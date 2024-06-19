@@ -6,7 +6,7 @@ import ru.practicum.android.diploma.domain.models.Vacancy
 
 class FavoritesVacancyInteractorImpl : FavoritesVacancyInteractor {
     // (private val favoritesVacancyRepository: FavoritesVacancyRepository)
-
+/*
     override suspend fun getAllFavoritesVacancy(): Flow<List<Vacancy>> {
         TODO()
         // return favoritesVacancyRepository.getAllFavoritesVacancy()
@@ -31,4 +31,6 @@ class FavoritesVacancyInteractorImpl : FavoritesVacancyInteractor {
         TODO("Not yet implemented")
         // return favoritesVacancyRepository.getFavoriteIds()
     }
+
+ */
 }

@@ -12,7 +12,7 @@ import ru.practicum.android.diploma.domain.models.VacancyViewState
 
 class VacancyViewModel(
     private val getVacancyDetailsInteractor: GetVacancyDetailsInteractor,
-    private val favoritesVacancyInteractor: FavoritesVacancyInteractor
+    // private val favoritesVacancyInteractor: FavoritesVacancyInteractor
 ) : ViewModel() {
     private val _vacancyScreenState = MutableLiveData<VacancyViewState>()
     val vacancyScreenState: LiveData<VacancyViewState> get() = _vacancyScreenState
@@ -26,13 +26,13 @@ class VacancyViewModel(
             result.onSuccess {
                 currentVacancy = it
                 _vacancyScreenState.postValue(VacancyViewState.VacancyDataDetail(it))
-                getFavoriteIds()
+                // getFavoriteIds()
             }.onFailure {
                 // Ошибка
             }
         }
     }
-
+/*
     fun insertFavoriteVacancy() {
         if (currentVacancy != null) {
             viewModelScope.launch {
@@ -61,4 +61,6 @@ class VacancyViewModel(
             }
         }
     }
+
+ */
 }
