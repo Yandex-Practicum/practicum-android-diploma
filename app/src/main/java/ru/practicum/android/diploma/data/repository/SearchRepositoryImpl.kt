@@ -20,7 +20,7 @@ class SearchRepositoryImpl(
     private val context: Context,
     private val converter: VacancyResponseToDomainMapper,
     private val appDatabase: AppDatabase
-): SearchRepository {
+) : SearchRepository {
     override var currentPage: Int? = null
     override var foundItems: Int? = null
     override var pages: Int? = null

@@ -7,13 +7,13 @@ import ru.practicum.android.diploma.domain.api.SearchRepository
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.util.Resource
 
-class SearchInteractorImpl(private val repository: SearchRepository): SearchInteractor {
+class SearchInteractorImpl(private val repository: SearchRepository) : SearchInteractor {
     override var currentPage: Int? = null
     override var foundItems: Int? = null
     override var pages: Int? = null
     override fun searchVacancies(text: String, page: Int): Flow<Pair<List<Vacancy>?, String?>> {
         return repository.searchVacancies(text, page).map { result ->
-            when(result) {
+            when (result) {
                 is Resource.Success -> {
                     currentPage = repository.currentPage
                     foundItems = repository.foundItems
