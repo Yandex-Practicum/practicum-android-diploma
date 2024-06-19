@@ -7,7 +7,6 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -20,10 +19,12 @@ class VacancyFragment : Fragment() {
 
     private var _binding: FragmentVacancyBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModel: VacancyViewModel
+    private var viewModel: VacancyViewModel? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         _binding = FragmentVacancyBinding.inflate(inflater, container, false)
         return binding.root
@@ -34,13 +35,16 @@ class VacancyFragment : Fragment() {
         _binding = null
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?
+    ) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(VacancyViewModel::class.java)
 
         val vacancyId = arguments?.getString(VACANCY_KEY) ?: return
 
-        viewModel.vacancyScreenState.observe(viewLifecycleOwner) { state ->
+        viewModel?.vacancyScreenState?.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is VacancyViewState.VacancyDataDetail -> showVacancyDetails(state.vacancy)
                 is VacancyViewState.VacancyIsFavorite -> showFavoriteState(true)
@@ -49,7 +53,7 @@ class VacancyFragment : Fragment() {
         }
 
         binding.loader.visibility = View.VISIBLE
-        viewModel.loadVacancyDetails(vacancyId)
+        viewModel?.loadVacancyDetails(vacancyId)
 
         setupShareButton()
         setupEmailButton()
@@ -58,7 +62,7 @@ class VacancyFragment : Fragment() {
 
     private fun setupShareButton() {
         binding.shareButton.setOnClickListener {
-            viewModel.currentVacancy?.let { vacancy ->
+            viewModel?.currentVacancy?.let { vacancy ->
                 val shareIntent = Intent().apply {
                     action = Intent.ACTION_SEND
                     putExtra(Intent.EXTRA_TEXT, "https://hh.ru/vacancy/${vacancy.vacancyId}")
@@ -71,7 +75,7 @@ class VacancyFragment : Fragment() {
 
     private fun setupEmailButton() {
         binding.eMail.setOnClickListener {
-            viewModel.currentVacancy?.contactEmail?.let { email ->
+            viewModel?.currentVacancy?.contactEmail?.let { email ->
                 sendEmail(email)
             }
         }
@@ -79,7 +83,7 @@ class VacancyFragment : Fragment() {
 
     private fun setupPhoneButton() {
         binding.phone.setOnClickListener {
-            viewModel.currentVacancy?.contactPhoneNumbers?.firstOrNull()?.let { phone ->
+            viewModel?.currentVacancy?.contactPhoneNumbers?.firstOrNull()?.let { phone ->
                 makePhoneCall(phone)
             }
         }
@@ -88,8 +92,15 @@ class VacancyFragment : Fragment() {
     private fun showVacancyDetails(vacancy: Vacancy) {
         binding.loader.visibility = View.GONE
 
+        setJobDetails(vacancy)
+        setCompanyDetails(vacancy)
+        setJobDescriptionAndSkills(vacancy)
+        setFavoriteButton(vacancy)
+        setContactDetails(vacancy)
+    }
+
+    private fun setJobDetails(vacancy: Vacancy) {
         binding.jobTitle.text = vacancy.name
-        binding.jobSalaryAmount.text = vacancy.salaryFrom.toString()
 
         binding.jobSalaryAmount.text = when {
             vacancy.salaryFrom != null && vacancy.salaryTo != null -> "от ${vacancy.salaryFrom} до ${vacancy.salaryTo}"
@@ -98,6 +109,10 @@ class VacancyFragment : Fragment() {
             else -> "зарплата не указана"
         }
 
+        binding.jobSalaryCurrency.text = vacancy.salaryCurrency
+    }
+
+    private fun setCompanyDetails(vacancy: Vacancy) {
         binding.companyName.text = vacancy.employerName
         binding.companyLocation.text = vacancy.city ?: vacancy.area
 
@@ -106,36 +121,32 @@ class VacancyFragment : Fragment() {
             .centerCrop()
             .placeholder(R.drawable.placeholder_logo)
             .into(binding.companyLogo)
+    }
 
-        // НЕ УСТАНОВИЛА ОПЫТ РАБОТЫ!!!
-
+    private fun setJobDescriptionAndSkills(vacancy: Vacancy) {
         binding.jobDescription.text = Html.fromHtml(vacancy.description, Html.FROM_HTML_MODE_LEGACY)
         binding.keySkills.text = vacancy.skills.joinToString("\n")
+    }
 
-        binding.favoriteButtonOff.setOnClickListener { viewModel.insertFavoriteVacancy(vacancy) }
-        binding.favoriteButtonOn.setOnClickListener { viewModel.deleteFavoriteVacancy(vacancy) }
+    private fun setFavoriteButton(vacancy: Vacancy) {
+        binding.favoriteButtonOff.setOnClickListener { viewModel?.insertFavoriteVacancy(vacancy) }
+        binding.favoriteButtonOn.setOnClickListener { viewModel?.deleteFavoriteVacancy(vacancy) }
+    }
 
-        if (vacancy.contactEmail != null) {
-            binding.eMail.visibility = View.VISIBLE
-            binding.eMail.text = vacancy.contactEmail
-        } else {
-            binding.eMail.visibility = View.GONE
+    private fun setContactDetails(vacancy: Vacancy) {
+        binding.eMail.apply {
+            text = vacancy.contactEmail
+            visibility = if (vacancy.contactEmail != null) View.VISIBLE else View.GONE
         }
 
-        val phoneNumber = vacancy.contactPhoneNumbers.firstOrNull()
-        if (phoneNumber != null) {
-            binding.phone.visibility = View.VISIBLE
-            binding.phone.text = phoneNumber
-        } else {
-            binding.phone.visibility = View.GONE
+        binding.phone.apply {
+            text = vacancy.contactPhoneNumbers.firstOrNull()
+            visibility = if (vacancy.contactPhoneNumbers.isNotEmpty()) View.VISIBLE else View.GONE
         }
 
-        val contactComment = vacancy.contactComment.firstOrNull()
-        if (contactComment != null) {
-            binding.contactDetails.visibility = View.VISIBLE
-            binding.contactDetails.text = contactComment
-        } else {
-            binding.contactDetails.visibility = View.GONE
+        binding.contactDetails.apply {
+            text = vacancy.contactComment.firstOrNull()
+            visibility = if (vacancy.contactComment.isNotEmpty()) View.VISIBLE else View.GONE
         }
     }
 
@@ -155,11 +166,7 @@ class VacancyFragment : Fragment() {
             putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
-        try {
-            startActivity(emailIntent)
-        } catch (e: Exception) {
-            Toast.makeText(requireContext(), "No suitable email clients available", Toast.LENGTH_SHORT).show()
-        }
+        startActivity(emailIntent)
     }
 
     private fun makePhoneCall(phone: String) {
@@ -167,11 +174,7 @@ class VacancyFragment : Fragment() {
             data = Uri.parse("tel:$phone")
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
-        try {
-            startActivity(phoneIntent)
-        } catch (e: Exception) {
-            Toast.makeText(requireContext(), "No suitable phone clients available", Toast.LENGTH_SHORT).show()
-        }
+        startActivity(phoneIntent)
     }
 
     companion object {

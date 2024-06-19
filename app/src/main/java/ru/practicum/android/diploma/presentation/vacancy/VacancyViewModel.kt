@@ -12,7 +12,8 @@ import ru.practicum.android.diploma.domain.models.VacancyViewState
 
 class VacancyViewModel(
     private val getVacancyDetailsInteractor: GetVacancyDetailsInteractor,
-    private val favoritesVacancyInteractor: FavoritesVacancyInteractor) : ViewModel() {
+    private val favoritesVacancyInteractor: FavoritesVacancyInteractor
+) : ViewModel() {
     private val _vacancyScreenState = MutableLiveData<VacancyViewState>()
     val vacancyScreenState: LiveData<VacancyViewState> get() = _vacancyScreenState
 
