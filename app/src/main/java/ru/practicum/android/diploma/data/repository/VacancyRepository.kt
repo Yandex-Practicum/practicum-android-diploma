@@ -41,7 +41,7 @@ class VacancyRepository(
                 val response = networkClient.getVacancy(id)
                 if (response.isSuccessful) {
                     val vacancyDetails: VacancyDetails = response.body() ?: throw NotFoundException("Vacancy not found")
-                    val domainVacancyDetails = vacancyMapper.map(vacancyDetails)
+                    val domainVacancyDetails = vacancyMapper.map(vacancyDetails, true)
                     NetworkResponse(domainVacancyDetails, SUCCESS_CODE)
                 } else {
                     val errorBody = response.errorBody()?.string() ?: "Unknown error"

@@ -26,12 +26,13 @@ class VacancyResponseToDomainMapper {
                 contactEmail = null,
                 contactName = null,
                 contactPhoneNumbers = emptyList(),
-                contactComment = emptyList()
+                contactComment = emptyList(),
+                isFavorite = null
             )
         }
     }
 
-    fun map(vacancyDetails: VacancyDetails): DomainVacancy {
+    fun map(vacancyDetails: VacancyDetails, isFavorite: Boolean): DomainVacancy {
         return DomainVacancy(
             vacancyId = vacancyDetails.id,
             name = vacancyDetails.name,
@@ -50,7 +51,9 @@ class VacancyResponseToDomainMapper {
             contactEmail = null,
             contactName = null,
             contactPhoneNumbers = emptyList(),
-            contactComment = emptyList()
+            contactComment = emptyList(),
+            isFavorite = isFavorite
         )
     }
+
 }
