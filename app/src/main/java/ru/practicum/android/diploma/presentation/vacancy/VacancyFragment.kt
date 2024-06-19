@@ -15,7 +15,6 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.models.VacancyViewState
-import ru.practicum.android.diploma.presentation.search.SearchViewModel
 
 class VacancyFragment : Fragment() {
 

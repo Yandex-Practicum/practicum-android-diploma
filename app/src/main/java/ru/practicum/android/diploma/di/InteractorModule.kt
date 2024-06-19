@@ -26,5 +26,4 @@ val interactorModule = module {
         VacancyResponseToDomainMapper()
     }
 
-
 }
