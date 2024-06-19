@@ -23,6 +23,6 @@ data class Vacancy(
     val contactName: String?,
     val contactPhoneNumbers: List<String>,
     val contactComment: List<String>,
-    val url:String,
+    val url: String,
     val isFavorite: Boolean?
 ) : Parcelable
