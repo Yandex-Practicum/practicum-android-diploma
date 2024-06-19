@@ -6,17 +6,30 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.FavoritesVacancyInteractor
+import ru.practicum.android.diploma.domain.interactors.GetVacancyDetailsInteractor
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.models.VacancyViewState
 
-class VacancyViewModel(private val favoritesVacancyInteractor: FavoritesVacancyInteractor) : ViewModel() {
+class VacancyViewModel(
+    private val getVacancyDetailsInteractor: GetVacancyDetailsInteractor,
+    private val favoritesVacancyInteractor: FavoritesVacancyInteractor) : ViewModel() {
     private val _vacancyScreenState = MutableLiveData<VacancyViewState>()
     val vacancyScreenState: LiveData<VacancyViewState> get() = _vacancyScreenState
 
-    private var _currentVacancy: Vacancy? = null
-    fun setVacancy(vacancy: Vacancy) {
-        _currentVacancy = vacancy
-        _vacancyScreenState.postValue(VacancyViewState.VacancyDataDetail(vacancy = vacancy))
+    var currentVacancy: Vacancy? = null
+        private set
+
+    fun loadVacancyDetails(vacancyId: String) {
+        viewModelScope.launch {
+            val result = getVacancyDetailsInteractor.execute(vacancyId)
+            result.onSuccess {
+                currentVacancy = it
+                _vacancyScreenState.postValue(VacancyViewState.VacancyDataDetail(it))
+                getFavoriteIds()
+            }.onFailure {
+                // Ошибка
+            }
+        }
     }
 
     fun insertFavoriteVacancy(vacancy: Vacancy) {
@@ -36,7 +49,7 @@ class VacancyViewModel(private val favoritesVacancyInteractor: FavoritesVacancyI
     fun getFavoriteIds() {
         viewModelScope.launch {
             val favoriteIdList = favoritesVacancyInteractor.getFavoriteIds()
-            if (favoriteIdList.contains(_currentVacancy?.vacancyId)) {
+            if (favoriteIdList.contains(currentVacancy?.vacancyId)) {
                 _vacancyScreenState.postValue(VacancyViewState.VacancyIsFavorite)
             } else {
                 _vacancyScreenState.postValue(VacancyViewState.VacancyIsNotFavorite)
