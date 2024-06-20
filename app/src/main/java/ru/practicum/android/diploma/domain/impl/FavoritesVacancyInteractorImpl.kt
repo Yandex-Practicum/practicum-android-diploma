@@ -27,6 +27,4 @@ class FavoritesVacancyInteractorImpl(private val favoritesVacancyRepository: Fav
     override suspend fun getFavoriteIds(): List<String> {
         return favoritesVacancyRepository.getFavoriteIds()
     }
-
-
 }

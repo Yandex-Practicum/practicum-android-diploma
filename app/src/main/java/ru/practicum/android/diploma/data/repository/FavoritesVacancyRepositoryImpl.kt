@@ -17,25 +17,25 @@ class FavoritesVacancyRepositoryImpl(
             emit(withContext(Dispatchers.IO) {
                 appDatabase.favoriteVacancyDao().getFavorites().map { vacancy -> vacancyConverter.map(vacancy) }
             })
-        } catch (e: Throwable) {
+        } catch (e: Exception) {
             null
         }
     }
 
     override suspend fun getOneFavoriteVacancy(vacancyId: String): Vacancy {
-        TODO("Not yet implemented")
+        TODO()
     }
 
     override suspend fun deleteFavoriteVacancy(vacancy: Vacancy): Int {
-        TODO("Not yet implemented")
+        TODO()
     }
 
     override suspend fun insertFavoriteVacancy(vacancy: Vacancy) {
-        TODO("Not yet implemented")
+        TODO()
     }
 
     override suspend fun getFavoriteIds(): List<String> {
-        TODO("Not yet implemented")
+        TODO()
     }
 }
 
