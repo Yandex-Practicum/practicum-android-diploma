@@ -16,17 +16,19 @@ class FavoritesViewModel(private val favoritesVacancyInteractor: FavoritesVacanc
         viewModelScope.launch {
             favoritesVacancyInteractor.getAllFavoritesVacancy().collect {
                 try {
-                    if (it.isEmpty()) {
+                    if (it?.isEmpty() == true) {
                         _favoriteVacancyScreenState.postValue(
                             FavoritesVacancyViewState
                                 .FavoritesVacancyEmptyDataResult
                         )
                     } else {
                         _favoriteVacancyScreenState.postValue(
-                            FavoritesVacancyViewState
-                                .FavoritesVacancyDataResult(
-                                    listOfFavoriteDomainVacancy = it
-                                )
+                            it?.let { it1 ->
+                                FavoritesVacancyViewState
+                                    .FavoritesVacancyDataResult(
+                                        listOfFavoriteDomainVacancy = it1
+                                    )
+                            }
                         )
                     }
                 } catch (e: Exception) {
