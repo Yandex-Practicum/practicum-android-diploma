@@ -1,14 +1,14 @@
 package ru.practicum.android.diploma.domain.favorites.impl
 
-import ru.practicum.android.diploma.domain.favorites.FavoritesVacancyInteractor
 import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.domain.api.FavoritesVacancyRepository
+import ru.practicum.android.diploma.domain.favorites.FavoritesVacancyInteractor
 import ru.practicum.android.diploma.domain.search.models.DomainVacancy
 
 class FavoritesVacancyInteractorImpl(private val favoritesVacancyRepository: FavoritesVacancyRepository) :
     FavoritesVacancyInteractor {
 
-    override suspend fun getAllFavoritesVacancy(): Flow<List<DomainVacancy>?> {
+    override suspend fun getAllFavoritesVacancy(): Flow<List<DomainVacancy>> {
         return favoritesVacancyRepository.getAllFavoritesVacancy()
     }
 

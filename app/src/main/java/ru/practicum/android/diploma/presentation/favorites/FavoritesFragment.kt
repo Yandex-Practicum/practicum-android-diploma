@@ -99,7 +99,7 @@ class FavoritesFragment : Fragment(), VacancyAdapter.ItemVacancyClickInterface {
 
     fun goToVacancyFragment(domainVacancy: DomainVacancy) {
         val bundle = Bundle()
-        bundle.putParcelable(VACANCY_KEY, domainVacancy)
+        bundle.putParcelable(VACANCY_KEY, vacancy)
         findNavController().navigate(R.id.action_favoritesFragment_to_vacancyFragment, bundle)
     }
 
