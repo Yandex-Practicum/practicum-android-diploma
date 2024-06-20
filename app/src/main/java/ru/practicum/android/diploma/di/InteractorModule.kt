@@ -11,7 +11,7 @@ import ru.practicum.android.diploma.domain.vacancy.GetVacancyDetailsInteractor
 val interactorModule = module {
 
     factory<FavoritesVacancyInteractor> {
-        FavoritesVacancyInteractorImpl()
+        FavoritesVacancyInteractorImpl(get())
     }
 
     factory<SearchInteractor> {
