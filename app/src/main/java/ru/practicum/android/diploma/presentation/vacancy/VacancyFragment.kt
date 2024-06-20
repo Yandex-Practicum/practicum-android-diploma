@@ -25,7 +25,7 @@ class VacancyFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentVacancyBinding.inflate(inflater, container, false)
         return binding.root
@@ -119,7 +119,8 @@ class VacancyFragment : Fragment() {
         binding.jobTitle.text = domainVacancy.name
 
         binding.jobSalaryAmount.text = when {
-            domainVacancy.salaryFrom != null && domainVacancy.salaryTo != null -> "от ${domainVacancy.salaryFrom} до ${domainVacancy.salaryTo}"
+            domainVacancy.salaryFrom != null && domainVacancy.salaryTo != null ->
+                "от ${domainVacancy.salaryFrom} до ${domainVacancy.salaryTo}"
             domainVacancy.salaryFrom != null -> "от ${domainVacancy.salaryFrom}"
             domainVacancy.salaryTo != null -> "до ${domainVacancy.salaryTo}"
             else -> "зарплата не указана"
