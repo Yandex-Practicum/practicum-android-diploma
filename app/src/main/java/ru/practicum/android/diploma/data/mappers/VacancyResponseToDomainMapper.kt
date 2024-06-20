@@ -27,6 +27,7 @@ class VacancyResponseToDomainMapper {
                 contactName = null,
                 contactPhoneNumbers = emptyList(),
                 contactComment = emptyList(),
+                url = it.url,
                 isFavorite = null
             )
         }
@@ -52,6 +53,7 @@ class VacancyResponseToDomainMapper {
             contactName = null,
             contactPhoneNumbers = emptyList(),
             contactComment = emptyList(),
+            url = vacancyDetails.url,
             isFavorite = isFavorite
         )
     }

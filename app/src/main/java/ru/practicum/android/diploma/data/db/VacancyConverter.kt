@@ -28,7 +28,8 @@ class VacancyConverter {
             contactName = vacancy.contactName,
             contactPhoneNumbers = Gson().toJson(vacancy.contactPhoneNumbers),
             contactComment = Gson().toJson(vacancy.contactComment),
-            timestamp = currentTimestamp
+            timestamp = currentTimestamp,
+            url = vacancy.url
         )
     }
 
@@ -52,6 +53,7 @@ class VacancyConverter {
             contactName = vacancy.contactName,
             contactPhoneNumbers = convertStringToList(vacancy.contactPhoneNumbers),
             contactComment = convertStringToList(vacancy.contactComment),
+            url = vacancy.url,
             isFavorite = true
         )
     }
