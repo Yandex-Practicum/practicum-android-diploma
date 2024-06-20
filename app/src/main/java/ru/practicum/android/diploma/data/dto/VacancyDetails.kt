@@ -1,5 +1,7 @@
 package ru.practicum.android.diploma.data.dto
 
+import com.google.gson.annotations.SerializedName
+
 data class VacancyDetails(
     val id: String,
     val name: String,
@@ -9,7 +11,8 @@ data class VacancyDetails(
     val publishedAt: String,
     val url: String?,
     val description: String?,
-    val key_skills: List<KeySkill>?,
+    @SerializedName("key_skills")
+    val keySkills: List<KeySkill>?,
     val contacts: Contacts?,
     val experience: Experience?
 )
