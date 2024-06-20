@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data.repository
+package ru.practicum.android.diploma.data.search.impl
 
 import android.content.Context
 import androidx.core.content.ContextCompat.getString
@@ -6,12 +6,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.db.AppDatabase
-import ru.practicum.android.diploma.data.dto.VacancyDetails
 import ru.practicum.android.diploma.data.dto.VacancyRequest
 import ru.practicum.android.diploma.data.mappers.VacancyResponseToDomainMapper
 import ru.practicum.android.diploma.data.network.HeadHunterNetworkClient
-import ru.practicum.android.diploma.domain.api.SearchRepository
-import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.data.search.SearchRepository
+import ru.practicum.android.diploma.domain.search.models.DomainVacancy
 import ru.practicum.android.diploma.util.Resource
 
 class SearchRepositoryImpl(
@@ -23,7 +22,7 @@ class SearchRepositoryImpl(
     override var currentPage: Int? = null
     override var foundItems: Int? = null
     override var pages: Int? = null
-    override fun searchVacancies(text: String, page: Int): Flow<Resource<List<Vacancy>>> = flow {
+    override fun searchVacancies(text: String, page: Int): Flow<Resource<List<DomainVacancy>>> = flow {
         val response = networkClient.getVacancies(VacancyRequest(text, page).map())
         if (response.isSuccessful) {
             with(response.body()) {
@@ -38,12 +37,12 @@ class SearchRepositoryImpl(
         }
     }
 
-    override suspend fun getDetails(id: String): Resource<Vacancy> {
+    override suspend fun getDetails(id: String): Resource<DomainVacancy> {
         val response = networkClient.getVacancy(id)
         return if (response.isSuccessful) {
             val favList = appDatabase.favoriteVacancyDao().getFavoriteIds()
-            val vacancyResponse = response as VacancyDetails
-            val vacancy = converter.map(vacancyResponse, vacancyResponse.id in favList)
+            val vacancyResponse = response.body()
+            val vacancy = vacancyResponse?.let { converter.map(it, vacancyResponse.id in favList) }
             Resource.Success(vacancy)
         } else {
             Resource.Error("Ошибка ${response.code()}")

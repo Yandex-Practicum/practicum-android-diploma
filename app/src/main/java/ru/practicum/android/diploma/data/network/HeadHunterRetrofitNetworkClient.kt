@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.data.network
 
 import retrofit2.Response
-import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.data.dto.VacancyDetails
 import ru.practicum.android.diploma.data.dto.VacancyResponse
 

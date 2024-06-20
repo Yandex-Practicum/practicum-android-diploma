@@ -1,10 +1,10 @@
-package ru.practicum.android.diploma.domain.models
+package ru.practicum.android.diploma.domain.search.models
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Vacancy(
+data class DomainVacancy(
     val vacancyId: String,
     val name: String,
     val city: String?,
@@ -23,6 +23,6 @@ data class Vacancy(
     val contactName: String?,
     val contactPhoneNumbers: List<String>,
     val contactComment: List<String>,
-    val url: String,
+    val url: String?,
     val isFavorite: Boolean?
 ) : Parcelable

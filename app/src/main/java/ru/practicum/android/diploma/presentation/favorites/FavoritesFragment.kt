@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFavoritesBinding
-import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.domain.search.models.DomainVacancy
 import ru.practicum.android.diploma.util.VACANCY_KEY
 
 class FavoritesFragment : Fragment() {
@@ -30,9 +30,9 @@ class FavoritesFragment : Fragment() {
         _binding = null
     }
 
-    fun goToVacancyFragment(vacancy: Vacancy) {
+    fun goToVacancyFragment(domainVacancy: DomainVacancy) {
         val bundle = Bundle()
-        bundle.putParcelable(VACANCY_KEY, vacancy)
+        bundle.putParcelable(VACANCY_KEY, domainVacancy)
         findNavController().navigate(R.id.action_favoritesFragment_to_vacancyFragment, bundle)
     }
 }

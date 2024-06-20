@@ -1,5 +1,6 @@
-package ru.practicum.android.diploma.data.repository
+package ru.practicum.android.diploma.data.search
 
+import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -8,7 +9,7 @@ import ru.practicum.android.diploma.data.dto.VacancyDetails
 import ru.practicum.android.diploma.data.mappers.VacancyResponseToDomainMapper
 import ru.practicum.android.diploma.data.network.HeadHunterNetworkClient
 import java.io.IOException
-import ru.practicum.android.diploma.domain.models.Vacancy as DomainVacancy
+import ru.practicum.android.diploma.domain.search.models.DomainVacancy as DomainVacancy
 
 class VacancyRepository(
     private val networkClient: HeadHunterNetworkClient,
@@ -39,6 +40,7 @@ class VacancyRepository(
         return withContext(Dispatchers.IO) {
             try {
                 val response = networkClient.getVacancy(id)
+                Log.i("123", response.body()?.contacts.toString())
                 if (response.isSuccessful) {
                     val vacancyDetails: VacancyDetails = response.body() ?: throw NotFoundException("Vacancy not found")
                     val domainVacancyDetails = vacancyMapper.map(vacancyDetails, true)

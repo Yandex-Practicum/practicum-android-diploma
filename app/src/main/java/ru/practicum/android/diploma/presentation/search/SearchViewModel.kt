@@ -5,12 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.domain.api.SearchInteractor
-import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.domain.search.SearchInteractor
+import ru.practicum.android.diploma.domain.search.models.DomainVacancy
 import ru.practicum.android.diploma.util.Debounce
 
 class SearchViewModel(private val debounce: Debounce, private val searchInteractor: SearchInteractor) : ViewModel() {
 
+    private var searchText: String? = null
     private var searchState = MutableLiveData<SearchState>()
     val trackListLiveData: LiveData<SearchState> = searchState
     companion object {
@@ -18,7 +19,7 @@ class SearchViewModel(private val debounce: Debounce, private val searchInteract
     }
 
     fun searchDebounce(text: String) {
-        if (text.isEmpty()) {
+        if (text.isEmpty() || text == searchText) {
             debounce.cancel()
         } else {
             val debouncedFunction = debounce.debounceFunction<String>(SEARCH_DEBOUNCE_DELAY) { searchText ->
@@ -33,6 +34,7 @@ class SearchViewModel(private val debounce: Debounce, private val searchInteract
     }
 
     private fun searchVacancy(text: String) {
+        searchText = text
         searchState.postValue(SearchState.Loading)
         viewModelScope.launch {
             searchInteractor
@@ -41,9 +43,13 @@ class SearchViewModel(private val debounce: Debounce, private val searchInteract
         }
     }
 
-    private fun processResult(vacancies: List<Vacancy>?, errorMessage: String?) {
+    private fun processResult(vacancies: List<DomainVacancy>?, errorMessage: String?) {
         if (vacancies != null) {
-            searchState.postValue(SearchState.Success(vacancies, 1))
+            if (vacancies.isEmpty()) {
+                searchState.postValue(SearchState.NoResults)
+            } else {
+                searchState.postValue(SearchState.Success(vacancies, 1))
+            }
         } else if (errorMessage != null) {
             searchState.postValue(SearchState.Error(errorMessage))
         }
