@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
@@ -19,9 +20,8 @@ class VacancyFragment : Fragment() {
 
     private var _binding: FragmentVacancyBinding? = null
     private val binding get() = _binding!!
-    private var viewModel: VacancyViewModel? = null
+    private val viewModel by viewModel<VacancyViewModel>()
 
-    // private val vacancyViewModel by viewModel<VacancyViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -36,16 +36,12 @@ class VacancyFragment : Fragment() {
         _binding = null
     }
 
-    override fun onViewCreated(
-        view: View,
-        savedInstanceState: Bundle?
-    ) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[VacancyViewModel::class.java]
 
         val vacancyId = arguments?.getString(VACANCY_KEY) ?: return
 
-        viewModel?.vacancyScreenState?.observe(viewLifecycleOwner) { state ->
+        viewModel.vacancyScreenState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is VacancyViewState.VacancyDataDetail -> showVacancyDetails(state.vacancy)
                 is VacancyViewState.VacancyIsFavorite -> showFavoriteState(true)
@@ -54,7 +50,7 @@ class VacancyFragment : Fragment() {
         }
 
         binding.loader.visibility = View.VISIBLE
-        viewModel?.loadVacancyDetails(vacancyId)
+        viewModel.loadVacancyDetails(vacancyId)
 
         setupShareButton()
         setupEmailButton()
@@ -63,7 +59,7 @@ class VacancyFragment : Fragment() {
 
     private fun setupShareButton() {
         binding.shareButton.setOnClickListener {
-            viewModel?.currentVacancy?.let { vacancy ->
+            viewModel.currentVacancy?.let { vacancy ->
                 val shareIntent = Intent().apply {
                     action = Intent.ACTION_SEND
                     putExtra(Intent.EXTRA_TEXT, "https://hh.ru/vacancy/${vacancy.vacancyId}")
@@ -76,7 +72,7 @@ class VacancyFragment : Fragment() {
 
     private fun setupEmailButton() {
         binding.eMail.setOnClickListener {
-            viewModel?.currentVacancy?.contactEmail?.let { email ->
+            viewModel.currentVacancy?.contactEmail?.let { email ->
                 sendEmail(email)
             }
         }
@@ -93,7 +89,7 @@ class VacancyFragment : Fragment() {
 
     private fun setupPhoneButton() {
         binding.phone.setOnClickListener {
-            viewModel?.currentVacancy?.contactPhoneNumbers?.firstOrNull()?.let { phone ->
+            viewModel.currentVacancy?.contactPhoneNumbers?.firstOrNull()?.let { phone ->
                 makePhoneCall(phone)
             }
         }
@@ -147,8 +143,8 @@ class VacancyFragment : Fragment() {
     }
 
     private fun setFavoriteButton() {
-        binding.favoriteButtonOff.setOnClickListener { viewModel?.insertFavoriteVacancy() }
-        binding.favoriteButtonOn.setOnClickListener { viewModel?.deleteFavoriteVacancy() }
+        // binding.favoriteButtonOff.setOnClickListener { viewModel?.insertFavoriteVacancy() }
+        // binding.favoriteButtonOn.setOnClickListener { viewModel?.deleteFavoriteVacancy() }
     }
 
     private fun setContactDetails(vacancy: Vacancy) {

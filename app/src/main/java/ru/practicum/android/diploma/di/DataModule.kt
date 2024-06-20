@@ -13,17 +13,22 @@ import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.data.network.HeadHunterApi
 import ru.practicum.android.diploma.data.network.HeadHunterNetworkClient
 import ru.practicum.android.diploma.data.network.HeadHunterRetrofitNetworkClient
+import ru.practicum.android.diploma.data.repository.SearchRepositoryImpl
+import ru.practicum.android.diploma.data.repository.VacancyRepository
+import ru.practicum.android.diploma.domain.api.SearchRepository
 import ru.practicum.android.diploma.util.BASE_URL
 import ru.practicum.android.diploma.util.Debounce
 import ru.practicum.android.diploma.util.SHARED_PREFERENCES
 
 val dataModule = module {
+
     single {
         androidContext().getSharedPreferences(
             SHARED_PREFERENCES,
             Context.MODE_PRIVATE
         )
     }
+
     single<HeadHunterApi> {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -31,19 +36,32 @@ val dataModule = module {
             .build()
             .create(HeadHunterApi::class.java)
     }
+
     single<HeadHunterNetworkClient> {
         HeadHunterRetrofitNetworkClient(get())
     }
+
     single {
         Room.databaseBuilder(androidContext(), AppDatabase::class.java, "dreamjob.db")
             .build()
     }
+
     single<Debounce> {
         Debounce(get())
     }
+
     factory {
         CoroutineScope(Dispatchers.Main)
     }
+
     factory { Gson() }
+
+    single<SearchRepository> {
+        SearchRepositoryImpl(get(), get(), get(), get())
+    }
+
+    single<VacancyRepository> {
+        VacancyRepository(get(), get())
+    }
 
 }

@@ -11,6 +11,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
@@ -42,6 +43,38 @@ class SearchFragment : Fragment(), VacancyAdapter.ItemVacancyClickInterface {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        vm.trackListLiveData.observe(viewLifecycleOwner) {
+            when (it) {
+                is SearchState.NoInternet -> {
+                    setStateNetworkError()
+                }
+
+                is SearchState.Error -> {
+                    setStateServerError()
+                }
+
+                is SearchState.Default -> {
+                    setStateDefault()
+                }
+
+                is SearchState.Loading -> {
+                    setStateIsLoading()
+                }
+
+                is SearchState.NoResults -> {
+                    setStateEmptyResult()
+                }
+
+                is SearchState.Success -> {
+                    setSateIsData(it.vacancies)
+                }
+
+                else -> {
+                    // это пустой метод
+                }
+            }
+        }
 
         binding.iconClear.setOnClickListener {
             binding.searchInput.setText("")
@@ -88,40 +121,6 @@ class SearchFragment : Fragment(), VacancyAdapter.ItemVacancyClickInterface {
         bundle.putParcelable(VACANCY_KEY, vacancy)
         findNavController().navigate(R.id.action_searchFragment_to_vacancyFragment, bundle)
     }
-
-    /*    fun observeViewStateValues() {
-           searchViewModel.searchViewModelState.observe(viewLifecycleOwner) {
-               when (it) {
-                   StateNetworkError -> {
-                       setStateNetworkError()
-                   }
-
-                   StateServerError -> {
-                       setStateServerError()
-                   }
-
-                   StateDefault -> {
-                       setStateDefault()
-                   }
-
-                   StateIsLoading -> {
-                       setStateIsLoading()
-                   }
-
-                   StateEmptyResult -> {
-                       setStateEmptyResult()
-                   }
-
-                   StateIsData -> {
-                       setSateIsData(it)
-                   }
-
-                   else -> {
-                   // это пустой метод
-                   }
-               }
-           }
-       }
 
     private fun setStateNetworkError() {
         binding.foundResultsMessage.visibility = View.GONE
@@ -203,5 +202,4 @@ class SearchFragment : Fragment(), VacancyAdapter.ItemVacancyClickInterface {
         const val whitespace = " "
     }
 
-     */
 }

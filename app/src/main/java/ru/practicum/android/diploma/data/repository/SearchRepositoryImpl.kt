@@ -8,7 +8,6 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.data.dto.VacancyDetails
 import ru.practicum.android.diploma.data.dto.VacancyRequest
-import ru.practicum.android.diploma.data.dto.VacancyResponse
 import ru.practicum.android.diploma.data.mappers.VacancyResponseToDomainMapper
 import ru.practicum.android.diploma.data.network.HeadHunterNetworkClient
 import ru.practicum.android.diploma.domain.api.SearchRepository
@@ -27,11 +26,11 @@ class SearchRepositoryImpl(
     override fun searchVacancies(text: String, page: Int): Flow<Resource<List<Vacancy>>> = flow {
         val response = networkClient.getVacancies(VacancyRequest(text, page).map())
         if (response.isSuccessful) {
-            with(response as VacancyResponse) {
-                currentPage = response.page
-                foundItems = response.total
-                val data = converter.map(response.items)
-                this@SearchRepositoryImpl.pages = response.pages
+            with(response.body()) {
+                currentPage = this?.page
+                foundItems = this?.total
+                val data = this?.items?.let { converter.map(it) }
+                this@SearchRepositoryImpl.pages = this?.pages
                 emit(Resource.Success(data))
             }
         } else {
