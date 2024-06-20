@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_width_image_view_employer_logo"
+    android:layout_marginBottom="@dimen/margin_width_image_view_employer_logo">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/right_guideline"
@@ -20,52 +22,52 @@
         android:layout_height="@dimen/indent_48"
         android:layout_gravity="center"
         android:layout_margin="@dimen/margin_width_image_view_employer_logo"
-        android:padding="@dimen/padding_width_image_view_employer_logo"
         android:background="@drawable/rectangle_for_image_view_employer_logo_url"
+        android:padding="@dimen/border_width_employer_logo"
         android:src="@drawable/placeholder_android"
         app:layout_constraintEnd_toStartOf="@+id/right_guideline"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-         />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
         android:id="@+id/text_view_vacancy_name_and_city"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_width_image_view_employer_logo"
+        android:layout_marginStart="@dimen/margin_width_image_view_employer_logo"
+        android:layout_marginTop="@dimen/margin_width_image_view_employer_logo"
         android:breakStrategy="simple"
         android:fontFamily="@font/ys_display_medium"
-        tools:text="Android-developer, Москва"
         android:textColor="?attr/colorOnPrimary"
         android:textSize="@dimen/text_size_22"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/right_guideline"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Android-developer, Москва" />
 
     <TextView
         android:id="@+id/text_view_employer_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_width_image_view_employer_logo"
+        android:layout_marginStart="@dimen/margin_width_image_view_employer_logo"
         android:fontFamily="@font/ys_display_regular"
-        tools:text="Еда"
         android:textColor="?attr/colorOnPrimary"
         android:textSize="@dimen/text_size_16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/right_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_vacancy_name_and_city" />
+        app:layout_constraintTop_toBottomOf="@+id/text_view_vacancy_name_and_city"
+        tools:text="Еда" />
 
     <TextView
         android:id="@+id/text_view_vacancy_salary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_width_image_view_employer_logo"
+        android:layout_marginStart="@dimen/margin_width_image_view_employer_logo"
         android:fontFamily="@font/ys_display_regular"
-        tools:text="от 1000 до 2000 е"
         android:textColor="?attr/colorOnPrimary"
         android:textSize="@dimen/text_size_16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/right_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_employer_name" />
+        app:layout_constraintTop_toBottomOf="@+id/text_view_employer_name"
+        tools:text="от 100000 до 280000 руб" />
 </androidx.constraintlayout.widget.ConstraintLayout>
