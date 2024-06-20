@@ -7,7 +7,6 @@ import org.koin.core.context.startKoin
 import ru.practicum.android.diploma.di.appModule
 import ru.practicum.android.diploma.di.dataModule
 import ru.practicum.android.diploma.di.interactorModule
-import ru.practicum.android.diploma.di.repositoryModule
 
 class App : Application() {
     override fun onCreate() {
@@ -15,7 +14,7 @@ class App : Application() {
         startKoin {
             androidLogger()
             androidContext(this@App)
-            modules(appModule, dataModule, interactorModule, repositoryModule)
+            modules(appModule, dataModule, interactorModule)
         }
     }
 }
