@@ -13,6 +13,7 @@ class VacancyViewModel(
     private val getVacancyDetailsInteractor: GetVacancyDetailsInteractor,
     // private val favoritesVacancyInteractor: FavoritesVacancyInteractor
 ) : ViewModel() {
+
     private val _vacancyScreenState = MutableLiveData<VacancyViewState>()
     val vacancyScreenState: LiveData<VacancyViewState> get() = _vacancyScreenState
 
@@ -20,6 +21,7 @@ class VacancyViewModel(
         private set
 
     fun loadVacancyDetails(vacancyId: String) {
+        _vacancyScreenState.postValue(VacancyViewState.VacancyLoading)
         viewModelScope.launch {
             val result = getVacancyDetailsInteractor.execute(vacancyId)
             result.onSuccess {
