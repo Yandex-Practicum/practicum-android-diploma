@@ -1,17 +1,17 @@
-package ru.practicum.android.diploma.domain.impl
+package ru.practicum.android.diploma.domain.search.impl
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import ru.practicum.android.diploma.domain.api.SearchInteractor
-import ru.practicum.android.diploma.domain.api.SearchRepository
-import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.data.search.SearchRepository
+import ru.practicum.android.diploma.domain.search.SearchInteractor
+import ru.practicum.android.diploma.domain.search.models.DomainVacancy
 import ru.practicum.android.diploma.util.Resource
 
 class SearchInteractorImpl(private val repository: SearchRepository) : SearchInteractor {
     override var currentPage: Int? = null
     override var foundItems: Int? = null
     override var pages: Int? = null
-    override fun searchVacancies(text: String, page: Int): Flow<Pair<List<Vacancy>?, String?>> {
+    override fun searchVacancies(text: String, page: Int): Flow<Pair<List<DomainVacancy>?, String?>> {
         return repository.searchVacancies(text, page).map { result ->
             when (result) {
                 is Resource.Success -> {
@@ -27,7 +27,7 @@ class SearchInteractorImpl(private val repository: SearchRepository) : SearchInt
             }
         }
     }
-    override suspend fun getDetails(id: String): Resource<Vacancy> {
+    override suspend fun getDetails(id: String): Resource<DomainVacancy> {
         return repository.getDetails(id)
     }
 }

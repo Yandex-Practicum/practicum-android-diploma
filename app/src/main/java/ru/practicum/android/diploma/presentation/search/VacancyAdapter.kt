@@ -11,11 +11,11 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.ItemVacancyViewBinding
-import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.domain.search.models.DomainVacancy
 
 class VacancyAdapter :
     RecyclerView.Adapter<VacancyAdapter.VacancyViewHolder>() {
-    private var vacancyList = arrayListOf<Vacancy>()
+    private var domainVacancyList = arrayListOf<DomainVacancy>()
     private var itemVacancyClickListener: ItemVacancyClickInterface? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VacancyViewHolder {
         return VacancyViewHolder(
@@ -24,18 +24,18 @@ class VacancyAdapter :
         )
     }
 
-    override fun getItemCount() = vacancyList.size
+    override fun getItemCount() = domainVacancyList.size
     override fun onBindViewHolder(holder: VacancyViewHolder, position: Int) {
-        holder.bind(vacancyList[position])
+        holder.bind(domainVacancyList[position])
     }
 
-    fun setVacancyList(vacancyList: ArrayList<Vacancy>) {
-        this.vacancyList = vacancyList
+    fun setVacancyList(domainVacancyList: ArrayList<DomainVacancy>) {
+        this.domainVacancyList = domainVacancyList
         notifyDataSetChanged()
     }
 
     interface ItemVacancyClickInterface {
-        fun onItemVacancyClick(vacancy: Vacancy)
+        fun onItemVacancyClick(domainVacancy: DomainVacancy)
     }
 
     fun setInItemVacancyClickListener(itemClickListener: ItemVacancyClickInterface) {
@@ -51,11 +51,11 @@ class VacancyAdapter :
         private val employerName: TextView = binding.textViewEmployerName
         private val vacancySalary: TextView = binding.textViewVacancySalary
         private val employerLogoUrlImage: ImageView = binding.imageViewEmployerLogoUrl
-        private var itemVacancy: Vacancy? = null
+        private var itemDomainVacancy: DomainVacancy? = null
 
         init {
             itemView.setOnClickListener {
-                itemVacancy?.let { item ->
+                itemDomainVacancy?.let { item ->
                     itemVacancyClickListener?.onItemVacancyClick(
                         item
                     )
@@ -63,19 +63,19 @@ class VacancyAdapter :
             }
         }
 
-        fun bind(vacancy: Vacancy) {
-            itemVacancy = vacancy
+        fun bind(domainVacancy: DomainVacancy) {
+            itemDomainVacancy = domainVacancy
             vacancyNameAndCity.text = java.lang.String(
-                vacancy.name
+                domainVacancy.name
                     + itemView.context.getString(R.string.comma)
                     + whitespace
-                    + vacancy.city
+                    + domainVacancy.city
             )
-            employerName.text = vacancy.employerName
-            vacancySalary.text = setSalary(vacancy)
+            employerName.text = domainVacancy.employerName
+            vacancySalary.text = setSalary(domainVacancy)
 
             Glide.with(itemView)
-                .load(vacancy.employerLogoUrl)
+                .load(domainVacancy.employerLogoUrl)
                 .placeholder(R.drawable.placeholder_android)
                 .centerCrop()
                 .transform(RoundedCorners(dpToPx(cornerRadius, itemView.context)))
@@ -90,32 +90,32 @@ class VacancyAdapter :
             ).toInt()
         }
 
-        private fun setSalary(vacancy: Vacancy): String {
+        private fun setSalary(domainVacancy: DomainVacancy): String {
             var salary = ""
-            if (vacancy.salaryFrom == null && vacancy.salaryTo == null) {
+            if (domainVacancy.salaryFrom == null && domainVacancy.salaryTo == null) {
                 salary = itemView.context.getString(R.string.salary_is_not_specified)
             } else {
-                if (vacancy.salaryFrom != null) {
+                if (domainVacancy.salaryFrom != null) {
                     salary =
                         java.lang.String(
                             itemView.context.getString(R.string.from)
                                 + whitespace
-                                + vacancy.salaryFrom.toString()
+                                + domainVacancy.salaryFrom.toString()
                         ).toString()
                 }
-                if (vacancy.salaryTo != null) {
+                if (domainVacancy.salaryTo != null) {
                     salary =
                         java.lang.String(
                             salary
                                 + whitespace
                                 + itemView.context.getString(R.string.to)
                                 + whitespace
-                                + vacancy.salaryTo
+                                + domainVacancy.salaryTo
                         ).toString()
                 }
             }
-            return if (vacancy.salaryCurrency != null) {
-                salary + whitespace + vacancy.salaryCurrency
+            return if (domainVacancy.salaryCurrency != null) {
+                salary + whitespace + domainVacancy.salaryCurrency
             } else {
                 salary
             }

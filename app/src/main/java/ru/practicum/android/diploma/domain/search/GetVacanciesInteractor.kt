@@ -1,13 +1,13 @@
-package ru.practicum.android.diploma.domain.interactors
+package ru.practicum.android.diploma.domain.search
 
 import retrofit2.HttpException
-import ru.practicum.android.diploma.data.repository.VacancyRepository
-import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.data.search.VacancyRepository
+import ru.practicum.android.diploma.domain.search.models.DomainVacancy
 import java.io.IOException
 
 class GetVacanciesInteractor(private val repository: VacancyRepository) {
 
-    suspend fun execute(filters: Map<String, String>): Result<List<Vacancy>> {
+    suspend fun execute(filters: Map<String, String>): Result<List<DomainVacancy>> {
         return try {
             val response = repository.getVacancies(filters)
             if (response.resultCode == SUCCESS_CODE) {

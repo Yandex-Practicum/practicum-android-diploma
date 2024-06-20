@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,7 @@ import com.bumptech.glide.Glide
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
-import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.domain.search.models.DomainVacancy
 import ru.practicum.android.diploma.util.VACANCY_KEY
 
 class SearchFragment : Fragment(), VacancyAdapter.ItemVacancyClickInterface {
@@ -116,9 +117,9 @@ class SearchFragment : Fragment(), VacancyAdapter.ItemVacancyClickInterface {
         _binding = null
     }
 
-    override fun onItemVacancyClick(vacancy: Vacancy) {
+    override fun onItemVacancyClick(domainVacancy: DomainVacancy) {
         val bundle = Bundle()
-        bundle.putParcelable(VACANCY_KEY, vacancy)
+        bundle.putParcelable(VACANCY_KEY, domainVacancy)
         findNavController().navigate(R.id.action_searchFragment_to_vacancyFragment, bundle)
     }
 
@@ -178,7 +179,7 @@ class SearchFragment : Fragment(), VacancyAdapter.ItemVacancyClickInterface {
         binding.foundResultsMessage.text = this.getString(R.string.no_such_vacancies)
     }
 
-    private fun setSateIsData(vacancyList: List<Vacancy>) {
+    private fun setSateIsData(domainVacancyList: List<DomainVacancy>) {
         binding.foundResultsMessage.visibility = View.VISIBLE
         binding.searchRecyclerView.visibility = View.VISIBLE
         binding.searchProgressBar.visibility = View.GONE
@@ -191,11 +192,11 @@ class SearchFragment : Fragment(), VacancyAdapter.ItemVacancyClickInterface {
         binding.foundResultsMessage.text = java.lang.String(
             this.getString(R.string.found)
                 + whitespace
-                + vacancyList.size.toString()
+                + domainVacancyList.size.toString()
                 + whitespace
                 + this.getString(R.string.vacancy)
         )
-        vacancyAdapter?.setVacancyList(ArrayList(vacancyList))
+        vacancyAdapter?.setVacancyList(ArrayList(domainVacancyList))
     }
 
     companion object {

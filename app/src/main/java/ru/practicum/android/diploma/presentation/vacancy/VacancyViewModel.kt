@@ -5,10 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.domain.api.FavoritesVacancyInteractor
-import ru.practicum.android.diploma.domain.interactors.GetVacancyDetailsInteractor
-import ru.practicum.android.diploma.domain.models.Vacancy
-import ru.practicum.android.diploma.domain.models.VacancyViewState
+import ru.practicum.android.diploma.domain.vacancy.GetVacancyDetailsInteractor
+import ru.practicum.android.diploma.domain.search.models.DomainVacancy
+import ru.practicum.android.diploma.domain.favorites.VacancyViewState
 
 class VacancyViewModel(
     private val getVacancyDetailsInteractor: GetVacancyDetailsInteractor,
@@ -17,14 +16,14 @@ class VacancyViewModel(
     private val _vacancyScreenState = MutableLiveData<VacancyViewState>()
     val vacancyScreenState: LiveData<VacancyViewState> get() = _vacancyScreenState
 
-    var currentVacancy: Vacancy? = null
+    var currentDomainVacancy: DomainVacancy? = null
         private set
 
     fun loadVacancyDetails(vacancyId: String) {
         viewModelScope.launch {
             val result = getVacancyDetailsInteractor.execute(vacancyId)
             result.onSuccess {
-                currentVacancy = it
+                currentDomainVacancy = it
                 _vacancyScreenState.postValue(VacancyViewState.VacancyDataDetail(it))
                 // getFavoriteIds()
             }.onFailure {
