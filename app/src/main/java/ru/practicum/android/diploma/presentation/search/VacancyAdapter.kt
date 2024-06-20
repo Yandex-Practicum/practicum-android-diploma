@@ -114,12 +114,16 @@ class VacancyAdapter :
                         ).toString()
                 }
             }
-            return salary + whitespace + domainVacancy.salaryCurrency
+            return if (domainVacancy.salaryCurrency != null) {
+                salary + whitespace + domainVacancy.salaryCurrency
+            } else {
+                salary
+            }
         }
     }
 
     companion object {
-        const val cornerRadius: Float = 2f
+        const val cornerRadius: Float = 12f
         const val whitespace = " "
     }
 }
