@@ -4,17 +4,18 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.Html
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
-import ru.practicum.android.diploma.domain.search.models.DomainVacancy
 import ru.practicum.android.diploma.domain.favorites.VacancyViewState
+import ru.practicum.android.diploma.domain.search.models.DomainVacancy
 
 class VacancyFragment : Fragment() {
 
@@ -44,13 +45,20 @@ class VacancyFragment : Fragment() {
 
         viewModel.vacancyScreenState.observe(viewLifecycleOwner) { state ->
             when (state) {
+                is VacancyViewState.VacancyLoading -> {
+                    binding.vacancyProgressBar.visibility = View.VISIBLE
+                }
+
                 is VacancyViewState.VacancyDataDetail -> showVacancyDetails(state.domainVacancy)
                 is VacancyViewState.VacancyIsFavorite -> showFavoriteState(true)
                 is VacancyViewState.VacancyIsNotFavorite -> showFavoriteState(false)
             }
         }
 
-        binding.loader.visibility = View.VISIBLE
+        binding.backButton.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
         viewModel.loadVacancyDetails(vacancyId)
 
         setupShareButton()
@@ -104,37 +112,45 @@ class VacancyFragment : Fragment() {
         startActivity(phoneIntent)
     }
 
-    private fun showVacancyDetails(domainVacancy: DomainVacancy) {
-        binding.loader.visibility = View.GONE
-        Log.i("123", domainVacancy.skills.toString())
+    private fun showVacancyDetails(vacancy: DomainVacancy) {
+        binding.vacancyProgressBar.visibility = View.GONE
+        binding.content.visibility = View.VISIBLE
 
-        setJobDetails(domainVacancy)
-        setCompanyDetails(domainVacancy)
-        setJobDescriptionAndSkills(domainVacancy)
+        setJobDetails(vacancy)
+        setCompanyDetails(vacancy)
+        setJobDescriptionAndSkills(vacancy)
         setFavoriteButton()
-        setContactDetails(domainVacancy)
+        setContactDetails(vacancy)
     }
 
-    private fun setJobDetails(domainVacancy: DomainVacancy) {
-        binding.jobTitle.text = domainVacancy.name
+    private fun setJobDetails(vacancy: DomainVacancy) {
+        binding.jobTitle.text = vacancy.name
+        binding.experience.text = vacancy.experience
 
         binding.jobSalaryAmount.text = when {
-            domainVacancy.salaryFrom != null && domainVacancy.salaryTo != null ->
-                "от ${domainVacancy.salaryFrom} до ${domainVacancy.salaryTo}"
-            domainVacancy.salaryFrom != null -> "от ${domainVacancy.salaryFrom}"
-            domainVacancy.salaryTo != null -> "до ${domainVacancy.salaryTo}"
+            vacancy.salaryFrom != null && vacancy.salaryTo != null ->
+                "от ${vacancy.salaryFrom} до ${vacancy.salaryTo}"
+
+            vacancy.salaryFrom != null -> "от ${vacancy.salaryFrom}"
+            vacancy.salaryTo != null -> "до ${vacancy.salaryTo}"
             else -> "зарплата не указана"
         }
 
-        binding.jobSalaryCurrency.text = domainVacancy.salaryCurrency
+        binding.jobSalaryCurrency.text = vacancy.salaryCurrency
     }
 
-    private fun setCompanyDetails(domainVacancy: DomainVacancy) {
-        binding.companyName.text = domainVacancy.employerName
-        binding.companyLocation.text = domainVacancy.city ?: domainVacancy.area
+    private fun setCompanyDetails(vacancy: DomainVacancy) {
+        if (vacancy.contactEmail.isNullOrEmpty() &&
+            vacancy.contactPhoneNumbers.isEmpty() &&
+            vacancy.contactName.isNullOrEmpty()
+        ) {
+            binding.contacts.isVisible = false
+        }
+        binding.companyName.text = vacancy.employerName
+        binding.companyLocation.text = vacancy.city ?: vacancy.area
 
         Glide.with(requireContext())
-            .load(domainVacancy.employerLogoUrl)
+            .load(vacancy.employerLogoUrl)
             .centerCrop()
             .placeholder(R.drawable.placeholder_logo)
             .into(binding.companyLogo)
@@ -150,20 +166,20 @@ class VacancyFragment : Fragment() {
         // binding.favoriteButtonOn.setOnClickListener { viewModel?.deleteFavoriteVacancy() }
     }
 
-    private fun setContactDetails(domainVacancy: DomainVacancy) {
+    private fun setContactDetails(vacancy: DomainVacancy) {
         binding.eMail.apply {
-            text = domainVacancy.contactEmail
-            visibility = if (domainVacancy.contactEmail != null) View.VISIBLE else View.GONE
+            text = vacancy.contactEmail
+            visibility = if (vacancy.contactEmail != null) View.VISIBLE else View.GONE
         }
 
         binding.phone.apply {
-            text = domainVacancy.contactPhoneNumbers.firstOrNull()
-            visibility = if (domainVacancy.contactPhoneNumbers.isNotEmpty()) View.VISIBLE else View.GONE
+            text = vacancy.contactPhoneNumbers.firstOrNull()
+            visibility = if (vacancy.contactPhoneNumbers.isNotEmpty()) View.VISIBLE else View.GONE
         }
 
         binding.contactDetails.apply {
-            text = domainVacancy.contactComment.firstOrNull()
-            visibility = if (domainVacancy.contactComment.isNotEmpty()) View.VISIBLE else View.GONE
+            text = vacancy.contactComment.firstOrNull()
+            visibility = if (vacancy.contactComment.isNotEmpty()) View.VISIBLE else View.GONE
         }
     }
 
