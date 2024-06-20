@@ -10,8 +10,8 @@ import com.bumptech.glide.Glide
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFavoritesBinding
-import ru.practicum.android.diploma.domain.models.FavoritesVacancyViewState
-import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.domain.favorites.FavoritesVacancyViewState
+import ru.practicum.android.diploma.domain.search.models.DomainVacancy
 import ru.practicum.android.diploma.presentation.search.VacancyAdapter
 import ru.practicum.android.diploma.util.VACANCY_KEY
 
@@ -74,7 +74,7 @@ class FavoritesFragment : Fragment(), VacancyAdapter.ItemVacancyClickInterface {
     private fun setFavoriteVacancyData(it: FavoritesVacancyViewState.FavoritesVacancyDataResult) {
         binding.favoritePlaceholderLayout.visibility = View.INVISIBLE
         binding.favoriteRecyclerView.visibility = View.VISIBLE
-        favoriteVacancyAdapter?.setVacancyList(ArrayList(it.listOfFavoriteVacancy))
+        favoriteVacancyAdapter?.setVacancyList(ArrayList(it.listOfFavoriteDomainVacancy))
     }
 
     private fun setFavoriteVacancyEmptyResult() {
@@ -97,13 +97,13 @@ class FavoritesFragment : Fragment(), VacancyAdapter.ItemVacancyClickInterface {
         binding.favoritePlaceholderMessage.text = this.getString(R.string.count_get_list_of_vacancies)
     }
 
-    fun goToVacancyFragment(vacancy: Vacancy) {
+    fun goToVacancyFragment(vacancy: DomainVacancy) {
         val bundle = Bundle()
         bundle.putParcelable(VACANCY_KEY, vacancy)
         findNavController().navigate(R.id.action_favoritesFragment_to_vacancyFragment, bundle)
     }
 
-    override fun onItemVacancyClick(vacancy: Vacancy) {
+    override fun onItemVacancyClick(vacancy: DomainVacancy) {
         goToVacancyFragment(vacancy)
     }
 }

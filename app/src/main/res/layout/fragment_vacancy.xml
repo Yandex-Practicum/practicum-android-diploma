@@ -305,44 +305,6 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/ys_display_medium"
-                android:paddingBottom="4dp"
-                android:text="@string/requirements"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/jobRequirements"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/ys_display_regular"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="16sp"
-                tools:text="• 100% Kotlin\n• WebRTC\n• CI по модели Trunk Based Development" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/ys_display_medium"
-                android:text="@string/conditions"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/jobConditions"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/ys_display_regular"
-                android:paddingBottom="16dp"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="16sp"
-                tools:text="• Сильная команда, с которой можно расти\n• Возможность влиять на процесс и результат\n• Расширенная программа ДМС: стоматология, обследования, вызов врача на дом и многое другое" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="16dp"
                 android:fontFamily="@font/ys_display_medium"
