@@ -5,8 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.domain.favorites.FavoritesVacancyInteractor
 import ru.practicum.android.diploma.domain.favorites.FavoritesVacancyViewState
+import java.io.IOException
+import ru.practicum.android.diploma.domain.favorites.FavoritesVacancyInteractor
 
 class FavoritesViewModel(private val favoritesVacancyInteractor: FavoritesVacancyInteractor) : ViewModel() {
 
@@ -31,7 +32,7 @@ class FavoritesViewModel(private val favoritesVacancyInteractor: FavoritesVacanc
                             }
                         )
                     }
-                } catch (e: Exception) {
+                } catch (e: IOException) {
                     _favoriteVacancyScreenState.postValue(
                         FavoritesVacancyViewState.FavoritesVacancyError
                     )

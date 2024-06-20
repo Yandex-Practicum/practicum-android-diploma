@@ -7,19 +7,22 @@ import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.data.db.VacancyConverter
 import ru.practicum.android.diploma.domain.api.FavoritesVacancyRepository
 import ru.practicum.android.diploma.domain.models.Vacancy
+import java.io.IOException
 
 class FavoritesVacancyRepositoryImpl(
     private val appDatabase: AppDatabase,
     private val vacancyConverter: VacancyConverter
 ) : FavoritesVacancyRepository {
     override suspend fun getAllFavoritesVacancy() = flow {
-        try {
-            emit(withContext(Dispatchers.IO) {
+
+        emit(withContext(Dispatchers.IO) {
+            try {
                 appDatabase.favoriteVacancyDao().getFavorites().map { vacancy -> vacancyConverter.map(vacancy) }
-            })
-        } catch (e: Exception) {
-            null
-        }
+            } catch (e: IOException) {
+                null
+            }
+        })
+
     }
 
     override suspend fun getOneFavoriteVacancy(vacancyId: String): Vacancy {
