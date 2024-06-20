@@ -42,8 +42,7 @@
         android:textSize="@dimen/text_size_22"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/right_guideline"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Android-developer, Москва" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/text_view_employer_name"
