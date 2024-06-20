@@ -13,9 +13,13 @@ class FavoritesVacancyRepositoryImpl(
     private val vacancyConverter: VacancyConverter
 ) : FavoritesVacancyRepository {
     override suspend fun getAllFavoritesVacancy() = flow {
-        emit(withContext(Dispatchers.IO) {
-            appDatabase.favoriteVacancyDao().getFavorites().map { vacancy -> vacancyConverter.map(vacancy) }
-        })
+        try {
+            emit(withContext(Dispatchers.IO) {
+                appDatabase.favoriteVacancyDao().getFavorites().map { vacancy -> vacancyConverter.map(vacancy) }
+            })
+        } catch (e: Throwable) {
+            null
+        }
     }
 
     override suspend fun getOneFavoriteVacancy(vacancyId: String): Vacancy {
