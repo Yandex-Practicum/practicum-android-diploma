@@ -139,12 +139,18 @@ class VacancyFragment : Fragment() {
         binding.jobSalaryCurrency.text = vacancy.salaryCurrency
     }
 
-    private fun setCompanyDetails(domainVacancy: DomainVacancy) {
-        binding.companyName.text = domainVacancy.employerName
-        binding.companyLocation.text = domainVacancy.city ?: domainVacancy.area
+    private fun setCompanyDetails(vacancy: DomainVacancy) {
+        if (vacancy.contactEmail.isNullOrEmpty() &&
+            vacancy.contactPhoneNumbers.isEmpty() &&
+            vacancy.contactName.isNullOrEmpty()
+        ) {
+            binding.contacts.isVisible = false
+        }
+        binding.companyName.text = vacancy.employerName
+        binding.companyLocation.text = vacancy.city ?: vacancy.area
 
         Glide.with(requireContext())
-            .load(domainVacancy.employerLogoUrl)
+            .load(vacancy.employerLogoUrl)
             .centerCrop()
             .placeholder(R.drawable.placeholder_logo)
             .into(binding.companyLogo)
@@ -161,14 +167,6 @@ class VacancyFragment : Fragment() {
     }
 
     private fun setContactDetails(vacancy: DomainVacancy) {
-
-        if (vacancy.contactEmail.isNullOrEmpty() &&
-            vacancy.contactPhoneNumbers.isNullOrEmpty() &&
-            vacancy.contactName.isNullOrEmpty()
-        ) {
-            binding.contacts.isVisible = false
-        }
-
         binding.eMail.apply {
             text = vacancy.contactEmail
             visibility = if (vacancy.contactEmail != null) View.VISIBLE else View.GONE
