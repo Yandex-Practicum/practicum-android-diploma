@@ -9,5 +9,4 @@ interface SearchRepository {
     var foundItems: Int?
     var pages: Int?
     fun searchVacancies(text: String, page: Int): Flow<Resource<List<DomainVacancy>>>
-    suspend fun getDetails(id: String): Resource<DomainVacancy>
 }

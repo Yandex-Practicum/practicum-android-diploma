@@ -9,5 +9,4 @@ interface SearchInteractor {
     var foundItems: Int?
     var pages: Int?
     fun searchVacancies(text: String, page: Int): Flow<Pair<List<DomainVacancy>?, String?>>
-    suspend fun getDetails(id: String): Resource<DomainVacancy>
 }

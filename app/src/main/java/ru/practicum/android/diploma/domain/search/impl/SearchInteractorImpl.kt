@@ -27,7 +27,4 @@ class SearchInteractorImpl(private val repository: SearchRepository) : SearchInt
             }
         }
     }
-    override suspend fun getDetails(id: String): Resource<DomainVacancy> {
-        return repository.getDetails(id)
-    }
 }

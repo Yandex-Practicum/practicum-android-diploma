@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data.repository
+package ru.practicum.android.diploma.data.favorites.impl
 
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.data.db.VacancyConverter
-import ru.practicum.android.diploma.domain.api.FavoritesVacancyRepository
+import ru.practicum.android.diploma.data.favorites.FavoritesVacancyRepository
 import ru.practicum.android.diploma.domain.search.models.DomainVacancy
 import java.io.IOException
 

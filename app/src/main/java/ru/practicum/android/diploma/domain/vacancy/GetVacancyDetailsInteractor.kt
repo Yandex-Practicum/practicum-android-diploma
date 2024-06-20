@@ -1,7 +1,7 @@
 package ru.practicum.android.diploma.domain.vacancy
 
 import retrofit2.HttpException
-import ru.practicum.android.diploma.data.search.VacancyRepository
+import ru.practicum.android.diploma.data.vacancy.VacancyRepository
 import ru.practicum.android.diploma.domain.search.models.DomainVacancy
 import java.io.IOException
 

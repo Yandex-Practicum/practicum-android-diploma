@@ -36,16 +36,4 @@ class SearchRepositoryImpl(
             emit(Resource.Error(getString(context, R.string.no_internet_connection)))
         }
     }
-
-    override suspend fun getDetails(id: String): Resource<DomainVacancy> {
-        val response = networkClient.getVacancy(id)
-        return if (response.isSuccessful) {
-            val favList = appDatabase.favoriteVacancyDao().getFavoriteIds()
-            val vacancyResponse = response.body()
-            val vacancy = vacancyResponse?.let { converter.map(it, vacancyResponse.id in favList) }
-            Resource.Success(vacancy)
-        } else {
-            Resource.Error("Ошибка ${response.code()}")
-        }
-    }
 }
