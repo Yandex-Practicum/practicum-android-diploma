@@ -7,7 +7,7 @@ import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.data.db.VacancyConverter
 import ru.practicum.android.diploma.domain.api.FavoritesVacancyRepository
-import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.domain.search.models.DomainVacancy
 import java.io.IOException
 
 class FavoritesVacancyRepositoryImpl(
@@ -27,15 +27,15 @@ class FavoritesVacancyRepositoryImpl(
         })
     }
 
-    override suspend fun getOneFavoriteVacancy(vacancyId: String): Vacancy {
+    override suspend fun getOneFavoriteVacancy(vacancyId: String): DomainVacancy {
         TODO()
     }
 
-    override suspend fun deleteFavoriteVacancy(vacancy: Vacancy): Int {
+    override suspend fun deleteFavoriteVacancy(vacancy: DomainVacancy): Int {
         TODO()
     }
 
-    override suspend fun insertFavoriteVacancy(vacancy: Vacancy) {
+    override suspend fun insertFavoriteVacancy(vacancy: DomainVacancy) {
         TODO()
     }
 
