@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/contacts"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:visibility="visible">
+
+    <TextView
+        style="@style/vacancy_title_style"
+        android:layout_marginBottom="16dp"
+        android:text="@string/Contacts" />
+
+    <TextView
+        style="@style/vacancy_subtitle_style"
+        android:layout_marginTop="16dp"
+        android:paddingBottom="4dp"
+        android:text="@string/contact_person" />
+
+    <TextView
+        style="@style/vacancy_text_style"
+        android:id="@+id/contactDetails"
+        android:layout_marginBottom="@dimen/indent_16"
+        tools:text="Ирина" />
+
+    <TextView
+        style="@style/vacancy_subtitle_style"
+        tools:text="E-mail" />
+
+    <TextView
+        style="@style/vacancy_contact_style"
+        android:id="@+id/e_mail"
+        android:layout_marginBottom="16dp"
+        tools:text="irina@yandex.ru" />
+
+    <TextView
+        style="@style/vacancy_subtitle_style"
+        tools:text="Телефон" />
+
+    <TextView
+        style="@style/vacancy_contact_style"
+        android:id="@+id/phone"
+        android:layout_marginBottom="16dp"
+        tools:text="+79043292771" />
+
+    <TextView
+        style="@style/vacancy_subtitle_style"
+        tools:text="Комментарий" />
+
+    <TextView
+        style="@style/vacancy_text_style"
+        android:id="@+id/comment"
+        tools:text="Заполнить анкету по форме можно на нашем сайте" />
+</LinearLayout>

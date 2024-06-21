@@ -4,17 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSecondary"
-    android:paddingStart="16dp"
-    android:paddingEnd="16dp">
+    android:background="?attr/colorSecondary">
 
     <!-- Header with Back, Share and Favorite Icons -->
     <LinearLayout
         android:id="@+id/topBarVacancy"
+        style="@style/toolbar_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -27,14 +28,12 @@
             android:src="@drawable/baseline_arrow_back_24" />
 
         <TextView
+            style="@style/toolbar_style"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_weight="1"
-            android:fontFamily="@font/ys_display_medium"
-            android:text="@string/job_vacancy"
-            android:textColor="?attr/colorOnPrimary"
-            android:textSize="22sp" />
+            android:text="@string/job_vacancy" />
 
         <ImageButton
             android:id="@+id/shareButton"
@@ -53,6 +52,7 @@
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="22dp"
             android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
             android:src="@drawable/baseline_favorite_off_24" />
 
         <ImageButton
@@ -75,6 +75,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -94,303 +96,108 @@
             android:text="@string/Unavailable"
             android:textColor="?attr/colorOnPrimary"
             android:textSize="22sp" />
-
     </LinearLayout>
 
+    <!-- Content -->
     <ScrollView
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topBarVacancy">
 
-        <!-- Content -->
         <LinearLayout
-            android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="@dimen/indent_48">
 
             <TextView
                 android:id="@+id/jobTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/indent_8"
+                android:layout_marginBottom="@dimen/indent_4"
                 android:fontFamily="@font/ys_display_bold"
                 android:textColor="?attr/colorOnPrimary"
                 android:textSize="32sp"
                 tools:text="Android-разработчик" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/jobSalaryAmount"
+                style="@style/vacancy_title_style"
+                android:layout_marginBottom="@dimen/indent_8"
+                tools:text="от 100 000 ₽" />
+
+            <include
+                android:id="@+id/includeCompany"
+                layout="@layout/company_info"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/jobSalaryAmount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:fontFamily="@font/ys_display_medium"
-                    android:textColor="?attr/colorOnPrimary"
-                    android:textSize="22sp"
-                    tools:text="от 100 000" />
-
-                <TextView
-                    android:id="@+id/jobSalaryCurrency"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:fontFamily="@font/ys_display_medium"
-                    android:textColor="?attr/colorOnPrimary"
-                    android:textSize="22sp"
-                    tools:text="₽" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_company_info"
-                android:orientation="horizontal"
-                android:padding="16dp"
-                android:paddingBottom="16dp">
-
-                <ImageView
-                    android:id="@+id/companyLogo"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:scaleType="centerCrop" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/companyName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/ys_display_medium"
-                        android:textColor="?attr/textInVacancyDatails"
-                        android:textSize="22sp"
-                        tools:text="Еда" />
-
-                    <TextView
-                        android:id="@+id/companyLocation"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/ys_display_regular"
-                        android:textColor="?attr/textInVacancyDatails"
-                        android:textSize="16sp"
-                        tools:text="Москва" />
-                </LinearLayout>
-            </LinearLayout>
+                android:layout_height="wrap_content" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:fontFamily="@font/ys_display_medium"
-                android:paddingBottom="4dp"
-                android:text="@string/required_experience"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="16sp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/experience"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/ys_display_regular"
-                    android:textColor="?attr/colorOnPrimary"
-                    android:textSize="16sp"
-                    tools:text="От 1 до 3 лет" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/employmentType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/ys_display_regular"
-                    android:textColor="?attr/colorOnPrimary"
-                    android:textSize="16sp"
-                    tools:text="Полная занятость" />
-
-                <TextView
-                    android:id="@+id/workMode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:fontFamily="@font/ys_display_regular"
-                    android:textColor="?attr/colorOnPrimary"
-                    android:textSize="16sp"
-                    tools:text="Удаленная работа" />
-            </LinearLayout>
+                style="@style/vacancy_subtitle_style"
+                android:layout_marginTop="@dimen/indent_24"
+                android:paddingBottom="@dimen/indent_4"
+                android:text="@string/required_experience" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="16dp"
-                android:fontFamily="@font/ys_display_medium"
-                android:text="@string/vacancy_description"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="22sp" />
+                android:id="@+id/experience"
+                style="@style/vacancy_text_style"
+                android:layout_marginBottom="@dimen/indent_8"
+                tools:text="От 1 до 3 лет" />
 
             <TextView
-                android:id="@+id/responsibilities"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/ys_display_medium"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="16sp"
-                tools:text="Обязанности" />
+                android:id="@+id/employmentType"
+                style="@style/vacancy_text_style"
+                android:layout_marginBottom="@dimen/indent_32"
+                tools:text="Полная занятость Удаленная работа" />
+
+            <TextView
+                style="@style/vacancy_title_style"
+                android:layout_marginBottom="@dimen/indent_16"
+                android:text="@string/vacancy_description" />
 
             <TextView
                 android:id="@+id/jobDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/ys_display_regular"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="16sp"
-                tools:text="• Разрабатывать новую функциональность приложения\n• Помогать с интеграцией нашего SDK в другие приложения\n• Проектировать большие новые модули\n• Писать UI- и unit-тесты\n• Следить за работоспособностью сервиса и устранять технический долг" />
+                style="@style/vacancy_text_style"
+                tools:text="Обязанности\n• Разрабатывать новую функциональность приложения\n• Помогать с интеграцией нашего SDK в другие приложения\n• Проектировать большие новые модули\n• Писать UI- и unit-тесты\n• Следить за работоспособностью сервиса и устранять технический долг" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:id="@+id/vacancyKeySkills"
+                style="@style/vacancy_title_style"
                 android:layout_marginBottom="16dp"
-                android:fontFamily="@font/ys_display_medium"
-                android:text="@string/key_skills"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="22sp" />
+                android:text="@string/key_skills" />
 
             <TextView
                 android:id="@+id/keySkills"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/ys_display_regular"
-                android:paddingBottom="16dp"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="16sp"
+                style="@style/vacancy_text_style"
+                android:layout_marginBottom="@dimen/indent_24"
+                android:paddingBottom="@dimen/indent_24"
                 tools:text="• Знание классических алгоритмов и структуры данных\n• Программирование для Android больше одного года\n• Знание WebRTC" />
 
-            <LinearLayout
-                android:id="@+id/contacts"
+            <include
+                android:id="@+id/includeContacts"
+                layout="@layout/contacts"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:visibility="visible">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginBottom="16dp"
-                    android:fontFamily="@font/ys_display_medium"
-                    android:text="@string/Contacts"
-                    android:textColor="?attr/colorOnPrimary"
-                    android:textSize="22sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:fontFamily="@font/ys_display_medium"
-                    android:paddingBottom="4dp"
-                    android:text="@string/contact_person"
-                    android:textColor="?attr/colorOnPrimary"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/contactDetails"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:fontFamily="@font/ys_display_regular"
-                    android:textColor="?attr/colorOnPrimary"
-                    android:textSize="16sp"
-                    tools:text="Ирина" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/ys_display_medium"
-                    android:textColor="?attr/colorOnPrimary"
-                    android:textSize="16sp"
-                    tools:text="E-mail" />
-
-                <TextView
-                    android:id="@+id/e_mail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:fontFamily="@font/ys_display_regular"
-                    android:textColor="?attr/colorOnPrimary"
-                    android:textSize="16sp"
-                    tools:text="irina@yandex.ru" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/ys_display_medium"
-                    android:textColor="?attr/colorOnPrimary"
-                    android:textSize="16sp"
-                    tools:text="Телефон" />
-
-                <TextView
-                    android:id="@+id/phone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:fontFamily="@font/ys_display_regular"
-                    android:textColor="?attr/colorOnPrimary"
-                    android:textSize="16sp"
-                    tools:text="+79043292771" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/ys_display_medium"
-                    android:textColor="?attr/colorOnPrimary"
-                    android:textSize="16sp"
-                    tools:text="Комментарий" />
-
-                <TextView
-                    android:id="@+id/comment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/ys_display_regular"
-                    android:textColor="?attr/colorOnPrimary"
-                    android:textSize="16sp"
-                    tools:text="Заполнить анкету по форме можно на нашем сайте" />
-            </LinearLayout>
-
-            <com.google.android.material.progressindicator.CircularProgressIndicator
-                android:id="@+id/vacancyProgressBar"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="140dp"
-                android:indeterminate="true"
-                android:visibility="gone"
-                app:indicatorColor="@color/blue" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </ScrollView>
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/vacancyProgressBar"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:indicatorColor="@color/blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topBarVacancy" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -68,7 +68,7 @@ class VacancyFragment : Fragment() {
 
     private fun setupShareButton() {
         binding.shareButton.setOnClickListener {
-            viewModel.currentDomainVacancy?.let { vacancy ->
+            viewModel.currentVacancy?.let { vacancy ->
                 val shareIntent = Intent().apply {
                     action = Intent.ACTION_SEND
                     putExtra(Intent.EXTRA_TEXT, "https://hh.ru/vacancy/${vacancy.vacancyId}")
@@ -80,8 +80,8 @@ class VacancyFragment : Fragment() {
     }
 
     private fun setupEmailButton() {
-        binding.eMail.setOnClickListener {
-            viewModel.currentDomainVacancy?.contactEmail?.let { email ->
+        binding.includeContacts.eMail.setOnClickListener {
+            viewModel.currentVacancy?.contactEmail?.let { email ->
                 sendEmail(email)
             }
         }
@@ -97,8 +97,8 @@ class VacancyFragment : Fragment() {
     }
 
     private fun setupPhoneButton() {
-        binding.phone.setOnClickListener {
-            viewModel.currentDomainVacancy?.contactPhoneNumbers?.firstOrNull()?.let { phone ->
+        binding.includeContacts.phone.setOnClickListener {
+            viewModel.currentVacancy?.contactPhoneNumbers?.firstOrNull()?.let { phone ->
                 makePhoneCall(phone)
             }
         }
@@ -115,28 +115,24 @@ class VacancyFragment : Fragment() {
     private fun showVacancyDetails(vacancy: DomainVacancy) {
         binding.vacancyProgressBar.visibility = View.GONE
         binding.content.visibility = View.VISIBLE
-
         setJobDetails(vacancy)
         setCompanyDetails(vacancy)
         setJobDescriptionAndSkills(vacancy)
-        setFavoriteButton()
         setContactDetails(vacancy)
     }
 
     private fun setJobDetails(vacancy: DomainVacancy) {
         binding.jobTitle.text = vacancy.name
         binding.experience.text = vacancy.experience
-
+        binding.employmentType.text = vacancy.employment
         binding.jobSalaryAmount.text = when {
             vacancy.salaryFrom != null && vacancy.salaryTo != null ->
-                "от ${vacancy.salaryFrom} до ${vacancy.salaryTo}"
+                "от ${vacancy.salaryFrom} до ${vacancy.salaryTo} ${vacancy.salaryCurrency}"
 
-            vacancy.salaryFrom != null -> "от ${vacancy.salaryFrom}"
-            vacancy.salaryTo != null -> "до ${vacancy.salaryTo}"
+            vacancy.salaryFrom != null -> "от ${vacancy.salaryFrom} ${vacancy.salaryCurrency}"
+            vacancy.salaryTo != null -> "до ${vacancy.salaryTo} ${vacancy.salaryCurrency}"
             else -> "зарплата не указана"
         }
-
-        binding.jobSalaryCurrency.text = vacancy.salaryCurrency
     }
 
     private fun setCompanyDetails(vacancy: DomainVacancy) {
@@ -144,65 +140,61 @@ class VacancyFragment : Fragment() {
             vacancy.contactPhoneNumbers.isEmpty() &&
             vacancy.contactName.isNullOrEmpty()
         ) {
-            binding.contacts.isVisible = false
+            binding.includeContacts.contacts.isVisible = false
         }
-        binding.companyName.text = vacancy.employerName
-        binding.companyLocation.text = vacancy.city ?: vacancy.area
+        binding.includeCompany.companyName.text = vacancy.employerName
+        binding.includeCompany.companyLocation.text = vacancy.city ?: vacancy.area
 
         Glide.with(requireContext())
             .load(vacancy.employerLogoUrl)
             .centerCrop()
             .placeholder(R.drawable.placeholder_logo)
-            .into(binding.companyLogo)
+            .into(binding.includeCompany.companyLogo)
     }
 
-    private fun setJobDescriptionAndSkills(domainVacancy: DomainVacancy) {
-        binding.jobDescription.text = Html.fromHtml(domainVacancy.description, Html.FROM_HTML_MODE_LEGACY)
-        binding.keySkills.text = domainVacancy.skills.joinToString("\n")
-    }
-
-    private fun setFavoriteButton() {
-        // binding.favoriteButtonOff.setOnClickListener { viewModel?.insertFavoriteVacancy() }
-        // binding.favoriteButtonOn.setOnClickListener { viewModel?.deleteFavoriteVacancy() }
+    private fun setJobDescriptionAndSkills(vacancy: DomainVacancy) {
+        binding.jobDescription.text = Html.fromHtml(vacancy.description, Html.FROM_HTML_MODE_LEGACY)
+        binding.keySkills.text = vacancy.skills.joinToString("\n")
+        binding.vacancyKeySkills.isVisible = vacancy.skills.isNotEmpty()
     }
 
     private fun setContactDetails(vacancy: DomainVacancy) {
-        binding.eMail.apply {
+        binding.includeContacts.eMail.apply {
             text = vacancy.contactEmail
             visibility = if (vacancy.contactEmail != null) View.VISIBLE else View.GONE
         }
 
-        binding.phone.apply {
+        binding.includeContacts.phone.apply {
             text = vacancy.contactPhoneNumbers.firstOrNull()
             visibility = if (vacancy.contactPhoneNumbers.isNotEmpty()) View.VISIBLE else View.GONE
         }
 
-        binding.contactDetails.apply {
+        binding.includeContacts.contactDetails.apply {
             text = vacancy.contactComment.firstOrNull()
             visibility = if (vacancy.contactComment.isNotEmpty()) View.VISIBLE else View.GONE
         }
     }
 
     private fun showFavoriteState(isFavorite: Boolean) {
-        if (isFavorite) {
-            binding.favoriteButtonOn.visibility = View.VISIBLE
-            binding.favoriteButtonOff.visibility = View.GONE
-        } else {
-            binding.favoriteButtonOn.visibility = View.GONE
-            binding.favoriteButtonOff.visibility = View.VISIBLE
+        binding.favoriteButtonOn.let {
+            it.isVisible = isFavorite
+            it.isClickable = isFavorite
         }
-//        if (vacancy != null) {
-//            // vacancyViewModel.setVacancy(vacancy)
-//        }
+        binding.favoriteButtonOff.let {
+            it.isVisible = !isFavorite
+            it.isClickable = !isFavorite
+        }
         prepareViews()
     }
 
     private fun prepareViews() {
         binding.favoriteButtonOff.setOnClickListener {
-            // vacancyViewModel.insertFavoriteVacancy()
+            it.isClickable = false
+            viewModel.insertFavoriteVacancy()
         }
         binding.favoriteButtonOn.setOnClickListener {
-            // vacancyViewModel.deleteFavoriteVacancy()
+            it.isClickable = false
+            viewModel.deleteFavoriteVacancy()
         }
     }
 

@@ -27,19 +27,24 @@ class FavoritesVacancyRepositoryImpl(
         })
     }
     override suspend fun getOneFavoriteVacancy(vacancyId: String): DomainVacancy {
-        TODO()
+        val vacancyEntity = appDatabase.favoriteVacancyDao().getVacancyById(vacancyId)
+        return vacancyConverter.map(vacancyEntity)
     }
 
     override suspend fun deleteFavoriteVacancy(vacancy: DomainVacancy): Int {
-        TODO()
+        val vacancyEntity = vacancyConverter.map(vacancy)
+        appDatabase.favoriteVacancyDao().deleteFavoriteVacancy(vacancyEntity)
+        val vacancyList = appDatabase.favoriteVacancyDao().getFavoriteIds()
+        return vacancyList.size
     }
 
     override suspend fun insertFavoriteVacancy(vacancy: DomainVacancy) {
-        TODO()
+        val vacancyEntity = vacancyConverter.map(vacancy)
+        appDatabase.favoriteVacancyDao().insertFavoriteVacancy(vacancyEntity)
     }
 
     override suspend fun getFavoriteIds(): List<String> {
-        TODO()
+        return appDatabase.favoriteVacancyDao().getFavoriteIds()
     }
 }
 

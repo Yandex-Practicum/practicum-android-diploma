@@ -11,9 +11,11 @@ val appModule = module {
         SearchViewModel(get(), get())
     }
 
-    viewModel { FavoritesViewModel(get()) }
-    viewModel<VacancyViewModel> {
-        VacancyViewModel(get())
+    viewModel<FavoritesViewModel> {
+        FavoritesViewModel(get())
     }
 
+    viewModel<VacancyViewModel> {
+        VacancyViewModel(get(), get())
+    }
 }

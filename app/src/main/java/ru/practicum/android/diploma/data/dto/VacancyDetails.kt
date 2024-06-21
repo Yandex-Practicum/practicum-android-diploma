@@ -14,7 +14,8 @@ data class VacancyDetails(
     @SerializedName("key_skills")
     val keySkills: List<KeySkill>?,
     val contacts: Contacts?,
-    val experience: Experience?
+    val experience: Experience?,
+    val employment: Employment
 )
 
 data class KeySkill(
@@ -33,5 +34,9 @@ data class Phone(
 
 data class Experience(
     val id: String,
+    val name: String
+)
+
+data class Employment(
     val name: String
 )

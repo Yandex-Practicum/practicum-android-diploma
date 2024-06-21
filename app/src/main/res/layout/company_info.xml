@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/bg_company_info"
+    android:orientation="horizontal"
+    android:padding="16dp"
+    android:paddingBottom="16dp">
+
+    <ImageView
+        android:id="@+id/companyLogo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/placeholder_android_xml_24"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:scaleType="centerCrop" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/vacancy_title_style"
+            android:id="@+id/companyName"
+            tools:text="Еда"/>
+
+        <TextView
+            style="@style/vacancy_text_style"
+            android:id="@+id/companyLocation"
+            tools:text="Москва" />
+    </LinearLayout>
+</LinearLayout>

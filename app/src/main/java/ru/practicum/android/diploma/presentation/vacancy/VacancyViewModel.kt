@@ -5,19 +5,20 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.domain.favorites.FavoritesVacancyInteractor
 import ru.practicum.android.diploma.domain.vacancy.GetVacancyDetailsInteractor
 import ru.practicum.android.diploma.domain.search.models.DomainVacancy
 import ru.practicum.android.diploma.domain.favorites.VacancyViewState
 
 class VacancyViewModel(
     private val getVacancyDetailsInteractor: GetVacancyDetailsInteractor,
-    // private val favoritesVacancyInteractor: FavoritesVacancyInteractor
+    private val favoritesVacancyInteractor: FavoritesVacancyInteractor
 ) : ViewModel() {
 
     private val _vacancyScreenState = MutableLiveData<VacancyViewState>()
     val vacancyScreenState: LiveData<VacancyViewState> get() = _vacancyScreenState
 
-    var currentDomainVacancy: DomainVacancy? = null
+    var currentVacancy: DomainVacancy? = null
         private set
 
     fun loadVacancyDetails(vacancyId: String) {
@@ -25,21 +26,21 @@ class VacancyViewModel(
         viewModelScope.launch {
             val result = getVacancyDetailsInteractor.execute(vacancyId)
             result.onSuccess {
-                currentDomainVacancy = it
+                currentVacancy = it
                 _vacancyScreenState.postValue(VacancyViewState.VacancyDataDetail(it))
-                // getFavoriteIds()
+                getFavoriteIds()
             }.onFailure {
                 // Ошибка
             }
         }
     }
-/*
+
     fun insertFavoriteVacancy() {
         if (currentVacancy != null) {
             viewModelScope.launch {
                 favoritesVacancyInteractor.insertFavoriteVacancy(currentVacancy!!)
+                getFavoriteIds()
             }
-            getFavoriteIds()
         }
     }
 
@@ -47,8 +48,8 @@ class VacancyViewModel(
         if (currentVacancy != null) {
             viewModelScope.launch {
                 favoritesVacancyInteractor.deleteFavoriteVacancy(currentVacancy!!)
+                getFavoriteIds()
             }
-            getFavoriteIds()
         }
     }
 
@@ -63,5 +64,4 @@ class VacancyViewModel(
         }
     }
 
- */
 }
