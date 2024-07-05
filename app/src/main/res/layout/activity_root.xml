@@ -14,4 +14,15 @@
         app:defaultNavHost="true"
         app:navGraph="@navigation/navigation_graph" />
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bnvBottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_navigation_menu"
+        app:itemPaddingBottom="0dp"
+        app:itemPaddingTop="8dp"
+        android:paddingBottom="8dp"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
