@@ -2,4 +2,13 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- paired colors -->
+    <color name="black_and_white">@color/black</color>
 </resources>
+
+    <!--  ███   ███  █  █  █    -->
+    <!--  █ █   █    █  █  █    -->
+    <!--  █ █   ███  ████  ████ -->
+    <!-- █████  █    █  █  █  █ -->
+    <!-- █   █  ███  █  █  ████ -->
