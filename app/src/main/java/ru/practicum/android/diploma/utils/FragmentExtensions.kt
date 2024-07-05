@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import ru.practicum.android.diploma.R
 
-//Snackbar как альтернатива Toast
+// Snackbar как альтернатива Toast
 
 fun Fragment.showSnackbar(message: String) {
     val snackbar = Snackbar.make(
