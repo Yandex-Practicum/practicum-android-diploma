@@ -18,9 +18,14 @@ import ru.practicum.android.diploma.utils.UtilForPlug.SERVER_ERROR_TOWEL
 
 /** объекты заглушки на ошибки или остутствии результата поиска
  *
- * пример вызова:
- *
+ * пример вызова из фрагмента:
  * showPlug(requireContext(), NO_INTERNET)
+ *
+ * в макете:
+ *     <include
+ *         android:id="@+id/util_plug"
+ *         layout="@layout/util_plug"
+ *         android:visibility="gone" />
  * */
 
 object UtilForPlug {
