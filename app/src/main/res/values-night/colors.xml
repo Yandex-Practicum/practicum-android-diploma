@@ -4,12 +4,5 @@
     <color name="white">#FFFFFFFF</color>
 
     <!-- paired colors -->
-   <color name="black_and_white">@color/white</color>
+    <color name="black_and_white">@color/white</color>
 </resources>
-
- <!-- ╔╗╔╗ ╔══╗ ╔╗╔╗ ╔╗    -->
- <!-- ║║║║ ║╔╗║ ║║║║ ║║    -->
- <!-- ║╚╝║ ║║║║ ║╚╝║ ║╚══╗ -->
- <!-- ║╔╗║ ║║║║ ╚═╗║ ║╔═╗║ -->
- <!-- ║║║║ ║╚╝║   ║║ ║╚═╝║ -->
- <!-- ╚╝╚╝ ╚══╝   ╚╝ ╚═══╝ -->
