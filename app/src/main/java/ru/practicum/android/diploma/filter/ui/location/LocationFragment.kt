@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma
+package ru.practicum.android.diploma.filter.ui.location
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentLocationBinding
 
 class LocationFragment : Fragment() {

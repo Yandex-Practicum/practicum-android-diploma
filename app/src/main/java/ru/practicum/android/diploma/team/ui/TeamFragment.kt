@@ -1,25 +1,23 @@
-package ru.practicum.android.diploma
+package ru.practicum.android.diploma.team.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import ru.practicum.android.diploma.databinding.FragmentCountryBinding
+import ru.practicum.android.diploma.databinding.FragmentTeamBinding
 
-class CountryFragment : Fragment() {
+class TeamFragment : Fragment() {
 
-    private var _binding: FragmentCountryBinding? = null
+    private var _binding: FragmentTeamBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: CountryViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentCountryBinding.inflate(layoutInflater)
+        _binding = FragmentTeamBinding.inflate(layoutInflater)
         return binding.root
     }
 }

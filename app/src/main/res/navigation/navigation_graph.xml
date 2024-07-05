@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/searchFragment"
-        android:name="ru.practicum.android.diploma.SearchFragment"
+        android:name="ru.practicum.android.diploma.search.ui.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search">
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/filterFragment"
-        android:name="ru.practicum.android.diploma.FilterFragment"
+        android:name="ru.practicum.android.diploma.filter.ui.filter.FilterFragment"
         android:label="fragment_filter"
         tools:layout="@layout/fragment_filter">
         <action
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/locationFragment"
-        android:name="ru.practicum.android.diploma.LocationFragment"
+        android:name="ru.practicum.android.diploma.filter.ui.location.LocationFragment"
         android:label="fragment_location"
         tools:layout="@layout/fragment_location">
         <action
@@ -43,22 +43,22 @@
     </fragment>
     <fragment
         android:id="@+id/sectorFragment"
-        android:name="ru.practicum.android.diploma.SectorFragment"
+        android:name="ru.practicum.android.diploma.filter.ui.sector.SectorFragment"
         android:label="fragment_sector"
         tools:layout="@layout/fragment_sector" />
     <fragment
         android:id="@+id/countryFragment"
-        android:name="ru.practicum.android.diploma.CountryFragment"
+        android:name="ru.practicum.android.diploma.filter.ui.country.CountryFragment"
         android:label="fragment_country"
         tools:layout="@layout/fragment_country" />
     <fragment
         android:id="@+id/regionFragment"
-        android:name="ru.practicum.android.diploma.RegionFragment"
+        android:name="ru.practicum.android.diploma.filter.ui.region.RegionFragment"
         android:label="fragment_region"
         tools:layout="@layout/fragment_region" />
     <fragment
         android:id="@+id/vacancyFragment"
-        android:name="ru.practicum.android.diploma.VacancyFragment"
+        android:name="ru.practicum.android.diploma.vacancy.ui.VacancyFragment"
         android:label="fragment_vacancy"
         tools:layout="@layout/fragment_vacancy" />
     <fragment
@@ -68,7 +68,7 @@
         tools:layout="@layout/fragment_favorites" />
     <fragment
         android:id="@+id/teamFragment"
-        android:name="ru.practicum.android.diploma.TeamFragment"
+        android:name="ru.practicum.android.diploma.team.ui.TeamFragment"
         android:label="fragment_team"
         tools:layout="@layout/fragment_team" />
 

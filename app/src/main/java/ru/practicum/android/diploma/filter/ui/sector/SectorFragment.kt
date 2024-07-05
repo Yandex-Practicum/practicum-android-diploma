@@ -1,23 +1,25 @@
-package ru.practicum.android.diploma
+package ru.practicum.android.diploma.filter.ui.sector
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import ru.practicum.android.diploma.databinding.FragmentTeamBinding
+import androidx.fragment.app.viewModels
+import ru.practicum.android.diploma.databinding.FragmentSectorBinding
 
-class TeamFragment : Fragment() {
+class SectorFragment : Fragment() {
 
-    private var _binding: FragmentTeamBinding? = null
+    private var _binding: FragmentSectorBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: SectorViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentTeamBinding.inflate(layoutInflater)
+        _binding = FragmentSectorBinding.inflate(layoutInflater)
         return binding.root
     }
 }
