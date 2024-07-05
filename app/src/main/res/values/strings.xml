@@ -1,3 +1,54 @@
 <resources>
     <string name="app_name">FindYourJob</string>
+    <!-- bottom navigation -->
+    <string name="bnSearch">Главная</string>
+    <string name="bnFavorites">Избранное</string>
+    <string name="bnTeam">Команда</string>
+    <!-- search -->
+    <string name="search_title">Поиск вакансий</string>
+    <string name="search_query">Введите запрос</string>
+    <string name="search_no_internet">Нет интернета</string>
+    <string name="search_no_results">Не удалось получить\nсписок вакансий</string>
+    <string name="search_server_error">Ошибка сервера</string>
+    <string name="search_no_vacancies">Таких вакансий нет</string>
+    <string name="search_results_count">Найдено %1$d вакансий</string>
+    <!-- favorites -->
+    <string name="favorites_title">Избранное</string>
+    <string name="favorites_empty">Список пуст</string>
+    <string name="favorites_erorr">Не удалось получить\nсписок вакансий</string>
+    <!-- team -->
+    <string name="team_title">Команда</string>
+    <string name="team_about">Над приложением\nработали</string>
+    <string name="team_developer1">Сергей Михалёв</string>
+    <string name="team_developer2">Нехорошкина Елена</string>
+    <string name="team_developer3">Павлов Алексей</string>
+    <string name="team_developer4">Калугин Алексей</string>
+    <!-- vacancy -->
+    <string name="vacancy_title">Вакансия</string>
+    <string name="vacancy_server_error">Ошибка сервера</string>
+    <!-- filter -->
+    <string name="filter_title">Настройки фильтрации</string>
+    <string name="filter_work_place">Место работы</string>
+    <string name="filter_sector">Отрасль</string>
+    <string name="filter_salary">Ожидаемая зарплата</string>
+    <string name="filter_enter_amount">Введите сумму</string>
+    <string name="filter_only_with_salary">Не показывать без зарплаты</string>
+    <string name="filter_apply">Применить</string>
+    <string name="filter_reset">Сбросить</string>
+    <!-- filter location -->
+    <string name="location_title">Выбор места работы</string>
+    <string name="location_country">Страна</string>
+    <string name="location_region">Регион</string>
+    <string name="location_select">Выбрать</string>
+    <!-- filter country -->
+    <string name="country_title">Выбор страны</string>
+    <!-- filter region -->
+    <string name="region_title">Выбор региона</string>
+    <string name="region_enter_region">Введите регион</string>
+    <string name="region_no_region">Такого региона нет</string>
+    <string name="region_error">Не удалось получить\nсписок</string>
+    <!-- filter sector -->
+    <string name="sector_title">Выбор отрасли</string>
+    <string name="sector_enter_sector">Введите отрасль</string>
+    <string name="sector_select">Выбрать</string>
 </resources>
