@@ -15,7 +15,8 @@ class SectorFragment : Fragment() {
     private val viewModel: SectorViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSectorBinding.inflate(layoutInflater)

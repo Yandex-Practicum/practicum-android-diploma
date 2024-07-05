@@ -15,7 +15,8 @@ class FilterFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: FilterViewModel by viewModels()
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFilterBinding.inflate(layoutInflater)
