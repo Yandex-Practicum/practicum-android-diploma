@@ -1,8 +1,8 @@
-package ru.practicum.android.diploma.favorites.ui
+package ru.practicum.android.diploma.favourites.ui
 
 import androidx.lifecycle.ViewModel
 
-class FavoritesViewModel : ViewModel() {
+class FavouritesViewModel : ViewModel() {
     init {
         println("FavoritesViewModel created")
     }

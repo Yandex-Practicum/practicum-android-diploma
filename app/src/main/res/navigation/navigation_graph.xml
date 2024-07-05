@@ -63,9 +63,9 @@
         tools:layout="@layout/fragment_vacancy" />
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="ru.practicum.android.diploma.favorites.ui.FavoritesFragment"
+        android:name="ru.practicum.android.diploma.favourites.ui.FavouritesFragment"
         android:label="fragment_favorites"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favourites" />
     <fragment
         android:id="@+id/teamFragment"
         android:name="ru.practicum.android.diploma.team.ui.TeamFragment"
