@@ -18,11 +18,10 @@
         android:id="@+id/bnvBottomNav"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/bottom_navigation_menu"
+        android:paddingBottom="8dp"
         app:itemPaddingBottom="0dp"
         app:itemPaddingTop="8dp"
-        android:paddingBottom="8dp"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_navigation_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
