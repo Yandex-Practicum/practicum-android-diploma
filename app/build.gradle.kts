@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("ru.practicum.android.diploma.plugins.developproperties")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -36,12 +37,33 @@ android {
 
     buildFeatures {
         buildConfig = true
+        viewBinding = true
     }
 }
 
 dependencies {
+    // androidX
     implementation(libs.androidX.core)
     implementation(libs.androidX.appCompat)
+
+    // room
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
+
+    // retrofit
+    implementation(libs.retrofit.retrofit)
+    implementation(libs.retrofit.gson)
+
+    // fragment navigation
+    implementation(libs.navigation.fragment)
+    implementation(libs.navigation.ui)
+
+    // DI Koin
+    implementation(libs.koin.android)
+
+    // Glide
+    implementation(libs.glide)
 
     // UI layer libraries
     implementation(libs.ui.material)

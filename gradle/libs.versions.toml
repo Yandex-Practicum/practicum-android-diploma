@@ -7,6 +7,13 @@ minSdk = "26"
 compileSdk = "34"
 targetSdk = "33"
 
+# libs versions
+roomRuntime = "2.6.1"
+navigationFragmentKtx = "2.7.7"
+koinAndroid = "3.3.0"
+retrofit = "2.9.0"
+glide = "4.16.0"
+
 # Detekt
 detekt = "1.23.3"
 detektTwitterComposeRules ="0.0.26"
@@ -25,6 +32,25 @@ staticAnalysis-detektTwitterComposeRules = { module = "com.twitter.compose.rules
 # AndroidX
 androidX-core = "androidx.core:core-ktx:1.12.0"
 androidX-appCompat = "androidx.appcompat:appcompat:1.6.1"
+
+#room
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
+
+#retrofit
+retrofit-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+
+#fragment navigation
+navigation-fragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationFragmentKtx" }
+
+#DI Koin
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinAndroid" }
+
+#Glide
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 
 # UI layer libraries
 ui-material = "com.google.android.material:material:1.10.0"
