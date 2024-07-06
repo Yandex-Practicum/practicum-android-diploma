@@ -9,6 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
+import ru.practicum.android.diploma.utils.setDebouncedClickListener
+import ru.practicum.android.diploma.utils.showRandomPlug
 
 class SearchFragment : Fragment() {
 
@@ -21,12 +23,13 @@ class SearchFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSearchBinding.inflate(layoutInflater)
+        _binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.btFilter.setOnClickListener {
             findNavController().navigate(R.id.action_searchFragment_to_filterFragment)
         }
@@ -34,5 +37,14 @@ class SearchFragment : Fragment() {
         binding.btVacancy.setOnClickListener {
             findNavController().navigate(R.id.action_searchFragment_to_vacancyFragment)
         }
+
+        binding.plugTest.setDebouncedClickListener {
+            showRandomPlug(requireContext())
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

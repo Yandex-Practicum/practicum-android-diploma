@@ -16,7 +16,7 @@ import ru.practicum.android.diploma.utils.UtilForPlug.SEARCH
 import ru.practicum.android.diploma.utils.UtilForPlug.SERVER_ERROR_CAT
 import ru.practicum.android.diploma.utils.UtilForPlug.SERVER_ERROR_TOWEL
 
-/** объекты заглушки на ошибки или остутствии результата поиска
+/** заглушки на ошибки или остутствии результата поиска
  *
  * пример вызова из фрагмента:
  * showPlug(requireContext(), NO_INTERNET)
@@ -95,4 +95,22 @@ fun Fragment.showPlug(
         }
     }
 }
+
+// показать случайную заглушку (тест, потом удалим)
+
+val plugOptions = listOf(
+    SEARCH,
+    NO_INTERNET,
+    NO_RESULTS_CAT,
+    NO_REGION,
+    NO_RESULTS_CARPET,
+    SERVER_ERROR_TOWEL,
+    SERVER_ERROR_CAT,
+    EMPTY_FAVORITES
+)
+
+fun Fragment.showRandomPlug(context: Context) {
+    showPlug(context, plugOptions.random())
+}
+
 
