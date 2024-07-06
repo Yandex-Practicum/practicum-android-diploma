@@ -5,10 +5,14 @@
     android:layout_height="match_parent"
     tools:context=".filter.ui.country.CountryFragment">
 
-    <TextView
+    <Toolbar
+        android:id="@+id/tbCountry"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Выбор страны"
-        android:textSize="30sp" />
+        android:layout_height="wrap_content"
+        android:contentInsetStartWithNavigation="0dp"
+        android:minHeight="64dp"
+        android:navigationIcon="@drawable/ic_arrow_back"
+        android:title="@string/country_title"
+        android:titleTextAppearance="@style/Medium_22" />
 
 </FrameLayout>

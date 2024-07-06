@@ -5,10 +5,14 @@
     android:layout_height="match_parent"
     tools:context=".vacancy.ui.VacancyFragment">
 
-    <TextView
+    <Toolbar
+        android:id="@+id/tbVacancy"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Вакансия"
-        android:textSize="30sp" />
+        android:layout_height="wrap_content"
+        android:contentInsetStartWithNavigation="0dp"
+        android:minHeight="64dp"
+        android:navigationIcon="@drawable/ic_arrow_back"
+        android:title="@string/vacancy_title"
+        android:titleTextAppearance="@style/Medium_22" />
 
 </FrameLayout>

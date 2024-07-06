@@ -1,27 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".filter.ui.location.LocationFragment">
 
-    <TextView
+    <Toolbar
+        android:id="@+id/tbLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Выбор места работы"
-        android:textSize="30sp" />
+        android:contentInsetStartWithNavigation="0dp"
+        android:minHeight="64dp"
+        android:navigationIcon="@drawable/ic_arrow_back"
+        android:title="@string/location_title"
+        android:titleTextAppearance="@style/Medium_22"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btCountry"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Страна" />
+        android:text="Страна"
+        app:layout_constraintTop_toBottomOf="@id/tbLocation" />
 
     <Button
         android:id="@+id/btRegion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Регион" />
+        android:text="Регион"
+        app:layout_constraintTop_toBottomOf="@id/btCountry" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/btLocationSelect"
+        style="@style/Medium_16.Blue_button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginBottom="@dimen/margin24"
+        android:text="@string/location_select"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
