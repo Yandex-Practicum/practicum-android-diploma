@@ -38,6 +38,17 @@ object UtilForPlug {
     const val SERVER_ERROR_TOWEL = "Ошибка сервера"
     const val SERVER_ERROR_CAT = "Ошибка сервера"
     const val EMPTY_FAVORITES = "Список пуст"
+
+    val plugOptions = listOf(
+        SEARCH,
+        NO_INTERNET,
+        NO_RESULTS_CAT,
+        NO_REGION,
+        NO_RESULTS_CARPET,
+        SERVER_ERROR_TOWEL,
+        SERVER_ERROR_CAT,
+        EMPTY_FAVORITES
+    )
 }
 
 fun Fragment.showPlug(
@@ -50,67 +61,60 @@ fun Fragment.showPlug(
     utilPlugBox?.visibility = View.VISIBLE
 
     when (problemTip) {
-        SEARCH -> {
-            plugText?.visibility = View.GONE
-            plugIcon?.setImageResource(R.drawable.placeholder_search)
-        }
-
-        NO_INTERNET -> {
-            plugText?.text = context.resources.getString(R.string.search_no_internet)
-            plugIcon?.setImageResource(R.drawable.placeholder_no_internet)
-        }
-
-        NO_RESULTS_CAT -> {
-            plugText?.text = context.resources.getString(R.string.search_no_results)
-            plugIcon?.setImageResource(R.drawable.placeholder_no_results_cat)
-        }
-
-        NO_REGION -> {
-            plugText?.text = context.resources.getString(R.string.region_no_region)
-            plugIcon?.setImageResource(R.drawable.placeholder_no_results_cat)
-        }
-
-        NO_RESULTS_CARPET -> {
-            plugText?.text = context.resources.getString(R.string.region_error)
-            plugIcon?.setImageResource(R.drawable.placeholder_no_results_carpet)
-        }
-
-        SERVER_ERROR_TOWEL -> {
-            plugText?.text = context.resources.getString(R.string.search_server_error)
-            plugIcon?.setImageResource(R.drawable.placeholder_server_error)
-        }
-
-        SERVER_ERROR_CAT -> {
-            plugText?.text = context.resources.getString(R.string.vacancy_server_error)
-            plugIcon?.setImageResource(R.drawable.placeholder_server_error_cat)
-        }
-
-        EMPTY_FAVORITES -> {
-            plugText?.text = context.resources.getString(R.string.favorites_empty)
-            plugIcon?.setImageResource(R.drawable.placeholder_empty_favorites)
-        }
-
-        else -> {
-            utilPlugBox?.visibility = View.GONE
-        }
+        SEARCH -> showSearchPlug(plugText, plugIcon)
+        NO_INTERNET -> showNoInternetPlug(context, plugText, plugIcon)
+        NO_RESULTS_CAT -> showNoResultsCatPlug(context, plugText, plugIcon)
+        NO_REGION -> showNoRegionPlug(context, plugText, plugIcon)
+        NO_RESULTS_CARPET -> showNoResultsCarpetPlug(context, plugText, plugIcon)
+        SERVER_ERROR_TOWEL -> showServerErrorTowelPlug(context, plugText, plugIcon)
+        SERVER_ERROR_CAT -> showServerErrorCatPlug(context, plugText, plugIcon)
+        EMPTY_FAVORITES -> showEmptyFavoritesPlug(context, plugText, plugIcon)
+        else -> utilPlugBox?.visibility = View.GONE
     }
 }
 
-// показать случайную заглушку (тест, потом удалим)
-
-val plugOptions = listOf(
-    SEARCH,
-    NO_INTERNET,
-    NO_RESULTS_CAT,
-    NO_REGION,
-    NO_RESULTS_CARPET,
-    SERVER_ERROR_TOWEL,
-    SERVER_ERROR_CAT,
-    EMPTY_FAVORITES
-)
-
-fun Fragment.showRandomPlug(context: Context) {
-    showPlug(context, plugOptions.random())
+private fun showSearchPlug(plugText: TextView?, plugIcon: ImageView?) {
+    plugText?.visibility = View.GONE
+    plugIcon?.setImageResource(R.drawable.placeholder_search)
 }
 
+private fun showNoInternetPlug(context: Context, plugText: TextView?, plugIcon: ImageView?) {
+    plugText?.text = context.resources.getString(R.string.search_no_internet)
+    plugIcon?.setImageResource(R.drawable.placeholder_no_internet)
+}
+
+private fun showNoResultsCatPlug(context: Context, plugText: TextView?, plugIcon: ImageView?) {
+    plugText?.text = context.resources.getString(R.string.search_no_results)
+    plugIcon?.setImageResource(R.drawable.placeholder_no_results_cat)
+}
+
+private fun showNoRegionPlug(context: Context, plugText: TextView?, plugIcon: ImageView?) {
+    plugText?.text = context.resources.getString(R.string.region_no_region)
+    plugIcon?.setImageResource(R.drawable.placeholder_no_results_cat)
+}
+
+private fun showNoResultsCarpetPlug(context: Context, plugText: TextView?, plugIcon: ImageView?) {
+    plugText?.text = context.resources.getString(R.string.region_error)
+    plugIcon?.setImageResource(R.drawable.placeholder_no_results_carpet)
+}
+
+private fun showServerErrorTowelPlug(context: Context, plugText: TextView?, plugIcon: ImageView?) {
+    plugText?.text = context.resources.getString(R.string.search_server_error)
+    plugIcon?.setImageResource(R.drawable.placeholder_server_error)
+}
+
+private fun showServerErrorCatPlug(context: Context, plugText: TextView?, plugIcon: ImageView?) {
+    plugText?.text = context.resources.getString(R.string.vacancy_server_error)
+    plugIcon?.setImageResource(R.drawable.placeholder_server_error_cat)
+}
+
+private fun showEmptyFavoritesPlug(context: Context, plugText: TextView?, plugIcon: ImageView?) {
+    plugText?.text = context.resources.getString(R.string.favorites_empty)
+    plugIcon?.setImageResource(R.drawable.placeholder_empty_favorites)
+}
+
+// показать случайную заглушку (тест, потом удалим)
+fun Fragment.showRandomPlug(context: Context) {
+    showPlug(context, UtilForPlug.plugOptions.random())
+}
 
