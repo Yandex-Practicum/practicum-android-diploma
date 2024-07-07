@@ -26,6 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:paddingBottom="@dimen/padding8"
+        android:background="?attr/colorPrimary"
         android:theme="@style/Regular_12.BottomNavigationText"
         app:itemActiveIndicatorStyle="@style/Regular_12.BottomNavigationText"
         app:itemIconTint="@color/bottom_nav_selector"

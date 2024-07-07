@@ -37,5 +37,4 @@ val dataModule = module {
             name = DB_NAME
         ).build()
     }
-
 }
