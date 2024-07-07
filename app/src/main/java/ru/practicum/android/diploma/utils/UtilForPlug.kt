@@ -117,4 +117,3 @@ private fun showEmptyFavoritesPlug(context: Context, plugText: TextView?, plugIc
 fun Fragment.showRandomPlug(context: Context) {
     showPlug(context, UtilForPlug.plugOptions.random())
 }
-
