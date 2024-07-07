@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterBinding
 
@@ -14,7 +14,7 @@ class FilterFragment : Fragment() {
 
     private var _binding: FragmentFilterBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: FilterViewModel by viewModels()
+    private val viewModel: FilterViewModel by viewModel()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,6 +33,10 @@ class FilterFragment : Fragment() {
 
         binding.btSector.setOnClickListener {
             findNavController().navigate(R.id.action_filterFragment_to_sectorFragment)
+        }
+
+        binding.tbSettingsFilter.setNavigationOnClickListener {
+            findNavController().navigateUp()
         }
     }
 }

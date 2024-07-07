@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="weight_400">400</integer>
+    <integer name="weight_500">500</integer>
+    <integer name="weight_700">700</integer>
+</resources>

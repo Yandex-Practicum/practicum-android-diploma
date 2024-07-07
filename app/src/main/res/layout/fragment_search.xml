@@ -6,28 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".search.ui.SearchFragment">
 
-    <TextView
-        android:id="@+id/tvSearch"
+    <Toolbar
+        android:id="@+id/tbSearch"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Экран поиска"
-        android:textSize="30dp"
+        android:layout_height="64dp"
+        android:title="@string/search_title"
+        android:titleMarginStart="@dimen/margin16"
+        android:titleTextAppearance="@style/Medium_22"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btFilter"
+    <ImageView
+        android:id="@+id/ivFilter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Фильтры"
+        android:layout_margin="@dimen/margin24"
+        android:src="@drawable/ic_filter_off"
+        app:layout_constraintBottom_toBottomOf="@id/tbSearch"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/tbSearch"
+        tools:ignore="ContentDescription" />
 
     <Button
         android:id="@+id/btVacancy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Вакансия"
-        app:layout_constraintTop_toBottomOf="@id/tvSearch" />
+        android:text="@string/vacancy_title"
+        app:layout_constraintTop_toBottomOf="@id/tbSearch" />
+
+    <include
+        android:id="@+id/util_plug"
+        layout="@layout/util_plug"
+        android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

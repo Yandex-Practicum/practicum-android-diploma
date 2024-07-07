@@ -5,10 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".team.ui.TeamFragment">
 
-    <TextView
+    <Toolbar
+        android:id="@+id/tbTeam"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Команда"
-        android:textSize="30sp" />
+        android:layout_height="64dp"
+        android:title="@string/team_title"
+        android:titleMarginStart="@dimen/margin16"
+        android:titleTextAppearance="@style/Medium_22" />
 
 </FrameLayout>

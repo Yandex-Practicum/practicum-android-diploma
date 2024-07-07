@@ -3,12 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".favorites.ui.FavoritesFragment">
+    tools:context=".favourites.ui.FavouritesFragment">
 
-    <TextView
+    <Toolbar
+        android:id="@+id/tbFavourites"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Избранное"
-        android:textSize="30sp" />
+        android:layout_height="64dp"
+        android:title="@string/favorites_title"
+        android:titleMarginStart="@dimen/margin16"
+        android:titleTextAppearance="@style/Medium_22" />
 
 </FrameLayout>

@@ -5,10 +5,14 @@
     android:layout_height="match_parent"
     tools:context=".filter.ui.region.RegionFragment">
 
-    <TextView
+    <Toolbar
+        android:id="@+id/tbRegion"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Выбор региона"
-        android:textSize="30sp" />
+        android:layout_height="wrap_content"
+        android:contentInsetStartWithNavigation="0dp"
+        android:minHeight="64dp"
+        android:navigationIcon="@drawable/ic_arrow_back"
+        android:title="@string/region_title"
+        android:titleTextAppearance="@style/Medium_22" />
 
 </FrameLayout>
