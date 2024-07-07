@@ -15,4 +15,24 @@
         app:defaultNavHost="true"
         app:navGraph="@navigation/navigation_graph" />
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/light_gray"
+        app:layout_constraintBottom_toTopOf="@id/bnvBottomNav" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bnvBottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:paddingBottom="@dimen/padding8"
+        android:theme="@style/Regular_12.BottomNavigationText"
+        app:itemActiveIndicatorStyle="@style/Regular_12.BottomNavigationText"
+        app:itemIconTint="@color/bottom_nav_selector"
+        app:itemPaddingBottom="0dp"
+        app:itemPaddingTop="@dimen/padding8"
+        app:itemTextColor="@color/bottom_nav_selector"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_navigation_menu" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

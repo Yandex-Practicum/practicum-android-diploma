@@ -42,4 +42,8 @@
         <item name="android:backgroundTint">@color/blue</item>
         <item name="android:layout_marginHorizontal">@dimen/margin16</item>
     </style>
+
+    <style name="Regular_12.BottomNavigationText">
+        <item name="itemTextAppearanceActive">@color/blue</item>
+    </style>
 </resources>
