@@ -35,5 +35,4 @@ val dataModule = module {
             name = BuildConfig.DATABASE_FILE_NAME
         ).build()
     }
-
 }
