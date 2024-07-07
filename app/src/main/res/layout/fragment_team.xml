@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".team.ui.TeamFragment">
 
     <Toolbar
@@ -13,4 +14,45 @@
         android:titleMarginStart="@dimen/margin16"
         android:titleTextAppearance="@style/Medium_22" />
 
-</FrameLayout>
+    <TextView
+        style="@style/Bold_32"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin16"
+        android:layout_marginTop="@dimen/margin32"
+        android:layout_marginBottom="@dimen/margin32"
+        android:text="@string/team_about" />
+
+    <TextView
+        style="@style/Medium_16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin16"
+        android:layout_marginBottom="@dimen/margin16"
+        android:text="@string/team_developer1" />
+
+    <TextView
+        style="@style/Medium_16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin16"
+        android:layout_marginBottom="@dimen/margin16"
+        android:text="@string/team_developer2" />
+
+    <TextView
+        style="@style/Medium_16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin16"
+        android:layout_marginBottom="@dimen/margin16"
+        android:text="@string/team_developer3" />
+
+    <TextView
+        style="@style/Medium_16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin16"
+        android:layout_marginBottom="@dimen/margin16"
+        android:text="@string/team_developer4" />
+
+</LinearLayout>
