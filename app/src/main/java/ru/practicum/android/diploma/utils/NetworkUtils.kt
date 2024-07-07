@@ -7,15 +7,6 @@ import android.os.Build
 
 object NetworkUtils {
 
-    /** Утилита проверки доступности интернета
-     * пример:
-     *             if (NetworkUtils.isInternetAvailable(this)) {
-     *                 Log.d("=== LOG ===", "интернет есть, запускаем поиск")
-     *             } else {
-     *                 Log.d("=== LOG ===", "интернета нет, вызываем электрика")
-     *             }
-     */
-
     fun isInternetAvailable(context: Context): Boolean {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         var result = false

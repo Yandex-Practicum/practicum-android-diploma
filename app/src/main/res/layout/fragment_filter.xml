@@ -1,27 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".filter.ui.filter.FilterFragment">
 
-    <TextView
+    <Toolbar
+        android:id="@+id/tbSettingsFilter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Настройки фильтрации"
-        android:textSize="30sp" />
+        android:contentInsetStartWithNavigation="0dp"
+        android:minHeight="64dp"
+        android:navigationIcon="@drawable/ic_arrow_back"
+        android:title="@string/filter_title"
+        android:titleTextAppearance="@style/Medium_22"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Место работы" />
+        android:text="Место работы"
+        app:layout_constraintTop_toBottomOf="@id/tbSettingsFilter" />
 
     <Button
         android:id="@+id/btSector"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Отрасль" />
+        android:text="Отрасль"
+        app:layout_constraintTop_toBottomOf="@id/btLocation" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
