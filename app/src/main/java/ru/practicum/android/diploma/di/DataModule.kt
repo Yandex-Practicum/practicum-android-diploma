@@ -11,12 +11,15 @@ import ru.practicum.android.diploma.search.data.network.NetworkClient
 import ru.practicum.android.diploma.search.data.network.RetrofitClient
 
 const val BASE_URL = "https://api.hh.ru/"
-const val DB_NAME = "JobSearch_db"
+const val DB_NAME = "FindYourJob_db"
 
 val dataModule = module {
 
     single<NetworkClient> {
-        RetrofitClient()
+        RetrofitClient(
+            jobApiService = get(),
+            context = androidContext()
+        )
     }
 
     single<JobApiService> {

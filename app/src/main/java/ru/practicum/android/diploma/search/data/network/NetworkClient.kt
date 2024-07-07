@@ -1,3 +1,7 @@
 package ru.practicum.android.diploma.search.data.network
 
-interface NetworkClient
+import ru.practicum.android.diploma.search.data.dto.Resp
+
+interface NetworkClient {
+    suspend fun doRequest(dto: Any): Resp
+}
