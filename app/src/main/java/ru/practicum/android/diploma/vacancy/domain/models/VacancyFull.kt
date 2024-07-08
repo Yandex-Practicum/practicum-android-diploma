@@ -1,0 +1,14 @@
+package ru.practicum.android.diploma.vacancy.domain.models
+
+data class VacancyFull(
+    val id: Int = -1,
+    val name: String = "",
+    val company: String = "",
+    val salary: String = "",
+    val area: String = "",
+    val icon: String = "",
+    val employment: String = "",
+    val experience: String = "",
+    val schedule: String = "",
+    val description: String = ""
+)

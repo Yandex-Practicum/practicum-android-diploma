@@ -17,7 +17,7 @@ val interactorModule = module {
     }
 
     factory<VacancyInteractor> {
-        VacancyInteractorImpl()
+        VacancyInteractorImpl(vacancyRepository = get())
     }
 
     factory<FilterInteractor> {
