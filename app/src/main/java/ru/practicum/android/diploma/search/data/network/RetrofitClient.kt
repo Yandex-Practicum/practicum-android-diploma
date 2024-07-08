@@ -21,6 +21,7 @@ class RetrofitClient(
     override suspend fun doRequest(dto: Any): Resp {
         if (!isInternetAvailable(context)) {
             return Resp().apply { resultCode = RESULT_CODE_NO_INTERNET }
+
         }
         return getResp(dto = dto)
     }
@@ -50,5 +51,4 @@ class RetrofitClient(
             }
         }
     }
-
 }

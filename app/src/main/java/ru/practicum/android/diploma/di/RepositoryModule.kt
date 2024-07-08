@@ -13,7 +13,7 @@ import ru.practicum.android.diploma.vacancy.domain.api.VacancyRepository
 val repositoryModule = module {
 
     single<SearchRepository> {
-        SearchRepositoryImpl()
+        SearchRepositoryImpl(get())
     }
 
     single<VacancyRepository> {
@@ -27,5 +27,4 @@ val repositoryModule = module {
     single<FavouritesRepository> {
         FavouritesRepositoryImpl()
     }
-
 }

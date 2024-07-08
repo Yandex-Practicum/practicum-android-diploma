@@ -27,17 +27,28 @@
         app:layout_constraintTop_toTopOf="@id/tbSearch"
         tools:ignore="ContentDescription" />
 
-    <Button
-        android:id="@+id/btVacancy"
+    <EditText
+        android:id="@+id/etSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/vacancy_title"
         app:layout_constraintTop_toBottomOf="@id/tbSearch" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvVacancies"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="46dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etSearch"
+        tools:itemCount="3"
+        tools:listitem="@layout/vacancy_item" />
 
     <include
         android:id="@+id/util_plug"
         layout="@layout/util_plug"
+        android:layout_width="5dp"
+        android:layout_height="2dp"
         android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

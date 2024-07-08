@@ -1,3 +1,9 @@
 package ru.practicum.android.diploma.search.domain.api
 
-interface SearchInteractor
+import kotlinx.coroutines.flow.Flow
+import ru.practicum.android.diploma.search.data.dto.SearchRequest
+import ru.practicum.android.diploma.search.domain.models.VacanciesResponse
+
+interface SearchInteractor {
+    fun search(options: SearchRequest): Flow<VacanciesResponse>
+}
