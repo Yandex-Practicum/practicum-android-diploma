@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.search.data.dto.RESULT_CODE_SUCCESS
 import ru.practicum.android.diploma.search.data.dto.SearchRequest
 import ru.practicum.android.diploma.search.domain.api.SearchInteractor
 import ru.practicum.android.diploma.utils.NumericConstants
@@ -36,7 +37,6 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
     }
 
     private fun searchRequest(searchText: String) {
-
         if (searchText.isNotEmpty()) {
             options["text"] = searchText
         }
@@ -44,7 +44,7 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
         _screenState.value = SearchState.Loading
         viewModelScope.launch(Dispatchers.IO) {
             searchInteractor.search(SearchRequest(options)).collect { response ->
-                if (response.resultCode == 200) {
+                if (response.resultCode == RESULT_CODE_SUCCESS) {
                     _screenState.postValue(SearchState.Content(response.results))
                 } else {
                     _screenState.postValue(SearchState.Error)

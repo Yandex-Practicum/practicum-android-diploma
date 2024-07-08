@@ -27,7 +27,7 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private lateinit var textWatcher: TextWatcher
+    private var textWatcher: TextWatcher? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,9 +47,9 @@ class SearchFragment : Fragment() {
             findNavController().navigate(R.id.action_searchFragment_to_filterFragment)
         }
 
-
         textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // реализация не требуется
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -59,6 +59,7 @@ class SearchFragment : Fragment() {
             }
 
             override fun afterTextChanged(s: Editable?) {
+                // реализация не требуется
             }
         }
 
@@ -70,11 +71,11 @@ class SearchFragment : Fragment() {
             when (screenState) {
                 is SearchState.Content -> showContent(screenState)
                 SearchState.Error -> {
-
+                    // реализация будет позже
                 }
 
                 SearchState.Loading -> {
-
+                    // реализация будет позже
                 }
             }
         }
