@@ -4,6 +4,9 @@
         <!-- primary -->
         <item name="colorPrimary">@color/white</item>
         <item name="colorOnPrimary">@color/black</item>
+        <!-- other -->
+        <item name="hint_text_c">@color/gray</item>
+        <item name="hint_back_c">@color/light_gray</item>
         <!-- system -->
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:statusBarColor">?attr/colorPrimary</item>

@@ -14,7 +14,7 @@ import ru.practicum.android.diploma.utils.debounce
 
 class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewModel() {
 
-    private val _screenState = MutableLiveData<SearchState>(SearchState.Content(emptyList()))
+    private val _screenState = MutableLiveData<SearchState>(SearchState.Empty)
     val screenState: LiveData<SearchState> = _screenState
 
     private var latestSearchText: String? = null
@@ -30,24 +30,26 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
     }
 
     fun search(searchText: String) {
-        if (searchText.isBlank() || latestSearchText == searchText) {
-            return
+        if (searchText.isNotEmpty() || latestSearchText != searchText) {
+            latestSearchText = searchText
+            searchDebounce(searchText)
+        } else {
+            _screenState.postValue(SearchState.Empty)
         }
-        searchDebounce(searchText)
     }
 
     private fun searchRequest(searchText: String) {
         if (searchText.isNotEmpty()) {
+            _screenState.postValue(SearchState.Loading)
             options["text"] = searchText
-        }
-
-        _screenState.value = SearchState.Loading
-        viewModelScope.launch(Dispatchers.IO) {
-            searchInteractor.search(SearchRequest(options)).collect { response ->
-                if (response.resultCode == RESULT_CODE_SUCCESS) {
-                    _screenState.postValue(SearchState.Content(response.results))
-                } else {
-                    _screenState.postValue(SearchState.Error)
+            _screenState.value = SearchState.Loading
+            viewModelScope.launch(Dispatchers.IO) {
+                searchInteractor.search(SearchRequest(options)).collect { response ->
+                    if (response.resultCode == RESULT_CODE_SUCCESS) {
+                        _screenState.postValue(SearchState.Content(response.results, response.foundVacancies))
+                    } else {
+                        _screenState.postValue(SearchState.Error)
+                    }
                 }
             }
         }

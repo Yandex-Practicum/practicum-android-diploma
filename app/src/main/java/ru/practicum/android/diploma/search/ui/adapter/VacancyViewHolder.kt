@@ -16,8 +16,9 @@ class VacancyViewHolder(private val binding: VacancyItemBinding) :
         binding.tvCompany.text = vacancy.company
         Glide.with(itemView)
             .load(vacancy.icon)
-            .placeholder(R.drawable.ic_placeholder_vacancy)
-            .centerCrop()
+            .placeholder(R.drawable.ic_placeholder_logo)
+            .centerInside()
             .into(binding.ivIcon)
+        binding.ivIcon.clipToOutline = true
     }
 }

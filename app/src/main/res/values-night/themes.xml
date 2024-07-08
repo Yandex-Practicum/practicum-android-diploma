@@ -4,6 +4,10 @@
         <!-- primary -->
         <item name="colorPrimary">@color/black</item>
         <item name="colorOnPrimary">@color/white</item>
+        <!-- other -->
+        <item name="hint_text_c">@color/white</item>
+        <item name="hint_back_c">@color/gray</item>
+        <!-- system -->
         <item name="android:statusBarColor">?attr/colorPrimary</item>
     </style>
 </resources>

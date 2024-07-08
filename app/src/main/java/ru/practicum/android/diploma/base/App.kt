@@ -21,5 +21,4 @@ class App : Application() {
             modules(dataModule, interactorModule, repositoryModule, viewModelModule)
         }
     }
-
 }
