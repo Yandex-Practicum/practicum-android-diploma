@@ -13,7 +13,7 @@ import ru.practicum.android.diploma.vacancy.domain.impl.VacancyInteractorImpl
 val interactorModule = module {
 
     factory<SearchInteractor> {
-        SearchInteractorImpl()
+        SearchInteractorImpl(get())
     }
 
     factory<VacancyInteractor> {
@@ -27,5 +27,4 @@ val interactorModule = module {
     factory<FavouritesInteractor> {
         FavouritesInteractorImpl()
     }
-
 }

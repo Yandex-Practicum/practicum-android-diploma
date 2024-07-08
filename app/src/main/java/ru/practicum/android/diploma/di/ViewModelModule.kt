@@ -14,7 +14,7 @@ import ru.practicum.android.diploma.vacancy.ui.VacancyViewModel
 val viewModelModule = module {
 
     viewModel {
-        SearchViewModel()
+        SearchViewModel(get())
     }
 
     viewModel {
@@ -44,5 +44,4 @@ val viewModelModule = module {
     viewModel {
         SectorViewModel()
     }
-
 }

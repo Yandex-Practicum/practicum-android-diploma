@@ -6,6 +6,7 @@ import retrofit2.http.Path
 import retrofit2.http.QueryMap
 import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.search.data.dto.Resp
+import ru.practicum.android.diploma.search.data.dto.SearchResponse
 
 const val USER_AGENT_AUTHORIZATION = "Authorization: Bearer ${BuildConfig.HH_ACCESS_TOKEN}"
 const val USER_AGENT_APP_NAME = "HH-User-Agent: Find Your Job (snt_mail@bk.ru)"
@@ -18,6 +19,5 @@ interface JobApiService {
 
     @Headers(USER_AGENT_AUTHORIZATION, USER_AGENT_APP_NAME)
     @GET("vacancies")
-    suspend fun searchVacancies(@QueryMap options: Map<String, String>): Resp
-
+    suspend fun searchVacancies(@QueryMap options: Map<String, String>): SearchResponse
 }
