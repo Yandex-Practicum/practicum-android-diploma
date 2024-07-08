@@ -22,7 +22,7 @@ val viewModelModule = module {
     }
 
     viewModel {
-        VacancyViewModel()
+        VacancyViewModel(vacancyInteractor = get())
     }
 
     viewModel {
