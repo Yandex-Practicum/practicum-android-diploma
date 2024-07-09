@@ -5,14 +5,4 @@
     android:layout_height="match_parent"
     tools:context=".filter.ui.sector.SectorFragment">
 
-    <Toolbar
-        android:id="@+id/tbSector"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:contentInsetStartWithNavigation="0dp"
-        android:minHeight="64dp"
-        android:navigationIcon="@drawable/ic_arrow_back"
-        android:title="@string/sector_title"
-        android:titleTextAppearance="@style/Medium_22" />
-
 </FrameLayout>
