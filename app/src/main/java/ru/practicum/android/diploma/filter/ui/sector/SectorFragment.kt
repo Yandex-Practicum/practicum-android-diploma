@@ -9,7 +9,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.FragmentSectorBinding
 
 class SectorFragment : Fragment() {
-
     private var _binding: FragmentSectorBinding? = null
     private val binding get() = _binding!!
     private val viewModel: SectorViewModel by viewModel()

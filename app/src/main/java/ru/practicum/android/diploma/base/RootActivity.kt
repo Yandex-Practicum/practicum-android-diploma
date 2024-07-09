@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.base
 
 import android.os.Bundle
+import androidx.annotation.NavigationRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
@@ -43,36 +44,42 @@ class RootActivity : AppCompatActivity() {
 
             bnvBottomNav.setupWithNavController(navController)
             navController.addOnDestinationChangedListener { _, navDestination, _ ->
-                bnvBottomNav.isVisible = when (navDestination.id) {
-                    R.id.searchFragment, R.id.favoritesFragment, R.id.teamFragment -> true
-                    else -> false
-                }
+                onDestinationChanged(navDestination.id)
+            }
 
-                toolbar.title = getString(
-                    when (navDestination.id) {
-                        R.id.countryFragment -> R.string.country_title
-                        R.id.favoritesFragment -> R.string.favorites_title
-                        R.id.filterFragment -> R.string.filter_title
-                        R.id.locationFragment -> R.string.location_title
-                        R.id.regionFragment -> R.string.region_title
-                        R.id.searchFragment -> R.string.search_title
-                        R.id.sectorFragment -> R.string.sector_title
-                        R.id.teamFragment -> R.string.team_title
-                        else -> R.string.vacancy_title
-                    }
-                )
+            // Пример использования access token для HeadHunter API
+            networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
+        }
+    }
 
-                if (navDestination.id == R.id.searchFragment) {
-                    ivFilter.isVisible = true
-                } else {
-                    ivFilter.isVisible = false
-                    ivFilter.setOnClickListener(null)
+    private fun onDestinationChanged(@NavigationRes destinationId: Int) {
+        binding?.apply {
+            bnvBottomNav.isVisible = when (destinationId) {
+                R.id.searchFragment, R.id.favoritesFragment, R.id.teamFragment -> true
+                else -> false
+            }
+
+            toolbar.title = getString(
+                when (destinationId) {
+                    R.id.countryFragment -> R.string.country_title
+                    R.id.favoritesFragment -> R.string.favorites_title
+                    R.id.filterFragment -> R.string.filter_title
+                    R.id.locationFragment -> R.string.location_title
+                    R.id.regionFragment -> R.string.region_title
+                    R.id.searchFragment -> R.string.search_title
+                    R.id.sectorFragment -> R.string.sector_title
+                    R.id.teamFragment -> R.string.team_title
+                    else -> R.string.vacancy_title
                 }
+            )
+
+            if (destinationId == R.id.searchFragment) {
+                ivFilter.isVisible = true
+            } else {
+                ivFilter.isVisible = false
+                ivFilter.setOnClickListener(null)
             }
         }
-
-        // Пример использования access token для HeadHunter API
-        networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
     }
 
     private fun networkRequestExample(accessToken: String) {

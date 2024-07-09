@@ -9,21 +9,21 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
+        style="@style/Toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="64dp"
         android:contentDescription="@string/page_header"
-        android:minHeight="64dp"
-        android:titleTextAppearance="@style/Medium_22"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextAppearance="@style/Medium_22">
 
         <ImageView
             android:id="@+id/ivFilter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_margin="@dimen/margin24"
+            android:layout_margin="@dimen/margin8"
             android:src="@drawable/ic_filter_off"
             tools:ignore="ContentDescription" />
     </androidx.appcompat.widget.Toolbar>
@@ -51,8 +51,8 @@
         android:id="@+id/bnvBottomNav"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:paddingBottom="@dimen/padding8"
         android:background="?attr/colorPrimary"
+        android:paddingBottom="@dimen/padding8"
         android:theme="@style/Regular_12.BottomNavigationText"
         app:itemActiveIndicatorStyle="@style/Regular_12.BottomNavigationText"
         app:itemIconTint="@color/bottom_nav_selector"
