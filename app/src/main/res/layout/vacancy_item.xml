@@ -9,9 +9,8 @@
         android:id="@+id/ivIcon"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginStart="@dimen/margin12"
-        android:layout_marginTop="@dimen/margin12"
-        android:src="@drawable/ic_placeholder_vacancy"
+        android:layout_marginTop="@dimen/margin8"
+        android:background="@drawable/logo_company_shape"
         tools:ignore="ContentDescription,ImageContrastCheck" />
 
     <LinearLayout
@@ -21,6 +20,7 @@
 
         <TextView
             android:id="@+id/tvTitle"
+            style="@style/Medium_22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin12"
@@ -29,6 +29,7 @@
 
         <TextView
             android:id="@+id/tvArea"
+            style="@style/Medium_22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin12"
@@ -37,6 +38,7 @@
 
         <TextView
             android:id="@+id/tvCompany"
+            style="@style/Regular_16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin12"
@@ -45,6 +47,7 @@
 
         <TextView
             android:id="@+id/tvSalary"
+            style="@style/Regular_16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin12"

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?><!--  res/drawable/rounded_edittext.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="0dp"
+    android:shape="rectangle">
+
+    <solid android:color="?attr/hint_back_c" />
+    <corners android:radius="8dp" />
+</shape>

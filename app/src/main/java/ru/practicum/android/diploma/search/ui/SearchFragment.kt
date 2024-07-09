@@ -14,7 +14,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.search.ui.adapter.VacanciesAdapter
-import ru.practicum.android.diploma.vacancy.ui.VacancyFragment
 
 class SearchFragment : Fragment() {
 
@@ -24,14 +23,9 @@ class SearchFragment : Fragment() {
 
     private val vacanciesAdapter: VacanciesAdapter by lazy {
         VacanciesAdapter { vacancy ->
-            findNavController().navigate(
-                resId = R.id.action_searchFragment_to_vacancyFragment,
-                args = VacancyFragment.createArguments(vacancy.id)
-            )
+
         }
     }
-
-    private var textWatcher: TextWatcher? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,15 +45,19 @@ class SearchFragment : Fragment() {
             findNavController().navigate(R.id.action_searchFragment_to_filterFragment)
         }
 
-        textWatcher = object : TextWatcher {
+        val textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 // реализация не требуется
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s?.isNotBlank() == true) {
-                    viewModel.search(s.toString())
-                }
+                viewModel.search(s?.toString() ?: "")
+
+                binding.ivClear.isVisible = !s.isNullOrEmpty()
+                binding.ivSearch.isVisible = s.isNullOrEmpty()
+                binding.ivPlaceholderSearch.isVisible = s.isNullOrEmpty()
+
+                viewModel.search(s?.toString() ?: "")
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -68,6 +66,10 @@ class SearchFragment : Fragment() {
         }
 
         textWatcher.let { binding.etSearch.addTextChangedListener(it) }
+
+        binding.ivClear.setOnClickListener {
+            binding.etSearch.setText("")
+        }
     }
 
     private fun initializeObservers() {
@@ -79,7 +81,11 @@ class SearchFragment : Fragment() {
                 }
 
                 SearchState.Loading -> {
-                    // реализация будет позже
+                    showLoading()
+                }
+
+                SearchState.Empty -> {
+                    showEmpty()
                 }
             }
         }
@@ -100,5 +106,27 @@ class SearchFragment : Fragment() {
         vacanciesAdapter.vacancies.addAll(screenState.results)
         vacanciesAdapter.notifyDataSetChanged()
         binding.rvVacancies.isVisible = true
+        binding.numberVacancies.isVisible = true
+        if (screenState.foundVacancies == 0) {
+            binding.numberVacancies.text = resources.getString(R.string.search_no_vacancies)
+        } else {
+            binding.numberVacancies.text = "Найдено ${screenState.foundVacancies} вакансий"
+        }
+        binding.progressBar.isVisible = false
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun showEmpty() {
+        vacanciesAdapter.vacancies.clear()
+        vacanciesAdapter.notifyDataSetChanged()
+        binding.numberVacancies.isVisible = false
+        binding.progressBar.isVisible = false
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun showLoading() {
+        vacanciesAdapter.vacancies.clear()
+        vacanciesAdapter.notifyDataSetChanged()
+        binding.progressBar.isVisible = true
     }
 }

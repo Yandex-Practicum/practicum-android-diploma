@@ -21,12 +21,12 @@ class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRep
                     val vacanciesList = items.map {
                         it.toVacancy()
                     }
-                    emit(VacanciesResponse(vacanciesList, RESULT_CODE_SUCCESS))
+                    emit(VacanciesResponse(vacanciesList, found, RESULT_CODE_SUCCESS))
                 }
             }
 
             else -> {
-                emit(VacanciesResponse(emptyList(), RESULT_CODE_NO_INTERNET))
+                emit(VacanciesResponse(emptyList(), 0, RESULT_CODE_NO_INTERNET))
             }
         }
     }
