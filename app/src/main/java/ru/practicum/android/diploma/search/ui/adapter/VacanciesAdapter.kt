@@ -25,8 +25,9 @@ class VacanciesAdapter(
     }
 
     fun addItems(newVacancies: List<Vacancy>) {
-        if (newVacancies.isEmpty())
+        if (newVacancies.isEmpty()) {
             return
+        }
         val originalSize = vacancies.size
         vacancies += newVacancies
         notifyItemRangeInserted(originalSize, newVacancies.size)

@@ -11,7 +11,9 @@ import ru.practicum.android.diploma.search.domain.models.Vacancy
 class VacancyViewHolder(
     parentView: ViewGroup,
     val binding: VacancyItemBinding = VacancyItemBinding.inflate(
-        LayoutInflater.from(parentView.context), parentView, false
+        LayoutInflater.from(parentView.context),
+        parentView,
+        false
     ),
 ) :
     RecyclerView.ViewHolder(binding.root) {
