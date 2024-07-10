@@ -10,6 +10,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.common.data.NetworkClient
 import ru.practicum.android.diploma.search.data.network.HhApiService
 import ru.practicum.android.diploma.search.data.network.RetrofitNetworkClient
+import ru.practicum.android.diploma.vacancydetails.data.network.DetailsRetrofitNetworkClient
 
 val dataModule = module {
     single<HhApiService> {
@@ -31,5 +32,6 @@ val dataModule = module {
 
     single<NetworkClient> {
         RetrofitNetworkClient(get(), androidContext())
+        DetailsRetrofitNetworkClient(get(), androidContext())
     }
 }
