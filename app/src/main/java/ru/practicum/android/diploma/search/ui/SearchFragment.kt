@@ -14,6 +14,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.search.ui.adapter.VacanciesAdapter
+import ru.practicum.android.diploma.vacancy.ui.VacancyFragment
 
 class SearchFragment : Fragment() {
 
@@ -23,7 +24,10 @@ class SearchFragment : Fragment() {
 
     private val vacanciesAdapter: VacanciesAdapter by lazy {
         VacanciesAdapter { vacancy ->
-
+            findNavController().navigate(
+                R.id.action_searchFragment_to_vacancyFragment,
+                VacancyFragment.createArguments(vacancy.id)
+            )
         }
     }
 

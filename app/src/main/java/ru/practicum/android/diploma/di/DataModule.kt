@@ -10,6 +10,8 @@ import ru.practicum.android.diploma.favourites.data.db.MainDB
 import ru.practicum.android.diploma.search.data.network.JobApiService
 import ru.practicum.android.diploma.search.data.network.NetworkClient
 import ru.practicum.android.diploma.search.data.network.RetrofitClient
+import ru.practicum.android.diploma.sharing.data.ExternalNavigatorImpl
+import ru.practicum.android.diploma.sharing.domain.ExternalNavigator
 
 val dataModule = module {
 
@@ -34,5 +36,9 @@ val dataModule = module {
             klass = MainDB::class.java,
             name = BuildConfig.DATABASE_FILE_NAME
         ).build()
+    }
+
+    single<ExternalNavigator> {
+        ExternalNavigatorImpl(context = androidContext())
     }
 }

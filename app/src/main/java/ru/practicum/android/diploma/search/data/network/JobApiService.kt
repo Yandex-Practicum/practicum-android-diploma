@@ -9,7 +9,7 @@ import ru.practicum.android.diploma.search.data.dto.SearchResponse
 import ru.practicum.android.diploma.vacancy.data.dto.VacancyResponse
 
 const val USER_AGENT_AUTHORIZATION = "Authorization: Bearer ${BuildConfig.HH_ACCESS_TOKEN}"
-const val USER_AGENT_APP_NAME = "HH-User-Agent: Find Your Job (snt_mail@bk.ru)"
+const val USER_AGENT_APP_NAME = "User-Agent: Find Your Job (snt_mail@bk.ru)"
 
 interface JobApiService {
 

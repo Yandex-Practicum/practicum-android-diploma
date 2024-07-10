@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,11 +15,35 @@
         android:minHeight="64dp"
         android:navigationIcon="@drawable/ic_arrow_back"
         android:title="@string/vacancy_title"
-        android:titleTextAppearance="@style/Medium_22" />
+        android:titleTextAppearance="@style/Medium_22"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivFavorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin8"
+        android:padding="@dimen/padding12"
+        android:src="@drawable/ic_favorite_off"
+        app:layout_constraintBottom_toBottomOf="@id/tbVacancy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tbVacancy" />
+
+    <ImageView
+        android:id="@+id/ivShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin4"
+        android:src="@drawable/ic_share"
+        app:layout_constraintBottom_toBottomOf="@id/tbVacancy"
+        app:layout_constraintEnd_toStartOf="@id/ivFavorite"
+        app:layout_constraintTop_toTopOf="@id/tbVacancy" />
 
     <TextView
         android:id="@+id/tvTemp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tbVacancy" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

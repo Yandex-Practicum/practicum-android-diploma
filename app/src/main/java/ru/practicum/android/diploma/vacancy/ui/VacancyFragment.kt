@@ -37,6 +37,10 @@ class VacancyFragment : Fragment() {
         binding.tbVacancy.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
+
+        binding.ivShare.setOnClickListener {
+            viewModel.shareVacancy()
+        }
     }
 
     private fun initializeObservers() {
@@ -77,5 +81,4 @@ class VacancyFragment : Fragment() {
         private const val VACANCY_ID = "VACANCY_ID"
         fun createArguments(vacancyId: Int): Bundle = bundleOf(VACANCY_ID to vacancyId)
     }
-
 }

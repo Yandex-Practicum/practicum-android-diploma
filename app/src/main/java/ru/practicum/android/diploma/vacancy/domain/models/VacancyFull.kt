@@ -6,6 +6,7 @@ data class VacancyFull(
     val company: String = "",
     val salary: String = "",
     val area: String = "",
+    val alternateUrl: String = "",
     val icon: String = "",
     val employment: String = "",
     val experience: String = "",
