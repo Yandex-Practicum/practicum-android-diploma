@@ -5,4 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".favourites.ui.FavouritesFragment">
 
+    <Toolbar
+        android:id="@+id/tbFavourites"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:title="@string/favorites_title"
+        android:titleMarginStart="@dimen/margin16"
+        android:titleTextAppearance="@style/Medium_22" />
+
 </FrameLayout>

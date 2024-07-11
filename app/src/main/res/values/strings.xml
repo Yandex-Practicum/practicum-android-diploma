@@ -51,5 +51,4 @@
     <string name="sector_title">Выбор отрасли</string>
     <string name="sector_enter_sector">Введите отрасль</string>
     <string name="sector_select">Выбрать</string>
-    <string name="page_header">Заголовок</string>
 </resources>
