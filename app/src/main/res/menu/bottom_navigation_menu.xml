@@ -6,7 +6,7 @@
         android:title="@string/bnSearch" />
 
     <item
-        android:id="@+id/favoritesFragment"
+        android:id="@+id/favouritesFragment"
         android:icon="@drawable/ic_bottom_favorites"
         android:title="@string/bnFavorites" />
 
