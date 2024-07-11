@@ -1,9 +1,7 @@
 package ru.practicum.android.diploma.di
 
-import android.util.Log
 import androidx.room.Room
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -13,6 +11,7 @@ import ru.practicum.android.diploma.favourites.data.db.MainDB
 import ru.practicum.android.diploma.search.data.network.JobApiService
 import ru.practicum.android.diploma.search.data.network.NetworkClient
 import ru.practicum.android.diploma.search.data.network.RetrofitClient
+import ru.practicum.android.diploma.search.data.network.interceptors.LoggingInterceptor
 import ru.practicum.android.diploma.sharing.data.ExternalNavigatorImpl
 import ru.practicum.android.diploma.sharing.domain.ExternalNavigator
 
@@ -26,11 +25,9 @@ val dataModule = module {
     }
 
     single<JobApiService> {
-        val interceptor = HttpLoggingInterceptor()
-            .setLevel(HttpLoggingInterceptor.Level.BODY)
-        val client = OkHttpClient.Builder()
-            .addInterceptor(interceptor)
-            .build()
+        val client = OkHttpClient().apply {
+            interceptors().add(LoggingInterceptor())
+        }
 
         Retrofit.Builder()
             .baseUrl(BuildConfig.HH_BASE_URL)
