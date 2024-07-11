@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin8"
         android:padding="@dimen/padding12"
-        android:src="@drawable/ic_favorite_off"
+        android:src="@drawable/ic_favourite_off"
         app:layout_constraintBottom_toBottomOf="@id/tbVacancy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tbVacancy" />

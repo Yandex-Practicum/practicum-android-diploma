@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
 
 class VacancyFragment : Fragment() {
@@ -41,6 +43,10 @@ class VacancyFragment : Fragment() {
         binding.ivShare.setOnClickListener {
             viewModel.shareVacancy()
         }
+
+        binding.ivFavorite.setOnClickListener {
+            viewModel.changeFavorite()
+        }
     }
 
     private fun initializeObservers() {
@@ -50,6 +56,18 @@ class VacancyFragment : Fragment() {
                 VacancyState.Error -> showError()
                 VacancyState.Loading -> showLoading()
             }
+        }
+        viewModel.isFavorite.observe(viewLifecycleOwner) { isFavorite ->
+            binding.ivFavorite.setImageDrawable(
+                if (isFavorite) {
+                    getDrawable(requireActivity(), R.drawable.ic_favourite_on)
+                } else {
+                    getDrawable(
+                        requireActivity(),
+                        R.drawable.ic_favourite_off
+                    )
+                }
+            )
         }
     }
 
