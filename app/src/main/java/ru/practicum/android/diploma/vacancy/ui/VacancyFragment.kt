@@ -1,13 +1,19 @@
 package ru.practicum.android.diploma.vacancy.ui
 
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
 
 class VacancyFragment : Fragment() {
@@ -47,7 +53,8 @@ class VacancyFragment : Fragment() {
         viewModel.screenState.observe(viewLifecycleOwner) { screenState ->
             when (screenState) {
                 is VacancyState.Content -> showContext(screenState)
-                VacancyState.Error -> showError()
+                VacancyState.ErrorVacancyNotFound -> showErrorVacancyNotFound()
+                VacancyState.ErrorServer -> showErrorServer()
                 VacancyState.Loading -> showLoading()
             }
         }
@@ -55,31 +62,61 @@ class VacancyFragment : Fragment() {
 
     private fun showContext(screenState: VacancyState.Content) {
         val vacancyFull = screenState.vacancyFull
-        val tmp = StringBuilder("")
-        tmp.append("id: " + vacancyFull.id + "\n")
-        tmp.append("name: " + vacancyFull.name + "\n")
-        tmp.append("company: " + vacancyFull.company + "\n")
-        tmp.append("salary: " + vacancyFull.salary + "\n")
-        tmp.append("area: " + vacancyFull.area + "\n")
-        tmp.append("icon: " + vacancyFull.icon + "\n")
-        tmp.append("employment: " + vacancyFull.employment + "\n")
-        tmp.append("experience: " + vacancyFull.experience + "\n")
-        tmp.append("schedule: " + vacancyFull.schedule + "\n")
-        tmp.append("contact name: " + vacancyFull.contact + "\n")
-        tmp.append("contact email: " + vacancyFull.email + "\n")
-        tmp.append("contact phone: " + vacancyFull.phone + "\n")
-        tmp.append("contact comment: " + vacancyFull.comment + "\n")
-        tmp.append("description: " + vacancyFull.description.take(LIMIT_RESULTS) + "\n")
-        tmp.append("keySkills: " + vacancyFull.keySkills.take(LIMIT_RESULTS))
-        binding.tvTemp.text = tmp.toString()
+        binding.progressBar.isVisible = false
+        binding.svVacancyInfo.isVisible = true
+        binding.ivPlaceholder.isVisible = false
+        binding.tvPlaceholder.isVisible = false
+        binding.tvVacancyName.text = vacancyFull.name
+
+        binding.tvSalary.text = vacancyFull.salary
+
+        binding.tvExperienceValue.text = vacancyFull.experience
+        binding.tvEmployment.text = vacancyFull.employment + ", " + vacancyFull.schedule
+
+        binding.tvCompany.text = vacancyFull.company
+        binding.tvArea.text = vacancyFull.area
+        Glide.with(requireActivity())
+            .load(vacancyFull.icon)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .placeholder(R.drawable.ic_placeholder_logo)
+            .centerCrop()
+            .into(binding.ivLogo)
+
+        binding.tvDescriptionValue.text = Html.fromHtml(vacancyFull.description, Html.FROM_HTML_MODE_COMPACT)
+        binding.tvKeySkillsValue.text = Html.fromHtml(vacancyFull.keySkills, Html.FROM_HTML_MODE_COMPACT)
+
+        binding.tvEmail.text = vacancyFull.email
+        binding.tvEmail.setOnClickListener {
+            viewModel.sendMessageToEmail()
+        }
+
+        binding.tvPhone.text = vacancyFull.phone
+        binding.tvPhone.setOnClickListener {
+            viewModel.callEmployer()
+        }
+
+        binding.tvComment.text = vacancyFull.comment
     }
 
-    private fun showError() {
-        binding.tvTemp.text = "Error"
+    private fun showErrorVacancyNotFound() {
+        binding.progressBar.isVisible = false
+        binding.ivPlaceholder.setImageDrawable(getDrawable(requireContext(), R.drawable.placeholder_vacancy_not_found))
+        binding.tvPlaceholder.text = getString(R.string.vacancy_not_found)
+        binding.ivPlaceholder.isVisible = true
+        binding.tvPlaceholder.isVisible = true
+    }
+
+    private fun showErrorServer() {
+        binding.progressBar.isVisible = false
+        binding.ivPlaceholder.setImageDrawable(getDrawable(requireContext(), R.drawable.placeholder_server_error_cat))
+        binding.tvPlaceholder.text = getString(R.string.vacancy_server_error)
+        binding.ivPlaceholder.isVisible = true
+        binding.tvPlaceholder.isVisible = true
     }
 
     private fun showLoading() {
-        binding.tvTemp.text = "Loading"
+        binding.progressBar.isVisible = true
+        binding.svVacancyInfo.isVisible = false
     }
 
     companion object {
