@@ -11,5 +11,10 @@ data class VacancyFull(
     val employment: String = "",
     val experience: String = "",
     val schedule: String = "",
-    val description: String = ""
+    val description: String = "",
+    val contact: String = "",
+    val email: String = "",
+    val phone: String = "",
+    val comment: String = "",
+    val keySkills: String = ""
 )

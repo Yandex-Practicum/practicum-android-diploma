@@ -65,7 +65,12 @@ class VacancyFragment : Fragment() {
         tmp.append("employment: " + vacancyFull.employment + "\n")
         tmp.append("experience: " + vacancyFull.experience + "\n")
         tmp.append("schedule: " + vacancyFull.schedule + "\n")
-        tmp.append("description: " + vacancyFull.description + "\n")
+        tmp.append("contact name: " + vacancyFull.contact + "\n")
+        tmp.append("contact email: " + vacancyFull.email + "\n")
+        tmp.append("contact phone: " + vacancyFull.phone + "\n")
+        tmp.append("contact comment: " + vacancyFull.comment + "\n")
+        tmp.append("description: " + vacancyFull.description.take(LIMIT_RESULTS) + "\n")
+        tmp.append("keySkills: " + vacancyFull.keySkills.take(LIMIT_RESULTS))
         binding.tvTemp.text = tmp.toString()
     }
 
@@ -78,6 +83,7 @@ class VacancyFragment : Fragment() {
     }
 
     companion object {
+        private const val LIMIT_RESULTS = 100
         private const val VACANCY_ID = "VACANCY_ID"
         fun createArguments(vacancyId: Int): Bundle = bundleOf(VACANCY_ID to vacancyId)
     }
