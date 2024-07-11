@@ -47,6 +47,10 @@ class VacancyFragment : Fragment() {
         binding.ivShare.setOnClickListener {
             viewModel.shareVacancy()
         }
+
+        binding.ivFavorite.setOnClickListener {
+            viewModel.changeFavorite()
+        }
     }
 
     private fun initializeObservers() {
@@ -57,6 +61,18 @@ class VacancyFragment : Fragment() {
                 VacancyState.ErrorServer -> showErrorServer()
                 VacancyState.Loading -> showLoading()
             }
+        }
+        viewModel.isFavorite.observe(viewLifecycleOwner) { isFavorite ->
+            binding.ivFavorite.setImageDrawable(
+                if (isFavorite) {
+                    getDrawable(requireActivity(), R.drawable.ic_favourite_on)
+                } else {
+                    getDrawable(
+                        requireActivity(),
+                        R.drawable.ic_favourite_off
+                    )
+                }
+            )
         }
     }
 

@@ -62,10 +62,14 @@
         android:label="fragment_vacancy"
         tools:layout="@layout/fragment_vacancy" />
     <fragment
-        android:id="@+id/favoritesFragment"
+        android:id="@+id/favouritesFragment"
         android:name="ru.practicum.android.diploma.favourites.ui.FavouritesFragment"
         android:label="fragment_favorites"
-        tools:layout="@layout/fragment_favourites" />
+        tools:layout="@layout/fragment_favourites" >
+        <action
+            android:id="@+id/action_favouritesFragment_to_vacancyFragment"
+            app:destination="@id/vacancyFragment" />
+    </fragment>
     <fragment
         android:id="@+id/teamFragment"
         android:name="ru.practicum.android.diploma.team.ui.TeamFragment"

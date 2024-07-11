@@ -18,11 +18,15 @@ val viewModelModule = module {
     }
 
     viewModel {
-        FavouritesViewModel()
+        FavouritesViewModel(favouritesInteractor = get())
     }
 
     viewModel {
-        VacancyViewModel(vacancyInteractor = get(), sharingInteractor = get())
+        VacancyViewModel(
+            vacancyInteractor = get(),
+            favouritesInteractor = get(),
+            sharingInteractor = get()
+        )
     }
 
     viewModel {

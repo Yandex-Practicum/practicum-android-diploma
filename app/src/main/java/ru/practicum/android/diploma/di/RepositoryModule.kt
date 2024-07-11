@@ -25,6 +25,6 @@ val repositoryModule = module {
     }
 
     single<FavouritesRepository> {
-        FavouritesRepositoryImpl()
+        FavouritesRepositoryImpl(db = get())
     }
 }
