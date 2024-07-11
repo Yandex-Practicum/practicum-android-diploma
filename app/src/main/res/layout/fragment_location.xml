@@ -7,12 +7,23 @@
     android:orientation="vertical"
     tools:context=".filter.ui.location.LocationFragment">
 
+    <Toolbar
+        android:id="@+id/tbLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentInsetStartWithNavigation="0dp"
+        android:minHeight="64dp"
+        android:navigationIcon="@drawable/ic_arrow_back"
+        android:title="@string/location_title"
+        android:titleTextAppearance="@style/Medium_22"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/btCountry"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Страна"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tbLocation" />
 
     <Button
         android:id="@+id/btRegion"

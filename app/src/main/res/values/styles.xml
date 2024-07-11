@@ -46,17 +46,4 @@
     <style name="Regular_12.BottomNavigationText">
         <item name="itemTextAppearanceActive">@color/blue</item>
     </style>
-
-    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
-        <item name="android:textSize">22sp</item>
-        <item name="android:textColor">?attr/colorOnPrimary</item>
-        <item name="android:fontFamily">@font/ys_display_medium</item>
-        <item name="android:textFontWeight" tools:ignore="NewApi">@integer/weight_500</item>
-    </style>
-
-    <style name="Toolbar" parent="Widget.MaterialComponents.Toolbar">
-        <item name="android:background">?attr/colorPrimary</item>
-        <item name="titleTextAppearance">@style/Toolbar.TitleText</item>
-        <item name="buttonGravity">center_vertical</item>
-    </style>
 </resources>

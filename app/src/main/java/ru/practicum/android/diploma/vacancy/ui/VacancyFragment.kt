@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
 
@@ -28,7 +29,14 @@ class VacancyFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val vacancyId = requireArguments().getInt(VACANCY_ID, 0)
         viewModel.loadVacancy(vacancyId)
+        initializeListeners()
         initializeObservers()
+    }
+
+    private fun initializeListeners() {
+        binding.tbVacancy.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
     private fun initializeObservers() {

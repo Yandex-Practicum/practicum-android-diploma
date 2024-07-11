@@ -34,5 +34,9 @@ class FilterFragment : Fragment() {
         binding.btSector.setOnClickListener {
             findNavController().navigate(R.id.action_filterFragment_to_sectorFragment)
         }
+
+        binding.tbSettingsFilter.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 }

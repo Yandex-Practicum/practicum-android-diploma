@@ -6,6 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".search.ui.SearchFragment">
 
+    <Toolbar
+        android:id="@+id/tbSearch"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:title="@string/search_title"
+        android:titleMarginStart="@dimen/margin16"
+        android:titleTextAppearance="@style/Medium_22"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin8"
+        android:src="@drawable/ic_filter_off"
+        app:layout_constraintBottom_toBottomOf="@id/tbSearch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tbSearch"
+        tools:ignore="ContentDescription" />
+
     <FrameLayout
         android:id="@+id/flSearch"
         android:layout_width="match_parent"
@@ -14,7 +35,7 @@
         android:layout_marginVertical="@dimen/margin8"
         android:background="@drawable/rounded_edittext"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/tbSearch">
 
         <EditText
             android:id="@+id/etSearch"
