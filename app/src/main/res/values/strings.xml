@@ -54,4 +54,6 @@
     <!-- strings for openEmail -->
     <string name="email_subject">Тема письма</string>
     <string name="email_text">Текст письма</string>
+    <!-- vacancy item -->
+    <string name="vacancy_item_title_template">%1$s, %2$s</string>
 </resources>

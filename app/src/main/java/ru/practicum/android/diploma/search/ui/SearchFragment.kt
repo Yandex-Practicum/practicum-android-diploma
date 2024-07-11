@@ -106,9 +106,8 @@ class SearchFragment : Fragment() {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun showContent(screenState: SearchState.Content) {
-        vacanciesAdapter.vacancies.clear()
-        vacanciesAdapter.vacancies.addAll(screenState.results)
-        vacanciesAdapter.notifyDataSetChanged()
+        vacanciesAdapter.clearItems()
+        vacanciesAdapter.addItems(screenState.results)
         binding.rvVacancies.isVisible = true
         binding.numberVacancies.isVisible = true
         if (screenState.foundVacancies == 0) {
@@ -121,16 +120,14 @@ class SearchFragment : Fragment() {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun showEmpty() {
-        vacanciesAdapter.vacancies.clear()
-        vacanciesAdapter.notifyDataSetChanged()
+        vacanciesAdapter.clearItems()
         binding.numberVacancies.isVisible = false
         binding.progressBar.isVisible = false
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun showLoading() {
-        vacanciesAdapter.vacancies.clear()
-        vacanciesAdapter.notifyDataSetChanged()
+        vacanciesAdapter.clearItems()
         binding.progressBar.isVisible = true
     }
 }

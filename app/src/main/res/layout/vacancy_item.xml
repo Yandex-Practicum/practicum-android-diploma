@@ -28,15 +28,6 @@
             tools:text="Title" />
 
         <TextView
-            android:id="@+id/tvArea"
-            style="@style/Medium_22"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin12"
-            android:layout_marginTop="@dimen/margin2"
-            tools:text="Area" />
-
-        <TextView
             android:id="@+id/tvCompany"
             style="@style/Regular_16"
             android:layout_width="wrap_content"
