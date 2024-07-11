@@ -1,7 +1,7 @@
 package ru.practicum.android.diploma.vacancy.data.dto
 
 import com.google.gson.annotations.SerializedName
-import ru.practicum.android.diploma.search.data.dto.Resp
+import ru.practicum.android.diploma.search.data.dto.Response
 import ru.practicum.android.diploma.search.data.dto.components.Area
 import ru.practicum.android.diploma.search.data.dto.components.Contacts
 import ru.practicum.android.diploma.search.data.dto.components.Employer
@@ -23,4 +23,4 @@ data class VacancyResponse(
     val experience: Experience?,
     val schedule: Schedule,
     val contacts: Contacts?
-) : Resp()
+) : Response()

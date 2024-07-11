@@ -5,10 +5,3 @@ data class Contacts(
     val name: String,
     val phones: List<Phone>,
 )
-
-data class Phone(
-    val city: String,
-    val comment: Any?,
-    val country: String,
-    val number: String,
-)

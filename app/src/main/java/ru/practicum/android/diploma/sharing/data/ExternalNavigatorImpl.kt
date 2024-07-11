@@ -3,6 +3,8 @@ package ru.practicum.android.diploma.sharing.data
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import androidx.core.content.ContextCompat.getString
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.sharing.domain.ExternalNavigator
 
 class ExternalNavigatorImpl(private val context: Context) : ExternalNavigator {
@@ -19,8 +21,8 @@ class ExternalNavigatorImpl(private val context: Context) : ExternalNavigator {
         val intentEmail = Intent(Intent.ACTION_SENDTO)
         intentEmail.data = Uri.parse("mailto:")
         intentEmail.putExtra(Intent.EXTRA_EMAIL, arrayOf(java.lang.String(email)))
-        intentEmail.putExtra(Intent.EXTRA_SUBJECT, "subject")
-        intentEmail.putExtra(Intent.EXTRA_TEXT, "message")
+        intentEmail.putExtra(Intent.EXTRA_SUBJECT, getString(context, R.string.email_subject))
+        intentEmail.putExtra(Intent.EXTRA_TEXT, getString(context, R.string.email_text))
         intentEmail.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         context.startActivity(intentEmail)
     }

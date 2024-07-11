@@ -19,22 +19,19 @@ class VacancyViewModel(
     private val _isFavorite = MutableLiveData(false)
     val isFavorite: LiveData<Boolean> = _isFavorite
     private var id = -1
-    private var link: String? = null
 
     fun loadVacancy(vacancyId: Int) {
         id = vacancyId
         viewModelScope.launch(Dispatchers.IO) {
             vacancyInteractor.getVacancy(vacancyId).collect { vacancy ->
-                link = vacancy.alternateUrl
                 _screenState.postValue(VacancyState.Content(vacancy))
             }
         }
     }
 
     fun shareVacancy() {
-        if (link != null) {
-            sharingInteractor.shareVacancy(link!!)
-        }
+        val link = (_screenState.value as VacancyState.Content).vacancyFull.alternateUrl
+        sharingInteractor.shareVacancy(link)
     }
 
     fun sendMessageToEmail() {

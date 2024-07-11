@@ -1,9 +1,9 @@
 package ru.practicum.android.diploma.search.data.dto
 
 import ru.practicum.android.diploma.search.data.dto.components.Area
+import ru.practicum.android.diploma.search.data.dto.components.Contacts
 import ru.practicum.android.diploma.search.data.dto.components.Employer
 import ru.practicum.android.diploma.search.data.dto.components.Salary
-import ru.practicum.android.diploma.search.data.dto.components.Contacts
 
 data class VacancyDto(
     val id: Int,
