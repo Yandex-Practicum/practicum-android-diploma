@@ -11,6 +11,7 @@ import ru.practicum.android.diploma.search.data.dto.SearchRequest
 import ru.practicum.android.diploma.search.domain.api.SearchInteractor
 import ru.practicum.android.diploma.utils.NumericConstants
 import ru.practicum.android.diploma.utils.debounce
+import java.util.concurrent.atomic.AtomicBoolean
 
 class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewModel() {
 
@@ -19,14 +20,23 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
 
     private var latestSearchText: String? = null
 
-    private val options: HashMap<String, String> = HashMap()
-
     private val searchDebounce = debounce<String>(
         delayMillis = NumericConstants.TWO_SECONDS,
         coroutineScope = viewModelScope,
         useLastParam = true
     ) { changedText ->
         searchRequest(changedText)
+    }
+
+    private var isNextPageLoading = AtomicBoolean(false)
+
+    fun onLastItemReached() {
+        if (isNextPageLoading.get()) {
+            return
+        }
+        isNextPageLoading.set(true)
+
+
     }
 
     fun search(searchText: String) {
@@ -38,12 +48,12 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
         }
     }
 
-    private fun searchRequest(searchText: String) {
+    private fun searchRequest(searchText: String, ) {
         if (searchText.isNotEmpty()) {
             _screenState.postValue(SearchState.Loading)
-            options["text"] = searchText
             _screenState.value = SearchState.Loading
             viewModelScope.launch(Dispatchers.IO) {
+                val options = mutableMapOf("text" to searchText)
                 searchInteractor.search(SearchRequest(options)).collect { response ->
                     if (response.resultCode == RESULT_CODE_SUCCESS) {
                         _screenState.postValue(SearchState.Content(response.results, response.foundVacancies))

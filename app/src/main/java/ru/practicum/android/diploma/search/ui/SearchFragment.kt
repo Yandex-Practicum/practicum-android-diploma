@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
@@ -44,6 +46,7 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initializeObservers()
         initializeAdapter()
+        initializeScroll()
 
         binding.ivFilter.setOnClickListener {
             findNavController().navigate(R.id.action_searchFragment_to_filterFragment)
@@ -97,6 +100,22 @@ class SearchFragment : Fragment() {
 
     private fun initializeAdapter() {
         binding.rvVacancies.adapter = vacanciesAdapter
+    }
+
+    private fun initializeScroll() {
+        binding.rvVacancies.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                if (dy > 0) {
+                    val pos = (binding.rvVacancies.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                    val itemsCount = vacanciesAdapter.itemCount
+                    if (pos >= itemsCount-1) {
+                        viewModel.onLastItemReached()
+                    }
+                }
+            }
+        })
     }
 
     override fun onDestroyView() {
