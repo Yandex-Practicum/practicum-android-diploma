@@ -39,11 +39,229 @@
         app:layout_constraintEnd_toStartOf="@id/ivFavorite"
         app:layout_constraintTop_toTopOf="@id/tbVacancy" />
 
-    <TextView
-        android:id="@+id/tvTemp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/blue"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tbVacancy" />
 
+    <ImageView
+        android:id="@+id/ivPlaceholder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin16"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvPlaceholder"
+        style="@style/Medium_22"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="48dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/ivPlaceholder" />
+
+    <ScrollView
+        android:id="@+id/svVacancyInfo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tbVacancy">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvVacancyName"
+                style="@style/Bold_32"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin16"
+                android:layout_marginTop="@dimen/margin24"
+                tools:text="Android-разработчик" />
+
+            <TextView
+                android:id="@+id/tvSalary"
+                style="@style/Medium_22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin16"
+                android:layout_marginTop="@dimen/margin4"
+                android:layout_marginBottom="@dimen/margin8"
+                tools:text="от 100 000 ₽" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clCompanyInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin16"
+                android:layout_marginTop="@dimen/margin16"
+                android:background="@drawable/rounded_edittext">
+
+                <ImageView
+                    android:id="@+id/ivLogo"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginVertical="@dimen/margin16"
+                    android:layout_marginStart="@dimen/margin16"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/ic_placeholder_logo" />
+
+                <TextView
+                    android:id="@+id/tvCompany"
+                    style="@style/Medium_22"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin8"
+                    android:layout_marginTop="@dimen/margin16"
+                    android:layout_marginEnd="@dimen/margin16"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ivLogo"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Еда" />
+
+                <TextView
+                    android:id="@+id/tvArea"
+                    style="@style/Regular_16"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin8"
+                    android:layout_marginEnd="@dimen/margin16"
+                    android:layout_marginBottom="@dimen/margin16"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ivLogo"
+                    app:layout_constraintTop_toBottomOf="@id/tvCompany"
+                    tools:text="Москва" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tvExperience"
+                style="@style/Medium_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin16"
+                android:layout_marginTop="@dimen/margin24"
+                android:text="@string/experience"
+                app:layout_constraintTop_toBottomOf="@id/clCompanyInfo" />
+
+            <TextView
+                android:id="@+id/tvExperienceValue"
+                style="@style/Regular_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin16"
+                android:layout_marginTop="@dimen/margin4"
+                app:layout_constraintTop_toBottomOf="@id/tvExperience"
+                tools:text="От 1 года до 3 лет" />
+
+            <TextView
+                android:id="@+id/tvEmployment"
+                style="@style/Regular_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin16"
+                android:layout_marginTop="@dimen/margin8"
+                app:layout_constraintTop_toBottomOf="@id/tvExperienceValue"
+                tools:text="Полная занятость, Удаленная работа" />
+
+            <TextView
+                android:id="@+id/tvDescription"
+                style="@style/Medium_22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin16"
+                android:layout_marginTop="@dimen/margin32"
+                android:text="@string/vacancy_description"
+                app:layout_constraintTop_toBottomOf="@id/tvEmployment" />
+
+            <TextView
+                android:id="@+id/tvDescriptionValue"
+                style="@style/Regular_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin16"
+                android:layout_marginTop="@dimen/margin16"
+                android:text="@string/vacancy_description"
+                app:layout_constraintTop_toBottomOf="@id/tvDescription" />
+
+            <TextView
+                android:id="@+id/tvKeySkills"
+                style="@style/Medium_22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin16"
+                android:layout_marginTop="@dimen/margin24"
+                android:text="@string/vacancy_key_skills"
+                app:layout_constraintTop_toBottomOf="@id/tvDescriptionValue" />
+
+            <TextView
+                android:id="@+id/tvKeySkillsValue"
+                style="@style/Regular_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin16"
+                android:layout_marginTop="@dimen/margin16"
+                android:paddingBottom="@dimen/padding24"
+                app:layout_constraintTop_toBottomOf="@id/tvKeySkills"
+                tools:text="Ключевые навыки" />
+
+            <TextView
+                android:id="@+id/tvContacts"
+                style="@style/Medium_22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin16"
+                android:text="@string/vacancy_contacts_employer"
+                app:layout_constraintTop_toBottomOf="@id/tvKeySkillsValue" />
+
+            <TextView
+                android:id="@+id/tvEmail"
+                style="@style/Regular_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin16"
+                android:layout_marginTop="@dimen/margin16"
+                android:paddingBottom="@dimen/padding8"
+                app:layout_constraintTop_toBottomOf="@id/tvContacts"
+                tools:text="email" />
+
+            <TextView
+                android:id="@+id/tvPhone"
+                style="@style/Regular_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin16"
+                android:paddingBottom="@dimen/padding8"
+                app:layout_constraintTop_toBottomOf="@id/tvEmail"
+                tools:text="phone" />
+
+            <TextView
+                android:id="@+id/tvComment"
+                style="@style/Regular_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin16"
+                android:paddingBottom="@dimen/padding8"
+                app:layout_constraintTop_toBottomOf="@id/tvEmail"
+                tools:text="comment" />
+
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

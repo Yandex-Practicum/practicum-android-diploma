@@ -26,6 +26,7 @@
     <!-- vacancy -->
     <string name="vacancy_title">Вакансия</string>
     <string name="vacancy_server_error">Ошибка сервера</string>
+    <string name="vacancy_not_found">Вакансия не найдена или\nудалена</string>
     <!-- filter -->
     <string name="filter_title">Настройки фильтрации</string>
     <string name="filter_work_place">Место работы</string>
@@ -56,4 +57,8 @@
     <string name="email_text">Текст письма</string>
     <!-- vacancy item -->
     <string name="vacancy_item_title_template">%1$s, %2$s</string>
+    <string name="experience">Требуемый опыт</string>
+    <string name="vacancy_description">Описание вакансии</string>
+    <string name="vacancy_key_skills">Ключевые навыки</string>
+    <string name="vacancy_contacts_employer">Контакты</string>
 </resources>
