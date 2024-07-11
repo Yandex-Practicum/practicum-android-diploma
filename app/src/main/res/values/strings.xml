@@ -51,6 +51,9 @@
     <string name="sector_title">Выбор отрасли</string>
     <string name="sector_enter_sector">Введите отрасль</string>
     <string name="sector_select">Выбрать</string>
+    <!-- strings for openEmail -->
+    <string name="email_subject">Тема письма</string>
+    <string name="email_text">Текст письма</string>
     <!-- vacancy item -->
     <string name="vacancy_item_title_template">%1$s, %2$s</string>
 </resources>

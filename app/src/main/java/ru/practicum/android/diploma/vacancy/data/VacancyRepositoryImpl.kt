@@ -23,6 +23,7 @@ class VacancyRepositoryImpl(private val networkClient: NetworkClient) : VacancyR
                         company = response.employer.name,
                         salary = response.salary?.toStr() ?: "salary: null",
                         area = response.area.name,
+                        alternateUrl = response.alternateUrl,
                         icon = response.employer.logoUrls?.logo240 ?: "",
                         employment = response.employment?.name ?: "employment null",
                         experience = response.experience?.name ?: "experience null",
@@ -36,5 +37,4 @@ class VacancyRepositoryImpl(private val networkClient: NetworkClient) : VacancyR
             else -> emit(VacancyFull())
         }
     }
-
 }
