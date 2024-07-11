@@ -35,9 +35,5 @@ class LocationFragment : Fragment() {
         binding.btRegion.setOnClickListener {
             findNavController().navigate(R.id.action_locationFragment_to_regionFragment)
         }
-
-        binding.tbLocation.setNavigationOnClickListener {
-            findNavController().navigateUp()
-        }
     }
 }

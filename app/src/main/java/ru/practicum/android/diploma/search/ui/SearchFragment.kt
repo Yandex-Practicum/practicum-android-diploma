@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.base.RootActivity
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.search.ui.adapter.VacanciesAdapter
 
@@ -41,7 +42,7 @@ class SearchFragment : Fragment() {
         initializeObservers()
         initializeAdapter()
 
-        binding.ivFilter.setOnClickListener {
+        (activity as RootActivity).onFilterClickListener = RootActivity.OnFilterClickListener {
             findNavController().navigate(R.id.action_searchFragment_to_filterFragment)
         }
 

@@ -7,23 +7,12 @@
     android:orientation="vertical"
     tools:context=".filter.ui.filter.FilterFragment">
 
-    <Toolbar
-        android:id="@+id/tbSettingsFilter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:contentInsetStartWithNavigation="0dp"
-        android:minHeight="64dp"
-        android:navigationIcon="@drawable/ic_arrow_back"
-        android:title="@string/filter_title"
-        android:titleTextAppearance="@style/Medium_22"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/btLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Место работы"
-        app:layout_constraintTop_toBottomOf="@id/tbSettingsFilter" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btSector"
