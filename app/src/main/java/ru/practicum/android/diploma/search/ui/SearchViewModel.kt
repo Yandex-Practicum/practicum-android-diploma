@@ -20,6 +20,8 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
 
     private var latestSearchText: String? = null
 
+    private val options = mutableMapOf<String, String>()
+
     private val searchDebounce = debounce<String>(
         delayMillis = NumericConstants.TWO_SECONDS,
         coroutineScope = viewModelScope,
@@ -48,12 +50,11 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
         }
     }
 
-    private fun searchRequest(searchText: String, ) {
+    private fun searchRequest(searchText: String) {
         if (searchText.isNotEmpty()) {
             _screenState.postValue(SearchState.Loading)
-            _screenState.value = SearchState.Loading
             viewModelScope.launch(Dispatchers.IO) {
-                val options = mutableMapOf("text" to searchText)
+                options["text"] = searchText
                 searchInteractor.search(SearchRequest(options)).collect { response ->
                     if (response.resultCode == RESULT_CODE_SUCCESS) {
                         _screenState.postValue(SearchState.Content(response.results, response.foundVacancies))
