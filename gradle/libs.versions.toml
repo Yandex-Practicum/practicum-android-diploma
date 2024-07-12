@@ -12,6 +12,7 @@ roomRuntime = "2.6.1"
 navigationFragmentKtx = "2.7.7"
 koinAndroid = "3.3.0"
 retrofit = "2.9.0"
+okhttp = "3.9.0"
 glide = "4.16.0"
 kotlin = "1.9.0"
 legacySupportV4 = "1.0.0"
@@ -21,7 +22,7 @@ fragmentKtx = "1.8.1"
 
 # Detekt
 detekt = "1.23.3"
-detektTwitterComposeRules ="0.0.26"
+detektTwitterComposeRules = "0.0.26"
 
 [libraries]
 
@@ -46,6 +47,9 @@ room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRunti
 #retrofit
 retrofit-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+
+#okhttp
+logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
 
 #fragment navigation
 navigation-fragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }

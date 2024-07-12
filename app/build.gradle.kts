@@ -56,6 +56,7 @@ dependencies {
     // retrofit
     implementation(libs.retrofit.retrofit)
     implementation(libs.retrofit.gson)
+    implementation(libs.logging.interceptor)
 
     // fragment navigation
     implementation(libs.navigation.fragment)
