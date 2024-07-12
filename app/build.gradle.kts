@@ -20,7 +20,7 @@ android {
 
         buildConfigField(type = "String", name = "HH_ACCESS_TOKEN", value = "\"${developProperties.hhAccessToken}\"")
         buildConfigField(type = "String", name = "HH_BASE_URL", value = "\"https://api.hh.ru/\"")
-        buildConfigField(type = "String", name = "DATABASE_FILE_NAME", value = "\"FindYourJob_db\"")
+        buildConfigField(type = "String", name = "DATABASE_FILE_NAME", value = "\"find_your_job_db\"")
     }
 
     buildTypes {

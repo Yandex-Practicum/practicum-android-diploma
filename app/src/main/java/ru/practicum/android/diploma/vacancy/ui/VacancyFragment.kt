@@ -39,6 +39,11 @@ class VacancyFragment : Fragment() {
         initializeObservers()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun initializeListeners() {
         binding.tbVacancy.setNavigationOnClickListener {
             findNavController().navigateUp()

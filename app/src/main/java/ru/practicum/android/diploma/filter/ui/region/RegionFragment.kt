@@ -32,4 +32,10 @@ class RegionFragment : Fragment() {
             findNavController().navigateUp()
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 }
