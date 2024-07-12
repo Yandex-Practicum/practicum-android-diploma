@@ -42,6 +42,11 @@ class FavouritesFragment : Fragment() {
         initializeObservers()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun initializeAdapters() {
         binding.rvFavorites.adapter = vacanciesAdapter
     }
