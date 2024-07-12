@@ -9,19 +9,20 @@ fun responseToVacancyFull(response: VacancyResponse): VacancyFull {
         id = response.id,
         name = response.name,
         company = response.employer.name,
-        salary = response.salary?.toStr() ?: "salary: null",
+        salary = response.salary?.toStr() ?: "",
         area = response.area.name,
         alternateUrl = response.alternateUrl,
         icon = response.employer.logoUrls?.logo240 ?: "",
-        employment = response.employment?.name ?: "employment null",
-        experience = response.experience?.name ?: "experience null",
-        schedule = response.schedule.name,
+        employment = response.employment?.name ?: "",
+        experience = response.experience?.name ?: "",
+        schedule = response.schedule?.name ?: "",
         description = response.description,
-        contact = response.contacts?.name ?: "contacts null",
-        email = response.contacts?.email ?: "contacts@null.ru",
-        phone = response.contacts?.phones?.firstOrNull()?.number ?: "000-00-00",
-        comment = response.contacts?.phones?.firstOrNull()?.comment ?: "contacts null",
-        keySkills = keySkillsToString(response.keySkills)
+        contact = response.contacts?.name ?: "",
+        email = response.contacts?.email ?: "",
+        phone = response.contacts?.phones?.firstOrNull()?.formatted ?: "",
+        comment = response.contacts?.phones?.firstOrNull()?.comment ?: "",
+        keySkills = keySkillsToString(response.keySkills),
+        address = response.address?.raw ?: ""
     )
 }
 

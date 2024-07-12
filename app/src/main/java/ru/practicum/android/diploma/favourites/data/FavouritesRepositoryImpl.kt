@@ -33,5 +33,4 @@ class FavouritesRepositoryImpl(private val db: MainDB) : FavouritesRepository {
     override suspend fun deleteVacancy(vacancyId: Int) {
         db.favouritesDao().delete(vacancyId)
     }
-
 }
