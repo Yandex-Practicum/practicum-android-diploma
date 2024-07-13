@@ -11,6 +11,7 @@
     <dimen name="margin16">16dp</dimen>
     <dimen name="margin18">18dp</dimen>
     <dimen name="margin24">24dp</dimen>
+    <dimen name="margin22">22dp</dimen>
     <dimen name="margin32">32dp</dimen>
     <!-- padding -->
     <dimen name="padding2">2dp</dimen>
