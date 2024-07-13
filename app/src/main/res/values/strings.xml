@@ -61,4 +61,11 @@
     <string name="vacancy_description">Описание вакансии</string>
     <string name="vacancy_key_skills">Ключевые навыки</string>
     <string name="vacancy_contacts_employer">Контакты</string>
+
+    <plurals name="vacancies">
+        <item quantity="one">Найдена %d вакансия</item>
+        <item quantity="few">Найдено %d вакансии</item>
+        <item quantity="many">Найдено %d вакансий</item>
+        <item quantity="other">Найдено %d вакансий</item>
+    </plurals>
 </resources>

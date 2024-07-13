@@ -1,12 +1,11 @@
 package ru.practicum.android.diploma.search.ui
 
+import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.Placeholder
+import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -19,6 +18,7 @@ import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.search.ui.adapter.VacanciesAdapter
 import ru.practicum.android.diploma.vacancy.ui.VacancyFragment
 import ru.practicum.android.diploma.utils.Placeholder
+import ru.practicum.android.diploma.utils.showPlaceholder
 
 class SearchFragment : Fragment() {
 
@@ -52,12 +52,17 @@ class SearchFragment : Fragment() {
         initializeOther()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun initializeObservers() {
         viewModel.screenState.observe(viewLifecycleOwner) { screenState ->
             when (screenState) {
                 is SearchState.Content -> showContent(screenState)
                 SearchState.Error -> {
-                    // реализация будет позже
+                    showError()
                 }
 
                 is SearchState.Loading -> {
@@ -106,15 +111,10 @@ class SearchFragment : Fragment() {
                 showPlaceholder(requireContext(), Placeholder.HIDE)
             }
 
-            binding.ivClear.setOnClickListener {
-
+            ivClear.setOnClickListener {
+                etSearch.text.clear()
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     private fun showContent(screenState: SearchState.Content) {
@@ -125,8 +125,10 @@ class SearchFragment : Fragment() {
             numberVacancies.isVisible = true
             if (screenState.foundVacancies == 0) {
                 numberVacancies.text = resources.getString(R.string.search_no_vacancies)
+                showPlaceholder(requireContext(), Placeholder.NO_RESULTS_CAT)
             } else {
-                numberVacancies.text = "Найдено ${screenState.foundVacancies} вакансий"
+                numberVacancies.text = getVacanciesText(requireContext(), screenState.foundVacancies)
+                showPlaceholder(requireContext(), Placeholder.HIDE)
             }
             progressBar.isVisible = false
             pbPagination.isVisible = false
@@ -138,10 +140,18 @@ class SearchFragment : Fragment() {
         }
     }
 
+    private fun showError() {
+        binding.progressBar.isVisible = false
+        showPlaceholder(requireContext(), Placeholder.NO_INTERNET)
+        hideKeyboard()
+    }
+
     private fun showEmpty() {
         vacanciesAdapter.clearItems()
         binding.numberVacancies.isVisible = false
         binding.progressBar.isVisible = false
+        showPlaceholder(requireContext(), Placeholder.SEARCH)
+        hideKeyboard()
     }
 
     private fun showLoading(isNewPage: Boolean) {
@@ -153,6 +163,16 @@ class SearchFragment : Fragment() {
                 progressBar.isVisible = true
             }
         }
+        hideKeyboard()
+    }
+
+    private fun hideKeyboard() {
+        val inputMethodManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
+    }
+
+    private fun getVacanciesText(context: Context, count: Int): String {
+        return context.resources.getQuantityString(R.plurals.vacancies, count, count)
     }
 
     private companion object {

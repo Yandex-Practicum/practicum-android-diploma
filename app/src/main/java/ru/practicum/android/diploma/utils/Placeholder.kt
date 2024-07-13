@@ -7,57 +7,39 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.utils.UtilForPlug.EMPTY_FAVORITES
-import ru.practicum.android.diploma.utils.UtilForPlug.NO_INTERNET
-import ru.practicum.android.diploma.utils.UtilForPlug.NO_REGION
-import ru.practicum.android.diploma.utils.UtilForPlug.NO_RESULTS_CARPET
-import ru.practicum.android.diploma.utils.UtilForPlug.NO_RESULTS_CAT
-import ru.practicum.android.diploma.utils.UtilForPlug.SEARCH
-import ru.practicum.android.diploma.utils.UtilForPlug.SERVER_ERROR_CAT
-import ru.practicum.android.diploma.utils.UtilForPlug.SERVER_ERROR_TOWEL
 
-object UtilForPlug {
-
-    const val SEARCH = "поиск вакансии"
-    const val NO_INTERNET = "проблемы с подключением к интернету"
-    const val NO_RESULTS_CAT = "Не удалось получить список вакансий"
-    const val NO_REGION = "Такого региона нет"
-    const val NO_RESULTS_CARPET = "Не удалось получить список"
-    const val SERVER_ERROR_TOWEL = "Ошибка сервера"
-    const val SERVER_ERROR_CAT = "Ошибка сервера"
-    const val EMPTY_FAVORITES = "Список пуст"
-
-    val plugOptions = listOf(
-        SEARCH,
-        NO_INTERNET,
-        NO_RESULTS_CAT,
-        NO_REGION,
-        NO_RESULTS_CARPET,
-        SERVER_ERROR_TOWEL,
-        SERVER_ERROR_CAT,
-        EMPTY_FAVORITES
-    )
+enum class Placeholder {
+    SEARCH, // поиск вакансии (пикча без текста с биноклем)
+    NO_INTERNET, // проблемы с подключением к интернету
+    NO_RESULTS_CAT, // Не удалось получить список вакансий
+    NO_REGION, // Такого региона нет
+    NO_RESULTS_CARPET, // Не удалось получить список
+    SERVER_ERROR_TOWEL, // Ошибка сервера
+    SERVER_ERROR_CAT, // Ошибка сервера
+    EMPTY_FAVORITES, // Список пуст
+    HIDE // Скрыть заглушку
 }
 
-fun Fragment.showPlug(
+fun Fragment.showPlaceholder(
     context: Context,
-    problemTip: String
+    placeholder: Placeholder
 ) {
     val utilPlugBox = view?.findViewById<LinearLayout>(R.id.util_plug)
     val plugText = view?.findViewById<TextView>(R.id.plug_text)
     val plugIcon = view?.findViewById<ImageView>(R.id.plug_icon)
     utilPlugBox?.visibility = View.VISIBLE
+    plugText?.visibility = View.VISIBLE
 
-    when (problemTip) {
-        SEARCH -> showSearchPlug(plugText, plugIcon)
-        NO_INTERNET -> showNoInternetPlug(context, plugText, plugIcon)
-        NO_RESULTS_CAT -> showNoResultsCatPlug(context, plugText, plugIcon)
-        NO_REGION -> showNoRegionPlug(context, plugText, plugIcon)
-        NO_RESULTS_CARPET -> showNoResultsCarpetPlug(context, plugText, plugIcon)
-        SERVER_ERROR_TOWEL -> showServerErrorTowelPlug(context, plugText, plugIcon)
-        SERVER_ERROR_CAT -> showServerErrorCatPlug(context, plugText, plugIcon)
-        EMPTY_FAVORITES -> showEmptyFavoritesPlug(context, plugText, plugIcon)
-        else -> utilPlugBox?.visibility = View.GONE
+    when (placeholder) {
+        Placeholder.SEARCH -> showSearchPlug(plugText, plugIcon)
+        Placeholder.NO_INTERNET -> showNoInternetPlug(context, plugText, plugIcon)
+        Placeholder.NO_RESULTS_CAT -> showNoResultsCatPlug(context, plugText, plugIcon)
+        Placeholder.NO_REGION -> showNoRegionPlug(context, plugText, plugIcon)
+        Placeholder.NO_RESULTS_CARPET -> showNoResultsCarpetPlug(context, plugText, plugIcon)
+        Placeholder.SERVER_ERROR_TOWEL -> showServerErrorTowelPlug(context, plugText, plugIcon)
+        Placeholder.SERVER_ERROR_CAT -> showServerErrorCatPlug(context, plugText, plugIcon)
+        Placeholder.EMPTY_FAVORITES -> showEmptyFavoritesPlug(context, plugText, plugIcon)
+        Placeholder.HIDE -> dontShow(context, utilPlugBox, plugText, plugIcon)
     }
 }
 
@@ -101,7 +83,6 @@ private fun showEmptyFavoritesPlug(context: Context, plugText: TextView?, plugIc
     plugIcon?.setImageResource(R.drawable.placeholder_empty_favorites)
 }
 
-// показать случайную заглушку (тест, потом удалим)
-fun Fragment.showRandomPlug(context: Context) {
-    showPlug(context, UtilForPlug.plugOptions.random())
+private fun dontShow(context: Context, utilPlugBox: LinearLayout?, plugText: TextView?, plugIcon: ImageView?) {
+    utilPlugBox?.visibility = View.GONE
 }
