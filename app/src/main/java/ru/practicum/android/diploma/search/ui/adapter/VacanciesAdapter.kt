@@ -4,11 +4,12 @@ import android.annotation.SuppressLint
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.search.domain.models.Vacancy
+import kotlin.math.min
 
 class VacanciesAdapter(
     val onClick: (Vacancy) -> Unit
 ) : RecyclerView.Adapter<VacancyViewHolder>() {
-    private val vacancies = mutableListOf<Vacancy>()
+    private var vacancies = mutableListOf<Vacancy>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VacancyViewHolder {
         return VacancyViewHolder(parent)
@@ -24,18 +25,23 @@ class VacanciesAdapter(
         }
     }
 
-    fun addItems(newVacancies: List<Vacancy>) {
-        if (newVacancies.isEmpty()) {
-            return
+    @SuppressLint("NotifyDataSetChanged")
+    fun setItems(newVacancies: List<Vacancy>) {
+        if (newVacancies.isNotEmpty()
+            && newVacancies.slice(0 until min(vacancies.size, newVacancies.size)) == vacancies
+        ) {
+            val oldSize = vacancies.size
+            val countNew = newVacancies.size - oldSize
+            vacancies += newVacancies.slice(oldSize until newVacancies.size)
+            notifyItemRangeChanged(oldSize, countNew)
+        } else {
+            vacancies.clear()
+            vacancies += newVacancies
+            notifyDataSetChanged()
         }
-        val originalSize = vacancies.size
-        vacancies += newVacancies
-        notifyItemRangeInserted(originalSize, newVacancies.size)
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     fun clearItems() {
-        vacancies.clear()
-        notifyDataSetChanged()
+        setItems(emptyList())
     }
 }

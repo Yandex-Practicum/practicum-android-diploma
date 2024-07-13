@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.search.ui
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,6 +9,8 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
@@ -44,6 +45,7 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initializeObservers()
         initializeAdapter()
+        initializeScroll()
 
         binding.ivFilter.setOnClickListener {
             findNavController().navigate(R.id.action_searchFragment_to_filterFragment)
@@ -84,8 +86,8 @@ class SearchFragment : Fragment() {
                     // реализация будет позже
                 }
 
-                SearchState.Loading -> {
-                    showLoading()
+                is SearchState.Loading -> {
+                    showLoading(screenState.isNewPage)
                 }
 
                 SearchState.Empty -> {
@@ -99,35 +101,66 @@ class SearchFragment : Fragment() {
         binding.rvVacancies.adapter = vacanciesAdapter
     }
 
+    private fun initializeScroll() {
+        binding.rvVacancies.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                if (dy > 0) {
+                    val pos = (binding.rvVacancies.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                    val itemsCount = vacanciesAdapter.itemCount
+                    if (pos >= itemsCount - ITEM_COUNT_TO_GET_NEW_PAGE) {
+                        viewModel.onLastItemReached()
+                    }
+                }
+            }
+        })
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private fun showContent(screenState: SearchState.Content) {
-        vacanciesAdapter.clearItems()
-        vacanciesAdapter.addItems(screenState.results)
-        binding.rvVacancies.isVisible = true
-        binding.numberVacancies.isVisible = true
-        if (screenState.foundVacancies == 0) {
-            binding.numberVacancies.text = resources.getString(R.string.search_no_vacancies)
-        } else {
-            binding.numberVacancies.text = "Найдено ${screenState.foundVacancies} вакансий"
+        with(binding) {
+            val oldCount = vacanciesAdapter.itemCount
+            vacanciesAdapter.setItems(screenState.results)
+            rvVacancies.isVisible = true
+            numberVacancies.isVisible = true
+            if (screenState.foundVacancies == 0) {
+                numberVacancies.text = resources.getString(R.string.search_no_vacancies)
+            } else {
+                numberVacancies.text = "Найдено ${screenState.foundVacancies} вакансий"
+            }
+            progressBar.isVisible = false
+            pbPagination.isVisible = false
+            rvVacancies.setPadding(0, 0, 0, 0)
+
+            if (oldCount > 0 && screenState.foundVacancies > 0) {
+                rvVacancies.scrollToPosition(oldCount)
+            }
         }
-        binding.progressBar.isVisible = false
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private fun showEmpty() {
         vacanciesAdapter.clearItems()
         binding.numberVacancies.isVisible = false
         binding.progressBar.isVisible = false
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    private fun showLoading() {
-        vacanciesAdapter.clearItems()
-        binding.progressBar.isVisible = true
+    private fun showLoading(isNewPage: Boolean) {
+        with(binding) {
+            if (isNewPage) {
+                pbPagination.isVisible = true
+                rvVacancies.setPadding(0, 0, 0, resources.getDimensionPixelOffset(R.dimen.padding80))
+            } else {
+                progressBar.isVisible = true
+            }
+        }
+    }
+
+    private companion object {
+        const val ITEM_COUNT_TO_GET_NEW_PAGE = 2
     }
 }
