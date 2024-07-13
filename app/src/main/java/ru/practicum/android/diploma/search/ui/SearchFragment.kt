@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.search.ui
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -110,7 +109,7 @@ class SearchFragment : Fragment() {
                 if (dy > 0) {
                     val pos = (binding.rvVacancies.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
                     val itemsCount = vacanciesAdapter.itemCount
-                    if (pos >= itemsCount-1) {
+                    if (pos >= itemsCount - ITEM_COUNT_TO_GET_NEW_PAGE) {
                         viewModel.onLastItemReached()
                     }
                 }
@@ -123,10 +122,8 @@ class SearchFragment : Fragment() {
         _binding = null
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private fun showContent(screenState: SearchState.Content) {
-        vacanciesAdapter.clearItems()
-        vacanciesAdapter.addItems(screenState.results)
+        vacanciesAdapter.setItems(screenState.results)
         binding.rvVacancies.isVisible = true
         binding.numberVacancies.isVisible = true
         if (screenState.foundVacancies == 0) {
@@ -137,16 +134,17 @@ class SearchFragment : Fragment() {
         binding.progressBar.isVisible = false
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private fun showEmpty() {
         vacanciesAdapter.clearItems()
         binding.numberVacancies.isVisible = false
         binding.progressBar.isVisible = false
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private fun showLoading() {
-        vacanciesAdapter.clearItems()
         binding.progressBar.isVisible = true
+    }
+
+    private companion object {
+        const val ITEM_COUNT_TO_GET_NEW_PAGE = 2
     }
 }

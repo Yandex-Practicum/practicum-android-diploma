@@ -63,8 +63,7 @@ class FavouritesFragment : Fragment() {
 
     private fun showContent(screenState: FavouritesState.Content) {
         if (screenState.favouritesList.isNotEmpty()) {
-            vacanciesAdapter.clearItems()
-            vacanciesAdapter.addItems(screenState.favouritesList)
+            vacanciesAdapter.setItems(screenState.favouritesList)
         } else {
             vacanciesAdapter.clearItems()
         }

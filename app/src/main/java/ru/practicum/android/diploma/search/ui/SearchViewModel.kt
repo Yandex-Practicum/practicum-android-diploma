@@ -6,9 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.search.data.dto.RESULT_CODE_SUCCESS
-import ru.practicum.android.diploma.search.data.dto.SearchRequest
 import ru.practicum.android.diploma.search.domain.api.SearchInteractor
+import ru.practicum.android.diploma.search.domain.models.VacanciesResponse
+import ru.practicum.android.diploma.search.domain.models.Vacancy
+import ru.practicum.android.diploma.search.domain.utils.VacanciesData
+import ru.practicum.android.diploma.search.domain.utils.Options
 import ru.practicum.android.diploma.utils.NumericConstants
 import ru.practicum.android.diploma.utils.debounce
 import java.util.concurrent.atomic.AtomicBoolean
@@ -20,25 +22,35 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
 
     private var latestSearchText: String? = null
 
-    private val options = mutableMapOf<String, String>()
+    private var currentPage = -1
+    private var maxPages = 0
+    private val vacanciesList = mutableListOf<Vacancy>()
 
     private val searchDebounce = debounce<String>(
         delayMillis = NumericConstants.TWO_SECONDS,
         coroutineScope = viewModelScope,
         useLastParam = true
     ) { changedText ->
+        currentPage = 0
+        maxPages = 0
+        vacanciesList.clear()
         searchRequest(changedText)
     }
 
-    private var isNextPageLoading = AtomicBoolean(false)
+    private val isNextPageLoading = AtomicBoolean(false)
 
     fun onLastItemReached() {
         if (isNextPageLoading.get()) {
             return
         }
-        isNextPageLoading.set(true)
 
-
+        if (currentPage < maxPages) {
+            currentPage++
+            latestSearchText?.let {
+                isNextPageLoading.set(true)
+                searchRequest(it)
+            }
+        }
     }
 
     fun search(searchText: String) {
@@ -54,15 +66,37 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
         if (searchText.isNotEmpty()) {
             _screenState.postValue(SearchState.Loading)
             viewModelScope.launch(Dispatchers.IO) {
-                options["text"] = searchText
-                searchInteractor.search(SearchRequest(options)).collect { response ->
-                    if (response.resultCode == RESULT_CODE_SUCCESS) {
-                        _screenState.postValue(SearchState.Content(response.results, response.foundVacancies))
-                    } else {
-                        _screenState.postValue(SearchState.Error)
-                    }
-                }
+                val options = Options(
+                    searchText = searchText,
+                    itemsPerPage = VACANCIES_PER_PAGE,
+                    page = currentPage,
+                )
+                searchInteractor.search(options).collect(::processResponse)
             }
         }
+    }
+
+    private fun processResponse(vacanciesData: VacanciesData<VacanciesResponse>) {
+        when (vacanciesData) {
+            is VacanciesData.Data -> {
+                val vacanciesResponse = vacanciesData.value
+                with(vacanciesResponse) {
+                    currentPage = page
+                    vacanciesList += results
+                    maxPages = pages
+                    _screenState.postValue(SearchState.Content(vacanciesList, foundVacancies))
+                }
+            }
+
+            else -> {
+                _screenState.postValue(SearchState.Error)
+            }
+        }
+
+        isNextPageLoading.set(false)
+    }
+
+    private companion object {
+        const val VACANCIES_PER_PAGE = 20
     }
 }
