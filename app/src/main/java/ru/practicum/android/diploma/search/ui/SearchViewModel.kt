@@ -53,12 +53,13 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
         }
     }
 
-    fun search(searchText: String) {
-        if (searchText.isNotEmpty() || latestSearchText != searchText) {
+    fun search(searchText: String?) {
+        if (searchText.isNullOrEmpty()) {
+            _screenState.postValue(SearchState.Empty)
+        }
+        else if (latestSearchText != searchText) {
             latestSearchText = searchText
             searchDebounce(searchText)
-        } else {
-            _screenState.postValue(SearchState.Empty)
         }
     }
 
