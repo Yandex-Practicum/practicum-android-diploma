@@ -64,7 +64,7 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
 
     private fun searchRequest(searchText: String) {
         if (searchText.isNotEmpty()) {
-            _screenState.postValue(SearchState.Loading)
+            _screenState.postValue(SearchState.Loading(currentPage > 0))
             viewModelScope.launch(Dispatchers.IO) {
                 val options = Options(
                     searchText = searchText,

@@ -24,4 +24,5 @@
     <dimen name="padding18">18dp</dimen>
     <dimen name="padding24">24dp</dimen>
     <dimen name="dp223">223dp</dimen>
+    <dimen name="padding80">80dp</dimen>
 </resources>

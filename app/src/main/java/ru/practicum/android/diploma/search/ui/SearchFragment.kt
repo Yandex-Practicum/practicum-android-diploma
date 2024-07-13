@@ -86,8 +86,8 @@ class SearchFragment : Fragment() {
                     // реализация будет позже
                 }
 
-                SearchState.Loading -> {
-                    showLoading()
+                is SearchState.Loading -> {
+                    showLoading(screenState.isNewPage)
                 }
 
                 SearchState.Empty -> {
@@ -123,15 +123,24 @@ class SearchFragment : Fragment() {
     }
 
     private fun showContent(screenState: SearchState.Content) {
-        vacanciesAdapter.setItems(screenState.results)
-        binding.rvVacancies.isVisible = true
-        binding.numberVacancies.isVisible = true
-        if (screenState.foundVacancies == 0) {
-            binding.numberVacancies.text = resources.getString(R.string.search_no_vacancies)
-        } else {
-            binding.numberVacancies.text = "Найдено ${screenState.foundVacancies} вакансий"
+        with(binding) {
+            val oldCount = vacanciesAdapter.itemCount
+            vacanciesAdapter.setItems(screenState.results)
+            rvVacancies.isVisible = true
+            numberVacancies.isVisible = true
+            if (screenState.foundVacancies == 0) {
+                numberVacancies.text = resources.getString(R.string.search_no_vacancies)
+            } else {
+                numberVacancies.text = "Найдено ${screenState.foundVacancies} вакансий"
+            }
+            progressBar.isVisible = false
+            pbPagination.isVisible = false
+            rvVacancies.setPadding(0, 0, 0, 0)
+
+            if (oldCount > 0 && screenState.foundVacancies > 0) {
+                rvVacancies.scrollToPosition(oldCount)
+            }
         }
-        binding.progressBar.isVisible = false
     }
 
     private fun showEmpty() {
@@ -140,8 +149,15 @@ class SearchFragment : Fragment() {
         binding.progressBar.isVisible = false
     }
 
-    private fun showLoading() {
-        binding.progressBar.isVisible = true
+    private fun showLoading(isNewPage: Boolean) {
+        with(binding) {
+            if (isNewPage) {
+                pbPagination.isVisible = true
+                rvVacancies.setPadding(0, 0, 0, resources.getDimensionPixelOffset(R.dimen.padding80))
+            } else {
+                progressBar.isVisible = true
+            }
+        }
     }
 
     private companion object {

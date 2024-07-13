@@ -98,30 +98,42 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/flSearch" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/ProgressBarStyle"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/rvVacancies"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/flSearch" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvVacancies"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginHorizontal="@dimen/margin16"
         android:layout_marginTop="46dp"
         android:layout_marginBottom="56dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/flSearch"
         tools:itemCount="5"
         tools:listitem="@layout/vacancy_item" />
 
     <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
-        android:layout_gravity="center"
-        android:indeterminateTint="@color/blue"
+        android:id="@+id/pbPagination"
+        style="@style/ProgressBarStyle"
+        android:layout_height="@dimen/padding80"
+        android:layout_width="0dp"
         android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/rvVacancies"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rvVacancies"
-        app:layout_constraintBottom_toBottomOf="@id/util_plug"/>
+        tools:visibility="visible" />
 
     <include
         android:id="@+id/util_plug"

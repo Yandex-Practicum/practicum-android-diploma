@@ -46,4 +46,9 @@
     <style name="Regular_12.BottomNavigationText">
         <item name="itemTextAppearanceActive">@color/blue</item>
     </style>
+
+    <style name="ProgressBarStyle">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:indeterminateTint">@color/blue</item>
+    </style>
 </resources>
