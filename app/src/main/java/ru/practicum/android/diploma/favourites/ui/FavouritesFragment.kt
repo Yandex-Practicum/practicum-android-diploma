@@ -42,6 +42,11 @@ class FavouritesFragment : Fragment() {
         initializeObservers()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun initializeAdapters() {
         binding.rvFavorites.adapter = vacanciesAdapter
     }
@@ -58,8 +63,7 @@ class FavouritesFragment : Fragment() {
 
     private fun showContent(screenState: FavouritesState.Content) {
         if (screenState.favouritesList.isNotEmpty()) {
-            vacanciesAdapter.clearItems()
-            vacanciesAdapter.addItems(screenState.favouritesList)
+            vacanciesAdapter.setItems(screenState.favouritesList)
         } else {
             vacanciesAdapter.clearItems()
         }

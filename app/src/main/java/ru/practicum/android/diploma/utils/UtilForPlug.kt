@@ -16,18 +16,6 @@ import ru.practicum.android.diploma.utils.UtilForPlug.SEARCH
 import ru.practicum.android.diploma.utils.UtilForPlug.SERVER_ERROR_CAT
 import ru.practicum.android.diploma.utils.UtilForPlug.SERVER_ERROR_TOWEL
 
-/** заглушки на ошибки или остутствии результата поиска
- *
- * пример вызова из фрагмента:
- * showPlug(requireContext(), NO_INTERNET)
- *
- * в макете:
- *     <include
- *         android:id="@+id/util_plug"
- *         layout="@layout/util_plug"
- *         android:visibility="gone" />
- * */
-
 object UtilForPlug {
 
     const val SEARCH = "поиск вакансии"

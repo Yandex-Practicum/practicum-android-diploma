@@ -39,6 +39,11 @@ class VacancyFragment : Fragment() {
         initializeObservers()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun initializeListeners() {
         binding.tbVacancy.setNavigationOnClickListener {
             findNavController().navigateUp()
@@ -51,12 +56,20 @@ class VacancyFragment : Fragment() {
         binding.ivFavorite.setOnClickListener {
             viewModel.changeFavorite()
         }
+
+        binding.tvEmail.setOnClickListener {
+            viewModel.sendMessageToEmail()
+        }
+
+        binding.tvPhone.setOnClickListener {
+            viewModel.callEmployer()
+        }
     }
 
     private fun initializeObservers() {
         viewModel.screenState.observe(viewLifecycleOwner) { screenState ->
             when (screenState) {
-                is VacancyState.Content -> showContext(screenState)
+                is VacancyState.Content -> showContent(screenState)
                 VacancyState.ErrorVacancyNotFound -> showErrorVacancyNotFound()
                 VacancyState.ErrorServer -> showErrorServer()
                 VacancyState.Loading -> showLoading()
@@ -76,21 +89,23 @@ class VacancyFragment : Fragment() {
         }
     }
 
-    private fun showContext(screenState: VacancyState.Content) {
+    private fun showContent(screenState: VacancyState.Content) {
         val vacancyFull = screenState.vacancyFull
         binding.progressBar.isVisible = false
         binding.svVacancyInfo.isVisible = true
         binding.ivPlaceholder.isVisible = false
         binding.tvPlaceholder.isVisible = false
+        binding.tvContacts.isVisible = false
         binding.tvVacancyName.text = vacancyFull.name
 
-        binding.tvSalary.text = vacancyFull.salary
-
+        if (vacancyFull.salary.isNotEmpty()) {
+            binding.tvSalary.text = vacancyFull.salary
+        } else {
+            binding.tvSalary.isVisible = false
+        }
         binding.tvExperienceValue.text = vacancyFull.experience
-        binding.tvEmployment.text = vacancyFull.employment + ", " + vacancyFull.schedule
 
         binding.tvCompany.text = vacancyFull.company
-        binding.tvArea.text = vacancyFull.area
         Glide.with(requireActivity())
             .load(vacancyFull.icon)
             .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -99,19 +114,14 @@ class VacancyFragment : Fragment() {
             .into(binding.ivLogo)
 
         binding.tvDescriptionValue.text = Html.fromHtml(vacancyFull.description, Html.FROM_HTML_MODE_COMPACT)
-        binding.tvKeySkillsValue.text = Html.fromHtml(vacancyFull.keySkills, Html.FROM_HTML_MODE_COMPACT)
 
-        binding.tvEmail.text = vacancyFull.email
-        binding.tvEmail.setOnClickListener {
-            viewModel.sendMessageToEmail()
-        }
+        showAddress(vacancyFull.area, vacancyFull.address)
 
-        binding.tvPhone.text = vacancyFull.phone
-        binding.tvPhone.setOnClickListener {
-            viewModel.callEmployer()
-        }
+        showKeySkills(vacancyFull.keySkills)
 
-        binding.tvComment.text = vacancyFull.comment
+        showContacts(vacancyFull.contact, vacancyFull.email, vacancyFull.phone, vacancyFull.comment)
+
+        showEmploymentAndSchedule(vacancyFull.employment, vacancyFull.schedule)
     }
 
     private fun showErrorVacancyNotFound() {
@@ -133,6 +143,67 @@ class VacancyFragment : Fragment() {
     private fun showLoading() {
         binding.progressBar.isVisible = true
         binding.svVacancyInfo.isVisible = false
+    }
+
+    private fun showContacts(nameContacts: String, email: String, phone: String, comment: String) {
+        if (nameContacts.isNotEmpty()) {
+            binding.tvContacts.isVisible = true
+            binding.tvNameContact.isVisible = true
+            binding.tvNameContact.text = nameContacts
+        }
+        if (email.isNotEmpty()) {
+            binding.tvContacts.isVisible = true
+            binding.tvEmail.isVisible = true
+            binding.tvEmail.text = email
+        }
+        if (phone.isNotEmpty()) {
+            binding.tvContacts.isVisible = true
+            binding.tvPhone.isVisible = true
+            binding.tvPhone.text = phone
+        }
+        if (comment.isNotEmpty()) {
+            binding.tvContacts.isVisible = true
+            binding.tvComment.isVisible = true
+            binding.tvComment.text = comment
+        }
+    }
+
+    private fun showKeySkills(keySkills: String) {
+        if (keySkills.isNotEmpty()) {
+            binding.tvKeySkillsValue.text = Html.fromHtml(keySkills, Html.FROM_HTML_MODE_COMPACT)
+            binding.tvKeySkills.isVisible = true
+            binding.tvKeySkillsValue.isVisible = true
+        } else {
+            binding.tvKeySkills.isVisible = false
+            binding.tvKeySkillsValue.isVisible = false
+        }
+    }
+
+    private fun showAddress(area: String, address: String) {
+        if (address.isNotEmpty()) {
+            binding.tvArea.text = address
+        } else {
+            binding.tvArea.text = area
+        }
+    }
+
+    private fun showEmploymentAndSchedule(employment: String, schedule: String) {
+        if (employment.isEmpty()) {
+            if (schedule.isEmpty()) {
+                binding.tvEmployment.isVisible = false
+            } else {
+                binding.tvEmployment.isVisible = true
+                binding.tvEmployment.text = schedule
+            }
+        } else {
+            if (schedule.isEmpty()) {
+                binding.tvEmployment.isVisible = true
+                binding.tvEmployment.text = employment
+            } else {
+                binding.tvEmployment.isVisible = true
+                binding.tvEmployment.text = "$employment, $schedule"
+            }
+        }
     }
 
     companion object {

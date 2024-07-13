@@ -5,6 +5,7 @@ import ru.practicum.android.diploma.search.data.dto.Response
 import ru.practicum.android.diploma.search.data.dto.components.Area
 import ru.practicum.android.diploma.search.data.dto.components.Employer
 import ru.practicum.android.diploma.search.data.dto.components.Salary
+import ru.practicum.android.diploma.vacancy.data.dto.components.Address
 import ru.practicum.android.diploma.vacancy.data.dto.components.Contacts
 import ru.practicum.android.diploma.vacancy.data.dto.components.Employment
 import ru.practicum.android.diploma.vacancy.data.dto.components.Experience
@@ -22,8 +23,9 @@ data class VacancyResponse(
     val description: String,
     val employment: Employment?,
     val experience: Experience?,
-    val schedule: Schedule,
+    val schedule: Schedule?,
     val contacts: Contacts?,
     @SerializedName("key_skills")
-    val keySkills: List<KeySkill>
+    val keySkills: List<KeySkill>,
+    val address: Address?
 ) : Response()
