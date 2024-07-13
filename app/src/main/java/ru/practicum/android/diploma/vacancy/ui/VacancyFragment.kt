@@ -101,7 +101,7 @@ class VacancyFragment : Fragment() {
         if (vacancyFull.salary.isNotEmpty()) {
             binding.tvSalary.text = vacancyFull.salary
         } else {
-            binding.tvSalary.isVisible = false
+            binding.tvSalary.text = getString(R.string.salary_not_specified)
         }
         binding.tvExperienceValue.text = vacancyFull.experience
 
@@ -110,8 +110,10 @@ class VacancyFragment : Fragment() {
             .load(vacancyFull.icon)
             .diskCacheStrategy(DiskCacheStrategy.NONE)
             .placeholder(R.drawable.ic_placeholder_logo)
-            .centerCrop()
+            .centerInside()
             .into(binding.ivLogo)
+
+        binding.ivLogo.clipToOutline = true
 
         binding.tvDescriptionValue.text = Html.fromHtml(vacancyFull.description, Html.FROM_HTML_MODE_COMPACT)
 

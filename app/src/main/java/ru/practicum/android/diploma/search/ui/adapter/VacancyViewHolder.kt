@@ -22,7 +22,8 @@ class VacancyViewHolder(
         binding.tvTitle.text = itemView.resources.getString(
             R.string.vacancy_item_title_template, vacancy.name, vacancy.area
         )
-        binding.tvSalary.text = vacancy.salary
+        binding.tvSalary.text =
+            vacancy.salary.ifEmpty { itemView.resources.getString(R.string.salary_not_specified) }
         binding.tvCompany.text = vacancy.company
         Glide.with(itemView)
             .load(vacancy.icon)

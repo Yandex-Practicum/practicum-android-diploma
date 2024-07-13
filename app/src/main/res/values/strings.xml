@@ -27,6 +27,7 @@
     <string name="vacancy_title">Вакансия</string>
     <string name="vacancy_server_error">Ошибка сервера</string>
     <string name="vacancy_not_found">Вакансия не найдена или\nудалена</string>
+    <string name="salary_not_specified">Зарплата не указана</string>
     <!-- filter -->
     <string name="filter_title">Настройки фильтрации</string>
     <string name="filter_work_place">Место работы</string>
