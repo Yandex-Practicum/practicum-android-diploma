@@ -6,7 +6,9 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.Placeholder
 import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +18,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.search.ui.adapter.VacanciesAdapter
 import ru.practicum.android.diploma.vacancy.ui.VacancyFragment
+import ru.practicum.android.diploma.utils.Placeholder
 
 class SearchFragment : Fragment() {
 
@@ -46,36 +49,7 @@ class SearchFragment : Fragment() {
         initializeObservers()
         initializeAdapter()
         initializeScroll()
-
-        binding.ivFilter.setOnClickListener {
-            findNavController().navigate(R.id.action_searchFragment_to_filterFragment)
-        }
-
-        val textWatcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                // реализация не требуется
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                viewModel.search(s?.toString() ?: "")
-
-                binding.ivClear.isVisible = !s.isNullOrEmpty()
-                binding.ivSearch.isVisible = s.isNullOrEmpty()
-                binding.ivPlaceholderSearch.isVisible = s.isNullOrEmpty()
-
-                viewModel.search(s?.toString() ?: "")
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                // реализация не требуется
-            }
-        }
-
-        textWatcher.let { binding.etSearch.addTextChangedListener(it) }
-
-        binding.ivClear.setOnClickListener {
-            binding.etSearch.setText("")
-        }
+        initializeOther()
     }
 
     private fun initializeObservers() {
@@ -115,6 +89,27 @@ class SearchFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun initializeOther() {
+        with(binding) {
+            ivFilter.setOnClickListener {
+                findNavController().navigate(R.id.action_searchFragment_to_filterFragment)
+            }
+
+            etSearch.doOnTextChanged { text, _, _, _ ->
+                viewModel.search(text.toString())
+
+                ivClear.isVisible = !text.isNullOrEmpty()
+                ivSearch.isVisible = text.isNullOrEmpty()
+                ivPlaceholderSearch.isVisible = text.isNullOrEmpty()
+                showPlaceholder(requireContext(), Placeholder.HIDE)
+            }
+
+            binding.ivClear.setOnClickListener {
+
+            }
+        }
     }
 
     override fun onDestroyView() {
