@@ -10,7 +10,8 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginTop="@dimen/margin8"
-        android:background="@drawable/logo_company_shape"
+        android:background="@drawable/logo_company_background"
+        android:foreground="@drawable/logo_company_foreground"
         tools:ignore="ContentDescription,ImageContrastCheck" />
 
     <LinearLayout

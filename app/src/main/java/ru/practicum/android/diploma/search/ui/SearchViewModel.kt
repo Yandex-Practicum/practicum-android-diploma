@@ -9,11 +9,10 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.search.domain.api.SearchInteractor
 import ru.practicum.android.diploma.search.domain.models.VacanciesResponse
 import ru.practicum.android.diploma.search.domain.models.Vacancy
-import ru.practicum.android.diploma.search.domain.utils.VacanciesData
 import ru.practicum.android.diploma.search.domain.utils.Options
+import ru.practicum.android.diploma.search.domain.utils.VacanciesData
 import ru.practicum.android.diploma.utils.NumericConstants
 import ru.practicum.android.diploma.utils.debounce
-import java.util.concurrent.atomic.AtomicBoolean
 
 class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewModel() {
 
@@ -37,28 +36,28 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
         searchRequest(changedText)
     }
 
-    private val isNextPageLoading = AtomicBoolean(false)
+    private var isNextPageLoading = false
 
     fun onLastItemReached() {
-        if (isNextPageLoading.get()) {
+        if (isNextPageLoading) {
             return
         }
 
         if (currentPage < maxPages) {
             currentPage++
             latestSearchText?.let {
-                isNextPageLoading.set(true)
+                isNextPageLoading = true
                 searchRequest(it)
             }
         }
     }
 
-    fun search(searchText: String) {
-        if (searchText.isNotEmpty() || latestSearchText != searchText) {
+    fun search(searchText: String?) {
+        if (searchText.isNullOrEmpty()) {
+            _screenState.postValue(SearchState.Empty)
+        } else if (latestSearchText != searchText) {
             latestSearchText = searchText
             searchDebounce(searchText)
-        } else {
-            _screenState.postValue(SearchState.Empty)
         }
     }
 
@@ -93,7 +92,7 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
             }
         }
 
-        isNextPageLoading.set(false)
+        isNextPageLoading = false
     }
 
     private companion object {

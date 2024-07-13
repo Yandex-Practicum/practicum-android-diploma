@@ -9,9 +9,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.favourites.data.db.MainDB
 import ru.practicum.android.diploma.search.data.network.JobApiService
-import ru.practicum.android.diploma.search.data.network.interceptors.LoggingInterceptor
 import ru.practicum.android.diploma.search.data.network.NetworkClient
 import ru.practicum.android.diploma.search.data.network.RetrofitClient
+import ru.practicum.android.diploma.search.data.network.interceptors.LoggingInterceptor
 import ru.practicum.android.diploma.sharing.data.ExternalNavigatorImpl
 import ru.practicum.android.diploma.sharing.domain.ExternalNavigator
 
