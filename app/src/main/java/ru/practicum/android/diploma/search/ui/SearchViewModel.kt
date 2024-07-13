@@ -9,8 +9,8 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.search.domain.api.SearchInteractor
 import ru.practicum.android.diploma.search.domain.models.VacanciesResponse
 import ru.practicum.android.diploma.search.domain.models.Vacancy
-import ru.practicum.android.diploma.search.domain.utils.VacanciesData
 import ru.practicum.android.diploma.search.domain.utils.Options
+import ru.practicum.android.diploma.search.domain.utils.VacanciesData
 import ru.practicum.android.diploma.utils.NumericConstants
 import ru.practicum.android.diploma.utils.debounce
 
@@ -55,8 +55,7 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
     fun search(searchText: String?) {
         if (searchText.isNullOrEmpty()) {
             _screenState.postValue(SearchState.Empty)
-        }
-        else if (latestSearchText != searchText) {
+        } else if (latestSearchText != searchText) {
             latestSearchText = searchText
             searchDebounce(searchText)
         }
