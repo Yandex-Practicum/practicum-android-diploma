@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
+import ru.practicum.android.diploma.search.domain.utils.VacanciesData.VacanciesSearchError
 import ru.practicum.android.diploma.search.ui.adapter.VacanciesAdapter
 import ru.practicum.android.diploma.utils.Placeholder
 import ru.practicum.android.diploma.utils.showPlaceholder
@@ -61,17 +62,9 @@ class SearchFragment : Fragment() {
         viewModel.screenState.observe(viewLifecycleOwner) { screenState ->
             when (screenState) {
                 is SearchState.Content -> showContent(screenState)
-                SearchState.Error -> {
-                    showError()
-                }
-
-                is SearchState.Loading -> {
-                    showLoading(screenState.isNewPage)
-                }
-
-                SearchState.Empty -> {
-                    showEmpty()
-                }
+                is SearchState.Error -> showError(screenState.error)
+                is SearchState.Loading -> showLoading(screenState.isNewPage)
+                is SearchState.Empty -> showEmpty()
             }
         }
     }
@@ -125,6 +118,7 @@ class SearchFragment : Fragment() {
             numberVacancies.isVisible = true
             if (screenState.foundVacancies == 0) {
                 numberVacancies.text = resources.getString(R.string.search_no_vacancies)
+
                 showPlaceholder(requireContext(), Placeholder.NO_RESULTS_CAT)
             } else {
                 numberVacancies.text = getVacanciesText(requireContext(), screenState.foundVacancies)
@@ -140,9 +134,14 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun showError() {
+    private fun showError(error: VacanciesSearchError) {
         binding.progressBar.isVisible = false
-        showPlaceholder(requireContext(), Placeholder.NO_INTERNET)
+        showPlaceholder(
+            requireContext(),
+            if (error == VacanciesSearchError.NO_INTERNET)
+                Placeholder.NO_INTERNET
+            else Placeholder.SERVER_ERROR_CAT
+        )
         hideKeyboard()
     }
 
