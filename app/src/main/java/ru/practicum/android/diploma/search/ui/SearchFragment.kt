@@ -6,6 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -100,8 +104,7 @@ class SearchFragment : Fragment() {
 
                 ivClear.isVisible = !text.isNullOrEmpty()
                 ivSearch.isVisible = text.isNullOrEmpty()
-                ivPlaceholderSearch.isVisible = text.isNullOrEmpty()
-                showPlaceholder(requireContext(), Placeholder.HIDE)
+                tvPlaceholder.isVisible = text.isNullOrEmpty()
             }
 
             ivClear.setOnClickListener {
@@ -118,11 +121,10 @@ class SearchFragment : Fragment() {
             numberVacancies.isVisible = true
             if (screenState.foundVacancies == 0) {
                 numberVacancies.text = resources.getString(R.string.search_no_vacancies)
-
-                showPlaceholder(requireContext(), Placeholder.NO_RESULTS_CAT)
+                showPlaceholder(R.drawable.placeholder_no_results_cat, R.string.search_no_results)
             } else {
                 numberVacancies.text = getVacanciesText(requireContext(), screenState.foundVacancies)
-                showPlaceholder(requireContext(), Placeholder.HIDE)
+                tvPlaceholder.isVisible = false
             }
             progressBar.isVisible = false
             pbPagination.isVisible = false
@@ -172,6 +174,13 @@ class SearchFragment : Fragment() {
 
     private fun getVacanciesText(context: Context, count: Int): String {
         return context.resources.getQuantityString(R.plurals.vacancies, count, count)
+    }
+
+    private fun showPlaceHolder(@DrawableRes drawableResId: Int, @StringRes textResId: Int) {
+        with(binding.tvPlaceholder) {
+            setCompoundDrawables(null, ContextCompat.getDrawable(context, drawableResId), null, null)
+            setText(textResId)
+        }
     }
 
     private companion object {
