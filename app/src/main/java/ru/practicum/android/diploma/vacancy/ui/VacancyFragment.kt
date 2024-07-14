@@ -96,32 +96,18 @@ class VacancyFragment : Fragment() {
         binding.svVacancyInfo.isVisible = true
         binding.ivPlaceholder.isVisible = false
         binding.tvPlaceholder.isVisible = false
-        binding.tvContacts.isVisible = false
-        binding.tvVacancyName.text = vacancyFull.name
 
+        binding.tvVacancyName.text = vacancyFull.name
         binding.tvSalary.text =
             formattingSalary(vacancyFull.salaryFrom, vacancyFull.salaryTo, vacancyFull.currency, requireContext())
-
-        binding.tvExperienceValue.text = vacancyFull.experience
-
         binding.tvCompany.text = vacancyFull.company
-        Glide.with(requireActivity())
-            .load(vacancyFull.icon)
-            .diskCacheStrategy(DiskCacheStrategy.NONE)
-            .placeholder(R.drawable.ic_placeholder_logo)
-            .centerInside()
-            .into(binding.ivLogo)
-
-        binding.ivLogo.clipToOutline = true
-
         binding.tvDescriptionValue.text = Html.fromHtml(vacancyFull.description, Html.FROM_HTML_MODE_COMPACT)
 
+        showExperience(vacancyFull.experience)
+        showLogo(vacancyFull.icon)
         showAddress(vacancyFull.area, vacancyFull.address)
-
         showKeySkills(vacancyFull.keySkills)
-
         showContacts(vacancyFull.contact, vacancyFull.email, vacancyFull.phone, vacancyFull.comment)
-
         showEmploymentAndSchedule(vacancyFull.employment, vacancyFull.schedule)
     }
 
@@ -147,6 +133,7 @@ class VacancyFragment : Fragment() {
     }
 
     private fun showContacts(nameContacts: String, email: String, phone: String, comment: String) {
+        binding.tvContacts.isVisible = false
         if (nameContacts.isNotEmpty()) {
             binding.tvContacts.isVisible = true
             binding.tvNameContact.isVisible = true
@@ -186,6 +173,26 @@ class VacancyFragment : Fragment() {
         } else {
             binding.tvArea.text = area
         }
+    }
+
+    private fun showExperience(experience: String) {
+        if (experience.isNotEmpty()) {
+            binding.tvExperience.isVisible = true
+            binding.tvExperienceValue.text = experience
+        } else {
+            binding.tvExperience.isVisible = false
+        }
+    }
+
+    private fun showLogo(image: String) {
+        Glide.with(requireActivity())
+            .load(image)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .placeholder(R.drawable.ic_placeholder_logo)
+            .centerInside()
+            .into(binding.ivLogo)
+
+        binding.ivLogo.clipToOutline = true
     }
 
     private fun showEmploymentAndSchedule(employment: String, schedule: String) {
