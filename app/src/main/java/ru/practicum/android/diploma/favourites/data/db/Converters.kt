@@ -5,7 +5,7 @@ import ru.practicum.android.diploma.vacancy.domain.models.VacancyFull
 
 fun VacancyEntity.toVacancy(): Vacancy {
     return Vacancy(
-        id = vacancyId,
+        id = id,
         name = name,
         company = company,
         currency = currency,
@@ -18,7 +18,7 @@ fun VacancyEntity.toVacancy(): Vacancy {
 
 fun VacancyEntity.toVacancyFull(): VacancyFull {
     return VacancyFull(
-        id = vacancyId,
+        id = id,
         name = name,
         company = company,
         currency = currency,
@@ -41,8 +41,7 @@ fun VacancyEntity.toVacancyFull(): VacancyFull {
 
 fun VacancyFull.toVacancyEntity(): VacancyEntity {
     return VacancyEntity(
-        id = null,
-        vacancyId = id,
+        id = id,
         name = name,
         company = company,
         currency = currency,

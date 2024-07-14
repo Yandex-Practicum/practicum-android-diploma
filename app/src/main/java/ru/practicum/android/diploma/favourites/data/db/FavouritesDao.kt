@@ -12,16 +12,16 @@ interface FavouritesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsert(vacancyEntity: VacancyEntity)
 
-    @Query("SELECT * FROM vacancies_table ORDER BY id DESC")
+    @Query("SELECT * FROM vacancies_table ORDER BY timestamp DESC")
     fun getAll(): Flow<List<VacancyEntity>>
 
-    @Query("SELECT * FROM vacancies_table WHERE vacancyId = :vacancyId")
-    suspend fun getById(vacancyId: Int): VacancyEntity?
+    @Query("SELECT * FROM vacancies_table WHERE id = :id")
+    suspend fun getById(id: Int): VacancyEntity?
 
-    @Query("SELECT vacancyId FROM vacancies_table")
+    @Query("SELECT id FROM vacancies_table")
     fun getIds(): Flow<List<Int>>
 
-    @Query("DELETE FROM vacancies_table WHERE vacancyId = :vacancyId")
-    suspend fun delete(vacancyId: Int)
+    @Query("DELETE FROM vacancies_table WHERE id = :id")
+    suspend fun delete(id: Int)
 
 }

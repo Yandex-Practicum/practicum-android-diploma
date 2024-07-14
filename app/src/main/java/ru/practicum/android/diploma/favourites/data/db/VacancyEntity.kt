@@ -5,9 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "vacancies_table")
 data class VacancyEntity(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int?,
-    val vacancyId: Int,
+    @PrimaryKey
+    val id: Int,
     val name: String,
     val company: String,
     val currency: String,
@@ -24,5 +23,6 @@ data class VacancyEntity(
     val email: String,
     val phone: String,
     val comment: String,
-    val keySkills: String
+    val keySkills: String,
+    val timestamp: Long = System.currentTimeMillis(),
 )

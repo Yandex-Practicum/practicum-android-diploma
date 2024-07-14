@@ -17,7 +17,7 @@ val repositoryModule = module {
     }
 
     single<VacancyRepository> {
-        VacancyRepositoryImpl(networkClient = get())
+        VacancyRepositoryImpl(networkClient = get(), favouritesRepository = get())
     }
 
     single<FilterRepository> {
