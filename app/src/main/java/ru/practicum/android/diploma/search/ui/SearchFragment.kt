@@ -113,7 +113,6 @@ class SearchFragment : Fragment() {
 
     private fun showContent(screenState: SearchState.Content) {
         with(binding) {
-            val oldCount = vacanciesAdapter.itemCount
             vacanciesAdapter.setItems(screenState.results)
             rvVacancies.isVisible = true
             numberVacancies.isVisible = true
@@ -128,10 +127,6 @@ class SearchFragment : Fragment() {
             progressBar.isVisible = false
             pbPagination.isVisible = false
             rvVacancies.setPadding(0, 0, 0, 0)
-
-            if (oldCount > 0 && screenState.foundVacancies > 0) {
-                rvVacancies.scrollToPosition(oldCount)
-            }
         }
     }
 
