@@ -1,26 +1,34 @@
 package ru.practicum.android.diploma.utils
 
-import ru.practicum.android.diploma.search.data.dto.components.Salary
+import android.content.Context
+import ru.practicum.android.diploma.R
 import java.text.NumberFormat
 
-fun formattingSalary(salary: Salary?): String {
-    if (salary == null) {
-        return ""
-    }
-    val currency = salary.currency ?: ""
+fun formattingSalary(salaryFrom: String, salaryTo: String, currency: String, context: Context): String {
     return when {
-        salary.from != null && salary.to == null -> "от ${formatNumber(salary.from)} $currency"
-        salary.from == null && salary.to != null -> "от ${formatNumber(salary.to)} $currency"
-        salary.from != null && salary.to != null -> "от ${formatNumber(salary.from)} до ${
-            formatNumber(
-                salary.to
-            )
-        } $currency"
+        salaryFrom.isNotEmpty() && salaryTo.isEmpty() -> context.getString(
+            R.string.salary_from,
+            formatNumber(salaryFrom),
+            currency
+        )
 
-        else -> ""
+        salaryFrom.isEmpty() && salaryTo.isNotEmpty() -> context.getString(
+            R.string.salary_to,
+            formatNumber(salaryTo),
+            currency
+        )
+
+        salaryFrom.isNotEmpty() && salaryTo.isNotEmpty() -> context.getString(
+            R.string.salary_from_to,
+            formatNumber(salaryFrom),
+            formatNumber(salaryTo),
+            currency
+        )
+
+        else -> context.getString(R.string.salary_not_specified)
     }
 }
 
-private fun formatNumber(number: Int): String {
-    return NumberFormat.getInstance().format(number)
+private fun formatNumber(number: String): String {
+    return NumberFormat.getInstance().format(number.toInt())
 }

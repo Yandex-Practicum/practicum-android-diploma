@@ -4,7 +4,9 @@ data class Vacancy(
     val id: Int,
     val name: String,
     val company: String,
-    val salary: String,
+    val currency: String,
+    val salaryFrom: String,
+    val salaryTo: String,
     val area: String,
     val icon: String
 )

@@ -15,6 +15,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
+import ru.practicum.android.diploma.utils.formattingSalary
 
 class VacancyFragment : Fragment() {
 
@@ -98,11 +99,9 @@ class VacancyFragment : Fragment() {
         binding.tvContacts.isVisible = false
         binding.tvVacancyName.text = vacancyFull.name
 
-        if (vacancyFull.salary.isNotEmpty()) {
-            binding.tvSalary.text = vacancyFull.salary
-        } else {
-            binding.tvSalary.text = getString(R.string.salary_not_specified)
-        }
+        binding.tvSalary.text =
+            formattingSalary(vacancyFull.salaryFrom, vacancyFull.salaryTo, vacancyFull.currency, requireContext())
+
         binding.tvExperienceValue.text = vacancyFull.experience
 
         binding.tvCompany.text = vacancyFull.company

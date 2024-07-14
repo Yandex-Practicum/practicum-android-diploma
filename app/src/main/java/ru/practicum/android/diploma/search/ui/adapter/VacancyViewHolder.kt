@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.VacancyItemBinding
 import ru.practicum.android.diploma.search.domain.models.Vacancy
+import ru.practicum.android.diploma.utils.formattingSalary
 
 class VacancyViewHolder(
     parentView: ViewGroup,
@@ -23,7 +24,7 @@ class VacancyViewHolder(
             R.string.vacancy_item_title_template, vacancy.name, vacancy.area
         )
         binding.tvSalary.text =
-            vacancy.salary.ifEmpty { itemView.resources.getString(R.string.salary_not_specified) }
+            formattingSalary(vacancy.salaryFrom, vacancy.salaryTo, vacancy.currency, itemView.context)
         binding.tvCompany.text = vacancy.company
         Glide.with(itemView)
             .load(vacancy.icon)
