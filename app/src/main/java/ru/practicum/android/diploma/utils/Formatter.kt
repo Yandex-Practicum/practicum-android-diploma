@@ -4,21 +4,21 @@ import android.content.Context
 import ru.practicum.android.diploma.R
 import java.text.NumberFormat
 
-fun formattingSalary(salaryFrom: String, salaryTo: String, currency: String, context: Context): String {
+fun formattingSalary(salaryFrom: Int?, salaryTo: Int?, currency: String, context: Context): String {
     return when {
-        salaryFrom.isNotEmpty() && salaryTo.isEmpty() -> context.getString(
+        salaryFrom != null && salaryTo == null -> context.getString(
             R.string.salary_from,
             formatNumber(salaryFrom),
             currency
         )
 
-        salaryFrom.isEmpty() && salaryTo.isNotEmpty() -> context.getString(
+        salaryFrom == null && salaryTo != null -> context.getString(
             R.string.salary_to,
             formatNumber(salaryTo),
             currency
         )
 
-        salaryFrom.isNotEmpty() && salaryTo.isNotEmpty() -> context.getString(
+        salaryFrom != null && salaryTo != null -> context.getString(
             R.string.salary_from_to,
             formatNumber(salaryFrom),
             formatNumber(salaryTo),
@@ -29,6 +29,6 @@ fun formattingSalary(salaryFrom: String, salaryTo: String, currency: String, con
     }
 }
 
-private fun formatNumber(number: String): String {
-    return NumberFormat.getInstance().format(number.toInt())
+private fun formatNumber(number: Int): String {
+    return NumberFormat.getInstance().format(number)
 }
