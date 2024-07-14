@@ -11,6 +11,7 @@ import ru.practicum.android.diploma.favourites.data.db.MainDB
 import ru.practicum.android.diploma.search.data.network.JobApiService
 import ru.practicum.android.diploma.search.data.network.NetworkClient
 import ru.practicum.android.diploma.search.data.network.RetrofitClient
+import ru.practicum.android.diploma.search.data.network.interceptors.HeaderInterceptor
 import ru.practicum.android.diploma.search.data.network.interceptors.LoggingInterceptor
 import ru.practicum.android.diploma.sharing.data.ExternalNavigatorImpl
 import ru.practicum.android.diploma.sharing.domain.ExternalNavigator
@@ -27,6 +28,7 @@ val dataModule = module {
     single<JobApiService> {
         val client = OkHttpClient.Builder()
             .addInterceptor(LoggingInterceptor)
+            .addInterceptor(HeaderInterceptor)
             .build()
 
         Retrofit.Builder()
