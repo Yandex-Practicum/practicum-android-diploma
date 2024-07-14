@@ -57,8 +57,8 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
             _screenState.postValue(SearchState.Empty)
         } else if (latestSearchText != searchText) {
             latestSearchText = searchText
-            searchDebounce(searchText)
         }
+        searchDebounce(searchText ?: "")
     }
 
     private fun searchRequest(searchText: String) {

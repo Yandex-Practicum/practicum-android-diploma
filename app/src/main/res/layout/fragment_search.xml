@@ -91,9 +91,12 @@
 
     <TextView
         android:id="@+id/tvPlaceholder"
+        style="@style/Medium_22"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginVertical="@dimen/margin16"
+        android:gravity="center"
+        app:layout_constraintVertical_bias="0.45"
         app:drawableTopCompat="@drawable/placeholder_search"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

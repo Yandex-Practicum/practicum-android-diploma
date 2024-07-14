@@ -3,7 +3,6 @@ package ru.practicum.android.diploma.utils
 import android.content.Context
 import android.view.View
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import ru.practicum.android.diploma.R
@@ -17,17 +16,14 @@ enum class Placeholder {
     SERVER_ERROR_TOWEL, // Ошибка сервера
     SERVER_ERROR_CAT, // Ошибка сервера
     EMPTY_FAVORITES, // Список пуст
-    HIDE // Скрыть заглушку
 }
 
 fun Fragment.showPlaceholder(
     context: Context,
     placeholder: Placeholder
 ) {
-    //val utilPlugBox = view?.findViewById<LinearLayout>(R.id.util_plug)
     val plugText = view?.findViewById<TextView>(R.id.plug_text)
     val plugIcon = view?.findViewById<ImageView>(R.id.plug_icon)
-    //utilPlugBox?.visibility = View.VISIBLE
     plugText?.visibility = View.VISIBLE
 
     when (placeholder) {
@@ -39,8 +35,6 @@ fun Fragment.showPlaceholder(
         Placeholder.SERVER_ERROR_TOWEL -> showServerErrorTowelPlug(context, plugText, plugIcon)
         Placeholder.SERVER_ERROR_CAT -> showServerErrorCatPlug(context, plugText, plugIcon)
         Placeholder.EMPTY_FAVORITES -> showEmptyFavoritesPlug(context, plugText, plugIcon)
-        //Placeholder.HIDE -> dontShow(context, utilPlugBox, plugText, plugIcon)
-        else -> {}
     }
 }
 
@@ -82,8 +76,4 @@ private fun showServerErrorCatPlug(context: Context, plugText: TextView?, plugIc
 private fun showEmptyFavoritesPlug(context: Context, plugText: TextView?, plugIcon: ImageView?) {
     plugText?.text = context.resources.getString(R.string.favorites_empty)
     plugIcon?.setImageResource(R.drawable.placeholder_empty_favorites)
-}
-
-private fun dontShow(context: Context, utilPlugBox: LinearLayout?, plugText: TextView?, plugIcon: ImageView?) {
-    utilPlugBox?.visibility = View.GONE
 }

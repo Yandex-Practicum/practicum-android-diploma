@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -21,8 +19,6 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.search.domain.utils.VacanciesData.VacanciesSearchError
 import ru.practicum.android.diploma.search.ui.adapter.VacanciesAdapter
-import ru.practicum.android.diploma.utils.Placeholder
-import ru.practicum.android.diploma.utils.showPlaceholder
 import ru.practicum.android.diploma.vacancy.ui.VacancyFragment
 
 class SearchFragment : Fragment() {
@@ -104,7 +100,9 @@ class SearchFragment : Fragment() {
 
                 ivClear.isVisible = !text.isNullOrEmpty()
                 ivSearch.isVisible = text.isNullOrEmpty()
-                tvPlaceholder.isVisible = text.isNullOrEmpty()
+                if (text.isNullOrEmpty()) {
+                    showPlaceholder(R.drawable.placeholder_search)
+                }
             }
 
             ivClear.setOnClickListener {
@@ -124,6 +122,7 @@ class SearchFragment : Fragment() {
                 showPlaceholder(R.drawable.placeholder_no_results_cat, R.string.search_no_results)
             } else {
                 numberVacancies.text = getVacanciesText(requireContext(), screenState.foundVacancies)
+                hidePlaceholder()
                 tvPlaceholder.isVisible = false
             }
             progressBar.isVisible = false
@@ -138,21 +137,22 @@ class SearchFragment : Fragment() {
 
     private fun showError(error: VacanciesSearchError) {
         binding.progressBar.isVisible = false
-        showPlaceholder(
-            requireContext(),
-            if (error == VacanciesSearchError.NO_INTERNET)
-                Placeholder.NO_INTERNET
-            else Placeholder.SERVER_ERROR_CAT
-        )
-        hideKeyboard()
+
+        when (error) {
+            VacanciesSearchError.NO_INTERNET ->
+                showPlaceholder(R.drawable.placeholder_no_internet, R.string.search_no_internet)
+
+            else ->
+                showPlaceholder(R.drawable.placeholder_server_error_cat, R.string.search_server_error)
+        }
     }
 
     private fun showEmpty() {
         vacanciesAdapter.clearItems()
         binding.numberVacancies.isVisible = false
         binding.progressBar.isVisible = false
-        showPlaceholder(requireContext(), Placeholder.SEARCH)
-        hideKeyboard()
+
+        showPlaceholder(R.drawable.placeholder_search)
     }
 
     private fun showLoading(isNewPage: Boolean) {
@@ -164,6 +164,8 @@ class SearchFragment : Fragment() {
                 progressBar.isVisible = true
             }
         }
+
+        hidePlaceholder()
         hideKeyboard()
     }
 
@@ -176,11 +178,17 @@ class SearchFragment : Fragment() {
         return context.resources.getQuantityString(R.plurals.vacancies, count, count)
     }
 
-    private fun showPlaceHolder(@DrawableRes drawableResId: Int, @StringRes textResId: Int) {
+    private fun showPlaceholder(@DrawableRes drawableResId: Int, @StringRes textResId: Int? = null) {
         with(binding.tvPlaceholder) {
-            setCompoundDrawables(null, ContextCompat.getDrawable(context, drawableResId), null, null)
-            setText(textResId)
+            isVisible = true
+            setCompoundDrawablesWithIntrinsicBounds(0, drawableResId, 0, 0)
+
+            textResId?.let { setText(it) } ?: run { text = null }
         }
+    }
+
+    private fun hidePlaceholder() {
+        binding.tvPlaceholder.isVisible = false
     }
 
     private companion object {
