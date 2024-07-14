@@ -5,54 +5,60 @@ import ru.practicum.android.diploma.vacancy.domain.models.VacancyFull
 
 fun VacancyEntity.toVacancy(): Vacancy {
     return Vacancy(
-        id = this.vacancyId,
-        name = this.name,
-        company = this.company,
-        salary = this.salary,
-        area = this.area,
-        icon = this.icon
+        id = vacancyId,
+        name = name,
+        company = company,
+        currency = currency,
+        salaryFrom = salaryFrom,
+        salaryTo = salaryTo,
+        area = area,
+        icon = icon
     )
 }
 
 fun VacancyEntity.toVacancyFull(): VacancyFull {
     return VacancyFull(
-        id = this.vacancyId,
-        name = this.name,
-        company = this.company,
-        salary = this.salary,
-        area = this.area,
-        alternateUrl = this.alternateUrl,
-        icon = this.icon,
-        employment = this.employment,
-        experience = this.experience,
-        schedule = this.schedule,
-        description = this.description,
-        contact = this.contact,
-        email = this.email,
-        phone = this.phone,
-        comment = this.comment,
-        keySkills = this.keySkills
+        id = vacancyId,
+        name = name,
+        company = company,
+        currency = currency,
+        salaryFrom = salaryFrom,
+        salaryTo = salaryTo,
+        area = area,
+        alternateUrl = alternateUrl,
+        icon = icon,
+        employment = employment,
+        experience = experience,
+        schedule = schedule,
+        description = description,
+        contact = contact,
+        email = email,
+        phone = phone,
+        comment = comment,
+        keySkills = keySkills
     )
 }
 
 fun VacancyFull.toVacancyEntity(): VacancyEntity {
     return VacancyEntity(
         id = null,
-        vacancyId = this.id,
-        name = this.name,
-        company = this.company,
-        salary = this.salary,
-        area = this.area,
-        alternateUrl = this.alternateUrl,
-        icon = this.icon,
-        employment = this.employment,
-        experience = this.experience,
-        schedule = this.schedule,
-        description = this.description,
-        contact = this.contact,
-        email = this.email,
-        phone = this.phone,
-        comment = this.comment,
-        keySkills = this.keySkills
+        vacancyId = id,
+        name = name,
+        company = company,
+        currency = currency,
+        salaryFrom = salaryFrom,
+        salaryTo = salaryTo,
+        area = area,
+        alternateUrl = alternateUrl,
+        icon = icon,
+        employment = employment,
+        experience = experience,
+        schedule = schedule,
+        description = description,
+        contact = contact,
+        email = email,
+        phone = phone,
+        comment = comment,
+        keySkills = keySkills
     )
 }
