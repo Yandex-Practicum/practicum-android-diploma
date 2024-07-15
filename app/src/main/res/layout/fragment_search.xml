@@ -106,15 +106,16 @@
 
     <ProgressBar
         android:id="@+id/progressBar"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
-        android:layout_gravity="center"
-        android:indeterminateTint="@color/blue"
+        style="@style/ProgressBarStyle"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="@dimen/margin100"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/rvVacancies"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/flSearch" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvVacancies"
@@ -136,11 +137,12 @@
         style="@style/ProgressBarStyle"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:layout_marginVertical="@dimen/margin22"
+        android:layout_marginTop="@dimen/margin100"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/rvVacancies"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

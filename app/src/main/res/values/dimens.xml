@@ -13,6 +13,7 @@
     <dimen name="margin24">24dp</dimen>
     <dimen name="margin22">22dp</dimen>
     <dimen name="margin32">32dp</dimen>
+    <dimen name="margin100">100dp</dimen>
     <!-- padding -->
     <dimen name="padding2">2dp</dimen>
     <dimen name="padding4">4dp</dimen>
