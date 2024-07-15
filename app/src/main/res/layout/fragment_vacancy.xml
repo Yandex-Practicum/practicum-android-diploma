@@ -119,7 +119,6 @@
                     android:layout_marginVertical="@dimen/margin16"
                     android:layout_marginStart="@dimen/margin16"
                     android:background="@drawable/logo_company_background"
-                    android:foreground="@drawable/logo_company_foreground"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -127,6 +126,7 @@
                 <TextView
                     android:id="@+id/tvCompany"
                     style="@style/Medium_22"
+                    android:textColor="@color/black"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin8"
@@ -140,6 +140,7 @@
                 <TextView
                     android:id="@+id/tvArea"
                     style="@style/Regular_16"
+                    android:textColor="@color/black"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin8"
