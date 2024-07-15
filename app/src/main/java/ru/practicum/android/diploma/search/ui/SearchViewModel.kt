@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.search.domain.api.SearchInteractor
 import ru.practicum.android.diploma.search.domain.models.VacanciesResponse
@@ -38,6 +39,10 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
 
     private var isNextPageLoading = false
 
+    private var searchJob: Job? = null
+
+    private var cancelJob = false
+
     fun onLastItemReached() {
         if (isNextPageLoading) {
             return
@@ -54,17 +59,20 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
 
     fun search(searchText: String?) {
         if (searchText.isNullOrEmpty()) {
+            cancelJob = true
+            searchJob?.cancel()
             _screenState.postValue(SearchState.Empty)
         } else if (latestSearchText != searchText) {
             latestSearchText = searchText
+            cancelJob = false
             searchDebounce(searchText)
         }
     }
 
     private fun searchRequest(searchText: String) {
-        if (searchText.isNotEmpty()) {
+        if (searchText.isNotEmpty() && !cancelJob) {
             _screenState.postValue(SearchState.Loading(currentPage > 0))
-            viewModelScope.launch(Dispatchers.IO) {
+            searchJob = viewModelScope.launch(Dispatchers.IO) {
                 val options = Options(
                     searchText = searchText,
                     itemsPerPage = VACANCIES_PER_PAGE,
