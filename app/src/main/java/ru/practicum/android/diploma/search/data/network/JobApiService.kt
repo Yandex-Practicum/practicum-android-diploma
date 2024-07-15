@@ -6,7 +6,6 @@ import retrofit2.http.QueryMap
 import ru.practicum.android.diploma.search.data.dto.SearchResponse
 import ru.practicum.android.diploma.vacancy.data.dto.VacancyResponse
 
-
 interface JobApiService {
 
     @GET("vacancies/{vacancy_id}")
