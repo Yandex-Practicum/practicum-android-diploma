@@ -96,7 +96,7 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
             }
 
             is VacanciesData.Error -> {
-                _screenState.postValue(SearchState.Error(vacanciesData.error))
+                _screenState.postValue(SearchState.Error(vacanciesData.error, isNextPageLoading))
             }
         }
 
