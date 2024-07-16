@@ -215,7 +215,6 @@ class VacancyFragment : Fragment() {
     }
 
     companion object {
-        private const val LIMIT_RESULTS = 100
         private const val VACANCY_ID = "VACANCY_ID"
         fun createArguments(vacancyId: Int): Bundle = bundleOf(VACANCY_ID to vacancyId)
     }

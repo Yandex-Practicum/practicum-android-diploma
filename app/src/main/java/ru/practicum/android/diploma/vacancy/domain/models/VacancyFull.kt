@@ -19,5 +19,6 @@ data class VacancyFull(
     val phone: String = "",
     val comment: String = "",
     val keySkills: String = "",
-    val address: String = ""
+    val address: String = "",
+    val timestamp: Long = 0
 )

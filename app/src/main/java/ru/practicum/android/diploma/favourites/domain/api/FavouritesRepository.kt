@@ -9,5 +9,6 @@ interface FavouritesRepository {
     fun favouriteIds(): Flow<List<Int>>
     suspend fun getById(vacancyId: Int): VacancyFull?
     suspend fun upsertVacancy(vacancyFull: VacancyFull)
+    suspend fun updateVacancy(vacancyFull: VacancyFull)
     suspend fun deleteVacancy(vacancyId: Int)
 }

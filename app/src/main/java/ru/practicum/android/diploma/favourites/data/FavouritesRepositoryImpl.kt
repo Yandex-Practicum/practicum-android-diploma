@@ -22,12 +22,19 @@ class FavouritesRepositoryImpl(private val db: MainDB) : FavouritesRepository {
         return db.favouritesDao().getIds()
     }
 
-    override suspend fun getById(trackId: Int): VacancyFull? {
-        return db.favouritesDao().getById(trackId)?.toVacancyFull()
+    override suspend fun getById(vacancyId: Int): VacancyFull? {
+        return db.favouritesDao().getById(vacancyId)?.toVacancyFull()
     }
 
     override suspend fun upsertVacancy(vacancyFull: VacancyFull) {
-        db.favouritesDao().upsert(vacancyFull.toVacancyEntity())
+        db.favouritesDao().upsert(vacancyFull.toVacancyEntity(System.currentTimeMillis()))
+    }
+
+    override suspend fun updateVacancy(vacancyFull: VacancyFull) {
+        val existVacancy = getById(vacancyFull.id)
+        if (existVacancy != null) {
+            db.favouritesDao().upsert(vacancyFull.toVacancyEntity(existVacancy.timestamp))
+        }
     }
 
     override suspend fun deleteVacancy(vacancyId: Int) {
