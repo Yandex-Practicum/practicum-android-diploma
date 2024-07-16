@@ -12,7 +12,6 @@ import ru.practicum.android.diploma.search.domain.models.VacanciesResponse
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.domain.utils.Options
 import ru.practicum.android.diploma.search.domain.utils.VacanciesData
-import ru.practicum.android.diploma.utils.NumericConstants
 import ru.practicum.android.diploma.utils.debounce
 
 class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewModel() {
@@ -27,7 +26,7 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
     private val vacanciesList = mutableListOf<Vacancy>()
 
     private val searchDebounce = debounce<String>(
-        delayMillis = NumericConstants.TWO_SECONDS,
+        delayMillis = SEARCH_DEBOUNCE_DELAY_MILLIS,
         coroutineScope = viewModelScope,
         useLastParam = true
     ) { changedText ->
@@ -105,5 +104,6 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
 
     private companion object {
         const val VACANCIES_PER_PAGE = 20
+        const val SEARCH_DEBOUNCE_DELAY_MILLIS = 2000L
     }
 }

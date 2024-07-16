@@ -158,7 +158,7 @@ class VacancyFragment : Fragment() {
 
     private fun showKeySkills(keySkills: String) {
         if (keySkills.isNotEmpty()) {
-            binding.tvKeySkillsValue.text = Html.fromHtml(keySkills, Html.FROM_HTML_MODE_COMPACT)
+            binding.tvKeySkillsValue.text = keySkills
             binding.tvKeySkills.isVisible = true
             binding.tvKeySkillsValue.isVisible = true
         } else {
