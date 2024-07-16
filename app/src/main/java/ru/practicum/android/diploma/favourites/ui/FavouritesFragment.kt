@@ -82,13 +82,11 @@ class FavouritesFragment : Fragment() {
     }
 
     private fun showError() {
-        println("Error")
         placeholder?.show(R.drawable.placeholder_no_results_cat, R.string.search_no_results)
         binding.progressBar.isVisible = false
     }
 
     private fun showLoading() {
-        println("Loading")
         binding.progressBar.isVisible = true
     }
 }
