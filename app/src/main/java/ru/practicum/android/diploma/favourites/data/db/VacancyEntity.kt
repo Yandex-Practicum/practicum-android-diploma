@@ -24,5 +24,5 @@ data class VacancyEntity(
     val phone: String,
     val comment: String,
     val keySkills: String,
-    val timestamp: Long = System.currentTimeMillis(),
+    val timestamp: Long
 )

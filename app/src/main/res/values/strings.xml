@@ -8,6 +8,7 @@
     <string name="search_title">Поиск вакансий</string>
     <string name="search_query">Введите запрос</string>
     <string name="search_no_internet">Нет интернета</string>
+    <string name="search_no_internet_paging">Проверьте подключение к интернету</string>
     <string name="search_no_results">Не удалось получить\nсписок вакансий</string>
     <string name="search_server_error">Ошибка сервера</string>
     <string name="search_no_vacancies">Таких вакансий нет</string>
@@ -61,7 +62,7 @@
     <string name="email_text">Текст письма</string>
     <!-- vacancy item -->
     <string name="vacancy_item_title_template">%1$s, %2$s</string>
-    <string name="experience">Требуемый опыт</string>
+    <string name="vacancy_experience">Требуемый опыт</string>
     <string name="vacancy_description">Описание вакансии</string>
     <string name="vacancy_key_skills">Ключевые навыки</string>
     <string name="vacancy_contacts_employer">Контакты</string>

@@ -22,9 +22,7 @@ class VacancyRepositoryImpl(
         when (val response = networkClient.doRequest(VacancyRequest(id))) {
             is VacancyResponse -> {
                 val vacancyFull = responseToVacancyFull(response)
-                if (favouritesRepository.getById(id) != null) {
-                    favouritesRepository.upsertVacancy(vacancyFull)
-                }
+                favouritesRepository.updateVacancy(vacancyFull)
                 emit(ResponseData.Data(vacancyFull))
             }
 

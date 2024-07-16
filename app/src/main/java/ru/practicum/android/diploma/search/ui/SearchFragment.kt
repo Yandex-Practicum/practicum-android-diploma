@@ -147,7 +147,7 @@ class SearchFragment : Fragment() {
         }
 
         if (screenState.isNewPage) {
-            Toast.makeText(context, imageAndText.second, Toast.LENGTH_LONG).show()
+            Toast.makeText(context, R.string.search_no_internet_paging, Toast.LENGTH_LONG).show()
         } else {
             placeholder?.show(imageAndText.first, imageAndText.second)
         }
