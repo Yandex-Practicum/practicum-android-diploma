@@ -74,6 +74,7 @@ class VacancyFragment : Fragment() {
                 VacancyState.ErrorVacancyNotFound -> showErrorVacancyNotFound()
                 VacancyState.ErrorServer -> showErrorServer()
                 VacancyState.Loading -> showLoading()
+                VacancyState.ErrorNoInternet -> showNoInternet()
             }
         }
         viewModel.isFavorite.observe(viewLifecycleOwner) { isFavorite ->
@@ -96,6 +97,8 @@ class VacancyFragment : Fragment() {
         binding.svVacancyInfo.isVisible = true
         binding.ivPlaceholder.isVisible = false
         binding.tvPlaceholder.isVisible = false
+        binding.ivFavorite.isVisible = true
+        binding.ivShare.isVisible = true
 
         binding.tvVacancyName.text = vacancyFull.name
         binding.tvSalary.text =
@@ -111,25 +114,32 @@ class VacancyFragment : Fragment() {
         showEmploymentAndSchedule(vacancyFull.employment, vacancyFull.schedule)
     }
 
+    private fun showLoading() {
+        binding.progressBar.isVisible = true
+        binding.svVacancyInfo.isVisible = false
+        binding.ivFavorite.isVisible = false
+        binding.ivShare.isVisible = false
+    }
+
     private fun showErrorVacancyNotFound() {
         binding.progressBar.isVisible = false
         binding.ivPlaceholder.setImageDrawable(getDrawable(requireContext(), R.drawable.placeholder_vacancy_not_found))
         binding.tvPlaceholder.text = getString(R.string.vacancy_not_found)
-        binding.ivPlaceholder.isVisible = true
-        binding.tvPlaceholder.isVisible = true
+        showError()
     }
 
     private fun showErrorServer() {
         binding.progressBar.isVisible = false
         binding.ivPlaceholder.setImageDrawable(getDrawable(requireContext(), R.drawable.placeholder_server_error_cat))
         binding.tvPlaceholder.text = getString(R.string.vacancy_server_error)
-        binding.ivPlaceholder.isVisible = true
-        binding.tvPlaceholder.isVisible = true
+        showError()
     }
 
-    private fun showLoading() {
-        binding.progressBar.isVisible = true
-        binding.svVacancyInfo.isVisible = false
+    private fun showNoInternet() {
+        binding.progressBar.isVisible = false
+        binding.ivPlaceholder.setImageDrawable(getDrawable(requireContext(), R.drawable.placeholder_no_internet))
+        binding.tvPlaceholder.text = getString(R.string.search_no_internet)
+        showError()
     }
 
     private fun showContacts(nameContacts: String, email: String, phone: String, comment: String) {
@@ -212,6 +222,14 @@ class VacancyFragment : Fragment() {
                 binding.tvEmployment.text = "$employment, $schedule"
             }
         }
+    }
+
+    private fun showError() {
+        binding.ivPlaceholder.isVisible = true
+        binding.tvPlaceholder.isVisible = true
+        binding.ivFavorite.isVisible = false
+        binding.ivShare.isVisible = false
+        binding.svVacancyInfo.isVisible = false
     }
 
     companion object {

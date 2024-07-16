@@ -13,10 +13,11 @@ import ru.practicum.android.diploma.search.data.network.NetworkClient
 import ru.practicum.android.diploma.search.domain.api.SearchRepository
 import ru.practicum.android.diploma.search.domain.models.VacanciesResponse
 import ru.practicum.android.diploma.search.domain.utils.Options
-import ru.practicum.android.diploma.search.domain.utils.VacanciesData
+import ru.practicum.android.diploma.search.domain.utils.ResponseData
 
 class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRepository {
-    override fun search(options: Options): Flow<VacanciesData<VacanciesResponse>> = flow {
+
+    override fun search(options: Options): Flow<ResponseData<VacanciesResponse>> = flow {
         emit(
             when (val response = networkClient.doRequest(SearchRequest(Options.toMap(options)))) {
                 is SearchResponse -> {
@@ -27,7 +28,7 @@ class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRep
                             page,
                             pages,
                         )
-                        VacanciesData.Data(vacanciesResponse)
+                        ResponseData.Data(vacanciesResponse)
                     }
                 }
 
@@ -38,19 +39,19 @@ class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRep
         )
     }
 
-    private fun responseToError(response: Response): VacanciesData<VacanciesResponse> =
-        VacanciesData.Error(
+    private fun responseToError(response: Response): ResponseData<VacanciesResponse> =
+        ResponseData.Error(
             when (response.resultCode) {
                 RESULT_CODE_NO_INTERNET -> {
-                    VacanciesData.VacanciesSearchError.NO_INTERNET
+                    ResponseData.ResponseError.NO_INTERNET
                 }
 
                 RESULT_CODE_BAD_REQUEST -> {
-                    VacanciesData.VacanciesSearchError.CLIENT_ERROR
+                    ResponseData.ResponseError.CLIENT_ERROR
                 }
 
                 else -> {
-                    VacanciesData.VacanciesSearchError.SERVER_ERROR
+                    ResponseData.ResponseError.SERVER_ERROR
                 }
             }
         )

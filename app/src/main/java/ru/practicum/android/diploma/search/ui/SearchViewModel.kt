@@ -11,7 +11,7 @@ import ru.practicum.android.diploma.search.domain.api.SearchInteractor
 import ru.practicum.android.diploma.search.domain.models.VacanciesResponse
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.domain.utils.Options
-import ru.practicum.android.diploma.search.domain.utils.VacanciesData
+import ru.practicum.android.diploma.search.domain.utils.ResponseData
 import ru.practicum.android.diploma.utils.debounce
 
 class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewModel() {
@@ -82,9 +82,9 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
         }
     }
 
-    private fun processResponse(vacanciesData: VacanciesData<VacanciesResponse>) {
+    private fun processResponse(vacanciesData: ResponseData<VacanciesResponse>) {
         when (vacanciesData) {
-            is VacanciesData.Data -> {
+            is ResponseData.Data -> {
                 val vacanciesResponse = vacanciesData.value
                 with(vacanciesResponse) {
                     currentPage = page
@@ -94,7 +94,7 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
                 }
             }
 
-            is VacanciesData.Error -> {
+            is ResponseData.Error -> {
                 _screenState.postValue(SearchState.Error(vacanciesData.error, isNextPageLoading))
             }
         }
