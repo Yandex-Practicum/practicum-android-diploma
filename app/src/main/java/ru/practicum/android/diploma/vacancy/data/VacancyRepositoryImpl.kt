@@ -23,9 +23,7 @@ class VacancyRepositoryImpl(
         when (response.resultCode) {
             RESULT_CODE_SUCCESS -> {
                 val vacancyFull = responseToVacancyFull(response as VacancyResponse)
-                if (favouritesRepository.getById(id) != null) {
-                    favouritesRepository.upsertVacancy(vacancyFull)
-                }
+                favouritesRepository.updateVacancy(vacancyFull)
                 emit(vacancyFull)
             }
 

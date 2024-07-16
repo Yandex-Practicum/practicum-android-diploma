@@ -35,11 +35,12 @@ fun VacancyEntity.toVacancyFull(): VacancyFull {
         email = email,
         phone = phone,
         comment = comment,
-        keySkills = keySkills
+        keySkills = keySkills,
+        timestamp = timestamp
     )
 }
 
-fun VacancyFull.toVacancyEntity(): VacancyEntity {
+fun VacancyFull.toVacancyEntity(timestamp: Long): VacancyEntity {
     return VacancyEntity(
         id = id,
         name = name,
@@ -58,6 +59,7 @@ fun VacancyFull.toVacancyEntity(): VacancyEntity {
         email = email,
         phone = phone,
         comment = comment,
-        keySkills = keySkills
+        keySkills = keySkills,
+        timestamp = timestamp
     )
 }

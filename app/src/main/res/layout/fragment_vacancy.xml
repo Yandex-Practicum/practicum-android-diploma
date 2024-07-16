@@ -161,7 +161,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin16"
                 android:layout_marginTop="@dimen/margin24"
-                android:text="@string/experience"
+                android:text="@string/vacancy_experience"
                 app:layout_constraintTop_toBottomOf="@id/clCompanyInfo" />
 
             <TextView
