@@ -6,6 +6,6 @@ import ru.practicum.android.diploma.search.domain.utils.VacanciesData
 sealed class SearchState {
     data class Loading(val isNewPage: Boolean) : SearchState()
     data class Content(val results: List<Vacancy>, val foundVacancies: Int) : SearchState()
-    data class Error(val error: VacanciesData.VacanciesSearchError) : SearchState()
+    data class Error(val error: VacanciesData.VacanciesSearchError, val isNewPage: Boolean) : SearchState()
     data object Empty : SearchState()
 }

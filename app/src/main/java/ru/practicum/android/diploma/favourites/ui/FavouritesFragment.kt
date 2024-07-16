@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -13,6 +11,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFavouritesBinding
 import ru.practicum.android.diploma.search.ui.adapter.VacanciesAdapter
+import ru.practicum.android.diploma.utils.Placeholder
 import ru.practicum.android.diploma.vacancy.ui.VacancyFragment
 
 class FavouritesFragment : Fragment() {
@@ -30,6 +29,8 @@ class FavouritesFragment : Fragment() {
         }
     }
 
+    private var placeholder: Placeholder? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -43,6 +44,7 @@ class FavouritesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initializeAdapters()
         initializeObservers()
+        initializeOther()
     }
 
     override fun onDestroyView() {
@@ -64,38 +66,29 @@ class FavouritesFragment : Fragment() {
         }
     }
 
+    private fun initializeOther() {
+        placeholder = Placeholder(binding.tvPlaceholder)
+    }
+
     private fun showContent(screenState: FavouritesState.Content) {
         if (screenState.favouritesList.isNotEmpty()) {
             vacanciesAdapter.setItems(screenState.favouritesList)
-            hidePlaceholder()
+            placeholder?.hide()
         } else {
             vacanciesAdapter.clearItems()
-            showPlaceholder(R.drawable.placeholder_empty_favorites, R.string.favorites_empty)
+            placeholder?.show(R.drawable.placeholder_empty_favorites, R.string.favorites_empty)
         }
         binding.progressBar.isVisible = false
     }
 
     private fun showError() {
         println("Error")
-        showPlaceholder(R.drawable.placeholder_no_results_cat, R.string.search_no_results)
+        placeholder?.show(R.drawable.placeholder_no_results_cat, R.string.search_no_results)
         binding.progressBar.isVisible = false
     }
 
     private fun showLoading() {
         println("Loading")
         binding.progressBar.isVisible = true
-    }
-
-    private fun showPlaceholder(@DrawableRes drawableResId: Int, @StringRes textResId: Int? = null) {
-        with(binding.tvPlaceholder) {
-            isVisible = true
-            setCompoundDrawablesWithIntrinsicBounds(0, drawableResId, 0, 0)
-
-            textResId?.let { setText(it) } ?: run { text = null }
-        }
-    }
-
-    private fun hidePlaceholder() {
-        binding.tvPlaceholder.isVisible = false
     }
 }

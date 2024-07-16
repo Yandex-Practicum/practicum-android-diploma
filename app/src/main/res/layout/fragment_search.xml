@@ -137,12 +137,11 @@
         style="@style/ProgressBarStyle"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:layout_marginTop="@dimen/margin100"
+        android:layout_marginVertical="@dimen/margin22"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/rvVacancies"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/rvVacancies"
         tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,8 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -19,6 +18,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.search.domain.utils.VacanciesData.VacanciesSearchError
 import ru.practicum.android.diploma.search.ui.adapter.VacanciesAdapter
+import ru.practicum.android.diploma.utils.Placeholder
 import ru.practicum.android.diploma.vacancy.ui.VacancyFragment
 
 class SearchFragment : Fragment() {
@@ -35,6 +35,8 @@ class SearchFragment : Fragment() {
             )
         }
     }
+
+    private var placeholder: Placeholder? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,7 +64,7 @@ class SearchFragment : Fragment() {
         viewModel.screenState.observe(viewLifecycleOwner) { screenState ->
             when (screenState) {
                 is SearchState.Content -> showContent(screenState)
-                is SearchState.Error -> showError(screenState.error)
+                is SearchState.Error -> showError(screenState)
                 is SearchState.Loading -> showLoading(screenState.isNewPage)
                 is SearchState.Empty -> showEmpty()
             }
@@ -101,13 +103,15 @@ class SearchFragment : Fragment() {
                 ivClear.isVisible = !text.isNullOrEmpty()
                 ivSearch.isVisible = text.isNullOrEmpty()
                 if (text.isNullOrEmpty()) {
-                    showPlaceholder(R.drawable.placeholder_search)
+                    placeholder?.show(R.drawable.placeholder_search)
                 }
             }
 
             ivClear.setOnClickListener {
                 etSearch.text.clear()
             }
+
+            placeholder = Placeholder(tvPlaceholder)
         }
     }
 
@@ -118,10 +122,10 @@ class SearchFragment : Fragment() {
             numberVacancies.isVisible = true
             if (screenState.foundVacancies == 0) {
                 numberVacancies.text = resources.getString(R.string.search_no_vacancies)
-                showPlaceholder(R.drawable.placeholder_no_results_cat, R.string.search_no_results)
+                placeholder?.show(R.drawable.placeholder_no_results_cat, R.string.search_no_results)
             } else {
                 numberVacancies.text = getVacanciesText(requireContext(), screenState.foundVacancies)
-                hidePlaceholder()
+                placeholder?.hide()
                 tvPlaceholder.isVisible = false
             }
             progressBar.isVisible = false
@@ -130,15 +134,22 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun showError(error: VacanciesSearchError) {
-        binding.progressBar.isVisible = false
+    private fun showError(screenState: SearchState.Error) {
+        with(binding) {
+            progressBar.isVisible = false
+            pbPagination.isVisible = false
+            rvVacancies.setPadding(0, 0, 0, 0)
+        }
 
-        when (error) {
-            VacanciesSearchError.NO_INTERNET ->
-                showPlaceholder(R.drawable.placeholder_no_internet, R.string.search_no_internet)
+        val imageAndText = when (screenState.error) {
+            VacanciesSearchError.NO_INTERNET -> R.drawable.placeholder_no_internet to R.string.search_no_internet
+            else -> R.drawable.placeholder_server_error_cat to R.string.search_server_error
+        }
 
-            else ->
-                showPlaceholder(R.drawable.placeholder_server_error_cat, R.string.search_server_error)
+        if (screenState.isNewPage) {
+            Toast.makeText(context, imageAndText.second, Toast.LENGTH_LONG).show()
+        } else {
+            placeholder?.show(imageAndText.first, imageAndText.second)
         }
     }
 
@@ -147,7 +158,7 @@ class SearchFragment : Fragment() {
         binding.numberVacancies.isVisible = false
         binding.progressBar.isVisible = false
 
-        showPlaceholder(R.drawable.placeholder_search)
+        placeholder?.show(R.drawable.placeholder_search)
     }
 
     private fun showLoading(isNewPage: Boolean) {
@@ -160,7 +171,7 @@ class SearchFragment : Fragment() {
             }
         }
 
-        hidePlaceholder()
+        placeholder?.hide()
         hideKeyboard()
     }
 
@@ -171,19 +182,6 @@ class SearchFragment : Fragment() {
 
     private fun getVacanciesText(context: Context, count: Int): String {
         return context.resources.getQuantityString(R.plurals.vacancies, count, count)
-    }
-
-    private fun showPlaceholder(@DrawableRes drawableResId: Int, @StringRes textResId: Int? = null) {
-        with(binding.tvPlaceholder) {
-            isVisible = true
-            setCompoundDrawablesWithIntrinsicBounds(0, drawableResId, 0, 0)
-
-            textResId?.let { setText(it) } ?: run { text = null }
-        }
-    }
-
-    private fun hidePlaceholder() {
-        binding.tvPlaceholder.isVisible = false
     }
 
     private companion object {
