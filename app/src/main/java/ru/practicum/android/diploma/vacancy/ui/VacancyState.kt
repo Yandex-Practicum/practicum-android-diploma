@@ -7,4 +7,5 @@ sealed class VacancyState {
     data class Content(val vacancyFull: VacancyFull) : VacancyState()
     data object ErrorVacancyNotFound : VacancyState()
     data object ErrorServer : VacancyState()
+    data object ErrorNoInternet : VacancyState()
 }

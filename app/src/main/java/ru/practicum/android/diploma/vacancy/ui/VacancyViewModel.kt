@@ -7,8 +7,10 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.favourites.domain.api.FavouritesInteractor
+import ru.practicum.android.diploma.search.domain.utils.ResponseData
 import ru.practicum.android.diploma.sharing.domain.SharingInteractor
 import ru.practicum.android.diploma.vacancy.domain.api.VacancyInteractor
+import ru.practicum.android.diploma.vacancy.domain.models.VacancyFull
 
 class VacancyViewModel(
     private val vacancyInteractor: VacancyInteractor,
@@ -34,7 +36,7 @@ class VacancyViewModel(
         id = vacancyId
         viewModelScope.launch(Dispatchers.IO) {
             vacancyInteractor.getVacancy(vacancyId).collect { vacancy ->
-                _screenState.postValue(VacancyState.Content(vacancy))
+                processResponse(vacancy)
             }
         }
     }
@@ -58,5 +60,26 @@ class VacancyViewModel(
 
     fun callEmployer() {
         sharingInteractor.callEmployer("89999999999")
+    }
+
+    private fun processResponse(vacancyData: ResponseData<VacancyFull>) {
+        when (vacancyData) {
+            is ResponseData.Data -> {
+                val vacancy = vacancyData.value
+                _screenState.postValue(VacancyState.Content(vacancy))
+            }
+
+            is ResponseData.Error -> {
+                if (vacancyData.error == ResponseData.ResponseError.NOT_FOUND) {
+                    _screenState.postValue(VacancyState.ErrorVacancyNotFound)
+                }
+                if (vacancyData.error == ResponseData.ResponseError.SERVER_ERROR) {
+                    _screenState.postValue(VacancyState.ErrorServer)
+                }
+                if (vacancyData.error == ResponseData.ResponseError.NO_INTERNET) {
+                    _screenState.postValue(VacancyState.ErrorNoInternet)
+                }
+            }
+        }
     }
 }

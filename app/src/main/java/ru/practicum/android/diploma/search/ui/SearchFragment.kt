@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
-import ru.practicum.android.diploma.search.domain.utils.VacanciesData.VacanciesSearchError
+import ru.practicum.android.diploma.search.domain.utils.ResponseData
 import ru.practicum.android.diploma.search.ui.adapter.VacanciesAdapter
 import ru.practicum.android.diploma.utils.Placeholder
 import ru.practicum.android.diploma.vacancy.ui.VacancyFragment
@@ -142,7 +142,7 @@ class SearchFragment : Fragment() {
         }
 
         val imageAndText = when (screenState.error) {
-            VacanciesSearchError.NO_INTERNET -> R.drawable.placeholder_no_internet to R.string.search_no_internet
+            ResponseData.ResponseError.NO_INTERNET -> R.drawable.placeholder_no_internet to R.string.search_no_internet
             else -> R.drawable.placeholder_server_error_cat to R.string.search_server_error
         }
 
