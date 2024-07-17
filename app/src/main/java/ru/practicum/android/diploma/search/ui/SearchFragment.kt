@@ -99,7 +99,6 @@ class SearchFragment : Fragment() {
 
             etSearch.doOnTextChanged { text, _, _, _ ->
                 viewModel.search(text.toString())
-
                 ivClear.isVisible = !text.isNullOrEmpty()
                 ivSearch.isVisible = text.isNullOrEmpty()
                 if (text.isNullOrEmpty()) {
@@ -150,6 +149,8 @@ class SearchFragment : Fragment() {
             Toast.makeText(context, R.string.search_no_internet_paging, Toast.LENGTH_LONG).show()
         } else {
             placeholder?.show(imageAndText.first, imageAndText.second)
+            vacanciesAdapter.clearItems()
+            binding.numberVacancies.isVisible = false
         }
     }
 
@@ -157,7 +158,6 @@ class SearchFragment : Fragment() {
         vacanciesAdapter.clearItems()
         binding.numberVacancies.isVisible = false
         binding.progressBar.isVisible = false
-
         placeholder?.show(R.drawable.placeholder_search)
     }
 
@@ -170,7 +170,6 @@ class SearchFragment : Fragment() {
                 progressBar.isVisible = true
             }
         }
-
         placeholder?.hide()
         hideKeyboard()
     }
