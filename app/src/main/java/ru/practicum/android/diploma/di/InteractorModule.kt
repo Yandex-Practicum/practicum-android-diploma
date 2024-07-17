@@ -14,23 +14,23 @@ import ru.practicum.android.diploma.vacancy.domain.impl.VacancyInteractorImpl
 
 val interactorModule = module {
 
-    factory<SearchInteractor> {
+    single<SearchInteractor> {
         SearchInteractorImpl(get())
     }
 
-    factory<VacancyInteractor> {
+    single<VacancyInteractor> {
         VacancyInteractorImpl(vacancyRepository = get())
     }
 
-    factory<FilterInteractor> {
-        FilterInteractorImpl()
+    single<FilterInteractor> {
+        FilterInteractorImpl(get())
     }
 
-    factory<FavouritesInteractor> {
+    single<FavouritesInteractor> {
         FavouritesInteractorImpl(favouritesRepository = get())
     }
 
-    factory<SharingInteractor> {
+    single<SharingInteractor> {
         SharingInteractorImpl(get())
     }
 }
