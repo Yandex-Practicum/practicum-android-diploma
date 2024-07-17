@@ -186,7 +186,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun showSnackBar(message: String) {
-        val snackBar = Snackbar.make(requireView(),message, Snackbar.LENGTH_SHORT)
+        val snackBar = Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT)
         val tvText = snackBar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
         tvText.textAlignment = View.TEXT_ALIGNMENT_CENTER
         snackBar.show()
