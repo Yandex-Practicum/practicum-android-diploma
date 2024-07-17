@@ -6,13 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
+import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
@@ -147,7 +148,7 @@ class SearchFragment : Fragment() {
 
         if (screenState.isNewPage) {
             placeholder?.hide()
-            Toast.makeText(context, R.string.search_no_internet_paging, Toast.LENGTH_LONG).show()
+            showSnackBar(getString(R.string.search_no_internet_paging))
         } else {
             placeholder?.show(imageAndText.first, imageAndText.second)
             vacanciesAdapter.clearItems()
@@ -182,6 +183,13 @@ class SearchFragment : Fragment() {
 
     private fun getVacanciesText(context: Context, count: Int): String {
         return context.resources.getQuantityString(R.plurals.vacancies, count, count)
+    }
+
+    private fun showSnackBar(message: String) {
+        val snackBar = Snackbar.make(requireView(),message, Snackbar.LENGTH_SHORT)
+        val tvText = snackBar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+        tvText.textAlignment = View.TEXT_ALIGNMENT_CENTER
+        snackBar.show()
     }
 
     private companion object {
