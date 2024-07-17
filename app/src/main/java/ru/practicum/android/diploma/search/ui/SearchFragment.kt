@@ -170,6 +170,7 @@ class SearchFragment : Fragment() {
                 rvVacancies.setPadding(0, 0, 0, resources.getDimensionPixelOffset(R.dimen.padding80))
             } else {
                 progressBar.isVisible = true
+                vacanciesAdapter.clearItems()
             }
         }
         placeholder?.hide()
