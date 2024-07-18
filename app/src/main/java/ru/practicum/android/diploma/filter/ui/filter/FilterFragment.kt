@@ -15,6 +15,7 @@ class FilterFragment : Fragment() {
     private var _binding: FragmentFilterBinding? = null
     private val binding get() = _binding!!
     private val viewModel: FilterViewModel by viewModel()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,11 +39,23 @@ class FilterFragment : Fragment() {
         binding.tbSettingsFilter.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
+
+        binding.checkBox.setOnCheckedChangeListener { _, isChecked ->
+            // ТУДУ
+        }
+
+        binding.btFilterApply.setOnClickListener {
+            findNavController().navigate(R.id.action_filterFragment_to_searchFragment)
+            // ТУДУ
+        }
+
+        binding.btFilterReset.setOnClickListener {
+            // ТУДУ
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
 }

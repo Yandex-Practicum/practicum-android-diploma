@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".filter.ui.filter.FilterFragment">
 
     <Toolbar
@@ -20,16 +20,93 @@
 
     <Button
         android:id="@+id/btLocation"
+        style="@style/Regular_16_Filter_Btns"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Место работы"
+        android:layout_height="60dp"
+        android:layout_marginTop="@dimen/margin16"
+        android:text="@string/filter_work_place"
+        app:drawableRightCompat="@drawable/ic_arrow_forward"
         app:layout_constraintTop_toBottomOf="@id/tbSettingsFilter" />
 
     <Button
         android:id="@+id/btSector"
+        style="@style/Regular_16_Filter_Btns"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="@string/filter_sector"
+        app:drawableRightCompat="@drawable/ic_arrow_forward"
+        app:layout_constraintTop_toBottomOf="@id/btLocation" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/flAmount"
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:layout_marginHorizontal="@dimen/margin16"
+        android:layout_marginTop="@dimen/margin24"
+        android:background="@drawable/filter_shape_rounded_edittext"
+        android:hint="@string/filter_salary"
+        android:paddingTop="@dimen/padding8"
+        android:textColorHint="?attr/hint_text_c"
+        app:expandedHintEnabled="false"
+        app:hintTextAppearance="@style/Regular_12"
+        app:hintTextColor="@color/blue"
+        app:boxBackgroundMode="none"
+        app:layout_constraintTop_toBottomOf="@id/btSector">
+
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/Regular_16"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparent"
+            android:textColorHint="?attr/hint_text_c"
+            android:hint="@string/filter_enter_amount"
+            android:padding="0dp"
+            android:lineSpacingExtra="8dp"
+            android:inputType="numberDecimal" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/checkBox"
+        style="@style/Regular_16"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Отрасль"
-        app:layout_constraintTop_toBottomOf="@id/btLocation" />
+        android:layout_marginTop="@dimen/margin24"
+        android:background="@null"
+        android:button="@null"
+        android:drawableEnd="@drawable/filter_check_box_selector"
+        android:paddingHorizontal="@dimen/padding16"
+        android:text="@string/filter_only_with_salary"
+        app:layout_constraintTop_toBottomOf="@id/flAmount" />
+
+    <Button
+        android:id="@+id/btFilterApply"
+        style="@style/Medium_16_Filter_Btns"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="@dimen/margin16"
+        android:layout_marginBottom="@dimen/margin8"
+        android:backgroundTint="@color/blue"
+        android:fontFamily="@font/ys_display_medium"
+        android:text="@string/filter_apply"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:cornerRadius="12dp"
+        app:layout_constraintBottom_toTopOf="@id/btFilterReset" />
+
+    <Button
+        android:id="@+id/btFilterReset"
+        style="@style/Medium_16_Filter_Btns"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="@dimen/margin16"
+        android:layout_marginBottom="@dimen/margin24"
+        android:backgroundTint="@color/transparent"
+        android:fontFamily="@font/ys_display_medium"
+        android:text="@string/filter_reset"
+        android:textColor="@color/red"
+        android:textSize="16sp"
+        app:cornerRadius="12dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

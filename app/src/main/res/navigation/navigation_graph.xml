@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_filterFragment_to_sectorFragment"
             app:destination="@id/sectorFragment" />
+        <action
+            android:id="@+id/action_filterFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/locationFragment"
