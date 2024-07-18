@@ -30,7 +30,7 @@ val viewModelModule = module {
     }
 
     viewModel {
-        FilterViewModel()
+        FilterViewModel(get())
     }
 
     viewModel {

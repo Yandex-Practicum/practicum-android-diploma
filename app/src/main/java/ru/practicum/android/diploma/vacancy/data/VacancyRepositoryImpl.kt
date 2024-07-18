@@ -29,11 +29,13 @@ class VacancyRepositoryImpl(
             else -> {
                 when (response.resultCode) {
                     RESULT_CODE_NO_INTERNET -> {
-                        if (favouritesRepository.getById(id) != null) {
-                            emit(ResponseData.Data(favouritesRepository.getById(id)!!))
-                        } else {
-                            emit(ResponseData.Error(ResponseData.ResponseError.NO_INTERNET))
-                        }
+                        emit(
+                            favouritesRepository.getById(id)?.let {
+                                ResponseData.Data(it)
+                            } ?: run {
+                                ResponseData.Error(ResponseData.ResponseError.NO_INTERNET)
+                            }
+                        )
                     }
 
                     RESULT_CODE_NOT_FOUND -> {

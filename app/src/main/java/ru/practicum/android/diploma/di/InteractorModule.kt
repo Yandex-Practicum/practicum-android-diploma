@@ -23,7 +23,7 @@ val interactorModule = module {
     }
 
     factory<FilterInteractor> {
-        FilterInteractorImpl()
+        FilterInteractorImpl(get())
     }
 
     factory<FavouritesInteractor> {

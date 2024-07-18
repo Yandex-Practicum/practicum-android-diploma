@@ -1,13 +1,18 @@
 package ru.practicum.android.diploma.di
 
+import android.content.Context
 import androidx.room.Room
+import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
+import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.favourites.data.db.MainDB
+import ru.practicum.android.diploma.filter.data.FilterStoreRepositoryImpl
+import ru.practicum.android.diploma.filter.domain.api.FilterStoreRepository
 import ru.practicum.android.diploma.search.data.network.JobApiService
 import ru.practicum.android.diploma.search.data.network.NetworkClient
 import ru.practicum.android.diploma.search.data.network.RetrofitClient
@@ -49,5 +54,18 @@ val dataModule = module {
 
     single<ExternalNavigator> {
         ExternalNavigatorImpl(context = androidContext())
+    }
+
+    factoryOf(::Gson)
+
+    single {
+        androidContext().getSharedPreferences(
+            BuildConfig.PREFERENCES_NAME,
+            Context.MODE_PRIVATE
+        )
+    }
+
+    single<FilterStoreRepository> {
+        FilterStoreRepositoryImpl(get(), get())
     }
 }
