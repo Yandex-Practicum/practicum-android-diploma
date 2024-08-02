@@ -6,7 +6,7 @@
     <string name="vacancy_search_title">Поиск вакансий</string>
     <string name="search_hint">Введите запрос</string>
     <string name="no_connection">Нет интернета</string>
-    <string name="error_getting_vacancies">Не удалось получить список вакансий</string>
+    <string name="no_vacancy_list">Не удалось получить\n список вакансий</string>
     <string name="filter_settings_title">Настройки фильтрации</string>
     <string name="work_place">Место работы</string>
     <string name="industry">Отрасль</string>
@@ -21,8 +21,9 @@
     <string name="enter_region">Введите регион</string>
     <string name="no_region">Такого региона нет</string>
     <string name="failed_to_get_list">Не удалось получить список</string>
+    <string name="found_count_vacancies">Найдено %d вакансий</string>
     <string name="choose">Выбрать</string>
-    <string name="Apply">Применить</string>
+    <string name="apply">Применить</string>
     <string name="cancel">Сбросить</string>
     <string name="industry_header">Выбор отрасли</string>
     <string name="industry_edit_text_hint">Введите отрасль</string>
@@ -46,11 +47,8 @@
     <string name="server_error">Ошибка сервера</string>
     <string name="favorite_list_empty">Список пуст</string>
     <string name="there_no_such_vacancies">Таких вакансий нет</string>
-    <string name="no_vacancy_list">Не удалось получить\n список вакансий</string>
+
     <string name="title_team">Над приложением работали</string>
-
-
-
     <string name="name1">Гасымов Элчин Эмильевич</string>
     <string name="name2">Королев Егор Алексеевич</string>
     <string name="name3">Молоданов Виталий Олегович</string>
