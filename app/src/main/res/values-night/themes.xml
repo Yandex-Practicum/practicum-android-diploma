@@ -1,7 +1,29 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.PracticumAndroidDiploma" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <!-- Цвет фона -->
+        <item name="colorPrimary">@color/black</item>
+
+        <!-- Текст, который находится непосредственно на фоне -->
+        <item name="colorOnPrimary">@color/white</item>
+
+        <item name="colorSecondary">@color/gray</item>
+        <item name="colorSecondaryVariant">@color/light_gray</item>
+
+        <!-- текст в edit text -->
+        <item name="colorOnSecondary">@color/black</item>
+
+        <!-- hint в edit text -->
+        <item name="colorOnSecondaryFixed">@color/white</item>
+
+        <!-- кнопки -->
+        <item name="colorSurface">@color/light_blue</item>
+        <item name="colorOnSurface">@color/white</item>
+
+        <!-- кнопки сброса и добавления в избранное -->
+        <item name="colorAccent">@color/red</item>
+
+        <!--позволяет динамически изменять фон окна приложения в соответствии с выбранной темой-->
+        <item name="android:windowBackground">@color/black</item>
     </style>
 </resources>
