@@ -16,4 +16,16 @@
         android:gravity="center"
         android:layout_marginBottom="16dp" />
 
+    <Button
+        android:id="@+id/button_to_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Перейти к фильтрам"
+        android:layout_marginBottom="8dp" />
+
+    <Button
+        android:id="@+id/button_to_vacancy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Перейти к вакансии" />
 </LinearLayout>
