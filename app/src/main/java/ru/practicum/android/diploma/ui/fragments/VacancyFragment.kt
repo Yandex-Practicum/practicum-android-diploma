@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.R
 
-class VacancyFragment: Fragment() {
+class VacancyFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
