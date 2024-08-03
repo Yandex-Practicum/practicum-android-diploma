@@ -6,5 +6,6 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "vacancy_table")
 data class VacancyEntity(
     @PrimaryKey(autoGenerate = true)
-    val vacancyId: Int)
+    val vacancyId: Int
+)
 
