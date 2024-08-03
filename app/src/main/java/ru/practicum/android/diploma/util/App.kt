@@ -14,12 +14,11 @@ class App : Application() {
         startKoin {
             androidContext(this@App)
             modules(
-               dataModule,
-               repositoryModule,
-               interactorModule,
-               viewModelModule
+                viewModelModule,
+                interactorModule,
+                repositoryModule,
+                dataModule
             )
         }
     }
 }
-
