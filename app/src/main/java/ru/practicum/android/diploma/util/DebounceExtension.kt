@@ -12,7 +12,7 @@ class DebounceExtension(
     private val delayMillis: Long,
     private val action: () -> Unit
 ) {
-    companion object{
+    companion object {
         const val HALF_SECOND = 500L
     }
     private var debounceJob: Job? = null
