@@ -6,8 +6,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.util.DebounceExtension.Companion.HALF_SECOND
 
-class DebounceExtension(private val delayMillis: Long, private val action: () -> Unit) {
+class DebounceExtension(
+    private val delayMillis: Long,
+    private val action: () -> Unit
+) {
+    companion object{
+        const val HALF_SECOND = 500L
+    }
     private var debounceJob: Job? = null
     fun debounce() {
         debounceJob?.cancel()
@@ -18,7 +25,10 @@ class DebounceExtension(private val delayMillis: Long, private val action: () ->
     }
 }
 
-fun View.setDebouncedClickListener(delayMillis: Long = NumericConstants.HALF_SECOND, onClick: () -> Unit) {
+fun View.setDebouncedClickListener(
+    delayMillis: Long = HALF_SECOND,
+    onClick: () -> Unit
+) {
     var debounceJob: Job? = null
     setOnClickListener {
         debounceJob?.cancel()
