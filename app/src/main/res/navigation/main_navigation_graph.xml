@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation_graph"
-    app:startDestination="@id/main_screen">
+    app:startDestination="@id/mainFragment">
 
     <fragment
-        android:id="@+id/main_screen"
+        android:id="@+id/mainFragment"
         android:name="ru.practicum.android.diploma.ui.fragments.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search">
@@ -18,7 +18,7 @@
             app:destination="@id/vacancyFragment" />
     </fragment>
     <fragment
-        android:id="@+id/favorite_screen"
+        android:id="@+id/favoriteFragment"
         android:name="ru.practicum.android.diploma.ui.fragments.FavouritesFragment"
         android:label="fragment_favourites"
         tools:layout="@layout/fragment_favourites" />
@@ -33,7 +33,7 @@
         android:label="fragment_vacancy"
         tools:layout="@layout/fragment_vacancy" />
     <fragment
-        android:id="@+id/team_screen"
+        android:id="@+id/teamFragment"
         android:name="ru.practicum.android.diploma.ui.fragments.TeamFragment"
         android:label="fragment_team"
         tools:layout="@layout/fragment_team" />
