@@ -61,6 +61,7 @@ dependencies {
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.navigation.ui.ktx)
     annotationProcessor(libs.compiler)
+    implementation(libs.byViewBinding)
 
     // region Unit tests
     testImplementation(libs.unitTests.junit)
