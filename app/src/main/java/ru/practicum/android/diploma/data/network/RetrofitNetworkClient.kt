@@ -11,6 +11,7 @@ import ru.practicum.android.diploma.data.dto.RESULT_CODE_SUCCESS
 import ru.practicum.android.diploma.data.dto.Responce
 import ru.practicum.android.diploma.data.dto.SearchRequest
 import ru.practicum.android.diploma.data.dto.VacancyRequest
+import ru.practicum.android.diploma.util.isInternetAvailable
 
 class RetrofitNetworkClient(
     private val hhApiService: HHApiService,
