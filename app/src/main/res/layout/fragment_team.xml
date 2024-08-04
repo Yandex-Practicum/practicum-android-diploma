@@ -4,20 +4,100 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorPrimary"
     tools:context=".ui.fragments.TeamFragment">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftBorder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/margin_size_16" />
+
     <TextView
-        android:id="@+id/team_text"
+        android:id="@+id/titleName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Экран команды"
-        android:textAlignment="center"
+        android:fontFamily="@font/ys_display_medium"
+        android:paddingVertical="@dimen/dimen_20dp"
+        android:text="@string/team_screen_title"
+        android:textColor="?attr/colorOnPrimary"
         android:textSize="@dimen/text_size_22"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintStart_toStartOf="@id/leftBorder"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/titleAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_size_16"
+        android:fontFamily="@font/ys_display_bold"
+        android:paddingVertical="8dp"
+        android:text="@string/title_team"
+        android:textColor="?attr/colorOnPrimary"
+        android:textSize="@dimen/text_size_32"
+        app:layout_constraintStart_toStartOf="@id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@id/titleName" />
+
+    <TextView
+        android:id="@+id/authorName1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_size_24"
+        android:fontFamily="@font/ys_display_medium"
+        android:text="@string/name1"
+        android:textColor="?attr/colorOnPrimary"
+        android:textSize="@dimen/text_size_16"
+        app:layout_constraintStart_toStartOf="@id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@id/titleAuthor" />
+
+    <TextView
+        android:id="@+id/authorName2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_size_16"
+        android:fontFamily="@font/ys_display_medium"
+        android:text="@string/name2"
+        android:textColor="?attr/colorOnPrimary"
+        android:textSize="@dimen/text_size_16"
+        app:layout_constraintStart_toStartOf="@id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@id/authorName1" />
+
+    <TextView
+        android:id="@+id/authorName3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_size_16"
+        android:fontFamily="@font/ys_display_medium"
+        android:text="@string/name3"
+        android:textColor="?attr/colorOnPrimary"
+        android:textSize="@dimen/text_size_16"
+        app:layout_constraintStart_toStartOf="@id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@id/authorName2" />
+
+    <TextView
+        android:id="@+id/authorName4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_size_16"
+        android:fontFamily="@font/ys_display_medium"
+        android:text="@string/name4"
+        android:textColor="?attr/colorOnPrimary"
+        android:textSize="@dimen/text_size_16"
+        app:layout_constraintStart_toStartOf="@id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@id/authorName3" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_size_16"
+        android:fontFamily="@font/ys_display_medium"
+        android:text="@string/name5"
+        android:textColor="?attr/colorOnPrimary"
+        android:textSize="@dimen/text_size_16"
+        app:layout_constraintStart_toStartOf="@id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@id/authorName4" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
