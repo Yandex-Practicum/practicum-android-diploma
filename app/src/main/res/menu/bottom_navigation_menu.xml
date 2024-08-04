@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/mainFragment"
+        android:icon="@drawable/ic_bottom_navigation_main_20px"
+        android:title="@string/main_screen_title" />
+
+    <item
+        android:id="@+id/favoriteFragment"
+        android:icon="@drawable/ic_bottom_navigation_favorites_20px"
+        android:title="@string/favorite_screen_title" />
+
+    <item
+        android:id="@+id/teamFragment"
+        android:icon="@drawable/ic_bottom_navigation_team_20px"
+        android:title="@string/team_screen_title" />
+</menu>
