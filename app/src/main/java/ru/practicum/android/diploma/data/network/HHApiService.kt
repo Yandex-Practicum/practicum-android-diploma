@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.data.dto.Responce
 
 const val USER_AGENT_AUTHORIZATION = "Authorization: Bearer ${BuildConfig.HH_ACCESS_TOKEN}"
-const val USER_AGENT_APP_NAME = "HH-User-Agent: Find Your Job ()"
+const val USER_AGENT_APP_NAME = "HH-User-Agent: CareerHub (e.gasymov@hh.ru)"
 
 interface HHApiService {
     @Headers(USER_AGENT_AUTHORIZATION, USER_AGENT_APP_NAME)
