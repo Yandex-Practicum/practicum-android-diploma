@@ -10,7 +10,6 @@ import ru.practicum.android.diploma.data.network.NetworkClient
 import ru.practicum.android.diploma.data.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.data.db.AppDatabase
 
-
 const val BASE_URL = "https://api.hh.ru/"
 val dataModule = module {
     single<NetworkClient> {
