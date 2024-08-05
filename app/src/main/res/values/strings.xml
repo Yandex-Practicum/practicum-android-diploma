@@ -1,3 +1,59 @@
 <resources>
     <string name="app_name">Practicum-Android-Diploma</string>
+    <string name="main_screen_title">Главная</string>
+    <string name="favorite_screen_title">Избранное</string>
+    <string name="team_screen_title">Команда</string>
+    <string name="vacancy_search_title">Поиск вакансий</string>
+    <string name="search_hint">Введите запрос</string>
+    <string name="no_connection">Нет интернета</string>
+    <string name="no_vacancy_list">Не удалось получить\n список вакансий</string>
+    <string name="filter_settings_title">Настройки фильтрации</string>
+    <string name="work_place">Место работы</string>
+    <string name="industry">Отрасль</string>
+    <string name="salary_expectation">Ожидаемая зарплата</string>
+    <string name="enter_amount">Введите сумму</string>
+    <string name="show_only_with_salary">Не показывать без зарплаты</string>
+    <string name="choose_place_of_work">Выбор места работы</string>
+    <string name="country">Страна</string>
+    <string name="region">Регион</string>
+    <string name="choose_country">Выбор страны</string>
+    <string name="choosing_region">Выбор региона</string>
+    <string name="enter_region">Введите регион</string>
+    <string name="no_region">Такого региона нет</string>
+    <string name="failed_to_get_list">Не удалось получить список</string>
+    <string name="found_count_vacancies">Найдено %d вакансий</string>
+    <string name="choose">Выбрать</string>
+    <string name="apply">Применить</string>
+    <string name="cancel">Сбросить</string>
+    <string name="industry_header">Выбор отрасли</string>
+    <string name="industry_edit_text_hint">Введите отрасль</string>
+    <string name="vacancy_toolbar">Вакансия</string>
+    <string name="experience_title">Требуемый опыт</string>
+    <string name="from">от</string>
+    <string name="to">до</string>
+    <string name="no_salary_info">Зарплата не указана</string>
+    <string name="vacancy_description_title">Описание вакансии</string>
+    <string name="duties">Обязанности</string>
+    <string name="demands">Требования</string>
+    <string name="conditions">Условия</string>
+    <string name="core_skills_title">Ключевые навыки</string>
+    <string name="contacts_title">Контакты</string>
+    <string name="contact_person">Контактное лицо</string>
+    <string name="email_title">E-mail</string>
+    <string name="phone_title">Телефон</string>
+
+
+    <string name="Vacancy_not_found_or_deleted">Вакансия не найдена или удалена</string>
+    <string name="server_error">Ошибка сервера</string>
+    <string name="favorite_list_empty">Список пуст</string>
+    <string name="there_no_such_vacancies">Таких вакансий нет</string>
+
+    <string name="title_team">Над приложением работали</string>
+    <string name="name1">Гасымов Элчин Эмильевич</string>
+    <string name="name2">Королев Егор Алексеевич</string>
+    <string name="name3">Молоданов Виталий Олегович</string>
+    <string name="name4">Шокин Андрей Александрович</string>
+    <string name="name5">Рябицкий Андрей Игоревич</string>
+
+
 </resources>
