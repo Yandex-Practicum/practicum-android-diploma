@@ -158,7 +158,7 @@
         app:layout_constraintTop_toBottomOf="@id/no_vacancy_to_show"
         tools:text="Не удалось получить\n список вакансий" />
     <ProgressBar
-        android:id="@+id/center_progress_bar"
+        android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
