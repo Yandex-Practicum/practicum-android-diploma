@@ -27,21 +27,10 @@ class RootActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.mainFragment -> {
+                R.id.mainFragment, R.id.favoriteFragment, R.id.teamFragment ->
                     binding.bottomNavigationView.isVisible = true
-                }
 
-                R.id.favoriteFragment -> {
-                    binding.bottomNavigationView.isVisible = true
-                }
-
-                R.id.teamFragment -> {
-                    binding.bottomNavigationView.isVisible = true
-                }
-
-                else -> {
-                    binding.bottomNavigationView.isVisible = false
-                }
+                else -> binding.bottomNavigationView.isVisible = false
             }
         }
 
