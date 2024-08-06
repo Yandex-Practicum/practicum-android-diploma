@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.data.dto.RESULT_CODE_BAD_REQUEST
 import ru.practicum.android.diploma.data.dto.RESULT_CODE_NO_INTERNET
 import ru.practicum.android.diploma.data.dto.RESULT_CODE_SERVER_ERROR
 import ru.practicum.android.diploma.data.dto.RESULT_CODE_SUCCESS
-import ru.practicum.android.diploma.data.dto.Response
+import ru.practicum.android.diploma.data.dto.Responce
 import ru.practicum.android.diploma.data.dto.SearchRequest
 import ru.practicum.android.diploma.data.dto.VacancyRequest
 import ru.practicum.android.diploma.util.isInternetAvailable
@@ -18,14 +18,14 @@ class RetrofitNetworkClient(
     private val context: Context
 ) : NetworkClient {
 
-    override suspend fun doRequest(dto: Any): Response {
+    override suspend fun doRequest(dto: Any): Responce {
         if (!isInternetAvailable(context)) {
-            return Response().apply { resultCode = RESULT_CODE_NO_INTERNET }
+            return Responce().apply { resultCode = RESULT_CODE_NO_INTERNET }
         }
         return getResponce(dto = dto)
     }
 
-    private suspend fun getResponce(dto: Any): Response {
+    private suspend fun getResponce(dto: Any): Responce {
         return withContext(Dispatchers.IO) {
             try {
                 when (dto) {
@@ -40,13 +40,13 @@ class RetrofitNetworkClient(
                     }
 
                     else -> {
-                        Response().apply { resultCode = RESULT_CODE_BAD_REQUEST }
+                        Responce().apply { resultCode = RESULT_CODE_BAD_REQUEST }
                     }
                 }
 
             } catch (e: HttpException) {
                 println("RetrofitClient error code: ${e.code()} message: ${e.message}")
-                Response().apply { resultCode = RESULT_CODE_SERVER_ERROR }
+                Responce().apply { resultCode = RESULT_CODE_SERVER_ERROR }
             }
         }
     }
