@@ -13,9 +13,9 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="12dp"
         app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/item_logo"
@@ -32,12 +32,12 @@
         style="@style/text_22_display_medium_500"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
         android:textColor="?attr/colorOnPrimary"
-        app:layout_constraintStart_toEndOf="@id/card_view"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
-        android:layout_marginStart="12dp"
+        app:layout_constraintStart_toEndOf="@id/card_view"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="Android-разработчик" />
 
     <TextView
@@ -46,9 +46,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textColor="?attr/colorOnPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/position_title"
         app:layout_constraintTop_toBottomOf="@id/position_title"
-        app:layout_constraintEnd_toEndOf="parent"
         tools:text="Авто.ру" />
 
     <TextView
@@ -57,9 +57,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textColor="?attr/colorOnPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/company_title"
         app:layout_constraintTop_toBottomOf="@id/company_title"
-        app:layout_constraintEnd_toEndOf="parent"
         tools:text="от 1000 рупий" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
