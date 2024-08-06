@@ -17,6 +17,7 @@
         <item name="colorOnSecondaryFixed">@color/white</item>
 
         <!-- кнопки -->
+        <item name="colorSurface">@color/blue</item>
         <item name="colorOnSurface">@color/white</item>
 
         <!-- кнопки сброса и добавления в избранное -->
