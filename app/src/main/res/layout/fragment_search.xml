@@ -8,7 +8,7 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/search_toolbar"
-        style="@style/tool_bar"
+        style="@style/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height_64dp"
         app:layout_constraintEnd_toEndOf="parent"

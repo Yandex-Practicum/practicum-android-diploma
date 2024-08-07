@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="tool_bar">
+    <style name="toolbar">
         <item name="navigationIconTint">?attr/colorOnPrimary</item>
         <item name="titleTextColor">?attr/colorOnPrimary</item>
         <item name="titleTextAppearance">@style/TextStyleMedium22_500</item>
