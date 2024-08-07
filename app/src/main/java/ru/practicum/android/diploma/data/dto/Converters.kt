@@ -12,7 +12,7 @@ import ru.practicum.android.diploma.data.dto.components.Salary
 import ru.practicum.android.diploma.data.dto.components.Schedule
 import ru.practicum.android.diploma.domain.models.VacanciesResponse
 import ru.practicum.android.diploma.domain.models.Vacancy
-import ru.practicum.android.diploma.domain.models.VacancyDetailsModel
+import ru.practicum.android.diploma.domain.models.VacancyDetails
 import ru.practicum.android.diploma.domain.models.components.AreaModel
 import ru.practicum.android.diploma.domain.models.components.ContactsModel
 import ru.practicum.android.diploma.domain.models.components.EmployerModel
@@ -28,7 +28,7 @@ fun VacancyDto.toModel() = Vacancy(id, area.toModel(), employer?.toModel(), name
 
 fun SearchResponse.toModel() = VacanciesResponse(items.map { it.toModel() }, found, page, pages)
 
-fun VacancyResponse.toModel() = VacancyDetailsModel(
+fun VacancyResponse.toModel() = VacancyDetails(
     id,
     area?.toModel(),
     employer?.toModel(),

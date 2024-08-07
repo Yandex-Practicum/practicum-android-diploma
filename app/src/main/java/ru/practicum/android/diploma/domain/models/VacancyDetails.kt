@@ -9,7 +9,7 @@ import ru.practicum.android.diploma.domain.models.components.KeySkillsModel
 import ru.practicum.android.diploma.domain.models.components.SalaryModel
 import ru.practicum.android.diploma.domain.models.components.ScheduleModel
 
-data class VacancyDetailsModel(
+data class VacancyDetails(
     val id: String,
     val area: AreaModel?,
     val employer: EmployerModel?,
