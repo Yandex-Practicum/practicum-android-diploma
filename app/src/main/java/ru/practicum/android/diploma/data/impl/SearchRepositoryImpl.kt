@@ -7,8 +7,7 @@ import ru.practicum.android.diploma.data.dto.RESULT_CODE_NO_INTERNET
 import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.SearchRequest
 import ru.practicum.android.diploma.data.dto.SearchResponse
-import ru.practicum.android.diploma.data.dto.VacancyDto
-import ru.practicum.android.diploma.data.dto.toVacancy
+import ru.practicum.android.diploma.data.dto.toModel
 import ru.practicum.android.diploma.data.network.NetworkClient
 import ru.practicum.android.diploma.domain.api.SearchRepository
 import ru.practicum.android.diploma.domain.models.VacanciesResponse
@@ -21,17 +20,9 @@ class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRep
         emit(
             when (val response = networkClient.doRequest(SearchRequest(Options.toMap(options)))) {
                 is SearchResponse -> {
-                    with(response) {
-                        val vacanciesResponse = VacanciesResponse(
-                            items.map(VacancyDto::toVacancy),
-                            found,
-                            page,
-                            pages,
-                        )
-                        ResponseData.Data(vacanciesResponse)
-                    }
+                    val vacanciesResponse = response.toModel()
+                    ResponseData.Data(vacanciesResponse)
                 }
-
                 else -> {
                     responseToError(response)
                 }
