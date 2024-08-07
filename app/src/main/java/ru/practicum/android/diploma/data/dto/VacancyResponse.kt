@@ -12,14 +12,14 @@ import ru.practicum.android.diploma.data.dto.components.Salary
 import ru.practicum.android.diploma.data.dto.components.Schedule
 
 data class VacancyResponse(
-    val id: Int,
-    val name: String,
-    val employer: Employer,
+    val id: String,
+    val name: String?,
+    val employer: Employer?,
     val salary: Salary?,
-    val area: Area,
+    val area: Area?,
     @SerializedName("alternate_url")
-    val alternateUrl: String,
-    val description: String,
+    val alternateUrl: String?,
+    val description: String?,
     val employment: Employment?,
     val experience: Experience?,
     val schedule: Schedule?,
