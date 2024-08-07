@@ -22,10 +22,10 @@ class RetrofitNetworkClient(
         if (!isInternetAvailable(context)) {
             return Response().apply { resultCode = RESULT_CODE_NO_INTERNET }
         }
-        return getResponce(dto = dto)
+        return getResponse(dto = dto)
     }
 
-    private suspend fun getResponce(dto: Any): Response {
+    private suspend fun getResponse(dto: Any): Response {
         return withContext(Dispatchers.IO) {
             try {
                 when (dto) {
