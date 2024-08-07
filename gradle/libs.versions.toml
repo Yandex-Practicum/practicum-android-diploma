@@ -20,6 +20,7 @@ targetSdk = "33"
 # Detekt
 detekt = "1.23.3"
 detektTwitterComposeRules ="0.0.26"
+pagingRuntimeKtx = "3.3.1"
 
 [libraries]
 
@@ -61,5 +62,6 @@ unitTests-junit = "junit:junit:4.13.2"
 # UI tests
 uiTests-junitExt = "androidx.test.ext:junit:1.2.1"
 uiTests-espressoCore = "androidx.test.espresso:espresso-core:3.6.1"
+paging-runtime-ktx = { group = "androidx.paging", name = "paging-runtime-ktx", version.ref = "pagingRuntimeKtx" }
 
 [bundles]

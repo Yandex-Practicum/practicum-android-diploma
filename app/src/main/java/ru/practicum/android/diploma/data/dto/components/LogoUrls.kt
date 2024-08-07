@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data.components
+package ru.practicum.android.diploma.data.dto.components
 
 import com.google.gson.annotations.SerializedName
 
