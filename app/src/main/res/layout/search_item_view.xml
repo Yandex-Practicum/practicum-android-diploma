@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="9dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/item_logo"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/shape_search_item"
+            android:cropToPadding="true"
+            android:scaleType="centerInside"
+            tools:src="@drawable/ic_placeholder_30px" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/position_title"
+        style="@style/text_22_display_medium_500"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:textColor="?attr/colorOnPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@id/card_view"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Android-разработчик" />
+
+    <TextView
+        android:id="@+id/company_title"
+        style="@style/text_16_regular_400"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="?attr/colorOnPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/position_title"
+        app:layout_constraintTop_toBottomOf="@id/position_title"
+        tools:text="Авто.ру" />
+
+    <TextView
+        android:id="@+id/salary_title"
+        style="@style/text_16_regular_400"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="?attr/colorOnPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/company_title"
+        app:layout_constraintTop_toBottomOf="@id/company_title"
+        tools:text="от 1000 рупий" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
