@@ -5,4 +5,4 @@ data class SearchResponse(
     val found: Int,
     val pages: Int,
     val page: Int,
-) : Responce()
+) : Response()

@@ -4,11 +4,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.data.dto.RESULT_CODE_BAD_REQUEST
 import ru.practicum.android.diploma.data.dto.RESULT_CODE_NO_INTERNET
-import ru.practicum.android.diploma.data.dto.Responce
+import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.SearchRequest
 import ru.practicum.android.diploma.data.dto.SearchResponse
-import ru.practicum.android.diploma.data.dto.VacancyDto
-import ru.practicum.android.diploma.data.dto.toVacancy
 import ru.practicum.android.diploma.data.network.NetworkClient
 import ru.practicum.android.diploma.domain.api.SearchRepository
 import ru.practicum.android.diploma.domain.models.VacanciesResponse
@@ -23,7 +21,7 @@ class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRep
                 is SearchResponse -> {
                     with(response) {
                         val vacanciesResponse = VacanciesResponse(
-                            items.map(VacancyDto::toVacancy),
+                            items.map { it.toVacancy() },
                             found,
                             page,
                             pages,
@@ -39,17 +37,15 @@ class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRep
         )
     }
 
-    private fun responseToError(response: Responce): ResponseData<VacanciesResponse> =
+    private fun responseToError(response: Response): ResponseData<VacanciesResponse> =
         ResponseData.Error(
             when (response.resultCode) {
                 RESULT_CODE_NO_INTERNET -> {
                     ResponseData.ResponseError.NO_INTERNET
                 }
-
                 RESULT_CODE_BAD_REQUEST -> {
                     ResponseData.ResponseError.CLIENT_ERROR
                 }
-
                 else -> {
                     ResponseData.ResponseError.SERVER_ERROR
                 }

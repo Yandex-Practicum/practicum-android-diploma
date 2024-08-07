@@ -7,7 +7,7 @@ import ru.practicum.android.diploma.BuildConfig
 
 object HeaderInterceptor : Interceptor {
     private const val USER_AGENT_AUTHORIZATION = "Authorization: Bearer ${BuildConfig.HH_ACCESS_TOKEN}"
-    private const val USER_AGENT_APP_NAME = "HH-User-Agent: Find Your Job (snt_mail@bk.ru)"
+    private const val USER_AGENT_APP_NAME = "HH-User-Agent: CareerHub (e.gasymov@hh.ru)"
 
     private val headers = Headers.Builder()
         .add(USER_AGENT_AUTHORIZATION)

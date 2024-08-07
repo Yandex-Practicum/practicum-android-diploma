@@ -27,4 +27,4 @@ data class VacancyResponse(
     @SerializedName("key_skills")
     val keySkills: List<KeySkill>,
     val address: Address?
-) : Responce()
+) : Response()
