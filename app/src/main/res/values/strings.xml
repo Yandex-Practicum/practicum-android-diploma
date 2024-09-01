@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Practicum-Android-Diploma</string>
+    <string name="app_name">Job Navigator</string>
     <string name="bottom_nav_item_main">Главная</string>
     <string name="bottom_nav_item_favorites">Избранное</string>
     <string name="bottom_nav_item_team">Команда</string>
