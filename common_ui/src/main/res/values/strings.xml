@@ -1,67 +1,7 @@
 <resources>
     <string name="app_name">Practicum-Android-Diploma</string>
-
-    <!-- BottomNavigation tabs -->
-    <string name="search">Главная</string>
-    <string name="favorites">Избранное</string>
+    <string name="home">Главная</string>
+    <string name="featured_jobs">Избранное</string>
     <string name="team">Команда</string>
     <string name="fragment_placeholder">Данная страница в разработке</string>
-
-    <!-- Common errors -->
-    <string name="vacancies_list_server_error">Не удалось получить список вакансий</string>
-    <string name="no_internet_error">Нет интернета</string>
-    <string name="server_error">Ошибка сервера</string>
-
-    <!-- Search screen -->
-    <string name="search_screen_header">Поиск вакансий</string>
-    <string name="search_screen_result_count_popup">Найдено %d вакансий</string>
-    <string name="search_screen_no_results_popup">Таких вакансий нет</string>
-    <string name="search_screen_searchbar_hint">Введите запрос</string>
-
-    <!-- Filter screens -->
-    <string name="filter_screens_main_header">Настройки фильтрации</string>
-
-    <string name="filter_screens_location">Место работы</string>
-    <string name="filter_screens_location_filter_header">Выбор места работы</string>
-    <string name="filter_screens_country">Страна</string>
-    <string name="filter_screens_country_filter_header">Выбор страны</string>
-    <string name="filter_screens_region">Регион</string>
-    <string name="filter_screens_region_filter_header">Выбор региона</string>
-    <string name="filter_screens_region_searchbar_hint">Введите регион</string>
-    <string name="filter_screens_region_no_results_error">Такого региона нет</string>
-    <string name="filter_screens_region_list_server_error">Не удалось получить список</string>
-
-    <string name="filter_screens_profession">Отрасль</string>
-    <string name="filter_screens_profession_searchbar_hint">Введите отрасль</string>
-    <string name="filter_screens_profession_filter_header">Выбор отрасли</string>
-
-    <string name="filter_screens_salary_expectations">Ожидаемая зарплата</string>
-    <string name="filter_screens_enter_sum">Введите сумму</string>
-    <string name="filter_screens_hide_without_salary">Не показывать без зарплаты</string>
-
-    <string name="filter_screens_select_button">Выбрать</string>
-    <string name="filter_screens_apply_button">Применить</string>
-    <string name="filter_screens_discard_button">Сбросить</string>
-
-    <!-- Vacancy screen, use plurals for job experience-->
-    <string name="vacancy_screen_header">Вакансия</string>
-    <string name="vacancy_screen_base_salary">от %s %s</string>
-    <string name="vacancy_screen_description">Описание вакансии</string>
-    <string name="vacancy_screen_responsibilities">Обязанности</string>
-    <string name="vacancy_screen_requirements">Требования</string>
-    <string name="vacancy_screen_conditions">Условия</string>
-    <string name="vacancy_screen_key_skills">Ключевые навыки</string>
-    <string name="vacancy_screen_not_found_error">Вакансия не найдена или удалена</string>
-
-    <!-- Favorites screen -->
-    <string name="favorites_screen_header">Избранное</string>
-    <string name="favorites_screen_empty_list">Список пуст</string>
-
-    <!-- Team screen -->
-    <string name="team_screen_header">Команда</string>
-    <string name="team_screen_text">Над приложением работали</string>
-    <string name="team_screen_developer_list">Павел Захаров\n
-                                Юлия Вакулина\n
-                                Максим Сагациян\n
-                                Михаил Гришин</string>
 </resources>

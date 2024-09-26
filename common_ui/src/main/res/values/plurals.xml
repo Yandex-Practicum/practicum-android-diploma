@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <plurals name="age_range">
-        <item quantity="one">От %d года до %d года</item>
-        <item quantity="few">От %d года до %d лет</item>
-        <item quantity="many">От %d лет до %d лет</item>
-        <item quantity="other">От %d лет до %d лет</item>
-    </plurals>
-</resources>

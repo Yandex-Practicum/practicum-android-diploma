@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Theme-dependant -->
-    <color name="background">#FDFDFD</color>
-    <color name="primaryTextAndUIColor">#1A1B22</color>
-    <color name="searchBarHintTextColor">#AEAFB4</color>
-
-    <!-- Theme-independent -->
-    <color name="black">#1A1B22</color>
-    <color name="white">#FDFDFD</color>
-    <color name="grey">#AEAFB4</color>
-    <color name="blue">#3772E7</color>
-    <color name="red">#F56B6C</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="color_1">#FFF2FBFD</color>
+    <color name="color_2">#FFE5F7FB</color>
+    <color name="color_3">#FFBBE4F3</color>
+    <color name="color_4">#FF5279A3</color>
+    <color name="color_5">#FF333E43</color>
 </resources>
