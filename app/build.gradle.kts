@@ -36,6 +36,7 @@ android {
 
     buildFeatures {
         buildConfig = true
+        viewBinding = true
     }
 }
 
@@ -55,4 +56,21 @@ dependencies {
     androidTestImplementation(libs.uiTests.junitExt)
     androidTestImplementation(libs.uiTests.espressoCore)
     // endregion
+
+    // Add lib
+    implementation(libs.koin.android)
+
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.fragment.ktx)
+
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+
+    // modules
+    implementation(project(":common_ui"))
+    implementation(project(":data"))
+    implementation(project(":search"))
+    implementation(project(":favorites"))
+    implementation(project(":team"))
 }
