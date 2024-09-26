@@ -3,10 +3,10 @@
     <item
         android:id="@+id/search_navigation"
         android:icon="@mipmap/ic_launcher"
-        android:title="@string/home" />
+        android:title="@string/search" />
 
     <item android:id="@+id/favorites_navigation"
-        android:title="@string/featured_jobs"
+        android:title="@string/favorites"
         android:icon="@mipmap/ic_launcher" />
 
     <item android:id="@+id/team_navigation"
