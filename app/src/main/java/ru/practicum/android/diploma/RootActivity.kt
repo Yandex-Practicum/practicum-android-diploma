@@ -10,7 +10,7 @@ import ru.practicum.android.diploma.databinding.ActivityRootBinding
 class RootActivity : AppCompatActivity() {
 
     private var _binding: ActivityRootBinding? = null
-    private val binding:ActivityRootBinding get() = _binding!!
+    private val binding: ActivityRootBinding get() = _binding!!
 
     private val navController: NavController by lazy {
         (supportFragmentManager.findFragmentById(R.id.root_fragments) as NavHostFragment).navController

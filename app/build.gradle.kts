@@ -70,7 +70,7 @@ dependencies {
     // modules
     implementation(project(":common_ui"))
     implementation(project(":data"))
-    implementation(project(":job_search"))
-    implementation(project(":featured_jobs"))
+    implementation(project(":search"))
+    implementation(project(":favorites"))
     implementation(project(":team"))
 }

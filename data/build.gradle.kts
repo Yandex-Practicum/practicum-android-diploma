@@ -59,6 +59,6 @@ dependencies {
 
     // modules
     implementation(project(":common_utils"))
-    implementation(project(":job_search"))
-    implementation(project(":featured_jobs"))
+    implementation(project(":search"))
+    implementation(project(":favorites"))
 }
