@@ -10,6 +10,8 @@ targetSdk = "33"
 # Detekt
 detekt = "1.23.3"
 detektTwitterComposeRules ="0.0.26"
+agp = "8.1.4"
+kotlin = "1.9.21"
 
 [libraries]
 
@@ -36,5 +38,8 @@ unitTests-junit = "junit:junit:4.13.2"
 # UI tests
 uiTests-junitExt = "androidx.test.ext:junit:1.1.5"
 uiTests-espressoCore = "androidx.test.espresso:espresso-core:3.5.1"
+[plugins]
+android-library = { id = "com.android.library", version.ref = "agp" }
+jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 
 [bundles]

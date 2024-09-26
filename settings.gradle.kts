@@ -22,3 +22,9 @@ dependencyResolutionManagement {
 includeBuild("build-logic")
 
 include(":app")
+include(":data")
+include(":job_search")
+include(":featured_jobs")
+include(":team")
+include(":common_ui")
+include(":common_utils")

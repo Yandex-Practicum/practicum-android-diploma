@@ -55,4 +55,11 @@ dependencies {
     androidTestImplementation(libs.uiTests.junitExt)
     androidTestImplementation(libs.uiTests.espressoCore)
     // endregion
+
+    // modules
+    implementation(project(":common_ui"))
+    implementation(project(":data"))
+    implementation(project(":job_search"))
+    implementation(project(":featured_jobs"))
+    implementation(project(":team"))
 }
