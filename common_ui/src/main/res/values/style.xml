@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="itemTextAppearanceActive">@style/BottomNavigationView</item>
+        <item name="itemTextAppearanceInactive">@style/BottomNavigationView</item>
+        <item name="itemIconTint">@color/bottom_navigation_menu_color</item>
+        <item name="itemTextColor">@color/bottom_navigation_menu_color</item>
+        <item name="labelVisibilityMode">labeled</item>
+        <item name="itemRippleColor">@null</item>
+    </style>
+</resources>

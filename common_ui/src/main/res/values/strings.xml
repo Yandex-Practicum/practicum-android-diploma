@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Practicum-Android-Diploma</string>
+    <string name="home">Главная</string>
+    <string name="featured_jobs">Избранное</string>
+    <string name="team">Команда</string>
+    <string name="fragment_placeholder">Данная страница в разработке</string>
+</resources>

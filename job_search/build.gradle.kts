@@ -44,6 +44,21 @@ dependencies {
     androidTestImplementation(libs.uiTests.junitExt)
     androidTestImplementation(libs.uiTests.espressoCore)
 
+    // Add lib
+    implementation(libs.converter.gson)
+    implementation(libs.glide)
+    annotationProcessor(libs.compiler)
+    implementation(libs.logging.interceptor)
+    implementation(libs.gson)
+    implementation(libs.koin.android)
+
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.fragment.ktx)
+
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+
     // modules
     implementation(project(":common_ui"))
     implementation(project(":common_utils"))
