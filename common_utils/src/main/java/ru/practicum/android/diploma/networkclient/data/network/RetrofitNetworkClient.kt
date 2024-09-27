@@ -31,7 +31,11 @@ class RetrofitNetworkClient(
                 override var resultCode = HttpStatus.CLIENT_ERROR
             }
         }
+        return makeActualRequest(dto)
 
+    }
+
+    private suspend fun makeActualRequest(dto: Any): Response {
         return withContext(Dispatchers.IO) {
             try {
                 when (dto) {
