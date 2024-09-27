@@ -10,11 +10,11 @@ import ru.practicum.android.diploma.data.networkclient.data.network.RetrofitNetw
 
 val searchDataModule = module {
 
-    single<ru.practicum.android.diploma.data.networkclient.data.network.HHApiService> {
+    single<HHApiService> {
         Retrofit.Builder().baseUrl("https://api.hh.ru/").addConverterFactory(GsonConverterFactory.create()).build()
-            .create(ru.practicum.android.diploma.data.networkclient.data.network.HHApiService::class.java)
+            .create(HHApiService::class.java)
     }
-    single<ru.practicum.android.diploma.data.networkclient.data.NetworkClient> {
-        ru.practicum.android.diploma.data.networkclient.data.network.RetrofitNetworkClient(get(), androidContext())
+    single<NetworkClient> {
+        RetrofitNetworkClient(get(), androidContext())
     }
 }
