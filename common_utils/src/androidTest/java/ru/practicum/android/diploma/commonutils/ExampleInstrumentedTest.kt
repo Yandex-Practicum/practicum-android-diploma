@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.common_utils
+package ru.practicum.android.diploma.commonutils
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
