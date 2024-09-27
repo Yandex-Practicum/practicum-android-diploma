@@ -9,7 +9,7 @@ targetSdk = "33"
 
 # Detekt
 detekt = "1.23.3"
-detektTwitterComposeRules ="0.0.26"
+detektTwitterComposeRules = "0.0.26"
 agp = "8.1.4"
 kotlin = "1.9.21"
 
