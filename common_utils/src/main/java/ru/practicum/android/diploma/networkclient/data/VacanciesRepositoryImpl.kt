@@ -1,26 +1,26 @@
 package ru.practicum.android.diploma.networkclient.data
 
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.networkclient.data.dto.HHApiIndustriesRequest
 import ru.practicum.android.diploma.networkclient.data.dto.HHApiRegionsRequest
 import ru.practicum.android.diploma.networkclient.data.dto.HHApiVacanciesRequest
-import ru.practicum.android.diploma.networkclient.data.dto.HHVacanciesResponse
 import ru.practicum.android.diploma.networkclient.domain.api.VacanciesRepository
 
 class VacanciesRepositoryImpl(private val networkClient: NetworkClient) : VacanciesRepository {
-    override fun searchVacancies(options: Map<String, String>) = flow {
+    override fun searchVacancies(options: Map<String, String>): Flow<Unit> = flow {
         val response = networkClient.doRequest(HHApiVacanciesRequest("term"))
     }
 
-    override fun listVacancy(id: String) = flow {
+    override fun listVacancy(id: String): Flow<Unit> = flow {
         val response = networkClient.doRequest(HHApiVacanciesRequest(id))
     }
 
-    override fun listAreas() = flow {
+    override fun listAreas(): Flow<Unit> = flow {
         val response = networkClient.doRequest(HHApiRegionsRequest("term"))
     }
 
-    override fun listIndustries() = flow {
+    override fun listIndustries(): Flow<Unit> = flow {
         val response = networkClient.doRequest(HHApiIndustriesRequest("term"))
     }
 
