@@ -25,7 +25,7 @@ class RetrofitNetworkClient(
                 override var resultCode = HttpStatus.NO_INTERNET
             }
         }
-        if (dto !is HHApiIndustriesRequest && dto !is HHApiVacanciesRequest && dto !is HHApiVacancyRequest && dto !is HHApiRegionsRequest) {
+        if (!(dto is HHApiIndustriesRequest || dto is HHApiVacanciesRequest || dto is HHApiVacancyRequest || dto is HHApiRegionsRequest)) {
             Log.e(TAG, "Error is ${dto::class.qualifiedName}")
             return object : Response {
                 override var resultCode = HttpStatus.CLIENT_ERROR
@@ -34,7 +34,7 @@ class RetrofitNetworkClient(
         return withContext(Dispatchers.IO) {
             try {
                 makeActualRequest(dto)
-            } catch (e: Throwable) {
+            } catch (e: Exception) {
                 Log.e(TAG, e.message ?: "")
                 Log.e(TAG, e.stackTrace.toString())
                 object : Response {
@@ -42,8 +42,6 @@ class RetrofitNetworkClient(
                 }
             }
         }
-
-
     }
 
     private suspend fun makeActualRequest(dto: Any): Response {
@@ -55,7 +53,7 @@ class RetrofitNetworkClient(
             }
 
             is HHApiVacancyRequest -> {
-                val response = hhApiService.getVacancy(dto.vacancy_id)
+                val response = hhApiService.getVacancy(dto.vacancyId)
                 response
             }
 

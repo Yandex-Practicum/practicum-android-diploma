@@ -4,6 +4,7 @@ import ru.practicum.android.diploma.networkclient.domain.api.VacanciesRepository
 
 class VacanciesRepositoryImpl(private val networkClient: NetworkClient) : VacanciesRepository {
     override fun searchVacancies(options: Map<String, String>) {
+
     }
 
     override fun listVacancy(id: String) {
