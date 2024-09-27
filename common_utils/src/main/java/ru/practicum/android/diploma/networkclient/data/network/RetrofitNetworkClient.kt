@@ -49,7 +49,7 @@ class RetrofitNetworkClient(
     private suspend fun makeActualRequest(dto: Any): Response {
         return when (dto) {
             is HHApiRegionsRequest -> {
-                val request = if (dto.term.isNullOrEmpty()) null else mapOf("query" to dto.term)
+                val request = if (dto.term.isNullOrEmpty()) null else mapOf(QUERY to dto.term)
                 val response = hhApiService.searchRegions(request)
                 response
             }
@@ -66,7 +66,7 @@ class RetrofitNetworkClient(
             }
 
             is HHApiIndustriesRequest -> {
-                val request = if (dto.term.isNullOrEmpty()) null else mapOf("query" to dto.term)
+                val request = if (dto.term.isNullOrEmpty()) null else mapOf(QUERY to dto.term)
                 val response = hhApiService.searchIndustries(request)
                 response
             }
@@ -82,6 +82,6 @@ class RetrofitNetworkClient(
 
     companion object {
         private const val TAG = "RetrofitNetworkClient"
+        private const val QUERY = "query"
     }
 }
-
