@@ -11,4 +11,7 @@
     <color name="grey">#AEAFB4</color>
     <color name="blue">#3772E7</color>
     <color name="red">#F56B6C</color>
+    <color name="fade">#1A1B2280</color>
+    <!-- Listed on Figma, unused -->
+    <color name="lightGrey">#E6E8EB</color>
 </resources>
