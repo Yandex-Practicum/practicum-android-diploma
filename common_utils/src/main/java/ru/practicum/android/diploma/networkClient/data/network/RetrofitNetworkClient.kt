@@ -1,17 +1,17 @@
-package ru.practicum.android.diploma.networkClient.data.network
+package ru.practicum.android.diploma.networkclient.data.network
 
 import android.content.Context
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.commonutils.NetworkUtils
-import ru.practicum.android.diploma.networkClient.data.NetworkClient
-import ru.practicum.android.diploma.networkClient.data.dto.HHApiIndustriesRequest
-import ru.practicum.android.diploma.networkClient.data.dto.HHApiRegionsRequest
-import ru.practicum.android.diploma.networkClient.data.dto.HHApiVacanciesRequest
-import ru.practicum.android.diploma.networkClient.data.dto.HHApiVacancyRequest
-import ru.practicum.android.diploma.networkClient.data.dto.Response
-import ru.practicum.android.diploma.networkClient.domain.models.HttpStatus
+import ru.practicum.android.diploma.networkclient.data.NetworkClient
+import ru.practicum.android.diploma.networkclient.data.dto.HHApiIndustriesRequest
+import ru.practicum.android.diploma.networkclient.data.dto.HHApiRegionsRequest
+import ru.practicum.android.diploma.networkclient.data.dto.HHApiVacanciesRequest
+import ru.practicum.android.diploma.networkclient.data.dto.HHApiVacancyRequest
+import ru.practicum.android.diploma.networkclient.data.dto.Response
+import ru.practicum.android.diploma.networkclient.domain.models.HttpStatus
 
 class RetrofitNetworkClient(
     private val hhApiService: HHApiService,

@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.networkClient.domain.api
+package ru.practicum.android.diploma.networkclient.domain.api
 
 interface VacanciesRepository {
     fun searchVacancies(options: Map<String, String>)

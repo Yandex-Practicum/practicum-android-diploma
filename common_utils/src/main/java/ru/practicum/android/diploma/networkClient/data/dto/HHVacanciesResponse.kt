@@ -1,7 +1,8 @@
-package ru.practicum.android.diploma.networkClient.data.dto
+package ru.practicum.android.diploma.networkclient.data.dto
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import ru.practicum.android.diploma.networkclient.domain.models.HttpStatus
 
 @Parcelize
 data class HHVacanciesResponse(
@@ -15,5 +16,5 @@ data class HHVacanciesResponse(
     val per_page: Int,
     val suggests: String?,
 
-    override var resultCode: Int = 0,
+    override var resultCode: HttpStatus = HttpStatus.OK,
 ) : Response, Parcelable

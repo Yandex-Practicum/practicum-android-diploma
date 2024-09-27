@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.networkClient.data.dto
+package ru.practicum.android.diploma.networkclient.data.dto
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

@@ -1,12 +1,12 @@
-package ru.practicum.android.diploma.networkClient.di
+package ru.practicum.android.diploma.networkclient.di
 
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import ru.practicum.android.diploma.networkClient.data.NetworkClient
-import ru.practicum.android.diploma.networkClient.data.network.HHApiService
-import ru.practicum.android.diploma.networkClient.data.network.RetrofitNetworkClient
+import ru.practicum.android.diploma.networkclient.data.NetworkClient
+import ru.practicum.android.diploma.networkclient.data.network.HHApiService
+import ru.practicum.android.diploma.networkclient.data.network.RetrofitNetworkClient
 
 val searchDataModule = module {
 

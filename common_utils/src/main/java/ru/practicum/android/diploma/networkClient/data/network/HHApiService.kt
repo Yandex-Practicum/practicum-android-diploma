@@ -1,13 +1,13 @@
-package ru.practicum.android.diploma.networkClient.data.network
+package ru.practicum.android.diploma.networkclient.data.network
 
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
 import retrofit2.http.QueryMap
-import ru.practicum.android.diploma.networkClient.data.dto.HHIndustriesResponse
-import ru.practicum.android.diploma.networkClient.data.dto.HHRegionsResponse
-import ru.practicum.android.diploma.networkClient.data.dto.HHVacanciesResponse
-import ru.practicum.android.diploma.networkClient.data.dto.HHVacancyDetailResponse
+import ru.practicum.android.diploma.networkclient.data.dto.HHIndustriesResponse
+import ru.practicum.android.diploma.networkclient.data.dto.HHRegionsResponse
+import ru.practicum.android.diploma.networkclient.data.dto.HHVacanciesResponse
+import ru.practicum.android.diploma.networkclient.data.dto.HHVacancyDetailResponse
 
 interface HHApiService {
     @Headers("Autorization: Bearer TODO TOKEN", "HH-User-Agent: CareerRepository/1.0 (zpe25@yandex.ru)")

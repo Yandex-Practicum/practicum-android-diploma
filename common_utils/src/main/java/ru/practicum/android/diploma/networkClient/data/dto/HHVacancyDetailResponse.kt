@@ -1,7 +1,8 @@
-package ru.practicum.android.diploma.networkClient.data.dto
+package ru.practicum.android.diploma.networkclient.data.dto
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import ru.practicum.android.diploma.networkclient.domain.models.HttpStatus
 
 @Parcelize
 data class HHVacancyDetailResponse(
@@ -54,5 +55,5 @@ data class HHVacancyDetailResponse(
     val working_days: List<WorkingDay>,
     val working_time_intervals: List<WorkingTimeInterval>,
     val working_time_modes: List<WorkingTimeMode>,
-    override var resultCode: Int = 0,
+    override var resultCode: HttpStatus = HttpStatus.OK,
 ) : Response, Parcelable
