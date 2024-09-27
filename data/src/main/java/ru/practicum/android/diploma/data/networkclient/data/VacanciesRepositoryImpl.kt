@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.data.networkclient.data.dto.HHApiIndustriesRequest
 import ru.practicum.android.diploma.data.networkclient.data.dto.HHApiRegionsRequest
 import ru.practicum.android.diploma.data.networkclient.data.dto.HHApiVacanciesRequest
-import ru.practicum.android.diploma.data.networkclient.domain.api.VacanciesRepository
+import ru.practicum.android.diploma.search.domain.api.VacanciesRepository
 
 class VacanciesRepositoryImpl(private val networkClient: NetworkClient) : VacanciesRepository {
     override fun searchVacancies(options: Map<String, String>): Flow<Unit> = flow {

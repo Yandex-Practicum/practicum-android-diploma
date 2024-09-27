@@ -3,7 +3,7 @@ package ru.practicum.android.diploma.data.networkclient.data.dto
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
-import ru.practicum.android.diploma.data.networkclient.domain.models.HttpStatus
+import ru.practicum.android.diploma.search.domain.model.HttpStatus
 
 @Parcelize
 data class HHVacancyDetailResponse(

@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.data.networkclient.data.NetworkClient
 import ru.practicum.android.diploma.data.networkclient.data.network.HHApiService
 import ru.practicum.android.diploma.data.networkclient.data.network.RetrofitNetworkClient
 
-val searchDataModule = module {
+val networkDataModule = module {
 
     single<HHApiService> {
         Retrofit.Builder().baseUrl("https://api.hh.ru/").addConverterFactory(GsonConverterFactory.create()).build()
