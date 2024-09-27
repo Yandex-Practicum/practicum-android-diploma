@@ -1,9 +1,9 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <style name="Base.Theme.PracticumAndroidDiploma" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="android:statusBarColor">@color/color_1</item>
-        <item name="android:navigationBarColor">@color/color_1</item>
+        <item name="android:statusBarColor">@color/background</item>
+        <item name="android:navigationBarColor">@color/background</item>
         <item name="android:windowLightStatusBar">true</item>
-        <item name="colorPrimary">@color/color_5</item>
+        <item name="colorPrimary">@color/primaryTextAndUIColor</item>
     </style>
     <style name="Theme.PracticumAndroidDiploma" parent="Base.Theme.PracticumAndroidDiploma" />
 </resources>
