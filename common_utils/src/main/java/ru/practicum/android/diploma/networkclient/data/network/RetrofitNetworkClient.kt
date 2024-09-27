@@ -31,49 +31,50 @@ class RetrofitNetworkClient(
                 override var resultCode = HttpStatus.CLIENT_ERROR
             }
         }
-        return makeActualRequest(dto)
+        return withContext(Dispatchers.IO) {
+            makeActualRequest(dto)
+        }
+
 
     }
 
     private suspend fun makeActualRequest(dto: Any): Response {
-        return withContext(Dispatchers.IO) {
-            try {
-                when (dto) {
-                    is HHApiRegionsRequest -> {
-                        val request = if (dto.term.isNullOrEmpty()) null else mapOf("query" to dto.term)
-                        val response = hhApiService.searchRegions(request)
-                        response
-                    }
+        return try {
+            when (dto) {
+                is HHApiRegionsRequest -> {
+                    val request = if (dto.term.isNullOrEmpty()) null else mapOf("query" to dto.term)
+                    val response = hhApiService.searchRegions(request)
+                    response
+                }
 
-                    is HHApiVacancyRequest -> {
-                        val response = hhApiService.getVacancy(dto.vacancy_id)
-                        response
-                    }
+                is HHApiVacancyRequest -> {
+                    val response = hhApiService.getVacancy(dto.vacancy_id)
+                    response
+                }
 
-                    is HHApiVacanciesRequest -> {
-                        val request = mapOf("query" to dto.request)
-                        val response = hhApiService.searchVacancies(request)
-                        response
-                    }
+                is HHApiVacanciesRequest -> {
+                    val request = mapOf("query" to dto.request)
+                    val response = hhApiService.searchVacancies(request)
+                    response
+                }
 
-                    is HHApiIndustriesRequest -> {
-                        val request = if (dto.term.isNullOrEmpty()) null else mapOf("query" to dto.term)
-                        val response = hhApiService.searchIndustries(request)
-                        response
-                    }
+                is HHApiIndustriesRequest -> {
+                    val request = if (dto.term.isNullOrEmpty()) null else mapOf("query" to dto.term)
+                    val response = hhApiService.searchIndustries(request)
+                    response
+                }
 
-                    else -> {
-                        object : Response {
-                            override var resultCode = HttpStatus.CLIENT_ERROR
-                        }
+                else -> {
+                    object : Response {
+                        override var resultCode = HttpStatus.CLIENT_ERROR
                     }
                 }
-            } catch (e: Throwable) {
-                Log.e(TAG, e.message ?: "")
-                Log.e(TAG, e.stackTrace.toString())
-                object : Response {
-                    override var resultCode = HttpStatus.SERVER_ERROR
-                }
+            }
+        } catch (e: Throwable) {
+            Log.e(TAG, e.message ?: "")
+            Log.e(TAG, e.stackTrace.toString())
+            object : Response {
+                override var resultCode = HttpStatus.SERVER_ERROR
             }
         }
     }
@@ -82,3 +83,4 @@ class RetrofitNetworkClient(
         private const val TAG = "RetrofitNetworkClient"
     }
 }
+
