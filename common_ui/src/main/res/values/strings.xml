@@ -60,8 +60,5 @@
     <!-- Team screen -->
     <string name="team_screen_header">Команда</string>
     <string name="team_screen_text">Над приложением работали</string>
-    <string name="team_screen_developer_list">Павел Захаров\n
-                                Юлия Вакулина\n
-                                Максим Сагациян\n
-                                Михаил Гришин</string>
+    <string name="team_screen_developer_list">Павел Захаров Team-lead\n\nЮлия Вакулина Android-разработчик\n\nМаксим Сагациян Android-разработчик\n\nМихаил Гришин Android-разработчик</string>
 </resources>
