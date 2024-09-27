@@ -25,7 +25,7 @@ class RetrofitNetworkClient(
                 override var resultCode = HttpStatus.NO_INTERNET
             }
         }
-        if ((dto !is HHApiIndustriesRequest) && (dto !is HHApiVacanciesRequest) && (dto !is HHApiVacancyRequest) && (dto !is HHApiRegionsRequest)) {
+        if (dto !is HHApiIndustriesRequest && dto !is HHApiVacanciesRequest && dto !is HHApiVacancyRequest && dto !is HHApiRegionsRequest) {
             Log.e(TAG, "Error is ${dto::class.qualifiedName}")
             return object : Response {
                 override var resultCode = HttpStatus.CLIENT_ERROR
