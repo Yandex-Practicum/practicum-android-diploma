@@ -3,7 +3,9 @@
     <!-- Theme-dependant -->
     <color name="background">#FDFDFD</color>
     <color name="primaryTextAndUIColor">#1A1B22</color>
-    <color name="searchBarHintTextColor">#E6E8EB</color>
+    <color name="searchBarHintTextColor">#AEAFB4</color>
+    <color name="searchBarHintBgColor">#E6E8EB</color>
+
 
     <!-- Theme-independent -->
     <color name="black">#1A1B22</color>
