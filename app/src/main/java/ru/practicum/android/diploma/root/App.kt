@@ -3,7 +3,7 @@ package ru.practicum.android.diploma.root
 import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
-import ru.practicum.android.diploma.data.di.dataModule
+import ru.practicum.android.diploma.data.networkclient.di.searchDataModule
 import ru.practicum.android.diploma.favorites.di.favoritesModule
 import ru.practicum.android.diploma.search.di.searchModule
 import ru.practicum.android.diploma.team.di.teamModule
@@ -16,10 +16,7 @@ class App : Application() {
         startKoin {
             androidContext(this@App)
             modules(
-                dataModule,
-                searchModule,
-                favoritesModule,
-                teamModule
+                searchDataModule, searchModule, favoritesModule, teamModule
             )
         }
     }
