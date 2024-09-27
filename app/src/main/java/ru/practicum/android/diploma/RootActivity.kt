@@ -25,9 +25,9 @@ class RootActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ -> // скрываем/показываем нижнюю панель
             when (destination.id) {
                 R.id.search_navigation, R.id.team_navigation, R.id.favorites_navigation, R.id.root_navigation,
-                ru.practicum.android.diploma.search.R.id.searchFragment,// Временные заглушки до оформления
-                ru.practicum.android.diploma.favorites.R.id.favoritesFragment,// NavGraph'а
-                ru.practicum.android.diploma.team.R.id.teamFragment,// По установке навигации - удалить
+                ru.practicum.android.diploma.search.R.id.searchFragment, // Временные заглушки до оформления
+                ru.practicum.android.diploma.favorites.R.id.favoritesFragment, // NavGraph'а
+                ru.practicum.android.diploma.team.R.id.teamFragment, // По установке навигации - удалить
                 -> {
                     binding.bottomNavigationMenu.isVisible = true
                     binding.navigationPanelDivider.isVisible = true
