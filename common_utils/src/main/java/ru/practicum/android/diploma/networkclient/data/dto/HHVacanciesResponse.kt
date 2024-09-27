@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 import ru.practicum.android.diploma.networkclient.domain.models.HttpStatus
 
 @Parcelize
-data class HHVacanciesResponse(
+class HHVacanciesResponse(
     val arguments: List<Argument>,
     val clusters: String?,
     val fixes: String?,
