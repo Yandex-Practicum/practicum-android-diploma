@@ -5,7 +5,7 @@ sealed class Resource<T>(val data: T? = null, val message: String? = null) {
     class Error<T>(message: String, data: T? = null) : Resource<T>(data, message)
 
     companion object {
-        fun <T> handleResource(result: Resource<T>) : Pair<T?, String?> {
+        fun <T> handleResource(result: Resource<T>): Pair<T?, String?> {
             return when (result) {
                 is Success -> Pair(result.data, null)
                 is Error -> Pair(null, result.message)
