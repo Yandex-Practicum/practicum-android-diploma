@@ -19,7 +19,7 @@ class App : Application() {
                 searchDataModule,
                 searchModule,
                 favoritesModule,
-                teamModule
+                teamModule,
             )
         }
     }
