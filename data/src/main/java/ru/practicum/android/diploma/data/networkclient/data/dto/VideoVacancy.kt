@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class VideoVacancy(
     @SerializedName("cover_picture")
-    val coverPicture: ru.practicum.android.diploma.data.networkclient.data.dto.CoverPicture,
+    val coverPicture: CoverPicture,
     @SerializedName("video_url")
     val videoUrl: String,
 ) : Parcelable

@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class AreaX(
-    val areas: List<ru.practicum.android.diploma.data.networkclient.data.dto.Area>,
+    val areas: List<Area>,
     val id: String,
     val name: String,
     @SerializedName("parent_id")

@@ -11,6 +11,6 @@ data class Address(
     val description: String,
     val lat: Double,
     val lng: Double,
-    @SerializedName("metro_stations") val metroStations: List<ru.practicum.android.diploma.data.networkclient.data.dto.MetroStation>,
+    @SerializedName("metro_stations") val metroStations: List<MetroStation>,
     val street: String,
 ) : Parcelable

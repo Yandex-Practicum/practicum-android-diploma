@@ -6,6 +6,6 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Language(
     val id: String,
-    val level: ru.practicum.android.diploma.data.networkclient.data.dto.Level,
+    val level: Level,
     val name: String,
 ) : Parcelable

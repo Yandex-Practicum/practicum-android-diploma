@@ -7,5 +7,5 @@ import kotlinx.parcelize.Parcelize
 data class Contacts(
     val email: String,
     val name: String,
-    val phones: List<ru.practicum.android.diploma.data.networkclient.data.dto.Phone>,
+    val phones: List<Phone>,
 ) : Parcelable

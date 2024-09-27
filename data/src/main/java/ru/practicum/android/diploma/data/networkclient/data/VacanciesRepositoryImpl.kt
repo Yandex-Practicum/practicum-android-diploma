@@ -2,15 +2,13 @@ package ru.practicum.android.diploma.data.networkclient.data
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import ru.practicum.android.diploma.data.networkclient.data.dto.HHApiIndustriesRequest
-import ru.practicum.android.diploma.data.networkclient.data.dto.HHApiRegionsRequest
 import ru.practicum.android.diploma.data.networkclient.data.dto.HHApiVacanciesRequest
-import ru.practicum.android.diploma.networkclient.domain.api.VacanciesRepository
+import ru.practicum.android.diploma.data.networkclient.domain.api.VacanciesRepository
 
-class VacanciesRepositoryImpl(private val networkClient: ru.practicum.android.diploma.data.networkclient.data.NetworkClient) : VacanciesRepository {
+class VacanciesRepositoryImpl(private val networkClient: NetworkClient) : VacanciesRepository {
     override fun searchVacancies(options: Map<String, String>): Flow<Unit> = flow {
         val response = networkClient.doRequest(
-            ru.practicum.android.diploma.data.networkclient.data.dto.HHApiVacanciesRequest(
+            HHApiVacanciesRequest(
                 "term"
             )
         )
@@ -18,7 +16,7 @@ class VacanciesRepositoryImpl(private val networkClient: ru.practicum.android.di
 
     override fun listVacancy(id: String): Flow<Unit> = flow {
         val response = networkClient.doRequest(
-            ru.practicum.android.diploma.data.networkclient.data.dto.HHApiVacanciesRequest(
+            HHApiVacanciesRequest(
                 id
             )
         )

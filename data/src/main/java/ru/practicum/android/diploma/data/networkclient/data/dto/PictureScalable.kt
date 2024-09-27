@@ -5,6 +5,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class PictureScalable(
-    val default: ru.practicum.android.diploma.data.networkclient.data.dto.Default,
-    val xs: ru.practicum.android.diploma.data.networkclient.data.dto.Xs,
+    val default: Default,
+    val xs: Xs,
 ) : Parcelable

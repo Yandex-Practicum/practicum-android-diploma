@@ -6,5 +6,5 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Background(
     val color: String?,
-    val gradient: ru.practicum.android.diploma.data.networkclient.data.dto.Gradient,
+    val gradient: Gradient,
 ) : Parcelable

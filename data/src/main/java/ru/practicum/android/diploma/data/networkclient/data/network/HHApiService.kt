@@ -14,21 +14,21 @@ interface HHApiService {
     @GET("/vacancies")
     suspend fun searchVacancies(
         @QueryMap options: Map<String, String>,
-    ): ru.practicum.android.diploma.data.networkclient.data.dto.HHVacanciesResponse
+    ): HHVacanciesResponse
 
     @Headers("Autorization: Bearer TODO TOKEN", "HH-User-Agent: CareerRepository/1.0 (zpe25@yandex.ru)")
     @GET("/industries")
     suspend fun searchIndustries(
         @QueryMap options: Map<String, String>?,
-    ): ru.practicum.android.diploma.data.networkclient.data.dto.HHIndustriesResponse
+    ): HHIndustriesResponse
 
     @Headers("Autorization: Bearer TODO TOKEN", "HH-User-Agent: CareerRepository/1.0 (zpe25@yandex.ru)")
     @GET("/areas")
     suspend fun searchRegions(
         @QueryMap options: Map<String, String>?,
-    ): ru.practicum.android.diploma.data.networkclient.data.dto.HHRegionsResponse
+    ): HHRegionsResponse
 
     @Headers("Autorization: Bearer TODO TOKEN", "HH-User-Agent: CareerRepository/1.0 (zpe25@yandex.ru)")
     @GET("/vacancies/{vacancy_id}")
-    suspend fun getVacancy(@Path("vacancy_id") vacancyId: String): ru.practicum.android.diploma.data.networkclient.data.dto.HHVacancyDetailResponse
+    suspend fun getVacancy(@Path("vacancy_id") vacancyId: String): HHVacancyDetailResponse
 }

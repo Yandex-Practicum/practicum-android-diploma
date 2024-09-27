@@ -7,5 +7,5 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Gradient(
     val angle: Int,
-    @SerializedName("color_list") val colorList: List<ru.practicum.android.diploma.data.networkclient.data.dto.Color>,
+    @SerializedName("color_list") val colorList: List<Color>,
 ) : Parcelable

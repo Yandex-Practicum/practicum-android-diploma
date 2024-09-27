@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class HHRegionsResponseItem(
-    val areas: List<ru.practicum.android.diploma.data.networkclient.data.dto.AreaX>,
+    val areas: List<AreaX>,
     val id: String,
     val name: String,
     @SerializedName("parent_id") val parentId: String?,

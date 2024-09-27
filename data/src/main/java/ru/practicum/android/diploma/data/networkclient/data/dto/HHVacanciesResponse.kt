@@ -3,19 +3,19 @@ package ru.practicum.android.diploma.data.networkclient.data.dto
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
-import ru.practicum.android.diploma.networkclient.domain.models.HttpStatus
+import ru.practicum.android.diploma.data.networkclient.domain.models.HttpStatus
 
 @Parcelize
 data class HHVacanciesResponse(
-    val arguments: List<ru.practicum.android.diploma.data.networkclient.data.dto.Argument>,
+    val arguments: List<Argument>,
     val clusters: String?,
     val fixes: String?,
     val found: Int,
-    val items: List<ru.practicum.android.diploma.data.networkclient.data.dto.Item>,
+    val items: List<Item>,
     val page: Int,
     val pages: Int,
     @SerializedName("per_page") val perPage: Int,
     val suggests: String?,
 
     override val resultCode: HttpStatus = HttpStatus.OK,
-) : ru.practicum.android.diploma.data.networkclient.data.dto.Response, Parcelable
+) : Response, Parcelable
