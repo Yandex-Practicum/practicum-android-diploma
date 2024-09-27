@@ -6,24 +6,55 @@
     android:layout_height="match_parent"
     tools:context=".RootActivity">
 
+    <!-- Fragment container -->
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/root_fragments"
+        android:id="@+id/rootFragments"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@color/background"
         app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_menu"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationMenu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/root_navigation" />
+        app:navGraph="@navigation/root_navigation"
+        tools:layout="@layout/fragment_search"/>
 
+    <!-- Divider -->
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/navigationPanelDivider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:dividerColor="@color/lightGrey"
+        app:dividerThickness="1dp"
+
+        android:layout_marginBottom="56dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <!-- Navigation panel -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation_menu"
+        android:id="@+id/bottomNavigationMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
         style="@style/BottomNavigationView"
+
+        app:itemActiveIndicatorStyle="@null"
+        app:itemIconSize="24dp"
+        app:itemPaddingBottom="8dp"
+        app:itemPaddingTop="8dp"
+        app:itemBackground="@color/background"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/navigation_menu"/>
+        app:layout_constraintTop_toBottomOf="@id/navigationPanelDivider"
+
+        app:menu="@menu/navigation_menu" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
