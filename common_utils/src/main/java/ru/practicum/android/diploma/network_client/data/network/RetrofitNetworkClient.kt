@@ -11,6 +11,7 @@ import ru.practicum.android.diploma.network_client.data.dto.HHApiRegionsRequest
 import ru.practicum.android.diploma.network_client.data.dto.HHApiVacanciesRequest
 import ru.practicum.android.diploma.network_client.data.dto.HHApiVacancyRequest
 import ru.practicum.android.diploma.network_client.data.dto.Response
+import ru.practicum.android.diploma.network_client.domain.models.HttpStatus
 
 class RetrofitNetworkClient(
     private val hhApiService: HHApiService,
@@ -21,78 +22,53 @@ class RetrofitNetworkClient(
         Log.d(TAG, "Starting request to HH")
         if (NetworkUtils().isConnected(context)) {
             return object : Response {
-                override var resultCode = -1
+                override var resultCode = HttpStatus.NO_INTERNET
             }
         }
         if ((dto !is HHApiIndustriesRequest) && (dto !is HHApiVacanciesRequest) && (dto !is HHApiVacancyRequest) && (dto !is HHApiRegionsRequest)) {
             Log.e(TAG, "Error is ${dto::class.qualifiedName}")
             return object : Response {
-                override var resultCode = 400
+                override var resultCode = HttpStatus.CLIENT_ERROR
             }
         }
 
         return withContext(Dispatchers.IO) {
-
-            when (dto) {
-                is HHApiRegionsRequest -> {
-                    try {
+            try {
+                when (dto) {
+                    is HHApiRegionsRequest -> {
                         val request = if (dto.term.isNullOrEmpty()) null else mapOf("query" to dto.term)
                         val response = hhApiService.searchRegions(request)
                         response
-                    } catch (e: Throwable) {
-                        Log.e(TAG, e.message ?: "")
-                        Log.e(TAG, e.stackTrace.toString())
-                        object : Response {
-                            override var resultCode = 500
-                        }
                     }
-                }
 
-                is HHApiVacancyRequest -> {
-                    try {
+                    is HHApiVacancyRequest -> {
                         val response = hhApiService.getVacancy(dto.vacancy_id)
                         response
-                    } catch (e: Throwable) {
-                        Log.e(TAG, e.message ?: "")
-                        Log.e(TAG, e.stackTrace.toString())
-                        object : Response {
-                            override var resultCode = 500
-                        }
                     }
-                }
 
-                is HHApiVacanciesRequest -> {
-                    try {
+                    is HHApiVacanciesRequest -> {
                         val request = mapOf("query" to dto.request)
                         val response = hhApiService.searchVacancies(request)
                         response
-                    } catch (e: Throwable) {
-                        Log.e(TAG, e.message ?: "")
-                        Log.e(TAG, e.stackTrace.toString())
-                        object : Response {
-                            override var resultCode = 500
-                        }
                     }
-                }
 
-                is HHApiIndustriesRequest -> {
-                    try {
+                    is HHApiIndustriesRequest -> {
                         val request = if (dto.term.isNullOrEmpty()) null else mapOf("query" to dto.term)
                         val response = hhApiService.searchIndustries(request)
                         response
-                    } catch (e: Throwable) {
-                        Log.e(TAG, e.message ?: "")
-                        Log.e(TAG, e.stackTrace.toString())
+                    }
+
+                    else -> {
                         object : Response {
-                            override var resultCode = 500
+                            override var resultCode = HttpStatus.CLIENT_ERROR
                         }
                     }
                 }
-
-                else -> {
-                    object : Response {
-                        override var resultCode = 400
-                    }
+            } catch (e: Throwable) {
+                Log.e(TAG, e.message ?: "")
+                Log.e(TAG, e.stackTrace.toString())
+                object : Response {
+                    override var resultCode = HttpStatus.SERVER_ERROR
                 }
             }
         }
