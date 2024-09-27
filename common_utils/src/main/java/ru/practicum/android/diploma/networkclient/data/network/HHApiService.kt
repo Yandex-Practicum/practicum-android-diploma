@@ -30,5 +30,5 @@ interface HHApiService {
 
     @Headers("Autorization: Bearer TODO TOKEN", "HH-User-Agent: CareerRepository/1.0 (zpe25@yandex.ru)")
     @GET("/vacancies/{vacancy_id}")
-    suspend fun getVacancy(@Path("vacancy_id") vacancy_id: String): HHVacancyDetailResponse
+    suspend fun getVacancy(@Path("vacancy_id") vacancyId: String): HHVacancyDetailResponse
 }

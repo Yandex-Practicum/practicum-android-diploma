@@ -9,6 +9,5 @@ data class HHRegionsResponseItem(
     val areas: List<AreaX>,
     val id: String,
     val name: String,
-    @SerializedName("parent_id")
-    val parentId: String?
-): Parcelable
+    @SerializedName("parent_id") val parentId: String?,
+) : Parcelable

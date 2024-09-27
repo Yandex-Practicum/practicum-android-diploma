@@ -1,36 +1,37 @@
 package ru.practicum.android.diploma.networkclient.data.dto
 
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Item(
-    val accept_incomplete_resumes: Boolean,
+    @SerializedName("accept_incomplete_resumes") val acceptIncompleteResumes: Boolean,
     val address: Address,
-    val alternate_url: String,
-    val apply_alternate_url: String,
+    @SerializedName("alternate_url") val alternateUrl: String,
+    @SerializedName("apply_alternate_url") val applyAlternateUrl: String,
     val area: Area,
-    val brand_snippet: BrandSnippet,
+    @SerializedName("brand_snippet") val brandSnippet: BrandSnippet,
     val branding: Branding,
     val contacts: Contacts,
     val counters: Counters,
     val department: Department,
     val employer: Employer,
-    val has_test: Boolean,
+    @SerializedName("has_test") val hasTest: Boolean,
     val id: String,
-    val insider_interview: InsiderInterview,
+    @SerializedName("insider_interview") val insiderInterview: InsiderInterview,
     val name: String,
-    val personal_data_resale: Boolean,
-    val professional_roles: List<ProfessionalRole>,
-    val published_at: String,
+    @SerializedName("personal_data_resale") val personalDataResale: Boolean,
+    @SerializedName("professional_roles") val professionalRoles: List<ProfessionalRole>,
+    @SerializedName("published_at") val publishedAt: String,
     val relations: List<String>,
-    val response_letter_required: Boolean,
-    val response_url: String?,
+    @SerializedName("response_letter_required") val responseLetterRequired: Boolean,
+    @SerializedName("response_url") val responseUrl: String?,
     val salary: Salary,
     val schedule: Schedule,
-    val show_logo_in_search: Boolean,
+    @SerializedName("show_logo_in_search") val showLogoInSearch: Boolean,
     val snippet: Snippet,
-    val sort_point_distance: Double,
+    @SerializedName("sort_point_distance") val sortPointDistance: Double,
     val type: Type,
-    val url: String
+    val url: String,
 ) : Parcelable
