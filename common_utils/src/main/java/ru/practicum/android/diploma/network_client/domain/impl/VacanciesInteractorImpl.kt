@@ -6,18 +6,8 @@ import ru.practicum.android.diploma.network_client.domain.api.VacanciesRepositor
 import ru.practicum.android.diploma.network_client.domain.models.Resource
 
 class VacanciesInteractorImpl(private val repository: VacanciesRepository) : VacanciesInteractor {
-    override fun searchVacancies(options: Map<String, String>): Flow<Pair<List<Vacancies>, String?>> {
-        return repository.searchVacancies(options).map { result ->
-            when (result) {
-                is Resource.Success -> {
-                    Pair(result.data, null)
-                }
-
-                is Resource.Error -> {
-                    Pair(null, result.message)
-                }
-            }
-        }
+    override fun searchVacancies(options: Map<String, String>): Flow<String> {
+        TODO("Not yet implemented")
     }
 
     override fun listVacancy(id: String): Flow<String> {

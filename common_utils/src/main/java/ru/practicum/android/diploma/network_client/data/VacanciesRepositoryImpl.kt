@@ -7,19 +7,8 @@ import ru.practicum.android.diploma.network_client.domain.api.VacanciesRepositor
 import ru.practicum.android.diploma.network_client.domain.models.Resource
 
 class VacanciesRepositoryImpl(private val networkClient: NetworkClient) : VacanciesRepository {
-    override fun searchVacancies(dto: Any) = flow {
-        if (false) {
-            Log.e(TAG, "No network")
-            emit {
-                object : Response {
-                    override var resultCode: Int = -1
-                }
-            }
-        }
-        val response = networkClient.doRequest()
-        when (response.resultCode) {
-            -1 -> emit(Resource.Error(""))
-        }
+    override fun searchVacancies(options: Map<String, String>) {
+        TODO()
     }
 
     override fun listVacancy(id: String) {
