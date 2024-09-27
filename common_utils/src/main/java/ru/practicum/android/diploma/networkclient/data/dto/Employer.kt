@@ -1,14 +1,15 @@
 package ru.practicum.android.diploma.networkclient.data.dto
 
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Employer(
-    val accredited_it_employer: Boolean,
-    val alternate_url: String,
+    @SerializedName("accredited_it_employer") val accreditedITEmployer: Boolean,
+    @SerializedName("alternate_url") val alternateUrl: String,
     val id: String,
-    val logo_urls: LogoUrls,
+    @SerializedName("logo_urls") val logoUrls: LogoUrls,
     val name: String,
     val trusted: Boolean,
     val url: String,

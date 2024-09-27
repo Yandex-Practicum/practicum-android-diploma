@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.networkclient.data.dto
 
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 import ru.practicum.android.diploma.networkclient.domain.models.HttpStatus
 
@@ -13,7 +14,7 @@ data class HHVacanciesResponse(
     val items: List<Item>,
     val page: Int,
     val pages: Int,
-    val per_page: Int,
+    @SerializedName("per_page") val perPage: Int,
     val suggests: String?,
 
     override var resultCode: HttpStatus = HttpStatus.OK,
