@@ -19,13 +19,13 @@ interface HHApiService {
     @Headers("Autorization: Bearer TODO TOKEN", "HH-User-Agent: CareerRepository/1.0 (zpe25@yandex.ru)")
     @GET("/industries")
     suspend fun searchIndustries(
-        @QueryMap options: Map<String, String>,
+        @QueryMap options: Map<String, String>?,
     ): HHIndustriesResponse
 
     @Headers("Autorization: Bearer TODO TOKEN", "HH-User-Agent: CareerRepository/1.0 (zpe25@yandex.ru)")
     @GET("/areas")
     suspend fun searchRegions(
-        @QueryMap options: Map<String, String>,
+        @QueryMap options: Map<String, String>?,
     ): HHRegionsResponse
 
     @Headers("Autorization: Bearer TODO TOKEN", "HH-User-Agent: CareerRepository/1.0 (zpe25@yandex.ru)")
