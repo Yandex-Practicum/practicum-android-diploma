@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.common_utils
+package ru.practicum.android.diploma.commonutils
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
