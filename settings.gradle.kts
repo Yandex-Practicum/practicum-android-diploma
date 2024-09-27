@@ -22,7 +22,7 @@ dependencyResolutionManagement {
 includeBuild("build-logic")
 
 include(":app")
-include(":data")
+include(":data_network")
 include(":search")
 include(":team")
 include(":common_ui")

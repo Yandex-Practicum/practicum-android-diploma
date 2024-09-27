@@ -69,7 +69,7 @@ dependencies {
 
     // modules
     implementation(project(":common_ui"))
-    implementation(project(":data"))
+    implementation(project(":data_network"))
     implementation(project(":search"))
     implementation(project(":favorites"))
     implementation(project(":team"))
