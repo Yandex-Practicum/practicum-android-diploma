@@ -18,9 +18,7 @@ class RetrofitNetworkClient(
 ) : ru.practicum.android.diploma.data.networkclient.data.NetworkClient {
 
     override suspend fun doRequest(dto: Any): Response {
-        Log.d(
-            TAG, "Starting request to HH"
-        )
+        Log.d(TAG, "Starting request to HH")
         if (NetworkUtils().isConnected(context)) {
             return object : Response {
                 override var resultCode = HttpStatus.NO_INTERNET
@@ -39,9 +37,7 @@ class RetrofitNetworkClient(
                 is HHApiVacancyRequest -> vacancyRequest(dto)
                 is HHApiRegionsRequest -> regionsRequest(dto)
                 else -> {
-                    Log.e(
-                        TAG, "Error is ${dto::class.qualifiedName}"
-                    )
+                    Log.e(TAG, "Error is ${dto::class.qualifiedName}")
                     object : Response {
                         override var resultCode = HttpStatus.CLIENT_ERROR
                     }
