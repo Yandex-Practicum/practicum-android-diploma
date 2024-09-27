@@ -4,48 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.TeamFragment"
-    android:background="@color/background">
+    android:background="@color/background"
+    tools:context=".presentation.ui.TeamFragment">
+
     <ImageView
         android:id="@+id/mask"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="7dp"
-        app:layout_constraintTop_toTopOf="parent"
+        style="@style/Mask"
         app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/mask"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/team"
+        style="@style/TextViewMedium22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/team"
-        android:textSize="22dp"
-        android:fontFamily="@font/ys_display_medium"
-        android:padding="19dp"
-        android:textColor="@color/primaryTextAndUIColor"
-        app:layout_constraintTop_toBottomOf="@id/mask"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mask" />
+
     <TextView
         android:id="@+id/who_works"
+        style="@style/TextViewBold32"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/team_screen_text"
-        android:fontFamily="@font/ys_display_bold"
-        android:textSize="32dp"
-        android:padding="19dp"
-        android:textColor="@color/primaryTextAndUIColor"
-        app:layout_constraintTop_toBottomOf="@id/team"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/team" />
+
     <TextView
+        style="@style/TextViewMedium16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/team_screen_developer_list"
-        android:fontFamily="@font/ys_display_medium"
-        android:textSize="16dp"
-        android:padding="19dp"
-        android:textColor="@color/primaryTextAndUIColor"
-        app:layout_constraintTop_toBottomOf="@id/who_works"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/who_works" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
