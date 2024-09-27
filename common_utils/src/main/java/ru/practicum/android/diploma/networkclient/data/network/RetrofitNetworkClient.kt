@@ -25,57 +25,39 @@ class RetrofitNetworkClient(
                 override var resultCode = HttpStatus.NO_INTERNET
             }
         }
-        if (!(dto is HHApiIndustriesRequest || dto is HHApiVacanciesRequest || dto is HHApiVacancyRequest || dto is HHApiRegionsRequest)) {
-            Log.e(TAG, "Error is ${dto::class.qualifiedName}")
-            return object : Response {
-                override var resultCode = HttpStatus.CLIENT_ERROR
-            }
-        }
         return withContext(Dispatchers.IO) {
-            try {
-                makeActualRequest(dto)
-            } catch (e: Exception) {
-                Log.e(TAG, e.message ?: "")
-                Log.e(TAG, e.stackTrace.toString())
-                object : Response {
-                    override var resultCode = HttpStatus.SERVER_ERROR
+            when (dto) {
+                is HHApiIndustriesRequest -> industriesRequest(dto)
+                is HHApiVacanciesRequest -> vacancyListRequest(dto)
+                is HHApiVacancyRequest -> vacancyRequest(dto)
+                is HHApiRegionsRequest -> regionsRequest(dto)
+                else -> {
+                    Log.e(TAG, "Error is ${dto::class.qualifiedName}")
+                    object : Response {
+                        override var resultCode = HttpStatus.CLIENT_ERROR
+                    }
                 }
             }
         }
     }
 
-    private suspend fun makeActualRequest(dto: Any): Response {
-        return when (dto) {
-            is HHApiRegionsRequest -> {
-                val request = if (dto.term.isNullOrEmpty()) null else mapOf(QUERY to dto.term)
-                val response = hhApiService.searchRegions(request)
-                response
-            }
+    private suspend fun regionsRequest(dto: HHApiRegionsRequest): Response {
+        val request = if (dto.term.isNullOrEmpty()) null else mapOf(QUERY to dto.term)
+        return hhApiService.searchRegions(request)
+    }
 
-            is HHApiVacancyRequest -> {
-                val response = hhApiService.getVacancy(dto.vacancyId)
-                response
-            }
+    private suspend fun vacancyListRequest(dto: HHApiVacanciesRequest): Response {
+        val request = mapOf("query" to dto.request)
+        return hhApiService.searchVacancies(request)
+    }
 
-            is HHApiVacanciesRequest -> {
-                val request = mapOf("query" to dto.request)
-                val response = hhApiService.searchVacancies(request)
-                response
-            }
+    private suspend fun vacancyRequest(dto: HHApiVacancyRequest): Response {
+        return hhApiService.getVacancy(dto.vacancyId)
+    }
 
-            is HHApiIndustriesRequest -> {
-                val request = if (dto.term.isNullOrEmpty()) null else mapOf(QUERY to dto.term)
-                val response = hhApiService.searchIndustries(request)
-                response
-            }
-
-            else -> {
-                object : Response {
-                    override var resultCode = HttpStatus.CLIENT_ERROR
-                }
-            }
-        }
-
+    private suspend fun industriesRequest(dto: HHApiIndustriesRequest): Response {
+        val request = if (dto.term.isNullOrEmpty()) null else mapOf(QUERY to dto.term)
+        return hhApiService.searchIndustries(request)
     }
 
     companion object {
