@@ -56,5 +56,5 @@ data class HHVacancyDetailResponse(
     @SerializedName("working_days") val workingDays: List<WorkingDay>,
     @SerializedName("working_time_intervals") val workingTimeIntervals: List<WorkingTimeInterval>,
     @SerializedName("working_time_modes") val workingTimeModes: List<WorkingTimeMode>,
-    override var resultCode: HttpStatus = HttpStatus.OK,
+    override val resultCode: HttpStatus = HttpStatus.OK,
 ) : Response, Parcelable
