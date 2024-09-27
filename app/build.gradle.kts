@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "ru.practicum.android.diploma"
-        minSdk = 26
+        minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
@@ -59,24 +59,24 @@ dependencies {
     androidTestImplementation(libs.uiTests.espressoCore)
     // endregion
 
-    //Navigation
+    // Navigation
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.navigation.ui.ktx)
 
-    //Coroutines
+    // Coroutines
     implementation(libs.kotlinx.coroutines.android)
 
-    //DI
+    // DI
     implementation(libs.koin.android)
 
-    //Retrofit
+    // Retrofit
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
 
-    //GSON
+    // GSON
     implementation(libs.gson)
 
-    //Glide
+    // Glide
     implementation(libs.glide)
     annotationProcessor(libs.compiler)
 
@@ -85,7 +85,7 @@ dependencies {
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
 
-    //UI
+    // UI
     implementation(libs.ui.constraintLayout)
     implementation(libs.material.v1110)
     implementation(libs.lifecycle.viewmodel.ktx)
@@ -96,6 +96,6 @@ dependencies {
     implementation(libs.material.v1110)
     implementation(libs.picasso)
 
-    //Time
+    // Time
     implementation(libs.joda.time)
 }
