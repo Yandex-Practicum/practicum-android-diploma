@@ -32,51 +32,52 @@ class RetrofitNetworkClient(
             }
         }
         return withContext(Dispatchers.IO) {
-            makeActualRequest(dto)
+            try {
+                makeActualRequest(dto)
+            } catch (e: Throwable) {
+                Log.e(TAG, e.message ?: "")
+                Log.e(TAG, e.stackTrace.toString())
+                object : Response {
+                    override var resultCode = HttpStatus.SERVER_ERROR
+                }
+            }
         }
 
 
     }
 
     private suspend fun makeActualRequest(dto: Any): Response {
-        return try {
-            when (dto) {
-                is HHApiRegionsRequest -> {
-                    val request = if (dto.term.isNullOrEmpty()) null else mapOf("query" to dto.term)
-                    val response = hhApiService.searchRegions(request)
-                    response
-                }
-
-                is HHApiVacancyRequest -> {
-                    val response = hhApiService.getVacancy(dto.vacancy_id)
-                    response
-                }
-
-                is HHApiVacanciesRequest -> {
-                    val request = mapOf("query" to dto.request)
-                    val response = hhApiService.searchVacancies(request)
-                    response
-                }
-
-                is HHApiIndustriesRequest -> {
-                    val request = if (dto.term.isNullOrEmpty()) null else mapOf("query" to dto.term)
-                    val response = hhApiService.searchIndustries(request)
-                    response
-                }
-
-                else -> {
-                    object : Response {
-                        override var resultCode = HttpStatus.CLIENT_ERROR
-                    }
-                }
+        return when (dto) {
+            is HHApiRegionsRequest -> {
+                val request = if (dto.term.isNullOrEmpty()) null else mapOf("query" to dto.term)
+                val response = hhApiService.searchRegions(request)
+                response
             }
-        } catch (e: Throwable) {
-            Log.e(TAG, e.message ?: "")
-            Log.e(TAG, e.stackTrace.toString())
-            object : Response {
-                override var resultCode = HttpStatus.SERVER_ERROR
+
+            is HHApiVacancyRequest -> {
+                val response = hhApiService.getVacancy(dto.vacancy_id)
+                response
+            }
+
+            is HHApiVacanciesRequest -> {
+                val request = mapOf("query" to dto.request)
+                val response = hhApiService.searchVacancies(request)
+                response
+            }
+
+            is HHApiIndustriesRequest -> {
+                val request = if (dto.term.isNullOrEmpty()) null else mapOf("query" to dto.term)
+                val response = hhApiService.searchIndustries(request)
+                response
+            }
+
+            else -> {
+                object : Response {
+                    override var resultCode = HttpStatus.CLIENT_ERROR
+                }
             }
         }
+
     }
 
     companion object {
