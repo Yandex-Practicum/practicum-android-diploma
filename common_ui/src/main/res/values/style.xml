@@ -10,12 +10,6 @@
         <item name="labelVisibilityMode">labeled</item>
         <item name="itemRippleColor">@null</item>
     </style>
-    <style name="Mask">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:padding">@dimen/maskPadding</item>
-        <item name="android:src">@drawable/mask</item>
-    </style>
     <style name="TextViewMedium22">
         <item name="android:textSize">@dimen/textSizeMedium</item>
         <item name="android:fontFamily">@font/ys_display_medium</item>
