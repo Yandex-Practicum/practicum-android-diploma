@@ -16,7 +16,6 @@ material = "1.11.0"
 minSdk = "26"
 compileSdk = "34"
 navigationFragmentKtx = "2.7.7"
-picasso = "2.8"
 retrofit = "2.9.0"
 roomVersion = "2.6.1"
 targetSdk = "33"
@@ -42,7 +41,6 @@ lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx
 material-v1110 = { module = "com.google.android.material:material", version.ref = "material" }
 navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationFragmentKtx" }
-picasso = { module = "com.squareup.picasso:picasso", version.ref = "picasso" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomVersion" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomVersion" }
