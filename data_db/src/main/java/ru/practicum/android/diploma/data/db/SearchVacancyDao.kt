@@ -14,7 +14,6 @@ interface SearchVacancyDao {
     @Query("SELECT * FROM vacancies_table")
     suspend fun getAllVacancies(): List<SearchVacancy>
 
-
     @Insert
     suspend fun insertAll(vacancies: List<SearchVacancy>)
 

@@ -7,5 +7,5 @@ import androidx.room.TypeConverters
 @Database(entities = [SearchVacancy::class], version = 1)
 @TypeConverters(Converters::class)
 abstract class SearchVacancyDatabase : RoomDatabase() {
-    abstract fun searchVacancyDao() : SearchVacancyDao
+    abstract fun searchVacancyDao(): SearchVacancyDao
 }
