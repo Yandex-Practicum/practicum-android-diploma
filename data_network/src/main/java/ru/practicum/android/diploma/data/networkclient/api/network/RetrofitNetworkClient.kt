@@ -9,8 +9,8 @@ import ru.practicum.android.diploma.data.networkclient.api.dto.HHApiIndustriesRe
 import ru.practicum.android.diploma.data.networkclient.api.dto.HHApiRegionsRequest
 import ru.practicum.android.diploma.data.networkclient.api.dto.HHApiVacanciesRequest
 import ru.practicum.android.diploma.data.networkclient.api.dto.HHApiVacancyRequest
+import ru.practicum.android.diploma.data.networkclient.api.dto.HttpStatus
 import ru.practicum.android.diploma.data.networkclient.api.dto.Response
-import ru.practicum.android.diploma.search.domain.model.HttpStatus
 
 class RetrofitNetworkClient(
     private val hhApiService: HHApiService,

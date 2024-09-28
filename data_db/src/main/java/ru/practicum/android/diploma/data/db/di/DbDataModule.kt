@@ -3,21 +3,16 @@ package ru.practicum.android.diploma.data.db.di
 import androidx.room.Room
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
-import ru.practicum.android.diploma.favorites.data.repositoryimpl.db.FavoriteVacancyDatabase
-import ru.practicum.android.diploma.data.db.SearchVacancyDatabase
+import ru.practicum.android.diploma.data.db.AppDatabase
+import com.google.gson.Gson
 
 val dbDataModule = module {
     single {
-        Room.databaseBuilder(androidContext(), SearchVacancyDatabase::class.java, "searchVacancies.db")
+        Room.databaseBuilder(androidContext(), AppDatabase::class.java, "app_database.db")
             .fallbackToDestructiveMigration()
             .build()
     }
-    single { get<SearchVacancyDatabase>().searchVacancyDao() }
-
-    single {
-        Room.databaseBuilder(androidContext(), ru.practicum.android.diploma.favorites.data.repositoryimpl.db.FavoriteVacancyDatabase::class.java, "favoriteVacancies.db")
-            .fallbackToDestructiveMigration()
-            .build()
-    }
-    single { get<ru.practicum.android.diploma.favorites.data.repositoryimpl.db.FavoriteVacancyDatabase>().favoriteVacancyDao() }
+    single { get<AppDatabase>().searchVacancyDao() }
+    single { get<AppDatabase>().favoriteVacancyDao() }
+    single { Gson() }
 }
