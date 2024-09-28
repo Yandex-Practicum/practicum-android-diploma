@@ -11,7 +11,7 @@ interface SearchVacancyDao {
     @Insert
     suspend fun insert(searchVacancy: SearchVacancy)
 
-    @Query("SELECT * FROM vacancies_table")
+    @Query("SELECT * FROM search_vacancies_table")
     suspend fun getAllVacancies(): List<SearchVacancy>
 
     @Insert
@@ -23,16 +23,16 @@ interface SearchVacancyDao {
     @Delete
     suspend fun delete(searchVacancy: SearchVacancy)
 
-    @Query("DELETE FROM vacancies_table")
+    @Query("DELETE FROM search_vacancies_table")
     suspend fun deleteAll()
 
-    @Query("SELECT * FROM vacancies_table WHERE code = :vacancyCode")
+    @Query("SELECT * FROM search_vacancies_table WHERE code = :vacancyCode")
     suspend fun getVacancyByCode(vacancyCode: String): SearchVacancy?
 
-    @Query("SELECT * FROM vacancies_table WHERE areas LIKE '%' || :vacancyArea || '%'")
+    @Query("SELECT * FROM search_vacancies_table WHERE areas LIKE '%' || :vacancyArea || '%'")
     suspend fun getVacanciesByArea(vacancyArea: String): List<SearchVacancy>
 
-    @Query("SELECT * FROM vacancies_table WHERE industry LIKE '%' || :vacancyIndustry || '%'")
+    @Query("SELECT * FROM search_vacancies_table WHERE industry LIKE '%' || :vacancyIndustry || '%'")
     suspend fun getVacanciesByIndustry(vacancyIndustry: String): List<SearchVacancy>
 
 }
