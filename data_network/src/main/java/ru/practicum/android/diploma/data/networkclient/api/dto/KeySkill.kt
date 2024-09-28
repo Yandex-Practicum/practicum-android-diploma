@@ -4,6 +4,6 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class KeySkill(
+internal data class KeySkill(
     val name: String,
 ) : Parcelable

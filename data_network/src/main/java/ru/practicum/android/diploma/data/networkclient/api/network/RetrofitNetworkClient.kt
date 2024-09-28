@@ -12,7 +12,7 @@ import ru.practicum.android.diploma.data.networkclient.api.dto.HHApiVacancyReque
 import ru.practicum.android.diploma.data.networkclient.api.dto.Response
 import ru.practicum.android.diploma.search.domain.model.HttpStatus
 
-class RetrofitNetworkClient(
+internal class RetrofitNetworkClient(
     private val hhApiService: HHApiService,
     private val context: Context,
 ) : ru.practicum.android.diploma.data.networkclient.api.NetworkClient {

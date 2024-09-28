@@ -1,3 +1,3 @@
 package ru.practicum.android.diploma.data.networkclient.api.dto
 
-data class HHApiRegionsRequest(val term: String?)
+internal data class HHApiRegionsRequest(val term: String?)

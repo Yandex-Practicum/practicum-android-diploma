@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 import ru.practicum.android.diploma.search.domain.model.HttpStatus
 
 @Parcelize
-data class HHVacancyDetailResponse(
+internal data class HHVacancyDetailResponse(
     @SerializedName("accept_handicapped") val acceptHandicapped: Boolean,
     @SerializedName("accept_incomplete_resumes") val acceptIncompleteResumes: Boolean,
     @SerializedName("accept_kids") val acceptKids: Boolean,

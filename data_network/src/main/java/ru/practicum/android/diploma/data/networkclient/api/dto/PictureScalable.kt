@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class PictureScalable(
+internal data class PictureScalable(
     val default: Default,
     val xs: Xs,
 ) : Parcelable
