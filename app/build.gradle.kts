@@ -95,6 +95,4 @@ dependencies {
     implementation(libs.androidX.appCompat)
     implementation(libs.material.v1110)
 
-    // Time
-    implementation(libs.joda.time)
 }
