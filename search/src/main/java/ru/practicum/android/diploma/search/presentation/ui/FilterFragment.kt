@@ -8,9 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.search.R
 import ru.practicum.android.diploma.search.databinding.FragmentFilterBinding
-import ru.practicum.android.diploma.search.databinding.FragmentSearchBinding
 
-class FilterFragment  : Fragment() {
+class FilterFragment : Fragment() {
     private var _binding: FragmentFilterBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(
@@ -22,6 +21,7 @@ class FilterFragment  : Fragment() {
         _binding = FragmentFilterBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.workPlace.setOnClickListener {

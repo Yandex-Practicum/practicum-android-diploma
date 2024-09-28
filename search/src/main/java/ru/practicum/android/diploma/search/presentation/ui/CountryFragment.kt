@@ -6,11 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import ru.practicum.android.diploma.search.R
 import ru.practicum.android.diploma.search.databinding.FragmentCountryBinding
 
-
-class CountryFragment  : Fragment() {
+class CountryFragment : Fragment() {
     private var _binding: FragmentCountryBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(
@@ -22,6 +20,7 @@ class CountryFragment  : Fragment() {
         _binding = FragmentCountryBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.buttonLeftCountry.setOnClickListener {

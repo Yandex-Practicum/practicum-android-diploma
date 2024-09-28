@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import ru.practicum.android.diploma.search.R
 import ru.practicum.android.diploma.search.databinding.FragmentVacancyBinding
 
 class VacancyFragment : Fragment() {
