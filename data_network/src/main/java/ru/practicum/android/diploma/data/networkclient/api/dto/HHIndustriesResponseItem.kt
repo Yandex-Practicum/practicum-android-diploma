@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class HHIndustriesResponseItem(
+internal data class HHIndustriesResponseItem(
     val id: String,
     val industries: List<Industry>,
     val name: String,

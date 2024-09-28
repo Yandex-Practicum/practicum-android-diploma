@@ -1,3 +1,3 @@
 package ru.practicum.android.diploma.data.networkclient.api.dto
 
-data class HHApiIndustriesRequest(val term: String?)
+internal data class HHApiIndustriesRequest(val term: String?)

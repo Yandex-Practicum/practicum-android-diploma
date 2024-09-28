@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Employer(
+internal data class Employer(
     @SerializedName("accredited_it_employer") val accreditedITEmployer: Boolean,
     @SerializedName("alternate_url") val alternateUrl: String,
     val id: String,

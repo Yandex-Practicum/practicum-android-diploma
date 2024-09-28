@@ -5,5 +5,5 @@ import kotlinx.parcelize.Parcelize
 import ru.practicum.android.diploma.search.domain.model.HttpStatus
 
 @Parcelize
-data class HHRegionsResponse(override val resultCode: HttpStatus = HttpStatus.OK) : ArrayList<HHRegionsResponseItem>(),
-    Response, Parcelable
+internal data class HHRegionsResponse(override val resultCode: HttpStatus = HttpStatus.OK) :
+    ArrayList<HHRegionsResponseItem>(), Response, Parcelable

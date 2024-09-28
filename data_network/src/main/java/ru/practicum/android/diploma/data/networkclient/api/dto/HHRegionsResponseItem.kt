@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class HHRegionsResponseItem(
+internal data class HHRegionsResponseItem(
     val areas: List<AreaX>,
     val id: String,
     val name: String,
