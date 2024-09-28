@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ru.practicum.android.diploma.databinding.FavoriteFragmentBinding
 
-class FavoriteFragment : Fragment(){
+class FavoriteFragment : Fragment() {
     private lateinit var binding: FavoriteFragmentBinding
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FavoriteFragmentBinding.inflate(inflater, container, false)
