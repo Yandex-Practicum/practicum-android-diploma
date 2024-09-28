@@ -3,7 +3,7 @@ package ru.practicum.android.diploma.data.db
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "vacancies_table")
+@Entity(tableName = "search_vacancies_table")
 data class SearchVacancy(
     // для справки
 // https://api.hh.ru/openapi/redoc#tag/Obshie-spravochniki/operation/get-dictionaries
