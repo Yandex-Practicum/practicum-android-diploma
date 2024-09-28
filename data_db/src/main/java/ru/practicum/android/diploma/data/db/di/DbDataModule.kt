@@ -3,7 +3,7 @@ package ru.practicum.android.diploma.data.db.di
 import androidx.room.Room
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
-import ru.practicum.android.diploma.data.db.FavoriteVacancyDatabase
+import ru.practicum.android.diploma.favorites.data.repositoryimpl.db.FavoriteVacancyDatabase
 import ru.practicum.android.diploma.data.db.SearchVacancyDatabase
 
 val dbDataModule = module {
@@ -15,9 +15,9 @@ val dbDataModule = module {
     single { get<SearchVacancyDatabase>().searchVacancyDao() }
 
     single {
-        Room.databaseBuilder(androidContext(), FavoriteVacancyDatabase::class.java, "favoriteVacancies.db")
+        Room.databaseBuilder(androidContext(), ru.practicum.android.diploma.favorites.data.repositoryimpl.db.FavoriteVacancyDatabase::class.java, "favoriteVacancies.db")
             .fallbackToDestructiveMigration()
             .build()
     }
-    single { get<FavoriteVacancyDatabase>().favoriteVacancyDao() }
+    single { get<ru.practicum.android.diploma.favorites.data.repositoryimpl.db.FavoriteVacancyDatabase>().favoriteVacancyDao() }
 }

@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.search.domain.model
+package ru.practicum.android.diploma.data.networkclient.api.dto
 
 enum class HttpStatus {
     OK,
