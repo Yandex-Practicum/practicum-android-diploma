@@ -3,7 +3,6 @@ package ru.practicum.android.diploma.data.db.di
 import androidx.room.Room
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
-import ru.practicum.android.diploma.data.db.FavoriteVacancy
 import ru.practicum.android.diploma.data.db.FavoriteVacancyDatabase
 import ru.practicum.android.diploma.data.db.SearchVacancyDatabase
 
