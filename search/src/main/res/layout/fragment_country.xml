@@ -5,32 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".presentation.ui.SearchFragment">
+    tools:context=".presentation.ui.CountryFragment">
 
     <ImageView
-        android:id="@+id/filter"
-        style="@style/Filter"
+        android:id="@+id/buttonLeftCountry"
+        style="@style/ButtonLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/search_vacancy"
+        android:id="@+id/filterHeader"
         style="@style/TextViewMedium22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/search_screen_header"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/filter_screens_country_filter_header"
+        app:layout_constraintStart_toEndOf="@id/buttonLeftCountry"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/vacancy"
-        style="@style/TextViewMedium16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/vacancy_screen_header"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_vacancy" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

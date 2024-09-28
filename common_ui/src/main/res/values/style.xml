@@ -29,4 +29,17 @@
         <item name="android:textColor">@color/primaryTextAndUIColor</item>
         <item name="android:padding">@dimen/textPadding</item>
     </style>
+    <style name="Filter">
+        <item name="android:src">@drawable/filter</item>
+        <item name="android:padding">@dimen/filterPadding</item>
+    </style>
+    <style name="ButtonRight">
+        <item name="android:src">@drawable/button_right</item>
+        <item name="android:padding">@dimen/textPadding</item>
+    </style>
+    <style name="ButtonLeft">
+        <item name="android:src">@drawable/button_left</item>
+        <item name="android:paddingVertical">@dimen/buttonLeftPadding</item>
+        <item name="android:paddingLeft">@dimen/buttonLeftPadding</item>
+    </style>
 </resources>
