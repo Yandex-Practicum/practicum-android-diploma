@@ -94,7 +94,6 @@ dependencies {
     implementation(libs.fragment.ktx)
     implementation(libs.androidX.appCompat)
     implementation(libs.material.v1110)
-    implementation(libs.picasso)
 
     // Time
     implementation(libs.joda.time)
