@@ -13,8 +13,6 @@ class RootActivity : AppCompatActivity() {
         _binding = ActivityRootBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-
         // Пример использования access token для HeadHunter API
         networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
     }
@@ -22,7 +20,7 @@ class RootActivity : AppCompatActivity() {
     private fun networkRequestExample(accessToken: String) {
         // ...
     }
-    override fun onDestroy(){
+    override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
