@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import ru.practicum.android.diploma.commonutils.NetworkUtils
+import ru.practicum.android.diploma.commonutils.isConnected
 import ru.practicum.android.diploma.data.networkclient.api.dto.HHApiIndustriesRequest
 import ru.practicum.android.diploma.data.networkclient.api.dto.HHApiRegionsRequest
 import ru.practicum.android.diploma.data.networkclient.api.dto.HHApiVacanciesRequest
@@ -19,7 +19,7 @@ class RetrofitNetworkClient(
 
     override suspend fun doRequest(dto: Any): Response {
         Log.d(TAG, "Starting request to HH")
-        if (NetworkUtils().isConnected(context)) {
+        if (context.isConnected()) {
             return object : Response {
                 override var resultCode = HttpStatus.NO_INTERNET
             }
