@@ -25,6 +25,7 @@ lifecycleViewmodelKtx = "2.8.4"
 roomRuntime = "2.6.1"
 glide = "4.14.2"
 koinAndroid = "3.3.0"
+ksp = "1.9.21-1.0.16"
 
 [libraries]
 
@@ -72,5 +73,7 @@ koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinAndr
 [plugins]
 android-library = { id = "com.android.library", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 [bundles]
