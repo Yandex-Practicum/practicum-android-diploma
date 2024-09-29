@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black_def">#FF000000</color>
-    <color name="white_def">#FFFFFFFF</color>
     <color name="black">#1A1B22</color>
     <color name="white">#FDFDFD</color>
     <color name="red">#F56B6C</color>
     <color name="blue">#3772E7</color>
     <color name="light_gray">#E6E8EB</color>
     <color name="dark_gray">#AEAFB4</color>
-    <color name="grey_alpha50">#801A1B22</color>
+    <color name="background">#801A1B22</color>
 
+    <!-- Colors for Light theme. -->
+    <color name="editTextBackgroundColor">@color/light_gray</color> <!-- Day light_gray - Night dark_gray -->
 </resources>
