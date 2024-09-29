@@ -27,7 +27,7 @@ class SearchFragment : Fragment() {
         binding.filter.setOnClickListener {
             findNavController().navigate(R.id.action_searchFragment_to_filterFragment)
         }
-        binding.vacancyRecycler.setOnClickListener { //по оформлению адаптера - заменить на клик по item
+        binding.vacancyRecycler.setOnClickListener { // по оформлению адаптера - заменить на клик по item
             findNavController().navigate(R.id.action_searchFragment_to_vacancy_navigation)
         }
     }
