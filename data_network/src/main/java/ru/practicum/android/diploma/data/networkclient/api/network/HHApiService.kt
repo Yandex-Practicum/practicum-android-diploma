@@ -9,7 +9,7 @@ import ru.practicum.android.diploma.data.networkclient.api.dto.HHRegionsResponse
 import ru.practicum.android.diploma.data.networkclient.api.dto.HHVacanciesResponse
 import ru.practicum.android.diploma.data.networkclient.api.dto.HHVacancyDetailResponse
 
-interface HHApiService {
+internal interface HHApiService {
     @Headers("Autorization: Bearer TODO TOKEN", "HH-User-Agent: CareerRepository/1.0 (zpe25@yandex.ru)")
     @GET("/vacancies")
     suspend fun searchVacancies(

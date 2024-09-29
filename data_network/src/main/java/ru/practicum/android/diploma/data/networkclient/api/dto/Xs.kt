@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Xs(
+internal data class Xs(
     val height: Int,
     val url: String,
     val width: Int,
