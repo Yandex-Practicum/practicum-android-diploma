@@ -53,8 +53,6 @@
         <item name="android:paddingStart">16dp</item>
         <item name="android:paddingEnd">4dp</item>
 
-        <item name="android:autofillHints">no</item>
-        <item name="android:hint">@string/search_screen_searchbar_hint</item>
         <item name="android:textColorHint">@color/searchBarHintTextColor</item>
         <item name="android:textCursorDrawable">@drawable/blue_text_cursor_drawable</item>
         <item name="android:textFontWeight">400</item>
