@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.feature_search.ui;
+package ru.practicum.android.diploma.vacancies.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ru.practicum.android.diploma.R
 
-class SearchFragment : Fragment() {
+class VacanciesFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -17,3 +17,4 @@ class SearchFragment : Fragment() {
         return inflater.inflate(R.layout.activity_root, container, false)
     }
 }
+

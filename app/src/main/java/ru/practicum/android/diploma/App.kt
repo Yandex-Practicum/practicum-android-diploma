@@ -30,6 +30,7 @@ class App : Application() {
         // Установка темы (черновая), можете поменять, когда будете настраивать тему
         val darkTheme = sharedPreferences.getBoolean(DARK_THEME, false)
         AppCompatDelegate.setDefaultNightMode(
-            if (darkTheme) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
+            if (darkTheme) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+        )
     }
 }

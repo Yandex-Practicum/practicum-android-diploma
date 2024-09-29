@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "ru.practicum.android.diploma"
-        minSdk = 26
+        minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
@@ -49,7 +49,7 @@ dependencies {
     implementation(libs.ui.constraintLayout)
 
     // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation(libs.retrofit)
     implementation(libs.converter.gson)
 
     // Koin
@@ -57,12 +57,12 @@ dependencies {
 
     // Glide
     implementation(libs.glide)
-    kapt("com.github.bumptech.glide:compiler:4.15.1")
+    kapt(libs.compiler)
 
     // Room
-    implementation("androidx.room:room-runtime:2.6.1")
-    kapt("androidx.room:room-compiler:2.5.2")
-    implementation("androidx.room:room-ktx:2.5.2")
+    implementation(libs.room.runtime)
+    kapt(libs.room.compiler)
+    implementation(libs.room.ktx)
 
     // region Unit tests
     testImplementation(libs.unitTests.junit)

@@ -1,5 +1,4 @@
-package ru.practicum.android.diploma.feature_vacancies.ui
-
+package ru.practicum.android.diploma.favorites.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ru.practicum.android.diploma.R
 
-class VacanciesFragment : Fragment() {
+class FavoritesFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -18,4 +17,3 @@ class VacanciesFragment : Fragment() {
         return inflater.inflate(R.layout.activity_root, container, false)
     }
 }
-
