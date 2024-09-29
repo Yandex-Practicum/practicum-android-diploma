@@ -1,21 +1,21 @@
-package ru.practicum.android.diploma.search.ui
+package ru.practicum.android.diploma.info.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import ru.practicum.android.diploma.databinding.SearchFragmentBinding
+import ru.practicum.android.diploma.databinding.TeamInfoFragmentBinding
 
-class SearchFragment : Fragment() {
-    private var _binding: SearchFragmentBinding? = null
+class TeamInfoFragment : Fragment() {
+    private var _binding: TeamInfoFragmentBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = SearchFragmentBinding.inflate(inflater, container, false)
+        _binding = TeamInfoFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
     override fun onDestroyView() {

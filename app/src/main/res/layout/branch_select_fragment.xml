@@ -4,7 +4,7 @@
     xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tool:context=".filters.ui.IndustrySelectFragment">
+    tool:context=".filters.ui.BranchSelectFragment">
 
     <TextView
         android:layout_width="wrap_content"
