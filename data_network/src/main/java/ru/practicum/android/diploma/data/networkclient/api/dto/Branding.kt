@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal data class Branding(
+data class Branding(
     val tariff: String,
     val type: String,
 ) : Parcelable

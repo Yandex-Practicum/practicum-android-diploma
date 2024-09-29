@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal data class HHVacanciesResponse(
+data class HHVacanciesResponse(
     val arguments: List<Argument>,
     val clusters: String?,
     val fixes: String?,

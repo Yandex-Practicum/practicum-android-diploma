@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal data class Address(
+data class Address(
     val building: String,
     val city: String,
     val description: String,

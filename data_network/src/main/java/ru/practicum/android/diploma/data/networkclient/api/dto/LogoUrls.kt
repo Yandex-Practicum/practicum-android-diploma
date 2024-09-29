@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal data class LogoUrls(
+data class LogoUrls(
     @SerializedName("240") val deg240: String,
     @SerializedName("90") val deg90: String,
     val original: String,

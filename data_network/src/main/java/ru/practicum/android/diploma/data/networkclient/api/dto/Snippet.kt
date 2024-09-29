@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal data class Snippet(
+data class Snippet(
     val requirement: String,
     val responsibility: String,
 ) : Parcelable

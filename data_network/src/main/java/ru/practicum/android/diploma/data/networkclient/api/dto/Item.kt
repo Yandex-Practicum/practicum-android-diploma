@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal data class Item(
+data class Item(
     @SerializedName("accept_incomplete_resumes") val acceptIncompleteResumes: Boolean,
     val address: Address,
     @SerializedName("alternate_url") val alternateUrl: String,

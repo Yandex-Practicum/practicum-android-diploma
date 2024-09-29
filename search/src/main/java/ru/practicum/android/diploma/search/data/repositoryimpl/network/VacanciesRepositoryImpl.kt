@@ -23,11 +23,20 @@ class VacanciesRepositoryImpl(private val networkClient: NetworkClient) : Vacanc
             HttpStatus.NO_INTERNET -> {
                 emit(Resource.Error("Check network connection"))
             }
+
             HttpStatus.OK -> {
                 with(response as HHVacanciesResponse) {
                     val data = response.items
-
+                    emit(Resource.Success(data))
                 }
+            }
+
+            HttpStatus.CLIENT_ERROR -> {
+                emit(Resource.Error("Request was not accepted ${response.resultCode}"))
+            }
+
+            HttpStatus.SERVER_ERROR -> {
+                emit(Resource.Error("Unexpcted error ${response.resultCode}"))
             }
         }
     }

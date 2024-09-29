@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal data class Schedule(
+data class Schedule(
     val id: String,
     val name: String,
 ) : Parcelable

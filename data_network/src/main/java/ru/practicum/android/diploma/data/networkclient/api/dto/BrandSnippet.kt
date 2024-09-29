@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal data class BrandSnippet(
+data class BrandSnippet(
     val background: Background,
     val logo: String,
     @SerializedName("logo_scalable") val logoScalable: LogoScalable,

@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal data class Area(
+data class Area(
     val id: String,
     val name: String,
     val url: String,

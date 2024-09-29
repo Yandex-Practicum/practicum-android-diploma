@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal data class Argument(
+data class Argument(
     val argument: String,
     @SerializedName("cluster_group") val clusterGroup: ClusterGroup,
     @SerializedName("disable_url") val disableUrl: String,
