@@ -59,24 +59,14 @@ dependencies {
 
     // Add lib
     implementation(libs.retrofit)
-    implementation(libs.converter.gson)
     implementation(libs.glide)
     annotationProcessor(libs.compiler)
     implementation(libs.logging.interceptor)
     implementation(libs.gson)
     implementation(libs.koin.android)
-    implementation(libs.androidX.core)
-    implementation(libs.androidX.appCompat)
-    implementation(libs.ui.material)
-    implementation(libs.retrofit)
-    implementation(libs.koin.android)
     implementation(libs.converter.gson)
 
     implementation(libs.kotlinx.coroutines.android)
-
-    implementation(libs.androidx.room.runtime)
-    ksp(libs.androidx.room.compiler)
-    implementation(libs.androidx.room.ktx)
 
     // modules
     implementation(project(":common_utils"))
