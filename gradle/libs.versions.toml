@@ -1,10 +1,14 @@
 [versions]
 
+converterGson = "2.9.0"
+glide = "4.15.1"
 java = "VERSION_1_8"
 
 # Build constants
+koinAndroid = "3.5.0"
 minSdk = "26"
 compileSdk = "34"
+roomRuntime = "2.6.1"
 targetSdk = "33"
 
 # Detekt
@@ -14,6 +18,14 @@ detektTwitterComposeRules ="0.0.26"
 [libraries]
 
 # Detekt
+compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinAndroid" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "converterGson" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 staticAnalysis-detektPlugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
 staticAnalysis-detektCli = { module = "io.gitlab.arturbosch.detekt:detekt-cli", version.ref = "detekt" }
 staticAnalysis-detektApi = { module = "io.gitlab.arturbosch.detekt:detekt-api", version.ref = "detekt" }

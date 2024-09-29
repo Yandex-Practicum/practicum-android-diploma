@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
     id("ru.practicum.android.diploma.plugins.developproperties")
 }
 
@@ -46,6 +47,22 @@ dependencies {
     // UI layer libraries
     implementation(libs.ui.material)
     implementation(libs.ui.constraintLayout)
+
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+
+    // Koin
+    implementation(libs.koin.android)
+
+    // Glide
+    implementation(libs.glide)
+    kapt(libs.compiler)
+
+    // Room
+    implementation(libs.room.runtime)
+    kapt(libs.room.compiler)
+    implementation(libs.room.ktx)
 
     // region Unit tests
     testImplementation(libs.unitTests.junit)
