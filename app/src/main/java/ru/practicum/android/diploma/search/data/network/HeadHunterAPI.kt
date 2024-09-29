@@ -8,9 +8,9 @@ import retrofit2.http.QueryMap
 interface HeadHunterAPI {
     // Поиск вакансий
     @GET("vacancies")
-    fun searchVacancies(
+    suspend fun searchVacancies(
         @Header("Authorization") authToken: String?,
         @Header("User-Agent") userAgent: String?,
-        @QueryMap options: Map<String?, String?>?
-    ): Call<SearchResponse?>?
+        @QueryMap options: Map<String, String>
+    ): SearchResponse
 }
