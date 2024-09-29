@@ -138,27 +138,6 @@
         app:layout_constraintTop_toBottomOf="@id/searchBarGuideline"
         app:layout_constraintVertical_bias="0" />
 
-    <!-- Results popup -->
-    <TextView
-        android:id="@+id/resultCountPopup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="visible"
-
-        android:background="@drawable/rounded_12dp_blue_bg"
-        android:gravity="center"
-        android:text="@string/search_screen_no_results_popup"
-        style="@style/TextViewRegular16"
-        android:textColor="@color/white"
-        android:paddingHorizontal="12dp"
-        android:paddingVertical="4dp"
-
-        android:layout_marginTop="3dp"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchBarGuideline" />
-
     <!-- Recycler -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/vacancyRecycler"
@@ -194,6 +173,27 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Results popup -->
+    <TextView
+        android:id="@+id/resultCountPopup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+
+        android:background="@drawable/rounded_12dp_blue_bg"
+        android:gravity="center"
+        android:text="@string/search_screen_no_results_popup"
+        style="@style/TextViewRegular16"
+        android:textColor="@color/white"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="4dp"
+
+        android:layout_marginTop="3dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchBarGuideline" />
 
     <!-- Default image -->
     <ImageView
