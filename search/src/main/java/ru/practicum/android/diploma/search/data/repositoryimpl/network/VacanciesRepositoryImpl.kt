@@ -7,7 +7,7 @@ import ru.practicum.android.diploma.data.networkclient.api.NetworkClient
 import ru.practicum.android.diploma.data.networkclient.api.dto.HHApiIndustriesRequest
 import ru.practicum.android.diploma.data.networkclient.api.dto.HHApiRegionsRequest
 import ru.practicum.android.diploma.data.networkclient.api.dto.HHApiVacanciesRequest
-import ru.practicum.android.diploma.data.networkclient.api.dto.HHAPIVacanciesResponse
+import ru.practicum.android.diploma.data.networkclient.api.dto.HHVacanciesResponse
 import ru.practicum.android.diploma.data.networkclient.api.dto.HttpStatus
 import ru.practicum.android.diploma.search.domain.Vacancy
 import ru.practicum.android.diploma.search.domain.repository.VacanciesRepository
@@ -24,8 +24,9 @@ class VacanciesRepositoryImpl(private val networkClient: NetworkClient) : Vacanc
                 emit(Resource.Error("Check network connection"))
             }
             HttpStatus.OK -> {
-                with(response as HHAPIVacanciesResponse) {
-                    val data = response.
+                with(response as HHVacanciesResponse) {
+                    val data = response.items
+
                 }
             }
         }
