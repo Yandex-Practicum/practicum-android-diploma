@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/background"
+    android:id="@+id/itemVacancy">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="@dimen/sizeLogoItemFavorite"
+        android:layout_height="@dimen/sizeLogoItemFavorite"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/placeholder_logo_item_favorite" />
+
+    <TextView
+        android:id="@+id/itemNameVacancy"
+        style="@style/TextViewMedium22"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimens_12"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:padding="0dp"
+        android:text="@string/vacancy_screen_header"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/itemNameCompany"
+        style="@style/TextViewRegular16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimens_12"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:text="@string/favorites_company"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/itemNameVacancy" />
+
+    <TextView
+        android:id="@+id/itemSalarySize"
+        style="@style/TextViewRegular16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimens_12"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:text="@string/salary_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="@dimen/dimens_12"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/itemNameCompany" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
