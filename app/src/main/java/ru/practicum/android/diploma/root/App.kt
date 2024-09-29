@@ -9,6 +9,7 @@ import ru.practicum.android.diploma.data.sp.di.spDataModule
 import ru.practicum.android.diploma.favorites.di.favoritesModule
 import ru.practicum.android.diploma.search.di.searchModule
 import ru.practicum.android.diploma.team.di.teamModule
+import ru.practicum.android.diploma.vacancy.di.vacancyModule
 
 class App : Application() {
 
@@ -23,6 +24,7 @@ class App : Application() {
                 dbDataModule,
                 searchModule,
                 favoritesModule,
+                vacancyModule,
                 teamModule,
             )
         }
