@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="maskPadding">7dp</dimen>
-    <dimen name="textSizeMedium">22sp</dimen>
-    <dimen name="textSizeBig">32sp</dimen>
-    <dimen name="textSizeLittle">16sp</dimen>
+    <dimen name="dimens_16">16dp</dimen>
     <dimen name="textPadding">19dp</dimen>
     <dimen name="filterPadding">20dp</dimen>
     <dimen name="buttonLeftPadding">24dp</dimen>
+    <dimen name="textSizeMedium">22sp</dimen>
+    <dimen name="textSizeBig">32sp</dimen>
+    <dimen name="textSizeLittle">16sp</dimen>
 </resources>
