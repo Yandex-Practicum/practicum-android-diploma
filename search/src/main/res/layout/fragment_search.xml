@@ -123,14 +123,14 @@
         android:id="@+id/progressBarLoadingFromSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="162dp"
+        android:visibility="gone"
 
         android:indeterminateTint="@color/blue"
         android:padding="6dp"
-        android:visibility="gone"
 
         android:layout_marginTop="244dp"
         android:layout_marginBottom="243dp"
+        android:layout_marginHorizontal="162dp"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -145,7 +145,6 @@
         android:layout_height="wrap_content"
         android:visibility="gone"
 
-        tools:itemCount="5"
         android:paddingTop="38dp"
 
         app:layout_goneMarginBottom="0dp"
@@ -179,7 +178,7 @@
         android:id="@+id/resultCountPopup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="visible"
+        android:visibility="gone"
 
         android:background="@drawable/rounded_12dp_blue_bg"
         android:gravity="center"
@@ -201,7 +200,7 @@
         android:layout_width="328dp"
         android:layout_height="223dp"
         tools:ignore="ContentDescription"
-        android:visibility="gone"
+        android:visibility="visible"
 
         android:scaleType="fitCenter"
         android:src="@drawable/il_1"
@@ -258,11 +257,11 @@
         android:layout_width="328dp"
         android:layout_height="223dp"
         android:importantForAccessibility="no"
-        android:visibility="visible"
+        android:visibility="gone"
 
         android:src="@drawable/il_5"
         android:scaleType="fitCenter"
-        app:layout_constraintVertical_bias="@integer/material_motion_duration_long_1"
+        app:layout_constraintVertical_bias="1"
 
         android:layout_marginTop="122dp"
         android:layout_marginVertical="16dp"
@@ -277,7 +276,7 @@
         android:id="@+id/failedToFetchListErrorText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="visible"
+        android:visibility="gone"
 
         style="@style/TextViewMedium22"
         android:textAlignment="center"
