@@ -29,6 +29,11 @@
         <item name="android:textColor">@color/primaryTextAndUIColor</item>
         <item name="android:padding">@dimen/textPadding</item>
     </style>
+    <style name="TextViewRegular16">
+        <item name="android:textSize">@dimen/textSizeLittle</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textColor">@color/primaryTextAndUIColor</item>
+    </style>
     <style name="Filter">
         <item name="android:src">@drawable/filter</item>
         <item name="android:padding">@dimen/filterPadding</item>

@@ -7,30 +7,194 @@
     android:background="@color/background"
     tools:context=".presentation.ui.SearchFragment">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/tobBarGuideline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="64dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/searchBarGuideline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="139dp" />
+
     <ImageView
         android:id="@+id/filter"
         style="@style/Filter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
+        android:layout_margin="8dp"
+        android:contentDescription="@string/filter_screens_main_header"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="18dp"
+
+        app:layout_constraintBottom_toTopOf="@id/tobBarGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/search_vacancy"
         style="@style/TextViewMedium22"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+
         android:layout_height="wrap_content"
+        android:layout_margin="19dp"
+
+        android:layout_marginEnd="4dp"
+        android:padding="0dp"
         android:text="@string/search_screen_header"
+
+        app:layout_constraintEnd_toStartOf="@+id/filter"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/vacancy"
-        style="@style/TextViewMedium16"
+    <EditText
+        android:id="@+id/searchBar"
+        style="@style/TextViewRegular16"
+        android:layout_width="match_parent"
+
+        android:layout_height="0dp"
+
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="8dp"
+        android:background="@drawable/rounded_12dp_grey_and_light_grey_bg"
+        android:hint="@string/search_screen_searchbar_hint"
+        android:paddingVertical="4dp"
+
+        android:paddingStart="16dp"
+        android:paddingEnd="4dp"
+        android:textColor="@color/searchBarHintTextColor"
+
+        android:textColorHint="@color/searchBarHintTextColor"
+        android:textCursorDrawable="@drawable/blue_text_cursor_drawable"
+
+        app:layout_constraintBottom_toTopOf="@id/searchBarGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tobBarGuideline" />
+
+    <ImageView
+        android:id="@+id/clearSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/vacancy_screen_header"
+        android:layout_marginEnd="4dp"
+        android:padding="13dp"
+        android:src="@drawable/clear_search"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/searchBar"
+        app:layout_constraintEnd_toEndOf="@id/searchBar"
+        app:layout_constraintTop_toTopOf="@id/searchBar" />
+
+    <ImageView
+        android:id="@+id/searchBarLoupe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:padding="12dp"
+        android:src="@drawable/search_loupe"
+        app:layout_constraintBottom_toBottomOf="@id/searchBar"
+        app:layout_constraintEnd_toEndOf="@id/searchBar"
+        app:layout_constraintTop_toTopOf="@id/searchBar" />
+
+    <TextView
+        android:id="@+id/resultCountPopup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="101dp"
+        android:background="@drawable/rounded_12dp_blue_bg"
+
+        android:gravity="center"
+
+        android:text="@string/search_screen_no_results_popup"
+        android:textColor="@color/white"
+        android:visibility="gone"
+
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_vacancy" />
+        app:layout_constraintTop_toBottomOf="@+id/searchBar" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/vacancyRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/resultCountPopup"
+        app:layout_constraintVertical_bias="0" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+
+        android:layout_marginHorizontal="162dp"
+        android:layout_marginTop="250dp"
+        android:layout_marginEnd="240dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/searchBarGuideline" />
+
+    <ImageView
+        android:id="@+id/defaultIllustration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:src="@drawable/il_1"
+
+        app:layout_constraintTop_toTopOf="@id/searchBarGuideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ImageView
+        android:id="@+id/noInternetErrorIllustration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:src="@drawable/il_2"
+
+        app:layout_constraintTop_toTopOf="@id/searchBarGuideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ImageView
+        android:id="@+id/failedToFetchListErrorIllustration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:src="@drawable/il_5"
+
+        app:layout_constraintTop_toTopOf="@id/searchBarGuideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/failedToFetchListErrorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/vacancies_list_server_error"
+
+        app:layout_constraintTop_toBottomOf="@id/failedToFetchListErrorIllustration"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
