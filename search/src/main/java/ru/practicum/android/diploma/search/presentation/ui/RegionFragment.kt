@@ -27,4 +27,9 @@ class RegionFragment : Fragment() {
             findNavController().navigateUp()
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

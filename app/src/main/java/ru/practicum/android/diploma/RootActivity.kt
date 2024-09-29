@@ -32,6 +32,7 @@ class RootActivity : AppCompatActivity() {
                     binding.bottomNavigationMenu.isVisible = true
                     binding.navigationPanelDivider.isVisible = true
                 }
+
                 else -> {
                     binding.bottomNavigationMenu.isVisible = false
                     binding.navigationPanelDivider.isVisible = false
