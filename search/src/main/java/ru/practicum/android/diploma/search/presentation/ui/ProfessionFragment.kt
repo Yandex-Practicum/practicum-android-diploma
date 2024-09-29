@@ -27,4 +27,9 @@ class ProfessionFragment : Fragment() {
             findNavController().navigateUp()
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }
