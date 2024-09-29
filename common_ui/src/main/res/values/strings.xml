@@ -18,6 +18,8 @@
     <string name="search_screen_no_results_popup">Таких вакансий нет</string>
     <string name="search_screen_searchbar_hint">Введите запрос</string>
 
+    <string name="search_screen_clear_button_content_description">Сбросить поисковой запрос</string>
+
     <!-- Filter screens -->
     <string name="filter_screens_main_header">Настройки фильтрации</string>
 
