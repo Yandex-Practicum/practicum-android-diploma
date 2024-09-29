@@ -44,19 +44,12 @@ dependencies {
     androidTestImplementation(libs.uiTests.espressoCore)
 
     // Add lib
-    implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.glide)
     annotationProcessor(libs.compiler)
     implementation(libs.logging.interceptor)
     implementation(libs.gson)
     implementation(libs.koin.android)
-    implementation(libs.androidX.core)
-    implementation(libs.androidX.appCompat)
-    implementation(libs.ui.material)
-    implementation(libs.retrofit)
-    implementation(libs.koin.android)
-    implementation(libs.converter.gson)
 
     implementation(libs.kotlinx.coroutines.android)
 
