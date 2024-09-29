@@ -61,6 +61,4 @@ dependencies {
 
     // modules
     implementation(project(":common_utils"))
-    implementation(project(":search"))
-    implementation(project(":favorites"))
 }

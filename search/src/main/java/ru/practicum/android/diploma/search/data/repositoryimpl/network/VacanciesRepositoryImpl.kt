@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data.networkclient.repositoryimpl
+package ru.practicum.android.diploma.search.data.repositoryimpl.network
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
