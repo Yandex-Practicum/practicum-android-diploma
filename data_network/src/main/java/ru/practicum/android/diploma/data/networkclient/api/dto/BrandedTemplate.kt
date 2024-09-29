@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal data class BrandedTemplate(
+data class BrandedTemplate(
     val id: String,
     val name: String,
 ) : Parcelable

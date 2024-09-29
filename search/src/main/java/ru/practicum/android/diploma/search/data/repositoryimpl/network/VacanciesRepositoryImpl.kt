@@ -7,18 +7,21 @@ import ru.practicum.android.diploma.data.networkclient.api.NetworkClient
 import ru.practicum.android.diploma.data.networkclient.api.dto.HHApiIndustriesRequest
 import ru.practicum.android.diploma.data.networkclient.api.dto.HHApiRegionsRequest
 import ru.practicum.android.diploma.data.networkclient.api.dto.HHApiVacanciesRequest
+import ru.practicum.android.diploma.data.networkclient.api.dto.HHApiVacancyRequest
 import ru.practicum.android.diploma.data.networkclient.api.dto.HHVacanciesResponse
+import ru.practicum.android.diploma.data.networkclient.api.dto.HHVacancyDetailResponse
 import ru.practicum.android.diploma.data.networkclient.api.dto.HttpStatus
-import ru.practicum.android.diploma.search.domain.Vacancy
+import ru.practicum.android.diploma.search.domain.models.Vacancy
+import ru.practicum.android.diploma.search.domain.models.VacancyDetail
 import ru.practicum.android.diploma.search.domain.repository.VacanciesRepository
+import ru.practicum.android.diploma.search.util.VacancyConverter
 
-class VacanciesRepositoryImpl(private val networkClient: NetworkClient) : VacanciesRepository {
+class VacanciesRepositoryImpl(
+    private val networkClient: NetworkClient,
+    private val vacancyConverter: VacancyConverter,
+) : VacanciesRepository {
     override fun searchVacancies(options: Map<String, String>): Flow<Resource<List<Vacancy>>> = flow {
-        val response = networkClient.doRequest(
-            HHApiVacanciesRequest(
-                "term"
-            )
-        )
+        val response = networkClient.doRequest(HHApiVacanciesRequest(options))
         when (response.resultCode) {
             HttpStatus.NO_INTERNET -> {
                 emit(Resource.Error("Check network connection"))
@@ -26,8 +29,7 @@ class VacanciesRepositoryImpl(private val networkClient: NetworkClient) : Vacanc
 
             HttpStatus.OK -> {
                 with(response as HHVacanciesResponse) {
-                    val data = response.items
-                    emit(Resource.Success(data))
+                    emit(Resource.Success(vacancyConverter.map(response.items)))
                 }
             }
 
@@ -41,12 +43,27 @@ class VacanciesRepositoryImpl(private val networkClient: NetworkClient) : Vacanc
         }
     }
 
-    override fun listVacancy(id: String): Flow<Unit> = flow {
-        val response = networkClient.doRequest(
-            HHApiVacanciesRequest(
-                id
-            )
-        )
+    override fun listVacancy(id: String): Flow<Resource<VacancyDetail>> = flow {
+        val response = networkClient.doRequest(HHApiVacancyRequest(id))
+        when (response.resultCode) {
+            HttpStatus.NO_INTERNET -> {
+                emit(Resource.Error("Check network connection"))
+            }
+
+            HttpStatus.OK -> {
+                with(response as HHVacancyDetailResponse) {
+                    emit(Resource.Success(vacancyConverter.map(response)))
+                }
+            }
+
+            HttpStatus.CLIENT_ERROR -> {
+                emit(Resource.Error("Request was not accepted ${response.resultCode}"))
+            }
+
+            HttpStatus.SERVER_ERROR -> {
+                emit(Resource.Error("Unexpcted error ${response.resultCode}"))
+            }
+        }
     }
 
     override fun listAreas(): Flow<Unit> = flow {

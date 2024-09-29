@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal data class Language(
+data class Language(
     val id: String,
     val level: Level,
     val name: String,

@@ -4,6 +4,6 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal data class DriverLicenseType(
+data class DriverLicenseType(
     val id: String,
 ) : Parcelable

@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal data class HHVacancyDetailResponse(
+data class HHVacancyDetailResponse(
     @SerializedName("accept_handicapped") val acceptHandicapped: Boolean,
     @SerializedName("accept_incomplete_resumes") val acceptIncompleteResumes: Boolean,
     @SerializedName("accept_kids") val acceptKids: Boolean,
