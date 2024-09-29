@@ -14,6 +14,6 @@ class FilterFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.activity_root, container, false)
+        return inflater.inflate(R.layout.fragment_filters, container, false)
     }
 }

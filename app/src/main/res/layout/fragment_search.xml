@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/titleTemplate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SEARCH SCREEN"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonFilters"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <Button
+        android:id="@+id/buttonFilters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Filters Screen"
+        app:layout_constraintBottom_toTopOf="@+id/buttonVacancies"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleTemplate" />
+
+    <Button
+        android:id="@+id/buttonVacancies"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vacancies Screen"
+        app:layout_constraintBottom_toTopOf="@+id/buttonFavorites"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonFilters" />
+
+    <Button
+        android:id="@+id/buttonFavorites"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Favorites Screen"
+        app:layout_constraintBottom_toTopOf="@+id/buttonTeam"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonVacancies" />
+
+    <Button
+        android:id="@+id/buttonTeam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Team Screen"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonFavorites" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
