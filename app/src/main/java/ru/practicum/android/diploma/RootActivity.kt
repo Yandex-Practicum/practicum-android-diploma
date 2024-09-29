@@ -10,7 +10,8 @@ import ru.practicum.android.diploma.databinding.ActivityRootBinding
 
 class RootActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityRootBinding
+    private var _binding: ActivityRootBinding? = null
+    private val binding: ActivityRootBinding get() = _binding!!
 
     private val navController: NavController by lazy {
         (supportFragmentManager.findFragmentById(R.id.rootFragments) as NavHostFragment).navController
@@ -18,7 +19,7 @@ class RootActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityRootBinding.inflate(layoutInflater)
+        _binding = ActivityRootBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         navController.addOnDestinationChangedListener { _, destination, _ -> // скрываем/показываем нижнюю панель
@@ -31,6 +32,7 @@ class RootActivity : AppCompatActivity() {
                     binding.bottomNavigationMenu.isVisible = true
                     binding.navigationPanelDivider.isVisible = true
                 }
+
                 else -> {
                     binding.bottomNavigationMenu.isVisible = false
                     binding.navigationPanelDivider.isVisible = false
@@ -47,6 +49,11 @@ class RootActivity : AppCompatActivity() {
 
     private fun networkRequestExample(accessToken: String) {
         // ...
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 }
