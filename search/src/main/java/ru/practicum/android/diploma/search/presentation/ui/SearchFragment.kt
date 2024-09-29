@@ -61,9 +61,11 @@ class SearchFragment : Fragment() {
 
         searchBarSetUp()
 
-        //searchFragmentViewModel.stateLiveData.observe(viewLifecycleOwner, Observer { //ждёт VM
+        //searchFragmentViewModel.stateLiveData.observe(viewLifecycleOwner, Observer { // ждёт VM
         //    state -> updateUI(state)
         // })
+
+        updateUI(SearchScreenState.IDLE) // чтобы не ругался detekt, по наличию VM удалим
 
         binding.filter.setOnClickListener {
             findNavController().navigate(R.id.action_searchFragment_to_filterFragment)
@@ -74,17 +76,8 @@ class SearchFragment : Fragment() {
     }
 
     private fun searchBarSetUp() {
-        binding.searchBar.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (binding.searchBar.text.isNotEmpty()) {
-                    // добавляем логику поиска + debounce
-                }
-            }
-
-            override fun afterTextChanged(p0: Editable?) {}
-        })
+        // addTextChangedListener заглушку выбросил т.к. detekt ругается на пустые блоки
+        // добавим при готовой логике поиска
 
         binding.searchBar.doOnTextChanged { text, start, before, count ->
             if (text?.isNotEmpty() == true) {
@@ -108,7 +101,7 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun disableAllVariableViews(){
+    private fun disableAllVariableViews() {
         binding.defaultIllustration.isVisible = false
         binding.resultCountPopup.isVisible = false
         binding.failedToFetchListErrorIllustration.isVisible = false
@@ -125,7 +118,8 @@ class SearchFragment : Fragment() {
         when (state) {
             SearchScreenState.FAILED_TO_FETCH_VACANCIES_ERROR -> {
                 binding.resultCountPopup.isVisible = true
-                binding.resultCountPopup.text = getString(ru.practicum.android.diploma.common_ui.R.string.search_screen_no_results_popup)
+                binding.resultCountPopup.text =
+                    getString(ru.practicum.android.diploma.common_ui.R.string.search_screen_no_results_popup)
                 binding.failedToFetchListErrorIllustration.isVisible = true
                 binding.failedToFetchListErrorText.isVisible = true
             }
