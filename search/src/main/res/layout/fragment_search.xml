@@ -7,6 +7,7 @@
     android:background="@color/background"
     tools:context=".presentation.ui.SearchFragment">
 
+    <!-- Guidelines -->
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/tobBarGuideline"
         android:layout_width="match_parent"
@@ -21,6 +22,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="139dp" />
 
+    <!-- Filter button -->
     <ImageView
         android:id="@+id/filter"
         style="@style/Filter"
@@ -36,6 +38,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Header -->
     <TextView
         android:id="@+id/search_vacancy"
         style="@style/TextViewMedium22"
@@ -52,6 +55,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Search bar -->
     <EditText
         android:id="@+id/searchBar"
         style="@style/TextViewRegular16"
@@ -79,136 +83,212 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tobBarGuideline" />
 
+    <!-- Dynamically switching search bar icons -->
     <ImageView
-        android:id="@+id/clearSearch"
+        android:id="@+id/clearSearchIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:padding="13dp"
-        android:src="@drawable/clear_search"
         android:visibility="gone"
+
+        android:padding="17dp"
+        android:src="@drawable/clear_search"
+
+        android:layout_marginEnd="4dp"
+        android:layout_marginVertical="4dp"
+
         app:layout_constraintBottom_toBottomOf="@id/searchBar"
         app:layout_constraintEnd_toEndOf="@id/searchBar"
         app:layout_constraintTop_toTopOf="@id/searchBar" />
 
     <ImageView
-        android:id="@+id/searchBarLoupe"
+        android:id="@+id/searchBarLoupeIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
+        android:visibility="visible"
+
         android:padding="12dp"
         android:src="@drawable/search_loupe"
+
+        android:layout_marginEnd="4dp"
+        android:layout_marginVertical="4dp"
+
         app:layout_constraintBottom_toBottomOf="@id/searchBar"
         app:layout_constraintEnd_toEndOf="@id/searchBar"
         app:layout_constraintTop_toTopOf="@id/searchBar" />
 
+    <!-- Progress bar for loading new vacancies list -->
+    <ProgressBar
+        android:id="@+id/progressBarLoadingFromSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="162dp"
+
+        android:indeterminateTint="@color/blue"
+        android:padding="6dp"
+        android:visibility="gone"
+
+        android:layout_marginTop="244dp"
+        android:layout_marginBottom="243dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchBarGuideline"
+        app:layout_constraintVertical_bias="0" />
+
+    <!-- Results popup -->
     <TextView
         android:id="@+id/resultCountPopup"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
+        android:visibility="visible"
 
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="101dp"
         android:background="@drawable/rounded_12dp_blue_bg"
-
         android:gravity="center"
-
         android:text="@string/search_screen_no_results_popup"
+        style="@style/TextViewRegular16"
         android:textColor="@color/white"
-        android:visibility="gone"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="4dp"
+
+        android:layout_marginTop="3dp"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchBar" />
+        app:layout_constraintTop_toBottomOf="@+id/searchBarGuideline" />
 
+    <!-- Recycler -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/vacancyRecycler"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:visibility="gone"
 
-        app:layout_constraintBottom_toBottomOf="parent"
+        tools:itemCount="5"
+        android:paddingTop="38dp"
 
+        app:layout_goneMarginBottom="0dp"
+        android:layout_marginBottom="16dp"
+
+        app:layout_constraintBottom_toTopOf="@id/progressBarLoadingNewPage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/resultCountPopup"
+        app:layout_constraintTop_toBottomOf="@+id/searchBarGuideline"
         app:layout_constraintVertical_bias="0" />
 
+    <!-- Progress bar for loading new page (under recycler, locked to bottom)-->
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/progressBarLoadingNewPage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
 
+        android:indeterminateTint="@color/blue"
+        android:padding="6dp"
+
         android:layout_marginHorizontal="162dp"
-        android:layout_marginTop="250dp"
-        android:layout_marginEnd="240dp"
+        android:layout_marginBottom="16dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Default image -->
+    <ImageView
+        android:id="@+id/defaultIllustration"
+        android:layout_width="328dp"
+        android:layout_height="223dp"
+        tools:ignore="ContentDescription"
+        android:visibility="gone"
+
+        android:scaleType="fitCenter"
+        android:src="@drawable/il_1"
+
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="156dp"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/searchBarGuideline" />
 
-    <ImageView
-        android:id="@+id/defaultIllustration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:src="@drawable/il_1"
-
-        app:layout_constraintTop_toTopOf="@id/searchBarGuideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
+    <!-- No internet error -->
     <ImageView
         android:id="@+id/noInternetErrorIllustration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="328dp"
+        android:layout_height="223dp"
+        android:importantForAccessibility="no"
+        android:visibility="gone"
 
         android:src="@drawable/il_2"
+        android:scaleType="fitCenter"
+        app:layout_constraintVertical_bias="1"
 
-        app:layout_constraintTop_toTopOf="@id/searchBarGuideline"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="135dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="16dp"
+
+        app:layout_constraintBottom_toTopOf="@id/noInternetErrorText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/searchBarGuideline" />
 
     <TextView
         android:id="@+id/noInternetErrorText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
+
+        style="@style/TextViewMedium22"
+        android:padding="0dp"
         android:text="@string/no_internet_error"
 
-        app:layout_constraintTop_toBottomOf="@id/noInternetErrorIllustration"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+        android:layout_marginHorizontal="46dp"
+        android:layout_marginBottom="135dp"
 
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Failed to fetch list of vacancies error-->
     <ImageView
         android:id="@+id/failedToFetchListErrorIllustration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="328dp"
+        android:layout_height="223dp"
+        android:importantForAccessibility="no"
+        android:visibility="visible"
 
         android:src="@drawable/il_5"
+        android:scaleType="fitCenter"
+        app:layout_constraintVertical_bias="@integer/material_motion_duration_long_1"
 
-        app:layout_constraintTop_toTopOf="@id/searchBarGuideline"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="122dp"
+        android:layout_marginVertical="16dp"
+        android:layout_marginBottom="16dp"
+
+        app:layout_constraintBottom_toTopOf="@id/failedToFetchListErrorText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/searchBarGuideline" />
 
     <TextView
         android:id="@+id/failedToFetchListErrorText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="visible"
+
+        style="@style/TextViewMedium22"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:padding="0dp"
         android:text="@string/vacancies_list_server_error"
 
-        app:layout_constraintTop_toBottomOf="@id/failedToFetchListErrorIllustration"
+        android:layout_marginHorizontal="46dp"
+        android:layout_marginBottom="122dp"
+
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

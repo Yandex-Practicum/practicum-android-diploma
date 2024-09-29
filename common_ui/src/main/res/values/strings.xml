@@ -8,7 +8,7 @@
     <string name="fragment_placeholder">Данная страница в разработке</string>
 
     <!-- Common errors -->
-    <string name="vacancies_list_server_error">Не удалось получить список вакансий</string>
+    <string name="vacancies_list_server_error">Не удалось получить\nсписок вакансий</string>
     <string name="no_internet_error">Нет интернета</string>
     <string name="server_error">Ошибка сервера</string>
 

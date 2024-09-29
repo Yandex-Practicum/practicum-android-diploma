@@ -36,4 +36,9 @@
         <item name="android:padding">19dp</item>
         <item name="android:textFontWeight">500</item>
     </style>
+    <style name="TextViewRegular16">
+        <item name="android:textSize">@dimen/textSizeLittle</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textColor">@color/primaryTextAndUIColor</item>
+    </style>
 </resources>
