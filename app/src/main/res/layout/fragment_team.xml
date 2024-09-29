@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="?attr/colorPrimary"
+android:orientation="vertical">
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp">
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:fontFamily="@font/ys_display_medium"
+        style="@style/TextMedium22"
+        android:text="@string/team"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+        android:id="@+id/subtitle_team"
+        style="@style/TextBol32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/worked_on_this"/>
+
+        <TextView
+        android:id="@+id/member1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/member1"
+        android:layout_marginTop="40dp"
+        style="@style/TextMedium16"/>
+
+        <TextView
+        android:id="@+id/member2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/member2"
+        style="@style/TextMedium16"/>
+
+        <TextView
+        android:id="@+id/member3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/member3"
+        style="@style/TextMedium16"/>
+
+        <TextView
+        android:id="@+id/member4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/member4"
+        style="@style/TextMedium16"/>
+
+        <TextView
+        android:id="@+id/member5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/member5"
+        style="@style/TextMedium16"/>
+
+</LinearLayout>
+</LinearLayout>
