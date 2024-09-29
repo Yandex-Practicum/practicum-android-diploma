@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.vacancy.presentation.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,8 +25,19 @@ class VacancyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val alternateUrl = ""
         binding.buttonLeftVacancy.setOnClickListener {
             findNavController().navigateUp()
+        }
+        binding.shareButton.setOnClickListener {
+            Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, alternateUrl)
+                type = "text/plain"
+                Intent.createChooser(this, null)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                context?.startActivity(this)
+            }
         }
     }
 

@@ -7,4 +7,11 @@
     <dimen name="textPadding">19dp</dimen>
     <dimen name="filterPadding">20dp</dimen>
     <dimen name="buttonLeftPadding">24dp</dimen>
+    <dimen name="vacancyCardHeight">80dp</dimen>
+    <dimen name="vacancyTextPadding">16dp</dimen>
+    <dimen name="vacancyCardRadius">12dp</dimen>
+    <dimen name="noPadding">0dp</dimen>
+    <dimen name="vacancyCardPadding">8dp</dimen>
+    <dimen name="errorPadding">46dp</dimen>
+    <dimen name="progressBar">48dp</dimen>
 </resources>

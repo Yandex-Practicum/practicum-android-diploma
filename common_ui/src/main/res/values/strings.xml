@@ -46,6 +46,7 @@
     <!-- Vacancy screen, use plurals for job experience-->
     <string name="vacancy_screen_header">Вакансия</string>
     <string name="vacancy_screen_base_salary">от %s %s</string>
+    <string name="vacancy_screen_experience">Требуемый опыт</string>
     <string name="vacancy_screen_description">Описание вакансии</string>
     <string name="vacancy_screen_responsibilities">Обязанности</string>
     <string name="vacancy_screen_requirements">Требования</string>
