@@ -2,8 +2,6 @@ package ru.practicum.android.diploma.search.presentation.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,7 +59,7 @@ class SearchFragment : Fragment() {
 
         searchBarSetUp()
 
-        //searchFragmentViewModel.stateLiveData.observe(viewLifecycleOwner, Observer { // ждёт VM
+        // searchFragmentViewModel.stateLiveData.observe(viewLifecycleOwner, Observer { // ждёт VM
         //    state -> updateUI(state)
         // })
 

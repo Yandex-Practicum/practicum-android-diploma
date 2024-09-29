@@ -1,7 +1,7 @@
 package ru.practicum.android.diploma.search.presentation
 
 sealed class SearchScreenState {
-    data object IDLE: SearchScreenState()
+    data object IDLE : SearchScreenState()
 
     data object LOADING_NEW_LIST : SearchScreenState()
 
