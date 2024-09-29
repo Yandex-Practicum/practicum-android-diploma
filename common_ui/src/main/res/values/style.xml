@@ -47,4 +47,20 @@
         <item name="android:paddingVertical">@dimen/buttonLeftPadding</item>
         <item name="android:paddingLeft">@dimen/buttonLeftPadding</item>
     </style>
+
+    <style name="SearchBar">
+        <item name="android:textSize">@dimen/textSizeLittle</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@drawable/rounded_12dp_grey_and_light_grey_bg</item>
+        <item name="android:inputType">text</item>
+
+        <item name="android:paddingVertical">4dp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">4dp</item>
+
+        <item name="android:hint">@string/search_screen_searchbar_hint</item>
+        <item name="android:textColorHint">@color/searchBarHintTextColor</item>
+        <item name="android:textCursorDrawable">@drawable/blue_text_cursor_drawable</item>
+    </style>
 </resources>
