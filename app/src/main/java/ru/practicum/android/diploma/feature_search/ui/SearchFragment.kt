@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.root
+package ru.practicum.android.diploma.feature_search.ui;
 
 import android.os.Bundle
 import android.view.LayoutInflater

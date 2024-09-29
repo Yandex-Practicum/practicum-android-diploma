@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.root
+package ru.practicum.android.diploma.feature_vacancies.ui
 
 
 import android.os.Bundle
