@@ -21,14 +21,16 @@ class SearchFragment : Fragment() {
     private val binding get() = _binding!!
     private var userInputReserve = ""
 
-    //private val searchFragmentViewModel: SearchFragmentViewModel by viewModel() //ждёт VM
+    // private val searchFragmentViewModel: SearchFragmentViewModel by viewModel() //ждёт VM
 
     companion object {
         private const val USER_INPUT = "userInput"
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
@@ -61,7 +63,7 @@ class SearchFragment : Fragment() {
 
         //searchFragmentViewModel.stateLiveData.observe(viewLifecycleOwner, Observer { //ждёт VM
         //    state -> updateUI(state)
-        //})
+        // })
 
         binding.filter.setOnClickListener {
             findNavController().navigate(R.id.action_searchFragment_to_filterFragment)
@@ -73,15 +75,15 @@ class SearchFragment : Fragment() {
 
     private fun searchBarSetUp() {
         binding.searchBar.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (binding.searchBar.text.isNotEmpty()) {
-                    //добавляем логику поиска + debounce
+                    // добавляем логику поиска + debounce
                 }
             }
-            override fun afterTextChanged(p0: Editable?) {
-            }
+
+            override fun afterTextChanged(p0: Editable?) {}
         })
 
         binding.searchBar.doOnTextChanged { text, start, before, count ->
@@ -106,87 +108,52 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun updateUI(state : SearchScreenState){
-        when (state){
-            SearchScreenState.FAILED_TO_FETCH_VACANCIES_ERROR -> {
-                binding.resultCountPopup.isVisible=true
-                binding.resultCountPopup.text= getString(ru.practicum.android.diploma.common_ui.R.string.search_screen_no_results_popup)
-                binding.failedToFetchListErrorIllustration.isVisible=true
-                binding.failedToFetchListErrorText.isVisible=true
+    private fun disableAllVariableViews(){
+        binding.defaultIllustration.isVisible = false
+        binding.resultCountPopup.isVisible = false
+        binding.failedToFetchListErrorIllustration.isVisible = false
+        binding.failedToFetchListErrorText.isVisible = false
+        binding.noInternetErrorIllustration.isVisible = false
+        binding.noInternetErrorText.isVisible = false
+        binding.vacancyRecycler.isVisible = false
+        binding.progressBarLoadingFromSearch.isVisible = false
+        binding.progressBarLoadingNewPage.isVisible = false
+    }
 
-                binding.noInternetErrorIllustration.isVisible=false
-                binding.noInternetErrorText.isVisible=false
-                binding.defaultIllustration.isVisible=false
-                binding.vacancyRecycler.isVisible=false
-                binding.progressBarLoadingFromSearch.isVisible=false
-                binding.progressBarLoadingNewPage.isVisible=false
+    private fun updateUI(state: SearchScreenState) {
+        disableAllVariableViews()
+        when (state) {
+            SearchScreenState.FAILED_TO_FETCH_VACANCIES_ERROR -> {
+                binding.resultCountPopup.isVisible = true
+                binding.resultCountPopup.text = getString(ru.practicum.android.diploma.common_ui.R.string.search_screen_no_results_popup)
+                binding.failedToFetchListErrorIllustration.isVisible = true
+                binding.failedToFetchListErrorText.isVisible = true
             }
 
             SearchScreenState.IDLE -> {
-                binding.defaultIllustration.isVisible=true
-
-                binding.resultCountPopup.isVisible=false
-                binding.failedToFetchListErrorIllustration.isVisible=false
-                binding.failedToFetchListErrorText.isVisible=false
-                binding.noInternetErrorIllustration.isVisible=false
-                binding.noInternetErrorText.isVisible=false
-                binding.vacancyRecycler.isVisible=false
-                binding.progressBarLoadingFromSearch.isVisible=false
-                binding.progressBarLoadingNewPage.isVisible=false
+                binding.defaultIllustration.isVisible = true
             }
 
             SearchScreenState.LOADING_NEW_LIST -> {
-                binding.progressBarLoadingFromSearch.isVisible=true
-
-                binding.defaultIllustration.isVisible=false
-                binding.resultCountPopup.isVisible=false
-                binding.failedToFetchListErrorIllustration.isVisible=false
-                binding.failedToFetchListErrorText.isVisible=false
-                binding.noInternetErrorIllustration.isVisible=false
-                binding.noInternetErrorText.isVisible=false
-                binding.vacancyRecycler.isVisible=false
-                binding.progressBarLoadingNewPage.isVisible=false
+                binding.progressBarLoadingFromSearch.isVisible = true
             }
 
             SearchScreenState.LOADING_NEW_PAGE -> {
-                binding.resultCountPopup.isVisible=true
-                //binding.resultCountPopup.text="" добавить по наличии логики
-                binding.vacancyRecycler.isVisible=true
-                binding.progressBarLoadingNewPage.isVisible=true
-
-                binding.defaultIllustration.isVisible=false
-                binding.failedToFetchListErrorIllustration.isVisible=false
-                binding.failedToFetchListErrorText.isVisible=false
-                binding.noInternetErrorIllustration.isVisible=false
-                binding.noInternetErrorText.isVisible=false
-                binding.progressBarLoadingFromSearch.isVisible=false
+                binding.resultCountPopup.isVisible = true
+                // binding.resultCountPopup.text = "" добавить по наличии логики
+                binding.vacancyRecycler.isVisible = true
+                binding.progressBarLoadingNewPage.isVisible = true
             }
 
             SearchScreenState.NO_INTERNET_ERROR -> {
-                binding.noInternetErrorIllustration.isVisible=true
-                binding.noInternetErrorText.isVisible=true
-
-                binding.defaultIllustration.isVisible=false
-                binding.resultCountPopup.isVisible=false
-                binding.failedToFetchListErrorIllustration.isVisible=false
-                binding.failedToFetchListErrorText.isVisible=false
-                binding.vacancyRecycler.isVisible=false
-                binding.progressBarLoadingFromSearch.isVisible=false
-                binding.progressBarLoadingNewPage.isVisible=false
+                binding.noInternetErrorIllustration.isVisible = true
+                binding.noInternetErrorText.isVisible = true
             }
 
             SearchScreenState.VACANCY_LIST_LOADED -> {
-                binding.resultCountPopup.isVisible=true
-                //binding.resultCountPopup.text="" добавить по наличии логики
-                binding.vacancyRecycler.isVisible=true
-
-                binding.defaultIllustration.isVisible=false
-                binding.failedToFetchListErrorIllustration.isVisible=false
-                binding.failedToFetchListErrorText.isVisible=false
-                binding.noInternetErrorIllustration.isVisible=false
-                binding.noInternetErrorText.isVisible=false
-                binding.progressBarLoadingFromSearch.isVisible=false
-                binding.progressBarLoadingNewPage.isVisible=false
+                binding.resultCountPopup.isVisible = true
+                // binding.resultCountPopup.text = "" добавить по наличии логики
+                binding.vacancyRecycler.isVisible = true
             }
         }
     }
