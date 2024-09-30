@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="maskPadding">7dp</dimen>
+    <dimen name="dimens_9">9dp</dimen>
     <dimen name="dimens_12">12dp</dimen>
     <dimen name="dimens_16">16dp</dimen>
     <dimen name="textPadding">19dp</dimen>
