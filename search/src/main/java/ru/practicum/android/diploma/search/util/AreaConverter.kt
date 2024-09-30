@@ -10,11 +10,11 @@ import ru.practicum.android.diploma.data.networkclient.api.dto.AreaX as AreaXDto
 
 class AreaConverter {
     fun map(regions: HHRegionsResponse): RegionList = RegionList(ArrayList(regions.map { it ->
-        Region(map(it.areas), it.id, it.name, it.parentId)
+        Region(mapX(it.areas), it.id, it.name, it.parentId)
     }))
 
     fun map(areas: List<AreaDto>): List<Area> = areas.map { map(it) }
-    fun map(areas: List<AreaXDto>): List<AreaX> = areas.map { map(it) }
+    fun mapX(areas: List<AreaXDto>): List<AreaX> = areas.map { map(it) }
     fun map(area: AreaDto): Area = with(area) { Area(id, name, url) }
     fun map(areaX: AreaXDto): AreaX = with(areaX) { AreaX(map(areaX.areas), areaX.id, areaX.name, areaX.parentId) }
 }

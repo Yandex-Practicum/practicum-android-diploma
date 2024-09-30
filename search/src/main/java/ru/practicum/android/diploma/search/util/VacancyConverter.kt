@@ -32,7 +32,7 @@ import ru.practicum.android.diploma.data.networkclient.api.dto.WorkingDay as Wor
 import ru.practicum.android.diploma.data.networkclient.api.dto.WorkingTimeInterval as WorkingTimeIntervalDto
 
 class VacancyConverter {
-    fun map(items: List<Item>): List<Vacancy> {
+    fun mapItem(items: List<Item>): List<Vacancy> {
         return ArrayList(items.map {
             with(it) {
                 Vacancy(
@@ -54,13 +54,13 @@ class VacancyConverter {
                 map(employment),
                 map(experience),
                 id,
-                map(keySkills),
-                map(languages),
+                mapSkills(keySkills),
+                mapLanguage(languages),
                 name,
-                map(professionalRoles),
+                mapRoles(professionalRoles),
                 map(salary),
                 map(schedule),
-                map(workingDays),
+                mapDays(workingDays),
                 map(workingTimeIntervals)
             )
         }
@@ -102,7 +102,7 @@ class VacancyConverter {
         }
     }
 
-    private fun map(keySkills: List<KeySkillDto>): List<KeySkill> {
+    private fun mapSkills(keySkills: List<KeySkillDto>): List<KeySkill> {
         return ArrayList(keySkills).map {
             with(it) {
                 KeySkill(name)
@@ -110,7 +110,7 @@ class VacancyConverter {
         }
     }
 
-    private fun map(languages: List<LanguageDto>): List<Language> {
+    private fun mapLanguage(languages: List<LanguageDto>): List<Language> {
         return ArrayList(languages).map {
             with(it) {
                 Language(id, map(level), name)
@@ -124,7 +124,7 @@ class VacancyConverter {
         }
     }
 
-    private fun map(professionalRoles: List<ProfessionalRoleDto>): List<ProfessionalRole> {
+    private fun mapRoles(professionalRoles: List<ProfessionalRoleDto>): List<ProfessionalRole> {
         return ArrayList(professionalRoles).map {
             with(it) {
                 ProfessionalRole(id, name)
@@ -144,7 +144,7 @@ class VacancyConverter {
         }
     }
 
-    private fun map(workingDays: List<WorkingDayDto>): List<WorkingDay> {
+    private fun mapDays(workingDays: List<WorkingDayDto>): List<WorkingDay> {
         return ArrayList(workingDays).map {
             with(it) {
                 WorkingDay(id, name)

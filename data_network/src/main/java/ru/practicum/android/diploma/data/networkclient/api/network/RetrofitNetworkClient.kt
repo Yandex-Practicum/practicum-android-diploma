@@ -52,8 +52,7 @@ internal class RetrofitNetworkClient(
     }
 
     private suspend fun vacancyListRequest(dto: HHApiVacanciesRequest): Response {
-        val request = mapOf("query" to dto.request)
-        return hhApiService.searchVacancies(request)
+        return hhApiService.searchVacancies(dto.request)
     }
 
     private suspend fun vacancyRequest(dto: HHApiVacancyRequest): Response {

@@ -37,7 +37,7 @@ class VacanciesRepositoryImpl(
 
             HttpStatus.OK -> {
                 with(response as HHVacanciesResponse) {
-                    emit(Resource.Success(vacancyConverter.map(response.items)))
+                    emit(Resource.Success(vacancyConverter.mapItem(response.items)))
                 }
             }
 
