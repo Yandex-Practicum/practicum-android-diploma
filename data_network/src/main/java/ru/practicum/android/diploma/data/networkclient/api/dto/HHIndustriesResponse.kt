@@ -4,6 +4,6 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal data class HHIndustriesResponse(
+data class HHIndustriesResponse(
     override val resultCode: HttpStatus = HttpStatus.OK,
 ) : ArrayList<HHIndustriesResponseItem>(), Response, Parcelable
