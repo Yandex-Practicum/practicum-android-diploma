@@ -24,12 +24,13 @@ kotlinxCoroutinesAndroid = "1.8.1"
 lifecycleViewmodelKtx = "2.8.4"
 roomRuntime = "2.6.1"
 glide = "4.14.2"
-koinAndroid = "3.3.0"
+koinAndroid = "3.5.0"
 ksp = "1.9.21-1.0.16"
 
 [libraries]
 
 # Detekt
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koinAndroid" }
 staticAnalysis-detektPlugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
 staticAnalysis-detektCli = { module = "io.gitlab.arturbosch.detekt:detekt-cli", version.ref = "detekt" }
 staticAnalysis-detektApi = { module = "io.gitlab.arturbosch.detekt:detekt-api", version.ref = "detekt" }
