@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.search.presentation.viewmodel
 
-import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.domain.models.VacancyDetail
 
 sealed interface VacancyListState {
