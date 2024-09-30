@@ -12,11 +12,12 @@ import ru.practicum.android.diploma.favorites.R
 import ru.practicum.android.diploma.favorites.databinding.ItemFavoriteBinding
 import ru.practicum.android.diploma.favorites.domain.model.FavoriteVacancy
 
+private const val RADIUS_ROUND_VIEW = 12f
 class FavoriteAdapter(
     private val isConnected: Boolean,
     private val favoriteVacancies: List<FavoriteVacancy>,
     private val favoriteClickListener: FavoriteClickListener
-): RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder> () {
+) : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder> () {
     private var vacancies = favoriteVacancies
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
@@ -30,7 +31,7 @@ class FavoriteAdapter(
 
     override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
         holder.bind(vacancies[position])
-        holder.itemView.setOnClickListener{
+        holder.itemView.setOnClickListener {
             favoriteClickListener.onFavoriteClick(vacancies[position])
         }
     }
@@ -39,15 +40,18 @@ class FavoriteAdapter(
         fun onFavoriteClick(favoriteVacancy: FavoriteVacancy)
     }
 
-    class FavoriteViewHolder(private val isConnected: Boolean, private val binding: ItemFavoriteBinding): RecyclerView.ViewHolder(binding.root) {
+    class FavoriteViewHolder(
+        private val isConnected: Boolean,
+        private val binding: ItemFavoriteBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
         fun bind(model: FavoriteVacancy) {
-            if(isConnected) {
+            if (isConnected) {
                 Glide.with(itemView)
                     .load(model.urlLogo)
                     .placeholder(R.drawable.placeholder_logo_item_favorite)
-                    .transform(CenterCrop(), RoundedCorners(Utils.doToPx(12f, itemView.context.applicationContext)))
+                    .transform(CenterCrop(), RoundedCorners(Utils.doToPx(RADIUS_ROUND_VIEW, itemView.context.applicationContext)))
                     .transform()
                     .into(binding.itemLogoVacancy)
             }

@@ -20,9 +20,17 @@ class FavoriteViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             favoriteInteractor.getVacancies().collect { favoriteVacancies ->
                 when {
-                    favoriteVacancies.isEmpty() -> favoriteStateLiveData.postValue(FavoriteState.Empty)
-                    favoriteVacancies.size < Int.MAX_VALUE -> favoriteStateLiveData.postValue(FavoriteState.Content(favoriteVacancies))
-                    else -> favoriteStateLiveData.postValue(FavoriteState.Error)
+                    favoriteVacancies.isEmpty() -> {
+                        favoriteStateLiveData.postValue(FavoriteState.Empty)
+                    }
+                    favoriteVacancies.size < Int.MAX_VALUE -> {
+                        favoriteStateLiveData.postValue(
+                            FavoriteState.Content(favoriteVacancies)
+                        )
+                    }
+                    else -> {
+                        favoriteStateLiveData.postValue(FavoriteState.Error)
+                    }
                 }
             }
         }
