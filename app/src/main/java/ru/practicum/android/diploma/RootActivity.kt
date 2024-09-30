@@ -54,26 +54,6 @@ class RootActivity : AppCompatActivity() {
 
     private fun networkRequestExample(accessToken: String) {
         // ...
-        val interactor: VacanciesInteractor by inject()
-
-        GlobalScope.launch {
-            val result = interactor.listAreas()
-            result.collect {
-                Log.d(TAG, it.first.toString())
-            }
-            val resultIndustries = interactor.listIndustries()
-            resultIndustries.collect {
-                Log.d(TAG, it.first.toString())
-            }
-            val resultDetailVacancy = interactor.listVacancy("106594031")
-            resultDetailVacancy.collect {
-                Log.d(TAG, it.first.toString())
-            }
-            val resultVacancies = interactor.searchVacancies(emptyMap())
-            resultVacancies.collect {
-                Log.d(TAG, it.first.toString())
-            }
-        }
     }
 
     override fun onDestroy() {
