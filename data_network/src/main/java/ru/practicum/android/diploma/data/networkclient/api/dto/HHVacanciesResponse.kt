@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-class HHVacanciesResponse(
+data class HHVacanciesResponse(
     val arguments: List<Argument>,
     val clusters: String?,
     val fixes: String?,
@@ -15,5 +15,5 @@ class HHVacanciesResponse(
     val pages: Int,
     @SerializedName("per_page") val perPage: Int,
     val suggests: String?,
-    override var resultCode: HttpStatus,
+    @Suppress("detekt.DataClassShouldBeImmutable") override var resultCode: HttpStatus,
 ) : Response, Parcelable
