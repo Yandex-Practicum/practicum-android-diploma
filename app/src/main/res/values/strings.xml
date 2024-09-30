@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Practicum-Android-Diploma</string>
+    <string name="worked_on_this">Над приложением работали</string>
+    <string name="team">Команда</string>
+    <string name="member1">Палади Олег Игоревич</string>
+    <string name="member2">Мячина Александра Юрьевна</string>
+    <string name="member3">Владислав Горымов</string>
+    <string name="member4">Алексей Кулаев</string>
+    <string name="member5">Пётр Михайлович Павлов</string>
+    <string name="bottom_nav_item_main">Главная</string>
+    <string name="bottom_nav_item_favorites">Избранное</string>
+    <string name="bottom_nav_item_team">Команда</string>
 </resources>
