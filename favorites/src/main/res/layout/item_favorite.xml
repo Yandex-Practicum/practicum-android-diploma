@@ -7,7 +7,7 @@
     android:id="@+id/itemVacancy">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/itemLogoVacancy"
         android:layout_width="@dimen/sizeLogoItemFavorite"
         android:layout_height="@dimen/sizeLogoItemFavorite"
         app:layout_constraintStart_toStartOf="parent"
@@ -15,7 +15,7 @@
         app:srcCompat="@drawable/placeholder_logo_item_favorite" />
 
     <TextView
-        android:id="@+id/itemNameVacancy"
+        android:id="@+id/itemNameVacancyAndLocation"
         style="@style/TextViewMedium22"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
         android:maxLines="3"
         android:padding="0dp"
         android:text="@string/vacancy_screen_header"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/itemLogoVacancy"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -36,8 +36,8 @@
         android:ellipsize="end"
         android:maxLines="3"
         android:text="@string/favorites_company"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/itemNameVacancy" />
+        app:layout_constraintStart_toEndOf="@+id/itemLogoVacancy"
+        app:layout_constraintTop_toBottomOf="@+id/itemNameVacancyAndLocation" />
 
     <TextView
         android:id="@+id/itemSalarySize"
@@ -50,7 +50,7 @@
         android:text="@string/salary_size"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="@dimen/dimens_12"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/itemLogoVacancy"
         app:layout_constraintTop_toBottomOf="@+id/itemNameCompany" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
