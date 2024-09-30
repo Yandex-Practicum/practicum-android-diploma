@@ -35,9 +35,7 @@ class VacancyConverter {
     fun mapItem(items: List<Item>): List<Vacancy> {
         return ArrayList(items.map {
             with(it) {
-                Vacancy(
-                    name, employer.name, salary?.from, salary?.to, salary?.currency, employer.logoUrls?.original
-                )
+                Vacancy(name, employer.name, salary?.from, salary?.to, salary?.currency, employer.logoUrls?.original)
             }
         })
     }
@@ -51,15 +49,15 @@ class VacancyConverter {
                 brandedDescription,
                 description,
                 map(employer),
-                map(employment),
-                map(experience),
+                mapEmployment(employment),
+                mapExperience(experience),
                 id,
                 mapSkills(keySkills),
                 mapLanguage(languages),
                 name,
                 mapRoles(professionalRoles),
-                map(salary),
-                map(schedule),
+                mapSalary(salary),
+                mapSchedule(schedule),
                 mapDays(workingDays),
                 map(workingTimeIntervals)
             )
@@ -85,10 +83,12 @@ class VacancyConverter {
             LogoUrls(
                 deg240, deg90, original
             )
-        } else null
+        } else {
+            null
+        }
     }
 
-    private fun map(employment: EmploymentDto): Employment {
+    private fun mapEmployment(employment: EmploymentDto): Employment {
         return with(employment) {
             Employment(
                 id, name
@@ -96,7 +96,7 @@ class VacancyConverter {
         }
     }
 
-    private fun map(experience: ExperienceDto): Experience {
+    private fun mapExperience(experience: ExperienceDto): Experience {
         return with(experience) {
             Experience(id, name)
         }
@@ -113,12 +113,12 @@ class VacancyConverter {
     private fun mapLanguage(languages: List<LanguageDto>): List<Language> {
         return ArrayList(languages).map {
             with(it) {
-                Language(id, map(level), name)
+                Language(id, mapLevel(level), name)
             }
         }
     }
 
-    private fun map(level: LevelDto): Level {
+    private fun mapLevel(level: LevelDto): Level {
         return with(level) {
             Level(id, name)
         }
@@ -132,13 +132,13 @@ class VacancyConverter {
         }
     }
 
-    private fun map(salary: SalaryDto): Salary {
+    private fun mapSalary(salary: SalaryDto): Salary {
         return with(salary) {
             Salary(currency, from, gross, to)
         }
     }
 
-    private fun map(schedule: ScheduleDto): Schedule {
+    private fun mapSchedule(schedule: ScheduleDto): Schedule {
         return with(schedule) {
             Schedule(id, name)
         }
