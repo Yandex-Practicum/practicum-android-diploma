@@ -1,12 +1,17 @@
 package ru.practicum.android.diploma
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import ru.practicum.android.diploma.databinding.ActivityRootBinding
+import ru.practicum.android.diploma.search.domain.usecase.VacanciesInteractor
 
 class RootActivity : AppCompatActivity() {
 
@@ -49,6 +54,26 @@ class RootActivity : AppCompatActivity() {
 
     private fun networkRequestExample(accessToken: String) {
         // ...
+        val interactor: VacanciesInteractor by inject()
+
+        GlobalScope.launch {
+            val result = interactor.listAreas()
+            result.collect {
+                Log.d(TAG, it.first.toString())
+            }
+            val resultIndustries = interactor.listIndustries()
+            resultIndustries.collect {
+                Log.d(TAG, it.first.toString())
+            }
+            val resultDetailVacancy = interactor.listVacancy("106594031")
+            resultDetailVacancy.collect {
+                Log.d(TAG, it.first.toString())
+            }
+            val resultVacancies = interactor.searchVacancies(emptyMap())
+            resultVacancies.collect {
+                Log.d(TAG, it.first.toString())
+            }
+        }
     }
 
     override fun onDestroy() {

@@ -24,7 +24,6 @@ import ru.practicum.android.diploma.search.util.AreaConverter
 import ru.practicum.android.diploma.search.util.IndustryConverter
 import ru.practicum.android.diploma.search.util.VacancyConverter
 
-
 class VacanciesRepositoryImpl(
     private val networkClient: NetworkClient,
     private val vacancyConverter: VacancyConverter,
