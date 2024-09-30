@@ -48,7 +48,6 @@ internal class RetrofitNetworkClient(
     }
 
     private suspend fun regionsRequest(dto: HHApiRegionsRequest): Response {
-
         val regions = hhApiService.searchRegions(dto.options)
         Log.d(TAG, regions.toString())
         return regions

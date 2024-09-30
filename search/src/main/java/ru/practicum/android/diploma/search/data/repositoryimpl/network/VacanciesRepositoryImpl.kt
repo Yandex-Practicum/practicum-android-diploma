@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.search.data.repositoryimpl.network
 
+import android.content.Context
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.commonutils.Resource
@@ -13,6 +14,7 @@ import ru.practicum.android.diploma.data.networkclient.api.dto.HHRegionsResponse
 import ru.practicum.android.diploma.data.networkclient.api.dto.HHVacanciesResponse
 import ru.practicum.android.diploma.data.networkclient.api.dto.HHVacancyDetailResponse
 import ru.practicum.android.diploma.data.networkclient.api.dto.HttpStatus
+import ru.practicum.android.diploma.search.R
 import ru.practicum.android.diploma.search.domain.models.IndustryList
 import ru.practicum.android.diploma.search.domain.models.RegionList
 import ru.practicum.android.diploma.search.domain.models.Vacancy
@@ -22,17 +24,19 @@ import ru.practicum.android.diploma.search.util.AreaConverter
 import ru.practicum.android.diploma.search.util.IndustryConverter
 import ru.practicum.android.diploma.search.util.VacancyConverter
 
+
 class VacanciesRepositoryImpl(
     private val networkClient: NetworkClient,
     private val vacancyConverter: VacancyConverter,
     private val industryConverter: IndustryConverter,
     private val areaConverter: AreaConverter,
+    private val context: Context,
 ) : VacanciesRepository {
     override fun searchVacancies(options: Map<String, String>): Flow<Resource<List<Vacancy>>> = flow {
         val response = networkClient.doRequest(HHApiVacanciesRequest(options))
         when (response.resultCode) {
             HttpStatus.NO_INTERNET -> {
-                emit(Resource.Error("Check network connection"))
+                emit(Resource.Error(context.getString(R.string.check_network_connection)))
             }
 
             HttpStatus.OK -> {
@@ -42,11 +46,11 @@ class VacanciesRepositoryImpl(
             }
 
             HttpStatus.CLIENT_ERROR -> {
-                emit(Resource.Error("Request was not accepted ${response.resultCode}"))
+                emit(Resource.Error(context.getString(R.string.request_was_not_accepted, response.resultCode)))
             }
 
             HttpStatus.SERVER_ERROR -> {
-                emit(Resource.Error("Unexpcted error ${response.resultCode}"))
+                emit(Resource.Error(context.getString(R.string.unexpcted_error, response.resultCode)))
             }
         }
     }
@@ -55,7 +59,7 @@ class VacanciesRepositoryImpl(
         val response = networkClient.doRequest(HHApiVacancyRequest(id))
         when (response.resultCode) {
             HttpStatus.NO_INTERNET -> {
-                emit(Resource.Error("Check network connection"))
+                emit(Resource.Error(context.getString(R.string.check_network_connection)))
             }
 
             HttpStatus.OK -> {
@@ -65,11 +69,11 @@ class VacanciesRepositoryImpl(
             }
 
             HttpStatus.CLIENT_ERROR -> {
-                emit(Resource.Error("Request was not accepted ${response.resultCode}"))
+                emit(Resource.Error(context.getString(R.string.request_was_not_accepted, response.resultCode)))
             }
 
             HttpStatus.SERVER_ERROR -> {
-                emit(Resource.Error("Unexpcted error ${response.resultCode}"))
+                emit(Resource.Error(context.getString(R.string.unexpcted_error, response.resultCode)))
             }
         }
     }
@@ -78,7 +82,7 @@ class VacanciesRepositoryImpl(
         val response = networkClient.doRequest(HHApiRegionsRequest(hashMapOf(Pair("id", DEFAULT_REGION))))
         when (response.resultCode) {
             HttpStatus.NO_INTERNET -> {
-                emit(Resource.Error("Check network connection"))
+                emit(Resource.Error(context.getString(R.string.check_network_connection)))
             }
 
             HttpStatus.OK -> {
@@ -88,11 +92,11 @@ class VacanciesRepositoryImpl(
             }
 
             HttpStatus.CLIENT_ERROR -> {
-                emit(Resource.Error("Request was not accepted ${response.resultCode}"))
+                emit(Resource.Error(context.getString(R.string.request_was_not_accepted, response.resultCode)))
             }
 
             HttpStatus.SERVER_ERROR -> {
-                emit(Resource.Error("Unexpcted error ${response.resultCode}"))
+                emit(Resource.Error(context.getString(R.string.unexpcted_error, response.resultCode)))
             }
         }
     }
@@ -102,7 +106,7 @@ class VacanciesRepositoryImpl(
 
         when (response.resultCode) {
             HttpStatus.NO_INTERNET -> {
-                emit(Resource.Error("Check network connection"))
+                emit(Resource.Error(context.getString(R.string.check_network_connection)))
             }
 
             HttpStatus.OK -> {
@@ -112,17 +116,17 @@ class VacanciesRepositoryImpl(
             }
 
             HttpStatus.CLIENT_ERROR -> {
-                emit(Resource.Error("Request was not accepted ${response.resultCode}"))
+                emit(Resource.Error(context.getString(R.string.request_was_not_accepted, response.resultCode)))
             }
 
             HttpStatus.SERVER_ERROR -> {
-                emit(Resource.Error("Unexpcted error ${response.resultCode}"))
+                emit(Resource.Error(context.getString(R.string.unexpcted_error, response.resultCode)))
             }
         }
     }
 
     companion object {
         private const val TAG = "VacanciesRepositoryImpl"
-        private const val DEFAULT_REGION = "113"   // Russia
+        private const val DEFAULT_REGION = "113" // Russia
     }
 }

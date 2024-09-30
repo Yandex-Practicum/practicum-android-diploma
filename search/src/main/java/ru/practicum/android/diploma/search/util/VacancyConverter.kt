@@ -72,17 +72,15 @@ class VacancyConverter {
 
     private fun map(employer: EmployerDto): Employer {
         return with(employer) {
-            Employer(
-                accreditedITEmployer, alternateUrl, id, map(logoUrls), name, trusted, url
-            )
+            Employer(accreditedITEmployer, alternateUrl, id, map(logoUrls), name, trusted, url)
         }
     }
 
     private fun map(logoUrls: LogoUrlsDto?): LogoUrls? {
-        return if (logoUrls != null) with(logoUrls) {
-            LogoUrls(
-                deg240, deg90, original
-            )
+        return if (logoUrls != null) {
+            with(logoUrls) {
+                LogoUrls(deg240, deg90, original)
+            }
         } else {
             null
         }
@@ -90,9 +88,7 @@ class VacancyConverter {
 
     private fun mapEmployment(employment: EmploymentDto): Employment {
         return with(employment) {
-            Employment(
-                id, name
-            )
+            Employment(id, name)
         }
     }
 

@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.search.di
 
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import ru.practicum.android.diploma.search.data.repositoryimpl.network.VacanciesRepositoryImpl
 import ru.practicum.android.diploma.search.domain.repository.VacanciesRepository
@@ -27,6 +28,6 @@ val searchModule = module {
     }
 
     single<VacanciesRepository> {
-        VacanciesRepositoryImpl(get(), get(), get(), get())
+        VacanciesRepositoryImpl(get(), get(), get(), get(), androidContext())
     }
 }
