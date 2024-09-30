@@ -13,16 +13,16 @@ import ru.practicum.android.diploma.favorites.databinding.ItemFavoriteBinding
 import ru.practicum.android.diploma.favorites.domain.model.FavoriteVacancy
 
 private const val RADIUS_ROUND_VIEW = 12f
+
 class FavoriteAdapter(
-    private val isConnected: Boolean,
     private val favoriteVacancies: List<FavoriteVacancy>,
     private val favoriteClickListener: FavoriteClickListener
-) : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder> () {
+) : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
     private var vacancies = favoriteVacancies
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
         val layoutInspector = LayoutInflater.from(parent.context)
-        return FavoriteViewHolder(isConnected, ItemFavoriteBinding.inflate(layoutInspector, parent, false))
+        return FavoriteViewHolder(ItemFavoriteBinding.inflate(layoutInspector, parent, false))
     }
 
     override fun getItemCount(): Int {
@@ -41,28 +41,25 @@ class FavoriteAdapter(
     }
 
     class FavoriteViewHolder(
-        private val isConnected: Boolean,
         private val binding: ItemFavoriteBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
         fun bind(model: FavoriteVacancy) {
-            if (isConnected) {
-                Glide.with(itemView)
-                    .load(model.urlLogo)
-                    .placeholder(R.drawable.placeholder_logo_item_favorite)
-                    .transform(
-                        CenterCrop(),
-                        RoundedCorners(
-                            Utils.doToPx(
-                                RADIUS_ROUND_VIEW,
-                                itemView.context.applicationContext
-                            )
+            Glide.with(itemView)
+                .load(model.urlLogo)
+                .placeholder(R.drawable.placeholder_logo_item_favorite)
+                .transform(
+                    CenterCrop(),
+                    RoundedCorners(
+                        Utils.doToPx(
+                            RADIUS_ROUND_VIEW,
+                            itemView.context.applicationContext
                         )
                     )
-                    .transform()
-                    .into(binding.itemLogoVacancy)
-            }
+                )
+                .transform()
+                .into(binding.itemLogoVacancy)
             binding.itemNameVacancyAndLocation.text = "${model.nameVacancy}, ${model.location}"
             binding.itemNameCompany.text = model.nameCompany
             binding.itemSalarySize.text = model.salary
