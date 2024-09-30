@@ -21,6 +21,13 @@
         <item name="android:textFontWeight">500</item>
     </style>
 
+    <style name="TextViewMediumNoPadding22">
+        <item name="android:textSize">@dimen/textSizeMedium</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textColor">@color/primaryTextAndUIColor</item>
+        <item name="android:textFontWeight">500</item>
+    </style>
+
     <style name="TextViewBold32">
         <item name="android:textSize">32sp</item>
         <item name="android:fontFamily">@font/ys_display_bold</item>
@@ -35,5 +42,11 @@
         <item name="android:textColor">@color/primaryTextAndUIColor</item>
         <item name="android:padding">19dp</item>
         <item name="android:textFontWeight">500</item>
+    </style>
+    <style name="TextViewRegular16">
+        <item name="android:textSize">@dimen/textSizeLittle</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textColor">@color/primaryTextAndUIColor</item>
+        <item name="fontWeight">400</item>
     </style>
 </resources>

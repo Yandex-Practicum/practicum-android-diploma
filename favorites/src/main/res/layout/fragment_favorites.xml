@@ -44,16 +44,18 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_marginHorizontal="@dimen/dimens_16"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimens_16"
             android:adjustViewBounds="true"
             android:src="@drawable/placeholder_empty_list_favorite" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/TextViewMedium22"
+            style="@style/TextViewMediumNoPadding22"
             android:paddingTop="@dimen/dimens_16"
+            android:paddingBottom="0dp"
+            android:layout_marginBottom="0dp"
             android:gravity="center_horizontal"
             android:text="@string/favorites_screen_empty_list" />
     </LinearLayout>
@@ -79,8 +81,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/TextViewMedium22"
+            style="@style/TextViewMediumNoPadding22"
             android:paddingTop="@dimen/dimens_16"
+            android:paddingHorizontal="@dimen/dimens_16"
             android:gravity="center_horizontal"
             android:text="@string/vacancies_list_server_error" />
     </LinearLayout>
