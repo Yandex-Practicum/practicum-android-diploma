@@ -54,6 +54,15 @@
     <string name="vacancy_screen_key_skills">Ключевые навыки</string>
     <string name="vacancy_screen_not_found_error">Вакансия не найдена или удалена</string>
 
+    <string name="vacancy_name_placeholder">Android-разработчик</string>
+    <string name="vacancy_salary_placeholder">от %1$s ₽</string>
+    <string name="vacancy_company_name_placeholder">Еда</string>
+    <string name="vacancy_city_placeholder">Москва</string>
+    <string name="vacancy_experience_placeholder">от 1 года до 3 лет</string>
+    <string name="vacancy_conditions_placeholder">Полная занятость, Удаленная работа</string>
+    <string name="vacancy_description_placeholder">Обязанности\nРазрабатывать новую функциональность приложения\nПомогать с интеграцией нашего SDK в другие приложения\nПроектировать большие новые модули\nПисать UI- и unit-тесты\nСледить за работоспособностью сервиса и устранять технический долг</string>
+    <string name="vacancy_key_skills_placeholder">Знание классических алгоритмов и структуры данных\nПрограммирование для Android больше одного года\nЗнание WebRTC</string>
+
     <!-- Favorites screen -->
     <string name="favorites_screen_header">Избранное</string>
     <string name="favorites_screen_empty_list">Список пуст</string>
