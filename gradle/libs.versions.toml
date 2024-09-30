@@ -6,6 +6,7 @@ fragmentKtx = "1.5.6"
 glide = "4.14.2"
 gson = "2.10"
 java = "VERSION_1_8"
+koin = "3.3.0"
 
 # Build constants
 koinAndroid = "3.3.0"

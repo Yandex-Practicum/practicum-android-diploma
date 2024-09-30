@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">Practicum-Android-Diploma</string>
+    <string name="app_name">Change Your Job</string>
+    <string name="search">Поиск</string>
+    <string name="team">Команда</string>
+    <string name="vacancy">Вакансия</string>
+    <string name="industry">Отрасль</string>
+    <string name="filters">Фильтры</string>
+    <string name="favorite">Избранное</string>
+    <string name="country_choice">Выбор страны</string>
+    <string name="city_choice">Выбор города</string>
+    <string name="working_region">Место работы</string>
 </resources>
