@@ -51,7 +51,15 @@ class FavoriteAdapter(
                 Glide.with(itemView)
                     .load(model.urlLogo)
                     .placeholder(R.drawable.placeholder_logo_item_favorite)
-                    .transform(CenterCrop(), RoundedCorners(Utils.doToPx(RADIUS_ROUND_VIEW, itemView.context.applicationContext)))
+                    .transform(
+                        CenterCrop(),
+                        RoundedCorners(
+                            Utils.doToPx(
+                                RADIUS_ROUND_VIEW,
+                                itemView.context.applicationContext
+                            )
+                        )
+                    )
                     .transform()
                     .into(binding.itemLogoVacancy)
             }
