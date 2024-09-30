@@ -14,6 +14,7 @@ data class SearchResponseVacancy(
     val billingType: BillingType, // Биллинговый тип из справочника vacancy_billing_type
     val description: String, // Описание в html, не менее 200 символов
     val driverLicenseTypes: List<String>, // Список требуемых категорий водительских прав
+    val salary: Salary, // Зарплата
     val experience: Experience?, // object or null (Опыт работы)
     val hasTest: Boolean, // Информация о наличии прикрепленного тестового задании к вакансии
     val id: String, // Идентификатор вакансии
