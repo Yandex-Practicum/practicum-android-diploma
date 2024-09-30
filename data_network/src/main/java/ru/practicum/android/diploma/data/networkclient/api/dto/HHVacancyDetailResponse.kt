@@ -2,7 +2,6 @@ package ru.practicum.android.diploma.data.networkclient.api.dto
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -56,5 +55,5 @@ data class HHVacancyDetailResponse(
     @SerializedName("working_days") val workingDays: List<WorkingDay>,
     @SerializedName("working_time_intervals") val workingTimeIntervals: List<WorkingTimeInterval>,
     @SerializedName("working_time_modes") val workingTimeModes: List<WorkingTimeMode>,
-    override var resultCode: HttpStatus
+    override var resultCode: HttpStatus,
 ) : Response, Parcelable

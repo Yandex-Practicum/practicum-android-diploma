@@ -27,7 +27,7 @@ data class Item(
     val relations: List<String>,
     @SerializedName("response_letter_required") val responseLetterRequired: Boolean,
     @SerializedName("response_url") val responseUrl: String?,
-    val salary: Salary,
+    val salary: Salary?,
     val schedule: Schedule,
     @SerializedName("show_logo_in_search") val showLogoInSearch: Boolean,
     val snippet: Snippet,

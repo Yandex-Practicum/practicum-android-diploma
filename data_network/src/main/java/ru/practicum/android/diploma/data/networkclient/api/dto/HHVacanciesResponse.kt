@@ -15,6 +15,5 @@ data class HHVacanciesResponse(
     val pages: Int,
     @SerializedName("per_page") val perPage: Int,
     val suggests: String?,
-
-    override var resultCode: HttpStatus = HttpStatus.OK,
+    override var resultCode: HttpStatus
 ) : Response, Parcelable
