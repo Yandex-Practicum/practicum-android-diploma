@@ -10,6 +10,7 @@ data class SearchResponseVacancy(
     val approved: Boolean, // Прошла ли вакансия модерацию
     val archived: Boolean, // Находится ли данная вакансия в архиве
     val area: Area, // Регион
+    val employer: Employer, // Работадатель
     val billingType: BillingType, // Биллинговый тип из справочника vacancy_billing_type
     val description: String, // Описание в html, не менее 200 символов
     val driverLicenseTypes: List<String>, // Список требуемых категорий водительских прав
