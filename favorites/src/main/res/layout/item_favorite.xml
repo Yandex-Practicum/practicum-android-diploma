@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/background"
+    android:layout_marginVertical="9dp"
     android:id="@+id/itemVacancy">
 
     <ImageView
@@ -47,7 +48,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimens_12"
-        android:layout_marginBottom="@dimen/dimens_12"
         android:ellipsize="end"
         android:maxLines="3"
         android:text="@string/salary_size"
