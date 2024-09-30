@@ -1,12 +1,17 @@
 package ru.practicum.android.diploma
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import ru.practicum.android.diploma.databinding.ActivityRootBinding
+import ru.practicum.android.diploma.search.domain.usecase.VacanciesInteractor
 
 class RootActivity : AppCompatActivity() {
 
@@ -49,11 +54,22 @@ class RootActivity : AppCompatActivity() {
 
     private fun networkRequestExample(accessToken: String) {
         // ...
+        val interactor: VacanciesInteractor by inject()
+        val result = interactor.listAreas()
+        GlobalScope.launch {
+            result.collect {
+                Log.d(TAG, it.first.toString())
+            }
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    companion object {
+        private const val TAG = "RootActivity"
     }
 
 }

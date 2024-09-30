@@ -19,7 +19,7 @@ internal class RetrofitNetworkClient(
 
     override suspend fun doRequest(dto: Any): Response {
         Log.d(TAG, "Starting request to HH")
-        if (context.isConnected()) {
+        if (!context.isConnected()) {
             return object : Response {
                 override var resultCode = HttpStatus.NO_INTERNET
             }
@@ -48,7 +48,9 @@ internal class RetrofitNetworkClient(
 
     private suspend fun regionsRequest(dto: HHApiRegionsRequest): Response {
         val request = if (dto.term.isNullOrEmpty()) null else mapOf(QUERY to dto.term)
-        return hhApiService.searchRegions(request)
+        val regions = hhApiService.searchRegions(request)
+        Log.d(TAG, regions.toString())
+        return regions
     }
 
     private suspend fun vacancyListRequest(dto: HHApiVacanciesRequest): Response {
