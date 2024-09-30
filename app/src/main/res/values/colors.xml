@@ -10,4 +10,6 @@
 
     <!-- Colors for Light theme. -->
     <color name="editTextBackgroundColor">@color/light_gray</color> <!-- Day light_gray - Night dark_gray -->
+    <color name="editTextHintColor">@color/dark_gray</color>        <!-- Day dark_gray - Night white -->
+    <color name="colorAdaptiveText">@color/black</color>            <!-- Day black - Night white -->
 </resources>
