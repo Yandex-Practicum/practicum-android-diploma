@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/background"
-    android:layout_marginVertical="9dp"
+    android:layout_marginVertical="@dimen/dimens_9"
     android:id="@+id/itemVacancy">
 
     <ImageView
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimens_12"
         android:ellipsize="end"
-        android:maxLines="3"
+        android:maxLines="1"
         android:text="@string/favorites_company"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/itemLogoVacancy"
@@ -49,7 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimens_12"
         android:ellipsize="end"
-        android:maxLines="3"
+        android:maxLines="1"
         android:text="@string/salary_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
