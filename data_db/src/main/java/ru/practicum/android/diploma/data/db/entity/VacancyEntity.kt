@@ -3,7 +3,7 @@ package ru.practicum.android.diploma.data.db.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import ru.practicum.android.diploma.data.db.config_db.DatabaseConfig
+import ru.practicum.android.diploma.data.db.config.DatabaseConfig
 
 @Entity(tableName = DatabaseConfig.VACANCY_TABLE)
 data class VacancyEntity(

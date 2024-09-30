@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data.db.config_db
+package ru.practicum.android.diploma.data.db.config
 
 object DatabaseConfig {
     const val DATABASE_NAME: String = "app_database.db"

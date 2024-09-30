@@ -7,7 +7,7 @@ import ru.practicum.android.diploma.favorites.domain.usecase.FavoriteInteractor
 
 class FavoriteInteractorImpl (
     private val favoriteRepository: FavoriteRepository
-): FavoriteInteractor {
+) : FavoriteInteractor {
     override suspend fun getVacancies(): Flow<List<FavoriteVacancy>> {
         return favoriteRepository.getVacancies()
     }

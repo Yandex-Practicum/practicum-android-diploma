@@ -72,7 +72,7 @@ class FavoritesFragment : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     private fun render(state: FavoriteState) {
         listFavoriteVacancy.clear()
-        when(state) {
+        when (state) {
             is FavoriteState.Content -> {
                 Utils.visibilityView(viewArray, binding.favoriteList)
                 listFavoriteVacancy.addAll(state.favoriteVacancies)
