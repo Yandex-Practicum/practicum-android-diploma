@@ -36,7 +36,7 @@ class VacancyConverter {
         return ArrayList(items.map {
             with(it) {
                 Vacancy(
-                    name, employer.name, salary.from, salary.to, salary.currency, employer.logoUrls?.original
+                    name, employer.name, salary?.from, salary?.to, salary?.currency, employer.logoUrls?.original
                 )
             }
         })
