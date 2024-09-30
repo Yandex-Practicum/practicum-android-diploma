@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.commonutils.Utils
-import ru.practicum.android.diploma.commonutils.isConnected
 import ru.practicum.android.diploma.favorites.R
 import ru.practicum.android.diploma.favorites.databinding.FragmentFavoritesBinding
 import ru.practicum.android.diploma.favorites.domain.model.FavoriteVacancy
