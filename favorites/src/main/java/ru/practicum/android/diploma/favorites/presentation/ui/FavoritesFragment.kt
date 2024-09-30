@@ -29,7 +29,7 @@ class FavoritesFragment : Fragment() {
     private var listFavoriteVacancy: MutableList<FavoriteVacancy> = mutableListOf()
 
     private val favoriteAdapter: FavoriteAdapter by lazy {
-        FavoriteAdapter(requireContext().isConnected(), listFavoriteVacancy) {
+        FavoriteAdapter(listFavoriteVacancy) {
             favoriteVacancySelection(it)
         }
     }
