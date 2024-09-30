@@ -24,18 +24,6 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding?.buttonFavorites?.setOnClickListener {
-            findNavController().navigate(
-                R.id.action_searchFragment_to_favoritesFragment
-            )
-        }
-
-        binding?.buttonTeam?.setOnClickListener {
-            findNavController().navigate(
-                R.id.action_searchFragment_to_teamFragment
-            )
-        }
-
         binding?.buttonFilters?.setOnClickListener {
             findNavController().navigate(
                 R.id.action_searchFragment_to_filterFragment

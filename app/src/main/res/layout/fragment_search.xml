@@ -31,30 +31,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Vacancies Screen"
-        app:layout_constraintBottom_toTopOf="@+id/buttonFavorites"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttonFilters" />
-
-    <Button
-        android:id="@+id/buttonFavorites"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Favorites Screen"
-        app:layout_constraintBottom_toTopOf="@+id/buttonTeam"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonVacancies" />
-
-    <Button
-        android:id="@+id/buttonTeam"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Team Screen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonFavorites" />
-
+        app:layout_constraintTop_toBottomOf="@id/buttonFilters" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
