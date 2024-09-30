@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/mainFragment"
+        android:id="@+id/vacancySearchFragment"
         android:title="@string/main"
         android:icon="@drawable/ic_main" />
     <item
@@ -10,7 +10,7 @@
         android:title="@string/favorite"
         android:icon="@drawable/ic_favorite"/>
     <item
-        android:id="@+id/settingFragment"
+        android:id="@+id/teamInfoFragment"
         android:title="@string/team"
         android:icon="@drawable/ic_team"/>
 </menu>
