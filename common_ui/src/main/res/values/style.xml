@@ -17,6 +17,11 @@
         <item name="android:textColor">@color/primaryTextAndUIColor</item>
         <item name="android:padding">@dimen/textPadding</item>
     </style>
+    <style name="TextViewMediumNoPadding22">
+        <item name="android:textSize">@dimen/textSizeMedium</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textColor">@color/primaryTextAndUIColor</item>
+    </style>
     <style name="TextViewBold32">
         <item name="android:textSize">@dimen/textSizeBig</item>
         <item name="android:fontFamily">@font/ys_display_bold</item>
@@ -28,13 +33,11 @@
         <item name="android:fontFamily">@font/ys_display_medium</item>
         <item name="android:textColor">@color/primaryTextAndUIColor</item>
         <item name="android:padding">@dimen/textPadding</item>
-        <item name="fontWeight">500</item>
     </style>
     <style name="TextViewRegular16">
         <item name="android:textSize">@dimen/textSizeLittle</item>
         <item name="android:fontFamily">@font/ys_display_regular</item>
         <item name="android:textColor">@color/primaryTextAndUIColor</item>
-        <item name="fontWeight">400</item>
     </style>
     <style name="Filter">
         <item name="android:src">@drawable/filter</item>
