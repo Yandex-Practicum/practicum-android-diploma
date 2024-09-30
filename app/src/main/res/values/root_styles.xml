@@ -9,6 +9,6 @@
     </style>
     <style name="BottomNavigationViewText" parent="BottomNavigationView">
         <item name="fontFamily">@font/ys_display_regular</item>
-        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textSize">@dimen/regular_12</item>
     </style>
 </resources>
