@@ -5,5 +5,5 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class HHIndustriesResponse(
-    override val resultCode: HttpStatus = HttpStatus.OK,
+    override var resultCode: HttpStatus = HttpStatus.OK,
 ) : ArrayList<HHIndustriesResponseItem>(), Response, Parcelable
