@@ -17,21 +17,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/buttonLeftVacancy"
-                style="@style/ButtonLeft"
+            <Toolbar
+                android:id="@+id/vacancyHeader"
+                style="@style/ToolBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/vacancyHeader"
-                style="@style/TextViewMedium22"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/vacancy_screen_header"
-                app:layout_constraintStart_toEndOf="@id/buttonLeftVacancy"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
@@ -58,9 +49,9 @@
                 android:layout_marginHorizontal="@dimen/vacancyTextPadding"
                 android:layout_marginTop="@dimen/vacancyTextPadding"
                 android:padding="@dimen/noPadding"
-                android:text="Android-разработчик"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/vacancyHeader" />
+                app:layout_constraintTop_toBottomOf="@id/vacancyHeader"
+                tools:text="Android-разработчик" />
 
             <TextView
                 android:id="@+id/vacancySalary"
@@ -69,9 +60,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/vacancyTextPadding"
                 android:padding="@dimen/noPadding"
-                android:text="от 100000 ₽"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/vacancyName" />
+                app:layout_constraintTop_toBottomOf="@id/vacancyName"
+                tools:text="от 100000 ₽" />
 
             <LinearLayout
                 android:id="@+id/vacancyCard"
@@ -90,9 +81,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="@dimen/vacancyTextPadding"
                     android:layout_marginStart="@dimen/vacancyTextPadding"
-                    android:src="@drawable/logo"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/vacancyCard" />
+                    app:layout_constraintTop_toTopOf="@id/vacancyCard"
+                    tools:src="@drawable/logo" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -107,7 +98,7 @@
                         android:layout_marginStart="@dimen/vacancyCardPadding"
                         android:layout_marginTop="@dimen/vacancyTextPadding"
                         android:padding="@dimen/noPadding"
-                        android:text="Еда" />
+                        tools:text="Еда" />
 
                     <TextView
                         android:id="@+id/vacancyCity"
@@ -116,7 +107,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/vacancyCardPadding"
                         android:padding="@dimen/noPadding"
-                        android:text="Москва" />
+                        tools:text="Москва" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -139,9 +130,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/vacancyTextPadding"
                 android:padding="@dimen/noPadding"
-                android:text="от 1 года до 3 лет"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/vacancyExperience" />
+                app:layout_constraintTop_toBottomOf="@id/vacancyExperience"
+                tools:text="от 1 года до 3 лет" />
 
             <TextView
                 android:id="@+id/vacancyConditions"
@@ -150,9 +141,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/vacancyTextPadding"
                 android:padding="@dimen/noPadding"
-                android:text="Полная занятость, Удаленная работа"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/vacancyExperienceInfo" />
+                app:layout_constraintTop_toBottomOf="@id/vacancyExperienceInfo"
+                tools:text="Полная занятость, Удаленная работа" />
 
             <TextView
                 android:id="@+id/vacancyDescription"
@@ -172,9 +163,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/vacancyTextPadding"
-                android:text="Обязанности\nРазрабатывать новую функциональность приложения\nПомогать с интеграцией нашего SDK в другие приложения\nПроектировать большие новые модули\nПисать UI- и unit-тесты\nСледить за работоспособностью сервиса и устранять технический долг"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/vacancyDescription" />
+                app:layout_constraintTop_toBottomOf="@id/vacancyDescription"
+                tools:text="Обязанности\nРазрабатывать новую функциональность приложения\nПомогать с интеграцией нашего SDK в другие приложения\nПроектировать большие новые модули\nПисать UI- и unit-тесты\nСледить за работоспособностью сервиса и устранять технический долг" />
 
             <TextView
                 android:id="@+id/vacancyKeySkills"
@@ -194,9 +185,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/vacancyTextPadding"
-                android:text="Знание классических алгоритмов и структуры данных\nПрограммирование для Android больше одного года\nЗнание WebRTC"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/vacancyKeySkills" />
+                app:layout_constraintTop_toBottomOf="@id/vacancyKeySkills"
+                tools:text="Знание классических алгоритмов и структуры данных\nПрограммирование для Android больше одного года\nЗнание WebRTC" />
 
             <LinearLayout
                 android:id="@+id/vacancyNotFoundError"

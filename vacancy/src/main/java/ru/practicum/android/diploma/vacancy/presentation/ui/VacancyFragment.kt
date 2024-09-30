@@ -26,7 +26,7 @@ class VacancyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val alternateUrl = ""
-        binding.buttonLeftVacancy.setOnClickListener {
+        binding.vacancyHeader.setOnClickListener {
             findNavController().navigateUp()
         }
         binding.shareButton.setOnClickListener {
