@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.search.data.network
 
-data class SearchResponseVacancy (
+data class SearchResponseVacancy(
     val acceptHandicapped: Boolean, // соискателей с инвалидностью
     val acceptIncompleteResumes: Boolean, // неполное резюме
     val acceptKids: Boolean, // старше 14 лет
