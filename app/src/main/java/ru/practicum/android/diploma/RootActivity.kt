@@ -55,9 +55,18 @@ class RootActivity : AppCompatActivity() {
     private fun networkRequestExample(accessToken: String) {
         // ...
         val interactor: VacanciesInteractor by inject()
-        val result = interactor.listAreas()
+
         GlobalScope.launch {
-            result.collect {
+//            val result = interactor.listAreas()
+//            result.collect {
+//                Log.d(TAG, it.first.toString())
+//            }
+            val resultIndustries = interactor.listIndustries()
+            resultIndustries.collect {
+                Log.d(TAG, it.first.toString())
+            }
+            val resultVacancy = interactor.listVacancy("106594031")
+            resultVacancy.collect {
                 Log.d(TAG, it.first.toString())
             }
         }

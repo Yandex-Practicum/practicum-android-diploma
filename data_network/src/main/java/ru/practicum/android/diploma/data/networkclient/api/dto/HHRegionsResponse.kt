@@ -4,5 +4,5 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class HHRegionsResponse(override val resultCode: HttpStatus = HttpStatus.OK) :
+data class HHRegionsResponse(override var resultCode: HttpStatus = HttpStatus.OK) :
     ArrayList<HHRegionsResponseItem>(), Response, Parcelable

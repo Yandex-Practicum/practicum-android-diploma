@@ -26,7 +26,7 @@ class VacanciesRepositoryImpl(
     private val networkClient: NetworkClient,
     private val vacancyConverter: VacancyConverter,
     private val industryConverter: IndustryConverter,
-    private val areaConverter: AreaConverter
+    private val areaConverter: AreaConverter,
 ) : VacanciesRepository {
     override fun searchVacancies(options: Map<String, String>): Flow<Resource<List<Vacancy>>> = flow {
         val response = networkClient.doRequest(HHApiVacanciesRequest(options))
@@ -75,7 +75,7 @@ class VacanciesRepositoryImpl(
     }
 
     override fun listAreas(): Flow<Resource<RegionList>> = flow {
-        val response = networkClient.doRequest(HHApiRegionsRequest(""))
+        val response = networkClient.doRequest(HHApiRegionsRequest(hashMapOf(Pair("id", DEFAULT_REGION))))
         when (response.resultCode) {
             HttpStatus.NO_INTERNET -> {
                 emit(Resource.Error("Check network connection"))
@@ -98,7 +98,8 @@ class VacanciesRepositoryImpl(
     }
 
     override fun listIndustries(): Flow<Resource<List<IndustryList>>> = flow {
-        val response = networkClient.doRequest(HHApiIndustriesRequest(""))
+        val response = networkClient.doRequest(HHApiIndustriesRequest(emptyMap()))
+
         when (response.resultCode) {
             HttpStatus.NO_INTERNET -> {
                 emit(Resource.Error("Check network connection"))
@@ -122,5 +123,6 @@ class VacanciesRepositoryImpl(
 
     companion object {
         private const val TAG = "VacanciesRepositoryImpl"
+        private const val DEFAULT_REGION = "113"   // Russia
     }
 }

@@ -36,7 +36,7 @@ class VacancyConverter {
         return ArrayList(items.map {
             with(it) {
                 Vacancy(
-                    name, employer.name, salary.from, salary.to, salary.currency, employer.logoUrls.original
+                    name, employer.name, salary.from, salary.to, salary.currency, employer.logoUrls?.original
                 )
             }
         })
@@ -80,12 +80,12 @@ class VacancyConverter {
         }
     }
 
-    private fun map(logoUrls: LogoUrlsDto): LogoUrls {
-        return with(logoUrls) {
+    private fun map(logoUrls: LogoUrlsDto?): LogoUrls? {
+        return if (logoUrls != null) with(logoUrls) {
             LogoUrls(
                 deg240, deg90, original
             )
-        }
+        } else null
     }
 
     private fun map(employment: EmploymentDto): Employment {
