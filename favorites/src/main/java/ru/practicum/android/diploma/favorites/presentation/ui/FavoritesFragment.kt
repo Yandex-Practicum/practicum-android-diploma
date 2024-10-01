@@ -5,18 +5,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.commonutils.Utils
+import ru.practicum.android.diploma.commonutils.debounce
 import ru.practicum.android.diploma.favorites.R
 import ru.practicum.android.diploma.favorites.databinding.FragmentFavoritesBinding
 import ru.practicum.android.diploma.favorites.domain.model.FavoriteVacancy
 import ru.practicum.android.diploma.favorites.presentation.ui.adapters.FavoriteAdapter
 import ru.practicum.android.diploma.favorites.presentation.viewmodel.FavoriteViewModel
 import ru.practicum.android.diploma.favorites.presentation.viewmodel.state.FavoriteState
+import ru.practicum.android.diploma.vacancy.presentation.ui.VacancyFragment
+import ru.practicum.android.diploma.vacancy.presentation.ui.state.VacancyInputState
 
 class FavoritesFragment : Fragment() {
 
@@ -25,6 +30,8 @@ class FavoritesFragment : Fragment() {
     private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
     private var viewArray: Array<View>? = null
+
+    private lateinit var vacancyClickDebounce: (Int) -> Unit
 
     private var listFavoriteVacancy: MutableList<FavoriteVacancy> = mutableListOf()
 
@@ -35,9 +42,7 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun favoriteVacancySelection(vacancy: FavoriteVacancy) {
-        findNavController().navigate(
-            R.id.action_favoritesFragment_to_vacancy_navigation
-        )
+        vacancyClickDebounce(vacancy.idVacancy)
     }
 
     override fun onCreateView(
@@ -57,6 +62,8 @@ class FavoritesFragment : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initDebounces()
 
         binding.favoriteList.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
@@ -105,5 +112,28 @@ class FavoritesFragment : Fragment() {
         _binding = null
         viewArray = emptyArray()
         viewArray = null
+    }
+
+    private fun initDebounces() {
+        vacancyClickDebounce = onVacancyClickDebounce {
+            findNavController().navigate(
+                R.id.action_favoritesFragment_to_vacancy_navigation,
+                VacancyFragment.createArgs(VacancyInputState.VacancyDb(it))
+            )
+        }
+    }
+
+    private fun onVacancyClickDebounce(action: (Int) -> Unit): (Int) -> Unit {
+        return debounce<Int>(
+            DELAY_CLICK_VACANCY,
+            viewLifecycleOwner.lifecycleScope,
+            false,
+            true,
+            action
+        )
+    }
+
+    companion object {
+        private const val DELAY_CLICK_VACANCY = 250L
     }
 }

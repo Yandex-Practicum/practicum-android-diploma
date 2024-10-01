@@ -12,6 +12,9 @@ interface VacancyDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOrUpdateVacancy(vacancy: VacancyEntity): Long
 
+    @Query("SELECT * FROM VACANCY_TABLE WHERE ID_VACANCY = :id")
+    suspend fun getVacancy(id: Int): VacancyEntity
+
     @Query("DELETE FROM VACANCY_TABLE WHERE ID_VACANCY = :id")
     suspend fun deleteVacancy(id: Int): Int
 

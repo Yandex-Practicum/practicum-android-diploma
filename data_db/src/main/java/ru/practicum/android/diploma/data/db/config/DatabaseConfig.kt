@@ -7,7 +7,7 @@ object DatabaseConfig {
     // vacancy
     const val ID_VACANCY: String = "id_vacancy"
     const val NAME_VACANCY: String = "name_vacancy"
-    const val NAME_COMPANY: String = "nameCompany"
+    const val NAME_COMPANY: String = "name_company"
     const val URL_LOGO: String = "url_logo"
     const val DATE_ADD_VACANCY: String = "date_add_vacancy"
 }
