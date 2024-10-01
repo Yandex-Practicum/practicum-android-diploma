@@ -38,6 +38,7 @@
         <item name="android:textSize">@dimen/textSizeLittle</item>
         <item name="android:fontFamily">@font/ys_display_regular</item>
         <item name="android:textColor">@color/primaryTextAndUIColor</item>
+        <item name="android:padding">@dimen/textPadding</item>
     </style>
     <style name="Filter">
         <item name="android:src">@drawable/filter</item>
@@ -52,7 +53,20 @@
         <item name="android:paddingVertical">@dimen/buttonLeftPadding</item>
         <item name="android:paddingLeft">@dimen/buttonLeftPadding</item>
     </style>
-
+    <style name="ToolBar">
+        <item name="android:padding">@dimen/maskPadding</item>
+        <item name="android:title">@string/vacancy_screen_header</item>
+        <item name="android:navigationIcon">@drawable/button_left</item>
+        <item name="android:titleTextAppearance">@style/TextViewMedium22</item>
+    </style>
+    <style name="ButtonFavorite">
+        <item name="android:src">@drawable/favorites_off</item>
+        <item name="android:padding">@dimen/filterPadding</item>
+    </style>
+    <style name="ButtonShare">
+        <item name="android:src">@drawable/share</item>
+        <item name="android:paddingVertical">@dimen/filterPadding</item>
+    </style>
     <style name="SearchBar">
         <item name="android:textSize">@dimen/textSizeLittle</item>
         <item name="android:fontFamily">@font/ys_display_regular</item>
