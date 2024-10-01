@@ -9,4 +9,5 @@
     <string name="country_choice">Выбор страны</string>
     <string name="city_choice">Выбор города</string>
     <string name="working_region">Место работы</string>
+    <string name="main">Главная</string>
 </resources>
