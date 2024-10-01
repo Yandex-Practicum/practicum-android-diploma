@@ -1,7 +1,8 @@
 package ru.practicum.android.diploma.di
 
-import org.koin.android.ext.koin.androidContext
 import androidx.room.Room
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import ru.practicum.android.diploma.database.AppDatabase
 import retrofit2.Retrofit
@@ -12,6 +13,11 @@ import ru.practicum.android.diploma.search.data.network.RetrofitNetworkClient
 
 val dataModule = module {
 
+    single {
+        Room.databaseBuilder(androidContext(), AppDatabase::class.java, "database.db")
+            .fallbackToDestructiveMigration()
+            .build()
+    }
     single<HHApiService> {
         Retrofit.Builder()
             .baseUrl("https://api.hh.ru//")
