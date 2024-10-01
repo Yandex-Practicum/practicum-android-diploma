@@ -37,6 +37,8 @@ android {
         arguments {
             arg("room.schemaLocation", "$projectDir/schemas")
         }
+        correctErrorTypes = true
+        useBuildCache = true
     }
 }
 
