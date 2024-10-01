@@ -26,7 +26,7 @@ class TeamInfoFragment : Fragment() {
             "Сергей Величко",
             "Александр Березовский",
             "Даниэль Сафарян",
-            "Артём Матюшин",
+            "Артём Матюшкин",
         )
 
         binding.memberTextView.text = team.joinToString("\n")
