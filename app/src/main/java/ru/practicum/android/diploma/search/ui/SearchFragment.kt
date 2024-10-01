@@ -44,10 +44,7 @@ class SearchFragment : Fragment() {
         viewModel.uiState.observe(viewLifecycleOwner) {
             renderUiState(it)
         }
-
     }
-
-
 
     private fun renderUiState(state: UiScreenState) {
         when (state) {
