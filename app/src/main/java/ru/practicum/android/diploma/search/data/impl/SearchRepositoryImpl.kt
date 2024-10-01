@@ -30,15 +30,24 @@ class SearchRepositoryImpl(
                 val options = params.toMap()
 
                 val response = api.searchVacancies(
-                    authToken = null, // Токен авторизации
+                    authToken = null,
                     userAgent = "userAgent",
                     options = options
                 )
 
-                if (response.vacancies.isNotEmpty()) {
+                if (response.items.isNotEmpty()) {
+                    val vacancies = response.items.map { vacancy ->
+                        Vacancy(
+                            id = vacancy.id,
+                            name = vacancy.name,
+                            salary = vacancy.salary?.from,
+                            employer = vacancy.employer,
+                        )
+                    }
+
                     emit(
                         Resource.Success(
-                            data = response.vacancies,
+                            data = vacancies,
                             found = response.found,
                             page = response.page,
                             pages = response.pages
@@ -54,6 +63,8 @@ class SearchRepositoryImpl(
             } catch (e: Exception) {
                 emit(Resource.Error(e.localizedMessage ?: "Unknown error"))
             }
+        } else {
+            emit(Resource.Error("Network not available"))
         }
     }.flowOn(Dispatchers.IO)
 }
