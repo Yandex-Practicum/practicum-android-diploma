@@ -16,9 +16,13 @@ class VacancyListViewModel(
 
     private val vacancies = ArrayList<Vacancy>()
 
-    val adapter = VacancyListAdapter {
-        TODO("not implemented4")
-    }
+    val adapter = VacancyListAdapter(
+        object: VacancyListAdapter.VacancyClickListener {
+            override fun onVacancyClick(vacancy: Vacancy) {
+                TODO("Not yet implemented")
+            }
+        }
+    )
 
     private val _vacanciesStateLiveData = MutableLiveData<VacancyListState>()
     fun observeVacanciesState(): LiveData<VacancyListState> = _vacanciesStateLiveData
@@ -37,6 +41,7 @@ class VacancyListViewModel(
         if (foundVacancies != null) {
             vacancies.clear()
             vacancies.addAll(foundVacancies)
+            adapter.setVacancies(vacancies)
         }
         when {
             errorMessage != null -> renderState(VacancyListState.Error(errorMessage))
