@@ -5,16 +5,15 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 
 fun connectionCheck(context: Context): Boolean {
-    val connectivityManager =
-        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-    val capabilities =
-        connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+    var connectionStatus = false
+    val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
     if (capabilities != null) {
         when {
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> return true
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> return true
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> return true
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> connectionStatus = true
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> connectionStatus = true
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> connectionStatus = true
         }
     }
-    return false
+    return connectionStatus
 }

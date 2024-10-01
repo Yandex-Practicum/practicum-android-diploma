@@ -18,6 +18,7 @@ class WorkingRegionFragment : Fragment() {
         _binding = WorkingRegionFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
