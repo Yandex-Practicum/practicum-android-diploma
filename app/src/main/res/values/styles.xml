@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Стиль для EditText -->
+    <style name="CustomEditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:maxLines">1</item>
+        <item name="android:background">@color/editTextBackgroundColor</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/editTextHintColor</item>
+        <item name="android:imeOptions">actionDone</item>
+        <item name="android:inputType">text</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/medium_and_regular_16</item>
+        <item name="android:fontWeight">@dimen/weight_400</item>
+
+    </style>
+
+    <!-- Стиль для Голубой Button -->
+    <style name="BlueButtonStyle" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:textAllCaps">false</item>
+        <item name="background">@color/blue</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/medium_and_regular_16</item>
+        <item name="android:fontWeight">@dimen/weight_500</item>
+        <item name="cornerRadius">@dimen/radius_size_12</item>
+        <item name="android:letterSpacing">@dimen/zero_size_0</item>
+    </style>
+
+    <!-- Стиль для Белой Button -->
+    <style name="WhiteButtonStyle" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:textAllCaps">false</item>
+        <item name="background">@color/white</item>
+        <item name="android:textColor">@color/red</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/medium_and_regular_16</item>
+        <item name="android:fontWeight">@dimen/weight_500</item>
+        <item name="cornerRadius">@dimen/radius_size_12</item>
+        <item name="android:letterSpacing">@dimen/zero_size_0</item>
+
+    </style>
+
+    <!-- Стиль для ToolBar -->
+    <style name="BaseToolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="android:tint">@color/colorAdaptiveText</item>
+        <item name="android:background">@color/white</item>
+        <item name="titleTextColor">@color/colorAdaptiveText</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/medium_22</item>
+        <item name="android:fontWeight">@dimen/weight_500</item>
+
+    </style>
+
+    <style name="Text_Medium_22">
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/medium_22</item>
+        <item name="android:fontWeight">@dimen/weight_500</item>
+        <item name="android:textColor">@color/colorAdaptiveText</item>
+        <item name="android:letterSpacing">@dimen/zero_size_0</item>
+
+    </style>
+
+    <style name="Text_Regular_16">
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/medium_and_regular_16</item>
+        <item name="android:fontWeight">@dimen/weight_400</item>
+        <item name="android:textColor">@color/colorAdaptiveText</item>
+
+    </style>
+
+    <style name="Text_Medium_16">
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/medium_and_regular_16</item>
+        <item name="android:fontWeight">@dimen/weight_500</item>
+        <item name="android:textColor">@color/colorAdaptiveText</item>
+
+    </style>
+
+    <style name="Text_Bold_32">
+        <item name="android:fontFamily">@font/ys_display_bold</item>
+        <item name="android:textSize">@dimen/bold_32</item>
+        <item name="android:fontWeight">@dimen/weight_700</item>
+        <item name="android:textColor">@color/colorAdaptiveText</item>
+        <item name="android:letterSpacing">@dimen/zero_size_0</item>
+
+    </style>
+
+    <style name="Text_Regular_12">
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/regular_12</item>
+        <item name="android:fontWeight">@dimen/weight_400</item>
+        <item name="android:textColor">@color/colorAdaptiveText</item>
+
+    </style>
+
+
+</resources>
