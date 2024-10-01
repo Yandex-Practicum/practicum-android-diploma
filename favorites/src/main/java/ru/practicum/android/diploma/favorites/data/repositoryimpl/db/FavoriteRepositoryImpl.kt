@@ -30,7 +30,10 @@ class FavoriteRepositoryImpl(
             },
             onFailure = { e ->
                 e.stackTrace.forEach { element ->
-                    Log.e("getVacanciesNumber","Class: ${element.className}, Method: ${element.methodName}, Line: ${element.lineNumber}")
+                    Log.e(
+                        "getVacanciesNumber",
+                        "Class: ${element.className}, Method: ${element.methodName}, Line: ${element.lineNumber}"
+                    )
                 }
                 emit(Resource.Error(e.message.toString()))
             }
@@ -51,7 +54,10 @@ class FavoriteRepositoryImpl(
             },
             onFailure = { e ->
                 e.stackTrace.forEach { element ->
-                    Log.e("getVacanciesPaginated","Class: ${element.className}, Method: ${element.methodName}, Line: ${element.lineNumber}")
+                    Log.e(
+                        "getVacanciesPaginated",
+                        "Class: ${element.className}, Method: ${element.methodName}, Line: ${element.lineNumber}"
+                    )
                 }
                 emit(Resource.Error(e.message.toString()))
             }
