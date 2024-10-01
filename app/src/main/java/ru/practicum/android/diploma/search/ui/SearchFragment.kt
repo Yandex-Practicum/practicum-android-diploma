@@ -51,26 +51,32 @@ class SearchFragment : Fragment() {
         }
     }
 
+    @Suppress("EmptyBlock")
     private fun showDefaultState() {
         // Implement this method later
     }
 
+    @Suppress("EmptyBlock")
     private fun showEmptyState() {
         // Implement this method later
     }
 
+    @Suppress("EmptyBlock")
     private fun showLoadingState() {
         // Implement this method later
     }
 
+    @Suppress("EmptyBlock")
     private fun showNoInternetErrorState() {
         // Implement this method later
     }
 
+    @Suppress("EmptyBlock")
     private fun showServerErrorState() {
         // Implement this method later
     }
 
+    @Suppress("EmptyBlock")
     private fun showSuccessState(vacancies: List<VacancyUi>, found: Int) {
         // Implement this method later
     }
