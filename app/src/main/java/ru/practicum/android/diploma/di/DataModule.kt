@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.di
 
+import android.content.Context
 import androidx.room.Room
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
@@ -17,6 +18,11 @@ val dataModule = module {
             .fallbackToDestructiveMigration()
             .build()
     }
+
+    single {
+        androidContext().getSharedPreferences("setting_preferences", Context.MODE_PRIVATE)
+    }
+
     single<HHApiService> {
         Retrofit.Builder()
             .baseUrl("https://api.hh.ru//")
@@ -25,10 +31,7 @@ val dataModule = module {
             .create(HHApiService::class.java)
     }
 
-    single<NetworkClient> { RetrofitNetworkClient(androidContext(), get()) }
-    single {
-        Room.databaseBuilder(androidContext(), AppDatabase::class.java, "database.db")
-            .fallbackToDestructiveMigration()
-            .build()
+    single<NetworkClient> {
+        RetrofitNetworkClient(androidContext(), get())
     }
 }
