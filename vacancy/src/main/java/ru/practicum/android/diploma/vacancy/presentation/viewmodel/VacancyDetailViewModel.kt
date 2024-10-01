@@ -18,8 +18,11 @@ class VacancyDetailViewModel(
     fun showVacancy() = viewModelScope.launch {
         _vacancyStateLiveData.postValue(VacancyDetailState.Loading)
         vacancyInteractor.listVacancy(vacancyId).collect { vacancy ->
-            if (vacancy.first != null) _vacancyStateLiveData.postValue(VacancyDetailState.Content(vacancy.first!!))
-            else _vacancyStateLiveData.postValue(VacancyDetailState.Error(vacancy.second!!))
+            if (vacancy.first != null) {
+                _vacancyStateLiveData.postValue(VacancyDetailState.Content(vacancy.first!!))
+            } else {
+                _vacancyStateLiveData.postValue(VacancyDetailState.Error(vacancy.second!!))
+            }
         }
     }
 }
