@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.search.data.network
+package ru.practicum.android.diploma.search.data.dto
 
 data class Industry(
     val id: String,

@@ -3,6 +3,8 @@ package ru.practicum.android.diploma.search.data.network
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.QueryMap
+import ru.practicum.android.diploma.search.data.dto.Industry
+import ru.practicum.android.diploma.search.data.dto.SearchResponseVacancy
 
 interface HeadHunterAPI {
     // Поиск вакансий
