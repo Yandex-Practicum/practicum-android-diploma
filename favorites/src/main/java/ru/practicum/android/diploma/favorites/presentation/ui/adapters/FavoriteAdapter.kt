@@ -20,6 +20,12 @@ class FavoriteAdapter(
 ) : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
     private var vacancies = favoriteVacancies
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateFavorites(newFavorites: List<FavoriteVacancy>) {
+        vacancies = newFavorites
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
         val layoutInspector = LayoutInflater.from(parent.context)
         return FavoriteViewHolder(ItemFavoriteBinding.inflate(layoutInspector, parent, false))

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.commonutils.Utils
 import ru.practicum.android.diploma.favorites.R
@@ -62,10 +63,20 @@ class FavoritesFragment : Fragment() {
         binding.favoriteList.adapter = favoriteAdapter
         favoriteAdapter.notifyDataSetChanged()
 
-        favoriteViewModel.getVacancies()
+        favoriteViewModel.getVacanciesNumberAndInitFirstList()
         favoriteViewModel.getFavoriteStateLiveData().observe(viewLifecycleOwner) {
             render(it)
         }
+
+        binding.favoriteList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                if (layoutManager.findLastCompletelyVisibleItemPosition() == listFavoriteVacancy.size - 1) {
+                    favoriteViewModel.getVacanciesPaginated()
+                }
+            }
+        })
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -75,10 +86,13 @@ class FavoritesFragment : Fragment() {
             is FavoriteState.Content -> {
                 Utils.visibilityView(viewArray, binding.favoriteList)
                 listFavoriteVacancy.addAll(state.favoriteVacancies)
+                favoriteAdapter.updateFavorites(listFavoriteVacancy)
             }
+
             is FavoriteState.Empty -> {
                 Utils.visibilityView(viewArray, binding.placeholderEmptyList)
             }
+
             is FavoriteState.Error -> {
                 Utils.visibilityView(viewArray, binding.placeholderErrorList)
             }
