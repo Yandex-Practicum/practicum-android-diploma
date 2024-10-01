@@ -15,4 +15,9 @@
     <dimen name="radius_size_12">12dp</dimen>
     <dimen name="zero_size_0">0</dimen>
     <dimen name="padding_horizontal_size_16">16dp</dimen>
+    <dimen name="title_top_margin_24">24dp</dimen>
+    <dimen name="toolbar_vertical_padding">20dp</dimen>
+    <dimen name="screen_padding_8">8dp</dimen>
+    <dimen name="team_list_spacing">16dp</dimen>
+
 </resources>
