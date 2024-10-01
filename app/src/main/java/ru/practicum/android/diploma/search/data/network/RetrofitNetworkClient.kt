@@ -7,7 +7,10 @@ import ru.practicum.android.diploma.search.data.VacancySearchRequest
 import ru.practicum.android.diploma.util.network.NetworkClient
 import ru.practicum.android.diploma.util.network.Response
 import ru.practicum.android.diploma.util.network.connectionCheck
-import ru.practicum.android.diploma.util.storage.ResponseCode
+import ru.practicum.android.diploma.util.storage.RESPONSE_BAD_REQUEST
+import ru.practicum.android.diploma.util.storage.RESPONSE_INTERNAL_SERVER_ERROR
+import ru.practicum.android.diploma.util.storage.RESPONSE_NOT_CONNECTED
+import ru.practicum.android.diploma.util.storage.RESPONSE_OK
 import java.io.IOException
 
 class RetrofitNetworkClient(
@@ -17,17 +20,19 @@ class RetrofitNetworkClient(
     override suspend fun doRequest(dto: Any): Response {
         var responseCode = Response()
         if (!connectionCheck(context)) {
-            responseCode.apply { resultCode = ResponseCode.RESPONSE_NOT_CONNECTED.code }
+            responseCode.apply { resultCode = RESPONSE_NOT_CONNECTED }
         }
         if (dto !is VacancySearchRequest) {
-            responseCode.apply { resultCode = ResponseCode.RESPONSE_BAD_REQUEST.code }
-        } else withContext(Dispatchers.IO) {
-            try {
-                responseCode = hhApiService.searchVacancies(dto.expression)
-                responseCode.apply { resultCode = ResponseCode.RESPONSE_OK.code }
-            } catch (e: IOException) {
-                responseCode.apply { resultCode = ResponseCode.RESPONSE_INTERNAL_SERVER_ERROR.code }
-                println(e)
+            responseCode.apply { resultCode = RESPONSE_BAD_REQUEST }
+        } else {
+            withContext(Dispatchers.IO) {
+                try {
+                    responseCode = hhApiService.searchVacancies(dto.expression)
+                    responseCode.apply { resultCode = RESPONSE_OK }
+                } catch (e: IOException) {
+                    responseCode.apply { resultCode = RESPONSE_INTERNAL_SERVER_ERROR }
+                    println(e)
+                }
             }
         }
         return responseCode

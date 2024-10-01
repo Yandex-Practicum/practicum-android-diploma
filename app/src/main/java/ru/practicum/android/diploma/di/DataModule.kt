@@ -1,14 +1,14 @@
 package ru.practicum.android.diploma.di
 
-import ru.practicum.android.diploma.database.AppDatabase
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import ru.practicum.android.diploma.search.data.network.HHApiService
-import ru.practicum.android.diploma.util.network.NetworkClient
-import ru.practicum.android.diploma.search.data.network.RetrofitNetworkClient
 import androidx.room.Room
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import ru.practicum.android.diploma.database.AppDatabase
+import ru.practicum.android.diploma.search.data.network.HHApiService
+import ru.practicum.android.diploma.search.data.network.RetrofitNetworkClient
+import ru.practicum.android.diploma.util.network.NetworkClient
 
 val dataModule = module {
 
