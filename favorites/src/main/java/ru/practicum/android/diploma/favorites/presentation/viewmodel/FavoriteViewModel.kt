@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.favorites.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,7 +16,7 @@ class FavoriteViewModel(
 ) : ViewModel() {
 
     private var currentPage = 0
-    private var favoriteState:FavoriteState = FavoriteState.Empty
+    private var favoriteState: FavoriteState = FavoriteState.Empty
     private var vacanciesNumber = -1
     private val vacancies = mutableListOf<FavoriteVacancy>()
 
@@ -37,7 +36,7 @@ class FavoriteViewModel(
 
     fun getVacanciesPaginated() {
         val startPage = currentPage * PAGE_SIZE
-        if(favoriteState !is FavoriteState.Error && startPage < vacanciesNumber) {
+        if (favoriteState !is FavoriteState.Error && startPage < vacanciesNumber) {
             viewModelScope.launch(Dispatchers.IO) {
                 favoriteInteractor.getVacanciesPaginated(PAGE_SIZE, startPage).collect { pair ->
                     val state = vacanciesPaginatedResult(pair.first, pair.second)
@@ -57,7 +56,7 @@ class FavoriteViewModel(
         vacancies.clear()
     }
 
-    private fun vacanciesPaginatedResult(vacancyList: List<FavoriteVacancy>?, errorMessage: String?) : FavoriteState {
+    private fun vacanciesPaginatedResult(vacancyList: List<FavoriteVacancy>?, errorMessage: String?): FavoriteState {
         if (vacancyList != null) {
             vacancies.addAll(vacancyList)
         }
@@ -74,10 +73,9 @@ class FavoriteViewModel(
         }
     }
 
-    private fun vacanciesNumberResultAndInitFirstList(vacancyNumber: Int?, errorMessage: String?) : FavoriteState {
-        if(vacancyNumber != null) {
+    private fun vacanciesNumberResultAndInitFirstList(vacancyNumber: Int?, errorMessage: String?): FavoriteState {
+        if (vacancyNumber != null) {
             vacanciesNumber = vacancyNumber
-            Log.e("set vacanciesNumber", "set vacanciesNumber $vacanciesNumber")
         }
         return when {
             errorMessage != null -> {

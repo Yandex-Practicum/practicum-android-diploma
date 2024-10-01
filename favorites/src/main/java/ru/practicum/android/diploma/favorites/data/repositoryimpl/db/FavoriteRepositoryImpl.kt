@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.favorites.data.repositoryimpl.db
 
+import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.commonutils.Resource
@@ -29,7 +30,7 @@ class FavoriteRepositoryImpl(
             },
             onFailure = { e ->
                 e.stackTrace.forEach { element ->
-                    println("Class: ${element.className}, Method: ${element.methodName}, Line: ${element.lineNumber}")
+                    Log.e("getVacanciesNumber","Class: ${element.className}, Method: ${element.methodName}, Line: ${element.lineNumber}")
                 }
                 emit(Resource.Error(e.message.toString()))
             }
@@ -50,7 +51,7 @@ class FavoriteRepositoryImpl(
             },
             onFailure = { e ->
                 e.stackTrace.forEach { element ->
-                    println("Class: ${element.className}, Method: ${element.methodName}, Line: ${element.lineNumber}")
+                    Log.e("getVacanciesPaginated","Class: ${element.className}, Method: ${element.methodName}, Line: ${element.lineNumber}")
                 }
                 emit(Resource.Error(e.message.toString()))
             }

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -31,7 +30,7 @@ class FavoritesFragment : Fragment() {
     private val binding get() = _binding!!
     private var viewArray: Array<View>? = null
 
-    private lateinit var vacancyClickDebounce: (Int) -> Unit
+    private var vacancyClickDebounce: ((Int) -> Unit)? = null
 
     private var listFavoriteVacancy: MutableList<FavoriteVacancy> = mutableListOf()
 
@@ -42,7 +41,7 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun favoriteVacancySelection(vacancy: FavoriteVacancy) {
-        vacancyClickDebounce(vacancy.idVacancy)
+        vacancyClickDebounce?.let { it(vacancy.idVacancy) }
     }
 
     override fun onCreateView(

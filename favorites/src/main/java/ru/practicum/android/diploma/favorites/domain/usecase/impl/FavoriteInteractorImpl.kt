@@ -18,7 +18,15 @@ class FavoriteInteractorImpl(
         return favoriteRepository.getVacanciesNumber().map { resource -> Resource.handleResource(resource) }
     }
 
-    override suspend fun getVacanciesPaginated(limit: Int, offset: Int): Flow<Pair<List<FavoriteVacancy>?, String?>> {
-        return favoriteRepository.getVacanciesPaginated(limit, offset).map { resource -> Resource.handleResource(resource) }
+    override suspend fun getVacanciesPaginated(
+        limit: Int,
+        offset: Int
+    ): Flow<Pair<List<FavoriteVacancy>?, String?>> {
+        return favoriteRepository.getVacanciesPaginated(
+            limit,
+            offset
+        ).map { resource ->
+            Resource.handleResource(resource)
+        }
     }
 }

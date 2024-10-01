@@ -59,21 +59,18 @@ class VacancyFragment : Fragment() {
 
         fun createArgs(vacancyInputState: VacancyInputState): Bundle {
             return when (vacancyInputState) {
-
                 is VacancyInputState.VacancyNetwork -> {
                     bundleOf(
                         ARGS_STATE to INPUT_NETWORK_STATE,
                         VACANCY_INSTANCE to vacancyInputState.vacancy
                     )
                 }
-
                 is VacancyInputState.VacancyDb -> {
                     bundleOf(
                         ARGS_STATE to INPUT_DB_STATE,
                         VACANCY_ID to vacancyInputState.id
                     )
                 }
-
             }
         }
     }
