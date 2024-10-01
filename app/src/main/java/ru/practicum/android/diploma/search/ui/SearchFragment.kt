@@ -40,6 +40,7 @@ class SearchFragment : Fragment() {
 
     }
 
+    @Suppress("UnusedFunction")
     private fun renderUiState(state: UiScreenState) {
         when (state) {
             UiScreenState.Default -> showDefaultState()
