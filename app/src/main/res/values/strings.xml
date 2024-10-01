@@ -10,4 +10,8 @@
     <string name="city_choice">Выбор города</string>
     <string name="working_region">Место работы</string>
     <string name="main">Главная</string>
+
+<!--  Team Info Screen /start/ -->
+    <string name="team_member_title">Над приложением работали</string>
+<!--  Team Info Screen /end/ -->
 </resources>

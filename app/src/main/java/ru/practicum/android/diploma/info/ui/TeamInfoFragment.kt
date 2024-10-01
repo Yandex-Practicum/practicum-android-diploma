@@ -18,6 +18,20 @@ class TeamInfoFragment : Fragment() {
         _binding = TeamInfoFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val team = listOf(
+            "Сергей Величко",
+            "Александр Березовский",
+            "Даниэль Сафарян",
+            "Артём Матюшин",
+        )
+
+        binding.memberTextView.text = team.joinToString("\n")
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

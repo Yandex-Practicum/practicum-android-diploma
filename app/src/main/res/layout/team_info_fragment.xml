@@ -1,19 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tool="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tool:context=".info.ui.TeamInfoFragment">
-
-    <TextView
-        android:layout_width="wrap_content"
+    android:orientation="vertical">
+    <Toolbar style="@style/BaseToolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/team"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:title="@string/team" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView style="@style/Text_Bold_32"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/title_top_margin_24"
+        android:paddingHorizontal="@dimen/padding_horizontal_size_16"
+        android:paddingVertical="@dimen/screen_padding_8"
+        android:text="@string/team_member_title" />
+
+    <TextView style="@style/Text_Medium_16"
+        android:id="@+id/member_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Вениамин Дизайн\nАрхип Продронялович"
+        android:paddingHorizontal="@dimen/padding_horizontal_size_16"
+        android:layout_marginTop="@dimen/title_top_margin_24"
+        android:lineSpacingExtra="@dimen/team_list_spacing" />
+
+</LinearLayout>
