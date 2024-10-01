@@ -1,14 +1,16 @@
 package ru.practicum.android.diploma.favorites.data.repositoryimpl.db
 
-import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.commonutils.Resource
+import ru.practicum.android.diploma.commonutils.Utils
 import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.favorites.data.mappers.VacancyDbMapper
 import ru.practicum.android.diploma.favorites.domain.model.FavoriteVacancy
 import ru.practicum.android.diploma.favorites.domain.repository.FavoriteRepository
 
+private const val TAG_VACANCIES_NUMBER = "VacanciesNumber"
+private const val TAG_VACANCIES_PAGINATED = "VacanciesPaginated"
 class FavoriteRepositoryImpl(
     private val dataBase: AppDatabase
 ) : FavoriteRepository {
@@ -29,12 +31,7 @@ class FavoriteRepositoryImpl(
                 emit(Resource.Success(number))
             },
             onFailure = { e ->
-                e.stackTrace.forEach { element ->
-                    Log.e(
-                        "getVacanciesNumber",
-                        "Class: ${element.className}, Method: ${element.methodName}, Line: ${element.lineNumber}"
-                    )
-                }
+                Utils.outputStackTrace(TAG_VACANCIES_NUMBER, e)
                 emit(Resource.Error(e.message.toString()))
             }
         )
@@ -53,12 +50,7 @@ class FavoriteRepositoryImpl(
                 emit(Resource.Success(vacancy))
             },
             onFailure = { e ->
-                e.stackTrace.forEach { element ->
-                    Log.e(
-                        "getVacanciesPaginated",
-                        "Class: ${element.className}, Method: ${element.methodName}, Line: ${element.lineNumber}"
-                    )
-                }
+                Utils.outputStackTrace(TAG_VACANCIES_PAGINATED, e)
                 emit(Resource.Error(e.message.toString()))
             }
         )
