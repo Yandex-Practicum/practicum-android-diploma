@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.search.data.dto.SearchResponseVacancy
 
 interface HeadHunterAPI {
     // Поиск вакансий
-    @GET("vacancies/{vacancy_id}")
+    @GET("vacancies")
     suspend fun searchVacancies(
         @Header("Authorization") authToken: String?,
         @Header("User-Agent") userAgent: String?,
