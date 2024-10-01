@@ -17,7 +17,7 @@ class VacancyListViewModel(
     private val vacancies = ArrayList<Vacancy>()
 
     val adapter = VacancyListAdapter(
-        object: VacancyListAdapter.VacancyClickListener {
+        object : VacancyListAdapter.VacancyClickListener {
             override fun onVacancyClick(vacancy: Vacancy) {
                 TODO("Not yet implemented")
             }

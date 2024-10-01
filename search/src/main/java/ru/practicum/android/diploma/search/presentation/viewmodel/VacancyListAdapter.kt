@@ -13,6 +13,7 @@ class VacancyListAdapter(private val clickListener: VacancyClickListener) :
     fun setVacancies(vacancyList: ArrayList<Vacancy>) {
         vacancies = vacancyList
     }
+
     override fun getItemCount(): Int {
         return vacancies.size
     }
