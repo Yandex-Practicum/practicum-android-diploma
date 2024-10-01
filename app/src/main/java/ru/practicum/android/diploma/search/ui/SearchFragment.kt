@@ -6,13 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
+import ru.practicum.android.diploma.search.presentation.SearchViewModel
 import ru.practicum.android.diploma.search.presentation.models.UiScreenState
 import ru.practicum.android.diploma.search.presentation.models.VacancyUi
 
 class SearchFragment : Fragment() {
     private var binding: FragmentSearchBinding? = null
+    private val viewModel by viewModel<SearchViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,9 +41,14 @@ class SearchFragment : Fragment() {
             )
         }
 
+        viewModel.uiState.observe(viewLifecycleOwner) {
+            renderUiState(it)
+        }
+
     }
 
-    @Suppress("UnusedFunction")
+
+
     private fun renderUiState(state: UiScreenState) {
         when (state) {
             UiScreenState.Default -> showDefaultState()
