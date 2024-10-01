@@ -22,6 +22,7 @@ import ru.practicum.android.diploma.favorites.presentation.viewmodel.state.Favor
 import ru.practicum.android.diploma.vacancy.presentation.ui.VacancyFragment
 import ru.practicum.android.diploma.vacancy.presentation.ui.state.VacancyInputState
 
+private const val DELAY_CLICK_VACANCY = 250L
 class FavoritesFragment : Fragment() {
 
     private val favoriteViewModel: FavoriteViewModel by viewModel()
@@ -130,9 +131,5 @@ class FavoritesFragment : Fragment() {
             true,
             action
         )
-    }
-
-    companion object {
-        private const val DELAY_CLICK_VACANCY = 250L
     }
 }
