@@ -13,7 +13,7 @@ class VacancyListViewModel(
     private val vacancies = ArrayList<Vacancy>()
 
     val adapter = VacancyListAdapter {
-        //TODO logic
+        TODO("not implemented4")
     }
 
     companion object {

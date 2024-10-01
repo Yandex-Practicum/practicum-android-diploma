@@ -7,6 +7,6 @@ import ru.practicum.android.diploma.search.domain.models.Vacancy
 class VacancyListViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(parent) {
 
     fun bind(model: Vacancy) {
-        //TODO placeholder
+        TODO("placeholder")
     }
 }
