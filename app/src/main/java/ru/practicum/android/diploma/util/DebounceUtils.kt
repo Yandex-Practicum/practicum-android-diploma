@@ -1,6 +1,9 @@
 package ru.practicum.android.diploma.util
 
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * Функция, которая ограничивает вызов [action] не чаще, чем раз в [delayMs] миллисекунд.
