@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
+import ru.practicum.android.diploma.search.presentation.models.UiScreenState
+import ru.practicum.android.diploma.search.presentation.models.VacancyUi
 
 class SearchFragment : Fragment() {
     private var binding: FragmentSearchBinding? = null
@@ -35,6 +37,41 @@ class SearchFragment : Fragment() {
                 R.id.action_searchFragment_to_vacanciesFragment
             )
         }
+
+    }
+
+    private fun renderUiState(state: UiScreenState) {
+        when (state) {
+            UiScreenState.Default -> showDefaultState()
+            UiScreenState.Empty -> showEmptyState()
+            UiScreenState.Loading -> showLoadingState()
+            UiScreenState.NoInternetError -> showNoInternetErrorState()
+            UiScreenState.ServerError -> showServerErrorState()
+            is UiScreenState.Success -> showSuccessState(state.vacancies, state.found)
+        }
+    }
+
+    private fun showDefaultState() {
+
+    }
+
+    private fun showEmptyState() {
+
+    }
+
+    private fun showLoadingState() {
+
+    }
+
+    private fun showNoInternetErrorState() {
+
+    }
+
+    private fun showServerErrorState() {
+
+    }
+
+    private fun showSuccessState(vacancies: List<VacancyUi>, found: Int) {
 
     }
 
