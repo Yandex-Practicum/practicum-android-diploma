@@ -52,27 +52,27 @@ class SearchFragment : Fragment() {
     }
 
     private fun showDefaultState() {
-
+        // TODO: Implement this method later
     }
 
     private fun showEmptyState() {
-
+        // TODO: Implement this method later
     }
 
     private fun showLoadingState() {
-
+        // TODO: Implement this method later
     }
 
     private fun showNoInternetErrorState() {
-
+        // TODO: Implement this method later
     }
 
     private fun showServerErrorState() {
-
+        // TODO: Implement this method later
     }
 
     private fun showSuccessState(vacancies: List<VacancyUi>, found: Int) {
-
+        // TODO: Implement this method later
     }
 
     override fun onDestroyView() {
