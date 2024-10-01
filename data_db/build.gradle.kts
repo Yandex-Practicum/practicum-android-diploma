@@ -36,10 +36,8 @@ android {
     kapt {
         arguments {
             arg("room.schemaLocation", "$projectDir/schemas")
-            arg("-Xextended-compiler-checks", true)
         }
     }
-
 }
 
 dependencies {
@@ -62,7 +60,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
 
     implementation(libs.androidx.room.runtime)
-    ksp(libs.androidx.room.compiler)
+    kapt(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
 
     // modules

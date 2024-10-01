@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.ksp)
+    id("kotlin-kapt")
 }
 
 android {
@@ -34,6 +35,11 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    kapt {
+        arguments {
+            arg("room.schemaLocation", "$projectDir/schemas")
+        }
+    }
 }
 
 dependencies {
@@ -61,7 +67,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
     implementation(libs.androidx.room.runtime)
-    ksp(libs.androidx.room.compiler)
+    kapt(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
 
     // modules
