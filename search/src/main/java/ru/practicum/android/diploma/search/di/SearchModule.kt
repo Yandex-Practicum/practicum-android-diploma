@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.search.data.repositoryimpl.network.Vacancies
 import ru.practicum.android.diploma.search.domain.repository.VacanciesRepository
 import ru.practicum.android.diploma.search.domain.usecase.VacanciesInteractor
 import ru.practicum.android.diploma.search.domain.usecase.impl.VacanciesInteractorImpl
-import ru.practicum.android.diploma.search.presentation.viewmodel.VacancyDetailViewModel
+import ru.practicum.android.diploma.search.presentation.viewmodel.VacancyListViewModel
 import ru.practicum.android.diploma.search.util.AreaConverter
 import ru.practicum.android.diploma.search.util.IndustryConverter
 import ru.practicum.android.diploma.search.util.VacancyConverter
@@ -34,7 +34,7 @@ val searchModule = module {
         VacanciesRepositoryImpl(get(), get(), get(), get(), androidContext())
     }
 
-    viewModel { (vacancy: String) ->
-        VacancyDetailViewModel(vacancy, get(), androidApplication())
+    viewModel {
+        VacancyListViewModel(get(), androidApplication())
     }
 }
