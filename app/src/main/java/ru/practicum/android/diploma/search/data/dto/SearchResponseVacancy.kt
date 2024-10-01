@@ -1,6 +1,12 @@
 package ru.practicum.android.diploma.search.data.dto
 
+import ru.practicum.android.diploma.search.domain.models.Vacancy
+
 data class SearchResponseVacancy(
+    val found: Int, // Колличесво вакансий
+    val page: Int, // Номер страницы
+    val pages: Int, // Колличесво страниц
+    val vacancies: List<Vacancy>, // Лист вакансий
     val acceptHandicapped: Boolean, // соискателей с инвалидностью
     val acceptIncompleteResumes: Boolean, // неполное резюме
     val acceptKids: Boolean, // старше 14 лет
