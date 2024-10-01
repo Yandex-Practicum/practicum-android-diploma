@@ -8,5 +8,10 @@
         android:id="@+id/favoritesFragment"
         android:name="ru.practicum.android.diploma.favorites.presentation.ui.FavoritesFragment"
         android:label="fragment_favorites"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_favoritesFragment_to_vacancy_navigation"
+            app:destination="@id/vacancy_navigation" />
+    </fragment>
+    <include app:graph="@navigation/vacancy_navigation" />
 </navigation>

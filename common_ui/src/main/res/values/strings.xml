@@ -8,7 +8,7 @@
     <string name="fragment_placeholder">Данная страница в разработке</string>
 
     <!-- Common errors -->
-    <string name="vacancies_list_server_error">Не удалось получить список вакансий</string>
+    <string name="vacancies_list_server_error">Не удалось получить\nсписок вакансий</string>
     <string name="no_internet_error">Нет интернета</string>
     <string name="server_error">Ошибка сервера</string>
 
@@ -17,6 +17,8 @@
     <string name="search_screen_result_count_popup">Найдено %d вакансий</string>
     <string name="search_screen_no_results_popup">Таких вакансий нет</string>
     <string name="search_screen_searchbar_hint">Введите запрос</string>
+
+    <string name="search_screen_clear_button_content_description">Сбросить поисковой запрос</string>
 
     <!-- Filter screens -->
     <string name="filter_screens_main_header">Настройки фильтрации</string>
@@ -66,6 +68,8 @@
     <!-- Favorites screen -->
     <string name="favorites_screen_header">Избранное</string>
     <string name="favorites_screen_empty_list">Список пуст</string>
+    <string name="favorites_company">Название компании</string>
+    <string name="salary_size">Размер заработной платы</string>
 
     <!-- Team screen -->
     <string name="team_screen_header">Команда</string>
