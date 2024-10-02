@@ -35,7 +35,15 @@ class VacancyConverter {
     fun mapItem(items: List<Item>): List<Vacancy> {
         return ArrayList(items.map {
             with(it) {
-                Vacancy(name, employer.name, salary?.from, salary?.to, salary?.currency, employer.logoUrls?.original)
+                Vacancy(
+                    name,
+                    map(area),
+                    employer.name,
+                    salary?.from,
+                    salary?.to,
+                    salary?.currency,
+                    employer.logoUrls?.original
+                )
             }
         })
     }
