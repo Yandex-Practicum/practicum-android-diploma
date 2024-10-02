@@ -24,7 +24,6 @@ class VacancyListViewHolder(parent: View) : RecyclerView.ViewHolder(parent) {
     fun bind(model: Vacancy) {
         vacancyNameAndCity.text = model.title + ", " + model.area.name
         vacancyCompany.text = model.companyName
-
         vacancySalary.text = when {
             model.salaryMin != null && model.salaryMax != null -> {
                 itemView.context.getString(
@@ -34,7 +33,6 @@ class VacancyListViewHolder(parent: View) : RecyclerView.ViewHolder(parent) {
                     model.salaryCurrency
                 )
             }
-
             model.salaryMin != null -> {
                 itemView.context.getString(
                     ru.practicum.android.diploma.common_ui.R.string.salary_from,
@@ -42,7 +40,6 @@ class VacancyListViewHolder(parent: View) : RecyclerView.ViewHolder(parent) {
                     model.salaryCurrency
                 )
             }
-
             model.salaryMax != null -> {
                 itemView.context.getString(
                     ru.practicum.android.diploma.common_ui.R.string.salary_to,
@@ -50,12 +47,8 @@ class VacancyListViewHolder(parent: View) : RecyclerView.ViewHolder(parent) {
                     model.salaryCurrency
                 )
             }
-
-            else -> {
-                itemView.context.getString(ru.practicum.android.diploma.common_ui.R.string.no_salary)
-            }
+            else -> { itemView.context.getString(ru.practicum.android.diploma.common_ui.R.string.no_salary) }
         }
-
         Glide.with(itemView)
             .load(model.companyLogo).placeholder(R.drawable.placeholder_logo_item_favorite)
             .transform(
