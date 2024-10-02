@@ -59,42 +59,46 @@ class VacanciesRepositoryImpl(
             Resource.Success(industryConverter.map(response as HHIndustriesResponse))
         })
 
-    private fun <T, R> executeRequest(request: suspend () -> T, successHandler: (T) -> Resource<R>): Flow<Resource<R>> = flow {
-        val response: T = request.invoke()
-        when ((response as Response).resultCode) {
-            HttpStatus.NO_INTERNET -> {
-                emit(
-                    Resource.Error(
-                        context.getString(ru.practicum.android.diploma.search.R.string.check_network_connection)
+    private fun <T, R> executeRequest(request: suspend () -> T, successHandler: (T) -> Resource<R>): Flow<Resource<R>> =
+        flow {
+            val response: T = request.invoke()
+            when ((response as Response).resultCode) {
+                HttpStatus.NO_INTERNET -> {
+                    emit(
+                        Resource.Error(
+                            context.getString(ru.practicum.android.diploma.search.R.string.check_network_connection)
+                        )
                     )
-                )
-            }
-            HttpStatus.OK -> {
-                with(response as T) {
-                    emit(successHandler(response))
+                }
+
+                HttpStatus.OK -> {
+                    with(response as T) {
+                        emit(successHandler(response))
+                    }
+                }
+
+                HttpStatus.CLIENT_ERROR -> {
+                    emit(
+                        Resource.Error(
+                            context.getString(
+                                ru.practicum.android.diploma.search.R.string.request_was_not_accepted,
+                                response.resultCode,
+                            )
+                        )
+                    )
+                }
+
+                HttpStatus.SERVER_ERROR -> {
+                    emit(
+                        Resource.Error(
+                            context.getString(
+                                ru.practicum.android.diploma.search.R.string.unexpcted_error, response.resultCode
+                            )
+                        )
+                    )
                 }
             }
-            HttpStatus.CLIENT_ERROR -> {
-                emit(
-                    Resource.Error(
-                        context.getString(
-                            ru.practicum.android.diploma.search.R.string.request_was_not_accepted,
-                            response.resultCode,
-                        )
-                    )
-                )
-            }
-            HttpStatus.SERVER_ERROR -> {
-                emit(
-                    Resource.Error(
-                        context.getString(
-                            ru.practicum.android.diploma.search.R.string.unexpcted_error, response.resultCode
-                        )
-                    )
-                )
-            }
         }
-    }
 
     companion object {
         private const val TAG = "VacanciesRepositoryImpl"
