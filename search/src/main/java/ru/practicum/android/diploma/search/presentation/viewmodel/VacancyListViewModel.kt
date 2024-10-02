@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.domain.usecase.VacanciesInteractor
+import ru.practicum.android.diploma.search.presentation.adapter.VacancyListAdapter
 
 class VacancyListViewModel(
     private val vacancyInteractor: VacanciesInteractor,

@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.search.presentation.viewmodel
+package ru.practicum.android.diploma.search.presentation.adapter
 
 import android.annotation.SuppressLint
 import android.view.View
@@ -13,7 +13,6 @@ import ru.practicum.android.diploma.search.R
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 
 private const val RADIUS_ROUND_VIEW = 12f
-
 class VacancyListViewHolder(parent: View) : RecyclerView.ViewHolder(parent) {
 
     private val vacancyNameAndCity: TextView = itemView.findViewById(R.id.searchVacancyNameAndCity)
@@ -57,7 +56,8 @@ class VacancyListViewHolder(parent: View) : RecyclerView.ViewHolder(parent) {
             }
         }
 
-        Glide.with(itemView).load(model.companyLogo).placeholder(R.drawable.placeholder_logo_item_favorite)
+        Glide.with(itemView)
+            .load(model.companyLogo).placeholder(R.drawable.placeholder_logo_item_favorite)
             .transform(
                 CenterCrop(),
                 RoundedCorners(

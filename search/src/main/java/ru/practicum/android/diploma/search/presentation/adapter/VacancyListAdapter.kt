@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.search.presentation.viewmodel
+package ru.practicum.android.diploma.search.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
