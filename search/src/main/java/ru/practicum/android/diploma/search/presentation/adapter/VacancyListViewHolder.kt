@@ -51,9 +51,8 @@ class VacancyListViewHolder(parent: View) : RecyclerView.ViewHolder(parent) {
             else -> { itemView.context.getString(ru.practicum.android.diploma.common_ui.R.string.no_salary) }
         }
         Glide.with(itemView).load(model.companyLogo).placeholder(R.drawable.placeholder_logo_item_favorite).transform(
-            CenterCrop(), RoundedCorners(
-                Utils.doToPx(RADIUS_ROUND_VIEW, itemView.context.applicationContext)
-            )
+            CenterCrop(),
+            RoundedCorners(Utils.doToPx(RADIUS_ROUND_VIEW, itemView.context.applicationContext))
         ).transform().into(vacancyImage)
     }
 }
