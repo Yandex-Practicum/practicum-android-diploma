@@ -20,6 +20,8 @@
 
     <string name="search_screen_clear_button_content_description">Сбросить поисковой запрос</string>
 
+    <string name="search_vacancy_name_placeholder">Android-разработчик, Москва</string>
+
     <!-- Filter screens -->
     <string name="filter_screens_main_header">Настройки фильтрации</string>
 
@@ -64,6 +66,11 @@
     <string name="vacancy_conditions_placeholder">Полная занятость, Удаленная работа</string>
     <string name="vacancy_description_placeholder">Обязанности\nРазрабатывать новую функциональность приложения\nПомогать с интеграцией нашего SDK в другие приложения\nПроектировать большие новые модули\nПисать UI- и unit-тесты\nСледить за работоспособностью сервиса и устранять технический долг</string>
     <string name="vacancy_key_skills_placeholder">Знание классических алгоритмов и структуры данных\nПрограммирование для Android больше одного года\nЗнание WebRTC</string>
+
+    <string name="salary_from">от %s %s</string>
+    <string name="salary_to">до %s %s</string>
+    <string name="salary_from_to">от %s до %s %s</string>
+    <string name="no_salary">Зарплата не указана</string>
 
     <!-- Favorites screen -->
     <string name="favorites_screen_header">Избранное</string>

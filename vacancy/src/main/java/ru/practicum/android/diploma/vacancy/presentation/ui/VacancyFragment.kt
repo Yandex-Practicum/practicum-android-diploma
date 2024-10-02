@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.vacancy.databinding.FragmentVacancyBinding
+import ru.practicum.android.diploma.vacancy.presentation.ui.state.VacancyInputState
 
 class VacancyFragment : Fragment() {
 
@@ -44,5 +46,32 @@ class VacancyFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        private const val VACANCY_INSTANCE = "vacancy_instance"
+        private const val VACANCY_ID = "vacancy_id"
+
+        private const val ARGS_STATE = "args_state"
+
+        private const val INPUT_NETWORK_STATE = 0
+        private const val INPUT_DB_STATE = 1
+
+        fun createArgs(vacancyInputState: VacancyInputState): Bundle {
+            return when (vacancyInputState) {
+                is VacancyInputState.VacancyNetwork -> {
+                    bundleOf(
+                        ARGS_STATE to INPUT_NETWORK_STATE,
+                        VACANCY_INSTANCE to vacancyInputState.vacancy
+                    )
+                }
+                is VacancyInputState.VacancyDb -> {
+                    bundleOf(
+                        ARGS_STATE to INPUT_DB_STATE,
+                        VACANCY_ID to vacancyInputState.id
+                    )
+                }
+            }
+        }
     }
 }

@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.practicum.android.diploma.commonutils.Utils
-import ru.practicum.android.diploma.favorites.R
+import ru.practicum.android.diploma.ui.R
 import ru.practicum.android.diploma.favorites.databinding.ItemFavoriteBinding
 import ru.practicum.android.diploma.favorites.domain.model.FavoriteVacancy
 
@@ -19,6 +19,12 @@ class FavoriteAdapter(
     private val favoriteClickListener: FavoriteClickListener
 ) : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
     private var vacancies = favoriteVacancies
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateFavorites(newFavorites: List<FavoriteVacancy>) {
+        vacancies = newFavorites
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
         val layoutInspector = LayoutInflater.from(parent.context)
