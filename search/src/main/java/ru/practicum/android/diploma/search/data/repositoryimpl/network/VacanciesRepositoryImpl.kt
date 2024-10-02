@@ -85,7 +85,13 @@ class VacanciesRepositoryImpl(
             val response: T = request.invoke()
             when ((response as Response).resultCode) {
                 HttpStatus.NO_INTERNET -> {
-                    emit(Resource.Error(context.getString(ru.practicum.android.diploma.search.R.string.check_network_connection)))
+                    emit(
+                        Resource.Error(
+                            context.getString(
+                                ru.practicum.android.diploma.search.R.string.check_network_connection,
+                            )
+                        )
+                    )
                 }
 
                 HttpStatus.OK -> {
