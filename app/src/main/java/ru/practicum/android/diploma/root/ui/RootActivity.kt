@@ -23,8 +23,8 @@ class RootActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.vacancySearchFragment -> bottomNavigationView.isVisible = true
-                R.id.favoriteFragment -> bottomNavigationView.isVisible = true
+                R.id.vacancySearchFragment,
+                R.id.favoriteFragment,
                 R.id.teamInfoFragment -> bottomNavigationView.isVisible = true
                 else -> bottomNavigationView.isVisible = false
             }
