@@ -17,13 +17,11 @@ class VacancyListViewModel(
 
     private val vacancies = ArrayList<Vacancy>()
 
-    val adapter = VacancyListAdapter(
-        object : VacancyListAdapter.VacancyClickListener {
-            override fun onVacancyClick(vacancy: Vacancy) {
-                TODO("Not yet implemented")
-            }
+    val adapter = VacancyListAdapter(object : VacancyListAdapter.VacancyClickListener {
+        override fun onVacancyClick(vacancy: Vacancy) {
+            TODO("Not yet implemented")
         }
-    )
+    })
 
     private val _vacanciesStateLiveData = MutableLiveData<VacancyListState>()
     fun observeVacanciesState(): LiveData<VacancyListState> = _vacanciesStateLiveData
