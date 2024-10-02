@@ -99,14 +99,20 @@ class VacanciesRepositoryImpl(
                 HttpStatus.CLIENT_ERROR -> {
                     emit(
                         Resource.Error(
-                            context.getString(ru.practicum.android.diploma.search.R.string.request_was_not_accepted, response.resultCode)
+                            context.getString(
+                                ru.practicum.android.diploma.search.R.string.request_was_not_accepted,
+                                response.resultCode,
+                            )
                         )
                     )
                 }
                 HttpStatus.SERVER_ERROR -> {
                     emit(
                         Resource.Error(
-                            context.getString(ru.practicum.android.diploma.search.R.string.unexpcted_error, response.resultCode)
+                            context.getString(
+                                ru.practicum.android.diploma.search.R.string.unexpcted_error,
+                                response.resultCode
+                            )
                         )
                     )
                 }
