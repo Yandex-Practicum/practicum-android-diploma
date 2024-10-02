@@ -14,7 +14,7 @@ import ru.practicum.android.diploma.data.networkclient.api.dto.HHRegionsResponse
 import ru.practicum.android.diploma.data.networkclient.api.dto.HHVacanciesResponse
 import ru.practicum.android.diploma.data.networkclient.api.dto.HHVacancyDetailResponse
 import ru.practicum.android.diploma.data.networkclient.api.dto.HttpStatus
-import ru.practicum.android.diploma.search.R
+import ru.practicum.android.diploma.data.networkclient.api.dto.Response
 import ru.practicum.android.diploma.search.domain.models.IndustryList
 import ru.practicum.android.diploma.search.domain.models.RegionList
 import ru.practicum.android.diploma.search.domain.models.Vacancy
@@ -31,98 +31,77 @@ class VacanciesRepositoryImpl(
     private val areaConverter: AreaConverter,
     private val context: Context,
 ) : VacanciesRepository {
-    override fun searchVacancies(options: Map<String, String>): Flow<Resource<List<Vacancy>>> = flow {
-        val response = networkClient.doRequest(HHApiVacanciesRequest(options))
-        when (response.resultCode) {
-            HttpStatus.NO_INTERNET -> {
-                emit(Resource.Error(context.getString(R.string.check_network_connection)))
+    override fun searchVacancies(options: Map<String, String>): Flow<Resource<List<Vacancy>>> =
+        executeRequest<Response, List<Vacancy>>(
+            request = { networkClient.doRequest(HHApiVacanciesRequest(options)) },
+            successHandler = { response: Response ->
+                Resource.Success(vacancyConverter.mapItem((response as HHVacanciesResponse).items))
             }
+        )
 
-            HttpStatus.OK -> {
-                with(response as HHVacanciesResponse) {
-                    emit(Resource.Success(vacancyConverter.mapItem(response.items)))
+    override fun listVacancy(id: String): Flow<Resource<VacancyDetail>> = executeRequest<Response, VacancyDetail>(
+        request = { networkClient.doRequest(HHApiVacancyRequest(id)) },
+        successHandler = { response: Response ->
+            Resource.Success(vacancyConverter.map(response as HHVacancyDetailResponse))
+        }
+    )
+
+    override fun listAreas(): Flow<Resource<RegionList>> = executeRequest<Response, RegionList>(
+        request = { networkClient.doRequest(HHApiRegionsRequest(hashMapOf(Pair("id", DEFAULT_REGION)))) },
+        successHandler = { response: Response ->
+            Resource.Success(areaConverter.map(response as HHRegionsResponse))
+        },
+    )
+
+    override fun listIndustries(): Flow<Resource<List<IndustryList>>> =
+        executeRequest<Response, List<IndustryList>>(
+            request = { networkClient.doRequest(HHApiIndustriesRequest(emptyMap())) },
+            successHandler = { response: Response ->
+                Resource.Success(industryConverter.map(response as HHIndustriesResponse))
+            }
+        )
+
+    private fun <T, R> executeRequest(request: suspend () -> T, successHandler: (T) -> Resource<R>): Flow<Resource<R>> =
+        flow {
+            val response: T = request.invoke()
+            when ((response as Response).resultCode) {
+                HttpStatus.NO_INTERNET -> {
+                    emit(
+                        Resource.Error(
+                            context.getString(ru.practicum.android.diploma.search.R.string.check_network_connection)
+                        )
+                    )
+                }
+
+                HttpStatus.OK -> {
+                    with(response as T) {
+                        emit(successHandler(response))
+                    }
+                }
+
+                HttpStatus.CLIENT_ERROR -> {
+                    emit(
+                        Resource.Error(
+                            context.getString(
+                                ru.practicum.android.diploma.search.R.string.request_was_not_accepted,
+                                response.resultCode,
+                            )
+                        )
+                    )
+                }
+
+                HttpStatus.SERVER_ERROR -> {
+                    emit(
+                        Resource.Error(
+                            context.getString(
+                                ru.practicum.android.diploma.search.R.string.unexpcted_error,
+                                response.resultCode
+                            )
+                        )
+                    )
                 }
             }
-
-            HttpStatus.CLIENT_ERROR -> {
-                emit(Resource.Error(context.getString(R.string.request_was_not_accepted, response.resultCode)))
-            }
-
-            HttpStatus.SERVER_ERROR -> {
-                emit(Resource.Error(context.getString(R.string.unexpcted_error, response.resultCode)))
-            }
         }
-    }
-
-    override fun listVacancy(id: String): Flow<Resource<VacancyDetail>> = flow {
-        val response = networkClient.doRequest(HHApiVacancyRequest(id))
-        when (response.resultCode) {
-            HttpStatus.NO_INTERNET -> {
-                emit(Resource.Error(context.getString(R.string.check_network_connection)))
-            }
-
-            HttpStatus.OK -> {
-                with(response as HHVacancyDetailResponse) {
-                    emit(Resource.Success(vacancyConverter.map(response)))
-                }
-            }
-
-            HttpStatus.CLIENT_ERROR -> {
-                emit(Resource.Error(context.getString(R.string.request_was_not_accepted, response.resultCode)))
-            }
-
-            HttpStatus.SERVER_ERROR -> {
-                emit(Resource.Error(context.getString(R.string.unexpcted_error, response.resultCode)))
-            }
-        }
-    }
-
-    override fun listAreas(): Flow<Resource<RegionList>> = flow {
-        val response = networkClient.doRequest(HHApiRegionsRequest(hashMapOf(Pair("id", DEFAULT_REGION))))
-        when (response.resultCode) {
-            HttpStatus.NO_INTERNET -> {
-                emit(Resource.Error(context.getString(R.string.check_network_connection)))
-            }
-
-            HttpStatus.OK -> {
-                with(response as HHRegionsResponse) {
-                    emit(Resource.Success(areaConverter.map(response)))
-                }
-            }
-
-            HttpStatus.CLIENT_ERROR -> {
-                emit(Resource.Error(context.getString(R.string.request_was_not_accepted, response.resultCode)))
-            }
-
-            HttpStatus.SERVER_ERROR -> {
-                emit(Resource.Error(context.getString(R.string.unexpcted_error, response.resultCode)))
-            }
-        }
-    }
-
-    override fun listIndustries(): Flow<Resource<List<IndustryList>>> = flow {
-        val response = networkClient.doRequest(HHApiIndustriesRequest(emptyMap()))
-
-        when (response.resultCode) {
-            HttpStatus.NO_INTERNET -> {
-                emit(Resource.Error(context.getString(R.string.check_network_connection)))
-            }
-
-            HttpStatus.OK -> {
-                with(response as HHIndustriesResponse) {
-                    emit(Resource.Success(industryConverter.map(response)))
-                }
-            }
-
-            HttpStatus.CLIENT_ERROR -> {
-                emit(Resource.Error(context.getString(R.string.request_was_not_accepted, response.resultCode)))
-            }
-
-            HttpStatus.SERVER_ERROR -> {
-                emit(Resource.Error(context.getString(R.string.unexpcted_error, response.resultCode)))
-            }
-        }
-    }
 
     companion object {
         private const val TAG = "VacanciesRepositoryImpl"

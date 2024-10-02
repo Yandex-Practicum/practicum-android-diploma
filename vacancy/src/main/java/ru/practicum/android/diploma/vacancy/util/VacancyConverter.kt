@@ -1,23 +1,21 @@
-package ru.practicum.android.diploma.search.util
+package ru.practicum.android.diploma.vacancy.util
 
 import ru.practicum.android.diploma.data.networkclient.api.dto.HHVacancyDetailResponse
-import ru.practicum.android.diploma.data.networkclient.api.dto.Item
-import ru.practicum.android.diploma.search.domain.models.Area
-import ru.practicum.android.diploma.search.domain.models.Employer
-import ru.practicum.android.diploma.search.domain.models.Employment
-import ru.practicum.android.diploma.search.domain.models.Experience
-import ru.practicum.android.diploma.search.domain.models.KeySkill
-import ru.practicum.android.diploma.search.domain.models.Language
-import ru.practicum.android.diploma.search.domain.models.Level
-import ru.practicum.android.diploma.search.domain.models.LogoUrls
-import ru.practicum.android.diploma.search.domain.models.ProfessionalRole
-import ru.practicum.android.diploma.search.domain.models.Salary
-import ru.practicum.android.diploma.search.domain.models.Schedule
-import ru.practicum.android.diploma.search.domain.models.Vacancy
-import ru.practicum.android.diploma.search.domain.models.VacancyDetail
-import ru.practicum.android.diploma.search.domain.models.WorkingDay
-import ru.practicum.android.diploma.search.domain.models.WorkingTimeInterval
-import ru.practicum.android.diploma.data.networkclient.api.dto.Area as AreaDto
+import ru.practicum.android.diploma.vacancy.domain.model.Area
+import ru.practicum.android.diploma.vacancy.domain.model.Employer
+import ru.practicum.android.diploma.vacancy.domain.model.Employment
+import ru.practicum.android.diploma.vacancy.domain.model.Experience
+import ru.practicum.android.diploma.vacancy.domain.model.KeySkill
+import ru.practicum.android.diploma.vacancy.domain.model.Language
+import ru.practicum.android.diploma.vacancy.domain.model.Level
+import ru.practicum.android.diploma.vacancy.domain.model.LogoUrls
+import ru.practicum.android.diploma.vacancy.domain.model.ProfessionalRole
+import ru.practicum.android.diploma.vacancy.domain.model.Salary
+import ru.practicum.android.diploma.vacancy.domain.model.Schedule
+import ru.practicum.android.diploma.vacancy.domain.model.VacancyDetail
+import ru.practicum.android.diploma.vacancy.domain.model.WorkingDay
+import ru.practicum.android.diploma.vacancy.domain.model.WorkingTimeInterval
+import ru.practicum.android.diploma.data.networkclient.api.dto.Area as AriaDto
 import ru.practicum.android.diploma.data.networkclient.api.dto.Employer as EmployerDto
 import ru.practicum.android.diploma.data.networkclient.api.dto.Employment as EmploymentDto
 import ru.practicum.android.diploma.data.networkclient.api.dto.Experience as ExperienceDto
@@ -32,22 +30,6 @@ import ru.practicum.android.diploma.data.networkclient.api.dto.WorkingDay as Wor
 import ru.practicum.android.diploma.data.networkclient.api.dto.WorkingTimeInterval as WorkingTimeIntervalDto
 
 class VacancyConverter {
-    fun mapItem(items: List<Item>): List<Vacancy> {
-        return ArrayList(items.map {
-            with(it) {
-                Vacancy(
-                    name,
-                    map(area),
-                    employer.name,
-                    salary?.from,
-                    salary?.to,
-                    salary?.currency,
-                    employer.logoUrls?.original
-                )
-            }
-        })
-    }
-
     fun map(item: HHVacancyDetailResponse): VacancyDetail {
         return with(item) {
             VacancyDetail(
@@ -72,7 +54,7 @@ class VacancyConverter {
         }
     }
 
-    private fun map(area: AreaDto): Area {
+    private fun map(area: AriaDto): Area {
         return with(area) {
             Area(id = area.id, name = area.name, url = area.url)
         }
@@ -80,14 +62,22 @@ class VacancyConverter {
 
     private fun map(employer: EmployerDto): Employer {
         return with(employer) {
-            Employer(accreditedITEmployer, alternateUrl, id, map(logoUrls), name, trusted, url)
+            Employer(
+                accreditedITEmployer = accreditedITEmployer,
+                alternateUrl = alternateUrl,
+                id = id,
+                logoUrls = map(logoUrls),
+                name = name,
+                trusted = trusted,
+                url = url
+            )
         }
     }
 
     private fun map(logoUrls: LogoUrlsDto?): LogoUrls? {
         return if (logoUrls != null) {
             with(logoUrls) {
-                LogoUrls(deg240, deg90, original)
+                LogoUrls(deg240 = deg240, deg90 = deg90, original = original)
             }
         } else {
             null
@@ -96,20 +86,20 @@ class VacancyConverter {
 
     private fun mapEmployment(employment: EmploymentDto): Employment {
         return with(employment) {
-            Employment(id, name)
+            Employment(id = id, name = name)
         }
     }
 
     private fun mapExperience(experience: ExperienceDto): Experience {
         return with(experience) {
-            Experience(id, name)
+            Experience(id = id, name = name)
         }
     }
 
     private fun mapSkills(keySkills: List<KeySkillDto>): List<KeySkill> {
         return ArrayList(keySkills).map {
             with(it) {
-                KeySkill(name)
+                KeySkill(name = name)
             }
         }
     }
@@ -117,41 +107,41 @@ class VacancyConverter {
     private fun mapLanguage(languages: List<LanguageDto>): List<Language> {
         return ArrayList(languages).map {
             with(it) {
-                Language(id, mapLevel(level), name)
+                Language(id = id, level = mapLevel(level), name = name)
             }
         }
     }
 
     private fun mapLevel(level: LevelDto): Level {
         return with(level) {
-            Level(id, name)
+            Level(id = id, name = name)
         }
     }
 
     private fun mapRoles(professionalRoles: List<ProfessionalRoleDto>): List<ProfessionalRole> {
         return ArrayList(professionalRoles).map {
             with(it) {
-                ProfessionalRole(id, name)
+                ProfessionalRole(id = id, name = name)
             }
         }
     }
 
     private fun mapSalary(salary: SalaryDto): Salary {
         return with(salary) {
-            Salary(currency, from, gross, to)
+            Salary(currency = currency, from = from, gross = gross, to = to)
         }
     }
 
     private fun mapSchedule(schedule: ScheduleDto): Schedule {
         return with(schedule) {
-            Schedule(id, name)
+            Schedule(id = id, name = name)
         }
     }
 
     private fun mapDays(workingDays: List<WorkingDayDto>): List<WorkingDay> {
         return ArrayList(workingDays).map {
             with(it) {
-                WorkingDay(id, name)
+                WorkingDay(id = id, name = name)
             }
         }
     }
@@ -159,7 +149,7 @@ class VacancyConverter {
     private fun map(workingTimeIntervals: List<WorkingTimeIntervalDto>): List<WorkingTimeInterval> {
         return ArrayList(workingTimeIntervals).map {
             with(it) {
-                WorkingTimeInterval(id, name)
+                WorkingTimeInterval(id = id, name = name)
             }
         }
     }

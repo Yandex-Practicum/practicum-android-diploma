@@ -8,13 +8,13 @@ import ru.practicum.android.diploma.data.networkclient.api.dto.Industry as Indus
 class IndustryConverter {
     fun map(industry: IndustryDto): Industry {
         return with(industry) {
-            Industry(id, name)
+            Industry(id = id, name = name)
         }
     }
 
     fun map(industryResponse: HHIndustriesResponse): List<IndustryList> {
         return industryResponse.map { industryItem ->
-            IndustryList(industryItem.id, map(industryItem.industries), industryItem.name)
+            IndustryList(id = industryItem.id, industries = map(industryItem.industries), name = industryItem.name)
         }
     }
 
