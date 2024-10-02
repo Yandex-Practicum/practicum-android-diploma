@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="No_internet">Нет интернета</string>
+    <string name="No_list">Не удалось получить список вакансий</string>
+</resources>

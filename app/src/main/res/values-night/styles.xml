@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="search_et">
+        <item name="drawableTint">@color/white</item>
+        <item name="android:textColorHint">@color/white_universal</item>
+    </style>
+
+    <style name="search_card_view_style">
+        <item name="cardBackgroundColor">@color/grey</item>
+    </style>
+
+    <style name="ic_search">
+        <item name="drawableTint">@color/black</item>
+        <item name="android:textColorHint">@color/black</item>
+    </style>
+
+    <style name="night_text">
+        <item name="android:textColor">@color/white_universal</item>
+    </style>
+
+    <style name="night_image">
+        <item name="android:backgroundTint">@color/white_universal</item>
+    </style>
+</resources>

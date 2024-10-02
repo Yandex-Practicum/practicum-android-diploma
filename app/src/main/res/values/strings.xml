@@ -10,4 +10,7 @@
     <string name="bottom_nav_item_main">Главная</string>
     <string name="bottom_nav_item_favorites">Избранное</string>
     <string name="bottom_nav_item_team">Команда</string>
+    <string name="Search_vacansies">Поиск вакансий</string>
+    <string name="No_internet">Нет интернета</string>
+    <string name="No_list">Не удалось получить список вакансий</string>
 </resources>
