@@ -31,7 +31,7 @@
 
     <TextView
         android:id="@+id/itemNameCompany"
-        style="@style/TextViewRegular16"
+        style="@style/TextViewRegular16NoPadding"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimens_12"
@@ -44,7 +44,7 @@
 
     <TextView
         android:id="@+id/itemSalarySize"
-        style="@style/TextViewRegular16"
+        style="@style/TextViewRegular16NoPadding"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimens_12"
