@@ -11,7 +11,13 @@
     <string name="working_region">Место работы</string>
     <string name="main">Главная</string>
 
-<!--  Team Info Screen /start/ -->
+    <!--  Team Info Screen /start/ -->
     <string name="team_member_title">Над приложением работали</string>
-<!--  Team Info Screen /end/ -->
+    <string-array name="authors">
+        <item>Сергей Величко</item>
+        <item>Александр Березовский</item>
+        <item>Даниэль Сафарян</item>
+        <item>Артём Матюшкин</item>
+    </string-array>
+    <!--  Team Info Screen /end/ -->
 </resources>
