@@ -1,10 +1,8 @@
 package ru.practicum.android.diploma.search.data.repositoryimpl.network
 
 import android.content.Context
-import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import retrofit2.HttpException
 import ru.practicum.android.diploma.commonutils.Resource
 import ru.practicum.android.diploma.data.networkclient.api.NetworkClient
 import ru.practicum.android.diploma.data.networkclient.api.dto.HHApiIndustriesRequest
@@ -34,19 +32,16 @@ class VacanciesRepositoryImpl(
     private val context: Context,
 ) : VacanciesRepository {
     override fun searchVacancies(options: Map<String, String>): Flow<Resource<List<Vacancy>>> =
-        executeRequest<Response, List<Vacancy>>(
-            request = { networkClient.doRequest(HHApiVacanciesRequest(options)) },
+        executeRequest<Response, List<Vacancy>>(request = { networkClient.doRequest(HHApiVacanciesRequest(options)) },
             successHandler = { response: Response ->
                 Resource.Success(vacancyConverter.mapItem((response as HHVacanciesResponse).items))
-            }
-        )
+            })
 
     override fun listVacancy(id: String): Flow<Resource<VacancyDetail>> = executeRequest<Response, VacancyDetail>(
         request = { networkClient.doRequest(HHApiVacancyRequest(id)) },
         successHandler = { response: Response ->
             Resource.Success(vacancyConverter.map(response as HHVacancyDetailResponse))
-        }
-    )
+        })
 
     override fun listAreas(): Flow<Resource<RegionList>> = executeRequest<Response, RegionList>(
         request = {
@@ -57,61 +52,53 @@ class VacanciesRepositoryImpl(
         },
     )
 
-    override fun listIndustries(): Flow<Resource<List<IndustryList>>> = executeRequest<Response, List<IndustryList>>(
-        request = {
-            networkClient.doRequest(
-                HHApiIndustriesRequest(
-                    emptyMap()
-                )
-            )
-        },
-        successHandler = { response: Response ->
+    override fun listIndustries(): Flow<Resource<List<IndustryList>>> =
+        executeRequest<Response, List<IndustryList>>(request = {
+            networkClient.doRequest(HHApiIndustriesRequest(emptyMap()))
+        }, successHandler = { response: Response ->
             Resource.Success(industryConverter.map(response as HHIndustriesResponse))
-        }
-    )
+        })
 
     private fun <T, R> executeRequest(
         request: suspend () -> T,
         successHandler: (T) -> Resource<R>,
     ): Flow<Resource<R>> = flow {
-        try {
-            val response: T = request.invoke()
-            when ((response as Response).resultCode) {
-                HttpStatus.NO_INTERNET -> {
-                    emit(
-                        Resource.Error(
-                            context.getString(ru.practicum.android.diploma.search.R.string.check_network_connection)
-                        )
+        val response: T = request.invoke()
+        when ((response as Response).resultCode) {
+            HttpStatus.NO_INTERNET -> {
+                emit(
+                    Resource.Error(
+                        context.getString(ru.practicum.android.diploma.search.R.string.check_network_connection)
                     )
-                }
-                HttpStatus.OK -> {
-                    with(response as T) {
-                        emit(successHandler(response))
-                    }
-                }
-                HttpStatus.CLIENT_ERROR -> {
-                    emit(
-                        Resource.Error(
-                            context.getString(
-                                ru.practicum.android.diploma.search.R.string.request_was_not_accepted,
-                                response.resultCode,
-                            )
-                        )
-                    )
-                }
-                HttpStatus.SERVER_ERROR -> {
-                    emit(
-                        Resource.Error(
-                            context.getString(
-                                ru.practicum.android.diploma.search.R.string.unexpcted_error,
-                                response.resultCode
-                            )
-                        )
-                    )
+                )
+            }
+
+            HttpStatus.OK -> {
+                with(response as T) {
+                    emit(successHandler(response))
                 }
             }
-        } catch (e: HttpException) {
-            Log.e(TAG, e.message.toString())
+
+            HttpStatus.CLIENT_ERROR -> {
+                emit(
+                    Resource.Error(
+                        context.getString(
+                            ru.practicum.android.diploma.search.R.string.request_was_not_accepted,
+                            response.resultCode,
+                        )
+                    )
+                )
+            }
+
+            HttpStatus.SERVER_ERROR -> {
+                emit(
+                    Resource.Error(
+                        context.getString(
+                            ru.practicum.android.diploma.search.R.string.unexpcted_error, response.resultCode
+                        )
+                    )
+                )
+            }
         }
     }
 
