@@ -13,13 +13,15 @@ class VacancyDetailViewModel(
 ) : ViewModel() {
     private val _vacancyStateLiveData = MutableLiveData<VacancyDetailState>()
     fun observeVacancyState(): LiveData<VacancyDetailState> = _vacancyStateLiveData
-    fun showVacancy() = viewModelScope.launch {
+    fun showVacancy() {
         _vacancyStateLiveData.postValue(VacancyDetailState.Loading)
-        vacancyInteractor.listVacancy(vacancyId).collect { vacancy ->
-            if (vacancy.first != null) {
-                _vacancyStateLiveData.postValue(vacancy.first?.let { VacancyDetailState.Content(it) })
-            } else {
-                _vacancyStateLiveData.postValue(vacancy.second?.let { VacancyDetailState.Error(it) })
+        viewModelScope.launch {
+            vacancyInteractor.listVacancy(vacancyId).collect { vacancy ->
+                if (vacancy.first != null) {
+                    _vacancyStateLiveData.postValue(vacancy.first?.let { VacancyDetailState.Content(it) })
+                } else {
+                    _vacancyStateLiveData.postValue(vacancy.second?.let { VacancyDetailState.Error(it) })
+                }
             }
         }
     }
