@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import retrofit2.HttpException
 import ru.practicum.android.diploma.commonutils.Resource
 import ru.practicum.android.diploma.data.networkclient.api.NetworkClient
 import ru.practicum.android.diploma.data.networkclient.api.dto.HHApiIndustriesRequest
@@ -34,7 +35,8 @@ class VacanciesRepositoryImpl(
     private val context: Context,
 ) : VacanciesRepository {
     override fun searchVacancies(options: Map<String, String>): Flow<Resource<List<Vacancy>>> =
-        executeRequest<Response, List<Vacancy>>(request = { networkClient.doRequest(HHApiVacanciesRequest(options)) },
+        executeRequest<Response, List<Vacancy>>(
+            request = { networkClient.doRequest(HHApiVacanciesRequest(options)) },
             successHandler = { response: Response ->
                 Resource.Success(vacancyConverter.mapItem((response as HHVacanciesResponse).items))
             }
@@ -69,7 +71,8 @@ class VacanciesRepositoryImpl(
                     emptyMap()
                 )
             )
-        }, successHandler = { response: Response ->
+        },
+        successHandler = { response: Response ->
             Resource.Success(industryConverter.map(response as HHIndustriesResponse))
         }
     )
@@ -112,7 +115,7 @@ class VacanciesRepositoryImpl(
                     )
                 }
             }
-        } catch (e: RuntimeException) {
+        } catch (e: HttpException) {
             Log.d(TAG, "Got exception: ${e.stackTrace}")
             Log.e(TAG, e.message.toString())
         }
