@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <Toolbar style="@style/BaseToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:title="@string/team" />
+
+    <TextView style="@style/Text_Bold_32"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/title_top_margin_24"
+        android:paddingHorizontal="@dimen/padding_horizontal_size_16"
+        android:paddingVertical="@dimen/screen_padding_8"
+        android:text="@string/team_member_title" />
+
+    <TextView style="@style/Text_Medium_16"
+        android:id="@+id/member_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Вениамин Дизайн\nАрхип Продронялович"
+        android:paddingHorizontal="@dimen/padding_horizontal_size_16"
+        android:layout_marginTop="@dimen/title_top_margin_24"
+        android:lineSpacingExtra="@dimen/team_list_spacing" />
+
+</LinearLayout>

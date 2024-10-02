@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("ru.practicum.android.diploma.plugins.developproperties")
+    id("kotlin-kapt")
 }
 
 android {
@@ -36,10 +37,12 @@ android {
 
     buildFeatures {
         buildConfig = true
+        viewBinding = true
     }
 }
 
 dependencies {
+
     implementation(libs.androidX.core)
     implementation(libs.androidX.appCompat)
 
@@ -55,4 +58,41 @@ dependencies {
     androidTestImplementation(libs.uiTests.junitExt)
     androidTestImplementation(libs.uiTests.espressoCore)
     // endregion
+
+    // Navigation
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.navigation.ui.ktx)
+
+    // Coroutines
+    implementation(libs.kotlinx.coroutines.android)
+
+    // DI
+    implementation(libs.koin.android)
+
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+
+    // GSON
+    implementation(libs.gson)
+
+    // Glide
+    implementation(libs.glide)
+    annotationProcessor(libs.compiler)
+
+    // Room
+    kapt(libs.room.compiler)
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+
+    // UI
+    implementation(libs.ui.constraintLayout)
+    implementation(libs.material.v1110)
+    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.activity.ktx)
+    implementation(libs.core.ktx.v1131)
+    implementation(libs.fragment.ktx)
+    implementation(libs.androidX.appCompat)
+    implementation(libs.material.v1110)
+
 }
