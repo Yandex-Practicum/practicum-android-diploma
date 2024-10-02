@@ -116,8 +116,8 @@ class SearchFragment : Fragment() {
         when (state) {
             SearchScreenState.FAILED_TO_FETCH_VACANCIES_ERROR -> {
                 binding.resultCountPopup.isVisible = true
-                binding.resultCountPopup.text =
-                    getString(ru.practicum.android.diploma.common_ui.R.string.search_screen_no_results_popup)
+//                binding.resultCountPopup.text =
+//                    getString(ru.practicum.android.diploma.common_ui.R.string.search_screen_no_results_popup)
                 binding.failedToFetchListErrorIllustration.isVisible = true
                 binding.failedToFetchListErrorText.isVisible = true
             }
