@@ -10,6 +10,7 @@ import ru.practicum.android.diploma.databinding.VacancyDetailFragmentBinding
 class VacancyDetailFragment : Fragment() {
     private var _binding: VacancyDetailFragmentBinding? = null
     private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

@@ -11,6 +11,7 @@ import ru.practicum.android.diploma.databinding.TeamInfoFragmentBinding
 class TeamInfoFragment : Fragment() {
     private var _binding: TeamInfoFragmentBinding? = null
     private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
