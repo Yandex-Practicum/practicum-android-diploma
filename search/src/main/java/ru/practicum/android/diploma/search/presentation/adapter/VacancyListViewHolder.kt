@@ -23,7 +23,7 @@ class VacancyListViewHolder(parent: View) : RecyclerView.ViewHolder(parent) {
 
     @SuppressLint("SetTextI18n")
     fun bind(model: Vacancy) {
-        vacancyNameAndCity.text = model.title + ", " + model.area.name
+        vacancyNameAndCity.text = model.title + ", " + model.area.name + ""
         vacancyCompany.text = model.companyName
         vacancySalary.text = when {
             model.salaryMin != null && model.salaryMax != null -> {
