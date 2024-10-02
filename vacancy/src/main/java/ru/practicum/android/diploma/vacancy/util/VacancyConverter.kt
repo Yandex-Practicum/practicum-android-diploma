@@ -33,43 +33,51 @@ class VacancyConverter {
     fun map(item: HHVacancyDetailResponse): VacancyDetail {
         return with(item) {
             VacancyDetail(
-                alternateUrl,
-                applyAlternateUrl,
-                map(area),
-                brandedDescription,
-                description,
-                map(employer),
-                mapEmployment(employment),
-                mapExperience(experience),
-                id,
-                mapSkills(keySkills),
-                mapLanguage(languages),
-                name,
-                mapRoles(professionalRoles),
-                mapSalary(salary),
-                mapSchedule(schedule),
-                mapDays(workingDays),
-                map(workingTimeIntervals)
+                alternateUrl = alternateUrl,
+                applyAlternateUrl = applyAlternateUrl,
+                area = map(area),
+                brandedDescription = brandedDescription,
+                description = description,
+                employer = map(employer),
+                employment = mapEmployment(employment),
+                experience = mapExperience(experience),
+                id = id,
+                keySkills = mapSkills(keySkills),
+                languages = mapLanguage(languages),
+                name = name,
+                professionalRoles = mapRoles(professionalRoles),
+                salary = mapSalary(salary),
+                schedule = mapSchedule(schedule),
+                workingDays = mapDays(workingDays),
+                workingTimeIntervals = map(workingTimeIntervals)
             )
         }
     }
 
     private fun map(area: AriaDto): Area {
         return with(area) {
-            Area(area.id, area.name, area.url)
+            Area(id = area.id, name = area.name, url = area.url)
         }
     }
 
     private fun map(employer: EmployerDto): Employer {
         return with(employer) {
-            Employer(accreditedITEmployer, alternateUrl, id, map(logoUrls), name, trusted, url)
+            Employer(
+                accreditedITEmployer = accreditedITEmployer,
+                alternateUrl = alternateUrl,
+                id = id,
+                logoUrls = map(logoUrls),
+                name = name,
+                trusted = trusted,
+                url = url
+            )
         }
     }
 
     private fun map(logoUrls: LogoUrlsDto?): LogoUrls? {
         return if (logoUrls != null) {
             with(logoUrls) {
-                LogoUrls(deg240, deg90, original)
+                LogoUrls(deg240 = deg240, deg90 = deg90, original = original)
             }
         } else {
             null
@@ -78,20 +86,20 @@ class VacancyConverter {
 
     private fun mapEmployment(employment: EmploymentDto): Employment {
         return with(employment) {
-            Employment(id, name)
+            Employment(id = id, name = name)
         }
     }
 
     private fun mapExperience(experience: ExperienceDto): Experience {
         return with(experience) {
-            Experience(id, name)
+            Experience(id = id, name = name)
         }
     }
 
     private fun mapSkills(keySkills: List<KeySkillDto>): List<KeySkill> {
         return ArrayList(keySkills).map {
             with(it) {
-                KeySkill(name)
+                KeySkill(name = name)
             }
         }
     }
@@ -99,41 +107,41 @@ class VacancyConverter {
     private fun mapLanguage(languages: List<LanguageDto>): List<Language> {
         return ArrayList(languages).map {
             with(it) {
-                Language(id, mapLevel(level), name)
+                Language(id = id, level = mapLevel(level), name = name)
             }
         }
     }
 
     private fun mapLevel(level: LevelDto): Level {
         return with(level) {
-            Level(id, name)
+            Level(id = id, name = name)
         }
     }
 
     private fun mapRoles(professionalRoles: List<ProfessionalRoleDto>): List<ProfessionalRole> {
         return ArrayList(professionalRoles).map {
             with(it) {
-                ProfessionalRole(id, name)
+                ProfessionalRole(id = id, name = name)
             }
         }
     }
 
     private fun mapSalary(salary: SalaryDto): Salary {
         return with(salary) {
-            Salary(currency, from, gross, to)
+            Salary(currency = currency, from = from, gross = gross, to = to)
         }
     }
 
     private fun mapSchedule(schedule: ScheduleDto): Schedule {
         return with(schedule) {
-            Schedule(id, name)
+            Schedule(id = id, name = name)
         }
     }
 
     private fun mapDays(workingDays: List<WorkingDayDto>): List<WorkingDay> {
         return ArrayList(workingDays).map {
             with(it) {
-                WorkingDay(id, name)
+                WorkingDay(id = id, name = name)
             }
         }
     }
@@ -141,7 +149,7 @@ class VacancyConverter {
     private fun map(workingTimeIntervals: List<WorkingTimeIntervalDto>): List<WorkingTimeInterval> {
         return ArrayList(workingTimeIntervals).map {
             with(it) {
-                WorkingTimeInterval(id, name)
+                WorkingTimeInterval(id = id, name = name)
             }
         }
     }

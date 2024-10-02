@@ -35,7 +35,14 @@ class VacancyConverter {
     fun mapItem(items: List<Item>): List<Vacancy> {
         return ArrayList(items.map {
             with(it) {
-                Vacancy(name, employer.name, salary?.from, salary?.to, salary?.currency, employer.logoUrls?.original)
+                Vacancy(
+                    title = name,
+                    companyName = employer.name,
+                    salaryMin = salary?.from,
+                    salaryMax = salary?.to,
+                    salaryCurrency = salary?.currency,
+                    companyLogo = employer.logoUrls?.original
+                )
             }
         })
     }
@@ -43,30 +50,30 @@ class VacancyConverter {
     fun map(item: HHVacancyDetailResponse): VacancyDetail {
         return with(item) {
             VacancyDetail(
-                alternateUrl,
-                applyAlternateUrl,
-                map(area),
-                brandedDescription,
-                description,
-                map(employer),
-                mapEmployment(employment),
-                mapExperience(experience),
-                id,
-                mapSkills(keySkills),
-                mapLanguage(languages),
-                name,
-                mapRoles(professionalRoles),
-                mapSalary(salary),
-                mapSchedule(schedule),
-                mapDays(workingDays),
-                map(workingTimeIntervals)
+                alternateUrl = alternateUrl,
+                applyAlternateUrl = applyAlternateUrl,
+                area = map(area),
+                brandedDescription = brandedDescription,
+                description = description,
+                employer = map(employer),
+                employment = mapEmployment(employment),
+                experience = mapExperience(experience),
+                id = id,
+                keySkills = mapSkills(keySkills),
+                languages = mapLanguage(languages),
+                name = name,
+                professionalRoles = mapRoles(professionalRoles),
+                salary = mapSalary(salary),
+                schedule = mapSchedule(schedule),
+                workingDays = mapDays(workingDays),
+                workingTimeIntervals = map(workingTimeIntervals)
             )
         }
     }
 
     private fun map(area: AreaDto): Area {
         return with(area) {
-            Area(area.id, area.name, area.url)
+            Area(id = area.id, name = area.name, url = area.url)
         }
     }
 

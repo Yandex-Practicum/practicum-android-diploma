@@ -11,15 +11,7 @@ internal class VacancyDetailInteractorImpl(private val repository: VacancyDetail
 
     override fun listVacancy(id: String): Flow<Pair<VacancyDetail?, String?>> {
         return repository.listVacancy(id).map { result ->
-            when (result) {
-                is Resource.Success -> {
-                    Pair(result.data, "")
-                }
-
-                is Resource.Error -> {
-                    Pair(null, result.message ?: "")
-                }
-            }
+            Resource.handleResource(result)
         }
     }
 }

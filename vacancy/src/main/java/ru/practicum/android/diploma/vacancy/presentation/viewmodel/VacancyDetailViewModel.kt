@@ -19,9 +19,9 @@ class VacancyDetailViewModel(
         _vacancyStateLiveData.postValue(VacancyDetailState.Loading)
         vacancyInteractor.listVacancy(vacancyId).collect { vacancy ->
             if (vacancy.first != null) {
-                _vacancyStateLiveData.postValue(VacancyDetailState.Content(vacancy.first!!))
+                _vacancyStateLiveData.postValue(vacancy.first?.let { VacancyDetailState.Content(it) })
             } else {
-                _vacancyStateLiveData.postValue(VacancyDetailState.Error(vacancy.second!!))
+                _vacancyStateLiveData.postValue(vacancy.second?.let { VacancyDetailState.Error(it) })
             }
         }
     }
