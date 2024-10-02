@@ -57,19 +57,13 @@ class VacancyListViewHolder(parent: View) : RecyclerView.ViewHolder(parent) {
             }
         }
 
-        Glide.with(itemView)
-            .load(model.companyLogo)
-            .placeholder(R.drawable.placeholder_logo_item_favorite)
+        Glide.with(itemView).load(model.companyLogo).placeholder(R.drawable.placeholder_logo_item_favorite)
             .transform(
                 CenterCrop(),
                 RoundedCorners(
-                    Utils.doToPx(
-                        RADIUS_ROUND_VIEW,
-                        itemView.context.applicationContext
-                    )
+                    Utils.doToPx(RADIUS_ROUND_VIEW, itemView.context.applicationContext)
                 )
             )
-            .transform()
-            .into(vacancyImage)
+            .transform().into(vacancyImage)
     }
 }
