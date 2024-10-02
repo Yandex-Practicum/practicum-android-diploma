@@ -47,9 +47,7 @@ class VacanciesRepositoryImpl(
     )
 
     override fun listAreas(): Flow<Resource<RegionList>> = executeRequest<Response, RegionList>(
-        request = {
-            networkClient.doRequest(HHApiRegionsRequest(hashMapOf(Pair("id", DEFAULT_REGION))))
-        },
+        request = { networkClient.doRequest(HHApiRegionsRequest(hashMapOf(Pair("id", DEFAULT_REGION)))) },
         successHandler = { response: Response ->
             Resource.Success(areaConverter.map(response as HHRegionsResponse))
         },
@@ -57,9 +55,8 @@ class VacanciesRepositoryImpl(
 
     override fun listIndustries(): Flow<Resource<List<IndustryList>>> =
         executeRequest<Response, List<IndustryList>>(
-            request = {
-                networkClient.doRequest(HHApiIndustriesRequest(emptyMap()))
-            }, successHandler = { response: Response ->
+            request = { networkClient.doRequest(HHApiIndustriesRequest(emptyMap())) },
+            successHandler = { response: Response ->
                 Resource.Success(industryConverter.map(response as HHIndustriesResponse))
             }
         )
