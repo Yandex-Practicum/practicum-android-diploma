@@ -5,5 +5,4 @@ data class SearchResponse(
     val found: Int, // Общее количество найденных вакансий
     val page: Int, // Номер текущей страницы
     val pages: Int, // Общее количество страниц
-    val per_page: Int, // Количество элементов на странице
 )

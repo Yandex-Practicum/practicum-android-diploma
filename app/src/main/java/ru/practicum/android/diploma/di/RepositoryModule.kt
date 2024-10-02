@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.di
 
-import android.content.Context
 import org.koin.dsl.module
 import ru.practicum.android.diploma.favorites.data.impl.FavoritesRepositoryImpl
 import ru.practicum.android.diploma.favorites.domain.api.FavoritesRepository
@@ -10,7 +9,6 @@ import ru.practicum.android.diploma.search.data.impl.SearchRepositoryImpl
 import ru.practicum.android.diploma.search.domain.api.SearchRepository
 import ru.practicum.android.diploma.vacancies.data.impl.VacanciesRepositoryImpl
 import ru.practicum.android.diploma.vacancies.domain.api.VacanciesRepository
-
 
 val repositoryModule = module {
 
