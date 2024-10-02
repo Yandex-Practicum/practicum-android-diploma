@@ -17,7 +17,6 @@ import ru.practicum.android.diploma.data.networkclient.api.dto.HHVacanciesRespon
 import ru.practicum.android.diploma.data.networkclient.api.dto.HHVacancyDetailResponse
 import ru.practicum.android.diploma.data.networkclient.api.dto.HttpStatus
 import ru.practicum.android.diploma.data.networkclient.api.dto.Response
-import ru.practicum.android.diploma.search.R
 import ru.practicum.android.diploma.search.domain.models.IndustryList
 import ru.practicum.android.diploma.search.domain.models.RegionList
 import ru.practicum.android.diploma.search.domain.models.Vacancy
@@ -118,10 +117,8 @@ class VacanciesRepositoryImpl(
                 }
             }
         } catch (e: HttpException) {
-            Log.d(TAG, "Got exception: ${e.stackTrace}")
             Log.e(TAG, e.message.toString())
         }
-
     }
 
     companion object {
