@@ -20,6 +20,6 @@ val vacancyDetailModule = module {
     }
 
     viewModel { (vacancyId: String) ->
-        VacancyDetailViewModel(vacancyId, get(), androidApplication())
+        VacancyDetailViewModel(vacancyId, get())
     }
 }
