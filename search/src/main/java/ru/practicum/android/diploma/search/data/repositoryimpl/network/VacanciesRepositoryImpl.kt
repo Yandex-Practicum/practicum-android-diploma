@@ -50,13 +50,7 @@ class VacanciesRepositoryImpl(
 
     override fun listAreas(): Flow<Resource<RegionList>> = executeRequest<Response, RegionList>(
         request = {
-            networkClient.doRequest(
-                HHApiRegionsRequest(
-                    hashMapOf(
-                        Pair("id", DEFAULT_REGION)
-                    )
-                )
-            )
+            networkClient.doRequest(HHApiRegionsRequest(hashMapOf(Pair("id", DEFAULT_REGION))))
         },
         successHandler = { response: Response ->
             Resource.Success(areaConverter.map(response as HHRegionsResponse))
