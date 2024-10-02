@@ -36,4 +36,27 @@
         <item name="itemBackground">@color/white</item>
         <item name="itemTextColor">@color/bottom_nav_item_color</item>
     </style>
+
+    <style name="search_et">
+        <item name="drawableTint">@color/grey</item>
+        <item name="android:textColorHint">@color/grey</item>
+    </style>
+
+    <style name="search_card_view_style">
+        <item name="cardBackgroundColor">@color/light_grey</item>
+    </style>
+
+    <style name="ic_search">
+        <item name="drawableTint">@color/grey</item>
+        <item name="android:textColorHint">@color/grey</item>
+    </style>
+
+    <style name="night_text">
+        <item name="android:textColor">@color/black_universal</item>
+    </style>
+
+    <style name="night_image">
+        <item name="android:backgroundTint">@color/black</item>
+    </style>
+
 </resources>

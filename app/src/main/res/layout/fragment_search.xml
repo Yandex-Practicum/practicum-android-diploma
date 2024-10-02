@@ -2,38 +2,210 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/titleTemplate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SEARCH SCREEN"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonFilters"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            style="@style/night_text"
+            android:layout_width="0dp"
+            android:layout_height="26dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/ys_display_medium"
+            android:text="@string/Search_vacansies"
+            android:textSize="22dp" />
+
+        <ImageButton
+            style="@style/night_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/ic_filter" />
+    </LinearLayout>
+
+
+    <androidx.cardview.widget.CardView
+        style="@style/search_card_view_style"
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginHorizontal="16dp"
+        app:cardCornerRadius="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+            <EditText
+                android:id="@+id/editText"
+                style="@style/search_et"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:paddingStart="16dp"
+                android:layout_marginEnd="12dp"
+                android:layout_weight="1"
+                android:background="?selectableItemBackground"
+                android:focusable="true"
+                android:hint="Введите запрос"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/black_universal"/>
+
+            <ImageView
+                style="@style/ic_search"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/ic_search"
+                android:visibility="visible"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/ivImgSearch"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/img_search"
+        android:layout_marginHorizontal="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="328:223"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        android:visibility="gone"/>
 
-    <Button
-        android:id="@+id/buttonFilters"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Filters Screen"
-        app:layout_constraintBottom_toTopOf="@+id/buttonVacancies"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleTemplate" />
-
-    <Button
-        android:id="@+id/buttonVacancies"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Vacancies Screen"
+    <ProgressBar
+        android:id="@+id/pbLoading"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttonFilters" />
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        android:visibility="gone"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clNoInternet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/ivImgNoInternet"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="135dp"
+            android:background="@drawable/img_no_internet"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="328:223"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            style="@style/night_text"
+            android:id="@+id/tvNoInternet"
+            android:layout_width="268dp"
+            android:layout_height="26dp"
+            android:text="@string/No_internet"
+            android:gravity="center"
+            android:fontFamily="@font/ys_display_medium"
+            android:textSize="22sp"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="30dp"
+            app:layout_constraintEnd_toEndOf="@+id/ivImgNoInternet"
+            app:layout_constraintStart_toStartOf="@+id/ivImgNoInternet"
+            app:layout_constraintTop_toBottomOf="@+id/ivImgNoInternet"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    <TextView
+        android:id="@+id/tvCountList"
+        android:layout_width="wrap_content"
+        android:minWidth="159dp"
+        android:layout_height="27dp"
+        android:background="@drawable/shape"
+        android:text="Таких вакансий нет"
+        android:layout_marginTop="11dp"
+        android:textSize="16dp"
+        android:textColor="@color/white_universal"
+        android:fontFamily="@font/ys_display_medium"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="@+id/cardView"
+        app:layout_constraintStart_toStartOf="@+id/cardView"
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        android:visibility="visible"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clEmptyList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/ivImgNoList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="135dp"
+            android:background="@drawable/no_list"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="328:223"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            style="@style/night_text"
+            android:id="@+id/tvNoList"
+            android:layout_width="268dp"
+            android:layout_height="52dp"
+            android:text="@string/No_list"
+            android:gravity="center"
+            android:fontFamily="@font/ys_display_medium"
+            android:textSize="22sp"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="30dp"
+            app:layout_constraintEnd_toEndOf="@+id/ivImgNoList"
+            app:layout_constraintStart_toStartOf="@+id/ivImgNoList"
+            app:layout_constraintTop_toBottomOf="@+id/ivImgNoList"
+            android:visibility="visible"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginHorizontal="16dp"
+        tools:listitem="@layout/item_vacancy"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@+id/tvCountList"/>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
