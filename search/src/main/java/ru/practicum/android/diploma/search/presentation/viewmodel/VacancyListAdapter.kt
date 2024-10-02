@@ -3,8 +3,8 @@ package ru.practicum.android.diploma.search.presentation.viewmodel
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.R
+import ru.practicum.android.diploma.search.domain.models.Vacancy
 
 class VacancyListAdapter(private val clickListener: VacancyClickListener) :
     RecyclerView.Adapter<VacancyListViewHolder>() {
