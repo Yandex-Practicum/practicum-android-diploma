@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal data class InsiderInterview(
+data class InsiderInterview(
     val id: String,
     val url: String,
 ) : Parcelable

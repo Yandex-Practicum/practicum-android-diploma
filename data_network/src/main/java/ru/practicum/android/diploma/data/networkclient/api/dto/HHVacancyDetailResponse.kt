@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal data class HHVacancyDetailResponse(
+data class HHVacancyDetailResponse(
     @SerializedName("accept_handicapped") val acceptHandicapped: Boolean,
     @SerializedName("accept_incomplete_resumes") val acceptIncompleteResumes: Boolean,
     @SerializedName("accept_kids") val acceptKids: Boolean,
@@ -55,5 +55,5 @@ internal data class HHVacancyDetailResponse(
     @SerializedName("working_days") val workingDays: List<WorkingDay>,
     @SerializedName("working_time_intervals") val workingTimeIntervals: List<WorkingTimeInterval>,
     @SerializedName("working_time_modes") val workingTimeModes: List<WorkingTimeMode>,
-    override val resultCode: HttpStatus = HttpStatus.OK,
+    @Suppress("detekt.DataClassShouldBeImmutable") override var resultCode: HttpStatus,
 ) : Response, Parcelable

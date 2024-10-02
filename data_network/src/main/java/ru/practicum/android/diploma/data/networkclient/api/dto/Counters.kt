@@ -4,6 +4,6 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal data class Counters(
+data class Counters(
     val responses: Int,
 ) : Parcelable

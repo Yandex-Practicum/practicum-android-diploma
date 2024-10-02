@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal data class LogoScalable(
+data class LogoScalable(
     val default: Default,
     val xs: Xs,
 ) : Parcelable

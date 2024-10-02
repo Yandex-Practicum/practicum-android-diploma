@@ -4,6 +4,6 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal data class Test(
+data class Test(
     val required: Boolean,
 ) : Parcelable

@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal data class Color(
+data class Color(
     val color: String,
     val position: Int,
 ) : Parcelable

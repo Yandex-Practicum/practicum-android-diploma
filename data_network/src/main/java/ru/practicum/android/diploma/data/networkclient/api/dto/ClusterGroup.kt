@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal data class ClusterGroup(
+data class ClusterGroup(
     val id: String,
     val name: String,
 ) : Parcelable

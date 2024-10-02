@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal data class VideoVacancy(
+data class VideoVacancy(
     @SerializedName("cover_picture")
     val coverPicture: CoverPicture,
     @SerializedName("video_url")

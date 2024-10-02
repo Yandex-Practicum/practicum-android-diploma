@@ -43,7 +43,7 @@ internal interface HHApiService {
     ): HHVacancyDetailResponse
 
     private object ApiConstants {
-        const val HH_HEADER_ONE = "HH-User-Agent: CareerRepository/1.0 (zpe25@yandex.ru))"
+        const val HH_HEADER_ONE = "HH-User-Agent: CareerRepository/1.0 (zpe25@yandex.ru)"
         const val HH_TOKEN = "Bearer ${BuildConfig.HH_ACCESS_TOKEN}"
     }
 }

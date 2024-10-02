@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal data class WorkingTimeMode(
+data class WorkingTimeMode(
     val id: String,
     val name: String,
 ) : Parcelable

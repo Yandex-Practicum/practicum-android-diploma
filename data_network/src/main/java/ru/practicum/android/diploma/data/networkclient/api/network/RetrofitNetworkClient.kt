@@ -5,6 +5,7 @@ import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.commonutils.isConnected
+import ru.practicum.android.diploma.data.networkclient.api.NetworkClient
 import ru.practicum.android.diploma.data.networkclient.api.dto.HHApiIndustriesRequest
 import ru.practicum.android.diploma.data.networkclient.api.dto.HHApiRegionsRequest
 import ru.practicum.android.diploma.data.networkclient.api.dto.HHApiVacanciesRequest
@@ -15,11 +16,11 @@ import ru.practicum.android.diploma.data.networkclient.api.dto.Response
 internal class RetrofitNetworkClient(
     private val hhApiService: HHApiService,
     private val context: Context,
-) : ru.practicum.android.diploma.data.networkclient.api.NetworkClient {
+) : NetworkClient {
 
     override suspend fun doRequest(dto: Any): Response {
         Log.d(TAG, "Starting request to HH")
-        if (context.isConnected()) {
+        if (!context.isConnected()) {
             return object : Response {
                 override var resultCode = HttpStatus.NO_INTERNET
             }
@@ -47,22 +48,28 @@ internal class RetrofitNetworkClient(
     }
 
     private suspend fun regionsRequest(dto: HHApiRegionsRequest): Response {
-        val request = if (dto.term.isNullOrEmpty()) null else mapOf(QUERY to dto.term)
-        return hhApiService.searchRegions(request)
+        val regions = hhApiService.searchRegions(dto.options)
+        Log.d(TAG, regions.toString())
+        return regions
     }
 
     private suspend fun vacancyListRequest(dto: HHApiVacanciesRequest): Response {
-        val request = mapOf("query" to dto.request)
-        return hhApiService.searchVacancies(request)
+        val vacancies = hhApiService.searchVacancies(dto.request)
+        vacancies.resultCode = HttpStatus.OK
+        return vacancies
     }
 
     private suspend fun vacancyRequest(dto: HHApiVacancyRequest): Response {
-        return hhApiService.getVacancy(dto.vacancyId)
+        val vacancy = hhApiService.getVacancy(dto.vacancyId)
+        vacancy.resultCode = HttpStatus.OK
+        Log.d(TAG, vacancy.toString())
+        return vacancy
     }
 
     private suspend fun industriesRequest(dto: HHApiIndustriesRequest): Response {
-        val request = if (dto.term.isNullOrEmpty()) null else mapOf(QUERY to dto.term)
-        return hhApiService.searchIndustries(request)
+        val industries = hhApiService.searchIndustries(dto.options)
+        Log.d(TAG, industries.toString())
+        return industries
     }
 
     companion object {

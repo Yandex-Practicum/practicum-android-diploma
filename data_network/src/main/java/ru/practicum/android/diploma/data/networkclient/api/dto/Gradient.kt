@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal data class Gradient(
+data class Gradient(
     val angle: Int,
     @SerializedName("color_list") val colorList: List<Color>,
 ) : Parcelable

@@ -4,6 +4,6 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal data class Manager(
+data class Manager(
     val id: String,
 ) : Parcelable

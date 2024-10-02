@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal data class Background(
+data class Background(
     val color: String?,
     val gradient: Gradient,
 ) : Parcelable
