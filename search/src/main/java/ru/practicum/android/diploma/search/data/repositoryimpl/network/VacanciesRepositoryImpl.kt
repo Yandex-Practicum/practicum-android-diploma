@@ -32,16 +32,19 @@ class VacanciesRepositoryImpl(
     private val context: Context,
 ) : VacanciesRepository {
     override fun searchVacancies(options: Map<String, String>): Flow<Resource<List<Vacancy>>> =
-        executeRequest<Response, List<Vacancy>>(request = { networkClient.doRequest(HHApiVacanciesRequest(options)) },
+        executeRequest<Response, List<Vacancy>>(
+            request = { networkClient.doRequest(HHApiVacanciesRequest(options)) },
             successHandler = { response: Response ->
                 Resource.Success(vacancyConverter.mapItem((response as HHVacanciesResponse).items))
-            })
+            }
+        )
 
     override fun listVacancy(id: String): Flow<Resource<VacancyDetail>> = executeRequest<Response, VacancyDetail>(
         request = { networkClient.doRequest(HHApiVacancyRequest(id)) },
         successHandler = { response: Response ->
             Resource.Success(vacancyConverter.map(response as HHVacancyDetailResponse))
-        })
+        }
+    )
 
     override fun listAreas(): Flow<Resource<RegionList>> = executeRequest<Response, RegionList>(
         request = {
@@ -53,11 +56,13 @@ class VacanciesRepositoryImpl(
     )
 
     override fun listIndustries(): Flow<Resource<List<IndustryList>>> =
-        executeRequest<Response, List<IndustryList>>(request = {
-            networkClient.doRequest(HHApiIndustriesRequest(emptyMap()))
-        }, successHandler = { response: Response ->
-            Resource.Success(industryConverter.map(response as HHIndustriesResponse))
-        })
+        executeRequest<Response, List<IndustryList>>(
+            request = {
+                networkClient.doRequest(HHApiIndustriesRequest(emptyMap()))
+            }, successHandler = { response: Response ->
+                Resource.Success(industryConverter.map(response as HHIndustriesResponse))
+            }
+        )
 
     private fun <T, R> executeRequest(request: suspend () -> T, successHandler: (T) -> Resource<R>): Flow<Resource<R>> =
         flow {
@@ -92,7 +97,8 @@ class VacanciesRepositoryImpl(
                     emit(
                         Resource.Error(
                             context.getString(
-                                ru.practicum.android.diploma.search.R.string.unexpcted_error, response.resultCode
+                                ru.practicum.android.diploma.search.R.string.unexpcted_error,
+                                response.resultCode
                             )
                         )
                     )
