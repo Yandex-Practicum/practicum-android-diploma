@@ -11,6 +11,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.practicum.android.diploma.commonutils.Utils
 import ru.practicum.android.diploma.search.R
 import ru.practicum.android.diploma.search.domain.models.Vacancy
+import ru.practicum.android.diploma.common_ui.R as RCommon
 
 private const val RADIUS_ROUND_VIEW = 12f
 
@@ -28,7 +29,7 @@ class VacancyListViewHolder(parent: View) : RecyclerView.ViewHolder(parent) {
         vacancySalary.text = when {
             model.salaryMin != null && model.salaryMax != null -> {
                 itemView.context.getString(
-                    ru.practicum.android.diploma.common_ui.R.string.salary_from_to,
+                    RCommon.string.salary_from_to,
                     model.salaryMin.toString(),
                     model.salaryMax.toString(),
                     model.salaryCurrency
@@ -36,19 +37,19 @@ class VacancyListViewHolder(parent: View) : RecyclerView.ViewHolder(parent) {
             }
             model.salaryMin != null -> {
                 itemView.context.getString(
-                    ru.practicum.android.diploma.common_ui.R.string.salary_from,
+                    RCommon.string.salary_from,
                     model.salaryMin.toString(),
                     model.salaryCurrency
                 )
             }
             model.salaryMax != null -> {
                 itemView.context.getString(
-                    ru.practicum.android.diploma.common_ui.R.string.salary_to,
+                    RCommon.string.salary_to,
                     model.salaryMax.toString(),
                     model.salaryCurrency
                 )
             }
-            else -> { itemView.context.getString(ru.practicum.android.diploma.common_ui.R.string.no_salary) }
+            else -> { itemView.context.getString(RCommon.string.no_salary) }
         }
         Glide.with(itemView).load(model.companyLogo).placeholder(R.drawable.placeholder_logo_item_favorite).transform(
             CenterCrop(),
