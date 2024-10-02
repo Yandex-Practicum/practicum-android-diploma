@@ -45,6 +45,8 @@ dependencies {
 
     implementation(libs.androidX.core)
     implementation(libs.androidX.appCompat)
+    implementation(libs.core.ktx)
+    implementation(libs.lifecycle.viewmodel.ktx)
 
     // UI layer libraries
     implementation(libs.ui.material)
@@ -72,8 +74,6 @@ dependencies {
     // Retrofit
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
-
-    // GSON
     implementation(libs.gson)
 
     // Glide
@@ -87,12 +87,10 @@ dependencies {
 
     // UI
     implementation(libs.ui.constraintLayout)
-    implementation(libs.material.v1110)
-    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.material)
     implementation(libs.activity.ktx)
-    implementation(libs.core.ktx.v1131)
     implementation(libs.fragment.ktx)
     implementation(libs.androidX.appCompat)
-    implementation(libs.material.v1110)
+    implementation(libs.material)
 
 }
