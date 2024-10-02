@@ -37,28 +37,33 @@ class VacanciesRepositoryImpl(
         executeRequest<Response, List<Vacancy>>(request = { networkClient.doRequest(HHApiVacanciesRequest(options)) },
             successHandler = { response: Response ->
                 Resource.Success(vacancyConverter.mapItem((response as HHVacanciesResponse).items))
-            })
+            }
+        )
 
     override fun listVacancy(id: String): Flow<Resource<VacancyDetail>> = executeRequest<Response, VacancyDetail>(
         request = { networkClient.doRequest(HHApiVacancyRequest(id)) },
         successHandler = { response: Response ->
             Resource.Success(vacancyConverter.map(response as HHVacancyDetailResponse))
-        })
+        }
+    )
 
-    override fun listAreas(): Flow<Resource<RegionList>> = executeRequest<Response, RegionList>(request = {
-        networkClient.doRequest(
-            HHApiRegionsRequest(
-                hashMapOf(
-                    Pair("id", DEFAULT_REGION)
+    override fun listAreas(): Flow<Resource<RegionList>> = executeRequest<Response, RegionList>(
+        request = {
+            networkClient.doRequest(
+                HHApiRegionsRequest(
+                    hashMapOf(
+                        Pair("id", DEFAULT_REGION)
+                    )
                 )
             )
-        )
-    }, successHandler = { response: Response ->
-        Resource.Success(areaConverter.map(response as HHRegionsResponse))
-    })
+        },
+        successHandler = { response: Response ->
+            Resource.Success(areaConverter.map(response as HHRegionsResponse))
+        },
+    )
 
-    override fun listIndustries(): Flow<Resource<List<IndustryList>>> =
-        executeRequest<Response, List<IndustryList>>(request = {
+    override fun listIndustries(): Flow<Resource<List<IndustryList>>> = executeRequest<Response, List<IndustryList>>(
+        request = {
             networkClient.doRequest(
                 HHApiIndustriesRequest(
                     emptyMap()
@@ -66,7 +71,8 @@ class VacanciesRepositoryImpl(
             )
         }, successHandler = { response: Response ->
             Resource.Success(industryConverter.map(response as HHIndustriesResponse))
-        })
+        }
+    )
 
     private fun <T, R> executeRequest(
         request: suspend () -> T,
@@ -106,7 +112,7 @@ class VacanciesRepositoryImpl(
                     )
                 }
             }
-        } catch (e: Exception) {
+        } catch (e: RuntimeException) {
             Log.d(TAG, "Got exception: ${e.stackTrace}")
             Log.e(TAG, e.message.toString())
         }
