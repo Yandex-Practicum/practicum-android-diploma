@@ -59,10 +59,7 @@ class VacanciesRepositoryImpl(
             Resource.Success(industryConverter.map(response as HHIndustriesResponse))
         })
 
-    private fun <T, R> executeRequest(
-        request: suspend () -> T,
-        successHandler: (T) -> Resource<R>,
-    ): Flow<Resource<R>> = flow {
+    private fun <T, R> executeRequest(request: suspend () -> T, successHandler: (T) -> Resource<R>): Flow<Resource<R>> = flow {
         val response: T = request.invoke()
         when ((response as Response).resultCode) {
             HttpStatus.NO_INTERNET -> {
@@ -72,13 +69,11 @@ class VacanciesRepositoryImpl(
                     )
                 )
             }
-
             HttpStatus.OK -> {
                 with(response as T) {
                     emit(successHandler(response))
                 }
             }
-
             HttpStatus.CLIENT_ERROR -> {
                 emit(
                     Resource.Error(
@@ -89,7 +84,6 @@ class VacanciesRepositoryImpl(
                     )
                 )
             }
-
             HttpStatus.SERVER_ERROR -> {
                 emit(
                     Resource.Error(
