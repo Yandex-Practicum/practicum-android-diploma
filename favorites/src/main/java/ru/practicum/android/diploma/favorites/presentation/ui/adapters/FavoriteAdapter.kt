@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.practicum.android.diploma.commonutils.Utils
-import ru.practicum.android.diploma.favorites.R
+import ru.practicum.android.diploma.ui.R
 import ru.practicum.android.diploma.favorites.databinding.ItemFavoriteBinding
 import ru.practicum.android.diploma.favorites.domain.model.FavoriteVacancy
 

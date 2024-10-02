@@ -36,9 +36,6 @@ android {
         viewBinding = true
     }
     kapt {
-        arguments {
-            arg("room.schemaLocation", "$projectDir/schemas")
-        }
         correctErrorTypes = true
         useBuildCache = true
     }
