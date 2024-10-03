@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.commonutils
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import android.util.TypedValue
