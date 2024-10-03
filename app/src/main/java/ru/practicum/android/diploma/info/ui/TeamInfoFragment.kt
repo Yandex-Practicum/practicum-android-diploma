@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.TeamInfoFragmentBinding
 
 class TeamInfoFragment : Fragment() {
     private var _binding: TeamInfoFragmentBinding? = null
     private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -22,12 +24,7 @@ class TeamInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val team = listOf(
-            "Сергей Величко",
-            "Александр Березовский",
-            "Даниэль Сафарян",
-            "Артём Матюшкин",
-        )
+        val team = resources.getStringArray(R.array.authors)
 
         binding.memberTextView.text = team.joinToString("\n")
     }

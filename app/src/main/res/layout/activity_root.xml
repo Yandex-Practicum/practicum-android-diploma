@@ -28,5 +28,4 @@
         style="@style/BottomNavigationView"
         app:menu="@menu/bottom_navigation_view" />
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>
