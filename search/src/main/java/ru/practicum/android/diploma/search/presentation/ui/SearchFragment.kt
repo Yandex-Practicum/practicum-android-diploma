@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -76,12 +77,16 @@ class SearchFragment : Fragment() {
             updateUI(state)
         })
 
+        vacancyListViewModel.currentResultsCountLiveData.observe(viewLifecycleOwner, Observer { count ->
+            updatePopupText(count)
+        })
+
         vacancyListViewModel.vacancyListStateLiveData.observe(viewLifecycleOwner, Observer { state ->
             if (state is VacancyListState.Content && binding.vacancyRecycler.adapter != null) {
                 localVacancyList = ArrayList()
                 localVacancyList = state.vacancies as ArrayList<Vacancy>
                 (binding.vacancyRecycler.adapter as VacancyListAdapter).setVacancies(localVacancyList) // <-doesn't work
-                binding.vacancyRecycler.adapter?.notifyDataSetChanged() //todo обойти этот !! нужно ли??? при функции?
+                binding.vacancyRecycler.adapter?.notifyDataSetChanged()
             }
         })
 
@@ -94,12 +99,22 @@ class SearchFragment : Fragment() {
         }
     }
 
+    private fun updatePopupText(count: Int) {
+        val text = when {
+            count == 0 -> getString(R.string.search_screen_no_results_popup)
+            count % 10 == 1 && count % 100 != 11 -> getString(R.string.search_screen_result_count_popup1, count)
+            count % 10 in 2..4 && count % 100 !in 12..14 -> getString(R.string.search_screen_result_count_popup2, count)
+            else -> getString(R.string.search_screen_result_count_popup3, count)
+        }
+        binding.resultCountPopup.text = text
+    }
+
     private fun recyclerSetup() {
-        val adapter = VacancyListAdapter {//сюда нашу клик-логику
+        val adapter = VacancyListAdapter { // сюда нашу клик-логику
         }
         binding.vacancyRecycler.layoutManager = GridLayoutManager(requireContext(), 1)
         binding.vacancyRecycler.adapter = adapter
-        (binding.vacancyRecycler.adapter as VacancyListAdapter).setVacancies(localVacancyList) //todo check
+        (binding.vacancyRecycler.adapter as VacancyListAdapter).setVacancies(localVacancyList)
 
         binding.vacancyRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -109,7 +124,8 @@ class SearchFragment : Fragment() {
                     vacancyListViewModel.loadNextPageRequest()
                 }
             }
-        })
+        }
+        )
     }
 
     private fun searchBarSetup() {
@@ -117,8 +133,8 @@ class SearchFragment : Fragment() {
             if (text?.isNotEmpty() == true) {
                 binding.clearSearchIcon.isVisible = true
                 binding.searchBarLoupeIcon.isVisible = false
-                //+debounce
-                localVacancyList=ArrayList()
+                // +debounce
+                localVacancyList = ArrayList()
 
                 vacancyListViewModel.initialSearch(text.toString())
             } else {
@@ -157,7 +173,6 @@ class SearchFragment : Fragment() {
         when (state) {
             SearchScreenState.FAILED_TO_FETCH_VACANCIES_ERROR -> {
                 binding.resultCountPopup.isVisible = true
-                binding.resultCountPopup.text =  "Ничего нет(((" // оккк, понял, common UI нельзя тут... тогда что делаем?
                 binding.failedToFetchListErrorIllustration.isVisible = true
                 binding.failedToFetchListErrorText.isVisible = true
             }
@@ -172,7 +187,6 @@ class SearchFragment : Fragment() {
 
             SearchScreenState.LOADING_NEW_PAGE -> {
                 binding.resultCountPopup.isVisible = true
-                binding.resultCountPopup.text = "Что-то есть новое)))" // добавить по наличии логики
                 binding.vacancyRecycler.isVisible = true
                 binding.progressBarLoadingNewPage.isVisible = true
             }
@@ -184,10 +198,13 @@ class SearchFragment : Fragment() {
 
             SearchScreenState.VACANCY_LIST_LOADED -> {
                 binding.resultCountPopup.isVisible = true
-                binding.resultCountPopup.text = "Успех!" // добавить по наличии логики
                 binding.vacancyRecycler.isVisible = true
             }
         }
+    }
+
+    fun makeToast(text: String) {
+        Toast.makeText(context, "text", Toast.LENGTH_SHORT).show()
     }
 
 }

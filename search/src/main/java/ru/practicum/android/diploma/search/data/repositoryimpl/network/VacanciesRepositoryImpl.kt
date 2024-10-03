@@ -16,6 +16,7 @@ import ru.practicum.android.diploma.data.networkclient.api.dto.HHVacancyDetailRe
 import ru.practicum.android.diploma.data.networkclient.api.dto.HttpStatus
 import ru.practicum.android.diploma.data.networkclient.api.dto.Response
 import ru.practicum.android.diploma.search.domain.models.IndustryList
+import ru.practicum.android.diploma.search.domain.models.PaginationInfo
 import ru.practicum.android.diploma.search.domain.models.RegionList
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.domain.models.VacancyDetail
@@ -31,11 +32,18 @@ class VacanciesRepositoryImpl(
     private val areaConverter: AreaConverter,
     private val context: Context,
 ) : VacanciesRepository {
-    override fun searchVacancies(options: Map<String, String>): Flow<Resource<List<Vacancy>>> =
-        executeRequest<Response, List<Vacancy>>(
+    override fun searchVacancies(options: Map<String, String>): Flow<Resource<PaginationInfo>> =
+        executeRequest<Response, PaginationInfo>(
             request = { networkClient.doRequest(HHApiVacanciesRequest(options)) },
             successHandler = { response: Response ->
-                Resource.Success(vacancyConverter.mapItem((response as HHVacanciesResponse).items))
+                Resource.Success(
+                    PaginationInfo(
+                        vacancyConverter.mapItem((response as HHVacanciesResponse).items),
+                        response.page,
+                        response.pages,
+                        response.found
+                    )
+                )
             }
         )
 
