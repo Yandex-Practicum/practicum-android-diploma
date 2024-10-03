@@ -15,6 +15,9 @@
     <!--  Team Info Screen /start/ -->
     <string name="team_member_title">Над приложением работали</string>
     <string name="search_line_hint">Введите запрос</string>
+    <string name="no_internet">Нет интернета</string>
+    <string name="not_found_message">Не удалось получить \n список вакансий</string>
+    <string name="server_error">Ошибка сервера</string>
     <string-array name="authors">
         <item>Сергей Величко</item>
         <item>Александр Березовский</item>
