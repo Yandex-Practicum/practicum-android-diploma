@@ -30,7 +30,7 @@ class VacancyDetailRepositoryImpl(
             }
         )
 
-    override fun getVacancyDb(id: Int): Flow<Resource<Vacancy>> = flow {
+    override fun getVacancyDb(id: Int): Flow<Resource<Vacancy?>> = flow {
         runCatching {
             database.favoriteVacancyDao().getVacancy(id)
         }.fold(

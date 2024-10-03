@@ -45,6 +45,8 @@ class VacancyFragment : Fragment() {
                 context?.startActivity(this)
             }
         }
+
+        requireArguments().getInt(ARGS_STATE)
     }
 
     override fun onDestroyView() {
