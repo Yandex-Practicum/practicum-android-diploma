@@ -49,8 +49,8 @@ class VacancyFragment : Fragment() {
     }
 
     companion object {
-        private const val VACANCY_INSTANCE = "vacancy_instance"
-        private const val VACANCY_ID = "vacancy_id"
+        private const val VACANCY_ID_NETWORK = "vacancy_instance"
+        private const val VACANCY_ID_DB = "vacancy_id"
 
         private const val ARGS_STATE = "args_state"
 
@@ -62,13 +62,13 @@ class VacancyFragment : Fragment() {
                 is VacancyInputState.VacancyNetwork -> {
                     bundleOf(
                         ARGS_STATE to INPUT_NETWORK_STATE,
-                        VACANCY_INSTANCE to vacancyInputState.id
+                        VACANCY_ID_NETWORK to vacancyInputState.id
                     )
                 }
                 is VacancyInputState.VacancyDb -> {
                     bundleOf(
                         ARGS_STATE to INPUT_DB_STATE,
-                        VACANCY_ID to vacancyInputState.id
+                        VACANCY_ID_DB to vacancyInputState.id
                     )
                 }
             }
