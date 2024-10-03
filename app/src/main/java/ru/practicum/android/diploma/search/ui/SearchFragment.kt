@@ -5,9 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.search.presentation.SearchViewModel
 import ru.practicum.android.diploma.search.presentation.models.UiScreenState
@@ -28,18 +26,6 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding?.buttonFilters?.setOnClickListener {
-            findNavController().navigate(
-                R.id.action_searchFragment_to_filterFragment
-            )
-        }
-
-        binding?.buttonVacancies?.setOnClickListener {
-            findNavController().navigate(
-                R.id.action_searchFragment_to_vacanciesFragment
-            )
-        }
 
         viewModel.uiState.observe(viewLifecycleOwner) {
             renderUiState(it)
