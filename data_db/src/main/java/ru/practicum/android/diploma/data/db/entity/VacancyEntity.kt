@@ -20,7 +20,7 @@ data class VacancyEntity(
     val employment: String,
     val description: String,
     @ColumnInfo(name = DatabaseConfig.KEY_SKILLS)
-    var keySkills: String,
+    val keySkills: String,
     @ColumnInfo(name = DatabaseConfig.URL_LOGO)
     val urlLogo: String?,
     @ColumnInfo(name = DatabaseConfig.DATE_ADD_VACANCY)
