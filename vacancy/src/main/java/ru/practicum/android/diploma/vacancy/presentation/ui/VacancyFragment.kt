@@ -8,13 +8,17 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.vacancy.databinding.FragmentVacancyBinding
 import ru.practicum.android.diploma.vacancy.presentation.ui.state.VacancyInputState
+import ru.practicum.android.diploma.vacancy.presentation.viewmodel.VacancyDetailViewModel
 
 class VacancyFragment : Fragment() {
 
     private var _binding: FragmentVacancyBinding? = null
     private val binding get() = _binding!!
+
+    private val vacancyDetailViewModel: VacancyDetailViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,

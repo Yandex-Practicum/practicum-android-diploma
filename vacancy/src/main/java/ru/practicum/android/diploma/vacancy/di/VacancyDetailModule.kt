@@ -11,8 +11,8 @@ import ru.practicum.android.diploma.vacancy.presentation.viewmodel.VacancyDetail
 
 val vacancyDetailModule = module {
 
-    viewModel { (vacancyId: String) ->
-        VacancyDetailViewModel(vacancyId, get())
+    viewModel {
+        VacancyDetailViewModel(get())
     }
 
     single<VacancyDetailInteractor> {

@@ -4,26 +4,36 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.vacancy.domain.model.Vacancy
 import ru.practicum.android.diploma.vacancy.domain.usecase.VacancyDetailInteractor
 import ru.practicum.android.diploma.vacancy.presentation.viewmodel.state.VacancyDetailState
 
 class VacancyDetailViewModel(
-    private val vacancyId: String,
     private val vacancyInteractor: VacancyDetailInteractor,
 ) : ViewModel() {
 
     private val _vacancyStateLiveData = MutableLiveData<VacancyDetailState>()
     fun observeVacancyState(): LiveData<VacancyDetailState> = _vacancyStateLiveData
-    fun showVacancy() {
+
+
+    fun showVacancyNetwork(vacancyId: String) {
+        showVacancy(vacancyInteractor.getVacancyNetwork(vacancyId))
+    }
+
+    fun showVacancyDb(vacancyId: Int) {
+        showVacancy(vacancyInteractor.getVacancyDb(vacancyId))
+    }
+
+    private fun showVacancy(vacancyFlow: Flow<Pair<Vacancy?, String?>>) {
         _vacancyStateLiveData.postValue(VacancyDetailState.Loading)
         viewModelScope.launch {
-            vacancyInteractor.getVacancyNetwork(vacancyId).collect { vacancy ->
-                if (vacancy.first != null) {
-                    _vacancyStateLiveData.postValue(vacancy.first?.let { VacancyDetailState.Content(it) })
-                } else {
-                    _vacancyStateLiveData.postValue(vacancy.second?.let { VacancyDetailState.Error(it) })
-                }
+            vacancyFlow.collect { vacancy ->
+                _vacancyStateLiveData.postValue(
+                    vacancy.first?.let { VacancyDetailState.Content(it) }
+                        ?: vacancy.second?.let { VacancyDetailState.Error(it) }
+                )
             }
         }
     }
