@@ -5,15 +5,83 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".search.ui.VacancySearchFragment">
+    <Toolbar style="@style/BaseToolbar"
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingVertical="8dp"
+        android:title="@string/search_vacancies">
+        <ImageButton
+            android:id="@+id/filter_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="12dp"
+            android:paddingHorizontal="12dp"
+            android:layout_marginEnd="@dimen/screen_padding_8"
+            android:src="@drawable/ic_filter_off__24px"
+            android:layout_gravity="end"
+            android:background="?android:windowBackground"/>
+    </Toolbar>
 
+    <FrameLayout
+        android:id="@+id/search_line_box"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        app:layout_constraintTop_toBottomOf="@id/tool_bar"
+        android:layout_marginHorizontal="@dimen/padding_horizontal_size_16"
+        android:layout_marginBottom="4dp"
+        android:paddingVertical="8dp"
+        android:layout_gravity="center_vertical">
+
+
+        <EditText
+            style="@style/CustomEditTextStyle"
+            android:id="@+id/search_line"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/padding_horizontal_size_16"
+            android:paddingEnd="4dp"
+            android:hint="@string/search_line_hint"
+            android:imeOptions="actionDone"
+            android:singleLine="true" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/padding_horizontal_size_16"
+            android:paddingHorizontal="@dimen/padding_horizontal_size_16"
+            android:layout_gravity="end"
+            android:src="@drawable/ic_search_24px">
+        </ImageView>
+        <ImageView
+            android:id="@+id/search_line_cleaner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/padding_horizontal_size_16"
+            android:paddingHorizontal="@dimen/padding_horizontal_size_16"
+            android:layout_gravity="end"
+            android:visibility="gone"
+            android:src="@drawable/ic_close_24px"/>
+    </FrameLayout>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/search_default_placeholder"
+        app:layout_constraintTop_toBottomOf="@id/search_line_box"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingHorizontal="@dimen/padding_horizontal_size_16"/>
     <TextView
+        style="@style/Text_Medium_22"
+        android:id="@+id/system_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/search"
-        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
