@@ -17,7 +17,6 @@ class VacancyDetailViewModel(
     private val _vacancyStateLiveData = MutableLiveData<VacancyDetailState>()
     fun observeVacancyState(): LiveData<VacancyDetailState> = _vacancyStateLiveData
 
-
     fun showVacancyNetwork(vacancyId: String) {
         showVacancy(vacancyInteractor.getVacancyNetwork(vacancyId))
     }
