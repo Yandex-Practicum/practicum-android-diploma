@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.ui.R
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -81,7 +83,23 @@ object Utils {
     }
 
     fun <T> convertObjectWithStringToString(namedItems: List<T>, nameExtractor: (T) -> String): String {
-        return "· ${namedItems.joinToString(separator = "\n· ") { nameExtractor(it) }}"
+        return "<ul> <li>${namedItems.joinToString(separator = "</li> <li>") { nameExtractor(it) }}</li> </ul>"
+    }
+
+    fun <T> executeQueryDb(
+        query: suspend () -> T,
+        tag: String
+    ): Flow<Resource<T>> = flow {
+        runCatching { query() }
+            .fold(
+                onSuccess = { result ->
+                    emit(Resource.Success(result))
+                },
+                onFailure = { e ->
+                    outputStackTrace(tag, e)
+                    emit(Resource.Error(e.message.toString()))
+                }
+            )
     }
 
 }

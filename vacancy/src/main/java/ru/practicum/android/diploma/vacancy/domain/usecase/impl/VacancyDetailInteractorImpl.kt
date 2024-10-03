@@ -19,4 +19,16 @@ internal class VacancyDetailInteractorImpl(private val repository: VacancyDetail
         return repository.getVacancyDb(id).map { resource -> Resource.handleResource(resource) }
     }
 
+    override fun checkVacancyExists(id: Int): Flow<Pair<Int?, String?>> {
+        return repository.checkVacancyExists(id).map { resource -> Resource.handleResource(resource) }
+    }
+
+    override fun addVacancy(vacancy: Vacancy): Flow<Pair<Long?, String?>> {
+        return repository.addVacancy(vacancy).map { resource -> Resource.handleResource(resource) }
+    }
+
+    override fun deleteVacancy(id: Int): Flow<Pair<Int?, String?>> {
+        return repository.deleteVacancy(id).map { resource -> Resource.handleResource(resource) }
+    }
+
 }

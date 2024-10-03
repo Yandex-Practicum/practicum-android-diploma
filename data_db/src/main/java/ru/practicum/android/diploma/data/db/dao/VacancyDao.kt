@@ -15,6 +15,9 @@ interface VacancyDao {
     @Query("SELECT * FROM VACANCY_TABLE WHERE ID_VACANCY = :id")
     suspend fun getVacancy(id: Int): VacancyEntity?
 
+    @Query("SELECT COUNT(*) FROM VACANCY_TABLE WHERE ID_VACANCY = :id")
+    suspend fun checkVacancyExists(id: Int): Int
+
     @Query("DELETE FROM VACANCY_TABLE WHERE ID_VACANCY = :id")
     suspend fun deleteVacancy(id: Int): Int
 

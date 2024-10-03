@@ -45,5 +45,7 @@ dependencies {
     androidTestImplementation(libs.uiTests.junitExt)
     androidTestImplementation(libs.uiTests.espressoCore)
 
+    implementation(libs.kotlinx.coroutines.android)
+
     implementation(project(":common_ui"))
 }
