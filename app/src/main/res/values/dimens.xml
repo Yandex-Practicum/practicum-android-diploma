@@ -4,4 +4,5 @@
     <dimen name="text_size_16">16sp</dimen>
     <dimen name="text_size_22">22sp</dimen>
     <dimen name="text_size_32">32sp</dimen>
+    <dimen name="corner_radius_search_item_img">12dp</dimen>
 </resources>

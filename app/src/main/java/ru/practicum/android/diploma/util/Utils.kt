@@ -2,7 +2,7 @@ package ru.practicum.android.diploma.util
 
 import ru.practicum.android.diploma.search.domain.models.Salary
 
-fun Salary?.toString(): String {
+fun Salary?.formatSalary(): String {
     if (this == null) {
         return "Зарплата не указана"
     }
