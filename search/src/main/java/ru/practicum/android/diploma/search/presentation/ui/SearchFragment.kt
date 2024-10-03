@@ -29,7 +29,7 @@ class SearchFragment : Fragment() {
     private var userInputReserve = ""
 
     private val vacancyListViewModel: VacancyListViewModel by viewModel()
-    private var localVacncyList: ArrayList<Vacancy> = ArrayList()
+    private var localVacancyList: ArrayList<Vacancy> = ArrayList()
 
     companion object {
         private const val USER_INPUT = "userInput"
@@ -78,9 +78,10 @@ class SearchFragment : Fragment() {
 
         vacancyListViewModel.vacancyListStateLiveData.observe(viewLifecycleOwner, Observer { state ->
             if (state is VacancyListState.Content && binding.vacancyRecycler.adapter != null) {
-                localVacncyList = ArrayList()
-                localVacncyList = state.vacancies as ArrayList<Vacancy>
-                binding.vacancyRecycler.adapter!!.notifyDataSetChanged() //todo обойти этот !!
+                localVacancyList = ArrayList()
+                localVacancyList = state.vacancies as ArrayList<Vacancy>
+                (binding.vacancyRecycler.adapter as VacancyListAdapter).setVacancies(localVacancyList) // <-doesn't work
+                binding.vacancyRecycler.adapter?.notifyDataSetChanged() //todo обойти этот !! нужно ли??? при функции?
             }
         })
 
@@ -98,12 +99,13 @@ class SearchFragment : Fragment() {
         }
         binding.vacancyRecycler.layoutManager = GridLayoutManager(requireContext(), 1)
         binding.vacancyRecycler.adapter = adapter
+        (binding.vacancyRecycler.adapter as VacancyListAdapter).setVacancies(localVacancyList) //todo check
 
         binding.vacancyRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val layoutManager = recyclerView.layoutManager as GridLayoutManager
-                if (layoutManager.findLastCompletelyVisibleItemPosition() == localVacncyList.size - 1) {
+                if (layoutManager.findLastCompletelyVisibleItemPosition() == localVacancyList.size - 1) {
                     vacancyListViewModel.loadNextPageRequest()
                 }
             }
@@ -116,6 +118,8 @@ class SearchFragment : Fragment() {
                 binding.clearSearchIcon.isVisible = true
                 binding.searchBarLoupeIcon.isVisible = false
                 //+debounce
+                localVacancyList=ArrayList()
+
                 vacancyListViewModel.initialSearch(text.toString())
             } else {
                 binding.clearSearchIcon.isVisible = false
@@ -131,6 +135,7 @@ class SearchFragment : Fragment() {
                 binding.searchBar.windowToken,
                 0
             )
+            vacancyListViewModel.emptyList()
 
         }
     }
@@ -152,7 +157,7 @@ class SearchFragment : Fragment() {
         when (state) {
             SearchScreenState.FAILED_TO_FETCH_VACANCIES_ERROR -> {
                 binding.resultCountPopup.isVisible = true
-                binding.resultCountPopup.text =  "Ничего нет(((" // оккк, понял, common UI нельзя тут
+                binding.resultCountPopup.text =  "Ничего нет(((" // оккк, понял, common UI нельзя тут... тогда что делаем?
                 binding.failedToFetchListErrorIllustration.isVisible = true
                 binding.failedToFetchListErrorText.isVisible = true
             }

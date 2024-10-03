@@ -133,8 +133,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/vacancyRecycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:layout_height="0dp"
+        android:visibility="visible"
 
         android:paddingTop="38dp"
 
@@ -152,7 +152,7 @@
         android:id="@+id/progressBarLoadingNewPage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:visibility="visible"
 
         android:indeterminateTint="@color/blue"
         android:padding="6dp"
@@ -191,7 +191,7 @@
         android:layout_width="328dp"
         android:layout_height="223dp"
         tools:ignore="ContentDescription"
-        android:visibility="visible"
+        android:visibility="gone"
 
         android:scaleType="fitCenter"
         android:src="@drawable/il_1"
