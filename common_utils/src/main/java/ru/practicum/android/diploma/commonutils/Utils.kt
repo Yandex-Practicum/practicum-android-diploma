@@ -45,7 +45,7 @@ object Utils {
 
     @SuppressLint("DefaultLocale")
     private fun formatNumberDividers(number: Int): String {
-        return String.format(Locale.US,"%,d", number).replace(",", " ")
+        return String.format(Locale.US, "%,d", number).replace(",", " ")
     }
 
     fun Context.formatSalary(salaryFrom: Int?, salaryTo: Int?, salaryCurrency: String?): String {
