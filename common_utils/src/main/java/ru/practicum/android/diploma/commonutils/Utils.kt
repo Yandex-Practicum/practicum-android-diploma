@@ -43,7 +43,6 @@ object Utils {
         }
     }
 
-    @SuppressLint("DefaultLocale")
     private fun formatNumberDividers(number: Int): String {
         return String.format(Locale.US, "%,d", number).replace(",", " ")
     }
