@@ -91,7 +91,7 @@
         android:visibility="gone"/>
 
     <ProgressBar
-        android:id="@+id/pbLoading"
+            android:id="@+id/pbLoading"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginHorizontal="16dp"
@@ -198,6 +198,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/vacancyList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="17dp"
