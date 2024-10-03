@@ -24,7 +24,8 @@
             android:background="?android:windowBackground"
             android:paddingHorizontal="12dp"
             android:paddingVertical="12dp"
-            android:src="@drawable/ic_filter_off__24px" />
+            android:src="@drawable/ic_filter_off__24px"
+            tools:ignore="contentDescription"/>
     </Toolbar>
 
     <FrameLayout
@@ -44,6 +45,7 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:hint="@string/search_line_hint"
+            android:importantForAutofill="no"
             android:imeOptions="actionDone"
             android:paddingStart="@dimen/padding_horizontal_size_16"
             android:paddingEnd="4dp"
@@ -55,7 +57,8 @@
             android:layout_gravity="end"
             android:paddingHorizontal="@dimen/padding_horizontal_size_16"
             android:paddingVertical="@dimen/padding_horizontal_size_16"
-            android:src="@drawable/ic_search_24px" />
+            android:src="@drawable/ic_search_24px"
+            tools:ignore="contentDescription"/>
 
         <ImageView
             android:id="@+id/search_line_cleaner"
@@ -65,7 +68,8 @@
             android:paddingHorizontal="@dimen/padding_horizontal_size_16"
             android:paddingVertical="@dimen/padding_horizontal_size_16"
             android:src="@drawable/ic_close_24px"
-            android:visibility="gone" />
+            android:visibility="gone"
+            tools:ignore="contentDescription"/>
     </FrameLayout>
 
     <ImageView
@@ -77,7 +81,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_line_box" />
+        app:layout_constraintTop_toBottomOf="@id/search_line_box"
+        tools:ignore="contentDescription"/>
 
     <FrameLayout
         android:id="@+id/not_connected_placeholder"
@@ -94,7 +99,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingHorizontal="@dimen/padding_horizontal_size_16"
-            android:src="@drawable/search_not_connected_placeholder" />
+            android:src="@drawable/search_not_connected_placeholder"
+            tools:ignore="contentDescription"/>
 
         <TextView
             style="@style/Text_Medium_22"
@@ -120,7 +126,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingHorizontal="@dimen/padding_horizontal_size_16"
-            android:src="@drawable/search_not_found_placeholder" />
+            android:src="@drawable/search_not_found_placeholder"
+            tools:ignore="contentDescription"/>
 
         <TextView
             style="@style/Text_Medium_22"
@@ -147,7 +154,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingHorizontal="@dimen/padding_horizontal_size_16"
-            android:src="@drawable/search_server_error_placeholder" />
+            android:src="@drawable/search_server_error_placeholder"
+            tools:ignore="contentDescription"/>
 
         <TextView
             style="@style/Text_Medium_22"
