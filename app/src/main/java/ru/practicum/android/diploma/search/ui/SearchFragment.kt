@@ -29,18 +29,6 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding?.buttonFilters?.setOnClickListener {
-            findNavController().navigate(
-                R.id.action_searchFragment_to_filterFragment
-            )
-        }
-
-        binding?.buttonVacancies?.setOnClickListener {
-            findNavController().navigate(
-                R.id.action_searchFragment_to_vacanciesFragment
-            )
-        }
-
         viewModel.uiState.observe(viewLifecycleOwner) {
             renderUiState(it)
         }
