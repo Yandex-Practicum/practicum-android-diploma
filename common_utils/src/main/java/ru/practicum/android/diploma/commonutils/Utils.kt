@@ -53,12 +53,20 @@ object Utils {
             salaryFrom == null && salaryTo != null && salaryCurrency != null -> {
                 getString(R.string.salary_to, formatNumberDividers(salaryTo), getCurrencySymbol(salaryCurrency))
             }
+
             salaryFrom != null && salaryTo == null && salaryCurrency != null -> {
                 getString(R.string.salary_from, formatNumberDividers(salaryFrom), getCurrencySymbol(salaryCurrency))
             }
+
             salaryFrom != null && salaryTo != null && salaryCurrency != null -> {
-                getString(R.string.salary_from_to, formatNumberDividers(salaryFrom), formatNumberDividers(salaryTo), getCurrencySymbol(salaryCurrency))
+                getString(
+                    R.string.salary_from_to,
+                    formatNumberDividers(salaryFrom),
+                    formatNumberDividers(salaryTo),
+                    getCurrencySymbol(salaryCurrency)
+                )
             }
+
             else -> ""
         }
     }
