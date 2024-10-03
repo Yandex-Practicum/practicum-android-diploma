@@ -10,6 +10,8 @@
     <string name="city_choice">Выбор города</string>
     <string name="working_region">Место работы</string>
     <string name="main">Главная</string>
+    <string name="salary_to">до</string>
+    <string name="salary_from">от</string>
 
     <!--  Team Info Screen /start/ -->
     <string name="team_member_title">Над приложением работали</string>

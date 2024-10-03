@@ -3,7 +3,7 @@ package ru.practicum.android.diploma.search.data.network
 import android.content.Context
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import ru.practicum.android.diploma.search.data.VacancySearchRequest
+import ru.practicum.android.diploma.search.data.dto.VacancySearchRequest
 import ru.practicum.android.diploma.util.network.NetworkClient
 import ru.practicum.android.diploma.util.network.Response
 import ru.practicum.android.diploma.util.network.connectionCheck
