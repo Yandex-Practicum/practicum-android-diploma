@@ -19,6 +19,7 @@ import ru.practicum.android.diploma.search.domain.models.Resource
 import ru.practicum.android.diploma.search.domain.models.Salary
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.domain.models.VacancySearchParams
+import ru.practicum.android.diploma.search.domain.models.toMap
 import java.io.IOException
 
 class SearchRepositoryImpl(
@@ -61,8 +62,6 @@ class SearchRepositoryImpl(
                 emit(Resource.ServerError("Network error: ${e.localizedMessage}"))
             } catch (e: HttpException) {
                 emit(Resource.ServerError("HTTP error: ${e.localizedMessage}"))
-            } catch (e: Exception) {
-                emit(Resource.ServerError(e.localizedMessage ?: "Unknown error"))
             }
         } else {
             emit(Resource.NoInternetError("Network not available"))
