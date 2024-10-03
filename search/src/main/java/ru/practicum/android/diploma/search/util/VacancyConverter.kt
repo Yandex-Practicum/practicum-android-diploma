@@ -1,7 +1,7 @@
 package ru.practicum.android.diploma.search.util
 
-import ru.practicum.android.diploma.data.networkclient.api.dto.HHVacancyDetailResponse
-import ru.practicum.android.diploma.data.networkclient.api.dto.Item
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.HHVacancyDetailResponse
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancies.item.Item
 import ru.practicum.android.diploma.search.domain.models.Area
 import ru.practicum.android.diploma.search.domain.models.Employer
 import ru.practicum.android.diploma.search.domain.models.Employment
@@ -17,19 +17,19 @@ import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.domain.models.VacancyDetail
 import ru.practicum.android.diploma.search.domain.models.WorkingDay
 import ru.practicum.android.diploma.search.domain.models.WorkingTimeInterval
-import ru.practicum.android.diploma.data.networkclient.api.dto.Area as AreaDto
-import ru.practicum.android.diploma.data.networkclient.api.dto.Employer as EmployerDto
-import ru.practicum.android.diploma.data.networkclient.api.dto.Employment as EmploymentDto
-import ru.practicum.android.diploma.data.networkclient.api.dto.Experience as ExperienceDto
-import ru.practicum.android.diploma.data.networkclient.api.dto.KeySkill as KeySkillDto
-import ru.practicum.android.diploma.data.networkclient.api.dto.Language as LanguageDto
-import ru.practicum.android.diploma.data.networkclient.api.dto.Level as LevelDto
-import ru.practicum.android.diploma.data.networkclient.api.dto.LogoUrls as LogoUrlsDto
-import ru.practicum.android.diploma.data.networkclient.api.dto.ProfessionalRole as ProfessionalRoleDto
-import ru.practicum.android.diploma.data.networkclient.api.dto.Salary as SalaryDto
-import ru.practicum.android.diploma.data.networkclient.api.dto.Schedule as ScheduleDto
-import ru.practicum.android.diploma.data.networkclient.api.dto.WorkingDay as WorkingDayDto
-import ru.practicum.android.diploma.data.networkclient.api.dto.WorkingTimeInterval as WorkingTimeIntervalDto
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.area.Area as AreaDto
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.employer.Employer as EmployerDto
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.employment.Employment as EmploymentDto
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.experience.Experience as ExperienceDto
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.skill.KeySkill as KeySkillDto
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.language.Language as LanguageDto
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.language.Level as LevelDto
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.employer.LogoUrls as LogoUrlsDto
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.role.ProfessionalRole as ProfessionalRoleDto
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.salary.Salary as SalaryDto
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.schedule.Schedule as ScheduleDto
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.working.WorkingDay as WorkingDayDto
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.working.WorkingTimeInterval as WorkingTimeIntervalDto
 
 class VacancyConverter {
     fun mapItem(items: List<Item>): List<Vacancy> {

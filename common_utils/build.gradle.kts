@@ -44,4 +44,6 @@ dependencies {
     testImplementation(libs.unitTests.junit)
     androidTestImplementation(libs.uiTests.junitExt)
     androidTestImplementation(libs.uiTests.espressoCore)
+
+    implementation(project(":common_ui"))
 }

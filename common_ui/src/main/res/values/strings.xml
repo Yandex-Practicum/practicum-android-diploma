@@ -67,11 +67,6 @@
     <string name="vacancy_description_placeholder">Обязанности\nРазрабатывать новую функциональность приложения\nПомогать с интеграцией нашего SDK в другие приложения\nПроектировать большие новые модули\nПисать UI- и unit-тесты\nСледить за работоспособностью сервиса и устранять технический долг</string>
     <string name="vacancy_key_skills_placeholder">Знание классических алгоритмов и структуры данных\nПрограммирование для Android больше одного года\nЗнание WebRTC</string>
 
-    <string name="salary_from">от %s %s</string>
-    <string name="salary_to">до %s %s</string>
-    <string name="salary_from_to">от %s до %s %s</string>
-    <string name="no_salary">Зарплата не указана</string>
-
     <!-- Favorites screen -->
     <string name="favorites_screen_header">Избранное</string>
     <string name="favorites_screen_empty_list">Список пуст</string>
@@ -82,4 +77,14 @@
     <string name="team_screen_header">Команда</string>
     <string name="team_screen_text">Над приложением работали</string>
     <string name="team_screen_developer_list">Павел Захаров Team-lead\n\nЮлия Вакулина Android-разработчик\n\nМаксим Сагациян Android-разработчик\n\nМихаил Гришин Android-разработчик</string>
+
+    <!-- Network -->
+    <string name="check_network_connection">Check network connection</string>
+    <string name="request_was_not_accepted">Request was not accepted %1$s</string>
+    <string name="unexpcted_error">Unexpcted error %1$s</string>
+
+    <string name="salary_from">от %s %s</string>
+    <string name="salary_to">до %s %s</string>
+    <string name="salary_from_to">от %s до %s %s</string>
+    <string name="no_salary">Зарплата не указана</string>s
 </resources>
