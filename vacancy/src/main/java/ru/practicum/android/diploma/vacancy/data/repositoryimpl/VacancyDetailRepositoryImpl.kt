@@ -11,7 +11,7 @@ import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancyd
 import ru.practicum.android.diploma.commonutils.network.Response
 import ru.practicum.android.diploma.commonutils.network.executeNetworkRequest
 import ru.practicum.android.diploma.data.db.AppDatabase
-import ru.practicum.android.diploma.vacancy.data.mappers.VacancyMapper
+import ru.practicum.android.diploma.vacancy.data.mappers.VacancyMappers
 import ru.practicum.android.diploma.vacancy.domain.model.Vacancy
 import ru.practicum.android.diploma.vacancy.domain.repository.VacancyDetailRepository
 
@@ -26,7 +26,7 @@ class VacancyDetailRepositoryImpl(
         context.executeNetworkRequest<Response, Vacancy>(
             request = { networkClient.doRequest(HHApiVacancyRequest(id)) },
             successHandler = { response: Response ->
-                Resource.Success(VacancyMapper.map(context, response as HHVacancyDetailResponse))
+                Resource.Success(VacancyMappers.map(context, response as HHVacancyDetailResponse))
             }
         )
 
@@ -35,7 +35,7 @@ class VacancyDetailRepositoryImpl(
             database.favoriteVacancyDao().getVacancy(id)
         }.fold(
             onSuccess = { vacancy ->
-                emit(Resource.Success(VacancyMapper.map(vacancy)))
+                emit(Resource.Success(VacancyMappers.map(vacancy)))
             },
             onFailure = { e ->
                 Utils.outputStackTrace(TAG_VACANCY, e)

@@ -62,7 +62,7 @@ class VacancyFragment : Fragment() {
                 is VacancyInputState.VacancyNetwork -> {
                     bundleOf(
                         ARGS_STATE to INPUT_NETWORK_STATE,
-                        VACANCY_INSTANCE to vacancyInputState.vacancy
+                        VACANCY_INSTANCE to vacancyInputState.id
                     )
                 }
                 is VacancyInputState.VacancyDb -> {

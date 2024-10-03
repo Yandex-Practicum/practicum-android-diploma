@@ -12,6 +12,7 @@ class VacancyDetailViewModel(
     private val vacancyId: String,
     private val vacancyInteractor: VacancyDetailInteractor,
 ) : ViewModel() {
+
     private val _vacancyStateLiveData = MutableLiveData<VacancyDetailState>()
     fun observeVacancyState(): LiveData<VacancyDetailState> = _vacancyStateLiveData
     fun showVacancy() {
