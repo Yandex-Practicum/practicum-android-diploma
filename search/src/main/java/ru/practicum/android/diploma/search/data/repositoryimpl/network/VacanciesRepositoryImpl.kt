@@ -23,8 +23,8 @@ import ru.practicum.android.diploma.search.util.AreaConverter
 import ru.practicum.android.diploma.search.util.IndustryConverter
 import ru.practicum.android.diploma.search.util.VacancyConverter
 
-private const val TAG = "VacanciesRepositoryImpl"
 private const val DEFAULT_REGION = "113" // Russia
+
 class VacanciesRepositoryImpl(
     private val networkClient: NetworkClient,
     private val vacancyConverter: VacancyConverter,
@@ -40,12 +40,13 @@ class VacanciesRepositoryImpl(
             }
         )
 
-    override fun listVacancy(id: String): Flow<Resource<VacancyDetail>> = context.executeNetworkRequest<Response, VacancyDetail>(
-        request = { networkClient.doRequest(HHApiVacancyRequest(id)) },
-        successHandler = { response: Response ->
-            Resource.Success(vacancyConverter.map(response as HHVacancyDetailResponse))
-        }
-    )
+    override fun listVacancy(id: String): Flow<Resource<VacancyDetail>> =
+        context.executeNetworkRequest<Response, VacancyDetail>(
+            request = { networkClient.doRequest(HHApiVacancyRequest(id)) },
+            successHandler = { response: Response ->
+                Resource.Success(vacancyConverter.map(response as HHVacancyDetailResponse))
+            }
+        )
 
     override fun listAreas(): Flow<Resource<RegionList>> = context.executeNetworkRequest<Response, RegionList>(
         request = { networkClient.doRequest(HHApiRegionsRequest(hashMapOf(Pair("id", DEFAULT_REGION)))) },
