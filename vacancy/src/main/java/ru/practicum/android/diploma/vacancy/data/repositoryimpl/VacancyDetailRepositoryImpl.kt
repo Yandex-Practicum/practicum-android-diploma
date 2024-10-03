@@ -4,45 +4,43 @@ import android.content.Context
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.commonutils.Resource
+import ru.practicum.android.diploma.commonutils.Utils
 import ru.practicum.android.diploma.data.networkclient.api.NetworkClient
-import ru.practicum.android.diploma.data.networkclient.api.dto.HHApiVacancyRequest
-import ru.practicum.android.diploma.data.networkclient.api.dto.HHVacancyDetailResponse
-import ru.practicum.android.diploma.data.networkclient.api.dto.HttpStatus
-import ru.practicum.android.diploma.vacancy.R
-import ru.practicum.android.diploma.vacancy.domain.model.VacancyDetail
+import ru.practicum.android.diploma.data.networkclient.api.dto.request.HHApiVacancyRequest
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.HHVacancyDetailResponse
+import ru.practicum.android.diploma.commonutils.network.Response
+import ru.practicum.android.diploma.commonutils.network.executeNetworkRequest
+import ru.practicum.android.diploma.data.db.AppDatabase
+import ru.practicum.android.diploma.vacancy.data.mappers.VacancyMappers
+import ru.practicum.android.diploma.vacancy.domain.model.Vacancy
 import ru.practicum.android.diploma.vacancy.domain.repository.VacancyDetailRepository
-import ru.practicum.android.diploma.vacancy.util.VacancyConverter
 
+private const val TAG_VACANCY = "Vacancy"
 class VacancyDetailRepositoryImpl(
-    private val networkClient: NetworkClient,
-    private val vacancyConverter: VacancyConverter,
     private val context: Context,
+    private val networkClient: NetworkClient,
+    private val database: AppDatabase
 ) : VacancyDetailRepository {
 
-    override fun listVacancy(id: String): Flow<Resource<VacancyDetail>> = flow {
-        val response = networkClient.doRequest(HHApiVacancyRequest(id))
-        when (response.resultCode) {
-            HttpStatus.NO_INTERNET -> {
-                emit(Resource.Error(context.getString(R.string.check_network_connection)))
+    override fun getVacancyNetwork(id: String): Flow<Resource<Vacancy>> =
+        context.executeNetworkRequest<Response, Vacancy>(
+            request = { networkClient.doRequest(HHApiVacancyRequest(id)) },
+            successHandler = { response: Response ->
+                Resource.Success(VacancyMappers.map(context, response as HHVacancyDetailResponse))
             }
+        )
 
-            HttpStatus.OK -> {
-                with(response as HHVacancyDetailResponse) {
-                    emit(Resource.Success(vacancyConverter.map(response)))
-                }
+    override fun getVacancyDb(id: Int): Flow<Resource<Vacancy>> = flow {
+        runCatching {
+            database.favoriteVacancyDao().getVacancy(id)
+        }.fold(
+            onSuccess = { vacancy ->
+                emit(Resource.Success(VacancyMappers.map(vacancy)))
+            },
+            onFailure = { e ->
+                Utils.outputStackTrace(TAG_VACANCY, e)
+                emit(Resource.Error(e.message.toString()))
             }
-
-            HttpStatus.CLIENT_ERROR -> {
-                emit(Resource.Error(context.getString(R.string.request_was_not_accepted, response.resultCode)))
-            }
-
-            HttpStatus.SERVER_ERROR -> {
-                emit(Resource.Error(context.getString(R.string.unexpcted_error, response.resultCode)))
-            }
-        }
-    }
-
-    companion object {
-        private const val TAG = "VacanciyDetailRepositoryImpl"
+        )
     }
 }
