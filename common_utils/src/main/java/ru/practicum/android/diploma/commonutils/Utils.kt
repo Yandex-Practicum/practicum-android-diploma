@@ -80,4 +80,8 @@ object Utils {
         }
     }
 
+    fun <T> convertObjectWithStringToString(namedItems: List<T>, nameExtractor: (T) -> String): String {
+        return "· ${namedItems.joinToString(separator = "\n· ") { nameExtractor(it) }}"
+    }
+
 }

@@ -22,6 +22,7 @@ object VacancyMappers {
                 experience = experience.name,
                 employment = employment.name,
                 description = description,
+                keySkills = Utils.convertObjectWithStringToString(keySkills) {it.name},
                 urlLogo = employer.logoUrls?.deg90,
                 dateAddVacancy = Utils.convertTimeToMilliseconds(publishedAt)
             )
@@ -42,6 +43,7 @@ object VacancyMappers {
                     experience = experience,
                     employment = employment,
                     description = description,
+                    keySkills = keySkills,
                     urlLogo = urlLogo,
                     dateAddVacancy = dateAddVacancy
                 )
