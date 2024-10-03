@@ -5,6 +5,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import ru.practicum.android.diploma.ui.R
 import ru.practicum.android.diploma.commonutils.Resource
 
 fun Context.isConnected(): Boolean {
@@ -16,17 +17,17 @@ fun Context.isConnected(): Boolean {
             || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)))
 }
 
-fun <T, R> Context.executeNetworkRequest(
+fun <T, S> Context.executeNetworkRequest(
     request: suspend () -> T,
-    successHandler: (T) -> Resource<R>
-): Flow<Resource<R>> =
+    successHandler: (T) -> Resource<S>
+): Flow<Resource<S>> =
     flow {
         val response: T = request.invoke()
         when ((response as Response).resultCode) {
             HttpStatus.NO_INTERNET -> {
                 emit(
                     Resource.Error(
-                        getString(ru.practicum.android.diploma.ui.R.string.check_network_connection)
+                        getString(R.string.check_network_connection)
                     )
                 )
             }
@@ -41,7 +42,7 @@ fun <T, R> Context.executeNetworkRequest(
                 emit(
                     Resource.Error(
                         getString(
-                            ru.practicum.android.diploma.ui.R.string.request_was_not_accepted,
+                            R.string.request_was_not_accepted,
                             response.resultCode,
                         )
                     )
@@ -52,7 +53,7 @@ fun <T, R> Context.executeNetworkRequest(
                 emit(
                     Resource.Error(
                         getString(
-                            ru.practicum.android.diploma.ui.R.string.unexpcted_error,
+                            R.string.unexpcted_error,
                             response.resultCode
                         )
                     )
