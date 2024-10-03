@@ -20,6 +20,6 @@ val vacancyDetailModule = module {
     }
 
     single<VacancyDetailRepository> {
-        VacancyDetailRepositoryImpl(androidContext(), get())
+        VacancyDetailRepositoryImpl(androidContext(), get(), get())
     }
 }

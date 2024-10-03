@@ -3,10 +3,11 @@ package ru.practicum.android.diploma.vacancy.data.mappers
 import android.content.Context
 import ru.practicum.android.diploma.commonutils.Utils
 import ru.practicum.android.diploma.commonutils.Utils.formatSalary
+import ru.practicum.android.diploma.data.db.entity.VacancyEntity
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.HHVacancyDetailResponse
 import ru.practicum.android.diploma.vacancy.domain.model.Vacancy
 
-object VacancyNetworkMapper {
+object VacancyMapper {
     fun map(
         context: Context,
         vacancyNetwork: HHVacancyDetailResponse
@@ -23,6 +24,25 @@ object VacancyNetworkMapper {
                 description = description,
                 urlLogo = employer.logoUrls?.deg90,
                 dateAddVacancy = Utils.convertTimeToMilliseconds(publishedAt)
+            )
+        }
+    }
+
+    fun map(
+        vacancyEntity: VacancyEntity
+    ): Vacancy {
+        return with(vacancyEntity) {
+            Vacancy(
+                idVacancy = idVacancy,
+                nameVacancy = nameVacancy,
+                salary = salary,
+                nameCompany = nameCompany,
+                location = location,
+                experience = experience,
+                employment = employment,
+                description = description,
+                urlLogo = urlLogo,
+                dateAddVacancy = dateAddVacancy
             )
         }
     }
