@@ -14,6 +14,7 @@ import ru.practicum.android.diploma.vacancy.presentation.viewmodel.state.Vacancy
 import ru.practicum.android.diploma.vacancy.presentation.viewmodel.state.VacancyFavoriteMessageState
 import ru.practicum.android.diploma.vacancy.presentation.viewmodel.state.VacancyFavoriteState
 
+private const val DELAY_TO_DEFAULT_STATE_MESSAGE = 100L
 class VacancyDetailViewModel(
     private val vacancyInteractor: VacancyDetailInteractor,
 ) : ViewModel() {
@@ -46,7 +47,8 @@ class VacancyDetailViewModel(
     fun observeVacancyFavoriteState(): LiveData<VacancyFavoriteState> = _vacancyFavoriteStateLiveData
 
     private val _vacancyFavoriteMessageStateLiveData = MutableLiveData<VacancyFavoriteMessageState>()
-    fun observeVacancyFavoriteMessageState(): LiveData<VacancyFavoriteMessageState> = _vacancyFavoriteMessageStateLiveData
+    fun observeVacancyFavoriteMessageState(): LiveData<VacancyFavoriteMessageState> =
+        _vacancyFavoriteMessageStateLiveData
 
     fun startInitVacancyFavoriteMessageState() {
         _vacancyFavoriteMessageStateLiveData.postValue(VacancyFavoriteMessageState.Empty)
@@ -57,23 +59,13 @@ class VacancyDetailViewModel(
             vacancyInteractor.checkVacancyExists(vacancy.idVacancy).collect { (existingId, message) ->
                 when {
                     existingId != null && existingId > 0 -> {
-                        vacancyInteractor.deleteVacancy(vacancy.idVacancy).collect { (numberOfDeleted, deleteMessage) ->
-                            if (numberOfDeleted != null && numberOfDeleted > 0) {
-                                _vacancyFavoriteStateLiveData.postValue(VacancyFavoriteState.NotFavorite)
-                            } else {
-                                updateVacancyFavoriteMessageState(VacancyFavoriteMessageState.NoDeleteFavorite)
-                            }
-                        }
+                        deleteFavoriteVacancy(vacancy)
                     }
+
                     existingId != null && existingId <= 0 -> {
-                        vacancyInteractor.addVacancy(vacancy).collect { (addId, deleteMessage) ->
-                            if (addId != null && addId != -1L) {
-                                _vacancyFavoriteStateLiveData.postValue(VacancyFavoriteState.Favorite)
-                            } else {
-                                updateVacancyFavoriteMessageState(VacancyFavoriteMessageState.NoAddFavorite)
-                            }
-                        }
+                        addFavoriteVacancy(vacancy)
                     }
+
                     existingId == null && message != null -> {
                         updateVacancyFavoriteMessageState(VacancyFavoriteMessageState.Error)
                     }
@@ -82,9 +74,29 @@ class VacancyDetailViewModel(
         }
     }
 
+    private suspend fun deleteFavoriteVacancy(deleteVacancy: Vacancy) {
+        vacancyInteractor.deleteVacancy(deleteVacancy.idVacancy).collect { (numberOfDeleted, deleteMessage) ->
+            if (numberOfDeleted != null && numberOfDeleted > 0) {
+                _vacancyFavoriteStateLiveData.postValue(VacancyFavoriteState.NotFavorite)
+            } else {
+                updateVacancyFavoriteMessageState(VacancyFavoriteMessageState.NoDeleteFavorite)
+            }
+        }
+    }
+
+    private suspend fun addFavoriteVacancy(addVacancy: Vacancy) {
+        vacancyInteractor.addVacancy(addVacancy).collect { (addId, deleteMessage) ->
+            if (addId != null && addId != -1L) {
+                _vacancyFavoriteStateLiveData.postValue(VacancyFavoriteState.Favorite)
+            } else {
+                updateVacancyFavoriteMessageState(VacancyFavoriteMessageState.NoAddFavorite)
+            }
+        }
+    }
+
     private suspend fun updateVacancyFavoriteMessageState(state: VacancyFavoriteMessageState) {
         _vacancyFavoriteMessageStateLiveData.postValue(state)
-        delay(100)
+        delay(DELAY_TO_DEFAULT_STATE_MESSAGE)
         _vacancyFavoriteMessageStateLiveData.postValue(VacancyFavoriteMessageState.Empty)
     }
 }
