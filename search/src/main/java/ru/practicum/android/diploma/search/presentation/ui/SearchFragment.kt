@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.search.presentation.ui
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,17 +10,26 @@ import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.search.R
 import ru.practicum.android.diploma.search.databinding.FragmentSearchBinding
+import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.presentation.SearchScreenState
+import ru.practicum.android.diploma.search.presentation.adapter.VacancyListAdapter
+import ru.practicum.android.diploma.search.presentation.viewmodel.VacancyListState
+import ru.practicum.android.diploma.search.presentation.viewmodel.VacancyListViewModel
 
 class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
     private var userInputReserve = ""
 
-    // private val searchFragmentViewModel: SearchFragmentViewModel by viewModel() //ждёт VM
+    private val vacancyListViewModel: VacancyListViewModel by viewModel()
+    private var localVacncyList: ArrayList<Vacancy> = ArrayList()
 
     companion object {
         private const val USER_INPUT = "userInput"
@@ -54,33 +64,59 @@ class SearchFragment : Fragment() {
         _binding = null
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        searchBarSetUp()
+        searchBarSetup()
 
-        // searchFragmentViewModel.stateLiveData.observe(viewLifecycleOwner, Observer { // ждёт VM
-        //    state -> updateUI(state)
-        // })
+        recyclerSetup()
 
-        updateUI(SearchScreenState.IDLE) // чтобы не ругался detekt, по наличию VM удалим
+        vacancyListViewModel.screenStateLiveData.observe(viewLifecycleOwner, Observer { state: SearchScreenState ->
+            updateUI(state)
+        })
+
+        vacancyListViewModel.vacancyListStateLiveData.observe(viewLifecycleOwner, Observer { state ->
+            if (state is VacancyListState.Content && binding.vacancyRecycler.adapter != null) {
+                localVacncyList = ArrayList()
+                localVacncyList = state.vacancies as ArrayList<Vacancy>
+                binding.vacancyRecycler.adapter!!.notifyDataSetChanged() //todo обойти этот !!
+            }
+        })
+
 
         binding.filter.setOnClickListener {
             findNavController().navigate(R.id.action_searchFragment_to_filterFragment)
         }
-        binding.vacancyRecycler.setOnClickListener { // по оформлению адаптера - заменить на клик по item
+        binding.vacancyRecycler.setOnClickListener { // по оформлении адаптера - заменить на клик по item
             findNavController().navigate(R.id.action_searchFragment_to_vacancy_navigation)
         }
     }
 
-    private fun searchBarSetUp() {
-        // addTextChangedListener заглушку выбросил т.к. detekt ругается на пустые блоки
-        // добавим при готовой логике поиска
+    private fun recyclerSetup() {
+        val adapter = VacancyListAdapter {//сюда нашу клик-логику
+        }
+        binding.vacancyRecycler.layoutManager = GridLayoutManager(requireContext(), 1)
+        binding.vacancyRecycler.adapter = adapter
 
+        binding.vacancyRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = recyclerView.layoutManager as GridLayoutManager
+                if (layoutManager.findLastCompletelyVisibleItemPosition() == localVacncyList.size - 1) {
+                    vacancyListViewModel.loadNextPageRequest()
+                }
+            }
+        })
+    }
+
+    private fun searchBarSetup() {
         binding.searchBar.doOnTextChanged { text, start, before, count ->
             if (text?.isNotEmpty() == true) {
                 binding.clearSearchIcon.isVisible = true
                 binding.searchBarLoupeIcon.isVisible = false
+                //+debounce
+                vacancyListViewModel.initialSearch(text.toString())
             } else {
                 binding.clearSearchIcon.isVisible = false
                 binding.searchBarLoupeIcon.isVisible = true
@@ -116,8 +152,7 @@ class SearchFragment : Fragment() {
         when (state) {
             SearchScreenState.FAILED_TO_FETCH_VACANCIES_ERROR -> {
                 binding.resultCountPopup.isVisible = true
-//                binding.resultCountPopup.text =
-//                    getString(ru.practicum.android.diploma.common_ui.R.string.search_screen_no_results_popup)
+                binding.resultCountPopup.text =  "Ничего нет(((" // оккк, понял, common UI нельзя тут
                 binding.failedToFetchListErrorIllustration.isVisible = true
                 binding.failedToFetchListErrorText.isVisible = true
             }
@@ -132,7 +167,7 @@ class SearchFragment : Fragment() {
 
             SearchScreenState.LOADING_NEW_PAGE -> {
                 binding.resultCountPopup.isVisible = true
-                // binding.resultCountPopup.text = "" добавить по наличии логики
+                binding.resultCountPopup.text = "Что-то есть новое)))" // добавить по наличии логики
                 binding.vacancyRecycler.isVisible = true
                 binding.progressBarLoadingNewPage.isVisible = true
             }
@@ -144,7 +179,7 @@ class SearchFragment : Fragment() {
 
             SearchScreenState.VACANCY_LIST_LOADED -> {
                 binding.resultCountPopup.isVisible = true
-                // binding.resultCountPopup.text = "" добавить по наличии логики
+                binding.resultCountPopup.text = "Успех!" // добавить по наличии логики
                 binding.vacancyRecycler.isVisible = true
             }
         }

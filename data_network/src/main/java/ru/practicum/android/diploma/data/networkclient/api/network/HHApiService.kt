@@ -5,7 +5,6 @@ import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.Path
 import retrofit2.http.QueryMap
-import ru.practicum.android.diploma.data.BuildConfig
 import ru.practicum.android.diploma.data.networkclient.api.dto.HHIndustriesResponse
 import ru.practicum.android.diploma.data.networkclient.api.dto.HHRegionsResponse
 import ru.practicum.android.diploma.data.networkclient.api.dto.HHVacanciesResponse
@@ -44,6 +43,6 @@ internal interface HHApiService {
 
     private object ApiConstants {
         const val HH_HEADER_ONE = "HH-User-Agent: CareerRepository/1.0 (zpe25@yandex.ru)"
-        const val HH_TOKEN = "Bearer ${BuildConfig.HH_ACCESS_TOKEN}"
+        const val HH_TOKEN = "Bearer ///" //todo revert to ${BuildConfig.HH_ACCESS_TOKEN}
     }
 }
