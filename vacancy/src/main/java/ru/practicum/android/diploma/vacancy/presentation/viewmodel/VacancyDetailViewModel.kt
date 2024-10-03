@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.vacancy.domain.usecase.VacancyDetailInteractor
+import ru.practicum.android.diploma.vacancy.presentation.viewmodel.state.VacancyDetailState
 
 class VacancyDetailViewModel(
     private val vacancyId: String,

@@ -5,4 +5,5 @@ import ru.practicum.android.diploma.vacancy.domain.model.Vacancy
 
 interface VacancyDetailInteractor {
     fun getVacancyNetwork(id: String): Flow<Pair<Vacancy?, String?>>
+    fun getVacancyDb(id: Int): Flow<Pair<Vacancy?, String?>>
 }
