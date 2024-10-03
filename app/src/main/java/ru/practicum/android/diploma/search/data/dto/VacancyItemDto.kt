@@ -1,9 +1,9 @@
 package ru.practicum.android.diploma.search.data.dto
 
-import ru.practicum.android.diploma.util.dto.AddressDto
-import ru.practicum.android.diploma.util.dto.AreaDto
-import ru.practicum.android.diploma.util.dto.EmployerDto
-import ru.practicum.android.diploma.util.dto.SalaryDto
+import ru.practicum.android.diploma.vacancy.data.dto.AddressDto
+import ru.practicum.android.diploma.vacancy.data.dto.AreaDto
+import ru.practicum.android.diploma.vacancy.data.dto.EmployerDto
+import ru.practicum.android.diploma.vacancy.data.dto.SalaryDto
 
 data class VacancyItemDto(
     val address: AddressDto,

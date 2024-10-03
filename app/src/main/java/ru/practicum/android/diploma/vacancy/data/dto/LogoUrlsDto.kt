@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.util.dto
+package ru.practicum.android.diploma.vacancy.data.dto
 
 data class LogoUrlsDto(
     val size240: String,
