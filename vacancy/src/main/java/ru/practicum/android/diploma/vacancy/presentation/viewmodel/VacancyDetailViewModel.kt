@@ -32,6 +32,7 @@ class VacancyDetailViewModel(
                 _vacancyStateLiveData.postValue(
                     vacancy.first?.let { VacancyDetailState.Content(it) }
                         ?: vacancy.second?.let { VacancyDetailState.Error(it) }
+                        ?: VacancyDetailState.Empty
                 )
             }
         }

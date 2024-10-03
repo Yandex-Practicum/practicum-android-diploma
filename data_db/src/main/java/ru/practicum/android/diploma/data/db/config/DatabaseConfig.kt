@@ -9,5 +9,6 @@ object DatabaseConfig {
     const val NAME_VACANCY: String = "name_vacancy"
     const val NAME_COMPANY: String = "name_company"
     const val URL_LOGO: String = "url_logo"
+    const val KEY_SKILLS: String = "key_skills"
     const val DATE_ADD_VACANCY: String = "date_add_vacancy"
 }

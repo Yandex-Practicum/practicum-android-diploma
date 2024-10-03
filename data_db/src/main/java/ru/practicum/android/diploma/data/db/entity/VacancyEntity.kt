@@ -19,6 +19,8 @@ data class VacancyEntity(
     val experience: String,
     val employment: String,
     val description: String,
+    @ColumnInfo(name = DatabaseConfig.KEY_SKILLS)
+    val keySkills: String,
     @ColumnInfo(name = DatabaseConfig.URL_LOGO)
     val urlLogo: String?,
     @ColumnInfo(name = DatabaseConfig.DATE_ADD_VACANCY)

@@ -22,6 +22,7 @@ object VacancyMappers {
                 experience = experience.name,
                 employment = employment.name,
                 description = description,
+                keySkills = Utils.convertObjectWithStringToString(keySkills) { it.name },
                 urlLogo = employer.logoUrls?.deg90,
                 dateAddVacancy = Utils.convertTimeToMilliseconds(publishedAt)
             )
@@ -29,21 +30,24 @@ object VacancyMappers {
     }
 
     fun map(
-        vacancyEntity: VacancyEntity
-    ): Vacancy {
-        return with(vacancyEntity) {
-            Vacancy(
-                idVacancy = idVacancy,
-                nameVacancy = nameVacancy,
-                salary = salary,
-                nameCompany = nameCompany,
-                location = location,
-                experience = experience,
-                employment = employment,
-                description = description,
-                urlLogo = urlLogo,
-                dateAddVacancy = dateAddVacancy
-            )
+        vacancyEntity: VacancyEntity?
+    ): Vacancy? {
+        return vacancyEntity?.let {
+            with(vacancyEntity) {
+                Vacancy(
+                    idVacancy = idVacancy,
+                    nameVacancy = nameVacancy,
+                    salary = salary,
+                    nameCompany = nameCompany,
+                    location = location,
+                    experience = experience,
+                    employment = employment,
+                    description = description,
+                    keySkills = keySkills,
+                    urlLogo = urlLogo,
+                    dateAddVacancy = dateAddVacancy
+                )
+            } ?: null
         }
     }
 }
