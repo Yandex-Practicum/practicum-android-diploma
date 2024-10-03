@@ -9,8 +9,8 @@ import ru.practicum.android.diploma.vacancy.domain.usecase.VacancyDetailInteract
 
 internal class VacancyDetailInteractorImpl(private val repository: VacancyDetailRepository) : VacancyDetailInteractor {
 
-    override fun listVacancy(id: String): Flow<Pair<Vacancy?, String?>> {
-        return repository.listVacancy(id).map { result ->
+    override fun getVacancyNetwork(id: String): Flow<Pair<Vacancy?, String?>> {
+        return repository.getVacancyNetwork(id).map { result ->
             Resource.handleResource(result)
         }
     }

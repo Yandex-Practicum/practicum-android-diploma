@@ -16,7 +16,7 @@ class VacancyDetailViewModel(
     fun showVacancy() {
         _vacancyStateLiveData.postValue(VacancyDetailState.Loading)
         viewModelScope.launch {
-            vacancyInteractor.listVacancy(vacancyId).collect { vacancy ->
+            vacancyInteractor.getVacancyNetwork(vacancyId).collect { vacancy ->
                 if (vacancy.first != null) {
                     _vacancyStateLiveData.postValue(vacancy.first?.let { VacancyDetailState.Content(it) })
                 } else {

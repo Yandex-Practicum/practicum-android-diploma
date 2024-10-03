@@ -5,5 +5,5 @@ import ru.practicum.android.diploma.commonutils.Resource
 import ru.practicum.android.diploma.vacancy.domain.model.Vacancy
 
 interface VacancyDetailRepository {
-    fun listVacancy(id: String): Flow<Resource<Vacancy>>
+    fun getVacancyNetwork(id: String): Flow<Resource<Vacancy>>
 }

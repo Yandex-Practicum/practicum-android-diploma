@@ -17,7 +17,7 @@ class VacancyDetailRepositoryImpl(
     private val networkClient: NetworkClient,
 ) : VacancyDetailRepository {
 
-    override fun listVacancy(id: String): Flow<Resource<Vacancy>> =
+    override fun getVacancyNetwork(id: String): Flow<Resource<Vacancy>> =
         context.executeNetworkRequest<Response, Vacancy>(
             request = { networkClient.doRequest(HHApiVacancyRequest(id)) },
             successHandler = { response: Response ->
