@@ -7,5 +7,5 @@ class VacancySearchResponse(
     val found: Int,
     val page: Int,
     val pages: Int,
-    val per_page: Int,
+    val perPage: Int,
 ) : Response()

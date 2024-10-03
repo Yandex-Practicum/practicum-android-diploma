@@ -10,7 +10,7 @@ import ru.practicum.android.diploma.util.dto.SalaryDto
 import ru.practicum.android.diploma.util.dto.ScheduleDto
 import ru.practicum.android.diploma.util.network.Response
 
-class VacancyDetailsResponse(
+data class VacancyDetailsResponse(
     val id: String,
     val name: String,
     val salary: SalaryDto?,
