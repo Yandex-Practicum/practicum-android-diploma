@@ -15,7 +15,6 @@ class RecycleViewAdapter(
         fun onVacancyClick(vacancy: VacancySearch)
     }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VacancyViewHolder {
         val view = LayoutInflater.from(parent.context)
         return VacancyViewHolder(VacancyCardBinding.inflate(view, parent, false))
