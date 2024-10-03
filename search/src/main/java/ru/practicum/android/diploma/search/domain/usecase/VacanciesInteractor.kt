@@ -4,7 +4,6 @@ import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.search.domain.models.IndustryList
 import ru.practicum.android.diploma.search.domain.models.PaginationInfo
 import ru.practicum.android.diploma.search.domain.models.RegionList
-import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.domain.models.VacancyDetail
 
 interface VacanciesInteractor {
