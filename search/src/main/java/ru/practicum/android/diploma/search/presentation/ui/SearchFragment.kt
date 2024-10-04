@@ -112,10 +112,11 @@ class SearchFragment : Fragment() {
     private fun updatePopupText(count: Int) {
         val text = when {
             count == CONJUGATION_0 -> getString(R.string.search_screen_no_results_popup)
-            count % CONJUGATION_10 == CONJUGATION_1
-                && count % CONJUGATION_100 != CONJUGATION_11 -> getString(R.string.search_screen_result_count_popup1, count)
-            (count % CONJUGATION_10 in CONJUGATION_2..CONJUGATION_4
-                && count % CONJUGATION_100 !in CONJUGATION_12..CONJUGATION_14) -> getString(R.string.search_screen_result_count_popup2, count)
+            count % CONJUGATION_10 == CONJUGATION_1 && count % CONJUGATION_100 != CONJUGATION_11 ->
+                getString(R.string.search_screen_result_count_popup1, count)
+            count % CONJUGATION_10 in CONJUGATION_2..CONJUGATION_4 &&
+                count % CONJUGATION_100 !in CONJUGATION_12..CONJUGATION_14 ->
+                getString(R.string.search_screen_result_count_popup2, count)
             else -> getString(R.string.search_screen_result_count_popup3, count)
         }
         binding.resultCountPopup.text = text
