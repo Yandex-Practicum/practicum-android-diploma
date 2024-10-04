@@ -33,6 +33,6 @@ class VacancyListViewHolder(parent: View) : RecyclerView.ViewHolder(parent) {
             RoundedCorners(
                 Utils.doToPx(RADIUS_ROUND_VIEW, itemView.context.applicationContext)
             )
-            ).transform().into(vacancyImage)
+        ).transform().into(vacancyImage)
     }
 }
