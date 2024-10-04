@@ -86,6 +86,7 @@ class VacancyListViewModel(
                         )
 
                     }
+
                     false -> parseError(response.second)
                 }
             }
@@ -115,8 +116,5 @@ class VacancyListViewModel(
     fun emptyList() {
         _screenStateLiveData.value = SearchScreenState.IDLE
     }
-
-
-
 
 }

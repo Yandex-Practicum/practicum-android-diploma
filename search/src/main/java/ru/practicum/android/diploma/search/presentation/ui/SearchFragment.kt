@@ -24,6 +24,16 @@ import ru.practicum.android.diploma.search.presentation.adapter.VacancyListAdapt
 import ru.practicum.android.diploma.search.presentation.viewmodel.VacancyListState
 import ru.practicum.android.diploma.search.presentation.viewmodel.VacancyListViewModel
 
+private const val conjugation_0 = 0
+private const val conjugation_1 = 1
+private const val conjugation_2 = 2
+private const val conjugation_4 = 4
+private const val conjugation_10 = 10
+private const val conjugation_11 = 11
+private const val conjugation_12 = 12
+private const val conjugation_14 = 14
+private const val conjugation_100 = 100
+
 class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
@@ -37,9 +47,7 @@ class SearchFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
@@ -101,9 +109,9 @@ class SearchFragment : Fragment() {
 
     private fun updatePopupText(count: Int) {
         val text = when {
-            count == 0 -> getString(R.string.search_screen_no_results_popup)
-            count % 10 == 1 && count % 100 != 11 -> getString(R.string.search_screen_result_count_popup1, count)
-            count % 10 in 2..4 && count % 100 !in 12..14 -> getString(R.string.search_screen_result_count_popup2, count)
+            count == conjugation_0 -> getString(R.string.search_screen_no_results_popup)
+            count % conjugation_10 == conjugation_1 && count % conjugation_100 != conjugation_11 -> getString(R.string.search_screen_result_count_popup1, count)
+            count % conjugation_10 in conjugation_2..conjugation_4 && count % conjugation_100 !in conjugation_12..conjugation_14 -> getString(R.string.search_screen_result_count_popup2, count)
             else -> getString(R.string.search_screen_result_count_popup3, count)
         }
         binding.resultCountPopup.text = text
@@ -124,8 +132,7 @@ class SearchFragment : Fragment() {
                     vacancyListViewModel.loadNextPageRequest()
                 }
             }
-        }
-        )
+        })
     }
 
     private fun searchBarSetup() {
@@ -148,8 +155,7 @@ class SearchFragment : Fragment() {
             binding.searchBar.text.clear()
             val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(
-                binding.searchBar.windowToken,
-                0
+                binding.searchBar.windowToken, 0
             )
             vacancyListViewModel.emptyList()
 
