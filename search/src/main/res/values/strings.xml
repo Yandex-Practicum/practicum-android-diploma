@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Errors -->
+    <string name="check_network_connection">Check network connection</string>
+    <string name="request_was_not_accepted">Request was not accepted %1$s</string>
+    <string name="unexpcted_error">Unexpcted error %1$s</string>
+
+    <!-- Strings for display -->
+    <string name="search_screen_result_count_popup1">Найдено %d вакансия</string>
+    <string name="search_screen_result_count_popup2">Найдено %d вакансии</string>
+    <string name="search_screen_result_count_popup3">Найдено %d вакансий</string>
+    <string name="search_screen_no_results_popup">Таких вакансий нет</string>
+    <string name="search_screen_toast_no_internet">Проверьте подключение к интернету</string>
+    <string name="search_screen_toast_error">Произошла ошибка</string>
+    <string name="salary_from">от %s %s</string>
+    <string name="salary_to">до %s %s</string>
+    <string name="salary_from_to">от %s до %s %s</string>
+    <string name="no_salary">Зарплата не указана</string>s
+</resources>
