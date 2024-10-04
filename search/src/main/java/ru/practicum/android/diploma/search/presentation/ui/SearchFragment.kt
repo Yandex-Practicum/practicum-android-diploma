@@ -79,7 +79,11 @@ class SearchFragment : Fragment() {
 
         vacancyListViewModel.currentResultsCountLiveData.observe(viewLifecycleOwner) { count ->
             binding.resultCountPopup.text = if (count > 0) {
-                requireContext().resources.getQuantityString(ru.practicum.android.diploma.ui.R.plurals.vacancies_found, count, count)
+                requireContext().resources.getQuantityString(
+                    ru.practicum.android.diploma.ui.R.plurals.vacancies_found,
+                    count,
+                    count
+                )
             } else {
                 getString(ru.practicum.android.diploma.ui.R.string.search_screen_no_results_popup)
             }
