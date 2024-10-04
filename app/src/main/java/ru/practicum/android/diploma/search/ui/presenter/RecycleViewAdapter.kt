@@ -5,15 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.databinding.VacancyCardBinding
 import ru.practicum.android.diploma.search.domain.models.VacancySearch
+import ru.practicum.android.diploma.util.ClickListener
 
 class RecycleViewAdapter(
     private val list: List<VacancySearch>,
-    private val clickListener: VacancyClickListener
+    private val clickListener: ClickListener
 ) :
     RecyclerView.Adapter<VacancyViewHolder>() {
-    fun interface VacancyClickListener {
-        fun onVacancyClick(vacancy: VacancySearch)
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VacancyViewHolder {
         val view = LayoutInflater.from(parent.context)
