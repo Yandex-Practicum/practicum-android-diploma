@@ -159,7 +159,8 @@ class SearchFragment : Fragment() {
             binding.searchBar.text.clear()
             val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(
-                binding.searchBar.windowToken, 0
+                binding.searchBar.windowToken,
+                0
             )
             vacancyListViewModel.emptyList()
 
