@@ -47,7 +47,27 @@ object VacancyMappers {
                     urlLogo = urlLogo,
                     dateAddVacancy = dateAddVacancy
                 )
-            } ?: null
+            }
+        }
+    }
+
+    fun map(
+        vacancy: Vacancy
+    ): VacancyEntity {
+        return with(vacancy) {
+            VacancyEntity(
+                idVacancy = idVacancy,
+                nameVacancy = nameVacancy,
+                salary = salary,
+                nameCompany = nameCompany,
+                location = location,
+                experience = experience,
+                employment = employment,
+                description = description,
+                keySkills = keySkills,
+                urlLogo = urlLogo,
+                dateAddVacancy = dateAddVacancy
+            )
         }
     }
 }
