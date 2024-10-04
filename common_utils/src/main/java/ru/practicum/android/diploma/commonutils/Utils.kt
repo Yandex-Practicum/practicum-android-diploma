@@ -14,9 +14,7 @@ import java.util.TimeZone
 
 object Utils {
     fun doToPx(dp: Float, context: Context): Int {
-        return TypedValue
-            .applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.resources.displayMetrics)
-            .toInt()
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.resources.displayMetrics).toInt()
     }
 
     fun visibilityView(views: Array<View>? = emptyArray(), v: View) {
@@ -29,8 +27,7 @@ object Utils {
     fun outputStackTrace(tag: String, e: Throwable) {
         e.stackTrace.forEach { element ->
             Log.e(
-                tag,
-                "Class: ${element.className}, Method: ${element.methodName}, Line: ${element.lineNumber}"
+                tag, "Class: ${element.className}, Method: ${element.methodName}, Line: ${element.lineNumber}"
             )
         }
     }
@@ -67,7 +64,7 @@ object Utils {
                 )
             }
 
-            else -> ""
+            else -> getString(R.string.no_salary)
         }
     }
 

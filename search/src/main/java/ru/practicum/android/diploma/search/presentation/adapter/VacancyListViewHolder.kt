@@ -9,10 +9,12 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.practicum.android.diploma.commonutils.Utils
+import ru.practicum.android.diploma.commonutils.Utils.formatSalary
 import ru.practicum.android.diploma.search.R
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 
 private const val RADIUS_ROUND_VIEW = 12f
+
 class VacancyListViewHolder(parent: View) : RecyclerView.ViewHolder(parent) {
 
     private val vacancyNameAndCity: TextView = itemView.findViewById(R.id.searchVacancyNameAndCity)
@@ -24,34 +26,13 @@ class VacancyListViewHolder(parent: View) : RecyclerView.ViewHolder(parent) {
     fun bind(model: Vacancy) {
         vacancyNameAndCity.text = model.title + ", " + model.area.name + ""
         vacancyCompany.text = model.companyName
-        vacancySalary.text = when {
-            model.salaryMin != null && model.salaryMax != null -> {
-                itemView.context.getString(
-                    ru.practicum.android.diploma.ui.R.string.salary_from_to,
-                    model.salaryMin.toString(),
-                    model.salaryMax.toString(),
-                    model.salaryCurrency
-                )
-            }
-            model.salaryMin != null -> {
-                itemView.context.getString(
-                    ru.practicum.android.diploma.ui.R.string.salary_from,
-                    model.salaryMin.toString(),
-                    model.salaryCurrency
-                )
-            }
-            model.salaryMax != null -> {
-                itemView.context.getString(
-                    ru.practicum.android.diploma.ui.R.string.salary_to,
-                    model.salaryMax.toString(),
-                    model.salaryCurrency
-                )
-            }
-            else -> { itemView.context.getString(ru.practicum.android.diploma.ui.R.string.no_salary) }
-        }
+        vacancySalary.text = itemView.context.formatSalary(model.salaryMin, model.salaryMax, model.salaryCurrency)
+
         Glide.with(itemView).load(model.companyLogo).placeholder(R.drawable.placeholder_logo_item_favorite).transform(
             CenterCrop(),
-            RoundedCorners(Utils.doToPx(RADIUS_ROUND_VIEW, itemView.context.applicationContext))
+            RoundedCorners(
+                Utils.doToPx(RADIUS_ROUND_VIEW, itemView.context.applicationContext)
+            )
         ).transform().into(vacancyImage)
     }
 }

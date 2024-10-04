@@ -22,6 +22,8 @@ import ru.practicum.android.diploma.search.presentation.SearchScreenState
 import ru.practicum.android.diploma.search.presentation.adapter.VacancyListAdapter
 import ru.practicum.android.diploma.search.presentation.viewmodel.VacancyListState
 import ru.practicum.android.diploma.search.presentation.viewmodel.VacancyListViewModel
+import ru.practicum.android.diploma.vacancy.presentation.ui.VacancyFragment
+import ru.practicum.android.diploma.vacancy.presentation.ui.state.VacancyInputState
 
 private const val CONJUGATION_0 = 0
 private const val CONJUGATION_1 = 1
@@ -48,8 +50,8 @@ class SearchFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        savedInstanceState: Bundle?,
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
@@ -87,7 +89,11 @@ class SearchFragment : Fragment() {
         }
 
         vacancyListViewModel.currentResultsCountLiveData.observe(viewLifecycleOwner) { count ->
-            updatePopupText(count)
+            binding.resultCountPopup.text = if (count > 0) {
+                requireContext().resources.getQuantityString(R.plurals.vacancies_found, count, count)
+            } else {
+                getString(R.string.search_screen_no_results_popup)
+            }
         }
 
         vacancyListViewModel.vacancyListStateLiveData.observe(viewLifecycleOwner) { state ->
@@ -108,21 +114,12 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun updatePopupText(count: Int) {
-        val text = when {
-            count == CONJUGATION_0 -> getString(R.string.search_screen_no_results_popup)
-            count % CONJUGATION_10 == CONJUGATION_1 && count % CONJUGATION_100 != CONJUGATION_11 ->
-                getString(R.string.search_screen_result_count_popup1, count)
-            count % CONJUGATION_10 in CONJUGATION_2..CONJUGATION_4 &&
-                count % CONJUGATION_100 !in CONJUGATION_12..CONJUGATION_14 ->
-                getString(R.string.search_screen_result_count_popup2, count)
-            else -> getString(R.string.search_screen_result_count_popup3, count)
-        }
-        binding.resultCountPopup.text = text
-    }
-
     private fun recyclerSetup() {
-        val adapter = VacancyListAdapter { // сюда нашу клик-логику
+        val adapter = VacancyListAdapter { vacancy ->
+            findNavController().navigate(
+                R.id.action_searchFragment_to_vacancy_navigation,
+                VacancyFragment.createArgs(VacancyInputState.VacancyNetwork(vacancy.id))
+            )
         }
         binding.vacancyRecycler.layoutManager = GridLayoutManager(requireContext(), 1)
         binding.vacancyRecycler.adapter = adapter
@@ -158,10 +155,7 @@ class SearchFragment : Fragment() {
         binding.clearSearchIcon.setOnClickListener {
             binding.searchBar.text.clear()
             val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(
-                binding.searchBar.windowToken,
-                0
-            )
+            imm.hideSoftInputFromWindow(binding.searchBar.windowToken, 0)
             vacancyListViewModel.emptyList()
 
         }
