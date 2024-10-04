@@ -38,7 +38,7 @@ internal class RetrofitNetworkClient(
                     )
                     is HHApiVacancyRequest -> vacancyRequest(dto)
                     is HHApiRegionsRequest -> regionsRequest(dto)
-                    else -> throw Exception("Error is ${dto::class.qualifiedName}")
+                    else -> throw ClassCastException("Error is ${dto::class.qualifiedName}")
                 }
             }.fold(
                 onSuccess = { response ->
