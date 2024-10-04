@@ -41,7 +41,7 @@
         <item name="android:layout_marginTop">@dimen/dp_4</item>
         <item name="android:background">@drawable/rounded_12dp_blue_bg</item>
         <item name="android:gravity">center</item>
-        <item name="android:lineHeight">dp_20</item>
+        <item name="android:lineHeight">@dimen/dp_20</item>
         <item name="android:paddingHorizontal">@dimen/dp_12</item>
         <item name="android:paddingVertical">@dimen/dp_4</item>
         <item name="android:textColor">@color/white</item>
