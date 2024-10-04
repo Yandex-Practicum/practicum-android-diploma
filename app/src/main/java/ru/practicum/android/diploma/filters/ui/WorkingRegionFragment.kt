@@ -10,6 +10,7 @@ import ru.practicum.android.diploma.databinding.WorkingRegionFragmentBinding
 class WorkingRegionFragment : Fragment() {
     private var _binding: WorkingRegionFragmentBinding? = null
     private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
