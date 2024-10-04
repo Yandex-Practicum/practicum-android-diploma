@@ -10,6 +10,7 @@ import ru.practicum.android.diploma.databinding.FavoriteFragmentBinding
 class FavoriteFragment : Fragment() {
     private var _binding: FavoriteFragmentBinding? = null
     private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

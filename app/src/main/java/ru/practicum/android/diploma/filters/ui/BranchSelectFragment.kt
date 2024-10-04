@@ -10,6 +10,7 @@ import ru.practicum.android.diploma.databinding.BranchSelectFragmentBinding
 class BranchSelectFragment : Fragment() {
     private var _binding: BranchSelectFragmentBinding? = null
     private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
