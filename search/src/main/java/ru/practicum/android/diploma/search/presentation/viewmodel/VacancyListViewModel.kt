@@ -39,7 +39,7 @@ class VacancyListViewModel(
     }
 
     companion object {
-        private val TAG: String = "VacancyListViewModel"
+        private const val TAG: String = "VacancyListViewModel"
     }
 
     fun initialSearch(query: String) {
@@ -81,9 +81,7 @@ class VacancyListViewModel(
             vacanciesInteractor.searchVacancies(currentQueryMap).collect { response ->
                 if (response.first != null) {
                     paginationInfo = response.first ?: paginationInfo
-                    updateLists(
-                        currentList, paginationInfo.items
-                    )
+                    updateLists(currentList, paginationInfo.items)
                 } else {
                     parseError(response.second)
                 }
