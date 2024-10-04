@@ -24,15 +24,15 @@ import ru.practicum.android.diploma.search.presentation.adapter.VacancyListAdapt
 import ru.practicum.android.diploma.search.presentation.viewmodel.VacancyListState
 import ru.practicum.android.diploma.search.presentation.viewmodel.VacancyListViewModel
 
-private const val conjugation_0 = 0
-private const val conjugation_1 = 1
-private const val conjugation_2 = 2
-private const val conjugation_4 = 4
-private const val conjugation_10 = 10
-private const val conjugation_11 = 11
-private const val conjugation_12 = 12
-private const val conjugation_14 = 14
-private const val conjugation_100 = 100
+private const val CONJUGATION_0 = 0
+private const val CONJUGATION_1 = 1
+private const val CONJUGATION_2 = 2
+private const val CONJUGATION_4 = 4
+private const val CONJUGATION_10 = 10
+private const val CONJUGATION_11 = 11
+private const val CONJUGATION_12 = 12
+private const val CONJUGATION_14 = 14
+private const val CONJUGATION_100 = 100
 
 class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
@@ -47,7 +47,9 @@ class SearchFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
@@ -109,9 +111,11 @@ class SearchFragment : Fragment() {
 
     private fun updatePopupText(count: Int) {
         val text = when {
-            count == conjugation_0 -> getString(R.string.search_screen_no_results_popup)
-            count % conjugation_10 == conjugation_1 && count % conjugation_100 != conjugation_11 -> getString(R.string.search_screen_result_count_popup1, count)
-            count % conjugation_10 in conjugation_2..conjugation_4 && count % conjugation_100 !in conjugation_12..conjugation_14 -> getString(R.string.search_screen_result_count_popup2, count)
+            count == CONJUGATION_0 -> getString(R.string.search_screen_no_results_popup)
+            count % CONJUGATION_10 == CONJUGATION_1
+                && count % CONJUGATION_100 != CONJUGATION_11 -> getString(R.string.search_screen_result_count_popup1, count)
+            (count % CONJUGATION_10 in CONJUGATION_2..CONJUGATION_4
+                && count % CONJUGATION_100 !in CONJUGATION_12..CONJUGATION_14) -> getString(R.string.search_screen_result_count_popup2, count)
             else -> getString(R.string.search_screen_result_count_popup3, count)
         }
         binding.resultCountPopup.text = text
