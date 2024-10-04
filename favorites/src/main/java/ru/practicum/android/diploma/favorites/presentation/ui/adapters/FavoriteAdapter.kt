@@ -5,12 +5,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.practicum.android.diploma.commonutils.Utils
-import ru.practicum.android.diploma.ui.R
-import ru.practicum.android.diploma.favorites.databinding.ItemFavoriteBinding
 import ru.practicum.android.diploma.favorites.domain.model.FavoriteVacancy
+import ru.practicum.android.diploma.ui.R
+import ru.practicum.android.diploma.ui.databinding.ItemVacancyBinding
 
 private const val RADIUS_ROUND_VIEW = 12f
 
@@ -28,7 +27,7 @@ class FavoriteAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
         val layoutInspector = LayoutInflater.from(parent.context)
-        return FavoriteViewHolder(ItemFavoriteBinding.inflate(layoutInspector, parent, false))
+        return FavoriteViewHolder(ItemVacancyBinding.inflate(layoutInspector, parent, false))
     }
 
     override fun getItemCount(): Int {
@@ -47,7 +46,7 @@ class FavoriteAdapter(
     }
 
     class FavoriteViewHolder(
-        private val binding: ItemFavoriteBinding
+        private val binding: ItemVacancyBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
@@ -55,8 +54,8 @@ class FavoriteAdapter(
             Glide.with(itemView)
                 .load(model.urlLogo)
                 .placeholder(R.drawable.placeholder_logo_item_favorite)
+                .centerCrop()
                 .transform(
-                    CenterCrop(),
                     RoundedCorners(
                         Utils.doToPx(
                             RADIUS_ROUND_VIEW,

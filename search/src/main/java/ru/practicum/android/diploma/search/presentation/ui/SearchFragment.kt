@@ -1,12 +1,10 @@
 package ru.practicum.android.diploma.search.presentation.ui
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
@@ -15,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.commonutils.Utils.closeKeyBoard
 import ru.practicum.android.diploma.search.R
 import ru.practicum.android.diploma.search.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.search.domain.models.Vacancy
@@ -24,16 +23,6 @@ import ru.practicum.android.diploma.search.presentation.viewmodel.VacancyListSta
 import ru.practicum.android.diploma.search.presentation.viewmodel.VacancyListViewModel
 import ru.practicum.android.diploma.vacancy.presentation.ui.VacancyFragment
 import ru.practicum.android.diploma.vacancy.presentation.ui.state.VacancyInputState
-
-private const val CONJUGATION_0 = 0
-private const val CONJUGATION_1 = 1
-private const val CONJUGATION_2 = 2
-private const val CONJUGATION_4 = 4
-private const val CONJUGATION_10 = 10
-private const val CONJUGATION_11 = 11
-private const val CONJUGATION_12 = 12
-private const val CONJUGATION_14 = 14
-private const val CONJUGATION_100 = 100
 
 class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
@@ -90,9 +79,9 @@ class SearchFragment : Fragment() {
 
         vacancyListViewModel.currentResultsCountLiveData.observe(viewLifecycleOwner) { count ->
             binding.resultCountPopup.text = if (count > 0) {
-                requireContext().resources.getQuantityString(R.plurals.vacancies_found, count, count)
+                requireContext().resources.getQuantityString(ru.practicum.android.diploma.ui.R.plurals.vacancies_found, count, count)
             } else {
-                getString(R.string.search_screen_no_results_popup)
+                getString(ru.practicum.android.diploma.ui.R.string.search_screen_no_results_popup)
             }
         }
 
@@ -154,8 +143,7 @@ class SearchFragment : Fragment() {
 
         binding.clearSearchIcon.setOnClickListener {
             binding.searchBar.text.clear()
-            val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(binding.searchBar.windowToken, 0)
+            requireContext().closeKeyBoard(binding.searchBar)
             vacancyListViewModel.emptyList()
 
         }

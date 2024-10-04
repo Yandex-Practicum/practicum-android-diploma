@@ -3,8 +3,8 @@ package ru.practicum.android.diploma.search.presentation.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ru.practicum.android.diploma.search.R
 import ru.practicum.android.diploma.search.domain.models.Vacancy
+import ru.practicum.android.diploma.ui.databinding.ItemVacancyBinding
 
 class VacancyListAdapter(private val clickListener: VacancyClickListener) :
     RecyclerView.Adapter<VacancyListViewHolder>() {
@@ -19,8 +19,8 @@ class VacancyListAdapter(private val clickListener: VacancyClickListener) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VacancyListViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.vacancy_view, parent, false)
-        return VacancyListViewHolder(view)
+        val layoutInspector = LayoutInflater.from(parent.context)
+        return VacancyListViewHolder(ItemVacancyBinding.inflate(layoutInspector, parent, false))
     }
 
     override fun onBindViewHolder(holder: VacancyListViewHolder, position: Int) {

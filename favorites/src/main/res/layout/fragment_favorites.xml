@@ -26,7 +26,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header"
-        tools:listitem="@layout/item_favorite"
+        tools:listitem="@layout/item_vacancy"
         android:visibility="gone">
 
     </androidx.recyclerview.widget.RecyclerView>
