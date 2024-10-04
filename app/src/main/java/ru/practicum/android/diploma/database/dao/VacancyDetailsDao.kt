@@ -14,9 +14,6 @@ interface VacancyDetailsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertVacancy(vacancy: VacancyDetailsEntity)
 
-    @Delete
-    fun deleteVacancy(vacancy: VacancyDetailsEntity)
-
     @Query("DELETE FROM $TABLE_NAME where id = :id")
     fun deleteVacancyById(id: String)
 

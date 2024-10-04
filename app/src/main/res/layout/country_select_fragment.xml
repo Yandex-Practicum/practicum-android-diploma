@@ -7,10 +7,10 @@
     tools:context=".filters.ui.CountrySelectFragment">
 
     <TextView
+        style="@style/Text_Medium_22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/country_choice"
-        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

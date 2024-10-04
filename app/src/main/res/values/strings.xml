@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Change Your Job</string>
     <string name="search">Поиск</string>
+    <string name="search_vacancies">Поиск вакансий</string>
     <string name="team">Команда</string>
     <string name="vacancy">Вакансия</string>
     <string name="industry">Отрасль</string>
@@ -10,8 +11,20 @@
     <string name="city_choice">Выбор города</string>
     <string name="working_region">Место работы</string>
     <string name="main">Главная</string>
+    <string name="salary_to">до</string>
+    <string name="salary_from">от</string>
+    <string name="search_line_hint">Введите запрос</string>
+    <string name="no_internet">Нет интернета</string>
+    <string name="not_found_message">Не удалось получить \n список вакансий</string>
+    <string name="server_error">Ошибка сервера</string>
 
 <!--  Team Info Screen /start/ -->
     <string name="team_member_title">Над приложением работали</string>
-<!--  Team Info Screen /end/ -->
+    <string-array name="authors">
+        <item>Сергей Величко</item>
+        <item>Александр Березовский</item>
+        <item>Даниэль Сафарян</item>
+        <item>Артём Матюшкин</item>
+    </string-array>
+    <!--  Team Info Screen /end/ -->
 </resources>

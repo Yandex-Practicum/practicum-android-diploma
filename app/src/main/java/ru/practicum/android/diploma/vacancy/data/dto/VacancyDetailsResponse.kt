@@ -1,6 +1,8 @@
 package ru.practicum.android.diploma.vacancy.data.dto
 
-data class VacancyDto(
+import ru.practicum.android.diploma.util.network.Response
+
+data class VacancyDetailsResponse(
     val id: String,
     val name: String,
     val salary: SalaryDto?,
@@ -12,4 +14,4 @@ data class VacancyDto(
     val employment: EmploymentDto?,
     val description: String,
     val keySkills: List<KeySkillDto>,
-)
+) : Response()
