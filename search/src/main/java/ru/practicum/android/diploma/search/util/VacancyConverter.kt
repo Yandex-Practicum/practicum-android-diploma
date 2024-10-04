@@ -36,13 +36,14 @@ class VacancyConverter {
         return ArrayList(items.map {
             with(it) {
                 Vacancy(
-                    name,
-                    map(area),
-                    employer.name,
-                    salary?.from,
-                    salary?.to,
-                    salary?.currency,
-                    employer.logoUrls?.original
+                    id = id,
+                    title = name,
+                    area = map(area),
+                    companyName = employer.name,
+                    salaryMin = salary?.from,
+                    salaryMax = salary?.to,
+                    salaryCurrency = salary?.currency,
+                    companyLogo = employer.logoUrls?.original
                 )
             }
         })
