@@ -21,7 +21,7 @@
     <string name="about_vacancy">Описание вакансии</string>
     <string name="responsibilities">Обязанности</string>
 
-<!--  Team Info Screen /start/ -->
+    <!--  Team Info Screen /start/ -->
     <string name="team_member_title">Над приложением работали</string>
     <string-array name="authors">
         <item>Сергей Величко</item>
