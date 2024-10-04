@@ -83,22 +83,22 @@ class SearchFragment : Fragment() {
 
         recyclerSetup()
 
-        vacancyListViewModel.screenStateLiveData.observe(viewLifecycleOwner, Observer { state: SearchScreenState ->
+        vacancyListViewModel.screenStateLiveData.observe(viewLifecycleOwner) { state: SearchScreenState ->
             updateUI(state)
-        })
+        }
 
-        vacancyListViewModel.currentResultsCountLiveData.observe(viewLifecycleOwner, Observer { count ->
+        vacancyListViewModel.currentResultsCountLiveData.observe(viewLifecycleOwner) { count ->
             updatePopupText(count)
-        })
+        }
 
-        vacancyListViewModel.vacancyListStateLiveData.observe(viewLifecycleOwner, Observer { state ->
+        vacancyListViewModel.vacancyListStateLiveData.observe(viewLifecycleOwner) { state ->
             if (state is VacancyListState.Content && binding.vacancyRecycler.adapter != null) {
                 localVacancyList = ArrayList()
                 localVacancyList = state.vacancies as ArrayList<Vacancy>
-                (binding.vacancyRecycler.adapter as VacancyListAdapter).setVacancies(localVacancyList) // <-doesn't work
+                (binding.vacancyRecycler.adapter as VacancyListAdapter).setVacancies(localVacancyList)
                 binding.vacancyRecycler.adapter?.notifyDataSetChanged()
             }
-        })
+        }
 
 
         binding.filter.setOnClickListener {
