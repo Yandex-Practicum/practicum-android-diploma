@@ -18,7 +18,6 @@ class SearchVacancyInteractorImpl(private val repository: SearchVacancyRepositor
     ): Flow<List<VacancySearch>?> {
         return repository.getVacancyList(page, text, industry, salary, onlyWithSalary).map { result ->
             when (result) {
-
                 // передаем данные в случае успешного запроса, либо пустой лист, если ничего не нашлось
                 is Resource.Success -> result.data
 

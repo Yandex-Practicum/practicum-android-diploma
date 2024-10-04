@@ -26,11 +26,12 @@ class SearchVacancyRepositoryImpl(
         val response = networkClient.doRequest(VacancySearchRequest(text)) // обсудить и доработать VacancySearchRequest
         emit(
             when (response.resultCode) {
-                HttpStatusCode.OK.code -> Resource.Success(
-                        (response as VacancySearchResponse).items.map {
-                            converter.map(it)
-                        }
+                HttpStatusCode.OK -> Resource.Success(
+                    (response as VacancySearchResponse).items.map {
+                        converter.map(it)
+                    }
                 )
+
                 else -> Resource.Error("Error")
             }
         )
