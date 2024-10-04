@@ -57,19 +57,13 @@ class VacancyDetailViewModel(
     fun checkVacancyFavorite(vacancy: Vacancy) {
         viewModelScope.launch(Dispatchers.IO) {
             vacancyInteractor.checkVacancyExists(vacancy.idVacancy).collect { (existingId, message) ->
-                when {
-                    existingId != null && existingId > 0 -> {
+                existingId?.let { id ->
+                    if (id > 0) {
                         deleteFavoriteVacancy(vacancy)
-                    }
-
-                    existingId != null && existingId <= 0 -> {
+                    } else {
                         addFavoriteVacancy(vacancy)
                     }
-
-                    existingId == null && message != null -> {
-                        updateVacancyFavoriteMessageState(VacancyFavoriteMessageState.Error)
-                    }
-                }
+                } ?: updateVacancyFavoriteMessageState(VacancyFavoriteMessageState.Error)
             }
         }
     }
