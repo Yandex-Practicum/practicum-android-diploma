@@ -20,6 +20,7 @@ class VacancySearchFragment : Fragment() {
     companion object {
         const val CLICK_DEBOUNCE_DELAY = 2000L
     }
+
     private var _binding: VacancySearchFragmentBinding? = null
     private val binding get() = _binding!!
     private var vacancies = mutableListOf<VacancySearch>()
@@ -73,7 +74,7 @@ class VacancySearchFragment : Fragment() {
     private fun recyclerViewInit() {
         val onVacancyClickDebounce: ((VacancySearch) -> Unit) =
             debounce(CLICK_DEBOUNCE_DELAY, viewLifecycleOwner.lifecycleScope, false) { vacancy ->
-               TODO("Реализовать клик в вьюмодел")
+                TODO("Реализовать клик в вьюмодел")
             }
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = RecycleViewAdapter(vacancies, onVacancyClickDebounce)
