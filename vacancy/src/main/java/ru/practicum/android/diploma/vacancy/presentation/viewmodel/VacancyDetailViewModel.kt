@@ -54,7 +54,7 @@ class VacancyDetailViewModel(
         _vacancyFavoriteMessageStateLiveData.postValue(VacancyFavoriteMessageState.Empty)
     }
 
-    fun checkVacancyFavorite(vacancy: Vacancy) {
+    fun modifyingStatusOfVacancyFavorite(vacancy: Vacancy) {
         viewModelScope.launch(Dispatchers.IO) {
             vacancyInteractor.checkVacancyExists(vacancy.idVacancy).collect { (existingId, message) ->
                 existingId?.let { id ->
