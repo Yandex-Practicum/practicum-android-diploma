@@ -4,15 +4,16 @@ import android.content.Context
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import ru.practicum.android.diploma.commonutils.isConnected
+import ru.practicum.android.diploma.commonutils.network.isConnected
 import ru.practicum.android.diploma.data.networkclient.api.NetworkClient
-import ru.practicum.android.diploma.data.networkclient.api.dto.HHApiIndustriesRequest
-import ru.practicum.android.diploma.data.networkclient.api.dto.HHApiRegionsRequest
-import ru.practicum.android.diploma.data.networkclient.api.dto.HHApiVacanciesRequest
-import ru.practicum.android.diploma.data.networkclient.api.dto.HHApiVacancyRequest
-import ru.practicum.android.diploma.data.networkclient.api.dto.HttpStatus
-import ru.practicum.android.diploma.data.networkclient.api.dto.Response
+import ru.practicum.android.diploma.data.networkclient.api.dto.request.HHApiIndustriesRequest
+import ru.practicum.android.diploma.data.networkclient.api.dto.request.HHApiRegionsRequest
+import ru.practicum.android.diploma.data.networkclient.api.dto.request.HHApiVacanciesRequest
+import ru.practicum.android.diploma.data.networkclient.api.dto.request.HHApiVacancyRequest
+import ru.practicum.android.diploma.commonutils.network.HttpStatus
+import ru.practicum.android.diploma.commonutils.network.Response
 
+private const val TAG = "RetrofitNetworkClient"
 internal class RetrofitNetworkClient(
     private val hhApiService: HHApiService,
     private val context: Context,
@@ -70,10 +71,5 @@ internal class RetrofitNetworkClient(
         val industries = hhApiService.searchIndustries(dto.options)
         Log.d(TAG, industries.toString())
         return industries
-    }
-
-    companion object {
-        private const val TAG = "RetrofitNetworkClient"
-        private const val QUERY = "query"
     }
 }

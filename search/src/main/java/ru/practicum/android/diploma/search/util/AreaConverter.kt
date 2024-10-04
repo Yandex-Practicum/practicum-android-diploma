@@ -1,12 +1,12 @@
 package ru.practicum.android.diploma.search.util
 
-import ru.practicum.android.diploma.data.networkclient.api.dto.HHRegionsResponse
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.regions.HHRegionsResponse
 import ru.practicum.android.diploma.search.domain.models.Area
 import ru.practicum.android.diploma.search.domain.models.AreaX
 import ru.practicum.android.diploma.search.domain.models.Region
 import ru.practicum.android.diploma.search.domain.models.RegionList
-import ru.practicum.android.diploma.data.networkclient.api.dto.Area as AreaDto
-import ru.practicum.android.diploma.data.networkclient.api.dto.AreaX as AreaXDto
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.area.Area as AreaDto
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.area.AreaX as AreaXDto
 
 class AreaConverter {
     fun map(regions: HHRegionsResponse): RegionList = RegionList(ArrayList(regions.map {

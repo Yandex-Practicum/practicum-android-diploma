@@ -8,13 +8,17 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.vacancy.databinding.FragmentVacancyBinding
 import ru.practicum.android.diploma.vacancy.presentation.ui.state.VacancyInputState
+import ru.practicum.android.diploma.vacancy.presentation.viewmodel.VacancyDetailViewModel
 
 class VacancyFragment : Fragment() {
 
     private var _binding: FragmentVacancyBinding? = null
     private val binding get() = _binding!!
+
+    private val vacancyDetailViewModel: VacancyDetailViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,6 +45,8 @@ class VacancyFragment : Fragment() {
                 context?.startActivity(this)
             }
         }
+
+        requireArguments().getInt(ARGS_STATE)
     }
 
     override fun onDestroyView() {
@@ -49,8 +55,8 @@ class VacancyFragment : Fragment() {
     }
 
     companion object {
-        private const val VACANCY_INSTANCE = "vacancy_instance"
-        private const val VACANCY_ID = "vacancy_id"
+        private const val VACANCY_ID_NETWORK = "vacancy_instance"
+        private const val VACANCY_ID_DB = "vacancy_id"
 
         private const val ARGS_STATE = "args_state"
 
@@ -62,13 +68,13 @@ class VacancyFragment : Fragment() {
                 is VacancyInputState.VacancyNetwork -> {
                     bundleOf(
                         ARGS_STATE to INPUT_NETWORK_STATE,
-                        VACANCY_INSTANCE to vacancyInputState.vacancy
+                        VACANCY_ID_NETWORK to vacancyInputState.id
                     )
                 }
                 is VacancyInputState.VacancyDb -> {
                     bundleOf(
                         ARGS_STATE to INPUT_DB_STATE,
-                        VACANCY_ID to vacancyInputState.id
+                        VACANCY_ID_DB to vacancyInputState.id
                     )
                 }
             }

@@ -13,6 +13,7 @@ data class Vacancy(
     val experience: String,
     val employment: String,
     val description: String,
+    val keySkills: String,
     val urlLogo: String?,
     val dateAddVacancy: Long = -1L,
 ) : Parcelable
