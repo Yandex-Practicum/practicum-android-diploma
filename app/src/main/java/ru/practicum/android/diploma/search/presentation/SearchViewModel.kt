@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.search.presentation
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -75,7 +74,10 @@ class SearchViewModel(val searchInteractor: SearchInteractor) : ViewModel() {
                 currentPage = result.page ?: currentPage
                 maxPages = result.pages ?: maxPages
                 _vacanciesList.value = _vacanciesList.value?.plus(vacanciesUi)
-                _uiState.value = UiScreenState.Success(vacancies = _vacanciesList.value ?: emptyList(), found = result.found ?: 0)
+                _uiState.value = UiScreenState.Success(
+                    vacancies = _vacanciesList.value ?: emptyList(),
+                    found = result.found ?: 0
+                )
             }
         }
     }

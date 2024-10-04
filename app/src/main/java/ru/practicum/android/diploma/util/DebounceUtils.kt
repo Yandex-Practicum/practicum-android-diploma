@@ -12,18 +12,31 @@ import kotlinx.coroutines.launch
  *         performSearch(query)
  *}
  */
-
 fun <T> debounce(
     delayMs: Long,
     scope: CoroutineScope,
     action: (T) -> Unit
-): (T) -> Unit {
-    var debounceJob: Job? = null
-    return { param: T ->
+): DebouncedFunction<T> {
+    return DebouncedFunction(delayMs, scope, action)
+}
+
+class DebouncedFunction<T>(
+    private val delayMs: Long,
+    private val scope: CoroutineScope,
+    private val action: (T) -> Unit
+) {
+    private var debounceJob: Job? = null
+
+    operator fun invoke(param: T) {
         debounceJob?.cancel()
         debounceJob = scope.launch {
             delay(delayMs)
             action(param)
         }
+    }
+
+    fun cancel() {
+        debounceJob?.cancel()
+        debounceJob = null
     }
 }

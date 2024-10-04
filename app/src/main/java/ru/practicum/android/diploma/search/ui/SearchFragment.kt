@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -69,12 +70,23 @@ class SearchFragment : Fragment() {
                     val totalItemCount = layoutManager.itemCount
                     val pastVisibleItems = layoutManager.findFirstVisibleItemPosition()
 
-                    if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
+                    if (visibleItemCount + pastVisibleItems >= totalItemCount) {
                         viewModel.onLastItemReached()
                     }
                 }
             }
         })
+
+        binding.editText.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                val query = binding.editText.text.toString()
+                debounceSearch.cancel()
+                viewModel.onSearchQueryChanged(query)
+                true
+            } else {
+                false
+            }
+        }
     }
 
     private fun renderUiState(state: UiScreenState) {
