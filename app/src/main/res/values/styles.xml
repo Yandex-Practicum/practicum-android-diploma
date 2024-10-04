@@ -38,8 +38,8 @@
     </style>
 
     <style name="search_et">
-        <item name="drawableTint">@color/grey</item>
         <item name="android:textColorHint">@color/grey</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
     </style>
 
     <style name="search_card_view_style">
@@ -53,6 +53,12 @@
 
     <style name="night_text">
         <item name="android:textColor">@color/black_universal</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+    </style>
+
+    <style name="night_text_regular">
+        <item name="android:textColor">@color/black_universal</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
     </style>
 
     <style name="night_image">
