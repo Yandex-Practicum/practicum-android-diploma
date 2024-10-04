@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="FilterImageView" parent="Filter">
+        <item name="android:layout_margin">@dimen/dp_8</item>
+        <item name="android:contentDescription">@string/filter_screens_main_header</item>
+        <item name="android:paddingHorizontal">@dimen/dp_16</item>
+        <item name="android:paddingVertical">@dimen/dp_20</item>
+    </style>
+
+    <style name="SearchIcon">
+        <item name="android:layout_marginVertical">@dimen/dp_4</item>
+        <item name="android:layout_marginEnd">@dimen/dp_4</item>
+        <item name="android:contentDescription">@string/search_screen_clear_button_content_description</item>
+        <item name="android:padding">@dimen/dp_16</item>
+    </style>
+
+    <style name="SearchBarIcon">
+        <item name="android:layout_marginVertical">@dimen/dp_4</item>
+        <item name="android:layout_marginEnd">@dimen/dp_4</item>
+        <item name="android:importantForAccessibility">no</item>
+        <item name="android:padding">@dimen/dp_12</item>
+    </style>
+
+    <style name="LoadingProgressBar">
+        <item name="android:layout_marginHorizontal">@dimen/dp_160</item>
+        <item name="android:layout_marginTop">@dimen/dp_244</item>
+        <item name="android:layout_marginBottom">@dimen/dp_244</item>
+        <item name="android:indeterminateTint">@color/blue</item>
+        <item name="android:padding">@dimen/dp_8</item>
+    </style>
+
+    <style name="LoadingProgressBarBottom">
+        <item name="android:layout_marginHorizontal">@dimen/dp_160</item>
+        <item name="android:layout_marginBottom">@dimen/dp_16</item>
+        <item name="android:indeterminateTint">@color/blue</item>
+        <item name="android:padding">@dimen/dp_8</item>
+    </style>
+
+    <style name="CountPopupTextViewRegular16NoPadding" parent="TextViewRegular16NoPadding">
+        <item name="android:layout_marginTop">@dimen/dp_4</item>
+        <item name="android:background">@drawable/rounded_12dp_blue_bg</item>
+        <item name="android:gravity">center</item>
+        <item name="android:lineHeight">@dimen/dp_20</item>
+        <item name="android:paddingHorizontal">@dimen/dp_12</item>
+        <item name="android:paddingVertical">@dimen/dp_4</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="IllustrationIconDefault">
+        <item name="android:layout_marginHorizontal">@dimen/dp_16</item>
+        <item name="android:layout_marginVertical">@dimen/dp_156</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
+    <style name="NoInternetIcon">
+        <item name="android:layout_marginHorizontal">@dimen/dp_16</item>
+        <item name="android:layout_marginTop">@dimen/dp_136</item>
+        <item name="android:layout_marginBottom">@dimen/dp_16</item>
+        <item name="android:importantForAccessibility">no</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
+    <style name="NoInternetTextViewMedium22" parent="TextViewMedium22">
+        <item name="android:layout_marginHorizontal">@dimen/dp_46</item>
+        <item name="android:layout_marginBottom">@dimen/dp_136</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="FetchListErrorIcon">
+        <item name="android:layout_marginHorizontal">@dimen/dp_16</item>
+        <item name="android:layout_marginTop">@dimen/dp_124</item>
+        <item name="android:importantForAccessibility">no</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
+    <style name="FetchListErrorTextViewMedium22" parent="TextViewMedium22">
+        <item name="android:layout_marginHorizontal">@dimen/dp_46</item>
+        <item name="android:layout_marginTop">@dimen/dp_16</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+</resources>
