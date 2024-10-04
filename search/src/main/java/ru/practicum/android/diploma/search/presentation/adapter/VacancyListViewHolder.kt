@@ -28,8 +28,8 @@ class VacancyListViewHolder(parent: View) : RecyclerView.ViewHolder(parent) {
         vacancyCompany.text = model.companyName
         vacancySalary.text = itemView.context.formatSalary(model.salaryMin, model.salaryMax, model.salaryCurrency)
 
-        Glide.with(itemView).load(model.companyLogo).placeholder(R.drawable.placeholder_logo_item_favorite).transform(
-            CenterCrop(), RoundedCorners(Utils.doToPx(RADIUS_ROUND_VIEW, itemView.context.applicationContext))
-        ).transform().into(vacancyImage)
+        Glide.with(itemView).load(model.companyLogo).placeholder(R.drawable.placeholder_logo_item_favorite)
+            .transform(CenterCrop(), RoundedCorners(Utils.doToPx(RADIUS_ROUND_VIEW, itemView.context.applicationContext)))
+            .transform().into(vacancyImage)
     }
 }
