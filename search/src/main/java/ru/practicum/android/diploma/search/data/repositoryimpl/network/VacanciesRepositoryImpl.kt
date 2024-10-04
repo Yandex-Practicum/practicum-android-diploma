@@ -33,7 +33,7 @@ class VacanciesRepositoryImpl(
     private val context: Context,
 ) : VacanciesRepository {
     override fun searchVacancies(options: Map<String, String>): Flow<Resource<PaginationInfo>> =
-        context.executeRequest<Response, PaginationInfo>(
+        context.executeNetworkRequest<Response, PaginationInfo>(
             request = { networkClient.doRequest(HHApiVacanciesRequest(options)) },
             successHandler = { response: Response ->
                 Resource.Success(
