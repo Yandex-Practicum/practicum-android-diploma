@@ -14,9 +14,10 @@ import ru.practicum.android.diploma.util.ClickListener
 import ru.practicum.android.diploma.util.debounce
 
 class FavoriteFragment : Fragment() {
-    companion object{
+    companion object {
         const val CLICK_DEBOUNCE_DELAY = 2000L
     }
+
     private var _binding: FavoriteFragmentBinding? = null
     private val binding get() = _binding!!
     private val vacancies = mutableListOf<VacancySearch>()
@@ -35,6 +36,7 @@ class FavoriteFragment : Fragment() {
         recyclerViewInit()
 
     }
+
     private fun recyclerViewInit() {
         val onVacancyClickDebounce: ((VacancySearch) -> Unit) =
             debounce(CLICK_DEBOUNCE_DELAY, viewLifecycleOwner.lifecycleScope, false) { vacancy ->
@@ -42,7 +44,7 @@ class FavoriteFragment : Fragment() {
             }
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = RecycleViewAdapter(vacancies, onVacancyClickDebounce as ClickListener)
-    // опять ругался поставил as ClickListener как заглушку. Починить при реализации
+        // опять ругался поставил as ClickListener как заглушку. Починить при реализации
     }
 
     override fun onDestroyView() {
