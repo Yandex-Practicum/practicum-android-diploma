@@ -17,10 +17,9 @@ import ru.practicum.android.diploma.util.debounce
 import ru.practicum.android.diploma.util.hideKeyboard
 
 class VacancySearchFragment : Fragment() {
-    companion object{
-       const val CLICK_DEBOUNCE_DELAY = 2000L
+    companion object {
+        const val CLICK_DEBOUNCE_DELAY = 2000L
     }
-    private var onVacancyClickDebounce:((VacancySearch)->Unit)? = null
     private var _binding: VacancySearchFragmentBinding? = null
     private val binding get() = _binding!!
     private var vacancies = mutableListOf<VacancySearch>()
@@ -40,17 +39,19 @@ class VacancySearchFragment : Fragment() {
 
         val searchTextWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // коммент костыль
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 clearButtonVisibility(s)
-                //search(s.toString()) //Поиск
+                TODO("Реализация поиска")
                 if (binding.searchLine.hasFocus() && s?.isEmpty() == true) {
-                    //defaultState
+                    TODO("Дефолт экран вьюмодель")
                 }
             }
 
             override fun afterTextChanged(s: Editable?) {
+                // коммент костыль
             }
         }
         binding.searchLine.addTextChangedListener(searchTextWatcher)
@@ -58,31 +59,26 @@ class VacancySearchFragment : Fragment() {
         binding.searchLineCleaner.setOnClickListener {
             view.hideKeyboard()
             binding.searchLine.setText("")
-            //default state
+            TODO("Дефолт экран вьюмодель")
         }
 
     }
 
-    private fun clearButtonVisibility(s: CharSequence?){
+    private fun clearButtonVisibility(s: CharSequence?) {
         val visibility = !s.isNullOrEmpty()
         binding.searchLineCleaner.isVisible = visibility
         binding.icSearch.isVisible = !visibility
     }
 
     private fun recyclerViewInit() {
-
-        onVacancyClickDebounce =
+        val onVacancyClickDebounce: ((VacancySearch) -> Unit) =
             debounce(CLICK_DEBOUNCE_DELAY, viewLifecycleOwner.lifecycleScope, false) { vacancy->
-                onVacancyClick(vacancy)
-                }
+               TODO("Реализовать клик в вьюмодель")
+            }
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerView.adapter = RecycleViewAdapter(vacancies,onVacancyClickDebounce)
+        binding.recyclerView.adapter = RecycleViewAdapter(vacancies, onVacancyClickDebounce)
 
 
-        }
-
-    private fun onVacancyClick(vacancy: VacancySearch) {
-        TODO("Not yet implemented")
     }
 
     override fun onDestroyView() {
