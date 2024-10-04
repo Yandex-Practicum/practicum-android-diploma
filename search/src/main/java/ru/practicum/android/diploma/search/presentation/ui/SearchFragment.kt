@@ -89,10 +89,10 @@ class SearchFragment : Fragment() {
         }
 
         vacancyListViewModel.currentResultsCountLiveData.observe(viewLifecycleOwner) { count ->
-            binding.resultCountPopup.text = if (false) {
-                getString(R.string.search_screen_no_results_popup)
+            binding.resultCountPopup.text = if (count > 0) {
+                requireContext().resources.getQuantityString(R.plurals.vacancies_found, count, count)
             } else {
-                requireContext().resources.getQuantityString(R.plurals.vacancies_found, 2, 2)
+                getString(R.string.search_screen_no_results_popup)
             }
         }
 
@@ -155,9 +155,7 @@ class SearchFragment : Fragment() {
         binding.clearSearchIcon.setOnClickListener {
             binding.searchBar.text.clear()
             val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(
-                binding.searchBar.windowToken, 0
-            )
+            imm.hideSoftInputFromWindow(binding.searchBar.windowToken, 0)
             vacancyListViewModel.emptyList()
 
         }
