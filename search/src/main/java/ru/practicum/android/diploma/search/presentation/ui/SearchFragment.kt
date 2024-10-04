@@ -24,6 +24,7 @@ import ru.practicum.android.diploma.search.presentation.viewmodel.VacancyListVie
 import ru.practicum.android.diploma.vacancy.presentation.ui.VacancyFragment
 import ru.practicum.android.diploma.vacancy.presentation.ui.state.VacancyInputState
 
+private const val USER_INPUT = "userInput"
 class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
@@ -31,10 +32,6 @@ class SearchFragment : Fragment() {
 
     private val vacancyListViewModel: VacancyListViewModel by viewModel()
     private var localVacancyList: ArrayList<Vacancy> = ArrayList()
-
-    companion object {
-        private const val USER_INPUT = "userInput"
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -102,8 +99,9 @@ class SearchFragment : Fragment() {
         binding.filter.setOnClickListener {
             findNavController().navigate(R.id.action_searchFragment_to_filterFragment)
         }
-        binding.vacancyRecycler.setOnClickListener { // по оформлении адаптера - заменить на клик по item
-            findNavController().navigate(R.id.action_searchFragment_to_vacancy_navigation)
+
+        binding.vacancyRecycler.setOnClickListener {
+            requireContext().closeKeyBoard(binding.searchBar)
         }
     }
 
@@ -149,7 +147,6 @@ class SearchFragment : Fragment() {
             binding.searchBar.text.clear()
             requireContext().closeKeyBoard(binding.searchBar)
             vacancyListViewModel.emptyList()
-
         }
     }
 

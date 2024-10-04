@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import ru.practicum.android.diploma.commonutils.Utils
 import ru.practicum.android.diploma.commonutils.network.isConnected
 import ru.practicum.android.diploma.data.networkclient.api.NetworkClient
 import ru.practicum.android.diploma.data.networkclient.api.dto.request.HHApiIndustriesRequest
@@ -27,24 +28,29 @@ internal class RetrofitNetworkClient(
             }
         }
         return withContext(Dispatchers.IO) {
-            when (dto) {
-                is HHApiIndustriesRequest -> industriesRequest(
-                    dto
-                )
-
-                is HHApiVacanciesRequest -> vacancyListRequest(
-                    dto
-                )
-
-                is HHApiVacancyRequest -> vacancyRequest(dto)
-                is HHApiRegionsRequest -> regionsRequest(dto)
-                else -> {
-                    Log.e(TAG, "Error is ${dto::class.qualifiedName}")
+            runCatching {
+                when (dto) {
+                    is HHApiIndustriesRequest -> industriesRequest(
+                        dto
+                    )
+                    is HHApiVacanciesRequest -> vacancyListRequest(
+                        dto
+                    )
+                    is HHApiVacancyRequest -> vacancyRequest(dto)
+                    is HHApiRegionsRequest -> regionsRequest(dto)
+                    else -> throw Exception("Error is ${dto::class.qualifiedName}")
+                }
+            }.fold(
+                onSuccess = { response ->
+                    response.apply { resultCode = HttpStatus.OK }
+                },
+                onFailure = { e ->
+                    Utils.outputStackTrace(TAG, e)
                     object : Response {
                         override var resultCode = HttpStatus.CLIENT_ERROR
                     }
                 }
-            }
+            )
         }
     }
 
@@ -55,14 +61,11 @@ internal class RetrofitNetworkClient(
     }
 
     private suspend fun vacancyListRequest(dto: HHApiVacanciesRequest): Response {
-        val vacancies = hhApiService.searchVacancies(dto.request)
-        vacancies.resultCode = HttpStatus.OK
-        return vacancies
+        return hhApiService.searchVacancies(dto.request)
     }
 
     private suspend fun vacancyRequest(dto: HHApiVacancyRequest): Response {
         val vacancy = hhApiService.getVacancy(dto.vacancyId)
-        vacancy.resultCode = HttpStatus.OK
         Log.d(TAG, vacancy.toString())
         return vacancy
     }
