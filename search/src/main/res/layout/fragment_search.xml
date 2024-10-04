@@ -20,18 +20,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="139dp" />
+        app:layout_constraintGuide_begin="@dimen/dp_140" />
 
     <!-- Filter button -->
     <ImageView
         android:id="@+id/filter"
-        style="@style/Filter"
+        style="@style/FilterImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:contentDescription="@string/filter_screens_main_header"
-        android:paddingHorizontal="15dp"
-        android:paddingVertical="18dp"
         app:layout_constraintBottom_toTopOf="@id/tobBarGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -42,8 +38,8 @@
         style="@style/TextViewMedium22"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="19dp"
-        android:layout_marginEnd="4dp"
+        android:layout_margin="@dimen/dp_20"
+        android:layout_marginEnd="@dimen/dp_4"
         android:padding="0dp"
         android:text="@string/search_screen_header"
         app:layout_constraintEnd_toStartOf="@+id/filter"
@@ -56,8 +52,8 @@
         style="@style/SearchBar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginVertical="8dp"
+        android:layout_marginHorizontal="@dimen/dp_16"
+        android:layout_marginVertical="@dimen/dp_8"
         android:autofillHints="no"
         android:hint="@string/search_screen_searchbar_hint"
         app:layout_constraintBottom_toTopOf="@id/searchBarGuideline"
@@ -68,12 +64,9 @@
     <!-- Dynamically switching search bar icons -->
     <ImageView
         android:id="@+id/clearSearchIcon"
+        style="@style/SearchIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="4dp"
-        android:layout_marginEnd="4dp"
-        android:contentDescription="@string/search_screen_clear_button_content_description"
-        android:padding="17dp"
         android:src="@drawable/clear_search"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/searchBar"
@@ -82,12 +75,9 @@
 
     <ImageView
         android:id="@+id/searchBarLoupeIcon"
+        style="@style/SearchBarIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="4dp"
-        android:layout_marginEnd="4dp"
-        android:importantForAccessibility="no"
-        android:padding="12dp"
         android:src="@drawable/search_loupe"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@id/searchBar"
@@ -97,13 +87,9 @@
     <!-- Progress bar for loading new vacancies list -->
     <ProgressBar
         android:id="@+id/progressBarLoadingFromSearch"
+        style="@style/LoadingProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="162dp"
-        android:layout_marginTop="244dp"
-        android:layout_marginBottom="243dp"
-        android:indeterminateTint="@color/blue"
-        android:padding="6dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -116,8 +102,8 @@
         android:id="@+id/vacancyRecycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="16dp"
-        android:paddingTop="38dp"
+        android:layout_marginBottom="@dimen/dp_16"
+        android:paddingTop="@dimen/dp_40"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@id/progressBarLoadingNewPage"
         app:layout_constraintEnd_toEndOf="parent"
@@ -130,12 +116,9 @@
     <!-- Progress bar for loading new page (under recycler, locked to bottom)-->
     <ProgressBar
         android:id="@+id/progressBarLoadingNewPage"
+        style="@style/LoadingProgressBarBottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="162dp"
-        android:layout_marginBottom="16dp"
-        android:indeterminateTint="@color/blue"
-        android:padding="6dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -146,17 +129,10 @@
     <!-- Default image -->
     <TextView
         android:id="@+id/resultCountPopup"
-        style="@style/TextViewRegular16NoPadding"
+        style="@style/CountPopupTextViewRegular16NoPadding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:lineHeight="19dp"
-        android:background="@drawable/rounded_12dp_blue_bg"
-        android:gravity="center"
-        android:paddingVertical="4dp"
-        android:paddingHorizontal="12dp"
         android:text="@string/search_screen_no_results_popup"
-        android:textColor="@color/white"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -166,11 +142,9 @@
 
     <ImageView
         android:id="@+id/defaultIllustration"
-        android:layout_width="328dp"
-        android:layout_height="223dp"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginVertical="156dp"
-        android:scaleType="fitCenter"
+        style="@style/IllustrationIconDefault"
+        android:layout_width="@dimen/dp_328"
+        android:layout_height="@dimen/dp_224"
         android:src="@drawable/il_1"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -182,66 +156,50 @@
     <!-- No internet error -->
     <ImageView
         android:id="@+id/noInternetErrorIllustration"
-        android:layout_width="328dp"
-        android:layout_height="223dp"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="135dp"
-        android:layout_marginBottom="16dp"
-        android:importantForAccessibility="no"
-        android:scaleType="fitCenter"
+        style="@style/NoInternetIcon"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_224"
         android:src="@drawable/il_2"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/noInternetErrorText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/searchBarGuideline"
-        app:layout_constraintVertical_bias="1" />
+        app:layout_constraintTop_toBottomOf="@id/searchBar" />
 
     <TextView
         android:id="@+id/noInternetErrorText"
-        style="@style/TextViewMedium22"
+        style="@style/NoInternetTextViewMedium22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="46dp"
-        android:layout_marginBottom="135dp"
-        android:padding="0dp"
         android:text="@string/no_internet_error"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/noInternetErrorIllustration"
+        app:layout_constraintVertical_bias="0.0" />
 
     <!-- Failed to fetch list of vacancies error-->
     <ImageView
         android:id="@+id/failedToFetchListErrorIllustration"
-        android:layout_width="328dp"
-        android:layout_height="223dp"
-        android:layout_marginVertical="16dp"
-        android:layout_marginTop="122dp"
-        android:layout_marginBottom="16dp"
-        android:importantForAccessibility="no"
-        android:scaleType="fitCenter"
+        style="@style/FetchListErrorIcon"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_224"
         android:src="@drawable/il_5"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/failedToFetchListErrorText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/searchBarGuideline"
-        app:layout_constraintVertical_bias="1" />
+        app:layout_constraintTop_toTopOf="@id/resultCountPopup" />
 
     <TextView
         android:id="@+id/failedToFetchListErrorText"
-        style="@style/TextViewMedium22"
+        style="@style/FetchListErrorTextViewMedium22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="46dp"
-        android:layout_marginBottom="122dp"
-        android:gravity="center"
-        android:padding="0dp"
         android:text="@string/vacancies_list_server_error"
-        android:textAlignment="center"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/failedToFetchListErrorIllustration"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
