@@ -52,6 +52,7 @@
             android:singleLine="true" />
 
         <ImageView
+            android:id="@+id/ic_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
