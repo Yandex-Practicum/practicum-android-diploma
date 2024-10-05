@@ -17,13 +17,9 @@ class SearchVacancyRepositoryImpl(
 ) : SearchVacancyRepository {
 
     override fun getVacancyList(
-        page: Int,
-        text: String,
-        industry: String?,
-        salary: Int?,
-        onlyWithSalary: Boolean
+        query: HashMap<String, String>
     ): Flow<Resource<List<VacancySearch>>> = flow {
-        val response = networkClient.doRequest(VacancySearchRequest(text)) // обсудить и доработать VacancySearchRequest
+        val response = networkClient.doRequest(VacancySearchRequest(query)) // обсудить и доработать VacancySearchRequest
         emit(
             when (response.resultCode) {
                 HttpStatusCode.OK -> Resource.Success(

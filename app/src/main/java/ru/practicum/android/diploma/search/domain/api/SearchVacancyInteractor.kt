@@ -6,11 +6,7 @@ import ru.practicum.android.diploma.search.domain.models.VacancySearch
 interface SearchVacancyInteractor {
 
     fun getVacancyList(
-        page: Int = 0,
-        text: String,
-        industry: String? = null,
-        salary: Int? = null,
-        onlyWithSalary: Boolean = false
+       query: HashMap<String, String>
     ): Flow<List<VacancySearch>?>
 
 }
