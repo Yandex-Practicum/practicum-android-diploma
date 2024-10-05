@@ -201,6 +201,7 @@
         android:paddingHorizontal="@dimen/padding_horizontal_size_16"
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/search_line_box"
-        tools:visibility="gone" />
+        tools:visibility="gone"
+        tools:listitem="@layout/vacancy_card"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
