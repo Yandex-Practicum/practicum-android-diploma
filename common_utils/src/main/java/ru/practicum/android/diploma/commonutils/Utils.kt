@@ -36,9 +36,17 @@ object Utils {
 
     private fun Context.getCurrencySymbol(currencyCode: String): String {
         return when (currencyCode) {
-            "RUR" -> getString(R.string.currency_rur)
+            "RUR", "RUB" -> getString(R.string.currency_rur)
+            "BYN" -> getString(R.string.currency_br_rur)
             "USD" -> getString(R.string.currency_usd)
             "EUR" -> getString(R.string.currency_eur)
+            "KZT" -> getString(R.string.currency_kzt)
+            "UAH" -> getString(R.string.currency_uah)
+            "AZN" -> getString(R.string.currency_azn)
+            "UZS" -> getString(R.string.currency_uzs)
+            "GEL" -> getString(R.string.currency_gel)
+            "KGS" -> getString(R.string.currency_kzt)
+            "AMD" -> getString(R.string.currency_amd)
             else -> currencyCode
         }
     }
