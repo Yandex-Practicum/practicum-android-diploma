@@ -16,7 +16,7 @@ private const val PAGE_SIZE = 20
 
 class VacancyListViewModel(
     private val vacanciesInteractor: VacanciesInteractor,
-    application: Application,
+    private val application: Application,
 ) : AndroidViewModel(application) {
 
     private var _screenStateLiveData = MutableLiveData<SearchScreenState>()
@@ -38,8 +38,12 @@ class VacancyListViewModel(
         _currentResultsCountLiveData.value = 0
     }
 
+    companion object {
+        private const val TAG: String = "VacancyListViewModel"
+    }
+
     fun initialSearch(query: String) {
-        _screenStateLiveData.value = SearchScreenState.LOADING_NEW_LIST
+        _screenStateLiveData.postValue(SearchScreenState.LOADING_NEW_LIST)
         val options: Map<String, String> = mapOf(
             "page" to "0",
             "per_page" to "${PAGE_SIZE}",
@@ -49,22 +53,20 @@ class VacancyListViewModel(
 
         viewModelScope.launch(Dispatchers.IO) {
             vacanciesInteractor.searchVacancies(options).collect { response ->
-                when (response.first != null) {
-                    true -> {
-                        paginationInfo = response.first ?: paginationInfo
-                        parseNewList(paginationInfo.items)
-                    }
-
-                    false -> parseError(response.second)
+                if (response.first != null) {
+                    paginationInfo = response.first ?: paginationInfo
+                    parseNewList(paginationInfo.items)
+                } else {
+                    parseError(response.second)
                 }
             }
         }
-
     }
 
     private fun parseError(error: String?) {
-        // логика по ошибкам тут пока заглушка
-        _screenStateLiveData.value = SearchScreenState.NO_INTERNET_ERROR
+        error?.let {
+            _screenStateLiveData.postValue(SearchScreenState.NO_INTERNET_ERROR)
+        }
     }
 
     fun loadNextPageRequest() {
@@ -72,22 +74,16 @@ class VacancyListViewModel(
             return
         }
 
-        _screenStateLiveData.value = SearchScreenState.LOADING_NEW_PAGE
+        _screenStateLiveData.postValue(SearchScreenState.LOADING_NEW_PAGE)
         val currentList = (vacancyListStateLiveData.value as VacancyListState.Content).vacancies
         viewModelScope.launch(Dispatchers.IO) {
             currentQueryMap["page"] = (paginationInfo.page + 1).toString()
             vacanciesInteractor.searchVacancies(currentQueryMap).collect { response ->
-                when (response.first != null) {
-                    true -> {
-                        paginationInfo = response.first ?: paginationInfo
-                        updateLists(
-                            currentList,
-                            paginationInfo.items
-                        )
-
-                    }
-
-                    false -> parseError(response.second)
+                if (response.first != null) {
+                    paginationInfo = response.first ?: paginationInfo
+                    updateLists(currentList, paginationInfo.items)
+                } else {
+                    parseError(response.second)
                 }
             }
         }
@@ -114,7 +110,7 @@ class VacancyListViewModel(
     }
 
     fun emptyList() {
-        _screenStateLiveData.value = SearchScreenState.IDLE
+        _screenStateLiveData.postValue(SearchScreenState.IDLE)
     }
 
 }

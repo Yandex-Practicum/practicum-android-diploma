@@ -49,6 +49,7 @@
 
     <!-- Vacancy screen, use plurals for job experience-->
     <string name="vacancy_screen_header">Вакансия</string>
+    <string name="vacancy_and_location_screen_header">Вакансия, город</string>
     <string name="vacancy_screen_base_salary">от %s %s</string>
     <string name="vacancy_screen_experience">Требуемый опыт</string>
     <string name="vacancy_screen_description">Описание вакансии</string>
@@ -79,6 +80,7 @@
     <string name="team_screen_developer_list">Павел Захаров Team-lead\n\nЮлия Вакулина Android-разработчик\n\nМаксим Сагациян Android-разработчик\n\nМихаил Гришин Android-разработчик</string>
 
     <!-- Network -->
+    <!-- Errors -->
     <string name="check_network_connection">Check network connection</string>
     <string name="request_was_not_accepted">Request was not accepted %1$s</string>
     <string name="unexpcted_error">Unexpcted error %1$s</string>
@@ -96,5 +98,18 @@
     <string name="message_no_add_favorite">No Add Favorite</string>
     <string name="message_no_delete_favorite">No Delete Favorite</string>
     <string name="message_error">Error</string>
+
+    <!-- Strings for display -->
+    <string name="search_screen_result_count_popup1">Найдено %d вакансия</string>
+    <string name="search_screen_result_count_popup2">Найдено %d вакансии</string>
+    <string name="search_screen_result_count_popup3">Найдено %d вакансий</string>
+    <string name="search_screen_toast_no_internet">Проверьте подключение к интернету</string>
+    <string name="search_screen_toast_error">Произошла ошибка</string>
+    <plurals name="vacancies_found">
+        <item quantity="one">Найдена %1$d вакансия</item>
+        <item quantity="few">Найдено %1$d вакансии</item>
+        <item quantity="many">Найдено %1$d вакансий</item>
+        <item quantity="other">Найдено %1$d вакансий</item>
+    </plurals>
 
 </resources>
