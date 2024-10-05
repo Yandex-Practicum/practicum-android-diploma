@@ -7,10 +7,6 @@ import ru.practicum.android.diploma.util.Resource
 interface SearchVacancyRepository {
 
     fun getVacancyList(
-        page: Int = 0,
-        text: String,
-        industry: String? = null,
-        salary: Int? = null,
-        onlyWithSalary: Boolean = false
+        query: HashMap<String, String>
     ): Flow<Resource<List<VacancySearch>>>
 }

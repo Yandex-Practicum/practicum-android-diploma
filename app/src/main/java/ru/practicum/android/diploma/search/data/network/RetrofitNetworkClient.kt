@@ -17,7 +17,7 @@ class RetrofitNetworkClient(
     private val context: Context,
     private val hhApiService: HHApiService
 ) : NetworkClient {
-    override suspend fun doRequest(dto: Any): Response {
+    override suspend fun doRequest(dto: Any, accessToken: String): Response {
         var responseCode = Response()
         if (!connectionCheck(context)) {
             responseCode.apply { resultCode = RESPONSE_NOT_CONNECTED }
@@ -27,7 +27,7 @@ class RetrofitNetworkClient(
         } else {
             withContext(Dispatchers.IO) {
                 try {
-                    responseCode = hhApiService.searchVacancies(dto.expression)
+                    responseCode = hhApiService.searchVacancies(accessToken, dto.request)
                     responseCode.apply { resultCode = RESPONSE_OK }
                 } catch (e: IOException) {
                     responseCode.apply { resultCode = RESPONSE_INTERNAL_SERVER_ERROR }

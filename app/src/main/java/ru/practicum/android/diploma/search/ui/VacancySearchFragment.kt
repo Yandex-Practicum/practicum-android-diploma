@@ -86,4 +86,3 @@ class VacancySearchFragment : Fragment() {
         _binding = null
     }
 }
-
