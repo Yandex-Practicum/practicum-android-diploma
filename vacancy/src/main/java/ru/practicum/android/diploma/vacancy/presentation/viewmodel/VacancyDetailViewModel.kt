@@ -95,7 +95,7 @@ class VacancyDetailViewModel(
     }
 
     private val favoriteStateLiveData = MutableLiveData<Boolean>()
-     fun observeFavoriteStateLiveData(): LiveData<Boolean> = favoriteStateLiveData
+     fun observeFavoriteState(): LiveData<Boolean> = favoriteStateLiveData
     fun updateFavorite(id: Int) {
         viewModelScope.launch {
             vacancyInteractor.checkVacancyExists(id).collect { (existingId, message) ->

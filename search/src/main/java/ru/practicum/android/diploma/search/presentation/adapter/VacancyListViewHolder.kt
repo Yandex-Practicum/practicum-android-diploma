@@ -6,13 +6,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.practicum.android.diploma.commonutils.Utils
 import ru.practicum.android.diploma.commonutils.Utils.formatSalary
 import ru.practicum.android.diploma.search.R
 import ru.practicum.android.diploma.search.domain.models.Vacancy
-import ru.practicum.android.diploma.vacancy.presentation.ui.VacancyFragment
 
 private const val RADIUS_ROUND_VIEW = 12f
 

@@ -3,7 +3,6 @@ package ru.practicum.android.diploma.vacancy.presentation.ui
 import android.content.Intent
 import android.os.Bundle
 import android.text.Html
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.commonutils.Utils
@@ -23,7 +21,6 @@ import ru.practicum.android.diploma.vacancy.presentation.ui.state.VacancyInputSt
 import ru.practicum.android.diploma.vacancy.presentation.viewmodel.VacancyDetailViewModel
 import ru.practicum.android.diploma.vacancy.presentation.viewmodel.state.VacancyDetailState
 import ru.practicum.android.diploma.vacancy.presentation.viewmodel.state.VacancyFavoriteMessageState
-import ru.practicum.android.diploma.vacancy.presentation.viewmodel.state.VacancyFavoriteState
 
 class VacancyFragment : Fragment() {
 
@@ -74,7 +71,7 @@ class VacancyFragment : Fragment() {
             vacancyDetailViewModel.showVacancyNetwork(idNetwork)
         }
         if (argsState == INPUT_DB_STATE) {
-            vacancyDetailViewModel.showVacancyDb((idDb))
+            vacancyDetailViewModel.showVacancyDb(idDb)
         }
 
         vacancyDetailViewModel.observeVacancyState().observe(viewLifecycleOwner) { state ->
@@ -112,24 +109,27 @@ class VacancyFragment : Fragment() {
         binding.favoriteButton.setOnClickListener {
             vacancyDetailViewModel.modifyingStatusOfVacancyFavorite(vacancy)
         }
-        vacancyDetailViewModel.observeVacancyFavoriteMessageState().observe(viewLifecycleOwner) {state ->
+        vacancyDetailViewModel.observeVacancyFavoriteMessageState().observe(viewLifecycleOwner) { state ->
             when (state) {
                 is VacancyFavoriteMessageState.Empty -> {
                     makeToast(getString(R.string.message_empty))
                 }
+
                 is VacancyFavoriteMessageState.NoAddFavorite -> {
                     makeToast(getString(R.string.message_no_add_favorite))
                 }
+
                 is VacancyFavoriteMessageState.NoDeleteFavorite -> {
                     makeToast(getString(R.string.message_no_delete_favorite))
                 }
+
                 is VacancyFavoriteMessageState.Error -> {
                     makeToast(getString(R.string.message_error))
                 }
             }
         }
 
-        vacancyDetailViewModel.observeFavoriteStateLiveData().observe(viewLifecycleOwner) {isFavorite ->
+        vacancyDetailViewModel.observeFavoriteState().observe(viewLifecycleOwner) { isFavorite ->
             val imageResource = if (isFavorite) R.drawable.favorites_on else R.drawable.favorites_off
             binding.favoriteButton.setImageResource(imageResource)
         }
@@ -138,6 +138,7 @@ class VacancyFragment : Fragment() {
     private fun makeToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
+
     private fun showLoading() {
         binding.vacancyNotFoundError.visibility = View.GONE
         binding.vacancyServerError.visibility = View.GONE
