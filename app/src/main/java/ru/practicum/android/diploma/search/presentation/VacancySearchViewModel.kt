@@ -4,14 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.room.util.query
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.search.domain.api.SearchVacancyInteractor
 import ru.practicum.android.diploma.search.domain.models.VacancySearch
+import ru.practicum.android.diploma.util.debounce
 
 class VacancySearchViewModel(
     private val interactor: SearchVacancyInteractor,
 ) : ViewModel() {
+
+    private var latestSearchText: String? = null
 
     private val stateLiveData = MutableLiveData<VacancySearchScreenState>()
     fun getStateObserve(): LiveData<VacancySearchScreenState> = stateLiveData
@@ -32,6 +34,18 @@ class VacancySearchViewModel(
         }
     }
 
+    private val tracksSearchDebounce =
+        debounce<String>(SEARCH_DEBOUNCE_DELAY, viewModelScope, true) { changedText ->
+            loadData(changedText)
+        }
+
+    fun searchDebounce(changedText: String) {
+        if (latestSearchText != changedText) {
+            latestSearchText = changedText
+            tracksSearchDebounce(changedText)
+        }
+    }
+
     private fun processingState(foundVacancies: List<VacancySearch>?) {
         when {
             foundVacancies == null -> {
@@ -45,5 +59,9 @@ class VacancySearchViewModel(
                 stateLiveData.value = VacancySearchScreenState.Content(foundVacancies)
             }
         }
+    }
+
+    companion object{
+        private const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
 }
