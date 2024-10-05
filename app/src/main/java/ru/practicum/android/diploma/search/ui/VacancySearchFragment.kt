@@ -69,11 +69,6 @@ class VacancySearchFragment : Fragment() {
                     vacancies.clear()
                     adapter!!.notifyDataSetChanged()
                 }
-
-                TODO("Реализация поиска")
-                if (binding.searchLine.hasFocus() && s?.isEmpty() == true) {
-                    TODO("Дефолт экран вьюмодель")
-                }
             }
 
             override fun afterTextChanged(s: Editable?) {
