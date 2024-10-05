@@ -1,3 +1,5 @@
 package ru.practicum.android.diploma.search.data.dto
 
-data class VacancySearchRequest(val expression: String)
+import java.util.HashMap
+
+data class VacancySearchRequest(val expression: HashMap<String, String>)

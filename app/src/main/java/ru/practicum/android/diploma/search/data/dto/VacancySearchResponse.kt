@@ -7,5 +7,5 @@ class VacancySearchResponse(
     val found: Int,
     val page: Int,
     val pages: Int,
-    val perPage: Int,
+    @SerializedName("per_page") val perPage: Int,
 ) : Response()
