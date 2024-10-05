@@ -12,6 +12,7 @@ import ru.practicum.android.diploma.commonutils.Utils
 import ru.practicum.android.diploma.commonutils.Utils.formatSalary
 import ru.practicum.android.diploma.search.R
 import ru.practicum.android.diploma.search.domain.models.Vacancy
+import ru.practicum.android.diploma.vacancy.presentation.ui.VacancyFragment
 
 private const val RADIUS_ROUND_VIEW = 12f
 
@@ -28,11 +29,19 @@ class VacancyListViewHolder(parent: View) : RecyclerView.ViewHolder(parent) {
         vacancyCompany.text = model.companyName
         vacancySalary.text = itemView.context.formatSalary(model.salaryMin, model.salaryMax, model.salaryCurrency)
 
-        Glide.with(itemView).load(model.companyLogo).placeholder(R.drawable.placeholder_logo_item_favorite).transform(
-            CenterCrop(),
-            RoundedCorners(
-                Utils.doToPx(RADIUS_ROUND_VIEW, itemView.context.applicationContext)
+        Glide.with(itemView)
+            .load(model.companyLogo)
+            .placeholder(ru.practicum.android.diploma.ui.R.drawable.placeholder_logo_item_favorite)
+            .centerCrop()
+            .transform(
+                RoundedCorners(
+                    Utils.doToPx(
+                        RADIUS_ROUND_VIEW,
+                        itemView.context.applicationContext
+                    )
+                )
             )
-        ).transform().into(vacancyImage)
+            .transform()
+            .into(vacancyImage)
     }
 }
