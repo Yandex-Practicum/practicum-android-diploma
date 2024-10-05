@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.search.domain.api.SearchVacancyInteractor
 import ru.practicum.android.diploma.search.domain.models.VacancySearch
+import ru.practicum.android.diploma.util.SingleEventLiveData
 import ru.practicum.android.diploma.util.debounce
 
 class VacancySearchViewModel(
@@ -14,6 +15,9 @@ class VacancySearchViewModel(
 ) : ViewModel() {
 
     private var latestSearchText: String? = null
+
+    private val vacancyClickEvent = SingleEventLiveData<String>()
+    fun getVacancyClickEvent(): LiveData<String> = vacancyClickEvent
 
     private val stateLiveData = MutableLiveData<VacancySearchScreenState>()
     fun getStateObserve(): LiveData<VacancySearchScreenState> = stateLiveData
@@ -44,6 +48,11 @@ class VacancySearchViewModel(
             latestSearchText = changedText
             tracksSearchDebounce(changedText)
         }
+    }
+
+    fun onVacancyClick(vacancySearch: VacancySearch) {
+        vacancySearch.toString()
+        // TODO("Дописыать реализацию сохранения и передачи id")
     }
 
     private fun processingState(foundVacancies: List<VacancySearch>?) {

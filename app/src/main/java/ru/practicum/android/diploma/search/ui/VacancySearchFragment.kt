@@ -10,20 +10,25 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.VacancySearchFragmentBinding
 import ru.practicum.android.diploma.search.domain.models.VacancySearch
+import ru.practicum.android.diploma.search.presentation.VacancySearchScreenState
+import ru.practicum.android.diploma.search.presentation.VacancySearchViewModel
 import ru.practicum.android.diploma.search.ui.presenter.RecycleViewAdapter
 import ru.practicum.android.diploma.util.debounce
 import ru.practicum.android.diploma.util.hideKeyboard
 
 class VacancySearchFragment : Fragment() {
-    companion object {
-        const val CLICK_DEBOUNCE_DELAY = 2000L
-    }
 
     private var _binding: VacancySearchFragmentBinding? = null
     private val binding get() = _binding!!
     private var vacancies = mutableListOf<VacancySearch>()
+    private val viewModel by viewModel<VacancySearchViewModel>()
+    private lateinit var adapter: RecycleViewAdapter
+    private var inputTextValue = DEF_TEXT
+    private lateinit var onVacancyClickDebounce: (VacancySearch) -> Unit
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,7 +41,14 @@ class VacancySearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         recyclerViewInit()
+
+        if (savedInstanceState != null) binding.searchLine.setText(inputTextValue)
+
+        viewModel.getStateObserve().observe(viewLifecycleOwner) { state ->
+            render(state)
+        }
 
         val searchTextWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -45,6 +57,19 @@ class VacancySearchFragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 clearButtonVisibility(s)
+
+                inputTextValue = s.toString()
+
+                if (inputTextValue.isNotEmpty()) {
+                    viewModel.searchDebounce(
+                        changedText = inputTextValue
+                    )
+                    vacancies.clear()
+                } else {
+                    vacancies.clear()
+                    adapter.notifyDataSetChanged()
+                }
+
                 TODO("Реализация поиска")
                 if (binding.searchLine.hasFocus() && s?.isEmpty() == true) {
                     TODO("Дефолт экран вьюмодель")
@@ -63,6 +88,14 @@ class VacancySearchFragment : Fragment() {
             TODO("Дефолт экран вьюмодель")
         }
 
+        onVacancyClickDebounce = debounce<VacancySearch>(
+            CLICK_DEBOUNCE_DELAY,
+            viewLifecycleOwner.lifecycleScope,
+            false
+        ) { vacancySearch ->
+            viewModel.onVacancyClick(vacancySearch)
+        }
+
     }
 
     private fun clearButtonVisibility(s: CharSequence?) {
@@ -72,18 +105,54 @@ class VacancySearchFragment : Fragment() {
     }
 
     private fun recyclerViewInit() {
-        val onVacancyClickDebounce: ((VacancySearch) -> Unit) =
-            debounce(CLICK_DEBOUNCE_DELAY, viewLifecycleOwner.lifecycleScope, false) { vacancy ->
-                TODO("Реализовать клик в вьюмодел")
-            }
+//        val onVacancyClickDebounce: ((VacancySearch) -> Unit) =
+//            debounce(CLICK_DEBOUNCE_DELAY, viewLifecycleOwner.lifecycleScope, false) { vacancy ->
+//                TODO("Реализовать клик в вьюмодел")
+//            }
+        adapter = RecycleViewAdapter(vacancies, onVacancyClickDebounce)
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerView.adapter = RecycleViewAdapter(vacancies, onVacancyClickDebounce)
+        binding.recyclerView.adapter = adapter
 
+    }
+
+    private fun render(state: VacancySearchScreenState) {
+        when (state) {
+            VacancySearchScreenState.Loading -> showLoadingProgress()
+            is VacancySearchScreenState.Content -> showVacancies(state)
+            VacancySearchScreenState.EmptyScreen -> showEmptyScreen()
+            VacancySearchScreenState.NetworkError -> showError()
+            is VacancySearchScreenState.PaginationError -> showError()
+            VacancySearchScreenState.PaginationLoading -> showError()
+            VacancySearchScreenState.SearchError -> showError()
+            VacancySearchScreenState.ServerError -> showError()
+        }
+    }
+
+    private fun showLoadingProgress() {
+        // TODO()
+    }
+
+    private fun showVacancies(state: VacancySearchScreenState) {
+        val loadingVacancies = (state as VacancySearchScreenState.Content).vacancies
+        vacancies.addAll(loadingVacancies)
+    }
+
+    private fun showEmptyScreen() {
+        // TODO()
+    }
+
+    private fun showError() {
+        // TODO()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        const val DEF_TEXT = ""
+        const val CLICK_DEBOUNCE_DELAY = 2000L
     }
 }
 
