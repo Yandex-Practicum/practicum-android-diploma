@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.search.data.impl
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.search.data.converters.SearchVacancyNetworkConverter
 import ru.practicum.android.diploma.search.data.dto.VacancySearchRequest
 import ru.practicum.android.diploma.search.data.dto.VacancySearchResponse
@@ -20,7 +21,8 @@ class SearchVacancyRepositoryImpl(
         query: HashMap<String, String>
     ): Flow<Resource<List<VacancySearch>>> = flow {
         val response = networkClient.doRequest(
-            VacancySearchRequest(query)
+            VacancySearchRequest(query),
+            BuildConfig.HH_ACCESS_TOKEN
         )
         emit(
             when (response.resultCode) {

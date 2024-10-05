@@ -150,4 +150,3 @@ class VacancySearchFragment : Fragment() {
         const val CLICK_DEBOUNCE_DELAY = 2000L
     }
 }
-

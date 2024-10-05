@@ -10,9 +10,9 @@ import ru.practicum.android.diploma.util.Resource
 class SearchVacancyInteractorImpl(private val repository: SearchVacancyRepository) : SearchVacancyInteractor {
 
     override fun getVacancyList(
-        qury: HashMap<String, String>
+        query: HashMap<String, String>
     ): Flow<List<VacancySearch>?> {
-        return repository.getVacancyList(qury).map { result ->
+        return repository.getVacancyList(query).map { result ->
             when (result) {
                 // передаем данные в случае успешного запроса, либо пустой лист, если ничего не нашлось
                 is Resource.Success -> result.data

@@ -1,5 +1,5 @@
 package ru.practicum.android.diploma.util.network
 
 interface NetworkClient {
-    suspend fun doRequest(dto: Any): Response
+    suspend fun doRequest(dto: Any, accessToken: String): Response
 }
