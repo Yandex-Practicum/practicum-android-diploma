@@ -18,6 +18,9 @@
     <string name="not_found_message">Не удалось получить \n список вакансий</string>
     <string name="server_error">Ошибка сервера</string>
     <string name="empty_list">Список пуст</string>
+    <string name="needed_experience">Требуемый опыт</string>
+    <string name="about_vacancy">Описание вакансии</string>
+    <string name="responsibilities">Обязанности</string>
 
 <!--  Team Info Screen /start/ -->
     <string name="team_member_title">Над приложением работали</string>

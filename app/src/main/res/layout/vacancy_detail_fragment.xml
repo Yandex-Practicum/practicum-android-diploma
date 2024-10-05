@@ -1,19 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tool="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tool:contex=".vacancy.ui.VacancyFragment">
+    tools:contex=".vacancy.ui.VacancyFragment">
 
-    <TextView
-        style="@style/Text_Medium_22"
-        android:layout_width="wrap_content"
+    <Toolbar
+        android:id="@+id/tool_bar"
+        style="@style/BaseToolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/vacancy"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:contentInsetStartWithNavigation="0dp"
+        android:navigationIcon="@drawable/ic_arrow_back_24px"
+        android:paddingVertical="4dp"
+        android:title="@string/vacancy"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/favorite_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:background="?android:windowBackground"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="12dp"
+            android:src="@drawable/ic_favorites_off__24px"
+            tools:ignore="contentDescription" />
+
+        <ImageButton
+            android:id="@+id/share_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="4dp"
+            android:background="?android:windowBackground"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="12dp"
+            android:src="@drawable/ic_sharing_24px"
+            tools:ignore="contentDescription" />
+    </Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_horizontal_size_16"
+        app:layout_constraintTop_toBottomOf="@id/tool_bar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/padding_horizontal_size_16">
+
+            <TextView
+                android:id="@+id/vacancy_name"
+                style="@style/Text_Bold_32"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Andoid-разработчик енота в банке" />
+
+            <TextView
+                android:id="@+id/salary"
+                style="@style/Text_Medium_22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="от 100 000₽" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/vacancy_detail_company_background"
+                android:padding="@dimen/padding_horizontal_size_16">
+
+                <ImageView
+                    android:id="@+id/logo"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/test_image"
+                    tools:ignore="ContentDescription" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="56dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/company_name"
+                        style="@style/Text_Medium_22"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Еда" />
+
+                    <TextView
+                        android:id="@+id/city"
+                        style="@style/Text_Regular_16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Москва" />
+
+                </LinearLayout>
+            </FrameLayout>
+
+            <TextView
+                style="@style/Text_Medium_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/needed_experience" />
+
+            <TextView
+                style="@style/Text_Regular_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                tools:text="От 1 года до 3 лет" />
+
+            <TextView
+                style="@style/Text_Regular_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                tools:text="Полная занятость, Удаленная работа" />
+
+            <TextView
+                style="@style/Text_Medium_22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="@string/about_vacancy" />
+
+            <WebView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

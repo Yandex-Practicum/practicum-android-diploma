@@ -27,7 +27,7 @@ class FavoriteRecycleViewAdapter(
         holder.bind(itemView)
 
         holder.itemView.setOnClickListener {
-            clickListener.onVacancyClick(itemView)
+            clickListener.onClick(itemView)
         }
 
     }
