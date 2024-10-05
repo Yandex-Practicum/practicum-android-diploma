@@ -19,7 +19,9 @@ class SearchVacancyRepositoryImpl(
     override fun getVacancyList(
         query: HashMap<String, String>
     ): Flow<Resource<List<VacancySearch>>> = flow {
-        val response = networkClient.doRequest(VacancySearchRequest(query)) // обсудить и доработать VacancySearchRequest
+        val response = networkClient.doRequest(
+            VacancySearchRequest(query)
+        )
         emit(
             when (response.resultCode) {
                 HttpStatusCode.OK -> Resource.Success(

@@ -64,13 +64,14 @@ class VacancySearchViewModel(
             foundVacancies.isEmpty() -> {
                 stateLiveData.value = VacancySearchScreenState.EmptyScreen
             }
+
             else -> {
                 stateLiveData.value = VacancySearchScreenState.Content(foundVacancies)
             }
         }
     }
 
-    companion object{
+    companion object {
         private const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
 }

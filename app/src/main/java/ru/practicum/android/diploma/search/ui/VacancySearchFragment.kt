@@ -25,9 +25,9 @@ class VacancySearchFragment : Fragment() {
     private val binding get() = _binding!!
     private var vacancies = mutableListOf<VacancySearch>()
     private val viewModel by viewModel<VacancySearchViewModel>()
-    private lateinit var adapter: RecycleViewAdapter
+    private var adapter: RecycleViewAdapter? = null
     private var inputTextValue = DEF_TEXT
-    private lateinit var onVacancyClickDebounce: (VacancySearch) -> Unit
+    private var onVacancyClickDebounce: ((VacancySearch) -> Unit)? = null
 
 
     override fun onCreateView(
@@ -67,7 +67,7 @@ class VacancySearchFragment : Fragment() {
                     vacancies.clear()
                 } else {
                     vacancies.clear()
-                    adapter.notifyDataSetChanged()
+                    adapter!!.notifyDataSetChanged()
                 }
 
                 TODO("Реализация поиска")
@@ -88,14 +88,6 @@ class VacancySearchFragment : Fragment() {
             TODO("Дефолт экран вьюмодель")
         }
 
-        onVacancyClickDebounce = debounce<VacancySearch>(
-            CLICK_DEBOUNCE_DELAY,
-            viewLifecycleOwner.lifecycleScope,
-            false
-        ) { vacancySearch ->
-            viewModel.onVacancyClick(vacancySearch)
-        }
-
     }
 
     private fun clearButtonVisibility(s: CharSequence?) {
@@ -105,14 +97,17 @@ class VacancySearchFragment : Fragment() {
     }
 
     private fun recyclerViewInit() {
-//        val onVacancyClickDebounce: ((VacancySearch) -> Unit) =
-//            debounce(CLICK_DEBOUNCE_DELAY, viewLifecycleOwner.lifecycleScope, false) { vacancy ->
-//                TODO("Реализовать клик в вьюмодел")
-//            }
-        adapter = RecycleViewAdapter(vacancies, onVacancyClickDebounce)
+        onVacancyClickDebounce = debounce<VacancySearch>(
+            CLICK_DEBOUNCE_DELAY,
+            viewLifecycleOwner.lifecycleScope,
+            false
+        ) { vacancySearch ->
+            viewModel.onVacancyClick(vacancySearch)
+        }
+
+        adapter = RecycleViewAdapter(vacancies, onVacancyClickDebounce!!)
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
-
     }
 
     private fun render(state: VacancySearchScreenState) {
@@ -129,7 +124,7 @@ class VacancySearchFragment : Fragment() {
     }
 
     private fun showLoadingProgress() {
-        // TODO()
+        // коммент костыль
     }
 
     private fun showVacancies(state: VacancySearchScreenState) {
@@ -138,11 +133,11 @@ class VacancySearchFragment : Fragment() {
     }
 
     private fun showEmptyScreen() {
-        // TODO()
+        // коммент костыль
     }
 
     private fun showError() {
-        // TODO()
+        // коммент костыль
     }
 
     override fun onDestroyView() {
