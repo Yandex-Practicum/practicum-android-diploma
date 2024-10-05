@@ -52,7 +52,7 @@ class VacancySearchViewModel(
 
     fun onVacancyClick(vacancySearch: VacancySearch) {
         vacancySearch.toString()
-        // TODO("Дописыать реализацию сохранения и передачи id")
+        // коммент костыль
     }
 
     private fun processingState(foundVacancies: List<VacancySearch>?) {
