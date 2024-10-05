@@ -102,16 +102,18 @@
         android:id="@+id/vacancyRecycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:paddingHorizontal="@dimen/dimens_16"
         android:layout_marginBottom="@dimen/dp_16"
         android:paddingTop="@dimen/dp_40"
         android:visibility="visible"
+        android:clipToPadding="false"
         app:layout_constraintBottom_toTopOf="@id/progressBarLoadingNewPage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchBarGuideline"
         app:layout_constraintVertical_bias="0"
         app:layout_goneMarginBottom="0dp"
-        tools:listitem="@layout/vacancy_view" />
+        tools:listitem="@layout/item_vacancy" />
 
     <!-- Progress bar for loading new page (under recycler, locked to bottom)-->
     <ProgressBar

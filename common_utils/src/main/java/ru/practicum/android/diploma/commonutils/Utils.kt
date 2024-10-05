@@ -1,9 +1,11 @@
 package ru.practicum.android.diploma.commonutils
 
 import android.content.Context
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.ui.R
@@ -99,4 +101,8 @@ object Utils {
             )
     }
 
+    fun Context.closeKeyBoard(view: View) {
+        val closeKeyBoard = getSystemService(INPUT_METHOD_SERVICE) as? InputMethodManager
+        closeKeyBoard?.hideSoftInputFromWindow(view.windowToken, 0)
+    }
 }

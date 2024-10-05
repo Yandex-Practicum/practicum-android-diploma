@@ -43,7 +43,7 @@ class VacancyListViewModel(
     }
 
     fun initialSearch(query: String) {
-        _screenStateLiveData.value = SearchScreenState.LOADING_NEW_LIST
+        _screenStateLiveData.postValue(SearchScreenState.LOADING_NEW_LIST)
         val options: Map<String, String> = mapOf(
             "page" to "0",
             "per_page" to "${PAGE_SIZE}",
@@ -74,7 +74,7 @@ class VacancyListViewModel(
             return
         }
 
-        _screenStateLiveData.value = SearchScreenState.LOADING_NEW_PAGE
+        _screenStateLiveData.postValue(SearchScreenState.LOADING_NEW_PAGE)
         val currentList = (vacancyListStateLiveData.value as VacancyListState.Content).vacancies
         viewModelScope.launch(Dispatchers.IO) {
             currentQueryMap["page"] = (paginationInfo.page + 1).toString()
@@ -110,7 +110,7 @@ class VacancyListViewModel(
     }
 
     fun emptyList() {
-        _screenStateLiveData.value = SearchScreenState.IDLE
+        _screenStateLiveData.postValue(SearchScreenState.IDLE)
     }
 
 }
