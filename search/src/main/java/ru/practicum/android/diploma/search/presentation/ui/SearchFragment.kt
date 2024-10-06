@@ -40,7 +40,7 @@ class SearchFragment : Fragment() {
     val debouncedSearch by lazy {
         debounce(
             delayMillis = DELAY_CLICK_VACANCY,
-            coroutineScope = viewLifecycleOwner.lifecycleScope,
+            coroutineScope = lifecycleScope,
             useLastParam = true,
             actionThenDelay = false,
             action = { param: String ->
