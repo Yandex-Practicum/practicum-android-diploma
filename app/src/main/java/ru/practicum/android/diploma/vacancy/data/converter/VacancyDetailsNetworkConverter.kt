@@ -39,11 +39,9 @@ class VacancyDetailsNetworkConverter(private val context: Context) {
         return keySkillsString
     }
 
-
     private fun getEmployment(employment: EmploymentDto?): String? {
         return employment?.name
     }
-
 
     private fun getSchedule(schedule: ScheduleDto?): String? {
         return schedule?.name
@@ -60,7 +58,6 @@ class VacancyDetailsNetworkConverter(private val context: Context) {
     private fun getAddress(address: AddressDto?): String {
         return address?.city.toString()
     }
-
 
     private fun getSalary(salaryDto: SalaryDto?): String? {
         val from = context.getString(R.string.salary_from)
@@ -81,8 +78,9 @@ class VacancyDetailsNetworkConverter(private val context: Context) {
 
     private fun getCurrency(salaryDto: SalaryDto?): String {
         var currency = "RUB"
-        if (!salaryDto?.currency.isNullOrEmpty())
+        if (!salaryDto?.currency.isNullOrEmpty()) {
             currency = salaryDto?.currency.toString()
+        }
         return currency
     }
 }

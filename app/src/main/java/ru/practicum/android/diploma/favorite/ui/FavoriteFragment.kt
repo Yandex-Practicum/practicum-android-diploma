@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import ru.practicum.android.diploma.databinding.FavoriteFragmentBinding
 import ru.practicum.android.diploma.search.domain.models.VacancySearch
 import ru.practicum.android.diploma.search.ui.presenter.RecycleViewAdapter
-import ru.practicum.android.diploma.util.ClickListener
 import ru.practicum.android.diploma.util.debounce
 
 class FavoriteFragment : Fragment() {

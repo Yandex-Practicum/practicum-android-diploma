@@ -7,9 +7,9 @@ import ru.practicum.android.diploma.vacancy.domain.api.GetVacancyDetailsInteract
 import ru.practicum.android.diploma.vacancy.domain.api.GetVacancyDetailsRepository
 import ru.practicum.android.diploma.vacancy.domain.entity.Vacancy
 
-class GetVacancyDetailsInteractorImpl (
+class GetVacancyDetailsInteractorImpl(
     private val repository: GetVacancyDetailsRepository
-) : GetVacancyDetailsInteractor{
+) : GetVacancyDetailsInteractor {
     override fun getVacancyDetails(vacancyId: String): Flow<Resource<Vacancy>?> {
         return repository.getVacancyDetails(vacancyId).map { result ->
             when (result) {
