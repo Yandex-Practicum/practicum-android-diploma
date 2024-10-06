@@ -29,7 +29,6 @@ class VacancySearchFragment : Fragment() {
     private var inputTextValue = DEF_TEXT
     private var onVacancyClickDebounce: ((VacancySearch) -> Unit)? = null
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
