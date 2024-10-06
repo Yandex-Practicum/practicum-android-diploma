@@ -9,6 +9,7 @@ class SearchVacancyNetworkConverter(private val context: Context) {
 
     fun map(vacancyItemDto: VacancyItemDto): VacancySearch {
         return VacancySearch(
+            id = vacancyItemDto.id,
             name = vacancyItemDto.name,
             address = getAddressFromDto(vacancyItemDto),
             company = vacancyItemDto.employer.name,
