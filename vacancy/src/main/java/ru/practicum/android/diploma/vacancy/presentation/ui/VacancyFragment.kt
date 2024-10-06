@@ -48,14 +48,7 @@ class VacancyFragment : Fragment() {
             findNavController().navigateUp()
         }
         binding.shareButton.setOnClickListener {
-            Intent().apply {
-                action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, alternateUrl)
-                type = "text/plain"
-                Intent.createChooser(this, null)
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                context?.startActivity(this)
-            }
+            vacancyDetailViewModel.share(alternateUrl)
         }
 
         argsState = requireArguments().getInt(ARGS_STATE)

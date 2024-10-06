@@ -17,10 +17,12 @@ import ru.practicum.android.diploma.vacancy.domain.repository.VacancyDetailRepos
 private const val TAG_VACANCY = "Vacancy"
 private const val TAG_CHECK_VACANCY_EXIST = "CheckVacancyExists"
 private const val TAG_VACANCY_DELETE = "VacancyDelete"
+
 class VacancyDetailRepositoryImpl(
     private val context: Context,
     private val networkClient: NetworkClient,
-    private val database: AppDatabase
+    private val database: AppDatabase,
+    private val externalNavigator: ExternalNavigator
 ) : VacancyDetailRepository {
 
     override fun getVacancyNetwork(id: String): Flow<Resource<Vacancy>> =
@@ -50,4 +52,8 @@ class VacancyDetailRepositoryImpl(
         query = { database.favoriteVacancyDao().deleteVacancy(id) },
         tag = TAG_VACANCY_DELETE
     )
+
+    override fun share(shareLink: String) {
+        externalNavigator.shareLink(shareLink)
+    }
 }

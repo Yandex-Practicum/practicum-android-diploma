@@ -9,4 +9,5 @@ interface VacancyDetailInteractor {
     fun checkVacancyExists(id: Int): Flow<Pair<Int?, String?>>
     fun addVacancy(vacancy: Vacancy): Flow<Pair<Long?, String?>>
     fun deleteVacancy(id: Int): Flow<Pair<Int?, String?>>
+    fun share(shareLink: String)
 }

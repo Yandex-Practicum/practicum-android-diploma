@@ -10,4 +10,5 @@ interface VacancyDetailRepository {
     fun checkVacancyExists(id: Int): Flow<Resource<Int>>
     fun addVacancy(vacancy: Vacancy): Flow<Resource<Long>>
     fun deleteVacancy(id: Int): Flow<Resource<Int>>
+    fun share(shareLink: String)
 }

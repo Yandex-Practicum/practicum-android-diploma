@@ -31,4 +31,7 @@ internal class VacancyDetailInteractorImpl(private val repository: VacancyDetail
         return repository.deleteVacancy(id).map { resource -> Resource.handleResource(resource) }
     }
 
+    override fun share(shareLink: String) {
+        return repository.share(shareLink)
+    }
 }
