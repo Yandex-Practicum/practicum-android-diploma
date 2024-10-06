@@ -64,7 +64,7 @@ class VacancySearchViewModel(
             }
 
             foundVacancies.isEmpty() -> {
-                stateLiveData.value = VacancySearchScreenState.EmptyScreen
+                stateLiveData.value = VacancySearchScreenState.SearchError
             }
 
             else -> {
