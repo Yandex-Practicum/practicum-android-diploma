@@ -31,7 +31,7 @@ class VacancyFragment : Fragment() {
     private var idDb: Int = 0
     private var idNetwork: String = ""
     private var argsState: Int = 2
-    private lateinit var vacancy: Vacancy
+    private var vacancy: Vacancy? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -82,15 +82,7 @@ class VacancyFragment : Fragment() {
 
                 is VacancyDetailState.Content -> {
                     showContent(
-                        state.vacancy.nameVacancy,
-                        state.vacancy.salary,
-                        state.vacancy.urlLogo,
-                        state.vacancy.nameCompany,
-                        state.vacancy.location,
-                        state.vacancy.experience,
-                        state.vacancy.employment,
-                        state.vacancy.description,
-                        state.vacancy.keySkills
+                        state.vacancy
                     )
                     vacancy = state.vacancy
                 }
@@ -107,7 +99,7 @@ class VacancyFragment : Fragment() {
         }
 
         binding.favoriteButton.setOnClickListener {
-            vacancyDetailViewModel.modifyingStatusOfVacancyFavorite(vacancy)
+            vacancy?.let { it1 -> vacancyDetailViewModel.modifyingStatusOfVacancyFavorite(it1) }
         }
         vacancyDetailViewModel.observeVacancyFavoriteMessageState().observe(viewLifecycleOwner) { state ->
             when (state) {
@@ -145,19 +137,15 @@ class VacancyFragment : Fragment() {
         binding.progressbar.visibility = View.VISIBLE
     }
 
-    private fun showContent(
-        name: String, salary: String, urlLogo: String?,
-        company: String, city: String, experience: String,
-        conditions: String, description: String, keys: String?
-    ) {
+    private fun showContent(vacancy: Vacancy) {
         binding.progressbar.visibility = View.GONE
         binding.vacancyServerError.visibility = View.GONE
         binding.progressbar.visibility = View.GONE
-        binding.vacancyName.text = name
-        binding.vacancySalary.text = salary
+        binding.vacancyName.text = vacancy.nameVacancy
+        binding.vacancySalary.text = vacancy.salary
 
         Glide.with(this)
-            .load(urlLogo)
+            .load(vacancy.urlLogo)
             .placeholder(R.drawable.placeholder_logo_item_favorite)
             .centerCrop()
             .transform(
@@ -170,15 +158,15 @@ class VacancyFragment : Fragment() {
             )
             .transform()
             .into(binding.vacancyImage)
-        binding.vacancyCompany.text = company
-        binding.vacancyCity.text = city
-        binding.vacancyExperienceInfo.text = experience
-        binding.vacancyConditions.text = conditions
-        binding.vacancyDescriptionInfo.setText(Html.fromHtml(description, Html.FROM_HTML_MODE_COMPACT))
+        binding.vacancyCompany.text = vacancy.nameCompany
+        binding.vacancyCity.text = vacancy.location
+        binding.vacancyExperienceInfo.text = vacancy.experience
+        binding.vacancyConditions.text = vacancy.employment
+        binding.vacancyDescriptionInfo.setText(Html.fromHtml(vacancy.description, Html.FROM_HTML_MODE_COMPACT))
         binding.vacancyKeySkills.visibility = View.GONE
-        val htmlKeys = Html.fromHtml(keys, Html.FROM_HTML_MODE_COMPACT)
+        val htmlKeys = Html.fromHtml(vacancy.keySkills, Html.FROM_HTML_MODE_COMPACT)
         if (htmlKeys != null && htmlKeys.toString() != "") binding.vacancyKeySkills.visibility = View.VISIBLE
-        binding.vacancyKeySkillsInfo.setText(Html.fromHtml(keys, Html.FROM_HTML_MODE_COMPACT))
+        binding.vacancyKeySkillsInfo.setText(Html.fromHtml(vacancy.keySkills, Html.FROM_HTML_MODE_COMPACT))
     }
 
     private fun showError() {

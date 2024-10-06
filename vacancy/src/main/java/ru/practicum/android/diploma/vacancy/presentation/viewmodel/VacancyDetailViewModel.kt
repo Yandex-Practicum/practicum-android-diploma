@@ -15,6 +15,7 @@ import ru.practicum.android.diploma.vacancy.presentation.viewmodel.state.Vacancy
 import ru.practicum.android.diploma.vacancy.presentation.viewmodel.state.VacancyFavoriteState
 
 private const val DELAY_TO_DEFAULT_STATE_MESSAGE = 100L
+
 class VacancyDetailViewModel(
     private val vacancyInteractor: VacancyDetailInteractor,
 ) : ViewModel() {
@@ -95,7 +96,7 @@ class VacancyDetailViewModel(
     }
 
     private val favoriteStateLiveData = MutableLiveData<Boolean>()
-     fun observeFavoriteState(): LiveData<Boolean> = favoriteStateLiveData
+    fun observeFavoriteState(): LiveData<Boolean> = favoriteStateLiveData
     fun updateFavorite(id: Int) {
         viewModelScope.launch {
             vacancyInteractor.checkVacancyExists(id).collect { (existingId, message) ->
