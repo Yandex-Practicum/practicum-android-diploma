@@ -64,18 +64,34 @@ class VacancySearchViewModel(
     private val nextSearchDebounce =
         debounce<String>(SEARCH_DEBOUNCE_DELAY, viewModelScope, true) { changedText ->
             loadNextData(changedText)
-    }
+        }
 
     private fun loadNextData(changedText: String) {
-            query["text"] = changedText
-            query["page"] = pageCount.value.toString()
-            viewModelScope.launch {
-                interactor
-                    .getVacancyList(query)
-                    .collect { foundVacancies ->
-                        processingState(foundVacancies)
-                    }
+        query["text"] = changedText
+        query["page"] = pageCount.value.toString()
+        viewModelScope.launch {
+            interactor
+                .getVacancyList(query)
+                .collect { foundVacancies ->
+                    nextPageProcessingState(foundVacancies)
+                }
+        }
+    }
+
+    private fun nextPageProcessingState(foundVacancies: List<VacancySearch>?) {
+        when {
+            foundVacancies == null -> {
+                stateLiveData.value = VacancySearchScreenState.PaginationError("Произошла ошибка")
             }
+
+            foundVacancies.isEmpty() -> {
+                stateLiveData.value = VacancySearchScreenState.PaginationError("Вакансий больше нет")
+            }
+
+            else -> {
+                stateLiveData.value = VacancySearchScreenState.Content(foundVacancies)
+            }
+        }
     }
 
     fun onVacancyClick(vacancySearch: VacancySearch) {
