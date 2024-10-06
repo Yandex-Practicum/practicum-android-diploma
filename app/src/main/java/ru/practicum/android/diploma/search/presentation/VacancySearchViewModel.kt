@@ -1,11 +1,9 @@
 package ru.practicum.android.diploma.search.presentation
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.room.util.splitToIntList
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.search.domain.api.SearchVacancyInteractor
 import ru.practicum.android.diploma.search.domain.models.VacancySearch
@@ -47,9 +45,9 @@ class VacancySearchViewModel(
         }
 
     fun searchDebounce(changedText: String) {
-        if (changedText.isEmpty()){
+        if (changedText.isEmpty()) {
             stateLiveData.value = VacancySearchScreenState.EmptyScreen
-            }
+        }
         if (latestSearchText != changedText) {
             latestSearchText = changedText
             pageCount.value = 1
