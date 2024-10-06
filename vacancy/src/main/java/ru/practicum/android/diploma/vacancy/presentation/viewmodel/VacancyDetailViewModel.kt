@@ -15,6 +15,7 @@ import ru.practicum.android.diploma.vacancy.presentation.viewmodel.state.Vacancy
 import ru.practicum.android.diploma.vacancy.presentation.viewmodel.state.VacancyFavoriteState
 
 private const val DELAY_TO_DEFAULT_STATE_MESSAGE = 100L
+
 class VacancyDetailViewModel(
     private val vacancyInteractor: VacancyDetailInteractor,
 ) : ViewModel() {
@@ -71,7 +72,7 @@ class VacancyDetailViewModel(
     private suspend fun deleteFavoriteVacancy(deleteVacancy: Vacancy) {
         vacancyInteractor.deleteVacancy(deleteVacancy.idVacancy).collect { (numberOfDeleted, deleteMessage) ->
             if (numberOfDeleted != null && numberOfDeleted > 0) {
-                _vacancyFavoriteStateLiveData.postValue(VacancyFavoriteState.NotFavorite)
+                favoriteStateLiveData.postValue(false)
             } else {
                 updateVacancyFavoriteMessageState(VacancyFavoriteMessageState.NoDeleteFavorite)
             }
@@ -81,7 +82,7 @@ class VacancyDetailViewModel(
     private suspend fun addFavoriteVacancy(addVacancy: Vacancy) {
         vacancyInteractor.addVacancy(addVacancy).collect { (addId, deleteMessage) ->
             if (addId != null && addId != -1L) {
-                _vacancyFavoriteStateLiveData.postValue(VacancyFavoriteState.Favorite)
+                favoriteStateLiveData.postValue(true)
             } else {
                 updateVacancyFavoriteMessageState(VacancyFavoriteMessageState.NoAddFavorite)
             }
@@ -92,5 +93,21 @@ class VacancyDetailViewModel(
         _vacancyFavoriteMessageStateLiveData.postValue(state)
         delay(DELAY_TO_DEFAULT_STATE_MESSAGE)
         _vacancyFavoriteMessageStateLiveData.postValue(VacancyFavoriteMessageState.Empty)
+    }
+
+    private val favoriteStateLiveData = MutableLiveData<Boolean>()
+    fun observeFavoriteState(): LiveData<Boolean> = favoriteStateLiveData
+    fun updateFavorite(id: Int) {
+        viewModelScope.launch {
+            vacancyInteractor.checkVacancyExists(id).collect { (existingId, message) ->
+                existingId?.let { id ->
+                    if (id > 0) {
+                        favoriteStateLiveData.postValue(true)
+                    } else {
+                        favoriteStateLiveData.postValue(false)
+                    }
+                }
+            }
+        }
     }
 }
