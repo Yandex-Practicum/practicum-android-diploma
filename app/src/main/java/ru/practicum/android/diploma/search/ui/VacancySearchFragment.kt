@@ -3,7 +3,6 @@ package ru.practicum.android.diploma.search.ui
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,11 +46,20 @@ class VacancySearchFragment : Fragment() {
 
         recyclerViewInit()
 
-        if (savedInstanceState != null) binding.searchLine.setText(inputTextValue)
+        if (savedInstanceState != null) {
+            binding.searchLine.setText(inputTextValue)
+        }
 
         viewModel.getStateObserve().observe(viewLifecycleOwner) { state ->
             render(state)
         }
+        viewModel.getVacancyListObserve().observe(viewLifecycleOwner) {
+            if (it != null) {
+                vacancies.addAll(it)
+                adapter!!.notifyDataSetChanged()
+            }
+        }
+        viewModel.checkVacancyState()
 
         binding.searchLine.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -119,7 +127,6 @@ class VacancySearchFragment : Fragment() {
         val listener = object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                Log.e("Test", binding.recyclerView.layoutManager?.itemCount.toString())
                 if (!recyclerView.canScrollVertically(1) &&
                     newState == RecyclerView.SCROLL_STATE_IDLE
                 ) {
@@ -133,7 +140,7 @@ class VacancySearchFragment : Fragment() {
     private fun render(state: VacancySearchScreenState) {
         when (state) {
             VacancySearchScreenState.Loading -> showLoadingProgress()
-            is VacancySearchScreenState.Content -> showVacancies(state)
+            is VacancySearchScreenState.Content -> showVacancies()
             VacancySearchScreenState.EmptyScreen -> showEmptyScreen()
             VacancySearchScreenState.NetworkError -> showError(state)
             is VacancySearchScreenState.PaginationError -> paginationError(state.message)
@@ -146,7 +153,6 @@ class VacancySearchFragment : Fragment() {
     private fun paginationError(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
         binding.nextPageProgressCircular.visibility = View.GONE
-
     }
 
     private fun paginationLoading() {
@@ -169,10 +175,7 @@ class VacancySearchFragment : Fragment() {
         binding.nextPageProgressCircular.visibility = View.GONE
     }
 
-    private fun showVacancies(state: VacancySearchScreenState) {
-        val loadingVacancies = (state as VacancySearchScreenState.Content).vacancies
-        vacancies.addAll(loadingVacancies)
-        adapter!!.notifyDataSetChanged()
+    private fun showVacancies() {
         binding.defaultSearchPlaceholder.visibility = View.GONE
         binding.notConnectedPlaceholder.visibility = View.GONE
         binding.notFoundPlaceholder.visibility = View.GONE

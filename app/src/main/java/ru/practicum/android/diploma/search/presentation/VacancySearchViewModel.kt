@@ -17,18 +17,21 @@ class VacancySearchViewModel(
     private var latestSearchText: String? = null
 
     private val vacancyClickEvent = SingleEventLiveData<String>()
-    private val pageCount = MutableLiveData<Int>()
-    fun getVacancyClickEvent(): LiveData<String> = vacancyClickEvent
 
+    private val vacancyList = MutableLiveData<MutableList<VacancySearch>?>()
+    private val pageCount = MutableLiveData<Int>()
     private val stateLiveData = MutableLiveData<VacancySearchScreenState>()
+
+    fun getVacancyClickEvent(): LiveData<String> = vacancyClickEvent
     fun getStateObserve(): LiveData<VacancySearchScreenState> = stateLiveData
+    fun getVacancyListObserve(): LiveData<MutableList<VacancySearch>?> = vacancyList
     private val query = HashMap<String, String>()
 
     private fun loadData(text: String) {
         if (text.isNotEmpty()) {
             stateLiveData.value = VacancySearchScreenState.Loading
-
             query["text"] = text
+            query["page"] = "0"
             viewModelScope.launch {
                 interactor
                     .getVacancyList(query)
@@ -50,7 +53,7 @@ class VacancySearchViewModel(
         }
         if (latestSearchText != changedText) {
             latestSearchText = changedText
-            pageCount.value = 1
+            pageCount.value = 0
             vacancySearchDebounce(changedText)
         }
     }
@@ -89,6 +92,10 @@ class VacancySearchViewModel(
             }
 
             else -> {
+                val list = vacancyList.value
+                list?.addAll(foundVacancies) //пришлось такой костыль вкорячить тк иначе не обновляет livedata и
+                // и обсервер не срабатывает
+                vacancyList.value = list
                 stateLiveData.value = VacancySearchScreenState.Content(foundVacancies)
             }
         }
@@ -110,8 +117,17 @@ class VacancySearchViewModel(
             }
 
             else -> {
+                vacancyList.value = foundVacancies as? MutableList<VacancySearch>?
                 stateLiveData.value = VacancySearchScreenState.Content(foundVacancies)
             }
+        }
+    }
+
+    fun checkVacancyState() {
+        if (!vacancyList.value.isNullOrEmpty()) {
+            vacancyList.value = vacancyList.value
+            val list: List<VacancySearch> = vacancyList.value!!
+            stateLiveData.value = VacancySearchScreenState.Content(list)
         }
     }
 
