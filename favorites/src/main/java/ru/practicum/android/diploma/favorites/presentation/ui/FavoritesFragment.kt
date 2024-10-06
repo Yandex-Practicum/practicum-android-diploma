@@ -63,6 +63,8 @@ class FavoritesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        favoriteViewModel.clearVacancies()
+
         initDebounces()
 
         binding.favoriteList.layoutManager =

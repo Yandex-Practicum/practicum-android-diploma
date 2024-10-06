@@ -116,7 +116,7 @@
                 style="@style/TextViewMedium16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/vacancyTextPadding"
+                android:layout_marginStart="@dimen/dimens_24"
                 android:layout_marginTop="@dimen/filterPadding"
                 android:padding="@dimen/noPadding"
                 android:text="@string/vacancy_screen_experience"
