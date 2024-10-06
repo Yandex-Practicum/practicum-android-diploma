@@ -43,17 +43,20 @@ class VacancyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val alternateUrl = ""
-        binding.vacancyHeader.setOnClickListener {
-            findNavController().navigateUp()
-        }
-        binding.shareButton.setOnClickListener {
-            vacancyDetailViewModel.share(alternateUrl)
-        }
 
         argsState = requireArguments().getInt(ARGS_STATE)
         idDb = requireArguments().getInt(VACANCY_ID_DB)
         idNetwork = requireArguments().getString(VACANCY_ID_NETWORK).toString()
+
+        val shareLink = if (idDb != 0) getString(R.string.share_link) + idDb
+        else getString(R.string.share_link) + idNetwork
+
+        binding.vacancyHeader.setOnClickListener {
+            findNavController().navigateUp()
+        }
+        binding.shareButton.setOnClickListener {
+            vacancyDetailViewModel.share(shareLink)
+        }
 
         vacancyDetailViewModel.updateFavorite(idDb)
         requireArguments().getString(VACANCY_ID_NETWORK)?.let {
