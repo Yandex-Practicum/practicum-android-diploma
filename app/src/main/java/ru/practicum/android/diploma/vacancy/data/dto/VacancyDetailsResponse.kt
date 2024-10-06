@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.vacancy.data.dto
 
+import com.google.gson.annotations.SerializedName
 import ru.practicum.android.diploma.util.network.Response
 
 data class VacancyDetailsResponse(
@@ -13,5 +14,5 @@ data class VacancyDetailsResponse(
     val schedule: ScheduleDto?,
     val employment: EmploymentDto?,
     val description: String,
-    val keySkills: List<KeySkillDto>,
+    @SerializedName("key_skills") val keySkills: List<KeySkillDto>,
 ) : Response()

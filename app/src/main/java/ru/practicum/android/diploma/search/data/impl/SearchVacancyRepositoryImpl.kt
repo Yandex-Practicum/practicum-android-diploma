@@ -21,10 +21,7 @@ class SearchVacancyRepositoryImpl(
         query: HashMap<String, String>
     ): Flow<Resource<List<VacancySearch>>> = flow {
         val response = networkClient.doRequest(
-            VacancySearchRequest(
-                HashMap<String, String>()
-            ),
-            BuildConfig.HH_ACCESS_TOKEN
+            VacancySearchRequest(query),
         )
         emit(
             when (response.resultCode) {

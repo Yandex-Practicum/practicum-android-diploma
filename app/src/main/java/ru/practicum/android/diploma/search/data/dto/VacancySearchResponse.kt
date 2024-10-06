@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.search.data.dto
 
+import com.google.gson.annotations.SerializedName
 import ru.practicum.android.diploma.util.network.Response
 
 class VacancySearchResponse(
@@ -7,5 +8,5 @@ class VacancySearchResponse(
     val found: Int,
     val page: Int,
     val pages: Int,
-    val perPage: Int,
+    @SerializedName("per_page") val perPage: Int,
 ) : Response()

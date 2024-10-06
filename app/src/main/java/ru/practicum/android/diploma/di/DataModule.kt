@@ -26,7 +26,7 @@ val dataModule = module {
 
     single<HHApiService> {
         Retrofit.Builder()
-            .baseUrl("https://api.hh.ru//")
+            .baseUrl("https://api.hh.ru/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(HHApiService::class.java)
