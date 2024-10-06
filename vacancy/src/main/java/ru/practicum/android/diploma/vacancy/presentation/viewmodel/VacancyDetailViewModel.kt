@@ -48,7 +48,7 @@ class VacancyDetailViewModel(
     }
 
     private suspend fun cleanVacancyFromDbOnError404(messageError: String, vacancyId: Int) {
-        if(messageError == COMMAND_TO_REMOVE_VACANCY_FROM_FAVORITES) {
+        if (messageError == COMMAND_TO_REMOVE_VACANCY_FROM_FAVORITES) {
             vacancyInteractor.checkVacancyExists(vacancyId).collect { (existingId, message) ->
                 existingId?.let { id ->
                     if (id > 0) {

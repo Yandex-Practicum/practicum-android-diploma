@@ -71,5 +71,3 @@ fun <T, S> Context.executeNetworkRequest(
             }
         }
     }
-
-
