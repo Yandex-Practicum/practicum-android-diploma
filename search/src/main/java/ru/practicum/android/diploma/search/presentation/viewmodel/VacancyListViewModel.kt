@@ -61,7 +61,7 @@ class VacancyListViewModel(
                     if (response.second == INTERNET_ERROR) {
                         parseError(SearchScreenState.Error.NO_INTERNET_ERROR)
                     } else {
-                        parseError(SearchScreenState.Error.FAILED_TO_FETCH_VACANCIES_ERROR)
+                        parseError(SearchScreenState.Error.SERVER_ERROR)
                     }
                 }
             }

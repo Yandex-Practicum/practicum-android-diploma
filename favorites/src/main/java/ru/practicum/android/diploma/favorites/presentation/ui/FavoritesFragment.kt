@@ -126,7 +126,7 @@ class FavoritesFragment : Fragment() {
     private fun onVacancyClickDebounce(action: (Int) -> Unit): (Int) -> Unit {
         return debounce<Int>(
             DELAY_CLICK_VACANCY,
-            viewLifecycleOwner.lifecycleScope,
+            lifecycleScope,
             false,
             true,
             action

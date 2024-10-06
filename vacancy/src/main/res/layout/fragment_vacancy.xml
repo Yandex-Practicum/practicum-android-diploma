@@ -91,6 +91,7 @@
                     <TextView
                         android:id="@+id/vacancyCompany"
                         style="@style/TextViewMedium22"
+                        android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/vacancyCardPadding"
@@ -101,6 +102,7 @@
                     <TextView
                         android:id="@+id/vacancyCity"
                         style="@style/TextViewRegular16"
+                        android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/vacancyCardPadding"
@@ -157,10 +159,11 @@
 
             <TextView
                 android:id="@+id/vacancyDescriptionInfo"
-                style="@style/TextViewRegular16"
+                style="@style/TextViewRegular16NoPadding"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/vacancyTextPadding"
+                android:paddingTop="@dimen/vacancyTextPadding"
+                android:paddingHorizontal="@dimen/dimens_16"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/vacancyDescription"
                 tools:text="@string/vacancy_description_placeholder" />
@@ -171,7 +174,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/vacancyTextPadding"
-                android:layout_marginTop="@dimen/vacancyTextPadding"
+                android:layout_marginTop="@dimen/dimens_24"
                 android:padding="@dimen/noPadding"
                 android:text="@string/vacancy_screen_key_skills"
                 app:layout_constraintStart_toStartOf="parent"

@@ -75,6 +75,7 @@ class SearchFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -172,6 +173,8 @@ class SearchFragment : Fragment() {
         binding.vacancyRecycler.isVisible = false
         binding.progressBarLoadingFromSearch.isVisible = false
         binding.progressBarLoadingNewPage.isVisible = false
+        binding.serverErrorIllustration.isVisible = false
+        binding.serverErrorText.isVisible = false
     }
 
     private fun updateUI(state: SearchScreenState) {
@@ -225,6 +228,11 @@ class SearchFragment : Fragment() {
             SearchScreenState.Error.NO_INTERNET_ERROR -> {
                 binding.noInternetErrorIllustration.isVisible = true
                 binding.noInternetErrorText.isVisible = true
+            }
+
+            SearchScreenState.Error.SERVER_ERROR -> {
+                binding.serverErrorIllustration.isVisible = true
+                binding.serverErrorText.isVisible = true
             }
         }
     }
