@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -47,6 +48,15 @@ class VacancySearchFragment : Fragment() {
 
         viewModel.getStateObserve().observe(viewLifecycleOwner) { state ->
             render(state)
+        }
+
+        binding.searchLine.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                showLoadingProgress()
+                viewModel.searchDebounce(inputTextValue)
+                true
+            }
+            false
         }
 
         val searchTextWatcher = object : TextWatcher {
