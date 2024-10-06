@@ -162,20 +162,26 @@ class VacancySearchFragment : Fragment() {
                 binding.notFoundPlaceholder.visibility = View.GONE
                 binding.serverErrorPlaceholder.visibility = View.GONE
             }
+
             is VacancySearchScreenState.SearchError -> {
                 binding.notConnectedPlaceholder.visibility = View.GONE
                 binding.notFoundPlaceholder.visibility = View.VISIBLE
                 binding.serverErrorPlaceholder.visibility = View.GONE
             }
+
             is VacancySearchScreenState.ServerError -> {
                 binding.notConnectedPlaceholder.visibility = View.GONE
                 binding.notFoundPlaceholder.visibility = View.GONE
                 binding.serverErrorPlaceholder.visibility = View.VISIBLE
             }
+
             is VacancySearchScreenState.PaginationError -> {
                 // коммент костыль
             }
-            else -> {null}
+
+            else -> {
+                null
+            }
         }
     }
 
