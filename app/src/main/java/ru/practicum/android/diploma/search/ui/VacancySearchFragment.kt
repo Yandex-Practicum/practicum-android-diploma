@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.search.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -7,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -69,15 +71,11 @@ class VacancySearchFragment : Fragment() {
 
                 inputTextValue = s.toString()
 
-                if (inputTextValue.isNotEmpty()) {
-                    viewModel.searchDebounce(
-                        changedText = inputTextValue
-                    )
-                    vacancies.clear()
-                } else {
-                    vacancies.clear()
-                    adapter!!.notifyDataSetChanged()
-                }
+                viewModel.searchDebounce(
+                    changedText = inputTextValue
+                )
+                vacancies.clear()
+                adapter!!.notifyDataSetChanged()
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -88,8 +86,8 @@ class VacancySearchFragment : Fragment() {
 
         binding.searchLineCleaner.setOnClickListener {
             view.hideKeyboard()
-            binding.searchLine.setText("")
-            TODO("Дефолт экран вьюмодель")
+            binding.searchLine.setText(DEF_TEXT)
+            showEmptyScreen()
         }
 
     }
@@ -147,7 +145,12 @@ class VacancySearchFragment : Fragment() {
     }
 
     private fun showEmptyScreen() {
-        // коммент костыль
+        binding.defaultSearchPlaceholder.visibility = View.VISIBLE
+        binding.notConnectedPlaceholder.visibility = View.GONE
+        binding.notFoundPlaceholder.visibility = View.GONE
+        binding.serverErrorPlaceholder.visibility = View.GONE
+        binding.progressCircular.visibility = View.GONE
+        binding.recyclerView.visibility = View.GONE
     }
 
     private fun showError() {
