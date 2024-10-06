@@ -38,7 +38,7 @@ class VacancySearchViewModel(
         }
     }
 
-    private val tracksSearchDebounce =
+    private val vacancySearchDebounce =
         debounce<String>(SEARCH_DEBOUNCE_DELAY, viewModelScope, true) { changedText ->
             loadData(changedText)
         }
@@ -46,7 +46,7 @@ class VacancySearchViewModel(
     fun searchDebounce(changedText: String) {
         if (latestSearchText != changedText) {
             latestSearchText = changedText
-            tracksSearchDebounce(changedText)
+            vacancySearchDebounce(changedText)
         }
     }
 
