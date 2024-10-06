@@ -1,7 +1,5 @@
 package ru.practicum.android.diploma.search.presentation
 
-import ru.practicum.android.diploma.search.domain.models.VacancySearch
-
 sealed class VacancySearchScreenState {
     data object EmptyScreen : VacancySearchScreenState()
     data object Loading : VacancySearchScreenState()
