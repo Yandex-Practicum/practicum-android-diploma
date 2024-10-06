@@ -1,6 +1,7 @@
-package ru.practicum.android.diploma.search.data.dto
+package ru.practicum.android.diploma.search.data.network
 
 import com.google.gson.annotations.SerializedName
+import ru.practicum.android.diploma.search.data.dto.VacancyItemDto
 import ru.practicum.android.diploma.util.network.Response
 
 class VacancySearchResponse(
