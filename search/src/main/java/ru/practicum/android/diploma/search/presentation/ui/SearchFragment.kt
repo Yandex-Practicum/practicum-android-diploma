@@ -9,11 +9,13 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.commonutils.Utils.closeKeyBoard
+import ru.practicum.android.diploma.commonutils.debounce
 import ru.practicum.android.diploma.search.R
 import ru.practicum.android.diploma.search.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.search.domain.models.Vacancy
@@ -33,12 +35,21 @@ class SearchFragment : Fragment() {
     private val vacancyListViewModel: VacancyListViewModel by viewModel()
     private var localVacancyList: ArrayList<Vacancy> = ArrayList()
 
+    val debouncedSearch by lazy { debounce(
+        delayMillis = 2000L,
+        coroutineScope = viewLifecycleOwner.lifecycleScope,
+        useLastParam = true,
+        actionThenDelay = false,
+        action = { param: String ->
+            vacancyListViewModel.initialSearch(param)
+        }
+    ) }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        // Inflate the layout for this fragment
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -95,7 +106,6 @@ class SearchFragment : Fragment() {
             }
         }
 
-
         binding.filter.setOnClickListener {
             findNavController().navigate(R.id.action_searchFragment_to_filterFragment)
         }
@@ -132,10 +142,8 @@ class SearchFragment : Fragment() {
             if (text?.isNotEmpty() == true) {
                 binding.clearSearchIcon.isVisible = true
                 binding.searchBarLoupeIcon.isVisible = false
-                // +debounce
                 localVacancyList = ArrayList()
-
-                vacancyListViewModel.initialSearch(text.toString())
+                debouncedSearch(text.toString())
             } else {
                 binding.clearSearchIcon.isVisible = false
                 binding.searchBarLoupeIcon.isVisible = true
