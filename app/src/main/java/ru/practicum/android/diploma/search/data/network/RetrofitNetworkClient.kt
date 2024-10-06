@@ -11,6 +11,7 @@ import ru.practicum.android.diploma.util.storage.RESPONSE_BAD_REQUEST
 import ru.practicum.android.diploma.util.storage.RESPONSE_INTERNAL_SERVER_ERROR
 import ru.practicum.android.diploma.util.storage.RESPONSE_NOT_CONNECTED
 import ru.practicum.android.diploma.util.storage.RESPONSE_OK
+import ru.practicum.android.diploma.vacancy.data.dto.VacancyDetailsRequest
 import java.io.IOException
 
 class RetrofitNetworkClient(
@@ -22,16 +23,18 @@ class RetrofitNetworkClient(
         if (!connectionCheck(context)) {
             responseCode.apply { resultCode = RESPONSE_NOT_CONNECTED }
         }
-        if (dto !is VacancySearchRequest) {
+        if (dto !is VacancySearchRequest && dto !is VacancyDetailsRequest) {
             responseCode.apply { resultCode = RESPONSE_BAD_REQUEST }
         } else {
             withContext(Dispatchers.IO) {
                 try {
-                    responseCode = hhApiService.searchVacancies(dto.request)
+                    if (dto is VacancySearchRequest) responseCode = hhApiService.searchVacancies(dto.request)
+                    if (dto is VacancyDetailsRequest) responseCode = hhApiService.getVacancyDetails(dto.expression)
+
                     responseCode.apply { resultCode = RESPONSE_OK }
-                } catch (e: IOException) {
+                } catch (ioException: IOException) {
                     responseCode.apply { resultCode = RESPONSE_INTERNAL_SERVER_ERROR }
-                    println(e)
+                    println(ioException)
                 }
             }
         }
