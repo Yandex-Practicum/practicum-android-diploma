@@ -87,6 +87,7 @@ class VacancySearchFragment : Fragment() {
         binding.searchLineCleaner.setOnClickListener {
             view.hideKeyboard()
             binding.searchLine.setText(DEF_TEXT)
+            vacancies.clear()
             showEmptyScreen()
         }
 

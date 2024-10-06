@@ -44,7 +44,9 @@ class VacancySearchViewModel(
         }
 
     fun searchDebounce(changedText: String) {
-        if (latestSearchText != changedText) {
+        if (changedText.isEmpty()) {
+            stateLiveData.value = VacancySearchScreenState.EmptyScreen
+        } else if (latestSearchText != changedText) {
             latestSearchText = changedText
             vacancySearchDebounce(changedText)
         }
