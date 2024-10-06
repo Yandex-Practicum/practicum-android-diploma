@@ -27,6 +27,7 @@ import ru.practicum.android.diploma.vacancy.presentation.ui.VacancyFragment
 import ru.practicum.android.diploma.vacancy.presentation.ui.state.VacancyInputState
 
 private const val USER_INPUT = "userInput"
+private const val DELAY_CLICK_VACANCY = 2000L
 class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
@@ -36,7 +37,7 @@ class SearchFragment : Fragment() {
     private var localVacancyList: ArrayList<Vacancy> = ArrayList()
 
     val debouncedSearch by lazy { debounce(
-        delayMillis = 2000L,
+        delayMillis = DELAY_CLICK_VACANCY,
         coroutineScope = viewLifecycleOwner.lifecycleScope,
         useLastParam = true,
         actionThenDelay = false,
