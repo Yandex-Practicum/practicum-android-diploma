@@ -14,6 +14,7 @@ import ru.practicum.android.diploma.vacancy.presentation.viewmodel.state.Vacancy
 import ru.practicum.android.diploma.vacancy.presentation.viewmodel.state.VacancyFavoriteMessageState
 import ru.practicum.android.diploma.vacancy.presentation.viewmodel.state.VacancyFavoriteState
 
+private const val COMMAND_TO_REMOVE_VACANCY_FROM_FAVORITES = "404"
 private const val DELAY_TO_DEFAULT_STATE_MESSAGE = 100L
 
 class VacancyDetailViewModel(
@@ -24,22 +25,37 @@ class VacancyDetailViewModel(
     fun observeVacancyState(): LiveData<VacancyDetailState> = _vacancyStateLiveData
 
     fun showVacancyNetwork(vacancyId: String) {
-        showVacancy(vacancyInteractor.getVacancyNetwork(vacancyId))
+        showVacancy(vacancyId.toInt(), vacancyInteractor.getVacancyNetwork(vacancyId))
     }
 
     fun showVacancyDb(vacancyId: Int) {
-        showVacancy(vacancyInteractor.getVacancyDb(vacancyId))
+        showVacancy(vacancyId, vacancyInteractor.getVacancyDb(vacancyId))
     }
 
-    private fun showVacancy(vacancyFlow: Flow<Pair<Vacancy?, String?>>) {
+    private fun showVacancy(vacancyId: Int, vacancyFlow: Flow<Pair<Vacancy?, String?>>) {
         _vacancyStateLiveData.postValue(VacancyDetailState.Loading)
         viewModelScope.launch(Dispatchers.IO) {
             vacancyFlow.collect { vacancy ->
                 _vacancyStateLiveData.postValue(
                     vacancy.first?.let { VacancyDetailState.Content(it) }
-                        ?: vacancy.second?.let { VacancyDetailState.Error(it) }
+                        ?: vacancy.second?.let {
+                            cleanVacancyFromDbOnError404(it, vacancyId)
+                            VacancyDetailState.Error(it)
+                        }
                         ?: VacancyDetailState.Empty
                 )
+            }
+        }
+    }
+
+    private suspend fun cleanVacancyFromDbOnError404(messageError: String, vacancyId: Int) {
+        if (messageError == COMMAND_TO_REMOVE_VACANCY_FROM_FAVORITES) {
+            vacancyInteractor.checkVacancyExists(vacancyId).collect { (existingId, message) ->
+                existingId?.let { id ->
+                    if (id > 0) {
+                        deleteFavoriteVacancy(vacancyId)
+                    }
+                }
             }
         }
     }
@@ -60,7 +76,7 @@ class VacancyDetailViewModel(
             vacancyInteractor.checkVacancyExists(vacancy.idVacancy).collect { (existingId, message) ->
                 existingId?.let { id ->
                     if (id > 0) {
-                        deleteFavoriteVacancy(vacancy)
+                        deleteFavoriteVacancy(vacancy.idVacancy)
                     } else {
                         addFavoriteVacancy(vacancy)
                     }
@@ -69,8 +85,8 @@ class VacancyDetailViewModel(
         }
     }
 
-    private suspend fun deleteFavoriteVacancy(deleteVacancy: Vacancy) {
-        vacancyInteractor.deleteVacancy(deleteVacancy.idVacancy).collect { (numberOfDeleted, deleteMessage) ->
+    private suspend fun deleteFavoriteVacancy(vacancyId: Int) {
+        vacancyInteractor.deleteVacancy(vacancyId).collect { (numberOfDeleted, deleteMessage) ->
             if (numberOfDeleted != null && numberOfDeleted > 0) {
                 favoriteStateLiveData.postValue(false)
             } else {

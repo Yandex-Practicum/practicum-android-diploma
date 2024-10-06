@@ -84,6 +84,7 @@
     <string name="check_network_connection">Check network connection</string>
     <string name="request_was_not_accepted">Request was not accepted %1$s</string>
     <string name="unexpcted_error">Unexpcted error %1$s</string>
+    <string name="request_was_not_accepted_404">404</string>
 
     <string name="salary_from">от %s %s</string>
     <string name="salary_to">до %s %s</string>
@@ -91,8 +92,16 @@
     <string name="no_salary">Зарплата не указана</string>
 
     <string name="currency_rur">₽</string>
+    <string name="currency_br_rur">Br</string>
     <string name="currency_usd">$</string>
     <string name="currency_eur">€</string>
+    <string name="currency_kzt">₸</string>
+    <string name="currency_uah">₴</string>
+    <string name="currency_azn">₼</string>
+    <string name="currency_uzs">сўм</string>
+    <string name="currency_gel">ლ</string>
+    <string name="currency_kgs">сом</string>
+    <string name="currency_amd">֏</string>
 
     <string name="message_empty">Empty</string>
     <string name="message_no_add_favorite">No Add Favorite</string>
