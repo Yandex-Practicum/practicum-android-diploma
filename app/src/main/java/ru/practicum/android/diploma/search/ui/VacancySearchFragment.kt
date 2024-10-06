@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.search.ui
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.VacancySearchFragmentBinding
 import ru.practicum.android.diploma.search.domain.models.VacancySearch
@@ -30,9 +32,7 @@ class VacancySearchFragment : Fragment() {
     private var onVacancyClickDebounce: ((VacancySearch) -> Unit)? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = VacancySearchFragmentBinding.inflate(inflater, container, false)
         return binding.root
@@ -92,9 +92,7 @@ class VacancySearchFragment : Fragment() {
 
     private fun recyclerViewInit() {
         onVacancyClickDebounce = debounce<VacancySearch>(
-            CLICK_DEBOUNCE_DELAY,
-            viewLifecycleOwner.lifecycleScope,
-            false
+            CLICK_DEBOUNCE_DELAY, viewLifecycleOwner.lifecycleScope, false
         ) { vacancySearch ->
             viewModel.onVacancyClick(vacancySearch)
         }
@@ -102,6 +100,22 @@ class VacancySearchFragment : Fragment() {
         adapter = RecycleViewAdapter(vacancies, onVacancyClickDebounce!!)
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
+
+        recycleViewScrollListener()
+    }
+
+    private fun recycleViewScrollListener() {
+        val listener = object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                Log.e("Test", binding.recyclerView.layoutManager?.itemCount.toString())
+                if (!recyclerView.canScrollVertically(1) &&
+                    newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    viewModel.nextPageDebounce(binding.searchLine.text.toString())
+                }
+            }
+        }
+        binding.recyclerView.addOnScrollListener(listener)
     }
 
     private fun render(state: VacancySearchScreenState) {
@@ -111,10 +125,21 @@ class VacancySearchFragment : Fragment() {
             VacancySearchScreenState.EmptyScreen -> showEmptyScreen()
             VacancySearchScreenState.NetworkError -> showError()
             is VacancySearchScreenState.PaginationError -> showError()
-            VacancySearchScreenState.PaginationLoading -> showError()
+            VacancySearchScreenState.PaginationLoading -> paginationLoading()
             VacancySearchScreenState.SearchError -> showError()
             VacancySearchScreenState.ServerError -> showError()
         }
+    }
+
+    private fun paginationLoading() {
+        binding.defaultSearchPlaceholder.visibility = View.GONE
+        binding.notConnectedPlaceholder.visibility = View.GONE
+        binding.notFoundPlaceholder.visibility = View.GONE
+        binding.serverErrorPlaceholder.visibility = View.GONE
+        binding.progressCircular.visibility = View.GONE
+        binding.recyclerView.visibility = View.VISIBLE
+        binding.nextPageProgressCircular.visibility = View.VISIBLE
+        binding.recyclerView.smoothScrollToPosition(vacancies.size-1)
     }
 
     private fun showLoadingProgress() {
@@ -128,12 +153,14 @@ class VacancySearchFragment : Fragment() {
     private fun showVacancies(state: VacancySearchScreenState) {
         val loadingVacancies = (state as VacancySearchScreenState.Content).vacancies
         vacancies.addAll(loadingVacancies)
+        adapter!!.notifyDataSetChanged()
         binding.defaultSearchPlaceholder.visibility = View.GONE
         binding.notConnectedPlaceholder.visibility = View.GONE
         binding.notFoundPlaceholder.visibility = View.GONE
         binding.serverErrorPlaceholder.visibility = View.GONE
         binding.progressCircular.visibility = View.GONE
         binding.recyclerView.visibility = View.VISIBLE
+        binding.nextPageProgressCircular.visibility = View.GONE
     }
 
     private fun showEmptyScreen() {

@@ -1,9 +1,11 @@
 package ru.practicum.android.diploma.search.presentation
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.room.util.splitToIntList
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.search.domain.api.SearchVacancyInteractor
 import ru.practicum.android.diploma.search.domain.models.VacancySearch
@@ -17,13 +19,14 @@ class VacancySearchViewModel(
     private var latestSearchText: String? = null
 
     private val vacancyClickEvent = SingleEventLiveData<String>()
+    private val pageCount = MutableLiveData<Int>()
     fun getVacancyClickEvent(): LiveData<String> = vacancyClickEvent
 
     private val stateLiveData = MutableLiveData<VacancySearchScreenState>()
     fun getStateObserve(): LiveData<VacancySearchScreenState> = stateLiveData
-    val query = HashMap<String, String>()
+    private val query = HashMap<String, String>()
 
-    fun loadData(text: String) {
+    private fun loadData(text: String) {
         if (text.isNotEmpty()) {
             stateLiveData.value = VacancySearchScreenState.Loading
 
@@ -38,7 +41,7 @@ class VacancySearchViewModel(
         }
     }
 
-    private val tracksSearchDebounce =
+    private val vacanciesSearchDebounce =
         debounce<String>(SEARCH_DEBOUNCE_DELAY, viewModelScope, true) { changedText ->
             loadData(changedText)
         }
@@ -46,8 +49,32 @@ class VacancySearchViewModel(
     fun searchDebounce(changedText: String) {
         if (latestSearchText != changedText) {
             latestSearchText = changedText
-            tracksSearchDebounce(changedText)
+            pageCount.value = 1
+            vacanciesSearchDebounce(changedText)
         }
+    }
+
+    fun nextPageDebounce(changedText: String) {
+        stateLiveData.value = VacancySearchScreenState.PaginationLoading
+        pageCount.value = pageCount.value?.plus(1)
+        nextSearchDebounce(changedText)
+    }
+
+    private val nextSearchDebounce =
+        debounce<String>(SEARCH_DEBOUNCE_DELAY, viewModelScope, true) { changedText ->
+            loadNextData(changedText)
+    }
+
+    private fun loadNextData(changedText: String) {
+            query["text"] = changedText
+            query["page"] = pageCount.value.toString()
+            viewModelScope.launch {
+                interactor
+                    .getVacancyList(query)
+                    .collect { foundVacancies ->
+                        processingState(foundVacancies)
+                    }
+            }
     }
 
     fun onVacancyClick(vacancySearch: VacancySearch) {
