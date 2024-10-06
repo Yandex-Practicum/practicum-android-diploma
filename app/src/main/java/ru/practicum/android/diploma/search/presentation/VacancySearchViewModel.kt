@@ -41,16 +41,19 @@ class VacancySearchViewModel(
         }
     }
 
-    private val vacanciesSearchDebounce =
+    private val vacancySearchDebounce =
         debounce<String>(SEARCH_DEBOUNCE_DELAY, viewModelScope, true) { changedText ->
             loadData(changedText)
         }
 
     fun searchDebounce(changedText: String) {
+        if (changedText.isEmpty()){
+            stateLiveData.value = VacancySearchScreenState.EmptyScreen
+            }
         if (latestSearchText != changedText) {
             latestSearchText = changedText
             pageCount.value = 1
-            vacanciesSearchDebounce(changedText)
+            vacancySearchDebounce(changedText)
         }
     }
 
@@ -89,7 +92,7 @@ class VacancySearchViewModel(
             }
 
             foundVacancies.isEmpty() -> {
-                stateLiveData.value = VacancySearchScreenState.EmptyScreen
+                stateLiveData.value = VacancySearchScreenState.SearchError
             }
 
             else -> {

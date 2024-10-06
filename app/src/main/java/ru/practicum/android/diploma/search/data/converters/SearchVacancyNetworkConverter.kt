@@ -13,7 +13,7 @@ class SearchVacancyNetworkConverter(private val context: Context) {
             address = getAddressFromDto(vacancyItemDto),
             company = vacancyItemDto.employer.name,
             salary = getSalaryFromDto(vacancyItemDto),
-            logo = vacancyItemDto.employer.logoUrls?.size90
+            logo = vacancyItemDto.employer.logoUrls?.size240
         )
     }
 
