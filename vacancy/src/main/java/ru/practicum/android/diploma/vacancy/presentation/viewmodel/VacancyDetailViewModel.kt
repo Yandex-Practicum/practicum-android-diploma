@@ -110,4 +110,8 @@ class VacancyDetailViewModel(
             }
         }
     }
+
+    fun share(shareLink: String) {
+        vacancyInteractor.share(shareLink)
+    }
 }
