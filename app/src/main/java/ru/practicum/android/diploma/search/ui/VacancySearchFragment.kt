@@ -63,8 +63,7 @@ class VacancySearchFragment : Fragment() {
 
         binding.searchLine.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                showLoadingProgress()
-                viewModel.searchDebounce(inputTextValue)
+                viewModel.searchDebounce(binding.searchLine.text.toString())
                 true
             }
             false
