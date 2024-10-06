@@ -118,12 +118,22 @@ class VacancySearchFragment : Fragment() {
     }
 
     private fun showLoadingProgress() {
-        // коммент костыль
+        binding.defaultSearchPlaceholder.visibility = View.GONE
+        binding.notConnectedPlaceholder.visibility = View.GONE
+        binding.notFoundPlaceholder.visibility = View.GONE
+        binding.serverErrorPlaceholder.visibility = View.GONE
+        binding.progressCircular.visibility = View.VISIBLE
     }
 
     private fun showVacancies(state: VacancySearchScreenState) {
         val loadingVacancies = (state as VacancySearchScreenState.Content).vacancies
         vacancies.addAll(loadingVacancies)
+        binding.defaultSearchPlaceholder.visibility = View.GONE
+        binding.notConnectedPlaceholder.visibility = View.GONE
+        binding.notFoundPlaceholder.visibility = View.GONE
+        binding.serverErrorPlaceholder.visibility = View.GONE
+        binding.progressCircular.visibility = View.GONE
+        binding.recyclerView.visibility = View.GONE
     }
 
     private fun showEmptyScreen() {
