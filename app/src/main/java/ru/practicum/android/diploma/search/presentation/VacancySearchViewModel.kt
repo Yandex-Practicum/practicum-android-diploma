@@ -92,11 +92,9 @@ class VacancySearchViewModel(
             }
 
             else -> {
-                val list = vacancyList.value
-                list?.addAll(foundVacancies) //пришлось такой костыль вкорячить тк иначе не обновляет livedata и
-                // и обсервер не срабатывает
-                vacancyList.value = list
-                stateLiveData.value = VacancySearchScreenState.Content(foundVacancies)
+                vacancyList.value?.addAll(foundVacancies)
+                vacancyList.value = vacancyList.value
+                stateLiveData.value = VacancySearchScreenState.Content
             }
         }
     }
@@ -118,7 +116,7 @@ class VacancySearchViewModel(
 
             else -> {
                 vacancyList.value = foundVacancies as? MutableList<VacancySearch>?
-                stateLiveData.value = VacancySearchScreenState.Content(foundVacancies)
+                stateLiveData.value = VacancySearchScreenState.Content
             }
         }
     }
@@ -126,8 +124,7 @@ class VacancySearchViewModel(
     fun checkVacancyState() {
         if (!vacancyList.value.isNullOrEmpty()) {
             vacancyList.value = vacancyList.value
-            val list: List<VacancySearch> = vacancyList.value!!
-            stateLiveData.value = VacancySearchScreenState.Content(list)
+            stateLiveData.value = VacancySearchScreenState.Content
         }
     }
 
