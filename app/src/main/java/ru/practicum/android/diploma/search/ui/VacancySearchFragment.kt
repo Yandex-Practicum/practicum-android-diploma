@@ -116,7 +116,6 @@ class VacancySearchFragment : Fragment() {
     }
 
     private fun recycleViewScrollListener() {
-
         val listener = object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
