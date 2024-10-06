@@ -133,7 +133,7 @@ class VacancySearchFragment : Fragment() {
         binding.notFoundPlaceholder.visibility = View.GONE
         binding.serverErrorPlaceholder.visibility = View.GONE
         binding.progressCircular.visibility = View.GONE
-        binding.recyclerView.visibility = View.GONE
+        binding.recyclerView.visibility = View.VISIBLE
     }
 
     private fun showEmptyScreen() {
