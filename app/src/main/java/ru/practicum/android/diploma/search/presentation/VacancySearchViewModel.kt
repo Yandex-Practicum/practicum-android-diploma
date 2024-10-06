@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.search.presentation
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -44,9 +45,8 @@ class VacancySearchViewModel(
         }
 
     fun searchDebounce(changedText: String) {
-        if (changedText.isEmpty()) {
-            stateLiveData.value = VacancySearchScreenState.EmptyScreen
-        } else if (latestSearchText != changedText) {
+        if (changedText.isEmpty()) stateLiveData.value = VacancySearchScreenState.EmptyScreen
+        if (latestSearchText != changedText) {
             latestSearchText = changedText
             vacancySearchDebounce(changedText)
         }
