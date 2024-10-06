@@ -48,8 +48,11 @@ class VacancyFragment : Fragment() {
         idDb = requireArguments().getInt(VACANCY_ID_DB)
         idNetwork = requireArguments().getString(VACANCY_ID_NETWORK).toString()
 
-        val shareLink = if (idDb != 0) getString(R.string.share_link) + idDb
-        else getString(R.string.share_link) + idNetwork
+        val shareLink = if (idDb != 0) {
+            getString(R.string.share_link) + idDb
+        } else {
+            getString(R.string.share_link) + idNetwork
+        }
 
         binding.vacancyHeader.setOnClickListener {
             findNavController().navigateUp()
