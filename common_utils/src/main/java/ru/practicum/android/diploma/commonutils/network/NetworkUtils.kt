@@ -63,7 +63,7 @@ fun <T, S> Context.executeNetworkRequest(
                 emit(
                     Resource.Error(
                         getString(
-                            R.string.unexpcted_error,
+                            R.string.unexpected_error,
                             response.resultCode
                         )
                     )

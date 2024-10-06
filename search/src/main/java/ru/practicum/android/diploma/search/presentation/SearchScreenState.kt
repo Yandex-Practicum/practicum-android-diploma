@@ -1,15 +1,18 @@
 package ru.practicum.android.diploma.search.presentation
 
 sealed class SearchScreenState {
-    data object IDLE : SearchScreenState()
+    object IDLE : SearchScreenState()
 
-    data object LOADING_NEW_LIST : SearchScreenState()
+    object VACANCY_LIST_LOADED : SearchScreenState()
 
-    data object LOADING_NEW_PAGE : SearchScreenState()
+    object LOADING_NEW_LIST : SearchScreenState()
 
-    data object NO_INTERNET_ERROR : SearchScreenState()
+    object LOADING_NEW_PAGE : SearchScreenState()
 
-    data object FAILED_TO_FETCH_VACANCIES_ERROR : SearchScreenState()
-
-    data object VACANCY_LIST_LOADED : SearchScreenState()
+    sealed class Error : SearchScreenState() {
+        object NO_INTERNET_ERROR : Error()
+        object FAILED_TO_FETCH_VACANCIES_ERROR : Error()
+        object NEW_PAGE_SERVER_ERROR : Error()
+        object NEW_PAGE_NO_INTERNET_ERROR : Error()
+    }
 }

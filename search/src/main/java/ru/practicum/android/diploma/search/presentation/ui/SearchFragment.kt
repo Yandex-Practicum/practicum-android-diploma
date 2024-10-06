@@ -28,6 +28,7 @@ import ru.practicum.android.diploma.vacancy.presentation.ui.state.VacancyInputSt
 
 private const val USER_INPUT = "userInput"
 private const val DELAY_CLICK_VACANCY = 2000L
+
 class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
@@ -36,15 +37,17 @@ class SearchFragment : Fragment() {
     private val vacancyListViewModel: VacancyListViewModel by viewModel()
     private var localVacancyList: ArrayList<Vacancy> = ArrayList()
 
-    val debouncedSearch by lazy { debounce(
-        delayMillis = DELAY_CLICK_VACANCY,
-        coroutineScope = viewLifecycleOwner.lifecycleScope,
-        useLastParam = true,
-        actionThenDelay = false,
-        action = { param: String ->
-            vacancyListViewModel.initialSearch(param)
-        }
-    ) }
+    val debouncedSearch by lazy {
+        debounce(
+            delayMillis = DELAY_CLICK_VACANCY,
+            coroutineScope = viewLifecycleOwner.lifecycleScope,
+            useLastParam = true,
+            actionThenDelay = false,
+            action = { param: String ->
+                vacancyListViewModel.initialSearch(param)
+            }
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -174,12 +177,6 @@ class SearchFragment : Fragment() {
     private fun updateUI(state: SearchScreenState) {
         disableAllVariableViews()
         when (state) {
-            SearchScreenState.FAILED_TO_FETCH_VACANCIES_ERROR -> {
-                binding.resultCountPopup.isVisible = true
-                binding.failedToFetchListErrorIllustration.isVisible = true
-                binding.failedToFetchListErrorText.isVisible = true
-            }
-
             SearchScreenState.IDLE -> {
                 binding.defaultIllustration.isVisible = true
             }
@@ -194,20 +191,45 @@ class SearchFragment : Fragment() {
                 binding.progressBarLoadingNewPage.isVisible = true
             }
 
-            SearchScreenState.NO_INTERNET_ERROR -> {
-                binding.noInternetErrorIllustration.isVisible = true
-                binding.noInternetErrorText.isVisible = true
-            }
-
             SearchScreenState.VACANCY_LIST_LOADED -> {
                 binding.resultCountPopup.isVisible = true
                 binding.vacancyRecycler.isVisible = true
             }
+
+            else -> {
+                showError(state as SearchScreenState.Error)
+            }
         }
     }
 
-    fun makeToast(text: String) {
-        Toast.makeText(context, "text", Toast.LENGTH_SHORT).show()
+    private fun showError(error: SearchScreenState.Error) {
+        when (error) {
+            SearchScreenState.Error.FAILED_TO_FETCH_VACANCIES_ERROR -> {
+                binding.resultCountPopup.isVisible = true
+                binding.failedToFetchListErrorIllustration.isVisible = true
+                binding.failedToFetchListErrorText.isVisible = true
+            }
+
+            SearchScreenState.Error.NEW_PAGE_NO_INTERNET_ERROR -> {
+                binding.noInternetErrorIllustration.isVisible = true
+                binding.noInternetErrorText.isVisible = true
+                makeToast(getString(ru.practicum.android.diploma.ui.R.string.search_screen_toast_no_internet))
+            }
+
+            SearchScreenState.Error.NEW_PAGE_SERVER_ERROR -> {
+                binding.serverErrorIllustration.isVisible = true
+                binding.serverErrorText.isVisible = true
+                makeToast(getString(ru.practicum.android.diploma.ui.R.string.search_screen_toast_error))
+            }
+
+            SearchScreenState.Error.NO_INTERNET_ERROR -> {
+                binding.noInternetErrorIllustration.isVisible = true
+                binding.noInternetErrorText.isVisible = true
+            }
+        }
     }
 
+    private fun makeToast(text: String) {
+        Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
+    }
 }

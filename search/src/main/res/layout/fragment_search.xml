@@ -128,7 +128,6 @@
 
     <!-- Results popup -->
 
-    <!-- Default image -->
     <TextView
         android:id="@+id/resultCountPopup"
         style="@style/CountPopupTextViewRegular16NoPadding"
@@ -142,6 +141,7 @@
         app:layout_constraintVertical_bias="0.0"
         tools:targetApi="p" />
 
+    <!-- Default image -->
     <ImageView
         android:id="@+id/defaultIllustration"
         style="@style/IllustrationIconDefault"
@@ -198,6 +198,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/vacancies_list_server_error"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/failedToFetchListErrorIllustration"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <!-- New page server error -->
+    <ImageView
+        android:id="@+id/serverErrorIllustration"
+        style="@style/FetchListErrorIcon"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_224"
+        android:src="@drawable/il_3"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/resultCountPopup" />
+
+    <TextView
+        android:id="@+id/serverErrorText"
+        style="@style/FetchListErrorTextViewMedium22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/server_error"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

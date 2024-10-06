@@ -2,5 +2,5 @@
 <resources>
     <string name="check_network_connection">Check network connection</string>
     <string name="request_was_not_accepted">Request was not accepted %1$s</string>
-    <string name="unexpcted_error">Unexpcted error %1$s</string>
+    <string name="unexpected_error">Unexpcted error %1$s</string>
 </resources>

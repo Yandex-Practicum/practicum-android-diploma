@@ -40,6 +40,7 @@ class VacancyListViewModel(
 
     companion object {
         private const val TAG: String = "VacancyListViewModel"
+        private const val INTERNET_ERROR: String = "Check network connection"
     }
 
     fun initialSearch(query: String) {
@@ -57,16 +58,18 @@ class VacancyListViewModel(
                     paginationInfo = response.first ?: paginationInfo
                     parseNewList(paginationInfo.items)
                 } else {
-                    parseError(response.second)
+                    if (response.second == INTERNET_ERROR) {
+                        parseError(SearchScreenState.Error.NO_INTERNET_ERROR)
+                    } else {
+                        parseError(SearchScreenState.Error.FAILED_TO_FETCH_VACANCIES_ERROR)
+                    }
                 }
             }
         }
     }
 
-    private fun parseError(error: String?) {
-        error?.let {
-            _screenStateLiveData.postValue(SearchScreenState.NO_INTERNET_ERROR)
-        }
+    private fun parseError(state: SearchScreenState) {
+        _screenStateLiveData.postValue(state)
     }
 
     fun loadNextPageRequest() {
@@ -83,7 +86,11 @@ class VacancyListViewModel(
                     paginationInfo = response.first ?: paginationInfo
                     updateLists(currentList, paginationInfo.items)
                 } else {
-                    parseError(response.second)
+                    if (response.second == INTERNET_ERROR) {
+                        parseError(SearchScreenState.Error.NEW_PAGE_NO_INTERNET_ERROR)
+                    } else {
+                        parseError(SearchScreenState.Error.NEW_PAGE_SERVER_ERROR)
+                    }
                 }
             }
         }
@@ -99,7 +106,7 @@ class VacancyListViewModel(
 
     private fun parseNewList(list: List<Vacancy>) {
         if (list.isEmpty()) {
-            _screenStateLiveData.postValue(SearchScreenState.FAILED_TO_FETCH_VACANCIES_ERROR)
+            _screenStateLiveData.postValue(SearchScreenState.Error.FAILED_TO_FETCH_VACANCIES_ERROR)
             _vacancyListStateLiveData.postValue(VacancyListState.Empty)
             _currentResultsCountLiveData.postValue(paginationInfo.found)
         } else {
