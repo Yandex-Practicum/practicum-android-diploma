@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.search.ui.presenter
 
-import android.content.res.Resources
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -14,7 +13,9 @@ class VacancyViewHolder(private val binding: VacancyCardBinding) : RecyclerView.
 
     fun bind(vacancy: VacancySearch) {
         val vacancyTitle = itemView.context.getString(
-            R.string.search_vacancy_titlie, vacancy.name, vacancy.address
+            R.string.search_vacancy_titlie,
+            vacancy.name,
+            vacancy.address
         )
         binding.vacancyName.text = vacancyTitle
         binding.companyName.text = vacancy.company
