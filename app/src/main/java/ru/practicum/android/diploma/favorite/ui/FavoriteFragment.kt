@@ -43,8 +43,7 @@ class FavoriteFragment : Fragment() {
                 TODO("Реализовать клик в вьюмодел")
             }
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerView.adapter = RecycleViewAdapter(vacancies, onVacancyClickDebounce as ClickListener)
-        // опять ругался поставил as ClickListener как заглушку. Починить при реализации
+        binding.recyclerView.adapter = RecycleViewAdapter(vacancies, onVacancyClickDebounce)
     }
 
     override fun onDestroyView() {
