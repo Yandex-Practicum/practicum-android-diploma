@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.search.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -87,7 +85,6 @@ class VacancySearchFragment : Fragment() {
         binding.searchLineCleaner.setOnClickListener {
             view.hideKeyboard()
             binding.searchLine.setText(DEF_TEXT)
-            vacancies.clear()
             showEmptyScreen()
         }
 
@@ -118,11 +115,11 @@ class VacancySearchFragment : Fragment() {
             VacancySearchScreenState.Loading -> showLoadingProgress()
             is VacancySearchScreenState.Content -> showVacancies(state)
             VacancySearchScreenState.EmptyScreen -> showEmptyScreen()
-            VacancySearchScreenState.NetworkError -> showError()
-            is VacancySearchScreenState.PaginationError -> showError()
-            VacancySearchScreenState.PaginationLoading -> showError()
-            VacancySearchScreenState.SearchError -> showError()
-            VacancySearchScreenState.ServerError -> showError()
+            VacancySearchScreenState.NetworkError -> showError(state)
+            is VacancySearchScreenState.PaginationError -> showError(state)
+            VacancySearchScreenState.PaginationLoading -> showError(state)
+            VacancySearchScreenState.SearchError -> showError(state)
+            VacancySearchScreenState.ServerError -> showError(state)
         }
     }
 
@@ -154,8 +151,32 @@ class VacancySearchFragment : Fragment() {
         binding.recyclerView.visibility = View.GONE
     }
 
-    private fun showError() {
-        // коммент костыль
+    private fun showError(state: VacancySearchScreenState) {
+        binding.defaultSearchPlaceholder.visibility = View.GONE
+        binding.recyclerView.visibility = View.GONE
+        binding.progressCircular.visibility = View.GONE
+
+        when (state) {
+            is VacancySearchScreenState.NetworkError -> {
+                binding.notConnectedPlaceholder.visibility = View.VISIBLE
+                binding.notFoundPlaceholder.visibility = View.GONE
+                binding.serverErrorPlaceholder.visibility = View.GONE
+            }
+            is VacancySearchScreenState.SearchError -> {
+                binding.notConnectedPlaceholder.visibility = View.GONE
+                binding.notFoundPlaceholder.visibility = View.VISIBLE
+                binding.serverErrorPlaceholder.visibility = View.GONE
+            }
+            is VacancySearchScreenState.ServerError -> {
+                binding.notConnectedPlaceholder.visibility = View.GONE
+                binding.notFoundPlaceholder.visibility = View.GONE
+                binding.serverErrorPlaceholder.visibility = View.VISIBLE
+            }
+            is VacancySearchScreenState.PaginationError -> {
+                // коммент костыль
+            }
+            else -> {null}
+        }
     }
 
     override fun onDestroyView() {
