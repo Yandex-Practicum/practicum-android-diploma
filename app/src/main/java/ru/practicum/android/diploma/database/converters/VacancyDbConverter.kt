@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.database.converters
 
 import ru.practicum.android.diploma.database.entities.VacancyDetailsEntity
+import ru.practicum.android.diploma.search.domain.models.VacancySearch
 import ru.practicum.android.diploma.vacancy.domain.entity.Vacancy
 
 class VacancyDbConverter {
@@ -18,7 +19,7 @@ class VacancyDbConverter {
             employment = vacancyEntity.employment,
             description = vacancyEntity.description,
             keySkills = vacancyEntity.keySkill,
-            isFavorite = false
+            isFavorite = true
         )
     }
     fun map(vacancy: Vacancy): VacancyDetailsEntity {
@@ -33,6 +34,16 @@ class VacancyDbConverter {
             employment = vacancy.employment,
             description = vacancy.description,
             keySkill = vacancy.keySkills
+        )
+    }
+    fun convertToVacancySearch(vacancy: VacancyDetailsEntity): VacancySearch {
+        return VacancySearch(
+            id = vacancy.id,
+            name = vacancy.name,
+            salary = vacancy.salary,
+            address = vacancy.address ?: "" ,
+            company = vacancy.employment ?: "",
+            logo = null
         )
     }
 }
