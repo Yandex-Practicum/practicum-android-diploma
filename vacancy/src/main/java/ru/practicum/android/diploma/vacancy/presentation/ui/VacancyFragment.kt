@@ -146,7 +146,8 @@ class VacancyFragment : Fragment() {
             .transform(
                 RoundedCorners(
                     Utils.doToPx(
-                        RADIUS_ROUND_VIEW, requireContext()
+                        RADIUS_ROUND_VIEW,
+                        requireContext()
                     )
                 )
             ).transform().into(binding.vacancyImage)
@@ -154,7 +155,7 @@ class VacancyFragment : Fragment() {
         binding.vacancyCity.text = vacancy.location
         binding.vacancyExperienceInfo.text = vacancy.experience
         binding.vacancyConditions.text = vacancy.employment
-        binding.vacancyDescriptionInfo.text = Html.fromHtml(vacancy.description, Html.FROM_HTML_MODE_COMPACT).trim()
+        binding.vacancyDescriptionInfo. text = Html.fromHtml(vacancy.description, Html.FROM_HTML_MODE_COMPACT).trim()
         binding.vacancyKeySkills.visibility = View.GONE
         val htmlKeys = Html.fromHtml(vacancy.keySkills, Html.FROM_HTML_MODE_COMPACT)
         if (htmlKeys != null && htmlKeys.toString() != "") binding.vacancyKeySkills.visibility = View.VISIBLE
@@ -201,13 +202,15 @@ class VacancyFragment : Fragment() {
             return when (vacancyInputState) {
                 is VacancyInputState.VacancyNetwork -> {
                     bundleOf(
-                        ARGS_STATE to INPUT_NETWORK_STATE, VACANCY_ID_NETWORK to vacancyInputState.id
+                        ARGS_STATE to INPUT_NETWORK_STATE,
+                        VACANCY_ID_NETWORK to vacancyInputState.id
                     )
                 }
 
                 is VacancyInputState.VacancyDb -> {
                     bundleOf(
-                        ARGS_STATE to INPUT_DB_STATE, VACANCY_ID_DB to vacancyInputState.id
+                        ARGS_STATE to INPUT_DB_STATE,
+                            VACANCY_ID_DB to vacancyInputState.id
                     )
                 }
             }
