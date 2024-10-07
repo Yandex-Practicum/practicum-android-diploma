@@ -30,22 +30,14 @@ fun <T, S> Context.executeNetworkRequest(
             }
             HttpStatus.CLIENT_ERROR -> {
                 emit(
-                    Resource.Error(getString(
-                            R.string.request_was_not_accepted,
-                            response.resultCode,
-                        ))
+                    Resource.Error(getString(R.string.request_was_not_accepted, response.resultCode))
                 )
             }
             HttpStatus.CLIENT_ERROR_404 -> {
-                emit(Resource.Error(getString(
-                            R.string.request_was_not_accepted_404
-                        )))
+                emit(Resource.Error(getString(R.string.request_was_not_accepted_404)))
             }
             HttpStatus.SERVER_ERROR -> {
-                emit(Resource.Error(getString(
-                            R.string.unexpected_error,
-                            response.resultCode
-                        )))
+                emit(Resource.Error(getString(R.string.unexpected_error, response.resultCode)))
             }
         }
     }

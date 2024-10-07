@@ -56,9 +56,7 @@ class VacancyFragment : Fragment() {
         if (argsState == INPUT_DB_STATE) { vacancyDetailViewModel.showVacancyDb(idDb) }
         vacancyDetailViewModel.observeVacancyState().observe(viewLifecycleOwner) { state ->
             when (state) {
-                is VacancyDetailState.Loading -> {
-                    showLoading()
-                }
+                is VacancyDetailState.Loading -> { showLoading() }
                 is VacancyDetailState.Content -> {
                     showContent(state.vacancy)
                     vacancy = state.vacancy
