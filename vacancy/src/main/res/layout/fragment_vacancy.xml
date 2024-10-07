@@ -191,26 +191,34 @@
                 android:id="@+id/vacancyServerError"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="208dp"
                 android:orientation="vertical"
-                android:padding="@dimen/errorPadding"
+                android:paddingHorizontal="16dp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
+
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="224dp"
+
                     android:src="@drawable/vacancy_server_error" />
 
                 <TextView
-                    style="@style/TextViewMedium22"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/ys_display_medium"
                     android:text="@string/server_error"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/primaryTextAndUIColor"
+                    android:textFontWeight="500"
+                    android:textSize="@dimen/textSizeMedium" />
+
             </LinearLayout>
 
             <ProgressBar
