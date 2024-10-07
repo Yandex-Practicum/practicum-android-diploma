@@ -26,8 +26,7 @@ class VacancySearchViewModel(
     fun getStateObserve(): LiveData<VacancySearchScreenState> = stateLiveData
     fun getVacancyListObserve(): LiveData<MutableList<VacancySearch>?> = vacancyList
     private val query = HashMap<String, String>()
-
-    private fun loadData(text: String) {
+    fun loadData(text: String) {
         if (text.isNotEmpty()) {
             stateLiveData.value = VacancySearchScreenState.Loading
             query["text"] = text
