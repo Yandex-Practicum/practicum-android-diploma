@@ -21,7 +21,7 @@ val repositoryModule = module {
     }
 
     single<SearchRepository> {
-        SearchRepositoryImpl()
+        SearchRepositoryImpl(get(), get())
     }
 
     single<VacanciesRepository> {

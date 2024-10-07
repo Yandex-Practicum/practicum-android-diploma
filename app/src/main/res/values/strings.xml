@@ -15,7 +15,8 @@
     <string name="No_list">Не удалось получить список вакансий</string>
     <string name="filter">filter</string>
     <string name="search">Search</string>
-    <string name="Vacancies_not_found">Таких вакансий нет</string>
     <string name="Input_request">Введите запрос</string>
     <string name="Error_server">Ошибка сервера</string>
+    <string name="found_vacancies_count">Найдено %1$d вакансий</string>
+    <string name="no_vacancies_text">Таких вакансий нет</string>
 </resources>
