@@ -6,6 +6,7 @@ import ru.practicum.android.diploma.vacancy.data.dto.EmployerDto
 import ru.practicum.android.diploma.vacancy.data.dto.SalaryDto
 
 data class VacancyItemDto(
+    val id: String,
     val address: AddressDto?,
     val area: AreaDto,
     val employer: EmployerDto,

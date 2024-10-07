@@ -100,8 +100,7 @@ class VacancySearchViewModel(
     }
 
     fun onVacancyClick(vacancySearch: VacancySearch) {
-        vacancySearch.toString()
-        // коммент костыль
+        vacancyClickEvent.value = vacancySearch.id
     }
 
     private fun processingState(foundVacancies: List<VacancySearch>?) {

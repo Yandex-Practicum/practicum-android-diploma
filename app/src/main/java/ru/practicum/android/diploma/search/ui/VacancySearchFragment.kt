@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.search.ui
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +12,11 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.VacancySearchFragmentBinding
 import ru.practicum.android.diploma.search.domain.models.VacancySearch
 import ru.practicum.android.diploma.search.presentation.VacancySearchScreenState
@@ -21,6 +24,7 @@ import ru.practicum.android.diploma.search.presentation.VacancySearchViewModel
 import ru.practicum.android.diploma.search.ui.presenter.RecycleViewAdapter
 import ru.practicum.android.diploma.util.debounce
 import ru.practicum.android.diploma.util.hideKeyboard
+import ru.practicum.android.diploma.vacancy.ui.VacancyDetailFragment
 
 class VacancySearchFragment : Fragment() {
 
@@ -61,9 +65,15 @@ class VacancySearchFragment : Fragment() {
         }
         viewModel.checkVacancyState()
 
+        viewModel.getVacancyClickEvent().observe(viewLifecycleOwner) { vacancyId ->
+            openVacancyDetails(vacancyId)
+        }
+
         binding.searchLine.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                viewModel.searchDebounce(binding.searchLine.text.toString())
+                showLoadingProgress()
+                viewModel.searchDebounce(DEF_TEXT)
+                viewModel.loadData(inputTextValue)
                 true
             }
             false
@@ -110,12 +120,14 @@ class VacancySearchFragment : Fragment() {
         onVacancyClickDebounce = debounce<VacancySearch>(
             CLICK_DEBOUNCE_DELAY,
             viewLifecycleOwner.lifecycleScope,
-            false
+            true
         ) { vacancySearch ->
             viewModel.onVacancyClick(vacancySearch)
         }
 
-        adapter = RecycleViewAdapter(vacancies, onVacancyClickDebounce!!)
+        adapter = RecycleViewAdapter(vacancies) {
+            onVacancyClickDebounce!!(it)
+        }
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
 
@@ -229,6 +241,13 @@ class VacancySearchFragment : Fragment() {
         }
     }
 
+    private fun openVacancyDetails(vacancyId: String) {
+        findNavController().navigate(
+            R.id.action_searchFragment_to_vacancyFragment,
+            VacancyDetailFragment.createArgs(vacancyId)
+        )
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -236,6 +255,6 @@ class VacancySearchFragment : Fragment() {
 
     companion object {
         const val DEF_TEXT = ""
-        const val CLICK_DEBOUNCE_DELAY = 2000L
+        const val CLICK_DEBOUNCE_DELAY = 1000L
     }
 }
