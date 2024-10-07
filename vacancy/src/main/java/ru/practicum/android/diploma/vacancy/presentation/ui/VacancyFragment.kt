@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.vacancy.presentation.ui
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.Html
 import android.view.LayoutInflater
@@ -35,8 +34,8 @@ class VacancyFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        savedInstanceState: Bundle?,
+    ): View {
         _binding = FragmentVacancyBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -106,10 +105,7 @@ class VacancyFragment : Fragment() {
         binding.vacancyName.text = vacancy.nameVacancy
         binding.vacancySalary.text = vacancy.salary
 
-        Glide.with(this)
-            .load(vacancy.urlLogo)
-            .placeholder(R.drawable.placeholder_logo_item_favorite)
-            .centerCrop()
+        Glide.with(this).load(vacancy.urlLogo).placeholder(R.drawable.placeholder_logo_item_favorite).centerCrop()
             .transform(
                 RoundedCorners(
                     Utils.doToPx(
@@ -117,18 +113,16 @@ class VacancyFragment : Fragment() {
                         requireContext()
                     )
                 )
-            )
-            .transform()
-            .into(binding.vacancyImage)
+            ).transform().into(binding.vacancyImage)
         binding.vacancyCompany.text = vacancy.nameCompany
         binding.vacancyCity.text = vacancy.location
         binding.vacancyExperienceInfo.text = vacancy.experience
         binding.vacancyConditions.text = vacancy.employment
-        binding.vacancyDescriptionInfo.setText(Html.fromHtml(vacancy.description, Html.FROM_HTML_MODE_COMPACT).trim())
+        binding.vacancyDescriptionInfo.text = Html.fromHtml(vacancy.description, Html.FROM_HTML_MODE_COMPACT).trim()
         binding.vacancyKeySkills.visibility = View.GONE
         val htmlKeys = Html.fromHtml(vacancy.keySkills, Html.FROM_HTML_MODE_COMPACT)
         if (htmlKeys != null && htmlKeys.toString() != "") binding.vacancyKeySkills.visibility = View.VISIBLE
-        binding.vacancyKeySkillsInfo.setText(Html.fromHtml(vacancy.keySkills, Html.FROM_HTML_MODE_COMPACT))
+        binding.vacancyKeySkillsInfo.text = Html.fromHtml(vacancy.keySkills, Html.FROM_HTML_MODE_COMPACT)
     }
 
     private fun showError() {
