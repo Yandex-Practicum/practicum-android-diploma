@@ -17,22 +17,19 @@
 
             <ImageView
                 android:id="@+id/vacancyHeader"
+                style="@style/ButtonLeft"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/dimens_16"
-                android:paddingVertical="@dimen/filterPadding"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/button_left"/>
+                app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/vacancyHeaderText"
+                style="@style/VacancyHeaderText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/TextViewMedium22"
-                android:padding="15dp"
                 app:layout_constraintStart_toEndOf="@id/vacancyHeader"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/vacancy_screen_header"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/favoriteButton"
@@ -96,6 +93,7 @@
                         style="@style/CompanyNameText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/black"
                         tools:text="@string/vacancy_company_name_placeholder" />
 
                     <TextView
@@ -148,6 +146,8 @@
                 style="@style/VacancyDescriptionInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/dimens_16"
+                android:paddingTop="@dimen/vacancyTextPadding"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/vacancyDescription"
                 tools:text="@string/vacancy_description_placeholder" />
@@ -202,9 +202,9 @@
                 android:id="@+id/vacancyServerError"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="208dp"
                 android:orientation="vertical"
                 android:paddingHorizontal="16dp"
+                android:paddingTop="208dp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

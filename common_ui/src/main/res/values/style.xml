@@ -55,8 +55,15 @@
     </style>
     <style name="ButtonLeft">
         <item name="android:src">@drawable/button_left</item>
-        <item name="android:paddingVertical">@dimen/buttonLeftPadding</item>
-        <item name="android:paddingLeft">@dimen/buttonLeftPadding</item>
+        <item name="android:paddingVertical">@dimen/filterPadding</item>
+        <item name="android:paddingLeft">@dimen/dimens_16</item>
+    </style>
+    <style name="VacancyHeaderText">
+        <item name="android:textSize">@dimen/textSizeMedium</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textColor">@color/primaryTextAndUIColor</item>
+        <item name="android:padding">@dimen/dimen_15</item>
+        <item name="android:text">@string/vacancy_screen_header</item>
     </style>
     <style name="ToolBar">
         <item name="android:padding">@dimen/maskPadding</item>
