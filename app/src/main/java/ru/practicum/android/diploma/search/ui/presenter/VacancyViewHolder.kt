@@ -12,7 +12,12 @@ class VacancyViewHolder(private val binding: VacancyCardBinding) : RecyclerView.
     private val corner by lazy { itemView.resources.getDimension(R.dimen.radius_size_12).toInt() }
 
     fun bind(vacancy: VacancySearch) {
-        binding.vacancyName.text = vacancy.name
+        val vacancyTitle = itemView.context.getString(
+            R.string.search_vacancy_titlie,
+            vacancy.name,
+            vacancy.address
+        )
+        binding.vacancyName.text = vacancyTitle
         binding.companyName.text = vacancy.company
         binding.salary.text = vacancy.salary
 
