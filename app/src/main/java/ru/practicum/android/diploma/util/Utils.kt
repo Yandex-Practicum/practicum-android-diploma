@@ -10,7 +10,7 @@ fun Salary?.formatSalary(): String {
     val fromSalary = this.from
     val toSalary = this.to
     val currencySymbol = when (this.currency) {
-        "RUB" -> "₽"
+        "RUR" -> "₽"
         "USD" -> "$"
         "EUR" -> "€"
         else -> ""

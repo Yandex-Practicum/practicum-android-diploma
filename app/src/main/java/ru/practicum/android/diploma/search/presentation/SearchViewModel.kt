@@ -23,15 +23,31 @@ class SearchViewModel(val searchInteractor: SearchInteractor) : ViewModel() {
 
     private var searchJob: Job? = null
 
+    // Переменные пагинации
+    private var currentPage = 0
+    private var maxPages = Int.MAX_VALUE
+    private var isNextPageLoading = false
+
     fun onSearchQueryChanged(query: String) {
+        currentPage = 0
+        maxPages = Int.MAX_VALUE
+        _vacanciesList.value = emptyList()
+        _searchQuery.value = query
         if (query == "") {
             searchJob?.cancel()
             _uiState.value = UiScreenState.Default
             return
         }
-        _searchQuery.value = query
-        val params = VacancySearchParams(query = query)
+        val params = VacancySearchParams(query = query, page = currentPage)
         _uiState.value = UiScreenState.Loading
+        searchRequest(params)
+    }
+
+    fun onLastItemReached() {
+        if (isNextPageLoading || currentPage >= maxPages - 1) return
+        isNextPageLoading = true
+        val query = _searchQuery.value ?: return
+        val params = VacancySearchParams(query = query, page = currentPage + 1)
         searchRequest(params)
     }
 
@@ -40,6 +56,7 @@ class SearchViewModel(val searchInteractor: SearchInteractor) : ViewModel() {
         searchJob = viewModelScope.launch {
             searchInteractor.searchVacancies(params).collect { result ->
                 renderState(result)
+                isNextPageLoading = false
             }
         }
     }
@@ -54,8 +71,13 @@ class SearchViewModel(val searchInteractor: SearchInteractor) : ViewModel() {
                 val vacanciesUi = result.data.map { vacancy ->
                     mappingVacancyToVacancyUi(vacancy)
                 }
+                currentPage = result.page ?: currentPage
+                maxPages = result.pages ?: maxPages
                 _vacanciesList.value = _vacanciesList.value?.plus(vacanciesUi)
-                _uiState.value = UiScreenState.Success(vacancies = vacanciesUi, found = result.found ?: 0)
+                _uiState.value = UiScreenState.Success(
+                    vacancies = _vacanciesList.value ?: emptyList(),
+                    found = result.found ?: 0
+                )
             }
         }
     }
