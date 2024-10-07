@@ -18,12 +18,13 @@
     <string name="not_found_message">Не удалось получить \n список вакансий</string>
     <string name="server_error">Ошибка сервера</string>
     <string name="empty_list">Список пуст</string>
+    <string name="without_salary">Зарплата не указана</string>
     <string name="needed_experience">Требуемый опыт</string>
     <string name="about_vacancy">Описание вакансии</string>
     <string name="responsibilities">Обязанности</string>
     <string name="search_vacancy_titlie">%s, %s</string>
 
-<!--  Team Info Screen /start/ -->
+    <!--  Team Info Screen /start/ -->
     <string name="team_member_title">Над приложением работали</string>
     <string-array name="authors">
         <item>Сергей Величко</item>
@@ -32,4 +33,18 @@
         <item>Артём Матюшкин</item>
     </string-array>
     <!--  Team Info Screen /end/ -->
+
+    <!--  Currency Chars  /start/-->
+    <string name="russian_ruble">\u20BD</string>
+    <string name="belarusian_ruble">BYN</string>
+    <string name="usa_dollar">\u0024</string>
+    <string name="euro">\u20AC</string>
+    <string name="kazakhstani_tenge">\u20B8</string>
+    <string name="ukrainian_hryvnia">\u20B4</string>
+    <string name="azerbaijani_manat">\u20BC</string>
+    <string name="uzbekistan_sum">UZS</string>
+    <string name="georgian_lari">\u20BE</string>
+    <string name="kyrgyzstani_som">\u20C0</string>
+    <!--  Currency Chars  /end/-->
+
 </resources>

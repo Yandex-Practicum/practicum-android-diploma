@@ -5,14 +5,17 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.search.data.dto.VacancyItemDto
 import ru.practicum.android.diploma.search.domain.models.VacancySearch
 
-class SearchVacancyNetworkConverter(private val context: Context) {
+class SearchVacancyNetworkConverter(
+    private val salaryCurrencySignFormater: SalaryCurrencySignFormater
+) {
 
     fun map(vacancyItemDto: VacancyItemDto): VacancySearch {
         return VacancySearch(
+            id = vacancyItemDto.id,
             name = vacancyItemDto.name,
             address = getAddressFromDto(vacancyItemDto),
             company = vacancyItemDto.employer.name,
-            salary = getSalaryFromDto(vacancyItemDto),
+            salary = salaryCurrencySignFormater.getStringSalary(vacancyItemDto.salary),
             logo = vacancyItemDto.employer.logoUrls?.size240
         )
     }
@@ -22,24 +25,6 @@ class SearchVacancyNetworkConverter(private val context: Context) {
             vacancyItemDto.area.name
         } else {
             vacancyItemDto.address.city
-        }
-    }
-
-    private fun getSalaryFromDto(vacancyItemDto: VacancyItemDto): String? {
-        val salary = vacancyItemDto.salary
-        val from = context.getString(R.string.salary_from)
-        val to = context.getString(R.string.salary_to)
-
-        return if (salary == null) {
-            null
-        } else if (salary.to == null && salary.from != null) {
-            "$from ${salary.from}"
-        } else if (salary.to != null && salary.from == null) {
-            "$to ${salary.to}"
-        } else if (salary.to != null && salary.from != null) {
-            "$from ${salary.from} $to ${salary.to}"
-        } else {
-            null
         }
     }
 }
