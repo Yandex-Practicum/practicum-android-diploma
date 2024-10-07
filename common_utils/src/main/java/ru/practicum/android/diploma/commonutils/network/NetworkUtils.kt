@@ -11,10 +11,12 @@ import ru.practicum.android.diploma.ui.R
 fun Context.isConnected(): Boolean {
     val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-    return (capabilities != null
+    return (
+        capabilities != null
         && (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
         || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
-        || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)))
+        || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET))
+    )
 }
 
 fun <T, S> Context.executeNetworkRequest(
