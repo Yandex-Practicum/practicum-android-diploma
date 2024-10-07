@@ -13,8 +13,8 @@ class GetVacancyDetailsInteractorImpl(
     override fun getVacancyDetails(vacancyId: String): Flow<Resource<Vacancy>?> {
         return repository.getVacancyDetails(vacancyId).map { result ->
             when (result) {
-                is Resource.Error -> result
-                is Resource.Success -> null
+                is Resource.Success -> result
+                is Resource.Error -> null
             }
         }
     }
