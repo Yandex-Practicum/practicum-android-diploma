@@ -52,8 +52,8 @@ class VacancyFragment : Fragment() {
         binding.shareButton.setOnClickListener { vacancyDetailViewModel.share(shareLink) }
         vacancyDetailViewModel.updateFavorite(idDb)
         requireArguments().getString(VACANCY_ID_NETWORK)?.let { vacancyDetailViewModel.updateFavorite(it.toInt()) }
-        if (argsState == INPUT_NETWORK_STATE) { vacancyDetailViewModel.showVacancyNetwork(idNetwork) }
-        if (argsState == INPUT_DB_STATE) { vacancyDetailViewModel.showVacancyDb(idDb) }
+        if (argsState == INPUT_NETWORK_STATE) vacancyDetailViewModel.showVacancyNetwork(idNetwork)
+        if (argsState == INPUT_DB_STATE) vacancyDetailViewModel.showVacancyDb(idDb)
         vacancyDetailViewModel.observeVacancyState().observe(viewLifecycleOwner) { state ->
             when (state) {
                 is VacancyDetailState.Loading -> { showLoading() }
