@@ -41,44 +41,36 @@
 
             <TextView
                 android:id="@+id/vacancyName"
-                style="@style/TextViewBold32"
+                style="@style/VacancyNameText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/vacancyTextPadding"
-                android:layout_marginTop="@dimen/vacancyTextPadding"
-                android:padding="@dimen/noPadding"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/vacancyHeader"
                 tools:text="@string/vacancy_name_placeholder" />
 
             <TextView
                 android:id="@+id/vacancySalary"
-                style="@style/TextViewMedium22"
+                style="@style/VacancySalaryText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/vacancyTextPadding"
-                android:padding="@dimen/noPadding"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/vacancyName"
                 tools:text="@string/vacancy_salary_placeholder" />
 
             <LinearLayout
                 android:id="@+id/vacancyCard"
+                style="@style/VacancyCard"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/vacancyCardHeight"
-                android:layout_margin="@dimen/vacancyTextPadding"
-                android:background="@drawable/vacancy_card"
-                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/vacancySalary">
 
                 <ImageView
                     android:id="@+id/vacancyImage"
+                    style="@style/VacancyImage"
                     android:layout_width="@dimen/sizeLogoItemFavorite"
                     android:layout_height="@dimen/sizeLogoItemFavorite"
-                    android:layout_marginVertical="@dimen/vacancyTextPadding"
-                    android:layout_marginStart="@dimen/vacancyTextPadding"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/vacancyCard"
                     tools:src="@drawable/placeholder_logo_item_favorite" />
@@ -90,110 +82,80 @@
 
                     <TextView
                         android:id="@+id/vacancyCompany"
-                        style="@style/TextViewMedium22"
+                        style="@style/CompanyNameText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/vacancyCardPadding"
-                        android:layout_marginTop="@dimen/vacancyTextPadding"
-                        android:padding="@dimen/noPadding"
-                        android:textColor="@color/black"
                         tools:text="@string/vacancy_company_name_placeholder" />
 
                     <TextView
                         android:id="@+id/vacancyCity"
-                        style="@style/TextViewRegular16"
+                        style="@style/VacancyCity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/vacancyCardPadding"
-                        android:padding="@dimen/noPadding"
-                        android:textColor="@color/black"
+                        app:fontWeight="400"
                         tools:text="@string/vacancy_city_placeholder" />
                 </LinearLayout>
             </LinearLayout>
 
             <TextView
                 android:id="@+id/vacancyExperience"
-                style="@style/TextViewMedium16"
+                style="@style/VacacnyExperienceText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimens_24"
-                android:layout_marginTop="@dimen/filterPadding"
-                android:padding="@dimen/noPadding"
                 android:text="@string/vacancy_screen_experience"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/vacancyCard" />
 
             <TextView
                 android:id="@+id/vacancyExperienceInfo"
-                style="@style/TextViewRegular16"
+                style="@style/ExperienceInfoText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/vacancyTextPadding"
-                android:padding="@dimen/noPadding"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/vacancyExperience"
                 tools:text="@string/vacancy_experience_placeholder" />
 
             <TextView
                 android:id="@+id/vacancyConditions"
-                style="@style/TextViewRegular16"
+                style="@style/OccpuancyTypeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/vacancyTextPadding"
-                android:padding="@dimen/noPadding"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/vacancyExperienceInfo"
                 tools:text="@string/vacancy_conditions_placeholder" />
 
             <TextView
                 android:id="@+id/vacancyDescription"
-                style="@style/TextViewMedium22"
+                style="@style/VacancyDesriptionHeader"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/vacancyTextPadding"
-                android:layout_marginTop="@dimen/dp_32"
-                android:padding="@dimen/noPadding"
                 android:text="@string/vacancy_screen_description"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/vacancyConditions" />
 
             <TextView
                 android:id="@+id/vacancyDescriptionInfo"
+                style="@style/VacancyDescriptionInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/ys_display_regular"
-                android:paddingHorizontal="@dimen/dimens_16"
-                android:paddingTop="@dimen/vacancyTextPadding"
-                android:paddingBottom="@dimen/noPadding"
-                android:textColor="@color/primaryTextAndUIColor"
-                android:textFontWeight="400"
-                android:textSize="@dimen/textSizeLittle"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/vacancyDescription"
                 tools:text="@string/vacancy_description_placeholder" />
 
             <TextView
                 android:id="@+id/vacancyKeySkills"
+                style="@style/VacancyKeySkillsHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/vacancyTextPadding"
-                android:layout_marginTop="@dimen/dimens_24"
-                android:fontFamily="@font/ys_display_medium"
-                android:includeFontPadding="false"
-                android:padding="@dimen/noPadding"
                 android:text="@string/vacancy_screen_key_skills"
-                android:textColor="@color/primaryTextAndUIColor"
-                android:textFontWeight="500"
-                android:textSize="@dimen/textSizeMedium"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/vacancyDescriptionInfo" />
 
             <TextView
                 android:id="@+id/vacancyKeySkillsInfo"
-                style="@style/TextViewRegular16"
+                style="@style/VacancyKeySkillsInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/vacancyTextPadding"
+                app:fontWeight="400"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/vacancyKeySkills"
                 tools:text="@string/vacancy_key_skills_placeholder" />
