@@ -86,4 +86,112 @@
         <item name="android:textColorHint">@color/searchBarHintTextColor</item>
         <item name="android:textCursorDrawable">@drawable/blue_text_cursor_drawable</item>
     </style>
+
+    <style name="OccpuancyTypeText" parent="TextViewRegular16">
+        <item name="android:layout_marginStart">@dimen/vacancyTextPadding</item>
+        <item name="android:layout_marginTop">@dimen/dp_8</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:padding">@dimen/noPadding</item>
+        <item name="android:textColor">@color/primaryTextAndUIColor</item>
+        <item name="android:textSize">@dimen/textSizeLittle</item>
+        <item name="fontWeight">400</item>
+    </style>
+
+    <style name="VacancyNameText">
+        <item name="android:layout_marginHorizontal">@dimen/vacancyTextPadding</item>
+        <item name="android:layout_marginTop">@dimen/vacancyTextPadding</item>
+        <item name="android:fontFamily">@font/ys_display_bold</item>
+        <item name="android:padding">@dimen/noPadding</item>
+        <item name="android:textColor">@color/primaryTextAndUIColor</item>
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <style name="VacancySalaryText">
+        <item name="android:layout_marginHorizontal">@dimen/vacancyTextPadding</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:padding">@dimen/noPadding</item>
+        <item name="android:textColor">@color/primaryTextAndUIColor</item>
+        <item name="android:textSize">@dimen/textSizeMedium</item>
+    </style>
+
+    <style name="VacancyCard">
+        <item name="android:layout_margin">@dimen/vacancyTextPadding</item>
+        <item name="android:background">@drawable/vacancy_card</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="VacancyImage">
+        <item name="android:layout_marginVertical">@dimen/vacancyTextPadding</item>
+        <item name="android:layout_marginStart">@dimen/vacancyTextPadding</item>
+    </style>
+
+    <style name="CompanyNameText">
+        <item name="android:layout_marginStart">@dimen/vacancyCardPadding</item>
+        <item name="android:layout_marginTop">@dimen/vacancyTextPadding</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:padding">@dimen/noPadding</item>
+        <item name="android:textColor">@color/primaryTextAndUIColor</item>
+        <item name="android:textSize">@dimen/textSizeMedium</item>
+    </style>
+
+    <style name="VacancyCity">
+        <item name="android:layout_marginStart">@dimen/vacancyCardPadding</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:padding">@dimen/noPadding</item>
+        <item name="android:textColor">@color/primaryTextAndUIColor</item>
+        <item name="android:textSize">@dimen/textSizeLittle</item>
+    </style>
+
+    <style name="VacacnyExperienceText">
+        <item name="android:layout_marginStart">@dimen/dimens_16</item>
+        <item name="android:layout_marginTop">@dimen/filterPadding</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:padding">@dimen/noPadding</item>
+        <item name="android:textColor">@color/primaryTextAndUIColor</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="ExperienceInfoText">
+        <item name="android:layout_marginStart">@dimen/vacancyTextPadding</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:padding">@dimen/noPadding</item>
+        <item name="android:textColor">@color/primaryTextAndUIColor</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="VacancyDesriptionHeader">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/vacancyTextPadding</item>
+        <item name="android:layout_marginTop">@dimen/dp_32</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:padding">@dimen/noPadding</item>
+        <item name="android:textColor">@color/primaryTextAndUIColor</item>
+        <item name="android:textSize">@dimen/textSizeMedium</item>
+    </style>
+
+    <style name="VacancyDescriptionInfo">
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:paddingHorizontal">@dimen/dimens_16</item>
+        <item name="android:paddingTop">@dimen/vacancyTextPadding</item>
+        <item name="android:paddingBottom">@dimen/noPadding</item>
+        <item name="android:textColor">@color/primaryTextAndUIColor</item>
+        <item name="android:textSize">@dimen/textSizeLittle</item>
+    </style>
+
+    <style name="VacancyKeySkillsHeader">
+        <item name="android:layout_marginStart">@dimen/vacancyTextPadding</item>
+        <item name="android:layout_marginTop">@dimen/dimens_24</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:padding">@dimen/noPadding</item>
+        <item name="android:textColor">@color/primaryTextAndUIColor</item>
+        <item name="android:textSize">@dimen/textSizeMedium</item>
+    </style>
+
+    <style name="VacancyKeySkillsInfo">
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:padding">@dimen/vacancyTextPadding</item>
+        <item name="android:textColor">@color/primaryTextAndUIColor</item>
+        <item name="android:textSize">@dimen/textSizeLittle</item>
+    </style>
 </resources>
