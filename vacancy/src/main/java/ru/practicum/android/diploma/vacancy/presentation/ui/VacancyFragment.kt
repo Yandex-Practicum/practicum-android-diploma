@@ -55,34 +55,42 @@ class VacancyFragment : Fragment() {
         if (argsState == INPUT_NETWORK_STATE) vacancyDetailViewModel.showVacancyNetwork(idNetwork)
         if (argsState == INPUT_DB_STATE) vacancyDetailViewModel.showVacancyDb(idDb)
         vacancyDetailViewModel.observeVacancyState().observe(viewLifecycleOwner) { state ->
-            when (state) {
-                is VacancyDetailState.Loading -> { showLoading() }
-                is VacancyDetailState.Content -> {
-                    showContent(state.vacancy)
-                    vacancy = state.vacancy
-                }
-                is VacancyDetailState.Error -> { showError() }
-                is VacancyDetailState.Empty -> { showEmpty() }
-            }
+            getVacancyState(state)
         }
         binding.favoriteButton.setOnClickListener {
             vacancy?.let { it1 -> vacancyDetailViewModel.modifyingStatusOfVacancyFavorite(it1) }
         }
         vacancyDetailViewModel.observeVacancyFavoriteMessageState().observe(viewLifecycleOwner) { state ->
-            when (state) {
-                is VacancyFavoriteMessageState.Empty -> { makeToast(getString(R.string.message_empty)) }
-                is VacancyFavoriteMessageState.NoAddFavorite -> {
-                    makeToast(getString(R.string.message_no_add_favorite))
-                }
-                is VacancyFavoriteMessageState.NoDeleteFavorite -> {
-                    makeToast(getString(R.string.message_no_delete_favorite))
-                }
-                is VacancyFavoriteMessageState.Error -> { makeToast(getString(R.string.message_error)) }
-            }
+            getFavoriteState(state)
         }
         vacancyDetailViewModel.observeFavoriteState().observe(viewLifecycleOwner) { isFavorite ->
             val imageResource = if (isFavorite) R.drawable.favorites_on else R.drawable.favorites_off
             binding.favoriteButton.setImageResource(imageResource)
+        }
+    }
+
+    private fun getVacancyState(state: VacancyDetailState) {
+        when (state) {
+            is VacancyDetailState.Loading -> { showLoading() }
+            is VacancyDetailState.Content -> {
+                showContent(state.vacancy)
+                vacancy = state.vacancy
+            }
+            is VacancyDetailState.Error -> { showError() }
+            is VacancyDetailState.Empty -> { showEmpty() }
+        }
+    }
+
+    private fun getFavoriteState(state: VacancyFavoriteMessageState) {
+        when (state) {
+            is VacancyFavoriteMessageState.Empty -> { makeToast(getString(R.string.message_empty)) }
+            is VacancyFavoriteMessageState.NoAddFavorite -> {
+                makeToast(getString(R.string.message_no_add_favorite))
+            }
+            is VacancyFavoriteMessageState.NoDeleteFavorite -> {
+                makeToast(getString(R.string.message_no_delete_favorite))
+            }
+            is VacancyFavoriteMessageState.Error -> { makeToast(getString(R.string.message_error)) }
         }
     }
 
