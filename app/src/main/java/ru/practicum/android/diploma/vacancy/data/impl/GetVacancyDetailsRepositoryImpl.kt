@@ -14,13 +14,16 @@ class GetVacancyDetailsRepositoryImpl(
     private val networkClient: NetworkClient,
     private val converter: VacancyDetailsNetworkConverter
 ) : GetVacancyDetailsRepository {
+
     override fun getVacancyDetails(vacancyId: String): Flow<Resource<Vacancy>> = flow {
         val response = networkClient.doRequest(vacancyId)
-        when (response.resultCode) {
-            HttpStatusCode.OK ->
-                Resource.Success(converter.map(response as VacancyDetailsResponse))
+        emit(
+            when (response.resultCode) {
+                HttpStatusCode.OK ->
+                    Resource.Success(converter.map(response as VacancyDetailsResponse))
 
-            else -> emit(Resource.Error("Ошибка"))
-        }
+                else -> Resource.Error("Error")
+            }
+        )
     }
 }

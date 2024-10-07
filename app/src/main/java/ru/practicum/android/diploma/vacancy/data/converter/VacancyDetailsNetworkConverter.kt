@@ -22,7 +22,7 @@ class VacancyDetailsNetworkConverter(private val context: Context) {
             companyLogo = getLogo(response.employer),
             area = response.area.name,
             address = getAddress(response.address),
-            experience = getExpierence(response.experience),
+            experience = getExperience(response.experience),
             schedule = getSchedule(response.schedule),
             employment = getEmployment(response.employment),
             description = response.description,
@@ -32,9 +32,9 @@ class VacancyDetailsNetworkConverter(private val context: Context) {
     }
 
     private fun getKeySkills(keySkills: List<KeySkillDto>): String {
-        val keySkillsString: String = ""
+        var keySkillsString = ""
         keySkills.forEach { skill ->
-            keySkillsString + skill.name
+            keySkillsString = keySkillsString + skill.name + "\n"
         }
         return keySkillsString
     }
@@ -47,7 +47,7 @@ class VacancyDetailsNetworkConverter(private val context: Context) {
         return schedule?.name
     }
 
-    private fun getExpierence(experience: ExperienceDto?): String? {
+    private fun getExperience(experience: ExperienceDto?): String? {
         return experience?.name
     }
 

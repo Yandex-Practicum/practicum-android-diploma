@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.util
+package ru.practicum.android.diploma.util.network
 
 import retrofit2.http.GET
 import retrofit2.http.Headers
