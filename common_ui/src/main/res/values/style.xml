@@ -109,7 +109,7 @@
         <item name="android:layout_marginTop">@dimen/vacancyTextPadding</item>
         <item name="android:fontFamily">@font/ys_display_bold</item>
         <item name="android:padding">@dimen/noPadding</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/primaryTextAndUIColor</item>
         <item name="android:textSize">32sp</item>
     </style>
 
@@ -117,7 +117,7 @@
         <item name="android:layout_marginHorizontal">@dimen/vacancyTextPadding</item>
         <item name="android:fontFamily">@font/ys_display_medium</item>
         <item name="android:padding">@dimen/noPadding</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/primaryTextAndUIColor</item>
         <item name="android:textSize">@dimen/textSizeMedium</item>
     </style>
 
@@ -137,7 +137,7 @@
         <item name="android:layout_marginTop">@dimen/vacancyTextPadding</item>
         <item name="android:fontFamily">@font/ys_display_medium</item>
         <item name="android:padding">@dimen/noPadding</item>
-        <item name="android:textColor">@color/primaryTextAndUIColor</item>
+        <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/textSizeMedium</item>
     </style>
 
@@ -145,7 +145,7 @@
         <item name="android:layout_marginStart">@dimen/vacancyCardPadding</item>
         <item name="android:fontFamily">@font/ys_display_regular</item>
         <item name="android:padding">@dimen/noPadding</item>
-        <item name="android:textColor">@color/primaryTextAndUIColor</item>
+        <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/textSizeLittle</item>
     </style>
 
