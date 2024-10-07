@@ -161,7 +161,7 @@ class VacancyFragment : Fragment() {
         binding.vacancyCity.text = vacancy.location
         binding.vacancyExperienceInfo.text = vacancy.experience
         binding.vacancyConditions.text = vacancy.employment
-        binding.vacancyDescriptionInfo.setText(Html.fromHtml(vacancy.description, Html.FROM_HTML_MODE_COMPACT))
+        binding.vacancyDescriptionInfo.setText(Html.fromHtml(vacancy.description, Html.FROM_HTML_MODE_COMPACT).trim())
         binding.vacancyKeySkills.visibility = View.GONE
         val htmlKeys = Html.fromHtml(vacancy.keySkills, Html.FROM_HTML_MODE_COMPACT)
         if (htmlKeys != null && htmlKeys.toString() != "") binding.vacancyKeySkills.visibility = View.VISIBLE
