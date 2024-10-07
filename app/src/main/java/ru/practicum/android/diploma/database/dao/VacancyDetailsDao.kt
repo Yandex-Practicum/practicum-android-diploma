@@ -11,10 +11,10 @@ import ru.practicum.android.diploma.database.entities.VacancyDetailsEntity
 interface VacancyDetailsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertVacancy(vacancy: VacancyDetailsEntity)
+    suspend fun insertVacancy(vacancy: VacancyDetailsEntity)
 
     @Query("DELETE FROM $TABLE_NAME where id = :id")
-    fun deleteVacancyById(id: String)
+    suspend fun deleteVacancyById(id: String)
 
     @Query("SELECT * FROM $TABLE_NAME")
     fun getVacancies(): Flow<List<VacancyDetailsEntity>>
