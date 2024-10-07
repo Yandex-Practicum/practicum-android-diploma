@@ -8,11 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.VacancySearchFragmentBinding
@@ -48,14 +50,22 @@ class VacancySearchFragment : Fragment() {
 
         recyclerViewInit()
 
-        if (savedInstanceState != null) binding.searchLine.setText(inputTextValue)
+        if (savedInstanceState != null) {
+            binding.searchLine.setText(inputTextValue)
+        }
 
         viewModel.getStateObserve().observe(viewLifecycleOwner) { state ->
             render(state)
         }
+        viewModel.getVacancyListObserve().observe(viewLifecycleOwner) {
+            if (it != null) {
+                vacancies.addAll(it)
+                adapter!!.notifyDataSetChanged()
+            }
+        }
+        viewModel.checkVacancyState()
 
         viewModel.getVacancyClickEvent().observe(viewLifecycleOwner) { vacancyId ->
-            Log.d("MyTag", vacancyId)
             openVacancyDetails(vacancyId)
         }
 
@@ -112,7 +122,6 @@ class VacancySearchFragment : Fragment() {
             viewLifecycleOwner.lifecycleScope,
             true
         ) { vacancySearch ->
-            Log.d("MyTag", "in debounce")
             viewModel.onVacancyClick(vacancySearch)
         }
 
@@ -121,19 +130,51 @@ class VacancySearchFragment : Fragment() {
         }
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
+
+        recycleViewScrollListener()
+    }
+
+    private fun recycleViewScrollListener() {
+        val listener = object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(1) &&
+                    newState == RecyclerView.SCROLL_STATE_IDLE
+                ) {
+                    viewModel.nextPageDebounce(binding.searchLine.text.toString())
+                }
+            }
+        }
+        binding.recyclerView.addOnScrollListener(listener)
     }
 
     private fun render(state: VacancySearchScreenState) {
         when (state) {
             VacancySearchScreenState.Loading -> showLoadingProgress()
-            is VacancySearchScreenState.Content -> showVacancies(state)
+            is VacancySearchScreenState.Content -> showVacancies()
             VacancySearchScreenState.EmptyScreen -> showEmptyScreen()
             VacancySearchScreenState.NetworkError -> showError(state)
-            is VacancySearchScreenState.PaginationError -> showError(state)
-            VacancySearchScreenState.PaginationLoading -> showError(state)
+            is VacancySearchScreenState.PaginationError -> paginationError(state.message)
+            VacancySearchScreenState.PaginationLoading -> paginationLoading()
             VacancySearchScreenState.SearchError -> showError(state)
             VacancySearchScreenState.ServerError -> showError(state)
         }
+    }
+
+    private fun paginationError(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        binding.nextPageProgressCircular.visibility = View.GONE
+    }
+
+    private fun paginationLoading() {
+        binding.defaultSearchPlaceholder.visibility = View.GONE
+        binding.notConnectedPlaceholder.visibility = View.GONE
+        binding.notFoundPlaceholder.visibility = View.GONE
+        binding.serverErrorPlaceholder.visibility = View.GONE
+        binding.progressCircular.visibility = View.GONE
+        binding.recyclerView.visibility = View.VISIBLE
+        binding.nextPageProgressCircular.visibility = View.VISIBLE
+        binding.recyclerView.smoothScrollToPosition(vacancies.size - 1)
     }
 
     private fun showLoadingProgress() {
@@ -142,17 +183,17 @@ class VacancySearchFragment : Fragment() {
         binding.notFoundPlaceholder.visibility = View.GONE
         binding.serverErrorPlaceholder.visibility = View.GONE
         binding.progressCircular.visibility = View.VISIBLE
+        binding.nextPageProgressCircular.visibility = View.GONE
     }
 
-    private fun showVacancies(state: VacancySearchScreenState) {
-        val loadingVacancies = (state as VacancySearchScreenState.Content).vacancies
-        vacancies.addAll(loadingVacancies)
+    private fun showVacancies() {
         binding.defaultSearchPlaceholder.visibility = View.GONE
         binding.notConnectedPlaceholder.visibility = View.GONE
         binding.notFoundPlaceholder.visibility = View.GONE
         binding.serverErrorPlaceholder.visibility = View.GONE
         binding.progressCircular.visibility = View.GONE
         binding.recyclerView.visibility = View.VISIBLE
+        binding.nextPageProgressCircular.visibility = View.GONE
     }
 
     private fun showEmptyScreen() {
@@ -162,12 +203,14 @@ class VacancySearchFragment : Fragment() {
         binding.serverErrorPlaceholder.visibility = View.GONE
         binding.progressCircular.visibility = View.GONE
         binding.recyclerView.visibility = View.GONE
+        binding.nextPageProgressCircular.visibility = View.GONE
     }
 
     private fun showError(state: VacancySearchScreenState) {
         binding.defaultSearchPlaceholder.visibility = View.GONE
         binding.recyclerView.visibility = View.GONE
         binding.progressCircular.visibility = View.GONE
+        binding.nextPageProgressCircular.visibility = View.GONE
 
         when (state) {
             is VacancySearchScreenState.NetworkError -> {

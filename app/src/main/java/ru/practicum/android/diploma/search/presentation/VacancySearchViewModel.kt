@@ -17,17 +17,20 @@ class VacancySearchViewModel(
     private var latestSearchText: String? = null
 
     private val vacancyClickEvent = SingleEventLiveData<String>()
-    fun getVacancyClickEvent(): LiveData<String> = vacancyClickEvent
 
+    private val vacancyList = MutableLiveData<MutableList<VacancySearch>?>()
+    private val pageCount = MutableLiveData<Int>()
     private val stateLiveData = MutableLiveData<VacancySearchScreenState>()
-    fun getStateObserve(): LiveData<VacancySearchScreenState> = stateLiveData
-    val query = HashMap<String, String>()
 
+    fun getVacancyClickEvent(): LiveData<String> = vacancyClickEvent
+    fun getStateObserve(): LiveData<VacancySearchScreenState> = stateLiveData
+    fun getVacancyListObserve(): LiveData<MutableList<VacancySearch>?> = vacancyList
+    private val query = HashMap<String, String>()
     fun loadData(text: String) {
         if (text.isNotEmpty()) {
             stateLiveData.value = VacancySearchScreenState.Loading
-
             query["text"] = text
+            query["page"] = "0"
             viewModelScope.launch {
                 interactor
                     .getVacancyList(query)
@@ -44,10 +47,54 @@ class VacancySearchViewModel(
         }
 
     fun searchDebounce(changedText: String) {
-        if (changedText.isEmpty()) stateLiveData.value = VacancySearchScreenState.EmptyScreen
+        if (changedText.isEmpty()) {
+            stateLiveData.value = VacancySearchScreenState.EmptyScreen
+        }
         if (latestSearchText != changedText) {
             latestSearchText = changedText
+            pageCount.value = 0
             vacancySearchDebounce(changedText)
+        }
+    }
+
+    fun nextPageDebounce(changedText: String) {
+        stateLiveData.value = VacancySearchScreenState.PaginationLoading
+        pageCount.value = pageCount.value?.plus(1)
+        nextSearchDebounce(changedText)
+    }
+
+    private val nextSearchDebounce =
+        debounce<String>(SEARCH_DEBOUNCE_DELAY, viewModelScope, true) { changedText ->
+            loadNextData(changedText)
+        }
+
+    private fun loadNextData(changedText: String) {
+        query["text"] = changedText
+        query["page"] = pageCount.value.toString()
+        viewModelScope.launch {
+            interactor
+                .getVacancyList(query)
+                .collect { foundVacancies ->
+                    nextPageProcessingState(foundVacancies)
+                }
+        }
+    }
+
+    private fun nextPageProcessingState(foundVacancies: List<VacancySearch>?) {
+        when {
+            foundVacancies == null -> {
+                stateLiveData.value = VacancySearchScreenState.PaginationError("Произошла ошибка")
+            }
+
+            foundVacancies.isEmpty() -> {
+                stateLiveData.value = VacancySearchScreenState.PaginationError("Вакансий больше нет")
+            }
+
+            else -> {
+                vacancyList.value?.addAll(foundVacancies)
+                vacancyList.value = vacancyList.value
+                stateLiveData.value = VacancySearchScreenState.Content
+            }
         }
     }
 
@@ -66,8 +113,16 @@ class VacancySearchViewModel(
             }
 
             else -> {
-                stateLiveData.value = VacancySearchScreenState.Content(foundVacancies)
+                vacancyList.value = foundVacancies as? MutableList<VacancySearch>?
+                stateLiveData.value = VacancySearchScreenState.Content
             }
+        }
+    }
+
+    fun checkVacancyState() {
+        if (!vacancyList.value.isNullOrEmpty()) {
+            vacancyList.value = vacancyList.value
+            stateLiveData.value = VacancySearchScreenState.Content
         }
     }
 
