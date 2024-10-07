@@ -1,16 +1,14 @@
-package ru.practicum.android.diploma.search.data.network
+package ru.practicum.android.diploma.util.network
 
 import android.content.Context
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import ru.practicum.android.diploma.search.data.dto.VacancySearchRequest
-import ru.practicum.android.diploma.util.network.NetworkClient
-import ru.practicum.android.diploma.util.network.Response
-import ru.practicum.android.diploma.util.network.connectionCheck
+import ru.practicum.android.diploma.search.data.network.VacancySearchRequest
 import ru.practicum.android.diploma.util.storage.RESPONSE_BAD_REQUEST
 import ru.practicum.android.diploma.util.storage.RESPONSE_INTERNAL_SERVER_ERROR
 import ru.practicum.android.diploma.util.storage.RESPONSE_NOT_CONNECTED
 import ru.practicum.android.diploma.util.storage.RESPONSE_OK
+import ru.practicum.android.diploma.vacancy.data.network.VacancyDetailsRequest
 import java.io.IOException
 
 class RetrofitNetworkClient(
@@ -19,22 +17,30 @@ class RetrofitNetworkClient(
 ) : NetworkClient {
     override suspend fun doRequest(dto: Any): Response {
         var responseCode = Response()
+
         if (!connectionCheck(context)) {
             responseCode.apply { resultCode = RESPONSE_NOT_CONNECTED }
-        }
-        if (dto !is VacancySearchRequest) {
+
+        } else if (typeCheckError(dto)) {
             responseCode.apply { resultCode = RESPONSE_BAD_REQUEST }
         } else {
             withContext(Dispatchers.IO) {
                 try {
-                    responseCode = hhApiService.searchVacancies(dto.request)
+                    when (dto) {
+                        is VacancySearchRequest -> responseCode = hhApiService.searchVacancies(dto.request)
+                        is VacancyDetailsRequest -> responseCode = hhApiService.getVacancyDetails(dto.expression)
+                    }
                     responseCode.apply { resultCode = RESPONSE_OK }
-                } catch (e: IOException) {
+                } catch (ioException: IOException) {
                     responseCode.apply { resultCode = RESPONSE_INTERNAL_SERVER_ERROR }
-                    println(e)
+                    println(ioException)
                 }
             }
         }
         return responseCode
+    }
+
+    private fun typeCheckError(dto: Any): Boolean {
+        return dto !is VacancySearchRequest && dto !is VacancyDetailsRequest
     }
 }

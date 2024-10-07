@@ -2,10 +2,9 @@ package ru.practicum.android.diploma.search.data.impl
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.search.data.converters.SearchVacancyNetworkConverter
-import ru.practicum.android.diploma.search.data.dto.VacancySearchRequest
-import ru.practicum.android.diploma.search.data.dto.VacancySearchResponse
+import ru.practicum.android.diploma.search.data.network.VacancySearchRequest
+import ru.practicum.android.diploma.search.data.network.VacancySearchResponse
 import ru.practicum.android.diploma.search.domain.api.SearchVacancyRepository
 import ru.practicum.android.diploma.search.domain.models.VacancySearch
 import ru.practicum.android.diploma.util.Resource
@@ -17,12 +16,8 @@ class SearchVacancyRepositoryImpl(
     private val converter: SearchVacancyNetworkConverter
 ) : SearchVacancyRepository {
 
-    override fun getVacancyList(
-        query: HashMap<String, String>
-    ): Flow<Resource<List<VacancySearch>>> = flow {
-        val response = networkClient.doRequest(
-            VacancySearchRequest(query),
-        )
+    override fun getVacancyList(query: HashMap<String, String>): Flow<Resource<List<VacancySearch>>> = flow {
+        val response = networkClient.doRequest(VacancySearchRequest(query))
         emit(
             when (response.resultCode) {
                 HttpStatusCode.OK -> Resource.Success(
@@ -35,5 +30,4 @@ class SearchVacancyRepositoryImpl(
             }
         )
     }
-
 }

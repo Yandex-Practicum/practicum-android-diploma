@@ -9,9 +9,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.database.AppDatabase
 import ru.practicum.android.diploma.search.data.converters.SalaryCurrencySignFormater
 import ru.practicum.android.diploma.search.data.converters.SearchVacancyNetworkConverter
-import ru.practicum.android.diploma.search.data.network.HHApiService
-import ru.practicum.android.diploma.search.data.network.RetrofitNetworkClient
+import ru.practicum.android.diploma.util.network.HHApiService
 import ru.practicum.android.diploma.util.network.NetworkClient
+import ru.practicum.android.diploma.util.network.RetrofitNetworkClient
 
 val dataModule = module {
 
