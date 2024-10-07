@@ -21,6 +21,7 @@
     <string name="needed_experience">Требуемый опыт</string>
     <string name="about_vacancy">Описание вакансии</string>
     <string name="responsibilities">Обязанности</string>
+    <string name="search_vacancy_titlie">%s, %s</string>
 
 <!--  Team Info Screen /start/ -->
     <string name="team_member_title">Над приложением работали</string>
