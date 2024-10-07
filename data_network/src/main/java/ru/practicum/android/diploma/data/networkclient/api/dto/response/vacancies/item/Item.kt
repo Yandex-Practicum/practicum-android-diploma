@@ -3,20 +3,20 @@ package ru.practicum.android.diploma.data.networkclient.api.dto.response.vacanci
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
-import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancies.item.brand.Branding
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.address.Address
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.area.Area
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.contacts.Contacts
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.department.Department
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.employer.Employer
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.insider.InsiderInterview
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.role.ProfessionalRole
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.salary.Salary
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.schedule.Schedule
-import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancies.item.snippet.Snippet
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.type.Type
-import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.address.Address
-import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.area.Area
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancies.item.brand.BrandSnippet
-import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.contacts.Contacts
-import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.employer.Employer
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancies.item.brand.Branding
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancies.item.count.Counters
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancies.item.snippet.Snippet
 
 @Parcelize
 data class Item(

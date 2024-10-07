@@ -3,10 +3,10 @@ package ru.practicum.android.diploma.data.networkclient.api.dto.response.vacanci
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
-import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancies.item.Item
-import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancies.argument.Argument
 import ru.practicum.android.diploma.commonutils.network.HttpStatus
 import ru.practicum.android.diploma.commonutils.network.Response
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancies.argument.Argument
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancies.item.Item
 
 @Parcelize
 data class HHVacanciesResponse(

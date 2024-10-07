@@ -26,47 +26,35 @@ fun <T, S> Context.executeNetworkRequest(
         when ((response as Response).resultCode) {
             HttpStatus.NO_INTERNET -> {
                 emit(
-                    Resource.Error(
-                        getString(R.string.check_network_connection)
-                    )
+                    Resource.Error(getString(R.string.check_network_connection))
                 )
             }
-
             HttpStatus.OK -> {
                 with(response as T) {
                     emit(successHandler(response))
                 }
             }
-
             HttpStatus.CLIENT_ERROR -> {
                 emit(
-                    Resource.Error(
-                        getString(
+                    Resource.Error(getString(
                             R.string.request_was_not_accepted,
                             response.resultCode,
-                        )
-                    )
+                        ))
                 )
             }
-
             HttpStatus.CLIENT_ERROR_404 -> {
                 emit(
-                    Resource.Error(
-                        getString(
+                    Resource.Error(getString(
                             R.string.request_was_not_accepted_404
-                        )
-                    )
+                        ))
                 )
             }
-
             HttpStatus.SERVER_ERROR -> {
                 emit(
-                    Resource.Error(
-                        getString(
+                    Resource.Error(getString(
                             R.string.unexpected_error,
                             response.resultCode
-                        )
-                    )
+                        ))
                 )
             }
         }

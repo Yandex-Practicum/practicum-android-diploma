@@ -43,83 +43,46 @@ class VacancyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         argsState = requireArguments().getInt(ARGS_STATE)
         idDb = requireArguments().getInt(VACANCY_ID_DB)
         idNetwork = requireArguments().getString(VACANCY_ID_NETWORK).toString()
-
         val shareLink = if (idDb != 0) {
             getString(R.string.share_link) + idDb
-        } else {
-            getString(R.string.share_link) + idNetwork
-        }
-
-        binding.vacancyHeader.setOnClickListener {
-            findNavController().navigateUp()
-        }
-        binding.shareButton.setOnClickListener {
-            vacancyDetailViewModel.share(shareLink)
-        }
-
+        } else { getString(R.string.share_link) + idNetwork }
+        binding.vacancyHeader.setOnClickListener { findNavController().navigateUp() }
+        binding.shareButton.setOnClickListener { vacancyDetailViewModel.share(shareLink) }
         vacancyDetailViewModel.updateFavorite(idDb)
-        requireArguments().getString(VACANCY_ID_NETWORK)?.let {
-            vacancyDetailViewModel.updateFavorite(it.toInt())
-        }
-
-        if (argsState == INPUT_NETWORK_STATE) {
-            vacancyDetailViewModel.showVacancyNetwork(idNetwork)
-        }
-        if (argsState == INPUT_DB_STATE) {
-            vacancyDetailViewModel.showVacancyDb(idDb)
-        }
-
+        requireArguments().getString(VACANCY_ID_NETWORK)?.let { vacancyDetailViewModel.updateFavorite(it.toInt()) }
+        if (argsState == INPUT_NETWORK_STATE) { vacancyDetailViewModel.showVacancyNetwork(idNetwork) }
+        if (argsState == INPUT_DB_STATE) { vacancyDetailViewModel.showVacancyDb(idDb) }
         vacancyDetailViewModel.observeVacancyState().observe(viewLifecycleOwner) { state ->
             when (state) {
                 is VacancyDetailState.Loading -> {
                     showLoading()
                 }
-
                 is VacancyDetailState.Content -> {
-                    showContent(
-                        state.vacancy
-                    )
+                    showContent(state.vacancy)
                     vacancy = state.vacancy
                 }
-
-                is VacancyDetailState.Error -> {
-                    showError()
-                }
-
-                is VacancyDetailState.Empty -> {
-                    showEmpty()
-                }
+                is VacancyDetailState.Error -> { showError() }
+                is VacancyDetailState.Empty -> { showEmpty() }
             }
-
         }
-
         binding.favoriteButton.setOnClickListener {
             vacancy?.let { it1 -> vacancyDetailViewModel.modifyingStatusOfVacancyFavorite(it1) }
         }
         vacancyDetailViewModel.observeVacancyFavoriteMessageState().observe(viewLifecycleOwner) { state ->
             when (state) {
-                is VacancyFavoriteMessageState.Empty -> {
-                    makeToast(getString(R.string.message_empty))
-                }
-
+                is VacancyFavoriteMessageState.Empty -> { makeToast(getString(R.string.message_empty)) }
                 is VacancyFavoriteMessageState.NoAddFavorite -> {
                     makeToast(getString(R.string.message_no_add_favorite))
                 }
-
                 is VacancyFavoriteMessageState.NoDeleteFavorite -> {
                     makeToast(getString(R.string.message_no_delete_favorite))
                 }
-
-                is VacancyFavoriteMessageState.Error -> {
-                    makeToast(getString(R.string.message_error))
-                }
+                is VacancyFavoriteMessageState.Error -> { makeToast(getString(R.string.message_error)) }
             }
         }
-
         vacancyDetailViewModel.observeFavoriteState().observe(viewLifecycleOwner) { isFavorite ->
             val imageResource = if (isFavorite) R.drawable.favorites_on else R.drawable.favorites_off
             binding.favoriteButton.setImageResource(imageResource)

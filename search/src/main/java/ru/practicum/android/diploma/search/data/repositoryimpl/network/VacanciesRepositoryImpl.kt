@@ -3,6 +3,8 @@ package ru.practicum.android.diploma.search.data.repositoryimpl.network
 import android.content.Context
 import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.commonutils.Resource
+import ru.practicum.android.diploma.commonutils.network.Response
+import ru.practicum.android.diploma.commonutils.network.executeNetworkRequest
 import ru.practicum.android.diploma.data.networkclient.api.NetworkClient
 import ru.practicum.android.diploma.data.networkclient.api.dto.request.HHApiIndustriesRequest
 import ru.practicum.android.diploma.data.networkclient.api.dto.request.HHApiRegionsRequest
@@ -12,8 +14,6 @@ import ru.practicum.android.diploma.data.networkclient.api.dto.response.industri
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.regions.HHRegionsResponse
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancies.HHVacanciesResponse
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.HHVacancyDetailResponse
-import ru.practicum.android.diploma.commonutils.network.Response
-import ru.practicum.android.diploma.commonutils.network.executeNetworkRequest
 import ru.practicum.android.diploma.search.domain.models.IndustryList
 import ru.practicum.android.diploma.search.domain.models.PaginationInfo
 import ru.practicum.android.diploma.search.domain.models.RegionList
