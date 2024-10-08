@@ -78,7 +78,7 @@
                     android:id="@+id/logo"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:src="@drawable/test_image"
+                    tools:src="@drawable/test_image"
                     tools:ignore="ContentDescription" />
 
                 <LinearLayout
@@ -112,6 +112,7 @@
                 android:text="@string/needed_experience" />
 
             <TextView
+                android:id="@+id/experience"
                 style="@style/Text_Regular_16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -119,6 +120,7 @@
                 tools:text="От 1 года до 3 лет" />
 
             <TextView
+                android:id="@+id/schedule"
                 style="@style/Text_Regular_16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -135,6 +137,28 @@
             <WebView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/description"
+                style="@style/Text_Regular_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp" />
+
+
+            <TextView
+                style="@style/Text_Medium_22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="@string/key_skill" />
+
+            <TextView
+                android:id="@+id/key_skill"
+                style="@style/Text_Regular_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp" />
+
         </LinearLayout>
     </ScrollView>
 
