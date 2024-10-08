@@ -28,6 +28,7 @@
     <string name="few_vacancies">вакансии</string>
     <string name="many_vacancies">вакансий</string>
     <string name="not_found_blue_message">Таких вакансий нет</string>
+    <string name="exeption">Произошла ошибка</string>
 
     <!--  Team Info Screen /start/ -->
     <string name="team_member_title">Над приложением работали</string>
