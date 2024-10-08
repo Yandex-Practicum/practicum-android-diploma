@@ -35,4 +35,3 @@ class FavoriteVacancyRepositoryImpl(
             .map { vacancyEntity -> vacancyDbConvert.map(vacancyEntity) }
     }
 }
-

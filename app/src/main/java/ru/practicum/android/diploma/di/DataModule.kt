@@ -13,6 +13,7 @@ import ru.practicum.android.diploma.search.data.converters.SearchVacancyNetworkC
 import ru.practicum.android.diploma.util.network.HHApiService
 import ru.practicum.android.diploma.util.network.NetworkClient
 import ru.practicum.android.diploma.util.network.RetrofitNetworkClient
+import ru.practicum.android.diploma.vacancy.data.converter.VacancyDetailsNetworkConverter
 
 val dataModule = module {
 
@@ -44,6 +45,10 @@ val dataModule = module {
 
     factory<SearchVacancyNetworkConverter> {
         SearchVacancyNetworkConverter(get())
+    }
+
+    factory<VacancyDetailsNetworkConverter> {
+        VacancyDetailsNetworkConverter(androidContext())
     }
 
     factory {
