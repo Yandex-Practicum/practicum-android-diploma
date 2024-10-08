@@ -23,6 +23,11 @@
     <string name="about_vacancy">Описание вакансии</string>
     <string name="responsibilities">Обязанности</string>
     <string name="search_vacancy_titlie">%s, %s</string>
+    <string name="found">Найдено</string>
+    <string name="one_vacancy">вакансия</string>
+    <string name="few_vacancies">вакансии</string>
+    <string name="many_vacancies">вакансий</string>
+    <string name="not_found_blue_message">Таких вакансий нет</string>
 
     <!--  Team Info Screen /start/ -->
     <string name="team_member_title">Над приложением работали</string>
