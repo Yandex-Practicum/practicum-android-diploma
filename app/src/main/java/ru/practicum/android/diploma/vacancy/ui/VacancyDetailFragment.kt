@@ -10,6 +10,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import ru.practicum.android.diploma.databinding.VacancyDetailFragmentBinding
 import ru.practicum.android.diploma.vacancy.presentation.VacancyDetailsViewModel
+import ru.practicum.android.diploma.vacancy.presentation.VacancyScreenState
 
 class VacancyDetailFragment : Fragment() {
     private var _binding: VacancyDetailFragmentBinding? = null
@@ -33,13 +34,22 @@ class VacancyDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.getVacancyState().observe(viewLifecycleOwner) { state ->
-
+            renderState(state)
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun renderState(state: VacancyScreenState) {
+        when (state) {
+            is VacancyScreenState.ContentState -> TODO()
+            VacancyScreenState.EmptyState -> TODO()
+            VacancyScreenState.LoadingState -> TODO()
+            VacancyScreenState.NetworkErrorState -> TODO()
+        }
     }
 
     companion object {
