@@ -19,6 +19,10 @@ class VacancyDetailsViewModel(
 
     fun getVacancyState(): LiveData<VacancyScreenState> = vacancyState
 
+    init {
+        loadVacancyDetails(vacancyId)
+    }
+
     private fun loadVacancyDetails(vacancyId: String) {
         renderState(VacancyScreenState.LoadingState)
         viewModelScope.launch(Dispatchers.IO) {
