@@ -29,7 +29,9 @@ class VacancyDetailsViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             interactor.getVacancyDetails(vacancyId)
                 .collect { result ->
+                    result.second
                     when (result.second) {
+                        null,
                         OK -> processSuccessResult(result.first)
                         else -> renderState(VacancyScreenState.NetworkErrorState)
                     }
