@@ -3,7 +3,7 @@ package ru.practicum.android.diploma.di
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import ru.practicum.android.diploma.search.presentation.VacancySearchViewModel
-import ru.practicum.android.diploma.vacancy.presentation.VacancyViewModel
+import ru.practicum.android.diploma.vacancy.presentation.VacancyDetailsViewModel
 
 val viewModelModule = module {
     viewModel {
@@ -11,6 +11,6 @@ val viewModelModule = module {
     }
 
     viewModel { (vacancyId: String) ->
-        VacancyViewModel(vacancyId, get())
+        VacancyDetailsViewModel(vacancyId, get())
     }
 }

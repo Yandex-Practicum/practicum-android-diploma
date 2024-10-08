@@ -10,7 +10,7 @@ import ru.practicum.android.diploma.util.Resource
 import ru.practicum.android.diploma.vacancy.domain.api.GetVacancyDetailsInteractor
 import ru.practicum.android.diploma.vacancy.domain.entity.Vacancy
 
-class VacancyViewModel(
+class VacancyDetailsViewModel(
     private val vacancyId: String,
     private val interactor: GetVacancyDetailsInteractor
 ) : ViewModel() {
