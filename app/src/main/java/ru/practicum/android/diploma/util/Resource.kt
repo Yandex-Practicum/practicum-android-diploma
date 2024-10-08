@@ -1,6 +1,8 @@
 package ru.practicum.android.diploma.util
 
-sealed class Resource<T>(val data: T? = null, val message: String? = null) {
+import ru.practicum.android.diploma.util.network.HttpStatusCode
+
+sealed class Resource<T>(val data: T? = null, val errorCode: HttpStatusCode? = null) {
     class Success<T>(data: T) : Resource<T>(data)
-    class Error<T>(message: String, data: T? = null) : Resource<T>(data, message)
+    class Error<T>(errorCode: HttpStatusCode, data: T? = null) : Resource<T>(data, errorCode)
 }
