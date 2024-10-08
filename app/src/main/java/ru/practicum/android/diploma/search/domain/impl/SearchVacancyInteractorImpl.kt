@@ -15,7 +15,7 @@ class SearchVacancyInteractorImpl(private val repository: SearchVacancyRepositor
     ): Flow<Pair<List<VacancySearch>?, HttpStatusCode?>> {
         return repository.getVacancyList(query).map { result ->
             when (result) {
-                is Resource.Success -> Pair(result.data, null)
+                is Resource.Success -> Pair(result.data, result.errorCode)
                 is Resource.Error -> Pair(null, result.errorCode)
             }
         }
