@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.util.Resource
+import ru.practicum.android.diploma.util.network.HttpStatusCode.OK
 import ru.practicum.android.diploma.vacancy.domain.api.GetVacancyDetailsInteractor
 import ru.practicum.android.diploma.vacancy.domain.entity.Vacancy
 
@@ -29,11 +29,9 @@ class VacancyDetailsViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             interactor.getVacancyDetails(vacancyId)
                 .collect { result ->
-                    when (result) {
-                        null,
-                        is Resource.Error -> renderState(VacancyScreenState.NetworkErrorState)
-
-                        is Resource.Success -> processSuccessResult(result)
+                    when (result.second) {
+                        OK -> processSuccessResult(result.first)
+                        else -> renderState(VacancyScreenState.NetworkErrorState)
                     }
                 }
         }
@@ -44,13 +42,13 @@ class VacancyDetailsViewModel(
         vacancyState.postValue(state)
     }
 
-    private fun processSuccessResult(result: Resource.Success<Vacancy>) {
-        if (result.data == null) {
+    private fun processSuccessResult(vacancy: Vacancy?) {
+        if (vacancy == null) {
             Log.d("MyTag", "null")
             renderState(VacancyScreenState.EmptyState)
         } else {
-            Log.d("MyTag", result.data.toString())
-            renderState(VacancyScreenState.ContentState(result.data))
+            Log.d("MyTag", vacancy.toString())
+            renderState(VacancyScreenState.ContentState(vacancy))
         }
     }
 
