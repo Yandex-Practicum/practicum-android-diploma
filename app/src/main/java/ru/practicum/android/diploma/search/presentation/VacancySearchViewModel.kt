@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.search.domain.api.SearchVacancyInteractor
+import ru.practicum.android.diploma.search.domain.models.VacancyListResponseData
 import ru.practicum.android.diploma.search.domain.models.VacancySearch
 import ru.practicum.android.diploma.util.SingleEventLiveData
 import ru.practicum.android.diploma.util.debounce
@@ -19,14 +20,17 @@ class VacancySearchViewModel(
 
     private val vacancyClickEvent = SingleEventLiveData<String>()
 
+    private val vacanciesSearchData = MutableLiveData<VacancyListResponseData>()
     private val vacancyList = MutableLiveData<MutableList<VacancySearch>?>()
     private val pageCount = MutableLiveData<Int>()
     private val stateLiveData = MutableLiveData<VacancySearchScreenState>()
 
+    fun getVacanciesSearchDataObserve(): LiveData<VacancyListResponseData> = vacanciesSearchData
     fun getVacancyClickEvent(): LiveData<String> = vacancyClickEvent
     fun getStateObserve(): LiveData<VacancySearchScreenState> = stateLiveData
     fun getVacancyListObserve(): LiveData<MutableList<VacancySearch>?> = vacancyList
     private val query = HashMap<String, String>()
+
     fun loadData(text: String) {
         if (text.isNotEmpty()) {
             stateLiveData.value = VacancySearchScreenState.Loading
@@ -36,16 +40,24 @@ class VacancySearchViewModel(
                 interactor
                     .getVacancyList(query)
                     .collect { pairFoundAndMessage ->
-                        processingState(pairFoundAndMessage.first, pairFoundAndMessage.second)
+                        vacanciesSearchData.value = pairFoundAndMessage.first
+                        processingState(pairFoundAndMessage.first?.items, pairFoundAndMessage.second)
                     }
             }
         }
     }
 
-    private val vacancySearchDebounce =
-        debounce<String>(SEARCH_DEBOUNCE_DELAY, viewModelScope, true) { changedText ->
-            loadData(changedText)
+    private fun loadNextData(changedText: String) {
+        query["text"] = changedText
+        query["page"] = vacanciesSearchData.value?.page?.plus(1).toString()
+        viewModelScope.launch {
+            interactor
+                .getVacancyList(query)
+                .collect { pairFoundAndMessage ->
+                    nextPageProcessingState(pairFoundAndMessage.first?.items)
+                }
         }
+    }
 
     fun searchDebounce(changedText: String) {
         if (changedText.isEmpty()) {
@@ -58,10 +70,16 @@ class VacancySearchViewModel(
         }
     }
 
+    private val vacancySearchDebounce =
+        debounce<String>(SEARCH_DEBOUNCE_DELAY, viewModelScope, true) { changedText ->
+            loadData(changedText)
+        }
+
     fun nextPageDebounce(changedText: String) {
-        stateLiveData.value = VacancySearchScreenState.PaginationLoading
-        pageCount.value = pageCount.value?.plus(1)
-        nextSearchDebounce(changedText)
+        if (vacanciesSearchData.value!!.pages - 1 > vacanciesSearchData.value!!.page) {
+            stateLiveData.value = VacancySearchScreenState.PaginationLoading
+            nextSearchDebounce(changedText)
+        }
     }
 
     private val nextSearchDebounce =
@@ -69,26 +87,38 @@ class VacancySearchViewModel(
             loadNextData(changedText)
         }
 
-    private fun loadNextData(changedText: String) {
-        query["text"] = changedText
-        query["page"] = pageCount.value.toString()
-        viewModelScope.launch {
-            interactor
-                .getVacancyList(query)
-                .collect { pairFoundAndMessage ->
-                    nextPageProcessingState(pairFoundAndMessage.first, pairFoundAndMessage.second)
-                }
-        }
-    }
-
-    private fun nextPageProcessingState(foundVacancies: List<VacancySearch>?, errorMessage: HttpStatusCode?) {
+    private fun processingState(foundVacancies: List<VacancySearch>?, errorMessage: HttpStatusCode?) {
         when {
             foundVacancies == null -> {
-                stateLiveData.value = VacancySearchScreenState.PaginationError("Произошла ошибка")
+                when (errorMessage) {
+                    HttpStatusCode.NOT_CONNECTED -> stateLiveData.value = VacancySearchScreenState.NetworkError
+                    HttpStatusCode.INTERNAL_SERVER_ERROR -> stateLiveData.value = VacancySearchScreenState.ServerError
+                    else -> {
+                        stateLiveData.value = VacancySearchScreenState.ServerError
+                    }
+                }
             }
 
             foundVacancies.isEmpty() -> {
-                stateLiveData.value = VacancySearchScreenState.PaginationError("Вакансий больше нет")
+                stateLiveData.value = VacancySearchScreenState.SearchError
+            }
+
+            else -> {
+                if (vacancyList.value.isNullOrEmpty()) {
+                    vacancyList.value = mutableListOf()
+                }
+                vacancyList.value?.clear()
+                vacancyList.value?.addAll(foundVacancies)
+                vacancyList.value = vacancyList.value
+                stateLiveData.value = VacancySearchScreenState.Content
+            }
+        }
+    }
+
+    private fun nextPageProcessingState(foundVacancies: List<VacancySearch>?) {
+        when {
+            foundVacancies == null -> {
+                stateLiveData.value = VacancySearchScreenState.PaginationError
             }
 
             else -> {
@@ -101,23 +131,6 @@ class VacancySearchViewModel(
 
     fun onVacancyClick(vacancySearch: VacancySearch) {
         vacancyClickEvent.value = vacancySearch.id
-    }
-
-    private fun processingState(foundVacancies: List<VacancySearch>?, errorMessage: HttpStatusCode?) {
-        when {
-            foundVacancies == null -> {
-                stateLiveData.value = VacancySearchScreenState.ServerError
-            }
-
-            foundVacancies.isEmpty() -> {
-                stateLiveData.value = VacancySearchScreenState.SearchError
-            }
-
-            else -> {
-                vacancyList.value = foundVacancies as? MutableList<VacancySearch>?
-                stateLiveData.value = VacancySearchScreenState.Content
-            }
-        }
     }
 
     fun checkVacancyState() {
