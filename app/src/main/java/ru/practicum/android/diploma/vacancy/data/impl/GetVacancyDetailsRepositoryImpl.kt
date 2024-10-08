@@ -16,7 +16,7 @@ import ru.practicum.android.diploma.vacancy.domain.entity.Vacancy
 class GetVacancyDetailsRepositoryImpl(
     private val networkClient: NetworkClient,
     private val converter: VacancyDetailsNetworkConverter,
-    private val favoriteRepository : FavoriteVacancyRepository
+    private val favoriteRepository: FavoriteVacancyRepository
 ) : GetVacancyDetailsRepository {
 
     override fun getVacancyDetails(vacancyId: String): Flow<Resource<Vacancy>> = flow {
