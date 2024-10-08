@@ -7,6 +7,6 @@ interface SearchVacancyInteractor {
 
     fun getVacancyList(
         query: HashMap<String, String>
-    ): Flow<List<VacancySearch>?>
+    ): Flow<Pair<List<VacancySearch>?, String?>>
 
 }

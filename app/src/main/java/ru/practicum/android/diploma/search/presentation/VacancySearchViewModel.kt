@@ -34,8 +34,8 @@ class VacancySearchViewModel(
             viewModelScope.launch {
                 interactor
                     .getVacancyList(query)
-                    .collect { foundVacancies ->
-                        processingState(foundVacancies)
+                    .collect { pairFoundAndMessage ->
+                        processingState(pairFoundAndMessage.first, pairFoundAndMessage.second)
                     }
             }
         }
@@ -74,13 +74,13 @@ class VacancySearchViewModel(
         viewModelScope.launch {
             interactor
                 .getVacancyList(query)
-                .collect { foundVacancies ->
-                    nextPageProcessingState(foundVacancies)
+                .collect { pairFoundAndMessage ->
+                    nextPageProcessingState(pairFoundAndMessage.first, pairFoundAndMessage.second)
                 }
         }
     }
 
-    private fun nextPageProcessingState(foundVacancies: List<VacancySearch>?) {
+    private fun nextPageProcessingState(foundVacancies: List<VacancySearch>?, errorMessage: String?) {
         when {
             foundVacancies == null -> {
                 stateLiveData.value = VacancySearchScreenState.PaginationError("Произошла ошибка")
@@ -102,7 +102,7 @@ class VacancySearchViewModel(
         vacancyClickEvent.value = vacancySearch.id
     }
 
-    private fun processingState(foundVacancies: List<VacancySearch>?) {
+    private fun processingState(foundVacancies: List<VacancySearch>?, errorMessage: String?) {
         when {
             foundVacancies == null -> {
                 stateLiveData.value = VacancySearchScreenState.ServerError

@@ -26,7 +26,7 @@ class SearchVacancyRepositoryImpl(
                     }
                 )
 
-                else -> Resource.Error("Error")
+                else -> Resource.Error(response.resultCode.toString())
             }
         )
     }

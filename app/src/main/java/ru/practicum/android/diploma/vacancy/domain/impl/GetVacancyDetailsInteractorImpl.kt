@@ -10,11 +10,11 @@ import ru.practicum.android.diploma.vacancy.domain.entity.Vacancy
 class GetVacancyDetailsInteractorImpl(
     private val repository: GetVacancyDetailsRepository
 ) : GetVacancyDetailsInteractor {
-    override fun getVacancyDetails(vacancyId: String): Flow<Resource<Vacancy>?> {
+    override fun getVacancyDetails(vacancyId: String): Flow<Pair<Vacancy?, String?>> {
         return repository.getVacancyDetails(vacancyId).map { result ->
             when (result) {
-                is Resource.Success -> result
-                is Resource.Error -> null
+                is Resource.Success -> Pair(result.data, null)
+                is Resource.Error -> Pair(null, result.message)
             }
         }
     }

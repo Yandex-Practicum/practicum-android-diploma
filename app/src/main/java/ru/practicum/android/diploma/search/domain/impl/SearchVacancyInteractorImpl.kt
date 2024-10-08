@@ -11,14 +11,11 @@ class SearchVacancyInteractorImpl(private val repository: SearchVacancyRepositor
 
     override fun getVacancyList(
         query: HashMap<String, String>
-    ): Flow<List<VacancySearch>?> {
+    ): Flow<Pair<List<VacancySearch>?, String?>> {
         return repository.getVacancyList(query).map { result ->
             when (result) {
-                // передаем данные в случае успешного запроса, либо пустой лист, если ничего не нашлось
-                is Resource.Success -> result.data
-
-                //  в случае ошибки отдаем null
-                is Resource.Error -> null
+                is Resource.Success -> Pair(result.data, null)
+                is Resource.Error -> Pair(null, result.message)
             }
         }
     }
