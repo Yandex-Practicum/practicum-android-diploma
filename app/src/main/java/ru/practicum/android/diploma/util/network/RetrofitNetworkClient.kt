@@ -15,10 +15,10 @@ class RetrofitNetworkClient(
         var responseCode = Response()
 
         if (!connectionCheck(context)) {
-            responseCode.apply { resultCode = HttpStatusCode.NOT_CONNECTED }
+            responseCode.resultCode = HttpStatusCode.NOT_CONNECTED
 
         } else if (typeCheckError(dto)) {
-            responseCode.apply { resultCode = HttpStatusCode.BAD_REQUEST }
+            responseCode.resultCode = HttpStatusCode.BAD_REQUEST
         } else {
             withContext(Dispatchers.IO) {
                 try {
@@ -26,9 +26,9 @@ class RetrofitNetworkClient(
                         is VacancySearchRequest -> responseCode = hhApiService.searchVacancies(dto.request)
                         is VacancyDetailsRequest -> responseCode = hhApiService.getVacancyDetails(dto.expression)
                     }
-                    responseCode.apply { resultCode = HttpStatusCode.OK }
+                    responseCode.resultCode = HttpStatusCode.OK
                 } catch (ioException: IOException) {
-                    responseCode.apply { resultCode = HttpStatusCode.INTERNAL_SERVER_ERROR }
+                    responseCode.resultCode = HttpStatusCode.INTERNAL_SERVER_ERROR
                     println(ioException)
                 }
             }
