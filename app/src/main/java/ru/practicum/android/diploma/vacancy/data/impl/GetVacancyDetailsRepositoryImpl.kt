@@ -6,6 +6,7 @@ import ru.practicum.android.diploma.util.Resource
 import ru.practicum.android.diploma.util.network.HttpStatusCode
 import ru.practicum.android.diploma.util.network.NetworkClient
 import ru.practicum.android.diploma.vacancy.data.converter.VacancyDetailsNetworkConverter
+import ru.practicum.android.diploma.vacancy.data.network.VacancyDetailsRequest
 import ru.practicum.android.diploma.vacancy.data.network.VacancyDetailsResponse
 import ru.practicum.android.diploma.vacancy.domain.api.GetVacancyDetailsRepository
 import ru.practicum.android.diploma.vacancy.domain.entity.Vacancy
@@ -16,7 +17,7 @@ class GetVacancyDetailsRepositoryImpl(
 ) : GetVacancyDetailsRepository {
 
     override fun getVacancyDetails(vacancyId: String): Flow<Resource<Vacancy>> = flow {
-        val response = networkClient.doRequest(vacancyId)
+        val response = networkClient.doRequest(VacancyDetailsRequest(vacancyId))
         emit(
             when (response.resultCode) {
                 HttpStatusCode.OK ->

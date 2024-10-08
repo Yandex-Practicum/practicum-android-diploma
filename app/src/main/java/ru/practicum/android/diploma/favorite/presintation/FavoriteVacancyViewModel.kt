@@ -46,4 +46,3 @@ class FavoriteVacancyViewModel(
         stateLiveData.postValue(state)
     }
 }
-
