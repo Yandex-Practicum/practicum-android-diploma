@@ -3,7 +3,6 @@ package ru.practicum.android.diploma.search.ui
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +23,7 @@ import ru.practicum.android.diploma.search.presentation.VacancySearchViewModel
 import ru.practicum.android.diploma.search.ui.presenter.RecycleViewAdapter
 import ru.practicum.android.diploma.util.debounce
 import ru.practicum.android.diploma.util.hideKeyboard
+import ru.practicum.android.diploma.util.vacanciesPluralsFormat
 import ru.practicum.android.diploma.vacancy.ui.VacancyDetailFragment
 
 class VacancySearchFragment : Fragment() {
@@ -178,6 +178,7 @@ class VacancySearchFragment : Fragment() {
     }
 
     private fun showLoadingProgress() {
+        binding.blueTextView.visibility = View.GONE
         binding.defaultSearchPlaceholder.visibility = View.GONE
         binding.notConnectedPlaceholder.visibility = View.GONE
         binding.notFoundPlaceholder.visibility = View.GONE
@@ -187,6 +188,15 @@ class VacancySearchFragment : Fragment() {
     }
 
     private fun showVacancies() {
+        val stringBuilder =
+            "${resources.getString(R.string.found)} " +
+                "${vacancies.size} " +
+                vacanciesPluralsFormat(vacancies.size, requireContext())
+
+        binding.blueTextView.apply {
+            text = stringBuilder
+            visibility = View.VISIBLE
+        }
         binding.defaultSearchPlaceholder.visibility = View.GONE
         binding.notConnectedPlaceholder.visibility = View.GONE
         binding.notFoundPlaceholder.visibility = View.GONE
@@ -197,6 +207,7 @@ class VacancySearchFragment : Fragment() {
     }
 
     private fun showEmptyScreen() {
+        binding.blueTextView.visibility = View.GONE
         binding.defaultSearchPlaceholder.visibility = View.VISIBLE
         binding.notConnectedPlaceholder.visibility = View.GONE
         binding.notFoundPlaceholder.visibility = View.GONE
@@ -214,25 +225,27 @@ class VacancySearchFragment : Fragment() {
 
         when (state) {
             is VacancySearchScreenState.NetworkError -> {
+                binding.blueTextView.visibility = View.GONE
                 binding.notConnectedPlaceholder.visibility = View.VISIBLE
                 binding.notFoundPlaceholder.visibility = View.GONE
                 binding.serverErrorPlaceholder.visibility = View.GONE
             }
 
             is VacancySearchScreenState.SearchError -> {
+                binding.blueTextView.apply {
+                    text = resources.getString(R.string.not_found_blue_message)
+                    visibility = View.VISIBLE
+                }
                 binding.notConnectedPlaceholder.visibility = View.GONE
                 binding.notFoundPlaceholder.visibility = View.VISIBLE
                 binding.serverErrorPlaceholder.visibility = View.GONE
             }
 
             is VacancySearchScreenState.ServerError -> {
+                binding.blueTextView.visibility = View.GONE
                 binding.notConnectedPlaceholder.visibility = View.GONE
                 binding.notFoundPlaceholder.visibility = View.GONE
                 binding.serverErrorPlaceholder.visibility = View.VISIBLE
-            }
-
-            is VacancySearchScreenState.PaginationError -> {
-                // коммент костыль
             }
 
             else -> {
