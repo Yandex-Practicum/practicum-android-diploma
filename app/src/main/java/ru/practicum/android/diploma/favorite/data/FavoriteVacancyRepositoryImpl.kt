@@ -1,7 +1,10 @@
 package ru.practicum.android.diploma.favorite.data
 
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.database.AppDatabase
 import ru.practicum.android.diploma.database.converters.VacancyDbConverter
 import ru.practicum.android.diploma.favorite.domain.api.FavoriteVacancyRepository
@@ -28,6 +31,12 @@ class FavoriteVacancyRepositoryImpl(
                     vacancyDbConvert.convertToVacancySearch(vacancyEntity)
                 }
             }
+    }
+    override suspend fun updateVacancy(vacancy: Vacancy) = withContext(Dispatchers.IO) {
+        val existingVacancy = appDatabase.favoriteVacancy().getVacancyByID(vacancy.id).firstOrNull()
+        if (existingVacancy != null) {
+            appDatabase.favoriteVacancy().updateVacancy(vacancyDbConvert.map(vacancy))
+        }
     }
 
     override fun getVacancyByID(id: String): Flow<Vacancy> {
