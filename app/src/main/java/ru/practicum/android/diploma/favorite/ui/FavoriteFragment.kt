@@ -4,22 +4,29 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.practicum.android.diploma.databinding.FavoriteFragmentBinding
+import ru.practicum.android.diploma.favorite.presintation.FavoriteScreenState
+import ru.practicum.android.diploma.favorite.presintation.FavoriteVacancyViewModel
 import ru.practicum.android.diploma.search.domain.models.VacancySearch
 import ru.practicum.android.diploma.search.ui.presenter.RecycleViewAdapter
 import ru.practicum.android.diploma.util.debounce
 
 class FavoriteFragment : Fragment() {
+
     companion object {
-        const val CLICK_DEBOUNCE_DELAY = 2000L
+        const val CLICK_DEBOUNCE_DELAY = 1000L
     }
 
+    private val viewModel: FavoriteVacancyViewModel by viewModel()
     private var _binding: FavoriteFragmentBinding? = null
     private val binding get() = _binding!!
     private val vacancies = mutableListOf<VacancySearch>()
+    private lateinit var adapter: RecycleViewAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,6 +41,39 @@ class FavoriteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         recyclerViewInit()
 
+        viewModel.observeState().observe(viewLifecycleOwner) {
+            render(it)
+        }
+
+    }
+
+    private fun render(state: FavoriteScreenState) {
+        when (state) {
+            is FavoriteScreenState.ContentState -> showContent(state.vacancies)
+            FavoriteScreenState.EmptyState -> showEmptyScreen()
+            FavoriteScreenState.ErrorState -> showErrorScreen()
+        }
+    }
+
+    private fun showContent(vacancy: List<VacancySearch>) {
+        vacancies.clear()
+        vacancies.addAll(vacancy)
+        adapter.notifyDataSetChanged()
+        binding.recyclerView.isVisible = true
+        binding.notFoundPlaceholder.isVisible = false
+        binding.canNotGetVacanciesPlaceholder.isVisible = false
+    }
+
+    private fun showEmptyScreen() {
+        binding.recyclerView.isVisible = false
+        binding.notFoundPlaceholder.isVisible = true
+        binding.canNotGetVacanciesPlaceholder.isVisible = false
+    }
+
+    private fun showErrorScreen() {
+        binding.recyclerView.isVisible = false
+        binding.notFoundPlaceholder.isVisible = false
+        binding.canNotGetVacanciesPlaceholder.isVisible = true
     }
 
     private fun recyclerViewInit() {
@@ -42,7 +82,8 @@ class FavoriteFragment : Fragment() {
                 TODO("Реализовать клик в вьюмодел")
             }
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerView.adapter = RecycleViewAdapter(vacancies, onVacancyClickDebounce)
+        adapter = RecycleViewAdapter(vacancies, onVacancyClickDebounce)
+        binding.recyclerView.adapter = adapter
     }
 
     override fun onDestroyView() {
