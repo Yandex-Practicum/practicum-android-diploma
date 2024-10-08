@@ -11,7 +11,7 @@ class VacancyDbConverter {
             name = vacancyEntity.name,
             currency = "RUB",
             salary = vacancyEntity.salary,
-            companyLogo = null,
+            companyLogo = vacancyEntity.logoLink,
             area = vacancyEntity.area,
             address = vacancyEntity.address,
             experience = vacancyEntity.experience,
@@ -22,6 +22,7 @@ class VacancyDbConverter {
             isFavorite = true
         )
     }
+
     fun map(vacancy: Vacancy): VacancyDetailsEntity {
         return VacancyDetailsEntity(
             id = vacancy.id,
@@ -33,7 +34,8 @@ class VacancyDbConverter {
             schedule = vacancy.schedule,
             employment = vacancy.employment,
             description = vacancy.description,
-            keySkill = vacancy.keySkills
+            keySkill = vacancy.keySkills,
+            logoLink = vacancy.companyLogo
         )
     }
     fun convertToVacancySearch(vacancy: VacancyDetailsEntity): VacancySearch {
@@ -41,9 +43,9 @@ class VacancyDbConverter {
             id = vacancy.id,
             name = vacancy.name,
             salary = vacancy.salary,
-            address = vacancy.address ?: "" ,
+            address = vacancy.address ?: "",
             company = vacancy.employment ?: "",
-            logo = null
+            logo = vacancy.logoLink ?: ""
         )
     }
 }

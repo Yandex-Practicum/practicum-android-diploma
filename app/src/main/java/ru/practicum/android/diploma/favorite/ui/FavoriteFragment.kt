@@ -26,7 +26,7 @@ class FavoriteFragment : Fragment() {
     private var _binding: FavoriteFragmentBinding? = null
     private val binding get() = _binding!!
     private val vacancies = mutableListOf<VacancySearch>()
-    private lateinit var adapter: RecycleViewAdapter
+    private var adapter: RecycleViewAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,7 +58,7 @@ class FavoriteFragment : Fragment() {
     private fun showContent(vacancy: List<VacancySearch>) {
         vacancies.clear()
         vacancies.addAll(vacancy)
-        adapter.notifyDataSetChanged()
+        adapter!!.notifyDataSetChanged()
         binding.recyclerView.isVisible = true
         binding.notFoundPlaceholder.isVisible = false
         binding.canNotGetVacanciesPlaceholder.isVisible = false

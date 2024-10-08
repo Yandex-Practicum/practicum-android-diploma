@@ -46,5 +46,7 @@ val dataModule = module {
         SearchVacancyNetworkConverter(get())
     }
 
-    factory{ VacancyDbConverter() }
+    factory {
+        VacancyDbConverter()
+    }
 }

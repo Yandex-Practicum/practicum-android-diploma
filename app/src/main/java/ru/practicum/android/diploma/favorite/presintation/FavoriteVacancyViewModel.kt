@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.favorite.presintation
 
+import android.database.sqlite.SQLiteException
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,7 +14,6 @@ class FavoriteVacancyViewModel(
 ) : ViewModel() {
 
     private val stateLiveData = MutableLiveData<FavoriteScreenState>()
-
     fun observeState(): LiveData<FavoriteScreenState> = stateLiveData
 
     init {
@@ -27,8 +27,9 @@ class FavoriteVacancyViewModel(
                     .collect { vacancies ->
                         processResult(vacancies)
                     }
-            } catch (e: Exception) {
+            } catch (e: SQLiteException) {
                 renderState(FavoriteScreenState.ErrorState)
+                println(e)
             }
         }
     }
