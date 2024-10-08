@@ -6,19 +6,17 @@ import ru.practicum.android.diploma.search.domain.api.SearchVacancyInteractor
 import ru.practicum.android.diploma.search.domain.api.SearchVacancyRepository
 import ru.practicum.android.diploma.search.domain.models.VacancySearch
 import ru.practicum.android.diploma.util.Resource
+import ru.practicum.android.diploma.util.network.HttpStatusCode
 
 class SearchVacancyInteractorImpl(private val repository: SearchVacancyRepository) : SearchVacancyInteractor {
 
     override fun getVacancyList(
         query: HashMap<String, String>
-    ): Flow<List<VacancySearch>?> {
+    ): Flow<Pair<List<VacancySearch>?, HttpStatusCode?>> {
         return repository.getVacancyList(query).map { result ->
             when (result) {
-                // передаем данные в случае успешного запроса, либо пустой лист, если ничего не нашлось
-                is Resource.Success -> result.data
-
-                //  в случае ошибки отдаем null
-                is Resource.Error -> null
+                is Resource.Success -> Pair(result.data, result.httpStatusCode)
+                is Resource.Error -> Pair(null, result.httpStatusCode)
             }
         }
     }
