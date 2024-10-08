@@ -21,12 +21,9 @@ class SearchVacancyRepositoryImpl(
         emit(
             when (response.resultCode) {
                 HttpStatusCode.OK -> Resource.Success(
-                    (response as VacancySearchResponse).items.map {
-                        converter.map(it)
-                    }
+                    (response as VacancySearchResponse).items.map { converter.map(it) }
                 )
-
-                else -> Resource.Error("Error")
+                else -> Resource.Error(response.resultCode)
             }
         )
     }

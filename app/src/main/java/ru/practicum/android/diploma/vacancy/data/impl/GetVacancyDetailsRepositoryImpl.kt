@@ -22,7 +22,7 @@ class GetVacancyDetailsRepositoryImpl(
                 HttpStatusCode.OK ->
                     Resource.Success(converter.map(response as VacancyDetailsResponse))
 
-                else -> Resource.Error("Error")
+                else -> Resource.Error(response.resultCode)
             }
         )
     }

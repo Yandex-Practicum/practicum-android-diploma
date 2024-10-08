@@ -1,7 +1,5 @@
 package ru.practicum.android.diploma.search.data.converters
 
-import android.content.Context
-import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.search.data.dto.VacancyItemDto
 import ru.practicum.android.diploma.search.domain.models.VacancySearch
 
