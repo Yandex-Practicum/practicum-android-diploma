@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import ru.practicum.android.diploma.databinding.VacancyDetailFragmentBinding
+import ru.practicum.android.diploma.vacancy.domain.entity.Vacancy
 import ru.practicum.android.diploma.vacancy.presentation.VacancyDetailsViewModel
 import ru.practicum.android.diploma.vacancy.presentation.VacancyScreenState
 
@@ -45,11 +46,27 @@ class VacancyDetailFragment : Fragment() {
 
     private fun renderState(state: VacancyScreenState) {
         when (state) {
-            is VacancyScreenState.ContentState -> TODO()
-            VacancyScreenState.EmptyState -> TODO()
-            VacancyScreenState.LoadingState -> TODO()
-            VacancyScreenState.NetworkErrorState -> TODO()
+            is VacancyScreenState.ContentState -> showContent(state.vacancy)
+            VacancyScreenState.EmptyState -> showEmpty()
+            VacancyScreenState.LoadingState -> showLoading()
+            VacancyScreenState.NetworkErrorState -> showNetworkError()
         }
+    }
+
+    private fun showContent(vacancy: Vacancy) {
+        // комент костыль
+    }
+
+    private fun showEmpty() {
+        // комент костыль
+    }
+
+    private fun showLoading() {
+        // комент костыль
+    }
+
+    private fun showNetworkError() {
+        // комент костыль
     }
 
     companion object {

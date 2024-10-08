@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.vacancy.presentation
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -31,6 +32,7 @@ class VacancyDetailsViewModel(
                     when (result) {
                         null,
                         is Resource.Error -> renderState(VacancyScreenState.NetworkErrorState)
+
                         is Resource.Success -> processSuccessResult(result)
                     }
                 }
@@ -44,8 +46,10 @@ class VacancyDetailsViewModel(
 
     private fun processSuccessResult(result: Resource.Success<Vacancy>) {
         if (result.data == null) {
+            Log.d("MyTag", "null")
             renderState(VacancyScreenState.EmptyState)
         } else {
+            Log.d("MyTag", result.data.toString())
             renderState(VacancyScreenState.ContentState(result.data))
         }
     }
