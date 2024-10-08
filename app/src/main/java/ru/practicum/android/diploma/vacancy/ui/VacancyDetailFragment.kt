@@ -6,8 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.VacancyDetailFragmentBinding
 import ru.practicum.android.diploma.vacancy.domain.entity.Vacancy
 import ru.practicum.android.diploma.vacancy.presentation.VacancyDetailsViewModel
@@ -54,7 +57,25 @@ class VacancyDetailFragment : Fragment() {
     }
 
     private fun showContent(vacancy: Vacancy) {
-        // комент костыль
+        binding.apply {
+            vacancyName.text = vacancy.name
+            salary.text = vacancy.salary
+            companyName.text = "Все пока Яндекс"
+            city.text = vacancy.address
+            experience.text = vacancy.experience
+            schedule.text = vacancy.schedule + "В конвертер добавить слияния эмпломент и шедулю"
+            description.text = vacancy.description
+            keySkill.text = vacancy.keySkills
+
+            val corner = resources.getDimension(R.dimen.radius_size_12).toInt()
+
+            Glide.with(requireContext())
+                .load(vacancy.companyLogo)
+                .fitCenter()
+                .placeholder(R.drawable.ic_placeholder_32px)
+                .transform(RoundedCorners(corner))
+                .into(logo)
+        }
     }
 
     private fun showEmpty() {
