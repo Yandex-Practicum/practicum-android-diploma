@@ -1,8 +1,8 @@
 package ru.practicum.android.diploma.util.network
 
-object HttpStatusCode {
-    const val OK = 200
-    const val BAD_REQUEST = 400
-    const val FORBIDDEN = 403
-    const val NOT_FOUND = 404
+enum class HttpStatusCode(resultCode: Int) {
+    OK(resultCode = 200),
+    BAD_REQUEST(resultCode = 400),
+    FORBIDDEN(resultCode = 403),
+    NOT_FOUND(resultCode = 404)
 }
