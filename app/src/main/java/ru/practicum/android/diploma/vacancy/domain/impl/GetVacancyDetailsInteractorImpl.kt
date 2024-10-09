@@ -14,7 +14,7 @@ class GetVacancyDetailsInteractorImpl(
     override fun getVacancyDetails(vacancyId: String): Flow<Pair<Vacancy?, HttpStatusCode?>> {
         return repository.getVacancyDetails(vacancyId).map { result ->
             when (result) {
-                is Resource.Success -> Pair(result.data, result.httpStatusCode)
+                is Resource.Success -> Pair(result.data, HttpStatusCode.OK)
                 is Resource.Error -> Pair(null, result.httpStatusCode)
             }
         }
