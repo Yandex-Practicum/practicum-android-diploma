@@ -11,7 +11,9 @@
         android:id="@+id/image"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:src="@drawable/test_image"
+        android:background="@drawable/border_corner_12dp_light_grey"
+        android:padding="1dp"
+        tools:src="@drawable/test_image"
         tools:ignore="ContentDescription" />
 
     <LinearLayout
