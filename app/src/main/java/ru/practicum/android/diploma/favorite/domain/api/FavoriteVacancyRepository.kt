@@ -14,4 +14,5 @@ interface FavoriteVacancyRepository {
 
     fun getVacancyByID(id: String): Flow<Vacancy>
 
+    suspend fun updateVacancy(vacancy: Vacancy)
 }
