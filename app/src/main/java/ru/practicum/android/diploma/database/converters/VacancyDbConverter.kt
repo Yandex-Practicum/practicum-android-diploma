@@ -11,7 +11,7 @@ class VacancyDbConverter {
             name = vacancyEntity.name,
             salary = vacancyEntity.salary,
             companyLogo = vacancyEntity.logoLink,
-            companyName = "!!!!!!!!!!!!1!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+            companyName = vacancyEntity.companyName,
             area = vacancyEntity.area,
             address = vacancyEntity.address,
             experience = vacancyEntity.experience,
