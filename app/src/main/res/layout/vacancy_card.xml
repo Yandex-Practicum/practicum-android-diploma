@@ -12,7 +12,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:background="@drawable/border_corner_12dp_light_grey"
-        android:padding="1dp"
+        android:padding="0.5dp"
         tools:src="@drawable/test_image"
         tools:ignore="ContentDescription" />
 
