@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.search.presentation.ui
+package ru.practicum.android.diploma.filter.presentation.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import ru.practicum.android.diploma.search.R
-import ru.practicum.android.diploma.search.databinding.FragmentPlaceBinding
+import ru.practicum.android.diploma.filter.R
+import ru.practicum.android.diploma.filter.databinding.FragmentPlaceBinding
 
 class PlaceFragment : Fragment() {
     private var _binding: FragmentPlaceBinding? = null

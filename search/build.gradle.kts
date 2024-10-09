@@ -63,6 +63,7 @@ dependencies {
     implementation(project(":common_ui"))
     implementation(project(":common_utils"))
     implementation(project(":vacancy"))
+    implementation(project(":filter"))
     implementation(project(":data_network"))
     implementation(project(":data_sp"))
     implementation(project(":data_db"))
