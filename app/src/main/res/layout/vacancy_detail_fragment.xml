@@ -220,7 +220,6 @@
                 style="@style/Text_Medium_22"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/title_top_margin_24"
                 android:text="@string/key_skill" />
 
             <TextView
