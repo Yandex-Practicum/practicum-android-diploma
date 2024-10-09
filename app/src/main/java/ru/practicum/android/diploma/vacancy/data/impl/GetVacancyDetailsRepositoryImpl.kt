@@ -27,6 +27,8 @@ class GetVacancyDetailsRepositoryImpl(
                 HttpStatusCode.OK -> {
                     val vacancy = converter.map(response as VacancyDetailsResponse)
                     favoriteRepository.updateVacancy(vacancy)
+                    val existingVacancy = favoriteRepository.getVacancyByID(vacancyId).firstOrNull()
+                    if (existingVacancy != null) vacancy.isFavorite = true
                     Resource.Success(vacancy)
                 }
                 HttpStatusCode.NOT_FOUND -> {
@@ -36,6 +38,7 @@ class GetVacancyDetailsRepositoryImpl(
                 else -> {
                     val existingVacancy = favoriteRepository.getVacancyByID(vacancyId).firstOrNull()
                     if (existingVacancy != null) {
+                        existingVacancy.isFavorite = true
                         Resource.Success(existingVacancy)
                     } else {
                         Resource.Error(HttpStatusCode.NOT_CONNECTED, null)
