@@ -78,7 +78,7 @@
                     android:id="@+id/logo"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:src="@drawable/test_image"
+                    tools:src="@drawable/test_image"
                     tools:ignore="ContentDescription" />
 
                 <LinearLayout
@@ -90,6 +90,7 @@
                     <TextView
                         android:id="@+id/company_name"
                         style="@style/Text_Medium_22"
+                        android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         tools:text="Еда" />
@@ -97,6 +98,7 @@
                     <TextView
                         android:id="@+id/city"
                         style="@style/Text_Regular_16"
+                        android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         tools:text="Москва" />
