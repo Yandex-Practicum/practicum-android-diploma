@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="plurals_vacancies">
+        <item quantity="one">@string/one_vacancy</item>
+        <item quantity="few">@string/few_vacancies</item>
+        <item quantity="other">@string/many_vacancies</item>
+        
+    </plurals>
+</resources>
