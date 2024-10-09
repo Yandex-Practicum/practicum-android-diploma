@@ -1,5 +1,7 @@
 package ru.practicum.android.diploma.vacancy.presentation
 
+import android.content.Context
+import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -32,6 +34,7 @@ class VacancyDetailsViewModel(
                     when (result.second) {
                         null,
                         OK -> processSuccessResult(result.first)
+
                         else -> renderState(VacancyScreenState.NetworkErrorState)
                     }
                 }
@@ -43,18 +46,26 @@ class VacancyDetailsViewModel(
         vacancyState.postValue(state)
     }
 
+    private var vacancyUrl = ""
     private fun processSuccessResult(vacancy: Vacancy?) {
         if (vacancy == null) {
             Log.d("MyTag", "null")
             renderState(VacancyScreenState.EmptyState)
         } else {
             Log.d("MyTag", vacancy.toString())
+            vacancyUrl = vacancy.vacancyUrl
             renderState(VacancyScreenState.ContentState(vacancy))
         }
     }
 
-    fun share() {
-        TODO("Not yet implemented")
+    fun share(context: Context) {
+        val intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, vacancyUrl)
+            type = "text/plain"
+        }
+        val share = Intent.createChooser(intent, null)
+        share.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        context.startActivity(share)
     }
-
 }

@@ -39,7 +39,7 @@ class VacancyDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.shareButton.setOnClickListener {
-            viewModel.share()
+            viewModel.share(requireContext())
         }
 
         viewModel.getVacancyState().observe(viewLifecycleOwner) { state ->
