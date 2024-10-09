@@ -28,7 +28,8 @@ class FavoriteVacancyViewModel(
             try {
                 favoriteInteractor
                     .getVacancies()
-                    .collect { vacancies ->
+                    .collect {
+                        val vacancies = it.reversed()
                         processResult(vacancies)
                     }
             } catch (e: SQLiteException) {
