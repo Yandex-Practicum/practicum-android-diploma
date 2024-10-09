@@ -39,7 +39,7 @@ class FavoriteVacancyRepositoryImpl(
         }
     }
 
-    override fun getVacancyByID(id: String): Flow<Vacancy> {
+    override fun getVacancyByID(id: String): Flow<Vacancy?> {
         return appDatabase.favoriteVacancy().getVacancyByID(id)
             .map { vacancyEntity -> vacancyDbConvert.map(vacancyEntity) }
     }

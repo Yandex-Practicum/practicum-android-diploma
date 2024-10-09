@@ -193,6 +193,7 @@ class VacancySearchFragment : Fragment() {
     }
 
     private fun showVacancies() {
+        view?.hideKeyboard()
         val stringBuilder =
             "${resources.getString(R.string.found)} " +
                 "$found " +
