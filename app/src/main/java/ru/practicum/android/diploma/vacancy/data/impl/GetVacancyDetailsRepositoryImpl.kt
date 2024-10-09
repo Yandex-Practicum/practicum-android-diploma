@@ -21,22 +21,29 @@ class GetVacancyDetailsRepositoryImpl(
 
     override fun getVacancyDetails(vacancyId: String): Flow<Resource<Vacancy>> = flow {
         val response = networkClient.doRequest(VacancyDetailsRequest(vacancyId))
-
         emit(
             when (response.resultCode) {
                 HttpStatusCode.OK -> {
                     val vacancy = converter.map(response as VacancyDetailsResponse)
                     favoriteRepository.updateVacancy(vacancy)
-                    Resource.Success(vacancy)
+                    val existingVacancy = favoriteRepository.getVacancyByID(vacancyId).firstOrNull()
+
+                    if (existingVacancy == null) {
+                        Resource.Success(vacancy)
+                    } else {
+                        Resource.Success(vacancy.copy(isFavorite = true))
+                    }
                 }
+
                 HttpStatusCode.NOT_FOUND -> {
                     favoriteRepository.deleteVacancyById(vacancyId)
                     Resource.Error(HttpStatusCode.NOT_FOUND, null)
                 }
+
                 else -> {
                     val existingVacancy = favoriteRepository.getVacancyByID(vacancyId).firstOrNull()
                     if (existingVacancy != null) {
-                        Resource.Success(existingVacancy)
+                        Resource.Success(existingVacancy.copy(isFavorite = true))
                     } else {
                         Resource.Error(HttpStatusCode.NOT_CONNECTED, null)
                     }

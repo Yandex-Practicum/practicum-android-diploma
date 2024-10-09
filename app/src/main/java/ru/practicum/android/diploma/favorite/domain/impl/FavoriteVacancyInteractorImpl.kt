@@ -20,7 +20,7 @@ class FavoriteVacancyInteractorImpl(
     override fun getVacancies(): Flow<List<VacancySearch>> =
         favoriteRepository.getVacancies()
 
-    override fun getVacancyByID(id: String): Flow<Vacancy> =
+    override fun getVacancyByID(id: String): Flow<Vacancy?> =
         favoriteRepository.getVacancyByID(id)
 
     override suspend fun updateVacancy(vacancy: Vacancy) {

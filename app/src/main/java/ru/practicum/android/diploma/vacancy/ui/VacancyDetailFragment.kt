@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -37,6 +38,10 @@ class VacancyDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.toolBar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
 
         binding.shareButton.setOnClickListener {
             viewModel.share(requireContext())
@@ -80,7 +85,7 @@ class VacancyDetailFragment : Fragment() {
             city.text = vacancy.address
             experience.text = vacancy.experience
             scheduleAndEmployment.text = getScheduleAndEmployment(vacancy)
-            description.text = Html.fromHtml(vacancy.description, Html.FROM_HTML_SEPARATOR_LINE_BREAK_DIV)
+            description.text = Html.fromHtml(vacancy.description, Html.FROM_HTML_MODE_COMPACT)
             if (vacancy.keySkills.isEmpty()) {
                 keySkillTitle.visibility = View.GONE
             } else {
