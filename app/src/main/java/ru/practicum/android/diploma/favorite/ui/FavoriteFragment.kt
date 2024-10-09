@@ -6,21 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FavoriteFragmentBinding
 import ru.practicum.android.diploma.favorite.presintation.FavoriteScreenState
 import ru.practicum.android.diploma.favorite.presintation.FavoriteVacancyViewModel
 import ru.practicum.android.diploma.search.domain.models.VacancySearch
 import ru.practicum.android.diploma.search.ui.presenter.RecycleViewAdapter
-import ru.practicum.android.diploma.util.debounce
+import ru.practicum.android.diploma.vacancy.ui.VacancyDetailFragment
 
 class FavoriteFragment : Fragment() {
-
-    companion object {
-        const val CLICK_DEBOUNCE_DELAY = 1000L
-    }
 
     private val viewModel: FavoriteVacancyViewModel by viewModel()
     private var _binding: FavoriteFragmentBinding? = null
@@ -43,6 +40,10 @@ class FavoriteFragment : Fragment() {
 
         viewModel.observeState().observe(viewLifecycleOwner) {
             render(it)
+        }
+
+        viewModel.getVacancyClickEvent().observe(viewLifecycleOwner) {
+            openVacancyDetails(it)
         }
 
     }
@@ -77,13 +78,18 @@ class FavoriteFragment : Fragment() {
     }
 
     private fun recyclerViewInit() {
-        val onVacancyClickDebounce: ((VacancySearch) -> Unit) =
-            debounce(CLICK_DEBOUNCE_DELAY, viewLifecycleOwner.lifecycleScope, false) { vacancy ->
-                TODO("Реализовать клик в вьюмодел")
-            }
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        adapter = RecycleViewAdapter(vacancies, onVacancyClickDebounce)
+        adapter = RecycleViewAdapter(vacancies) { vacancy ->
+            viewModel.onVacancyClick(vacancy)
+        }
         binding.recyclerView.adapter = adapter
+    }
+
+    private fun openVacancyDetails(vacancyId: String) {
+        findNavController().navigate(
+            R.id.action_favoriteFragment_to_vacancyFragment,
+            VacancyDetailFragment.createArgs(vacancyId)
+        )
     }
 
     override fun onDestroyView() {
