@@ -59,6 +59,11 @@ class VacancyDetailFragment : Fragment() {
 
     private fun showContent(vacancy: Vacancy) {
         binding.apply {
+            detailsView.visibility = View.VISIBLE
+            progressCircular.visibility = View.GONE
+            emptyErrorPlaceholder.visibility = View.GONE
+            serverErrorPlaceholder.visibility = View.GONE
+
             vacancyName.text = vacancy.name
             salary.text = vacancy.salary
             companyName.text = vacancy.companyName
@@ -66,7 +71,11 @@ class VacancyDetailFragment : Fragment() {
             experience.text = vacancy.experience
             schedule.text = vacancy.scheduleAndEmployment
             description.text = Html.fromHtml(vacancy.description)
-            keySkill.text = Html.fromHtml(vacancy.keySkills)
+            if (vacancy.keySkills.isEmpty()) {
+                keySkillTitle.visibility = View.GONE
+            } else {
+                keySkill.text = Html.fromHtml(vacancy.keySkills)
+            }
 
             val corner = resources.getDimension(R.dimen.radius_size_12).toInt()
 
@@ -80,15 +89,30 @@ class VacancyDetailFragment : Fragment() {
     }
 
     private fun showEmpty() {
-        // комент костыль
+        binding.apply {
+            detailsView.visibility = View.GONE
+            progressCircular.visibility = View.GONE
+            emptyErrorPlaceholder.visibility = View.VISIBLE
+            serverErrorPlaceholder.visibility = View.GONE
+        }
     }
 
     private fun showLoading() {
-        // комент костыль
+        binding.apply {
+            detailsView.visibility = View.GONE
+            progressCircular.visibility = View.VISIBLE
+            emptyErrorPlaceholder.visibility = View.GONE
+            serverErrorPlaceholder.visibility = View.GONE
+        }
     }
 
     private fun showNetworkError() {
-        // комент костыль
+        binding.apply {
+            detailsView.visibility = View.GONE
+            progressCircular.visibility = View.GONE
+            emptyErrorPlaceholder.visibility = View.GONE
+            serverErrorPlaceholder.visibility = View.VISIBLE
+        }
     }
 
     companion object {

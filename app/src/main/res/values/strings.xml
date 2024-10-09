@@ -25,6 +25,7 @@
     <string name="key_skill">Ключевые навыки</string>
     <string name="search_vacancy_titlie">%s, %s</string>
     <string name="bullet_dot">&amp;#8226</string>
+    <string name="vacancy_not_found">Вакансия не найдена или удалена</string>
 
     <!--  Team Info Screen /start/ -->
     <string name="team_member_title">Над приложением работали</string>
