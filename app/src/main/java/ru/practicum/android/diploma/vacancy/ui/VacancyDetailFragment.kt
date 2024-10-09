@@ -8,6 +8,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.VacancyDetailFragmentBinding
 import ru.practicum.android.diploma.vacancy.domain.entity.Vacancy
 import ru.practicum.android.diploma.vacancy.presentation.VacancyDetailsViewModel
@@ -36,6 +37,12 @@ class VacancyDetailFragment : Fragment() {
 
         viewModel.getVacancyState().observe(viewLifecycleOwner) { state ->
             renderState(state)
+        }
+        viewModel.getIsFavorite().observe(viewLifecycleOwner) { current ->
+            renderFavorite(current)
+        }
+        binding.favoriteButton.setOnClickListener {
+            viewModel.onFavoriteClicked()
         }
     }
 
@@ -67,6 +74,16 @@ class VacancyDetailFragment : Fragment() {
 
     private fun showNetworkError() {
         // комент костыль
+    }
+
+    private fun renderFavorite(current: Boolean) {
+        binding.favoriteButton.setImageResource(
+            if (current) {
+                R.drawable.ic_favorites_on__24px
+            } else {
+                R.drawable.ic_favorites_off__24px
+            }
+        )
     }
 
     companion object {
