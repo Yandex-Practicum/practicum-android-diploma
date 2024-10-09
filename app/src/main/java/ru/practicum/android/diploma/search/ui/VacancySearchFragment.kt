@@ -32,7 +32,7 @@ class VacancySearchFragment : Fragment() {
     private val viewModel by viewModel<VacancySearchViewModel>()
     private var adapter: RecycleViewAdapter? = null
     private var inputTextValue = DEF_TEXT
-    private var onVacancyClicEvent: ((VacancySearch) -> Unit)? = null
+    private var onVacancyClickEvent: ((VacancySearch) -> Unit)? = null
     private var found = 0
 
     override fun onCreateView(
@@ -122,12 +122,12 @@ class VacancySearchFragment : Fragment() {
     }
 
     private fun recyclerViewInit() {
-        onVacancyClicEvent = { vacancySearch ->
+        onVacancyClickEvent = { vacancySearch ->
             viewModel.onVacancyClick(vacancySearch)
         }
 
         adapter = RecycleViewAdapter(vacancies) {
-            onVacancyClicEvent!!(it)
+            onVacancyClickEvent!!(it)
         }
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter

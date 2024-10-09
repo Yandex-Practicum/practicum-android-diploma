@@ -8,10 +8,14 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.favorite.domain.api.FavoriteVacancyInteractor
 import ru.practicum.android.diploma.search.domain.models.VacancySearch
+import ru.practicum.android.diploma.util.SingleEventLiveData
 
 class FavoriteVacancyViewModel(
     private val favoriteInteractor: FavoriteVacancyInteractor
 ) : ViewModel() {
+
+    private val vacancyClickEvent = SingleEventLiveData<String>()
+    fun getVacancyClickEvent(): LiveData<String> = vacancyClickEvent
 
     private val stateLiveData = MutableLiveData<FavoriteScreenState>()
     fun observeState(): LiveData<FavoriteScreenState> = stateLiveData
@@ -44,5 +48,9 @@ class FavoriteVacancyViewModel(
 
     private fun renderState(state: FavoriteScreenState) {
         stateLiveData.postValue(state)
+    }
+
+    fun onVacancyClick(vacancySearch: VacancySearch) {
+        vacancyClickEvent.value = vacancySearch.id
     }
 }
