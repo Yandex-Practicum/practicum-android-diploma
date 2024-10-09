@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.vacancy.ui
 
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,12 +61,12 @@ class VacancyDetailFragment : Fragment() {
         binding.apply {
             vacancyName.text = vacancy.name
             salary.text = vacancy.salary
-            companyName.text = "Все пока Яндекс"
+            companyName.text = vacancy.companyName
             city.text = vacancy.address
             experience.text = vacancy.experience
-            schedule.text = vacancy.schedule + "В конвертер добавить слияния эмпломент и шедулю"
-            description.text = vacancy.description
-            keySkill.text = vacancy.keySkills
+            schedule.text = vacancy.scheduleAndEmployment
+            description.text = Html.fromHtml(vacancy.description)
+            keySkill.text = Html.fromHtml(vacancy.keySkills)
 
             val corner = resources.getDimension(R.dimen.radius_size_12).toInt()
 

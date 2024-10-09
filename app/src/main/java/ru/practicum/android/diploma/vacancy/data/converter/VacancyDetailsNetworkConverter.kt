@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.vacancy.data.converter
 
 import android.content.Context
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.search.data.converters.SalaryCurrencySignFormater
 import ru.practicum.android.diploma.vacancy.data.dto.AddressDto
 import ru.practicum.android.diploma.vacancy.data.dto.EmployerDto
 import ru.practicum.android.diploma.vacancy.data.dto.EmploymentDto
@@ -17,14 +18,15 @@ class VacancyDetailsNetworkConverter(private val context: Context) {
         return Vacancy(
             id = response.id,
             name = response.name,
-            currency = getCurrency(response.salary),
             salary = getSalary(response.salary),
             companyLogo = getLogo(response.employer),
+            companyName = getCompanyName(response.employer),
             area = response.area.name,
-            address = getAddress(response.address),
+            address = getAddress(response),
             experience = getExperience(response.experience),
-            schedule = getSchedule(response.schedule),
-            employment = getEmployment(response.employment),
+            schedule = response.schedule?.name,
+            employment = response.employment?.name,
+            scheduleAndEmployment = getScheduleAndEmployment(response),
             description = response.description,
             keySkills = getKeySkills(response.keySkills),
             isFavorite = false
@@ -33,54 +35,47 @@ class VacancyDetailsNetworkConverter(private val context: Context) {
 
     private fun getKeySkills(keySkills: List<KeySkillDto>): String {
         var keySkillsString = ""
+        val bulletDot = context.getString(R.string.bullet_dot)
         keySkills.forEach { skill ->
-            keySkillsString = keySkillsString + skill.name + "\n"
+            keySkillsString += "$bulletDot; ${skill.name} <br/>"
         }
         return keySkillsString
     }
 
-    private fun getEmployment(employment: EmploymentDto?): String? {
-        return employment?.name
-    }
-
-    private fun getSchedule(schedule: ScheduleDto?): String? {
-        return schedule?.name
+    private fun getScheduleAndEmployment(response: VacancyDetailsResponse): String {
+        return if (response.employment == null && response.schedule == null) {
+            ""
+        } else if (response.schedule == null) {
+            response.employment?.name ?: ""
+        } else if (response.employment == null) {
+            response.schedule.name
+        } else {
+            "${response.employment.name}, ${response.schedule.name}"
+        }
     }
 
     private fun getExperience(experience: ExperienceDto?): String? {
         return experience?.name
     }
 
-    private fun getLogo(employer: EmployerDto?): String {
-        return (!employer?.logoUrls?.original.isNullOrEmpty()).toString()
+    private fun getLogo(employer: EmployerDto?): String? {
+        return employer?.logoUrls?.size240
     }
 
-    private fun getAddress(address: AddressDto?): String {
-        return address?.city.toString()
-    }
-
-    private fun getSalary(salaryDto: SalaryDto?): String? {
-        val from = context.getString(R.string.salary_from)
-        val to = context.getString(R.string.salary_to)
-
-        return if (salaryDto == null) {
-            null
-        } else if (salaryDto.to == null && salaryDto.from != null) {
-            "$from ${salaryDto.from}"
-        } else if (salaryDto.to != null && salaryDto.from == null) {
-            "$to ${salaryDto.to}"
-        } else if (salaryDto.to != null && salaryDto.from != null) {
-            "$from ${salaryDto.from} $to ${salaryDto.to}"
+    private fun getAddress(response: VacancyDetailsResponse): String {
+        return if (response.address?.city == null) {
+            response.area.name
         } else {
-            null
+            response.address.city
         }
     }
 
-    private fun getCurrency(salaryDto: SalaryDto?): String {
-        var currency = "RUB"
-        if (!salaryDto?.currency.isNullOrEmpty()) {
-            currency = salaryDto?.currency.toString()
-        }
-        return currency
+    private fun getSalary(salaryDto: SalaryDto?): String {
+        val salaryFormatter = SalaryCurrencySignFormater(context)
+        return salaryFormatter.getStringSalary(salaryDto)
+    }
+
+    private fun getCompanyName(employer: EmployerDto?): String {
+        return employer?.name ?: ""
     }
 }
