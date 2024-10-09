@@ -53,4 +53,8 @@ class VacancyDetailsViewModel(
         }
     }
 
+    fun share() {
+        TODO("Not yet implemented")
+    }
+
 }

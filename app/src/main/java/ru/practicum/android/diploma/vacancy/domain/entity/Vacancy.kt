@@ -13,5 +13,6 @@ data class Vacancy(
     val employment: String?,
     val description: String,
     val keySkills: String,
+    val vacancyUrl: String,
     val isFavorite: Boolean
 )

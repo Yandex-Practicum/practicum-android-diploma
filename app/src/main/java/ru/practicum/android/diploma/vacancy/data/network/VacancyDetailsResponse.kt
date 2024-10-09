@@ -22,5 +22,6 @@ data class VacancyDetailsResponse(
     val schedule: ScheduleDto?,
     val employment: EmploymentDto?,
     val description: String,
+    val alternateUrl: String,
     @SerializedName("key_skills") val keySkills: List<KeySkillDto>,
 ) : Response()
