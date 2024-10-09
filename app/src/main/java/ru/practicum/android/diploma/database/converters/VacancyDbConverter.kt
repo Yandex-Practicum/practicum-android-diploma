@@ -19,6 +19,7 @@ class VacancyDbConverter {
             employment = vacancyEntity.employment,
             description = vacancyEntity.description,
             keySkills = vacancyEntity.keySkill,
+            vacancyUrl = vacancyEntity.vacancyUrl,
             isFavorite = true
         )
     }
@@ -36,6 +37,7 @@ class VacancyDbConverter {
             employment = vacancy.employment,
             description = vacancy.description,
             keySkill = vacancy.keySkills,
+            vacancyUrl = vacancy.vacancyUrl,
             logoLink = vacancy.companyLogo
         )
     }
