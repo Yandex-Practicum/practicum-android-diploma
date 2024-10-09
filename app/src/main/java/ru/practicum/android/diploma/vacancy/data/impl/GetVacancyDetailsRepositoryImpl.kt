@@ -21,7 +21,6 @@ class GetVacancyDetailsRepositoryImpl(
 
     override fun getVacancyDetails(vacancyId: String): Flow<Resource<Vacancy>> = flow {
         val response = networkClient.doRequest(VacancyDetailsRequest(vacancyId))
-
         emit(
             when (response.resultCode) {
                 HttpStatusCode.OK -> {

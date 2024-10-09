@@ -12,7 +12,7 @@ interface FavoriteVacancyInteractor {
 
     fun getVacancies(): Flow<List<VacancySearch>>
 
-    fun getVacancyByID(id: String): Flow<Vacancy>
+    fun getVacancyByID(id: String): Flow<Vacancy?>
 
     suspend fun updateVacancy(vacancy: Vacancy)
 }
