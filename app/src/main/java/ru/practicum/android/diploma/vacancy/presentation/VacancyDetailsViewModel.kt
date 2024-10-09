@@ -35,9 +35,10 @@ class VacancyDetailsViewModel(
             interactor.getVacancyDetails(vacancyId)
                 .collect { result ->
                     when (result.second) {
+                        null,
                         OK -> {
                             processSuccessResult(result.first)
-                            isFavorite.value = result.first?.isFavorite
+                            isFavorite.postValue(result.first?.isFavorite)
                             vacancy = result.first
                         }
 
