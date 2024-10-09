@@ -85,7 +85,7 @@ class VacancyDetailFragment : Fragment() {
             city.text = vacancy.address
             experience.text = vacancy.experience
             scheduleAndEmployment.text = getScheduleAndEmployment(vacancy)
-            description.text = Html.fromHtml(vacancy.description, Html.FROM_HTML_SEPARATOR_LINE_BREAK_DIV)
+            description.text = Html.fromHtml(vacancy.description, Html.FROM_HTML_MODE_COMPACT)
             if (vacancy.keySkills.isEmpty()) {
                 keySkillTitle.visibility = View.GONE
             } else {
