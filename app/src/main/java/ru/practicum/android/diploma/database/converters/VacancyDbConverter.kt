@@ -9,9 +9,9 @@ class VacancyDbConverter {
         return Vacancy(
             id = vacancyEntity.id,
             name = vacancyEntity.name,
-            currency = "RUB",
             salary = vacancyEntity.salary,
             companyLogo = vacancyEntity.logoLink,
+            companyName = vacancyEntity.companyName,
             area = vacancyEntity.area,
             address = vacancyEntity.address,
             experience = vacancyEntity.experience,
@@ -27,6 +27,7 @@ class VacancyDbConverter {
         return VacancyDetailsEntity(
             id = vacancy.id,
             name = vacancy.name,
+            companyName = vacancy.name,
             salary = vacancy.salary,
             area = vacancy.area,
             address = vacancy.address,
@@ -38,6 +39,7 @@ class VacancyDbConverter {
             logoLink = vacancy.companyLogo
         )
     }
+
     fun convertToVacancySearch(vacancy: VacancyDetailsEntity): VacancySearch {
         return VacancySearch(
             id = vacancy.id,

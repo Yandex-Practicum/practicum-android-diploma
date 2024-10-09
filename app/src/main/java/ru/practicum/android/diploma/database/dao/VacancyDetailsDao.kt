@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.database.entities.VacancyDetailsEntity
 
@@ -21,6 +22,9 @@ interface VacancyDetailsDao {
 
     @Query("SELECT * FROM $TABLE_NAME WHERE id = :id")
     fun getVacancyByID(id: String): Flow<VacancyDetailsEntity>
+
+    @Update
+    suspend fun updateVacancy(vacancy: VacancyDetailsEntity)
 
     companion object {
         const val TABLE_NAME = "vacancy_details"
