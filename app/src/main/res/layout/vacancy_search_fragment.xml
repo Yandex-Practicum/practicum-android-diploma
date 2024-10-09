@@ -169,18 +169,6 @@
             android:text="@string/server_error" />
     </FrameLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/search_state_message_background"
-        android:textColor="@color/white"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_line_box"
-        tools:text="Таких вакансий нет" />
-
     <ProgressBar
         android:id="@+id/progress_circular"
         android:layout_width="wrap_content"
@@ -194,13 +182,14 @@
         app:layout_constraintVertical_bias="0.4" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:clipToPadding="false"
+        android:paddingTop="32dp"
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="40dp"
         android:background="@android:color/transparent"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/search_line_box"
+        app:layout_constraintTop_toTopOf="@id/blue_text_view"
         app:layout_constraintBottom_toTopOf="@id/next_page_progress_circular"
         tools:listitem="@layout/vacancy_card"
         tools:visibility="visible" />
@@ -210,11 +199,23 @@
         android:layout_height="wrap_content"
         android:indeterminateTint="@color/blue"
         android:visibility="gone"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginVertical="@dimen/padding_horizontal_size_16"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/recycler_view" />
+    <TextView
+        android:id="@+id/blue_text_view"
+        style="@style/Text_Regular_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/search_state_message_background"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_line_box"
+        tools:text="Таких вакансий нет" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

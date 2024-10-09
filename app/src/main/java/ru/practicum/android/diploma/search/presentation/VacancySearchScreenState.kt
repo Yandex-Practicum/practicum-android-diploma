@@ -8,5 +8,5 @@ sealed class VacancySearchScreenState {
     data object SearchError : VacancySearchScreenState()
     data object Content : VacancySearchScreenState()
     data object PaginationLoading : VacancySearchScreenState()
-    data class PaginationError(val message: String) : VacancySearchScreenState()
+    data object PaginationError : VacancySearchScreenState()
 }
