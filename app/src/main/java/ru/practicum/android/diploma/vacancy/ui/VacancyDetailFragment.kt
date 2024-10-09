@@ -45,6 +45,12 @@ class VacancyDetailFragment : Fragment() {
         viewModel.getVacancyState().observe(viewLifecycleOwner) { state ->
             renderState(state)
         }
+        viewModel.getIsFavorite().observe(viewLifecycleOwner) { current ->
+            renderFavorite(current)
+        }
+        binding.favoriteButton.setOnClickListener {
+            viewModel.onFavoriteClicked()
+        }
     }
 
     override fun onDestroyView() {
@@ -129,6 +135,16 @@ class VacancyDetailFragment : Fragment() {
             emptyErrorPlaceholder.visibility = View.GONE
             serverErrorPlaceholder.visibility = View.VISIBLE
         }
+    }
+
+    private fun renderFavorite(current: Boolean) {
+        binding.favoriteButton.setImageResource(
+            if (current) {
+                R.drawable.ic_favorites_on__24px
+            } else {
+                R.drawable.ic_favorites_off__24px
+            }
+        )
     }
 
     companion object {
