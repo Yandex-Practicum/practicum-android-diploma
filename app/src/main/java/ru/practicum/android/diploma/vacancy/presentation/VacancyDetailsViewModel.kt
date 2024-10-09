@@ -2,7 +2,6 @@ package ru.practicum.android.diploma.vacancy.presentation
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -49,10 +48,8 @@ class VacancyDetailsViewModel(
     private var vacancyUrl = ""
     private fun processSuccessResult(vacancy: Vacancy?) {
         if (vacancy == null) {
-            Log.d("MyTag", "null")
             renderState(VacancyScreenState.EmptyState)
         } else {
-            Log.d("MyTag", vacancy.toString())
             vacancyUrl = vacancy.vacancyUrl
             renderState(VacancyScreenState.ContentState(vacancy))
         }
