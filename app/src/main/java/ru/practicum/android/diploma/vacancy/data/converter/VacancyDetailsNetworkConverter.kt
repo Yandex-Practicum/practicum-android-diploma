@@ -25,6 +25,7 @@ class VacancyDetailsNetworkConverter(private val context: Context) {
             employment = response.employment?.name,
             description = response.description,
             keySkills = getKeySkills(response.keySkills),
+            vacancyUrl = response.alternateUrl,
             isFavorite = false
         )
     }

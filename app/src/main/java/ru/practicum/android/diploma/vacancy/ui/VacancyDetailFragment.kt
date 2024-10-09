@@ -38,6 +38,10 @@ class VacancyDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.shareButton.setOnClickListener {
+            viewModel.share(requireContext())
+        }
+
         viewModel.getVacancyState().observe(viewLifecycleOwner) { state ->
             renderState(state)
         }
