@@ -22,6 +22,7 @@
     <string name="needed_experience">Требуемый опыт</string>
     <string name="about_vacancy">Описание вакансии</string>
     <string name="responsibilities">Обязанности</string>
+    <string name="key_skill">Ключевые навыки</string>
     <string name="search_vacancy_titlie">%s, %s</string>
     <string name="found">Найдено</string>
     <string name="one_vacancy">вакансия</string>
@@ -29,6 +30,8 @@
     <string name="many_vacancies">вакансий</string>
     <string name="not_found_blue_message">Таких вакансий нет</string>
     <string name="exeption">Произошла ошибка</string>
+    <string name="bullet_dot">&amp;#8226</string>
+    <string name="vacancy_not_found">Вакансия не найдена или удалена</string>
 
     <!--  Team Info Screen /start/ -->
     <string name="team_member_title">Над приложением работали</string>
