@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.favorite.domain.api.FavoriteVacancyInteractor
+import ru.practicum.android.diploma.util.network.HttpStatusCode.NOT_FOUND
 import ru.practicum.android.diploma.util.network.HttpStatusCode.OK
 import ru.practicum.android.diploma.vacancy.domain.api.GetVacancyDetailsInteractor
 import ru.practicum.android.diploma.vacancy.domain.entity.Vacancy
@@ -41,6 +42,7 @@ class VacancyDetailsViewModel(
                             isFavorite.postValue(result.first?.isFavorite)
                             vacancy = result.first
                         }
+                        NOT_FOUND -> renderState(VacancyScreenState.EmptyState)
 
                         else -> renderState(VacancyScreenState.NetworkErrorState)
                     }

@@ -5,7 +5,10 @@ import ru.practicum.android.diploma.search.domain.models.VacancySearch
 import ru.practicum.android.diploma.vacancy.domain.entity.Vacancy
 
 class VacancyDbConverter {
-    fun map(vacancyEntity: VacancyDetailsEntity): Vacancy {
+    fun map(vacancyEntity: VacancyDetailsEntity?): Vacancy? {
+        if (vacancyEntity == null) {
+            return null
+        }
         return Vacancy(
             id = vacancyEntity.id,
             name = vacancyEntity.name,
