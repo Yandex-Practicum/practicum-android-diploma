@@ -16,7 +16,6 @@ class VacancyDbConverter {
             address = vacancyEntity.address,
             experience = vacancyEntity.experience,
             schedule = vacancyEntity.schedule,
-            scheduleAndEmployment = "!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
             employment = vacancyEntity.employment,
             description = vacancyEntity.description,
             keySkills = vacancyEntity.keySkill,
@@ -28,6 +27,7 @@ class VacancyDbConverter {
         return VacancyDetailsEntity(
             id = vacancy.id,
             name = vacancy.name,
+            companyName = vacancy.name,
             salary = vacancy.salary,
             area = vacancy.area,
             address = vacancy.address,
@@ -39,6 +39,7 @@ class VacancyDbConverter {
             logoLink = vacancy.companyLogo
         )
     }
+
     fun convertToVacancySearch(vacancy: VacancyDetailsEntity): VacancySearch {
         return VacancySearch(
             id = vacancy.id,

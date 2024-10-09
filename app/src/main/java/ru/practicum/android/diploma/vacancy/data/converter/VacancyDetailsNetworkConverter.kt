@@ -3,13 +3,10 @@ package ru.practicum.android.diploma.vacancy.data.converter
 import android.content.Context
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.search.data.converters.SalaryCurrencySignFormater
-import ru.practicum.android.diploma.vacancy.data.dto.AddressDto
 import ru.practicum.android.diploma.vacancy.data.dto.EmployerDto
-import ru.practicum.android.diploma.vacancy.data.dto.EmploymentDto
 import ru.practicum.android.diploma.vacancy.data.dto.ExperienceDto
 import ru.practicum.android.diploma.vacancy.data.dto.KeySkillDto
 import ru.practicum.android.diploma.vacancy.data.dto.SalaryDto
-import ru.practicum.android.diploma.vacancy.data.dto.ScheduleDto
 import ru.practicum.android.diploma.vacancy.data.network.VacancyDetailsResponse
 import ru.practicum.android.diploma.vacancy.domain.entity.Vacancy
 
@@ -26,7 +23,6 @@ class VacancyDetailsNetworkConverter(private val context: Context) {
             experience = getExperience(response.experience),
             schedule = response.schedule?.name,
             employment = response.employment?.name,
-            scheduleAndEmployment = getScheduleAndEmployment(response),
             description = response.description,
             keySkills = getKeySkills(response.keySkills),
             isFavorite = false
@@ -40,18 +36,6 @@ class VacancyDetailsNetworkConverter(private val context: Context) {
             keySkillsString += "$bulletDot; ${skill.name} <br/>"
         }
         return keySkillsString
-    }
-
-    private fun getScheduleAndEmployment(response: VacancyDetailsResponse): String {
-        return if (response.employment == null && response.schedule == null) {
-            ""
-        } else if (response.schedule == null) {
-            response.employment?.name ?: ""
-        } else if (response.employment == null) {
-            response.schedule.name
-        } else {
-            "${response.employment.name}, ${response.schedule.name}"
-        }
     }
 
     private fun getExperience(experience: ExperienceDto?): String? {

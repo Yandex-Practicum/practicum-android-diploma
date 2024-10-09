@@ -69,7 +69,7 @@ class VacancyDetailFragment : Fragment() {
             companyName.text = vacancy.companyName
             city.text = vacancy.address
             experience.text = vacancy.experience
-            schedule.text = vacancy.scheduleAndEmployment
+            scheduleAndEmployment.text = getScheduleAndEmployment(vacancy)
             description.text = Html.fromHtml(vacancy.description, Html.FROM_HTML_SEPARATOR_LINE_BREAK_DIV)
             if (vacancy.keySkills.isEmpty()) {
                 keySkillTitle.visibility = View.GONE
@@ -85,6 +85,18 @@ class VacancyDetailFragment : Fragment() {
                 .placeholder(R.drawable.ic_placeholder_32px)
                 .transform(RoundedCorners(corner))
                 .into(logo)
+        }
+    }
+
+    private fun getScheduleAndEmployment(vacancy: Vacancy): String {
+        return if (vacancy.employment == null && vacancy.schedule == null) {
+            ""
+        } else if (vacancy.schedule == null) {
+            vacancy.employment ?: ""
+        } else if (vacancy.employment == null) {
+            vacancy.schedule
+        } else {
+            "${vacancy.employment}, ${vacancy.schedule}"
         }
     }
 

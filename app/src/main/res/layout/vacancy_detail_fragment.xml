@@ -190,7 +190,7 @@
                 tools:text="От 1 года до 3 лет" />
 
             <TextView
-                android:id="@+id/schedule"
+                android:id="@+id/schedule_and_employment"
                 style="@style/Text_Regular_16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
