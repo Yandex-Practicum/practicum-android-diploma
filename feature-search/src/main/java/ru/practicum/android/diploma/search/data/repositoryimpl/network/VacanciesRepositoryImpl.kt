@@ -32,11 +32,11 @@ internal class VacanciesRepositoryImpl(
     private val areaConverter: AreaConverter,
     private val context: Context,
 ) : VacanciesRepository {
-    override fun searchVacancies(page: String, per_page: String, query_text: String): Flow<Resource<PaginationInfo>> {
+    override fun searchVacancies(page: String, perPage: String, queryText: String): Flow<Resource<PaginationInfo>> {
         val options = mapOf(
             "page" to page,
-            "per_page" to per_page,
-            "text" to query_text
+            "per_page" to perPage,
+            "text" to queryText
         )
         return context.executeNetworkRequest<Response, PaginationInfo>(
             request = { networkClient.doRequest(HHApiVacanciesRequest(options)) },

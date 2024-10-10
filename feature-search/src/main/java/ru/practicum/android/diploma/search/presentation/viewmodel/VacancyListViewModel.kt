@@ -47,7 +47,7 @@ internal class VacancyListViewModel(
         _screenStateLiveData.postValue(SearchScreenState.LOADING_NEW_LIST)
         currentQuery = query
         viewModelScope.launch(Dispatchers.IO) {
-            vacanciesInteractor.searchVacancies(page = "0", per_page = "${PAGE_SIZE}", query_text = query)
+            vacanciesInteractor.searchVacancies(page = "0", perPage = "${PAGE_SIZE}", queryText = query)
                 .collect { response ->
                     if (response.first != null) {
                         paginationInfo = response.first ?: paginationInfo
@@ -77,8 +77,8 @@ internal class VacancyListViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             vacanciesInteractor.searchVacancies(
                 page = (currentPage + 1).toString(),
-                per_page = "${PAGE_SIZE}",
-                query_text = currentQuery
+                perPage = "${PAGE_SIZE}",
+                queryText = currentQuery
             ).collect { response ->
                 if (response.first != null) {
                     paginationInfo = response.first ?: paginationInfo
