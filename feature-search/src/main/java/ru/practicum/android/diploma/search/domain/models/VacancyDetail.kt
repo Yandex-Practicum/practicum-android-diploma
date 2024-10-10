@@ -3,7 +3,7 @@ package ru.practicum.android.diploma.search.domain.models
 data class VacancyDetail(
     val alternateUrl: String?,
     val applyAlternateUrl: String?,
-    val area: Area,
+    val area: AreaInVacancy,
     val brandedDescription: String?,
     val description: String,
     val employer: Employer,

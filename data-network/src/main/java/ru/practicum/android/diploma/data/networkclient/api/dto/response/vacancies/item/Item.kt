@@ -4,7 +4,7 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.address.Address
-import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.area.Area
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.area.AreaInVacancy
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.contacts.Contacts
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.department.Department
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.employer.Employer
@@ -24,7 +24,7 @@ data class Item(
     val address: Address,
     @SerializedName("alternate_url") val alternateUrl: String,
     @SerializedName("apply_alternate_url") val applyAlternateUrl: String,
-    val area: Area,
+    val area: AreaInVacancy,
     @SerializedName("brand_snippet") val brandSnippet: BrandSnippet,
     val branding: Branding,
     val contacts: Contacts,
