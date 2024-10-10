@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">Practicum-Android-Diploma</string>
 
-    <!-- Content description -->
+    <!-- Content descriptions -->
     <string name="back">Назад</string>
     <string name="clear_search">Сбросить поисковой запрос</string>
+    <string name="select_industry">Выбрать отрасль</string>
 
     <!-- BottomNavigation tabs -->
     <string name="search">Главная</string>

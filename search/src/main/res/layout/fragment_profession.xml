@@ -82,6 +82,7 @@
         style="@style/SearchBarIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:importantForAccessibility="no"
         android:src="@drawable/search_loupe"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@id/searchBar"

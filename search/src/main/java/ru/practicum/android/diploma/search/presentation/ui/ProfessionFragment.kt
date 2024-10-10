@@ -103,7 +103,7 @@ class ProfessionFragment : Fragment() {
     private fun showConfirmation(selectedIndustry: Industry) {
         binding.selectButton.isVisible = true
         binding.selectButton.setOnClickListener {
-            // pass selectedIndustry here
+            // ❗ pass selectedIndustry to viewmodel here
         }
     }
 

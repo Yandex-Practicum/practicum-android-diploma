@@ -23,6 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/dimens_4"
+        android:contentDescription="@string/select_industry"
         android:padding="@dimen/dimens_12"
         android:src="@drawable/filter_option_toggle_off"
         app:layout_constraintBottom_toBottomOf="parent"
