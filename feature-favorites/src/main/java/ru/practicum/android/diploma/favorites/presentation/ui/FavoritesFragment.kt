@@ -35,7 +35,7 @@ internal class FavoritesFragment : Fragment() {
 
     private var listFavoriteVacancy: MutableList<FavoriteVacancy> = mutableListOf()
 
-    private val favoriteAdapter: FavoriteAdapter by lazy (LazyThreadSafetyMode.NONE) {
+    private val favoriteAdapter: FavoriteAdapter by lazy(LazyThreadSafetyMode.NONE) {
         FavoriteAdapter(listFavoriteVacancy) {
             favoriteVacancySelection(it)
         }
