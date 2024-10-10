@@ -51,7 +51,7 @@ dependencies {
     implementation(libs.koin.android)
 
     implementation(libs.kotlinx.coroutines.android)
-    implementation(project(":common-utils"))
 
     // modules
+    implementation(project(":common-utils"))
 }

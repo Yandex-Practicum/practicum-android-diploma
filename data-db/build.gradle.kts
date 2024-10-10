@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.ksp)
-    id("kotlin-kapt")
+    alias(libs.plugins.kapt)
 }
 
 android {
@@ -65,6 +65,4 @@ dependencies {
     kapt(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
     implementation(project(":common-utils"))
-
-    // modules
 }

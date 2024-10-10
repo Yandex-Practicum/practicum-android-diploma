@@ -67,7 +67,7 @@ dependencies {
     implementation(libs.converter.gson)
 
     implementation(libs.kotlinx.coroutines.android)
-    implementation(project(":common-utils"))
 
     // modules
+    implementation(project(":common-utils"))
 }

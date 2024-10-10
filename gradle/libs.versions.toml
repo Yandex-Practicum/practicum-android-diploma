@@ -26,6 +26,7 @@ roomRuntime = "2.6.1"
 glide = "4.14.2"
 koinAndroid = "3.5.0"
 ksp = "1.9.21-1.0.16"
+kapt = "1.8.0"
 
 [libraries]
 
@@ -76,5 +77,6 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kapt" }
 
 [bundles]
