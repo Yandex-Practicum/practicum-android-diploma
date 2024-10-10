@@ -87,4 +87,12 @@
 
     </style>
 
+    <style name="Text_filter_area_title">
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/medium_and_regular_16</item>
+        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:letterSpacing">0</item>
+
+    </style>
+
 </resources>
