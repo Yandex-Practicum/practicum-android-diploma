@@ -3,31 +3,31 @@ package ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancy
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
-import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.billing.BillingType
-import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.brandedtemplate.BrandedTemplate
-import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.driverlicense.DriverLicenseType
-import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.employment.Employment
-import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.experience.Experience
-import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.skill.KeySkill
-import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.language.Language
-import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.manager.Manager
-import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.test.Test
-import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.video.VideoVacancy
-import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.working.WorkingDay
-import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.working.WorkingTimeInterval
-import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.working.WorkingTimeMode
+import ru.practicum.android.diploma.commonutils.network.HttpStatus
+import ru.practicum.android.diploma.commonutils.network.Response
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.address.Address
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.area.Area
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.contacts.Contacts
-import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.employer.Employer
-import ru.practicum.android.diploma.commonutils.network.HttpStatus
-import ru.practicum.android.diploma.commonutils.network.Response
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.department.Department
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.employer.Employer
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.insider.InsiderInterview
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.role.ProfessionalRole
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.salary.Salary
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.schedule.Schedule
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.type.Type
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.billing.BillingType
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.brandedtemplate.BrandedTemplate
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.driverlicense.DriverLicenseType
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.employment.Employment
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.experience.Experience
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.language.Language
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.manager.Manager
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.skill.KeySkill
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.test.Test
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.video.VideoVacancy
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.working.WorkingDay
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.working.WorkingTimeInterval
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.working.WorkingTimeMode
 
 @Parcelize
 data class HHVacancyDetailResponse(

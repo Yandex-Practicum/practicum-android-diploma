@@ -6,14 +6,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import ru.practicum.android.diploma.commonutils.Utils
+import ru.practicum.android.diploma.commonutils.network.HttpStatus
+import ru.practicum.android.diploma.commonutils.network.Response
 import ru.practicum.android.diploma.commonutils.network.isConnected
 import ru.practicum.android.diploma.data.networkclient.api.NetworkClient
 import ru.practicum.android.diploma.data.networkclient.api.dto.request.HHApiIndustriesRequest
 import ru.practicum.android.diploma.data.networkclient.api.dto.request.HHApiRegionsRequest
 import ru.practicum.android.diploma.data.networkclient.api.dto.request.HHApiVacanciesRequest
 import ru.practicum.android.diploma.data.networkclient.api.dto.request.HHApiVacancyRequest
-import ru.practicum.android.diploma.commonutils.network.HttpStatus
-import ru.practicum.android.diploma.commonutils.network.Response
 
 private const val TAG = "RetrofitNetworkClient"
 private const val HTTP_CODE_404 = 404

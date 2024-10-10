@@ -11,7 +11,6 @@
     <style name="SearchIcon">
         <item name="android:layout_marginVertical">@dimen/dp_4</item>
         <item name="android:layout_marginEnd">@dimen/dp_4</item>
-        <item name="android:contentDescription">@string/search_screen_clear_button_content_description</item>
         <item name="android:padding">@dimen/dp_16</item>
     </style>
 

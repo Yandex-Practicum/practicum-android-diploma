@@ -3,11 +3,13 @@ package ru.practicum.android.diploma.search.di
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 import ru.practicum.android.diploma.search.data.repositoryimpl.network.VacanciesRepositoryImpl
 import ru.practicum.android.diploma.search.domain.repository.VacanciesRepository
 import ru.practicum.android.diploma.search.domain.usecase.VacanciesInteractor
 import ru.practicum.android.diploma.search.domain.usecase.impl.VacanciesInteractorImpl
+import ru.practicum.android.diploma.search.presentation.viewmodel.ProfessionViewModel
 import ru.practicum.android.diploma.search.presentation.viewmodel.VacancyListViewModel
 import ru.practicum.android.diploma.search.util.AreaConverter
 import ru.practicum.android.diploma.search.util.IndustryConverter
@@ -37,4 +39,6 @@ val searchModule = module {
     viewModel {
         VacancyListViewModel(get(), androidApplication())
     }
+
+    viewModelOf(::ProfessionViewModel)
 }
