@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.filter.R
 import ru.practicum.android.diploma.filter.databinding.FragmentFilterBinding
 
-class FilterFragment : Fragment() {
+internal class FilterFragment : Fragment() {
     private var _binding: FragmentFilterBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(

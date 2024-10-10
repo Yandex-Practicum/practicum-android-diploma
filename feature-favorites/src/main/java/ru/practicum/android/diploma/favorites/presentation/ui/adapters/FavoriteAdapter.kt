@@ -13,7 +13,7 @@ import ru.practicum.android.diploma.ui.databinding.ItemVacancyBinding
 
 private const val RADIUS_ROUND_VIEW = 12f
 
-class FavoriteAdapter(
+internal class FavoriteAdapter(
     private val favoriteVacancies: List<FavoriteVacancy>,
     private val favoriteClickListener: FavoriteClickListener
 ) : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {

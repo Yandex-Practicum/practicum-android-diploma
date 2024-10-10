@@ -25,7 +25,7 @@ import ru.practicum.android.diploma.search.util.VacancyConverter
 
 private const val DEFAULT_REGION = "113" // Russia
 
-class VacanciesRepositoryImpl(
+internal class VacanciesRepositoryImpl(
     private val networkClient: NetworkClient,
     private val vacancyConverter: VacancyConverter,
     private val industryConverter: IndustryConverter,

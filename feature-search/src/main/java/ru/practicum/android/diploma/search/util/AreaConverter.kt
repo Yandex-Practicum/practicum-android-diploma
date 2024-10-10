@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.search.domain.models.RegionList
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.area.Area as AreaDto
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.area.AreaX as AreaXDto
 
-class AreaConverter {
+internal class AreaConverter {
     fun map(regions: HHRegionsResponse): RegionList = RegionList(ArrayList(regions.map {
         Region(areas = mapX(it.areas), id = it.id, name = it.name, parentId = it.parentId)
     }))

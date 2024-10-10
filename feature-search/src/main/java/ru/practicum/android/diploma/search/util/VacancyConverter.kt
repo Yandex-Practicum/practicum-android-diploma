@@ -31,7 +31,7 @@ import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancyd
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.working.WorkingDay as WorkingDayDto
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.working.WorkingTimeInterval as WorkingTimeIntervalDto
 
-class VacancyConverter {
+internal class VacancyConverter {
     fun mapItem(items: List<Item>): List<Vacancy> {
         return ArrayList(items.map {
             with(it) {

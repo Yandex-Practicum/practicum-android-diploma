@@ -3,7 +3,7 @@ package ru.practicum.android.diploma.vacancy.data.repositoryimpl
 import android.content.Context
 import android.content.Intent
 
-class ExternalNavigator(private val context: Context) {
+internal class ExternalNavigator(private val context: Context) {
     fun shareLink(shareLink: String) {
         Intent().apply {
             action = Intent.ACTION_SEND

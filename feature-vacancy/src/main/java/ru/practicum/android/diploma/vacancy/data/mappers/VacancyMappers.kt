@@ -7,7 +7,7 @@ import ru.practicum.android.diploma.data.db.entity.VacancyEntity
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.HHVacancyDetailResponse
 import ru.practicum.android.diploma.vacancy.domain.model.Vacancy
 
-object VacancyMappers {
+internal object VacancyMappers {
     fun map(
         context: Context,
         vacancyNetwork: HHVacancyDetailResponse

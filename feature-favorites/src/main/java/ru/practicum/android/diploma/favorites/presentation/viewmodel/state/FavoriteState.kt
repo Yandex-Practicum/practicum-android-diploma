@@ -2,7 +2,7 @@ package ru.practicum.android.diploma.favorites.presentation.viewmodel.state
 
 import ru.practicum.android.diploma.favorites.domain.model.FavoriteVacancy
 
-sealed interface FavoriteState {
+internal sealed interface FavoriteState {
     data class Content(
         val favoriteVacancies: List<FavoriteVacancy>
     ) : FavoriteState

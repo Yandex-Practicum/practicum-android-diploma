@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.ui.databinding.ItemVacancyBinding
 
-class VacancyListAdapter(private val clickListener: VacancyClickListener) :
+internal class VacancyListAdapter(private val clickListener: VacancyClickListener) :
     RecyclerView.Adapter<VacancyListViewHolder>() {
 
     private var vacancies = ArrayList<Vacancy>()

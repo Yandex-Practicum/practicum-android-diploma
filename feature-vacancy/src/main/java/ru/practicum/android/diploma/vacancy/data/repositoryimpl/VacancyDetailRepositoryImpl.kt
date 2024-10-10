@@ -18,7 +18,7 @@ private const val TAG_VACANCY = "Vacancy"
 private const val TAG_CHECK_VACANCY_EXIST = "CheckVacancyExists"
 private const val TAG_VACANCY_DELETE = "VacancyDelete"
 
-class VacancyDetailRepositoryImpl(
+internal class VacancyDetailRepositoryImpl(
     private val context: Context,
     private val networkClient: NetworkClient,
     private val database: AppDatabase,

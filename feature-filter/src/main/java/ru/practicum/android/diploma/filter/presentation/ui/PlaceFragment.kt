@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.filter.R
 import ru.practicum.android.diploma.filter.databinding.FragmentPlaceBinding
 
-class PlaceFragment : Fragment() {
+internal class PlaceFragment : Fragment() {
     private var _binding: FragmentPlaceBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(

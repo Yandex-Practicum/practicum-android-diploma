@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.filter.databinding.FragmentCountryBinding
 
-class CountryFragment : Fragment() {
+internal class CountryFragment : Fragment() {
     private var _binding: FragmentCountryBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(

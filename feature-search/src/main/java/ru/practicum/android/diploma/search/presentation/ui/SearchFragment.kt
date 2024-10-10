@@ -29,7 +29,7 @@ import ru.practicum.android.diploma.vacancy.presentation.ui.state.VacancyInputSt
 private const val USER_INPUT = "userInput"
 private const val DELAY_CLICK_VACANCY = 2000L
 
-class SearchFragment : Fragment() {
+internal class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
     private var userInputReserve = ""

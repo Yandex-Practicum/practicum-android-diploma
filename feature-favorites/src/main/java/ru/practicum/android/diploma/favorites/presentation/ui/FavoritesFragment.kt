@@ -23,7 +23,7 @@ import ru.practicum.android.diploma.vacancy.presentation.ui.VacancyFragment
 import ru.practicum.android.diploma.vacancy.presentation.ui.state.VacancyInputState
 
 private const val DELAY_CLICK_VACANCY = 250L
-class FavoritesFragment : Fragment() {
+internal class FavoritesFragment : Fragment() {
 
     private val favoriteViewModel: FavoriteViewModel by viewModel()
 
@@ -35,7 +35,7 @@ class FavoritesFragment : Fragment() {
 
     private var listFavoriteVacancy: MutableList<FavoriteVacancy> = mutableListOf()
 
-    private val favoriteAdapter: FavoriteAdapter by lazy {
+    private val favoriteAdapter: FavoriteAdapter by lazy (LazyThreadSafetyMode.NONE) {
         FavoriteAdapter(listFavoriteVacancy) {
             favoriteVacancySelection(it)
         }
@@ -112,7 +112,6 @@ class FavoritesFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-        viewArray = emptyArray()
         viewArray = null
     }
 

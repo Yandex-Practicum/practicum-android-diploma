@@ -12,7 +12,7 @@ import ru.practicum.android.diploma.ui.databinding.ItemVacancyBinding
 
 private const val RADIUS_ROUND_VIEW = 12f
 
-class VacancyListViewHolder(
+internal class VacancyListViewHolder(
     private val binding: ItemVacancyBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 

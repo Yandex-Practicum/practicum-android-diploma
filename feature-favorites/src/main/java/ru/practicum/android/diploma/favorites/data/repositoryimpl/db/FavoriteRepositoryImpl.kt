@@ -12,7 +12,7 @@ import ru.practicum.android.diploma.favorites.domain.repository.FavoriteReposito
 private const val TAG_VACANCIES_NUMBER = "VacanciesNumber"
 private const val TAG_VACANCIES_PAGINATED = "VacanciesPaginated"
 
-class FavoriteRepositoryImpl(
+internal class FavoriteRepositoryImpl(
     private val dataBase: AppDatabase
 ) : FavoriteRepository {
 

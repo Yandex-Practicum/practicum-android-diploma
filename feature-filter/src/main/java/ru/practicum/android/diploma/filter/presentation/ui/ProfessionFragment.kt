@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.filter.databinding.FragmentProfessionBinding
 
-class ProfessionFragment : Fragment() {
+internal class ProfessionFragment : Fragment() {
     private var _binding: FragmentProfessionBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(

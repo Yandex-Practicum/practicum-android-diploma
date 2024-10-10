@@ -14,7 +14,7 @@ import ru.practicum.android.diploma.search.presentation.SearchScreenState
 
 private const val PAGE_SIZE = 20
 
-class VacancyListViewModel(
+internal class VacancyListViewModel(
     private val vacanciesInteractor: VacanciesInteractor,
     private val application: Application,
 ) : AndroidViewModel(application) {

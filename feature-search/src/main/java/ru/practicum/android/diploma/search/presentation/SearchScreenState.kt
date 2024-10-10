@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.search.presentation
 
-sealed class SearchScreenState {
+internal sealed class SearchScreenState {
     object IDLE : SearchScreenState()
 
     object VACANCY_LIST_LOADED : SearchScreenState()

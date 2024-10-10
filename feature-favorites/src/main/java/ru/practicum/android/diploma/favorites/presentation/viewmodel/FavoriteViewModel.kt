@@ -11,7 +11,7 @@ import ru.practicum.android.diploma.favorites.domain.usecase.FavoriteInteractor
 import ru.practicum.android.diploma.favorites.presentation.viewmodel.state.FavoriteState
 
 private const val PAGE_SIZE = 20
-class FavoriteViewModel(
+internal class FavoriteViewModel(
     private val favoriteInteractor: FavoriteInteractor
 ) : ViewModel() {
 
