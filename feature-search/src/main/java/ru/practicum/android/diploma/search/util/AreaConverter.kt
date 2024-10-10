@@ -19,7 +19,7 @@ internal class AreaConverter {
     fun map(areaInReferernceDto: AreaInReferenceDto): AreaInReference =
         with(areaInReferernceDto) {
             AreaInReference(
-                areas = map(areaInReferernceDto.areas),
+                areas = mapAreaReference(areaInReferernceDto.areas),
                 id = areaInReferernceDto.id,
                 name = areaInReferernceDto.name,
                 parentId = areaInReferernceDto.parentId
