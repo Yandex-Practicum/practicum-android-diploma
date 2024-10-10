@@ -66,15 +66,15 @@ dependencies {
 
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(project(":common-ui"))
 
     // modules
-    implementation(project(":common_ui"))
-    implementation(project(":data_network"))
-    implementation(project(":data_sp"))
-    implementation(project(":data_db"))
-    implementation(project(":search"))
-    implementation(project(":filter"))
-    implementation(project(":favorites"))
-    implementation(project(":vacancy"))
-    implementation(project(":team"))
+    implementation(project(":data-network"))
+    implementation(project(":data-sp"))
+    implementation(project(":data-db"))
+    implementation(project(":feature-search"))
+    implementation(project(":feature-filter"))
+    implementation(project(":feature-favorites"))
+    implementation(project(":feature-vacancy"))
+    implementation(project(":feature-team"))
 }

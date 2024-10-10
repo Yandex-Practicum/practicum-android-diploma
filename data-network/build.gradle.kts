@@ -1,11 +1,16 @@
+import java.io.FileInputStream
+import java.io.InputStreamReader
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.ksp)
 }
 
 android {
-    namespace = "ru.practicum.android.diploma.data.sp"
+    namespace = "ru.practicum.android.diploma.data"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -15,13 +20,23 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     buildTypes {
+        val properties = Properties()
+        properties.load(InputStreamReader(FileInputStream(File("develop.properties"))))
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "HH_ACCESS_TOKEN", "\"${properties.getProperty("hhAccessToken")}\"")
+        }
+        debug {
+            buildConfigField("String", "HH_ACCESS_TOKEN", "\"${properties.getProperty("hhAccessToken")}\"")
         }
     }
     compileOptions {
@@ -43,15 +58,16 @@ dependencies {
     androidTestImplementation(libs.uiTests.espressoCore)
 
     // Add lib
-    implementation(libs.converter.gson)
+    implementation(libs.retrofit)
     implementation(libs.glide)
     annotationProcessor(libs.compiler)
     implementation(libs.logging.interceptor)
     implementation(libs.gson)
     implementation(libs.koin.android)
+    implementation(libs.converter.gson)
 
     implementation(libs.kotlinx.coroutines.android)
+    implementation(project(":common-utils"))
 
     // modules
-    implementation(project(":common_utils"))
 }

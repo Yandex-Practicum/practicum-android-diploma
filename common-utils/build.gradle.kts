@@ -1,10 +1,11 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.kotlin.parcelize)
 }
 
 android {
-    namespace = "ru.practicum.android.diploma.team"
+    namespace = "ru.practicum.android.diploma.common_utils"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -30,9 +31,6 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    buildFeatures {
-        viewBinding = true
-    }
 }
 
 dependencies {
@@ -40,29 +38,13 @@ dependencies {
     implementation(libs.androidX.core)
     implementation(libs.androidX.appCompat)
     implementation(libs.ui.material)
+    implementation(libs.retrofit)
+    implementation(libs.koin.android)
+    implementation(libs.converter.gson)
     testImplementation(libs.unitTests.junit)
     androidTestImplementation(libs.uiTests.junitExt)
     androidTestImplementation(libs.uiTests.espressoCore)
 
-    // Add lib
-    implementation(libs.converter.gson)
-    implementation(libs.glide)
-    annotationProcessor(libs.compiler)
-    implementation(libs.logging.interceptor)
-    implementation(libs.gson)
-    implementation(libs.koin.android)
-
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
-    implementation(libs.androidx.fragment.ktx)
-
     implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
-
-    // modules
-    implementation(project(":common_ui"))
-    implementation(project(":common_utils"))
-    implementation(project(":data_network"))
-    implementation(project(":data_sp"))
-    implementation(project(":data_db"))
+    implementation(project(":common-ui"))
 }

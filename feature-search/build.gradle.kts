@@ -1,12 +1,10 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.ksp)
-    id("kotlin-kapt")
 }
 
 android {
-    namespace = "ru.practicum.android.diploma.favorites"
+    namespace = "ru.practicum.android.diploma.search"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -35,10 +33,6 @@ android {
     buildFeatures {
         viewBinding = true
     }
-    kapt {
-        correctErrorTypes = true
-        useBuildCache = true
-    }
 }
 
 dependencies {
@@ -64,16 +58,13 @@ dependencies {
 
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
-
-    implementation(libs.androidx.room.runtime)
-    kapt(libs.androidx.room.compiler)
-    implementation(libs.androidx.room.ktx)
+    implementation(project(":common-ui"))
 
     // modules
-    implementation(project(":common_ui"))
-    implementation(project(":common_utils"))
-    implementation(project(":vacancy"))
-    implementation(project(":data_network"))
-    implementation(project(":data_sp"))
-    implementation(project(":data_db"))
+    implementation(project(":common-utils"))
+    implementation(project(":feature-vacancy"))
+    implementation(project(":feature-filter"))
+    implementation(project(":data-network"))
+    implementation(project(":data-sp"))
+    implementation(project(":data-db"))
 }
