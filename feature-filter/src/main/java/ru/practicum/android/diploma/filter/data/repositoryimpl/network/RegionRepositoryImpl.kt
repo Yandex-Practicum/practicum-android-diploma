@@ -12,14 +12,14 @@ import ru.practicum.android.diploma.filter.domain.model.AreaInReference
 import ru.practicum.android.diploma.filter.domain.repository.RegionRepository
 import ru.practicum.android.diploma.filter.util.AreaConverter
 
-internal class RegionsRepositoryImpl(
+internal class RegionRepositoryImpl(
     private val networkClient: NetworkClient,
     private val areaConverter: AreaConverter,
     private val context: Context,
 ) : RegionRepository {
     override fun listAreas(): Flow<Resource<List<AreaInReference>>> =
         context.executeNetworkRequest<Response, List<AreaInReference>>(
-            request = { networkClient.doRequest(HHApiRegionsRequest()) },
+            request = { networkClient.doRequest(HHApiRegionsRequest(null)) },
             successHandler = { response: Response ->
                 Resource.Success(areaConverter.map(response as HHRegionsResponse))
             },
