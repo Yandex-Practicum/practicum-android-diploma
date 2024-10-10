@@ -1,29 +1,26 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("ru.practicum.android.diploma.plugins.developproperties")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.jetbrains.kotlin.android)
 }
 
 android {
-    namespace = "ru.practicum.android.diploma"
+    namespace = "ru.practicum.android.diploma.search"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "ru.practicum.android.diploma"
         minSdk = libs.versions.minSdk.get().toInt()
-        targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        buildConfigField(type = "String", name = "HH_ACCESS_TOKEN", value = "\"${developProperties.hhAccessToken}\"")
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -33,31 +30,26 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-
     buildFeatures {
-        buildConfig = true
         viewBinding = true
     }
 }
 
 dependencies {
+
     implementation(libs.androidX.core)
     implementation(libs.androidX.appCompat)
-
-    // UI layer libraries
     implementation(libs.ui.material)
-    implementation(libs.ui.constraintLayout)
-
-    // region Unit tests
     testImplementation(libs.unitTests.junit)
-    // endregion
-
-    // region UI tests
     androidTestImplementation(libs.uiTests.junitExt)
     androidTestImplementation(libs.uiTests.espressoCore)
-    // endregion
 
     // Add lib
+    implementation(libs.converter.gson)
+    implementation(libs.glide)
+    annotationProcessor(libs.compiler)
+    implementation(libs.logging.interceptor)
+    implementation(libs.gson)
     implementation(libs.koin.android)
 
     implementation(libs.androidx.navigation.fragment.ktx)
@@ -69,12 +61,10 @@ dependencies {
     implementation(project(":common-ui"))
 
     // modules
+    implementation(project(":common-utils"))
+    implementation(project(":feature-vacancy"))
+    implementation(project(":feature-filter"))
     implementation(project(":data-network"))
     implementation(project(":data-sp"))
     implementation(project(":data-db"))
-    implementation(project(":feature-search"))
-    implementation(project(":feature-filter"))
-    implementation(project(":feature-favorites"))
-    implementation(project(":feature-vacancy"))
-    implementation(project(":feature-team"))
 }
