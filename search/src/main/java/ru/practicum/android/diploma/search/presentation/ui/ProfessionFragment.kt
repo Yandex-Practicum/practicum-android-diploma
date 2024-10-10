@@ -20,6 +20,7 @@ import ru.practicum.android.diploma.search.presentation.adapter.FilterIndustryLi
 
 private const val USER_INPUT = "userInput"
 private const val DELAY_CLICK_VACANCY = 2000L
+private const val NUMBER_OF_ITEMS_FOR_TESTING = 10 // ❗ delete when proper list is available
 
 class ProfessionFragment : Fragment() {
     private var _binding: FragmentProfessionBinding? = null
@@ -51,8 +52,7 @@ class ProfessionFragment : Fragment() {
         recyclerSetup()
         searchBarSetup()
 
-        val numberOfItems = 10 // ❗ delete when proper list is available
-        for (i in 0 until numberOfItems) { // ❗
+        for (i in 0 until NUMBER_OF_ITEMS_FOR_TESTING) { // ❗ delete when proper list is available
             val mockIndustry = Industry("$i", "$i$i$i$i$i$i$i$i$i") // ❗
             localIndustriesList.add(mockIndustry) // ❗
         } // ❗
