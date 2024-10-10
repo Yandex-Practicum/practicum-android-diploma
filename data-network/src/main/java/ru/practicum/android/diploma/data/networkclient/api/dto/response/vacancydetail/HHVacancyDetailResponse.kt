@@ -17,7 +17,7 @@ import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancyd
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.working.WorkingTimeInterval
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.working.WorkingTimeMode
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.address.Address
-import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.area.Area
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.area.AreaInVacancy
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.contacts.Contacts
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.employer.Employer
 import ru.practicum.android.diploma.commonutils.network.HttpStatus
@@ -41,7 +41,7 @@ data class HHVacancyDetailResponse(
     @SerializedName("apply_alternate_url") val applyAlternateUrl: String,
     val approved: Boolean,
     val archived: Boolean,
-    val area: Area,
+    val area: AreaInVacancy,
     @SerializedName("billing_type") val billingType: BillingType,
     @SerializedName("branded_description") val brandedDescription: String,
     @SerializedName("branded_template") val brandedTemplate: BrandedTemplate,

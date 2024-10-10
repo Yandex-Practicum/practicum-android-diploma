@@ -2,7 +2,7 @@ package ru.practicum.android.diploma.search.util
 
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancies.item.Item
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancydetail.HHVacancyDetailResponse
-import ru.practicum.android.diploma.search.domain.models.Area
+import ru.practicum.android.diploma.search.domain.models.AreaInVacancy
 import ru.practicum.android.diploma.search.domain.models.Employer
 import ru.practicum.android.diploma.search.domain.models.Employment
 import ru.practicum.android.diploma.search.domain.models.Experience
@@ -17,7 +17,7 @@ import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.domain.models.VacancyDetail
 import ru.practicum.android.diploma.search.domain.models.WorkingDay
 import ru.practicum.android.diploma.search.domain.models.WorkingTimeInterval
-import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.area.Area as AreaDto
+import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.area.AreaInVacancy as AreaInVacancyDto
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.employer.Employer as EmployerDto
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.employer.LogoUrls as LogoUrlsDto
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.role.ProfessionalRole as ProfessionalRoleDto
@@ -73,9 +73,9 @@ internal class VacancyConverter {
         }
     }
 
-    private fun map(area: AreaDto): Area {
+    private fun map(area: AreaInVacancyDto): AreaInVacancy {
         return with(area) {
-            Area(id = area.id, name = area.name, url = area.url)
+            AreaInVacancy(id = area.id, name = area.name, url = area.url)
         }
     }
 

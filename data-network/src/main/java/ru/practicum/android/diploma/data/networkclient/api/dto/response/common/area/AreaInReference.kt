@@ -5,8 +5,8 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class AreaX(
-    val areas: List<Area>,
+data class AreaInReference(
+    val areas: List<AreaInVacancy>,
     val id: String,
     val name: String,
     @SerializedName("parent_id")
