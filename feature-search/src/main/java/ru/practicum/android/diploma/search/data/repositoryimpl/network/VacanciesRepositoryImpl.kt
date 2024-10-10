@@ -32,8 +32,13 @@ internal class VacanciesRepositoryImpl(
     private val areaConverter: AreaConverter,
     private val context: Context,
 ) : VacanciesRepository {
-    override fun searchVacancies(options: Map<String, String>): Flow<Resource<PaginationInfo>> =
-        context.executeNetworkRequest<Response, PaginationInfo>(
+    override fun searchVacancies(page: String, perPage: String, queryText: String): Flow<Resource<PaginationInfo>> {
+        val options = mapOf(
+            "page" to page,
+            "per_page" to perPage,
+            "text" to queryText
+        )
+        return context.executeNetworkRequest<Response, PaginationInfo>(
             request = { networkClient.doRequest(HHApiVacanciesRequest(options)) },
             successHandler = { response: Response ->
                 Resource.Success(
@@ -46,6 +51,7 @@ internal class VacanciesRepositoryImpl(
                 )
             }
         )
+    }
 
     override fun listVacancy(id: String): Flow<Resource<VacancyDetail>> =
         context.executeNetworkRequest<Response, VacancyDetail>(

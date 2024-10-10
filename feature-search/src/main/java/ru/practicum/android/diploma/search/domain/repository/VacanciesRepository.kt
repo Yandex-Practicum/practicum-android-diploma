@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.search.domain.models.RegionList
 import ru.practicum.android.diploma.search.domain.models.VacancyDetail
 
 internal interface VacanciesRepository {
-    fun searchVacancies(options: Map<String, String>): Flow<Resource<PaginationInfo>>
+    fun searchVacancies(page: String, perPage: String, queryText: String): Flow<Resource<PaginationInfo>>
     fun listVacancy(id: String): Flow<Resource<VacancyDetail>>
     fun listAreas(): Flow<Resource<RegionList>>
     fun listIndustries(): Flow<Resource<List<IndustryList>>>

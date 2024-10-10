@@ -11,12 +11,17 @@ import ru.practicum.android.diploma.search.domain.repository.VacanciesRepository
 import ru.practicum.android.diploma.search.domain.usecase.VacanciesInteractor
 
 internal class VacanciesInteractorImpl(private val repository: VacanciesRepository) : VacanciesInteractor {
-    override fun searchVacancies(options: Map<String, String>): Flow<Pair<PaginationInfo?, String>> {
-        return repository.searchVacancies(options).map { result ->
+    override fun searchVacancies(
+        page: String,
+        perPage: String,
+        queryText: String,
+    ): Flow<Pair<PaginationInfo?, String>> {
+        return repository.searchVacancies(page, perPage, queryText).map { result ->
             when (result) {
                 is Resource.Success -> {
                     Pair(result.data, "")
                 }
+
                 is Resource.Error -> {
                     Pair(null, result.message ?: "")
                 }
