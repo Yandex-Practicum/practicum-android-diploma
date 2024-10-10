@@ -121,12 +121,12 @@ internal class SearchFragment : Fragment() {
     }
 
     private fun recyclerSetup() {
-        val adapter = VacancyListAdapter { vacancy ->
+        val adapter = VacancyListAdapter({ vacancy ->
             findNavController().navigate(
                 R.id.action_searchFragment_to_vacancy_navigation,
                 VacancyFragment.createArgs(VacancyInputState.VacancyNetwork(vacancy.id))
             )
-        }
+        }, vacancyListViewModel)
         binding.vacancyRecycler.layoutManager = GridLayoutManager(requireContext(), 1)
         binding.vacancyRecycler.adapter = adapter
         (binding.vacancyRecycler.adapter as VacancyListAdapter).setVacancies(localVacancyList)
