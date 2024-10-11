@@ -5,6 +5,7 @@ import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.Path
 import retrofit2.http.QueryMap
+import ru.practicum.android.diploma.data.BuildConfig
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.industries.HHIndustriesResponse
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.regions.HHRegionsResponse
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.vacancies.HHVacanciesResponse
