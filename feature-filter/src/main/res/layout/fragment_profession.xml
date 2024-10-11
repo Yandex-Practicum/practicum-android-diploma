@@ -5,22 +5,121 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".presentation.ui.ProfessionFragment">
+    tools:context=".presentation.ui.SearchFragment">
+
+    <!-- Guidelines -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/topBarGuideline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="64dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/searchBarGuideline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/dp_140" />
+
+
+    <!-- Header -->
     <ImageView
         android:id="@+id/buttonLeftProfession"
         style="@style/ButtonLeft"
+        android:contentDescription="@string/back"
+        android:padding="@dimen/dimens_16"
+        android:layout_marginStart="@dimen/dp_4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/topBarGuideline"/>
+
     <TextView
-        android:id="@+id/filterHeader"
-        style="@style/TextViewMedium22"
-        android:layout_width="wrap_content"
+        android:id="@+id/filterIndustriesHeader"
+        style="@style/TextViewMediumNoPadding22"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_4"
+        android:padding="0dp"
         android:text="@string/filter_screens_profession_filter_header"
         app:layout_constraintStart_toEndOf="@id/buttonLeftProfession"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/topBarGuideline"/>
 
 
+    <!-- Search bar -->
+    <EditText
+        android:id="@+id/searchBar"
+        style="@style/SearchBar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/dp_16"
+        android:layout_marginVertical="@dimen/dp_8"
+        android:autofillHints="no"
+        android:hint="@string/filter_screens_profession_searchbar_hint"
+        app:layout_constraintBottom_toTopOf="@id/searchBarGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBarGuideline" />
+
+    <!-- Dynamically switching search bar icons -->
+    <ImageView
+        android:id="@+id/clearSearchIcon"
+        style="@style/SearchIcon"
+        android:contentDescription="@string/clear_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/clear_search"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/searchBar"
+        app:layout_constraintEnd_toEndOf="@id/searchBar"
+        app:layout_constraintTop_toTopOf="@id/searchBar" />
+
+    <ImageView
+        android:id="@+id/searchBarLoupeIcon"
+        style="@style/SearchBarIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:importantForAccessibility="no"
+        android:src="@drawable/search_loupe"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/searchBar"
+        app:layout_constraintEnd_toEndOf="@id/searchBar"
+        app:layout_constraintTop_toTopOf="@id/searchBar" />
+
+    <!-- Recycler -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/vacancyRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/dp_8"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchBarGuideline"
+        app:layout_constraintVertical_bias="0"
+        tools:itemCount="12"
+        tools:listitem="@layout/item_filter_industry" />
+
+    <!-- Select button -->
+    <TextView
+        android:id="@+id/selectButton"
+        android:background="@drawable/rounded_12dp_blue_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:paddingVertical="@dimen/dp_20"
+        android:paddingHorizontal="@dimen/dp_8"
+        android:layout_marginHorizontal="@dimen/dimens_16"
+        android:layout_marginBottom="@dimen/dimens_24"
+        android:text="@string/filter_screens_select_button"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:targetApi="p" />
 </androidx.constraintlayout.widget.ConstraintLayout>
