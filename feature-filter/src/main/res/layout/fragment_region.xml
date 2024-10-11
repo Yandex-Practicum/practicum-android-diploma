@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".presentation.ui.RegionFragment">
+    tools:context=".place.presentation.ui.RegionFragment">
     <ImageView
         android:id="@+id/buttonLeftRegion"
         style="@style/ButtonLeft"
