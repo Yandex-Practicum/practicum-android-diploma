@@ -4,9 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.search.domain.models.Vacancy
+import ru.practicum.android.diploma.search.presentation.viewmodel.VacancyListViewModel
 import ru.practicum.android.diploma.ui.databinding.ItemVacancyBinding
 
-internal class VacancyListAdapter(private val clickListener: VacancyClickListener) :
+internal class VacancyListAdapter(
+    private val clickListener: VacancyClickListener,
+    private val viewModel: VacancyListViewModel
+) :
     RecyclerView.Adapter<VacancyListViewHolder>() {
 
     private var vacancies = ArrayList<Vacancy>()
@@ -20,7 +24,7 @@ internal class VacancyListAdapter(private val clickListener: VacancyClickListene
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VacancyListViewHolder {
         val layoutInspector = LayoutInflater.from(parent.context)
-        return VacancyListViewHolder(ItemVacancyBinding.inflate(layoutInspector, parent, false))
+        return VacancyListViewHolder(ItemVacancyBinding.inflate(layoutInspector, parent, false), viewModel)
     }
 
     override fun onBindViewHolder(holder: VacancyListViewHolder, position: Int) {
