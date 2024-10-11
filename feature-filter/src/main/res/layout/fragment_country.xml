@@ -24,5 +24,16 @@
         app:layout_constraintStart_toEndOf="@id/buttonLeftCountry"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCountryList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingHorizontal="@dimen/dimens_16"
+        android:paddingTop="@dimen/dimens_16"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/filterHeader" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
