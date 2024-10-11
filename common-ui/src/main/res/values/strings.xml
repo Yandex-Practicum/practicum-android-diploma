@@ -14,7 +14,6 @@
 
     <!-- Search screen -->
     <string name="search_screen_header">Поиск вакансий</string>
-    <string name="search_screen_result_count_popup">Найдено %d вакансий</string>
     <string name="search_screen_no_results_popup">Таких вакансий нет</string>
     <string name="search_screen_searchbar_hint">Введите запрос</string>
 
@@ -111,9 +110,6 @@
     <string name="share_link">https://hh.ru/vacancy/</string>
 
     <!-- Strings for display -->
-    <string name="search_screen_result_count_popup1">Найдено %d вакансия</string>
-    <string name="search_screen_result_count_popup2">Найдено %d вакансии</string>
-    <string name="search_screen_result_count_popup3">Найдено %d вакансий</string>
     <string name="search_screen_toast_no_internet">Проверьте подключение к интернету</string>
     <string name="search_screen_toast_error">Произошла ошибка</string>
     <plurals name="vacancies_found">
