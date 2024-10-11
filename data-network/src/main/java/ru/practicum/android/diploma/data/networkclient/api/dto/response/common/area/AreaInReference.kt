@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class AreaInReference(
-    val areas: List<AreaInVacancy>,
+    val areas: List<AreaInReference>,
     val id: String,
     val name: String,
     @SerializedName("parent_id")
