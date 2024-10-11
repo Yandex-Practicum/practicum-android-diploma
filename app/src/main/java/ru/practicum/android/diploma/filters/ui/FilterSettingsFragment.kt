@@ -28,7 +28,6 @@ class FilterSettingsFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-//        binding.textInputLayout.isCounterEnabled = true
     }
 
     override fun onDestroyView() {
