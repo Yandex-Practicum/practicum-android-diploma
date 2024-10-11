@@ -7,4 +7,3 @@ data class LogoUrls(
     @SerializedName("90") val deg90: String?,
     val original: String?,
 )
-
