@@ -9,7 +9,7 @@
 
     <!-- Guidelines -->
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/tobBarGuideline"
+        android:id="@+id/topBarGuideline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -28,7 +28,7 @@
         style="@style/FilterImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/tobBarGuideline"
+        app:layout_constraintBottom_toTopOf="@id/topBarGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -59,7 +59,7 @@
         app:layout_constraintBottom_toTopOf="@id/searchBarGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tobBarGuideline" />
+        app:layout_constraintTop_toBottomOf="@id/topBarGuideline" />
 
     <!-- Dynamically switching search bar icons -->
     <ImageView
@@ -67,6 +67,7 @@
         style="@style/SearchIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/clear_search"
         android:src="@drawable/clear_search"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/searchBar"
