@@ -3,8 +3,8 @@ package ru.practicum.android.diploma.filter.presentation.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ru.practicum.android.diploma.search.databinding.ItemFilterIndustryBinding
-import ru.practicum.android.diploma.search.domain.models.Industry
+import ru.practicum.android.diploma.filter.databinding.ItemFilterIndustryBinding
+import ru.practicum.android.diploma.filter.domain.model.Industry
 
 class FilterIndustryListAdapter(private val clickListener: IndustryClickListener) :
     RecyclerView.Adapter<IndustryListViewHolder>() {

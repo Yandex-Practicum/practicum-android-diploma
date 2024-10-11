@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.commonutils.Utils.closeKeyBoard
 import ru.practicum.android.diploma.commonutils.debounce
-import ru.practicum.android.diploma.data.networkclient.api.dto.response.industries.item.Industry
 import ru.practicum.android.diploma.filter.databinding.FragmentProfessionBinding
+import ru.practicum.android.diploma.filter.domain.model.Industry
 import ru.practicum.android.diploma.filter.presentation.ui.adapters.FilterIndustryListAdapter
 
 private const val USER_INPUT = "userInput"
@@ -86,6 +86,7 @@ internal class ProfessionFragment : Fragment() {
 
     private fun recyclerSetup() {
         val adapter = FilterIndustryListAdapter(object : FilterIndustryListAdapter.IndustryClickListener {
+
             override fun onIndustryClick(industry: Industry?) {
                 if (industry == null) {
                     binding.selectButton.isVisible = false
@@ -100,7 +101,7 @@ internal class ProfessionFragment : Fragment() {
 
     }
 
-    private fun showConfirmation(selectedIndustry: Industry) {
+    private fun showConfirmation(selectedIndustry: Industry?) {
         binding.selectButton.isVisible = true
         binding.selectButton.setOnClickListener {
             // ❗ pass selectedIndustry to viewmodel here
