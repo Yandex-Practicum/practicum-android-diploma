@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.filter.domain.model.AreaInReference
 import ru.practicum.android.diploma.filter.domain.usecase.RegionInteractor
+import ru.practicum.android.diploma.filter.presentation.viewmodel.state.Country
 import ru.practicum.android.diploma.filter.presentation.viewmodel.state.CountryState
 import ru.practicum.android.diploma.filter.presentation.viewmodel.state.RegionState
 
@@ -29,7 +30,7 @@ class RegionsCountriesViewModel(
                     places.addAll(areas.first!!)
                 }
             }
-            val countries = places.map { mapOf(it.id to it.name) }
+            val countries = places.map { Country(it.id, it.name) }
             _countriesStateLiveData.postValue(CountryState.Content(countries))
         }
     }
