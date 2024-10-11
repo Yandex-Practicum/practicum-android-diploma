@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Change Your Job</string>
     <string name="search">Поиск</string>
+    <string name="search_vacancies">Поиск вакансий</string>
     <string name="team">Команда</string>
     <string name="vacancy">Вакансия</string>
     <string name="industry">Отрасль</string>
@@ -10,8 +11,49 @@
     <string name="city_choice">Выбор города</string>
     <string name="working_region">Место работы</string>
     <string name="main">Главная</string>
+    <string name="salary_to">до</string>
+    <string name="salary_from">от</string>
+    <string name="search_line_hint">Введите запрос</string>
+    <string name="no_internet">Нет интернета</string>
+    <string name="not_found_message">Не удалось получить \n список вакансий</string>
+    <string name="server_error">Ошибка сервера</string>
+    <string name="empty_list">Список пуст</string>
+    <string name="without_salary">Зарплата не указана</string>
+    <string name="needed_experience">Требуемый опыт</string>
+    <string name="about_vacancy">Описание вакансии</string>
+    <string name="responsibilities">Обязанности</string>
+    <string name="key_skill">Ключевые навыки</string>
+    <string name="search_vacancy_titlie">%s, %s</string>
+    <string name="found">Найдено</string>
+    <string name="one_vacancy">вакансия</string>
+    <string name="few_vacancies">вакансии</string>
+    <string name="many_vacancies">вакансий</string>
+    <string name="not_found_blue_message">Таких вакансий нет</string>
+    <string name="exeption">Произошла ошибка</string>
+    <string name="bullet_dot">&amp;#8226</string>
+    <string name="vacancy_not_found">Вакансия не найдена или удалена</string>
 
-<!--  Team Info Screen /start/ -->
+    <!--  Team Info Screen /start/ -->
     <string name="team_member_title">Над приложением работали</string>
-<!--  Team Info Screen /end/ -->
+    <string-array name="authors">
+        <item>Сергей Величко</item>
+        <item>Александр Березовский</item>
+        <item>Даниэль Сафарян</item>
+        <item>Артём Матюшкин</item>
+    </string-array>
+    <!--  Team Info Screen /end/ -->
+
+    <!--  Currency Chars  /start/-->
+    <string name="russian_ruble">\u20BD</string>
+    <string name="belarusian_ruble">BYN</string>
+    <string name="usa_dollar">\u0024</string>
+    <string name="euro">\u20AC</string>
+    <string name="kazakhstani_tenge">\u20B8</string>
+    <string name="ukrainian_hryvnia">\u20B4</string>
+    <string name="azerbaijani_manat">\u20BC</string>
+    <string name="uzbekistan_sum">UZS</string>
+    <string name="georgian_lari">\u20BE</string>
+    <string name="kyrgyzstani_som">\u20C0</string>
+    <!--  Currency Chars  /end/-->
+
 </resources>

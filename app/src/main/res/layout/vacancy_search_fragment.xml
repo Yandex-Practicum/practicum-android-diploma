@@ -6,14 +6,216 @@
     android:layout_height="match_parent"
     tools:context=".search.ui.VacancySearchFragment">
 
-    <TextView
+    <Toolbar
+        android:id="@+id/tool_bar"
+        style="@style/BaseToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="8dp"
+        android:title="@string/search_vacancies"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/filter_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/screen_padding_8"
+            android:background="?android:windowBackground"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="12dp"
+            android:src="@drawable/ic_filter_off__24px"
+            tools:ignore="contentDescription" />
+    </Toolbar>
+
+    <FrameLayout
+        android:id="@+id/search_line_box"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginHorizontal="@dimen/padding_horizontal_size_16"
+        android:layout_marginBottom="4dp"
+        android:paddingVertical="8dp"
+        app:layout_constraintTop_toBottomOf="@id/tool_bar">
+
+        <EditText
+            android:id="@+id/search_line"
+            style="@style/CustomEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:hint="@string/search_line_hint"
+            android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+            android:paddingStart="@dimen/padding_horizontal_size_16"
+            android:paddingEnd="4dp"
+            android:singleLine="true" />
+
+        <ImageView
+            android:id="@+id/ic_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:paddingHorizontal="@dimen/padding_horizontal_size_16"
+            android:paddingVertical="@dimen/padding_horizontal_size_16"
+            android:src="@drawable/ic_search_24px"
+            tools:ignore="contentDescription" />
+
+        <ImageView
+            android:id="@+id/search_line_cleaner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:paddingHorizontal="@dimen/padding_horizontal_size_16"
+            android:paddingVertical="@dimen/padding_horizontal_size_16"
+            android:src="@drawable/ic_close_24px"
+            android:visibility="gone"
+            tools:ignore="contentDescription" />
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/default_search_placeholder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/search"
-        android:textSize="24sp"
+        android:paddingHorizontal="@dimen/padding_horizontal_size_16"
+        android:src="@drawable/search_default_placeholder"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/search_line_box"
+        app:layout_constraintVertical_bias="0.2"
+        tools:ignore="contentDescription" />
+
+    <FrameLayout
+        android:id="@+id/not_connected_placeholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_line_box"
+        app:layout_constraintVertical_bias="0.2">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/padding_horizontal_size_16"
+            android:src="@drawable/search_not_connected_placeholder"
+            tools:ignore="contentDescription" />
+
+        <TextView
+            style="@style/Text_Medium_22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="350dp"
+            android:text="@string/no_internet" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/not_found_placeholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_line_box"
+        app:layout_constraintVertical_bias="0.2">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/padding_horizontal_size_16"
+            android:src="@drawable/search_not_found_placeholder"
+            tools:ignore="contentDescription" />
+
+        <TextView
+            style="@style/Text_Medium_22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="350dp"
+            android:gravity="center"
+            android:text="@string/not_found_message" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/server_error_placeholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_line_box"
+        app:layout_constraintVertical_bias="0.2">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/padding_horizontal_size_16"
+            android:src="@drawable/search_server_error_placeholder"
+            tools:ignore="contentDescription" />
+
+        <TextView
+            style="@style/Text_Medium_22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="350dp"
+            android:gravity="center"
+            android:text="@string/server_error" />
+    </FrameLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/blue"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_line_box"
+        app:layout_constraintVertical_bias="0.4" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:clipToPadding="false"
+        android:paddingTop="32dp"
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@android:color/transparent"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@id/blue_text_view"
+        app:layout_constraintBottom_toTopOf="@id/next_page_progress_circular"
+        tools:listitem="@layout/vacancy_card"
+        tools:visibility="visible" />
+    <ProgressBar
+        android:id="@+id/next_page_progress_circular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/blue"
+        android:visibility="gone"
+        android:layout_marginVertical="@dimen/padding_horizontal_size_16"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recycler_view" />
+    <TextView
+        android:id="@+id/blue_text_view"
+        style="@style/Text_Regular_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/search_state_message_background"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_line_box"
+        tools:text="Таких вакансий нет" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

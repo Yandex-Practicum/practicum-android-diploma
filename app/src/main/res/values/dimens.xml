@@ -6,14 +6,8 @@
     <dimen name="medium_and_regular_16">16sp</dimen>
     <dimen name="regular_12">12sp</dimen>
 
-    <!-- Text Weight  -->
-    <dimen name="weight_400">400</dimen>
-    <dimen name="weight_700">700</dimen>
-    <dimen name="weight_500">500</dimen>
-
     <!--Dimensions For Layout DP  -->
     <dimen name="radius_size_12">12dp</dimen>
-    <dimen name="zero_size_0">0</dimen>
     <dimen name="padding_horizontal_size_16">16dp</dimen>
     <dimen name="title_top_margin_24">24dp</dimen>
     <dimen name="toolbar_vertical_padding">20dp</dimen>

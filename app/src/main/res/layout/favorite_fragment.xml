@@ -6,14 +6,80 @@
     android:layout_height="match_parent"
     tools:context=".favorite.ui.FavoriteFragment">
 
-    <TextView
+    <Toolbar
+        android:id="@+id/tool_bar"
+        style="@style/BaseToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="8dp"
+        android:title="@string/favorite"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
+        android:paddingHorizontal="@dimen/padding_horizontal_size_16"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/tool_bar"
+        tools:visibility="gone"
+        tools:listitem="@layout/vacancy_card"/>
+
+    <FrameLayout
+        android:id="@+id/can_not_get_vacancies_placeholder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/favorite"
-        android:textSize="24sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tool_bar"
+        app:layout_constraintVertical_bias="0.2">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/padding_horizontal_size_16"
+            android:src="@drawable/search_not_found_placeholder"
+            tools:ignore="contentDescription"/>
+
+        <TextView
+            style="@style/Text_Medium_22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="350dp"
+            android:gravity="center"
+            android:text="@string/not_found_message" />
+    </FrameLayout>
+    <FrameLayout
+        android:id="@+id/not_found_placeholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tool_bar"
+        app:layout_constraintVertical_bias="0.2">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/padding_horizontal_size_16"
+            android:src="@drawable/favorite_not_found"
+            tools:ignore="contentDescription"/>
+
+        <TextView
+            style="@style/Text_Medium_22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="350dp"
+            android:gravity="center"
+            android:text="@string/empty_list" />
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

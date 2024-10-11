@@ -9,6 +9,7 @@ data class VacancyDetailsEntity(
     @PrimaryKey
     val id: String,
     val name: String,
+    val companyName: String,
     val salary: String?,
     val area: String,
     val address: String?,
@@ -17,4 +18,6 @@ data class VacancyDetailsEntity(
     val employment: String?,
     val description: String,
     val keySkill: String,
+    val vacancyUrl: String,
+    val logoLink: String?
 )
