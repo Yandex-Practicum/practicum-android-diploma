@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.VacancySearchFragmentBinding
-import ru.practicum.android.diploma.filters.ui.FilterSettingsFragment
 import ru.practicum.android.diploma.search.domain.models.VacancySearch
 import ru.practicum.android.diploma.search.presentation.VacancySearchScreenState
 import ru.practicum.android.diploma.search.presentation.VacancySearchViewModel
