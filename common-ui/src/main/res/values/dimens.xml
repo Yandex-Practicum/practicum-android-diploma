@@ -24,4 +24,6 @@
     <dimen name="dp_32">32dp</dimen>
     <dimen name="dp_8">8dp</dimen>
     <dimen name="dimen_15">15dp</dimen>
+    <dimen name="dp_60">60dp</dimen>
+    <dimen name="dp_48">48dp</dimen>
 </resources>
