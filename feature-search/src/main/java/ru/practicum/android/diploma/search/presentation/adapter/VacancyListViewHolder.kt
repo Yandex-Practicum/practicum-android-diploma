@@ -7,18 +7,20 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.practicum.android.diploma.commonutils.Utils
 import ru.practicum.android.diploma.commonutils.Utils.formatSalary
 import ru.practicum.android.diploma.search.domain.models.Vacancy
+import ru.practicum.android.diploma.search.presentation.viewmodel.VacancyListViewModel
 import ru.practicum.android.diploma.ui.R
 import ru.practicum.android.diploma.ui.databinding.ItemVacancyBinding
 
 private const val RADIUS_ROUND_VIEW = 12f
 
 internal class VacancyListViewHolder(
-    private val binding: ItemVacancyBinding
+    private val binding: ItemVacancyBinding,
+    private val viewModel: VacancyListViewModel
 ) : RecyclerView.ViewHolder(binding.root) {
 
     @SuppressLint("SetTextI18n")
     fun bind(model: Vacancy) {
-        binding.itemNameVacancyAndLocation.text = model.title + ", " + model.area.name + ""
+        binding.itemNameVacancyAndLocation.text = viewModel.createTitle(model)
         binding.itemNameCompany.text = model.companyName
         binding.itemSalarySize.text =
             itemView.context.formatSalary(model.salaryMin, model.salaryMax, model.salaryCurrency)

@@ -118,4 +118,7 @@ internal class VacancyListViewModel(
         _screenStateLiveData.postValue(SearchScreenState.IDLE)
     }
 
+    fun createTitle(model: Vacancy): String {
+        return model.title + ", " + model.area.name + ""
+    }
 }
