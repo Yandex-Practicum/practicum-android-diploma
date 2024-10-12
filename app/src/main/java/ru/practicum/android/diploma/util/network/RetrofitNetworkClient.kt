@@ -3,6 +3,8 @@ package ru.practicum.android.diploma.util.network
 import android.content.Context
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import ru.practicum.android.diploma.filters.data.dto.FilterCountryRequest
+import ru.practicum.android.diploma.filters.data.dto.FilterCountryResponse
 import ru.practicum.android.diploma.search.data.network.VacancySearchRequest
 import ru.practicum.android.diploma.vacancy.data.network.VacancyDetailsRequest
 import java.io.IOException
@@ -25,6 +27,7 @@ class RetrofitNetworkClient(
                     when (dto) {
                         is VacancySearchRequest -> responseCode = hhApiService.searchVacancies(dto.request)
                         is VacancyDetailsRequest -> responseCode = hhApiService.getVacancyDetails(dto.expression)
+                        is FilterCountryRequest -> responseCode = FilterCountryResponse(hhApiService.getRegions())
                     }
                     responseCode.resultCode = HttpStatusCode.OK
                 } catch (ioException: IOException) {
@@ -37,6 +40,8 @@ class RetrofitNetworkClient(
     }
 
     private fun typeCheckError(dto: Any): Boolean {
-        return dto !is VacancySearchRequest && dto !is VacancyDetailsRequest
+        return dto !is VacancySearchRequest
+            && dto !is VacancyDetailsRequest
+            && dto !is FilterCountryRequest
     }
 }
