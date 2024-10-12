@@ -1,10 +1,11 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.kotlin.parcelize)
 }
 
 android {
-    namespace = "ru.practicum.android.diploma.search"
+    namespace = "ru.practicum.android.diploma.navigate"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -45,25 +46,10 @@ dependencies {
     androidTestImplementation(libs.uiTests.espressoCore)
 
     // Add lib
-    implementation(libs.converter.gson)
-    implementation(libs.glide)
-    annotationProcessor(libs.compiler)
-    implementation(libs.logging.interceptor)
-    implementation(libs.gson)
     implementation(libs.koin.android)
-
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.fragment.ktx)
-
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
-
-    // modules
-    implementation(project(":common-ui"))
-    implementation(project(":common-navigate"))
-    implementation(project(":common-utils"))
-    implementation(project(":data-network"))
-    implementation(project(":data-sp"))
-    implementation(project(":data-db"))
 }

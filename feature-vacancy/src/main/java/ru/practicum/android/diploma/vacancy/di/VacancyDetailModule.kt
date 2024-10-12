@@ -24,4 +24,6 @@ val vacancyDetailModule = module {
         VacancyDetailRepositoryImpl(androidContext(), get(), get(), get())
     }
     single { ExternalNavigator(androidContext()) }
+
+
 }

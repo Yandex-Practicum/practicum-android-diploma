@@ -7,25 +7,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.commonutils.Utils
 import ru.practicum.android.diploma.commonutils.debounce
-import ru.practicum.android.diploma.favorites.R
 import ru.practicum.android.diploma.favorites.databinding.FragmentFavoritesBinding
 import ru.practicum.android.diploma.favorites.domain.model.FavoriteVacancy
 import ru.practicum.android.diploma.favorites.presentation.ui.adapters.FavoriteAdapter
 import ru.practicum.android.diploma.favorites.presentation.viewmodel.FavoriteViewModel
 import ru.practicum.android.diploma.favorites.presentation.viewmodel.state.FavoriteState
-import ru.practicum.android.diploma.vacancy.presentation.ui.VacancyFragment
-import ru.practicum.android.diploma.vacancy.presentation.ui.state.VacancyInputState
+import ru.practicum.android.diploma.navigate.observable.VacancyNavigateLiveData
 
 private const val DELAY_CLICK_VACANCY = 250L
 internal class FavoritesFragment : Fragment() {
 
     private val favoriteViewModel: FavoriteViewModel by viewModel()
+    private val vacancyNavigateLiveData: VacancyNavigateLiveData by inject()
 
     private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
@@ -117,10 +116,7 @@ internal class FavoritesFragment : Fragment() {
 
     private fun initDebounces() {
         vacancyClickDebounce = onVacancyClickDebounce {
-            findNavController().navigate(
-                R.id.action_favoritesFragment_to_vacancy_navigation,
-                VacancyFragment.createArgs(VacancyInputState.VacancyDb(it))
-            )
+            vacancyNavigateLiveData.toVacancySourceDataDb(it)
         }
     }
 

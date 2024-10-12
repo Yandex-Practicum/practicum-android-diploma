@@ -68,11 +68,11 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     kapt(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
-    implementation(project(":common-ui"))
 
     // modules
+    implementation(project(":common-ui"))
+    implementation(project(":common-navigate"))
     implementation(project(":common-utils"))
-    implementation(project(":feature-vacancy"))
     implementation(project(":data-network"))
     implementation(project(":data-sp"))
     implementation(project(":data-db"))
