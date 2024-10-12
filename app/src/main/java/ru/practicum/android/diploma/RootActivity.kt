@@ -55,7 +55,7 @@ class RootActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        vacancyNavigateLiveData.navigateEventState.observe(this) { state ->
+        vacancyNavigateLiveData.observeNavigateEventState(this) { state ->
             state?.let {
                 when (it) {
                     is NavigateEventState.ToVacancyDataSourceNetwork -> {

@@ -10,7 +10,7 @@ private const val VACANCY_ID_DB = "vacancy_id"
 private const val ARGS_STATE = "args_state"
 private const val INPUT_NETWORK_STATE = 0
 private const val INPUT_DB_STATE = 1
-class VacancyApiImpl : VacancyApi<NavigateEventState> {
+internal class VacancyApiImpl : VacancyApi<NavigateEventState> {
 
     override fun createArgs(state: NavigateEventState): Bundle {
         return when (state) {

@@ -19,6 +19,13 @@ import ru.practicum.android.diploma.vacancy.presentation.viewmodel.VacancyDetail
 import ru.practicum.android.diploma.vacancy.presentation.viewmodel.state.VacancyDetailState
 import ru.practicum.android.diploma.vacancy.presentation.viewmodel.state.VacancyFavoriteMessageState
 
+private const val VACANCY_ID_NETWORK = "vacancy_instance"
+private const val VACANCY_ID_DB = "vacancy_id"
+private const val ARGS_STATE = "args_state"
+private const val INPUT_NETWORK_STATE = 0
+private const val INPUT_DB_STATE = 1
+private const val RADIUS_ROUND_VIEW = 12f
+
 class VacancyFragment : Fragment() {
 
     private var _binding: FragmentVacancyBinding? = null
@@ -152,35 +159,5 @@ class VacancyFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    companion object {
-        private const val VACANCY_ID_NETWORK = "vacancy_instance"
-        private const val VACANCY_ID_DB = "vacancy_id"
-
-        private const val ARGS_STATE = "args_state"
-
-        private const val INPUT_NETWORK_STATE = 0
-        private const val INPUT_DB_STATE = 1
-
-        private const val RADIUS_ROUND_VIEW = 12f
-
-//        fun createArgs(vacancyInputState: VacancyInputState): Bundle {
-//            return when (vacancyInputState) {
-//                is VacancyInputState.VacancyNetwork -> {
-//                    bundleOf(
-//                        ARGS_STATE to INPUT_NETWORK_STATE,
-//                        VACANCY_ID_NETWORK to vacancyInputState.id
-//                    )
-//                }
-//
-//                is VacancyInputState.VacancyDb -> {
-//                    bundleOf(
-//                        ARGS_STATE to INPUT_DB_STATE,
-//                        VACANCY_ID_DB to vacancyInputState.id
-//                    )
-//                }
-//            }
-//        }
     }
 }

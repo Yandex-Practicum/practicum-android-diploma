@@ -4,11 +4,16 @@ import org.koin.dsl.module
 import ru.practicum.android.diploma.navigate.api.VacancyApi
 import ru.practicum.android.diploma.navigate.api.impl.VacancyApiImpl
 import ru.practicum.android.diploma.navigate.observable.VacancyNavigateLiveData
+import ru.practicum.android.diploma.navigate.observable.impl.VacancyNavigateLiveDataImpl
 import ru.practicum.android.diploma.navigate.state.NavigateEventState
 
 val navigateModel = module {
-    single {
-        VacancyNavigateLiveData()
+
+    single<VacancyNavigateLiveData> {
+        VacancyNavigateLiveDataImpl()
     }
-    single<VacancyApi<NavigateEventState>> { VacancyApiImpl() }
+
+    single<VacancyApi<NavigateEventState>> {
+        VacancyApiImpl()
+    }
 }
