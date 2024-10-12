@@ -4,17 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/countryElement"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_60">
+    android:layout_height="@dimen/dimens_60">
 
     <TextView
         android:id="@+id/tvCountry"
+        style="@style/CountryItemText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimens_16"
-        android:textFontWeight="400"
-        android:ellipsize="end"
-        android:fontFamily="@font/ys_display_regular"
-        android:textSize="@dimen/dimen_sp16"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/ivSelectRegion"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,8 +19,8 @@
 
     <ImageView
         android:id="@+id/ivSelectRegion"
-        android:layout_width="@dimen/dp_48"
-        android:layout_height="@dimen/dp_48"
+        android:layout_width="@dimen/dimens_48"
+        android:layout_height="@dimen/dimens_48"
         android:src="@drawable/icon_left"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

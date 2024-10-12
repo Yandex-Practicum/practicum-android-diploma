@@ -35,7 +35,7 @@
     <string name="filter_screens_region_filter_header">Выбор региона</string>
     <string name="filter_screens_region_searchbar_hint">Введите регион</string>
     <string name="filter_screens_region_no_results_error">Такого региона нет</string>
-    <string name="filter_screens_region_list_server_error">Не удалось получить список</string>
+    <string name="filter_screens_region_list_server_error">Не удалось получить\nсписок</string>
 
     <string name="filter_screens_profession">Отрасль</string>
     <string name="filter_screens_profession_searchbar_hint">Введите отрасль</string>
