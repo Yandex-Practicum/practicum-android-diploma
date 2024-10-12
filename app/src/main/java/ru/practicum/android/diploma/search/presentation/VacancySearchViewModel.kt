@@ -54,6 +54,7 @@ class VacancySearchViewModel(
             interactor
                 .getVacancyList(query)
                 .collect { pairFoundAndMessage ->
+                    vacanciesSearchData.value = pairFoundAndMessage.first
                     nextPageProcessingState(pairFoundAndMessage.first?.items)
                 }
         }
