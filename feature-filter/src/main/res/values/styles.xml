@@ -2,6 +2,22 @@
 <resources>
 
     <style name="NewTextInputStyle" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="android:layout_marginHorizontal">@dimen/dimens_16</item>
+        <item name="android:layout_marginVertical">@dimen/dimens_24</item>
+        <item name="android:background">@drawable/rounded_edittext</item>
+        <item name="android:hint">@string/filter_screens_salary_expectations</item>
+        <item name="android:textColorHint">@color/searchBarHintTextColor</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/dimens_12</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/dimens_12</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/dimens_12</item>
+        <item name="boxCornerRadiusTopStart">@dimen/dimens_12</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+        <item name="endIconDrawable">@drawable/clear_search</item>
+        <item name="endIconMode">clear_text</item>
+        <item name="expandedHintEnabled">false</item>
+        <item name="hintTextAppearance">@style/TextViewRegular12</item>
+        <item name="hintTextColor">@color/blue</item>
 
     </style>
 
