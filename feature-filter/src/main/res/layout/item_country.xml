@@ -19,6 +19,7 @@
 
     <ImageView
         android:id="@+id/ivSelectRegion"
+        style="@style/CountryChooseIcon"
         android:layout_width="@dimen/dimens_48"
         android:layout_height="@dimen/dimens_48"
         android:src="@drawable/icon_left"

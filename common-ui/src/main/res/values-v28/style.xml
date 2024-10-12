@@ -225,4 +225,8 @@
         <item name="android:orientation">vertical</item>
         <item name="android:layout_marginTop">@dimen/dimens_120</item>
     </style>
+
+    <style name="CountryChooseIcon">
+        <item name="android:layout_marginEnd">@dimen/dimens_4</item>
+    </style>
 </resources>
