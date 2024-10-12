@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import ru.practicum.android.diploma.navigate.observable.VacancyNavigateLiveData
 
-internal class VacancyNavigateLiveDataImpl<T>: VacancyNavigateLiveData<T> {
+internal class VacancyNavigateLiveDataImpl<T> : VacancyNavigateLiveData<T> {
 
     private val _navigateEventState = MutableLiveData<T>()
 
