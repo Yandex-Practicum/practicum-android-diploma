@@ -6,14 +6,94 @@
     android:layout_height="match_parent"
     tool:contex=".filters.ui.WorkingRegionFragment">
 
+    <Toolbar
+        android:id="@+id/tool_bar"
+        style="@style/BaseToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentInsetStartWithNavigation="0dp"
+        android:navigationIcon="@drawable/ic_arrow_back_24px"
+        android:paddingVertical="4dp"
+        android:title="@string/choose_place_for_work"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
-        style="@style/Text_Medium_22"
+        android:id="@+id/country_title"
+        style="@style/Text_filter_area_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/working_region"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/country"
+        android:layout_marginStart="@dimen/padding_horizontal_size_16"
+        app:layout_constraintBottom_toTopOf="@id/country_result"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/county_action_icon" />
+
+    <TextView
+        android:id="@+id/country_result"
+        style="@style/Text_Regular_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding_horizontal_size_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/country_title"
+        app:layout_constraintBottom_toBottomOf="@id/county_action_icon"
+        tool:text="Россия"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/county_action_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/filter_item_margin"
+        android:src="@drawable/ic_arrow_forward_24px"
+        android:layout_marginEnd="@dimen/padding_horizontal_size_16"
+        app:layout_constraintTop_toBottomOf="@id/tool_bar"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/region_title"
+        style="@style/Text_filter_area_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/industry"
+        android:layout_marginStart="@dimen/padding_horizontal_size_16"
+        app:layout_constraintBottom_toTopOf="@id/region_result"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/region_action_icon" />
+
+    <TextView
+        android:id="@+id/region_result"
+        style="@style/Text_Regular_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding_horizontal_size_16"
+        app:layout_constraintBottom_toBottomOf="@id/region_action_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/region_title"
+        tool:text="IT"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/region_action_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="@dimen/filter_item_margin"
+        android:src="@drawable/ic_arrow_forward_24px"
+        android:layout_marginEnd="@dimen/padding_horizontal_size_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/county_action_icon" />
+
+    <Button style="@style/BlueButtonStyle"
+        android:id="@+id/apply_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:text="@string/choose"
+        android:layout_marginHorizontal="@dimen/padding_horizontal_size_16"
+        android:layout_marginBottom="@dimen/title_top_margin_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="visible"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

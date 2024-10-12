@@ -43,6 +43,13 @@
     <string name="clear">Сбросить</string>
     <!--  Filter Settings Screen /end/ -->
 
+    <!--  Filter Working Region Screen /start/ -->
+    <string name="choose_place_for_work">Выбор места работы</string>
+    <string name="country">Страна</string>
+    <string name="region">Регион</string>
+    <string name="choose">Выбрать</string>
+    <!--  Filter Working Region Screen /end/ -->
+
     <!--  Team Info Screen /start/ -->
     <string name="team_member_title">Над приложением работали</string>
     <string-array name="authors">
