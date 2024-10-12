@@ -15,7 +15,7 @@ import ru.practicum.android.diploma.navigate.state.NavigateEventState
 private const val TAG = "RootActivity"
 class RootActivity : AppCompatActivity() {
 
-    private val vacancyNavigateLiveData: VacancyNavigateLiveData by inject()
+    private val vacancyNavigateLiveData: VacancyNavigateLiveData<NavigateEventState> by inject()
     private val vacancyApi: VacancyApi<NavigateEventState> by inject()
 
     private var _binding: ActivityRootBinding? = null
@@ -56,28 +56,20 @@ class RootActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         vacancyNavigateLiveData.observeNavigateEventState(this) { state ->
-            state?.let {
-                when (it) {
-                    is NavigateEventState.ToVacancyDataSourceNetwork -> {
-                        navController.navigate(
-                            R.id.action_searchFragment_to_vacancyFragment,
-                            vacancyApi.createArgs(it)
-                        )
-                    }
-                    is NavigateEventState.ToVacancyDataSourceDb -> {
-                        navController.navigate(
-                            R.id.action_favoritesFragment_to_vacancyFragment,
-                            vacancyApi.createArgs(it)
-                        )
-                    }
-                    is NavigateEventState.ToFilter -> {
-                        navController.navigate(
-                            R.id.action_search_fragment_to_filter_navigation
-                        )
-                    }
-                }
-            }
+            navigate(state)
         }
+    }
+
+    private fun navigate(state: NavigateEventState) {
+        val actionId = when (state) {
+            is NavigateEventState.ToVacancyDataSourceNetwork ->
+                R.id.action_searchFragment_to_vacancyFragment
+            is NavigateEventState.ToVacancyDataSourceDb ->
+                R.id.action_favoritesFragment_to_vacancyFragment
+            is NavigateEventState.ToFilter ->
+                R.id.action_search_fragment_to_filter_navigation
+        }
+        navController.navigate(actionId, vacancyApi.createArgs(state))
     }
 
     private fun networkRequestExample(accessToken: String) {

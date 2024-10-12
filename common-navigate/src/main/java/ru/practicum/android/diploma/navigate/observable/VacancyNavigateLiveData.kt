@@ -2,18 +2,14 @@ package ru.practicum.android.diploma.navigate.observable
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import ru.practicum.android.diploma.navigate.state.NavigateEventState
 
-interface VacancyNavigateLiveData {
+interface VacancyNavigateLiveData<T> {
 
     fun observeNavigateEventState(
         owner: LifecycleOwner,
-        observer: Observer<NavigateEventState>
+        observer: Observer<T>
     )
 
-    fun toVacancySourceDataDb(id: Int)
+    fun navigateTo(state: T)
 
-    fun toVacancySourceDataNetwork(id: String)
-
-    fun toFilter()
 }

@@ -9,7 +9,7 @@ import ru.practicum.android.diploma.navigate.state.NavigateEventState
 
 val navigateModel = module {
 
-    single<VacancyNavigateLiveData> {
+    single<VacancyNavigateLiveData<NavigateEventState>> {
         VacancyNavigateLiveDataImpl()
     }
 
