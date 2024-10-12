@@ -8,15 +8,15 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import org.koin.android.ext.android.inject
 import ru.practicum.android.diploma.databinding.ActivityRootBinding
-import ru.practicum.android.diploma.navigate.api.VacancyApi
-import ru.practicum.android.diploma.navigate.observable.VacancyNavigateLiveData
+import ru.practicum.android.diploma.navigate.api.NavigateArgsToVacancy
+import ru.practicum.android.diploma.navigate.observable.Navigate
 import ru.practicum.android.diploma.navigate.state.NavigateEventState
 
 private const val TAG = "RootActivity"
 class RootActivity : AppCompatActivity() {
 
-    private val vacancyNavigateLiveData: VacancyNavigateLiveData<NavigateEventState> by inject()
-    private val vacancyApi: VacancyApi<NavigateEventState> by inject()
+    private val navigate: Navigate<NavigateEventState> by inject()
+    private val navigateArgsToVacancy: NavigateArgsToVacancy<NavigateEventState> by inject()
 
     private var _binding: ActivityRootBinding? = null
     private val binding: ActivityRootBinding get() = _binding!!
@@ -55,7 +55,7 @@ class RootActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        vacancyNavigateLiveData.observeNavigateEventState(this) { state ->
+        navigate.observeNavigateEventState(this) { state ->
             navigate(state)
         }
     }
@@ -69,7 +69,7 @@ class RootActivity : AppCompatActivity() {
             is NavigateEventState.ToFilter ->
                 R.id.action_search_fragment_to_filter_navigation
         }
-        navController.navigate(actionId, vacancyApi.createArgs(state))
+        navController.navigate(actionId, navigateArgsToVacancy.createArgs(state))
     }
 
     private fun networkRequestExample(accessToken: String) {
