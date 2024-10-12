@@ -2,7 +2,6 @@ package ru.practicum.android.diploma.search.presentation.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,6 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.koin.android.ext.android.inject
@@ -19,7 +17,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.commonutils.Utils.closeKeyBoard
 import ru.practicum.android.diploma.commonutils.debounce
 import ru.practicum.android.diploma.navigate.observable.VacancyNavigateLiveData
-import ru.practicum.android.diploma.search.R
 import ru.practicum.android.diploma.search.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.presentation.SearchScreenState

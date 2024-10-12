@@ -6,7 +6,7 @@ import ru.practicum.android.diploma.navigate.api.impl.VacancyApiImpl
 import ru.practicum.android.diploma.navigate.observable.VacancyNavigateLiveData
 import ru.practicum.android.diploma.navigate.state.NavigateEventState
 
-val navigateModel = module{
+val navigateModel = module {
     single {
         VacancyNavigateLiveData()
     }
