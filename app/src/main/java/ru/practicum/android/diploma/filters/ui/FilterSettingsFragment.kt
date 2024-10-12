@@ -45,7 +45,6 @@ class FilterSettingsFragment : Fragment() {
                 clearButtonVisibility(p0)
             }
 
-
             override fun afterTextChanged(s: Editable?) {
                 if (s.toString() != current) {
                     val cleanString = s.toString().replace("[^\\d]".toRegex(), "")
