@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="NewTextInputStyle" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+
+    </style>
+
+    <style name="NewTextInputEdit" parent="Widget.Design.TextInputEditText">
+        <item name="android:imeOptions">actionDone</item>
+        <item name="android:inputType">number</item>
+        <item name="android:lines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textCursorDrawable">@drawable/blue_text_cursor_drawable</item>
+    </style>
+</resources>

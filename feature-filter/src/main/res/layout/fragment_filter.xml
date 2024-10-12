@@ -69,36 +69,42 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/container"
-        style="@style/FrameLayoutFilter"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textViewSalary"
+        style="@style/NewTextInputStyle"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_51"
+        android:layout_height="52dp"
+        android:layout_marginHorizontal="@dimen/dimens_16"
+        android:layout_marginVertical="@dimen/dimens_24"
+        android:background="@drawable/rounded_edittext"
+        android:hint="@string/filter_screens_salary_expectations"
+        android:textColorHint="@color/searchBarHintTextColor"
+        app:boxCornerRadiusBottomEnd="@dimen/dimens_12"
+        app:boxCornerRadiusBottomStart="@dimen/dimens_12"
+        app:boxCornerRadiusTopEnd="@dimen/dimens_12"
+        app:boxCornerRadiusTopStart="@dimen/dimens_12"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:endIconDrawable="@drawable/clear_search"
+        app:endIconMode="clear_text"
+        app:expandedHintEnabled="false"
+        app:hintTextAppearance="@style/TextViewRegular12"
+        app:hintTextColor="@color/blue"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/workProfession">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textViewSalary"
-            style="@style/TextViewFilter"
-            app:hintTextColor="@color/blue"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextFilter"
+            style="@style/NewTextInputEdit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:hint="@string/filter_screens_enter_sum"
+            android:textAppearance="@style/TextViewRegular16"
+            android:textColorHint="@color/searchBarHintTextColor" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextFilter"
-                style="@style/EditTextFilter"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <ImageView
-            android:id="@+id/clearIconFilter"
-            style="@style/ButtonClear"
-            android:layout_width="@dimen/dimens_24"
-            android:layout_height="@dimen/dimens_24" />
-    </FrameLayout>
 
     <TextView
         style="@style/TextViewRegular16"
@@ -108,14 +114,14 @@
         android:padding="@dimen/dimens_16"
         android:text="@string/filter_screens_hide_without_salary"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/container" />
+        app:layout_constraintTop_toBottomOf="@id/textViewSalary" />
 
     <ImageView
         style="@style/CheckBoxFilter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/container" />
+        app:layout_constraintTop_toBottomOf="@id/textViewSalary" />
 
     <Button
         android:id="@+id/ButtonApply"
