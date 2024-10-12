@@ -22,6 +22,7 @@
         style="@style/CountryChooseIcon"
         android:layout_width="@dimen/dimens_48"
         android:layout_height="@dimen/dimens_48"
+        android:contentDescription="@string/select_location"
         android:src="@drawable/icon_left"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

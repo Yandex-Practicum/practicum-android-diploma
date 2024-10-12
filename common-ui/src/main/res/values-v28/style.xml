@@ -232,6 +232,5 @@
     <style name="CountryChooseIcon">
         <item name="android:layout_marginEnd">@dimen/dimens_4</item>
         <item name="android:padding">@dimen/dimens_12</item>
-        <item name="android:contentDescription">@string/select_location</item>
     </style>
 </resources>
