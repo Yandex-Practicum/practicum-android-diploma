@@ -32,6 +32,16 @@
     <string name="exeption">Произошла ошибка</string>
     <string name="bullet_dot">&amp;#8226</string>
     <string name="vacancy_not_found">Вакансия не найдена или удалена</string>
+    
+    <!--  Filter Settings Screen /start/ -->
+    <string name="filter_settings">Настройки фильтрации</string>
+    <string name="job_place">Место работы</string>
+    <string name="expected_salary">Ожидаемая зарплата</string>
+    <string name="input_sum">Введите сумму</string>
+    <string name="dont_show_without_salary">Не показывать без зарплаты</string>
+    <string name="apply">Применить</string>
+    <string name="clear">Сбросить</string>
+    <!--  Filter Settings Screen /end/ -->
 
     <!--  Team Info Screen /start/ -->
     <string name="team_member_title">Над приложением работали</string>

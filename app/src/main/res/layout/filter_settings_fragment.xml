@@ -6,14 +6,148 @@
     android:layout_height="match_parent"
     tool:context=".filters.ui.FilterSettingsFragment">
 
+    <Toolbar
+        android:id="@+id/tool_bar"
+        style="@style/BaseToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentInsetStartWithNavigation="0dp"
+        android:navigationIcon="@drawable/ic_arrow_back_24px"
+        android:paddingVertical="4dp"
+        android:title="@string/filter_settings"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
-        style="@style/Text_Medium_22"
+        android:id="@+id/job_place_title"
+        style="@style/Text_filter_area_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/filters"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/job_place"
+        android:layout_marginStart="@dimen/padding_horizontal_size_16"
+        app:layout_constraintBottom_toTopOf="@id/job_place_filter_result"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/job_place_action_icon" />
+
+    <TextView
+        android:id="@+id/job_place_filter_result"
+        style="@style/Text_Regular_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding_horizontal_size_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/job_place_title"
+        app:layout_constraintBottom_toBottomOf="@id/job_place_action_icon"
+        tool:text="Россия, Москва"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/job_place_action_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/filter_item_margin"
+        android:src="@drawable/ic_arrow_forward_24px"
+        android:layout_marginEnd="@dimen/padding_horizontal_size_16"
+        app:layout_constraintTop_toBottomOf="@id/tool_bar"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/industry_title"
+        style="@style/Text_filter_area_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/industry"
+        android:layout_marginStart="@dimen/padding_horizontal_size_16"
+        app:layout_constraintBottom_toTopOf="@id/industry_filter_result"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/industry_action_icon" />
+
+    <TextView
+        android:id="@+id/industry_filter_result"
+        style="@style/Text_Regular_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding_horizontal_size_16"
+        app:layout_constraintBottom_toBottomOf="@id/industry_action_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/industry_title"
+        tool:text="IT"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/industry_action_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="@dimen/filter_item_margin"
+        android:src="@drawable/ic_arrow_forward_24px"
+        android:layout_marginEnd="@dimen/padding_horizontal_size_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/job_place_action_icon" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/CustomTextInputLayout"
+        android:id="@+id/text_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:placeholderText="@string/input_sum"
+        android:hint="@string/expected_salary"
+        android:layout_marginTop="@dimen/filter_item_margin"
+        android:layout_marginHorizontal="@dimen/padding_horizontal_size_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/industry_action_icon">
+
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/CustomEditTextStyle"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/without_salary_title"
+        style="@style/Text_Regular_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dont_show_without_salary"
+        android:layout_marginStart="@dimen/padding_horizontal_size_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/salary_checkbox"
+        app:layout_constraintBottom_toBottomOf="@id/salary_checkbox"/>
+
+    <CheckBox
+        android:id="@+id/salary_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:layout_marginTop="@dimen/filter_item_margin"
+        android:layout_marginHorizontal="@dimen/padding_horizontal_size_16"
+        android:buttonTint="@color/blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_input_layout" />
+
+    <Button style="@style/BlueButtonStyle"
+        android:id="@+id/apply_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:text="@string/apply"
+        android:layout_marginHorizontal="@dimen/padding_horizontal_size_16"
+        app:layout_constraintBottom_toTopOf="@id/clear_filter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"/>
+
+    <Button style="@style/WhiteButtonStyle"
+        android:id="@+id/clear_filter"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:text="@string/clear"
+        android:layout_marginBottom="@dimen/title_top_margin_24"
+        android:layout_marginHorizontal="@dimen/padding_horizontal_size_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
