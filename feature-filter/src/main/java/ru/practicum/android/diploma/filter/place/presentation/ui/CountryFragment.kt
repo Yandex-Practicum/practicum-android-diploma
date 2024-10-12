@@ -83,8 +83,8 @@ internal class CountryFragment : Fragment() {
     }
 
     private fun initDebounce() {
-        countryClickDebounce = {
-            //some logic to call choosing regions
+        countryClickDebounce = onCountryClickDebounce {
+            // some logic to move to region
         }
     }
 
