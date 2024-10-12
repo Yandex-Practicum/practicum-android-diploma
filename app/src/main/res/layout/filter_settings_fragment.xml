@@ -96,12 +96,13 @@
             style="@style/CustomTextInputLayout"
             android:id="@+id/text_input_layout"
             android:layout_width="match_parent"
-            android:layout_height="52dp"
+            android:layout_height="wrap_content"
             app:placeholderText="@string/input_sum"
             android:hint="@string/expected_salary">
 
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/CustomEditTextStyle"
+                android:id="@+id/edit_text"
                 android:inputType="number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
