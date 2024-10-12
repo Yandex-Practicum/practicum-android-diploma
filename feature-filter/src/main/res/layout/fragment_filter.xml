@@ -73,7 +73,7 @@
         android:id="@+id/textViewSalary"
         style="@style/NewTextInputStyle"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
+        android:layout_height="@dimen/dimens_52"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/workProfession">
@@ -82,10 +82,7 @@
             android:id="@+id/editTextFilter"
             style="@style/NewTextInputEdit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/filter_screens_enter_sum"
-            android:textAppearance="@style/TextViewRegular16"
-            android:textColorHint="@color/searchBarHintTextColor" />
+            android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
