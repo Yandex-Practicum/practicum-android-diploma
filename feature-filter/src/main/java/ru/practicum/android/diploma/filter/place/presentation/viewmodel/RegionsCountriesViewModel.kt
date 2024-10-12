@@ -28,10 +28,12 @@ class RegionsCountriesViewModel(
             regionInteractor.listAreas().collect { areas ->
                 if (areas.first != null) {
                     places.addAll(areas.first!!)
+                    val countries = places.map { Country(it.id, it.name) }
+                    _countriesStateLiveData.postValue(CountryState.Content(countries))
+                } else {
+                    _countriesStateLiveData.postValue(CountryState.Empty)
                 }
             }
-            val countries = places.map { Country(it.id, it.name) }
-            _countriesStateLiveData.postValue(CountryState.Content(countries))
         }
     }
 
