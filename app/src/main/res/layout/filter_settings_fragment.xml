@@ -84,25 +84,41 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/job_place_action_icon" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/CustomTextInputLayout"
-        android:id="@+id/text_input_layout"
+    <FrameLayout android:id="@+id/input_layout_box"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:placeholderText="@string/input_sum"
-        android:hint="@string/expected_salary"
         android:layout_marginTop="@dimen/filter_item_margin"
         android:layout_marginHorizontal="@dimen/padding_horizontal_size_16"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/industry_action_icon">
+        app:layout_constraintTop_toBottomOf="@id/industry_action_icon" >
 
-        <com.google.android.material.textfield.TextInputEditText
-            style="@style/CustomEditTextStyle"
-            android:inputType="number"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/CustomTextInputLayout"
+            android:id="@+id/text_input_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="52dp"
+            app:placeholderText="@string/input_sum"
+            android:hint="@string/expected_salary">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/CustomEditTextStyle"
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/search_line_cleaner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:paddingHorizontal="@dimen/padding_horizontal_size_16"
+            android:src="@drawable/ic_close_24px"
+            android:visibility="gone"
+            tool:ignore="contentDescription" />
+
+    </FrameLayout>
 
     <TextView
         android:id="@+id/without_salary_title"
@@ -125,7 +141,7 @@
         android:layout_marginHorizontal="@dimen/padding_horizontal_size_16"
         android:buttonTint="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_input_layout" />
+        app:layout_constraintTop_toBottomOf="@id/input_layout_box" />
 
     <Button style="@style/BlueButtonStyle"
         android:id="@+id/apply_button"
