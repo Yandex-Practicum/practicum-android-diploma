@@ -194,7 +194,7 @@
     </style>
 
     <style name="PlacesList">
-        <item name="android:paddingHorizontal">@dimen/dimens_16</item>
+        <item name="android:paddingStart">@dimen/dimens_16</item>
         <item name="android:paddingTop">@dimen/dimens_16</item>
     </style>
 
