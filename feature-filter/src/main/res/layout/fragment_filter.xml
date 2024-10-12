@@ -10,11 +10,12 @@
     <ImageView
         android:id="@+id/buttonLeftFilter"
         style="@style/ButtonLeft"
-        android:paddingVertical="@dimen/dimens_24"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/dimens_24"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"  />
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/filterHeader"
         style="@style/TextViewMedium22"
@@ -33,11 +34,12 @@
 
         <TextView
             style="@style/TextViewRegular16"
-            android:textColor="@color/grey"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/filter_screens_location" />
+            android:padding="@dimen/dimens_16"
+            android:text="@string/filter_screens_location"
+            android:textColor="@color/grey" />
 
         <ImageView
             style="@style/ButtonRight"
@@ -54,76 +56,83 @@
 
         <TextView
             style="@style/TextViewRegular16"
-            android:textColor="@color/grey"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/filter_screens_profession" />
+            android:padding="@dimen/dimens_16"
+            android:text="@string/filter_screens_profession"
+            android:textColor="@color/grey" />
 
         <ImageView
             style="@style/ButtonRight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
+
     <FrameLayout
         android:id="@+id/container"
+        style="@style/FrameLayoutFilter"
         android:layout_width="match_parent"
-        android:layout_height="51dp"
-        android:paddingLeft="@dimen/dimens_16"
-        android:orientation="horizontal"
-        android:background="@drawable/rounded_edittext"
-        android:layout_marginTop="56dp"
-        android:layout_marginHorizontal="@dimen/dimens_16"
-        app:layout_constraintTop_toBottomOf="@id/workProfession"
-        app:layout_constraintStart_toStartOf="parent">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="51dp"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ожидаемая зарплата"
-                android:textColor="@color/grey"
-                android:layout_marginTop="4dp"
-                android:textSize="12sp"/>
-            <EditText
-                android:imeOptions="actionDone"
-                android:singleLine="true"
-                android:id="@+id/editTextSearch"
-                android:background="@color/lightGrey"
-                android:layout_height="wrap_content"
-                android:textColorHint="@color/grey"
+        android:layout_height="@dimen/dp_51"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/workProfession">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textViewSalary"
+            style="@style/TextViewFilter"
+            app:hintTextColor="@color/blue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextFilter"
+                style="@style/EditTextFilter"
                 android:layout_width="match_parent"
-                android:inputType="number"
-                android:hint="Введите сумму"
-                android:lines="1"
-                android:textSize="@dimen/textSizeLittle"
-                android:textColor="@color/black"
-                android:drawablePadding="8dp" />
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
-            android:id="@+id/clearIcon"
-            android:layout_margin="14dp"
+            android:id="@+id/clearIconFilter"
+            style="@style/ButtonClear"
             android:layout_width="@dimen/dimens_24"
-            android:layout_height="@dimen/dimens_24"
-            android:layout_gravity="right"
-            android:src="@drawable/clear"
-            android:visibility="visible" />
+            android:layout_height="@dimen/dimens_24" />
     </FrameLayout>
+
     <TextView
-        android:id="@+id/noShow"
+        style="@style/TextViewRegular16"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/container"
+        android:layout_marginTop="@dimen/dimens_24"
+        android:padding="@dimen/dimens_16"
+        android:text="@string/filter_screens_hide_without_salary"
         app:layout_constraintStart_toStartOf="parent"
-        android:text="Не показывать без зарплаты" />
-<CheckBox
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:shadowColor="@color/blue"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/container"/>
+        app:layout_constraintTop_toBottomOf="@id/container" />
+
+    <ImageView
+        style="@style/CheckBoxFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/container" />
+
+    <Button
+        android:id="@+id/ButtonApply"
+        style="@style/ButtonApply"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/buttonCancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonCancel"
+        style="@style/ButtonCancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
