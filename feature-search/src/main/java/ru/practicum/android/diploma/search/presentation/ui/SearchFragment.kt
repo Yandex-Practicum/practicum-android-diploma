@@ -214,8 +214,8 @@ internal class SearchFragment : Fragment() {
             }
 
             SearchScreenState.Error.NEW_PAGE_NO_INTERNET_ERROR -> {
-                binding.noInternetErrorIllustration.isVisible = true
-                binding.noInternetErrorText.isVisible = true
+                binding.resultCountPopup.isVisible = true
+                binding.vacancyRecycler.isVisible = true
                 makeToast(getString(ru.practicum.android.diploma.ui.R.string.search_screen_toast_no_internet))
             }
 
