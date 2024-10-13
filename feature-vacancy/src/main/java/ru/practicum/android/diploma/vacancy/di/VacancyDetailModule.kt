@@ -11,15 +11,12 @@ import ru.practicum.android.diploma.vacancy.domain.usecase.impl.VacancyDetailInt
 import ru.practicum.android.diploma.vacancy.presentation.viewmodel.VacancyDetailViewModel
 
 val vacancyDetailModule = module {
-
     viewModel {
         VacancyDetailViewModel(get())
     }
-
     single<VacancyDetailInteractor> {
         VacancyDetailInteractorImpl(get())
     }
-
     single<VacancyDetailRepository> {
         VacancyDetailRepositoryImpl(androidContext(), get(), get(), get())
     }

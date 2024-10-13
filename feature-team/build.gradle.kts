@@ -58,9 +58,9 @@ dependencies {
 
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    implementation(project(":common-ui"))
 
     // modules
+    implementation(project(":common-ui"))
     implementation(project(":common-utils"))
     implementation(project(":data-network"))
     implementation(project(":data-sp"))

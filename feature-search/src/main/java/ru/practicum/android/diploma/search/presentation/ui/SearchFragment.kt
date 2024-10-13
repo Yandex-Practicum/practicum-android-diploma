@@ -10,21 +10,20 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.commonutils.Utils.closeKeyBoard
 import ru.practicum.android.diploma.commonutils.debounce
-import ru.practicum.android.diploma.search.R
+import ru.practicum.android.diploma.navigate.observable.VacancyNavigateLiveData
+import ru.practicum.android.diploma.navigate.state.NavigateEventState
 import ru.practicum.android.diploma.search.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.presentation.SearchScreenState
 import ru.practicum.android.diploma.search.presentation.adapter.VacancyListAdapter
 import ru.practicum.android.diploma.search.presentation.viewmodel.VacancyListState
 import ru.practicum.android.diploma.search.presentation.viewmodel.VacancyListViewModel
-import ru.practicum.android.diploma.vacancy.presentation.ui.VacancyFragment
-import ru.practicum.android.diploma.vacancy.presentation.ui.state.VacancyInputState
 
 private const val USER_INPUT = "userInput"
 private const val DELAY_CLICK_VACANCY = 2000L
@@ -35,6 +34,7 @@ internal class SearchFragment : Fragment() {
     private var userInputReserve = ""
 
     private val vacancyListViewModel: VacancyListViewModel by viewModel()
+    private val vacancyNavigateLiveData: VacancyNavigateLiveData<NavigateEventState> by inject()
     private var localVacancyList: ArrayList<Vacancy> = ArrayList()
 
     val debouncedSearch by lazy {
@@ -112,7 +112,7 @@ internal class SearchFragment : Fragment() {
         }
 
         binding.filter.setOnClickListener {
-            findNavController().navigate(R.id.action_searchFragment_to_filter_navigation)
+            vacancyNavigateLiveData.navigateTo(NavigateEventState.ToFilter)
         }
 
         binding.vacancyRecycler.setOnClickListener {
@@ -122,10 +122,7 @@ internal class SearchFragment : Fragment() {
 
     private fun recyclerSetup() {
         val adapter = VacancyListAdapter({ vacancy ->
-            findNavController().navigate(
-                R.id.action_searchFragment_to_vacancy_navigation,
-                VacancyFragment.createArgs(VacancyInputState.VacancyNetwork(vacancy.id))
-            )
+            vacancyNavigateLiveData.navigateTo(NavigateEventState.ToVacancyDataSourceNetwork(vacancy.id))
         }, vacancyListViewModel)
         binding.vacancyRecycler.layoutManager = GridLayoutManager(requireContext(), 1)
         binding.vacancyRecycler.adapter = adapter
@@ -214,8 +211,8 @@ internal class SearchFragment : Fragment() {
             }
 
             SearchScreenState.Error.NEW_PAGE_NO_INTERNET_ERROR -> {
-                binding.noInternetErrorIllustration.isVisible = true
-                binding.noInternetErrorText.isVisible = true
+                binding.resultCountPopup.isVisible = true
+                binding.vacancyRecycler.isVisible = true
                 makeToast(getString(ru.practicum.android.diploma.ui.R.string.search_screen_toast_no_internet))
             }
 

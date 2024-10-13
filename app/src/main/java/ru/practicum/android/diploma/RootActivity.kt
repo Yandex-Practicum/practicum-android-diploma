@@ -6,9 +6,17 @@ import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import org.koin.android.ext.android.inject
 import ru.practicum.android.diploma.databinding.ActivityRootBinding
+import ru.practicum.android.diploma.navigate.api.VacancyApi
+import ru.practicum.android.diploma.navigate.observable.VacancyNavigateLiveData
+import ru.practicum.android.diploma.navigate.state.NavigateEventState
 
+private const val TAG = "RootActivity"
 class RootActivity : AppCompatActivity() {
+
+    private val vacancyNavigateLiveData: VacancyNavigateLiveData<NavigateEventState> by inject()
+    private val vacancyApi: VacancyApi<NavigateEventState> by inject()
 
     private var _binding: ActivityRootBinding? = null
     private val binding: ActivityRootBinding get() = _binding!!
@@ -22,12 +30,10 @@ class RootActivity : AppCompatActivity() {
         _binding = ActivityRootBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        navController.addOnDestinationChangedListener { _, destination, _ -> // скрываем/показываем нижнюю панель
+        navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.search_navigation, R.id.team_navigation, R.id.favorites_navigation, R.id.root_navigation,
-                ru.practicum.android.diploma.search.R.id.searchFragment, // Временные заглушки до оформления
-                ru.practicum.android.diploma.favorites.R.id.favoritesFragment, // NavGraph'а
-                ru.practicum.android.diploma.team.R.id.teamFragment, // По установке навигации - удалить
+                R.id.search_fragment, R.id.team_navigation, R.id.favorites_fragment, R.id.root_navigation,
+                ru.practicum.android.diploma.team.R.id.teamFragment,
                 -> {
                     binding.bottomNavigationMenu.isVisible = true
                     binding.navigationPanelDivider.isVisible = true
@@ -47,6 +53,25 @@ class RootActivity : AppCompatActivity() {
 
     }
 
+    override fun onStart() {
+        super.onStart()
+        vacancyNavigateLiveData.observeNavigateEventState(this) { state ->
+            navigate(state)
+        }
+    }
+
+    private fun navigate(state: NavigateEventState) {
+        val actionId = when (state) {
+            is NavigateEventState.ToVacancyDataSourceNetwork ->
+                R.id.action_searchFragment_to_vacancyFragment
+            is NavigateEventState.ToVacancyDataSourceDb ->
+                R.id.action_favoritesFragment_to_vacancyFragment
+            is NavigateEventState.ToFilter ->
+                R.id.action_search_fragment_to_filter_navigation
+        }
+        navController.navigate(actionId, vacancyApi.createArgs(state))
+    }
+
     private fun networkRequestExample(accessToken: String) {
         // ...
     }
@@ -55,9 +80,4 @@ class RootActivity : AppCompatActivity() {
         super.onDestroy()
         _binding = null
     }
-
-    companion object {
-        private const val TAG = "RootActivity"
-    }
-
 }
