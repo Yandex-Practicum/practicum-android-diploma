@@ -2,11 +2,32 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root_navigation"
-    app:startDestination="@id/search_navigation">
+    app:startDestination="@id/search_fragment">
 
-    <include app:graph="@navigation/search_navigation" />
     <include app:graph="@navigation/team_navigation" />
-    <include app:graph="@navigation/favorites_navigation" />
-
+    <fragment
+        android:id="@+id/search_fragment"
+        android:name="ru.practicum.android.diploma.search.presentation.ui.SearchFragment"
+        android:label="SearchFragment" >
+        <action
+            android:id="@+id/action_searchFragment_to_vacancyFragment"
+            app:destination="@id/vacancyFragment" />
+        <action
+            android:id="@+id/action_search_fragment_to_filter_navigation"
+            app:destination="@id/filter_navigation" />
+    </fragment>
+    <fragment
+        android:id="@+id/vacancyFragment"
+        android:name="ru.practicum.android.diploma.vacancy.presentation.ui.VacancyFragment"
+        android:label="VacancyFragment" />
+    <fragment
+        android:id="@+id/favorites_fragment"
+        android:name="ru.practicum.android.diploma.favorites.presentation.ui.FavoritesFragment"
+        android:label="FavoritesFragment" >
+        <action
+            android:id="@+id/action_favoritesFragment_to_vacancyFragment"
+            app:destination="@id/vacancyFragment" />
+    </fragment>
+    <include app:graph="@navigation/filter_navigation" />
 
 </navigation>

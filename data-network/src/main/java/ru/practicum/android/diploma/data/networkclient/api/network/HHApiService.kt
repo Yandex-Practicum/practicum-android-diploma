@@ -28,12 +28,8 @@ internal interface HHApiService {
         @Header("Authorization") token: String = HH_TOKEN
     ): HHIndustriesResponse
 
-    @Headers(HH_HEADER_ONE)
     @GET("/areas")
-    suspend fun searchRegions(
-        @QueryMap options: Map<String, String>?,
-        @Header("Authorization") token: String = HH_TOKEN
-    ): HHRegionsResponse
+    suspend fun searchRegions(): HHRegionsResponse
 
     @Headers(HH_HEADER_ONE)
     @GET("/vacancies/{vacancy_id}")

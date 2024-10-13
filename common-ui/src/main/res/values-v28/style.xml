@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="itemTextAppearanceActive">@style/BottomNavigationView</item>
         <item name="itemTextAppearanceInactive">@style/BottomNavigationView</item>
@@ -43,6 +44,7 @@
         <item name="android:padding">19dp</item>
         <item name="android:textFontWeight">500</item>
     </style>
+
     <style name="TextViewRegular16">
         <item name="android:textSize">@dimen/textSizeLittle</item>
         <item name="android:fontFamily">@font/ys_display_regular</item>
@@ -51,6 +53,7 @@
         <item name="android:padding">@dimen/textPadding</item>
         <item name="android:textFontWeight">400</item>
     </style>
+
     <style name="TextViewRegular16NoPadding">
         <item name="android:textSize">@dimen/textSizeLittle</item>
         <item name="android:fontFamily">@font/ys_display_regular</item>
@@ -191,5 +194,43 @@
         <item name="android:textColor">@color/primaryTextAndUIColor</item>
         <item name="android:textFontWeight">400</item>
         <item name="android:textSize">@dimen/textSizeLittle</item>
+    </style>
+
+    <style name="PlacesList">
+        <item name="android:paddingStart">@dimen/dimens_16</item>
+        <item name="android:paddingTop">@dimen/dimens_16</item>
+    </style>
+
+    <style name="ErrorPicture">
+        <item name="android:layout_marginHorizontal">@dimen/dimens_16</item>
+        <item name="android:layout_marginTop">@dimen/dimens_120</item>
+        <item name="android:adjustViewBounds">true</item>
+    </style>
+
+    <style name="ErrorMessageText">
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:paddingHorizontal">@dimen/dimens_16</item>
+        <item name="android:paddingTop">@dimen/dimens_16</item>
+        <item name="android:textColor">@color/primaryTextAndUIColor</item>
+        <item name="android:textFontWeight">500</item>
+        <item name="android:textSize">@dimen/textSizeMedium</item>
+    </style>
+
+    <style name="CountryItemText">
+        <item name="android:textFontWeight">400</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/textSizeLittle</item>
+    </style>
+
+    <style name="ErrorBlock">
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_marginTop">@dimen/dimens_120</item>
+    </style>
+
+    <style name="CountryChooseIcon">
+        <item name="android:layout_marginEnd">@dimen/dimens_4</item>
+        <item name="android:padding">@dimen/dimens_12</item>
     </style>
 </resources>

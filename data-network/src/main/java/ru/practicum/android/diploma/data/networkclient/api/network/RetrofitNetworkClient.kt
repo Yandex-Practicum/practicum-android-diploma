@@ -38,7 +38,7 @@ internal class RetrofitNetworkClient(
                     is HHApiIndustriesRequest -> industriesRequest(dto)
                     is HHApiVacanciesRequest -> vacancyListRequest(dto)
                     is HHApiVacancyRequest -> vacancyRequest(dto)
-                    is HHApiRegionsRequest -> regionsRequest(dto)
+                    is HHApiRegionsRequest -> regionsRequest()
                     else -> throw IllegalArgumentException("Error is ${dto::class.qualifiedName}")
                 }
             }.fold(
@@ -74,8 +74,8 @@ internal class RetrofitNetworkClient(
         }
     }
 
-    private suspend fun regionsRequest(dto: HHApiRegionsRequest): Response {
-        val regions = hhApiService.searchRegions(dto.options)
+    private suspend fun regionsRequest(): Response {
+        val regions = hhApiService.searchRegions()
         Log.d(TAG, regions.toString())
         return regions
     }

@@ -62,7 +62,7 @@ internal class VacanciesRepositoryImpl(
         )
 
     override fun listAreas(): Flow<Resource<RegionList>> = context.executeNetworkRequest<Response, RegionList>(
-        request = { networkClient.doRequest(HHApiRegionsRequest(hashMapOf(Pair("id", DEFAULT_REGION)))) },
+        request = { networkClient.doRequest(HHApiRegionsRequest) },
         successHandler = { response: Response ->
             Resource.Success(areaConverter.map(response as HHRegionsResponse))
         },

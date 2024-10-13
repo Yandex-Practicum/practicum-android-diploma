@@ -7,10 +7,10 @@ import ru.practicum.android.diploma.filter.databinding.ItemCountryBinding
 import ru.practicum.android.diploma.filter.place.domain.model.Country
 
 class CountriesAdapter(
-    private val countries: List<Country>,
     private val countryClickListener: CountryClickListener,
 ) : RecyclerView.Adapter<CountriesAdapter.CountriesViewHolder>() {
 
+    val countries: MutableList<Country> = ArrayList<Country>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountriesViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return CountriesViewHolder(ItemCountryBinding.inflate(layoutInflater, parent, false))
