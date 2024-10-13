@@ -97,7 +97,11 @@ internal class CountryFragment : Fragment() {
     }
 
     private fun onCountryClickDebounce(action: (String) -> Unit): (String) -> Unit = debounce<String>(
-        DELAY_CLICK_COUNTRY, lifecycleScope, false, false, action
+        DELAY_CLICK_COUNTRY,
+        lifecycleScope,
+        false,
+        false,
+        action
     )
 
     override fun onDestroy() {
