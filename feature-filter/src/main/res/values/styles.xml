@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="SearchIcon">
+        <item name="android:layout_marginVertical">@dimen/dp_4</item>
+        <item name="android:layout_marginEnd">@dimen/dp_4</item>
+        <item name="android:padding">@dimen/dp_16</item>
+    </style>
+
+    <style name="SearchBarIcon">
+        <item name="android:layout_marginVertical">@dimen/dp_4</item>
+        <item name="android:layout_marginEnd">@dimen/dp_4</item>
+        <item name="android:importantForAccessibility">no</item>
+        <item name="android:padding">@dimen/dp_12</item>
+    </style>
+</resources>

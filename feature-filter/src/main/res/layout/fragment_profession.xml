@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".profession.presentation.ui.SearchFragment">
+    tools:context=".profession.presentation.ui.ProfessionFragment">
 
     <!-- Guidelines -->
     <androidx.constraintlayout.widget.Guideline

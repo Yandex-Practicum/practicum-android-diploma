@@ -20,7 +20,6 @@ import ru.practicum.android.diploma.filter.profession.presentation.ui.adapters.F
 
 private const val USER_INPUT = "userInput"
 private const val DELAY_CLICK_VACANCY = 2000L
-private const val NUMBER_OF_ITEMS_FOR_TESTING = 10 // ❗ delete when proper list is available
 
 internal class ProfessionFragment : Fragment() {
     private var _binding: FragmentProfessionBinding? = null
@@ -49,16 +48,11 @@ internal class ProfessionFragment : Fragment() {
     ): View {
         _binding = FragmentProfessionBinding.inflate(inflater, container, false)
 
+
+
         recyclerSetup()
         searchBarSetup()
 
-        for (i in 0 until NUMBER_OF_ITEMS_FOR_TESTING) { // ❗ delete when proper list is available
-            val mockIndustry = Industry(
-                "$i",
-                "$i$i$i$i$i$i$i$i$i"
-            ) // ❗
-            localIndustriesList.add(mockIndustry) // ❗
-        } // ❗
 
         return binding.root
     }
