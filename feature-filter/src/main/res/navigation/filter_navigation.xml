@@ -32,7 +32,11 @@
         android:id="@+id/countryFragment"
         android:name="ru.practicum.android.diploma.filter.place.presentation.ui.CountryFragment"
         tools:layout="@layout/fragment_country"
-        android:label="fragment_country" />
+        android:label="fragment_country" >
+        <action
+            android:id="@+id/action_countryFragment_to_placeFragment"
+            app:destination="@id/placeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/regionFragment"
         android:name="ru.practicum.android.diploma.filter.place.presentation.ui.RegionFragment"
