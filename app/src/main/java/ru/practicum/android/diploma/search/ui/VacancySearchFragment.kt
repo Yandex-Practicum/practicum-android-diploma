@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.search.ui
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,7 +22,7 @@ import ru.practicum.android.diploma.search.domain.models.VacancySearch
 import ru.practicum.android.diploma.search.presentation.VacancySearchScreenState
 import ru.practicum.android.diploma.search.presentation.VacancySearchViewModel
 import ru.practicum.android.diploma.search.ui.presenter.RecycleViewAdapter
-import ru.practicum.android.diploma.util.SingleEventLiveData
+import ru.practicum.android.diploma.util.debounce
 import ru.practicum.android.diploma.util.hideKeyboard
 import ru.practicum.android.diploma.util.vacanciesPluralsFormat
 import ru.practicum.android.diploma.vacancy.ui.VacancyDetailFragment
@@ -33,7 +35,7 @@ class VacancySearchFragment : Fragment() {
     private val adapter get() = _adapter!!
     private val viewModel by viewModel<VacancySearchViewModel>()
     private var inputTextValue = DEF_TEXT
-    private val singleEvent = SingleEventLiveData<String>()
+    private var clickBoolean = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -103,14 +105,17 @@ class VacancySearchFragment : Fragment() {
         viewModel.getStateObserve().observe(viewLifecycleOwner) { state ->
             render(state)
         }
-        singleEvent.observe(viewLifecycleOwner) { vacancyId ->
-            openVacancyDetails(vacancyId)
-        }
+    }
+
+    private val clickDebounce = debounce<Boolean>(CLICK_DEBOUNCE_TIME, lifecycleScope, true) {
+        clickBoolean = true
     }
 
     private fun recyclerViewInit() {
+
         val onVacancyClickEvent = { vacancySearch: VacancySearch ->
-            singleEvent.value = vacancySearch.id
+            openVacancyDetails(vacancySearch.id)
+
         }
         _adapter = RecycleViewAdapter {
             onVacancyClickEvent(it)
@@ -251,10 +256,14 @@ class VacancySearchFragment : Fragment() {
     }
 
     private fun openVacancyDetails(vacancyId: String) {
-        findNavController().navigate(
-            R.id.action_searchFragment_to_vacancyFragment,
-            VacancyDetailFragment.createArgs(vacancyId)
-        )
+        if (clickBoolean) {
+            clickBoolean = false
+            clickDebounce
+            findNavController().navigate(
+                R.id.action_searchFragment_to_vacancyFragment,
+                VacancyDetailFragment.createArgs(vacancyId)
+            )
+        }
     }
 
     override fun onDestroyView() {
@@ -264,5 +273,6 @@ class VacancySearchFragment : Fragment() {
 
     companion object {
         const val DEF_TEXT = ""
+        const val CLICK_DEBOUNCE_TIME = 200L
     }
 }
