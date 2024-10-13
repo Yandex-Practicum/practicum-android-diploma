@@ -91,6 +91,5 @@ dependencies {
     implementation(libs.activity.ktx)
     implementation(libs.fragment.ktx)
     implementation(libs.androidX.appCompat)
-    implementation(libs.material)
 
 }

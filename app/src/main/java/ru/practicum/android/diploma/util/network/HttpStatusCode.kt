@@ -8,5 +8,4 @@ enum class HttpStatusCode(resultCode: Int) {
     FORBIDDEN(resultCode = 403),
     NOT_FOUND(resultCode = 404),
     INTERNAL_SERVER_ERROR(resultCode = 500),
-    UNKNOWN_ERROR(resultCode = 520)
 }
