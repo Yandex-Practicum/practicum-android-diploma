@@ -2,8 +2,8 @@ package ru.practicum.android.diploma.filters.data
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import ru.practicum.android.diploma.filters.data.dto.FilterCountryRequest
-import ru.practicum.android.diploma.filters.data.dto.FilterCountryResponse
+import ru.practicum.android.diploma.filters.data.dto.FilterAreasRequest
+import ru.practicum.android.diploma.filters.data.dto.FilterAreasResponse
 import ru.practicum.android.diploma.filters.domain.api.FilterCountryRepository
 import ru.practicum.android.diploma.filters.domain.models.Country
 import ru.practicum.android.diploma.util.Resource
@@ -15,12 +15,12 @@ class FilterCountryRepositoryImpl(
 ) : FilterCountryRepository {
 
     override fun getAreas(): Flow<Resource<List<Country>>> = flow {
-        val response = networkClient.doRequest(FilterCountryRequest())
+        val response = networkClient.doRequest(FilterAreasRequest())
 
         emit(
             when (response.resultCode) {
                 HttpStatusCode.OK -> {
-                    val areasResponse = response as FilterCountryResponse
+                    val areasResponse = response as FilterAreasResponse
 
                     val countries = areasResponse.areas
                         .filter { it.parentId == null }
