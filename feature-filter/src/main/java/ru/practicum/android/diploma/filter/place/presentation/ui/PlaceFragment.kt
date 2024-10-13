@@ -27,9 +27,7 @@ internal class PlaceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d(TAG, arguments?.getString(ARGS_COUNTRY_NAME) ?: "")
-        arguments?.getString(ARGS_COUNTRY_NAME)?.let {
-            binding.tvCountry.text = it
-        }
+        arguments?.getString(ARGS_COUNTRY_NAME)?.let { binding.tvCountry.text = it }
         binding.country.setOnClickListener {
             findNavController().navigate(R.id.action_placeFragment_to_countryFragment)
         }

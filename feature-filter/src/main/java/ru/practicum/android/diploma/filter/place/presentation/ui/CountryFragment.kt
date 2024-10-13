@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.filter.place.presentation.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +21,7 @@ import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.Co
 
 private const val DELAY_CLICK_COUNTRY = 250L
 private const val TAG = "CountryFragment"
+
 internal class CountryFragment : Fragment() {
     private var _binding: FragmentCountryBinding? = null
     private val binding get() = _binding!!
@@ -32,7 +32,7 @@ internal class CountryFragment : Fragment() {
 
     private var countries: Map<String, String>? = null
     private val countriesAdapter: CountriesAdapter by lazy(LazyThreadSafetyMode.NONE) {
-        CountriesAdapter() {
+        CountriesAdapter {
             selectCountry(it)
         }
     }
@@ -89,16 +89,15 @@ internal class CountryFragment : Fragment() {
 
     private fun initDebounce() {
         countryClickDebounce = onCountryClickDebounce {
-            findNavController().navigate(R.id.action_countryFragment_to_placeFragment, PlaceFragment.createArgs(it, countries?.get(it)!!))
+            findNavController().navigate(
+                R.id.action_countryFragment_to_placeFragment,
+                PlaceFragment.createArgs(it, countries?.get(it)!!)
+            )
         }
     }
 
     private fun onCountryClickDebounce(action: (String) -> Unit): (String) -> Unit = debounce<String>(
-        DELAY_CLICK_COUNTRY,
-        lifecycleScope,
-        false,
-        false,
-        action
+        DELAY_CLICK_COUNTRY, lifecycleScope, false, false, action
     )
 
     override fun onDestroy() {
