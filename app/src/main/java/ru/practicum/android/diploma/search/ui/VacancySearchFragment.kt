@@ -15,6 +15,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.VacancySearchFragmentBinding
@@ -35,7 +37,7 @@ class VacancySearchFragment : Fragment() {
     private val adapter get() = _adapter!!
     private val viewModel by viewModel<VacancySearchViewModel>()
     private var inputTextValue = DEF_TEXT
-    private var clickBoolean = true
+    private var isClickAllowed = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -105,10 +107,6 @@ class VacancySearchFragment : Fragment() {
         viewModel.getStateObserve().observe(viewLifecycleOwner) { state ->
             render(state)
         }
-    }
-
-    private val clickDebounce = debounce<Boolean>(CLICK_DEBOUNCE_TIME, lifecycleScope, true) {
-        clickBoolean = true
     }
 
     private fun recyclerViewInit() {
@@ -256,13 +254,18 @@ class VacancySearchFragment : Fragment() {
     }
 
     private fun openVacancyDetails(vacancyId: String) {
-        if (clickBoolean) {
-            clickBoolean = false
-            clickDebounce
+        if (isClickAllowed) {
             findNavController().navigate(
                 R.id.action_searchFragment_to_vacancyFragment,
                 VacancyDetailFragment.createArgs(vacancyId)
             )
+            isClickAllowed = true
+            viewLifecycleOwner.lifecycleScope.launch {
+            Log.e("Test","Deb")
+                delay(200)
+            Log.e("Test","deb2")
+                isClickAllowed = true
+            }
         }
     }
 
