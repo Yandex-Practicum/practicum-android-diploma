@@ -25,49 +25,64 @@
         app:layout_constraintStart_toEndOf="@id/buttonLeftFilter"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
+    <TextView
         android:id="@+id/workPlace"
-        android:layout_width="match_parent"
+        style="@style/TextViewRegular16"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="@dimen/dimens_16"
+        android:text="@string/filter_screens_location"
+        android:textColor="@color/grey"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/filterHeader">
+        app:layout_constraintTop_toBottomOf="@id/filterHeader" />
 
-        <TextView
-            style="@style/TextViewRegular16"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="@dimen/dimens_16"
-            android:text="@string/filter_screens_location"
-            android:textColor="@color/grey" />
+    <TextView
+        android:id="@+id/workPlaceInfo"
+        style="@style/TextViewRegular16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimens_16"
+        android:textColor="@color/black"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/filterHeader" />
 
-        <ImageView
-            style="@style/ButtonRight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+    <ImageView
+        style="@style/ButtonRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/filterHeader" />
 
-    <LinearLayout
+
+    <TextView
         android:id="@+id/workProfession"
-        android:layout_width="match_parent"
+        style="@style/TextViewRegular16"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="@dimen/dimens_16"
+        android:text="@string/filter_screens_profession"
+        android:textColor="@color/grey"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/workPlace">
+        app:layout_constraintTop_toBottomOf="@id/workPlace" />
 
-        <TextView
-            style="@style/TextViewRegular16"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="@dimen/dimens_16"
-            android:text="@string/filter_screens_profession"
-            android:textColor="@color/grey" />
+    <TextView
+        android:id="@+id/workProfessionInfo"
+        style="@style/TextViewRegular16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimens_16"
+        android:textColor="@color/black"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/workPlace" />
 
-        <ImageView
-            style="@style/ButtonRight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+    <ImageView
+        style="@style/ButtonRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/workPlace" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textViewSalary"
@@ -97,15 +112,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewSalary" />
 
-    <ImageView
-        style="@style/CheckBoxFilter"
+    <CheckBox
+        android:id="@+id/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimens_24"
+        android:layout_marginEnd="@dimen/dp_8"
+        android:buttonTint="@color/blue"
+        android:paddingVertical="@dimen/dimens_16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewSalary" />
 
     <Button
-        android:id="@+id/ButtonApply"
+        android:id="@+id/buttonApply"
         style="@style/ButtonApply"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
