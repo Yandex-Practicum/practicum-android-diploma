@@ -3,7 +3,6 @@ package ru.practicum.android.diploma.search.ui
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,7 +23,6 @@ import ru.practicum.android.diploma.search.domain.models.VacancySearch
 import ru.practicum.android.diploma.search.presentation.VacancySearchScreenState
 import ru.practicum.android.diploma.search.presentation.VacancySearchViewModel
 import ru.practicum.android.diploma.search.ui.presenter.RecycleViewAdapter
-import ru.practicum.android.diploma.util.debounce
 import ru.practicum.android.diploma.util.hideKeyboard
 import ru.practicum.android.diploma.util.vacanciesPluralsFormat
 import ru.practicum.android.diploma.vacancy.ui.VacancyDetailFragment
@@ -110,7 +108,6 @@ class VacancySearchFragment : Fragment() {
     }
 
     private fun recyclerViewInit() {
-
         val onVacancyClickEvent = { vacancySearch: VacancySearch ->
             openVacancyDetails(vacancySearch.id)
 
@@ -259,11 +256,9 @@ class VacancySearchFragment : Fragment() {
                 R.id.action_searchFragment_to_vacancyFragment,
                 VacancyDetailFragment.createArgs(vacancyId)
             )
-            isClickAllowed = true
-            viewLifecycleOwner.lifecycleScope.launch {
-            Log.e("Test","Deb")
-                delay(200)
-            Log.e("Test","deb2")
+            isClickAllowed = false
+            lifecycleScope.launch {
+                delay(CLICK_DEBOUNCE_TIME)
                 isClickAllowed = true
             }
         }
