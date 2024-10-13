@@ -22,7 +22,6 @@ internal class FilterFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.workPlace.setOnClickListener {
@@ -34,9 +33,8 @@ internal class FilterFragment : Fragment() {
         binding.buttonLeftFilter.setOnClickListener {
             findNavController().navigateUp()
         }
-
-
     }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
