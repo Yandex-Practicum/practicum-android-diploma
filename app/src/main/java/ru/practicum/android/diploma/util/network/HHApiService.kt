@@ -6,6 +6,7 @@ import retrofit2.http.Path
 import retrofit2.http.QueryMap
 import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.search.data.network.VacancySearchResponse
+import ru.practicum.android.diploma.vacancy.data.dto.AreaDto
 import ru.practicum.android.diploma.vacancy.data.network.VacancyDetailsResponse
 
 interface HHApiService {
@@ -17,4 +18,7 @@ interface HHApiService {
 
     @GET("vacancies/{vacancyId}")
     suspend fun getVacancyDetails(@Path("vacancyId") vacancyId: String): VacancyDetailsResponse
+
+    @GET("areas")
+    suspend fun getRegions(): List<AreaDto>
 }
