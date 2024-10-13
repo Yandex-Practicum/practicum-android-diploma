@@ -20,6 +20,7 @@ import ru.practicum.android.diploma.search.domain.models.VacancySearch
 import ru.practicum.android.diploma.search.presentation.VacancySearchScreenState
 import ru.practicum.android.diploma.search.presentation.VacancySearchViewModel
 import ru.practicum.android.diploma.search.ui.presenter.RecycleViewAdapter
+import ru.practicum.android.diploma.util.SingleEventLiveData
 import ru.practicum.android.diploma.util.hideKeyboard
 import ru.practicum.android.diploma.util.vacanciesPluralsFormat
 import ru.practicum.android.diploma.vacancy.ui.VacancyDetailFragment
@@ -27,13 +28,12 @@ import ru.practicum.android.diploma.vacancy.ui.VacancyDetailFragment
 class VacancySearchFragment : Fragment() {
 
     private var _binding: VacancySearchFragmentBinding? = null
+    private var _adapter: RecycleViewAdapter? = null
     private val binding get() = _binding!!
-    private var vacancies = mutableListOf<VacancySearch>()
+    private val adapter get() = _adapter!!
     private val viewModel by viewModel<VacancySearchViewModel>()
-    private var adapter: RecycleViewAdapter? = null
     private var inputTextValue = DEF_TEXT
-    private var onVacancyClickEvent: ((VacancySearch) -> Unit)? = null
-    private var found = 0
+    private val singleEvent = SingleEventLiveData<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -91,7 +91,6 @@ class VacancySearchFragment : Fragment() {
             binding.searchLine.setText(DEF_TEXT)
             showEmptyScreen()
         }
-
     }
 
     private fun clearButtonVisibility(s: CharSequence?) {
@@ -104,33 +103,20 @@ class VacancySearchFragment : Fragment() {
         viewModel.getStateObserve().observe(viewLifecycleOwner) { state ->
             render(state)
         }
-        viewModel.getVacancyListObserve().observe(viewLifecycleOwner) {
-            if (it != null) {
-                vacancies.clear()
-                vacancies.addAll(it)
-                adapter?.notifyDataSetChanged()
-            }
-        }
-        viewModel.getVacancyClickEvent().observe(viewLifecycleOwner) { vacancyId ->
+        singleEvent.observe(viewLifecycleOwner){ vacancyId ->
             openVacancyDetails(vacancyId)
-        }
-        viewModel.getVacanciesSearchDataObserve().observe(viewLifecycleOwner) { data ->
-            if (data != null) {
-                found = data.found
-            }
         }
     }
 
     private fun recyclerViewInit() {
-        onVacancyClickEvent = { vacancySearch ->
-            viewModel.onVacancyClick(vacancySearch)
+        val onVacancyClickEvent = { vacancySearch: VacancySearch ->
+            singleEvent.value = vacancySearch.id
         }
-
-        adapter = RecycleViewAdapter(vacancies) {
-            onVacancyClickEvent!!(it)
+        _adapter = RecycleViewAdapter {
+            onVacancyClickEvent(it)
         }
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         recycleViewScrollListener()
     }
@@ -151,14 +137,14 @@ class VacancySearchFragment : Fragment() {
 
     private fun render(state: VacancySearchScreenState) {
         when (state) {
-            VacancySearchScreenState.Loading -> showLoadingProgress()
-            is VacancySearchScreenState.Content -> showVacancies()
-            VacancySearchScreenState.EmptyScreen -> showEmptyScreen()
-            VacancySearchScreenState.NetworkError -> showError(state)
+            is VacancySearchScreenState.Loading -> showLoadingProgress()
+            is VacancySearchScreenState.Content -> showVacancies(state.vacancies, state.vacanciesCount)
+            is VacancySearchScreenState.EmptyScreen -> showEmptyScreen()
+            is VacancySearchScreenState.NetworkError -> showError(state)
             is VacancySearchScreenState.PaginationError -> paginationError()
-            VacancySearchScreenState.PaginationLoading -> paginationLoading()
-            VacancySearchScreenState.SearchError -> showError(state)
-            VacancySearchScreenState.ServerError -> showError(state)
+            is VacancySearchScreenState.PaginationLoading -> paginationLoading()
+            is VacancySearchScreenState.SearchError -> showError(state)
+            is VacancySearchScreenState.ServerError -> showError(state)
         }
     }
 
@@ -175,14 +161,15 @@ class VacancySearchFragment : Fragment() {
         binding.progressCircular.visibility = View.GONE
         binding.recyclerView.visibility = View.VISIBLE
         binding.nextPageProgressCircular.visibility = View.VISIBLE
-        if (vacancies.size > 0) {
-            binding.recyclerView.smoothScrollToPosition(vacancies.size - 1)
+
+        if (adapter.listSize() > 0) {
+            binding.recyclerView.smoothScrollToPosition(adapter.listSize() - 1)
         }
     }
 
     private fun showLoadingProgress() {
-        vacancies.clear()
-        adapter?.notifyDataSetChanged()
+
+        adapter.notifyDataSetChanged()
         binding.blueTextView.visibility = View.GONE
         binding.defaultSearchPlaceholder.visibility = View.GONE
         binding.notConnectedPlaceholder.visibility = View.GONE
@@ -192,12 +179,16 @@ class VacancySearchFragment : Fragment() {
         binding.nextPageProgressCircular.visibility = View.GONE
     }
 
-    private fun showVacancies() {
+    private fun showVacancies(vacancies: List<VacancySearch>, vacanciesCount: Int) {
         view?.hideKeyboard()
-        val stringBuilder =
-            "${resources.getString(R.string.found)} " +
-                "$found " +
-                vacanciesPluralsFormat(vacancies.size, requireContext())
+        val stringBuilder = StringBuilder()
+        stringBuilder
+            .append("${resources.getString(R.string.found)} ")
+            .append("$vacanciesCount ")
+            .append(vacanciesPluralsFormat(vacancies.size, requireContext()))
+
+        adapter.setList(vacancies)
+        adapter.notifyDataSetChanged()
 
         binding.blueTextView.apply {
             text = stringBuilder
