@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".filters.ui.CountrySelectFragment">
 
-    <TextView
-        style="@style/Text_Medium_22"
-        android:layout_width="wrap_content"
+    <Toolbar
+        android:id="@+id/tool_bar"
+        style="@style/BaseToolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/country_choice"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:contentInsetStartWithNavigation="0dp"
+        android:navigationIcon="@drawable/ic_arrow_back_24px"
+        android:paddingVertical="4dp"
+        android:title="@string/country_choice"
         app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/toolbar_vertical_padding"
+        tools:listitem="@layout/area_card" />
+
+</LinearLayout>

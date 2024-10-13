@@ -65,6 +65,12 @@ class VacancySearchFragment : Fragment() {
             false
         }
 
+        binding.filterButton.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_searchFragment_to_filterSettingsFragment
+            )
+        }
+
         val searchTextWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 // коммент для детекта
