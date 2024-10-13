@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/lightGrey" /> <!-- цвет фона -->
+    <solid android:color="@color/blue" /> <!-- цвет фона -->
     <corners android:radius="@dimen/vacancyCardRadius" /> <!-- радиус закругления углов -->
 </shape>
