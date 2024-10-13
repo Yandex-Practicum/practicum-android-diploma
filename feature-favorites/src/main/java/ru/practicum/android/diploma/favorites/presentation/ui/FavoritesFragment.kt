@@ -18,14 +18,14 @@ import ru.practicum.android.diploma.favorites.domain.model.FavoriteVacancy
 import ru.practicum.android.diploma.favorites.presentation.ui.adapters.FavoriteAdapter
 import ru.practicum.android.diploma.favorites.presentation.viewmodel.FavoriteViewModel
 import ru.practicum.android.diploma.favorites.presentation.viewmodel.state.FavoriteState
-import ru.practicum.android.diploma.navigate.observable.VacancyNavigateLiveData
+import ru.practicum.android.diploma.navigate.observable.Navigate
 import ru.practicum.android.diploma.navigate.state.NavigateEventState
 
 private const val DELAY_CLICK_VACANCY = 250L
 internal class FavoritesFragment : Fragment() {
 
     private val favoriteViewModel: FavoriteViewModel by viewModel()
-    private val vacancyNavigateLiveData: VacancyNavigateLiveData<NavigateEventState> by inject()
+    private val navigate: Navigate<NavigateEventState> by inject()
 
     private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
@@ -117,7 +117,7 @@ internal class FavoritesFragment : Fragment() {
 
     private fun initDebounces() {
         vacancyClickDebounce = onVacancyClickDebounce {
-            vacancyNavigateLiveData.navigateTo(NavigateEventState.ToVacancyDataSourceDb(it))
+            navigate.navigateTo(NavigateEventState.ToVacancyDataSourceDb(it))
         }
     }
 

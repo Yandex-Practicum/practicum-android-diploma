@@ -16,7 +16,7 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.commonutils.Utils.closeKeyBoard
 import ru.practicum.android.diploma.commonutils.debounce
-import ru.practicum.android.diploma.navigate.observable.VacancyNavigateLiveData
+import ru.practicum.android.diploma.navigate.observable.Navigate
 import ru.practicum.android.diploma.navigate.state.NavigateEventState
 import ru.practicum.android.diploma.search.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.search.domain.models.Vacancy
@@ -34,7 +34,7 @@ internal class SearchFragment : Fragment() {
     private var userInputReserve = ""
 
     private val vacancyListViewModel: VacancyListViewModel by viewModel()
-    private val vacancyNavigateLiveData: VacancyNavigateLiveData<NavigateEventState> by inject()
+    private val navigate: Navigate<NavigateEventState> by inject()
     private var localVacancyList: ArrayList<Vacancy> = ArrayList()
 
     val debouncedSearch by lazy {
@@ -112,7 +112,7 @@ internal class SearchFragment : Fragment() {
         }
 
         binding.filter.setOnClickListener {
-            vacancyNavigateLiveData.navigateTo(NavigateEventState.ToFilter)
+            navigate.navigateTo(NavigateEventState.ToFilter)
         }
 
         binding.vacancyRecycler.setOnClickListener {
@@ -122,7 +122,7 @@ internal class SearchFragment : Fragment() {
 
     private fun recyclerSetup() {
         val adapter = VacancyListAdapter({ vacancy ->
-            vacancyNavigateLiveData.navigateTo(NavigateEventState.ToVacancyDataSourceNetwork(vacancy.id))
+            navigate.navigateTo(NavigateEventState.ToVacancyDataSourceNetwork(vacancy.id))
         }, vacancyListViewModel)
         binding.vacancyRecycler.layoutManager = GridLayoutManager(requireContext(), 1)
         binding.vacancyRecycler.adapter = adapter
