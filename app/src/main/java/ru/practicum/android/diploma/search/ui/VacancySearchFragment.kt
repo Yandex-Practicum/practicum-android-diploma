@@ -103,7 +103,7 @@ class VacancySearchFragment : Fragment() {
         viewModel.getStateObserve().observe(viewLifecycleOwner) { state ->
             render(state)
         }
-        singleEvent.observe(viewLifecycleOwner){ vacancyId ->
+        singleEvent.observe(viewLifecycleOwner) { vacancyId ->
             openVacancyDetails(vacancyId)
         }
     }
@@ -168,7 +168,6 @@ class VacancySearchFragment : Fragment() {
     }
 
     private fun showLoadingProgress() {
-
         adapter.notifyDataSetChanged()
         binding.blueTextView.visibility = View.GONE
         binding.defaultSearchPlaceholder.visibility = View.GONE

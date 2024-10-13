@@ -15,7 +15,6 @@ import ru.practicum.android.diploma.favorite.presintation.FavoriteScreenState
 import ru.practicum.android.diploma.favorite.presintation.FavoriteVacancyViewModel
 import ru.practicum.android.diploma.favorite.ui.presenter.FavoriteRecycleViewAdapter
 import ru.practicum.android.diploma.search.domain.models.VacancySearch
-import ru.practicum.android.diploma.search.ui.presenter.RecycleViewAdapter
 import ru.practicum.android.diploma.vacancy.ui.VacancyDetailFragment
 
 class FavoriteFragment : Fragment() {
@@ -60,7 +59,7 @@ class FavoriteFragment : Fragment() {
     private fun showContent(vacancy: List<VacancySearch>) {
         vacancies.clear()
         vacancies.addAll(vacancy)
-        adapter!!.notifyDataSetChanged()
+        adapter?.notifyDataSetChanged()
         binding.recyclerView.isVisible = true
         binding.notFoundPlaceholder.isVisible = false
         binding.canNotGetVacanciesPlaceholder.isVisible = false
