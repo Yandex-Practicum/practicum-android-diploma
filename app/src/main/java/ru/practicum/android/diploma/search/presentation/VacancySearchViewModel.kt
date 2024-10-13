@@ -18,17 +18,10 @@ class VacancySearchViewModel(
 
     private var latestSearchText: String? = null
 
-    private val vacancyClickEvent = SingleEventLiveData<String>()
-
-    private val vacanciesSearchData = MutableLiveData<VacancyListResponseData>()
-    private val vacancyList = MutableLiveData<MutableList<VacancySearch>?>()
-    private val pageCount = MutableLiveData<Int>()
+    private var vacanciesSearchData: VacancyListResponseData? = null
     private val stateLiveData = MutableLiveData<VacancySearchScreenState>()
-
-    fun getVacanciesSearchDataObserve(): LiveData<VacancyListResponseData> = vacanciesSearchData
-    fun getVacancyClickEvent(): LiveData<String> = vacancyClickEvent
+    private val currentVacancyList = mutableListOf<VacancySearch>()
     fun getStateObserve(): LiveData<VacancySearchScreenState> = stateLiveData
-    fun getVacancyListObserve(): LiveData<MutableList<VacancySearch>?> = vacancyList
     private val query = HashMap<String, String>()
 
     fun loadData(text: String) {
@@ -40,7 +33,7 @@ class VacancySearchViewModel(
                 interactor
                     .getVacancyList(query)
                     .collect { pairFoundAndMessage ->
-                        vacanciesSearchData.value = pairFoundAndMessage.first
+                        vacanciesSearchData = pairFoundAndMessage.first
                         processingState(pairFoundAndMessage.first?.items, pairFoundAndMessage.second)
                     }
             }
@@ -49,13 +42,13 @@ class VacancySearchViewModel(
 
     private fun loadNextData(changedText: String) {
         query["text"] = changedText
-        query["page"] = vacanciesSearchData.value?.page?.plus(1).toString()
+        query["page"] = vacanciesSearchData?.page?.plus(1).toString()
         viewModelScope.launch {
             interactor
                 .getVacancyList(query)
                 .collect { pairFoundAndMessage ->
-                    vacanciesSearchData.value = pairFoundAndMessage.first
-                    nextPageProcessingState(pairFoundAndMessage.first?.items)
+                    vacanciesSearchData = pairFoundAndMessage.first
+                    nextPageProcessingState(pairFoundAndMessage.first?.items, pairFoundAndMessage.second)
                 }
         }
     }
@@ -66,7 +59,6 @@ class VacancySearchViewModel(
         }
         if (latestSearchText != changedText) {
             latestSearchText = changedText
-            pageCount.value = 0
             vacancySearchDebounce(changedText)
         }
     }
@@ -77,7 +69,12 @@ class VacancySearchViewModel(
         }
 
     fun nextPageDebounce(changedText: String) {
-        if (vacanciesSearchData.value!!.pages - 1 > vacanciesSearchData.value!!.page) {
+        val page = vacanciesSearchData?.page
+        val pages = vacanciesSearchData?.pages
+        if (page != null &&
+            pages != null &&
+            page - 1 > pages
+        ) {
             stateLiveData.value = VacancySearchScreenState.PaginationLoading
             nextSearchDebounce(changedText)
         }
@@ -89,55 +86,54 @@ class VacancySearchViewModel(
         }
 
     private fun processingState(foundVacancies: List<VacancySearch>?, errorMessage: HttpStatusCode?) {
-        when {
-            foundVacancies == null -> {
-                when (errorMessage) {
-                    HttpStatusCode.NOT_CONNECTED -> stateLiveData.value = VacancySearchScreenState.NetworkError
-                    HttpStatusCode.INTERNAL_SERVER_ERROR -> stateLiveData.value = VacancySearchScreenState.ServerError
-                    else -> {
-                        stateLiveData.value = VacancySearchScreenState.ServerError
+        when (errorMessage) {
+            HttpStatusCode.OK -> {
+                if (foundVacancies != null) {
+                    if (foundVacancies.isNotEmpty()) {
+                        currentVacancyList.clear()
+                        currentVacancyList.addAll(foundVacancies)
+                        stateLiveData.value = VacancySearchScreenState.Content(
+                            foundVacancies,
+                            vacanciesSearchData?.found ?: 0
+                        )
+                    } else {
+                        stateLiveData.value = VacancySearchScreenState.SearchError
                     }
                 }
             }
 
-            foundVacancies.isEmpty() -> {
-                stateLiveData.value = VacancySearchScreenState.SearchError
-            }
-
+            HttpStatusCode.NOT_CONNECTED -> stateLiveData.value = VacancySearchScreenState.NetworkError
             else -> {
-                if (vacancyList.value.isNullOrEmpty()) {
-                    vacancyList.value = mutableListOf()
-                }
-                vacancyList.value?.clear()
-                vacancyList.value?.addAll(foundVacancies)
-                vacancyList.value = vacancyList.value
-                stateLiveData.value = VacancySearchScreenState.Content
+                stateLiveData.value = VacancySearchScreenState.ServerError
             }
         }
     }
 
-    private fun nextPageProcessingState(foundVacancies: List<VacancySearch>?) {
-        when {
-            foundVacancies == null -> {
+    private fun nextPageProcessingState(foundVacancies: List<VacancySearch>?, statusCode: HttpStatusCode?) {
+        when (statusCode) {
+            HttpStatusCode.OK -> {
+                if (foundVacancies != null) {
+                    currentVacancyList.addAll(foundVacancies)
+                    stateLiveData.value = VacancySearchScreenState.Content(
+                        currentVacancyList,
+                        vacanciesSearchData?.found ?: 0
+                    )
+                }
+            }
+
+            else -> {
                 stateLiveData.value = VacancySearchScreenState.PaginationError
             }
-
-            else -> {
-                vacancyList.value?.addAll(foundVacancies)
-                vacancyList.value = vacancyList.value
-                stateLiveData.value = VacancySearchScreenState.Content
-            }
         }
-    }
-
-    fun onVacancyClick(vacancySearch: VacancySearch) {
-        vacancyClickEvent.value = vacancySearch.id
     }
 
     fun checkVacancyState() {
-        if (!vacancyList.value.isNullOrEmpty()) {
-            vacancyList.value = vacancyList.value
-            stateLiveData.value = VacancySearchScreenState.Content
+        if (currentVacancyList.isNotEmpty()) {
+            stateLiveData.value =
+                VacancySearchScreenState.Content(
+                    currentVacancyList,
+                    vacanciesSearchData?.found ?: 0
+                )
         }
     }
 
