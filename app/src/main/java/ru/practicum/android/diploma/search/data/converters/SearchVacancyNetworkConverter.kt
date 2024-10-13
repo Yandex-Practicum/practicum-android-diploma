@@ -21,11 +21,7 @@ class SearchVacancyNetworkConverter(
     }
 
     private fun getAddressFromDto(vacancyItemDto: VacancyItemDto): String {
-        return if (vacancyItemDto.address?.city == null) {
-            vacancyItemDto.area.name
-        } else {
-            vacancyItemDto.address.city
-        }
+        return vacancyItemDto.address?.city ?: vacancyItemDto.area.name
     }
 
     fun map(vacancyResponse: VacancySearchResponse): VacancyListResponseData {
