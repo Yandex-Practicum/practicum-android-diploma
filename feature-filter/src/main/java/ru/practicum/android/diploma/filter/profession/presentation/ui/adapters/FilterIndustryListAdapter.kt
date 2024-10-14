@@ -1,19 +1,21 @@
 package ru.practicum.android.diploma.filter.profession.presentation.ui.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.filter.databinding.ItemFilterIndustryBinding
-import ru.practicum.android.diploma.filter.profession.domain.model.Industry
+import ru.practicum.android.diploma.filter.profession.domain.model.IndustryModel
 
 class FilterIndustryListAdapter(private val clickListener: IndustryClickListener) :
     RecyclerView.Adapter<IndustryListViewHolder>() {
 
-    private var options = emptyList<Industry>()
+    private var options = emptyList<IndustryModel>()
     private var selectedPosition: Int? = null
     private var isSelectionActive = false
 
-    fun setOptionsList(optionsList: List<Industry>) {
+    @SuppressLint("NotifyDataSetChanged")
+    fun setOptionsList(optionsList: List<IndustryModel>) {
         options = optionsList
         notifyDataSetChanged()
     }
@@ -62,6 +64,6 @@ class FilterIndustryListAdapter(private val clickListener: IndustryClickListener
     }
 
     interface IndustryClickListener {
-        fun onIndustryClick(industry: Industry?)
+        fun onIndustryClick(industryModel: IndustryModel?)
     }
 }

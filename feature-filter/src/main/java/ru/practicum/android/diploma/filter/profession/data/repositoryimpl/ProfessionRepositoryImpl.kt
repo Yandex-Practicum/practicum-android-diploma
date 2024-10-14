@@ -10,13 +10,15 @@ import ru.practicum.android.diploma.data.networkclient.api.NetworkClient
 import ru.practicum.android.diploma.data.networkclient.api.dto.request.HHApiIndustriesRequest
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.industries.HHIndustriesResponse
 import ru.practicum.android.diploma.filter.profession.data.mappers.IndustryMapper
-import ru.practicum.android.diploma.filter.profession.domain.model.Industry
+import ru.practicum.android.diploma.filter.profession.domain.model.IndustryModel
 import ru.practicum.android.diploma.filter.profession.domain.repository.ProfessionRepository
 
-internal class ProfessionRepositoryImpl(private val networkClient: NetworkClient,
-                               private val industryMapper: IndustryMapper,
-                               private val context: Context,) :ProfessionRepository{
-    override fun getIndustriesList(): Flow<Resource<List<Industry>>> =
+internal class ProfessionRepositoryImpl(
+    private val networkClient: NetworkClient,
+    private val industryMapper: IndustryMapper,
+    private val context: Context,
+) : ProfessionRepository {
+    override fun getIndustriesList(): Flow<Resource<List<IndustryModel>>> =
         context.executeNetworkRequest(
             request = { networkClient.doRequest(HHApiIndustriesRequest) },
             successHandler = { response: Response ->

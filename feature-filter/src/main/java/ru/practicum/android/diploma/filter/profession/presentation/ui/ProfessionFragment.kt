@@ -1,14 +1,12 @@
 package ru.practicum.android.diploma.filter.profession.presentation.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -16,7 +14,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.commonutils.Utils.closeKeyBoard
 import ru.practicum.android.diploma.commonutils.debounce
 import ru.practicum.android.diploma.filter.databinding.FragmentProfessionBinding
-import ru.practicum.android.diploma.filter.profession.domain.model.Industry
+import ru.practicum.android.diploma.filter.profession.domain.model.IndustryModel
 import ru.practicum.android.diploma.filter.profession.presentation.ui.adapters.FilterIndustryListAdapter
 import ru.practicum.android.diploma.filter.profession.presentation.viewmodel.ProfessionViewModel
 
@@ -37,7 +35,11 @@ internal class ProfessionFragment : Fragment() {
             useLastParam = true,
             actionThenDelay = false,
             action = { param: String ->
-                professionViewModel.filterList(param)
+                if (param == "") {
+                    professionViewModel.resetToFullList()
+                } else {
+                    professionViewModel.filterList(param)
+                }
             }
         )
     }
@@ -50,15 +52,16 @@ internal class ProfessionFragment : Fragment() {
         _binding = FragmentProfessionBinding.inflate(inflater, container, false)
 
         professionViewModel.industriesListLiveData.observe(viewLifecycleOwner) { list ->
-            if (list==null){
-                binding.vacancyRecycler.isVisible=false
-                //error here
-            }
-            else{
-                Log.d("ProfessionViewModel","Frag not null, ${list.count()}") //todo delete
+            if (list == null) {
+                binding.vacancyRecycler.isVisible = false
+                binding.industriesError.isVisible = true
+                binding.industriesErrorText.isVisible = true
+                unselectAndHideConfirmation()
+            } else {
                 (binding.vacancyRecycler.adapter as FilterIndustryListAdapter).setOptionsList(list)
-                binding.vacancyRecycler.isVisible=true
-                //ui toggles
+                binding.vacancyRecycler.isVisible = true
+                binding.industriesError.isVisible = false
+                binding.industriesErrorText.isVisible = false
             }
         }
 
@@ -78,11 +81,12 @@ internal class ProfessionFragment : Fragment() {
             } else {
                 binding.clearSearchIcon.isVisible = false
                 binding.searchBarLoupeIcon.isVisible = true
+                debouncedFiltration(text.toString())
             }
             userInputReserve = text.toString()
         }
 
-        binding.clearSearchIcon.setOnClickListener { //todo null?
+        binding.clearSearchIcon.setOnClickListener {
             binding.searchBar.text.clear()
             requireContext().closeKeyBoard(binding.searchBar)
             professionViewModel.resetToFullList()
@@ -94,11 +98,11 @@ internal class ProfessionFragment : Fragment() {
     private fun recyclerSetup() {
         val adapter = FilterIndustryListAdapter(object : FilterIndustryListAdapter.IndustryClickListener {
 
-            override fun onIndustryClick(industry: Industry?) {
-                if (industry == null) {
+            override fun onIndustryClick(industryModel: IndustryModel?) {
+                if (industryModel == null) {
                     binding.selectButton.isVisible = false
                 } else {
-                    showConfirmation(industry)
+                    showConfirmation(industryModel)
                 }
             }
         })
@@ -108,7 +112,7 @@ internal class ProfessionFragment : Fragment() {
 
     }
 
-    private fun showConfirmation(selectedIndustry: Industry?) {
+    private fun showConfirmation(selectedIndustry: IndustryModel?) {
         binding.selectButton.isVisible = true
         binding.selectButton.setOnClickListener {
             // ❗ todo pass selectedIndustry to filter fragment or viewmodel here or do sharedprefs
