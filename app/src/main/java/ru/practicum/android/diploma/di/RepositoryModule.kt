@@ -4,7 +4,9 @@ import org.koin.dsl.module
 import ru.practicum.android.diploma.favorite.data.FavoriteVacancyRepositoryImpl
 import ru.practicum.android.diploma.favorite.domain.api.FavoriteVacancyRepository
 import ru.practicum.android.diploma.filters.data.FilterAreaRepositoryImpl
+import ru.practicum.android.diploma.filters.data.impl.FilterIndustriesRepositoryImpl
 import ru.practicum.android.diploma.filters.domain.api.FilterAreaRepository
+import ru.practicum.android.diploma.filters.domain.api.FilterIndustriesRepository
 import ru.practicum.android.diploma.search.data.impl.SearchVacancyRepositoryImpl
 import ru.practicum.android.diploma.search.domain.api.SearchVacancyRepository
 import ru.practicum.android.diploma.vacancy.data.impl.GetVacancyDetailsRepositoryImpl
@@ -26,5 +28,9 @@ val repositoryModule = module {
 
     single<FilterAreaRepository> {
         FilterAreaRepositoryImpl(get(), get())
+    }
+
+    single<FilterIndustriesRepository> {
+        FilterIndustriesRepositoryImpl(get())
     }
 }
