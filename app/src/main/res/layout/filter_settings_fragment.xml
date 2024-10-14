@@ -17,72 +17,72 @@
         android:title="@string/filter_settings"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/job_place_title"
-        style="@style/Text_filter_area_title"
-        android:layout_width="wrap_content"
+    <FrameLayout android:id="@+id/area_frame"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/job_place"
-        android:layout_marginStart="@dimen/padding_horizontal_size_16"
-        app:layout_constraintBottom_toTopOf="@id/job_place_filter_result"
+        android:layout_marginTop="@dimen/padding_horizontal_size_16"
+        android:layout_marginHorizontal="@dimen/padding_horizontal_size_16"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/job_place_action_icon" />
+        app:layout_constraintTop_toBottomOf="@id/tool_bar" >
 
-    <TextView
-        android:id="@+id/job_place_filter_result"
-        style="@style/Text_Regular_16"
-        android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/FilterTextInputLayout"
+            android:id="@+id/area_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/job_place">
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/FilterEditText"
+                android:id="@+id/area_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="0dp"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/area_action_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:src="@drawable/ic_arrow_forward_24px"
+            tool:ignore="contentDescription" />
+
+    </FrameLayout>
+
+    <FrameLayout android:id="@+id/industry_frame"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/padding_horizontal_size_16"
+        android:layout_marginHorizontal="@dimen/padding_horizontal_size_16"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/job_place_title"
-        app:layout_constraintBottom_toBottomOf="@id/job_place_action_icon"
-        tool:text="Россия, Москва"
-        android:visibility="gone"/>
+        app:layout_constraintTop_toBottomOf="@id/area_frame" >
 
-    <ImageView
-        android:id="@+id/job_place_action_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/filter_item_margin"
-        android:src="@drawable/ic_arrow_forward_24px"
-        android:layout_marginEnd="@dimen/padding_horizontal_size_16"
-        app:layout_constraintTop_toBottomOf="@id/tool_bar"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/FilterTextInputLayout"
+            android:id="@+id/industry_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/industry">
 
-    <TextView
-        android:id="@+id/industry_title"
-        style="@style/Text_filter_area_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/industry"
-        android:layout_marginStart="@dimen/padding_horizontal_size_16"
-        app:layout_constraintBottom_toTopOf="@id/industry_filter_result"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/industry_action_icon" />
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/FilterEditText"
+                android:id="@+id/industry_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="0dp"/>
 
-    <TextView
-        android:id="@+id/industry_filter_result"
-        style="@style/Text_Regular_16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/padding_horizontal_size_16"
-        app:layout_constraintBottom_toBottomOf="@id/industry_action_icon"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/industry_title"
-        tool:text="IT"
-        android:visibility="gone" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <ImageView
-        android:id="@+id/industry_action_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginTop="@dimen/filter_item_margin"
-        android:src="@drawable/ic_arrow_forward_24px"
-        android:layout_marginEnd="@dimen/padding_horizontal_size_16"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/job_place_action_icon" />
+        <ImageView
+            android:id="@+id/industry_action_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:src="@drawable/ic_arrow_forward_24px"
+            tool:ignore="contentDescription" />
+
+    </FrameLayout>
 
     <FrameLayout android:id="@+id/input_layout_box"
         android:layout_width="match_parent"
@@ -90,7 +90,7 @@
         android:layout_marginTop="@dimen/filter_item_margin"
         android:layout_marginHorizontal="@dimen/padding_horizontal_size_16"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/industry_action_icon" >
+        app:layout_constraintTop_toBottomOf="@id/industry_frame" >
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/CustomTextInputLayout"

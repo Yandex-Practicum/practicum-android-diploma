@@ -6,9 +6,11 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FilterSettingsFragmentBinding
 import ru.practicum.android.diploma.util.hideKeyboard
 import java.text.DecimalFormat
@@ -63,6 +65,14 @@ class FilterSettingsFragment : Fragment() {
 
         binding.searchLineCleaner.setOnClickListener {
             clearSalary()
+        }
+
+        // пример заполнения поля
+        binding.areaActionBtn.setOnClickListener {
+            binding.areaEditText.setText("Россия, Москва")
+            binding.areaEditText.isActivated = true
+            binding.areaActionBtn.setImageResource(R.drawable.ic_close_24px)
+            binding.areaActionBtn.setColorFilter(requireContext().getColor(R.color.colorAdaptiveText))
         }
 
     }
