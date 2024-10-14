@@ -15,7 +15,7 @@
         android:layout_marginEnd="@dimen/dimens_4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintHorizontal_bias="0"
-        android:text="@string/filter_screens_profession"
+        android:text="@string/filter_screens_industry"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/circleIcon"
         app:layout_constraintTop_toTopOf="parent" />

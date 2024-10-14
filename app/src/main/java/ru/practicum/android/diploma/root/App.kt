@@ -9,8 +9,7 @@ import ru.practicum.android.diploma.data.sp.di.spDataModule
 import ru.practicum.android.diploma.favorites.di.favoritesModule
 import ru.practicum.android.diploma.filter.filter.di.filterModule
 import ru.practicum.android.diploma.filter.place.di.placeModule
-import ru.practicum.android.diploma.filter.profession.di.professionModule
-import ru.practicum.android.diploma.navigate.di.navigateModel
+import ru.practicum.android.diploma.filter.industry.di.industryModule
 import ru.practicum.android.diploma.search.di.searchModule
 import ru.practicum.android.diploma.team.di.teamModule
 import ru.practicum.android.diploma.vacancy.di.vacancyDetailModule
@@ -28,12 +27,11 @@ class App : Application() {
                 dbDataModule,
                 searchModule,
                 filterModule,
-                professionModule,
+                industryModule,
                 placeModule,
                 favoritesModule,
                 vacancyDetailModule,
                 teamModule,
-                navigateModel
             )
         }
     }

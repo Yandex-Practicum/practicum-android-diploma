@@ -1,8 +1,8 @@
-package ru.practicum.android.diploma.filter.profession.data.mappers
+package ru.practicum.android.diploma.filter.industry.data.mappers
 
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.industries.HHIndustriesResponse
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.industries.item.Industry
-import ru.practicum.android.diploma.filter.profession.domain.model.IndustryModel
+import ru.practicum.android.diploma.filter.industry.domain.model.IndustryModel
 
 internal class IndustryMapper {
     fun map(

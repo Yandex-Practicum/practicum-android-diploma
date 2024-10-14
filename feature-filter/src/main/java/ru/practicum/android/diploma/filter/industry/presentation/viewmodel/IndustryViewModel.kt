@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.filter.profession.presentation.viewmodel
+package ru.practicum.android.diploma.filter.industry.presentation.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -7,12 +7,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.filter.profession.domain.model.IndustryModel
-import ru.practicum.android.diploma.filter.profession.domain.usecase.ProfessionInteractor
+import ru.practicum.android.diploma.filter.industry.domain.model.IndustryModel
+import ru.practicum.android.diploma.filter.industry.domain.usecase.IndustryInteractor
 
-class ProfessionViewModel(
+class IndustryViewModel(
     application: Application,
-    private val professionInteractor: ProfessionInteractor
+    private val industryInteractor: IndustryInteractor
 ) : AndroidViewModel(application) {
 
     private var _industriesListLiveData = MutableLiveData<List<IndustryModel>?>()
@@ -20,7 +20,7 @@ class ProfessionViewModel(
     var unfilteredList: List<IndustryModel>? = emptyList<IndustryModel>()
 
     companion object {
-        private const val TAG: String = "ProfessionViewModel"
+        private const val TAG: String = "IndustryViewModel"
     }
 
     init {
@@ -30,7 +30,7 @@ class ProfessionViewModel(
 
     private fun getIndustriesList() {
         viewModelScope.launch(Dispatchers.IO) {
-            professionInteractor.getIndustriesList().collect { response ->
+            industryInteractor.getIndustriesList().collect { response ->
                 if (response.first == null) {
                     unfilteredList = null
                     _industriesListLiveData.postValue(unfilteredList) } else {

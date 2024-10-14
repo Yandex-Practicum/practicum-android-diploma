@@ -1,9 +1,9 @@
-package ru.practicum.android.diploma.filter.profession.presentation.ui.adapters
+package ru.practicum.android.diploma.filter.industry.presentation.ui.adapters
 
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.filter.databinding.ItemFilterIndustryBinding
-import ru.practicum.android.diploma.filter.profession.domain.model.IndustryModel
+import ru.practicum.android.diploma.filter.industry.domain.model.IndustryModel
 
 class IndustryListViewHolder(
     private val binding: ItemFilterIndustryBinding

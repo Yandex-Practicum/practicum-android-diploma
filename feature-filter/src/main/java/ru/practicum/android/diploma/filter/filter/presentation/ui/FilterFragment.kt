@@ -16,7 +16,7 @@ internal class FilterFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentFilterBinding.inflate(inflater, container, false)
         return binding.root
@@ -27,8 +27,8 @@ internal class FilterFragment : Fragment() {
         binding.workPlace.setOnClickListener {
             findNavController().navigate(R.id.action_filterFragment_to_placeFragment)
         }
-        binding.workProfession.setOnClickListener {
-            findNavController().navigate(R.id.action_filterFragment_to_professionFragment)
+        binding.workIndustry.setOnClickListener {
+            findNavController().navigate(R.id.action_filterFragment_to_industryFragment)
         }
         binding.buttonLeftFilter.setOnClickListener {
             findNavController().navigateUp()
