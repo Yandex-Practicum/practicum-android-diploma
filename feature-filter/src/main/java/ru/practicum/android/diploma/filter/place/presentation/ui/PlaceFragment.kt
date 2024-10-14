@@ -1,7 +1,7 @@
 package ru.practicum.android.diploma.filter.place.presentation.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,48 +34,8 @@ internal class PlaceFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.e("onViewCreated", "onViewCreated")
 
-        arguments?.let { args ->
-            val idCountry = args.getString(ARGS_COUNTRY_ID)
-            val nameCountry = args.getString(ARGS_COUNTRY_NAME)
-            val idRegion = args.getString(ARGS_REGION_ID)
-            val nameRegion = args.getString(ARGS_REGION_NAME)
-            when {
-                (idCountry != null && nameCountry != null) && (idRegion == null && nameRegion == null) -> {
-                    regionsCountriesViewModel.setPlaceState(
-                        PlaceState.ContentCountry(
-                            country = Country(
-                                id = idCountry,
-                                name = nameCountry
-                            )
-                        )
-                    )
-                }
-                (idCountry != null && nameCountry != null) && (idRegion != null && nameRegion != null) -> {
-                    regionsCountriesViewModel.setPlaceState(
-                        PlaceState.ContentPlace(
-                            place = Place(
-                                idCountry = idCountry,
-                                nameCountry = nameCountry,
-                                idRegion = idRegion,
-                                nameRegion = nameRegion
-                            )
-                        )
-                    )
-                }
-                else -> {
-                    regionsCountriesViewModel.setPlaceState(
-                        PlaceState.Empty
-                    )
-                }
-            }
-
-        }
-
-
-//        arguments?.getString(ARGS_COUNTRY_NAME)?.let { binding.inputCountry.setText(it) }
-//        arguments?.getString(ARGS_REGION_NAME)?.let { binding.inputRegion.setText(it) }
+        initPlaceState()
 
         regionsCountriesViewModel.observePlaceState().observe(viewLifecycleOwner) {
             render(it)
@@ -83,30 +43,90 @@ internal class PlaceFragment : Fragment() {
 
         binding.clickCountry.setOnClickListener(listener)
         binding.clickRegion.setOnClickListener(listener)
+        binding.clickCountryClear.setOnClickListener(listener)
+        binding.clickRegionClear.setOnClickListener(listener)
         binding.buttonBack.setOnClickListener(listener)
     }
 
+    private fun initPlaceState() {
+        arguments?.let { args ->
+            val idCountry = args.getString(ARGS_COUNTRY_ID)
+            val nameCountry = args.getString(ARGS_COUNTRY_NAME)
+            val idRegion = args.getString(ARGS_REGION_ID)
+            val nameRegion = args.getString(ARGS_REGION_NAME)
+
+            when {
+                idCountry != null && nameCountry != null -> {
+                    if (idRegion == null && nameRegion == null) {
+                        regionsCountriesViewModel.setPlaceState(
+                            PlaceState.ContentCountry(
+                                country = Country(
+                                    id = idCountry,
+                                    name = nameCountry
+                                )
+                            )
+                        )
+                    } else {
+                        regionsCountriesViewModel.setPlaceState(
+                            PlaceState.ContentPlace(
+                                place = Place(
+                                    idCountry = idCountry,
+                                    nameCountry = nameCountry,
+                                    idRegion = idRegion ?: "",
+                                    nameRegion = nameRegion ?: ""
+                                )
+                            )
+                        )
+                    }
+                }
+                else -> {
+                    regionsCountriesViewModel.setPlaceState(PlaceState.Empty)
+                }
+            }
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
     private fun render(state: PlaceState?) {
-        Log.e("state", "state: PlaceState")
         when (state) {
             is PlaceState.ContentCountry -> {
-                Log.e("state.country.name", "state.country.name ${state.country.name}")
                 binding.inputCountry.setText(state.country.name)
+                binding.inputRegion.setText("")
+                binding.clickCountryClear.visibility = View.VISIBLE
+                binding.clickCountry.visibility = View.GONE
+                binding.clickRegionClear.visibility = View.GONE
+                binding.clickRegion.visibility = View.VISIBLE
+                binding.selectButton.visibility = View.VISIBLE
             }
 
             is PlaceState.ContentPlace -> {
                 binding.inputCountry.setText(state.place.nameCountry)
                 binding.inputRegion.setText(state.place.nameRegion)
+                binding.clickCountryClear.visibility = View.VISIBLE
+                binding.clickCountry.visibility = View.GONE
+                binding.clickRegionClear.visibility = View.VISIBLE
+                binding.clickRegion.visibility = View.GONE
+                binding.selectButton.visibility = View.VISIBLE
             }
 
             is PlaceState.Empty, null -> {
                 binding.inputCountry.text?.clear()
                 binding.inputRegion.text?.clear()
+                binding.clickCountryClear.visibility = View.GONE
+                binding.clickCountry.visibility = View.VISIBLE
+                binding.clickRegionClear.visibility = View.GONE
+                binding.clickRegion.visibility = View.VISIBLE
+                binding.selectButton.visibility = View.GONE
             }
 
             is PlaceState.Error -> {
                 binding.inputCountry.text?.clear()
                 binding.inputRegion.text?.clear()
+                binding.clickCountryClear.visibility = View.GONE
+                binding.clickCountry.visibility = View.VISIBLE
+                binding.clickRegionClear.visibility = View.GONE
+                binding.clickRegion.visibility = View.VISIBLE
+                binding.selectButton.visibility = View.GONE
             }
         }
     }
@@ -122,6 +142,18 @@ internal class PlaceFragment : Fragment() {
                     findNavController().navigate(R.id.action_placeFragment_to_regionFragment)
                 }
 
+                R.id.clickCountryClear -> {
+                    regionsCountriesViewModel.setPlaceState(PlaceState.Empty)
+                    arguments?.clear()
+                }
+
+                R.id.clickRegionClear -> {
+                    arguments?.putString(ARGS_REGION_ID, null)
+                    arguments?.putString(ARGS_REGION_NAME, null)
+
+                    initPlaceState()
+                }
+
                 R.id.buttonBack -> {
                     findNavController().navigateUp()
                 }
@@ -135,7 +167,6 @@ internal class PlaceFragment : Fragment() {
     }
 
     companion object {
-        private const val TAG = "PlaceFragment"
         private const val ARGS_COUNTRY_ID = "country_id"
         private const val ARGS_COUNTRY_NAME = "country_name"
         private const val ARGS_REGION_ID = "region_id"

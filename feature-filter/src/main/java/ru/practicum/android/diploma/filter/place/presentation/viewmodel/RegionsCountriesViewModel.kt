@@ -26,9 +26,6 @@ class RegionsCountriesViewModel(
     private val _countriesStateLiveData = MutableLiveData<CountryState>()
     fun observeCountriesState(): LiveData<CountryState> = _countriesStateLiveData
 
-//    private val _selectedCountryStateLiveData = MutableLiveData<SelectedCountryState>()
-//    fun observeSelectedCountryState(): LiveData<SelectedCountryState> = _selectedCountryStateLiveData
-
     private val _regionsStateLiveData = MutableLiveData<RegionState>()
     fun observeRegionsState(): LiveData<RegionState> = _regionsStateLiveData
 
@@ -57,16 +54,26 @@ class RegionsCountriesViewModel(
         }
     }
 
-//    fun setSelectedCountryStateLiveData(state: SelectedCountryState) {
-//        _selectedCountryStateLiveData.postValue(state)
-//    }
-
     private fun setRegions() {
+        Log.e("setRegions()", "setRegions()")
+
         when (val state = _placeStateLiveData.value) {
-            is PlaceState.ContentCountry -> getRegions(state.country.id)
-            is PlaceState.ContentPlace -> getRegions(state.place.idCountry)
-            is PlaceState.Empty, null -> getRegionsAll()
-            is PlaceState.Error -> regions.clear()
+            is PlaceState.ContentCountry -> {
+                getRegions(state.country.id)
+                Log.e("state", "PlaceState.ContentCountry")
+            }
+            is PlaceState.ContentPlace -> {
+                getRegions(state.place.idCountry)
+                Log.e("state", "PlaceState.ContentPlace")
+            }
+            is PlaceState.Empty, null -> {
+                getRegionsAll()
+                Log.e("state", "PlaceState.Empty")
+            }
+            is PlaceState.Error -> {
+                regions.clear()
+                Log.e("state", "PlaceState.Error")
+            }
         }
     }
 
@@ -96,6 +103,7 @@ class RegionsCountriesViewModel(
         places.filter {
             countryId == it.id
         }.map { filterCountry ->
+            Log.e("getRegions(countryId: String)", "getRegions(countryId: String)\n ${filterCountry.toString()}")
             val nameCountry = filterCountry.name
             filterCountry.areas.map { region ->
                 region.parentId?.let {
@@ -109,8 +117,8 @@ class RegionsCountriesViewModel(
                     )
                 }
             }
-
         }
+        Log.e("regions", "regions\n ${regions.toString()}")
         _regionsStateLiveData.postValue(RegionState.Content(regions))
     }
 
@@ -160,7 +168,6 @@ class RegionsCountriesViewModel(
     fun observePlaceState(): LiveData<PlaceState> = _placeStateLiveData
 
     fun setPlaceState(placeState: PlaceState) {
-        Log.e("setPlaceState", "setPlaceState")
         _placeStateLiveData.postValue(placeState)
     }
 }

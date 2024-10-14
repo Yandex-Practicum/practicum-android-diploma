@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.filter.place.presentation.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +21,6 @@ import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.Co
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.PlaceState
 
 private const val DELAY_CLICK_COUNTRY = 250L
-private const val TAG = "CountryFragment"
 
 internal class CountryFragment : Fragment() {
 
@@ -79,13 +77,11 @@ internal class CountryFragment : Fragment() {
                 is CountryState.Empty-> {
                     showError()
                     regionsCountriesViewModel.setPlaceState(PlaceState.Empty)
-//                    regionsCountriesViewModel.setSelectedCountryStateLiveData(SelectedCountryState.Empty)
                 }
 
                 is CountryState.Error-> {
                     showError()
                     regionsCountriesViewModel.setPlaceState(PlaceState.Error)
-//                    regionsCountriesViewModel.setSelectedCountryStateLiveData(SelectedCountryState.Error)
                 }
             }
         }
@@ -111,10 +107,6 @@ internal class CountryFragment : Fragment() {
 
     private fun initDebounce() {
         countryClickDebounce = onCountryClickDebounce {
-            Log.e("initDebounce", "initDebounce ${it.toString()}")
-//            regionsCountriesViewModel.setPlaceState(PlaceState.ContentCountry(country = it))
-//            regionsCountriesViewModel.setSelectedCountryStateLiveData(SelectedCountryState.SelectedCountry(it))
-//            findNavController().navigateUp()
             findNavController().navigate(
                 R.id.action_countryFragment_to_placeFragment,
                 PlaceFragment.createArgsCounty(it.id, it.name)
