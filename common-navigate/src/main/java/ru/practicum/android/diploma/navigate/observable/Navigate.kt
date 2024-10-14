@@ -3,7 +3,7 @@ package ru.practicum.android.diploma.navigate.observable
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 
-interface VacancyNavigateLiveData<T> {
+interface Navigate<T> {
 
     fun observeNavigateEventState(
         owner: LifecycleOwner,
