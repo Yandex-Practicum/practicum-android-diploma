@@ -142,9 +142,9 @@ class VacancyDetailFragment : Fragment() {
     private fun renderFavorite(current: Boolean) {
         binding.favoriteButton.setImageResource(
             if (current) {
-                R.drawable.ic_favorites_on__24px
+                R.drawable.ic_favorites_on_24px
             } else {
-                R.drawable.ic_favorites_off__24px
+                R.drawable.ic_favorites_off_24px
             }
         )
     }

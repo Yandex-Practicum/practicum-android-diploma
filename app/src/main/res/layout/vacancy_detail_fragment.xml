@@ -25,7 +25,7 @@
             android:background="?android:windowBackground"
             android:paddingHorizontal="12dp"
             android:paddingVertical="12dp"
-            android:src="@drawable/ic_favorites_off__24px"
+            android:src="@drawable/ic_favorites_off_24px"
             tools:ignore="contentDescription" />
 
         <ImageButton
