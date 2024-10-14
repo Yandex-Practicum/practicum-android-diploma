@@ -157,7 +157,7 @@ internal class IndustryFragment : Fragment() {
     }
 
     companion object {
-        fun createArgs(selectedIndustry: IndustryModel): Bundle? =
+        fun createArgs(selectedIndustry: IndustryModel): Bundle =
             bundleOf(ARGS_INDUSTRY_ID to selectedIndustry.id, ARGS_INDUSTRY_NAME to selectedIndustry.name)
     }
 }
