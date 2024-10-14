@@ -23,10 +23,7 @@ internal interface HHApiService {
 
     @Headers(HH_HEADER_ONE)
     @GET("/industries")
-    suspend fun searchIndustries(
-        @QueryMap options: Map<String, String>?,
-        @Header("Authorization") token: String = HH_TOKEN
-    ): HHIndustriesResponse
+    suspend fun searchIndustries(): HHIndustriesResponse
 
     @GET("/areas")
     suspend fun searchRegions(): HHRegionsResponse

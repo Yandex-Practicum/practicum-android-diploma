@@ -38,9 +38,9 @@
     <string name="filter_screens_region_no_results_error">Такого региона нет</string>
     <string name="filter_screens_region_list_server_error">Не удалось получить\nсписок</string>
 
-    <string name="filter_screens_profession">Отрасль</string>
-    <string name="filter_screens_profession_searchbar_hint">Введите отрасль</string>
-    <string name="filter_screens_profession_filter_header">Выбор отрасли</string>
+    <string name="filter_screens_industry">Отрасль</string>
+    <string name="filter_screens_industry_searchbar_hint">Введите отрасль</string>
+    <string name="filter_screens_industry_filter_header">Выбор отрасли</string>
 
     <string name="filter_screens_salary_expectations">Ожидаемая зарплата</string>
     <string name="filter_screens_enter_sum">Введите сумму</string>

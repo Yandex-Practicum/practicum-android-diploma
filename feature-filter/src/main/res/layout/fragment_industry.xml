@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".profession.presentation.ui.SearchFragment">
+    tools:context=".industry.presentation.ui.IndustryFragment">
 
     <!-- Guidelines -->
     <androidx.constraintlayout.widget.Guideline
@@ -25,7 +25,7 @@
 
     <!-- Header -->
     <ImageView
-        android:id="@+id/buttonLeftProfession"
+        android:id="@+id/buttonLeftIndustry"
         style="@style/ButtonLeft"
         android:contentDescription="@string/back"
         android:padding="@dimen/dimens_16"
@@ -43,8 +43,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_4"
         android:padding="0dp"
-        android:text="@string/filter_screens_profession_filter_header"
-        app:layout_constraintStart_toEndOf="@id/buttonLeftProfession"
+        android:text="@string/filter_screens_industry_filter_header"
+        app:layout_constraintStart_toEndOf="@id/buttonLeftIndustry"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/topBarGuideline"/>
 
@@ -58,7 +58,7 @@
         android:layout_marginHorizontal="@dimen/dp_16"
         android:layout_marginVertical="@dimen/dp_8"
         android:autofillHints="no"
-        android:hint="@string/filter_screens_profession_searchbar_hint"
+        android:hint="@string/filter_screens_industry_searchbar_hint"
         app:layout_constraintBottom_toTopOf="@id/searchBarGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -122,4 +122,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:targetApi="p" />
+
+    <!-- Error? -->
+    <ImageView
+        android:id="@+id/industriesError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:importantForAccessibility="no"
+        android:src="@drawable/il_6_1"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@id/searchBarGuideline"
+        android:layout_marginTop="@dimen/dimens_120"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+    <TextView
+        android:id="@+id/industriesErrorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        style="@style/TextViewMediumNoPadding22"
+        app:layout_constraintTop_toBottomOf="@id/industriesError"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/dimen_sp16"
+        android:text="@string/filter_screens_region_list_server_error"
+        android:gravity="center"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

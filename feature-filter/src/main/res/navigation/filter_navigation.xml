@@ -13,8 +13,8 @@
             android:id="@+id/action_filterFragment_to_placeFragment"
             app:destination="@id/placeFragment" />
         <action
-            android:id="@+id/action_filterFragment_to_professionFragment"
-            app:destination="@id/professionFragment" />
+            android:id="@+id/action_filterFragment_to_industryFragment"
+            app:destination="@id/industryFragment" />
     </fragment>
     <fragment
         android:id="@+id/placeFragment"
@@ -43,8 +43,12 @@
         android:label="fragment_region"
         tools:layout="@layout/fragment_region" />
     <fragment
-        android:id="@+id/professionFragment"
-        android:name="ru.practicum.android.diploma.filter.profession.presentation.ui.ProfessionFragment"
-        android:label="fragment_profession"
-        tools:layout="@layout/fragment_profession" />
+        android:id="@+id/industryFragment"
+        android:name="ru.practicum.android.diploma.filter.industry.presentation.ui.IndustryFragment"
+        android:label="fragment_industry"
+        tools:layout="@layout/fragment_industry">
+        <action
+            android:id="@+id/action_industryFragment_to_filterFragment"
+            app:destination="@id/filterFragment" />
+    </fragment>
 </navigation>
