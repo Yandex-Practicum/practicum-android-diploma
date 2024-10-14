@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     tools:context=".place.presentation.ui.RegionFragment">
+
     <ImageView
         android:id="@+id/buttonLeftRegion"
         style="@style/ButtonLeft"
@@ -13,6 +14,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/filterHeader"
         style="@style/TextViewMedium22"
@@ -22,5 +24,97 @@
         app:layout_constraintStart_toEndOf="@id/buttonLeftRegion"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/topBarGuideline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="64dp" />
+
+    <EditText
+        android:id="@+id/searchRegion"
+        style="@style/SearchBar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/dp_16"
+        android:layout_marginVertical="@dimen/dp_8"
+        android:autofillHints="no"
+        android:drawableEnd="@drawable/search_loupe"
+        android:paddingEnd="@dimen/dimens_16"
+        android:hint="@string/hint_input_region"
+        app:layout_constraintBottom_toTopOf="@id/searchBarGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBarGuideline"  />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/searchBarGuideline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/dp_140" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvRegionList"
+        style="@style/PlacesList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/searchBarGuideline" />
+
+    <LinearLayout
+        android:id="@+id/llNoListError"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/searchBarGuideline" >
+
+        <ImageView
+            style="@style/ErrorPicture"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_224"
+            android:src="@drawable/il_6_1" />
+
+        <TextView
+            style="@style/ErrorMessageText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/filter_screens_region_list_server_error"
+            app:fontWeight="500" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llNoRegionError"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/searchBarGuideline" >
+
+        <ImageView
+            style="@style/ErrorPicture"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_224"
+            android:src="@drawable/il_5" />
+
+        <TextView
+            style="@style/ErrorMessageText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/there_is_no_such_region"
+            app:fontWeight="500" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
