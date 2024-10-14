@@ -8,10 +8,11 @@
     tools:context=".place.presentation.ui.PlaceFragment">
 
     <ImageView
-        android:id="@+id/buttonLeftPlace"
+        android:id="@+id/buttonBack"
         style="@style/ButtonLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,52 +22,113 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/filter_screens_location_filter_header"
-        app:layout_constraintStart_toEndOf="@id/buttonLeftPlace"
+        app:layout_constraintStart_toEndOf="@id/buttonBack"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/country"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/dimens_60"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/regionHeader">
 
-        <TextView
-            android:id="@+id/tvCountry"
-            style="@style/TextViewMedium16"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputCountryLayout"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/filter_screens_country" />
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            app:boxBackgroundMode="none">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputCountry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:hint="@string/filter_screens_country"
+                android:focusableInTouchMode="false"
+                android:paddingVertical="2dp"
+                android:fontFamily="@font/ys_display_medium"
+                android:textSize="@dimen/dimen_sp16"
+                android:paddingStart="@dimen/textPadding"
+                android:textColor="@color/primaryTextAndUIColor"
+                android:textColorHint="@color/searchBarHintBgColor"
+                android:background="@android:color/transparent"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
-            style="@style/ButtonRight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:id="@+id/clickCountry"
+            android:src="@drawable/button_right"
+            android:layout_gravity="center_vertical"
+            android:padding="@dimen/dimens_16"
+            android:layout_width="@dimen/dimens_60"
+            android:layout_height="@dimen/dimens_60" />
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/region"
+        android:clickable="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/dimens_60"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/country">
 
-        <TextView
-            style="@style/TextViewMedium16"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputRegionLayout"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/filter_screens_region" />
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            app:boxBackgroundMode="none">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputRegion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:hint="@string/filter_screens_region"
+                android:focusableInTouchMode="false"
+                android:paddingVertical="2dp"
+                android:fontFamily="@font/ys_display_medium"
+                android:textSize="@dimen/dimen_sp16"
+                android:paddingStart="@dimen/textPadding"
+                android:textColor="@color/primaryTextAndUIColor"
+                android:textColorHint="@color/searchBarHintBgColor"
+                android:background="@android:color/transparent"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
-            style="@style/ButtonRight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/country" />
+            android:id="@+id/clickRegion"
+            android:src="@drawable/button_right"
+            android:layout_gravity="center_vertical"
+            android:padding="@dimen/dimens_16"
+            android:layout_width="@dimen/dimens_60"
+            android:layout_height="@dimen/dimens_60" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/selectButton"
+        android:background="@drawable/rounded_12dp_blue_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:paddingVertical="@dimen/dp_20"
+        android:paddingHorizontal="@dimen/dp_8"
+        android:layout_marginHorizontal="@dimen/dimens_16"
+        android:layout_marginBottom="@dimen/dimens_24"
+        android:text="@string/filter_screens_select_button"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:targetApi="p" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
