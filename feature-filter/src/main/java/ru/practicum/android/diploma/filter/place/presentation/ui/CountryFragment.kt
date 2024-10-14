@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.commonutils.debounce
+import ru.practicum.android.diploma.filter.R
 import ru.practicum.android.diploma.filter.databinding.FragmentCountryBinding
 import ru.practicum.android.diploma.filter.place.domain.model.Country
 import ru.practicum.android.diploma.filter.place.presentation.ui.adapters.CountriesAdapter
@@ -19,6 +20,8 @@ import ru.practicum.android.diploma.filter.place.presentation.viewmodel.RegionsC
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.CountryState
 
 private const val DELAY_CLICK_COUNTRY = 250L
+private const val TAG = "CountryFragment"
+
 internal class CountryFragment : Fragment() {
     private var _binding: FragmentCountryBinding? = null
     private val binding get() = _binding!!
@@ -27,8 +30,9 @@ internal class CountryFragment : Fragment() {
 
     private val regionsCountriesViewModel: RegionsCountriesViewModel by viewModel()
 
+    private var countries: Map<String, String>? = null
     private val countriesAdapter: CountriesAdapter by lazy(LazyThreadSafetyMode.NONE) {
-        CountriesAdapter() {
+        CountriesAdapter {
             selectCountry(it)
         }
     }
@@ -55,6 +59,7 @@ internal class CountryFragment : Fragment() {
             when (state) {
                 is CountryState.Content -> {
                     showCountries(state.countries)
+                    countries = state.countries.map { it.id to it.name }.toMap()
                 }
 
                 else -> showError()
@@ -84,7 +89,10 @@ internal class CountryFragment : Fragment() {
 
     private fun initDebounce() {
         countryClickDebounce = onCountryClickDebounce {
-            // some logic to move to region
+            findNavController().navigate(
+                R.id.action_countryFragment_to_placeFragment,
+                PlaceFragment.createArgs(it, countries?.get(it)!!)
+            )
         }
     }
 
