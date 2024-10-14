@@ -8,7 +8,7 @@
     tools:context=".place.presentation.ui.RegionFragment">
 
     <ImageView
-        android:id="@+id/buttonLeftRegion"
+        android:id="@+id/buttonBack"
         style="@style/ButtonLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,12 +16,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/filterHeader"
+        android:id="@+id/regionHeader"
         style="@style/TextViewMedium22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/filter_screens_region_filter_header"
-        app:layout_constraintStart_toEndOf="@id/buttonLeftRegion"
+        app:layout_constraintStart_toEndOf="@id/buttonBack"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -55,18 +55,18 @@
         app:layout_constraintGuide_begin="@dimen/dp_140" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvRegionList"
+        android:id="@+id/listRegions"
         style="@style/PlacesList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/searchBarGuideline" />
 
     <LinearLayout
-        android:id="@+id/llNoListError"
+        android:id="@+id/placeholderNoLoadList"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -92,7 +92,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/llNoRegionError"
+        android:id="@+id/placeholderRegionDoesNotExist"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -116,5 +116,16 @@
             app:fontWeight="500" />
 
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/loadingProgressBar"
+        style="@style/LoadingProgressBarBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/searchBarGuideline" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
