@@ -70,7 +70,6 @@ internal class RegionFragment : Fragment() {
         binding.listRegions.adapter = regionAdapter
         regionAdapter.notifyDataSetChanged()
 
-
         binding.buttonBack.setOnClickListener {
             findNavController().navigateUp()
         }

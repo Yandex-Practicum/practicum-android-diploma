@@ -50,7 +50,7 @@ class RegionsCountriesViewModel(
     }
 
     private fun setRegions() {
-        when(val state = _selectedCountryStateLiveData.value) {
+        when (val state = _selectedCountryStateLiveData.value) {
             is SelectedCountryState.SelectedCountry -> getRegions(state.country.id)
             is SelectedCountryState.Empty, null -> getRegionsAll()
             is SelectedCountryState.Error -> regions.clear()
@@ -76,7 +76,9 @@ class RegionsCountriesViewModel(
 
     fun getRegions(countryId: String) {
         regions.clear()
-        places.filter {countryId == it.id}.map { filterCountry ->
+        places.filter {
+            countryId == it.id
+        }.map { filterCountry ->
             filterCountry.areas.map { region ->
                 regions.add(
                     Region(
