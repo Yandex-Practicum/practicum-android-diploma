@@ -15,7 +15,7 @@ class FilterSPRepositoryImpl(private val sharedPreferences: SharedPreferences) :
     override fun getAll(): Map<String, String> {
         val sharedPrefs = sharedPreferences.all
         val newSP: MutableMap<String, String> = mutableMapOf()
-        for ( value in sharedPrefs) {
+        for (value in sharedPrefs) {
             newSP[value.key] = value.value.toString()
         }
         return newSP

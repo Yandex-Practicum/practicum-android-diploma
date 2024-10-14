@@ -5,8 +5,8 @@ import ru.practicum.android.diploma.filter.filter.domain.usecase.impl.FilterSPIn
 
 class FilterViewModel(
     private val filterSPInteractor: FilterSPInteractor
-): ViewModel() {
-  init {
-      val sharedPrefs = filterSPInteractor.getAll()
-  }
+) : ViewModel() {
+    init {
+        val sharedPrefs = filterSPInteractor.getAll()
+    }
 }
