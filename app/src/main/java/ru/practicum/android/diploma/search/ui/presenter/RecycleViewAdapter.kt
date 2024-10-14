@@ -8,10 +8,10 @@ import ru.practicum.android.diploma.search.domain.models.VacancySearch
 import ru.practicum.android.diploma.util.ClickListener
 
 class RecycleViewAdapter(
-    private val list: List<VacancySearch>,
     private val clickListener: ClickListener
 ) :
     RecyclerView.Adapter<VacancyViewHolder>() {
+    private val list = mutableListOf<VacancySearch>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VacancyViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -30,5 +30,14 @@ class RecycleViewAdapter(
             clickListener.onClick(itemView)
         }
 
+    }
+
+    fun setList(newVacancyList: List<VacancySearch>) {
+        list.clear()
+        list.addAll(newVacancyList)
+    }
+
+    fun listSize(): Int {
+        return list.size
     }
 }

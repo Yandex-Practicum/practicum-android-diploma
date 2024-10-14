@@ -13,8 +13,8 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FavoriteFragmentBinding
 import ru.practicum.android.diploma.favorite.presintation.FavoriteScreenState
 import ru.practicum.android.diploma.favorite.presintation.FavoriteVacancyViewModel
+import ru.practicum.android.diploma.favorite.ui.presenter.FavoriteRecycleViewAdapter
 import ru.practicum.android.diploma.search.domain.models.VacancySearch
-import ru.practicum.android.diploma.search.ui.presenter.RecycleViewAdapter
 import ru.practicum.android.diploma.vacancy.ui.VacancyDetailFragment
 
 class FavoriteFragment : Fragment() {
@@ -23,7 +23,7 @@ class FavoriteFragment : Fragment() {
     private var _binding: FavoriteFragmentBinding? = null
     private val binding get() = _binding!!
     private val vacancies = mutableListOf<VacancySearch>()
-    private var adapter: RecycleViewAdapter? = null
+    private var adapter: FavoriteRecycleViewAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,7 +59,7 @@ class FavoriteFragment : Fragment() {
     private fun showContent(vacancy: List<VacancySearch>) {
         vacancies.clear()
         vacancies.addAll(vacancy)
-        adapter!!.notifyDataSetChanged()
+        adapter?.notifyDataSetChanged()
         binding.recyclerView.isVisible = true
         binding.notFoundPlaceholder.isVisible = false
         binding.canNotGetVacanciesPlaceholder.isVisible = false
@@ -79,7 +79,7 @@ class FavoriteFragment : Fragment() {
 
     private fun recyclerViewInit() {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        adapter = RecycleViewAdapter(vacancies) { vacancy ->
+        adapter = FavoriteRecycleViewAdapter(vacancies) { vacancy ->
             viewModel.onVacancyClick(vacancy)
         }
         binding.recyclerView.adapter = adapter
