@@ -29,7 +29,6 @@
         style="@style/ButtonLeft"
         android:contentDescription="@string/back"
         android:padding="@dimen/dimens_16"
-        android:layout_marginStart="@dimen/dp_4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"

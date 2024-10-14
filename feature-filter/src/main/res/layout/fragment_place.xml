@@ -12,6 +12,7 @@
         style="@style/ButtonLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/dimens_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,7 +38,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/filter_screens_country" />
+            android:text="@string/filter_screens_country"
+            android:textColor="@color/grey" />
 
         <ImageView
             style="@style/ButtonRight"
@@ -58,7 +60,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/filter_screens_region" />
+            android:text="@string/filter_screens_region"
+            android:textColor="@color/grey" />
 
         <ImageView
             style="@style/ButtonRight"
