@@ -50,9 +50,9 @@ class VacancyDbConverter {
             id = vacancy.id,
             name = vacancy.name,
             salary = vacancy.salary,
-            address = vacancy.address ?: "",
-            company = vacancy.employment ?: "",
-            logo = vacancy.logoLink ?: ""
+            address = vacancy.address.orEmpty(),
+            company = vacancy.employment.orEmpty(),
+            logo = vacancy.logoLink.orEmpty()
         )
     }
 }

@@ -104,14 +104,11 @@ class VacancyDetailFragment : Fragment() {
     }
 
     private fun getScheduleAndEmployment(vacancy: Vacancy): String {
-        return if (vacancy.employment == null && vacancy.schedule == null) {
-            ""
-        } else if (vacancy.schedule == null) {
-            vacancy.employment ?: ""
-        } else if (vacancy.employment == null) {
-            vacancy.schedule
-        } else {
-            "${vacancy.employment}, ${vacancy.schedule}"
+        return when {
+            vacancy.employment == null && vacancy.schedule == null -> ""
+            vacancy.employment == null && vacancy.schedule != null -> vacancy.schedule
+            vacancy.employment != null && vacancy.schedule == null -> vacancy.employment
+            else -> "${vacancy.employment}, ${vacancy.schedule}"
         }
     }
 
@@ -145,9 +142,9 @@ class VacancyDetailFragment : Fragment() {
     private fun renderFavorite(current: Boolean) {
         binding.favoriteButton.setImageResource(
             if (current) {
-                R.drawable.ic_favorites_on__24px
+                R.drawable.ic_favorites_on_24px
             } else {
-                R.drawable.ic_favorites_off__24px
+                R.drawable.ic_favorites_off_24px
             }
         )
     }
