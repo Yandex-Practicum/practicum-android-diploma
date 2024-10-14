@@ -9,11 +9,11 @@ import ru.practicum.android.diploma.filter.profession.domain.model.Industry
 class FilterIndustryListAdapter(private val clickListener: IndustryClickListener) :
     RecyclerView.Adapter<IndustryListViewHolder>() {
 
-    private var options = ArrayList<Industry>()
+    private var options = emptyList<Industry>()
     private var selectedPosition: Int? = null
     private var isSelectionActive = false
 
-    fun setOptionsList(optionsList: ArrayList<Industry>) {
+    fun setOptionsList(optionsList: List<Industry>) {
         options = optionsList
         notifyDataSetChanged()
     }

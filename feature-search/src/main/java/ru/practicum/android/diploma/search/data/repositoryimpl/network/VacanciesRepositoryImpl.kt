@@ -70,7 +70,7 @@ internal class VacanciesRepositoryImpl(
 
     override fun listIndustries(): Flow<Resource<List<IndustryList>>> =
         context.executeNetworkRequest<Response, List<IndustryList>>(
-            request = { networkClient.doRequest(HHApiIndustriesRequest(emptyMap())) },
+            request = { networkClient.doRequest(HHApiIndustriesRequest) },
             successHandler = { response: Response ->
                 Resource.Success(industryConverter.map(response as HHIndustriesResponse))
             }

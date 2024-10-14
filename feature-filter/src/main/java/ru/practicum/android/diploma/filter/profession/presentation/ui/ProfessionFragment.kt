@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.filter.profession.presentation.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ import ru.practicum.android.diploma.commonutils.debounce
 import ru.practicum.android.diploma.filter.databinding.FragmentProfessionBinding
 import ru.practicum.android.diploma.filter.profession.domain.model.Industry
 import ru.practicum.android.diploma.filter.profession.presentation.ui.adapters.FilterIndustryListAdapter
+import ru.practicum.android.diploma.filter.profession.presentation.viewmodel.ProfessionViewModel
 
 private const val USER_INPUT = "userInput"
 private const val DELAY_CLICK_VACANCY = 2000L
@@ -24,10 +26,9 @@ private const val DELAY_CLICK_VACANCY = 2000L
 internal class ProfessionFragment : Fragment() {
     private var _binding: FragmentProfessionBinding? = null
     private val binding get() = _binding!!
-    private var localIndustriesList: ArrayList<Industry> = ArrayList()
     private var userInputReserve = ""
 
-    private val professionViewModel: ViewModel by viewModel()
+    private val professionViewModel: ProfessionViewModel by viewModel()
 
     val debouncedFiltration by lazy {
         debounce(
@@ -36,7 +37,7 @@ internal class ProfessionFragment : Fragment() {
             useLastParam = true,
             actionThenDelay = false,
             action = { param: String ->
-                // ❗ professionViewModel.someMethod(param)
+                professionViewModel.filterList(param)
             }
         )
     }
@@ -48,11 +49,21 @@ internal class ProfessionFragment : Fragment() {
     ): View {
         _binding = FragmentProfessionBinding.inflate(inflater, container, false)
 
-
+        professionViewModel.industriesListLiveData.observe(viewLifecycleOwner) { list ->
+            if (list==null){
+                binding.vacancyRecycler.isVisible=false
+                //error here
+            }
+            else{
+                Log.d("ProfessionViewModel","Frag not null, ${list.count()}") //todo delete
+                (binding.vacancyRecycler.adapter as FilterIndustryListAdapter).setOptionsList(list)
+                binding.vacancyRecycler.isVisible=true
+                //ui toggles
+            }
+        }
 
         recyclerSetup()
         searchBarSetup()
-
 
         return binding.root
     }
@@ -63,7 +74,6 @@ internal class ProfessionFragment : Fragment() {
                 unselectAndHideConfirmation()
                 binding.clearSearchIcon.isVisible = true
                 binding.searchBarLoupeIcon.isVisible = false
-                localIndustriesList = ArrayList()
                 debouncedFiltration(text.toString())
             } else {
                 binding.clearSearchIcon.isVisible = false
@@ -72,10 +82,10 @@ internal class ProfessionFragment : Fragment() {
             userInputReserve = text.toString()
         }
 
-        binding.clearSearchIcon.setOnClickListener {
+        binding.clearSearchIcon.setOnClickListener { //todo null?
             binding.searchBar.text.clear()
             requireContext().closeKeyBoard(binding.searchBar)
-            localIndustriesList = ArrayList()
+            professionViewModel.resetToFullList()
             unselectAndHideConfirmation()
         }
 
@@ -94,14 +104,15 @@ internal class ProfessionFragment : Fragment() {
         })
         binding.vacancyRecycler.layoutManager = GridLayoutManager(requireContext(), 1)
         binding.vacancyRecycler.adapter = adapter
-        (binding.vacancyRecycler.adapter as FilterIndustryListAdapter).setOptionsList(localIndustriesList)
+        (binding.vacancyRecycler.adapter as FilterIndustryListAdapter).setOptionsList(emptyList())
 
     }
 
     private fun showConfirmation(selectedIndustry: Industry?) {
         binding.selectButton.isVisible = true
         binding.selectButton.setOnClickListener {
-            // ❗ pass selectedIndustry to viewmodel here
+            // ❗ todo pass selectedIndustry to filter fragment or viewmodel here or do sharedprefs
+            findNavController().navigateUp()
         }
     }
 
