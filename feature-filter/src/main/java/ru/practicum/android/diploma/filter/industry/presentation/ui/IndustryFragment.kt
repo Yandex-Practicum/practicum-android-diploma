@@ -119,9 +119,10 @@ internal class IndustryFragment : Fragment() {
     private fun showConfirmation(selectedIndustry: IndustryModel) {
         binding.selectButton.isVisible = true
         binding.selectButton.setOnClickListener {
-                findNavController().navigate(
-                    R.id.action_industryFragment_to_filterFragment, createArgs(selectedIndustry)
-                )
+            findNavController().navigate(
+                R.id.action_industryFragment_to_filterFragment,
+                createArgs(selectedIndustry)
+            )
         }
     }
 
