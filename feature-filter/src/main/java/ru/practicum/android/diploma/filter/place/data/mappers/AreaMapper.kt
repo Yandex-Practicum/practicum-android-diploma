@@ -5,7 +5,7 @@ import ru.practicum.android.diploma.data.networkclient.api.dto.response.regions.
 import ru.practicum.android.diploma.filter.place.domain.model.AreaInReference
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.common.area.AreaInReference as AreaInReferenceDto
 
-internal class AreaMapper {
+internal object AreaMapper {
     fun map(areas: List<AreaInVacancy>): List<AreaInVacancy> = areas.map { map(it) }
     fun mapAreaReference(areas: List<AreaInReferenceDto>): List<AreaInReference> = areas.map { map(it) }
 

@@ -4,13 +4,18 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import ru.practicum.android.diploma.commonutils.Resource
 import ru.practicum.android.diploma.filter.place.domain.model.AreaInReference
-import ru.practicum.android.diploma.filter.place.domain.repository.RegionRepository
+import ru.practicum.android.diploma.filter.place.domain.model.Place
+import ru.practicum.android.diploma.filter.place.domain.repository.RegionNetworkRepository
+import ru.practicum.android.diploma.filter.place.domain.repository.RegionSpRepository
 import ru.practicum.android.diploma.filter.place.domain.usecase.RegionInteractor
 
-internal class RegionInteractorImpl(private val repository: RegionRepository) :
-    RegionInteractor {
+internal class RegionInteractorImpl(
+    private val regionNetworkRepository: RegionNetworkRepository,
+    private val regionSpRepository: RegionSpRepository,
+) : RegionInteractor {
+
     override fun listAreas(): Flow<Pair<List<AreaInReference>?, String?>> {
-        return repository.listAreas().map { result ->
+        return regionNetworkRepository.listAreas().map { result ->
             when (result) {
                 is Resource.Success -> {
                     Pair(result.data, "")
@@ -21,5 +26,13 @@ internal class RegionInteractorImpl(private val repository: RegionRepository) :
                 }
             }
         }
+    }
+
+    override suspend fun getPlaceDataFilter(): Place? {
+        return regionSpRepository.getPlaceDataFilter()
+    }
+
+    override suspend fun updatePlaceInDataFilter(placeDto: Place): Int {
+        return regionSpRepository.updatePlaceInDataFilter(placeDto)
     }
 }
