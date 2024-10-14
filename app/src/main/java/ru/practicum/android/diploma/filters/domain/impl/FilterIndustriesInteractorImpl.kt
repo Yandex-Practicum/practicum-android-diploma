@@ -15,7 +15,7 @@ class FilterIndustriesInteractorImpl(
     override fun getIndustries(): Flow<Pair<List<Industry>?, HttpStatusCode?>> {
         return repository.getIndustries().map { result ->
             when (result) {
-                is Resource.Success -> Pair(result.data, result.httpStatusCode)
+                is Resource.Success -> Pair(result.data, HttpStatusCode.OK)
                 is Resource.Error -> Pair(null, result.httpStatusCode)
             }
         }
