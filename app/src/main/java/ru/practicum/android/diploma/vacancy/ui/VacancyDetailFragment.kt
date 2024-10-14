@@ -104,14 +104,11 @@ class VacancyDetailFragment : Fragment() {
     }
 
     private fun getScheduleAndEmployment(vacancy: Vacancy): String {
-        return if (vacancy.employment == null && vacancy.schedule == null) {
-            ""
-        } else if (vacancy.schedule == null) {
-            vacancy.employment ?: ""
-        } else if (vacancy.employment == null) {
-            vacancy.schedule
-        } else {
-            "${vacancy.employment}, ${vacancy.schedule}"
+        return when {
+            vacancy.employment == null && vacancy.schedule == null -> ""
+            vacancy.employment == null && vacancy.schedule != null -> vacancy.schedule
+            vacancy.employment != null && vacancy.schedule == null -> vacancy.employment
+            else -> "${vacancy.employment}, ${vacancy.schedule}"
         }
     }
 
