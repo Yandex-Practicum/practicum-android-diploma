@@ -5,8 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.practicum.android.diploma.filter.filter.domain.usecase.impl.FilterSPInteractor
 
-const val ARGS_INDUSTRY_ID = "industry_id"
-const val ARGS_INDUSTRY_NAME = "industry_name"
 class FilterViewModel(
     private val filterSPInteractor: FilterSPInteractor
 ) : ViewModel() {
