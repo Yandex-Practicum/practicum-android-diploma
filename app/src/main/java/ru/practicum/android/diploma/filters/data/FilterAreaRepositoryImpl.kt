@@ -2,19 +2,24 @@ package ru.practicum.android.diploma.filters.data
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 import ru.practicum.android.diploma.filters.data.dto.FilterAreasRequest
 import ru.practicum.android.diploma.filters.data.dto.FilterAreasResponse
-import ru.practicum.android.diploma.filters.domain.api.FilterCountryRepository
-import ru.practicum.android.diploma.filters.domain.models.Country
+import ru.practicum.android.diploma.filters.data.dto.converter.ConverterForAreas
+import ru.practicum.android.diploma.filters.domain.api.FilterAreaRepository
+import ru.practicum.android.diploma.filters.domain.models.Area
 import ru.practicum.android.diploma.util.Resource
 import ru.practicum.android.diploma.util.network.HttpStatusCode
 import ru.practicum.android.diploma.util.network.NetworkClient
 
-class FilterCountryRepositoryImpl(
-    private val networkClient: NetworkClient
-) : FilterCountryRepository {
+class FilterAreaRepositoryImpl(
+    private val networkClient: NetworkClient,
+    private val converter: ConverterForAreas
+) : FilterAreaRepository {
 
-    override fun getAreas(): Flow<Resource<List<Country>>> = flow {
+    private var cachedRegions: Resource<List<Area>>? = null
+
+    override fun getAreas(): Flow<Resource<List<Area>>> = flow {
         val response = networkClient.doRequest(FilterAreasRequest())
 
         emit(
@@ -22,14 +27,14 @@ class FilterCountryRepositoryImpl(
                 HttpStatusCode.OK -> {
                     val areasResponse = response as FilterAreasResponse
 
-                    val countries = areasResponse.areas
-                        .filter { it.parentId == null }
-                        .map { areaDto -> Country(areaDto.id, areaDto.name) }
+                    val countries = areasResponse.areas.map {
+                        converter.map(it)
+                    }
 
                     if (countries.isEmpty()) {
                         Resource.Error(HttpStatusCode.NOT_FOUND, null)
                     } else {
-                        Resource.Success(countries) // Заебись
+                        Resource.Success(countries)
                     }
                 }
 
@@ -42,5 +47,19 @@ class FilterCountryRepositoryImpl(
                 }
             }
         )
+    }
+
+    override fun loadAllRegions(): Flow<Resource<List<Area>>> = flow {
+        getAreas().collect { resource ->
+            cachedRegions = resource
+            emit(resource)
+        }
+    }
+
+    override fun getAllRegions(): Flow<Resource<List<Area>>> {
+        cachedRegions?.let { resource ->
+            return flowOf(resource)
+        }
+        return loadAllRegions()
     }
 }
