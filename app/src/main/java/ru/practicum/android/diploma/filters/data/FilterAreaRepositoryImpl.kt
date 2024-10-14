@@ -22,13 +22,10 @@ class FilterAreaRepositoryImpl(
 
     override fun getAreas(): Flow<Resource<List<Area>>> = flow {
         val response = networkClient.doRequest(FilterAreasRequest())
-
         emit(
             when (response.resultCode) {
                 HttpStatusCode.OK -> {
-                    val areasResponse = response as FilterAreasResponse
-
-                    val countries = areasResponse.areas.map {
+                    val countries = (response as FilterAreasResponse).areas.map {
                         converter.map(it)
                     }
 

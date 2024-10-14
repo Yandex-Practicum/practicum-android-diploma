@@ -4,9 +4,7 @@ import android.content.Context
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.filters.data.dto.FilterAreasRequest
-import ru.practicum.android.diploma.filters.data.dto.FilterAreasResponse
 import ru.practicum.android.diploma.filters.data.dto.FilterIndustriesRequest
-import ru.practicum.android.diploma.filters.data.dto.FilterIndustriesResponse
 import ru.practicum.android.diploma.search.data.network.VacancySearchRequest
 import ru.practicum.android.diploma.vacancy.data.network.VacancyDetailsRequest
 import java.io.IOException
@@ -29,9 +27,8 @@ class RetrofitNetworkClient(
                     when (dto) {
                         is VacancySearchRequest -> responseCode = hhApiService.searchVacancies(dto.request)
                         is VacancyDetailsRequest -> responseCode = hhApiService.getVacancyDetails(dto.expression)
-                        is FilterAreasRequest -> responseCode = FilterAreasResponse(hhApiService.getRegions())
-                        is FilterIndustriesRequest ->
-                            responseCode = FilterIndustriesResponse(hhApiService.getIndustries())
+                        is FilterAreasRequest -> responseCode = hhApiService.getRegions().first()
+                        is FilterIndustriesRequest -> responseCode = hhApiService.getIndustries().first()
                     }
                     responseCode.resultCode = HttpStatusCode.OK
                 } catch (ioException: IOException) {
