@@ -12,29 +12,36 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.commonutils.debounce
-import ru.practicum.android.diploma.filter.R
 import ru.practicum.android.diploma.filter.databinding.FragmentCountryBinding
 import ru.practicum.android.diploma.filter.place.domain.model.Country
-import ru.practicum.android.diploma.filter.place.presentation.ui.adapters.CountriesAdapter
+import ru.practicum.android.diploma.filter.place.domain.model.Place
+import ru.practicum.android.diploma.filter.place.presentation.ui.adapters.PlacesAdapter
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.RegionsCountriesViewModel
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.CountryState
+import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.PlaceState
 
 private const val DELAY_CLICK_COUNTRY = 250L
-private const val TAG = "CountryFragment"
 
 internal class CountryFragment : Fragment() {
+
     private var _binding: FragmentCountryBinding? = null
     private val binding get() = _binding!!
-
-    private var countryClickDebounce: ((String) -> Unit)? = null
 
     private val regionsCountriesViewModel: RegionsCountriesViewModel by viewModel()
 
     private var countries: Map<String, String>? = null
-    private val countriesAdapter: CountriesAdapter by lazy(LazyThreadSafetyMode.NONE) {
-        CountriesAdapter {
-            selectCountry(it)
-        }
+
+    private var countryClickDebounce: ((Country) -> Unit)? = null
+
+    private val countriesAdapter: PlacesAdapter<Country> by lazy(LazyThreadSafetyMode.NONE) {
+        PlacesAdapter<Country>(
+            placeClickListener = {
+                selectCountry(it)
+            },
+            itemBinder = { binding, item ->
+                binding.namePlace.text = item.name
+            }
+        )
     }
 
     override fun onCreateView(
@@ -48,13 +55,18 @@ internal class CountryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initDebounce()
+
         binding.buttonLeftCountry.setOnClickListener {
             findNavController().navigateUp()
         }
+
         binding.rvCountryList.layoutManager = LinearLayoutManager(requireActivity(), VERTICAL, false)
         binding.rvCountryList.adapter = countriesAdapter
+
         reset()
+
         regionsCountriesViewModel.observeCountriesState().observe(viewLifecycleOwner) { state ->
             when (state) {
                 is CountryState.Content -> {
@@ -62,7 +74,15 @@ internal class CountryFragment : Fragment() {
                     countries = state.countries.map { it.id to it.name }.toMap()
                 }
 
-                else -> showError()
+                is CountryState.Empty -> {
+                    showError()
+                    regionsCountriesViewModel.setPlaceState(PlaceState.Empty)
+                }
+
+                is CountryState.Error -> {
+                    showError()
+                    regionsCountriesViewModel.setPlaceState(PlaceState.Error)
+                }
             }
         }
     }
@@ -73,9 +93,7 @@ internal class CountryFragment : Fragment() {
     }
 
     private fun showCountries(countries: List<Country>) {
-        countriesAdapter.countries.clear()
-        countriesAdapter.countries.addAll(countries)
-        countriesAdapter.notifyDataSetChanged()
+        countriesAdapter.updatePlaces(countries)
         binding.rvCountryList.isVisible = true
     }
 
@@ -83,20 +101,25 @@ internal class CountryFragment : Fragment() {
         binding.llNoListError.isVisible = true
     }
 
-    private fun selectCountry(id: String) {
-        countryClickDebounce?.let { it(id) }
+    private fun selectCountry(country: Country) {
+        countryClickDebounce?.let { it(country) }
     }
 
     private fun initDebounce() {
         countryClickDebounce = onCountryClickDebounce {
-            findNavController().navigate(
-                R.id.action_countryFragment_to_placeFragment,
-                PlaceFragment.createArgs(it, countries?.get(it)!!)
+            findNavController().navigateUp()
+            regionsCountriesViewModel.setPlaceInDataFilter(
+                Place(
+                    idCountry = it.id,
+                    nameCountry = it.name,
+                    idRegion = null,
+                    nameRegion = null
+                )
             )
         }
     }
 
-    private fun onCountryClickDebounce(action: (String) -> Unit): (String) -> Unit = debounce<String>(
+    private fun onCountryClickDebounce(action: (Country) -> Unit): (Country) -> Unit = debounce<Country>(
         DELAY_CLICK_COUNTRY,
         lifecycleScope,
         false,

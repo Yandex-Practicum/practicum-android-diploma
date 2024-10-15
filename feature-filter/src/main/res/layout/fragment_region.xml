@@ -41,12 +41,12 @@
         android:layout_marginVertical="@dimen/dp_8"
         android:autofillHints="no"
         android:drawableEnd="@drawable/search_loupe"
-        android:hint="@string/hint_input_region"
         android:paddingEnd="@dimen/dimens_16"
+        android:hint="@string/hint_input_region"
         app:layout_constraintBottom_toTopOf="@id/searchBarGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topBarGuideline" />
+        app:layout_constraintTop_toBottomOf="@id/topBarGuideline"  />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/searchBarGuideline"
@@ -68,14 +68,14 @@
 
     <LinearLayout
         android:id="@+id/placeholderNoLoadList"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/searchBarGuideline">
+        app:layout_constraintTop_toTopOf="@+id/searchBarGuideline" >
 
         <ImageView
             style="@style/ErrorPicture"
@@ -94,14 +94,14 @@
 
     <LinearLayout
         android:id="@+id/placeholderRegionDoesNotExist"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/searchBarGuideline">
+        app:layout_constraintTop_toTopOf="@+id/searchBarGuideline" >
 
         <ImageView
             style="@style/ErrorPicture"

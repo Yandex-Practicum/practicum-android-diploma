@@ -4,6 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.commonutils.Resource
 import ru.practicum.android.diploma.filter.place.domain.model.AreaInReference
 
-internal interface RegionRepository {
+internal interface RegionNetworkRepository {
     fun listAreas(): Flow<Resource<List<AreaInReference>>>
+
 }

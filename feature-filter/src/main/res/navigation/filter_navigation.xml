@@ -41,7 +41,11 @@
         android:id="@+id/regionFragment"
         android:name="ru.practicum.android.diploma.filter.place.presentation.ui.RegionFragment"
         android:label="fragment_region"
-        tools:layout="@layout/fragment_region" />
+        tools:layout="@layout/fragment_region" >
+        <action
+            android:id="@+id/action_regionFragment_to_placeFragment"
+            app:destination="@id/placeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/industryFragment"
         android:name="ru.practicum.android.diploma.filter.industry.presentation.ui.IndustryFragment"
