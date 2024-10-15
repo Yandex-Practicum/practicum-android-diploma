@@ -57,9 +57,12 @@ internal class FilterFragment : Fragment() {
         if (map?.get(ARGS_PLACE_COUNTRY_NAME) != null) {
             binding.workPlace.visibility = INVISIBLE
             binding.workPlaceInfo.isVisible = true
-            if (map?.get(ARGS_PLACE_REGION_NAME) == null || map?.get(ARGS_PLACE_REGION_NAME) == "") binding.workPlaceInfo.text =
-                map[ARGS_PLACE_COUNTRY_NAME]
-            else binding.workPlaceInfo.text = map[ARGS_PLACE_COUNTRY_NAME] + ", " + map[ARGS_PLACE_REGION_NAME]
+            if (map?.get(ARGS_PLACE_REGION_NAME) == null ||
+                map?.get(ARGS_PLACE_REGION_NAME) == "") {
+                binding.workPlaceInfo.text = map[ARGS_PLACE_COUNTRY_NAME]
+            } else {
+                binding.workPlaceInfo.text = map[ARGS_PLACE_COUNTRY_NAME] + ", " + map[ARGS_PLACE_REGION_NAME]
+            }
         }
 
         // ⬅️ add your ui logic here ❗
