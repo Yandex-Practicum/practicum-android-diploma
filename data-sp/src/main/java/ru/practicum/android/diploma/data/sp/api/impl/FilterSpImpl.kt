@@ -59,7 +59,13 @@ class FilterSpImpl(
     }
 
     override suspend fun getExpectedSalaryDataFilter(): String? {
-        return filterSp.getString(EXPECTED_SALARY_KEY_SP, null)
+        var result: String? = null
+        try {
+            result = filterSp.getString(EXPECTED_SALARY_KEY_SP, null)
+        } catch (e: ClassCastException) {
+            e.printStackTrace()
+        }
+        return result
     }
 
     override suspend fun isDoNotShowWithoutSalaryDataFilter(): Boolean {
