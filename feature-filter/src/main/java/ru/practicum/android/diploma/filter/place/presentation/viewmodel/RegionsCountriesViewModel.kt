@@ -126,12 +126,13 @@ class RegionsCountriesViewModel(
                 _placeStateLiveData.postValue(placeState)
                 getRegions(idCountry)
             } else {
-                _placeStateLiveData.postValue(PlaceState.Error)
-                regions.clear()
+                getRegionsAll()
+                _placeStateLiveData.postValue(PlaceState.Empty)
+
             }
         } ?: run {
-            _placeStateLiveData.postValue(PlaceState.Empty)
-            getRegionsAll()
+            _placeStateLiveData.postValue(PlaceState.Error)
+            regions.clear()
         }
     }
 
@@ -143,19 +144,21 @@ class RegionsCountriesViewModel(
 
     private fun updateRegions(filter: (AreaInReference) -> Boolean) {
         regions.clear()
-        places.filter(filter).forEach { country ->
-            country.areas.forEach { region ->
-                region.parentId?.let { parentId ->
+        places.filter(filter).map { country ->
+            val nameCountry = country.name
+            country.areas.map { region ->
+                region.parentId?.let {
                     regions.add(
                         Region(
                             id = region.id,
                             name = region.name,
-                            parentId = parentId,
-                            parentName = country.name
+                            parentId = it,
+                            parentName = nameCountry
                         )
                     )
                 }
             }
+
         }
         _regionsStateLiveData.postValue(RegionState.Content(regions))
     }
@@ -199,15 +202,11 @@ class RegionsCountriesViewModel(
         true,
         false
     ) { changedText ->
-        if (changedText.isNotEmpty()) {
-            searchRegions(changedText)
-        }
+        searchRegions(changedText)
     }
 
     fun searchDebounce(changedText: String) {
-        if (latestSearchText != changedText) {
-            latestSearchText = changedText
-            trackSearchDebounce(changedText)
-        }
+        latestSearchText = changedText
+        trackSearchDebounce(changedText)
     }
 }
