@@ -17,11 +17,9 @@ class FilterAreaInteractorImpl(
         return repository.getAllRegions().map { result ->
             when (result) {
                 is Resource.Success -> {
-                    Log.d("T", "ZAEBISKA ${result.data}")
                     Pair(result.data, HttpStatusCode.OK)
                 }
                 is Resource.Error -> {
-                    Log.e("T", "Error loading countries: ${result.httpStatusCode}")
                     Pair(null, result.httpStatusCode)
                 }
             }
