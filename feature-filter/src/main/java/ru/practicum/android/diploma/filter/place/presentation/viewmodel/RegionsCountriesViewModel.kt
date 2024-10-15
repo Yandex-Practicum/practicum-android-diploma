@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.filter.place.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,6 +10,7 @@ import ru.practicum.android.diploma.commonutils.debounce
 import ru.practicum.android.diploma.commonutils.searchsubstring.AlgorithmKnuthMorrisPratt
 import ru.practicum.android.diploma.filter.place.domain.model.AreaInReference
 import ru.practicum.android.diploma.filter.place.domain.model.Country
+import ru.practicum.android.diploma.filter.place.domain.model.Place
 import ru.practicum.android.diploma.filter.place.domain.model.Region
 import ru.practicum.android.diploma.filter.place.domain.usecase.RegionInteractor
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.CountryState
@@ -29,17 +29,38 @@ class RegionsCountriesViewModel(
     private val _regionsStateLiveData = MutableLiveData<RegionState>()
     fun observeRegionsState(): LiveData<RegionState> = _regionsStateLiveData
 
+    private val _placeStateLiveData = MutableLiveData<PlaceState>()
+    fun observePlaceState(): LiveData<PlaceState> = _placeStateLiveData
+
+    fun setPlaceState(placeState: PlaceState) {
+        _placeStateLiveData.postValue(placeState)
+    }
+
     private val places: MutableList<AreaInReference> = ArrayList<AreaInReference>()
     private val regions: MutableList<Region> = ArrayList<Region>()
     val getRegions: List<Region>
         get() = regions.toList()
 
     init {
-        viewModelScope.launch {
+        initData()
+    }
+
+    fun initData() {
+        viewModelScope.launch(Dispatchers.IO) {
+            initDataFromNetworkAndSp()
+        }
+    }
+
+    private suspend fun initDataFromNetworkAndSp() {
+        initDataFromNetwork()
+        initDataFromSp()
+    }
+
+    private suspend fun initDataFromNetwork() {
+        runCatching {
             regionInteractor.listAreas().collect { areas ->
-                if (areas.first != null) {
-                    places.addAll(areas.first!!)
-                    setRegions()
+                areas.first?.let { list ->
+                    places.addAll(list)
                     val countries = places.map {
                         Country(
                             id = it.id,
@@ -47,79 +68,75 @@ class RegionsCountriesViewModel(
                         )
                     }
                     _countriesStateLiveData.postValue(CountryState.Content(countries))
-                } else {
+                } ?: run {
                     _countriesStateLiveData.postValue(CountryState.Empty)
                 }
             }
+        }.fold(
+            onSuccess = {},
+            onFailure = {
+                _countriesStateLiveData.postValue(CountryState.Error)
+            }
+        )
+
+    }
+
+    private suspend fun initDataFromSp() {
+        regionInteractor.getPlaceDataFilter()?.let { place ->
+            val idCountry = place.idCountry
+            val nameCountry = place.nameCountry
+            val idRegion = place.idRegion
+            val nameRegion = place.nameRegion
+
+            if (idCountry != null && nameCountry != null) {
+                val placeState = if (idRegion == null && nameRegion == null) {
+                    PlaceState.ContentCountry(Country(idCountry, nameCountry))
+                } else {
+                    PlaceState.ContentPlace(Place(idCountry, nameCountry, idRegion, nameRegion))
+                }
+                _placeStateLiveData.postValue(placeState)
+                getRegions(idCountry)
+            } else {
+                _placeStateLiveData.postValue(PlaceState.Error)
+                regions.clear()
+            }
+        } ?: run {
+            _placeStateLiveData.postValue(PlaceState.Empty)
+            getRegionsAll()
         }
     }
 
-    private fun setRegions() {
-        Log.e("setRegions()", "setRegions()")
+    fun setPlaceInDataFilter(place: Place) {
+        viewModelScope.launch(Dispatchers.IO) {
+            regionInteractor.updatePlaceInDataFilter(place)
+        }
+    }
 
-        when (val state = _placeStateLiveData.value) {
-            is PlaceState.ContentCountry -> {
-                getRegions(state.country.id)
-                Log.e("state", "PlaceState.ContentCountry")
-            }
-            is PlaceState.ContentPlace -> {
-                getRegions(state.place.idCountry)
-                Log.e("state", "PlaceState.ContentPlace")
-            }
-            is PlaceState.Empty, null -> {
-                getRegionsAll()
-                Log.e("state", "PlaceState.Empty")
-            }
-            is PlaceState.Error -> {
-                regions.clear()
-                Log.e("state", "PlaceState.Error")
+    private fun updateRegions(filter: (AreaInReference) -> Boolean) {
+        regions.clear()
+        places.filter(filter).forEach { country ->
+            country.areas.forEach { region ->
+                region.parentId?.let { parentId ->
+                    regions.add(
+                        Region(
+                            id = region.id,
+                            name = region.name,
+                            parentId = parentId,
+                            parentName = country.name
+                        )
+                    )
+                }
             }
         }
+        _regionsStateLiveData.postValue(RegionState.Content(regions))
     }
 
     fun getRegionsAll() {
-        regions.clear()
-        places.map { country ->
-            val nameCountry = country.name
-            country.areas.map { region ->
-                region.parentId?.let {
-                    regions.add(
-                        Region(
-                            id = region.id,
-                            name = region.name,
-                            parentId = it,
-                            parentName = nameCountry
-                        )
-                    )
-                }
-            }
-
-        }
-        _regionsStateLiveData.postValue(RegionState.Content(regions))
+        updateRegions { true }
     }
 
     fun getRegions(countryId: String) {
-        regions.clear()
-        places.filter {
-            countryId == it.id
-        }.map { filterCountry ->
-            Log.e("getRegions(countryId: String)", "getRegions(countryId: String)\n ${filterCountry.toString()}")
-            val nameCountry = filterCountry.name
-            filterCountry.areas.map { region ->
-                region.parentId?.let {
-                    regions.add(
-                        Region(
-                            id = region.id,
-                            name = region.name,
-                            parentId = region.parentId,
-                            parentName = nameCountry
-                        )
-                    )
-                }
-            }
-        }
-        Log.e("regions", "regions\n ${regions.toString()}")
-        _regionsStateLiveData.postValue(RegionState.Content(regions))
+        updateRegions { it.id == countryId }
     }
 
     private var latestSearchText: String? = null
@@ -134,11 +151,10 @@ class RegionsCountriesViewModel(
                         stringSearch
                     )
                 }
-                if (regionsList.isEmpty()) {
-                    _regionsStateLiveData.postValue(RegionState.Empty)
-                } else {
-                    _regionsStateLiveData.postValue(RegionState.Content(regionsList))
-                }
+                _regionsStateLiveData.postValue(
+                    if (regionsList.isEmpty()) RegionState.Empty
+                    else RegionState.Content(regionsList)
+                )
             }
         } else {
             _regionsStateLiveData.postValue(RegionState.Content(getRegions))
@@ -161,13 +177,5 @@ class RegionsCountriesViewModel(
             latestSearchText = changedText
             trackSearchDebounce(changedText)
         }
-    }
-
-
-    private val _placeStateLiveData = MutableLiveData<PlaceState>()
-    fun observePlaceState(): LiveData<PlaceState> = _placeStateLiveData
-
-    fun setPlaceState(placeState: PlaceState) {
-        _placeStateLiveData.postValue(placeState)
     }
 }

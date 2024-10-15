@@ -32,7 +32,7 @@ internal class RegionInteractorImpl(
         return regionSpRepository.getPlaceDataFilter()
     }
 
-    override suspend fun updatePlaceInDataFilter(placeDto: Place): Int {
-        return regionSpRepository.updatePlaceInDataFilter(placeDto)
+    override suspend fun updatePlaceInDataFilter(place: Place): Int {
+        return regionSpRepository.updatePlaceInDataFilter(place)
     }
 }

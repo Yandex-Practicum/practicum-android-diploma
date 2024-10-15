@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.commonutils.debounce
-import ru.practicum.android.diploma.filter.R
 import ru.practicum.android.diploma.filter.databinding.FragmentCountryBinding
 import ru.practicum.android.diploma.filter.place.domain.model.Country
+import ru.practicum.android.diploma.filter.place.domain.model.Place
 import ru.practicum.android.diploma.filter.place.presentation.ui.adapters.PlacesAdapter
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.RegionsCountriesViewModel
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.CountryState
@@ -107,9 +107,14 @@ internal class CountryFragment : Fragment() {
 
     private fun initDebounce() {
         countryClickDebounce = onCountryClickDebounce {
-            findNavController().navigate(
-                R.id.action_countryFragment_to_placeFragment,
-                PlaceFragment.createArgsCounty(it.id, it.name)
+            findNavController().navigateUp()
+            regionsCountriesViewModel.setPlaceInDataFilter(
+                Place(
+                    idCountry = it.id,
+                    nameCountry = it.name,
+                    idRegion = null,
+                    nameRegion = null
+                )
             )
         }
     }

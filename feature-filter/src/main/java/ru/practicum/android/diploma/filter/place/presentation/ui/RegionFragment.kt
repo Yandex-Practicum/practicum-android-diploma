@@ -4,8 +4,8 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -17,6 +17,7 @@ import ru.practicum.android.diploma.commonutils.Utils
 import ru.practicum.android.diploma.commonutils.debounce
 import ru.practicum.android.diploma.ui.R
 import ru.practicum.android.diploma.filter.databinding.FragmentRegionBinding
+import ru.practicum.android.diploma.filter.place.domain.model.Place
 import ru.practicum.android.diploma.filter.place.domain.model.Region
 import ru.practicum.android.diploma.filter.place.presentation.ui.adapters.PlacesAdapter
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.RegionsCountriesViewModel
@@ -66,9 +67,11 @@ internal class RegionFragment : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint("NotifyDataSetChanged", "ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        regionsCountriesViewModel.initData()
 
         initDebounces()
 
@@ -90,6 +93,24 @@ internal class RegionFragment : Fragment() {
         binding.buttonBack.setOnClickListener {
             findNavController().navigateUp()
         }
+
+        binding.searchRegion.setOnTouchListener(onTouchListener)
+    }
+
+    private val onTouchListener: View.OnTouchListener = object : View.OnTouchListener {
+        @SuppressLint("ClickableViewAccessibility")
+        override fun onTouch(p0: View?, event: MotionEvent?): Boolean {
+            event?.let {
+                if (event.action == MotionEvent.ACTION_UP) {
+                    val drawableEnd = binding.searchRegion.compoundDrawables[2]
+                    if (drawableEnd != null && event.rawX >= (binding.searchRegion.right - 1.2 * drawableEnd.bounds.width())) {
+                        binding.searchRegion.text.clear()
+                        return true
+                    }
+                }
+            }
+            return false
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -101,7 +122,6 @@ internal class RegionFragment : Fragment() {
             }
 
             is RegionState.Content -> {
-                Log.e("state.regions", "state.regions\n ${state.regions}")
                 regionAdapter.updatePlaces(state.regions)
                 Utils.visibilityView(viewArray, binding.listRegions)
             }
@@ -125,7 +145,7 @@ internal class RegionFragment : Fragment() {
             }
 
             is PlaceState.ContentPlace -> {
-                regionsCountriesViewModel.getRegions(state.place.idCountry)
+                state.place.idCountry?.let { regionsCountriesViewModel.getRegions(it) }
             }
 
             is PlaceState.Empty -> {
@@ -140,9 +160,14 @@ internal class RegionFragment : Fragment() {
 
     private fun initDebounces() {
         regionClickDebounce = onRegionClickDebounce {
-            findNavController().navigate(
-                ru.practicum.android.diploma.filter.R.id.action_regionFragment_to_placeFragment,
-                PlaceFragment.createArgsRegion(it.parentId, it.parentName, it.id, it.name)
+            findNavController().navigateUp()
+            regionsCountriesViewModel.setPlaceInDataFilter(
+                Place(
+                    idCountry = it.parentId,
+                    nameCountry = it.parentName,
+                    idRegion = it.id,
+                    nameRegion = it.name
+                )
             )
         }
     }

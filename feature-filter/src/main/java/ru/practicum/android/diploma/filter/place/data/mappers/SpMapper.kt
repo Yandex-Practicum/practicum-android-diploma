@@ -18,10 +18,10 @@ object SpMapper {
     fun map(placeDto: PlaceDto) : Place {
         return with(placeDto) {
             Place(
-                idCountry = idCountry?:"",
-                nameCountry = nameCountry?:"",
+                idCountry = idCountry,
+                nameCountry = nameCountry,
                 idRegion = idRegion,
-                nameRegion = nameRegion?:""
+                nameRegion = nameRegion
             )
         }
     }
