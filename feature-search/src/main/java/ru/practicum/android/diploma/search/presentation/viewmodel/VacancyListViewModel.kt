@@ -8,15 +8,22 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.filter.filter.domain.usecase.FilterSPInteractor
 import ru.practicum.android.diploma.search.domain.models.PaginationInfo
 import ru.practicum.android.diploma.search.domain.models.Vacancy
+import ru.practicum.android.diploma.search.domain.models.sp.FilterSearch
 import ru.practicum.android.diploma.search.domain.usecase.VacanciesInteractor
 import ru.practicum.android.diploma.search.presentation.SearchScreenState
 
+private const val TAG: String = "VacancyListViewModel"
+private const val INTERNET_ERROR: String = "Check network connection"
+private const val PAGE_SIZE = 20
+private const val INDUSTRY_ID = "industry_id"
+private const val SALARY = "salary"
+private const val AREA_ID = "area_id"
+private const val ONLY_WITH_SALARY = "only_with_salary"
+
 internal class VacancyListViewModel(
     private val vacanciesInteractor: VacanciesInteractor,
-    private val filterSPInteractor: FilterSPInteractor,
     private val application: Application,
 ) : AndroidViewModel(application) {
 
@@ -33,23 +40,28 @@ internal class VacancyListViewModel(
     private var currentQuery: String = ""
     private var currentPage: Int = 0
 
-    private val queryFilter: Map<String, String>
+    private val queryFilter: MutableMap<String, String> = mutableMapOf()
 
     init {
         _screenStateLiveData.value = SearchScreenState.IDLE
         _vacancyListStateLiveData.value = VacancyListState.Empty
         _currentResultsCountLiveData.value = 0
-        queryFilter = filterSPInteractor.getAll()
+        viewModelScope.launch (Dispatchers.IO) {
+            initQueryFilter(vacanciesInteractor.getDataFilter())
+        }
     }
 
-    companion object {
-        private const val TAG: String = "VacancyListViewModel"
-        private const val INTERNET_ERROR: String = "Check network connection"
-        private const val PAGE_SIZE = 20
-        private const val INDUSTRY_ID = "industry_id"
-        private const val SALARY = "salary"
-        private const val AREA_ID = "area_id"
-        private const val ONLY_WITH_SALARY = "only_with_salary"
+    private fun initQueryFilter(filterSearch: FilterSearch) {
+        filterSearch.branchOfProfession?.let { queryFilter.put(INDUSTRY_ID, it) }
+        filterSearch.expectedSalary?.let { queryFilter.put(SALARY, it) }
+        filterSearch.doNotShowWithoutSalary.let { queryFilter.put(ONLY_WITH_SALARY, it.toString()) }
+        // !!!
+        filterSearch.placeSearch?.let { place ->
+            place.idRegion?.let { queryFilter.put(AREA_ID, it) }
+        }
+        filterSearch.placeSearch?.let { place ->
+            place.idCountry?.let { queryFilter.put(AREA_ID, it) }
+        }
     }
 
     fun initialSearch(query: String) {

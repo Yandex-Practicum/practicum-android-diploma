@@ -180,9 +180,18 @@
 
     <Button
         android:id="@+id/buttonApply"
-        style="@style/ButtonApply"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text="@string/filter_screens_apply_button"
+        android:gravity="center"
+        android:padding="@dimen/filterPadding"
+        android:textColor="@color/white"
+        android:textAppearance="@font/ys_display_medium"
+        android:textSize="@dimen/textSizeLittle"
+        android:textAllCaps="false"
+        android:layout_margin="@dimen/dimens_16"
+        android:backgroundTint="@color/blue"
         app:layout_constraintBottom_toTopOf="@id/buttonCancel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -190,6 +199,7 @@
     <Button
         android:id="@+id/buttonCancel"
         style="@style/ButtonCancel"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

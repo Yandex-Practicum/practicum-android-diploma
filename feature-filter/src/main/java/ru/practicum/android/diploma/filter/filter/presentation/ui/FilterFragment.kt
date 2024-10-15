@@ -19,6 +19,8 @@ internal class FilterFragment : Fragment() {
     private var filterSettings: FilterSettings = emptyFilterSetting()
     private var hasPlace = false
     private var hasProfession = false
+    private var hasSalary = false
+    private var hasDoNotShowWithoutSalary = false
 
     private var _binding: FragmentFilterBinding? = null
     private val binding get() = _binding!!
@@ -65,13 +67,26 @@ internal class FilterFragment : Fragment() {
 
     private fun renderDoNotShowWithoutSalaryFilter(filter: FilterSettings) {
         binding.checkBox.isChecked = filter.doNotShowWithoutSalary
+        if(binding.checkBox.isChecked) {
+            hasDoNotShowWithoutSalary = true
+            binding.buttonApply.visibility = View.VISIBLE
+            binding.buttonCancel.visibility = View.VISIBLE
+        } else {
+            renderStateButtonApply()
+            hasDoNotShowWithoutSalary = false
+        }
     }
 
     private fun renderExpectedSalaryFilter(filter: FilterSettings) {
         val salary = filter.expectedSalary
         if(salary != null) {
+            hasSalary = true
+            binding.buttonApply.visibility = View.VISIBLE
+            binding.buttonCancel.visibility = View.VISIBLE
             binding.editTextFilter.setText(salary)
         } else {
+            hasSalary = false
+            renderStateButtonApply()
             binding.editTextFilter.text?.clear()
         }
     }
@@ -81,6 +96,8 @@ internal class FilterFragment : Fragment() {
         if(profession != null) {
             binding.inputWorkIndustry.setText(profession)
             hasProfession = true
+            binding.buttonApply.visibility = View.VISIBLE
+            binding.buttonCancel.visibility = View.VISIBLE
             binding.clickWorkIndustry.visibility = View.GONE
             binding.clickWorkIndustryClear.visibility = View.VISIBLE
         } else {
@@ -90,6 +107,7 @@ internal class FilterFragment : Fragment() {
 
     private fun renderProfessionFilterClear() {
         hasProfession = false
+        renderStateButtonApply()
         binding.inputWorkIndustry.text?.clear()
         binding.clickWorkIndustry.visibility = View.VISIBLE
         binding.clickWorkIndustryClear.visibility = View.GONE
@@ -108,12 +126,16 @@ internal class FilterFragment : Fragment() {
                         )
                     )
                     hasPlace = true
+                    binding.buttonApply.visibility = View.VISIBLE
+                    binding.buttonCancel.visibility = View.VISIBLE
                     binding.clickWorkPlace.visibility = View.GONE
                     binding.clickWorkPlaceClear.visibility = View.VISIBLE
                 }
                 place.nameCountry != null && place.nameRegion == null -> {
                     binding.inputWorkPlace.setText(place.nameCountry)
                     hasPlace = true
+                    binding.buttonApply.visibility = View.VISIBLE
+                    binding.buttonCancel.visibility = View.VISIBLE
                     binding.clickWorkPlace.visibility = View.GONE
                     binding.clickWorkPlaceClear.visibility = View.VISIBLE
                 }
@@ -128,9 +150,17 @@ internal class FilterFragment : Fragment() {
 
     private fun renderPlaceFilterClear() {
         hasPlace = false
+        renderStateButtonApply()
         binding.inputWorkPlace.text?.clear()
         binding.clickWorkPlace.visibility = View.VISIBLE
         binding.clickWorkPlaceClear.visibility = View.GONE
+    }
+
+    private fun renderStateButtonApply() {
+        if(!hasPlace && !hasProfession && !hasSalary && !hasDoNotShowWithoutSalary) {
+            binding.buttonApply.visibility = View.GONE
+            binding.buttonCancel.visibility = View.GONE
+        }
     }
 
     private fun emptyFilterSetting(): FilterSettings {
