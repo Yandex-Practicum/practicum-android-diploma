@@ -59,12 +59,13 @@ class FilterSpImpl(
         return filterSp.getString(BRANCH_OF_PROFESSION_KEY_SP, null)
     }
 
+    @Suppress("detekt.SwallowedException")
     override suspend fun getExpectedSalaryDataFilter(): String? {
         var result: String? = null
         try {
             result = filterSp.getString(EXPECTED_SALARY_KEY_SP, null)
         } catch (e: ClassCastException) {
-            Log.d("FilterSpImpl", "SP to fix")
+            result = null
         }
         return result
     }
