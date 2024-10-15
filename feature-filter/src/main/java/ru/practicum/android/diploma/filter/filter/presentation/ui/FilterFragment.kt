@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.filter.filter.presentation.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,10 @@ import ru.practicum.android.diploma.filter.filter.presentation.viewmodel.FilterV
 
 const val ARGS_INDUSTRY_ID = "industry_id"
 const val ARGS_INDUSTRY_NAME = "industry_name"
+const val ARGS_PLACE_COUNTRY_ID = "id_country"
+const val ARGS_PLACE_COUNTRY_NAME = "name_country"
+const val ARGS_PLACE_REGION_ID = "id_region"
+const val ARGS_PLACE_REGION_NAME = "name_region"
 
 internal class FilterFragment : Fragment() {
     private var _binding: FragmentFilterBinding? = null
@@ -41,11 +46,23 @@ internal class FilterFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     private fun updateUI(map: Map<String, String>?) {
         if (map?.get(ARGS_INDUSTRY_NAME) != null) { // ❗❗ нужны нормальные вьюхи...
             binding.workIndustry.visibility = INVISIBLE
             binding.workIndustryInfo.isVisible = true
             binding.workIndustryInfo.text = map[ARGS_INDUSTRY_NAME]
+        }
+
+        if (map?.get(ARGS_PLACE_COUNTRY_NAME) != null) {
+            binding.workPlace.visibility = INVISIBLE
+            binding.workPlaceInfo.isVisible = true
+            if (map?.get(ARGS_PLACE_REGION_NAME) == null ||
+                map?.get(ARGS_PLACE_REGION_NAME) == "") {
+                binding.workPlaceInfo.text = map[ARGS_PLACE_COUNTRY_NAME]
+            } else {
+                binding.workPlaceInfo.text = map[ARGS_PLACE_COUNTRY_NAME] + ", " + map[ARGS_PLACE_REGION_NAME]
+            }
         }
 
         // ⬅️ add your ui logic here ❗
@@ -70,8 +87,35 @@ internal class FilterFragment : Fragment() {
             }
 
             // ⬅️ add your fragment branches here ❗
+            R.id.placeFragment -> {
+                val args = getArguments()
+                if (args != null) { // if we get arguments - SP is updated
+                    val placeCountryID = args.getString(ARGS_PLACE_COUNTRY_ID)
+                    val placeCountryName = args.getString(ARGS_PLACE_COUNTRY_NAME)
+                    val placeRegionID = args.getString(ARGS_PLACE_REGION_ID)
+                    val placeRegionName = args.getString(ARGS_PLACE_REGION_NAME)
+                    if (placeCountryID != null) {
+                        viewModel.putValue(ARGS_PLACE_COUNTRY_ID, placeCountryID)
+                    }
+                    if (placeCountryName != null) {
+                        viewModel.putValue(ARGS_PLACE_COUNTRY_NAME, placeCountryName)
+                    }
+                    if (placeCountryName != null && placeRegionName == null) {
+                        viewModel.putValue(ARGS_PLACE_REGION_NAME, "")
+                    }
+                    if (placeRegionID != null) {
+                        viewModel.putValue(ARGS_PLACE_REGION_ID, placeRegionID)
+                    }
+                    if (placeRegionName != null) {
+                        viewModel.putValue(ARGS_PLACE_REGION_NAME, placeRegionName)
+                    }
+                }
+                viewModel.loadFilterSettings()
+            }
 
-            else -> { viewModel.loadFilterSettings() } // if none of the sub-screens' actions was used - just
+            else -> {
+                viewModel.loadFilterSettings()
+            } // if none of the sub-screens' actions was used - just
             // load the filter settings
         }
     }
@@ -79,6 +123,9 @@ internal class FilterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.workPlace.setOnClickListener {
+            findNavController().navigate(R.id.action_filterFragment_to_placeFragment)
+        }
+        binding.workPlaceInfo.setOnClickListener {
             findNavController().navigate(R.id.action_filterFragment_to_placeFragment)
         }
         binding.workIndustry.setOnClickListener {

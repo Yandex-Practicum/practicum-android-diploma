@@ -27,6 +27,9 @@
         <action
             android:id="@+id/action_placeFragment_to_regionFragment"
             app:destination="@id/regionFragment" />
+        <action
+            android:id="@+id/action_placeFragment_to_filterFragment"
+            app:destination="@id/filterFragment" />
     </fragment>
     <fragment
         android:id="@+id/countryFragment"
