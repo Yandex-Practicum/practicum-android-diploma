@@ -20,6 +20,7 @@ const val ARGS_PLACE_COUNTRY_ID = "id_country"
 const val ARGS_PLACE_COUNTRY_NAME = "name_country"
 const val ARGS_PLACE_REGION_ID = "id_region"
 const val ARGS_PLACE_REGION_NAME = "name_region"
+const val AREA_ID = "area_id"
 
 internal class FilterFragment : Fragment() {
     private var _binding: FragmentFilterBinding? = null
@@ -96,6 +97,7 @@ internal class FilterFragment : Fragment() {
                     val placeRegionName = args.getString(ARGS_PLACE_REGION_NAME)
                     if (placeCountryID != null) {
                         viewModel.putValue(ARGS_PLACE_COUNTRY_ID, placeCountryID)
+                        viewModel.putValue(AREA_ID, placeCountryID)
                     }
                     if (placeCountryName != null) {
                         viewModel.putValue(ARGS_PLACE_COUNTRY_NAME, placeCountryName)
@@ -105,6 +107,7 @@ internal class FilterFragment : Fragment() {
                     }
                     if (placeRegionID != null) {
                         viewModel.putValue(ARGS_PLACE_REGION_ID, placeRegionID)
+                        viewModel.putValue(AREA_ID, placeRegionID)
                     }
                     if (placeRegionName != null) {
                         viewModel.putValue(ARGS_PLACE_REGION_NAME, placeRegionName)
