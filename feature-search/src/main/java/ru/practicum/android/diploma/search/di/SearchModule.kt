@@ -35,6 +35,6 @@ val searchModule = module {
     }
 
     viewModel {
-        VacancyListViewModel(get(), androidApplication())
+        VacancyListViewModel(get(), get(), androidApplication())
     }
 }

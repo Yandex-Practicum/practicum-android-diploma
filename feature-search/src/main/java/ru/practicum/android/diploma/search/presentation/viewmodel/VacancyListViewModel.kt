@@ -1,12 +1,14 @@
 package ru.practicum.android.diploma.search.presentation.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.filter.filter.domain.usecase.impl.FilterSPInteractor
 import ru.practicum.android.diploma.search.domain.models.PaginationInfo
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.domain.usecase.VacanciesInteractor
@@ -16,6 +18,7 @@ private const val PAGE_SIZE = 20
 
 internal class VacancyListViewModel(
     private val vacanciesInteractor: VacanciesInteractor,
+    private val filterSPInteractor: FilterSPInteractor,
     private val application: Application,
 ) : AndroidViewModel(application) {
 
@@ -32,10 +35,13 @@ internal class VacancyListViewModel(
     private var currentQuery: String = ""
     private var currentPage: Int = 0
 
+    private val queryFilter: Map<String, String>
+
     init {
         _screenStateLiveData.value = SearchScreenState.IDLE
         _vacancyListStateLiveData.value = VacancyListState.Empty
         _currentResultsCountLiveData.value = 0
+        queryFilter = filterSPInteractor.getAll()
     }
 
     companion object {
@@ -46,20 +52,29 @@ internal class VacancyListViewModel(
     fun initialSearch(query: String) {
         _screenStateLiveData.postValue(SearchScreenState.LOADING_NEW_LIST)
         currentQuery = query
+
+        Log.d(TAG, queryFilter.toString())
         viewModelScope.launch(Dispatchers.IO) {
-            vacanciesInteractor.searchVacancies(page = "0", perPage = "${PAGE_SIZE}", queryText = query)
-                .collect { response ->
-                    if (response.first != null) {
-                        paginationInfo = response.first ?: paginationInfo
-                        parseNewList(paginationInfo.items)
+            vacanciesInteractor.searchVacancies(
+                page = "0",
+                perPage = "${PAGE_SIZE}",
+                queryText = query,
+                industry = queryFilter.get("industry_id"),
+                salary = queryFilter.get("salary"),
+                area = queryFilter.get("area_id"),
+                only_with_salary = queryFilter.get("industry_id").toBoolean()
+            ).collect { response ->
+                if (response.first != null) {
+                    paginationInfo = response.first ?: paginationInfo
+                    parseNewList(paginationInfo.items)
+                } else {
+                    if (response.second == INTERNET_ERROR) {
+                        parseError(SearchScreenState.Error.NO_INTERNET_ERROR)
                     } else {
-                        if (response.second == INTERNET_ERROR) {
-                            parseError(SearchScreenState.Error.NO_INTERNET_ERROR)
-                        } else {
-                            parseError(SearchScreenState.Error.SERVER_ERROR)
-                        }
+                        parseError(SearchScreenState.Error.SERVER_ERROR)
                     }
                 }
+            }
         }
     }
 
@@ -78,7 +93,11 @@ internal class VacancyListViewModel(
             vacanciesInteractor.searchVacancies(
                 page = (currentPage + 1).toString(),
                 perPage = "${PAGE_SIZE}",
-                queryText = currentQuery
+                queryText = currentQuery,
+                industry = queryFilter.get("industry_id"),
+                salary = queryFilter.get("salary"),
+                area = queryFilter.get("area_id"),
+                only_with_salary = queryFilter.get("industry_id").toBoolean()
             ).collect { response ->
                 if (response.first != null) {
                     paginationInfo = response.first ?: paginationInfo

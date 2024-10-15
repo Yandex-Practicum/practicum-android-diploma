@@ -32,14 +32,29 @@ internal class VacanciesRepositoryImpl(
     private val areaConverter: AreaConverter,
     private val context: Context,
 ) : VacanciesRepository {
-    override fun searchVacancies(page: String, perPage: String, queryText: String): Flow<Resource<PaginationInfo>> {
-        val options = mapOf(
+    override fun searchVacancies(
+        page: String,
+        perPage: String,
+        queryText: String,
+        industry: String?,
+        salary: String?,
+        area: String?,
+        only_with_salary: Boolean,
+    ): Flow<Resource<PaginationInfo>> {
+        val options = mutableMapOf(
             "page" to page,
             "per_page" to perPage,
-            "text" to queryText
+            "text" to queryText,
+            "only_with_salary" to only_with_salary.toString(),
         )
-        return context.executeNetworkRequest<Response, PaginationInfo>(
-            request = { networkClient.doRequest(HHApiVacanciesRequest(options)) },
+        industry?.let { options["industry"] = industry }
+        salary?.let { options["salary"] = salary }
+        area?.let { options["area"] = area }
+        return context.executeNetworkRequest<Response, PaginationInfo>(request = {
+            networkClient.doRequest(
+                HHApiVacanciesRequest(options)
+            )
+        },
             successHandler = { response: Response ->
                 Resource.Success(
                     PaginationInfo(
@@ -49,17 +64,17 @@ internal class VacanciesRepositoryImpl(
                         response.found
                     )
                 )
-            }
-        )
+            })
     }
 
     override fun listVacancy(id: String): Flow<Resource<VacancyDetail>> =
-        context.executeNetworkRequest<Response, VacancyDetail>(
-            request = { networkClient.doRequest(HHApiVacancyRequest(id)) },
-            successHandler = { response: Response ->
-                Resource.Success(vacancyConverter.map(response as HHVacancyDetailResponse))
-            }
-        )
+        context.executeNetworkRequest<Response, VacancyDetail>(request = {
+            networkClient.doRequest(
+                HHApiVacancyRequest(id)
+            )
+        }, successHandler = { response: Response ->
+            Resource.Success(vacancyConverter.map(response as HHVacancyDetailResponse))
+        })
 
     override fun listAreas(): Flow<Resource<RegionList>> = context.executeNetworkRequest<Response, RegionList>(
         request = { networkClient.doRequest(HHApiRegionsRequest) },
@@ -69,10 +84,9 @@ internal class VacanciesRepositoryImpl(
     )
 
     override fun listIndustries(): Flow<Resource<List<IndustryList>>> =
-        context.executeNetworkRequest<Response, List<IndustryList>>(
-            request = { networkClient.doRequest(HHApiIndustriesRequest) },
-            successHandler = { response: Response ->
-                Resource.Success(industryConverter.map(response as HHIndustriesResponse))
-            }
-        )
+        context.executeNetworkRequest<Response, List<IndustryList>>(request = {
+            networkClient.doRequest(HHApiIndustriesRequest)
+        }, successHandler = { response: Response ->
+            Resource.Success(industryConverter.map(response as HHIndustriesResponse))
+        })
 }
