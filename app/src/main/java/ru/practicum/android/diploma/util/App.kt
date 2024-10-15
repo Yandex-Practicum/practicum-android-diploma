@@ -11,7 +11,7 @@ import ru.practicum.android.diploma.di.dataModule
 import ru.practicum.android.diploma.di.interactorModule
 import ru.practicum.android.diploma.di.repositoryModule
 import ru.practicum.android.diploma.di.viewModelModule
-import ru.practicum.android.diploma.filters.domain.api.FilterAreaRepository
+import ru.practicum.android.diploma.filters.areas.domain.api.FilterAreaRepository
 
 class App : Application() {
 

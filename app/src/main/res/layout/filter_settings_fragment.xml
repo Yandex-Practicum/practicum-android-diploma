@@ -4,7 +4,7 @@
     xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tool:context=".filters.ui.FilterSettingsFragment">
+    tool:context=".filters.base.ui.FilterSettingsFragment">
 
     <Toolbar
         android:id="@+id/tool_bar"

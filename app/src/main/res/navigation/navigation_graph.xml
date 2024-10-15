@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/filterSettingsFragment"
-        android:name="ru.practicum.android.diploma.filters.ui.FilterSettingsFragment"
+        android:name="ru.practicum.android.diploma.filters.base.ui.FilterSettingsFragment"
         android:label="filter_settings_fragment"
         tools:layout="@layout/filter_settings_fragment" >
         <action
@@ -31,19 +31,19 @@
     </fragment>
     <fragment
         android:id="@+id/citySelectFragment"
-        android:name="ru.practicum.android.diploma.filters.ui.CitySelectFragment"
+        android:name="ru.practicum.android.diploma.filters.areas.ui.CitySelectFragment"
         android:label="city_select_fragment"
         tools:layout="@layout/city_select_fragment" />
     <fragment
         android:id="@+id/countrySelectFragment"
-        android:name="ru.practicum.android.diploma.filters.ui.CountrySelectFragment"
+        android:name="ru.practicum.android.diploma.filters.areas.ui.CountrySelectFragment"
         android:label="country_select_fragment"
         tools:layout="@layout/country_select_fragment" />
     <fragment
         android:id="@+id/branchSelectFragment"
-        android:name="ru.practicum.android.diploma.filters.ui.IndustrySelectFragment"
+        android:name="ru.practicum.android.diploma.filters.industries.ui.IndustrySelectFragment"
         android:label="branch_select_fragment"
-        tools:layout="@layout/branch_select_fragment" />
+        tools:layout="@layout/industry_select_fragment" />
     <fragment
         android:id="@+id/teamInfoFragment"
         android:name="ru.practicum.android.diploma.info.ui.TeamInfoFragment"
@@ -65,7 +65,7 @@
     </fragment>
     <fragment
         android:id="@+id/workingRegionFragment"
-        android:name="ru.practicum.android.diploma.filters.ui.WorkingRegionFragment"
+        android:name="ru.practicum.android.diploma.filters.areas.ui.WorkingRegionFragment"
         android:label="working_region_fragment"
         tools:layout="@layout/working_region_fragment">
         <action

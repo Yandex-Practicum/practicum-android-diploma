@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".filters.ui.CountrySelectFragment">
+    tools:context=".filters.areas.ui.CountrySelectFragment">
 
     <Toolbar
         android:id="@+id/tool_bar"
