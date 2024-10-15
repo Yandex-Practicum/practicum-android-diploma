@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FavoriteFragmentBinding
-import ru.practicum.android.diploma.favorite.presintation.FavoriteScreenState
-import ru.practicum.android.diploma.favorite.presintation.FavoriteVacancyViewModel
+import ru.practicum.android.diploma.favorite.presentation.FavoriteScreenState
+import ru.practicum.android.diploma.favorite.presentation.FavoriteVacancyViewModel
 import ru.practicum.android.diploma.favorite.ui.presenter.FavoriteRecycleViewAdapter
 import ru.practicum.android.diploma.search.domain.models.VacancySearch
 import ru.practicum.android.diploma.vacancy.ui.VacancyDetailFragment
@@ -22,8 +22,7 @@ class FavoriteFragment : Fragment() {
     private val viewModel: FavoriteVacancyViewModel by viewModel()
     private var _binding: FavoriteFragmentBinding? = null
     private val binding get() = _binding!!
-    private val vacancies = mutableListOf<VacancySearch>()
-    private var adapter: FavoriteRecycleViewAdapter? = null
+    private var favoriteRecycleViewAdapter: FavoriteRecycleViewAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,18 +33,19 @@ class FavoriteFragment : Fragment() {
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+
+        favoriteRecycleViewAdapter = FavoriteRecycleViewAdapter { vacancy -> openVacancyDetails(vacancy.id) }
+        recyclerViewInit()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recyclerViewInit()
 
         viewModel.observeState().observe(viewLifecycleOwner) {
             render(it)
         }
-
-        viewModel.getVacancyClickEvent().observe(viewLifecycleOwner) {
-            openVacancyDetails(it)
-        }
-
     }
 
     private fun render(state: FavoriteScreenState) {
@@ -57,9 +57,9 @@ class FavoriteFragment : Fragment() {
     }
 
     private fun showContent(vacancy: List<VacancySearch>) {
-        vacancies.clear()
-        vacancies.addAll(vacancy)
-        adapter?.notifyDataSetChanged()
+        favoriteRecycleViewAdapter?.vacancyList?.clear()
+        favoriteRecycleViewAdapter?.vacancyList?.addAll(vacancy)
+        favoriteRecycleViewAdapter?.notifyDataSetChanged()
         binding.recyclerView.isVisible = true
         binding.notFoundPlaceholder.isVisible = false
         binding.canNotGetVacanciesPlaceholder.isVisible = false
@@ -79,10 +79,7 @@ class FavoriteFragment : Fragment() {
 
     private fun recyclerViewInit() {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        adapter = FavoriteRecycleViewAdapter(vacancies) { vacancy ->
-            viewModel.onVacancyClick(vacancy)
-        }
-        binding.recyclerView.adapter = adapter
+        binding.recyclerView.adapter = favoriteRecycleViewAdapter
     }
 
     private fun openVacancyDetails(vacancyId: String) {
