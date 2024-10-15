@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.commonutils.Utils
 import ru.practicum.android.diploma.commonutils.debounce
-import ru.practicum.android.diploma.ui.R
 import ru.practicum.android.diploma.filter.databinding.FragmentRegionBinding
 import ru.practicum.android.diploma.filter.place.domain.model.Place
 import ru.practicum.android.diploma.filter.place.domain.model.Region
@@ -23,6 +22,7 @@ import ru.practicum.android.diploma.filter.place.presentation.ui.adapters.Places
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.RegionsCountriesViewModel
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.PlaceState
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.RegionState
+import ru.practicum.android.diploma.ui.R
 
 private const val DELAY_CLICK_ITEM = 250L
 private const val INDEX_DRAWABLE_RIGHT = 2

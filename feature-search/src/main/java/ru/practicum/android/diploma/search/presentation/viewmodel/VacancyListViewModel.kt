@@ -1,13 +1,9 @@
 package ru.practicum.android.diploma.search.presentation.viewmodel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.search.domain.models.PaginationInfo
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.domain.usecase.VacanciesInteractor
@@ -15,7 +11,7 @@ import ru.practicum.android.diploma.search.presentation.SearchScreenState
 
 internal class VacancyListViewModel(
     private val vacanciesInteractor: VacanciesInteractor,
-    //private val filterSPInteractor: FilterSPInteractor,
+    // private val filterSPInteractor: FilterSPInteractor,
     private val application: Application,
 ) : AndroidViewModel(application) {
 
@@ -32,13 +28,13 @@ internal class VacancyListViewModel(
     private var currentQuery: String = ""
     private var currentPage: Int = 0
 
-    //private val queryFilter: Map<String, String>
+    // private val queryFilter: Map<String, String>
 
     init {
         _screenStateLiveData.value = SearchScreenState.IDLE
         _vacancyListStateLiveData.value = VacancyListState.Empty
         _currentResultsCountLiveData.value = 0
-        //queryFilter = filterSPInteractor.getAll()
+        // queryFilter = filterSPInteractor.getAll()
     }
 
     companion object {
@@ -55,7 +51,7 @@ internal class VacancyListViewModel(
         _screenStateLiveData.postValue(SearchScreenState.LOADING_NEW_LIST)
         currentQuery = query
 
-        //Log.d(TAG, queryFilter.toString())
+        // Log.d(TAG, queryFilter.toString())
 //        viewModelScope.launch(Dispatchers.IO) {
 //            vacanciesInteractor.searchVacancies(
 //                page = "0",

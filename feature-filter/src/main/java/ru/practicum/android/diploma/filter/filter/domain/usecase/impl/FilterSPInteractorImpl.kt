@@ -6,7 +6,8 @@ import ru.practicum.android.diploma.filter.filter.domain.repository.FilterSPRepo
 import ru.practicum.android.diploma.filter.industry.domain.model.IndustryModel
 import ru.practicum.android.diploma.filter.place.domain.model.Place
 
-class FilterSPInteractorImpl(private val repository: FilterSPRepository) : FilterSPInteractor { //раз нужен в search, то снимаю internal
+class FilterSPInteractorImpl(private val repository: FilterSPRepository) : FilterSPInteractor { // раз нужен в search,
+    // то снимаю internal
     override suspend fun clearDataFilter() {
         repository.clearDataFilter()
     }
@@ -55,6 +56,4 @@ class FilterSPInteractorImpl(private val repository: FilterSPRepository) : Filte
         repository.clearIndustryFilter()
     }
 
-
 }
-

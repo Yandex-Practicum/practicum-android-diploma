@@ -7,7 +7,6 @@ import ru.practicum.android.diploma.filter.place.domain.model.Place
 
 interface FilterSPRepository {
     suspend fun clearDataFilter()
-    //suspend fun getPlaceDataFilter(): Flow<Place?> todo delete не нужен
     suspend fun getBranchOfProfessionDataFilter(): Flow<String?>
     suspend fun getExpectedSalaryDataFilter(): Flow<Int?>
     suspend fun isDoNotShowWithoutSalaryDataFilter(): Flow<Boolean>

@@ -4,7 +4,6 @@ import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
-import ru.practicum.android.diploma.data.sp.api.FilterSp
 import ru.practicum.android.diploma.filter.filter.data.repositoryimpl.DtoToModelMapper
 import ru.practicum.android.diploma.filter.filter.data.repositoryimpl.FilterSPRepositoryImpl
 import ru.practicum.android.diploma.filter.filter.data.repositoryimpl.ModelToDtoMapper
@@ -15,12 +14,12 @@ import ru.practicum.android.diploma.filter.filter.presentation.viewmodel.FilterV
 
 val filterModule = module {
 
-//todo finish? добавить FilterSp??
+// finish? добавить FilterSp??
 
     singleOf(::FilterSPRepositoryImpl) bind FilterSPRepository::class
     singleOf(::FilterSPInteractorImpl) bind FilterSPInteractor::class
     singleOf(::DtoToModelMapper)
     singleOf(::ModelToDtoMapper)
 
-    viewModelOf(::FilterViewModel) //в аду я видел крутиться и жонглировать геты новых/старых параметров
+    viewModelOf(::FilterViewModel) // в аду я видел крутиться и жонглировать геты новых/старых параметров
 }

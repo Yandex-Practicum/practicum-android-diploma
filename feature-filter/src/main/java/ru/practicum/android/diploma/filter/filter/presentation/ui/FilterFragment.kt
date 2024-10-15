@@ -68,14 +68,13 @@ internal class FilterFragment : Fragment() {
                 binding.industryButton.setImageResource(ru.practicum.android.diploma.ui.R.drawable.clear)
             }
             if (state.doNotShowWithoutSalary == true) {
-                binding.checkBox.isChecked=true
+                binding.checkBox.isChecked = true
             }
             if (state.expectedSalary != null) {
-                binding.textViewSalary.editText?.setText(state.expectedSalary) // todo жду рабочего view?
+                binding.textViewSalary.editText?.setText(state.expectedSalary) // ❗❗ жду рабочего view?
             }
         }
     }
-
 
     private fun receiveBundles(destinationID: Int) {
         when (destinationID) { // use destinationID to determine the bundle contents type
@@ -86,7 +85,7 @@ internal class FilterFragment : Fragment() {
                     val industryID = args.getString(ARGS_INDUSTRY_ID)
                     val industryName = args.getString(ARGS_INDUSTRY_NAME)
                     if (industryID != null && industryName != null) {
-                        viewModel.updateProfessionInDataFilter(IndustryModel(industryID,industryName))
+                        viewModel.updateProfessionInDataFilter(IndustryModel(industryID, industryName))
                     }
                 }
                 viewModel.loadFilterSettings() // even in case of no arguments filter settings are loaded
@@ -117,11 +116,14 @@ internal class FilterFragment : Fragment() {
             findNavController().navigateUp()
         }
         binding.checkBox.setOnCheckedChangeListener { _, b ->
-            (viewModel.updateDoNotShowWithoutSalaryInDataFilter(b))
+            viewModel.updateDoNotShowWithoutSalaryInDataFilter(b)
         }
         binding.industryButton.setOnClickListener {
             val currentDrawable = binding.industryButton.drawable
-            val clearDrawable = ContextCompat.getDrawable(requireContext(), ru.practicum.android.diploma.ui.R.drawable.clear)
+            val clearDrawable = ContextCompat.getDrawable(
+                requireContext(),
+                ru.practicum.android.diploma.ui.R.drawable.clear
+            )
 
             if (currentDrawable?.constantState == clearDrawable?.constantState) {
                 viewModel.clearIndustryFilter()
@@ -129,7 +131,10 @@ internal class FilterFragment : Fragment() {
         }
         binding.placeButton.setOnClickListener {
             val currentDrawable = binding.placeButton.drawable
-            val clearDrawable = ContextCompat.getDrawable(requireContext(), ru.practicum.android.diploma.ui.R.drawable.clear)
+            val clearDrawable = ContextCompat.getDrawable(
+                requireContext(),
+                ru.practicum.android.diploma.ui.R.drawable.clear
+            )
 
             if (currentDrawable?.constantState == clearDrawable?.constantState) {
                 viewModel.clearIndustryFilter()

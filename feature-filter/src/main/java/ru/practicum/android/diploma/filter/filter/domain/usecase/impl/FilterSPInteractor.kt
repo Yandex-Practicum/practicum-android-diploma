@@ -12,11 +12,10 @@ interface FilterSPInteractor {
     suspend fun isDoNotShowWithoutSalaryDataFilter(): Flow<Boolean>
     suspend fun getDataFilter(): Flow<FilterSettingsModel>
     suspend fun updatePlaceInDataFilter(place: Place): Flow<Int>
-    suspend fun updateProfessionInDataFilter(industry : IndustryModel): Flow<Int>
+    suspend fun updateProfessionInDataFilter(industry: IndustryModel): Flow<Int>
     suspend fun updateSalaryInDataFilter(expectedSalary: Int): Flow<Int>
     suspend fun updateDoNotShowWithoutSalaryInDataFilter(doNotShowWithoutSalary: Boolean): Flow<Int>
     suspend fun clearSalaryFilter()
     suspend fun clearPlaceFilter()
     suspend fun clearIndustryFilter()
 }
-

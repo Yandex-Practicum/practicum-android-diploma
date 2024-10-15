@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.search.di
 
-
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.dsl.singleOf
@@ -51,6 +50,5 @@ val searchModule = module {
     single<VacanciesRepository> {
         VacanciesRepositoryImpl(get(), get(), get(), get(), androidContext())
     }
-
 
 }
