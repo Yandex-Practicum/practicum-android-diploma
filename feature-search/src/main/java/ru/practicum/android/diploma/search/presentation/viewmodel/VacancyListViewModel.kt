@@ -8,7 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.filter.filter.domain.usecase.impl.FilterSPInteractor
+import ru.practicum.android.diploma.filter.filter.domain.usecase.FilterSPInteractor
 import ru.practicum.android.diploma.search.domain.models.PaginationInfo
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.domain.usecase.VacanciesInteractor

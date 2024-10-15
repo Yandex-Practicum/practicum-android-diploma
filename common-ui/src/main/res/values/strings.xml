@@ -123,4 +123,6 @@
         <item quantity="other">Найдено %1$d вакансий</item>
     </plurals>
 
+    <string name="filter_place_form">%s, %s</string>
+
 </resources>

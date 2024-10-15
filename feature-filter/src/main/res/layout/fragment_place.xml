@@ -56,7 +56,7 @@
                 android:paddingVertical="2dp"
                 android:paddingStart="@dimen/textPadding"
                 android:textColor="@color/primaryTextAndUIColor"
-                android:textColorHint="@color/searchBarHintBgColor"
+                android:textColorHint="@color/grey"
                 android:textSize="@dimen/dimen_sp16" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -112,7 +112,7 @@
                 android:paddingVertical="2dp"
                 android:paddingStart="@dimen/textPadding"
                 android:textColor="@color/primaryTextAndUIColor"
-                android:textColorHint="@color/searchBarHintBgColor"
+                android:textColorHint="@color/grey"
                 android:textSize="@dimen/dimen_sp16" />
         </com.google.android.material.textfield.TextInputLayout>
 

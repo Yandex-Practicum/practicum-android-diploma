@@ -1,9 +1,8 @@
-package ru.practicum.android.diploma.filter.filter.domain.repository
+package ru.practicum.android.diploma.filter.filter.domain.usecase
 
 import ru.practicum.android.diploma.filter.filter.domain.model.FilterSettings
 
-interface FilterSPRepository {
-
+interface FilterSPInteractor {
     suspend fun clearDataFilter()
 
     suspend fun getExpectedSalaryDataFilter(): String?

@@ -1,23 +1,43 @@
 package ru.practicum.android.diploma.filter.filter.data.repositoryimpl.sp
 
-import android.content.SharedPreferences
+import ru.practicum.android.diploma.data.sp.api.FilterSp
+import ru.practicum.android.diploma.filter.filter.data.mappers.FilterMapper
+import ru.practicum.android.diploma.filter.filter.domain.model.FilterSettings
 import ru.practicum.android.diploma.filter.filter.domain.repository.FilterSPRepository
 
-class FilterSPRepositoryImpl(private val sharedPreferences: SharedPreferences) : FilterSPRepository {
-    override fun putValue(key: String, value: String): Boolean {
-        return sharedPreferences.edit().putString(key, value).commit()
+class FilterSPRepositoryImpl(
+    val filterSp: FilterSp
+) : FilterSPRepository {
+
+    override suspend fun clearDataFilter() {
+        filterSp.clearDataFilter()
     }
 
-    override fun getValue(key: String): String? {
-        return sharedPreferences.getString(key, "")
+    override suspend fun getExpectedSalaryDataFilter():String? {
+        return filterSp.getExpectedSalaryDataFilter()
     }
 
-    override fun getAll(): Map<String, String> {
-        val sharedPrefs = sharedPreferences.all
-        val newSP: MutableMap<String, String> = mutableMapOf()
-        for (value in sharedPrefs) {
-            newSP[value.key] = value.value.toString()
-        }
-        return newSP
+    override suspend fun isDoNotShowWithoutSalaryDataFilter(): Boolean {
+        return filterSp.isDoNotShowWithoutSalaryDataFilter()
+    }
+
+    override suspend fun getDataFilter(): FilterSettings {
+        return FilterMapper.map(filterSp.getDataFilter())
+    }
+
+    override suspend fun clearPlaceInDataFilter(): Int {
+        return filterSp.updatePlaceInDataFilter(FilterMapper.mapClear())
+    }
+
+    override suspend fun clearProfessionInDataFilter(): Int {
+        return filterSp.updateProfessionInDataFilter(null)
+    }
+
+    override suspend fun updateSalaryInDataFilter(expectedSalary: String): Int {
+        return filterSp.updateSalaryInDataFilter(expectedSalary)
+    }
+
+    override suspend fun updateDoNotShowWithoutSalaryInDataFilter(doNotShowWithoutSalary: Boolean): Int {
+        return filterSp.updateDoNotShowWithoutSalaryInDataFilter(doNotShowWithoutSalary)
     }
 }
