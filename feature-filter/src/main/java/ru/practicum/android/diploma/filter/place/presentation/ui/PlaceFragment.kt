@@ -128,7 +128,9 @@ internal class PlaceFragment : Fragment() {
             R.id.clickCountry, R.id.country, R.id.inputCountry, R.id.inputCountryLayout -> {
                 navigateTo(R.id.action_placeFragment_to_countryFragment)
             }
-            R.id.clickRegion, R.id.region, R.id.inputRegion, R.id.inputRegionLayout -> navigateTo(R.id.action_placeFragment_to_regionFragment)
+            R.id.clickRegion, R.id.region, R.id.inputRegion, R.id.inputRegionLayout -> {
+                navigateTo(R.id.action_placeFragment_to_regionFragment)
+            }
             R.id.clickCountryClear -> clearCountrySelection()
             R.id.clickRegionClear -> clearRegionSelection()
             R.id.selectButton -> {

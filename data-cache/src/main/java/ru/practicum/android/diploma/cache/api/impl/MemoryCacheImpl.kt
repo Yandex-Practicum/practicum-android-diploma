@@ -5,13 +5,16 @@ import ru.practicum.android.diploma.cache.api.MemoryCache
 import ru.practicum.android.diploma.cache.dto.CountryCache
 
 private const val CACHE_KEY = "cache_key"
-class MemoryCacheImpl() : MemoryCache {
+private const val ONE_MEGABYTE = 1024
+private const val ONE_EIGHTH_SECTION = 8
+
+class MemoryCacheImpl : MemoryCache {
 
     private val cache: LruCache<String, List<CountryCache>>
 
     init {
-        val maxMemory = (Runtime.getRuntime().maxMemory() / 1024).toInt()
-        val cacheSize = maxMemory / 8
+        val maxMemory = (Runtime.getRuntime().maxMemory() / ONE_MEGABYTE).toInt()
+        val cacheSize = maxMemory / ONE_EIGHTH_SECTION
         cache = LruCache(cacheSize)
     }
 

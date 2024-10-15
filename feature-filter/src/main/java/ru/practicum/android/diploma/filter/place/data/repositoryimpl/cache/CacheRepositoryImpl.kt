@@ -9,7 +9,7 @@ class CacheRepositoryImpl(
     val memoryCache: MemoryCache
 ) : CacheRepository {
     override suspend fun putCountries(countries: List<AreaInReference>) {
-        memoryCache.putCountries(countries.map {CacheMapper.map(it) })
+        memoryCache.putCountries(countries.map { CacheMapper.map(it) })
     }
 
     override suspend fun getCountries(): List<AreaInReference>? {
