@@ -25,4 +25,13 @@ object SpMapper {
             )
         }
     }
+
+    fun mapClear(): PlaceDto {
+        return PlaceDto(
+            idCountry = null,
+            nameCountry = null,
+            idRegion = null,
+            nameRegion = null
+        )
+    }
 }

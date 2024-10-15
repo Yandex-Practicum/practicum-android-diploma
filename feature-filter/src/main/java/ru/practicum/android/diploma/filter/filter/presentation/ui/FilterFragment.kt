@@ -1,11 +1,11 @@
 package ru.practicum.android.diploma.filter.filter.presentation.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.INVISIBLE
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -18,6 +18,11 @@ import ru.practicum.android.diploma.filter.industry.domain.model.IndustryModel
 
 const val ARGS_INDUSTRY_ID = "industry_id"
 const val ARGS_INDUSTRY_NAME = "industry_name"
+const val ARGS_PLACE_COUNTRY_ID = "id_country"
+const val ARGS_PLACE_COUNTRY_NAME = "name_country"
+const val ARGS_PLACE_REGION_ID = "id_region"
+const val ARGS_PLACE_REGION_NAME = "name_region"
+const val AREA_ID = "area_id"
 
 internal class FilterFragment : Fragment() {
     private var _binding: FragmentFilterBinding? = null
@@ -92,6 +97,33 @@ internal class FilterFragment : Fragment() {
             }
 
             // ⬅️ add your fragment branches here ❗
+            R.id.placeFragment -> {
+                val args = getArguments()
+                if (args != null) { // if we get arguments - SP is updated
+                    val placeCountryID = args.getString(ARGS_PLACE_COUNTRY_ID)
+                    val placeCountryName = args.getString(ARGS_PLACE_COUNTRY_NAME)
+                    val placeRegionID = args.getString(ARGS_PLACE_REGION_ID)
+                    val placeRegionName = args.getString(ARGS_PLACE_REGION_NAME)
+                    if (placeCountryID != null) {
+                        viewModel.putValue(ARGS_PLACE_COUNTRY_ID, placeCountryID)
+                        viewModel.putValue(AREA_ID, placeCountryID)
+                    }
+                    if (placeCountryName != null) {
+                        viewModel.putValue(ARGS_PLACE_COUNTRY_NAME, placeCountryName)
+                    }
+                    if (placeCountryName != null && placeRegionName == null) {
+                        viewModel.putValue(ARGS_PLACE_REGION_NAME, "")
+                    }
+                    if (placeRegionID != null) {
+                        viewModel.putValue(ARGS_PLACE_REGION_ID, placeRegionID)
+                        viewModel.putValue(AREA_ID, placeRegionID)
+                    }
+                    if (placeRegionName != null) {
+                        viewModel.putValue(ARGS_PLACE_REGION_NAME, placeRegionName)
+                    }
+                }
+                viewModel.loadFilterSettings()
+            }
 
             else -> {
                 viewModel.loadFilterSettings()
@@ -103,6 +135,9 @@ internal class FilterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.workPlace.setOnClickListener {
+            findNavController().navigate(R.id.action_filterFragment_to_placeFragment)
+        }
+        binding.workPlaceInfo.setOnClickListener {
             findNavController().navigate(R.id.action_filterFragment_to_placeFragment)
         }
         binding.workIndustry.setOnClickListener {

@@ -10,6 +10,10 @@ interface RegionInteractor {
 
     suspend fun getPlaceDataFilter(): Place?
     suspend fun updatePlaceInDataFilter(place: Place): Int
+    suspend fun clearPlaceInDataFilter(): Int
+    suspend fun getPlaceDataFilterBuffer(): Place?
+    suspend fun updatePlaceInDataFilterBuffer(place: Place): Int
+    suspend fun clearPlaceInDataFilterBuffer(): Int
 
     suspend fun putCountriesCache(countries: List<AreaInReference>)
     suspend fun getCountriesCache(): List<AreaInReference>?

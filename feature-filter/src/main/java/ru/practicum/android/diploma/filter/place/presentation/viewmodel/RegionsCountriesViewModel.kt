@@ -110,8 +110,24 @@ class RegionsCountriesViewModel(
         }
     }
 
+    fun mergeBufferWithSettingsDataInSp() {
+        viewModelScope.launch(Dispatchers.IO) {
+            regionInteractor.getPlaceDataFilterBuffer()?.let { place ->
+                regionInteractor.updatePlaceInDataFilter(place)
+            }
+        }
+    }
+
+    fun mergeSettingsWithBufferDataInSp() {
+        viewModelScope.launch(Dispatchers.IO) {
+            regionInteractor.getPlaceDataFilter()?.let { place ->
+                regionInteractor.updatePlaceInDataFilterBuffer(place)
+            }
+        }
+    }
+
     private suspend fun initDataFromSp() {
-        regionInteractor.getPlaceDataFilter()?.let { place ->
+        regionInteractor.getPlaceDataFilterBuffer()?.let { place ->
             val idCountry = place.idCountry
             val nameCountry = place.nameCountry
             val idRegion = place.idRegion
@@ -138,7 +154,7 @@ class RegionsCountriesViewModel(
 
     fun setPlaceInDataFilter(place: Place) {
         viewModelScope.launch(Dispatchers.IO) {
-            regionInteractor.updatePlaceInDataFilter(place)
+            regionInteractor.updatePlaceInDataFilterBuffer(place)
         }
     }
 

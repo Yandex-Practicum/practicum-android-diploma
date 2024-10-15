@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -128,16 +129,23 @@ internal class PlaceFragment : Fragment() {
             R.id.clickCountry, R.id.country, R.id.inputCountry, R.id.inputCountryLayout -> {
                 navigateTo(R.id.action_placeFragment_to_countryFragment)
             }
+
             R.id.clickRegion, R.id.region, R.id.inputRegion, R.id.inputRegionLayout -> {
                 navigateTo(R.id.action_placeFragment_to_regionFragment)
             }
+
             R.id.clickCountryClear -> clearCountrySelection()
             R.id.clickRegionClear -> clearRegionSelection()
             R.id.selectButton -> {
+                regionsCountriesViewModel.mergeBufferWithSettingsDataInSp()
                 regionsCountriesViewModel.clearCache()
+                findNavController().navigate(
+                    R.id.action_placeFragment_to_filterFragment,
+                    createArgs(placeInstance)
+                )
             }
-
             R.id.buttonBack -> {
+                regionsCountriesViewModel.mergeSettingsWithBufferDataInSp()
                 regionsCountriesViewModel.clearCache()
                 findNavController().navigateUp()
             }
@@ -175,5 +183,19 @@ internal class PlaceFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    companion object {
+        private const val ARGS_PLACE_COUNTRY_ID = "id_country"
+        private const val ARGS_PLACE_COUNTRY_NAME = "name_country"
+        private const val ARGS_PLACE_REGION_ID = "id_region"
+        private const val ARGS_PLACE_REGION_NAME = "name_region"
+        fun createArgs(selectedPlace: Place): Bundle =
+            bundleOf(
+                ARGS_PLACE_COUNTRY_ID to selectedPlace.idCountry,
+                ARGS_PLACE_COUNTRY_NAME to selectedPlace.nameCountry,
+                ARGS_PLACE_REGION_ID to selectedPlace.idRegion,
+                ARGS_PLACE_REGION_NAME to selectedPlace.nameRegion
+            )
     }
 }
