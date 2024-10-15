@@ -5,30 +5,29 @@ object AlgorithmKnuthMorrisPratt {
     fun searchSubstringsInString(text: String, substrings: String): Boolean {
         if (text.isEmpty() || substrings.isEmpty() || text.length < substrings.length) return false
 
-        val _text = text.lowercase()
-        val _substrings = substrings.lowercase()
+        val lowerText = text.lowercase()
+        val lowerSubstrings = substrings.lowercase()
+        val prefixArray = prefixFunction(lowerText)
 
-        val prefixFun = prefixFunction(_text)
-        val substringEntryIndices: MutableList<Int> = ArrayList()
+        var textIndex = 0
+        var substringIndex = 0
 
-        var i = 0
-        var j = 0
+        while (textIndex < lowerText.length) {
+            if (lowerText[textIndex] == lowerSubstrings[substringIndex]) {
+                textIndex++
+                substringIndex++
 
-        do {
-            if (_text[i] == _substrings[j]) {
-                i++
-                j++
+                if (substringIndex == lowerSubstrings.length) {
+                    return true
+                }
+            } else if (substringIndex != 0) {
+                substringIndex = prefixArray[substringIndex - 1]
+            } else {
+                textIndex++
             }
-            if (j == _substrings.length) {
-                substringEntryIndices.add(i - j)
-                j = prefixFun[j - 1]
-            } else if (i < _text.length && _text[i] != _substrings[j]) {
-                if (j != 0) j = prefixFun[j - 1]
-                else i++
-            }
-        } while (i < _text.length)
+        }
 
-        return substringEntryIndices.size > 0
+        return false
     }
 
     private fun prefixFunction(text: String): IntArray {

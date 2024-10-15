@@ -156,8 +156,12 @@ class RegionsCountriesViewModel(
                     )
                 }
                 _regionsStateLiveData.postValue(
-                    if (regionsList.isEmpty()) RegionState.Empty
-                    else RegionState.Content(regionsList)
+                    if (regionsList.isEmpty()) {
+                        RegionState.Empty
+                    }
+                    else {
+                        RegionState.Content(regionsList)
+                    }
                 )
             }
         } else {

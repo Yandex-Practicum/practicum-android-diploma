@@ -74,12 +74,12 @@ internal class CountryFragment : Fragment() {
                     countries = state.countries.map { it.id to it.name }.toMap()
                 }
 
-                is CountryState.Empty-> {
+                is CountryState.Empty -> {
                     showError()
                     regionsCountriesViewModel.setPlaceState(PlaceState.Empty)
                 }
 
-                is CountryState.Error-> {
+                is CountryState.Error -> {
                     showError()
                     regionsCountriesViewModel.setPlaceState(PlaceState.Error)
                 }

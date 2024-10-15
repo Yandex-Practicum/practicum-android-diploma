@@ -64,110 +64,89 @@ internal class PlaceFragment : Fragment() {
                     idRegion = null,
                     nameRegion = null
                 )
-                binding.inputCountry.setText(state.country.name)
-                binding.inputRegion.setText("")
-                binding.clickCountryClear.visibility = View.VISIBLE
-                binding.clickCountry.visibility = View.GONE
-                binding.clickRegionClear.visibility = View.GONE
-                binding.clickRegion.visibility = View.VISIBLE
-                binding.selectButton.visibility = View.VISIBLE
+                updateViewsForCountry(state.country)
             }
 
             is PlaceState.ContentPlace -> {
-                placeInstance = state.place
-                binding.inputCountry.setText(state.place.nameCountry)
-                binding.inputRegion.setText(state.place.nameRegion)
-                binding.clickCountryClear.visibility = View.VISIBLE
-                binding.clickCountry.visibility = View.GONE
-                binding.clickRegionClear.visibility = View.VISIBLE
-                binding.clickRegion.visibility = View.GONE
-                binding.selectButton.visibility = View.VISIBLE
+                updateViewsForPlace(state.place)
             }
 
-            is PlaceState.Empty, null -> {
-                placeInstance = Place(
-                    idCountry = null,
-                    nameCountry = null,
-                    idRegion = null,
-                    nameRegion = null
-                )
-                binding.inputCountry.text?.clear()
-                binding.inputRegion.text?.clear()
-                binding.clickCountryClear.visibility = View.GONE
-                binding.clickCountry.visibility = View.VISIBLE
-                binding.clickRegionClear.visibility = View.GONE
-                binding.clickRegion.visibility = View.VISIBLE
-                binding.selectButton.visibility = View.GONE
-            }
-
-            is PlaceState.Error -> {
-                placeInstance = Place(
-                    idCountry = null,
-                    nameCountry = null,
-                    idRegion = null,
-                    nameRegion = null
-                )
-                binding.inputCountry.text?.clear()
-                binding.inputRegion.text?.clear()
-                binding.clickCountryClear.visibility = View.GONE
-                binding.clickCountry.visibility = View.VISIBLE
-                binding.clickRegionClear.visibility = View.GONE
-                binding.clickRegion.visibility = View.VISIBLE
-                binding.selectButton.visibility = View.GONE
+            else -> {
+                resetViews()
             }
         }
     }
 
-    private val listener: View.OnClickListener = object : View.OnClickListener {
-        override fun onClick(p0: View?) {
-            when (p0?.id) {
-                R.id.clickCountry -> {
-                    findNavController().navigate(R.id.action_placeFragment_to_countryFragment)
-                }
+    private fun updateViewsForCountry(country: Country) {
+        binding.inputCountry.setText(country.name)
+        binding.inputRegion.setText("")
+        binding.clickCountryClear.visibility = View.VISIBLE
+        binding.clickCountry.visibility = View.GONE
+        binding.clickRegionClear.visibility = View.GONE
+        binding.clickRegion.visibility = View.VISIBLE
+        binding.selectButton.visibility = View.VISIBLE
+    }
 
-                R.id.clickRegion -> {
-                    findNavController().navigate(R.id.action_placeFragment_to_regionFragment)
-                }
+    private fun updateViewsForPlace(place: Place) {
+        binding.inputCountry.setText(place.nameCountry)
+        binding.inputRegion.setText(place.nameRegion)
+        binding.clickCountryClear.visibility = View.VISIBLE
+        binding.clickCountry.visibility = View.GONE
+        binding.clickRegionClear.visibility = View.VISIBLE
+        binding.clickRegion.visibility = View.GONE
+        binding.selectButton.visibility = View.VISIBLE
+    }
 
-                R.id.clickCountryClear -> {
-                    placeInstance = Place(
-                        idCountry = null,
-                        nameCountry = null,
-                        idRegion = null,
-                        nameRegion = null
-                    )
-                    regionsCountriesViewModel.setPlaceState(PlaceState.Empty)
-                    regionsCountriesViewModel.setPlaceInDataFilter(placeInstance)
-                }
+    private fun resetViews() {
+        placeInstance = Place(
+            idCountry = null,
+            nameCountry = null,
+            idRegion = null,
+            nameRegion = null
+        )
+        binding.inputCountry.text?.clear()
+        binding.inputRegion.text?.clear()
+        binding.clickCountryClear.visibility = View.GONE
+        binding.clickCountry.visibility = View.VISIBLE
+        binding.clickRegionClear.visibility = View.GONE
+        binding.clickRegion.visibility = View.VISIBLE
+        binding.selectButton.visibility = View.GONE
+    }
 
-                R.id.clickRegionClear -> {
-                    placeInstance = Place(
-                        idCountry = placeInstance.idCountry,
-                        nameCountry = placeInstance.nameCountry,
-                        idRegion = placeInstance.idRegion,
-                        nameRegion = placeInstance.nameRegion
-                    )
-                    regionsCountriesViewModel.setPlaceState(PlaceState.ContentCountry(
-                        Country(
-                            id = placeInstance.idCountry?:"",
-                            name = placeInstance.nameCountry?:""
-                        )
-                    ))
-                    regionsCountriesViewModel.setPlaceInDataFilter(
-                        Place(
-                            idCountry = placeInstance.idCountry,
-                            nameCountry = placeInstance.nameCountry,
-                            idRegion = null,
-                            nameRegion = null
-                        )
-                    )
-                }
-
-                R.id.buttonBack -> {
-                    findNavController().navigateUp()
-                }
-            }
+    private val listener: View.OnClickListener = View.OnClickListener { view ->
+        when (view.id) {
+            R.id.clickCountry -> navigateTo(R.id.action_placeFragment_to_countryFragment)
+            R.id.clickRegion -> navigateTo(R.id.action_placeFragment_to_regionFragment)
+            R.id.clickCountryClear -> clearCountrySelection()
+            R.id.clickRegionClear -> clearRegionSelection()
+            R.id.buttonBack -> findNavController().navigateUp()
         }
+    }
+
+    private fun navigateTo(actionId: Int) {
+        findNavController().navigate(actionId)
+    }
+
+    private fun clearCountrySelection() {
+        placeInstance = Place(
+            null,
+            null,
+            null,
+            null
+        )
+        regionsCountriesViewModel.setPlaceState(PlaceState.Empty)
+        regionsCountriesViewModel.setPlaceInDataFilter(placeInstance)
+    }
+
+    private fun clearRegionSelection() {
+        placeInstance = placeInstance.copy(idRegion = null, nameRegion = null)
+        regionsCountriesViewModel.setPlaceState(PlaceState.ContentCountry(
+            Country(
+                id = placeInstance.idCountry ?: "",
+                name = placeInstance.nameCountry ?: ""
+            )
+        ))
+        regionsCountriesViewModel.setPlaceInDataFilter(placeInstance.copy(idRegion = null, nameRegion = null))
     }
 
     override fun onDestroy() {

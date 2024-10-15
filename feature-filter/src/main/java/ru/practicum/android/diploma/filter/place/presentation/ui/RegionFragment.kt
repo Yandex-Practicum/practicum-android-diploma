@@ -25,6 +25,9 @@ import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.Pl
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.RegionState
 
 private const val DELAY_CLICK_ITEM = 250L
+private const val INDEX_DRAWABLE_RIGHT = 2
+private const val CALIBRATION_COEFFICIENT = 1.2
+
 internal class RegionFragment : Fragment() {
 
     private val regionsCountriesViewModel: RegionsCountriesViewModel by viewModel()
@@ -102,8 +105,10 @@ internal class RegionFragment : Fragment() {
         override fun onTouch(p0: View?, event: MotionEvent?): Boolean {
             event?.let {
                 if (event.action == MotionEvent.ACTION_UP) {
-                    val drawableEnd = binding.searchRegion.compoundDrawables[2]
-                    if (drawableEnd != null && event.rawX >= (binding.searchRegion.right - 1.2 * drawableEnd.bounds.width())) {
+                    val drawableEnd = binding.searchRegion.compoundDrawables[INDEX_DRAWABLE_RIGHT]
+                    if (drawableEnd != null
+                        && event.rawX >= binding.searchRegion.right - CALIBRATION_COEFFICIENT * drawableEnd.bounds.width()
+                    ) {
                         binding.searchRegion.text.clear()
                         return true
                     }
@@ -184,6 +189,7 @@ internal class RegionFragment : Fragment() {
 
     private val inputSearchWatcher = object : TextWatcher {
         override fun beforeTextChanged(oldText: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            textSearchRegions = oldText.toString()
         }
 
         @SuppressLint("UseCompatLoadingForDrawables")
@@ -205,43 +211,7 @@ internal class RegionFragment : Fragment() {
         }
 
         override fun afterTextChanged(resultText: Editable?) {
-        }
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    private fun renderViewRegions(state: RegionState) {
-        Utils.visibilityView(viewArray, binding.loadingProgressBar)
-        when (state) {
-            is RegionState.Content -> {
-                regionAdapter.updatePlaces(state.regions)
-                Utils.visibilityView(viewArray, binding.listRegions)
-            }
-
-            is RegionState.Empty -> {
-                regionAdapter.updatePlaces(emptyList())
-                Utils.visibilityView(viewArray, binding.placeholderRegionDoesNotExist)
-            }
-
-            is RegionState.Error -> {
-                regionAdapter.updatePlaces(emptyList())
-                Utils.visibilityView(viewArray, binding.placeholderNoLoadList)
-            }
-        }
-    }
-
-    private fun renderInitRegions(state: SelectedCountryState) {
-        when (state) {
-            is SelectedCountryState.SelectedCountry -> {
-                regionsCountriesViewModel.getRegions(state.country.id)
-            }
-
-            is SelectedCountryState.Empty -> {
-                regionsCountriesViewModel.getRegionsAll()
-            }
-
-            is SelectedCountryState.Error -> {
-                Utils.visibilityView(viewArray, binding.placeholderNoLoadList)
-            }
+            textSearchRegions = resultText.toString()
         }
     }
 

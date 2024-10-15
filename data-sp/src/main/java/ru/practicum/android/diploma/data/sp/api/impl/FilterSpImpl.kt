@@ -26,7 +26,7 @@ class FilterSpImpl(
 
     override suspend fun getPlaceDataFilter(): PlaceDto? {
         val json = filterSp.getString(PLACE_KEY_SP, null)
-        return if(json != null) {
+        return if (json != null) {
             gson.fromJson(json, PlaceDto::class.java)
         } else {
             null
