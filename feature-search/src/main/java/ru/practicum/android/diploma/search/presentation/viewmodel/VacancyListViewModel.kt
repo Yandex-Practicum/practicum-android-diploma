@@ -62,7 +62,7 @@ internal class VacancyListViewModel(
                 industry = queryFilter.get("industry_id"),
                 salary = queryFilter.get("salary"),
                 area = queryFilter.get("area_id"),
-                only_with_salary = queryFilter.get("industry_id").toBoolean()
+                only_with_salary = queryFilter.get("only_with_salary").toBoolean()
             ).collect { response ->
                 if (response.first != null) {
                     paginationInfo = response.first ?: paginationInfo
@@ -97,7 +97,7 @@ internal class VacancyListViewModel(
                 industry = queryFilter.get("industry_id"),
                 salary = queryFilter.get("salary"),
                 area = queryFilter.get("area_id"),
-                only_with_salary = queryFilter.get("industry_id").toBoolean()
+                only_with_salary = queryFilter.get("only_with_salary").toBoolean()
             ).collect { response ->
                 if (response.first != null) {
                     paginationInfo = response.first ?: paginationInfo
