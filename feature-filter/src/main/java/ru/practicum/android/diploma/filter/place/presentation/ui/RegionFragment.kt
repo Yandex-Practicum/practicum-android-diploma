@@ -74,8 +74,6 @@ internal class RegionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        regionsCountriesViewModel.initData()
-
         initDebounces()
 
         regionsCountriesViewModel.observePlaceState().observe(viewLifecycleOwner) {

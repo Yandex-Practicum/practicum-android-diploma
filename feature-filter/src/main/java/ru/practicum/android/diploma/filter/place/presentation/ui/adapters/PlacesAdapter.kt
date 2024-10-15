@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.filter.place.presentation.ui.adapters
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +16,6 @@ class PlacesAdapter<T>(
     @SuppressLint("NotifyDataSetChanged")
     fun updatePlaces(list: List<T>) {
         places.clear()
-        Log.e("PlacesAdapter", list.toString())
         places.addAll(list)
         notifyDataSetChanged()
     }
