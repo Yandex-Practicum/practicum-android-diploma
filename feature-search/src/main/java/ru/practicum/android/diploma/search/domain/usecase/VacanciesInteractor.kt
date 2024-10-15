@@ -7,6 +7,7 @@ import ru.practicum.android.diploma.search.domain.models.RegionList
 import ru.practicum.android.diploma.search.domain.models.VacancyDetail
 
 internal interface VacanciesInteractor {
+    @Suppress("detekt.LongParameterList")
     fun searchVacancies(
         page: String,
         perPage: String,
@@ -14,7 +15,7 @@ internal interface VacanciesInteractor {
         industry: String?,
         salary: String?,
         area: String?,
-        only_with_salary: Boolean = false,
+        onlyWithSalary: Boolean = false,
     ): Flow<Pair<PaginationInfo?, String>>
 
     fun listVacancy(id: String): Flow<Pair<VacancyDetail?, String?>>

@@ -14,8 +14,6 @@ import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.domain.usecase.VacanciesInteractor
 import ru.practicum.android.diploma.search.presentation.SearchScreenState
 
-private const val PAGE_SIZE = 20
-
 internal class VacancyListViewModel(
     private val vacanciesInteractor: VacanciesInteractor,
     private val filterSPInteractor: FilterSPInteractor,
@@ -47,6 +45,11 @@ internal class VacancyListViewModel(
     companion object {
         private const val TAG: String = "VacancyListViewModel"
         private const val INTERNET_ERROR: String = "Check network connection"
+        private const val PAGE_SIZE = 20
+        private const val INDUSTRY_ID = "industry_id"
+        private const val SALARY = "salary"
+        private const val AREA_ID = "area_id"
+        private const val ONLY_WITH_SALARY = "only_with_salary"
     }
 
     fun initialSearch(query: String) {
@@ -59,10 +62,10 @@ internal class VacancyListViewModel(
                 page = "0",
                 perPage = "${PAGE_SIZE}",
                 queryText = query,
-                industry = queryFilter.get("industry_id"),
-                salary = queryFilter.get("salary"),
-                area = queryFilter.get("area_id"),
-                only_with_salary = queryFilter.get("only_with_salary").toBoolean()
+                industry = queryFilter.get(INDUSTRY_ID),
+                salary = queryFilter.get(SALARY),
+                area = queryFilter.get(AREA_ID),
+                onlyWithSalary = queryFilter.get(ONLY_WITH_SALARY).toBoolean()
             ).collect { response ->
                 if (response.first != null) {
                     paginationInfo = response.first ?: paginationInfo
@@ -97,7 +100,7 @@ internal class VacancyListViewModel(
                 industry = queryFilter.get("industry_id"),
                 salary = queryFilter.get("salary"),
                 area = queryFilter.get("area_id"),
-                only_with_salary = queryFilter.get("only_with_salary").toBoolean()
+                onlyWithSalary = queryFilter.get("only_with_salary").toBoolean()
             ).collect { response ->
                 if (response.first != null) {
                     paginationInfo = response.first ?: paginationInfo

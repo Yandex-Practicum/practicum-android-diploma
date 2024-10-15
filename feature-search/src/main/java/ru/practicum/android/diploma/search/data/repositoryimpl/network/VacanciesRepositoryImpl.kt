@@ -50,11 +50,8 @@ internal class VacanciesRepositoryImpl(
         industry?.let { options["industry"] = industry }
         salary?.let { options["salary"] = salary }
         area?.let { options["area"] = area }
-        return context.executeNetworkRequest<Response, PaginationInfo>(request = {
-            networkClient.doRequest(
-                HHApiVacanciesRequest(options)
-            )
-        },
+        return context.executeNetworkRequest<Response, PaginationInfo>(
+            request = { networkClient.doRequest(HHApiVacanciesRequest(options)) },
             successHandler = { response: Response ->
                 Resource.Success(
                     PaginationInfo(

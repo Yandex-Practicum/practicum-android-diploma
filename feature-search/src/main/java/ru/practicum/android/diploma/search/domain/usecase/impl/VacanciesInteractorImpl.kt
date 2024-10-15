@@ -18,9 +18,9 @@ internal class VacanciesInteractorImpl(private val repository: VacanciesReposito
         industry: String?,
         salary: String?,
         area: String?,
-        only_with_salary: Boolean,
+        onlyWithSalary: Boolean,
     ): Flow<Pair<PaginationInfo?, String>> {
-        return repository.searchVacancies(page, perPage, queryText, industry, salary, area, only_with_salary)
+        return repository.searchVacancies(page, perPage, queryText, industry, salary, area, onlyWithSalary)
             .map { result ->
                 when (result) {
                     is Resource.Success -> {
