@@ -41,7 +41,7 @@ internal class PlaceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        regionsCountriesViewModel.initData()
+        regionsCountriesViewModel.initDataFromNetworkAndSp()
 
         regionsCountriesViewModel.observePlaceState().observe(viewLifecycleOwner) {
             render(it)
@@ -52,6 +52,7 @@ internal class PlaceFragment : Fragment() {
         binding.clickCountryClear.setOnClickListener(listener)
         binding.clickRegionClear.setOnClickListener(listener)
         binding.buttonBack.setOnClickListener(listener)
+        binding.selectButton.setOnClickListener(listener)
     }
 
     @SuppressLint("SetTextI18n")
@@ -68,6 +69,7 @@ internal class PlaceFragment : Fragment() {
             }
 
             is PlaceState.ContentPlace -> {
+                placeInstance = state.place
                 updateViewsForPlace(state.place)
             }
 
@@ -119,7 +121,13 @@ internal class PlaceFragment : Fragment() {
             R.id.clickRegion -> navigateTo(R.id.action_placeFragment_to_regionFragment)
             R.id.clickCountryClear -> clearCountrySelection()
             R.id.clickRegionClear -> clearRegionSelection()
-            R.id.buttonBack -> findNavController().navigateUp()
+            R.id.selectButton -> {
+                regionsCountriesViewModel.clearCache()
+            }
+            R.id.buttonBack -> {
+                regionsCountriesViewModel.clearCache()
+                findNavController().navigateUp()
+            }
         }
     }
 

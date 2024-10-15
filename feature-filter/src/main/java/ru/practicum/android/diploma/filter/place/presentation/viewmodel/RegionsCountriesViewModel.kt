@@ -43,16 +43,27 @@ class RegionsCountriesViewModel(
         get() = regions.toList()
 
     init {
-        initData()
+        initDataFromCacheAndSp()
     }
 
-    fun initData() {
+    fun initDataFromNetworkAndSp() {
         viewModelScope.launch(Dispatchers.IO) {
-            initDataFromNetworkAndSp()
+            getDataFromNetworkAndSp()
         }
     }
 
-    private suspend fun initDataFromNetworkAndSp() {
+    fun initDataFromCacheAndSp() {
+        viewModelScope.launch(Dispatchers.IO) {
+            getDataFromCacheAndSp()
+        }
+    }
+
+    private suspend fun getDataFromCacheAndSp() {
+        initDataFromCache()
+        initDataFromSp()
+    }
+
+    private suspend fun getDataFromNetworkAndSp() {
         initDataFromNetwork()
         initDataFromSp()
     }
@@ -67,13 +78,35 @@ class RegionsCountriesViewModel(
                         name = it.name
                     )
                 }
+                regionInteractor.putCountriesCache(places)
                 _countriesStateLiveData.postValue(CountryState.Content(countries))
-            } ?: run {
+            } ?: {
                 _countriesStateLiveData.postValue(CountryState.Empty)
             }
             areas.second?.let {
                 _countriesStateLiveData.postValue(CountryState.Error)
             }
+        }
+    }
+
+    private suspend fun initDataFromCache() {
+        regionInteractor.getCountriesCache()?.let { list ->
+            places.addAll(list)
+            val countries = places.map {
+                Country(
+                    id = it.id,
+                    name = it.name
+                )
+            }
+            _countriesStateLiveData.postValue(CountryState.Content(countries))
+        } ?: run {
+            _countriesStateLiveData.postValue(CountryState.Empty)
+        }
+    }
+
+    fun clearCache() {
+        viewModelScope.launch(Dispatchers.IO) {
+            regionInteractor.clearCache()
         }
     }
 

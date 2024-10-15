@@ -18,15 +18,7 @@ internal class RegionInteractorImpl(
 
     override fun listAreas(): Flow<Pair<List<AreaInReference>?, String?>> {
         return networkRepository.listAreas().map { result ->
-            when (result) {
-                is Resource.Success -> {
-                    Pair(result.data, "")
-                }
-
-                is Resource.Error -> {
-                    Pair(null, result.message ?: "")
-                }
-            }
+            Resource.handleResource(result)
         }
     }
 
@@ -38,11 +30,11 @@ internal class RegionInteractorImpl(
         return spRepository.updatePlaceInDataFilter(place)
     }
 
-    override suspend fun putCountries(countries: List<AreaInReference>) {
+    override suspend fun putCountriesCache(countries: List<AreaInReference>) {
         cacheRepository.putCountries(countries)
     }
 
-    override suspend fun getCountries(): List<AreaInReference>? {
+    override suspend fun getCountriesCache(): List<AreaInReference>? {
         return cacheRepository.getCountries()
     }
 
