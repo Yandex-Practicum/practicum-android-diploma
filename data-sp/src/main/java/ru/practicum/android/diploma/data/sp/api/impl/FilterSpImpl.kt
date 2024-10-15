@@ -24,6 +24,18 @@ class FilterSpImpl(
             .apply()
     }
 
+    override suspend fun clearIndustryFilter() {
+        filterSp.edit().remove(BRANCH_OF_PROFESSION_KEY_SP).apply()
+    }
+
+    override suspend fun clearPlaceFilter() {
+        filterSp.edit().remove(PLACE_KEY_SP).apply()
+    }
+
+    override suspend fun clearSalaryFilter() {
+        filterSp.edit().remove(EXPECTED_SALARY_KEY_SP).apply()
+    }
+
     override suspend fun getPlaceDataFilter(): PlaceDto? {
         val json = filterSp.getString(PLACE_KEY_SP, null)
         return if (json != null) {

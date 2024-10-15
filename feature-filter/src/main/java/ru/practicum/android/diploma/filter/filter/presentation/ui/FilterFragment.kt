@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.INVISIBLE
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -46,6 +47,7 @@ internal class FilterFragment : Fragment() {
             binding.workIndustry.visibility = INVISIBLE
             binding.workIndustryInfo.isVisible = true
             binding.workIndustryInfo.text = map[ARGS_INDUSTRY_NAME]
+            binding.industryButton.setImageResource(ru.practicum.android.diploma.ui.R.drawable.clear)
         }
 
         // ⬅️ add your ui logic here ❗
@@ -91,6 +93,11 @@ internal class FilterFragment : Fragment() {
         binding.buttonLeftFilter.setOnClickListener {
             findNavController().navigateUp()
         }
+        binding.industryButton.setOnClickListener(
+            if (binding.industryButton.drawable.constantState == ContextCompat.getDrawable(requireContext(),
+                    ru.practicum.android.diploma.ui.R.drawable.clear)){
+
+            }
     }
 
     override fun onDestroy() {
