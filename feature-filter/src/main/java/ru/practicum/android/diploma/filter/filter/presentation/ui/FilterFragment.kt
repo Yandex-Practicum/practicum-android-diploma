@@ -8,15 +8,18 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.filter.R
 import ru.practicum.android.diploma.filter.databinding.FragmentFilterBinding
+import ru.practicum.android.diploma.filter.filter.presentation.viewmodel.FilterViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 internal class FilterFragment : Fragment() {
     private var _binding: FragmentFilterBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: FilterViewModel by viewModel()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentFilterBinding.inflate(inflater, container, false)
         return binding.root
@@ -27,8 +30,8 @@ internal class FilterFragment : Fragment() {
         binding.workPlace.setOnClickListener {
             findNavController().navigate(R.id.action_filterFragment_to_placeFragment)
         }
-        binding.workProfession.setOnClickListener {
-            findNavController().navigate(R.id.action_filterFragment_to_professionFragment)
+        binding.workIndustry.setOnClickListener {
+            findNavController().navigate(R.id.action_filterFragment_to_industryFragment)
         }
         binding.buttonLeftFilter.setOnClickListener {
             findNavController().navigateUp()

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="SearchIcon">
+        <item name="android:layout_marginVertical">@dimen/dp_4</item>
+        <item name="android:layout_marginEnd">@dimen/dp_4</item>
+        <item name="android:padding">@dimen/dp_16</item>
+    </style>
 
     <style name="NewTextInputStyle" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="android:layout_marginHorizontal">@dimen/dimens_16</item>
@@ -21,6 +26,12 @@
 
     </style>
 
+    <style name="SearchBarIcon">
+        <item name="android:layout_marginVertical">@dimen/dp_4</item>
+        <item name="android:layout_marginEnd">@dimen/dp_4</item>
+        <item name="android:importantForAccessibility">no</item>
+        <item name="android:padding">@dimen/dp_12</item>
+    </style>
     <style name="NewTextInputEdit" parent="Widget.Design.TextInputEditText">
         <item name="android:imeOptions">actionDone</item>
         <item name="android:inputType">number</item>

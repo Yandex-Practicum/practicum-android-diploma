@@ -208,6 +208,43 @@ internal class RegionFragment : Fragment() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    private fun renderViewRegions(state: RegionState) {
+        Utils.visibilityView(viewArray, binding.loadingProgressBar)
+        when (state) {
+            is RegionState.Content -> {
+                regionAdapter.updatePlaces(state.regions)
+                Utils.visibilityView(viewArray, binding.listRegions)
+            }
+
+            is RegionState.Empty -> {
+                regionAdapter.updatePlaces(emptyList())
+                Utils.visibilityView(viewArray, binding.placeholderRegionDoesNotExist)
+            }
+
+            is RegionState.Error -> {
+                regionAdapter.updatePlaces(emptyList())
+                Utils.visibilityView(viewArray, binding.placeholderNoLoadList)
+            }
+        }
+    }
+
+    private fun renderInitRegions(state: SelectedCountryState) {
+        when (state) {
+            is SelectedCountryState.SelectedCountry -> {
+                regionsCountriesViewModel.getRegions(state.country.id)
+            }
+
+            is SelectedCountryState.Empty -> {
+                regionsCountriesViewModel.getRegionsAll()
+            }
+
+            is SelectedCountryState.Error -> {
+                Utils.visibilityView(viewArray, binding.placeholderNoLoadList)
+            }
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         inputSearchWatcher.let { binding.searchRegion.removeTextChangedListener(it) }

@@ -35,7 +35,7 @@ internal class RetrofitNetworkClient(
         return withContext(Dispatchers.IO) {
             runCatching {
                 when (dto) {
-                    is HHApiIndustriesRequest -> industriesRequest(dto)
+                    is HHApiIndustriesRequest -> industriesRequest()
                     is HHApiVacanciesRequest -> vacancyListRequest(dto)
                     is HHApiVacancyRequest -> vacancyRequest(dto)
                     is HHApiRegionsRequest -> regionsRequest()
@@ -90,8 +90,8 @@ internal class RetrofitNetworkClient(
         return vacancy
     }
 
-    private suspend fun industriesRequest(dto: HHApiIndustriesRequest): Response {
-        val industries = hhApiService.searchIndustries(dto.options)
+    private suspend fun industriesRequest(): Response {
+        val industries = hhApiService.searchIndustries()
         Log.d(TAG, industries.toString())
         return industries
     }

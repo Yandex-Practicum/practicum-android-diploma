@@ -1,34 +1,36 @@
-package ru.practicum.android.diploma.filter.profession.presentation.ui
+package ru.practicum.android.diploma.filter.industry.presentation.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.commonutils.Utils.closeKeyBoard
 import ru.practicum.android.diploma.commonutils.debounce
-import ru.practicum.android.diploma.filter.databinding.FragmentProfessionBinding
-import ru.practicum.android.diploma.filter.profession.domain.model.Industry
-import ru.practicum.android.diploma.filter.profession.presentation.ui.adapters.FilterIndustryListAdapter
+import ru.practicum.android.diploma.filter.R
+import ru.practicum.android.diploma.filter.databinding.FragmentIndustryBinding
+import ru.practicum.android.diploma.filter.industry.domain.model.IndustryModel
+import ru.practicum.android.diploma.filter.industry.presentation.ui.adapters.FilterIndustryListAdapter
+import ru.practicum.android.diploma.filter.industry.presentation.viewmodel.IndustryViewModel
 
 private const val USER_INPUT = "userInput"
 private const val DELAY_CLICK_VACANCY = 2000L
-private const val NUMBER_OF_ITEMS_FOR_TESTING = 10 // ❗ delete when proper list is available
+private const val ARGS_INDUSTRY_ID = "industry_id"
+private const val ARGS_INDUSTRY_NAME = "industry_name"
 
-internal class ProfessionFragment : Fragment() {
-    private var _binding: FragmentProfessionBinding? = null
+internal class IndustryFragment : Fragment() {
+    private var _binding: FragmentIndustryBinding? = null
     private val binding get() = _binding!!
-    private var localIndustriesList: ArrayList<Industry> = ArrayList()
     private var userInputReserve = ""
 
-    private val professionViewModel: ViewModel by viewModel()
+    private val industryViewModel: IndustryViewModel by viewModel()
 
     val debouncedFiltration by lazy {
         debounce(
@@ -37,7 +39,11 @@ internal class ProfessionFragment : Fragment() {
             useLastParam = true,
             actionThenDelay = false,
             action = { param: String ->
-                // ❗ professionViewModel.someMethod(param)
+                if (param == "") {
+                    industryViewModel.resetToFullList()
+                } else {
+                    industryViewModel.filterList(param)
+                }
             }
         )
     }
@@ -47,18 +53,24 @@ internal class ProfessionFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentProfessionBinding.inflate(inflater, container, false)
+        _binding = FragmentIndustryBinding.inflate(inflater, container, false)
+
+        industryViewModel.industriesListLiveData.observe(viewLifecycleOwner) { list ->
+            if (list == null) {
+                binding.vacancyRecycler.isVisible = false
+                binding.industriesError.isVisible = true
+                binding.industriesErrorText.isVisible = true
+                unselectAndHideConfirmation()
+            } else {
+                (binding.vacancyRecycler.adapter as FilterIndustryListAdapter).setOptionsList(list)
+                binding.vacancyRecycler.isVisible = true
+                binding.industriesError.isVisible = false
+                binding.industriesErrorText.isVisible = false
+            }
+        }
 
         recyclerSetup()
         searchBarSetup()
-
-        for (i in 0 until NUMBER_OF_ITEMS_FOR_TESTING) { // ❗ delete when proper list is available
-            val mockIndustry = Industry(
-                "$i",
-                "$i$i$i$i$i$i$i$i$i"
-            ) // ❗
-            localIndustriesList.add(mockIndustry) // ❗
-        } // ❗
 
         return binding.root
     }
@@ -69,11 +81,11 @@ internal class ProfessionFragment : Fragment() {
                 unselectAndHideConfirmation()
                 binding.clearSearchIcon.isVisible = true
                 binding.searchBarLoupeIcon.isVisible = false
-                localIndustriesList = ArrayList()
                 debouncedFiltration(text.toString())
             } else {
                 binding.clearSearchIcon.isVisible = false
                 binding.searchBarLoupeIcon.isVisible = true
+                debouncedFiltration(text.toString())
             }
             userInputReserve = text.toString()
         }
@@ -81,7 +93,7 @@ internal class ProfessionFragment : Fragment() {
         binding.clearSearchIcon.setOnClickListener {
             binding.searchBar.text.clear()
             requireContext().closeKeyBoard(binding.searchBar)
-            localIndustriesList = ArrayList()
+            industryViewModel.resetToFullList()
             unselectAndHideConfirmation()
         }
 
@@ -90,24 +102,27 @@ internal class ProfessionFragment : Fragment() {
     private fun recyclerSetup() {
         val adapter = FilterIndustryListAdapter(object : FilterIndustryListAdapter.IndustryClickListener {
 
-            override fun onIndustryClick(industry: Industry?) {
-                if (industry == null) {
+            override fun onIndustryClick(industryModel: IndustryModel?) {
+                if (industryModel == null) {
                     binding.selectButton.isVisible = false
                 } else {
-                    showConfirmation(industry)
+                    showConfirmation(industryModel)
                 }
             }
         })
         binding.vacancyRecycler.layoutManager = GridLayoutManager(requireContext(), 1)
         binding.vacancyRecycler.adapter = adapter
-        (binding.vacancyRecycler.adapter as FilterIndustryListAdapter).setOptionsList(localIndustriesList)
+        (binding.vacancyRecycler.adapter as FilterIndustryListAdapter).setOptionsList(emptyList())
 
     }
 
-    private fun showConfirmation(selectedIndustry: Industry?) {
+    private fun showConfirmation(selectedIndustry: IndustryModel) {
         binding.selectButton.isVisible = true
         binding.selectButton.setOnClickListener {
-            // ❗ pass selectedIndustry to viewmodel here
+            findNavController().navigate(
+                R.id.action_industryFragment_to_filterFragment,
+                createArgs(selectedIndustry)
+            )
         }
     }
 
@@ -118,7 +133,7 @@ internal class ProfessionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.buttonLeftProfession.setOnClickListener {
+        binding.buttonLeftIndustry.setOnClickListener {
             findNavController().navigateUp()
         }
     }
@@ -140,5 +155,10 @@ internal class ProfessionFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    companion object {
+        fun createArgs(selectedIndustry: IndustryModel): Bundle =
+            bundleOf(ARGS_INDUSTRY_ID to selectedIndustry.id, ARGS_INDUSTRY_NAME to selectedIndustry.name)
     }
 }

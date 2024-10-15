@@ -16,6 +16,7 @@ import ru.practicum.android.diploma.filter.place.domain.usecase.RegionInteractor
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.CountryState
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.PlaceState
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.RegionState
+import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.SelectedCountryState
 
 private const val SEARCH_DEBOUNCE_DELAY = 1000L
 
@@ -25,6 +26,9 @@ class RegionsCountriesViewModel(
 
     private val _countriesStateLiveData = MutableLiveData<CountryState>()
     fun observeCountriesState(): LiveData<CountryState> = _countriesStateLiveData
+
+    private val _selectedCountryStateLiveData = MutableLiveData<SelectedCountryState>()
+    fun observeSelectedCountryState(): LiveData<SelectedCountryState> = _selectedCountryStateLiveData
 
     private val _regionsStateLiveData = MutableLiveData<RegionState>()
     fun observeRegionsState(): LiveData<RegionState> = _regionsStateLiveData
