@@ -7,7 +7,9 @@ import ru.practicum.android.diploma.filters.data.FilterAreaRepositoryImpl
 import ru.practicum.android.diploma.filters.data.impl.FilterIndustriesRepositoryImpl
 import ru.practicum.android.diploma.filters.domain.api.FilterAreaRepository
 import ru.practicum.android.diploma.filters.domain.api.FilterIndustriesRepository
+import ru.practicum.android.diploma.search.data.impl.RequestBuilderRepositoryImpl
 import ru.practicum.android.diploma.search.data.impl.SearchVacancyRepositoryImpl
+import ru.practicum.android.diploma.search.domain.api.RequestBuilderRepository
 import ru.practicum.android.diploma.search.domain.api.SearchVacancyRepository
 import ru.practicum.android.diploma.vacancy.data.impl.GetVacancyDetailsRepositoryImpl
 import ru.practicum.android.diploma.vacancy.domain.api.GetVacancyDetailsRepository
@@ -32,5 +34,9 @@ val repositoryModule = module {
 
     single<FilterIndustriesRepository> {
         FilterIndustriesRepositoryImpl(get())
+    }
+
+    single<RequestBuilderRepository> {
+        RequestBuilderRepositoryImpl(get())
     }
 }
