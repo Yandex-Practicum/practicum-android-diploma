@@ -34,7 +34,7 @@ class IndustriesFilterViewModel(
             HttpStatusCode.OK -> {
                 if (foundIndustries != null) {
                     if (foundIndustries.isNotEmpty()) {
-                        stateLiveData.value = FiltersChooserScreenState.ChooseItem(
+                        stateLiveData.value = FiltersChooserScreenState.ChooseItem<Industry>(
                             foundIndustries
                         )
                     } else {
