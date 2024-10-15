@@ -15,7 +15,7 @@
     <dimen name="team_list_spacing">16dp</dimen>
 
     <!-- Dimensions For Filter Screen   -->
-    <dimen name="filter_item_margin">28dp</dimen>
+    <dimen name="filter_item_margin">24dp</dimen>
     <dimen name="action_icon_end_margin">24dp</dimen>
     <dimen name="button_height">60dp</dimen>
 
