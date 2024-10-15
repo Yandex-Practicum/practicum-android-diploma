@@ -52,6 +52,7 @@
         app:endIconDrawable="@drawable/ic_arrow_forward_24px"
         app:endIconMode="custom"
         app:endIconTint="@color/colorAdaptiveText"
+        android:focusable="false"
         android:clickable="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/area_input_layout">

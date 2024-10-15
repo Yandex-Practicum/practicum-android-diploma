@@ -70,7 +70,9 @@ class FilterSettingsFragment : Fragment() {
         }
 
         binding.industryEditText.setOnClickListener {
-            findNavController().navigate(R.id.action_filterSettingsFragment_to_industrySelectFragment)
+            findNavController().navigate(
+                R.id.action_filterSettingsFragment_to_industrySelectFragment
+            )
         }
     }
 

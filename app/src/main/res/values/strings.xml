@@ -55,6 +55,10 @@
     <string name="area_not_found">Не удалось получить список</string>
     <!--  Choose area Screen /start/ -->
 
+    <!--  Choose industries Screen /start/ -->
+    <string name="choose_industries">Выбор отрасли</string>
+    <!--  Choose industries Screen /start/ -->
+
     <!--  Team Info Screen /start/ -->
     <string name="team_member_title">Над приложением работали</string>
     <string-array name="authors">
