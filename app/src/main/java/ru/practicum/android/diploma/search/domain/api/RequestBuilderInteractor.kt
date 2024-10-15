@@ -1,5 +1,7 @@
 package ru.practicum.android.diploma.search.domain.api
 
+import ru.practicum.android.diploma.search.data.model.SavedFilters
+
 interface RequestBuilderInteractor {
     fun setText(text: String)
     fun saveArea(areaId: String)

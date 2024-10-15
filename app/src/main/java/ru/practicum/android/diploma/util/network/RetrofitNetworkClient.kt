@@ -7,7 +7,6 @@ import ru.practicum.android.diploma.filters.data.dto.FilterAreasRequest
 import ru.practicum.android.diploma.filters.data.dto.FilterIndustriesRequest
 import ru.practicum.android.diploma.search.data.network.VacancySearchRequest
 import ru.practicum.android.diploma.vacancy.data.network.VacancyDetailsRequest
-
 import java.io.IOException
 
 class RetrofitNetworkClient(

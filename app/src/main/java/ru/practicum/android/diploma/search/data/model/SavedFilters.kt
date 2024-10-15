@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.search.domain.api
+package ru.practicum.android.diploma.search.data.model
 
 class SavedFilters(
     val savedArea: String?,

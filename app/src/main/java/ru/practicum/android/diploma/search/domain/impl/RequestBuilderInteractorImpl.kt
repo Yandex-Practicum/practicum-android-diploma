@@ -1,8 +1,8 @@
 package ru.practicum.android.diploma.search.domain.impl
 
+import ru.practicum.android.diploma.search.data.model.SavedFilters
 import ru.practicum.android.diploma.search.domain.api.RequestBuilderInteractor
 import ru.practicum.android.diploma.search.domain.api.RequestBuilderRepository
-import ru.practicum.android.diploma.search.domain.api.SavedFilters
 
 class RequestBuilderInteractorImpl(private val requestBuilderRepository: RequestBuilderRepository) :
     RequestBuilderInteractor {
