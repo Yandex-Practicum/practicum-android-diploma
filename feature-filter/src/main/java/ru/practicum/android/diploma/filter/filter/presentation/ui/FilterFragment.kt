@@ -12,7 +12,9 @@ import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.filter.R
 import ru.practicum.android.diploma.filter.databinding.FragmentFilterBinding
+import ru.practicum.android.diploma.filter.filter.domain.model.FilterSettingsModel
 import ru.practicum.android.diploma.filter.filter.presentation.viewmodel.FilterViewModel
+import ru.practicum.android.diploma.filter.industry.domain.model.IndustryModel
 
 const val ARGS_INDUSTRY_ID = "industry_id"
 const val ARGS_INDUSTRY_NAME = "industry_name"
@@ -35,23 +37,45 @@ internal class FilterFragment : Fragment() {
         }
         receiveBundles(destinationID)
 
-        viewModel.filterOptionsListLiveData.observe(viewLifecycleOwner) { map ->
-            updateUI(map)
+        viewModel.filterOptionsListLiveData.observe(viewLifecycleOwner) { newState ->
+            updateUI(newState)
         }
 
         return binding.root
     }
 
-    private fun updateUI(map: Map<String, String>?) {
-        if (map?.get(ARGS_INDUSTRY_NAME) != null) { // ❗❗ нужны нормальные вьюхи...
+    private fun updateUI(state: FilterSettingsModel) {
+        if (state.industry != null) {
             binding.workIndustry.visibility = INVISIBLE
             binding.workIndustryInfo.isVisible = true
-            binding.workIndustryInfo.text = map[ARGS_INDUSTRY_NAME]
+            binding.workIndustryInfo.text = state.industry
             binding.industryButton.setImageResource(ru.practicum.android.diploma.ui.R.drawable.clear)
         }
 
-        // ⬅️ add your ui logic here ❗
+        if (state.country != null) {
+            if (state.region != null) {
+                binding.workPlace.visibility = INVISIBLE
+                binding.workPlaceInfo.isVisible = true
+                binding.workPlaceInfo.text = buildString {
+                    append(state.country)
+                    append(", ")
+                    append(state.region)
+                    binding.industryButton.setImageResource(ru.practicum.android.diploma.ui.R.drawable.clear)
+                }
+                binding.workPlace.visibility = INVISIBLE
+                binding.workPlaceInfo.isVisible = true
+                binding.workPlaceInfo.text = state.country
+                binding.industryButton.setImageResource(ru.practicum.android.diploma.ui.R.drawable.clear)
+            }
+            if (state.doNotShowWithoutSalary == true) {
+                binding.checkBox.isChecked=true
+            }
+            if (state.expectedSalary != null) {
+                binding.textViewSalary.editText?.setText(state.expectedSalary) // todo жду рабочего view?
+            }
+        }
     }
+
 
     private fun receiveBundles(destinationID: Int) {
         when (destinationID) { // use destinationID to determine the bundle contents type
@@ -61,11 +85,8 @@ internal class FilterFragment : Fragment() {
                 if (args != null) { // if we get arguments - SP is updated
                     val industryID = args.getString(ARGS_INDUSTRY_ID)
                     val industryName = args.getString(ARGS_INDUSTRY_NAME)
-                    if (industryID != null) {
-                        viewModel.putValue(ARGS_INDUSTRY_ID, industryID)
-                    }
-                    if (industryName != null) {
-                        viewModel.putValue(ARGS_INDUSTRY_NAME, industryName)
+                    if (industryID != null && industryName != null) {
+                        viewModel.updateProfessionInDataFilter(IndustryModel(industryID,industryName))
                     }
                 }
                 viewModel.loadFilterSettings() // even in case of no arguments filter settings are loaded
@@ -73,7 +94,9 @@ internal class FilterFragment : Fragment() {
 
             // ⬅️ add your fragment branches here ❗
 
-            else -> { viewModel.loadFilterSettings() } // if none of the sub-screens' actions was used - just
+            else -> {
+                viewModel.loadFilterSettings()
+            } // if none of the sub-screens' actions was used - just
             // load the filter settings
         }
     }
@@ -89,15 +112,29 @@ internal class FilterFragment : Fragment() {
         binding.workIndustryInfo.setOnClickListener {
             findNavController().navigate(R.id.action_filterFragment_to_industryFragment)
         } // ❗❗ неверное по оформлению поле которое выходит на замену серому placeholder перекрывает
-        // клик, дублирую клик на него тоже ❗
+        // клик, дублирую клик на него тоже и жду вьюх❗
         binding.buttonLeftFilter.setOnClickListener {
             findNavController().navigateUp()
         }
-        binding.industryButton.setOnClickListener(
-            if (binding.industryButton.drawable.constantState == ContextCompat.getDrawable(requireContext(),
-                    ru.practicum.android.diploma.ui.R.drawable.clear)){
+        binding.checkBox.setOnCheckedChangeListener { _, b ->
+            (viewModel.updateDoNotShowWithoutSalaryInDataFilter(b))
+        }
+        binding.industryButton.setOnClickListener {
+            val currentDrawable = binding.industryButton.drawable
+            val clearDrawable = ContextCompat.getDrawable(requireContext(), ru.practicum.android.diploma.ui.R.drawable.clear)
 
+            if (currentDrawable?.constantState == clearDrawable?.constantState) {
+                viewModel.clearIndustryFilter()
             }
+        }
+        binding.placeButton.setOnClickListener {
+            val currentDrawable = binding.placeButton.drawable
+            val clearDrawable = ContextCompat.getDrawable(requireContext(), ru.practicum.android.diploma.ui.R.drawable.clear)
+
+            if (currentDrawable?.constantState == clearDrawable?.constantState) {
+                viewModel.clearIndustryFilter()
+            }
+        }
     }
 
     override fun onDestroy() {
