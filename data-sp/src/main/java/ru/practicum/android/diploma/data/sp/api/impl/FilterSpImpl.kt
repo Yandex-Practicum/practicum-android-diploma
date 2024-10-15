@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.data.sp.api.impl
 
 import android.content.SharedPreferences
-import android.util.Log
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
