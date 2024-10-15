@@ -59,7 +59,7 @@ internal class RegionFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentRegionBinding.inflate(inflater, container, false)
         viewArray = arrayOf(
             binding.loadingProgressBar,
@@ -176,7 +176,7 @@ internal class RegionFragment : Fragment() {
         }
     }
 
-    private fun onRegionClickDebounce(action: (Region) -> Unit): ((Region) -> Unit)? {
+    private fun onRegionClickDebounce(action: (Region) -> Unit): ((Region) -> Unit) {
         return debounce<Region>(
             DELAY_CLICK_ITEM,
             lifecycleScope,
