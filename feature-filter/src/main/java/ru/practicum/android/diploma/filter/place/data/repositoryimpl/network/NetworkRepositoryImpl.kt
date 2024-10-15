@@ -11,13 +11,13 @@ import ru.practicum.android.diploma.data.networkclient.api.dto.request.HHApiRegi
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.regions.HHRegionsResponse
 import ru.practicum.android.diploma.filter.place.data.mappers.AreaMapper
 import ru.practicum.android.diploma.filter.place.domain.model.AreaInReference
-import ru.practicum.android.diploma.filter.place.domain.repository.RegionNetworkRepository
+import ru.practicum.android.diploma.filter.place.domain.repository.NetworkRepository
 
 private const val TAG = "RegionRepositoryImpl"
-internal class RegionNetworkRepositoryImpl(
+internal class NetworkRepositoryImpl(
     private val networkClient: NetworkClient,
     private val context: Context,
-) : RegionNetworkRepository {
+) : NetworkRepository {
     override fun listAreas(): Flow<Resource<List<AreaInReference>>> =
         context.executeNetworkRequest<Response, List<AreaInReference>>(
             request = { networkClient.doRequest(HHApiRegionsRequest) },

@@ -16,7 +16,6 @@ import ru.practicum.android.diploma.filter.place.domain.usecase.RegionInteractor
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.CountryState
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.PlaceState
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.RegionState
-import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.SelectedCountryState
 
 private const val SEARCH_DEBOUNCE_DELAY = 1000L
 
@@ -26,9 +25,6 @@ class RegionsCountriesViewModel(
 
     private val _countriesStateLiveData = MutableLiveData<CountryState>()
     fun observeCountriesState(): LiveData<CountryState> = _countriesStateLiveData
-
-    private val _selectedCountryStateLiveData = MutableLiveData<SelectedCountryState>()
-    fun observeSelectedCountryState(): LiveData<SelectedCountryState> = _selectedCountryStateLiveData
 
     private val _regionsStateLiveData = MutableLiveData<RegionState>()
     fun observeRegionsState(): LiveData<RegionState> = _regionsStateLiveData
@@ -42,47 +38,76 @@ class RegionsCountriesViewModel(
 
     private val places: MutableList<AreaInReference> = ArrayList<AreaInReference>()
     private val regions: MutableList<Region> = ArrayList<Region>()
+
     val getRegions: List<Region>
         get() = regions.toList()
 
     init {
-        initData()
+        initDataFromCacheAndSp()
     }
 
-    fun initData() {
+    fun initDataFromNetworkAndSp() {
         viewModelScope.launch(Dispatchers.IO) {
-            initDataFromNetworkAndSp()
+            getDataFromNetworkAndSp()
         }
     }
 
-    private suspend fun initDataFromNetworkAndSp() {
+    fun initDataFromCacheAndSp() {
+        viewModelScope.launch(Dispatchers.IO) {
+            getDataFromCacheAndSp()
+        }
+    }
+
+    private suspend fun getDataFromCacheAndSp() {
+        initDataFromCache()
+        initDataFromSp()
+    }
+
+    private suspend fun getDataFromNetworkAndSp() {
         initDataFromNetwork()
         initDataFromSp()
     }
 
     private suspend fun initDataFromNetwork() {
-        runCatching {
-            regionInteractor.listAreas().collect { areas ->
-                areas.first?.let { list ->
-                    places.addAll(list)
-                    val countries = places.map {
-                        Country(
-                            id = it.id,
-                            name = it.name
-                        )
-                    }
-                    _countriesStateLiveData.postValue(CountryState.Content(countries))
-                } ?: run {
-                    _countriesStateLiveData.postValue(CountryState.Empty)
+        regionInteractor.listAreas().collect { areas ->
+            areas.first?.let { list ->
+                places.addAll(list)
+                val countries = places.map {
+                    Country(
+                        id = it.id,
+                        name = it.name
+                    )
                 }
+                regionInteractor.putCountriesCache(places)
+                _countriesStateLiveData.postValue(CountryState.Content(countries))
+            } ?: {
+                _countriesStateLiveData.postValue(CountryState.Empty)
             }
-        }.fold(
-            onSuccess = {},
-            onFailure = {
+            areas.second?.let {
                 _countriesStateLiveData.postValue(CountryState.Error)
             }
-        )
+        }
+    }
 
+    private suspend fun initDataFromCache() {
+        regionInteractor.getCountriesCache()?.let { list ->
+            places.addAll(list)
+            val countries = places.map {
+                Country(
+                    id = it.id,
+                    name = it.name
+                )
+            }
+            _countriesStateLiveData.postValue(CountryState.Content(countries))
+        } ?: run {
+            _countriesStateLiveData.postValue(CountryState.Empty)
+        }
+    }
+
+    fun clearCache() {
+        viewModelScope.launch(Dispatchers.IO) {
+            regionInteractor.clearCache()
+        }
     }
 
     private suspend fun initDataFromSp() {
@@ -101,12 +126,13 @@ class RegionsCountriesViewModel(
                 _placeStateLiveData.postValue(placeState)
                 getRegions(idCountry)
             } else {
-                _placeStateLiveData.postValue(PlaceState.Error)
-                regions.clear()
+                getRegionsAll()
+                _placeStateLiveData.postValue(PlaceState.Empty)
+
             }
         } ?: run {
-            _placeStateLiveData.postValue(PlaceState.Empty)
-            getRegionsAll()
+            _placeStateLiveData.postValue(PlaceState.Error)
+            regions.clear()
         }
     }
 
@@ -118,19 +144,21 @@ class RegionsCountriesViewModel(
 
     private fun updateRegions(filter: (AreaInReference) -> Boolean) {
         regions.clear()
-        places.filter(filter).forEach { country ->
-            country.areas.forEach { region ->
-                region.parentId?.let { parentId ->
+        places.filter(filter).map { country ->
+            val nameCountry = country.name
+            country.areas.map { region ->
+                region.parentId?.let {
                     regions.add(
                         Region(
                             id = region.id,
                             name = region.name,
-                            parentId = parentId,
-                            parentName = country.name
+                            parentId = it,
+                            parentName = nameCountry
                         )
                     )
                 }
             }
+
         }
         _regionsStateLiveData.postValue(RegionState.Content(regions))
     }
@@ -174,15 +202,11 @@ class RegionsCountriesViewModel(
         true,
         false
     ) { changedText ->
-        if (changedText.isNotEmpty()) {
-            searchRegions(changedText)
-        }
+        searchRegions(changedText)
     }
 
     fun searchDebounce(changedText: String) {
-        if (latestSearchText != changedText) {
-            latestSearchText = changedText
-            trackSearchDebounce(changedText)
-        }
+        latestSearchText = changedText
+        trackSearchDebounce(changedText)
     }
 }
