@@ -14,13 +14,7 @@ import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.domain.usecase.VacanciesInteractor
 import ru.practicum.android.diploma.search.presentation.SearchScreenState
 
-        private const val TAG: String = "VacancyListViewModel"
-        private const val INTERNET_ERROR: String = "Check network connection"
-        private const val PAGE_SIZE = 20
-        private const val INDUSTRY_ID = "industry_id"
-        private const val SALARY = "salary"
-        private const val AREA_ID = "area_id"
-        private const val ONLY_WITH_SALARY = "only_with_salary"
+
 
 internal class VacancyListViewModel(
     private val vacanciesInteractor: VacanciesInteractor,
@@ -48,6 +42,15 @@ internal class VacancyListViewModel(
         _vacancyListStateLiveData.value = VacancyListState.Empty
         _currentResultsCountLiveData.value = 0
         queryFilter = filterSPInteractor.getAll()
+    }
+    companion object {
+        private const val TAG: String = "VacancyListViewModel"
+        private const val INTERNET_ERROR: String = "Check network connection"
+        private const val PAGE_SIZE = 20
+        private const val INDUSTRY_ID = "industry_id"
+        private const val SALARY = "salary"
+        private const val AREA_ID = "area_id"
+        private const val ONLY_WITH_SALARY = "only_with_salary"
     }
 
     fun initialSearch(query: String) {
