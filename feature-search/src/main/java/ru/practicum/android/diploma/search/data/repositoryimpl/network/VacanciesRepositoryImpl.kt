@@ -61,7 +61,8 @@ internal class VacanciesRepositoryImpl(
                         response.found
                     )
                 )
-            })
+            }
+        )
     }
 
     override fun listVacancy(id: String): Flow<Resource<VacancyDetail>> =
