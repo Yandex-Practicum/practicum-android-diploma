@@ -16,7 +16,6 @@ import ru.practicum.android.diploma.filter.place.domain.usecase.RegionInteractor
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.CountryState
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.PlaceState
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.RegionState
-import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.SelectedCountryState
 
 private const val SEARCH_DEBOUNCE_DELAY = 1000L
 
@@ -26,9 +25,6 @@ class RegionsCountriesViewModel(
 
     private val _countriesStateLiveData = MutableLiveData<CountryState>()
     fun observeCountriesState(): LiveData<CountryState> = _countriesStateLiveData
-
-    private val _selectedCountryStateLiveData = MutableLiveData<SelectedCountryState>()
-    fun observeSelectedCountryState(): LiveData<SelectedCountryState> = _selectedCountryStateLiveData
 
     private val _regionsStateLiveData = MutableLiveData<RegionState>()
     fun observeRegionsState(): LiveData<RegionState> = _regionsStateLiveData
@@ -42,6 +38,7 @@ class RegionsCountriesViewModel(
 
     private val places: MutableList<AreaInReference> = ArrayList<AreaInReference>()
     private val regions: MutableList<Region> = ArrayList<Region>()
+
     val getRegions: List<Region>
         get() = regions.toList()
 
@@ -61,28 +58,23 @@ class RegionsCountriesViewModel(
     }
 
     private suspend fun initDataFromNetwork() {
-        runCatching {
-            regionInteractor.listAreas().collect { areas ->
-                areas.first?.let { list ->
-                    places.addAll(list)
-                    val countries = places.map {
-                        Country(
-                            id = it.id,
-                            name = it.name
-                        )
-                    }
-                    _countriesStateLiveData.postValue(CountryState.Content(countries))
-                } ?: run {
-                    _countriesStateLiveData.postValue(CountryState.Empty)
+        regionInteractor.listAreas().collect { areas ->
+            areas.first?.let { list ->
+                places.addAll(list)
+                val countries = places.map {
+                    Country(
+                        id = it.id,
+                        name = it.name
+                    )
                 }
+                _countriesStateLiveData.postValue(CountryState.Content(countries))
+            } ?: run {
+                _countriesStateLiveData.postValue(CountryState.Empty)
             }
-        }.fold(
-            onSuccess = {},
-            onFailure = {
+            areas.second?.let {
                 _countriesStateLiveData.postValue(CountryState.Error)
             }
-        )
-
+        }
     }
 
     private suspend fun initDataFromSp() {

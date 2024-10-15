@@ -3,11 +3,11 @@ package ru.practicum.android.diploma.filter.place.data.repositoryimpl.sp
 import ru.practicum.android.diploma.data.sp.api.FilterSp
 import ru.practicum.android.diploma.filter.place.data.mappers.SpMapper
 import ru.practicum.android.diploma.filter.place.domain.model.Place
-import ru.practicum.android.diploma.filter.place.domain.repository.RegionSpRepository
+import ru.practicum.android.diploma.filter.place.domain.repository.SpRepository
 
-class RegionSpRepositoryImpl(
+class SpRepositoryImpl(
     val filterSp: FilterSp
-) : RegionSpRepository {
+) : SpRepository {
 
     override suspend fun getPlaceDataFilter(): Place? {
         return filterSp.getPlaceDataFilter()?.let { SpMapper.map(it) }

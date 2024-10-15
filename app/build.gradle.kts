@@ -73,6 +73,7 @@ dependencies {
     implementation(project(":data-network"))
     implementation(project(":data-sp"))
     implementation(project(":data-db"))
+    implementation(project(":data-cache"))
     implementation(project(":feature-search"))
     implementation(project(":feature-filter"))
     implementation(project(":feature-favorites"))

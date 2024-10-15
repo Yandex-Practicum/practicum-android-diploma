@@ -13,7 +13,8 @@ import ru.practicum.android.diploma.search.domain.usecase.VacanciesInteractor
 import ru.practicum.android.diploma.search.presentation.SearchScreenState
 
 private const val PAGE_SIZE = 20
-
+private const val TAG: String = "VacancyListViewModel"
+private const val INTERNET_ERROR: String = "Check network connection"
 internal class VacancyListViewModel(
     private val vacanciesInteractor: VacanciesInteractor,
     private val application: Application,
@@ -36,11 +37,6 @@ internal class VacancyListViewModel(
         _screenStateLiveData.value = SearchScreenState.IDLE
         _vacancyListStateLiveData.value = VacancyListState.Empty
         _currentResultsCountLiveData.value = 0
-    }
-
-    companion object {
-        private const val TAG: String = "VacancyListViewModel"
-        private const val INTERNET_ERROR: String = "Check network connection"
     }
 
     fun initialSearch(query: String) {
