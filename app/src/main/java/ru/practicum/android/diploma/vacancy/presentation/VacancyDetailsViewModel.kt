@@ -1,7 +1,5 @@
 package ru.practicum.android.diploma.vacancy.presentation
 
-import android.content.Context
-import android.content.Intent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -42,6 +40,7 @@ class VacancyDetailsViewModel(
                             isFavorite.postValue(result.first?.isFavorite)
                             vacancy = result.first
                         }
+
                         NOT_FOUND -> renderState(VacancyScreenState.EmptyState)
 
                         else -> renderState(VacancyScreenState.NetworkErrorState)
@@ -56,6 +55,7 @@ class VacancyDetailsViewModel(
     }
 
     private var vacancyUrl = ""
+
     private fun processSuccessResult(vacancy: Vacancy?) {
         if (vacancy == null) {
             renderState(VacancyScreenState.EmptyState)
@@ -65,16 +65,6 @@ class VacancyDetailsViewModel(
         }
     }
 
-    fun share(context: Context) {
-        val intent = Intent().apply {
-            action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, vacancyUrl)
-            type = "text/plain"
-        }
-        val share = Intent.createChooser(intent, null)
-        share.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        context.startActivity(share)
-    }
     fun onFavoriteClicked() {
         viewModelScope.launch(Dispatchers.IO) {
             vacancy?.let {

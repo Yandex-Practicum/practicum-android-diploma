@@ -1,17 +1,14 @@
 package ru.practicum.android.diploma.util.network
 
 import retrofit2.http.GET
-import retrofit2.http.Headers
 import retrofit2.http.Path
 import retrofit2.http.QueryMap
-import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.filters.data.dto.FilterAreasResponse
 import ru.practicum.android.diploma.filters.data.dto.FilterIndustriesResponse
 import ru.practicum.android.diploma.search.data.network.VacancySearchResponse
 import ru.practicum.android.diploma.vacancy.data.network.VacancyDetailsResponse
 
 interface HHApiService {
-    @Headers("Authorization: Bearer ${BuildConfig.HH_ACCESS_TOKEN}")
     @GET("vacancies")
     suspend fun searchVacancies(
         @QueryMap query: HashMap<String, String>

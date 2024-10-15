@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.vacancy.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Html
 import android.view.LayoutInflater
@@ -26,6 +27,7 @@ class VacancyDetailFragment : Fragment() {
     private val viewModel by viewModel<VacancyDetailsViewModel> {
         parametersOf(vacancyId)
     }
+    private var vacancyUrl: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,7 +46,15 @@ class VacancyDetailFragment : Fragment() {
         }
 
         binding.shareButton.setOnClickListener {
-            viewModel.share(requireContext())
+            val intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, vacancyUrl)
+                type = "text/plain"
+            }
+            val share = Intent.createChooser(intent, null)
+            share.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            context?.startActivity(share)
+
         }
 
         viewModel.getVacancyState().observe(viewLifecycleOwner) { state ->
@@ -65,10 +75,14 @@ class VacancyDetailFragment : Fragment() {
 
     private fun renderState(state: VacancyScreenState) {
         when (state) {
-            is VacancyScreenState.ContentState -> showContent(state.vacancy)
-            VacancyScreenState.EmptyState -> showEmpty()
-            VacancyScreenState.LoadingState -> showLoading()
-            VacancyScreenState.NetworkErrorState -> showNetworkError()
+            is VacancyScreenState.ContentState -> {
+                vacancyUrl = state.vacancy.vacancyUrl
+                showContent(state.vacancy)
+            }
+
+            is VacancyScreenState.EmptyState -> showEmpty()
+            is VacancyScreenState.LoadingState -> showLoading()
+            is VacancyScreenState.NetworkErrorState -> showNetworkError()
         }
     }
 
