@@ -14,8 +14,6 @@ import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.domain.usecase.VacanciesInteractor
 import ru.practicum.android.diploma.search.presentation.SearchScreenState
 
-
-
 internal class VacancyListViewModel(
     private val vacanciesInteractor: VacanciesInteractor,
     private val filterSPInteractor: FilterSPInteractor,
@@ -43,6 +41,7 @@ internal class VacancyListViewModel(
         _currentResultsCountLiveData.value = 0
         queryFilter = filterSPInteractor.getAll()
     }
+
     companion object {
         private const val TAG: String = "VacancyListViewModel"
         private const val INTERNET_ERROR: String = "Check network connection"
