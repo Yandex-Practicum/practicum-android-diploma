@@ -1,18 +1,24 @@
 package ru.practicum.android.diploma.filter.filter.presentation.ui
 
-import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.SpannableStringBuilder
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.INVISIBLE
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.filter.R
 import ru.practicum.android.diploma.filter.databinding.FragmentFilterBinding
+import ru.practicum.android.diploma.filter.filter.domain.model.FilterSettingsModel
 import ru.practicum.android.diploma.filter.filter.presentation.viewmodel.FilterViewModel
+import ru.practicum.android.diploma.filter.industry.domain.model.IndustryModel
+import ru.practicum.android.diploma.filter.place.domain.model.Place
 
 const val ARGS_INDUSTRY_ID = "industry_id"
 const val ARGS_INDUSTRY_NAME = "industry_name"
@@ -40,33 +46,47 @@ internal class FilterFragment : Fragment() {
         }
         receiveBundles(destinationID)
 
-        viewModel.filterOptionsListLiveData.observe(viewLifecycleOwner) { map ->
-            updateUI(map)
+        viewModel.filterOptionsListLiveData.observe(viewLifecycleOwner) { newState ->
+            updateUI(newState)
         }
 
         return binding.root
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun updateUI(map: Map<String, String>?) {
-        if (map?.get(ARGS_INDUSTRY_NAME) != null) { // ❗❗ нужны нормальные вьюхи...
+    private fun updateUI(state: FilterSettingsModel) {
+        if (state.industry != null) {
             binding.workIndustry.visibility = INVISIBLE
             binding.workIndustryInfo.isVisible = true
-            binding.workIndustryInfo.text = map[ARGS_INDUSTRY_NAME]
+            binding.workIndustryInfo.text = state.industry
+            binding.industryButton.setImageResource(ru.practicum.android.diploma.ui.R.drawable.clear)
         }
 
-        if (map?.get(ARGS_PLACE_COUNTRY_NAME) != null) {
-            binding.workPlace.visibility = INVISIBLE
-            binding.workPlaceInfo.isVisible = true
-            if (map?.get(ARGS_PLACE_REGION_NAME) == null ||
-                map?.get(ARGS_PLACE_REGION_NAME) == "") {
-                binding.workPlaceInfo.text = map[ARGS_PLACE_COUNTRY_NAME]
+        if (state.country != null) {
+            if (state.region != null) {
+                binding.workPlace.visibility = INVISIBLE
+                binding.workPlaceInfo.isVisible = true
+                binding.workPlaceInfo.text = buildString {
+                    append(state.country)
+                    append(", ")
+                    append(state.region)
+                    binding.placeButton.setImageResource(ru.practicum.android.diploma.ui.R.drawable.clear)
+                }
             } else {
-                binding.workPlaceInfo.text = map[ARGS_PLACE_COUNTRY_NAME] + ", " + map[ARGS_PLACE_REGION_NAME]
+                binding.workPlace.visibility = INVISIBLE
+                binding.workPlaceInfo.isVisible = true
+                binding.workPlaceInfo.text = state.country
+                binding.industryButton.setImageResource(ru.practicum.android.diploma.ui.R.drawable.clear)
+            }
+
+            if (state.doNotShowWithoutSalary == true) {
+                binding.checkBox.isChecked = true
+            }
+            if (state.expectedSalary != null) {
+
+                if (state.expectedSalary!=-1) binding.editTextFilter.text =
+                    SpannableStringBuilder(state.expectedSalary.toString()) // ❗❗ жду рабочего view?
             }
         }
-
-        // ⬅️ add your ui logic here ❗
     }
 
     private fun receiveBundles(destinationID: Int) {
@@ -77,17 +97,13 @@ internal class FilterFragment : Fragment() {
                 if (args != null) { // if we get arguments - SP is updated
                     val industryID = args.getString(ARGS_INDUSTRY_ID)
                     val industryName = args.getString(ARGS_INDUSTRY_NAME)
-                    if (industryID != null) {
-                        viewModel.putValue(ARGS_INDUSTRY_ID, industryID)
-                    }
-                    if (industryName != null) {
-                        viewModel.putValue(ARGS_INDUSTRY_NAME, industryName)
+                    if (industryID != null && industryName != null) {
+                        viewModel.updateProfessionInDataFilter(IndustryModel(industryID, industryName))
                     }
                 }
                 viewModel.loadFilterSettings() // even in case of no arguments filter settings are loaded
             }
 
-            // ⬅️ add your fragment branches here ❗
             R.id.placeFragment -> {
                 val args = getArguments()
                 if (args != null) { // if we get arguments - SP is updated
@@ -96,24 +112,29 @@ internal class FilterFragment : Fragment() {
                     val placeRegionID = args.getString(ARGS_PLACE_REGION_ID)
                     val placeRegionName = args.getString(ARGS_PLACE_REGION_NAME)
                     if (placeCountryID != null) {
-                        viewModel.putValue(ARGS_PLACE_COUNTRY_ID, placeCountryID)
-                        viewModel.putValue(AREA_ID, placeCountryID)
-                    }
-                    if (placeCountryName != null) {
-                        viewModel.putValue(ARGS_PLACE_COUNTRY_NAME, placeCountryName)
-                    }
-                    if (placeCountryName != null && placeRegionName == null) {
-                        viewModel.putValue(ARGS_PLACE_REGION_NAME, "")
-                    }
-                    if (placeRegionID != null) {
-                        viewModel.putValue(ARGS_PLACE_REGION_ID, placeRegionID)
-                        viewModel.putValue(AREA_ID, placeRegionID)
-                    }
-                    if (placeRegionName != null) {
-                        viewModel.putValue(ARGS_PLACE_REGION_NAME, placeRegionName)
+                        if (placeRegionName != null) {
+                            viewModel.updatePlaceInDataFilter(
+                                Place(
+                                    placeCountryID,
+                                    placeCountryName,
+                                    placeRegionID,
+                                    placeRegionName
+                                )
+                            )
+                        } else { // in case of only Country having been selected
+                            viewModel.updatePlaceInDataFilter(
+                                Place(
+                                    placeCountryID,
+                                    placeCountryName,
+                                    null,
+                                    null
+                                )
+                            )
+                        }
+                    } else {
+                        viewModel.loadFilterSettings() // even in case of no arguments filter settings are loaded
                     }
                 }
-                viewModel.loadFilterSettings()
             }
 
             else -> {
@@ -137,9 +158,44 @@ internal class FilterFragment : Fragment() {
         binding.workIndustryInfo.setOnClickListener {
             findNavController().navigate(R.id.action_filterFragment_to_industryFragment)
         } // ❗❗ неверное по оформлению поле которое выходит на замену серому placeholder перекрывает
-        // клик, дублирую клик на него тоже ❗
+        // клик, дублирую клик на него тоже и жду вьюх❗
         binding.buttonLeftFilter.setOnClickListener {
             findNavController().navigateUp()
+        }
+
+        binding.editTextFilter.doOnTextChanged { text, start, before, count ->
+            if (before != count) { //или debounce
+                if (text != "") {
+                    viewModel.updateSalaryInDataFilter(text.toString().toInt())
+                } else (viewModel.clearSalaryFilter())
+            }
+        }
+
+        binding.checkBox.setOnCheckedChangeListener { _, b ->
+            viewModel.updateDoNotShowWithoutSalaryInDataFilter(b)
+        }
+
+        binding.industryButton.setOnClickListener {
+            val currentDrawable = binding.industryButton.drawable
+            val clearDrawable = ContextCompat.getDrawable(
+                requireContext(),
+                ru.practicum.android.diploma.ui.R.drawable.clear
+            )
+
+            if (currentDrawable?.constantState == clearDrawable?.constantState) {
+                viewModel.clearIndustryFilter()
+            }
+        }
+        binding.placeButton.setOnClickListener {
+            val currentDrawable = binding.placeButton.drawable
+            val clearDrawable = ContextCompat.getDrawable(
+                requireContext(),
+                ru.practicum.android.diploma.ui.R.drawable.clear
+            )
+
+            if (currentDrawable?.constantState == clearDrawable?.constantState) {
+                viewModel.clearPlaceFilter()
+            }
         }
     }
 
