@@ -16,4 +16,20 @@ class SpRepositoryImpl(
     override suspend fun updatePlaceInDataFilter(place: Place): Int {
         return filterSp.updatePlaceInDataFilter(SpMapper.map(place))
     }
+
+    override suspend fun clearPlaceInDataFilter(): Int {
+        return filterSp.updatePlaceInDataFilter(SpMapper.mapClear())
+    }
+
+    override suspend fun getPlaceDataFilterBuffer(): Place? {
+        return filterSp.getPlaceDataFilterBuffer()?.let { SpMapper.map(it) }
+    }
+
+    override suspend fun updatePlaceInDataFilterBuffer(place: Place): Int {
+        return filterSp.updatePlaceInDataFilterBuffer(SpMapper.map(place))
+    }
+
+    override suspend fun clearPlaceInDataFilterBuffer(): Int {
+        return filterSp.updatePlaceInDataFilterBuffer(SpMapper.mapClear())
+    }
 }
