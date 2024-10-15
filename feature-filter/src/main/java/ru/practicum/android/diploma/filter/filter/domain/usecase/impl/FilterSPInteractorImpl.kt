@@ -1,60 +1,58 @@
 package ru.practicum.android.diploma.filter.filter.domain.usecase.impl
 
-import ru.practicum.android.diploma.data.sp.dto.FilterDto
+import kotlinx.coroutines.flow.Flow
+import ru.practicum.android.diploma.filter.filter.domain.model.FilterSettingsModel
 import ru.practicum.android.diploma.filter.filter.domain.repository.FilterSPRepository
+import ru.practicum.android.diploma.filter.industry.domain.model.IndustryModel
 import ru.practicum.android.diploma.filter.place.domain.model.Place
 
 internal class FilterSPInteractorImpl(private val repository: FilterSPRepository) : FilterSPInteractor {
     override suspend fun clearDataFilter() {
-        TODO("Not yet implemented")
+        repository.clearDataFilter()
     }
 
-    override suspend fun getPlaceDataFilter(): Place? {
-        TODO("Not yet implemented")
+    override suspend fun getBranchOfProfessionDataFilter(): Flow<String?> {
+        return repository.getBranchOfProfessionDataFilter()
     }
 
-    override suspend fun getBranchOfProfessionDataFilter(): String? {
-        TODO("Not yet implemented")
+    override suspend fun getExpectedSalaryDataFilter(): Flow<Int?> {
+        return repository.getExpectedSalaryDataFilter()
     }
 
-    override suspend fun getExpectedSalaryDataFilter(): Int? {
-        TODO("Not yet implemented")
+    override suspend fun isDoNotShowWithoutSalaryDataFilter(): Flow<Boolean> {
+        return repository.isDoNotShowWithoutSalaryDataFilter()
     }
 
-    override suspend fun isDoNotShowWithoutSalaryDataFilter(): Boolean {
-        TODO("Not yet implemented")
+    override suspend fun getDataFilter(): Flow<FilterSettingsModel> {
+        return repository.getDataFilter()
     }
 
-    override suspend fun getDataFilter(): FilterDto {
-        TODO("Not yet implemented")
+    override suspend fun updatePlaceInDataFilter(place: Place): Flow<Int> {
+        return repository.updatePlaceInDataFilter(place)
     }
 
-    override suspend fun updatePlaceInDataFilter(place: Place): Int {
-        TODO("Not yet implemented")
+    override suspend fun updateProfessionInDataFilter(industry: IndustryModel): Flow<Int> {
+        return repository.updateProfessionInDataFilter(industry)
     }
 
-    override suspend fun updateProfessionInDataFilter(industry: String): Int {
-        TODO("Not yet implemented")
+    override suspend fun updateSalaryInDataFilter(expectedSalary: Int): Flow<Int> {
+        return repository.updateSalaryInDataFilter(expectedSalary)
     }
 
-    override suspend fun updateSalaryInDataFilter(expectedSalary: Int): Int {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun updateDoNotShowWithoutSalaryInDataFilter(doNotShowWithoutSalary: Boolean): Int {
-        TODO("Not yet implemented")
+    override suspend fun updateDoNotShowWithoutSalaryInDataFilter(doNotShowWithoutSalary: Boolean): Flow<Int> {
+        return repository.updateDoNotShowWithoutSalaryInDataFilter(doNotShowWithoutSalary)
     }
 
     override suspend fun clearSalaryFilter() {
-        TODO("Not yet implemented")
+        repository.clearSalaryFilter()
     }
 
     override suspend fun clearPlaceFilter() {
-        TODO("Not yet implemented")
+        repository.clearPlaceFilter()
     }
 
     override suspend fun clearIndustryFilter() {
-        TODO("Not yet implemented")
+        repository.clearIndustryFilter()
     }
 
 
