@@ -17,72 +17,56 @@
         android:title="@string/choose_place_for_work"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/country_title"
-        style="@style/Text_filter_area_title"
-        android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/area_input_layout"
+        style="@style/FilterTextInputLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/country"
-        android:layout_marginStart="@dimen/padding_horizontal_size_16"
-        app:layout_constraintBottom_toTopOf="@id/country_result"
+        android:layout_marginTop="@dimen/padding_horizontal_size_16"
+        android:hint="@string/country"
+        app:endIconDrawable="@drawable/ic_arrow_forward_24px"
+        app:endIconMode="custom"
+        app:endIconTint="@color/colorAdaptiveText"
+        android:clickable="true"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/county_action_icon" />
+        app:layout_constraintTop_toBottomOf="@id/tool_bar">
 
-    <TextView
-        android:id="@+id/country_result"
-        style="@style/Text_Regular_16"
-        android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/country_select"
+            style="@style/FilterEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="false"
+            android:paddingStart="16dp"
+            android:paddingEnd="0dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/industry_input_layout"
+        style="@style/FilterTextInputLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/padding_horizontal_size_16"
+        android:hint="@string/region"
+        app:endIconDrawable="@drawable/ic_arrow_forward_24px"
+        app:endIconMode="custom"
+        app:endIconTint="@color/colorAdaptiveText"
+        android:clickable="true"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/country_title"
-        app:layout_constraintBottom_toBottomOf="@id/county_action_icon"
-        tool:text="Россия"
-        android:visibility="gone"/>
+        app:layout_constraintTop_toBottomOf="@id/area_input_layout">
 
-    <ImageView
-        android:id="@+id/county_action_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/filter_item_margin"
-        android:src="@drawable/ic_arrow_forward_24px"
-        android:layout_marginEnd="@dimen/padding_horizontal_size_16"
-        app:layout_constraintTop_toBottomOf="@id/tool_bar"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/region_select"
+            style="@style/FilterEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="false"
+            android:paddingStart="16dp"
+            android:paddingEnd="0dp"/>
 
-    <TextView
-        android:id="@+id/region_title"
-        style="@style/Text_filter_area_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/industry"
-        android:layout_marginStart="@dimen/padding_horizontal_size_16"
-        app:layout_constraintBottom_toTopOf="@id/region_result"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/region_action_icon" />
-
-    <TextView
-        android:id="@+id/region_result"
-        style="@style/Text_Regular_16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/padding_horizontal_size_16"
-        app:layout_constraintBottom_toBottomOf="@id/region_action_icon"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/region_title"
-        tool:text="IT"
-        android:visibility="gone" />
-
-    <ImageView
-        android:id="@+id/region_action_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginTop="@dimen/filter_item_margin"
-        android:src="@drawable/ic_arrow_forward_24px"
-        android:layout_marginEnd="@dimen/padding_horizontal_size_16"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/county_action_icon" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button style="@style/BlueButtonStyle"
         android:id="@+id/apply_button"
