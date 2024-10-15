@@ -1,12 +1,15 @@
 package ru.practicum.android.diploma.filter.filter.presentation.ui
 
-import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.SpannableStringBuilder
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.INVISIBLE
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -15,6 +18,7 @@ import ru.practicum.android.diploma.filter.databinding.FragmentFilterBinding
 import ru.practicum.android.diploma.filter.filter.domain.model.FilterSettingsModel
 import ru.practicum.android.diploma.filter.filter.presentation.viewmodel.FilterViewModel
 import ru.practicum.android.diploma.filter.industry.domain.model.IndustryModel
+import ru.practicum.android.diploma.filter.place.domain.model.Place
 
 const val ARGS_INDUSTRY_ID = "industry_id"
 const val ARGS_INDUSTRY_NAME = "industry_name"
@@ -65,18 +69,22 @@ internal class FilterFragment : Fragment() {
                     append(state.country)
                     append(", ")
                     append(state.region)
-                    binding.industryButton.setImageResource(ru.practicum.android.diploma.ui.R.drawable.clear)
+                    binding.placeButton.setImageResource(ru.practicum.android.diploma.ui.R.drawable.clear)
                 }
+            } else {
                 binding.workPlace.visibility = INVISIBLE
                 binding.workPlaceInfo.isVisible = true
                 binding.workPlaceInfo.text = state.country
                 binding.industryButton.setImageResource(ru.practicum.android.diploma.ui.R.drawable.clear)
             }
+
             if (state.doNotShowWithoutSalary == true) {
                 binding.checkBox.isChecked = true
             }
             if (state.expectedSalary != null) {
-                binding.textViewSalary.editText?.setText(state.expectedSalary) // ❗❗ жду рабочего view?
+
+                if (state.expectedSalary!=-1) binding.editTextFilter.text =
+                    SpannableStringBuilder(state.expectedSalary.toString()) // ❗❗ жду рабочего view?
             }
         }
     }
@@ -96,7 +104,6 @@ internal class FilterFragment : Fragment() {
                 viewModel.loadFilterSettings() // even in case of no arguments filter settings are loaded
             }
 
-            // ⬅️ add your fragment branches here ❗
             R.id.placeFragment -> {
                 val args = getArguments()
                 if (args != null) { // if we get arguments - SP is updated
@@ -105,24 +112,29 @@ internal class FilterFragment : Fragment() {
                     val placeRegionID = args.getString(ARGS_PLACE_REGION_ID)
                     val placeRegionName = args.getString(ARGS_PLACE_REGION_NAME)
                     if (placeCountryID != null) {
-                        viewModel.putValue(ARGS_PLACE_COUNTRY_ID, placeCountryID)
-                        viewModel.putValue(AREA_ID, placeCountryID)
-                    }
-                    if (placeCountryName != null) {
-                        viewModel.putValue(ARGS_PLACE_COUNTRY_NAME, placeCountryName)
-                    }
-                    if (placeCountryName != null && placeRegionName == null) {
-                        viewModel.putValue(ARGS_PLACE_REGION_NAME, "")
-                    }
-                    if (placeRegionID != null) {
-                        viewModel.putValue(ARGS_PLACE_REGION_ID, placeRegionID)
-                        viewModel.putValue(AREA_ID, placeRegionID)
-                    }
-                    if (placeRegionName != null) {
-                        viewModel.putValue(ARGS_PLACE_REGION_NAME, placeRegionName)
+                        if (placeRegionName != null) {
+                            viewModel.updatePlaceInDataFilter(
+                                Place(
+                                    placeCountryID,
+                                    placeCountryName,
+                                    placeRegionID,
+                                    placeRegionName
+                                )
+                            )
+                        } else { // in case of only Country having been selected
+                            viewModel.updatePlaceInDataFilter(
+                                Place(
+                                    placeCountryID,
+                                    placeCountryName,
+                                    null,
+                                    null
+                                )
+                            )
+                        }
+                    } else {
+                        viewModel.loadFilterSettings() // even in case of no arguments filter settings are loaded
                     }
                 }
-                viewModel.loadFilterSettings()
             }
 
             else -> {
@@ -150,9 +162,19 @@ internal class FilterFragment : Fragment() {
         binding.buttonLeftFilter.setOnClickListener {
             findNavController().navigateUp()
         }
+
+        binding.editTextFilter.doOnTextChanged { text, start, before, count ->
+            if (before != count) { //или debounce
+                if (text != "") {
+                    viewModel.updateSalaryInDataFilter(text.toString().toInt())
+                } else (viewModel.clearSalaryFilter())
+            }
+        }
+
         binding.checkBox.setOnCheckedChangeListener { _, b ->
             viewModel.updateDoNotShowWithoutSalaryInDataFilter(b)
         }
+
         binding.industryButton.setOnClickListener {
             val currentDrawable = binding.industryButton.drawable
             val clearDrawable = ContextCompat.getDrawable(
@@ -172,7 +194,7 @@ internal class FilterFragment : Fragment() {
             )
 
             if (currentDrawable?.constantState == clearDrawable?.constantState) {
-                viewModel.clearIndustryFilter()
+                viewModel.clearPlaceFilter()
             }
         }
     }

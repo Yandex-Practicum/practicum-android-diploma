@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.filter.filter.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -53,11 +54,19 @@ class FilterViewModel(
     }
 
     fun updatePlaceInDataFilter(place: Place) {
+        val currentFilterOptions=_filterOptionsListLiveData.value
+        if (currentFilterOptions != null) {
+            _filterOptionsListLiveData.value=currentFilterOptions.copy(region = place.nameRegion, country = place.nameCountry)
+        }
         viewModelScope.launch(Dispatchers.IO) { filterSPInteractor.updatePlaceInDataFilter(place).collect { value ->
             if (value == -1) handleError()
         } } }
 
     fun updateProfessionInDataFilter(industryModel: IndustryModel) {
+        val currentFilterOptions=_filterOptionsListLiveData.value
+        if (currentFilterOptions != null) {
+            _filterOptionsListLiveData.value=currentFilterOptions.copy(industry = industryModel.name)
+        }
         viewModelScope.launch(
             Dispatchers.IO
         ) { filterSPInteractor.updateProfessionInDataFilter(industryModel).collect { value ->
@@ -65,6 +74,10 @@ class FilterViewModel(
         } } }
 
     fun updateDoNotShowWithoutSalaryInDataFilter(switch: Boolean) {
+        val currentFilterOptions=_filterOptionsListLiveData.value
+        if (currentFilterOptions != null) {
+            _filterOptionsListLiveData.value=currentFilterOptions.copy(doNotShowWithoutSalary = switch)
+        }
         viewModelScope.launch(
             Dispatchers.IO
         ) { filterSPInteractor.updateDoNotShowWithoutSalaryInDataFilter(switch).collect { value ->
@@ -72,6 +85,10 @@ class FilterViewModel(
         } } }
 
     fun updateSalaryInDataFilter(salaryExpectation: Int) {
+        val currentFilterOptions=_filterOptionsListLiveData.value
+        if (currentFilterOptions != null) {
+            _filterOptionsListLiveData.value=currentFilterOptions.copy(expectedSalary = salaryExpectation)
+        }
         viewModelScope.launch(
             Dispatchers.IO
         ) { filterSPInteractor.updateSalaryInDataFilter(salaryExpectation).collect { value ->
