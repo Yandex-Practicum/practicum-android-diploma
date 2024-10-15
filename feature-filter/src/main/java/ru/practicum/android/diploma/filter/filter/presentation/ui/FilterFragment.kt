@@ -56,6 +56,7 @@ internal class FilterFragment : Fragment() {
         binding.clickWorkIndustryClear.setOnClickListener(listener)
         binding.buttonBack.setOnClickListener(listener)
         binding.buttonApply.setOnClickListener(listener)
+        binding.buttonCancel.setOnClickListener(listener)
     }
 
     private fun render(filter: FilterSettings) {
@@ -201,9 +202,13 @@ internal class FilterFragment : Fragment() {
                 if (hasProfession) {
                     viewModel.clearProfessionInDataFilter()
                 }
+                findNavController().navigateUp()
             }
             R.id.buttonBack -> {
                 findNavController().navigateUp()
+            }
+            R.id.buttonCancel -> {
+
             }
         }
     }

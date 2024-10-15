@@ -139,10 +139,7 @@ internal class PlaceFragment : Fragment() {
             R.id.selectButton -> {
                 regionsCountriesViewModel.mergeBufferWithSettingsDataInSp()
                 regionsCountriesViewModel.clearCache()
-                findNavController().navigate(
-                    R.id.action_placeFragment_to_filterFragment,
-                    createArgs(placeInstance)
-                )
+                findNavController().navigateUp()
             }
             R.id.buttonBack -> {
                 regionsCountriesViewModel.mergeSettingsWithBufferDataInSp()
@@ -183,19 +180,5 @@ internal class PlaceFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-    }
-
-    companion object {
-        private const val ARGS_PLACE_COUNTRY_ID = "id_country"
-        private const val ARGS_PLACE_COUNTRY_NAME = "name_country"
-        private const val ARGS_PLACE_REGION_ID = "id_region"
-        private const val ARGS_PLACE_REGION_NAME = "name_region"
-        fun createArgs(selectedPlace: Place): Bundle =
-            bundleOf(
-                ARGS_PLACE_COUNTRY_ID to selectedPlace.idCountry,
-                ARGS_PLACE_COUNTRY_NAME to selectedPlace.nameCountry,
-                ARGS_PLACE_REGION_ID to selectedPlace.idRegion,
-                ARGS_PLACE_REGION_NAME to selectedPlace.nameRegion
-            )
     }
 }
