@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.data.sp.api
 import ru.practicum.android.diploma.data.sp.dto.FilterDto
 import ru.practicum.android.diploma.data.sp.dto.PlaceDto
 
+@Suppress("detekt.TooManyFunctions")
 interface FilterSp {
     suspend fun clearDataFilter()
     suspend fun getPlaceDataFilter(): PlaceDto?
