@@ -57,7 +57,6 @@ class FilterSettingsFragment : Fragment() {
                     binding.editText.setSelection(formatted.length)
                 }
             }
-
         }
 
         binding.editText.addTextChangedListener(salaryTextWatcher)
@@ -66,11 +65,8 @@ class FilterSettingsFragment : Fragment() {
             clearSalary()
         }
 
-        // пример заполнения поля
         binding.areaEditText.setOnClickListener {
-            binding.areaEditText.setText("Россия, Москва")
-            binding.areaEditText.isActivated = true
-            binding.areaInputLayout.setEndIconDrawable(R.drawable.ic_close_24px)
+            findNavController().navigate(R.id.action_filterSettingsFragment_to_workingRegionFragment)
         }
 
         binding.industryEditText.setOnClickListener {
@@ -78,7 +74,6 @@ class FilterSettingsFragment : Fragment() {
                 R.id.action_filterSettingsFragment_to_industrySelectFragment
             )
         }
-
     }
 
     override fun onDestroyView() {
