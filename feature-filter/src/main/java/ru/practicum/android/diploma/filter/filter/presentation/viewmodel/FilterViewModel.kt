@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.filter.filter.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -30,18 +29,30 @@ class FilterViewModel(
         } } }
 
     fun clearIndustryFilter() {
+        val currentFilterOptions=_filterOptionsListLiveData.value
+        if (currentFilterOptions != null) {
+            _filterOptionsListLiveData.value=currentFilterOptions.copy(industry = null)
+        }
         viewModelScope.launch(Dispatchers.IO) {
             filterSPInteractor.clearIndustryFilter()
         }
     }
 
     fun clearPlaceFilter() {
+        val currentFilterOptions=_filterOptionsListLiveData.value
+        if (currentFilterOptions != null) {
+            _filterOptionsListLiveData.value=currentFilterOptions.copy(region = null, country = null)
+        }
         viewModelScope.launch(Dispatchers.IO) {
             filterSPInteractor.clearPlaceFilter()
         }
     }
 
     fun clearSalaryFilter() {
+        val currentFilterOptions=_filterOptionsListLiveData.value
+        if (currentFilterOptions != null) {
+            _filterOptionsListLiveData.value=currentFilterOptions.copy(expectedSalary = null)
+        }
         viewModelScope.launch(Dispatchers.IO) {
             filterSPInteractor.clearSalaryFilter()
         }
