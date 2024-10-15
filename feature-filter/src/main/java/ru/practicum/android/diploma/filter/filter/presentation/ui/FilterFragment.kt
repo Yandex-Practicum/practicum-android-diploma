@@ -2,12 +2,11 @@ package ru.practicum.android.diploma.filter.filter.presentation.ui
 
 import android.os.Bundle
 import android.text.SpannableStringBuilder
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -32,6 +31,8 @@ internal class FilterFragment : Fragment() {
     private var _binding: FragmentFilterBinding? = null
     private val binding get() = _binding!!
     private val viewModel: FilterViewModel by viewModel()
+    private var industryLoaded: Boolean = false
+    private var placeLoaded: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,6 +60,13 @@ internal class FilterFragment : Fragment() {
             binding.workIndustryInfo.isVisible = true
             binding.workIndustryInfo.text = state.industry
             binding.industryButton.setImageResource(ru.practicum.android.diploma.ui.R.drawable.clear)
+            industryLoaded = true
+        } else {
+            binding.workIndustry.visibility = VISIBLE
+            binding.workIndustryInfo.isVisible = false
+            binding.workIndustryInfo.text = null
+            binding.industryButton.setImageResource(ru.practicum.android.diploma.ui.R.drawable.button_right)
+            industryLoaded = false
         }
 
         if (state.country != null) {
@@ -70,12 +78,14 @@ internal class FilterFragment : Fragment() {
                     append(", ")
                     append(state.region)
                     binding.placeButton.setImageResource(ru.practicum.android.diploma.ui.R.drawable.clear)
+                    placeLoaded = true
                 }
             } else {
                 binding.workPlace.visibility = INVISIBLE
                 binding.workPlaceInfo.isVisible = true
                 binding.workPlaceInfo.text = state.country
                 binding.industryButton.setImageResource(ru.practicum.android.diploma.ui.R.drawable.clear)
+                placeLoaded = true
             }
 
             if (state.doNotShowWithoutSalary == true) {
@@ -83,9 +93,15 @@ internal class FilterFragment : Fragment() {
             }
             if (state.expectedSalary != null) {
 
-                if (state.expectedSalary!=-1) binding.editTextFilter.text =
+                if (state.expectedSalary != -1) binding.editTextFilter.text =
                     SpannableStringBuilder(state.expectedSalary.toString()) // ❗❗ жду рабочего view?
             }
+        } else {
+            binding.workPlace.visibility = VISIBLE
+            binding.workPlaceInfo.isVisible = false
+            binding.workPlaceInfo.text = null
+            binding.placeButton.setImageResource(ru.practicum.android.diploma.ui.R.drawable.button_right)
+            placeLoaded = false
         }
     }
 
@@ -176,26 +192,11 @@ internal class FilterFragment : Fragment() {
         }
 
         binding.industryButton.setOnClickListener {
-            val currentDrawable = binding.industryButton.drawable
-            val clearDrawable = ContextCompat.getDrawable(
-                requireContext(),
-                ru.practicum.android.diploma.ui.R.drawable.clear
-            )
-
-            if (currentDrawable?.constantState == clearDrawable?.constantState) {
-                viewModel.clearIndustryFilter()
-            }
+            if (industryLoaded) viewModel.clearIndustryFilter()
         }
         binding.placeButton.setOnClickListener {
-            val currentDrawable = binding.placeButton.drawable
-            val clearDrawable = ContextCompat.getDrawable(
-                requireContext(),
-                ru.practicum.android.diploma.ui.R.drawable.clear
-            )
+            if (placeLoaded) viewModel.clearPlaceFilter()
 
-            if (currentDrawable?.constantState == clearDrawable?.constantState) {
-                viewModel.clearPlaceFilter()
-            }
         }
     }
 
