@@ -7,10 +7,15 @@ import ru.practicum.android.diploma.search.domain.models.IndustryList
 import ru.practicum.android.diploma.search.domain.models.PaginationInfo
 import ru.practicum.android.diploma.search.domain.models.RegionList
 import ru.practicum.android.diploma.search.domain.models.VacancyDetail
+import ru.practicum.android.diploma.search.domain.models.sp.FilterSearch
+import ru.practicum.android.diploma.search.domain.repository.SearchRepositorySp
 import ru.practicum.android.diploma.search.domain.repository.VacanciesRepository
 import ru.practicum.android.diploma.search.domain.usecase.VacanciesInteractor
 
-internal class VacanciesInteractorImpl(private val repository: VacanciesRepository) : VacanciesInteractor {
+internal class VacanciesInteractorImpl(
+    private val vacanciesRepository: VacanciesRepository,
+    private val searchRepositorySp: SearchRepositorySp,
+) : VacanciesInteractor {
     override fun searchVacancies(
         page: String,
         perPage: String,
@@ -20,7 +25,7 @@ internal class VacanciesInteractorImpl(private val repository: VacanciesReposito
         area: String?,
         onlyWithSalary: Boolean,
     ): Flow<Pair<PaginationInfo?, String>> {
-        return repository.searchVacancies(page, perPage, queryText, industry, salary, area, onlyWithSalary)
+        return vacanciesRepository.searchVacancies(page, perPage, queryText, industry, salary, area, onlyWithSalary)
             .map { result ->
                 when (result) {
                     is Resource.Success -> {
@@ -35,7 +40,7 @@ internal class VacanciesInteractorImpl(private val repository: VacanciesReposito
     }
 
     override fun listVacancy(id: String): Flow<Pair<VacancyDetail?, String?>> {
-        return repository.listVacancy(id).map { result ->
+        return vacanciesRepository.listVacancy(id).map { result ->
             when (result) {
                 is Resource.Success -> {
                     Pair(result.data, "")
@@ -49,7 +54,7 @@ internal class VacanciesInteractorImpl(private val repository: VacanciesReposito
     }
 
     override fun listAreas(): Flow<Pair<RegionList?, String?>> {
-        return repository.listAreas().map { result ->
+        return vacanciesRepository.listAreas().map { result ->
             when (result) {
                 is Resource.Success -> {
                     Pair(result.data, "")
@@ -63,7 +68,7 @@ internal class VacanciesInteractorImpl(private val repository: VacanciesReposito
     }
 
     override fun listIndustries(): Flow<Pair<List<IndustryList>?, String?>> {
-        return repository.listIndustries().map { result ->
+        return vacanciesRepository.listIndustries().map { result ->
             when (result) {
                 is Resource.Success -> {
                     Pair(result.data, "")
@@ -74,5 +79,9 @@ internal class VacanciesInteractorImpl(private val repository: VacanciesReposito
                 }
             }
         }
+    }
+
+    override suspend fun getDataFilter(): FilterSearch {
+        return searchRepositorySp.getDataFilter()
     }
 }

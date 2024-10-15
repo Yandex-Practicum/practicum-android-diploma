@@ -300,6 +300,7 @@
         <item name="android:gravity">center</item>
         <item name="android:padding">@dimen/filterPadding</item>
         <item name="android:background">@drawable/rounded_button</item>
+        <item name="android:backgroundTint">@color/blue</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textAppearance">@font/ys_display_medium</item>
         <item name="android:textSize">@dimen/textSizeLittle</item>

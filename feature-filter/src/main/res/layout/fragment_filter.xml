@@ -8,12 +8,13 @@
     tools:context=".filter.presentation.ui.FilterFragment">
 
     <ImageView
-        android:id="@+id/buttonLeftFilter"
+        android:id="@+id/buttonBack"
         style="@style/ButtonLeft"
         android:contentDescription="@string/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingVertical="@dimen/dimens_24"
+        android:clickable="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,69 +24,120 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/filter_screens_main_header"
-        app:layout_constraintStart_toEndOf="@id/buttonLeftFilter"
+        app:layout_constraintStart_toEndOf="@id/buttonBack"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <LinearLayout
         android:id="@+id/workPlace"
-        style="@style/TextViewRegular16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/dimens_16"
-        android:text="@string/filter_screens_location"
-        android:textColor="@color/grey"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_60"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/regionHeader" />
+        app:layout_constraintTop_toBottomOf="@id/regionHeader">
 
-    <TextView
-        android:id="@+id/workPlaceInfo"
-        style="@style/TextViewRegular16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/dimens_16"
-        android:textColor="@color/black"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/regionHeader" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputWorkPlaceLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            app:boxBackgroundMode="none">
 
-    <ImageView
-        android:id="@+id/placeButton"
-        style="@style/ButtonRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/regionHeader" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputWorkPlace"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:focusable="false"
+                android:focusableInTouchMode="true"
+                android:fontFamily="@font/ys_display_medium"
+                android:hint="@string/filter_screens_location"
+                android:paddingVertical="2dp"
+                android:paddingStart="@dimen/textPadding"
+                android:textColor="@color/primaryTextAndUIColor"
+                android:textColorHint="@color/grey"
+                android:textSize="@dimen/dimen_sp16" />
+        </com.google.android.material.textfield.TextInputLayout>
 
+        <ImageView
+            android:id="@+id/clickWorkPlace"
+            android:layout_width="@dimen/dimens_60"
+            android:layout_height="@dimen/dimens_60"
+            android:layout_gravity="center_vertical"
+            android:padding="@dimen/dimens_16"
+            android:src="@drawable/button_right"
+            android:visibility="visible" />
 
-    <TextView
+        <ImageView
+            android:id="@+id/clickWorkPlaceClear"
+            android:layout_width="@dimen/dimens_60"
+            android:layout_height="@dimen/dimens_60"
+            android:layout_gravity="center_vertical"
+            android:padding="@dimen/dimens_16"
+            android:src="@drawable/clear_place"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/workIndustry"
-        style="@style/TextViewRegular16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/dimens_16"
-        android:text="@string/filter_screens_industry"
-        android:textColor="@color/grey"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_60"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/workPlace" />
+        app:layout_constraintTop_toBottomOf="@id/workPlace">
 
-    <TextView
-        android:id="@+id/workIndustryInfo"
-        style="@style/TextViewRegular16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/dimens_16"
-        android:textColor="@color/black"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/workPlace" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputWorkIndustryLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            app:boxBackgroundMode="none">
 
-    <ImageView
-        android:id="@+id/industryButton"
-        style="@style/ButtonRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/workPlace" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputWorkIndustry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:focusable="false"
+                android:focusableInTouchMode="true"
+                android:fontFamily="@font/ys_display_medium"
+                android:hint="@string/filter_screens_industry"
+                android:paddingVertical="2dp"
+                android:paddingStart="@dimen/textPadding"
+                android:textColor="@color/primaryTextAndUIColor"
+                android:textColorHint="@color/grey"
+                android:textSize="@dimen/dimen_sp16" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/clickWorkIndustry"
+            android:layout_width="@dimen/dimens_60"
+            android:layout_height="@dimen/dimens_60"
+            android:layout_gravity="center_vertical"
+            android:padding="@dimen/dimens_16"
+            android:src="@drawable/button_right"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/clickWorkIndustryClear"
+            android:layout_width="@dimen/dimens_60"
+            android:layout_height="@dimen/dimens_60"
+            android:layout_gravity="center_vertical"
+            android:padding="@dimen/dimens_16"
+            android:src="@drawable/clear_place"
+            android:visibility="gone" />
+
+    </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textViewSalary"
@@ -128,9 +180,18 @@
 
     <Button
         android:id="@+id/buttonApply"
-        style="@style/ButtonApply"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text="@string/filter_screens_apply_button"
+        android:gravity="center"
+        android:padding="@dimen/filterPadding"
+        android:textColor="@color/white"
+        android:textAppearance="@font/ys_display_medium"
+        android:textSize="@dimen/textSizeLittle"
+        android:textAllCaps="false"
+        android:layout_margin="@dimen/dimens_16"
+        android:backgroundTint="@color/blue"
         app:layout_constraintBottom_toTopOf="@id/buttonCancel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -138,6 +199,7 @@
     <Button
         android:id="@+id/buttonCancel"
         style="@style/ButtonCancel"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

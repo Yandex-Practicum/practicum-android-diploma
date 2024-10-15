@@ -58,8 +58,8 @@ class FilterSpImpl(
         return filterSp.getString(BRANCH_OF_PROFESSION_KEY_SP, null)
     }
 
-    override suspend fun getExpectedSalaryDataFilter(): Int {
-        return filterSp.getInt(EXPECTED_SALARY_KEY_SP, -1)
+    override suspend fun getExpectedSalaryDataFilter(): String? {
+        return filterSp.getString(EXPECTED_SALARY_KEY_SP, null)
     }
 
     override suspend fun isDoNotShowWithoutSalaryDataFilter(): Boolean {
@@ -97,7 +97,7 @@ class FilterSpImpl(
         }
     }
 
-    override suspend fun updateProfessionInDataFilter(branchOfProfession: String): Int {
+    override suspend fun updateProfessionInDataFilter(branchOfProfession: String?): Int {
         return withContext(Dispatchers.IO) {
             runCatching {
                 filterSp.edit()
@@ -110,11 +110,11 @@ class FilterSpImpl(
         }
     }
 
-    override suspend fun updateSalaryInDataFilter(expectedSalary: Int): Int {
+    override suspend fun updateSalaryInDataFilter(expectedSalary: String): Int {
         return withContext(Dispatchers.IO) {
             runCatching {
                 filterSp.edit()
-                    .putInt(EXPECTED_SALARY_KEY_SP, expectedSalary)
+                    .putString(EXPECTED_SALARY_KEY_SP, expectedSalary)
                     .apply()
             }.fold(
                 onSuccess = { 1 },

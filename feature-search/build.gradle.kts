@@ -40,7 +40,6 @@ dependencies {
     implementation(libs.androidX.core)
     implementation(libs.androidX.appCompat)
     implementation(libs.ui.material)
-    implementation(project(":feature-filter"))
     testImplementation(libs.unitTests.junit)
     androidTestImplementation(libs.uiTests.junitExt)
     androidTestImplementation(libs.uiTests.espressoCore)
