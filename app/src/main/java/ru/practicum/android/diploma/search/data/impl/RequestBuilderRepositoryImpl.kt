@@ -18,6 +18,13 @@ class RequestBuilderRepositoryImpl(private val sharedPreferences: SharedPreferen
             .apply()
     }
 
+    override fun saveIndustry(industryId: String) {
+        searchRequest["industry"] = industryId
+        sharedPreferences.edit()
+            .putString(SAVED_INDUSTRY, industryId)
+            .apply()
+    }
+
     override fun saveSalary(salary: String) {
         searchRequest["salary"] = salary
         sharedPreferences.edit()
@@ -46,6 +53,7 @@ class RequestBuilderRepositoryImpl(private val sharedPreferences: SharedPreferen
     override fun getSavedFilters(): SavedFilters {
         return SavedFilters(
             savedArea = sharedPreferences.getString(SAVED_AREA, ""),
+            savedIndustry = sharedPreferences.getString(SAVED_INDUSTRY, ""),
             savedCurrency = sharedPreferences.getString(SAVED_CURRENCY, ""),
             savedSalary = sharedPreferences.getString(SAVED_SALARY, ""),
             savedIsShowWithSalary = sharedPreferences.getBoolean(SAVED_SHOW_WITH_SALARY, false)
@@ -54,6 +62,7 @@ class RequestBuilderRepositoryImpl(private val sharedPreferences: SharedPreferen
 
     companion object {
         const val SAVED_AREA = "savedArea"
+        const val SAVED_INDUSTRY = "savedIndustry"
         const val SAVED_CURRENCY = "savedCurrency"
         const val SAVED_SALARY = "savedSalary"
         const val SAVED_SHOW_WITH_SALARY = "savedShowWithSalary"

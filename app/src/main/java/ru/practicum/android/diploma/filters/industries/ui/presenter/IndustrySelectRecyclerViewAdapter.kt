@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.filters.industries.presentation
+package ru.practicum.android.diploma.filters.industries.ui.presenter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

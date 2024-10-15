@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.IndustrySelectFragmentBinding
 import ru.practicum.android.diploma.filters.industries.domain.models.Industry
-import ru.practicum.android.diploma.filters.industries.presentation.IndustrySelectRecyclerViewAdapter
 import ru.practicum.android.diploma.filters.industries.presentation.IndustrySelectScreenState
 import ru.practicum.android.diploma.filters.industries.presentation.IndustrySelectViewModel
+import ru.practicum.android.diploma.filters.industries.ui.presenter.IndustrySelectRecyclerViewAdapter
 
 class IndustrySelectFragment : Fragment() {
 
