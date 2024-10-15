@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ru.practicum.android.diploma.databinding.BranchSelectFragmentBinding
 
-class BranchSelectFragment : Fragment() {
+class IndustrySelectFragment : Fragment() {
     private var _binding: BranchSelectFragmentBinding? = null
     private val binding get() = _binding!!
 

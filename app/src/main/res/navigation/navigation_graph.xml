@@ -41,7 +41,7 @@
         tools:layout="@layout/country_select_fragment" />
     <fragment
         android:id="@+id/branchSelectFragment"
-        android:name="ru.practicum.android.diploma.filters.ui.BranchSelectFragment"
+        android:name="ru.practicum.android.diploma.filters.ui.IndustrySelectFragment"
         android:label="branch_select_fragment"
         tools:layout="@layout/branch_select_fragment" />
     <fragment
