@@ -68,11 +68,18 @@ class FilterSettingsFragment : Fragment() {
         }
 
         // пример заполнения поля
-        binding.areaActionBtn.setOnClickListener {
+        binding.areaEditText.setOnClickListener {
             binding.areaEditText.setText("Россия, Москва")
             binding.areaEditText.isActivated = true
-            binding.areaActionBtn.setImageResource(R.drawable.ic_close_24px)
-            binding.areaActionBtn.setColorFilter(requireContext().getColor(R.color.colorAdaptiveText))
+            binding.areaInputLayout.setEndIconDrawable(R.drawable.ic_close_24px)
+        }
+
+        binding.industryEditText.setOnClickListener {
+            binding.apply {
+                industryEditText.setText("IT")
+                industryEditText.isActivated = true
+                industryInputLayout.setEndIconDrawable(R.drawable.ic_close_24px)
+            }
         }
 
     }
