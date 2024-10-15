@@ -6,29 +6,33 @@ object AlgorithmKnuthMorrisPratt {
         return if (text.isEmpty() || substrings.isEmpty() || text.length < substrings.length) {
             false
         } else {
-            val lowerText = text.lowercase()
-            val lowerSubstrings = substrings.lowercase()
-            val prefixArray = prefixFunction(lowerText)
-
-            var textIndex = 0
-            var substringIndex = 0
-
-            while (textIndex < lowerText.length) {
-                if (lowerText[textIndex] == lowerSubstrings[substringIndex]) {
-                    textIndex++
-                    substringIndex++
-
-                    if (substringIndex == lowerSubstrings.length) {
-                        return true
-                    }
-                } else if (substringIndex != 0) {
-                    substringIndex = prefixArray[substringIndex - 1]
-                } else {
-                    textIndex++
-                }
-            }
-            false
+            baseSearchSubstringsInString(text, substrings)
         }
+    }
+
+    private fun baseSearchSubstringsInString(text: String, substrings: String): Boolean {
+        val lowerText = text.lowercase()
+        val lowerSubstrings = substrings.lowercase()
+        val prefixArray = prefixFunction(lowerText)
+
+        var textIndex = 0
+        var substringIndex = 0
+
+        while (textIndex < lowerText.length) {
+            if (lowerText[textIndex] == lowerSubstrings[substringIndex]) {
+                textIndex++
+                substringIndex++
+
+                if (substringIndex == lowerSubstrings.length) {
+                    return true
+                }
+            } else if (substringIndex != 0) {
+                substringIndex = prefixArray[substringIndex - 1]
+            } else {
+                textIndex++
+            }
+        }
+        return false
     }
 
     private fun prefixFunction(text: String): IntArray {
