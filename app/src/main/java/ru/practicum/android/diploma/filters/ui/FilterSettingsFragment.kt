@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FilterSettingsFragmentBinding
 import ru.practicum.android.diploma.util.hideKeyboard
 import java.text.DecimalFormat
@@ -63,6 +64,21 @@ class FilterSettingsFragment : Fragment() {
 
         binding.searchLineCleaner.setOnClickListener {
             clearSalary()
+        }
+
+        // пример заполнения поля
+        binding.areaEditText.setOnClickListener {
+            binding.areaEditText.setText("Россия, Москва")
+            binding.areaEditText.isActivated = true
+            binding.areaInputLayout.setEndIconDrawable(R.drawable.ic_close_24px)
+        }
+
+        binding.industryEditText.setOnClickListener {
+            binding.apply {
+                industryEditText.setText("IT")
+                industryEditText.isActivated = true
+                industryInputLayout.setEndIconDrawable(R.drawable.ic_close_24px)
+            }
         }
 
     }

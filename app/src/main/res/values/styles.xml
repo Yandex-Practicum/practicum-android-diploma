@@ -27,6 +27,26 @@
 
     </style>
 
+    <!--  Стиль для TextInputLayout выбора фильтров -->
+    <style name="FilterTextInputLayout">
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+        <item name="android:textColorHint">@color/filter_hint_color_selector</item>
+        <item name="colorControlNormal">@color/colorAdaptiveText</item>
+
+    </style>
+
+    <!--  Стиль для EditText выбора фильтров -->
+    <style name="FilterEditText">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:focusable">false</item>
+        <item name="hintTextColor">@color/colorAdaptiveText</item>
+        <item name="android:textSize">@dimen/medium_and_regular_16</item>
+        <item name="android:textColor">@color/colorAdaptiveText</item>
+
+    </style>
+
     <!-- Стиль для Голубой Button -->
     <style name="BlueButtonStyle" parent="Widget.MaterialComponents.Button.UnelevatedButton">
         <item name="android:textAllCaps">false</item>
@@ -101,7 +121,7 @@
     <style name="Text_filter_area_title">
         <item name="android:fontFamily">@font/ys_display_regular</item>
         <item name="android:textSize">@dimen/medium_and_regular_16</item>
-        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:textColor">@color/colorAdaptiveText</item>
 
     </style>
 
