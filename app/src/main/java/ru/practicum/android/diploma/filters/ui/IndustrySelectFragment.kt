@@ -12,6 +12,7 @@ import ru.practicum.android.diploma.databinding.BranchSelectFragmentBinding
 import ru.practicum.android.diploma.filters.domain.models.Industry
 import ru.practicum.android.diploma.filters.presentation.FiltersChooserScreenState
 import ru.practicum.android.diploma.filters.presentation.IndustriesFilterViewModel
+import ru.practicum.android.diploma.filters.ui.presenter.IndustriesRecyclerViewAdapter
 
 class IndustrySelectFragment : Fragment() {
 

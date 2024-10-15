@@ -20,7 +20,6 @@ class CountrySelectViewModel(
         getCountry()
     }
 
-
     private fun renderState(state: FiltersChooserScreenState) {
         stateLiveData.postValue(state)
     }
@@ -36,7 +35,6 @@ class CountrySelectViewModel(
     }
 
     private fun processResult(foundCountries: List<Area>?, errorMessage: HttpStatusCode?) {
-
         when {
             errorMessage == HttpStatusCode.NOT_CONNECTED -> {
                 renderState(FiltersChooserScreenState.NetworkError)

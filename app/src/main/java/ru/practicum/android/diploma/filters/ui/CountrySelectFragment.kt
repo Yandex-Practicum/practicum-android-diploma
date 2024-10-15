@@ -1,15 +1,14 @@
 package ru.practicum.android.diploma.filters.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.CountrySelectFragmentBinding
 import ru.practicum.android.diploma.filters.domain.models.Area
 import ru.practicum.android.diploma.filters.presentation.CountrySelectViewModel
@@ -17,7 +16,7 @@ import ru.practicum.android.diploma.filters.presentation.FiltersChooserScreenSta
 import ru.practicum.android.diploma.filters.ui.presenter.AreasRecyclerViewAdapter
 
 class CountrySelectFragment : Fragment() {
-    private val viewModel: CountrySelectViewModel by viewModel()
+    private val viewModel by viewModel<CountrySelectViewModel>()
     private var _binding: CountrySelectFragmentBinding? = null
     private val binding get() = _binding!!
 
@@ -71,7 +70,6 @@ class CountrySelectFragment : Fragment() {
     }
 
     private fun showContent(item: List<*>) {
-        Log.d("T", "ZAEBISKA ${item}")
         binding.recyclerView.isVisible
         adapter.list.clear()
         adapter.list.addAll(item as List<Area>)
@@ -79,12 +77,15 @@ class CountrySelectFragment : Fragment() {
     }
 
     private fun showEmpty() {
+        // Detekt
     }
 
     private fun showServerError() {
+        // Detekt
     }
 
     private fun showNetworkError() {
+        // Detekt
     }
 
     override fun onDestroyView() {
