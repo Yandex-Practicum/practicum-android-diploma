@@ -14,7 +14,7 @@ class FavoriteRecycleViewAdapter(
 ) :
     RecyclerView.Adapter<FavoriteVacancyViewHolder>() {
 
-    var vacancyList: MutableList<VacancySearch> = mutableListOf()
+    val vacancyList: MutableList<VacancySearch> = mutableListOf()
     private var isClickAllowed = true
     private val handler = Handler(Looper.getMainLooper())
 

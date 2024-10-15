@@ -80,9 +80,9 @@ class VacancyDetailFragment : Fragment() {
                 showContent(state.vacancy)
             }
 
-            VacancyScreenState.EmptyState -> showEmpty()
-            VacancyScreenState.LoadingState -> showLoading()
-            VacancyScreenState.NetworkErrorState -> showNetworkError()
+            is VacancyScreenState.EmptyState -> showEmpty()
+            is VacancyScreenState.LoadingState -> showLoading()
+            is VacancyScreenState.NetworkErrorState -> showNetworkError()
         }
     }
 
