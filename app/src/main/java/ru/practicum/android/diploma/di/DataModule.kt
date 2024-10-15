@@ -31,20 +31,17 @@ val dataModule = module {
         androidContext().getSharedPreferences("setting_preferences", Context.MODE_PRIVATE)
     }
 
-    single<ApiKeyInterceptor> {
-        ApiKeyInterceptor(BuildConfig.HH_ACCESS_TOKEN)
-    }
-
     single<HHApiService> {
+
+        val interceptor = ApiKeyInterceptor(BuildConfig.HH_ACCESS_TOKEN)
+        val clientWithInterceptor = OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .build()
 
         Retrofit.Builder()
             .baseUrl("https://api.hh.ru/")
             .addConverterFactory(GsonConverterFactory.create())
-            .client(
-                OkHttpClient.Builder()
-                    .addInterceptor(get())
-                    .build()
-            )
+            .client(clientWithInterceptor)
             .build()
             .create(HHApiService::class.java)
     }
