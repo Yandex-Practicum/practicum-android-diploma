@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.data.sp.api.impl
 
 import android.content.SharedPreferences
+import android.util.Log
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -63,7 +64,7 @@ class FilterSpImpl(
         try {
             result = filterSp.getString(EXPECTED_SALARY_KEY_SP, null)
         } catch (e: ClassCastException) {
-            e.printStackTrace()
+            Log.d("FilterSpImpl", "SP to fix")
         }
         return result
     }
