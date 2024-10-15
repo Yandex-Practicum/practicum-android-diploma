@@ -48,7 +48,15 @@ internal class PlaceFragment : Fragment() {
         }
 
         binding.clickCountry.setOnClickListener(listener)
+        binding.country.setOnClickListener(listener)
+        binding.inputCountry.setOnClickListener(listener)
+        binding.inputCountryLayout.setOnClickListener(listener)
+
         binding.clickRegion.setOnClickListener(listener)
+        binding.region.setOnClickListener(listener)
+        binding.inputRegion.setOnClickListener(listener)
+        binding.inputRegionLayout.setOnClickListener(listener)
+
         binding.clickCountryClear.setOnClickListener(listener)
         binding.clickRegionClear.setOnClickListener(listener)
         binding.buttonBack.setOnClickListener(listener)
@@ -117,13 +125,16 @@ internal class PlaceFragment : Fragment() {
 
     private val listener: View.OnClickListener = View.OnClickListener { view ->
         when (view.id) {
-            R.id.clickCountry -> navigateTo(R.id.action_placeFragment_to_countryFragment)
-            R.id.clickRegion -> navigateTo(R.id.action_placeFragment_to_regionFragment)
+            R.id.clickCountry, R.id.country, R.id.inputCountry, R.id.inputCountryLayout -> {
+                navigateTo(R.id.action_placeFragment_to_countryFragment)
+            }
+            R.id.clickRegion, R.id.region, R.id.inputRegion, R.id.inputRegionLayout -> navigateTo(R.id.action_placeFragment_to_regionFragment)
             R.id.clickCountryClear -> clearCountrySelection()
             R.id.clickRegionClear -> clearRegionSelection()
             R.id.selectButton -> {
                 regionsCountriesViewModel.clearCache()
             }
+
             R.id.buttonBack -> {
                 regionsCountriesViewModel.clearCache()
                 findNavController().navigateUp()
@@ -148,12 +159,14 @@ internal class PlaceFragment : Fragment() {
 
     private fun clearRegionSelection() {
         placeInstance = placeInstance.copy(idRegion = null, nameRegion = null)
-        regionsCountriesViewModel.setPlaceState(PlaceState.ContentCountry(
-            Country(
-                id = placeInstance.idCountry ?: "",
-                name = placeInstance.nameCountry ?: ""
+        regionsCountriesViewModel.setPlaceState(
+            PlaceState.ContentCountry(
+                Country(
+                    id = placeInstance.idCountry ?: "",
+                    name = placeInstance.nameCountry ?: ""
+                )
             )
-        ))
+        )
         regionsCountriesViewModel.setPlaceInDataFilter(placeInstance.copy(idRegion = null, nameRegion = null))
     }
 
