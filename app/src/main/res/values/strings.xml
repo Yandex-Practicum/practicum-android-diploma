@@ -76,6 +76,7 @@
     <string name="uzbekistan_sum">UZS</string>
     <string name="georgian_lari">\u20BE</string>
     <string name="kyrgyzstani_som">\u20C0</string>
+    <string name="region_choice">Выбор региона</string>
     <!--  Currency Chars  /end/-->
 
 </resources>

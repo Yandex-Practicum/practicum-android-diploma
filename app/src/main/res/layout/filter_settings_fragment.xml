@@ -22,7 +22,6 @@
         style="@style/FilterTextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/padding_horizontal_size_16"
         android:layout_marginTop="@dimen/padding_horizontal_size_16"
         android:hint="@string/job_place"
         app:endIconDrawable="@drawable/ic_arrow_forward_24px"
@@ -38,7 +37,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:paddingStart="0dp" />
+            android:focusable="false"
+            android:paddingStart="16dp"
+            android:paddingEnd="0dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -47,7 +48,6 @@
         style="@style/FilterTextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/padding_horizontal_size_16"
         android:hint="@string/industry"
         app:endIconDrawable="@drawable/ic_arrow_forward_24px"
         app:endIconMode="custom"
@@ -62,7 +62,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:paddingStart="0dp" />
+            android:focusable="false"
+            android:paddingStart="16dp"
+            android:paddingEnd="0dp"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
