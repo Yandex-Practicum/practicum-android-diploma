@@ -107,7 +107,8 @@ internal class RegionFragment : Fragment() {
                 if (event.action == MotionEvent.ACTION_UP) {
                     val drawableEnd = binding.searchRegion.compoundDrawables[INDEX_DRAWABLE_RIGHT]
                     if (drawableEnd != null
-                        && event.rawX >= binding.searchRegion.right - CALIBRATION_COEFFICIENT * drawableEnd.bounds.width()
+                        && event.rawX >= (binding.searchRegion.right
+                            - CALIBRATION_COEFFICIENT * drawableEnd.bounds.width())
                     ) {
                         binding.searchRegion.text.clear()
                         return true
