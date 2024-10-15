@@ -81,6 +81,7 @@ internal class RetrofitNetworkClient(
     }
 
     private suspend fun vacancyListRequest(dto: HHApiVacanciesRequest): Response {
+        Log.d(TAG, dto.request.toString())
         return hhApiService.searchVacancies(dto.request)
     }
 

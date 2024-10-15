@@ -15,18 +15,23 @@ internal class VacanciesInteractorImpl(private val repository: VacanciesReposito
         page: String,
         perPage: String,
         queryText: String,
+        industry: String?,
+        salary: String?,
+        area: String?,
+        onlyWithSalary: Boolean,
     ): Flow<Pair<PaginationInfo?, String>> {
-        return repository.searchVacancies(page, perPage, queryText).map { result ->
-            when (result) {
-                is Resource.Success -> {
-                    Pair(result.data, "")
-                }
+        return repository.searchVacancies(page, perPage, queryText, industry, salary, area, onlyWithSalary)
+            .map { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        Pair(result.data, "")
+                    }
 
-                is Resource.Error -> {
-                    Pair(null, result.message ?: "")
+                    is Resource.Error -> {
+                        Pair(null, result.message ?: "")
+                    }
                 }
             }
-        }
     }
 
     override fun listVacancy(id: String): Flow<Pair<VacancyDetail?, String?>> {
