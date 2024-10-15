@@ -10,7 +10,7 @@ class IndustriesRecyclerViewAdapter(
     private val clickListener: IndustryClickListener
 ) : RecyclerView.Adapter<IndustriesViewHolder>() {
 
-    private val list = mutableListOf<Industry>()
+    var list = mutableListOf<Industry>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IndustriesViewHolder {
         val view = LayoutInflater.from(parent.context)
