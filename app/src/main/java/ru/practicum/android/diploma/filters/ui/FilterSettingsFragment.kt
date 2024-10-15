@@ -74,11 +74,9 @@ class FilterSettingsFragment : Fragment() {
         }
 
         binding.industryEditText.setOnClickListener {
-            binding.apply {
-                industryEditText.setText("IT")
-                industryEditText.isActivated = true
-                industryInputLayout.setEndIconDrawable(R.drawable.ic_close_24px)
-            }
+            findNavController().navigate(
+                R.id.action_filterSettingsFragment_to_industrySelectFragment
+            )
         }
 
     }
