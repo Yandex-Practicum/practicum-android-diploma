@@ -39,13 +39,13 @@ internal class VacanciesRepositoryImpl(
         industry: String?,
         salary: String?,
         area: String?,
-        only_with_salary: Boolean,
+        onlyWithSalary: Boolean,
     ): Flow<Resource<PaginationInfo>> {
         val options = mutableMapOf(
             "page" to page,
             "per_page" to perPage,
             "text" to queryText,
-            "only_with_salary" to only_with_salary.toString(),
+            "only_with_salary" to onlyWithSalary.toString(),
         )
         industry?.let { options["industry"] = industry }
         salary?.let { options["salary"] = salary }
