@@ -15,8 +15,7 @@ import ru.practicum.android.diploma.search.domain.usecase.VacanciesInteractor
 internal class VacanciesInteractorImpl(
     private val vacanciesRepository: VacanciesRepository,
     private val searchRepositorySp: SearchRepositorySp,
-
-    ) : VacanciesInteractor {
+) : VacanciesInteractor {
     override fun searchVacancies(
         page: String,
         perPage: String,

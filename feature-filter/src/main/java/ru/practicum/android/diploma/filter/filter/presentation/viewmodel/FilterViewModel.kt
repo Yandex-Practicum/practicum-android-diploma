@@ -21,33 +21,33 @@ class FilterViewModel(
     }
 
     private fun getDataFromSp() {
-        viewModelScope.launch (Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO) {
             val filterSettings = filterSPInteractor.getDataFilter()
             _filterOptionsListLiveData.postValue(filterSettings)
         }
     }
 
     fun setSalaryInDataFilter(salaryInDataFilter: String) {
-        viewModelScope.launch (Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO) {
             filterSPInteractor.updateSalaryInDataFilter(salaryInDataFilter)
             getDataFromSp()
         }
     }
 
     fun setDoNotShowWithoutSalaryInDataFilter(doNotShowWithoutSalary: Boolean) {
-        viewModelScope.launch (Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO) {
             filterSPInteractor.updateDoNotShowWithoutSalaryInDataFilter(doNotShowWithoutSalary)
             getDataFromSp()
         }
     }
 
     fun clearPlaceInDataFilter() {
-        viewModelScope.launch (Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO) {
             filterSPInteractor.clearPlaceInDataFilter()
         }
     }
     fun clearProfessionInDataFilter() {
-        viewModelScope.launch (Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO) {
             filterSPInteractor.clearProfessionInDataFilter()
         }
     }

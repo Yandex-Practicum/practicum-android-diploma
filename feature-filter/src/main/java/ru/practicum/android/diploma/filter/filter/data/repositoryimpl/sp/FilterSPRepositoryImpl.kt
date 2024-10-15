@@ -13,7 +13,7 @@ class FilterSPRepositoryImpl(
         filterSp.clearDataFilter()
     }
 
-    override suspend fun getExpectedSalaryDataFilter():String? {
+    override suspend fun getExpectedSalaryDataFilter(): String? {
         return filterSp.getExpectedSalaryDataFilter()
     }
 

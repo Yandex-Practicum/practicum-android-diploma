@@ -67,7 +67,7 @@ internal class FilterFragment : Fragment() {
 
     private fun renderDoNotShowWithoutSalaryFilter(filter: FilterSettings) {
         binding.checkBox.isChecked = filter.doNotShowWithoutSalary
-        if(binding.checkBox.isChecked) {
+        if (binding.checkBox.isChecked) {
             hasDoNotShowWithoutSalary = true
             binding.buttonApply.visibility = View.VISIBLE
             binding.buttonCancel.visibility = View.VISIBLE
@@ -79,7 +79,7 @@ internal class FilterFragment : Fragment() {
 
     private fun renderExpectedSalaryFilter(filter: FilterSettings) {
         val salary = filter.expectedSalary
-        if(salary != null) {
+        if (salary != null) {
             hasSalary = true
             binding.buttonApply.visibility = View.VISIBLE
             binding.buttonCancel.visibility = View.VISIBLE
@@ -93,7 +93,7 @@ internal class FilterFragment : Fragment() {
 
     private fun renderProfessionFilter(filter: FilterSettings) {
         val profession = filter.branchOfProfession
-        if(profession != null) {
+        if (profession != null) {
             binding.inputWorkIndustry.setText(profession)
             hasProfession = true
             binding.buttonApply.visibility = View.VISIBLE
@@ -115,7 +115,7 @@ internal class FilterFragment : Fragment() {
 
     private fun renderPlaceFilter(filter: FilterSettings) {
         val place = filter.placeSettings
-        if(place != null) {
+        if (place != null) {
             when {
                 place.nameCountry != null && place.nameRegion != null -> {
                     binding.inputWorkPlace.setText(
@@ -157,10 +157,14 @@ internal class FilterFragment : Fragment() {
     }
 
     private fun renderStateButtonApply() {
-        if(!hasPlace && !hasProfession && !hasSalary && !hasDoNotShowWithoutSalary) {
+        if (shouldRenderButton()) {
             binding.buttonApply.visibility = View.GONE
             binding.buttonCancel.visibility = View.GONE
         }
+    }
+
+    private fun shouldRenderButton(): Boolean {
+        return !(hasPlace || hasProfession || hasSalary || hasDoNotShowWithoutSalary)
     }
 
     private fun emptyFilterSetting(): FilterSettings {
@@ -191,10 +195,10 @@ internal class FilterFragment : Fragment() {
             R.id.buttonApply -> {
                 viewModel.setSalaryInDataFilter(binding.editTextFilter.text.toString())
                 viewModel.setDoNotShowWithoutSalaryInDataFilter(binding.checkBox.isChecked)
-                if(hasPlace) {
+                if (hasPlace) {
                     viewModel.clearPlaceInDataFilter()
                 }
-                if(hasProfession) {
+                if (hasProfession) {
                     viewModel.clearProfessionInDataFilter()
                 }
             }

@@ -7,7 +7,7 @@ import ru.practicum.android.diploma.search.domain.repository.SearchRepositorySp
 
 class SearchRepositorySpImpl(
     val filterSp: FilterSp
-): SearchRepositorySp {
+) : SearchRepositorySp {
     override suspend fun getDataFilter(): FilterSearch {
         return SearchMappers.map(filterSp.getDataFilter())
     }
