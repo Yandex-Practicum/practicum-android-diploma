@@ -10,7 +10,7 @@ import ru.practicum.android.diploma.filter.filter.domain.repository.FilterSPRepo
 import ru.practicum.android.diploma.filter.industry.domain.model.IndustryModel
 import ru.practicum.android.diploma.filter.place.domain.model.Place
 
-internal class FilterSPRepositoryImpl(
+class FilterSPRepositoryImpl( //убираю internal т.к. repo нужна в search
     private val filterSP: FilterSp,
     private val modelToDtoMapper: ModelToDtoMapper,
     private val dtoToModelMapper: DtoToModelMapper
@@ -64,7 +64,7 @@ internal class FilterSPRepositoryImpl(
     }
 }
 
-internal class DtoToModelMapper {
+class DtoToModelMapper { //убрал internal
     fun map(
         dto: FilterDto
     ): FilterSettingsModel {
@@ -76,7 +76,7 @@ internal class DtoToModelMapper {
 
 }
 
-internal class ModelToDtoMapper {
+class ModelToDtoMapper { //убрал internal
     fun map(
         model: Place
     ): PlaceDto {
