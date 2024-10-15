@@ -16,4 +16,7 @@ interface FilterSp {
     suspend fun updateProfessionInDataFilter(branchOfProfession: String?): Int
     suspend fun updateSalaryInDataFilter(expectedSalary: String): Int
     suspend fun updateDoNotShowWithoutSalaryInDataFilter(doNotShowWithoutSalary: Boolean): Int
+    suspend fun clearSalaryFilter()
+    suspend fun clearPlaceFilter()
+    suspend fun clearIndustryFilter()
 }
