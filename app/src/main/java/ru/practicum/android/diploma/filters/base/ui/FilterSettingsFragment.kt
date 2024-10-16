@@ -9,15 +9,18 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FilterSettingsFragmentBinding
+import ru.practicum.android.diploma.filters.base.presentation.FilterSettingsStateScreen
+import ru.practicum.android.diploma.filters.base.presentation.FilterSettingsViewModel
 import ru.practicum.android.diploma.util.hideKeyboard
 import java.text.DecimalFormat
 
 class FilterSettingsFragment : Fragment() {
     private var _binding: FilterSettingsFragmentBinding? = null
     private val binding get() = _binding!!
-
+    private val viewModel: FilterSettingsViewModel by viewModel()
     private val formatter = DecimalFormat("#,###")
 
     override fun onCreateView(
@@ -31,6 +34,9 @@ class FilterSettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.checkFilterFields()
+
+        observeInit()
 
         binding.toolBar.setNavigationOnClickListener {
             findNavController().popBackStack()
@@ -73,6 +79,36 @@ class FilterSettingsFragment : Fragment() {
             findNavController().navigate(
                 R.id.action_filterSettingsFragment_to_industrySelectFragment
             )
+        }
+    }
+
+    private fun observeInit() {
+        viewModel.getBaseFiltersScreenState.observe(viewLifecycleOwner) { fields ->
+            when (fields) {
+                is FilterSettingsStateScreen.FilterSettings -> {
+                    if (fields.area.isNotEmpty()) {
+                        binding.areaEditText.apply {
+                            setText(fields.area)
+                            isActivated = true
+                        }
+                        binding.areaInputLayout.setEndIconDrawable(R.drawable.ic_close_24px)
+                    }
+
+                    if (fields.industry.isNotEmpty()) {
+                        binding.industryEditText.apply {
+                            setText(fields.industry)
+                            isActivated = true
+                        }
+                        binding.industryInputLayout.setEndIconDrawable(R.drawable.ic_close_24px)
+                    }
+
+                    if (fields.salary.isNotEmpty()) {
+                        binding.editText.setText(fields.area)
+                    }
+                    binding.salaryCheckbox.isActivated = fields.showWithSalary
+                }
+            }
+
         }
     }
 
