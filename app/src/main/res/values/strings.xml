@@ -57,6 +57,7 @@
 
     <!--  Choose industries Screen /start/ -->
     <string name="choose_industries">Выбор отрасли</string>
+    <string name="industry_not_found">Нет такой отрасли</string>
     <!--  Choose industries Screen /start/ -->
 
     <!--  Team Info Screen /start/ -->
