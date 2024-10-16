@@ -30,6 +30,17 @@ class IndustrySelectRecyclerViewAdapter(
         }
     }
 
+    fun filterResults(request: String) {
+        val filteredList = list.filter { industry ->
+            industry.name
+                .lowercase()
+                .contains(request)
+        }
+        list.clear()
+        list.addAll(filteredList)
+        notifyDataSetChanged()
+    }
+
     fun interface IndustryClickListener {
         fun onClick(industry: Industry)
     }
