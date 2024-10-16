@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.util.network
 
-class RegionInformation(
+class RegionInformationDto(
     val areaId: String,
     val name: String
 )

@@ -1,13 +1,14 @@
-package ru.practicum.android.diploma.filters.ui.presenter
+package ru.practicum.android.diploma.filters.areas.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.databinding.AreaCardBinding
 import ru.practicum.android.diploma.filters.areas.domain.models.Area
+import ru.practicum.android.diploma.filters.ui.presenter.AreaViewHolder
 
-class AreasRecyclerViewAdapter(
-    private val clickListener: AreaClickListener
+class RegionSelectRecyclerViewAdapter(
+    private val clickListener: RegionSelectClickListener
 ) : RecyclerView.Adapter<AreaViewHolder>() {
 
     var list = mutableListOf<Area>()
@@ -30,7 +31,7 @@ class AreasRecyclerViewAdapter(
         }
     }
 
-    fun interface AreaClickListener {
+    fun interface RegionSelectClickListener {
         fun onClick(area: Area)
     }
 }

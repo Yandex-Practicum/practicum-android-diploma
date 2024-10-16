@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.CountrySelectFragmentBinding
 import ru.practicum.android.diploma.filters.areas.domain.models.Area
+import ru.practicum.android.diploma.filters.areas.ui.model.AreaSelectScreenState
 import ru.practicum.android.diploma.filters.presentation.CountrySelectViewModel
 import ru.practicum.android.diploma.filters.ui.presenter.AreasRecyclerViewAdapter
 
@@ -71,7 +72,7 @@ class CountrySelectFragment : Fragment() {
     private fun showContent(item: List<Area>) {
         binding.recyclerView.isVisible
         adapter.list.clear()
-        adapter.list.addAll(item as List<Area>)
+        adapter.list.addAll(item)
         adapter.notifyDataSetChanged()
     }
 

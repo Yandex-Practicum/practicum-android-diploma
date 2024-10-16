@@ -43,6 +43,6 @@ val repositoryModule = module {
     }
 
     single<SearchRegionsByNameRepository> {
-        SearchRegionsByNameRepositoryImpl(get())
+        SearchRegionsByNameRepositoryImpl(get(), get())
     }
 }

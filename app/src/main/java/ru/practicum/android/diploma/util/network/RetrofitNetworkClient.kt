@@ -29,11 +29,13 @@ class RetrofitNetworkClient(
                     when (dto) {
                         is VacancySearchRequest -> responseCode = hhApiService.searchVacancies(dto.request)
                         is VacancyDetailsRequest -> responseCode = hhApiService.getVacancyDetails(dto.expression)
-                        is FilterAreasRequest -> responseCode =
-                            FilterAreasResponse(hhApiService.getRegions())
+                        is FilterAreasRequest ->
+                            responseCode =
+                                FilterAreasResponse(hhApiService.getRegions())
 
-                        is FilterIndustriesRequest -> responseCode =
-                            FilterIndustriesResponse(hhApiService.getIndustries())
+                        is FilterIndustriesRequest ->
+                            responseCode =
+                                FilterIndustriesResponse(hhApiService.getIndustries())
 
                         is SearchRegionsByNameRequest -> responseCode = hhApiService.searchRegionsByName(dto.request)
                     }
