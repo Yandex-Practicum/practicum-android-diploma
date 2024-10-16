@@ -63,7 +63,6 @@ class CountrySelectViewModel(
 
     private fun convertToCountries(foundCountries: List<Area>): List<Area> {
         val countries = foundCountries
-            .filter { it.parentId == null }
             .sortedBy { if (it.id == "1001") 1 else 0 }
         return countries
     }
