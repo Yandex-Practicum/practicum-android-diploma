@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.CountrySelectFragmentBinding
 import ru.practicum.android.diploma.filters.areas.domain.models.Area
+import ru.practicum.android.diploma.filters.areas.ui.model.CountrySelectFragmentScreenState
 import ru.practicum.android.diploma.filters.presentation.CountrySelectViewModel
 import ru.practicum.android.diploma.filters.ui.presenter.AreasRecyclerViewAdapter
 
@@ -59,12 +60,12 @@ class CountrySelectFragment : Fragment() {
         // Коммент костыль
     }
 
-    private fun render(state: AreaSelectScreenState) {
+    private fun render(state: CountrySelectFragmentScreenState) {
         when (state) {
-            is AreaSelectScreenState.ChooseItem -> showContent(state.items)
-            AreaSelectScreenState.Empty -> showEmpty()
-            AreaSelectScreenState.NetworkError -> showNetworkError()
-            AreaSelectScreenState.ServerError -> showServerError()
+            is CountrySelectFragmentScreenState.ChooseItem -> showContent(state.items)
+            CountrySelectFragmentScreenState.Empty -> showEmpty()
+            CountrySelectFragmentScreenState.NetworkError -> showNetworkError()
+            CountrySelectFragmentScreenState.ServerError -> showServerError()
         }
     }
 

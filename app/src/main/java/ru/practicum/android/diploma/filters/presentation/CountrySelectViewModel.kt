@@ -7,21 +7,21 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.filters.areas.domain.api.FilterAreaInteractor
 import ru.practicum.android.diploma.filters.areas.domain.models.Area
-import ru.practicum.android.diploma.filters.areas.ui.AreaSelectScreenState
+import ru.practicum.android.diploma.filters.areas.ui.model.CountrySelectFragmentScreenState
 import ru.practicum.android.diploma.util.network.HttpStatusCode
 
 class CountrySelectViewModel(
     private val areaterInteractor: FilterAreaInteractor
 ) : ViewModel() {
 
-    private val stateLiveData = MutableLiveData<AreaSelectScreenState>()
-    fun observeState(): LiveData<AreaSelectScreenState> = stateLiveData
+    private val stateLiveData = MutableLiveData<CountrySelectFragmentScreenState>()
+    fun observeState(): LiveData<CountrySelectFragmentScreenState> = stateLiveData
 
     init {
         getCountry()
     }
 
-    private fun renderState(state: AreaSelectScreenState) {
+    private fun renderState(state: CountrySelectFragmentScreenState) {
         stateLiveData.postValue(state)
     }
 
@@ -38,15 +38,15 @@ class CountrySelectViewModel(
     private fun processResult(foundCountries: List<Area>?, errorMessage: HttpStatusCode?) {
         when {
             errorMessage == HttpStatusCode.NOT_CONNECTED -> {
-                renderState(AreaSelectScreenState.NetworkError)
+                renderState(CountrySelectFragmentScreenState.NetworkError)
             }
 
             foundCountries.isNullOrEmpty() -> {
-                renderState(AreaSelectScreenState.Empty)
+                renderState(CountrySelectFragmentScreenState.Empty)
             }
 
             else -> {
-                renderState(AreaSelectScreenState.ChooseItem(convertToCountries(foundCountries)))
+                renderState(CountrySelectFragmentScreenState.ChooseItem(convertToCountries(foundCountries)))
             }
         }
     }

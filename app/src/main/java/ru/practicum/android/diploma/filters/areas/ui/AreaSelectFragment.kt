@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.databinding.WorkingRegionFragmentBinding
+import ru.practicum.android.diploma.databinding.AreaSelectFragmentBinding
 
-class WorkingRegionFragment : Fragment() {
-    private var _binding: WorkingRegionFragmentBinding? = null
+class AreaSelectFragment : Fragment() {
+    private var _binding: AreaSelectFragmentBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -18,7 +18,7 @@ class WorkingRegionFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = WorkingRegionFragmentBinding.inflate(inflater, container, false)
+        _binding = AreaSelectFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
