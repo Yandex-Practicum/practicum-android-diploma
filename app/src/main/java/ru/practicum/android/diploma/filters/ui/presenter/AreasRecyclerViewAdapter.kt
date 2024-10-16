@@ -8,20 +8,20 @@ import ru.practicum.android.diploma.filters.areas.domain.models.Area
 
 class AreasRecyclerViewAdapter(
     private val clickListener: AreaClickListener
-) : RecyclerView.Adapter<AreasViewHolder>() {
+) : RecyclerView.Adapter<AreaViewHolder>() {
 
     var list = mutableListOf<Area>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AreasViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AreaViewHolder {
         val view = LayoutInflater.from(parent.context)
-        return AreasViewHolder(AreaCardBinding.inflate(view, parent, false))
+        return AreaViewHolder(AreaCardBinding.inflate(view, parent, false))
     }
 
     override fun getItemCount(): Int {
         return list.size
     }
 
-    override fun onBindViewHolder(holder: AreasViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: AreaViewHolder, position: Int) {
         val itemView = list[position]
         holder.bind(itemView)
 

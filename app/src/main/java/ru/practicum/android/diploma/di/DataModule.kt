@@ -11,6 +11,7 @@ import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.database.AppDatabase
 import ru.practicum.android.diploma.database.converters.VacancyDbConverter
 import ru.practicum.android.diploma.filters.areas.data.dto.converter.ConverterForAreas
+import ru.practicum.android.diploma.filters.areas.domain.impl.RegionToAreaConverter
 import ru.practicum.android.diploma.search.data.converters.SalaryCurrencySignFormater
 import ru.practicum.android.diploma.search.data.converters.SearchVacancyNetworkConverter
 import ru.practicum.android.diploma.util.network.ApiKeyInterceptor
@@ -67,5 +68,8 @@ val dataModule = module {
     }
     factory {
         ConverterForAreas()
+    }
+    factory {
+        RegionToAreaConverter()
     }
 }

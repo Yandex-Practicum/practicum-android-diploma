@@ -72,7 +72,7 @@ class CountrySelectFragment : Fragment() {
     private fun showContent(item: List<Area>) {
         binding.recyclerView.isVisible
         adapter.list.clear()
-        adapter.list.addAll(item as List<Area>)
+        adapter.list.addAll(item)
         adapter.notifyDataSetChanged()
     }
 
