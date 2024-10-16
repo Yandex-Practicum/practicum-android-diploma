@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.filters.industries.domain.api.FilterIndustriesInteractor
 import ru.practicum.android.diploma.filters.industries.domain.models.Industry
+import ru.practicum.android.diploma.util.debounce
 import ru.practicum.android.diploma.util.network.HttpStatusCode
 
 class IndustrySelectViewModel(
@@ -19,6 +20,8 @@ class IndustrySelectViewModel(
     init {
         loadIndustries()
     }
+
+    private var latestSearchText: String? = null
 
     fun loadIndustries() {
         viewModelScope.launch {
@@ -50,5 +53,23 @@ class IndustrySelectViewModel(
                 stateLiveData.value = IndustrySelectScreenState.ServerError
             }
         }
+    }
+
+    private val industrySearchDebounce =
+        debounce<String>(SEARCH_DEBOUNCE_DELAY, viewModelScope, true) { changedText ->
+            stateLiveData.postValue(
+                IndustrySelectScreenState.FilterRequest(changedText)
+            )
+        }
+
+    fun searchDebounce(changedText: String) {
+        if (latestSearchText != changedText) {
+            latestSearchText = changedText
+            industrySearchDebounce(changedText)
+        }
+    }
+
+    companion object {
+        private const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
 }
