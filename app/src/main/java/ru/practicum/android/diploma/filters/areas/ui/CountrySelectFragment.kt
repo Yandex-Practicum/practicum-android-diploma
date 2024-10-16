@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.CountrySelectFragmentBinding
 import ru.practicum.android.diploma.filters.areas.domain.models.Area
 import ru.practicum.android.diploma.filters.areas.ui.model.AreaSelectScreenState
@@ -71,21 +72,31 @@ class CountrySelectFragment : Fragment() {
 
     private fun showContent(item: List<Area>) {
         binding.recyclerView.isVisible
+        binding.placeholder.isVisible = false
         adapter.list.clear()
         adapter.list.addAll(item)
         adapter.notifyDataSetChanged()
     }
 
     private fun showEmpty() {
-        // Detekt
-    }
-
-    private fun showServerError() {
-        // Detekt
+        binding.placeholder.isVisible = true
+        binding.recyclerView.isVisible = false
+        binding.image.setImageResource(R.drawable.empty_area_placeholder)
+        binding.text.setText(R.string.area_not_found)
     }
 
     private fun showNetworkError() {
-        // Detekt
+        binding.placeholder.isVisible = true
+        binding.recyclerView.isVisible = false
+        binding.image.setImageResource(R.drawable.search_not_connected_placeholder)
+        binding.text.setText(R.string.no_internet)
+    }
+
+    private fun showServerError() {
+        binding.placeholder.isVisible = true
+        binding.recyclerView.isVisible = false
+        binding.image.setImageResource(R.drawable.search_server_error_placeholder)
+        binding.text.setText(R.string.server_error)
     }
 
     override fun onDestroyView() {
