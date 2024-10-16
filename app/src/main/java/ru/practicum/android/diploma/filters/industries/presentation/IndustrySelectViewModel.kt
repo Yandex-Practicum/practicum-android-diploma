@@ -34,7 +34,7 @@ class IndustrySelectViewModel(
             HttpStatusCode.OK -> {
                 if (foundIndustries != null) {
                     if (foundIndustries.isNotEmpty()) {
-                        stateLiveData.value = IndustrySelectScreenState.ChooseItem<Industry>(
+                        stateLiveData.value = IndustrySelectScreenState.ChooseItem(
                             foundIndustries
                         )
                     } else {

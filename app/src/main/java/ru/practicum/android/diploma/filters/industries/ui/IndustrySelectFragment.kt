@@ -64,19 +64,19 @@ class IndustrySelectFragment : Fragment() {
 
     private fun render(state: IndustrySelectScreenState) {
         when (state) {
-            is IndustrySelectScreenState.ChooseItem<*> -> showContent(state.items)
+            is IndustrySelectScreenState.ChooseItem -> showContent(state.items)
             IndustrySelectScreenState.Empty -> showEmpty()
             IndustrySelectScreenState.NetworkError -> showNetworkError()
             IndustrySelectScreenState.ServerError -> showServerError()
         }
     }
 
-    private fun showContent(item: List<*>) {
+    private fun showContent(item: List<Industry>) {
         binding.emptyPlaceholder.isVisible = false
         binding.notFoundPlaceholder.isVisible = false
         binding.recyclerView.isVisible = true
         adapter.list.clear()
-        adapter.list.addAll(item as List<Industry>)
+        adapter.list.addAll(item)
         adapter.notifyDataSetChanged()
 
     }
