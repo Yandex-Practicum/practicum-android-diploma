@@ -6,11 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import ru.practicum.android.diploma.databinding.RegionSelectFragmentBinding
+import ru.practicum.android.diploma.filters.industries.ui.presenter.IndustrySelectRecyclerViewAdapter
 
 class RegionSelectFragment : Fragment() {
     private var _binding: RegionSelectFragmentBinding? = null
     private val binding get() = _binding!!
+    private val adapter: RegionSelectRecyclerViewAdapter = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,6 +29,12 @@ class RegionSelectFragment : Fragment() {
         binding.toolBar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
+
+        adapter = 
+
+        binding.recyclerView.layoutManager =
+            LinearLayoutManager(this.activity, LinearLayoutManager.VERTICAL, false)
+        binding.recyclerView.adapter = regionSelectAdapter
     }
 
     override fun onDestroyView() {
