@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.filters.presentation
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,7 +12,7 @@ import ru.practicum.android.diploma.filters.areas.ui.AreaSelectScreenState
 import ru.practicum.android.diploma.util.network.HttpStatusCode
 
 class CountrySelectViewModel(
-    private val areaterInteractor: FilterAreaInteractor
+    private val areaInteractor: FilterAreaInteractor
 ) : ViewModel() {
 
     private val stateLiveData = MutableLiveData<AreaSelectScreenState>()
@@ -27,7 +28,7 @@ class CountrySelectViewModel(
 
     private fun getCountry() {
         viewModelScope.launch {
-            areaterInteractor
+            areaInteractor
                 .getCountries()
                 .collect { pair ->
                     processResult(pair.first, pair.second)
@@ -46,16 +47,19 @@ class CountrySelectViewModel(
             }
 
             else -> {
-                renderState(AreaSelectScreenState.ChooseItem(convertToCountries(foundCountries)))
+                renderState(
+                    AreaSelectScreenState.ChooseItem(
+                        foundCountries
+                    )
+                )
             }
         }
     }
 
     private fun convertToCountries(foundCountries: List<Area>): List<Area> {
         val countries = foundCountries
-            .filter { it.parentId == null }
             .sortedBy { if (it.id == "1001") 1 else 0 }
-
+        Log.d("MyTag", countries.toString())
         return countries
     }
 }
