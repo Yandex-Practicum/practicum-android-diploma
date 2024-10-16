@@ -31,6 +31,17 @@ class RegionSelectRecyclerViewAdapter(
         }
     }
 
+    fun filterResults(request: String) {
+        val filteredList = list.filter { area ->
+            area.name
+                .lowercase()
+                .contains(request)
+        }
+        list.clear()
+        list.addAll(filteredList)
+        notifyDataSetChanged()
+    }
+
     fun interface RegionSelectClickListener {
         fun onClick(area: Area)
     }

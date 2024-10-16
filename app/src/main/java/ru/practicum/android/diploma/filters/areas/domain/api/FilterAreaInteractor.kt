@@ -6,5 +6,4 @@ import ru.practicum.android.diploma.util.network.HttpStatusCode
 
 interface FilterAreaInteractor {
     fun getCountries(): Flow<Pair<List<Area>?, HttpStatusCode?>>
-
 }
