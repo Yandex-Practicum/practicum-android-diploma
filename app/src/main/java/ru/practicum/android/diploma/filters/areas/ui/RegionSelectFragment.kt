@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import ru.practicum.android.diploma.databinding.CitySelectFragmentBinding
+import ru.practicum.android.diploma.databinding.RegionSelectFragmentBinding
 
-class CitySelectFragment : Fragment() {
-    private var _binding: CitySelectFragmentBinding? = null
+class RegionSelectFragment : Fragment() {
+    private var _binding: RegionSelectFragmentBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -17,7 +17,7 @@ class CitySelectFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = CitySelectFragmentBinding.inflate(inflater, container, false)
+        _binding = RegionSelectFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 

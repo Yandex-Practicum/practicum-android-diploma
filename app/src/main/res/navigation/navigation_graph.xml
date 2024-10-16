@@ -31,9 +31,9 @@
     </fragment>
     <fragment
         android:id="@+id/citySelectFragment"
-        android:name="ru.practicum.android.diploma.filters.areas.ui.CitySelectFragment"
+        android:name="ru.practicum.android.diploma.filters.areas.ui.RegionSelectFragment"
         android:label="city_select_fragment"
-        tools:layout="@layout/city_select_fragment" />
+        tools:layout="@layout/region_select_fragment" />
     <fragment
         android:id="@+id/countrySelectFragment"
         android:name="ru.practicum.android.diploma.filters.areas.ui.CountrySelectFragment"
