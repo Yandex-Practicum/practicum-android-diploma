@@ -18,7 +18,7 @@ class FilterAreaInteractorImpl(
                 is Resource.Success -> {
                     Pair(
                         result.data?.sortedBy {
-                             if (it.id == "1001") 1 else 0
+                            if (it.id == "1001") 1 else 0
                         },
                         HttpStatusCode.OK
                     )
