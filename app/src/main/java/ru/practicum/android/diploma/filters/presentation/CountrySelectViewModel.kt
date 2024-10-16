@@ -13,7 +13,7 @@ import ru.practicum.android.diploma.util.network.HttpStatusCode
 
 class CountrySelectViewModel(
     private val areaInteractor: FilterAreaInteractor,
-    private val sharedPreferences: RequestBuilderInteractor
+    private val requestBuilderInteractor: RequestBuilderInteractor
 ) : ViewModel() {
 
     private val stateLiveData = MutableLiveData<AreaSelectScreenState>()
@@ -58,7 +58,7 @@ class CountrySelectViewModel(
     }
 
     fun saveCountry(area: Area) {
-        sharedPreferences.setArea(area.id)
+        requestBuilderInteractor.setArea(area.id)
     }
 
     private fun convertToCountries(foundCountries: List<Area>): List<Area> {
