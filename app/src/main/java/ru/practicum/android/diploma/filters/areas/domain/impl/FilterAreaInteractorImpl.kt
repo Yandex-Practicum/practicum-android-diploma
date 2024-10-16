@@ -18,6 +18,7 @@ class FilterAreaInteractorImpl(
                 is Resource.Success -> {
                     Pair(result.data, HttpStatusCode.OK)
                 }
+
                 is Resource.Error -> {
                     Pair(null, result.httpStatusCode)
                 }

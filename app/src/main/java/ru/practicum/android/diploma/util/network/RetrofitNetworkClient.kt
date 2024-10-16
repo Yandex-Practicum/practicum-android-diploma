@@ -29,6 +29,7 @@ class RetrofitNetworkClient(
                         is VacancyDetailsRequest -> responseCode = hhApiService.getVacancyDetails(dto.expression)
                         is FilterAreasRequest -> responseCode = hhApiService.getRegions().first()
                         is FilterIndustriesRequest -> responseCode = hhApiService.getIndustries().first()
+                        is SearchRegionsByNameRequest -> responseCode = hhApiService.searchRegionsByName(dto.request)
                     }
                     responseCode.resultCode = HttpStatusCode.OK
                 } catch (ioException: IOException) {
