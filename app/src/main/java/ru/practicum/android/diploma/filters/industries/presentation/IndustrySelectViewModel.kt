@@ -24,6 +24,7 @@ class IndustrySelectViewModel(
     }
 
     private var latestSearchText: String? = null
+    private var chosenIndustry: Industry? = null
 
     fun loadIndustries() {
         viewModelScope.launch {
@@ -68,6 +69,16 @@ class IndustrySelectViewModel(
         if (latestSearchText != changedText) {
             latestSearchText = changedText
             industrySearchDebounce(changedText)
+        }
+    }
+
+    fun onItemClick(industry: Industry) {
+        chosenIndustry = industry
+    }
+
+    fun transferIndustryToQuery() {
+        if (chosenIndustry != null) {
+            requestBuilderInteractor.setIndustry(chosenIndustry!!.id)
         }
     }
 

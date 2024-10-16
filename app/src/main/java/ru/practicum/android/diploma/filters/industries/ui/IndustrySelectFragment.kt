@@ -96,6 +96,11 @@ class IndustrySelectFragment : Fragment() {
         binding.searchLineCleaner.setOnClickListener {
             clearFilter()
         }
+
+        binding.applyButton.setOnClickListener {
+            viewModel.transferIndustryToQuery()
+            findNavController().popBackStack()
+        }
     }
 
     override fun onDestroyView() {
@@ -104,7 +109,8 @@ class IndustrySelectFragment : Fragment() {
     }
 
     private fun onIndustryClick(industry: Industry) {
-        // Коммент костыль
+        binding.applyButton.isVisible = true
+        viewModel.onItemClick(industry)
     }
 
     private fun render(state: IndustrySelectScreenState) {

@@ -27,6 +27,7 @@ class IndustrySelectRecyclerViewAdapter(
 
         holder.itemView.setOnClickListener {
             clickListener.onClick(itemView)
+            holder.selectItem()
         }
     }
 
