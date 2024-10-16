@@ -7,4 +7,5 @@ sealed class IndustrySelectScreenState {
     data object ServerError : IndustrySelectScreenState()
     data object NetworkError : IndustrySelectScreenState()
     data object Empty : IndustrySelectScreenState()
+    data class FilterRequest(val request: String) : IndustrySelectScreenState()
 }
