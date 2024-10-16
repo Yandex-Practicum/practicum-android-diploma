@@ -15,7 +15,7 @@ class SearchRegionsByNameRepositoryImpl(
     private val converter: RegionToAreaConverter
 ) : SearchRegionsByNameRepository {
 
-    val textAndParentId: HashMap<String, String> = HashMap()
+    private val textAndParentId: HashMap<String, String> = HashMap()
 
     override fun setText(text: String) {
         textAndParentId["text"] = text

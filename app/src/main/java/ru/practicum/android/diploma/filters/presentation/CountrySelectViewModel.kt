@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.filters.areas.domain.api.FilterAreaInteractor
 import ru.practicum.android.diploma.filters.areas.domain.models.Area
-import ru.practicum.android.diploma.filters.areas.ui.AreaSelectScreenState
+import ru.practicum.android.diploma.filters.areas.ui.model.AreaSelectScreenState
 import ru.practicum.android.diploma.util.network.HttpStatusCode
 
 class CountrySelectViewModel(
