@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.filters.presentation
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -60,7 +59,6 @@ class CountrySelectViewModel(
         val countries = foundCountries
             .filter { it.parentId == null }
             .sortedBy { if (it.id == "1001") 1 else 0 }
-        Log.d("MyTag", countries.toString())
         return countries
     }
 }
