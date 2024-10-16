@@ -8,10 +8,12 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.filters.areas.domain.api.FilterAreaInteractor
 import ru.practicum.android.diploma.filters.areas.domain.models.Area
 import ru.practicum.android.diploma.filters.areas.ui.model.AreaSelectScreenState
+import ru.practicum.android.diploma.search.domain.api.RequestBuilderInteractor
 import ru.practicum.android.diploma.util.network.HttpStatusCode
 
 class CountrySelectViewModel(
-    private val areaInteractor: FilterAreaInteractor
+    private val areaInteractor: FilterAreaInteractor,
+    private val requestBuilderInteractor: RequestBuilderInteractor
 ) : ViewModel() {
 
     private val stateLiveData = MutableLiveData<AreaSelectScreenState>()
@@ -55,9 +57,12 @@ class CountrySelectViewModel(
         }
     }
 
+    fun saveCountry(area: Area) {
+        requestBuilderInteractor.setArea(area.id)
+    }
+
     private fun convertToCountries(foundCountries: List<Area>): List<Area> {
         val countries = foundCountries
-            .filter { it.parentId == null }
             .sortedBy { if (it.id == "1001") 1 else 0 }
         return countries
     }
