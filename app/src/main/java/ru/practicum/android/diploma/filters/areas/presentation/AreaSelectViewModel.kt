@@ -15,7 +15,7 @@ class AreaSelectViewModel(
 
     fun updateFields() {
         val fields = TODO("Получить поля страна/регион")
-        //countryAndRegionStateMap.value = mapOf("country" to fields.country, "region" to fields.region)
+        // countryAndRegionStateMap.value = mapOf("country" to fields.country, "region" to fields.region)
     }
 
     fun clearAreaFilter() {
@@ -28,4 +28,3 @@ class AreaSelectViewModel(
         updateFields()
     }
 }
-
