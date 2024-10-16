@@ -25,4 +25,29 @@
         android:layout_marginTop="@dimen/toolbar_vertical_padding"
         tools:listitem="@layout/area_card" />
 
+    <FrameLayout
+        android:id="@+id/placeholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/padding_horizontal_size_16"
+            tools:ignore="contentDescription"
+            tools:src="@drawable/search_not_found_placeholder" />
+
+        <TextView
+            android:id="@+id/text"
+            style="@style/Text_Medium_22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="350dp"
+            tools:text="@string/empty_region" />
+    </FrameLayout>
+
 </LinearLayout>
