@@ -7,11 +7,13 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.filters.industries.domain.api.FilterIndustriesInteractor
 import ru.practicum.android.diploma.filters.industries.domain.models.Industry
+import ru.practicum.android.diploma.search.domain.api.RequestBuilderInteractor
 import ru.practicum.android.diploma.util.debounce
 import ru.practicum.android.diploma.util.network.HttpStatusCode
 
 class IndustrySelectViewModel(
-    private val interactor: FilterIndustriesInteractor
+    private val interactor: FilterIndustriesInteractor,
+    private val requestBuilderInteractor: RequestBuilderInteractor
 ) : ViewModel() {
 
     private var stateLiveData = MutableLiveData<IndustrySelectScreenState>()
