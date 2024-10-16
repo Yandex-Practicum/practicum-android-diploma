@@ -24,9 +24,15 @@ class AreaSelectFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.toolBar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+
         binding.countrySelect.setOnClickListener {
             findNavController().navigate(R.id.action_workingRegionFragment_to_countrySelectFragment)
         }
+
         binding.regionSelect.setOnClickListener {
             findNavController().navigate(R.id.action_workingRegionFragment_to_citySelectFragment)
         }
