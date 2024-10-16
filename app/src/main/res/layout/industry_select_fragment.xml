@@ -146,11 +146,25 @@
             android:text="@string/industry_not_found" />
     </FrameLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:listitem="@layout/area_card"
-        android:visibility="gone"/>
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/area_card"
+            android:visibility="gone"/>
+    </FrameLayout>
+
+    <Button style="@style/BlueButtonStyle"
+        android:id="@+id/apply_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:text="@string/choose"
+        android:layout_marginHorizontal="@dimen/padding_horizontal_size_16"
+        android:layout_marginBottom="@dimen/title_top_margin_24"
+        android:visibility="visible"/>
 
 </LinearLayout>
