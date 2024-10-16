@@ -6,5 +6,5 @@ sealed class FilterSettingsStateScreen {
         val industry: String,
         val salary: String,
         val showWithSalary: Boolean
-    )
+    ) : FilterSettingsStateScreen()
 }
