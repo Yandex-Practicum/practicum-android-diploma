@@ -120,12 +120,23 @@ class IndustrySelectFragment : Fragment() {
             IndustrySelectScreenState.NetworkError -> showNetworkError()
             IndustrySelectScreenState.ServerError -> showServerError()
             is IndustrySelectScreenState.FilterRequest -> showFilteredResult(state.request)
+            IndustrySelectScreenState.Loading -> showLoading()
         }
     }
 
-    private fun showContent(item: List<Industry>) {
+    private fun showLoading() {
+        binding.progressCircular.isVisible = true
         binding.notFoundPlaceholder.isVisible = false
         binding.serverErrorPlaceholder.isVisible = false
+        binding.notConnectedPlaceholder.isVisible = false
+        binding.recyclerView.isVisible = false
+    }
+
+    private fun showContent(item: List<Industry>) {
+        binding.progressCircular.isVisible = false
+        binding.notFoundPlaceholder.isVisible = false
+        binding.serverErrorPlaceholder.isVisible = false
+        binding.notConnectedPlaceholder.isVisible = false
         binding.recyclerView.isVisible = true
         adapter.list.clear()
         adapter.list.addAll(item)
@@ -134,6 +145,7 @@ class IndustrySelectFragment : Fragment() {
     }
 
     private fun showNetworkError() {
+        binding.progressCircular.isVisible = false
         binding.notFoundPlaceholder.isVisible = false
         binding.serverErrorPlaceholder.isVisible = false
         binding.notConnectedPlaceholder.isVisible = true
@@ -141,6 +153,7 @@ class IndustrySelectFragment : Fragment() {
     }
 
     private fun showServerError() {
+        binding.progressCircular.isVisible = false
         binding.notFoundPlaceholder.isVisible = false
         binding.serverErrorPlaceholder.isVisible = true
         binding.notConnectedPlaceholder.isVisible = false
@@ -148,6 +161,7 @@ class IndustrySelectFragment : Fragment() {
     }
 
     private fun showEmpty() {
+        binding.progressCircular.isVisible = false
         binding.notFoundPlaceholder.isVisible = true
         binding.serverErrorPlaceholder.isVisible = false
         binding.notConnectedPlaceholder.isVisible = false
@@ -158,6 +172,7 @@ class IndustrySelectFragment : Fragment() {
         view?.hideKeyboard()
         adapter.filterResults(request)
 
+        binding.progressCircular.isVisible = false
         binding.serverErrorPlaceholder.isVisible = false
         binding.notConnectedPlaceholder.isVisible = false
         if (adapter.list.isEmpty()) {

@@ -27,6 +27,7 @@ class IndustrySelectViewModel(
     private var chosenIndustry: Industry? = null
 
     fun loadIndustries() {
+        stateLiveData.value = IndustrySelectScreenState.Loading
         viewModelScope.launch {
             interactor.getIndustries()
                 .collect { result ->
