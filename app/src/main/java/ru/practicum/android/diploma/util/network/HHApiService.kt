@@ -3,8 +3,8 @@ package ru.practicum.android.diploma.util.network
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.QueryMap
-import ru.practicum.android.diploma.filters.data.dto.FilterAreasResponse
-import ru.practicum.android.diploma.filters.data.dto.FilterIndustriesResponse
+import ru.practicum.android.diploma.filters.areas.data.FilterAreasResponse
+import ru.practicum.android.diploma.filters.industries.data.dto.FilterIndustriesResponse
 import ru.practicum.android.diploma.search.data.network.VacancySearchResponse
 import ru.practicum.android.diploma.vacancy.data.network.VacancyDetailsResponse
 
