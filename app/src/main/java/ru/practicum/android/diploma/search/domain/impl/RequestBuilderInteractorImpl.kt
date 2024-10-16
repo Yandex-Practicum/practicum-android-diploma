@@ -18,6 +18,10 @@ class RequestBuilderInteractorImpl(private val requestBuilderRepository: Request
         requestBuilderRepository.setSalary(salary)
     }
 
+    override fun setIndustry(industryId: String) {
+        requestBuilderRepository.setIndustry(industryId)
+    }
+
     override fun setCurrency(currency: String) {
         requestBuilderRepository.setCurrency(currency)
     }
