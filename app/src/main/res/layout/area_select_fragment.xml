@@ -44,7 +44,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/industry_input_layout"
+        android:id="@+id/region_input_layout"
         style="@style/FilterTextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
