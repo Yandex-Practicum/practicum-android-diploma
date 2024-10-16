@@ -58,7 +58,8 @@ class CountrySelectFragment : Fragment() {
     }
 
     private fun onAreaClick(area: Area) {
-        // Коммент костыль
+        viewModel.saveCountry(area)
+        findNavController().popBackStack()
     }
 
     private fun render(state: AreaSelectScreenState) {
