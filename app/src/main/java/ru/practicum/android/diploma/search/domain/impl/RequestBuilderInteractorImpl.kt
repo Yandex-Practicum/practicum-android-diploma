@@ -10,20 +10,20 @@ class RequestBuilderInteractorImpl(private val requestBuilderRepository: Request
         requestBuilderRepository.setText(text)
     }
 
-    override fun saveArea(areaId: String) {
-        requestBuilderRepository.saveArea(areaId)
+    override fun setArea(areaId: String) {
+        requestBuilderRepository.setArea(areaId)
     }
 
-    override fun saveSalary(salary: String) {
-        requestBuilderRepository.saveSalary(salary)
+    override fun setSalary(salary: String) {
+        requestBuilderRepository.setSalary(salary)
     }
 
-    override fun saveCurrency(currency: String) {
-        requestBuilderRepository.saveCurrency(currency)
+    override fun setCurrency(currency: String) {
+        requestBuilderRepository.setCurrency(currency)
     }
 
-    override fun saveIsShowWithSalary(isShowWithSalary: Boolean) {
-        requestBuilderRepository.saveIsShowWithSalary(isShowWithSalary)
+    override fun setIsShowWithSalary(isShowWithSalary: Boolean) {
+        requestBuilderRepository.setIsShowWithSalary(isShowWithSalary)
     }
 
     override fun getRequest(): HashMap<String, String> {
