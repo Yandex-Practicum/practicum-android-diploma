@@ -11,32 +11,29 @@ class RequestBuilderRepositoryImpl(private val sharedPreferences: SharedPreferen
         searchRequest["text"] = text
     }
 
-    override fun saveArea(areaId: String) {
+    override fun setArea(areaId: String) {
         searchRequest["area"] = areaId
-        sharedPreferences.edit()
-            .putString(SAVED_AREA, areaId)
-            .apply()
+        saveFilterValueInSharedPrefs(SAVED_AREA, areaId)
     }
 
-    override fun saveSalary(salary: String) {
+    override fun setIndustry(industryId: String) {
+        searchRequest["industry"] = industryId
+        saveFilterValueInSharedPrefs(SAVED_INDUSTRY, industryId)
+    }
+
+    override fun setSalary(salary: String) {
         searchRequest["salary"] = salary
-        sharedPreferences.edit()
-            .putString(SAVED_SALARY, salary)
-            .apply()
+        saveFilterValueInSharedPrefs(SAVED_SALARY, salary)
     }
 
-    override fun saveCurrency(currency: String) {
+    override fun setCurrency(currency: String) {
         searchRequest["currency"] = currency
-        sharedPreferences.edit()
-            .putString(SAVED_CURRENCY, currency)
-            .apply()
+        saveFilterValueInSharedPrefs(SAVED_CURRENCY, currency)
     }
 
-    override fun saveIsShowWithSalary(isShowWithSalary: Boolean) {
+    override fun setIsShowWithSalary(isShowWithSalary: Boolean) {
         searchRequest["only_with_salary"] = isShowWithSalary.toString()
-        sharedPreferences.edit()
-            .putString(SAVED_SHOW_WITH_SALARY, isShowWithSalary.toString())
-            .apply()
+        saveFilterValueInSharedPrefs(SAVED_SHOW_WITH_SALARY, isShowWithSalary.toString())
     }
 
     override fun getRequest(): HashMap<String, String> {
@@ -46,14 +43,22 @@ class RequestBuilderRepositoryImpl(private val sharedPreferences: SharedPreferen
     override fun getSavedFilters(): SavedFilters {
         return SavedFilters(
             savedArea = sharedPreferences.getString(SAVED_AREA, ""),
+            savedIndustry = sharedPreferences.getString(SAVED_INDUSTRY, ""),
             savedCurrency = sharedPreferences.getString(SAVED_CURRENCY, ""),
             savedSalary = sharedPreferences.getString(SAVED_SALARY, ""),
             savedIsShowWithSalary = sharedPreferences.getBoolean(SAVED_SHOW_WITH_SALARY, false)
         )
     }
 
+    private fun saveFilterValueInSharedPrefs(key: String, value: String) {
+        sharedPreferences.edit()
+            .putString(key, value)
+            .apply()
+    }
+
     companion object {
         const val SAVED_AREA = "savedArea"
+        const val SAVED_INDUSTRY = "savedIndustry"
         const val SAVED_CURRENCY = "savedCurrency"
         const val SAVED_SALARY = "savedSalary"
         const val SAVED_SHOW_WITH_SALARY = "savedShowWithSalary"

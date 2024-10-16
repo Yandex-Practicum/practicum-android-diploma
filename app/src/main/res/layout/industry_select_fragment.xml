@@ -15,7 +15,7 @@
         android:contentInsetStartWithNavigation="0dp"
         android:navigationIcon="@drawable/ic_arrow_back_24px"
         android:paddingVertical="4dp"
-        android:title="@string/region_choice"
+        android:title="@string/choose_industries"
         app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout

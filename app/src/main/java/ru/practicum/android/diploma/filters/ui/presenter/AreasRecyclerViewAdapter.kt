@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.databinding.AreaCardBinding
-import ru.practicum.android.diploma.filters.domain.models.Area
+import ru.practicum.android.diploma.filters.areas.domain.models.Area
 
 class AreasRecyclerViewAdapter(
     private val clickListener: AreaClickListener

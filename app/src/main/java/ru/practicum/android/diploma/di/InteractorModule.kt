@@ -3,10 +3,10 @@ package ru.practicum.android.diploma.di
 import org.koin.dsl.module
 import ru.practicum.android.diploma.favorite.domain.api.FavoriteVacancyInteractor
 import ru.practicum.android.diploma.favorite.domain.impl.FavoriteVacancyInteractorImpl
-import ru.practicum.android.diploma.filters.domain.api.FilterAreaInteractor
-import ru.practicum.android.diploma.filters.domain.api.FilterIndustriesInteractor
-import ru.practicum.android.diploma.filters.domain.impl.FilterAreaInteractorImpl
-import ru.practicum.android.diploma.filters.domain.impl.FilterIndustriesInteractorImpl
+import ru.practicum.android.diploma.filters.areas.domain.api.FilterAreaInteractor
+import ru.practicum.android.diploma.filters.areas.domain.impl.FilterAreaInteractorImpl
+import ru.practicum.android.diploma.filters.industries.domain.api.FilterIndustriesInteractor
+import ru.practicum.android.diploma.filters.industries.domain.impl.FilterIndustriesInteractorImpl
 import ru.practicum.android.diploma.search.domain.api.RequestBuilderInteractor
 import ru.practicum.android.diploma.search.domain.api.SearchVacancyInteractor
 import ru.practicum.android.diploma.search.domain.impl.RequestBuilderInteractorImpl
