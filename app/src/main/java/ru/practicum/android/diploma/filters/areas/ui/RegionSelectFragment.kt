@@ -55,6 +55,7 @@ class RegionSelectFragment : Fragment() {
 
         val searchTextWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // detekt
             }
 
             override fun onTextChanged(textInInputField: CharSequence?, start: Int, before: Int, count: Int) {
@@ -68,6 +69,7 @@ class RegionSelectFragment : Fragment() {
             }
 
             override fun afterTextChanged(s: Editable?) {
+                // detekt
             }
         }
         binding.searchLine.addTextChangedListener(searchTextWatcher)
@@ -89,6 +91,7 @@ class RegionSelectFragment : Fragment() {
 
     private fun onAreaClick(area: Area) {
         viewModel.finishSelect(area.id)
+        findNavController().popBackStack()
     }
 
     private fun render(state: RegionSelectScreenState) {
