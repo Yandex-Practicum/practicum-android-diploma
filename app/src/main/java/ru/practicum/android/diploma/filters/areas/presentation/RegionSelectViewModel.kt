@@ -67,20 +67,23 @@ class RegionSelectViewModel(
     }
 
     private fun convertToRegions(foundAreas: List<Area>): List<Area> {
-        val countries = foundAreas
-            .filter { it.parentId == null }
+        val regions = mutableListOf<Area>()
+        val foundCountries = foundAreas
             .sortedBy { if (it.id == "1001") 1 else 0 }
-        return countries
+
+        foundCountries.forEach { area ->
+            regions.addAll(area.areas)
+        }
+        return regions
     }
 
     private fun renderState(state: RegionSelectScreenState) {
         stateLiveData.postValue(state)
     }
 
-
-//    fun finishSelect() {
-//        requestBuilderInteractor.setArea()
-//    }
+    fun finishSelect(areaId:String) {
+        requestBuilderInteractor.setArea(areaId)
+    }
 
     companion object {
         private const val SEARCH_DEBOUNCE_DELAY = 500L

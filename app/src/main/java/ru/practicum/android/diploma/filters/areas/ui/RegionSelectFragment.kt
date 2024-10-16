@@ -16,6 +16,7 @@ import ru.practicum.android.diploma.databinding.RegionSelectFragmentBinding
 import ru.practicum.android.diploma.filters.areas.domain.models.Area
 import ru.practicum.android.diploma.filters.areas.presentation.RegionSelectViewModel
 import ru.practicum.android.diploma.filters.areas.ui.presentation.RegionSelectScreenState
+import ru.practicum.android.diploma.filters.industries.ui.IndustrySelectFragment
 import ru.practicum.android.diploma.util.hideKeyboard
 
 class RegionSelectFragment : Fragment() {
@@ -48,6 +49,7 @@ class RegionSelectFragment : Fragment() {
         viewModel.observeState().observe(viewLifecycleOwner) {
             render(it)
         }
+
         binding.recyclerView.layoutManager = LinearLayoutManager(this.activity, LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.adapter = adapter
 
@@ -68,7 +70,15 @@ class RegionSelectFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {
             }
         }
+        binding.searchLine.addTextChangedListener(searchTextWatcher)
+        binding.searchLineCleaner.setOnClickListener {
+            clearFilter()
+        }
+    }
 
+    override fun onStart() {
+        super.onStart()
+        viewModel.getAllRegions()
     }
 
     private fun clearButtonVisibility(text: CharSequence?) {
@@ -78,7 +88,7 @@ class RegionSelectFragment : Fragment() {
     }
 
     private fun onAreaClick(area: Area) {
-        // Коммент костыль
+        viewModel.finishSelect(area.id)
     }
 
     private fun render(state: RegionSelectScreenState) {
@@ -102,7 +112,7 @@ class RegionSelectFragment : Fragment() {
 
     private fun showFilteredResult(request: String) {
         view?.hideKeyboard()
-        // adapter.filterResults(request)
+        adapter.filterResults(request)
     }
 
     private fun showEmpty() {
@@ -128,6 +138,11 @@ class RegionSelectFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun clearFilter() {
+        viewModel.getAllRegions()
+        binding.searchLine.setText(IndustrySelectFragment.DEF_TEXT)
     }
 
     companion object {
