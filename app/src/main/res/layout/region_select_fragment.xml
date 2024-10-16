@@ -103,6 +103,7 @@
         app:layout_constraintVertical_bias="0.2">
 
         <ImageView
+            android:id="@+id/image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingHorizontal="@dimen/padding_horizontal_size_16"
@@ -110,6 +111,7 @@
             tools:ignore="contentDescription" />
 
         <TextView
+            android:id="@+id/text"
             style="@style/Text_Medium_22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
