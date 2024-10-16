@@ -1,9 +1,7 @@
 package ru.practicum.android.diploma.filters.areas.domain.impl
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOf
 import ru.practicum.android.diploma.filters.areas.data.FilterAreasRequest
 import ru.practicum.android.diploma.filters.areas.data.FilterAreasResponse
 import ru.practicum.android.diploma.filters.areas.data.dto.converter.ConverterForAreas
@@ -17,8 +15,6 @@ class FilterAreaRepositoryImpl(
     private val networkClient: NetworkClient,
     private val converter: ConverterForAreas
 ) : FilterAreaRepository {
-
-    private var cachedRegions: Resource<List<Area>>? = null
 
     override fun getAreas(): Flow<Resource<List<Area>>> = flow {
         val response = networkClient.doRequest(FilterAreasRequest())
@@ -45,18 +41,5 @@ class FilterAreaRepositoryImpl(
                 }
             }
         )
-    }
-
-    override suspend fun loadAllRegions(): Resource<List<Area>> {
-        val resource = getAreas().first()
-        cachedRegions = resource
-        return resource
-
-    }
-
-    override fun getAllRegions(): Flow<Resource<List<Area>>> {
-        return cachedRegions?.let { flowOf(it) } ?: flow {
-            emit(loadAllRegions())
-        }
     }
 }

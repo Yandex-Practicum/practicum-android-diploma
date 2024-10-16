@@ -16,12 +16,7 @@ class FilterAreaInteractorImpl(
         return repository.getAreas().map { result ->
             when (result) {
                 is Resource.Success -> {
-                    Pair(
-                        result.data?.sortedBy {
-                            if (it.id == "1001") 1 else 0
-                        },
-                        HttpStatusCode.OK
-                    )
+                    Pair(result.data, HttpStatusCode.OK)
                 }
 
                 is Resource.Error -> {
