@@ -6,6 +6,7 @@ interface RequestBuilderInteractor {
     fun setText(text: String)
     fun setArea(areaId: String)
     fun setSalary(salary: String)
+    fun setIndustry(industryId: String)
     fun setCurrency(currency: String)
     fun setIsShowWithSalary(isShowWithSalary: Boolean)
     fun getRequest(): HashMap<String, String>

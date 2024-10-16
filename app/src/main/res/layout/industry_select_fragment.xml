@@ -63,6 +63,70 @@
             tools:ignore="contentDescription" />
     </FrameLayout>
 
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:indeterminateTint="@color/blue"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+    <FrameLayout
+        android:id="@+id/server_error_placeholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_line_box"
+        app:layout_constraintVertical_bias="0.2">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/padding_horizontal_size_16"
+            android:src="@drawable/search_server_error_placeholder"
+            tools:ignore="contentDescription" />
+
+        <TextView
+            style="@style/Text_Medium_22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="350dp"
+            android:gravity="center"
+            android:text="@string/server_error" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/not_connected_placeholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_line_box"
+        app:layout_constraintVertical_bias="0.2">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/padding_horizontal_size_16"
+            android:src="@drawable/search_not_connected_placeholder"
+            tools:ignore="contentDescription" />
+
+        <TextView
+            style="@style/Text_Medium_22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="350dp"
+            android:text="@string/no_internet" />
+    </FrameLayout>
+
     <FrameLayout
         android:id="@+id/not_found_placeholder"
         android:layout_width="wrap_content"
@@ -88,42 +152,28 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="350dp"
             android:gravity="center"
-            android:text="@string/empty_region" />
+            android:text="@string/industry_not_found" />
     </FrameLayout>
 
     <FrameLayout
-        android:id="@+id/empty_placeholder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_line_box"
-        app:layout_constraintVertical_bias="0.2">
-
-        <ImageView
-            android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="@dimen/padding_horizontal_size_16"
-            android:src="@drawable/empty_area_placeholder"
-            tools:ignore="contentDescription" />
-
-        <TextView
-            style="@style/Text_Medium_22"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="350dp"
-            android:gravity="center"
-            android:text="@string/area_not_found" />
+            tools:listitem="@layout/area_card"
+            android:visibility="gone"/>
     </FrameLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <Button style="@style/BlueButtonStyle"
+        android:id="@+id/apply_button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:listitem="@layout/area_card"
+        android:layout_height="@dimen/button_height"
+        android:text="@string/choose"
+        android:layout_marginHorizontal="@dimen/padding_horizontal_size_16"
+        android:layout_marginBottom="@dimen/title_top_margin_24"
         android:visibility="gone"/>
 
 </LinearLayout>

@@ -96,6 +96,11 @@ class IndustrySelectFragment : Fragment() {
         binding.searchLineCleaner.setOnClickListener {
             clearFilter()
         }
+
+        binding.applyButton.setOnClickListener {
+            viewModel.transferIndustryToQuery()
+            findNavController().popBackStack()
+        }
     }
 
     override fun onDestroyView() {
@@ -104,7 +109,8 @@ class IndustrySelectFragment : Fragment() {
     }
 
     private fun onIndustryClick(industry: Industry) {
-        // Коммент костыль
+        binding.applyButton.isVisible = true
+        viewModel.onItemClick(industry)
     }
 
     private fun render(state: IndustrySelectScreenState) {
@@ -114,12 +120,23 @@ class IndustrySelectFragment : Fragment() {
             IndustrySelectScreenState.NetworkError -> showNetworkError()
             IndustrySelectScreenState.ServerError -> showServerError()
             is IndustrySelectScreenState.FilterRequest -> showFilteredResult(state.request)
+            IndustrySelectScreenState.Loading -> showLoading()
         }
     }
 
-    private fun showContent(item: List<Industry>) {
-        binding.emptyPlaceholder.isVisible = false
+    private fun showLoading() {
+        binding.progressCircular.isVisible = true
         binding.notFoundPlaceholder.isVisible = false
+        binding.serverErrorPlaceholder.isVisible = false
+        binding.notConnectedPlaceholder.isVisible = false
+        binding.recyclerView.isVisible = false
+    }
+
+    private fun showContent(item: List<Industry>) {
+        binding.progressCircular.isVisible = false
+        binding.notFoundPlaceholder.isVisible = false
+        binding.serverErrorPlaceholder.isVisible = false
+        binding.notConnectedPlaceholder.isVisible = false
         binding.recyclerView.isVisible = true
         adapter.list.clear()
         adapter.list.addAll(item)
@@ -128,26 +145,41 @@ class IndustrySelectFragment : Fragment() {
     }
 
     private fun showNetworkError() {
-        binding.emptyPlaceholder.isVisible = false
-        binding.notFoundPlaceholder.isVisible = true
+        binding.progressCircular.isVisible = false
+        binding.notFoundPlaceholder.isVisible = false
+        binding.serverErrorPlaceholder.isVisible = false
+        binding.notConnectedPlaceholder.isVisible = true
         binding.recyclerView.isVisible = false
     }
 
     private fun showServerError() {
-        binding.emptyPlaceholder.isVisible = false
-        binding.notFoundPlaceholder.isVisible = true
+        binding.progressCircular.isVisible = false
+        binding.notFoundPlaceholder.isVisible = false
+        binding.serverErrorPlaceholder.isVisible = true
+        binding.notConnectedPlaceholder.isVisible = false
         binding.recyclerView.isVisible = false
     }
 
     private fun showEmpty() {
-        binding.emptyPlaceholder.isVisible = true
-        binding.notFoundPlaceholder.isVisible = false
+        binding.progressCircular.isVisible = false
+        binding.notFoundPlaceholder.isVisible = true
+        binding.serverErrorPlaceholder.isVisible = false
+        binding.notConnectedPlaceholder.isVisible = false
         binding.recyclerView.isVisible = false
     }
 
     private fun showFilteredResult(request: String) {
         view?.hideKeyboard()
         adapter.filterResults(request)
+
+        binding.progressCircular.isVisible = false
+        binding.serverErrorPlaceholder.isVisible = false
+        binding.notConnectedPlaceholder.isVisible = false
+        if (adapter.list.isEmpty()) {
+            binding.notFoundPlaceholder.isVisible = true
+        } else {
+            binding.recyclerView.isVisible = true
+        }
     }
 
     private fun clearButtonVisibility(s: CharSequence?) {

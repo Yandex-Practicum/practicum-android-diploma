@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="@style/Text_Regular_16"
         android:layoutDirection="rtl"
+        android:clickable="false"
         android:textAlignment="textStart"
         android:layout_gravity="start"
         android:buttonTint="@color/blue" />

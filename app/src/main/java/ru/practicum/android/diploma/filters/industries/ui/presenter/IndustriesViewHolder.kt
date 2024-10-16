@@ -9,4 +9,8 @@ class IndustriesViewHolder(private val binding: IndustryCardBinding) : RecyclerV
     fun bind(industry: Industry) {
         binding.industryItem.text = industry.name
     }
+
+    fun selectItem() {
+        binding.industryItem.isChecked = true
+    }
 }
