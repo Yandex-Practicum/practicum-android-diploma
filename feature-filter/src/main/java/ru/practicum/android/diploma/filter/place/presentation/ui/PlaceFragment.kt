@@ -68,7 +68,7 @@ internal class PlaceFragment : Fragment() {
     }
 
     private fun renderVisibleButtonSelected(isVisible: Boolean?) {
-        if(isVisible == null || !isVisible) {
+        if (isVisible == null || !isVisible) {
             binding.selectButton.visibility = View.GONE
         } else {
             binding.selectButton.visibility = View.VISIBLE

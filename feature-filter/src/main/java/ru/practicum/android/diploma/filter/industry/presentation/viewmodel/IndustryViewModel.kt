@@ -67,7 +67,7 @@ class IndustryViewModel(
     fun updateProfessionInDataFilter(branchOfProfession: IndustryModel) {
         viewModelScope.launch(Dispatchers.IO) {
             val success = industryInteractor.updateProfessionInDataFilter(branchOfProfession)
-            if(success != -1) {
+            if (success != -1) {
                 _currentIndustryInDataFilterLiveData.postValue(branchOfProfession)
             }
         }

@@ -104,7 +104,7 @@ internal class IndustryFragment : Fragment() {
     }
 
     private fun render(state: IndustryState) {
-        when(state) {
+        when (state) {
             is IndustryState.Loading -> {
                 Utils.visibilityView(viewArray, binding.loadingProgressBar)
             }
@@ -152,7 +152,7 @@ internal class IndustryFragment : Fragment() {
 
             override fun onIndustryClick(industryModel: IndustryModel?) {
                 binding.selectButton.isVisible = industryModel?.id != currentIndustryBuffer.id
-                currentIndustry = industryModel?:IndustryModel(null, null)
+                currentIndustry = industryModel ?: IndustryModel(null, null)
                 requireContext().closeKeyBoard(binding.searchBar)
             }
         })

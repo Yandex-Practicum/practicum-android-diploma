@@ -46,7 +46,7 @@ internal class VacanciesRepositoryImpl(
             "only_with_salary" to onlyWithSalary.toString(),
         )
         industry?.let { options["industry"] = industry }
-        if(!salary.isNullOrEmpty()) {
+        if (!salary.isNullOrEmpty()) {
             options["salary"] = salary
         }
         area?.let { options["area"] = area }
