@@ -39,7 +39,7 @@ val repositoryModule = module {
     }
 
     single<RequestBuilderRepository> {
-        RequestBuilderRepositoryImpl(get())
+        RequestBuilderRepositoryImpl(get(), get())
     }
 
     single<SearchRegionsByNameRepository> {
