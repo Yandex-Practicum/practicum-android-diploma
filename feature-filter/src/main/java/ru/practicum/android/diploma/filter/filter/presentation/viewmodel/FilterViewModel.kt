@@ -20,7 +20,7 @@ class FilterViewModel(
         getDataFromSp()
     }
 
-    private fun getDataFromSp() {
+    fun getDataFromSp() {
         viewModelScope.launch(Dispatchers.IO) {
             val filterSettings = filterSPInteractor.getDataFilter()
             _filterOptionsListLiveData.postValue(filterSettings)

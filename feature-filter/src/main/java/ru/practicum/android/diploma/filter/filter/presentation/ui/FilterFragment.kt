@@ -8,7 +8,6 @@ import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView.OnEditorActionListener
@@ -27,10 +26,10 @@ internal class FilterFragment : Fragment() {
     private val viewModel: FilterViewModel by viewModel()
 
     private var filterSettings: FilterSettings = emptyFilterSetting()
-    private var hasPlace = false
-    private var hasProfession = false
-    private var hasSalary = false
-    private var hasDoNotShowWithoutSalary = false
+//    private var hasPlace = false
+//    private var hasProfession = false
+//    private var hasSalary = false
+//    private var hasDoNotShowWithoutSalary = false
 
     private var colorsEditTextFilterEmpty: IntArray? = null
     private var colorsEditTextFilterNoEmpty: IntArray? = null
@@ -46,6 +45,7 @@ internal class FilterFragment : Fragment() {
     ): View {
         _binding = FragmentFilterBinding.inflate(inflater, container, false)
         initColorEditTextFilter()
+        viewModel.getDataFromSp()
         return binding.root
     }
 
@@ -74,7 +74,6 @@ internal class FilterFragment : Fragment() {
         binding.buttonCancel.setOnClickListener(listener)
 
         binding.editTextFilter.setOnEditorActionListener(editorActionListener)
-        binding.editTextFilter.onFocusChangeListener = onFocusChangeListener
 
         binding.editTextFilter.addTextChangedListener(inputSearchWatcher)
     }
@@ -127,11 +126,6 @@ internal class FilterFragment : Fragment() {
     }
 
     @SuppressLint("ResourceAsColor")
-    private val onFocusChangeListener: OnFocusChangeListener = OnFocusChangeListener { view, b ->
-
-    }
-
-    @SuppressLint("ResourceAsColor")
     private val editorActionListener: OnEditorActionListener = OnEditorActionListener { v, actionId, event ->
         if (actionId == EditorInfo.IME_ACTION_DONE ||
             (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN)
@@ -153,26 +147,26 @@ internal class FilterFragment : Fragment() {
 
     private fun renderDoNotShowWithoutSalaryFilter(filter: FilterSettings) {
         binding.checkBox.isChecked = filter.doNotShowWithoutSalary
-        if (binding.checkBox.isChecked) {
-            hasDoNotShowWithoutSalary = true
-            binding.buttonApply.visibility = View.VISIBLE
-            binding.buttonCancel.visibility = View.VISIBLE
-        } else {
-            renderStateButtonApply()
-            hasDoNotShowWithoutSalary = false
-        }
+//        if (binding.checkBox.isChecked) {
+//            hasDoNotShowWithoutSalary = true
+//            binding.buttonApply.visibility = View.VISIBLE
+//            binding.buttonCancel.visibility = View.VISIBLE
+//        } else {
+//            renderStateButtonApply()
+//            hasDoNotShowWithoutSalary = false
+//        }
     }
 
     private fun renderExpectedSalaryFilter(filter: FilterSettings) {
         val salary = filter.expectedSalary
         if (salary != null) {
-            hasSalary = true
-            binding.buttonApply.visibility = View.VISIBLE
-            binding.buttonCancel.visibility = View.VISIBLE
+//            hasSalary = true
+//            binding.buttonApply.visibility = View.VISIBLE
+//            binding.buttonCancel.visibility = View.VISIBLE
             binding.editTextFilter.setText(salary)
         } else {
-            hasSalary = false
-            renderStateButtonApply()
+//            hasSalary = false
+//            renderStateButtonApply()
             binding.editTextFilter.text?.clear()
         }
     }
@@ -181,9 +175,9 @@ internal class FilterFragment : Fragment() {
         val profession = filter.branchOfProfession
         if (profession != null) {
             binding.inputWorkIndustry.setText(profession)
-            hasProfession = true
-            binding.buttonApply.visibility = View.VISIBLE
-            binding.buttonCancel.visibility = View.VISIBLE
+//            hasProfession = true
+//            binding.buttonApply.visibility = View.VISIBLE
+//            binding.buttonCancel.visibility = View.VISIBLE
             binding.clickWorkIndustry.visibility = View.GONE
             binding.clickWorkIndustryClear.visibility = View.VISIBLE
         } else {
@@ -192,8 +186,8 @@ internal class FilterFragment : Fragment() {
     }
 
     private fun renderProfessionFilterClear() {
-        hasProfession = false
-        renderStateButtonApply()
+//        hasProfession = false
+//        renderStateButtonApply()
         binding.inputWorkIndustry.text?.clear()
         binding.clickWorkIndustry.visibility = View.VISIBLE
         binding.clickWorkIndustryClear.visibility = View.GONE
@@ -211,18 +205,18 @@ internal class FilterFragment : Fragment() {
                             place.nameRegion
                         )
                     )
-                    hasPlace = true
-                    binding.buttonApply.visibility = View.VISIBLE
-                    binding.buttonCancel.visibility = View.VISIBLE
+//                    hasPlace = true
+//                    binding.buttonApply.visibility = View.VISIBLE
+//                    binding.buttonCancel.visibility = View.VISIBLE
                     binding.clickWorkPlace.visibility = View.GONE
                     binding.clickWorkPlaceClear.visibility = View.VISIBLE
                 }
 
                 place.nameCountry != null && place.nameRegion == null -> {
                     binding.inputWorkPlace.setText(place.nameCountry)
-                    hasPlace = true
-                    binding.buttonApply.visibility = View.VISIBLE
-                    binding.buttonCancel.visibility = View.VISIBLE
+//                    hasPlace = true
+//                    binding.buttonApply.visibility = View.VISIBLE
+//                    binding.buttonCancel.visibility = View.VISIBLE
                     binding.clickWorkPlace.visibility = View.GONE
                     binding.clickWorkPlaceClear.visibility = View.VISIBLE
                 }
@@ -237,23 +231,23 @@ internal class FilterFragment : Fragment() {
     }
 
     private fun renderPlaceFilterClear() {
-        hasPlace = false
-        renderStateButtonApply()
+//        hasPlace = false
+//        renderStateButtonApply()
         binding.inputWorkPlace.text?.clear()
         binding.clickWorkPlace.visibility = View.VISIBLE
         binding.clickWorkPlaceClear.visibility = View.GONE
     }
 
-    private fun renderStateButtonApply() {
-        if (shouldRenderButton()) {
-            binding.buttonApply.visibility = View.GONE
-            binding.buttonCancel.visibility = View.GONE
-        }
-    }
-
-    private fun shouldRenderButton(): Boolean {
-        return !(hasPlace || hasProfession || hasSalary || hasDoNotShowWithoutSalary)
-    }
+//    private fun renderStateButtonApply() {
+//        if (shouldRenderButton()) {
+//            binding.buttonApply.visibility = View.GONE
+//            binding.buttonCancel.visibility = View.GONE
+//        }
+//    }
+//
+//    private fun shouldRenderButton(): Boolean {
+//        return !(hasPlace || hasProfession || hasSalary || hasDoNotShowWithoutSalary)
+//    }
 
     private fun emptyFilterSetting(): FilterSettings {
         return FilterSettings(
@@ -285,12 +279,12 @@ internal class FilterFragment : Fragment() {
             R.id.buttonApply -> {
                 viewModel.setSalaryInDataFilter(binding.editTextFilter.text.toString())
                 viewModel.setDoNotShowWithoutSalaryInDataFilter(binding.checkBox.isChecked)
-                if (hasPlace) {
-                    viewModel.clearPlaceInDataFilter()
-                }
-                if (hasProfession) {
-                    viewModel.clearProfessionInDataFilter()
-                }
+//                if (hasPlace) {
+//                    viewModel.clearPlaceInDataFilter()
+//                }
+//                if (hasProfession) {
+//                    viewModel.clearProfessionInDataFilter()
+//                }
                 findNavController().navigateUp()
             }
 

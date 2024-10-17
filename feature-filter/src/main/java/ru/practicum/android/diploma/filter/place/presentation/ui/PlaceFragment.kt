@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -48,6 +47,10 @@ internal class PlaceFragment : Fragment() {
             render(it)
         }
 
+        regionsCountriesViewModel.observePlaceButtonSelectedState().observe(viewLifecycleOwner) {
+            renderVisibleButtonSelected(it)
+        }
+
         binding.clickCountry.setOnClickListener(listener)
         binding.country.setOnClickListener(listener)
         binding.inputCountry.setOnClickListener(listener)
@@ -62,6 +65,14 @@ internal class PlaceFragment : Fragment() {
         binding.clickRegionClear.setOnClickListener(listener)
         binding.buttonBack.setOnClickListener(listener)
         binding.selectButton.setOnClickListener(listener)
+    }
+
+    private fun renderVisibleButtonSelected(isVisible: Boolean?) {
+        if(isVisible == null || !isVisible) {
+            binding.selectButton.visibility = View.GONE
+        } else {
+            binding.selectButton.visibility = View.VISIBLE
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -95,7 +106,7 @@ internal class PlaceFragment : Fragment() {
         binding.clickCountry.visibility = View.GONE
         binding.clickRegionClear.visibility = View.GONE
         binding.clickRegion.visibility = View.VISIBLE
-        binding.selectButton.visibility = View.VISIBLE
+        regionsCountriesViewModel.checkTheSelectButton()
     }
 
     private fun updateViewsForPlace(place: Place) {
@@ -105,7 +116,7 @@ internal class PlaceFragment : Fragment() {
         binding.clickCountry.visibility = View.GONE
         binding.clickRegionClear.visibility = View.VISIBLE
         binding.clickRegion.visibility = View.GONE
-        binding.selectButton.visibility = View.VISIBLE
+        regionsCountriesViewModel.checkTheSelectButton()
     }
 
     private fun resetViews() {
@@ -121,7 +132,7 @@ internal class PlaceFragment : Fragment() {
         binding.clickCountry.visibility = View.VISIBLE
         binding.clickRegionClear.visibility = View.GONE
         binding.clickRegion.visibility = View.VISIBLE
-        binding.selectButton.visibility = View.GONE
+        regionsCountriesViewModel.checkTheSelectButton()
     }
 
     private val listener: View.OnClickListener = View.OnClickListener { view ->

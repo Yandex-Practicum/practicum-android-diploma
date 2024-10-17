@@ -32,6 +32,17 @@ class RegionsCountriesViewModel(
     private val _placeStateLiveData = MutableLiveData<PlaceState>()
     fun observePlaceState(): LiveData<PlaceState> = _placeStateLiveData
 
+    private val _placeStateButtonSelectedLiveData = MutableLiveData<Boolean>()
+    fun observePlaceButtonSelectedState(): LiveData<Boolean> = _placeStateButtonSelectedLiveData
+
+    fun checkTheSelectButton() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val place = regionInteractor.getPlaceDataFilter()
+            val placeBuffer = regionInteractor.getPlaceDataFilterBuffer()
+            _placeStateButtonSelectedLiveData.postValue(place != placeBuffer)
+        }
+    }
+
     fun setPlaceState(placeState: PlaceState) {
         _placeStateLiveData.postValue(placeState)
     }
@@ -43,6 +54,7 @@ class RegionsCountriesViewModel(
         get() = regions.toList()
 
     init {
+        mergeSettingsWithBufferDataInSp()
         initDataFromCacheAndSp()
     }
 
