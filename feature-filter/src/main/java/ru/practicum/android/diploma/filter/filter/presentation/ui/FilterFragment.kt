@@ -174,7 +174,7 @@ internal class FilterFragment : Fragment() {
     private fun renderProfessionFilter(filter: FilterSettings) {
         val profession = filter.branchOfProfession
         if (profession != null) {
-            binding.inputWorkIndustry.setText(profession)
+            binding.inputWorkIndustry.setText(profession.name)
 //            hasProfession = true
 //            binding.buttonApply.visibility = View.VISIBLE
 //            binding.buttonCancel.visibility = View.VISIBLE

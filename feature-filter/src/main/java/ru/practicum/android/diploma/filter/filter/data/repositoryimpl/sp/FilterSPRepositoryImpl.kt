@@ -26,11 +26,11 @@ class FilterSPRepositoryImpl(
     }
 
     override suspend fun clearPlaceInDataFilter(): Int {
-        return filterSp.updatePlaceInDataFilter(FilterMapper.mapClear())
+        return filterSp.updatePlaceInDataFilter(FilterMapper.mapClearPlace())
     }
 
     override suspend fun clearProfessionInDataFilter(): Int {
-        return filterSp.updateProfessionInDataFilter(null)
+        return filterSp.updateProfessionInDataFilter(FilterMapper.mapClearIndustry())
     }
 
     override suspend fun updateSalaryInDataFilter(expectedSalary: String): Int {

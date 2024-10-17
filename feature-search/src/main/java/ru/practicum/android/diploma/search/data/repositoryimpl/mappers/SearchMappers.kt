@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.search.data.repositoryimpl.mappers
 
 import ru.practicum.android.diploma.data.sp.dto.FilterDto
 import ru.practicum.android.diploma.search.domain.models.sp.FilterSearch
+import ru.practicum.android.diploma.search.domain.models.sp.IndustrySearch
 import ru.practicum.android.diploma.search.domain.models.sp.PlaceSearch
 
 object SearchMappers {
@@ -14,7 +15,10 @@ object SearchMappers {
                     idRegion = placeDto?.idRegion,
                     nameRegion = placeDto?.nameRegion
                 ),
-                branchOfProfession = branchOfProfession,
+                branchOfProfession = IndustrySearch(
+                    id = branchOfProfession?.id,
+                    name = branchOfProfession?.name
+                ),
                 expectedSalary = expectedSalary,
                 doNotShowWithoutSalary = doNotShowWithoutSalary
             )

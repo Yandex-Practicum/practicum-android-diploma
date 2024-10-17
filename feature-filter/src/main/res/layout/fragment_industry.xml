@@ -22,7 +22,6 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="@dimen/dp_140" />
 
-
     <!-- Header -->
     <ImageView
         android:id="@+id/buttonLeftIndustry"
@@ -57,6 +56,8 @@
         android:layout_height="0dp"
         android:layout_marginHorizontal="@dimen/dp_16"
         android:layout_marginVertical="@dimen/dp_8"
+        android:maxLines="1"
+        android:maxLength="62"
         android:autofillHints="no"
         android:hint="@string/filter_screens_industry_searchbar_hint"
         app:layout_constraintBottom_toTopOf="@id/searchBarGuideline"
@@ -91,11 +92,11 @@
 
     <!-- Recycler -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/vacancyRecycler"
+        android:id="@+id/listIndustry"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/dp_8"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -123,30 +124,67 @@
         app:layout_constraintBottom_toBottomOf="parent"
         tools:targetApi="p" />
 
-    <!-- Error? -->
-    <ImageView
-        android:id="@+id/industriesError"
+    <LinearLayout
+        android:id="@+id/placeholderIndustriesError"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/searchBarGuideline" >
+
+        <ImageView
+            style="@style/ErrorPicture"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_224"
+            android:src="@drawable/il_6_1" />
+
+        <TextView
+            style="@style/ErrorMessageText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/filter_screens_region_list_server_error"
+            app:fontWeight="500" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/placeholderIndustryDoesNotExist"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/searchBarGuideline" >
+
+        <ImageView
+            style="@style/ErrorPicture"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_224"
+            android:src="@drawable/il_5" />
+
+        <TextView
+            style="@style/ErrorMessageText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/there_is_no_such_industry"
+            app:fontWeight="500" />
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/loadingProgressBar"
+        style="@style/LoadingProgressBarBottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:importantForAccessibility="no"
-        android:src="@drawable/il_6_1"
         android:visibility="gone"
-        app:layout_constraintTop_toTopOf="@id/searchBarGuideline"
-        android:layout_marginTop="@dimen/dimens_120"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        />
-    <TextView
-        android:id="@+id/industriesErrorText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        style="@style/TextViewMediumNoPadding22"
-        app:layout_constraintTop_toBottomOf="@id/industriesError"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/dimen_sp16"
-        android:text="@string/filter_screens_region_list_server_error"
-        android:gravity="center"
-        />
+        app:layout_constraintTop_toTopOf="@+id/searchBarGuideline" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

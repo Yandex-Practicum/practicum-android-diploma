@@ -52,7 +52,7 @@ internal class VacancyListViewModel(
     }
 
     private fun initQueryFilter(filterSearch: FilterSearch) {
-        filterSearch.branchOfProfession?.let { queryFilter.put(INDUSTRY_ID, it) }
+        filterSearch.branchOfProfession?.id?.let { queryFilter.put(INDUSTRY_ID, it) }
         filterSearch.expectedSalary?.let { queryFilter.put(SALARY, it) }
         filterSearch.doNotShowWithoutSalary.let { queryFilter.put(ONLY_WITH_SALARY, it.toString()) }
         // !!!

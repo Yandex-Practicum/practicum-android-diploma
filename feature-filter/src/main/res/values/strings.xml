@@ -3,4 +3,5 @@
     <string name="hint_input_region">Введите регион</string>
     <string name="there_is_no_such_region">Такого региона нет</string>
     <string name="placeholder_place">Место</string>
+    <string name="there_is_no_such_industry">Такой отрасли нет</string>
 </resources>

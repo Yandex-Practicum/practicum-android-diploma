@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.filter.industry.data.repositoryimpl
+package ru.practicum.android.diploma.filter.industry.data.repositoryimpl.network
 
 import android.content.Context
 import android.util.Log
@@ -11,23 +11,19 @@ import ru.practicum.android.diploma.data.networkclient.api.dto.request.HHApiIndu
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.industries.HHIndustriesResponse
 import ru.practicum.android.diploma.filter.industry.data.mappers.IndustryMapper
 import ru.practicum.android.diploma.filter.industry.domain.model.IndustryModel
-import ru.practicum.android.diploma.filter.industry.domain.repository.IndustryRepository
+import ru.practicum.android.diploma.filter.industry.domain.repository.IndustryRepositoryNetwork
 
-internal class IndustryRepositoryImpl(
-    private val networkClient: NetworkClient,
-    private val industryMapper: IndustryMapper,
+private const val TAG = "IndustryRepositoryImpl"
+internal class IndustryRepositoryNetworkImpl(
     private val context: Context,
-) : IndustryRepository {
+    private val networkClient: NetworkClient
+) : IndustryRepositoryNetwork {
     override fun getIndustriesList(): Flow<Resource<List<IndustryModel>>> =
         context.executeNetworkRequest(
             request = { networkClient.doRequest(HHApiIndustriesRequest) },
             successHandler = { response: Response ->
                 Log.d(TAG, response.toString())
-                Resource.Success(industryMapper.map(response as HHIndustriesResponse))
+                Resource.Success(IndustryMapper.map(response as HHIndustriesResponse))
             },
         )
-
-    companion object {
-        private const val TAG = "IndustryRepositoryImpl"
-    }
 }
