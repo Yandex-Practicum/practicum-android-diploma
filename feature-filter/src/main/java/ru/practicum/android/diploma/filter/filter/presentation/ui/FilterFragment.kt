@@ -77,15 +77,14 @@ internal class FilterFragment : Fragment() {
         binding.editTextFilter.addTextChangedListener(inputSearchWatcher)
 
         binding.checkBox.setOnCheckedChangeListener { compoundButton, isChecked ->
-            filterSettings.apply {
-                doNotShowWithoutSalary = isChecked
-            }
+            filterSettings = filterSettings.copy(doNotShowWithoutSalary = isChecked)
+
             checkingFilterChanges()
         }
     }
 
     private fun visibleClearFilter(filter: FilterSettings?) {
-        binding.buttonCancel.visibility = if(filter != null && !filter.equals(emptyFilterSetting())) {
+        binding.buttonCancel.visibility = if (filter != null && !filter.equals(emptyFilterSetting())) {
             View.VISIBLE
         } else {
             View.GONE
@@ -94,7 +93,7 @@ internal class FilterFragment : Fragment() {
 
     private fun checkingFilterChanges() {
         visibleClearFilter(filterSettings)
-        binding.buttonApply.visibility = if(!filterSettings.equals(viewModel.filterSettingsUI)) {
+        binding.buttonApply.visibility = if (!filterSettings.equals(viewModel.filterSettingsUI)) {
             View.VISIBLE
         } else {
             View.GONE
@@ -102,7 +101,6 @@ internal class FilterFragment : Fragment() {
     }
 
     private fun initColorEditTextFilter() {
-
         statesEditTextFilter = arrayOf(
             intArrayOf(-android.R.attr.state_focused),
             intArrayOf(android.R.attr.state_focused)
@@ -141,9 +139,7 @@ internal class FilterFragment : Fragment() {
             val colors = if(inputText.isNullOrEmpty()) colorsEditTextFilterEmpty else colorsEditTextFilterNoEmpty
             binding.textViewSalary.hintTextColor = ColorStateList(statesEditTextFilter, colors)
             binding.textViewSalary.setDefaultHintTextColor(ColorStateList(statesEditTextFilter, colors))
-            filterSettings.apply {
-                expectedSalary = inputText.toString()
-            }
+            filterSettings = filterSettings.copy(expectedSalary = inputText.toString())
             checkingFilterChanges()
         }
 
@@ -154,9 +150,9 @@ internal class FilterFragment : Fragment() {
 
     @SuppressLint("ResourceAsColor")
     private val editorActionListener: OnEditorActionListener = OnEditorActionListener { v, actionId, event ->
-        if (actionId == EditorInfo.IME_ACTION_DONE ||
-            (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN)
-        ) {
+        val isDoneAction = actionId == EditorInfo.IME_ACTION_DONE
+        val isEnterKeyPressed = event?.keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN
+        if (isDoneAction || isEnterKeyPressed) {
             v.clearFocus()
             requireContext().closeKeyBoard(v)
             true
@@ -197,9 +193,12 @@ internal class FilterFragment : Fragment() {
     }
 
     private fun renderProfessionFilterClear() {
-        filterSettings.apply {
-            branchOfProfession = IndustrySetting(null, null)
-        }
+        filterSettings = filterSettings.copy(
+            branchOfProfession = IndustrySetting(
+                null,
+                null
+            )
+        )
         checkingFilterChanges()
         binding.inputWorkIndustry.text?.clear()
         binding.clickWorkIndustry.visibility = View.VISIBLE
@@ -238,9 +237,14 @@ internal class FilterFragment : Fragment() {
     }
 
     private fun renderPlaceFilterClear() {
-        filterSettings.apply {
-            placeSettings = PlaceSettings(null,null,null,null)
-        }
+        filterSettings = filterSettings.copy(
+            placeSettings = PlaceSettings(
+                null,
+                null,
+                null,
+                null
+            )
+        )
         checkingFilterChanges()
         binding.inputWorkPlace.text?.clear()
         binding.clickWorkPlace.visibility = View.VISIBLE
@@ -249,8 +253,8 @@ internal class FilterFragment : Fragment() {
 
     private fun emptyFilterSetting(): FilterSettings {
         return FilterSettings(
-            placeSettings = PlaceSettings(null,null,null,null),
-            branchOfProfession = IndustrySetting(null,null),
+            placeSettings = PlaceSettings(null, null, null, null),
+            branchOfProfession = IndustrySetting(null, null),
             expectedSalary = null,
             doNotShowWithoutSalary = false
         )
@@ -293,10 +297,10 @@ internal class FilterFragment : Fragment() {
     }
 
     private fun clearParameters(filter: FilterSettings) {
-        if(filter.placeSettings?.idCountry == null) {
+        if (filter.placeSettings?.idCountry == null) {
             viewModel.clearPlaceInDataFilter()
         }
-        if(filter.branchOfProfession?.id == null) {
+        if (filter.branchOfProfession?.id == null) {
             viewModel.clearProfessionInDataFilter()
         }
     }

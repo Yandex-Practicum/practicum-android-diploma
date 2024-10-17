@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.search.presentation.viewmodel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,7 +14,6 @@ import ru.practicum.android.diploma.search.domain.usecase.VacanciesInteractor
 import ru.practicum.android.diploma.search.presentation.SearchScreenState
 import ru.practicum.android.diploma.search.presentation.viewmodel.state.VacancyListState
 
-private const val TAG: String = "VacancyListViewModel"
 private const val INTERNET_ERROR: String = "Check network connection"
 private const val PAGE_SIZE = 20
 private const val INDUSTRY_ID = "industry"
@@ -53,7 +51,6 @@ internal class VacancyListViewModel(
     }
 
     private fun initQueryFilter(filterSearch: FilterSearch) {
-        Log.e("filterSearch", "filterSearch ${filterSearch}")
         filterSearch.branchOfProfession?.id?.let { queryFilter.put(INDUSTRY_ID, it) }
         filterSearch.expectedSalary?.let { queryFilter.put(SALARY, it) }
         filterSearch.doNotShowWithoutSalary.let { queryFilter.put(ONLY_WITH_SALARY, it.toString()) }
@@ -70,7 +67,6 @@ internal class VacancyListViewModel(
         _screenStateLiveData.postValue(SearchScreenState.LOADING_NEW_LIST)
         currentQuery = query
 
-        Log.d(TAG, queryFilter.toString())
         viewModelScope.launch(Dispatchers.IO) {
             vacanciesInteractor.searchVacancies(
                 page = "0",

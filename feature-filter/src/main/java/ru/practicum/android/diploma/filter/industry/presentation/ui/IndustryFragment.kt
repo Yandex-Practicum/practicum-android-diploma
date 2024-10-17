@@ -29,8 +29,8 @@ internal class IndustryFragment : Fragment() {
     private var _binding: FragmentIndustryBinding? = null
     private val binding get() = _binding!!
     private var userInputReserve = ""
-    private var currentIndustryBuffer: IndustryModel = IndustryModel(null, null)
-    private var currentIndustry: IndustryModel = IndustryModel(null, null)
+    private var currentIndustryBuffer: IndustryModel = IndustryModel(null,  null)
+    private var currentIndustry: IndustryModel = IndustryModel(null,  null)
 
     private var viewArray: Array<View>? = null
 
@@ -80,8 +80,8 @@ internal class IndustryFragment : Fragment() {
                 (binding.listIndustry.adapter as FilterIndustryListAdapter).selectItemById(it.id)
             }
             binding.selectButton.visibility = View.GONE
-            currentIndustryBuffer = industry ?: IndustryModel(null, null)
-            currentIndustry = industry ?: IndustryModel(null, null)
+            currentIndustryBuffer = industry ?: IndustryModel(null,  null)
+            currentIndustry = industry ?: IndustryModel(null,  null)
         }
 
         recyclerSetup()
@@ -104,7 +104,7 @@ internal class IndustryFragment : Fragment() {
     }
 
     private fun render(state: IndustryState) {
-        when(state) {
+        when (state) {
             is IndustryState.Loading -> {
                 Utils.visibilityView(viewArray, binding.loadingProgressBar)
             }
@@ -152,7 +152,7 @@ internal class IndustryFragment : Fragment() {
 
             override fun onIndustryClick(industryModel: IndustryModel?) {
                 binding.selectButton.isVisible = industryModel?.id != currentIndustryBuffer.id
-                currentIndustry = industryModel?:IndustryModel(null, null)
+                currentIndustry = industryModel ?: IndustryModel(null,  null)
                 requireContext().closeKeyBoard(binding.searchBar)
             }
         })

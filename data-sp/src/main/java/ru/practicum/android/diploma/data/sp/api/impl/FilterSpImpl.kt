@@ -110,13 +110,12 @@ class FilterSpImpl(
         }
     }
 
-
     override suspend fun updateProfessionInDataFilter(branchOfProfession: IndustryDto): Int {
         return withContext(Dispatchers.IO) {
             runCatching {
                 val json = gson.toJson(branchOfProfession)
                 filterSp.edit()
-                    .putString(BRANCH_OF_PROFESSION_KEY_SP,json)
+                    .putString(BRANCH_OF_PROFESSION_KEY_SP, json)
                     .apply()
             }.fold(
                 onSuccess = { 1 },

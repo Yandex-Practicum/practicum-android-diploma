@@ -18,7 +18,7 @@ class FilterViewModel(
     private var _filterOptionsListLiveData: MutableLiveData<FilterSettings> = MutableLiveData<FilterSettings>()
     val filterOptionsListLiveData: LiveData<FilterSettings> = _filterOptionsListLiveData
 
-    private var _filterSettingsUI: FilterSettings = FilterSettings(null,null,null,false)
+    private var _filterSettingsUI: FilterSettings = FilterSettings(null, null, null, false)
     val filterSettingsUI: FilterSettings
         get() = _filterSettingsUI
 
@@ -83,6 +83,6 @@ class FilterViewModel(
             IndustrySetting(
                 null,
                 null
-            ),null,false)
+            ),null, false)
     }
 }
