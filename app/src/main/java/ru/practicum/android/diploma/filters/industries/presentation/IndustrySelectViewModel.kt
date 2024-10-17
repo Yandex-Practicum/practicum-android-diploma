@@ -79,7 +79,7 @@ class IndustrySelectViewModel(
 
     fun transferIndustryToQuery() {
         if (chosenIndustry != null) {
-            requestBuilderInteractor.setIndustry(chosenIndustry!!.id)
+            requestBuilderInteractor.setIndustry(chosenIndustry!!)
         }
     }
 

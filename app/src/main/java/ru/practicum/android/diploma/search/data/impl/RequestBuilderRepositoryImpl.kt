@@ -1,10 +1,15 @@
 package ru.practicum.android.diploma.search.data.impl
 
 import android.content.SharedPreferences
+import com.google.gson.Gson
+import ru.practicum.android.diploma.filters.industries.domain.models.Industry
 import ru.practicum.android.diploma.search.data.model.SavedFilters
 import ru.practicum.android.diploma.search.domain.api.RequestBuilderRepository
 
-class RequestBuilderRepositoryImpl(private val sharedPreferences: SharedPreferences) : RequestBuilderRepository {
+class RequestBuilderRepositoryImpl(
+    private val sharedPreferences: SharedPreferences,
+    private val gson: Gson,
+) : RequestBuilderRepository {
     private val searchRequest: HashMap<String, String> = HashMap()
 
     override fun setText(text: String) {
@@ -16,9 +21,9 @@ class RequestBuilderRepositoryImpl(private val sharedPreferences: SharedPreferen
         saveFilterValueInSharedPrefs(SAVED_AREA, areaId)
     }
 
-    override fun setIndustry(industryId: String) {
-        searchRequest["industry"] = industryId
-        saveFilterValueInSharedPrefs(SAVED_INDUSTRY, industryId)
+    override fun setIndustry(industry: Industry) {
+        searchRequest["industry"] = industry.id
+        saveFilterValueInSharedPrefs(SAVED_INDUSTRY, gson.toJson(industry))
     }
 
     override fun setSalary(salary: String) {
@@ -43,7 +48,9 @@ class RequestBuilderRepositoryImpl(private val sharedPreferences: SharedPreferen
     override fun getSavedFilters(): SavedFilters {
         return SavedFilters(
             savedArea = sharedPreferences.getString(SAVED_AREA, ""),
-            savedIndustry = sharedPreferences.getString(SAVED_INDUSTRY, ""),
+            savedIndustry = getIndustryName(
+                sharedPreferences.getString(SAVED_INDUSTRY, "")
+            ),
             savedCurrency = sharedPreferences.getString(SAVED_CURRENCY, ""),
             savedSalary = sharedPreferences.getString(SAVED_SALARY, ""),
             savedIsShowWithSalary = sharedPreferences.getBoolean(SAVED_SHOW_WITH_SALARY, false)
@@ -54,6 +61,14 @@ class RequestBuilderRepositoryImpl(private val sharedPreferences: SharedPreferen
         sharedPreferences.edit()
             .putString(key, value)
             .apply()
+    }
+
+    private fun getIndustryName(json: String?): String? {
+        return if (json == null) null
+        else {
+            val industry = gson.fromJson(json, Industry::class.java)
+            industry.name
+        }
     }
 
     companion object {
