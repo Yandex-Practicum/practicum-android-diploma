@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.search.data.impl
 
 import android.content.SharedPreferences
 import com.google.gson.Gson
+import com.google.gson.JsonSyntaxException
 import ru.practicum.android.diploma.filters.industries.domain.models.Industry
 import ru.practicum.android.diploma.search.data.model.SavedFilters
 import ru.practicum.android.diploma.search.domain.api.RequestBuilderRepository
@@ -64,10 +65,12 @@ class RequestBuilderRepositoryImpl(
     }
 
     private fun getIndustryName(json: String?): String? {
-        return if (json == null) null
-        else {
+        if (json == null) return null
+        return try {
             val industry = gson.fromJson(json, Industry::class.java)
             industry.name
+        } catch (e: JsonSyntaxException) {
+            null
         }
     }
 
