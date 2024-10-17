@@ -29,8 +29,8 @@ internal class IndustryFragment : Fragment() {
     private var _binding: FragmentIndustryBinding? = null
     private val binding get() = _binding!!
     private var userInputReserve = ""
-    private var currentIndustryBuffer: IndustryModel = IndustryModel(null,  null)
-    private var currentIndustry: IndustryModel = IndustryModel(null,  null)
+    private var currentIndustryBuffer: IndustryModel = IndustryModel(null, null)
+    private var currentIndustry: IndustryModel = IndustryModel(null, null)
 
     private var viewArray: Array<View>? = null
 

@@ -83,6 +83,6 @@ class FilterViewModel(
             IndustrySetting(
                 null,
                 null
-            ),null, false)
+            ), null, false)
     }
 }
