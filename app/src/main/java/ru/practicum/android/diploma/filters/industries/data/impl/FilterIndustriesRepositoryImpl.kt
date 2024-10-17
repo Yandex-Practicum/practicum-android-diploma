@@ -17,16 +17,37 @@ class FilterIndustriesRepositoryImpl(
         val response = networkClient.doRequest(FilterIndustriesRequest())
         emit(
             when (response.resultCode) {
-                HttpStatusCode.OK -> Resource.Success(
-                    (response as FilterIndustriesResponse).industries.map {
+                HttpStatusCode.OK -> {
+                    val industries = (response as FilterIndustriesResponse).industries.map {
                         Industry(
                             id = it.id,
-                            name = it.name
+                            name = it.name,
+                            industries = it.industries?.map {
+                                Industry(
+                                    id = it.id,
+                                    name = it.name,
+                                    industries = null
+                                )
+                            }
                         )
                     }
-                )
+
+                    Resource.Success(getAllIndustries(industries))
+                }
+
                 else -> Resource.Error(response.resultCode)
             }
         )
+    }
+
+    private fun getAllIndustries(ind: List<Industry>): List<Industry> {
+        val allIndustries = mutableListOf<Industry>()
+        ind.forEach { industry ->
+            allIndustries.add(industry)
+            industry.industries?.let {
+                allIndustries.addAll(it)
+            }
+        }
+        return allIndustries.sortedBy { it.name }
     }
 }
