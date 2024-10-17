@@ -5,6 +5,8 @@
     <color name="primaryTextAndUIColor">#FDFDFD</color>
     <color name="searchBarHintTextColor">#FDFDFD</color>
     <color name="searchBarHintBgColor">#AEAFB4</color>
+    <color name="backgroundTextInputLayout">#AEAFB4</color>
+    <color name="hintDefaultTextInputLayout">#FDFDFD</color>
 
     <!-- Theme-independent -->
     <color name="black">#1A1B22</color>

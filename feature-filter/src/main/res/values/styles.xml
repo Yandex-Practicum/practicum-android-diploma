@@ -6,12 +6,11 @@
         <item name="android:padding">@dimen/dp_16</item>
     </style>
 
-    <style name="NewTextInputStyle" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+    <style name="NewTextInputStyle">
         <item name="android:layout_marginHorizontal">@dimen/dimens_16</item>
         <item name="android:layout_marginVertical">@dimen/dimens_24</item>
-        <item name="android:background">@drawable/rounded_edittext</item>
+        <item name="boxBackgroundColor">@color/backgroundTextInputLayout</item>
         <item name="android:hint">@string/filter_screens_salary_expectations</item>
-        <item name="android:textColorHint">@color/searchBarHintTextColor</item>
         <item name="boxCornerRadiusBottomEnd">@dimen/dimens_12</item>
         <item name="boxCornerRadiusBottomStart">@dimen/dimens_12</item>
         <item name="boxCornerRadiusTopEnd">@dimen/dimens_12</item>
@@ -19,11 +18,16 @@
         <item name="boxStrokeWidth">0dp</item>
         <item name="boxStrokeWidthFocused">0dp</item>
         <item name="endIconDrawable">@drawable/clear_search</item>
+        <item name="endIconTint">@color/black</item>
         <item name="endIconMode">clear_text</item>
         <item name="expandedHintEnabled">false</item>
-        <item name="hintTextAppearance">@style/TextViewRegular12</item>
-        <item name="hintTextColor">@color/blue</item>
+    </style>
 
+    <style name="CustomHintTextAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/sp_12</item>
+        <item name="fontFamily">@font/ys_display_regular</item>
+        <item name="fontWeight">400</item>
+        <item name="android:textColor">@color/color_state_input_hint</item>
     </style>
 
     <style name="SearchBarIcon">
@@ -32,7 +36,7 @@
         <item name="android:importantForAccessibility">no</item>
         <item name="android:padding">@dimen/dp_12</item>
     </style>
-    <style name="NewTextInputEdit" parent="Widget.Design.TextInputEditText">
+    <style name="NewTextInputEdit">
         <item name="android:imeOptions">actionDone</item>
         <item name="android:inputType">number</item>
         <item name="android:lines">1</item>
@@ -40,6 +44,5 @@
         <item name="android:textCursorDrawable">@drawable/blue_text_cursor_drawable</item>
         <item name="android:hint">@string/filter_screens_enter_sum</item>
         <item name="android:textAppearance">@style/TextViewRegular16</item>
-        <item name="android:textColorHint">@color/searchBarHintTextColor</item>
     </style>
 </resources>
