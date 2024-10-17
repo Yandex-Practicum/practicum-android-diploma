@@ -13,13 +13,14 @@ import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.domain.models.sp.FilterSearch
 import ru.practicum.android.diploma.search.domain.usecase.VacanciesInteractor
 import ru.practicum.android.diploma.search.presentation.SearchScreenState
+import ru.practicum.android.diploma.search.presentation.viewmodel.state.VacancyListState
 
 private const val TAG: String = "VacancyListViewModel"
 private const val INTERNET_ERROR: String = "Check network connection"
 private const val PAGE_SIZE = 20
-private const val INDUSTRY_ID = "industry_id"
+private const val INDUSTRY_ID = "industry"
 private const val SALARY = "salary"
-private const val AREA_ID = "area_id"
+private const val AREA_ID = "area"
 private const val ONLY_WITH_SALARY = "only_with_salary"
 
 internal class VacancyListViewModel(
@@ -52,6 +53,7 @@ internal class VacancyListViewModel(
     }
 
     private fun initQueryFilter(filterSearch: FilterSearch) {
+        Log.e("filterSearch", "filterSearch ${filterSearch}")
         filterSearch.branchOfProfession?.id?.let { queryFilter.put(INDUSTRY_ID, it) }
         filterSearch.expectedSalary?.let { queryFilter.put(SALARY, it) }
         filterSearch.doNotShowWithoutSalary.let { queryFilter.put(ONLY_WITH_SALARY, it.toString()) }
