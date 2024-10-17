@@ -107,6 +107,33 @@
             android:text="@string/vacancy_not_found" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/not_connected_placeholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tool_bar">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/padding_horizontal_size_16"
+            android:src="@drawable/search_not_connected_placeholder"
+            tools:ignore="contentDescription" />
+
+        <TextView
+            style="@style/Text_Medium_22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="@string/no_internet" />
+    </LinearLayout>
+
 
     <ScrollView
         android:id="@+id/details_view"
