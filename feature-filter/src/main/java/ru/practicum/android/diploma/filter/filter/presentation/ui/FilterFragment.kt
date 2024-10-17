@@ -19,6 +19,8 @@ import ru.practicum.android.diploma.commonutils.Utils.closeKeyBoard
 import ru.practicum.android.diploma.filter.R
 import ru.practicum.android.diploma.filter.databinding.FragmentFilterBinding
 import ru.practicum.android.diploma.filter.filter.domain.model.FilterSettings
+import ru.practicum.android.diploma.filter.filter.domain.model.IndustrySetting
+import ru.practicum.android.diploma.filter.filter.domain.model.PlaceSettings
 import ru.practicum.android.diploma.filter.filter.presentation.viewmodel.FilterViewModel
 
 internal class FilterFragment : Fragment() {
@@ -26,10 +28,6 @@ internal class FilterFragment : Fragment() {
     private val viewModel: FilterViewModel by viewModel()
 
     private var filterSettings: FilterSettings = emptyFilterSetting()
-//    private var hasPlace = false
-//    private var hasProfession = false
-//    private var hasSalary = false
-//    private var hasDoNotShowWithoutSalary = false
 
     private var colorsEditTextFilterEmpty: IntArray? = null
     private var colorsEditTextFilterNoEmpty: IntArray? = null
@@ -52,9 +50,10 @@ internal class FilterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.filterOptionsListLiveData.observe(viewLifecycleOwner) {
-            filterSettings = it
-            render(it)
+        viewModel.filterOptionsListLiveData.observe(viewLifecycleOwner) { filter ->
+            filterSettings = filter
+            render(filter)
+            visibleClearFilter(filter)
         }
 
         binding.workPlace.setOnClickListener(listener)
@@ -76,6 +75,30 @@ internal class FilterFragment : Fragment() {
         binding.editTextFilter.setOnEditorActionListener(editorActionListener)
 
         binding.editTextFilter.addTextChangedListener(inputSearchWatcher)
+
+        binding.checkBox.setOnCheckedChangeListener { compoundButton, isChecked ->
+            filterSettings.apply {
+                doNotShowWithoutSalary = isChecked
+            }
+            checkingFilterChanges()
+        }
+    }
+
+    private fun visibleClearFilter(filter: FilterSettings?) {
+        binding.buttonCancel.visibility = if(filter != null && !filter.equals(emptyFilterSetting())) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+    }
+
+    private fun checkingFilterChanges() {
+        visibleClearFilter(filterSettings)
+        binding.buttonApply.visibility = if(!filterSettings.equals(viewModel.filterSettingsUI)) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
     }
 
     private fun initColorEditTextFilter() {
@@ -118,6 +141,10 @@ internal class FilterFragment : Fragment() {
             val colors = if(inputText.isNullOrEmpty()) colorsEditTextFilterEmpty else colorsEditTextFilterNoEmpty
             binding.textViewSalary.hintTextColor = ColorStateList(statesEditTextFilter, colors)
             binding.textViewSalary.setDefaultHintTextColor(ColorStateList(statesEditTextFilter, colors))
+            filterSettings.apply {
+                expectedSalary = inputText.toString()
+            }
+            checkingFilterChanges()
         }
 
         override fun afterTextChanged(resultText: Editable?) {
@@ -147,37 +174,21 @@ internal class FilterFragment : Fragment() {
 
     private fun renderDoNotShowWithoutSalaryFilter(filter: FilterSettings) {
         binding.checkBox.isChecked = filter.doNotShowWithoutSalary
-//        if (binding.checkBox.isChecked) {
-//            hasDoNotShowWithoutSalary = true
-//            binding.buttonApply.visibility = View.VISIBLE
-//            binding.buttonCancel.visibility = View.VISIBLE
-//        } else {
-//            renderStateButtonApply()
-//            hasDoNotShowWithoutSalary = false
-//        }
     }
 
     private fun renderExpectedSalaryFilter(filter: FilterSettings) {
         val salary = filter.expectedSalary
-        if (salary != null) {
-//            hasSalary = true
-//            binding.buttonApply.visibility = View.VISIBLE
-//            binding.buttonCancel.visibility = View.VISIBLE
+        if (!salary.isNullOrEmpty()) {
             binding.editTextFilter.setText(salary)
         } else {
-//            hasSalary = false
-//            renderStateButtonApply()
             binding.editTextFilter.text?.clear()
         }
     }
 
     private fun renderProfessionFilter(filter: FilterSettings) {
         val profession = filter.branchOfProfession
-        if (profession != null) {
+        if (profession != null && !profession.name.isNullOrEmpty()) {
             binding.inputWorkIndustry.setText(profession.name)
-//            hasProfession = true
-//            binding.buttonApply.visibility = View.VISIBLE
-//            binding.buttonCancel.visibility = View.VISIBLE
             binding.clickWorkIndustry.visibility = View.GONE
             binding.clickWorkIndustryClear.visibility = View.VISIBLE
         } else {
@@ -186,8 +197,10 @@ internal class FilterFragment : Fragment() {
     }
 
     private fun renderProfessionFilterClear() {
-//        hasProfession = false
-//        renderStateButtonApply()
+        filterSettings.apply {
+            branchOfProfession = IndustrySetting(null, null)
+        }
+        checkingFilterChanges()
         binding.inputWorkIndustry.text?.clear()
         binding.clickWorkIndustry.visibility = View.VISIBLE
         binding.clickWorkIndustryClear.visibility = View.GONE
@@ -205,18 +218,12 @@ internal class FilterFragment : Fragment() {
                             place.nameRegion
                         )
                     )
-//                    hasPlace = true
-//                    binding.buttonApply.visibility = View.VISIBLE
-//                    binding.buttonCancel.visibility = View.VISIBLE
                     binding.clickWorkPlace.visibility = View.GONE
                     binding.clickWorkPlaceClear.visibility = View.VISIBLE
                 }
 
                 place.nameCountry != null && place.nameRegion == null -> {
                     binding.inputWorkPlace.setText(place.nameCountry)
-//                    hasPlace = true
-//                    binding.buttonApply.visibility = View.VISIBLE
-//                    binding.buttonCancel.visibility = View.VISIBLE
                     binding.clickWorkPlace.visibility = View.GONE
                     binding.clickWorkPlaceClear.visibility = View.VISIBLE
                 }
@@ -231,28 +238,19 @@ internal class FilterFragment : Fragment() {
     }
 
     private fun renderPlaceFilterClear() {
-//        hasPlace = false
-//        renderStateButtonApply()
+        filterSettings.apply {
+            placeSettings = PlaceSettings(null,null,null,null)
+        }
+        checkingFilterChanges()
         binding.inputWorkPlace.text?.clear()
         binding.clickWorkPlace.visibility = View.VISIBLE
         binding.clickWorkPlaceClear.visibility = View.GONE
     }
 
-//    private fun renderStateButtonApply() {
-//        if (shouldRenderButton()) {
-//            binding.buttonApply.visibility = View.GONE
-//            binding.buttonCancel.visibility = View.GONE
-//        }
-//    }
-//
-//    private fun shouldRenderButton(): Boolean {
-//        return !(hasPlace || hasProfession || hasSalary || hasDoNotShowWithoutSalary)
-//    }
-
     private fun emptyFilterSetting(): FilterSettings {
         return FilterSettings(
-            placeSettings = null,
-            branchOfProfession = null,
+            placeSettings = PlaceSettings(null,null,null,null),
+            branchOfProfession = IndustrySetting(null,null),
             expectedSalary = null,
             doNotShowWithoutSalary = false
         )
@@ -279,12 +277,7 @@ internal class FilterFragment : Fragment() {
             R.id.buttonApply -> {
                 viewModel.setSalaryInDataFilter(binding.editTextFilter.text.toString())
                 viewModel.setDoNotShowWithoutSalaryInDataFilter(binding.checkBox.isChecked)
-//                if (hasPlace) {
-//                    viewModel.clearPlaceInDataFilter()
-//                }
-//                if (hasProfession) {
-//                    viewModel.clearProfessionInDataFilter()
-//                }
+                clearParameters(filterSettings)
                 findNavController().navigateUp()
             }
 
@@ -293,15 +286,25 @@ internal class FilterFragment : Fragment() {
             }
 
             R.id.buttonCancel -> {
-
+                viewModel.clearDataFilter()
+                findNavController().navigateUp()
             }
+        }
+    }
+
+    private fun clearParameters(filter: FilterSettings) {
+        if(filter.placeSettings?.idCountry == null) {
+            viewModel.clearPlaceInDataFilter()
+        }
+        if(filter.branchOfProfession?.id == null) {
+            viewModel.clearProfessionInDataFilter()
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        _binding = null
         inputSearchWatcher.let { binding.editTextFilter.removeTextChangedListener(it) }
+        _binding = null
         colorsEditTextFilterEmpty = null
         colorsEditTextFilterNoEmpty = null
         statesEditTextFilter = null

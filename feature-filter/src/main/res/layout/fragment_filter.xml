@@ -208,6 +208,7 @@
         android:id="@+id/buttonCancel"
         style="@style/ButtonCancel"
         android:visibility="gone"
+        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
