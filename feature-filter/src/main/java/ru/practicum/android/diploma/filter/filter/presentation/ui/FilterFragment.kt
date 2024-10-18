@@ -18,8 +18,6 @@ import ru.practicum.android.diploma.commonutils.Utils.closeKeyBoard
 import ru.practicum.android.diploma.filter.R
 import ru.practicum.android.diploma.filter.databinding.FragmentFilterBinding
 import ru.practicum.android.diploma.filter.filter.domain.model.FilterSettings
-import ru.practicum.android.diploma.filter.filter.domain.model.IndustrySetting
-import ru.practicum.android.diploma.filter.filter.domain.model.PlaceSettings
 import ru.practicum.android.diploma.filter.filter.presentation.ui.uimanager.ColorManager
 import ru.practicum.android.diploma.filter.filter.presentation.viewmodel.FilterViewModel
 
@@ -61,7 +59,7 @@ internal class FilterFragment : Fragment() {
         binding.editTextFilter.addTextChangedListener(inputSearchWatcher)
 
         binding.checkBox.setOnCheckedChangeListener { compoundButton, isChecked ->
-            filterSettings = filterSettings.copy(doNotShowWithoutSalary = isChecked)
+            filterSettings = filterSettings.updateDoNotShowWithoutSalary(isChecked)
             checkingFilterChanges()
         }
     }
@@ -77,12 +75,7 @@ internal class FilterFragment : Fragment() {
                 }
                 R.id.clickWorkPlaceClear -> renderPlaceFilterClear()
                 R.id.clickWorkIndustryClear -> renderProfessionFilterClear()
-                R.id.buttonApply -> {
-                    viewModel.setSalaryInDataFilter(binding.editTextFilter.text.toString())
-                    viewModel.setDoNotShowWithoutSalaryInDataFilter(binding.checkBox.isChecked)
-                    clearParameters(filterSettings)
-                    findNavController().navigateUp()
-                }
+                R.id.buttonApply -> applyFilters()
                 R.id.buttonBack -> findNavController().navigateUp()
                 R.id.buttonCancel -> {
                     viewModel.clearDataFilter()
@@ -106,6 +99,13 @@ internal class FilterFragment : Fragment() {
             binding.buttonApply,
             binding.buttonCancel
         ).forEach { it.setOnClickListener(clickListener) }
+    }
+
+    private fun applyFilters() {
+        viewModel.setSalaryInDataFilter(binding.editTextFilter.text.toString())
+        viewModel.setDoNotShowWithoutSalaryInDataFilter(binding.checkBox.isChecked)
+        clearParameters(filterSettings)
+        findNavController().navigateUp()
     }
 
     private fun visibleClearFilter(filter: FilterSettings?) {
@@ -136,7 +136,7 @@ internal class FilterFragment : Fragment() {
             binding.textViewSalary.hintTextColor = ColorStateList(statesEditTextFilter, colors)
             binding.textViewSalary.setDefaultHintTextColor(ColorStateList(statesEditTextFilter, colors))
             val textSalary = if (inputText.isNullOrEmpty()) null else inputText.toString()
-            filterSettings = filterSettings.copy(expectedSalary = textSalary)
+            filterSettings = filterSettings.updateExpectedSalary(textSalary)
             checkingFilterChanges()
         }
 
@@ -190,12 +190,7 @@ internal class FilterFragment : Fragment() {
     }
 
     private fun renderProfessionFilterClear() {
-        filterSettings = filterSettings.copy(
-            branchOfProfession = IndustrySetting(
-                null,
-                null
-            )
-        )
+        filterSettings = filterSettings.resetBranchOfProfession()
         checkingFilterChanges()
         binding.inputWorkIndustry.text?.clear()
         binding.clickWorkIndustry.visibility = View.VISIBLE
@@ -234,14 +229,7 @@ internal class FilterFragment : Fragment() {
     }
 
     private fun renderPlaceFilterClear() {
-        filterSettings = filterSettings.copy(
-            placeSettings = PlaceSettings(
-                null,
-                null,
-                null,
-                null
-            )
-        )
+        filterSettings = filterSettings.resetPlaceSettings()
         checkingFilterChanges()
         binding.inputWorkPlace.text?.clear()
         binding.clickWorkPlace.visibility = View.VISIBLE
@@ -249,12 +237,7 @@ internal class FilterFragment : Fragment() {
     }
 
     private fun emptyFilterSetting(): FilterSettings {
-        return FilterSettings(
-            placeSettings = PlaceSettings(null, null, null, null),
-            branchOfProfession = IndustrySetting(null, null),
-            expectedSalary = null,
-            doNotShowWithoutSalary = false
-        )
+        return FilterSettings.emptyFilterSettings()
     }
 
     private fun clearParameters(filter: FilterSettings) {
