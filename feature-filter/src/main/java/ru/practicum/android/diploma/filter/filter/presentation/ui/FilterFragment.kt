@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView.OnEditorActionListener
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -21,6 +20,7 @@ import ru.practicum.android.diploma.filter.databinding.FragmentFilterBinding
 import ru.practicum.android.diploma.filter.filter.domain.model.FilterSettings
 import ru.practicum.android.diploma.filter.filter.domain.model.IndustrySetting
 import ru.practicum.android.diploma.filter.filter.domain.model.PlaceSettings
+import ru.practicum.android.diploma.filter.filter.presentation.ui.uimanager.ColorManager
 import ru.practicum.android.diploma.filter.filter.presentation.viewmodel.FilterViewModel
 
 internal class FilterFragment : Fragment() {
@@ -28,9 +28,10 @@ internal class FilterFragment : Fragment() {
     private val viewModel: FilterViewModel by viewModel()
     private var filterSettings: FilterSettings = emptyFilterSetting()
 
-    private var colorsEditTextFilterEmpty: IntArray? = null
-    private var colorsEditTextFilterNoEmpty: IntArray? = null
-    private var statesEditTextFilter: Array<IntArray>? = null
+    private val colorManager: ColorManager by lazy { ColorManager(requireContext()) }
+    private val colorsEditTextFilterEmpty by lazy { colorManager.getColorsForEditText(true) }
+    private val colorsEditTextFilterNoEmpty by lazy { colorManager.getColorsForEditText(false) }
+    private val statesEditTextFilter by lazy { colorManager.getStatesEditTextFilter() }
 
     private var _binding: FragmentFilterBinding? = null
     private val binding get() = _binding!!
@@ -41,7 +42,6 @@ internal class FilterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFilterBinding.inflate(inflater, container, false)
-        initColorEditTextFilter()
         viewModel.getDataFromSp()
         return binding.root
     }
@@ -77,7 +77,12 @@ internal class FilterFragment : Fragment() {
                 }
                 R.id.clickWorkPlaceClear -> renderPlaceFilterClear()
                 R.id.clickWorkIndustryClear -> renderProfessionFilterClear()
-                R.id.buttonApply -> applyFilters()
+                R.id.buttonApply -> {
+                    viewModel.setSalaryInDataFilter(binding.editTextFilter.text.toString())
+                    viewModel.setDoNotShowWithoutSalaryInDataFilter(binding.checkBox.isChecked)
+                    clearParameters(filterSettings)
+                    findNavController().navigateUp()
+                }
                 R.id.buttonBack -> findNavController().navigateUp()
                 R.id.buttonCancel -> {
                     viewModel.clearDataFilter()
@@ -103,13 +108,6 @@ internal class FilterFragment : Fragment() {
         ).forEach { it.setOnClickListener(clickListener) }
     }
 
-    private fun applyFilters() {
-        viewModel.setSalaryInDataFilter(binding.editTextFilter.text.toString())
-        viewModel.setDoNotShowWithoutSalaryInDataFilter(binding.checkBox.isChecked)
-        clearParameters(filterSettings)
-        findNavController().navigateUp()
-    }
-
     private fun visibleClearFilter(filter: FilterSettings?) {
         binding.buttonCancel.visibility = if (filter != null && !filter.equals(emptyFilterSetting())) {
             View.VISIBLE
@@ -127,35 +125,6 @@ internal class FilterFragment : Fragment() {
         }
     }
 
-    private fun initColorEditTextFilter() {
-        statesEditTextFilter = arrayOf(
-            intArrayOf(-android.R.attr.state_focused),
-            intArrayOf(android.R.attr.state_focused)
-        )
-
-        colorsEditTextFilterEmpty = intArrayOf(
-            ContextCompat.getColor(
-                requireContext(),
-                ru.practicum.android.diploma.ui.R.color.hintDefaultTextInputLayout
-            ),
-            ContextCompat.getColor(
-                requireContext(),
-                ru.practicum.android.diploma.ui.R.color.blue
-            )
-        )
-
-        colorsEditTextFilterNoEmpty = intArrayOf(
-            ContextCompat.getColor(
-                requireContext(),
-                ru.practicum.android.diploma.ui.R.color.black
-            ),
-            ContextCompat.getColor(
-                requireContext(),
-                ru.practicum.android.diploma.ui.R.color.blue
-            )
-        )
-    }
-
     private val inputSearchWatcher = object : TextWatcher {
         override fun beforeTextChanged(oldText: CharSequence?, p1: Int, p2: Int, p3: Int) {
             val text = oldText.toString()
@@ -166,7 +135,8 @@ internal class FilterFragment : Fragment() {
             val colors = if (inputText.isNullOrEmpty()) colorsEditTextFilterEmpty else colorsEditTextFilterNoEmpty
             binding.textViewSalary.hintTextColor = ColorStateList(statesEditTextFilter, colors)
             binding.textViewSalary.setDefaultHintTextColor(ColorStateList(statesEditTextFilter, colors))
-            filterSettings = filterSettings.copy(expectedSalary = inputText.toString())
+            val textSalary = if(inputText.isNullOrEmpty()) null else inputText.toString()
+            filterSettings = filterSettings.copy(expectedSalary = textSalary)
             checkingFilterChanges()
         }
 
@@ -300,8 +270,5 @@ internal class FilterFragment : Fragment() {
         super.onDestroy()
         inputSearchWatcher.let { binding.editTextFilter.removeTextChangedListener(it) }
         _binding = null
-        colorsEditTextFilterEmpty = null
-        colorsEditTextFilterNoEmpty = null
-        statesEditTextFilter = null
     }
 }
