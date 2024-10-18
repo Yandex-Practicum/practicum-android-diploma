@@ -53,6 +53,7 @@ class IndustrySelectViewModel(
             HttpStatusCode.NOT_CONNECTED ->
                 stateLiveData.value =
                     IndustrySelectScreenState.NetworkError
+
             else -> {
                 stateLiveData.value = IndustrySelectScreenState.ServerError
             }
