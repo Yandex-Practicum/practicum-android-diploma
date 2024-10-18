@@ -108,7 +108,6 @@ class FilterSettingsFragment : Fragment() {
                     binding.salaryCheckbox.isActivated = fields.showWithSalary
                 }
             }
-
         }
     }
 
