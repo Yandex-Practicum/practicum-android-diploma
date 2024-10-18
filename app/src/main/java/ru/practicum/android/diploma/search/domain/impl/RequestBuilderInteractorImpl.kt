@@ -32,6 +32,14 @@ class RequestBuilderInteractorImpl(private val requestBuilderRepository: Request
         requestBuilderRepository.setIsShowWithSalary(isShowWithSalary)
     }
 
+    override fun cleanIndustry() {
+        requestBuilderRepository.cleanIndustry()
+    }
+
+    override fun cleanArea() {
+        requestBuilderRepository.cleanArea()
+    }
+
     override fun getRequest(): HashMap<String, String> {
         return requestBuilderRepository.getRequest()
     }

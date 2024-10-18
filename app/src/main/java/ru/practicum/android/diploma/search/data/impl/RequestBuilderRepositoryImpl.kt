@@ -57,6 +57,14 @@ class RequestBuilderRepositoryImpl(
         saveFilterValueInSharedPrefs(SAVED_SHOW_WITH_SALARY, isShowWithSalary.toString())
     }
 
+    override fun cleanIndustry() {
+        saveFilterValueInSharedPrefs(SAVED_INDUSTRY, "")
+    }
+
+    override fun cleanArea() {
+        saveFilterValueInSharedPrefs(SAVED_AREA, "")
+    }
+
     override fun getRequest(): HashMap<String, String> {
         return searchRequest
     }

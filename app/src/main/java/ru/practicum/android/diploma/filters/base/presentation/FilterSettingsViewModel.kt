@@ -25,6 +25,14 @@ class FilterSettingsViewModel(private val requestBuilderInteractor: RequestBuild
             )
     }
 
+    fun clearArea() {
+        requestBuilderInteractor.cleanArea()
+    }
+
+    fun clearIndustry() {
+        requestBuilderInteractor.cleanIndustry()
+    }
+
     fun setText(text: String) {
         // добавляет в запрос текст поиска
     }
