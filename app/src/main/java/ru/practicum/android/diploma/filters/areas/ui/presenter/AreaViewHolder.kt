@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.filters.ui.presenter
+package ru.practicum.android.diploma.filters.areas.ui.presenter
 
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.databinding.AreaCardBinding

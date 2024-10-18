@@ -111,6 +111,7 @@ class IndustrySelectFragment : Fragment() {
     private fun onIndustryClick(industry: Industry) {
         binding.applyButton.isVisible = true
         viewModel.onItemClick(industry)
+        adapter.notifyDataSetChanged()
     }
 
     private fun render(state: IndustrySelectScreenState) {
@@ -169,7 +170,6 @@ class IndustrySelectFragment : Fragment() {
     }
 
     private fun showFilteredResult(request: String) {
-        view?.hideKeyboard()
         adapter.filterResults(request)
 
         binding.progressCircular.isVisible = false

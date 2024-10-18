@@ -14,8 +14,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.RegionSelectFragmentBinding
 import ru.practicum.android.diploma.filters.areas.domain.models.Area
-import ru.practicum.android.diploma.filters.areas.presentation.RegionSelectViewModel
-import ru.practicum.android.diploma.filters.areas.ui.presentation.RegionSelectScreenState
+import ru.practicum.android.diploma.filters.areas.presentation.region.RegionSelectScreenState
+import ru.practicum.android.diploma.filters.areas.presentation.region.RegionSelectViewModel
+import ru.practicum.android.diploma.filters.areas.ui.presenter.RegionSelectRecyclerViewAdapter
 import ru.practicum.android.diploma.filters.industries.ui.IndustrySelectFragment
 import ru.practicum.android.diploma.root.ui.RootActivity
 import ru.practicum.android.diploma.util.hideKeyboard

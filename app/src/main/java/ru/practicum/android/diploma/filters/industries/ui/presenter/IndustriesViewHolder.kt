@@ -7,6 +7,7 @@ import ru.practicum.android.diploma.filters.industries.domain.models.Industry
 class IndustriesViewHolder(private val binding: IndustryCardBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(industry: Industry) {
+        binding.industryItem.isChecked = industry.isChecked
         binding.industryItem.text = industry.name
     }
 

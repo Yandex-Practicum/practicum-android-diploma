@@ -12,16 +12,16 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.CountrySelectFragmentBinding
 import ru.practicum.android.diploma.filters.areas.domain.models.Area
-import ru.practicum.android.diploma.filters.areas.ui.model.AreaSelectScreenState
-import ru.practicum.android.diploma.filters.presentation.CountrySelectViewModel
-import ru.practicum.android.diploma.filters.ui.presenter.AreasRecyclerViewAdapter
+import ru.practicum.android.diploma.filters.areas.presentation.country.CountrySelectScreenState
+import ru.practicum.android.diploma.filters.areas.presentation.country.CountrySelectViewModel
+import ru.practicum.android.diploma.filters.areas.ui.presenter.CountriesRecyclerViewAdapter
 
 class CountrySelectFragment : Fragment() {
     private val viewModel by viewModel<CountrySelectViewModel>()
     private var _binding: CountrySelectFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private var _adapter: AreasRecyclerViewAdapter? = null
+    private var _adapter: CountriesRecyclerViewAdapter? = null
     private val adapter get() = _adapter!!
 
     override fun onCreateView(
@@ -36,7 +36,7 @@ class CountrySelectFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        _adapter = AreasRecyclerViewAdapter {
+        _adapter = CountriesRecyclerViewAdapter {
             onAreaClick(it)
         }
 
@@ -62,12 +62,12 @@ class CountrySelectFragment : Fragment() {
         findNavController().popBackStack()
     }
 
-    private fun render(state: AreaSelectScreenState) {
+    private fun render(state: CountrySelectScreenState) {
         when (state) {
-            is AreaSelectScreenState.ChooseItem -> showContent(state.items)
-            AreaSelectScreenState.Empty -> showEmpty()
-            AreaSelectScreenState.NetworkError -> showNetworkError()
-            AreaSelectScreenState.ServerError -> showServerError()
+            is CountrySelectScreenState.ChooseItem -> showContent(state.items)
+            CountrySelectScreenState.Empty -> showEmpty()
+            CountrySelectScreenState.NetworkError -> showNetworkError()
+            CountrySelectScreenState.ServerError -> showServerError()
         }
     }
 
