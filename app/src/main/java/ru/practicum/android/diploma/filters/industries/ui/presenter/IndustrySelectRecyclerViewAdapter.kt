@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.filters.industries.ui.presenter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -29,7 +28,9 @@ class IndustrySelectRecyclerViewAdapter(
 
         holder.itemView.setOnClickListener {
             list[lastSelect] = list[lastSelect].copy(isChecked = false)
-            list[position] = list[position].copy(isChecked = true)
+            if (list.size > position) {
+                list[position] = list[position].copy(isChecked = true)
+            }
             lastSelect = position
             clickListener.onClick(itemView)
             holder.selectItem()
