@@ -11,6 +11,8 @@ interface RequestBuilderRepository {
     fun setSalary(salary: String)
     fun setCurrency(currency: String)
     fun setIsShowWithSalary(isShowWithSalary: Boolean)
+    fun cleanIndustry()
+    fun cleanArea()
     fun getRequest(): HashMap<String, String>
     fun getSavedFilters(): SavedFilters
 }
