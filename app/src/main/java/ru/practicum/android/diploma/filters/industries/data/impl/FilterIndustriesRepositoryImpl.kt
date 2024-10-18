@@ -23,10 +23,12 @@ class FilterIndustriesRepositoryImpl(
                             Industry(
                                 id = industry.id,
                                 name = industry.name,
+                                isChecked = false,
                                 industries = industry.industries?.map { subIndustri ->
                                     Industry(
                                         id = subIndustri.id,
                                         name = subIndustri.name,
+                                        isChecked = false,
                                         industries = null
                                     )
                                 }
