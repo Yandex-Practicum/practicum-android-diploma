@@ -18,20 +18,20 @@ class FilterIndustriesRepositoryImpl(
         emit(
             when (response.resultCode) {
                 HttpStatusCode.OK -> {
-                    val industries = (response as FilterIndustriesResponse).industries
-                        .map { industry ->
-                        Industry(
-                            id = industry.id,
-                            name = industry.name,
-                            industries = industry.industries?.map { subIndustri ->
-                                Industry(
-                                    id = subIndustri.id,
-                                    name = subIndustri.name,
-                                    industries = null
-                                )
-                            }
-                        )
-                    }
+                    val industries = (response as FilterIndustriesResponse)
+                        .industries.map { industry ->
+                            Industry(
+                                id = industry.id,
+                                name = industry.name,
+                                industries = industry.industries?.map { subIndustri ->
+                                    Industry(
+                                        id = subIndustri.id,
+                                        name = subIndustri.name,
+                                        industries = null
+                                    )
+                                }
+                            )
+                        }
 
                     Resource.Success(getAllIndustries(industries))
                 }
