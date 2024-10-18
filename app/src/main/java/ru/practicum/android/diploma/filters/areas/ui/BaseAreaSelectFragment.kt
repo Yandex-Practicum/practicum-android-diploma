@@ -9,12 +9,12 @@ import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.AreaSelectFragmentBinding
-import ru.practicum.android.diploma.filters.areas.presentation.AreaSelectViewModel
+import ru.practicum.android.diploma.filters.areas.presentation.BaseAreaSelectViewModel
 
-class AreaSelectFragment : Fragment() {
+class BaseAreaSelectFragment : Fragment() {
     private var _binding: AreaSelectFragmentBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: AreaSelectViewModel by viewModel()
+    private val viewModel: BaseAreaSelectViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,

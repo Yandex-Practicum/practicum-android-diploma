@@ -65,7 +65,7 @@
     </fragment>
     <fragment
         android:id="@+id/workingRegionFragment"
-        android:name="ru.practicum.android.diploma.filters.areas.ui.AreaSelectFragment"
+        android:name="ru.practicum.android.diploma.filters.areas.ui.BaseAreaSelectFragment"
         android:label="working_region_fragment"
         tools:layout="@layout/area_select_fragment">
         <action

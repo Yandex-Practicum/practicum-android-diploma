@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import ru.practicum.android.diploma.filters.areas.domain.api.SearchRegionsByNameInteractor
 import ru.practicum.android.diploma.search.domain.api.RequestBuilderInteractor
 
-class AreaSelectViewModel(
+class BaseAreaSelectViewModel(
     private val interactor: SearchRegionsByNameInteractor,
     private val requestBuilderInteractor: RequestBuilderInteractor
 ) : ViewModel() {
