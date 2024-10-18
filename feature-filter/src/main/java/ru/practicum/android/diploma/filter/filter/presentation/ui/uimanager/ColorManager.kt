@@ -11,11 +11,18 @@ class ColorManager(private val context: Context) {
     fun getColorsForEditText(isEmpty: Boolean): IntArray {
         val context = contextRef.get() ?: return intArrayOf()
         return intArrayOf(
-            ContextCompat.getColor(context, if (isEmpty)
-                ru.practicum.android.diploma.ui.R.color.hintDefaultTextInputLayout
-            else
-                ru.practicum.android.diploma.ui.R.color.black),
-            ContextCompat.getColor(context, ru.practicum.android.diploma.ui.R.color.blue)
+            ContextCompat.getColor(
+                context,
+                if (isEmpty) {
+                    ru.practicum.android.diploma.ui.R.color.hintDefaultTextInputLayout
+                } else {
+                    ru.practicum.android.diploma.ui.R.color.black
+                }
+            ),
+            ContextCompat.getColor(
+                context,
+                ru.practicum.android.diploma.ui.R.color.blue
+            )
         )
     }
 

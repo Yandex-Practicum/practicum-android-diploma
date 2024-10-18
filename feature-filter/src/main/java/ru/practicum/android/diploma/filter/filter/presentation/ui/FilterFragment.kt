@@ -135,7 +135,7 @@ internal class FilterFragment : Fragment() {
             val colors = if (inputText.isNullOrEmpty()) colorsEditTextFilterEmpty else colorsEditTextFilterNoEmpty
             binding.textViewSalary.hintTextColor = ColorStateList(statesEditTextFilter, colors)
             binding.textViewSalary.setDefaultHintTextColor(ColorStateList(statesEditTextFilter, colors))
-            val textSalary = if(inputText.isNullOrEmpty()) null else inputText.toString()
+            val textSalary = if (inputText.isNullOrEmpty()) null else inputText.toString()
             filterSettings = filterSettings.copy(expectedSalary = textSalary)
             checkingFilterChanges()
         }
