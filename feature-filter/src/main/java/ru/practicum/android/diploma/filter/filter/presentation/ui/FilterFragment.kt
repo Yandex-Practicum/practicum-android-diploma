@@ -26,7 +26,6 @@ import ru.practicum.android.diploma.filter.filter.presentation.viewmodel.FilterV
 internal class FilterFragment : Fragment() {
 
     private val viewModel: FilterViewModel by viewModel()
-
     private var filterSettings: FilterSettings = emptyFilterSetting()
 
     private var colorsEditTextFilterEmpty: IntArray? = null
@@ -56,31 +55,59 @@ internal class FilterFragment : Fragment() {
             visibleClearFilter(filter)
         }
 
-        binding.workPlace.setOnClickListener(listener)
-        binding.inputWorkPlaceLayout.setOnClickListener(listener)
-        binding.inputWorkPlace.setOnClickListener(listener)
-        binding.clickWorkPlace.setOnClickListener(listener)
-
-        binding.workIndustry.setOnClickListener(listener)
-        binding.inputWorkIndustryLayout.setOnClickListener(listener)
-        binding.inputWorkIndustry.setOnClickListener(listener)
-        binding.clickWorkIndustry.setOnClickListener(listener)
-
-        binding.clickWorkPlaceClear.setOnClickListener(listener)
-        binding.clickWorkIndustryClear.setOnClickListener(listener)
-        binding.buttonBack.setOnClickListener(listener)
-        binding.buttonApply.setOnClickListener(listener)
-        binding.buttonCancel.setOnClickListener(listener)
+        setupClickListeners()
 
         binding.editTextFilter.setOnEditorActionListener(editorActionListener)
-
         binding.editTextFilter.addTextChangedListener(inputSearchWatcher)
 
         binding.checkBox.setOnCheckedChangeListener { compoundButton, isChecked ->
             filterSettings = filterSettings.copy(doNotShowWithoutSalary = isChecked)
-
             checkingFilterChanges()
         }
+    }
+
+    private fun setupClickListeners() {
+        val clickListener = View.OnClickListener { view ->
+            when (view.id) {
+                R.id.workPlace, R.id.inputWorkPlaceLayout, R.id.inputWorkPlace, R.id.clickWorkPlace -> {
+                    findNavController().navigate(R.id.action_filterFragment_to_placeFragment)
+                }
+                R.id.workIndustry, R.id.inputWorkIndustryLayout, R.id.inputWorkIndustry, R.id.clickWorkIndustry -> {
+                    findNavController().navigate(R.id.action_filterFragment_to_industryFragment)
+                }
+                R.id.clickWorkPlaceClear -> renderPlaceFilterClear()
+                R.id.clickWorkIndustryClear -> renderProfessionFilterClear()
+                R.id.buttonApply -> applyFilters()
+                R.id.buttonBack -> findNavController().navigateUp()
+                R.id.buttonCancel -> {
+                    viewModel.clearDataFilter()
+                    findNavController().navigateUp()
+                }
+            }
+        }
+
+        listOf(
+            binding.workPlace,
+            binding.inputWorkPlaceLayout,
+            binding.inputWorkPlace,
+            binding.clickWorkPlace,
+            binding.workIndustry,
+            binding.inputWorkIndustryLayout,
+            binding.inputWorkIndustry,
+            binding.clickWorkIndustry,
+            binding.clickWorkPlaceClear,
+            binding.clickWorkIndustryClear,
+            binding.buttonBack,
+            binding.buttonApply,
+            binding.buttonCancel
+        ).forEach { it.setOnClickListener(clickListener) }
+    }
+
+    private fun applyFilters() {
+        viewModel.setSalaryInDataFilter(binding.editTextFilter.text.toString())
+        viewModel.setDoNotShowWithoutSalaryInDataFilter(binding.checkBox.isChecked)
+        clearParameters(filterSettings)
+        findNavController().navigateUp()
     }
 
     private fun visibleClearFilter(filter: FilterSettings?) {
@@ -258,42 +285,6 @@ internal class FilterFragment : Fragment() {
             expectedSalary = null,
             doNotShowWithoutSalary = false
         )
-    }
-
-    private val listener: View.OnClickListener = View.OnClickListener { view ->
-        when (view.id) {
-            R.id.workPlace, R.id.inputWorkPlaceLayout, R.id.inputWorkPlace, R.id.clickWorkPlace -> {
-                findNavController().navigate(R.id.action_filterFragment_to_placeFragment)
-            }
-
-            R.id.workIndustry, R.id.inputWorkIndustryLayout, R.id.inputWorkIndustry, R.id.clickWorkIndustry -> {
-                findNavController().navigate(R.id.action_filterFragment_to_industryFragment)
-            }
-
-            R.id.clickWorkPlaceClear -> {
-                renderPlaceFilterClear()
-            }
-
-            R.id.clickWorkIndustryClear -> {
-                renderProfessionFilterClear()
-            }
-
-            R.id.buttonApply -> {
-                viewModel.setSalaryInDataFilter(binding.editTextFilter.text.toString())
-                viewModel.setDoNotShowWithoutSalaryInDataFilter(binding.checkBox.isChecked)
-                clearParameters(filterSettings)
-                findNavController().navigateUp()
-            }
-
-            R.id.buttonBack -> {
-                findNavController().navigateUp()
-            }
-
-            R.id.buttonCancel -> {
-                viewModel.clearDataFilter()
-                findNavController().navigateUp()
-            }
-        }
     }
 
     private fun clearParameters(filter: FilterSettings) {
