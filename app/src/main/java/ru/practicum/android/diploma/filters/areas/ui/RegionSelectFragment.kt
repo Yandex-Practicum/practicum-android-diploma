@@ -17,6 +17,7 @@ import ru.practicum.android.diploma.filters.areas.domain.models.Area
 import ru.practicum.android.diploma.filters.areas.presentation.RegionSelectViewModel
 import ru.practicum.android.diploma.filters.areas.ui.presentation.RegionSelectScreenState
 import ru.practicum.android.diploma.filters.industries.ui.IndustrySelectFragment
+import ru.practicum.android.diploma.root.ui.RootActivity
 import ru.practicum.android.diploma.util.hideKeyboard
 
 class RegionSelectFragment : Fragment() {
@@ -90,7 +91,8 @@ class RegionSelectFragment : Fragment() {
     }
 
     private fun onAreaClick(area: Area) {
-        viewModel.finishSelect(area)
+        val countryList = (activity as RootActivity).getCountryList()
+        viewModel.finishSelect(area, countryList)
         findNavController().popBackStack()
     }
 
