@@ -3,7 +3,6 @@ package ru.practicum.android.diploma.search.data.impl
 import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
-import com.google.gson.JsonSyntaxException
 import ru.practicum.android.diploma.filters.areas.domain.models.Area
 import ru.practicum.android.diploma.filters.industries.domain.models.Industry
 import ru.practicum.android.diploma.search.data.model.SavedFilters
