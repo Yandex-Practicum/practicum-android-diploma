@@ -293,7 +293,6 @@
     <style name="CheckBoxFilter">
         <item name="android:layout_marginTop">@dimen/dimens_24</item>
         <item name="android:padding">@dimen/dimens_16</item>
-        <item name="android:src">@drawable/check_box_off</item>
     </style>
     <style name="ButtonApply">
         <item name="android:text">@string/filter_screens_apply_button</item>
