@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.favorite.domain.api.FavoriteVacancyInteractor
+import ru.practicum.android.diploma.util.network.HttpStatusCode.NOT_CONNECTED
 import ru.practicum.android.diploma.util.network.HttpStatusCode.NOT_FOUND
 import ru.practicum.android.diploma.util.network.HttpStatusCode.OK
 import ru.practicum.android.diploma.vacancy.domain.api.GetVacancyDetailsInteractor
@@ -42,8 +43,8 @@ class VacancyDetailsViewModel(
                         }
 
                         NOT_FOUND -> renderState(VacancyScreenState.EmptyState)
-
-                        else -> renderState(VacancyScreenState.NetworkErrorState)
+                        NOT_CONNECTED -> renderState(VacancyScreenState.NetworkErrorState)
+                        else -> renderState(VacancyScreenState.ServerError)
                     }
                 }
         }

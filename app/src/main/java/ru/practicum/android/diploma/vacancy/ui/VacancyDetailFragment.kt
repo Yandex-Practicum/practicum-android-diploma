@@ -83,6 +83,7 @@ class VacancyDetailFragment : Fragment() {
             is VacancyScreenState.EmptyState -> showEmpty()
             is VacancyScreenState.LoadingState -> showLoading()
             is VacancyScreenState.NetworkErrorState -> showNetworkError()
+            is VacancyScreenState.ServerError -> showServerError()
         }
     }
 
@@ -92,6 +93,7 @@ class VacancyDetailFragment : Fragment() {
             progressCircular.visibility = View.GONE
             emptyErrorPlaceholder.visibility = View.GONE
             serverErrorPlaceholder.visibility = View.GONE
+            notConnectedPlaceholder.visibility = View.GONE
 
             vacancyName.text = vacancy.name
             salary.text = vacancy.salary
@@ -132,6 +134,7 @@ class VacancyDetailFragment : Fragment() {
             progressCircular.visibility = View.GONE
             emptyErrorPlaceholder.visibility = View.VISIBLE
             serverErrorPlaceholder.visibility = View.GONE
+            notConnectedPlaceholder.visibility = View.GONE
         }
     }
 
@@ -141,6 +144,7 @@ class VacancyDetailFragment : Fragment() {
             progressCircular.visibility = View.VISIBLE
             emptyErrorPlaceholder.visibility = View.GONE
             serverErrorPlaceholder.visibility = View.GONE
+            notConnectedPlaceholder.visibility = View.GONE
         }
     }
 
@@ -149,7 +153,18 @@ class VacancyDetailFragment : Fragment() {
             detailsView.visibility = View.GONE
             progressCircular.visibility = View.GONE
             emptyErrorPlaceholder.visibility = View.GONE
+            serverErrorPlaceholder.visibility = View.GONE
+            notConnectedPlaceholder.visibility = View.VISIBLE
+        }
+    }
+
+    private fun showServerError() {
+        binding.apply {
+            detailsView.visibility = View.GONE
+            progressCircular.visibility = View.GONE
+            emptyErrorPlaceholder.visibility = View.GONE
             serverErrorPlaceholder.visibility = View.VISIBLE
+            notConnectedPlaceholder.visibility = View.GONE
         }
     }
 
