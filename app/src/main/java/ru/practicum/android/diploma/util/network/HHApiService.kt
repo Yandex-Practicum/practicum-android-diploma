@@ -23,6 +23,4 @@ interface HHApiService {
     @GET("industries")
     suspend fun getIndustries(): List<IndustryDto>
 
-    @GET("area_leaves")
-    suspend fun searchRegionsByName(@QueryMap textAndId: HashMap<String, String>): SearchRegionsByNameResponse
 }
