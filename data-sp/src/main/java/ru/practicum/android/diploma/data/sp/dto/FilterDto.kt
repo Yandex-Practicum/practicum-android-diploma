@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class FilterDto(
     val placeDto: PlaceDto?,
-    val branchOfProfession: String?,
+    val branchOfProfession: IndustryDto?,
     val expectedSalary: String?,
     val doNotShowWithoutSalary: Boolean,
 ) : Parcelable

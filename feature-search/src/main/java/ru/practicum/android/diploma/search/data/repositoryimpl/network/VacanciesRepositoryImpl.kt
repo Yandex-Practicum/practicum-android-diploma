@@ -23,8 +23,6 @@ import ru.practicum.android.diploma.search.util.AreaConverter
 import ru.practicum.android.diploma.search.util.IndustryConverter
 import ru.practicum.android.diploma.search.util.VacancyConverter
 
-private const val DEFAULT_REGION = "113" // Russia
-
 internal class VacanciesRepositoryImpl(
     private val networkClient: NetworkClient,
     private val vacancyConverter: VacancyConverter,
@@ -48,7 +46,9 @@ internal class VacanciesRepositoryImpl(
             "only_with_salary" to onlyWithSalary.toString(),
         )
         industry?.let { options["industry"] = industry }
-        salary?.let { options["salary"] = salary }
+        if (!salary.isNullOrEmpty()) {
+            options["salary"] = salary
+        }
         area?.let { options["area"] = area }
         return context.executeNetworkRequest<Response, PaginationInfo>(
             request = { networkClient.doRequest(HHApiVacanciesRequest(options)) },

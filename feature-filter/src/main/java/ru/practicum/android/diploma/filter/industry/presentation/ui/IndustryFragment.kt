@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -12,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.commonutils.Utils
 import ru.practicum.android.diploma.commonutils.Utils.closeKeyBoard
 import ru.practicum.android.diploma.commonutils.debounce
 import ru.practicum.android.diploma.filter.R
@@ -19,16 +19,20 @@ import ru.practicum.android.diploma.filter.databinding.FragmentIndustryBinding
 import ru.practicum.android.diploma.filter.industry.domain.model.IndustryModel
 import ru.practicum.android.diploma.filter.industry.presentation.ui.adapters.FilterIndustryListAdapter
 import ru.practicum.android.diploma.filter.industry.presentation.viewmodel.IndustryViewModel
+import ru.practicum.android.diploma.filter.industry.presentation.viewmodel.state.IndustryState
 
 private const val USER_INPUT = "userInput"
 private const val DELAY_CLICK_VACANCY = 2000L
-private const val ARGS_INDUSTRY_ID = "industry_id"
-private const val ARGS_INDUSTRY_NAME = "industry_name"
 
 internal class IndustryFragment : Fragment() {
+
     private var _binding: FragmentIndustryBinding? = null
     private val binding get() = _binding!!
     private var userInputReserve = ""
+    private var currentIndustryBuffer: IndustryModel = IndustryModel(null, null)
+    private var currentIndustry: IndustryModel = IndustryModel(null, null)
+
+    private var viewArray: Array<View>? = null
 
     private val industryViewModel: IndustryViewModel by viewModel()
 
@@ -54,31 +58,75 @@ internal class IndustryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentIndustryBinding.inflate(inflater, container, false)
+        viewArray = arrayOf(
+            binding.loadingProgressBar,
+            binding.listIndustry,
+            binding.placeholderIndustriesError,
+            binding.placeholderIndustryDoesNotExist
+        )
+        return binding.root
+    }
 
-        industryViewModel.industriesListLiveData.observe(viewLifecycleOwner) { list ->
-            if (list == null) {
-                binding.vacancyRecycler.isVisible = false
-                binding.industriesError.isVisible = true
-                binding.industriesErrorText.isVisible = true
-                unselectAndHideConfirmation()
-            } else {
-                (binding.vacancyRecycler.adapter as FilterIndustryListAdapter).setOptionsList(list)
-                binding.vacancyRecycler.isVisible = true
-                binding.industriesError.isVisible = false
-                binding.industriesErrorText.isVisible = false
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        industryViewModel.industriesListLiveData.observe(viewLifecycleOwner) { state ->
+            render(state)
+            industryViewModel.getBranchOfProfessionDataFilter()
+        }
+
+        industryViewModel.currentIndustryInDataFilterLiveData.observe(viewLifecycleOwner) { industry ->
+            industry?.let {
+                (binding.listIndustry.adapter as FilterIndustryListAdapter).selectItemById(it.id)
             }
+            binding.selectButton.visibility = View.GONE
+            currentIndustryBuffer = industry ?: IndustryModel(null, null)
+            currentIndustry = industry ?: IndustryModel(null, null)
         }
 
         recyclerSetup()
         searchBarSetup()
 
-        return binding.root
+        binding.buttonLeftIndustry.setOnClickListener(listener)
+        binding.selectButton.setOnClickListener(listener)
+    }
+
+    private val listener: View.OnClickListener = View.OnClickListener { view ->
+        when (view.id) {
+            R.id.buttonLeftIndustry -> {
+                findNavController().navigateUp()
+            }
+            R.id.selectButton -> {
+                industryViewModel.updateProfessionInDataFilter(currentIndustry)
+                findNavController().navigateUp()
+            }
+        }
+    }
+
+    private fun render(state: IndustryState) {
+        when (state) {
+            is IndustryState.Loading -> {
+                Utils.visibilityView(viewArray, binding.loadingProgressBar)
+            }
+            is IndustryState.Content -> {
+                (binding.listIndustry.adapter as FilterIndustryListAdapter).setOptionsList(state.industryList)
+                Utils.visibilityView(viewArray, binding.listIndustry)
+            }
+            is IndustryState.Empty -> {
+                (binding.listIndustry.adapter as FilterIndustryListAdapter).undoSelection()
+                Utils.visibilityView(viewArray, binding.placeholderIndustryDoesNotExist)
+            }
+            is IndustryState.Error -> {
+                (binding.listIndustry.adapter as FilterIndustryListAdapter).undoSelection()
+                Utils.visibilityView(viewArray, binding.placeholderIndustriesError)
+            }
+        }
     }
 
     private fun searchBarSetup() {
         binding.searchBar.doOnTextChanged { text, start, before, count ->
             if (text?.isNotEmpty() == true) {
-                unselectAndHideConfirmation()
+                (binding.listIndustry.adapter as FilterIndustryListAdapter).undoSelection()
                 binding.clearSearchIcon.isVisible = true
                 binding.searchBarLoupeIcon.isVisible = false
                 debouncedFiltration(text.toString())
@@ -94,7 +142,7 @@ internal class IndustryFragment : Fragment() {
             binding.searchBar.text.clear()
             requireContext().closeKeyBoard(binding.searchBar)
             industryViewModel.resetToFullList()
-            unselectAndHideConfirmation()
+            (binding.listIndustry.adapter as FilterIndustryListAdapter).undoSelection()
         }
 
     }
@@ -103,39 +151,15 @@ internal class IndustryFragment : Fragment() {
         val adapter = FilterIndustryListAdapter(object : FilterIndustryListAdapter.IndustryClickListener {
 
             override fun onIndustryClick(industryModel: IndustryModel?) {
-                if (industryModel == null) {
-                    binding.selectButton.isVisible = false
-                } else {
-                    showConfirmation(industryModel)
-                }
+                binding.selectButton.isVisible = industryModel?.id != currentIndustryBuffer.id
+                currentIndustry = industryModel ?: IndustryModel(null, null)
+                requireContext().closeKeyBoard(binding.searchBar)
             }
         })
-        binding.vacancyRecycler.layoutManager = GridLayoutManager(requireContext(), 1)
-        binding.vacancyRecycler.adapter = adapter
-        (binding.vacancyRecycler.adapter as FilterIndustryListAdapter).setOptionsList(emptyList())
+        binding.listIndustry.layoutManager = GridLayoutManager(requireContext(), 1)
+        binding.listIndustry.adapter = adapter
+        (binding.listIndustry.adapter as FilterIndustryListAdapter).setOptionsList(emptyList())
 
-    }
-
-    private fun showConfirmation(selectedIndustry: IndustryModel) {
-        binding.selectButton.isVisible = true
-        binding.selectButton.setOnClickListener {
-            findNavController().navigate(
-                R.id.action_industryFragment_to_filterFragment,
-                createArgs(selectedIndustry)
-            )
-        }
-    }
-
-    private fun unselectAndHideConfirmation() {
-        (binding.vacancyRecycler.adapter as FilterIndustryListAdapter).undoSelection()
-        binding.selectButton.isVisible = false
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.buttonLeftIndustry.setOnClickListener {
-            findNavController().navigateUp()
-        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -155,10 +179,6 @@ internal class IndustryFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-    }
-
-    companion object {
-        fun createArgs(selectedIndustry: IndustryModel): Bundle =
-            bundleOf(ARGS_INDUSTRY_ID to selectedIndustry.id, ARGS_INDUSTRY_NAME to selectedIndustry.name)
+        viewArray = null
     }
 }

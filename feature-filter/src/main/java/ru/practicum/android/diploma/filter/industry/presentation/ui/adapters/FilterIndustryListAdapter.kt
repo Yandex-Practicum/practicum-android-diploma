@@ -14,6 +14,20 @@ class FilterIndustryListAdapter(private val clickListener: IndustryClickListener
     private var selectedPosition: Int? = null
     private var isSelectionActive = false
 
+    fun selectItemById(id: String?) {
+        options.forEachIndexed { index, industryModel ->
+            if (industryModel.id == id) {
+                if (selectedPosition != index) {
+                    undoSelection()
+                    selectedPosition = index
+                    notifyItemChanged(index)
+                    clickListener.onIndustryClick(industryModel)
+                }
+                return
+            }
+        }
+    }
+
     @SuppressLint("NotifyDataSetChanged")
     fun setOptionsList(optionsList: List<IndustryModel>) {
         options = optionsList

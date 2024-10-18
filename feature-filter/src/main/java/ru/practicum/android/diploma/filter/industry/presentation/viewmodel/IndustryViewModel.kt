@@ -1,54 +1,83 @@
 package ru.practicum.android.diploma.filter.industry.presentation.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.filter.industry.domain.model.IndustryModel
 import ru.practicum.android.diploma.filter.industry.domain.usecase.IndustryInteractor
+import ru.practicum.android.diploma.filter.industry.presentation.viewmodel.state.IndustryState
 
 class IndustryViewModel(
-    application: Application,
     private val industryInteractor: IndustryInteractor
-) : AndroidViewModel(application) {
+) : ViewModel() {
 
-    private var _industriesListLiveData = MutableLiveData<List<IndustryModel>?>()
-    val industriesListLiveData: LiveData<List<IndustryModel>?> = _industriesListLiveData
-    var unfilteredList: List<IndustryModel>? = emptyList<IndustryModel>()
-
-    companion object {
-        private const val TAG: String = "IndustryViewModel"
-    }
+    private var _industriesListLiveData = MutableLiveData<IndustryState>()
+    val industriesListLiveData: LiveData<IndustryState> = _industriesListLiveData
+    var unfilteredList: MutableList<IndustryModel> = mutableListOf()
 
     init {
-        _industriesListLiveData.value = emptyList()
         getIndustriesList()
     }
 
     private fun getIndustriesList() {
         viewModelScope.launch(Dispatchers.IO) {
             industryInteractor.getIndustriesList().collect { response ->
-                if (response.first == null) {
-                    unfilteredList = null
-                    _industriesListLiveData.postValue(unfilteredList) } else {
-                    unfilteredList = response.first
-                    _industriesListLiveData.postValue(unfilteredList)
+                _industriesListLiveData.postValue(IndustryState.Loading)
+                response.first?.let { listIndustry ->
+                    if (listIndustry.isEmpty()) {
+                        unfilteredList.clear()
+                        _industriesListLiveData.postValue(IndustryState.Empty)
+                    } else {
+                        unfilteredList.addAll(listIndustry)
+                        _industriesListLiveData.postValue(IndustryState.Content(listIndustry))
+                    }
+                } ?: {
+                    unfilteredList.clear()
+                    _industriesListLiveData.postValue(IndustryState.Empty)
+                }
+                response.second?.let { e ->
+                    unfilteredList.clear()
+                    _industriesListLiveData.postValue(IndustryState.Error)
                 }
             }
         }
-
     }
 
     fun filterList(query: String) {
         val newList = unfilteredList
-        _industriesListLiveData.value = newList?.filter { it.name.lowercase().contains(query.lowercase()) }
-        // lowercase нужен чтобы не искало с case-sensitive
+        _industriesListLiveData.postValue(
+            IndustryState.Content(
+                newList.filter { item ->
+                    item.name?.lowercase()?.contains(query.lowercase()) ?: false
+                }
+            )
+        )
     }
 
     fun resetToFullList() {
-        _industriesListLiveData.value = unfilteredList
+        _industriesListLiveData.postValue(IndustryState.Content(unfilteredList))
+    }
+
+    private var _currentIndustryInDataFilterLiveData = MutableLiveData<IndustryModel?>()
+    val currentIndustryInDataFilterLiveData: LiveData<IndustryModel?> = _currentIndustryInDataFilterLiveData
+
+    fun updateProfessionInDataFilter(branchOfProfession: IndustryModel) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val success = industryInteractor.updateProfessionInDataFilter(branchOfProfession)
+            if (success != -1) {
+                _currentIndustryInDataFilterLiveData.postValue(branchOfProfession)
+            }
+        }
+    }
+
+    fun getBranchOfProfessionDataFilter() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _currentIndustryInDataFilterLiveData.postValue(
+                industryInteractor.getBranchOfProfessionDataFilter()
+            )
+        }
     }
 }

@@ -6,6 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.data.sp.api.FilterSp
 import ru.practicum.android.diploma.data.sp.dto.FilterDto
+import ru.practicum.android.diploma.data.sp.dto.IndustryDto
 import ru.practicum.android.diploma.data.sp.dto.PlaceDto
 
 private const val PLACE_KEY_SP = "place_key_sp"
@@ -54,8 +55,13 @@ class FilterSpImpl(
         }
     }
 
-    override suspend fun getBranchOfProfessionDataFilter(): String? {
-        return filterSp.getString(BRANCH_OF_PROFESSION_KEY_SP, null)
+    override suspend fun getBranchOfProfessionDataFilter(): IndustryDto? {
+        val json = filterSp.getString(BRANCH_OF_PROFESSION_KEY_SP, null)
+        return if (json != null) {
+            gson.fromJson(json, IndustryDto::class.java)
+        } else {
+            null
+        }
     }
 
     @Suppress("detekt.SwallowedException")
@@ -104,11 +110,12 @@ class FilterSpImpl(
         }
     }
 
-    override suspend fun updateProfessionInDataFilter(branchOfProfession: String?): Int {
+    override suspend fun updateProfessionInDataFilter(branchOfProfession: IndustryDto): Int {
         return withContext(Dispatchers.IO) {
             runCatching {
+                val json = gson.toJson(branchOfProfession)
                 filterSp.edit()
-                    .putString(BRANCH_OF_PROFESSION_KEY_SP, branchOfProfession)
+                    .putString(BRANCH_OF_PROFESSION_KEY_SP, json)
                     .apply()
             }.fold(
                 onSuccess = { 1 },

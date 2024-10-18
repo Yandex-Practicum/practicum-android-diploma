@@ -142,6 +142,9 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textViewSalary"
         style="@style/NewTextInputStyle"
+        app:hintTextAppearance="@style/CustomHintTextAppearance"
+        app:hintTextColor="@color/color_state_input_hint"
+        app:boxStrokeColor="@color/color_state_input_hint"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimens_52"
         app:layout_constraintEnd_toEndOf="parent"
@@ -151,8 +154,13 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextFilter"
             style="@style/NewTextInputEdit"
+            android:textSize="@dimen/dimen_sp16"
+            app:fontFamily="@font/ys_display_regular"
+            app:fontWeight="400"
+            android:textColor="@color/black"
+            app:hintTextAppearance="@style/CustomHintTextAppearance"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="@dimen/dimens_52" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -200,6 +208,7 @@
         android:id="@+id/buttonCancel"
         style="@style/ButtonCancel"
         android:visibility="gone"
+        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

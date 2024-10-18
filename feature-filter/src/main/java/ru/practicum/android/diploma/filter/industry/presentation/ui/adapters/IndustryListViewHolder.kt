@@ -12,4 +12,5 @@ class IndustryListViewHolder(
     @SuppressLint("SetTextI18n")
     fun bind(model: IndustryModel) {
         binding.optionText.text = model.name
-    } }
+    }
+}
