@@ -1,5 +1,7 @@
 package ru.practicum.android.diploma.search.domain.impl
 
+import ru.practicum.android.diploma.filters.areas.domain.models.Area
+import ru.practicum.android.diploma.filters.industries.domain.models.Industry
 import ru.practicum.android.diploma.search.data.model.SavedFilters
 import ru.practicum.android.diploma.search.domain.api.RequestBuilderInteractor
 import ru.practicum.android.diploma.search.domain.api.RequestBuilderRepository
@@ -10,16 +12,16 @@ class RequestBuilderInteractorImpl(private val requestBuilderRepository: Request
         requestBuilderRepository.setText(text)
     }
 
-    override fun setArea(areaId: String) {
-        requestBuilderRepository.setArea(areaId)
+    override fun setArea(area: Area) {
+        requestBuilderRepository.setArea(area)
     }
 
     override fun setSalary(salary: String) {
         requestBuilderRepository.setSalary(salary)
     }
 
-    override fun setIndustry(industryId: String) {
-        requestBuilderRepository.setIndustry(industryId)
+    override fun setIndustry(industry: Industry) {
+        requestBuilderRepository.setIndustry(industry)
     }
 
     override fun setCurrency(currency: String) {

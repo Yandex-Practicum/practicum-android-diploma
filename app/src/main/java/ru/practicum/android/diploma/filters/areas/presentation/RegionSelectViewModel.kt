@@ -81,8 +81,12 @@ class RegionSelectViewModel(
         stateLiveData.postValue(state)
     }
 
-    fun finishSelect(areaId: String) {
-        requestBuilderInteractor.setArea(areaId)
+    fun finishSelect(area: Area, countryList: List<Area>) {
+        val country = countryList.filter { element ->
+            element.parentId == null && element.id == area.parentId
+        }
+        val fullArea = area.copy(parentName = country[0].name)
+        requestBuilderInteractor.setArea(fullArea)
     }
 
     companion object {

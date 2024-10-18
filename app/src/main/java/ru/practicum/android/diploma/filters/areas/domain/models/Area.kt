@@ -4,5 +4,6 @@ data class Area(
     val id: String,
     val name: String,
     val parentId: String?,
+    val parentName: String? = null,
     val areas: List<Area>
 )
