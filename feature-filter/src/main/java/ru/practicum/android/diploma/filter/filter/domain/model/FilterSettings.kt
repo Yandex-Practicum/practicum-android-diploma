@@ -6,21 +6,6 @@ data class FilterSettings(
     val expectedSalary: String?,
     val doNotShowWithoutSalary: Boolean,
 ) {
-    fun resetPlaceSettings(): FilterSettings {
-        return this.copy(placeSettings = PlaceSettings(null, null, null, null))
-    }
-
-    fun resetBranchOfProfession(): FilterSettings {
-        return this.copy(branchOfProfession = IndustrySetting(null, null))
-    }
-
-    fun updateExpectedSalary(newSalary: String?): FilterSettings {
-        return this.copy(expectedSalary = newSalary)
-    }
-
-    fun updateDoNotShowWithoutSalary(newDoNotShowWithoutSalary: Boolean): FilterSettings {
-        return this.copy(doNotShowWithoutSalary = newDoNotShowWithoutSalary)
-    }
     companion object {
         fun emptyFilterSettings(): FilterSettings {
             return FilterSettings(
@@ -31,4 +16,20 @@ data class FilterSettings(
             )
         }
     }
+}
+
+fun FilterSettings.resetPlaceSettings(): FilterSettings {
+    return this.copy(placeSettings = PlaceSettings(null, null, null, null))
+}
+
+fun FilterSettings.resetBranchOfProfession(): FilterSettings {
+    return this.copy(branchOfProfession = IndustrySetting(null, null))
+}
+
+fun FilterSettings.updateExpectedSalary(newSalary: String?): FilterSettings {
+    return this.copy(expectedSalary = newSalary)
+}
+
+fun FilterSettings.updateDoNotShowWithoutSalary(newDoNotShowWithoutSalary: Boolean): FilterSettings {
+    return this.copy(doNotShowWithoutSalary = newDoNotShowWithoutSalary)
 }

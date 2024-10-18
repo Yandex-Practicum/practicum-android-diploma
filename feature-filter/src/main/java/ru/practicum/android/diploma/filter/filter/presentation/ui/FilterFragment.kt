@@ -18,6 +18,10 @@ import ru.practicum.android.diploma.commonutils.Utils.closeKeyBoard
 import ru.practicum.android.diploma.filter.R
 import ru.practicum.android.diploma.filter.databinding.FragmentFilterBinding
 import ru.practicum.android.diploma.filter.filter.domain.model.FilterSettings
+import ru.practicum.android.diploma.filter.filter.domain.model.resetBranchOfProfession
+import ru.practicum.android.diploma.filter.filter.domain.model.resetPlaceSettings
+import ru.practicum.android.diploma.filter.filter.domain.model.updateDoNotShowWithoutSalary
+import ru.practicum.android.diploma.filter.filter.domain.model.updateExpectedSalary
 import ru.practicum.android.diploma.filter.filter.presentation.ui.uimanager.ColorManager
 import ru.practicum.android.diploma.filter.filter.presentation.viewmodel.FilterViewModel
 
