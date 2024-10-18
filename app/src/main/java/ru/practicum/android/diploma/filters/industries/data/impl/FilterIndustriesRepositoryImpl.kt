@@ -18,14 +18,15 @@ class FilterIndustriesRepositoryImpl(
         emit(
             when (response.resultCode) {
                 HttpStatusCode.OK -> {
-                    val industries = (response as FilterIndustriesResponse).industries.map {
+                    val industries = (response as FilterIndustriesResponse).industries
+                        .map { industry ->
                         Industry(
-                            id = it.id,
-                            name = it.name,
-                            industries = it.industries?.map {
+                            id = industry.id,
+                            name = industry.name,
+                            industries = industry.industries?.map { subIndustri ->
                                 Industry(
-                                    id = it.id,
-                                    name = it.name,
+                                    id = subIndustri.id,
+                                    name = subIndustri.name,
                                     industries = null
                                 )
                             }
@@ -40,9 +41,9 @@ class FilterIndustriesRepositoryImpl(
         )
     }
 
-    private fun getAllIndustries(ind: List<Industry>): List<Industry> {
+    private fun getAllIndustries(industries: List<Industry>): List<Industry> {
         val allIndustries = mutableListOf<Industry>()
-        ind.forEach { industry ->
+        industries.forEach { industry ->
             allIndustries.add(industry)
             industry.industries?.let {
                 allIndustries.addAll(it)
