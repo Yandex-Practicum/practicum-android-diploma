@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.textfield.TextInputEditText
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FilterSettingsFragmentBinding
@@ -70,9 +71,36 @@ class FilterSettingsFragment : Fragment() {
         binding.searchLineCleaner.setOnClickListener {
             clearSalary()
         }
+        areaAndIndustryClickListenersInit()
+    }
 
+    private fun areaAndIndustryClickListenersInit() {
         binding.areaEditText.setOnClickListener {
-            findNavController().navigate(R.id.action_filterSettingsFragment_to_workingRegionFragment)
+            findNavController().navigate(
+                R.id.action_filterSettingsFragment_to_workingRegionFragment
+            )
+        }
+        binding.areaInputLayout.setEndIconOnClickListener {
+            if (binding.areaEditText.text?.isNotBlank() == true) {
+                cleanField(binding.areaEditText)
+                binding.areaInputLayout.setEndIconDrawable(R.drawable.ic_arrow_forward_24px)
+                viewModel.clearArea()
+            } else {
+                findNavController().navigate(
+                    R.id.action_filterSettingsFragment_to_workingRegionFragment
+                )
+            }
+        }
+        binding.industryInputLayout.setEndIconOnClickListener {
+            if (binding.industryEditText.text?.isNotBlank() == true) {
+                cleanField(binding.industryEditText)
+                binding.industryInputLayout.setEndIconDrawable(R.drawable.ic_arrow_forward_24px)
+                viewModel.clearIndustry()
+            } else {
+                findNavController().navigate(
+                    R.id.action_filterSettingsFragment_to_industrySelectFragment
+                )
+            }
         }
 
         binding.industryEditText.setOnClickListener {
@@ -80,6 +108,14 @@ class FilterSettingsFragment : Fragment() {
                 R.id.action_filterSettingsFragment_to_industrySelectFragment
             )
         }
+    }
+
+    private fun cleanField(field: TextInputEditText) {
+        field.apply {
+            setText("")
+            isActivated = false
+        }
+
     }
 
     private fun observeInit() {
