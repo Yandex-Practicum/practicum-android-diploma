@@ -12,7 +12,6 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.ActivityRootBinding
 import ru.practicum.android.diploma.filters.areas.domain.api.FilterAreaInteractor
 import ru.practicum.android.diploma.filters.areas.domain.models.Area
-import ru.practicum.android.diploma.filters.areas.ui.presentation.RegionSelectScreenState
 import ru.practicum.android.diploma.util.network.HttpStatusCode
 
 class RootActivity : AppCompatActivity() {
