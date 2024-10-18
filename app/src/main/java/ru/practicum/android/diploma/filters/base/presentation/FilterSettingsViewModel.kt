@@ -14,6 +14,9 @@ class FilterSettingsViewModel(private val requestBuilderInteractor: RequestBuild
         return requestBuilderInteractor.getSavedFilters()
     }
 
+    private var salary: String = ""
+    private var isShowWithSalary: Boolean = false
+
     fun checkFilterFields() {
         val filters = initFilters()
         baseFilterScreenState.value =
@@ -23,6 +26,8 @@ class FilterSettingsViewModel(private val requestBuilderInteractor: RequestBuild
                 filters.savedSalary ?: "",
                 filters.savedIsShowWithSalary ?: false
             )
+        salary = filters.savedSalary ?: ""
+        isShowWithSalary = filters.savedIsShowWithSalary ?: false
     }
 
     fun setText(text: String) {
@@ -38,14 +43,16 @@ class FilterSettingsViewModel(private val requestBuilderInteractor: RequestBuild
     }
 
     fun setSalary(salary: String) {
-        // добавляет в запрос желаемую ЗП и сохраняет её в sharedPrefs
+        this.salary = salary
     }
 
     fun setIsShowWithSalary(isShowWithSalary: Boolean) {
-        // добавляет в запрос переменную "показывать только с указанной ЗП" и сохраняет её в sharedPrefs
+        this.isShowWithSalary = isShowWithSalary
     }
 
     fun getRequest(): HashMap<String, String> {
+        requestBuilderInteractor.setSalary(salary)
+        requestBuilderInteractor.setIsShowWithSalary(isShowWithSalary)
         return TODO() // отдаёт собранный запрос
     }
 

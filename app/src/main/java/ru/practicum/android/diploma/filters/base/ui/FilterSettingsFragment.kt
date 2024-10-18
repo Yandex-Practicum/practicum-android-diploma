@@ -103,7 +103,7 @@ class FilterSettingsFragment : Fragment() {
                     }
 
                     if (fields.salary.isNotEmpty()) {
-                        binding.editText.setText(fields.area)
+                        binding.editText.setText(fields.salary)
                     }
                     binding.salaryCheckbox.isActivated = fields.showWithSalary
                 }
