@@ -90,7 +90,7 @@ class RegionSelectFragment : Fragment() {
     }
 
     private fun onAreaClick(area: Area) {
-        viewModel.finishSelect(area.id)
+        viewModel.finishSelect(area)
         findNavController().popBackStack()
     }
 

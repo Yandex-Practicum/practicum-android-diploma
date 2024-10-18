@@ -81,8 +81,8 @@ class RegionSelectViewModel(
         stateLiveData.postValue(state)
     }
 
-    fun finishSelect(areaId: String) {
-        requestBuilderInteractor.setArea(areaId)
+    fun finishSelect(area: Area) {
+        requestBuilderInteractor.setArea(area)
     }
 
     companion object {
