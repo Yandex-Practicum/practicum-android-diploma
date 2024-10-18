@@ -58,11 +58,11 @@ class RequestBuilderRepositoryImpl(
     }
 
     override fun cleanIndustry() {
-        saveFilterValueInSharedPrefs(SAVED_INDUSTRY,"")
+        saveFilterValueInSharedPrefs(SAVED_INDUSTRY, "")
     }
 
     override fun cleanArea() {
-        saveFilterValueInSharedPrefs(SAVED_AREA,"")
+        saveFilterValueInSharedPrefs(SAVED_AREA, "")
     }
 
     override fun getRequest(): HashMap<String, String> {
