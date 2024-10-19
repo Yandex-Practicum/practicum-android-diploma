@@ -14,7 +14,7 @@ import ru.practicum.android.diploma.util.network.HttpStatusCode
 
 class VacancySearchViewModel(
     private val searchVacancyInteractor: SearchVacancyInteractor,
-    requestBuilderInteractor: RequestBuilderInteractor
+    private val requestBuilderInteractor: RequestBuilderInteractor
 ) : ViewModel() {
 
     private var latestSearchText: String? = null
@@ -53,6 +53,14 @@ class VacancySearchViewModel(
                     nextPageProcessingState(pairFoundAndMessage.first?.items, pairFoundAndMessage.second)
                 }
         }
+    }
+
+    fun checkFilter(): Boolean {
+        val filter = requestBuilderInteractor.getSavedFilters()
+        return !(filter.savedArea == null &&
+            filter.savedSalary.isNullOrEmpty() &&
+            filter.savedIndustry == null &&
+            filter.savedIsShowWithSalary == false)
     }
 
     fun searchDebounce(changedText: String) {
