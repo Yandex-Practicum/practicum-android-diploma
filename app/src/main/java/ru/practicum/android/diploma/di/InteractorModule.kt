@@ -4,9 +4,7 @@ import org.koin.dsl.module
 import ru.practicum.android.diploma.favorite.domain.api.FavoriteVacancyInteractor
 import ru.practicum.android.diploma.favorite.domain.impl.FavoriteVacancyInteractorImpl
 import ru.practicum.android.diploma.filters.areas.domain.api.FilterAreaInteractor
-import ru.practicum.android.diploma.filters.areas.domain.api.SearchRegionsByNameInteractor
 import ru.practicum.android.diploma.filters.areas.domain.impl.FilterAreaInteractorImpl
-import ru.practicum.android.diploma.filters.areas.domain.impl.SearchRegionsByNameInteractorImpl
 import ru.practicum.android.diploma.filters.industries.domain.api.FilterIndustriesInteractor
 import ru.practicum.android.diploma.filters.industries.domain.impl.FilterIndustriesInteractorImpl
 import ru.practicum.android.diploma.search.domain.api.RequestBuilderInteractor
@@ -38,9 +36,5 @@ val interactorModule = module {
 
     single<RequestBuilderInteractor> {
         RequestBuilderInteractorImpl(get())
-    }
-
-    single<SearchRegionsByNameInteractor> {
-        SearchRegionsByNameInteractorImpl(get())
     }
 }
