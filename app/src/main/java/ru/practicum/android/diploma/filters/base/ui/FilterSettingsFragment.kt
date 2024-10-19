@@ -43,6 +43,11 @@ class FilterSettingsFragment : Fragment() {
             findNavController().popBackStack()
         }
 
+        binding.applyButton.setOnClickListener {
+            viewModel.setSalary(binding.editText.text.toString())
+            viewModel.setIsShowWithSalary(binding.salaryCheckbox.isChecked)
+        }
+
         val salaryTextWatcher = object : TextWatcher {
             private var current = ""
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
