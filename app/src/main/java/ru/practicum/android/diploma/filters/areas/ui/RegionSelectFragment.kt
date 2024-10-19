@@ -67,6 +67,10 @@ class RegionSelectFragment : Fragment() {
                 viewModel.searchDebounce(
                     changedText = inputTextValue
                 )
+
+                if (textInInputField.isNullOrEmpty()) {
+                    viewModel.getAllRegions()
+                }
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -103,13 +107,24 @@ class RegionSelectFragment : Fragment() {
             RegionSelectScreenState.NetworkError -> showNetworkError()
             RegionSelectScreenState.ServerError -> showServerError()
             is RegionSelectScreenState.FilterRequest -> showFilteredResult(state.request)
+            is RegionSelectScreenState.Loading -> showLoading()
         }
     }
 
+    private fun showLoading() {
+        binding.notConnectedPlaceholder.isVisible = false
+        binding.recyclerView.isVisible = false
+        binding.emptyPlaceholder.isVisible = false
+        binding.notFoundPlaceholder.isVisible = false
+        binding.progressCircular.isVisible = true
+    }
+
     private fun showContent(item: List<Area>) {
+        binding.notConnectedPlaceholder.isVisible = false
         binding.recyclerView.isVisible = true
         binding.emptyPlaceholder.isVisible = false
         binding.notFoundPlaceholder.isVisible = false
+        binding.progressCircular.isVisible = false
         adapter.list.clear()
         adapter.list.addAll(item)
         adapter.notifyDataSetChanged()
@@ -120,21 +135,27 @@ class RegionSelectFragment : Fragment() {
     }
 
     private fun showEmpty() {
+        binding.notConnectedPlaceholder.isVisible = false
         binding.notFoundPlaceholder.isVisible = true
         binding.recyclerView.isVisible = false
         binding.emptyPlaceholder.isVisible = false
+        binding.progressCircular.isVisible = false
     }
 
     private fun showNetworkError() {
+        binding.notConnectedPlaceholder.isVisible = true
         binding.notFoundPlaceholder.isVisible = false
         binding.recyclerView.isVisible = false
-        binding.emptyPlaceholder.isVisible = true
+        binding.emptyPlaceholder.isVisible = false
+        binding.progressCircular.isVisible = false
     }
 
     private fun showServerError() {
+        binding.notConnectedPlaceholder.isVisible = false
         binding.notFoundPlaceholder.isVisible = false
         binding.recyclerView.isVisible = false
         binding.emptyPlaceholder.isVisible = true
+        binding.progressCircular.isVisible = false
         binding.image.setImageResource(R.drawable.search_server_error_placeholder)
         binding.text.setText(R.string.server_error)
     }

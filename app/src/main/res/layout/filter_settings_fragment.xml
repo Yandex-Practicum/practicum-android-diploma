@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:contentInsetStartWithNavigation="0dp"
         android:navigationIcon="@drawable/ic_arrow_back_24px"
-        android:paddingVertical="4dp"
+        android:paddingVertical="0dp"
         android:title="@string/filter_settings"
         app:layout_constraintTop_toTopOf="parent" />
 

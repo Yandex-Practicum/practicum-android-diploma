@@ -8,4 +8,5 @@ sealed class RegionSelectScreenState {
     data object NetworkError : RegionSelectScreenState()
     data object Empty : RegionSelectScreenState()
     data class FilterRequest(val request: String) : RegionSelectScreenState()
+    data object Loading : RegionSelectScreenState()
 }

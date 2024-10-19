@@ -270,6 +270,19 @@ class VacancySearchFragment : Fragment() {
         }
     }
 
+    private fun checkFilter() {
+        if (viewModel.checkFilter()) {
+            binding.filterButton.setImageResource(R.drawable.ic_filter_on_24px)
+        } else {
+            binding.filterButton.setImageResource(R.drawable.ic_filter_off_24px)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkFilter()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
