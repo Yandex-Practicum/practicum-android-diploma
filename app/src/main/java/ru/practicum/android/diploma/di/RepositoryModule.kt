@@ -4,11 +4,9 @@ import org.koin.dsl.module
 import ru.practicum.android.diploma.favorite.data.FavoriteVacancyRepositoryImpl
 import ru.practicum.android.diploma.favorite.domain.api.FavoriteVacancyRepository
 import ru.practicum.android.diploma.filters.areas.data.impl.AreaCashRepositoryImpl
-import ru.practicum.android.diploma.filters.areas.data.impl.FilterAreaRepositoryImpl
-import ru.practicum.android.diploma.filters.areas.data.impl.SearchRegionsByNameRepositoryImpl
 import ru.practicum.android.diploma.filters.areas.domain.api.AreaCashRepository
+import ru.practicum.android.diploma.filters.areas.data.impl.FilterAreaRepositoryImpl
 import ru.practicum.android.diploma.filters.areas.domain.api.FilterAreaRepository
-import ru.practicum.android.diploma.filters.areas.domain.api.SearchRegionsByNameRepository
 import ru.practicum.android.diploma.filters.industries.data.impl.FilterIndustriesRepositoryImpl
 import ru.practicum.android.diploma.filters.industries.domain.api.FilterIndustriesRepository
 import ru.practicum.android.diploma.search.data.impl.RequestBuilderRepositoryImpl
@@ -44,9 +42,6 @@ val repositoryModule = module {
         RequestBuilderRepositoryImpl(get(), get(), get())
     }
 
-    single<SearchRegionsByNameRepository> {
-        SearchRegionsByNameRepositoryImpl(get(), get())
-    }
     single<AreaCashRepository> {
         AreaCashRepositoryImpl(get(), get())
     }

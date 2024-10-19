@@ -41,6 +41,6 @@ val viewModelModule = module {
     }
 
     viewModel {
-        BaseAreaSelectViewModel(get(), get())
+        BaseAreaSelectViewModel(get())
     }
 }

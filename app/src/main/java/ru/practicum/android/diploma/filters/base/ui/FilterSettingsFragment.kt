@@ -43,6 +43,11 @@ class FilterSettingsFragment : Fragment() {
             findNavController().popBackStack()
         }
 
+        binding.applyButton.setOnClickListener {
+            viewModel.setSalary(binding.editText.text.toString())
+            viewModel.setIsShowWithSalary(binding.salaryCheckbox.isChecked)
+        }
+
         val salaryTextWatcher = object : TextWatcher {
             private var current = ""
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -139,12 +144,11 @@ class FilterSettingsFragment : Fragment() {
                     }
 
                     if (fields.salary.isNotEmpty()) {
-                        binding.editText.setText(fields.area)
+                        binding.editText.setText(fields.salary)
                     }
                     binding.salaryCheckbox.isActivated = fields.showWithSalary
                 }
             }
-
         }
     }
 
