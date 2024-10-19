@@ -23,6 +23,7 @@ class FilterSettingsViewModel(private val requestBuilderInteractor: RequestBuild
                 filters.savedSalary ?: "",
                 filters.savedIsShowWithSalary ?: false
             )
+
     }
 
     fun clearArea() {
@@ -46,15 +47,14 @@ class FilterSettingsViewModel(private val requestBuilderInteractor: RequestBuild
     }
 
     fun setSalary(salary: String) {
-        // добавляет в запрос желаемую ЗП и сохраняет её в sharedPrefs
+        requestBuilderInteractor.setSalary(salary)
     }
-
     fun setIsShowWithSalary(isShowWithSalary: Boolean) {
-        // добавляет в запрос переменную "показывать только с указанной ЗП" и сохраняет её в sharedPrefs
+        requestBuilderInteractor.setIsShowWithSalary(isShowWithSalary)
     }
 
     fun getRequest(): HashMap<String, String> {
-        return TODO() // отдаёт собранный запрос
+        return requestBuilderInteractor.getRequest()
     }
 
 }
