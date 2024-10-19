@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.search.domain.impl
 
-import ru.practicum.android.diploma.filters.areas.domain.models.Area
 import ru.practicum.android.diploma.filters.industries.domain.models.Industry
 import ru.practicum.android.diploma.search.data.model.SavedFilters
 import ru.practicum.android.diploma.search.domain.api.RequestBuilderInteractor
@@ -10,10 +9,6 @@ class RequestBuilderInteractorImpl(private val requestBuilderRepository: Request
     RequestBuilderInteractor {
     override fun setText(text: String) {
         requestBuilderRepository.setText(text)
-    }
-
-    override fun setCashArea(area: Area) {
-        requestBuilderRepository.setCashArea(area)
     }
 
     override fun setSalary(salary: String) {
@@ -36,31 +31,11 @@ class RequestBuilderInteractorImpl(private val requestBuilderRepository: Request
         requestBuilderRepository.cleanIndustry()
     }
 
-    override fun cleanArea() {
-        requestBuilderRepository.cleanArea()
-    }
-
     override fun getRequest(): HashMap<String, String> {
         return requestBuilderRepository.getRequest()
     }
 
     override fun getSavedFilters(): SavedFilters {
         return requestBuilderRepository.getSavedFilters()
-    }
-
-    override fun cleanCashRegion() {
-        requestBuilderRepository.cleanCashRegion()
-    }
-
-    override fun cleanCashArea() {
-        requestBuilderRepository.cleanCashArea()
-    }
-
-    override fun saveArea() {
-        requestBuilderRepository.saveArea()
-    }
-
-    override fun getCashArea(): Area? {
-        return requestBuilderRepository.getCashArea()
     }
 }

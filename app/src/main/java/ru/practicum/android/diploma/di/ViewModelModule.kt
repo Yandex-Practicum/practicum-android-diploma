@@ -29,15 +29,15 @@ val viewModelModule = module {
     }
 
     viewModel {
-        FilterSettingsViewModel(get())
+        FilterSettingsViewModel(get(), get())
     }
 
     viewModel {
-        CountrySelectViewModel(get(), get())
+        CountrySelectViewModel(get(), get(), get())
     }
 
     viewModel {
-        RegionSelectViewModel(get(), get())
+        RegionSelectViewModel(get(), get(), get())
     }
 
     viewModel {

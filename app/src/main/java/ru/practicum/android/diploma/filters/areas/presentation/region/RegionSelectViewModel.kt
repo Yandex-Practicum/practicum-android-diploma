@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.filters.areas.domain.api.AreaCashInteractor
 import ru.practicum.android.diploma.filters.areas.domain.api.FilterAreaInteractor
 import ru.practicum.android.diploma.filters.areas.domain.models.Area
 import ru.practicum.android.diploma.search.domain.api.RequestBuilderInteractor
@@ -13,7 +14,8 @@ import ru.practicum.android.diploma.util.network.HttpStatusCode
 
 class RegionSelectViewModel(
     private val getRegionsInteractor: FilterAreaInteractor,
-    private val requestBuilderInteractor: RequestBuilderInteractor
+    private val requestBuilderInteractor: RequestBuilderInteractor,
+    private val areaCashInteractor: AreaCashInteractor
 ) : ViewModel() {
 
     private var latestSearchText: String? = null
@@ -42,12 +44,12 @@ class RegionSelectViewModel(
             }
 
             else -> {
-                if (!requestBuilderInteractor.getCashArea()?.parentId.isNullOrBlank()) {
+                if (!areaCashInteractor.getCashArea()?.parentId.isNullOrBlank()) {
                     renderState(
                         RegionSelectScreenState.ChooseItem(
                             foundAreas.filter {
                                 it.id ==
-                                    requestBuilderInteractor.getCashArea()?.parentId
+                                    areaCashInteractor.getCashArea()?.parentId
                             }[0].areas
                         )
                     )
@@ -96,7 +98,7 @@ class RegionSelectViewModel(
             element.parentId == null && element.id == area.parentId
         }
         val fullArea = area.copy(parentName = country[0].name, areas = emptyList())
-        requestBuilderInteractor.setCashArea(fullArea)
+        areaCashInteractor.setCashArea(fullArea)
     }
 
     companion object {

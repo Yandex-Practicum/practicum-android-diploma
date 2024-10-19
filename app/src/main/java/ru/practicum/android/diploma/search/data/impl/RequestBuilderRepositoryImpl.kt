@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.search.data.impl
 import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
+import ru.practicum.android.diploma.filters.areas.domain.api.AreaCashRepository
 import ru.practicum.android.diploma.filters.areas.domain.models.Area
 import ru.practicum.android.diploma.filters.industries.domain.models.Industry
 import ru.practicum.android.diploma.search.data.model.SavedFilters
@@ -11,16 +12,12 @@ import ru.practicum.android.diploma.search.domain.api.RequestBuilderRepository
 class RequestBuilderRepositoryImpl(
     private val sharedPreferences: SharedPreferences,
     private val gson: Gson,
+    private val areaCashRepository: AreaCashRepository
 ) : RequestBuilderRepository {
     private val searchRequest: HashMap<String, String> = HashMap()
-    private var areaForSave: Area? = getArea()
 
     override fun setText(text: String) {
         searchRequest["text"] = text
-    }
-
-    override fun setCashArea(area: Area) {
-        areaForSave = area
     }
 
     override fun setIndustry(industry: Industry) {
@@ -47,17 +44,12 @@ class RequestBuilderRepositoryImpl(
         saveFilterValueInSharedPrefs(SAVED_INDUSTRY, "")
     }
 
-    override fun cleanArea() {
-        areaForSave = null
-        saveFilterValueInSharedPrefs(SAVED_AREA, "")
-    }
-
     override fun getRequest(): HashMap<String, String> {
         return searchRequest
     }
 
     override fun getSavedFilters(): SavedFilters {
-        areaForSave = getArea()
+        areaCashRepository.resetCashArea()
         return SavedFilters(
             savedArea = getArea(),
             savedIndustry = getIndustry(
@@ -67,33 +59,6 @@ class RequestBuilderRepositoryImpl(
             savedSalary = sharedPreferences.getString(SAVED_SALARY, ""),
             savedIsShowWithSalary = sharedPreferences.getBoolean(SAVED_SHOW_WITH_SALARY, false)
         )
-    }
-
-    override fun cleanCashRegion() {
-        areaForSave = areaForSave?.copy(id = "", name = "")
-    }
-
-    override fun cleanCashArea() {
-        areaForSave = null
-    }
-
-    override fun saveArea() {
-        val area: Area
-        if (areaForSave != null) {
-            area = areaForSave!!
-            if (area.id.isNotBlank()) {
-                searchRequest["area"] = area.id
-            } else if (!area.parentId.isNullOrBlank()) {
-                searchRequest["area"] = area.parentId
-            }
-            saveFilterValueInSharedPrefs(SAVED_AREA, gson.toJson(areaForSave))
-        } else {
-            saveFilterValueInSharedPrefs(SAVED_AREA, "")
-        }
-    }
-
-    override fun getCashArea(): Area? {
-        return areaForSave
     }
 
     private fun saveFilterValueInSharedPrefs(key: String, value: String) {
