@@ -4,10 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.practicum.android.diploma.filters.areas.domain.api.AreaCashInteractor
-import ru.practicum.android.diploma.filters.areas.domain.api.SearchRegionsByNameInteractor
 
 class BaseAreaSelectViewModel(
-    private val interactor: SearchRegionsByNameInteractor,
     private val areaCashInteractor: AreaCashInteractor
 ) : ViewModel() {
     private val countryAndRegionStateMap = MutableLiveData<Pair<String, String>>()
