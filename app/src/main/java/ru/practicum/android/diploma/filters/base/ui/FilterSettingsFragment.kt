@@ -16,9 +16,6 @@ import ru.practicum.android.diploma.databinding.FilterSettingsFragmentBinding
 import ru.practicum.android.diploma.filters.base.presentation.FilterSettingsStateScreen
 import ru.practicum.android.diploma.filters.base.presentation.FilterSettingsViewModel
 import ru.practicum.android.diploma.util.hideKeyboard
-import java.text.DecimalFormat
-import java.text.DecimalFormatSymbols
-import java.util.Locale
 
 class FilterSettingsFragment : Fragment() {
     private var _binding: FilterSettingsFragmentBinding? = null
