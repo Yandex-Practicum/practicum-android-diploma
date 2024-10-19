@@ -38,4 +38,16 @@ class RequestBuilderInteractorImpl(private val requestBuilderRepository: Request
     override fun getSavedFilters(): SavedFilters {
         return requestBuilderRepository.getSavedFilters()
     }
+
+    override fun updateBufferedSavedFilters(newBufferedSavedFilters: SavedFilters) {
+        requestBuilderRepository.updateBufferedSavedFilters(newBufferedSavedFilters)
+    }
+
+    override fun getBufferedSavedFilters(): SavedFilters {
+        return requestBuilderRepository.getBufferedSavedFilters()
+    }
+
+    override fun saveFiltersToShared() {
+        requestBuilderRepository.saveFiltersToShared()
+    }
 }

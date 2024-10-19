@@ -12,4 +12,7 @@ interface RequestBuilderRepository {
     fun cleanIndustry()
     fun getRequest(): HashMap<String, String>
     fun getSavedFilters(): SavedFilters
+    fun updateBufferedSavedFilters(newBufferedSavedFilters: SavedFilters)
+    fun getBufferedSavedFilters(): SavedFilters
+    fun saveFiltersToShared()
 }

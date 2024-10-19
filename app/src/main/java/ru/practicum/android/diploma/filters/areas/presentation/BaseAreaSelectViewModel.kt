@@ -10,7 +10,9 @@ class BaseAreaSelectViewModel(
 ) : ViewModel() {
     private val countryAndRegionStateMap = MutableLiveData<Pair<String, String>>()
     val getCountryAndRegionStateMap: LiveData<Pair<String, String>> = countryAndRegionStateMap
-
+    init {
+        areaCashInteractor.resetCashArea()
+    }
     fun updateFields() {
         val area = areaCashInteractor.getCashArea()
         val country = area?.parentName
@@ -34,6 +36,9 @@ class BaseAreaSelectViewModel(
         updateFields()
     }
 
+    fun resetCashArea() {
+        areaCashInteractor.resetCashArea()
+    }
     fun saveArea() {
         areaCashInteractor.saveArea()
     }

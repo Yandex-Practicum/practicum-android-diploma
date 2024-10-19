@@ -29,7 +29,7 @@ val viewModelModule = module {
     }
 
     viewModel {
-        FilterSettingsViewModel(get(), get())
+        FilterSettingsViewModel(get())
     }
 
     viewModel {

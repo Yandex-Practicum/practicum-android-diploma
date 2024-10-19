@@ -3,7 +3,6 @@ package ru.practicum.android.diploma.search.data.impl
 import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
-import ru.practicum.android.diploma.filters.areas.domain.api.AreaCashRepository
 import ru.practicum.android.diploma.filters.areas.domain.models.Area
 import ru.practicum.android.diploma.filters.industries.domain.models.Industry
 import ru.practicum.android.diploma.search.data.model.SavedFilters
@@ -12,8 +11,8 @@ import ru.practicum.android.diploma.search.domain.api.RequestBuilderRepository
 class RequestBuilderRepositoryImpl(
     private val sharedPreferences: SharedPreferences,
     private val gson: Gson,
-    private val areaCashRepository: AreaCashRepository
 ) : RequestBuilderRepository {
+    private var bufferedSavedFilters = getSavedFilters()
     private val searchRequest: HashMap<String, String> = HashMap()
 
     override fun setText(text: String) {
@@ -22,12 +21,12 @@ class RequestBuilderRepositoryImpl(
 
     override fun setIndustry(industry: Industry) {
         searchRequest["industry"] = industry.id
-        saveFilterValueInSharedPrefs(SAVED_INDUSTRY, gson.toJson(industry))
+        bufferedSavedFilters = bufferedSavedFilters.copy(savedIndustry = industry)
     }
 
     override fun setSalary(salary: String) {
         searchRequest["salary"] = salary
-        saveFilterValueInSharedPrefs(SAVED_SALARY, salary)
+        bufferedSavedFilters = bufferedSavedFilters.copy(savedSalary = salary)
     }
 
     override fun setCurrency(currency: String) {
@@ -37,7 +36,7 @@ class RequestBuilderRepositoryImpl(
 
     override fun setIsShowWithSalary(isShowWithSalary: Boolean) {
         searchRequest["only_with_salary"] = isShowWithSalary.toString()
-        saveFilterValueInSharedPrefs(SAVED_SHOW_WITH_SALARY, isShowWithSalary.toString())
+        bufferedSavedFilters = bufferedSavedFilters.copy(savedIsShowWithSalary = isShowWithSalary)
     }
 
     override fun cleanIndustry() {
@@ -49,7 +48,6 @@ class RequestBuilderRepositoryImpl(
     }
 
     override fun getSavedFilters(): SavedFilters {
-        areaCashRepository.resetCashArea()
         return SavedFilters(
             savedArea = getArea(),
             savedIndustry = getIndustry(
@@ -60,6 +58,21 @@ class RequestBuilderRepositoryImpl(
             savedIsShowWithSalary = sharedPreferences
                 .getString(SAVED_SHOW_WITH_SALARY, false.toString()).toBoolean()
         )
+    }
+
+    override fun updateBufferedSavedFilters(newBufferedSavedFilters: SavedFilters) {
+        bufferedSavedFilters = newBufferedSavedFilters
+    }
+
+    override fun getBufferedSavedFilters(): SavedFilters {
+        return bufferedSavedFilters
+    }
+
+    override fun saveFiltersToShared() {
+        saveFilterValueInSharedPrefs(SAVED_SALARY, bufferedSavedFilters.savedSalary ?: "")
+        saveFilterValueInSharedPrefs(SAVED_INDUSTRY, gson.toJson(bufferedSavedFilters.savedIndustry))
+        saveFilterValueInSharedPrefs(SAVED_AREA, gson.toJson(bufferedSavedFilters.savedArea))
+        saveFilterValueInSharedPrefs(SAVED_SHOW_WITH_SALARY, bufferedSavedFilters.savedIsShowWithSalary.toString())
     }
 
     private fun saveFilterValueInSharedPrefs(key: String, value: String) {

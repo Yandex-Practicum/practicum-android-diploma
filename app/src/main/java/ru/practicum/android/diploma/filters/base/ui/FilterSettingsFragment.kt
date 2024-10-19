@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -44,6 +45,7 @@ class FilterSettingsFragment : Fragment() {
         binding.applyButton.setOnClickListener {
             viewModel.setSalary(binding.editText.text.toString())
             viewModel.setIsShowWithSalary(binding.salaryCheckbox.isChecked)
+            viewModel.saveFilters()
         }
 
         val salaryTextWatcher = object : TextWatcher {
@@ -66,6 +68,16 @@ class FilterSettingsFragment : Fragment() {
             clearSalary()
         }
         areaAndIndustryClickListenersInit()
+
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    viewModel.cleanCashArea()
+                    findNavController().popBackStack()
+                }
+            }
+        )
     }
 
     private fun areaAndIndustryClickListenersInit() {
@@ -78,7 +90,7 @@ class FilterSettingsFragment : Fragment() {
             if (binding.areaEditText.text?.isNotBlank() == true) {
                 cleanField(binding.areaEditText)
                 binding.areaInputLayout.setEndIconDrawable(R.drawable.ic_arrow_forward_24px)
-                viewModel.clearArea()
+                viewModel.cleanCashArea()
             } else {
                 findNavController().navigate(
                     R.id.action_filterSettingsFragment_to_workingRegionFragment
@@ -116,26 +128,32 @@ class FilterSettingsFragment : Fragment() {
         viewModel.getBaseFiltersScreenState.observe(viewLifecycleOwner) { fields ->
             when (fields) {
                 is FilterSettingsStateScreen.FilterSettings -> {
-                    if (fields.area.isNotEmpty()) {
+                    binding.applyButton.visibility = View.VISIBLE
+                    if (fields.area.isNotBlank()) {
                         binding.areaEditText.apply {
-                            setText(fields.area)
                             isActivated = true
+                            setText(fields.area)
                         }
                         binding.areaInputLayout.setEndIconDrawable(R.drawable.ic_close_24px)
+                    } else {
+                        cleanField(binding.areaEditText)
+                        binding.areaInputLayout.setEndIconDrawable(R.drawable.ic_arrow_forward_24px)
                     }
-
-                    if (fields.industry.isNotEmpty()) {
+                    if (fields.industry.isNotBlank()) {
                         binding.industryEditText.apply {
                             setText(fields.industry)
                             isActivated = true
                         }
                         binding.industryInputLayout.setEndIconDrawable(R.drawable.ic_close_24px)
+                    } else {
+                        cleanField(binding.industryEditText)
+                        binding.industryInputLayout.setEndIconDrawable(R.drawable.ic_arrow_forward_24px)
                     }
 
                     if (fields.salary.isNotEmpty()) {
                         binding.editText.setText(fields.salary)
                     }
-                    binding.salaryCheckbox.isActivated = fields.showWithSalary
+                    binding.salaryCheckbox.isChecked = fields.showWithSalary
                 }
             }
         }

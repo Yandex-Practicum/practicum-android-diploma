@@ -2,14 +2,15 @@ package ru.practicum.android.diploma.filters.areas.data.impl
 
 import android.content.SharedPreferences
 import com.google.gson.Gson
-import com.google.gson.JsonParseException
 import ru.practicum.android.diploma.filters.areas.domain.api.AreaCashRepository
 import ru.practicum.android.diploma.filters.areas.domain.models.Area
 import ru.practicum.android.diploma.search.data.impl.RequestBuilderRepositoryImpl.Companion.SAVED_AREA
+import ru.practicum.android.diploma.search.domain.api.RequestBuilderRepository
 
 class AreaCashRepositoryImpl(
     private val sharedPreferences: SharedPreferences,
-    private val gson: Gson
+    private val gson: Gson,
+    private val requestBuilderRepository: RequestBuilderRepository
 ) : AreaCashRepository {
     private var areaForSave: Area? = getArea()
 
@@ -31,10 +32,11 @@ class AreaCashRepositoryImpl(
     }
 
     override fun saveArea() {
+        val bufSavedFilters = requestBuilderRepository.getBufferedSavedFilters()
         if (areaForSave != null) {
-            saveAreaValueInSharedPrefs(gson.toJson(areaForSave))
+            requestBuilderRepository.updateBufferedSavedFilters(bufSavedFilters.copy(savedArea = areaForSave))
         } else {
-            saveAreaValueInSharedPrefs("")
+            requestBuilderRepository.updateBufferedSavedFilters(bufSavedFilters.copy(savedArea = null))
         }
     }
 
@@ -47,14 +49,7 @@ class AreaCashRepositoryImpl(
     }
 
     private fun getArea(): Area? {
-        val json = sharedPreferences.getString(SAVED_AREA, "")
-        if (json.isNullOrEmpty()) return null
-        return try {
-            gson.fromJson(json, Area::class.java)
-
-        } catch (e: JsonParseException) {
-            null
-        }
+        return requestBuilderRepository.getBufferedSavedFilters().savedArea
     }
 
     private fun saveAreaValueInSharedPrefs(value: String) {

@@ -39,10 +39,10 @@ val repositoryModule = module {
     }
 
     single<RequestBuilderRepository> {
-        RequestBuilderRepositoryImpl(get(), get(), get())
+        RequestBuilderRepositoryImpl(get(), get())
     }
 
     single<AreaCashRepository> {
-        AreaCashRepositoryImpl(get(), get())
+        AreaCashRepositoryImpl(get(), get(), get())
     }
 }
