@@ -34,6 +34,7 @@ class BaseAreaSelectFragment : Fragment() {
             findNavController().popBackStack()
         }
         binding.applyButton.setOnClickListener {
+            viewModel.saveArea()
             findNavController().popBackStack()
         }
         countryAndRegionSelectClickListenerInit()

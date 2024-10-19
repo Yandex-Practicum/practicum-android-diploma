@@ -12,6 +12,7 @@ class RequestBuilderRepositoryImpl(
     private val sharedPreferences: SharedPreferences,
     private val gson: Gson,
 ) : RequestBuilderRepository {
+    private var bufferedSavedFilters = getSavedFilters()
     private val searchRequest: HashMap<String, String> = HashMap()
 
     override fun setText(text: String) {
@@ -57,6 +58,14 @@ class RequestBuilderRepositoryImpl(
             savedIsShowWithSalary = sharedPreferences
                 .getString(SAVED_SHOW_WITH_SALARY, false.toString()).toBoolean()
         )
+    }
+
+    override fun updateBufferedSavedFilters(newBufferedSavedFilters: SavedFilters) {
+       bufferedSavedFilters = newBufferedSavedFilters
+    }
+
+    override fun getBufferedSavedFilters(): SavedFilters {
+        return bufferedSavedFilters
     }
 
     private fun saveFilterValueInSharedPrefs(key: String, value: String) {
