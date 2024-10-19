@@ -14,7 +14,7 @@ import ru.practicum.android.diploma.util.network.HttpStatusCode
 
 class VacancySearchViewModel(
     private val searchVacancyInteractor: SearchVacancyInteractor,
-    requestBuilderInteractor: RequestBuilderInteractor
+    private val requestBuilderInteractor: RequestBuilderInteractor
 ) : ViewModel() {
 
     private var latestSearchText: String? = null
@@ -56,10 +56,10 @@ class VacancySearchViewModel(
     }
 
     fun checkFilter(): Boolean {
-        val filter =
-        return !(filter.savedArea.isNullOrEmpty() &&
+        val filter = requestBuilderInteractor.getSavedFilters()
+        return !(filter.savedArea == null &&
             filter.savedSalary.isNullOrEmpty() &&
-            filter.savedIndustry.isNullOrEmpty() &&
+            filter.savedIndustry == null &&
             filter.savedIsShowWithSalary == false)
     }
 
