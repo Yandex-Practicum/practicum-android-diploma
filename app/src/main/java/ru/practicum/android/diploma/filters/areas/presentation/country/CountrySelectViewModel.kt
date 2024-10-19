@@ -57,7 +57,8 @@ class CountrySelectViewModel(
     }
 
     fun saveCountry(area: Area) {
-        requestBuilderInteractor.setArea(area)
+        val savedArea = Area("", "", area.id, area.name, emptyList())
+        requestBuilderInteractor.setCashArea(savedArea)
     }
 
     private fun convertToCountries(foundCountries: List<Area>): List<Area> {

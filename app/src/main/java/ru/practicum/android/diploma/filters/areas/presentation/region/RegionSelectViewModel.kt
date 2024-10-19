@@ -42,11 +42,22 @@ class RegionSelectViewModel(
             }
 
             else -> {
-                renderState(
-                    RegionSelectScreenState.ChooseItem(
-                        convertToRegions(foundAreas)
+                if (!requestBuilderInteractor.getCashArea()?.parentId.isNullOrBlank()) {
+                    renderState(
+                        RegionSelectScreenState.ChooseItem(
+                            foundAreas.filter {
+                                it.id ==
+                                    requestBuilderInteractor.getCashArea()?.parentId
+                            }[0].areas
+                        )
                     )
-                )
+                } else {
+                    renderState(
+                        RegionSelectScreenState.ChooseItem(
+                            convertToRegions(foundAreas)
+                        )
+                    )
+                }
             }
         }
     }
@@ -84,8 +95,8 @@ class RegionSelectViewModel(
         val country = countryList.filter { element ->
             element.parentId == null && element.id == area.parentId
         }
-        val fullArea = area.copy(parentName = country[0].name)
-        requestBuilderInteractor.setArea(fullArea)
+        val fullArea = area.copy(parentName = country[0].name, areas = emptyList())
+        requestBuilderInteractor.setCashArea(fullArea)
     }
 
     companion object {

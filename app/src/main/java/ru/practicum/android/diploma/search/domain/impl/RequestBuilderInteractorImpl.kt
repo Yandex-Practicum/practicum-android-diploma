@@ -12,8 +12,8 @@ class RequestBuilderInteractorImpl(private val requestBuilderRepository: Request
         requestBuilderRepository.setText(text)
     }
 
-    override fun setArea(area: Area) {
-        requestBuilderRepository.setArea(area)
+    override fun setCashArea(area: Area) {
+        requestBuilderRepository.setCashArea(area)
     }
 
     override fun setSalary(salary: String) {
@@ -46,5 +46,21 @@ class RequestBuilderInteractorImpl(private val requestBuilderRepository: Request
 
     override fun getSavedFilters(): SavedFilters {
         return requestBuilderRepository.getSavedFilters()
+    }
+
+    override fun cleanCashRegion() {
+        requestBuilderRepository.cleanCashRegion()
+    }
+
+    override fun cleanCashArea() {
+        requestBuilderRepository.cleanCashArea()
+    }
+
+    override fun saveArea() {
+        requestBuilderRepository.saveArea()
+    }
+
+    override fun getCashArea(): Area? {
+        return requestBuilderRepository.getCashArea()
     }
 }

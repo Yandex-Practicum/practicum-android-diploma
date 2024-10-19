@@ -6,7 +6,7 @@ import ru.practicum.android.diploma.search.data.model.SavedFilters
 
 interface RequestBuilderInteractor {
     fun setText(text: String)
-    fun setArea(area: Area)
+    fun setCashArea(area: Area)
     fun setSalary(salary: String)
     fun setIndustry(industry: Industry)
     fun setCurrency(currency: String)
@@ -15,4 +15,8 @@ interface RequestBuilderInteractor {
     fun cleanArea()
     fun getRequest(): HashMap<String, String>
     fun getSavedFilters(): SavedFilters
+    fun cleanCashRegion()
+    fun cleanCashArea()
+    fun saveArea()
+    fun getCashArea(): Area?
 }

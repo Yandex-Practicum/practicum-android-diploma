@@ -19,7 +19,6 @@ import ru.practicum.android.diploma.filters.areas.presentation.region.RegionSele
 import ru.practicum.android.diploma.filters.areas.ui.presenter.RegionSelectRecyclerViewAdapter
 import ru.practicum.android.diploma.filters.industries.ui.IndustrySelectFragment
 import ru.practicum.android.diploma.root.ui.RootActivity
-import ru.practicum.android.diploma.util.hideKeyboard
 
 class RegionSelectFragment : Fragment() {
     private var _binding: RegionSelectFragmentBinding? = null
@@ -117,7 +116,6 @@ class RegionSelectFragment : Fragment() {
     }
 
     private fun showFilteredResult(request: String) {
-        view?.hideKeyboard()
         adapter.filterResults(request)
     }
 

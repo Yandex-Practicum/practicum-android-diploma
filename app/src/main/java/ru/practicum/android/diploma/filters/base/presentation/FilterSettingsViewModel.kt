@@ -16,10 +16,16 @@ class FilterSettingsViewModel(private val requestBuilderInteractor: RequestBuild
 
     fun checkFilterFields() {
         val filters = initFilters()
+        val areaName: String = if (!filters.savedArea?.name.isNullOrBlank()) {
+            "${filters.savedArea?.parentName}, ${filters.savedArea?.name}"
+        } else {
+            filters.savedArea?.parentName ?: ""
+        }
+
         baseFilterScreenState.value =
             FilterSettingsStateScreen.FilterSettings(
-                filters.savedArea ?: "",
-                filters.savedIndustry ?: "",
+                areaName,
+                filters.savedIndustry?.name ?: "",
                 filters.savedSalary ?: "",
                 filters.savedIsShowWithSalary ?: false
             )
