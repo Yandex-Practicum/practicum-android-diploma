@@ -34,18 +34,6 @@ class FilterSettingsViewModel(private val requestBuilderInteractor: RequestBuild
         requestBuilderInteractor.cleanIndustry()
     }
 
-    fun setText(text: String) {
-        // добавляет в запрос текст поиска
-    }
-
-    fun setArea(area: String) {
-        // добавляет в запрос регион поиска и сохраняет его в sharedPrefs
-    }
-
-    fun setIndustry(industry: String) {
-        // добавляет в запрос отрасль работы и сохраняет её в sharedPrefs
-    }
-
     fun setSalary(salary: String) {
         requestBuilderInteractor.setSalary(salary)
     }
