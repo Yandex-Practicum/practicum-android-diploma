@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.search.domain.api.RequestBuilderInteractor
 import ru.practicum.android.diploma.search.domain.api.SearchVacancyInteractor
 import ru.practicum.android.diploma.search.domain.models.VacancyListResponseData
 import ru.practicum.android.diploma.search.domain.models.VacancySearch
@@ -12,7 +13,8 @@ import ru.practicum.android.diploma.util.debounce
 import ru.practicum.android.diploma.util.network.HttpStatusCode
 
 class VacancySearchViewModel(
-    private val interactor: SearchVacancyInteractor,
+    private val searchVacancyInteractor: SearchVacancyInteractor,
+    requestBuilderInteractor: RequestBuilderInteractor
 ) : ViewModel() {
 
     private var latestSearchText: String? = null
@@ -21,7 +23,8 @@ class VacancySearchViewModel(
     private val stateLiveData = MutableLiveData<VacancySearchScreenState>()
     private val currentVacancyList = mutableListOf<VacancySearch>()
     fun getStateObserve(): LiveData<VacancySearchScreenState> = stateLiveData
-    private val query = HashMap<String, String>()
+
+    private var query = requestBuilderInteractor.getRequest()
 
     fun loadData(text: String) {
         if (text.isNotEmpty()) {
@@ -29,7 +32,7 @@ class VacancySearchViewModel(
             query["text"] = text
             query["page"] = "0"
             viewModelScope.launch {
-                interactor
+                searchVacancyInteractor
                     .getVacancyList(query)
                     .collect { pairFoundAndMessage ->
                         vacanciesSearchData = pairFoundAndMessage.first
@@ -43,7 +46,7 @@ class VacancySearchViewModel(
         query["text"] = changedText
         query["page"] = vacanciesSearchData?.page?.plus(1).toString()
         viewModelScope.launch {
-            interactor
+            searchVacancyInteractor
                 .getVacancyList(query)
                 .collect { pairFoundAndMessage ->
                     vacanciesSearchData = pairFoundAndMessage.first
