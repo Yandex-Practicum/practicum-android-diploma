@@ -57,10 +57,12 @@ class VacancySearchViewModel(
 
     fun checkFilter(): Boolean {
         val filter = requestBuilderInteractor.getSavedFilters()
-        return !(filter.savedArea == null &&
-            filter.savedSalary.isNullOrEmpty() &&
-            filter.savedIndustry == null &&
-            filter.savedIsShowWithSalary == false)
+        return !(
+            filter.savedArea == null &&
+                filter.savedSalary.isNullOrEmpty() &&
+                filter.savedIndustry == null &&
+                filter.savedIsShowWithSalary == false
+            )
     }
 
     fun searchDebounce(changedText: String) {

@@ -67,6 +67,10 @@ class RegionSelectFragment : Fragment() {
                 viewModel.searchDebounce(
                     changedText = inputTextValue
                 )
+
+                if (textInInputField.isNullOrEmpty()) {
+                    viewModel.getAllRegions()
+                }
             }
 
             override fun afterTextChanged(s: Editable?) {
