@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.search.domain.api.RequestBuilderInteractor
 import ru.practicum.android.diploma.search.domain.api.SearchVacancyInteractor
 import ru.practicum.android.diploma.search.domain.models.VacancyListResponseData
 import ru.practicum.android.diploma.search.domain.models.VacancySearch
@@ -13,6 +14,7 @@ import ru.practicum.android.diploma.util.network.HttpStatusCode
 
 class VacancySearchViewModel(
     private val interactor: SearchVacancyInteractor,
+    private val requestBuilderInteractor: RequestBuilderInteractor
 ) : ViewModel() {
 
     private var latestSearchText: String? = null
@@ -50,6 +52,14 @@ class VacancySearchViewModel(
                     nextPageProcessingState(pairFoundAndMessage.first?.items, pairFoundAndMessage.second)
                 }
         }
+    }
+
+    fun checkFilter(): Boolean {
+        val filter = requestBuilderInteractor.getSavedFilters()
+        return !(filter.savedArea.isNullOrEmpty() &&
+            filter.savedSalary.isNullOrEmpty() &&
+            filter.savedIndustry.isNullOrEmpty() &&
+            filter.savedIsShowWithSalary == false)
     }
 
     fun searchDebounce(changedText: String) {
