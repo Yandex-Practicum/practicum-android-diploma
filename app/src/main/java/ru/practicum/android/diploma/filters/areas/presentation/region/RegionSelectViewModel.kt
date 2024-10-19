@@ -22,6 +22,7 @@ class RegionSelectViewModel(
     fun observeState(): LiveData<RegionSelectScreenState> = stateLiveData
 
     fun getAllRegions() {
+        stateLiveData.value = RegionSelectScreenState.Loading
         viewModelScope.launch {
             getRegionsInteractor
                 .getCountries()

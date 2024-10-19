@@ -103,7 +103,16 @@ class RegionSelectFragment : Fragment() {
             RegionSelectScreenState.NetworkError -> showNetworkError()
             RegionSelectScreenState.ServerError -> showServerError()
             is RegionSelectScreenState.FilterRequest -> showFilteredResult(state.request)
+            is RegionSelectScreenState.Loading -> showLoading()
         }
+    }
+
+    private fun showLoading() {
+        binding.notConnectedPlaceholder.isVisible = false
+        binding.recyclerView.isVisible = false
+        binding.emptyPlaceholder.isVisible = false
+        binding.notFoundPlaceholder.isVisible = false
+        binding.progressCircular.isVisible = true
     }
 
     private fun showContent(item: List<Area>) {
@@ -111,6 +120,7 @@ class RegionSelectFragment : Fragment() {
         binding.recyclerView.isVisible = true
         binding.emptyPlaceholder.isVisible = false
         binding.notFoundPlaceholder.isVisible = false
+        binding.progressCircular.isVisible = false
         adapter.list.clear()
         adapter.list.addAll(item)
         adapter.notifyDataSetChanged()
@@ -125,6 +135,7 @@ class RegionSelectFragment : Fragment() {
         binding.notFoundPlaceholder.isVisible = true
         binding.recyclerView.isVisible = false
         binding.emptyPlaceholder.isVisible = false
+        binding.progressCircular.isVisible = false
     }
 
     private fun showNetworkError() {
@@ -132,6 +143,7 @@ class RegionSelectFragment : Fragment() {
         binding.notFoundPlaceholder.isVisible = false
         binding.recyclerView.isVisible = false
         binding.emptyPlaceholder.isVisible = false
+        binding.progressCircular.isVisible = false
     }
 
     private fun showServerError() {
@@ -139,6 +151,7 @@ class RegionSelectFragment : Fragment() {
         binding.notFoundPlaceholder.isVisible = false
         binding.recyclerView.isVisible = false
         binding.emptyPlaceholder.isVisible = true
+        binding.progressCircular.isVisible = false
         binding.image.setImageResource(R.drawable.search_server_error_placeholder)
         binding.text.setText(R.string.server_error)
     }
