@@ -107,6 +107,7 @@ class RegionSelectFragment : Fragment() {
     }
 
     private fun showContent(item: List<Area>) {
+        binding.notConnectedPlaceholder.isVisible = false
         binding.recyclerView.isVisible = true
         binding.emptyPlaceholder.isVisible = false
         binding.notFoundPlaceholder.isVisible = false
@@ -120,18 +121,21 @@ class RegionSelectFragment : Fragment() {
     }
 
     private fun showEmpty() {
+        binding.notConnectedPlaceholder.isVisible = false
         binding.notFoundPlaceholder.isVisible = true
         binding.recyclerView.isVisible = false
         binding.emptyPlaceholder.isVisible = false
     }
 
     private fun showNetworkError() {
+        binding.notConnectedPlaceholder.isVisible = true
         binding.notFoundPlaceholder.isVisible = false
         binding.recyclerView.isVisible = false
-        binding.emptyPlaceholder.isVisible = true
+        binding.emptyPlaceholder.isVisible = false
     }
 
     private fun showServerError() {
+        binding.notConnectedPlaceholder.isVisible = false
         binding.notFoundPlaceholder.isVisible = false
         binding.recyclerView.isVisible = false
         binding.emptyPlaceholder.isVisible = true
