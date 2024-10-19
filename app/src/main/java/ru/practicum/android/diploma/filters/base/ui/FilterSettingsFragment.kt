@@ -24,7 +24,6 @@ class FilterSettingsFragment : Fragment() {
     private var _binding: FilterSettingsFragmentBinding? = null
     private val binding get() = _binding!!
     private val viewModel: FilterSettingsViewModel by viewModel()
-    private val formatter = DecimalFormat("#,###")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,7 +50,6 @@ class FilterSettingsFragment : Fragment() {
         }
 
         val salaryTextWatcher = object : TextWatcher {
-            private var current = ""
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 // коммент для детекта
             }
@@ -61,17 +59,7 @@ class FilterSettingsFragment : Fragment() {
             }
 
             override fun afterTextChanged(editableText: Editable?) {
-                if (editableText.toString() != current) {
-                    val cleanString = editableText.toString().replace("[^\\d]".toRegex(), "")
-                    val parsed = cleanString.toLongOrNull()
-                    val formatted = parsed?.let {
-                        formatter.format(it).replace(",", " ")
-                    } ?: ""
-
-                    current = formatted
-                    binding.editText.setText(formatted)
-                    binding.editText.setSelection(formatted.length)
-                }
+                // коммент для детекта
             }
         }
 
