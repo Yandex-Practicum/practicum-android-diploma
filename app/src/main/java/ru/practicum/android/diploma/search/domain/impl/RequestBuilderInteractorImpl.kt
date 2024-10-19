@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.search.domain.impl
 
-import ru.practicum.android.diploma.filters.areas.domain.models.Area
 import ru.practicum.android.diploma.filters.industries.domain.models.Industry
 import ru.practicum.android.diploma.search.data.model.SavedFilters
 import ru.practicum.android.diploma.search.domain.api.RequestBuilderInteractor
@@ -10,10 +9,6 @@ class RequestBuilderInteractorImpl(private val requestBuilderRepository: Request
     RequestBuilderInteractor {
     override fun setText(text: String) {
         requestBuilderRepository.setText(text)
-    }
-
-    override fun setArea(area: Area) {
-        requestBuilderRepository.setArea(area)
     }
 
     override fun setSalary(salary: String) {
@@ -34,10 +29,6 @@ class RequestBuilderInteractorImpl(private val requestBuilderRepository: Request
 
     override fun cleanIndustry() {
         requestBuilderRepository.cleanIndustry()
-    }
-
-    override fun cleanArea() {
-        requestBuilderRepository.cleanArea()
     }
 
     override fun getRequest(): HashMap<String, String> {

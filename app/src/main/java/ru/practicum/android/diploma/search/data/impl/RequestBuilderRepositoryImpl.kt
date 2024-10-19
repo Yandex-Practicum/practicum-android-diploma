@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.search.data.impl
 import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
+import ru.practicum.android.diploma.filters.areas.domain.api.AreaCashRepository
 import ru.practicum.android.diploma.filters.areas.domain.models.Area
 import ru.practicum.android.diploma.filters.industries.domain.models.Industry
 import ru.practicum.android.diploma.search.data.model.SavedFilters
@@ -11,30 +12,12 @@ import ru.practicum.android.diploma.search.domain.api.RequestBuilderRepository
 class RequestBuilderRepositoryImpl(
     private val sharedPreferences: SharedPreferences,
     private val gson: Gson,
+    private val areaCashRepository: AreaCashRepository
 ) : RequestBuilderRepository {
     private val searchRequest: HashMap<String, String> = HashMap()
-    private var areaForSave: Area? = null
 
     override fun setText(text: String) {
         searchRequest["text"] = text
-    }
-
-    override fun setArea(area: Area) {
-        searchRequest["area"] = area.id
-
-        if (areaForSave == null) areaForSave = area
-
-        if (area.parentId == null && areaForSave?.parentName == null) {
-            areaForSave = areaForSave?.copy(parentName = area.name)
-        } else if (area.parentId == null && areaForSave?.parentName != null) {
-            areaForSave = areaForSave?.copy(parentName = area.name, name = area.name)
-        } else if (areaForSave?.parentName != null) {
-            areaForSave = areaForSave?.copy(name = area.name)
-        } else {
-            areaForSave = areaForSave?.copy(parentName = "Тут запрос делать я хз?")
-        }
-
-        saveFilterValueInSharedPrefs(SAVED_AREA, gson.toJson(areaForSave))
     }
 
     override fun setIndustry(industry: Industry) {
@@ -61,20 +44,15 @@ class RequestBuilderRepositoryImpl(
         saveFilterValueInSharedPrefs(SAVED_INDUSTRY, "")
     }
 
-    override fun cleanArea() {
-        saveFilterValueInSharedPrefs(SAVED_AREA, "")
-    }
-
     override fun getRequest(): HashMap<String, String> {
         return searchRequest
     }
 
     override fun getSavedFilters(): SavedFilters {
+        areaCashRepository.resetCashArea()
         return SavedFilters(
-            savedArea = getAreaName(
-                sharedPreferences.getString(SAVED_AREA, "")
-            ),
-            savedIndustry = getIndustryName(
+            savedArea = getArea(),
+            savedIndustry = getIndustry(
                 sharedPreferences.getString(SAVED_INDUSTRY, "")
             ),
             savedCurrency = sharedPreferences.getString(SAVED_CURRENCY, ""),
@@ -90,25 +68,20 @@ class RequestBuilderRepositoryImpl(
             .apply()
     }
 
-    private fun getIndustryName(json: String?): String? {
+    private fun getIndustry(json: String?): Industry? {
         if (json.isNullOrEmpty()) return null
         return try {
-            val industry = gson.fromJson(json, Industry::class.java)
-            industry.name
+            gson.fromJson(json, Industry::class.java)
         } catch (e: JsonParseException) {
             null
         }
     }
 
-    private fun getAreaName(json: String?): String? {
+    private fun getArea(): Area? {
+        val json = sharedPreferences.getString(SAVED_AREA, "")
         if (json.isNullOrEmpty()) return null
         return try {
-            val area = gson.fromJson(json, Area::class.java)
-            if (area.parentName == area.name) {
-                "${area.parentName}"
-            } else {
-                "${area.parentName}, ${area.name}"
-            }
+            gson.fromJson(json, Area::class.java)
 
         } catch (e: JsonParseException) {
             null

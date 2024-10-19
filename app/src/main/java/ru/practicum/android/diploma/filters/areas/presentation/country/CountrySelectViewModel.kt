@@ -5,14 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.filters.areas.domain.api.AreaCashInteractor
 import ru.practicum.android.diploma.filters.areas.domain.api.FilterAreaInteractor
 import ru.practicum.android.diploma.filters.areas.domain.models.Area
-import ru.practicum.android.diploma.search.domain.api.RequestBuilderInteractor
 import ru.practicum.android.diploma.util.network.HttpStatusCode
 
 class CountrySelectViewModel(
     private val areaInteractor: FilterAreaInteractor,
-    private val requestBuilderInteractor: RequestBuilderInteractor
+    private val areaCashInteractor: AreaCashInteractor
 ) : ViewModel() {
 
     private val stateLiveData = MutableLiveData<CountrySelectScreenState>()
@@ -57,7 +57,8 @@ class CountrySelectViewModel(
     }
 
     fun saveCountry(area: Area) {
-        requestBuilderInteractor.setArea(area)
+        val savedArea = Area("", "", area.id, area.name, emptyList())
+        areaCashInteractor.setCashArea(savedArea)
     }
 
     private fun convertToCountries(foundCountries: List<Area>): List<Area> {
