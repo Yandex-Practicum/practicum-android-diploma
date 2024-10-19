@@ -79,7 +79,8 @@ class RequestBuilderRepositoryImpl(
             ),
             savedCurrency = sharedPreferences.getString(SAVED_CURRENCY, ""),
             savedSalary = sharedPreferences.getString(SAVED_SALARY, ""),
-            savedIsShowWithSalary = sharedPreferences.getBoolean(SAVED_SHOW_WITH_SALARY, false)
+            savedIsShowWithSalary = sharedPreferences
+                .getString(SAVED_SHOW_WITH_SALARY, false.toString()).toBoolean()
         )
     }
 
