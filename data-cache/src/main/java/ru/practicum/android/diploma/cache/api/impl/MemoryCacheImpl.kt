@@ -11,8 +11,10 @@ class MemoryCacheImpl : MemoryCache {
     private val cache: ConcurrentHashMap<String, List<CountryCache>> = ConcurrentHashMap()
 
     override fun putCountries(countriesCache: List<CountryCache>) {
-        if (getCountries() == null) {
-            cache.put(CACHE_KEY, countriesCache)
+        synchronized(this) {
+            if (getCountries() == null) {
+                cache.put(CACHE_KEY, countriesCache)
+            }
         }
     }
 
@@ -21,6 +23,8 @@ class MemoryCacheImpl : MemoryCache {
     }
 
     override fun clearCache() {
-        cache.remove(CACHE_KEY)
+        synchronized(this) {
+            cache.remove(CACHE_KEY)
+        }
     }
 }
