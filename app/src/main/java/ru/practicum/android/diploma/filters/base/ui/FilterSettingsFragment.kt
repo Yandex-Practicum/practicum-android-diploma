@@ -17,6 +17,8 @@ import ru.practicum.android.diploma.filters.base.presentation.FilterSettingsStat
 import ru.practicum.android.diploma.filters.base.presentation.FilterSettingsViewModel
 import ru.practicum.android.diploma.util.hideKeyboard
 import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.util.Locale
 
 class FilterSettingsFragment : Fragment() {
     private var _binding: FilterSettingsFragmentBinding? = null
@@ -62,7 +64,9 @@ class FilterSettingsFragment : Fragment() {
                 if (editableText.toString() != current) {
                     val cleanString = editableText.toString().replace("[^\\d]".toRegex(), "")
                     val parsed = cleanString.toLongOrNull()
-                    val formatted = parsed?.let { formatter.format(it) } ?: ""
+                    val formatted = parsed?.let {
+                        formatter.format(it).replace(",", " ")
+                    } ?: ""
 
                     current = formatted
                     binding.editText.setText(formatted)
