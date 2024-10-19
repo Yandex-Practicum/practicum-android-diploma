@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/area_input_layout"
+        android:id="@+id/country_input_layout"
         style="@style/FilterTextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
         app:endIconTint="@color/colorAdaptiveText"
         android:clickable="true"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/area_input_layout">
+        app:layout_constraintTop_toBottomOf="@id/country_input_layout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/region_select"

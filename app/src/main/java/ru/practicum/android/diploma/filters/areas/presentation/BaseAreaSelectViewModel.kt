@@ -3,26 +3,38 @@ package ru.practicum.android.diploma.filters.areas.presentation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import ru.practicum.android.diploma.search.domain.api.RequestBuilderInteractor
+import ru.practicum.android.diploma.filters.areas.domain.api.AreaCashInteractor
 
 class BaseAreaSelectViewModel(
-    private val requestBuilderInteractor: RequestBuilderInteractor
+    private val areaCashInteractor: AreaCashInteractor
 ) : ViewModel() {
-    private val countryAndRegionStateMap = MutableLiveData<Map<String, String>>()
-    val getCountryAndRegionStateMap: LiveData<Map<String, String>> = countryAndRegionStateMap
+    private val countryAndRegionStateMap = MutableLiveData<Pair<String, String>>()
+    val getCountryAndRegionStateMap: LiveData<Pair<String, String>> = countryAndRegionStateMap
 
     fun updateFields() {
-        val fields = TODO("Получить поля страна/регион")
-        // countryAndRegionStateMap.value = mapOf("country" to fields.country, "region" to fields.region)
+        val area = areaCashInteractor.getCashArea()
+        val country = area?.parentName
+        val region = area?.name
+        if (!country.isNullOrBlank() && !region.isNullOrBlank()) {
+            countryAndRegionStateMap.value = Pair(country, region)
+        } else if (!country.isNullOrBlank()) {
+            countryAndRegionStateMap.value = Pair(country, "")
+        } else {
+            countryAndRegionStateMap.value = Pair("", "")
+        }
     }
 
     fun clearAreaFilter() {
-        TODO("Очистить фильтр Area")
+        areaCashInteractor.cleanCashArea()
         updateFields()
     }
 
     fun clearRegionFilter() {
-        TODO("Очистить региона и поставить фильтр страны")
+        areaCashInteractor.cleanCashRegion()
         updateFields()
+    }
+
+    fun saveArea() {
+        areaCashInteractor.saveArea()
     }
 }
