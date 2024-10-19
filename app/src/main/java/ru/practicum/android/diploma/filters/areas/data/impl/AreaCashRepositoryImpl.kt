@@ -2,10 +2,8 @@ package ru.practicum.android.diploma.filters.areas.data.impl
 
 import android.content.SharedPreferences
 import com.google.gson.Gson
-import com.google.gson.JsonParseException
 import ru.practicum.android.diploma.filters.areas.domain.api.AreaCashRepository
 import ru.practicum.android.diploma.filters.areas.domain.models.Area
-import ru.practicum.android.diploma.search.data.impl.RequestBuilderRepositoryImpl
 import ru.practicum.android.diploma.search.data.impl.RequestBuilderRepositoryImpl.Companion.SAVED_AREA
 import ru.practicum.android.diploma.search.domain.api.RequestBuilderRepository
 
@@ -34,7 +32,7 @@ class AreaCashRepositoryImpl(
     }
 
     override fun saveArea() {
-            val bufSavedFilters = requestBuilderRepository.getBufferedSavedFilters()
+        val bufSavedFilters = requestBuilderRepository.getBufferedSavedFilters()
         if (areaForSave != null) {
             requestBuilderRepository.updateBufferedSavedFilters(bufSavedFilters.copy(savedArea = areaForSave))
         } else {

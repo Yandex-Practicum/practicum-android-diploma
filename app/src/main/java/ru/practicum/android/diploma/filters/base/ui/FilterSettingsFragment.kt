@@ -45,9 +45,9 @@ class FilterSettingsFragment : Fragment() {
         }
 
         binding.applyButton.setOnClickListener {
-            viewModel.saveFilters()
             viewModel.setSalary(binding.editText.text.toString())
             viewModel.setIsShowWithSalary(binding.salaryCheckbox.isChecked)
+            viewModel.saveFilters()
         }
 
         val salaryTextWatcher = object : TextWatcher {
@@ -150,7 +150,6 @@ class FilterSettingsFragment : Fragment() {
                         cleanField(binding.areaEditText)
                         binding.areaInputLayout.setEndIconDrawable(R.drawable.ic_arrow_forward_24px)
                     }
-
                     if (fields.industry.isNotBlank()) {
                         binding.industryEditText.apply {
                             setText(fields.industry)
@@ -165,7 +164,7 @@ class FilterSettingsFragment : Fragment() {
                     if (fields.salary.isNotEmpty()) {
                         binding.editText.setText(fields.salary)
                     }
-                    binding.salaryCheckbox.isActivated = fields.showWithSalary
+                    binding.salaryCheckbox.isChecked = fields.showWithSalary
                 }
             }
         }

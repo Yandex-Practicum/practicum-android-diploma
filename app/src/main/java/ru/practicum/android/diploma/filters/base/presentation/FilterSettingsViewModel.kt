@@ -15,6 +15,7 @@ class FilterSettingsViewModel(
     private fun initFilters(): SavedFilters {
         return requestBuilderInteractor.getBufferedSavedFilters()
     }
+
     init {
         requestBuilderInteractor.updateBufferedSavedFilters(requestBuilderInteractor.getSavedFilters())
     }
@@ -39,19 +40,25 @@ class FilterSettingsViewModel(
     }
 
     fun cleanCashArea() {
-        requestBuilderInteractor.updateBufferedSavedFilters(requestBuilderInteractor.getBufferedSavedFilters().copy(savedArea = null))
+        requestBuilderInteractor.updateBufferedSavedFilters(
+            requestBuilderInteractor.getBufferedSavedFilters().copy(savedArea = null)
+        )
     }
 
     fun clearIndustry() {
-        requestBuilderInteractor.updateBufferedSavedFilters(requestBuilderInteractor.getBufferedSavedFilters().copy(savedIndustry = null))
+        requestBuilderInteractor.updateBufferedSavedFilters(
+            requestBuilderInteractor.getBufferedSavedFilters().copy(savedIndustry = null)
+        )
     }
 
     fun setSalary(salary: String) {
         requestBuilderInteractor.setSalary(salary)
     }
+
     fun setIsShowWithSalary(isShowWithSalary: Boolean) {
         requestBuilderInteractor.setIsShowWithSalary(isShowWithSalary)
     }
+
     fun saveFilters() {
         requestBuilderInteractor.saveFiltersToShared()
     }
