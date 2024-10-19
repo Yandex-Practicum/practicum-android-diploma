@@ -14,7 +14,7 @@ class AreaCashInteractorImpl(val areaCashRepository: AreaCashRepository) : AreaC
     }
 
     override fun cleanCashRegion() {
-        areaCashRepository.cleanCashArea()
+        areaCashRepository.cleanCashRegion()
     }
 
     override fun cleanCashArea() {

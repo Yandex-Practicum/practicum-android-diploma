@@ -27,8 +27,8 @@ class BaseAreaSelectFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.updateFields()
         observeInit()
+        viewModel.updateFields()
         binding.toolBar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }

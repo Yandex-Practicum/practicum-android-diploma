@@ -33,11 +33,11 @@ val viewModelModule = module {
     }
 
     viewModel {
-        CountrySelectViewModel(get(), get(), get())
+        CountrySelectViewModel(get(), get())
     }
 
     viewModel {
-        RegionSelectViewModel(get(), get(), get())
+        RegionSelectViewModel(get(), get())
     }
 
     viewModel {
