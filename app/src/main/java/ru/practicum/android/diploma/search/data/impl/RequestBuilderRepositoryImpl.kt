@@ -21,7 +21,7 @@ class RequestBuilderRepositoryImpl(
 
     override fun setIndustry(industry: Industry) {
         searchRequest["industry"] = industry.id
-        saveFilterValueInSharedPrefs(SAVED_INDUSTRY, gson.toJson(industry))
+        bufferedSavedFilters = bufferedSavedFilters.copy(savedIndustry = industry)
     }
 
     override fun setSalary(salary: String) {
@@ -61,11 +61,19 @@ class RequestBuilderRepositoryImpl(
     }
 
     override fun updateBufferedSavedFilters(newBufferedSavedFilters: SavedFilters) {
-       bufferedSavedFilters = newBufferedSavedFilters
+        bufferedSavedFilters = newBufferedSavedFilters
     }
 
     override fun getBufferedSavedFilters(): SavedFilters {
         return bufferedSavedFilters
+    }
+
+    override fun saveFiltersToShared() {
+        saveFilterValueInSharedPrefs(SAVED_SALARY, bufferedSavedFilters.savedSalary?: "")
+        saveFilterValueInSharedPrefs(SAVED_INDUSTRY, gson.toJson(bufferedSavedFilters.savedIndustry))
+        saveFilterValueInSharedPrefs(SAVED_AREA, gson.toJson(bufferedSavedFilters.savedArea))
+        saveFilterValueInSharedPrefs(SAVED_SHOW_WITH_SALARY, bufferedSavedFilters.savedIsShowWithSalary.toString())
+
     }
 
     private fun saveFilterValueInSharedPrefs(key: String, value: String) {

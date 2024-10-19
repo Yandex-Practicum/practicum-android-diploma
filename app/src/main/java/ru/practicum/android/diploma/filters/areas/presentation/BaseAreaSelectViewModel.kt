@@ -39,7 +39,7 @@ class BaseAreaSelectViewModel(
     fun resetCashArea() {
         areaCashInteractor.resetCashArea()
     }
-    fun saveArea(){
+    fun saveArea() {
         areaCashInteractor.saveArea()
     }
 }

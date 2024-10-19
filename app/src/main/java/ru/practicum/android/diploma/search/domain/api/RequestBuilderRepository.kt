@@ -14,4 +14,5 @@ interface RequestBuilderRepository {
     fun getSavedFilters(): SavedFilters
     fun updateBufferedSavedFilters(newBufferedSavedFilters: SavedFilters)
     fun getBufferedSavedFilters(): SavedFilters
+    fun saveFiltersToShared()
 }

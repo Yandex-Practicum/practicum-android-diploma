@@ -45,7 +45,7 @@ class FilterSettingsFragment : Fragment() {
         }
 
         binding.applyButton.setOnClickListener {
-            viewModel.saveArea()
+            viewModel.saveFilters()
             viewModel.setSalary(binding.editText.text.toString())
             viewModel.setIsShowWithSalary(binding.salaryCheckbox.isChecked)
         }
@@ -140,20 +140,26 @@ class FilterSettingsFragment : Fragment() {
             when (fields) {
                 is FilterSettingsStateScreen.FilterSettings -> {
                     binding.applyButton.visibility = View.VISIBLE
-                    if (fields.area.isNotEmpty()) {
+                    if (fields.area.isNotBlank()) {
                         binding.areaEditText.apply {
-                            setText(fields.area)
                             isActivated = true
+                            setText(fields.area)
                         }
                         binding.areaInputLayout.setEndIconDrawable(R.drawable.ic_close_24px)
+                    } else {
+                        cleanField(binding.areaEditText)
+                        binding.areaInputLayout.setEndIconDrawable(R.drawable.ic_arrow_forward_24px)
                     }
 
-                    if (fields.industry.isNotEmpty()) {
+                    if (fields.industry.isNotBlank()) {
                         binding.industryEditText.apply {
                             setText(fields.industry)
                             isActivated = true
                         }
                         binding.industryInputLayout.setEndIconDrawable(R.drawable.ic_close_24px)
+                    } else {
+                        cleanField(binding.industryEditText)
+                        binding.industryInputLayout.setEndIconDrawable(R.drawable.ic_arrow_forward_24px)
                     }
 
                     if (fields.salary.isNotEmpty()) {
