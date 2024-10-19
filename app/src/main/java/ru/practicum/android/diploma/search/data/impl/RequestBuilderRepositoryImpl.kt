@@ -3,7 +3,6 @@ package ru.practicum.android.diploma.search.data.impl
 import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
-import ru.practicum.android.diploma.filters.areas.domain.api.AreaCashRepository
 import ru.practicum.android.diploma.filters.areas.domain.models.Area
 import ru.practicum.android.diploma.filters.industries.domain.models.Industry
 import ru.practicum.android.diploma.search.data.model.SavedFilters
@@ -12,7 +11,6 @@ import ru.practicum.android.diploma.search.domain.api.RequestBuilderRepository
 class RequestBuilderRepositoryImpl(
     private val sharedPreferences: SharedPreferences,
     private val gson: Gson,
-    private val areaCashRepository: AreaCashRepository
 ) : RequestBuilderRepository {
     private val searchRequest: HashMap<String, String> = HashMap()
 
@@ -49,7 +47,6 @@ class RequestBuilderRepositoryImpl(
     }
 
     override fun getSavedFilters(): SavedFilters {
-        areaCashRepository.resetCashArea()
         return SavedFilters(
             savedArea = getArea(),
             savedIndustry = getIndustry(

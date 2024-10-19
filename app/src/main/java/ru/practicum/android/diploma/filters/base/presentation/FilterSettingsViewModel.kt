@@ -17,13 +17,17 @@ class FilterSettingsViewModel(
     private fun initFilters(): SavedFilters {
         return requestBuilderInteractor.getSavedFilters()
     }
+    init {
+        areaCashInteractor.resetCashArea()
+    }
 
     fun checkFilterFields() {
         val filters = initFilters()
-        val areaName: String = if (!filters.savedArea?.name.isNullOrBlank()) {
-            "${filters.savedArea?.parentName}, ${filters.savedArea?.name}"
+        val area = areaCashInteractor.getCashArea()
+        val areaName: String = if (!area?.name.isNullOrBlank()) {
+            "${area?.parentName}, ${area?.name}"
         } else {
-            filters.savedArea?.parentName ?: ""
+            area?.parentName ?: ""
         }
 
         baseFilterScreenState.value =
@@ -36,8 +40,8 @@ class FilterSettingsViewModel(
 
     }
 
-    fun clearArea() {
-        areaCashInteractor.cleanArea()
+    fun cleanCashArea() {
+        areaCashInteractor.cleanCashArea()
     }
 
     fun clearIndustry() {
@@ -50,9 +54,8 @@ class FilterSettingsViewModel(
     fun setIsShowWithSalary(isShowWithSalary: Boolean) {
         requestBuilderInteractor.setIsShowWithSalary(isShowWithSalary)
     }
-
-    fun getRequest(): HashMap<String, String> {
-        return requestBuilderInteractor.getRequest()
+    fun saveArea() {
+        areaCashInteractor.saveArea()
     }
 
 }

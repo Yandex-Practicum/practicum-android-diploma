@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -44,6 +45,7 @@ class FilterSettingsFragment : Fragment() {
         }
 
         binding.applyButton.setOnClickListener {
+            viewModel.saveArea()
             viewModel.setSalary(binding.editText.text.toString())
             viewModel.setIsShowWithSalary(binding.salaryCheckbox.isChecked)
         }
@@ -77,6 +79,16 @@ class FilterSettingsFragment : Fragment() {
             clearSalary()
         }
         areaAndIndustryClickListenersInit()
+
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    viewModel.cleanCashArea()
+                    findNavController().popBackStack()
+                }
+            }
+        )
     }
 
     private fun areaAndIndustryClickListenersInit() {
@@ -89,7 +101,7 @@ class FilterSettingsFragment : Fragment() {
             if (binding.areaEditText.text?.isNotBlank() == true) {
                 cleanField(binding.areaEditText)
                 binding.areaInputLayout.setEndIconDrawable(R.drawable.ic_arrow_forward_24px)
-                viewModel.clearArea()
+                viewModel.cleanCashArea()
             } else {
                 findNavController().navigate(
                     R.id.action_filterSettingsFragment_to_workingRegionFragment
@@ -127,6 +139,7 @@ class FilterSettingsFragment : Fragment() {
         viewModel.getBaseFiltersScreenState.observe(viewLifecycleOwner) { fields ->
             when (fields) {
                 is FilterSettingsStateScreen.FilterSettings -> {
+                    binding.applyButton.visibility = View.VISIBLE
                     if (fields.area.isNotEmpty()) {
                         binding.areaEditText.apply {
                             setText(fields.area)
