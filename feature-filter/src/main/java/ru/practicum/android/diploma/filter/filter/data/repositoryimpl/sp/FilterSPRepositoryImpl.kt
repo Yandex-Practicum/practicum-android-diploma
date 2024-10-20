@@ -25,6 +25,26 @@ class FilterSPRepositoryImpl(
         return FilterMapper.map(filterSp.getDataFilter())
     }
 
+    override suspend fun getDataFilterBuffer(): FilterSettings {
+        return FilterMapper.map(filterSp.getDataFilterBuffer())
+    }
+
+    override suspend fun copyDataFilterInDataFilterBuffer() {
+        filterSp.copyDataFilterInDataFilterBuffer()
+    }
+
+    override suspend fun copyDataFilterBufferInDataFilter() {
+        filterSp.copyDataFilterBufferInDataFilter()
+    }
+
+    override suspend fun updateDataFilterBuffer(filter: FilterSettings): Int {
+        return filterSp.updateDataFilterBuffer(FilterMapper.map(filter))
+    }
+
+    override suspend fun updateDataFilter(filter: FilterSettings): Int {
+        return filterSp.updateDataFilter(FilterMapper.map(filter))
+    }
+
     override suspend fun clearPlaceInDataFilter(): Int {
         return filterSp.updatePlaceInDataFilter(FilterMapper.mapClearPlace())
     }

@@ -22,6 +22,26 @@ class FilterSPInteractorImpl(private val repository: FilterSPRepository) : Filte
         return repository.getDataFilter()
     }
 
+    override suspend fun getDataFilterBuffer(): FilterSettings {
+        return repository.getDataFilterBuffer()
+    }
+
+    override suspend fun copyDataFilterInDataFilterBuffer() {
+        repository.copyDataFilterInDataFilterBuffer()
+    }
+
+    override suspend fun copyDataFilterBufferInDataFilter() {
+        repository.copyDataFilterBufferInDataFilter()
+    }
+
+    override suspend fun updateDataFilterBuffer(filter: FilterSettings): Int {
+        return repository.updateDataFilterBuffer(filter)
+    }
+
+    override suspend fun updateDataFilter(filter: FilterSettings): Int {
+        return repository.updateDataFilter(filter)
+    }
+
     override suspend fun clearPlaceInDataFilter(): Int {
         return repository.clearPlaceInDataFilter()
     }

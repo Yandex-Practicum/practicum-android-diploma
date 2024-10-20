@@ -14,7 +14,6 @@ import ru.practicum.android.diploma.filter.place.domain.usecase.impl.RegionInter
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.CountryViewModel
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.PlaceViewModel
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.RegionViewModel
-import ru.practicum.android.diploma.filter.place.presentation.viewmodel.RegionsCountriesViewModel
 
 val placeModule = module {
     single<RegionInteractor> {
@@ -42,10 +41,6 @@ val placeModule = module {
             get(),
             androidContext()
         )
-    }
-
-    viewModel {
-        RegionsCountriesViewModel(get())
     }
 
     viewModel {

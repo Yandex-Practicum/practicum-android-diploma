@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.filter.place.presentation.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,9 +17,7 @@ import ru.practicum.android.diploma.filter.place.domain.model.Country
 import ru.practicum.android.diploma.filter.place.domain.model.Place
 import ru.practicum.android.diploma.filter.place.presentation.ui.adapters.PlacesAdapter
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.CountryViewModel
-import ru.practicum.android.diploma.filter.place.presentation.viewmodel.RegionsCountriesViewModel
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.CountryState
-import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.PlaceState
 
 private const val DELAY_CLICK_COUNTRY = 250L
 

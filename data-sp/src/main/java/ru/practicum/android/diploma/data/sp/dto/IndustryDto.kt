@@ -7,4 +7,10 @@ import kotlinx.parcelize.Parcelize
 data class IndustryDto(
     val id: String?,
     val name: String?,
-) : Parcelable
+) : Parcelable {
+    companion object {
+        fun emptyIndustryDto(): IndustryDto {
+            return IndustryDto(null, null)
+        }
+    }
+}

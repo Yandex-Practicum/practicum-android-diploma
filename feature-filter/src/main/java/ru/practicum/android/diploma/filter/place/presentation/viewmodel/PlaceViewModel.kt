@@ -19,19 +19,19 @@ class PlaceViewModel(
 
     init {
         initDataFromNetworkToCache()
-        mergeSettingsWithBufferDataInSp()
+        copySettingsInBufferDataInSp()
     }
 
-    fun mergeSettingsWithBufferDataInSp() {
-        viewModelScope.launch(Dispatchers.IO) {
+    fun copySettingsInBufferDataInSp() {
+        viewModelScope.launch {
             regionInteractor.getPlaceDataFilter()?.let { place ->
                 regionInteractor.updatePlaceInDataFilterBuffer(place)
             }
         }
     }
 
-    fun mergeBufferWithSettingsDataInSp() {
-        viewModelScope.launch(Dispatchers.IO) {
+    fun copyBufferInSettingsDataInSp() {
+        viewModelScope.launch {
             regionInteractor.getPlaceDataFilterBuffer()?.let { place ->
                 regionInteractor.updatePlaceInDataFilter(place)
             }

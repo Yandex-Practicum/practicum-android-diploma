@@ -28,7 +28,6 @@ import ru.practicum.android.diploma.filter.filter.presentation.viewmodel.FilterV
 internal class FilterFragment : Fragment() {
 
     private val viewModel: FilterViewModel by viewModel()
-    private var filterSettings: FilterSettings = emptyFilterSetting()
 
     private val colorManager: ColorManager by lazy { ColorManager(requireContext()) }
     private val colorsEditTextFilterEmpty by lazy { colorManager.getColorsForEditText(true) }
@@ -44,7 +43,7 @@ internal class FilterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFilterBinding.inflate(inflater, container, false)
-        viewModel.getDataFromSp()
+        viewModel.getBufferDataFromSpAndCompareFilterSettings()
         return binding.root
     }
 
@@ -52,9 +51,16 @@ internal class FilterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.filterOptionsListLiveData.observe(viewLifecycleOwner) { filter ->
-            filterSettings = filter
             render(filter)
             visibleClearFilter(filter)
+        }
+
+        viewModel.newSettingsFilterLiveData.observe(viewLifecycleOwner) { newSettingsFilter ->
+            binding.buttonApply.visibility = if (newSettingsFilter) {
+                View.GONE
+            } else {
+                View.VISIBLE
+            }
         }
 
         setupClickListeners()
@@ -63,8 +69,7 @@ internal class FilterFragment : Fragment() {
         binding.editTextFilter.addTextChangedListener(inputSearchWatcher)
 
         binding.checkBox.setOnCheckedChangeListener { compoundButton, isChecked ->
-            filterSettings = filterSettings.updateDoNotShowWithoutSalary(isChecked)
-            checkingFilterChanges()
+            viewModel.setDoNotShowWithoutSalaryInDataFilter(isChecked)
         }
     }
 
@@ -77,8 +82,16 @@ internal class FilterFragment : Fragment() {
                 R.id.workIndustry, R.id.inputWorkIndustryLayout, R.id.inputWorkIndustry, R.id.clickWorkIndustry -> {
                     findNavController().navigate(R.id.action_filterFragment_to_industryFragment)
                 }
-                R.id.clickWorkPlaceClear -> renderPlaceFilterClear()
-                R.id.clickWorkIndustryClear -> renderProfessionFilterClear()
+                R.id.clickWorkPlaceClear -> {
+                    viewModel.clearPlaceInDataFilter()
+                    viewModel.getBufferDataFromSpAndCompareFilterSettings()
+                    renderPlaceFilterClear()
+                }
+                R.id.clickWorkIndustryClear -> {
+                    viewModel.clearProfessionInDataFilter()
+                    viewModel.getBufferDataFromSpAndCompareFilterSettings()
+                    renderProfessionFilterClear()
+                }
                 R.id.buttonApply -> applyFilters()
                 R.id.buttonBack -> findNavController().navigateUp()
                 R.id.buttonCancel -> {
@@ -106,23 +119,12 @@ internal class FilterFragment : Fragment() {
     }
 
     private fun applyFilters() {
-        viewModel.setSalaryInDataFilter(binding.editTextFilter.text.toString())
-        viewModel.setDoNotShowWithoutSalaryInDataFilter(binding.checkBox.isChecked)
-        clearParameters(filterSettings)
+        viewModel.copyDataFilterBufferInDataFilter()
         findNavController().navigateUp()
     }
 
     private fun visibleClearFilter(filter: FilterSettings?) {
         binding.buttonCancel.visibility = if (filter != null && !filter.equals(emptyFilterSetting())) {
-            View.VISIBLE
-        } else {
-            View.GONE
-        }
-    }
-
-    private fun checkingFilterChanges() {
-        visibleClearFilter(filterSettings)
-        binding.buttonApply.visibility = if (!filterSettings.equals(viewModel.filterSettingsUI)) {
             View.VISIBLE
         } else {
             View.GONE
@@ -139,9 +141,8 @@ internal class FilterFragment : Fragment() {
             val colors = if (inputText.isNullOrEmpty()) colorsEditTextFilterEmpty else colorsEditTextFilterNoEmpty
             binding.textViewSalary.hintTextColor = ColorStateList(statesEditTextFilter, colors)
             binding.textViewSalary.setDefaultHintTextColor(ColorStateList(statesEditTextFilter, colors))
-            val textSalary = if (inputText.isNullOrEmpty()) null else inputText.toString()
-            filterSettings = filterSettings.updateExpectedSalary(textSalary)
-            checkingFilterChanges()
+            val textSalary = if (inputText.isNullOrEmpty()) "" else inputText.toString()
+            viewModel.setSalaryInDataFilter(textSalary)
         }
 
         override fun afterTextChanged(resultText: Editable?) {
@@ -194,8 +195,6 @@ internal class FilterFragment : Fragment() {
     }
 
     private fun renderProfessionFilterClear() {
-        filterSettings = filterSettings.resetBranchOfProfession()
-        checkingFilterChanges()
         binding.inputWorkIndustry.text?.clear()
         binding.clickWorkIndustry.visibility = View.VISIBLE
         binding.clickWorkIndustryClear.visibility = View.GONE
@@ -233,8 +232,6 @@ internal class FilterFragment : Fragment() {
     }
 
     private fun renderPlaceFilterClear() {
-        filterSettings = filterSettings.resetPlaceSettings()
-        checkingFilterChanges()
         binding.inputWorkPlace.text?.clear()
         binding.clickWorkPlace.visibility = View.VISIBLE
         binding.clickWorkPlaceClear.visibility = View.GONE
@@ -242,15 +239,6 @@ internal class FilterFragment : Fragment() {
 
     private fun emptyFilterSetting(): FilterSettings {
         return FilterSettings.emptyFilterSettings()
-    }
-
-    private fun clearParameters(filter: FilterSettings) {
-        if (filter.placeSettings?.idCountry == null) {
-            viewModel.clearPlaceInDataFilter()
-        }
-        if (filter.branchOfProfession?.id == null) {
-            viewModel.clearProfessionInDataFilter()
-        }
     }
 
     override fun onDestroy() {

@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.filter.filter.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,71 +19,94 @@ class FilterViewModel(
     private var _filterOptionsListLiveData: MutableLiveData<FilterSettings> = MutableLiveData<FilterSettings>()
     val filterOptionsListLiveData: LiveData<FilterSettings> = _filterOptionsListLiveData
 
-    private var _filterSettingsUI: FilterSettings = FilterSettings(null, null, null, false)
-    val filterSettingsUI: FilterSettings
-        get() = _filterSettingsUI
+    private var _newSettingsFilterLiveData: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
+    val newSettingsFilterLiveData: LiveData<Boolean> = _newSettingsFilterLiveData
 
     init {
-        getBufferDataFromSp()
-        getDataFromSp()
+        copyDataFilterInDataFilterBuffer()
     }
 
-    private fun getBufferDataFromSp() {
-        viewModelScope.launch(Dispatchers.IO) {
-            _filterSettingsUI = filterSPInteractor.getDataFilter()
+    fun copyDataFilterInDataFilterBuffer() {
+        viewModelScope.launch {
+            filterSPInteractor.copyDataFilterInDataFilterBuffer()
         }
     }
 
-    fun getDataFromSp() {
+    fun copyDataFilterBufferInDataFilter() {
+        viewModelScope.launch {
+            filterSPInteractor.copyDataFilterBufferInDataFilter()
+        }
+    }
+
+    fun getBufferDataFromSpAndCompareFilterSettings() {
+        viewModelScope.launch {
+            val filterSettings = filterSPInteractor.getDataFilter()
+            val filterSettingsBuffer = filterSPInteractor.getDataFilterBuffer()
+            Log.e("getBufferDataFromSpAndCompareFilterSettings","filterSettings $filterSettings")
+            Log.e("getBufferDataFromSpAndCompareFilterSettings","filterSettingsBuffer $filterSettingsBuffer")
+            _filterOptionsListLiveData.postValue(filterSettingsBuffer)
+
+            val compareFilterSettings = filterSettings == filterSettingsBuffer
+            Log.e("getBufferDataFromSpAndCompareFilterSettings","compareFilterSettings $compareFilterSettings")
+            _newSettingsFilterLiveData.postValue(compareFilterSettings)
+        }
+    }
+
+    fun compareFilterSettings() {
         viewModelScope.launch(Dispatchers.IO) {
             val filterSettings = filterSPInteractor.getDataFilter()
-            _filterOptionsListLiveData.postValue(filterSettings)
+            val filterSettingsBuffer = filterSPInteractor.getDataFilterBuffer()
+            val compareFilterSettings = filterSettings == filterSettingsBuffer
+            _newSettingsFilterLiveData.postValue(compareFilterSettings)
         }
     }
 
     fun setSalaryInDataFilter(salaryInDataFilter: String) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             filterSPInteractor.updateSalaryInDataFilter(salaryInDataFilter)
-            getDataFromSp()
+//            getBufferDataFromSpAndCompareFilterSettings()
         }
     }
 
     fun setDoNotShowWithoutSalaryInDataFilter(doNotShowWithoutSalary: Boolean) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             filterSPInteractor.updateDoNotShowWithoutSalaryInDataFilter(doNotShowWithoutSalary)
-            getDataFromSp()
+//            getBufferDataFromSpAndCompareFilterSettings()
         }
     }
 
     fun clearPlaceInDataFilter() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             filterSPInteractor.clearPlaceInDataFilter()
         }
     }
     fun clearProfessionInDataFilter() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             filterSPInteractor.clearProfessionInDataFilter()
         }
     }
 
     fun clearDataFilter() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             filterSPInteractor.clearDataFilter()
         }
     }
 
     override fun onCleared() {
         super.onCleared()
-        _filterSettingsUI = FilterSettings(
-            PlaceSettings(
-                null,
-                null,
-                null,
-                null
-            ),
-            IndustrySetting(
-                null,
-                null
-            ), null, false)
+        viewModelScope.launch {
+            val filterSettingsBuffer = FilterSettings(
+                PlaceSettings(
+                    null,
+                    null,
+                    null,
+                    null
+                ),
+                IndustrySetting(
+                    null,
+                    null
+                ), "", false)
+            filterSPInteractor.updateDataFilterBuffer(filterSettingsBuffer)
+        }
     }
 }

@@ -9,6 +9,7 @@ import ru.practicum.android.diploma.data.sp.dto.FilterDto
 import ru.practicum.android.diploma.data.sp.dto.IndustryDto
 import ru.practicum.android.diploma.data.sp.dto.PlaceDto
 
+private const val FILTER_KEY_SP = "filter_key_sp"
 private const val PLACE_KEY_SP = "place_key_sp"
 private const val PLACE_KEY_SP_BUFFER = "place_key_sp_buffer"
 private const val BRANCH_OF_PROFESSION_KEY_SP = "branch_of_profession_key_sp"
@@ -80,12 +81,69 @@ class FilterSpImpl(
     }
 
     override suspend fun getDataFilter(): FilterDto {
+        val json = filterSp.getString(FILTER_KEY_SP, null)
+        return if (json != null) {
+            gson.fromJson(json, FilterDto::class.java)
+        } else {
+            FilterDto(
+                placeDto = null,
+                branchOfProfession = null,
+                expectedSalary = null,
+                doNotShowWithoutSalary = false
+            )
+        }
+    }
+
+    override suspend fun updateDataFilter(filterDto: FilterDto): Int {
+        return runCatching {
+            val json = gson.toJson(filterDto)
+            filterSp.edit()
+                .putString(FILTER_KEY_SP, json)
+                .apply()
+        }.fold(
+            onSuccess = { 1 },
+            onFailure = { -1 }
+        )
+    }
+
+    override suspend fun getDataFilterBuffer(): FilterDto {
         return FilterDto(
             placeDto = getPlaceDataFilter(),
             branchOfProfession = getBranchOfProfessionDataFilter(),
             expectedSalary = getExpectedSalaryDataFilter(),
             doNotShowWithoutSalary = isDoNotShowWithoutSalaryDataFilter()
         )
+    }
+    override suspend fun copyDataFilterInDataFilterBuffer() {
+        updateDataFilterBuffer(getDataFilter())
+    }
+    override suspend fun copyDataFilterBufferInDataFilter() {
+        updateDataFilter(getDataFilterBuffer())
+    }
+
+    override suspend fun updateDataFilterBuffer(filterDto: FilterDto): Int {
+        var count = 0
+        count += filterDto.placeDto?.let {
+            updatePlaceInDataFilter(it)
+        } ?: run {
+            updatePlaceInDataFilter(PlaceDto.emptyPlaceDto())
+        }
+        count += filterDto.branchOfProfession?.let {
+            updateProfessionInDataFilter(it)
+        } ?: run {
+            updateProfessionInDataFilter(IndustryDto.emptyIndustryDto())
+        }
+        count += filterDto.expectedSalary?.let {
+            updateSalaryInDataFilter(it)
+        } ?: run {
+            updateSalaryInDataFilter("")
+        }
+        count += updateDoNotShowWithoutSalaryInDataFilter(filterDto.doNotShowWithoutSalary)
+        return if(count == 4) {
+            1
+        } else {
+            -1
+        }
     }
 
     override suspend fun updatePlaceInDataFilter(placeDto: PlaceDto): Int {

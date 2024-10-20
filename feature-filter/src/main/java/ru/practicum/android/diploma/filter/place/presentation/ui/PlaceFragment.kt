@@ -63,12 +63,12 @@ internal class PlaceFragment : Fragment() {
                 R.id.clickCountryClear -> clearCountrySelection()
                 R.id.clickRegionClear -> clearRegionSelection()
                 R.id.selectButton -> {
-                    placeViewModel.mergeBufferWithSettingsDataInSp()
+                    placeViewModel.copyBufferInSettingsDataInSp()
                     placeViewModel.clearCache()
                     findNavController().navigateUp()
                 }
                 R.id.buttonBack -> {
-                    placeViewModel.mergeSettingsWithBufferDataInSp()
+                    placeViewModel.copySettingsInBufferDataInSp()
                     placeViewModel.clearCache()
                     findNavController().navigateUp()
                 }
