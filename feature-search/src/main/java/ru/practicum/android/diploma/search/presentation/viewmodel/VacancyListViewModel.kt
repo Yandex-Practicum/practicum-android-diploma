@@ -45,14 +45,12 @@ internal class VacancyListViewModel(
         _screenStateLiveData.value = SearchScreenState.IDLE
         _vacancyListStateLiveData.value = VacancyListState.Empty
         _currentResultsCountLiveData.value = 0
-        initQueryFilter(vacanciesInteractor.getDataFilter())
     }
 
     private fun initQueryFilter(filterSearch: FilterSearch) {
         filterSearch.branchOfProfession?.id?.let { queryFilter.put(INDUSTRY_ID, it) }
         filterSearch.expectedSalary?.let { queryFilter.put(SALARY, it) }
         filterSearch.doNotShowWithoutSalary.let { queryFilter.put(ONLY_WITH_SALARY, it.toString()) }
-        // !!!
         filterSearch.placeSearch?.let { place ->
             place.idRegion?.let { queryFilter.put(AREA_ID, it) }
         }
@@ -66,6 +64,7 @@ internal class VacancyListViewModel(
         currentQuery = query
 
         viewModelScope.launch(Dispatchers.IO) {
+            initQueryFilter(vacanciesInteractor.getDataFilter())
             vacanciesInteractor.searchVacancies(
                 page = "0",
                 perPage = "${PAGE_SIZE}",

@@ -5,9 +5,7 @@ import ru.practicum.android.diploma.filter.filter.data.mappers.FilterMapper
 import ru.practicum.android.diploma.filter.filter.domain.model.FilterSettings
 import ru.practicum.android.diploma.filter.filter.domain.repository.FilterSPRepository
 
-class FilterSPRepositoryImpl(
-    val filterSp: FilterSp
-) : FilterSPRepository {
+class FilterSPRepositoryImpl(private val filterSp: FilterSp) : FilterSPRepository {
 
     override fun clearDataFilter() {
         filterSp.clearDataFilter()
