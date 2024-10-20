@@ -50,4 +50,8 @@ class RequestBuilderInteractorImpl(private val requestBuilderRepository: Request
     override fun saveFiltersToShared() {
         requestBuilderRepository.saveFiltersToShared()
     }
+
+    override fun clearAllFilters() {
+        requestBuilderRepository.clearAllFilters()
+    }
 }

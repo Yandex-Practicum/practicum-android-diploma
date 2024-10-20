@@ -115,6 +115,19 @@ class RequestBuilderRepositoryImpl(
         }
     }
 
+    override fun clearAllFilters() {
+        sharedPreferences.edit()
+            .remove(SAVED_SALARY)
+            .remove(SAVED_INDUSTRY)
+            .remove(SAVED_AREA)
+            .remove(SAVED_CURRENCY)
+            .remove(SAVED_SHOW_WITH_SALARY)
+            .apply()
+
+        searchRequest.clear()
+        bufferedSavedFilters = getSavedFilters()
+    }
+
     companion object {
         const val SAVED_AREA = "savedArea"
         const val SAVED_INDUSTRY = "savedIndustry"

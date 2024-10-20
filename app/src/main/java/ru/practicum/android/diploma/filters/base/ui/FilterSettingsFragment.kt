@@ -34,19 +34,9 @@ class FilterSettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         viewModel.checkFilterFields()
-
         observeInit()
-
-        binding.toolBar.setNavigationOnClickListener {
-            findNavController().popBackStack()
-        }
-
-        binding.applyButton.setOnClickListener {
-            viewModel.setSalary(binding.editText.text.toString())
-            viewModel.setIsShowWithSalary(binding.salaryCheckbox.isChecked)
-            viewModel.saveFilters()
-        }
 
         val salaryTextWatcher = object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -63,18 +53,38 @@ class FilterSettingsFragment : Fragment() {
                 // коммент для детекта
             }
         }
+        with(binding) {
+            applyButton.setOnClickListener {
+                viewModel.setSalary(editText.text.toString())
+                viewModel.setIsShowWithSalary(salaryCheckbox.isChecked)
+                viewModel.saveFilters()
+                findNavController().popBackStack()
+            }
+            clearFilter.setOnClickListener {
+                viewModel.clearFilter()
+                viewModel.checkFilterFields()
+                editText.setText(DEF_TEXT)
+                clearFilter.isVisible = false
+                applyButton.isVisible = false
+            }
 
-        binding.editText.addTextChangedListener(salaryTextWatcher)
+            editText.addTextChangedListener(salaryTextWatcher)
 
-        binding.salaryCheckbox.setOnCheckedChangeListener { _, isChecked ->
-            viewModel.updateSalaryCheckbox(isChecked)
-            showApplyButton()
+            salaryCheckbox.setOnCheckedChangeListener { _, isChecked ->
+                viewModel.updateSalaryCheckbox(isChecked)
+                showApplyButton()
+            }
+
+            toolBar.setNavigationOnClickListener {
+                findNavController().popBackStack()
+            }
+
+            searchLineCleaner.setOnClickListener {
+                clearSalary()
+            }
+
+            areaAndIndustryClickListenersInit()
         }
-
-        binding.searchLineCleaner.setOnClickListener {
-            clearSalary()
-        }
-        areaAndIndustryClickListenersInit()
 
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
@@ -160,6 +170,7 @@ class FilterSettingsFragment : Fragment() {
 
                     if (fields.salary.isNotEmpty()) {
                         binding.editText.setText(fields.salary)
+                        clearButtonVisibility(fields.salary)
                     }
                     binding.salaryCheckbox.isChecked = fields.showWithSalary
                 }
@@ -173,7 +184,7 @@ class FilterSettingsFragment : Fragment() {
     }
 
     private fun clearButtonVisibility(s: CharSequence?) {
-        val visibility = !s.isNullOrEmpty() && binding.editText.isFocused
+        val visibility = !s.isNullOrEmpty()
         binding.searchLineCleaner.isVisible = visibility
     }
 
@@ -193,6 +204,7 @@ class FilterSettingsFragment : Fragment() {
 
         }
     }
+
     private fun showClearButton() {
         if (viewModel.checkFilter()) {
             binding.clearFilter.isVisible = true

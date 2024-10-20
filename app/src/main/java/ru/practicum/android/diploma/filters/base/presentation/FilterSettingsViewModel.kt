@@ -58,6 +58,11 @@ class FilterSettingsViewModel(
         currentFilters = currentFilters.copy(savedSalary = newSalary)
     }
 
+    fun clearFilter() {
+        currentFilters = requestBuilderInteractor.getSavedFilters()
+        requestBuilderInteractor.clearAllFilters()
+    }
+
     fun cleanCashArea() {
         requestBuilderInteractor.updateBufferedSavedFilters(
             requestBuilderInteractor.getBufferedSavedFilters().copy(savedArea = null)
