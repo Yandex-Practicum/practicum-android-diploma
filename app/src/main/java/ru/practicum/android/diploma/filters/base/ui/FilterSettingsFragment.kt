@@ -167,19 +167,6 @@ class FilterSettingsFragment : Fragment() {
         }
     }
 
-    private fun showClearButton() {
-        if (viewModel.checkFilter()) {
-            binding.clearFilter.isVisible = true
-        } else {
-            binding.clearFilter.isVisible = false
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        showClearButton()
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -199,8 +186,11 @@ class FilterSettingsFragment : Fragment() {
     private fun showApplyButton() {
         if (viewModel.compareFilters()) {
             binding.applyButton.isVisible = false
+            binding.clearFilter.isVisible = false
         } else {
             binding.applyButton.isVisible = true
+            binding.clearFilter.isVisible = true
+
         }
     }
 

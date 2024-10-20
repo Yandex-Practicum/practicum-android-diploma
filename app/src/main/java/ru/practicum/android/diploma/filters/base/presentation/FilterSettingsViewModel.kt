@@ -48,15 +48,6 @@ class FilterSettingsViewModel(
     fun updateSalary(newSalary: String) {
         currentFilters = currentFilters.copy(savedSalary = newSalary)
     }
-    fun checkFilter(): Boolean {
-        val filters = initFilters()
-        return !(
-            filters.savedArea == null &&
-                filters.savedSalary.isNullOrEmpty() &&
-                filters.savedIndustry == null &&
-                filters.savedIsShowWithSalary == false
-            )
-    }
 
     fun cleanCashArea() {
         requestBuilderInteractor.updateBufferedSavedFilters(
