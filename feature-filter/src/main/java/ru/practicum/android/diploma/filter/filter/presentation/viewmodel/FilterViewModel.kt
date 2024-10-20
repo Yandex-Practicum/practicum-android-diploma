@@ -3,9 +3,6 @@ package ru.practicum.android.diploma.filter.filter.presentation.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.filter.filter.domain.model.FilterSettings
 import ru.practicum.android.diploma.filter.filter.domain.model.IndustrySetting
 import ru.practicum.android.diploma.filter.filter.domain.model.PlaceSettings

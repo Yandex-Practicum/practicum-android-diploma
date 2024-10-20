@@ -119,6 +119,7 @@ internal class FilterFragment : Fragment() {
 
     private val inputSearchWatcher = object : TextWatcher {
         override fun beforeTextChanged(oldText: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            //
         }
 
         @SuppressLint("UseCompatLoadingForDrawables")
@@ -132,6 +133,7 @@ internal class FilterFragment : Fragment() {
         }
 
         override fun afterTextChanged(resultText: Editable?) {
+            //
         }
     }
 

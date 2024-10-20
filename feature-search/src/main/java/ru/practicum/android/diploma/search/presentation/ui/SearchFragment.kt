@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -22,8 +23,8 @@ import ru.practicum.android.diploma.search.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.search.domain.models.Vacancy
 import ru.practicum.android.diploma.search.presentation.SearchScreenState
 import ru.practicum.android.diploma.search.presentation.adapter.VacancyListAdapter
-import ru.practicum.android.diploma.search.presentation.viewmodel.state.VacancyListState
 import ru.practicum.android.diploma.search.presentation.viewmodel.VacancyListViewModel
+import ru.practicum.android.diploma.search.presentation.viewmodel.state.VacancyListState
 
 private const val USER_INPUT = "userInput"
 private const val DELAY_CLICK_VACANCY = 2000L
@@ -86,6 +87,8 @@ internal class SearchFragment : Fragment() {
 
         recyclerSetup()
 
+        setFilterIcon()
+
         vacancyListViewModel.screenStateLiveData.observe(viewLifecycleOwner) { state: SearchScreenState ->
             updateUI(state)
         }
@@ -118,6 +121,14 @@ internal class SearchFragment : Fragment() {
         binding.vacancyRecycler.setOnClickListener {
             requireContext().closeKeyBoard(binding.searchBar)
         }
+    }
+
+    private fun setFilterIcon() {
+        val filterOnDrawable = AppCompatResources.getDrawable(
+            requireContext(),
+            ru.practicum.android.diploma.ui.R.drawable.search_filter_on_state
+        )
+        if (vacancyListViewModel.checkFilterState()) binding.filter.setImageDrawable(filterOnDrawable)
     }
 
     private fun recyclerSetup() {
