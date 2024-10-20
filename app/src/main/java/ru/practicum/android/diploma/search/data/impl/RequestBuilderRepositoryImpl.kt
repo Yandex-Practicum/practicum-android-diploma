@@ -20,22 +20,18 @@ class RequestBuilderRepositoryImpl(
     }
 
     override fun setIndustry(industry: Industry) {
-        searchRequest["industry"] = industry.id
         bufferedSavedFilters = bufferedSavedFilters.copy(savedIndustry = industry)
     }
 
     override fun setSalary(salary: String) {
-        searchRequest["salary"] = salary
         bufferedSavedFilters = bufferedSavedFilters.copy(savedSalary = salary)
     }
 
     override fun setCurrency(currency: String) {
-        searchRequest["currency"] = currency
         saveFilterValueInSharedPrefs(SAVED_CURRENCY, currency)
     }
 
     override fun setIsShowWithSalary(isShowWithSalary: Boolean) {
-        searchRequest["only_with_salary"] = isShowWithSalary.toString()
         bufferedSavedFilters = bufferedSavedFilters.copy(savedIsShowWithSalary = isShowWithSalary)
     }
 
@@ -44,6 +40,24 @@ class RequestBuilderRepositoryImpl(
     }
 
     override fun getRequest(): HashMap<String, String> {
+        searchRequest.clear()
+        val savedFilters = getSavedFilters()
+        if (savedFilters.savedArea != null) {
+            if (savedFilters.savedArea.id.isNotBlank()) {
+                searchRequest["area"] = savedFilters.savedArea.id
+            } else if (savedFilters.savedArea.parentId?.isNotBlank() == true) {
+                searchRequest["area"] = savedFilters.savedArea.parentId
+            }
+        }
+        if (savedFilters.savedIndustry?.id?.isNotBlank() == true) {
+            searchRequest["industry"] = savedFilters.savedIndustry.id
+        }
+        if (savedFilters.savedSalary?.isNotBlank() == true) {
+            searchRequest["salary"] = savedFilters.savedSalary
+        }
+        if (savedFilters.savedIsShowWithSalary?.toString()?.isNotBlank() == true) {
+            searchRequest["only_with_salary"] = savedFilters.savedIsShowWithSalary.toString()
+        }
         return searchRequest
     }
 

@@ -27,6 +27,7 @@ class VacancySearchViewModel(
     private var query = requestBuilderInteractor.getRequest()
 
     fun loadData(text: String) {
+        query = requestBuilderInteractor.getRequest()
         if (text.isNotEmpty()) {
             stateLiveData.value = VacancySearchScreenState.Loading
             query["text"] = text
