@@ -38,6 +38,15 @@ class FilterSettingsViewModel(
                 filters.savedSalary ?: "",
                 filters.savedIsShowWithSalary ?: false)
     }
+    fun checkFilter(): Boolean {
+        val filters = initFilters()
+        return !(
+            filters.savedArea == null &&
+                filters.savedSalary.isNullOrEmpty() &&
+                filters.savedIndustry == null &&
+                filters.savedIsShowWithSalary == false
+            )
+    }
 
     fun compareFilters(): Boolean = currentFilters == initFilters()
 

@@ -193,6 +193,18 @@ class FilterSettingsFragment : Fragment() {
 
         }
     }
+    private fun showClearButton() {
+        if (viewModel.checkFilter()) {
+            binding.clearFilter.isVisible = true
+        } else {
+            binding.clearFilter.isVisible = false
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        showClearButton()
+    }
 
     companion object {
         const val DEF_TEXT = ""
