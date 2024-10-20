@@ -56,7 +56,7 @@ class FilterSettingsFragment : Fragment() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 clearButtonVisibility(p0)
                 viewModel.updateSalary(p0.toString())
-                showButtons()
+                showApplyButton()
             }
 
             override fun afterTextChanged(editableText: Editable?) {
@@ -68,7 +68,7 @@ class FilterSettingsFragment : Fragment() {
 
         binding.salaryCheckbox.setOnCheckedChangeListener { _, isChecked ->
             viewModel.updateSalaryCheckbox(isChecked)
-            showButtons()
+            showApplyButton()
         }
 
         binding.searchLineCleaner.setOnClickListener {
@@ -98,7 +98,7 @@ class FilterSettingsFragment : Fragment() {
                 cleanField(binding.areaEditText)
                 binding.areaInputLayout.setEndIconDrawable(R.drawable.ic_arrow_forward_24px)
                 viewModel.cleanCashArea()
-                showButtons()
+                showApplyButton()
             } else {
                 findNavController().navigate(
                     R.id.action_filterSettingsFragment_to_workingRegionFragment
@@ -110,7 +110,7 @@ class FilterSettingsFragment : Fragment() {
                 cleanField(binding.industryEditText)
                 binding.industryInputLayout.setEndIconDrawable(R.drawable.ic_arrow_forward_24px)
                 viewModel.clearIndustry()
-                showButtons()
+                showApplyButton()
             } else {
                 findNavController().navigate(
                     R.id.action_filterSettingsFragment_to_industrySelectFragment
@@ -167,6 +167,19 @@ class FilterSettingsFragment : Fragment() {
         }
     }
 
+    private fun showClearButton() {
+        if (viewModel.checkFilter()) {
+            binding.clearFilter.isVisible = true
+        } else {
+            binding.clearFilter.isVisible = false
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        showClearButton()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -183,13 +196,11 @@ class FilterSettingsFragment : Fragment() {
         view?.clearFocus()
     }
 
-    private fun showButtons() {
+    private fun showApplyButton() {
         if (viewModel.compareFilters()) {
             binding.applyButton.isVisible = false
-            binding.clearFilter.isVisible = false
         } else {
             binding.applyButton.isVisible = true
-            binding.clearFilter.isVisible = true
         }
     }
 
