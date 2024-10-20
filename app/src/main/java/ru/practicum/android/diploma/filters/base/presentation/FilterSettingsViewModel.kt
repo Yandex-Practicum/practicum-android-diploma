@@ -16,6 +16,8 @@ class FilterSettingsViewModel(
         return requestBuilderInteractor.getBufferedSavedFilters()
     }
 
+    private var currentFilters: SavedFilters = requestBuilderInteractor.getSavedFilters()
+
     init {
         requestBuilderInteractor.updateBufferedSavedFilters(requestBuilderInteractor.getSavedFilters())
     }
@@ -34,9 +36,26 @@ class FilterSettingsViewModel(
                 areaName,
                 filters.savedIndustry?.name ?: "",
                 filters.savedSalary ?: "",
-                filters.savedIsShowWithSalary ?: false
+                filters.savedIsShowWithSalary ?: false)
+    }
+    fun checkFilter(): Boolean {
+        val filters = initFilters()
+        return !(
+            filters.savedArea == null &&
+                filters.savedSalary.isNullOrEmpty() &&
+                filters.savedIndustry == null &&
+                filters.savedIsShowWithSalary == false
             )
+    }
 
+    fun compareFilters(): Boolean = currentFilters == initFilters()
+
+    fun updateSalaryCheckbox(isChecked: Boolean) {
+        currentFilters = currentFilters.copy(savedIsShowWithSalary = isChecked)
+    }
+
+    fun updateSalary(newSalary: String) {
+        currentFilters = currentFilters.copy(savedSalary = newSalary)
     }
 
     fun cleanCashArea() {

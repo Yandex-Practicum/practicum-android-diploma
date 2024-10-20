@@ -55,6 +55,8 @@ class FilterSettingsFragment : Fragment() {
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 clearButtonVisibility(p0)
+                viewModel.updateSalary(p0.toString())
+                showApplyButton()
             }
 
             override fun afterTextChanged(editableText: Editable?) {
@@ -63,6 +65,11 @@ class FilterSettingsFragment : Fragment() {
         }
 
         binding.editText.addTextChangedListener(salaryTextWatcher)
+
+        binding.salaryCheckbox.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.updateSalaryCheckbox(isChecked)
+            showApplyButton()
+        }
 
         binding.searchLineCleaner.setOnClickListener {
             clearSalary()
@@ -91,6 +98,7 @@ class FilterSettingsFragment : Fragment() {
                 cleanField(binding.areaEditText)
                 binding.areaInputLayout.setEndIconDrawable(R.drawable.ic_arrow_forward_24px)
                 viewModel.cleanCashArea()
+                showApplyButton()
             } else {
                 findNavController().navigate(
                     R.id.action_filterSettingsFragment_to_workingRegionFragment
@@ -102,6 +110,7 @@ class FilterSettingsFragment : Fragment() {
                 cleanField(binding.industryEditText)
                 binding.industryInputLayout.setEndIconDrawable(R.drawable.ic_arrow_forward_24px)
                 viewModel.clearIndustry()
+                showApplyButton()
             } else {
                 findNavController().navigate(
                     R.id.action_filterSettingsFragment_to_industrySelectFragment
@@ -128,7 +137,6 @@ class FilterSettingsFragment : Fragment() {
         viewModel.getBaseFiltersScreenState.observe(viewLifecycleOwner) { fields ->
             when (fields) {
                 is FilterSettingsStateScreen.FilterSettings -> {
-                    binding.applyButton.visibility = View.VISIBLE
                     if (fields.area.isNotBlank()) {
                         binding.areaEditText.apply {
                             isActivated = true
@@ -173,6 +181,29 @@ class FilterSettingsFragment : Fragment() {
         binding.editText.setText(DEF_TEXT)
         view?.hideKeyboard()
         view?.clearFocus()
+    }
+
+    private fun showApplyButton() {
+        if (viewModel.compareFilters()) {
+            binding.applyButton.isVisible = false
+            binding.clearFilter.isVisible = false
+        } else {
+            binding.applyButton.isVisible = true
+            binding.clearFilter.isVisible = true
+
+        }
+    }
+    private fun showClearButton() {
+        if (viewModel.checkFilter()) {
+            binding.clearFilter.isVisible = true
+        } else {
+            binding.clearFilter.isVisible = false
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        showClearButton()
     }
 
     companion object {
