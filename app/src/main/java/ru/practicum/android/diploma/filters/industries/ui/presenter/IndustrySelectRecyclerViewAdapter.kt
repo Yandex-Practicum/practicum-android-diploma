@@ -12,6 +12,8 @@ class IndustrySelectRecyclerViewAdapter(
 
     var list = mutableListOf<Industry>()
     var lastSelect = 0
+    private var previousList = mutableListOf<Industry>()
+    private var previousRequest: String = ""
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IndustriesViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -39,11 +41,24 @@ class IndustrySelectRecyclerViewAdapter(
     }
 
     fun filterResults(request: String) {
+        if (request.isNotEmpty()
+            && previousRequest.isNotEmpty()
+            && previousRequest.contains(request)
+        ) {
+            list.clear()
+            list.addAll(previousList)
+        }
+
         val filteredList = list.filter { industry ->
             industry.name
                 .lowercase()
                 .contains(request)
         }
+
+        previousList.clear()
+        previousList.addAll(list)
+        previousRequest = request
+
         list.clear()
         list.addAll(filteredList)
         notifyDataSetChanged()
