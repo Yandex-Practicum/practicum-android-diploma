@@ -86,7 +86,7 @@ class VacancySearchViewModel(
         val pages = vacanciesSearchData?.pages
         if (page != null &&
             pages != null &&
-            page - 1 < pages
+            page + 1 < pages
         ) {
             stateLiveData.value = VacancySearchScreenState.PaginationLoading
             nextSearchDebounce(changedText)

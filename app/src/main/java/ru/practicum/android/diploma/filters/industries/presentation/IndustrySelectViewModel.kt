@@ -91,7 +91,7 @@ class IndustrySelectViewModel(
 
     private fun getSaveIndustry(): Industry? {
         chosenIndustry =
-            requestBuilderInteractor.getSavedFilters().savedIndustry
+            requestBuilderInteractor.getBufferedSavedFilters().savedIndustry
         return chosenIndustry
     }
 
