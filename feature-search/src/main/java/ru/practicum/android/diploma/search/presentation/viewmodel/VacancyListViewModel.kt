@@ -45,9 +45,7 @@ internal class VacancyListViewModel(
         _screenStateLiveData.value = SearchScreenState.IDLE
         _vacancyListStateLiveData.value = VacancyListState.Empty
         _currentResultsCountLiveData.value = 0
-        viewModelScope.launch(Dispatchers.IO) {
-            initQueryFilter(vacanciesInteractor.getDataFilter())
-        }
+
     }
 
     private fun initQueryFilter(filterSearch: FilterSearch) {
@@ -68,6 +66,7 @@ internal class VacancyListViewModel(
         currentQuery = query
 
         viewModelScope.launch(Dispatchers.IO) {
+            initQueryFilter(vacanciesInteractor.getDataFilter())
             vacanciesInteractor.searchVacancies(
                 page = "0",
                 perPage = "${PAGE_SIZE}",
