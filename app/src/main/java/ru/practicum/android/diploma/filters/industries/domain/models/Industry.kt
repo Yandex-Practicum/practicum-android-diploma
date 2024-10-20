@@ -7,7 +7,7 @@ data class Industry(
     val industries: List<Industry>? = null
 ) {
     override fun equals(other: Any?): Boolean {
-        return (other is Industry)
+        return other is Industry
             && other.id == this.id
     }
 }
