@@ -25,6 +25,7 @@ class IndustrySelectRecyclerViewAdapter(
     override fun onBindViewHolder(holder: IndustriesViewHolder, position: Int) {
         val itemView = list[position]
         holder.bind(itemView)
+        if (itemView.isChecked) lastSelect = position
 
         holder.itemView.setOnClickListener {
             list[lastSelect] = list[lastSelect].copy(isChecked = false)

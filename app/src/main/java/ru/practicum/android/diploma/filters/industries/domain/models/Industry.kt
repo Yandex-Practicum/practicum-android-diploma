@@ -5,4 +5,9 @@ data class Industry(
     val name: String,
     val isChecked: Boolean,
     val industries: List<Industry>? = null
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        return (other is Industry)
+            && other.id == this.id
+    }
+}
