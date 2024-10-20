@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.filter.place.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -29,8 +30,8 @@ class RegionsCountriesViewModel(
     private val _regionsStateLiveData = MutableLiveData<RegionState>()
     fun observeRegionsState(): LiveData<RegionState> = _regionsStateLiveData
 
-    private val _placeStateLiveData = MutableLiveData<PlaceState>()
-    fun observePlaceState(): LiveData<PlaceState> = _placeStateLiveData
+    private val _placeStateLiveData1 = MutableLiveData<PlaceState>()
+    fun observePlaceState(): LiveData<PlaceState> = _placeStateLiveData1
 
     private val _placeStateButtonSelectedLiveData = MutableLiveData<Boolean>()
     fun observePlaceButtonSelectedState(): LiveData<Boolean> = _placeStateButtonSelectedLiveData
@@ -44,7 +45,7 @@ class RegionsCountriesViewModel(
     }
 
     fun setPlaceState(placeState: PlaceState) {
-        _placeStateLiveData.postValue(placeState)
+        _placeStateLiveData1.postValue(placeState)
     }
 
     private val places: MutableList<AreaInReference> = ArrayList<AreaInReference>()
@@ -56,6 +57,22 @@ class RegionsCountriesViewModel(
     init {
         mergeSettingsWithBufferDataInSp()
         initDataFromCacheAndSp()
+    }
+
+    fun mergeBufferWithSettingsDataInSp() {
+        viewModelScope.launch(Dispatchers.IO) {
+            regionInteractor.getPlaceDataFilterBuffer()?.let { place ->
+                regionInteractor.updatePlaceInDataFilter(place)
+            }
+        }
+    }
+
+    fun mergeSettingsWithBufferDataInSp() {
+        viewModelScope.launch(Dispatchers.IO) {
+            regionInteractor.getPlaceDataFilter()?.let { place ->
+                regionInteractor.updatePlaceInDataFilterBuffer(place)
+            }
+        }
     }
 
     fun initDataFromNetworkAndSp() {
@@ -90,8 +107,10 @@ class RegionsCountriesViewModel(
                         name = it.name
                     )
                 }
+                regions.addAll(places.flatMap { it.areas })
                 regionInteractor.putCountriesCache(places)
                 _countriesStateLiveData.postValue(CountryState.Content(countries))
+                _regionsStateLiveData.postValue(RegionState.Content(regions))
             } ?: {
                 _countriesStateLiveData.postValue(CountryState.Empty)
             }
@@ -103,6 +122,7 @@ class RegionsCountriesViewModel(
 
     private suspend fun initDataFromCache() {
         regionInteractor.getCountriesCache()?.let { list ->
+            Log.e("renderInitRegions", "initDataFromCache $list")
             places.addAll(list)
             val countries = places.map {
                 Country(
@@ -110,9 +130,15 @@ class RegionsCountriesViewModel(
                     name = it.name
                 )
             }
+            regions.addAll(places.flatMap { it.areas })
+            Log.e("renderInitRegions", "initDataFromCache $places")
+            Log.e("renderInitRegions", "initDataFromCache $regions")
             _countriesStateLiveData.postValue(CountryState.Content(countries))
+            _regionsStateLiveData.postValue(RegionState.Content(regions))
         } ?: run {
+            Log.e("renderInitRegions", "initDataFromCache")
             _countriesStateLiveData.postValue(CountryState.Empty)
+            _regionsStateLiveData.postValue(RegionState.Empty)
         }
     }
 
@@ -122,44 +148,30 @@ class RegionsCountriesViewModel(
         }
     }
 
-    fun mergeBufferWithSettingsDataInSp() {
-        viewModelScope.launch(Dispatchers.IO) {
-            regionInteractor.getPlaceDataFilterBuffer()?.let { place ->
-                regionInteractor.updatePlaceInDataFilter(place)
-            }
-        }
-    }
-
-    fun mergeSettingsWithBufferDataInSp() {
-        viewModelScope.launch(Dispatchers.IO) {
-            regionInteractor.getPlaceDataFilter()?.let { place ->
-                regionInteractor.updatePlaceInDataFilterBuffer(place)
-            }
-        }
-    }
-
     private suspend fun initDataFromSp() {
         regionInteractor.getPlaceDataFilterBuffer()?.let { place ->
             val idCountry = place.idCountry
             val nameCountry = place.nameCountry
             val idRegion = place.idRegion
             val nameRegion = place.nameRegion
-
+            Log.e("renderInitRegions", "initDataFromSp")
             if (idCountry != null && nameCountry != null) {
+                Log.e("renderInitRegions", "initDataFromSp placeState")
                 val placeState = if (idRegion == null && nameRegion == null) {
                     PlaceState.ContentCountry(Country(idCountry, nameCountry))
                 } else {
                     PlaceState.ContentPlace(Place(idCountry, nameCountry, idRegion, nameRegion))
                 }
-                _placeStateLiveData.postValue(placeState)
+                _placeStateLiveData1.postValue(placeState)
                 getRegions(idCountry)
             } else {
                 getRegionsAll()
-                _placeStateLiveData.postValue(PlaceState.Empty)
-
+                Log.e("renderInitRegions", "initDataFromSp Empty")
+                _placeStateLiveData1.postValue(PlaceState.Empty)
             }
         } ?: run {
-            _placeStateLiveData.postValue(PlaceState.Error)
+            Log.e("renderInitRegions", "initDataFromSp Error")
+            _placeStateLiveData1.postValue(PlaceState.Error)
             regions.clear()
         }
     }

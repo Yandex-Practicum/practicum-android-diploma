@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.filter.place.presentation.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import ru.practicum.android.diploma.filter.databinding.FragmentCountryBinding
 import ru.practicum.android.diploma.filter.place.domain.model.Country
 import ru.practicum.android.diploma.filter.place.domain.model.Place
 import ru.practicum.android.diploma.filter.place.presentation.ui.adapters.PlacesAdapter
+import ru.practicum.android.diploma.filter.place.presentation.viewmodel.CountryViewModel
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.RegionsCountriesViewModel
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.CountryState
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.PlaceState
@@ -27,7 +29,7 @@ internal class CountryFragment : Fragment() {
     private var _binding: FragmentCountryBinding? = null
     private val binding get() = _binding!!
 
-    private val regionsCountriesViewModel: RegionsCountriesViewModel by viewModel()
+    private val countryViewModel: CountryViewModel by viewModel()
 
     private var countries: Map<String, String>? = null
 
@@ -56,6 +58,8 @@ internal class CountryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        countryViewModel.initDataFromCache()
+
         initDebounce()
 
         binding.buttonLeftCountry.setOnClickListener {
@@ -67,7 +71,7 @@ internal class CountryFragment : Fragment() {
 
         reset()
 
-        regionsCountriesViewModel.observeCountriesState().observe(viewLifecycleOwner) { state ->
+        countryViewModel.observeCountriesState().observe(viewLifecycleOwner) { state ->
             when (state) {
                 is CountryState.Content -> {
                     showCountries(state.countries)
@@ -76,12 +80,10 @@ internal class CountryFragment : Fragment() {
 
                 is CountryState.Empty -> {
                     showError()
-                    regionsCountriesViewModel.setPlaceState(PlaceState.Empty)
                 }
 
                 is CountryState.Error -> {
                     showError()
-                    regionsCountriesViewModel.setPlaceState(PlaceState.Error)
                 }
             }
         }
@@ -108,7 +110,7 @@ internal class CountryFragment : Fragment() {
     private fun initDebounce() {
         countryClickDebounce = onCountryClickDebounce {
             findNavController().navigateUp()
-            regionsCountriesViewModel.setPlaceInDataFilter(
+            countryViewModel.setPlaceInDataFilter(
                 Place(
                     idCountry = it.id,
                     nameCountry = it.name,
