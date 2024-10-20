@@ -2,8 +2,6 @@ package ru.practicum.android.diploma.data.sp.api.impl
 
 import android.content.SharedPreferences
 import com.google.gson.Gson
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.data.sp.api.FilterSp
 import ru.practicum.android.diploma.data.sp.dto.FilterDto
 import ru.practicum.android.diploma.data.sp.dto.IndustryDto
@@ -20,33 +18,33 @@ class FilterSpImpl(
     private val gson: Gson
 ) : FilterSp {
 
-    override suspend fun clearDataFilter() {
+    override fun clearDataFilter() {
         filterSp.edit()
             .clear()
             .apply()
     }
 
-    override suspend fun clearIndustryFilter() {
+    override fun clearIndustryFilter() {
         filterSp.edit().remove(BRANCH_OF_PROFESSION_KEY_SP).apply()
     }
 
-    override suspend fun clearPlaceFilter() {
+    override fun clearPlaceFilter() {
         filterSp.edit().remove(PLACE_KEY_SP).apply()
     }
 
-    override suspend fun clearSalaryFilter() {
+    override fun clearSalaryFilter() {
         filterSp.edit().remove(EXPECTED_SALARY_KEY_SP).apply()
     }
 
-    override suspend fun getPlaceDataFilter(): PlaceDto? {
+    override fun getPlaceDataFilter(): PlaceDto? {
         return getPlaceDataFilterBase(PLACE_KEY_SP)
     }
 
-    override suspend fun getPlaceDataFilterBuffer(): PlaceDto? {
+    override fun getPlaceDataFilterBuffer(): PlaceDto? {
         return getPlaceDataFilterBase(PLACE_KEY_SP_BUFFER)
     }
 
-    private suspend fun getPlaceDataFilterBase(key: String): PlaceDto? {
+    private fun getPlaceDataFilterBase(key: String): PlaceDto? {
         val json = filterSp.getString(key, null)
         return if (json != null) {
             gson.fromJson(json, PlaceDto::class.java)
@@ -55,7 +53,7 @@ class FilterSpImpl(
         }
     }
 
-    override suspend fun getBranchOfProfessionDataFilter(): IndustryDto? {
+    override fun getBranchOfProfessionDataFilter(): IndustryDto? {
         val json = filterSp.getString(BRANCH_OF_PROFESSION_KEY_SP, null)
         return if (json != null) {
             gson.fromJson(json, IndustryDto::class.java)
@@ -65,7 +63,7 @@ class FilterSpImpl(
     }
 
     @Suppress("detekt.SwallowedException")
-    override suspend fun getExpectedSalaryDataFilter(): String? {
+    override fun getExpectedSalaryDataFilter(): String? {
         var result: String? = null
         try {
             result = filterSp.getString(EXPECTED_SALARY_KEY_SP, null)
@@ -75,11 +73,11 @@ class FilterSpImpl(
         return result
     }
 
-    override suspend fun isDoNotShowWithoutSalaryDataFilter(): Boolean {
+    override fun isDoNotShowWithoutSalaryDataFilter(): Boolean {
         return filterSp.getBoolean(DO_NOT_SHOW_WITHOUT_SALARY_KEY_SP, false)
     }
 
-    override suspend fun getDataFilter(): FilterDto {
+    override fun getDataFilter(): FilterDto {
         return FilterDto(
             placeDto = getPlaceDataFilter(),
             branchOfProfession = getBranchOfProfessionDataFilter(),
@@ -88,65 +86,57 @@ class FilterSpImpl(
         )
     }
 
-    override suspend fun updatePlaceInDataFilter(placeDto: PlaceDto): Int {
+    override fun updatePlaceInDataFilter(placeDto: PlaceDto): Int {
         return updatePlaceInDataFilterBase(placeDto, PLACE_KEY_SP)
     }
 
-    override suspend fun updatePlaceInDataFilterBuffer(placeDto: PlaceDto): Int {
+    override fun updatePlaceInDataFilterBuffer(placeDto: PlaceDto): Int {
         return updatePlaceInDataFilterBase(placeDto, PLACE_KEY_SP_BUFFER)
     }
 
-    private suspend fun updatePlaceInDataFilterBase(placeDto: PlaceDto, key: String): Int {
-        return withContext(Dispatchers.IO) {
-            runCatching {
-                val json = gson.toJson(placeDto)
-                filterSp.edit()
-                    .putString(key, json)
-                    .apply()
-            }.fold(
-                onSuccess = { 1 },
-                onFailure = { -1 }
-            )
-        }
+    private fun updatePlaceInDataFilterBase(placeDto: PlaceDto, key: String): Int {
+        return kotlin.runCatching {
+            val json = gson.toJson(placeDto)
+            filterSp.edit()
+                .putString(key, json)
+                .apply()
+        }.fold(
+            onSuccess = { 1 },
+            onFailure = { -1 }
+        )
     }
 
-    override suspend fun updateProfessionInDataFilter(branchOfProfession: IndustryDto): Int {
-        return withContext(Dispatchers.IO) {
-            runCatching {
-                val json = gson.toJson(branchOfProfession)
-                filterSp.edit()
-                    .putString(BRANCH_OF_PROFESSION_KEY_SP, json)
-                    .apply()
-            }.fold(
-                onSuccess = { 1 },
-                onFailure = { -1 }
-            )
-        }
+    override fun updateProfessionInDataFilter(branchOfProfession: IndustryDto): Int {
+        return kotlin.runCatching {
+            val json = gson.toJson(branchOfProfession)
+            filterSp.edit()
+                .putString(BRANCH_OF_PROFESSION_KEY_SP, json)
+                .apply()
+        }.fold(
+            onSuccess = { 1 },
+            onFailure = { -1 }
+        )
     }
 
-    override suspend fun updateSalaryInDataFilter(expectedSalary: String): Int {
-        return withContext(Dispatchers.IO) {
-            runCatching {
-                filterSp.edit()
-                    .putString(EXPECTED_SALARY_KEY_SP, expectedSalary)
-                    .apply()
-            }.fold(
-                onSuccess = { 1 },
-                onFailure = { -1 }
-            )
-        }
+    override fun updateSalaryInDataFilter(expectedSalary: String): Int {
+        return kotlin.runCatching {
+            filterSp.edit()
+                .putString(EXPECTED_SALARY_KEY_SP, expectedSalary)
+                .apply()
+        }.fold(
+            onSuccess = { 1 },
+            onFailure = { -1 }
+        )
     }
 
-    override suspend fun updateDoNotShowWithoutSalaryInDataFilter(doNotShowWithoutSalary: Boolean): Int {
-        return withContext(Dispatchers.IO) {
-            runCatching {
-                filterSp.edit()
-                    .putBoolean(DO_NOT_SHOW_WITHOUT_SALARY_KEY_SP, doNotShowWithoutSalary)
-                    .apply()
-            }.fold(
-                onSuccess = { 1 },
-                onFailure = { -1 }
-            )
-        }
+    override fun updateDoNotShowWithoutSalaryInDataFilter(doNotShowWithoutSalary: Boolean): Int {
+        return kotlin.runCatching {
+            filterSp.edit()
+                .putBoolean(DO_NOT_SHOW_WITHOUT_SALARY_KEY_SP, doNotShowWithoutSalary)
+                .apply()
+        }.fold(
+            onSuccess = { 1 },
+            onFailure = { -1 }
+        )
     }
 }
