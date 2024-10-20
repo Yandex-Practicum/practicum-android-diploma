@@ -6,35 +6,35 @@ import ru.practicum.android.diploma.filter.filter.domain.usecase.FilterSPInterac
 
 class FilterSPInteractorImpl(private val repository: FilterSPRepository) : FilterSPInteractor {
 
-    override suspend fun clearDataFilter() {
+    override fun clearDataFilter() {
         return repository.clearDataFilter()
     }
 
-    override suspend fun getExpectedSalaryDataFilter(): String? {
+    override fun getExpectedSalaryDataFilter(): String? {
         return repository.getExpectedSalaryDataFilter()
     }
 
-    override suspend fun isDoNotShowWithoutSalaryDataFilter(): Boolean {
+    override fun isDoNotShowWithoutSalaryDataFilter(): Boolean {
         return repository.isDoNotShowWithoutSalaryDataFilter()
     }
 
-    override suspend fun getDataFilter(): FilterSettings {
+    override fun getDataFilter(): FilterSettings {
         return repository.getDataFilter()
     }
 
-    override suspend fun clearPlaceInDataFilter(): Int {
+    override fun clearPlaceInDataFilter(): Int {
         return repository.clearPlaceInDataFilter()
     }
 
-    override suspend fun clearProfessionInDataFilter(): Int {
+    override fun clearProfessionInDataFilter(): Int {
         return repository.clearProfessionInDataFilter()
     }
 
-    override suspend fun updateSalaryInDataFilter(expectedSalary: String): Int {
+    override fun updateSalaryInDataFilter(expectedSalary: String): Int {
         return repository.updateSalaryInDataFilter(expectedSalary)
     }
 
-    override suspend fun updateDoNotShowWithoutSalaryInDataFilter(doNotShowWithoutSalary: Boolean): Int {
+    override fun updateDoNotShowWithoutSalaryInDataFilter(doNotShowWithoutSalary: Boolean): Int {
         return repository.updateDoNotShowWithoutSalaryInDataFilter(doNotShowWithoutSalary)
     }
 }

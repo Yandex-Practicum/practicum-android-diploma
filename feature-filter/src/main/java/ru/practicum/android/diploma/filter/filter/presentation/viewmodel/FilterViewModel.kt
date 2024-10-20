@@ -28,47 +28,34 @@ class FilterViewModel(
     }
 
     private fun getBufferDataFromSp() {
-        viewModelScope.launch(Dispatchers.IO) {
-            _filterSettingsUI = filterSPInteractor.getDataFilter()
-        }
+        _filterSettingsUI = filterSPInteractor.getDataFilter()
     }
 
     fun getDataFromSp() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val filterSettings = filterSPInteractor.getDataFilter()
-            _filterOptionsListLiveData.postValue(filterSettings)
-        }
+        val filterSettings = filterSPInteractor.getDataFilter()
+        _filterOptionsListLiveData.postValue(filterSettings)
     }
 
     fun setSalaryInDataFilter(salaryInDataFilter: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            filterSPInteractor.updateSalaryInDataFilter(salaryInDataFilter)
-            getDataFromSp()
-        }
+        filterSPInteractor.updateSalaryInDataFilter(salaryInDataFilter)
+        getDataFromSp()
     }
 
     fun setDoNotShowWithoutSalaryInDataFilter(doNotShowWithoutSalary: Boolean) {
-        viewModelScope.launch(Dispatchers.IO) {
-            filterSPInteractor.updateDoNotShowWithoutSalaryInDataFilter(doNotShowWithoutSalary)
-            getDataFromSp()
-        }
+        filterSPInteractor.updateDoNotShowWithoutSalaryInDataFilter(doNotShowWithoutSalary)
+        getDataFromSp()
     }
 
     fun clearPlaceInDataFilter() {
-        viewModelScope.launch(Dispatchers.IO) {
-            filterSPInteractor.clearPlaceInDataFilter()
-        }
+        filterSPInteractor.clearPlaceInDataFilter()
     }
+
     fun clearProfessionInDataFilter() {
-        viewModelScope.launch(Dispatchers.IO) {
-            filterSPInteractor.clearProfessionInDataFilter()
-        }
+        filterSPInteractor.clearProfessionInDataFilter()
     }
 
     fun clearDataFilter() {
-        viewModelScope.launch(Dispatchers.IO) {
-            filterSPInteractor.clearDataFilter()
-        }
+        filterSPInteractor.clearDataFilter()
     }
 
     override fun onCleared() {
@@ -83,6 +70,7 @@ class FilterViewModel(
             IndustrySetting(
                 null,
                 null
-            ), null, false)
+            ), null, false
+        )
     }
 }
