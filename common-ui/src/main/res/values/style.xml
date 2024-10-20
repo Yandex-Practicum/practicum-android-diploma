@@ -46,6 +46,7 @@
         <item name="android:textColor">@color/primaryTextAndUIColor</item>
         <item name="android:padding">@dimen/textPadding</item>
     </style>
+
     <style name="TextViewRegular12" parent="TextViewRegular16">
         <item name="android:textSize">@dimen/sp_12</item>
     </style>
@@ -265,8 +266,9 @@
         <item name="android:orientation">horizontal</item>
         <item name="android:paddingLeft">@dimen/dimens_16</item>
     </style>
+
     <style name="EditTextFilter">
-        <item name="android:background"/>
+        <item name="android:background" />
         <item name="android:drawablePadding">@dimen/dp_8</item>
         <item name="android:hint">@string/filter_screens_enter_sum</item>
         <item name="android:imeOptions">actionDone</item>
@@ -278,23 +280,27 @@
         <item name="android:textSize">@dimen/textSizeLittle</item>
         <item name="android:textCursorDrawable">@drawable/blue_text_cursor_drawable</item>
     </style>
+
     <style name="TextViewFilter">
         <item name="android:layout_marginTop">@dimen/dimens_4</item>
         <item name="android:hint">@string/filter_screens_salary_expectations</item>
         <item name="android:textColor">@color/grey</item>
         <item name="android:textSize">@dimen/sp_12</item>
     </style>
+
     <style name="ButtonClear">
         <item name="android:layout_gravity">right</item>
         <item name="android:layout_margin">@dimen/dp_14</item>
         <item name="android:src">@drawable/clear</item>
         <item name="android:visibility">gone</item>
     </style>
+
     <style name="CheckBoxFilter">
         <item name="android:layout_marginTop">@dimen/dimens_24</item>
         <item name="android:padding">@dimen/dimens_16</item>
         <item name="android:src">@drawable/check_box_off</item>
     </style>
+
     <style name="ButtonApply">
         <item name="android:text">@string/filter_screens_apply_button</item>
         <item name="android:gravity">center</item>
@@ -308,6 +314,7 @@
         <item name="android:layout_margin">@dimen/dimens_16</item>
         <item name="android:visibility">gone</item>
     </style>
+
     <style name="ButtonCancel">
         <item name="android:text">@string/filter_screens_discard_button</item>
         <item name="android:gravity">center</item>
@@ -317,7 +324,8 @@
         <item name="android:textAppearance">@font/ys_display_medium</item>
         <item name="android:textSize">@dimen/textSizeLittle</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:layout_margin">@dimen/dimens_16</item>
+        <item name="android:layout_marginHorizontal">@dimen/dimens_16</item>
+        <item name="android:layout_marginBottom">@dimen/dimens_24</item>
         <item name="android:visibility">gone</item>
     </style>
 
