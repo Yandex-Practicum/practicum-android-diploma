@@ -23,7 +23,7 @@ private const val ONLY_WITH_SALARY = "only_with_salary"
 
 internal class VacancyListViewModel(
     private val vacanciesInteractor: VacanciesInteractor,
-    private val application: Application,
+    application: Application,
 ) : AndroidViewModel(application) {
 
     private var _screenStateLiveData = MutableLiveData<SearchScreenState>()
@@ -45,6 +45,7 @@ internal class VacancyListViewModel(
         _screenStateLiveData.value = SearchScreenState.IDLE
         _vacancyListStateLiveData.value = VacancyListState.Empty
         _currentResultsCountLiveData.value = 0
+        initQueryFilter(vacanciesInteractor.getDataFilter())
     }
 
     private fun initQueryFilter(filterSearch: FilterSearch) {
@@ -64,7 +65,6 @@ internal class VacancyListViewModel(
         currentQuery = query
 
         viewModelScope.launch(Dispatchers.IO) {
-            initQueryFilter(vacanciesInteractor.getDataFilter())
             vacanciesInteractor.searchVacancies(
                 page = "0",
                 perPage = "${PAGE_SIZE}",
@@ -104,10 +104,10 @@ internal class VacancyListViewModel(
                 page = (currentPage + 1).toString(),
                 perPage = "${PAGE_SIZE}",
                 queryText = currentQuery,
-                industry = queryFilter.get("industry_id"),
-                salary = queryFilter.get("salary"),
-                area = queryFilter.get("area_id"),
-                onlyWithSalary = queryFilter.get("only_with_salary").toBoolean()
+                industry = queryFilter["industry_id"],
+                salary = queryFilter["salary"],
+                area = queryFilter["area_id"],
+                onlyWithSalary = queryFilter["only_with_salary"].toBoolean()
             ).collect { response ->
                 if (response.first != null) {
                     paginationInfo = response.first ?: paginationInfo
@@ -149,5 +149,11 @@ internal class VacancyListViewModel(
 
     fun createTitle(model: Vacancy): String {
         return model.title + ", " + model.area.name + ""
+    }
+
+    fun checkFilterState(): Boolean {
+        initQueryFilter(vacanciesInteractor.getDataFilter())
+        return (queryFilter[INDUSTRY_ID] != null || queryFilter[AREA_ID] != null
+            || !queryFilter[SALARY].isNullOrBlank() || queryFilter[ONLY_WITH_SALARY].toBoolean())
     }
 }
