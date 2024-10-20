@@ -132,6 +132,7 @@ class RegionSelectFragment : Fragment() {
 
     private fun showFilteredResult(request: String) {
         adapter.filterResults(request)
+        binding.notFoundPlaceholder.isVisible = adapter.list.isEmpty()
     }
 
     private fun showEmpty() {
