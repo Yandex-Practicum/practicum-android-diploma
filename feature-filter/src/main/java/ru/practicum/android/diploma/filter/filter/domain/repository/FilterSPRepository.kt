@@ -4,15 +4,15 @@ import ru.practicum.android.diploma.filter.filter.domain.model.FilterSettings
 
 interface FilterSPRepository {
 
-    suspend fun clearDataFilter()
+    fun clearDataFilter()
 
-    suspend fun getExpectedSalaryDataFilter(): String?
-    suspend fun isDoNotShowWithoutSalaryDataFilter(): Boolean
+    fun getExpectedSalaryDataFilter(): String?
+    fun isDoNotShowWithoutSalaryDataFilter(): Boolean
 
-    suspend fun getDataFilter(): FilterSettings
+    fun getDataFilter(): FilterSettings
 
-    suspend fun clearPlaceInDataFilter(): Int
-    suspend fun clearProfessionInDataFilter(): Int
-    suspend fun updateSalaryInDataFilter(expectedSalary: String): Int
-    suspend fun updateDoNotShowWithoutSalaryInDataFilter(doNotShowWithoutSalary: Boolean): Int
+    fun clearPlaceInDataFilter(): Int
+    fun clearProfessionInDataFilter(): Int
+    fun updateSalaryInDataFilter(expectedSalary: String): Int
+    fun updateDoNotShowWithoutSalaryInDataFilter(doNotShowWithoutSalary: Boolean): Int
 }

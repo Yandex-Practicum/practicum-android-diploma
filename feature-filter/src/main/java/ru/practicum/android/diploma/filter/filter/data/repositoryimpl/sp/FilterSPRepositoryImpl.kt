@@ -7,35 +7,35 @@ import ru.practicum.android.diploma.filter.filter.domain.repository.FilterSPRepo
 
 class FilterSPRepositoryImpl(private val filterSp: FilterSp) : FilterSPRepository {
 
-    override suspend fun clearDataFilter() {
+    override fun clearDataFilter() {
         filterSp.clearDataFilter()
     }
 
-    override suspend fun getExpectedSalaryDataFilter(): String? {
+    override fun getExpectedSalaryDataFilter(): String? {
         return filterSp.getExpectedSalaryDataFilter()
     }
 
-    override suspend fun isDoNotShowWithoutSalaryDataFilter(): Boolean {
+    override fun isDoNotShowWithoutSalaryDataFilter(): Boolean {
         return filterSp.isDoNotShowWithoutSalaryDataFilter()
     }
 
-    override suspend fun getDataFilter(): FilterSettings {
+    override fun getDataFilter(): FilterSettings {
         return FilterMapper.map(filterSp.getDataFilter())
     }
 
-    override suspend fun clearPlaceInDataFilter(): Int {
+    override fun clearPlaceInDataFilter(): Int {
         return filterSp.updatePlaceInDataFilter(FilterMapper.mapClearPlace())
     }
 
-    override suspend fun clearProfessionInDataFilter(): Int {
+    override fun clearProfessionInDataFilter(): Int {
         return filterSp.updateProfessionInDataFilter(FilterMapper.mapClearIndustry())
     }
 
-    override suspend fun updateSalaryInDataFilter(expectedSalary: String): Int {
+    override fun updateSalaryInDataFilter(expectedSalary: String): Int {
         return filterSp.updateSalaryInDataFilter(expectedSalary)
     }
 
-    override suspend fun updateDoNotShowWithoutSalaryInDataFilter(doNotShowWithoutSalary: Boolean): Int {
+    override fun updateDoNotShowWithoutSalaryInDataFilter(doNotShowWithoutSalary: Boolean): Int {
         return filterSp.updateDoNotShowWithoutSalaryInDataFilter(doNotShowWithoutSalary)
     }
 }
