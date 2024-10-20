@@ -17,22 +17,27 @@ data class FilterSettings(
         }
     }
 
+    @Suppress("detekt.DataClassContainsFunctions")
     fun resetPlaceSettings(): FilterSettings {
         return this.copy(placeSettings = PlaceSettings(null, null, null, null))
     }
 
+    @Suppress("detekt.DataClassContainsFunctions")
     fun resetBranchOfProfession(): FilterSettings {
         return this.copy(branchOfProfession = IndustrySetting(null, null))
     }
 
+    @Suppress("detekt.DataClassContainsFunctions")
     fun updateExpectedSalary(newSalary: String?): FilterSettings {
         return this.copy(expectedSalary = newSalary)
     }
 
+    @Suppress("detekt.DataClassContainsFunctions")
     fun updateDoNotShowWithoutSalary(newDoNotShowWithoutSalary: Boolean): FilterSettings {
         return this.copy(doNotShowWithoutSalary = newDoNotShowWithoutSalary)
     }
 
+    @Suppress("detekt.CyclomaticComplexMethod")
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is FilterSettings) return false
