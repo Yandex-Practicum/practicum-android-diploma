@@ -72,10 +72,13 @@ class IndustrySelectViewModel(
         }
 
     fun searchDebounce(changedText: String) {
-        if (changedText.isEmpty()) loadIndustries()
-        if (latestSearchText != changedText) {
-            latestSearchText = changedText
-            industrySearchDebounce(changedText)
+        if (changedText.isEmpty()) {
+            loadIndustries()
+        } else {
+            if (latestSearchText != changedText) {
+                latestSearchText = changedText
+                industrySearchDebounce(changedText)
+            }
         }
     }
 
