@@ -105,10 +105,10 @@ internal class VacancyListViewModel(
                 page = (currentPage + 1).toString(),
                 perPage = "${PAGE_SIZE}",
                 queryText = currentQuery,
-                industry = queryFilter["industry_id"],
-                salary = queryFilter["salary"],
-                area = queryFilter["area_id"],
-                onlyWithSalary = queryFilter["only_with_salary"].toBoolean()
+                industry = queryFilter.get(INDUSTRY_ID),
+                salary = queryFilter.get(SALARY),
+                area = queryFilter.get(AREA_ID),
+                onlyWithSalary = queryFilter.get(ONLY_WITH_SALARY).toBoolean()
             ).collect { response ->
                 if (response.first != null) {
                     paginationInfo = response.first ?: paginationInfo
