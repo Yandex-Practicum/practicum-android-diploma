@@ -128,7 +128,7 @@ class RegionViewModel(
         }
     }
 
-    private val trackSearchDebounce = debounce<String>(
+    private val searchRegionsDebounce = debounce<String>(
         SEARCH_DEBOUNCE_DELAY,
         viewModelScope,
         true,
@@ -139,6 +139,6 @@ class RegionViewModel(
 
     fun searchDebounce(changedText: String) {
         latestSearchText = changedText
-        trackSearchDebounce(changedText)
+        searchRegionsDebounce(changedText)
     }
 }
