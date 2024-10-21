@@ -83,6 +83,6 @@
 </p>
 
 ## Ссылки на источники информации
-1) [Яндекс-Практикум](https://practicum.yandex.ru/profile/android-developer/) https://practicum.yandex.ru/profile/android-developer/
+1) [Яндекс-Практикум](https://practicum.yandex.ru/android-developer/) https://practicum.yandex.ru/android-developer/
 2) [Начальная версия приложения Practicum-android-diploma](https://github.com/Yandex-Practicum/practicum-android-diploma) https://github.com/Yandex-Practicum/practicum-android-diploma
 3) [Официальная документация API hh.ru](https://api.hh.ru/openapi/redoc#tag/Obshie-spravochniki/operation/get-industries) https://api.hh.ru/openapi/redoc
