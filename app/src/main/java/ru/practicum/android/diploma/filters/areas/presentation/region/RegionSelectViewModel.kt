@@ -19,6 +19,10 @@ class RegionSelectViewModel(
     private var latestSearchText: String? = null
     private val stateLiveData = MutableLiveData<RegionSelectScreenState>()
 
+    init {
+        getAllRegions()
+    }
+
     fun observeState(): LiveData<RegionSelectScreenState> = stateLiveData
 
     fun getAllRegions() {

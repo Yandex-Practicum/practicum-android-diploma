@@ -83,11 +83,6 @@ class RegionSelectFragment : Fragment() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        viewModel.getAllRegions()
-    }
-
     private fun clearButtonVisibility(text: CharSequence?) {
         val visibility = !text.isNullOrEmpty()
         binding.searchLineCleaner.isVisible = visibility
