@@ -4,21 +4,36 @@ import ru.practicum.android.diploma.data.sp.dto.FilterDto
 import ru.practicum.android.diploma.data.sp.dto.IndustryDto
 import ru.practicum.android.diploma.data.sp.dto.PlaceDto
 
-@Suppress("detekt.TooManyFunctions")
 interface FilterSp {
-    fun clearDataFilter()
-    fun getPlaceDataFilter(): PlaceDto?
-    fun getPlaceDataFilterBuffer(): PlaceDto?
-    fun getBranchOfProfessionDataFilter(): IndustryDto?
-    fun getExpectedSalaryDataFilter(): String?
-    fun isDoNotShowWithoutSalaryDataFilter(): Boolean
+    // filter base
     fun getDataFilter(): FilterDto
-    fun updatePlaceInDataFilter(placeDto: PlaceDto): Int
+    fun updateDataFilter(filterDto: FilterDto): Int
+
+    // filter reconfiguration
+    fun copyDataFilterInDataFilterBuffer()
+    fun copyDataFilterBufferInDataFilter()
+
+    // filter buffer
+    fun getDataFilterBuffer(): FilterDto
+    fun updateDataFilterBuffer(filterDto: FilterDto): Int
+
+    fun getPlaceDataFilterBuffer(): PlaceDto?
     fun updatePlaceInDataFilterBuffer(placeDto: PlaceDto): Int
-    fun updateProfessionInDataFilter(branchOfProfession: IndustryDto): Int
-    fun updateSalaryInDataFilter(expectedSalary: String): Int
-    fun updateDoNotShowWithoutSalaryInDataFilter(doNotShowWithoutSalary: Boolean): Int
-    fun clearSalaryFilter()
-    fun clearPlaceFilter()
-    fun clearIndustryFilter()
+    fun getPlaceDataFilterReserveBuffer(): PlaceDto?
+    fun updatePlaceInDataFilterReserveBuffer(placeDto: PlaceDto): Int
+    fun clearPlaceFilterBuffer()
+
+    fun getBranchOfProfessionDataFilterBuffer(): IndustryDto?
+    fun updateProfessionInDataFilterBuffer(branchOfProfession: IndustryDto): Int
+    fun clearIndustryFilterBuffer()
+
+    fun getExpectedSalaryDataFilterBuffer(): String?
+    fun updateSalaryInDataFilterBuffer(expectedSalary: String): Int
+    fun clearSalaryFilterBuffer()
+
+    fun isDoNotShowWithoutSalaryDataFilterBuffer(): Boolean
+    fun updateDoNotShowWithoutSalaryInDataFilterBuffer(doNotShowWithoutSalary: Boolean): Int
+
+    // clear sp
+    fun clearDataFilterAll()
 }

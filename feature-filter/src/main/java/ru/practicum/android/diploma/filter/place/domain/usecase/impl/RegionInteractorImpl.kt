@@ -22,18 +22,6 @@ internal class RegionInteractorImpl(
         }
     }
 
-    override suspend fun getPlaceDataFilter(): Place? {
-        return spRepository.getPlaceDataFilter()
-    }
-
-    override suspend fun updatePlaceInDataFilter(place: Place): Int {
-        return spRepository.updatePlaceInDataFilter(place)
-    }
-
-    override suspend fun clearPlaceInDataFilter(): Int {
-        return spRepository.clearPlaceInDataFilter()
-    }
-
     override suspend fun getPlaceDataFilterBuffer(): Place? {
         return spRepository.getPlaceDataFilterBuffer()
     }
@@ -44,6 +32,18 @@ internal class RegionInteractorImpl(
 
     override suspend fun clearPlaceInDataFilterBuffer(): Int {
         return spRepository.clearPlaceInDataFilterBuffer()
+    }
+
+    override suspend fun getPlaceDataFilterReserveBuffer(): Place? {
+        return spRepository.getPlaceDataFilterReserveBuffer()
+    }
+
+    override suspend fun updatePlaceInDataFilterReserveBuffer(place: Place): Int {
+        return spRepository.updatePlaceInDataFilterReserveBuffer(place)
+    }
+
+    override suspend fun clearPlaceInDataFilterReserveBuffer(): Int {
+        return spRepository.clearPlaceInDataFilterReserveBuffer()
     }
 
     override suspend fun putCountriesCache(countries: List<AreaInReference>) {

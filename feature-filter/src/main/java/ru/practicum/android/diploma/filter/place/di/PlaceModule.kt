@@ -11,7 +11,9 @@ import ru.practicum.android.diploma.filter.place.domain.repository.NetworkReposi
 import ru.practicum.android.diploma.filter.place.domain.repository.SpRepository
 import ru.practicum.android.diploma.filter.place.domain.usecase.RegionInteractor
 import ru.practicum.android.diploma.filter.place.domain.usecase.impl.RegionInteractorImpl
-import ru.practicum.android.diploma.filter.place.presentation.viewmodel.RegionsCountriesViewModel
+import ru.practicum.android.diploma.filter.place.presentation.viewmodel.CountryViewModel
+import ru.practicum.android.diploma.filter.place.presentation.viewmodel.PlaceViewModel
+import ru.practicum.android.diploma.filter.place.presentation.viewmodel.RegionViewModel
 
 val placeModule = module {
     single<RegionInteractor> {
@@ -42,6 +44,12 @@ val placeModule = module {
     }
 
     viewModel {
-        RegionsCountriesViewModel(get())
+        PlaceViewModel(get())
+    }
+    viewModel {
+        CountryViewModel(get())
+    }
+    viewModel {
+        RegionViewModel(get())
     }
 }

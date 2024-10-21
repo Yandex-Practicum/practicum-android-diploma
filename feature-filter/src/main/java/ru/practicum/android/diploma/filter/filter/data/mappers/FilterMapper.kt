@@ -27,6 +27,47 @@ object FilterMapper {
         }
     }
 
+    fun map(filter: FilterSettings): FilterDto {
+        return with(filter) {
+            FilterDto(
+                placeDto = PlaceDto(
+                    idCountry = placeSettings?.idCountry,
+                    nameCountry = placeSettings?.nameCountry,
+                    idRegion = placeSettings?.idRegion,
+                    nameRegion = placeSettings?.nameRegion
+                ),
+                branchOfProfession = IndustryDto(
+                    id = branchOfProfession?.id,
+                    name = branchOfProfession?.name
+                ),
+                expectedSalary = expectedSalary,
+                doNotShowWithoutSalary = doNotShowWithoutSalary
+            )
+        }
+    }
+
+    fun map(placeDto: PlaceDto): PlaceSettings {
+        return with(placeDto) {
+            PlaceSettings(
+                idCountry = idCountry,
+                nameCountry = nameCountry,
+                idRegion = idRegion,
+                nameRegion = nameRegion
+            )
+        }
+    }
+
+    fun map(place: PlaceSettings): PlaceDto {
+        return with(place) {
+            PlaceDto(
+                idCountry = idCountry,
+                nameCountry = nameCountry,
+                idRegion = idRegion,
+                nameRegion = nameRegion
+            )
+        }
+    }
+
     fun mapClearPlace(): PlaceDto {
         return PlaceDto(
             idCountry = null,

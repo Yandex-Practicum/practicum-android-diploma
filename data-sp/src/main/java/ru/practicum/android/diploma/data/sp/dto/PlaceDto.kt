@@ -9,4 +9,10 @@ data class PlaceDto(
     val nameCountry: String?,
     val idRegion: String?,
     val nameRegion: String?,
-) : Parcelable
+) : Parcelable {
+    companion object {
+        fun emptyPlaceDto(): PlaceDto {
+            return PlaceDto(null, null, null, null)
+        }
+    }
+}

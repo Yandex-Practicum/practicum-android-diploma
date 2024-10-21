@@ -19,7 +19,7 @@ import ru.practicum.android.diploma.filter.databinding.FragmentRegionBinding
 import ru.practicum.android.diploma.filter.place.domain.model.Place
 import ru.practicum.android.diploma.filter.place.domain.model.Region
 import ru.practicum.android.diploma.filter.place.presentation.ui.adapters.PlacesAdapter
-import ru.practicum.android.diploma.filter.place.presentation.viewmodel.RegionsCountriesViewModel
+import ru.practicum.android.diploma.filter.place.presentation.viewmodel.RegionViewModel
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.PlaceState
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.RegionState
 import ru.practicum.android.diploma.ui.R
@@ -30,7 +30,7 @@ private const val CALIBRATION_COEFFICIENT = 1.2
 
 internal class RegionFragment : Fragment() {
 
-    private val regionsCountriesViewModel: RegionsCountriesViewModel by viewModel()
+    private val regionViewModel: RegionViewModel by viewModel()
 
     private var _binding: FragmentRegionBinding? = null
     private val binding get() = _binding!!
@@ -74,13 +74,15 @@ internal class RegionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        regionViewModel.initDataFromCacheAndSp()
+
         initDebounces()
 
-        regionsCountriesViewModel.observePlaceState().observe(viewLifecycleOwner) {
+        regionViewModel.observePlaceState().observe(viewLifecycleOwner) {
             renderInitRegions(it)
         }
 
-        regionsCountriesViewModel.observeRegionsState().observe(viewLifecycleOwner) {
+        regionViewModel.observeRegionsState().observe(viewLifecycleOwner) {
             renderViewRegions(it)
         }
 
@@ -145,15 +147,15 @@ internal class RegionFragment : Fragment() {
     private fun renderInitRegions(state: PlaceState) {
         when (state) {
             is PlaceState.ContentCountry -> {
-                regionsCountriesViewModel.getRegions(state.country.id)
+                regionViewModel.getRegions(state.country.id)
             }
 
             is PlaceState.ContentPlace -> {
-                state.place.idCountry?.let { regionsCountriesViewModel.getRegions(it) }
+                state.place.idCountry?.let { regionViewModel.getRegions(it) }
             }
 
             is PlaceState.Empty -> {
-                regionsCountriesViewModel.getRegionsAll()
+                regionViewModel.getRegionsAll()
             }
 
             is PlaceState.Error -> {
@@ -165,7 +167,7 @@ internal class RegionFragment : Fragment() {
     private fun initDebounces() {
         regionClickDebounce = onRegionClickDebounce {
             findNavController().navigateUp()
-            regionsCountriesViewModel.setPlaceInDataFilter(
+            regionViewModel.setPlaceInDataReserveFilter(
                 Place(
                     idCountry = it.parentId,
                     nameCountry = it.parentName,
@@ -206,7 +208,7 @@ internal class RegionFragment : Fragment() {
                 0
             )
             textSearchRegions = inputText.toString()
-            regionsCountriesViewModel.searchDebounce(textSearchRegions)
+            regionViewModel.searchDebounce(textSearchRegions)
         }
 
         override fun afterTextChanged(resultText: Editable?) {
