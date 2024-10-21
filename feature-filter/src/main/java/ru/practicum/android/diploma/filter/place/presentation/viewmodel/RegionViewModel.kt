@@ -16,7 +16,6 @@ import ru.practicum.android.diploma.filter.place.domain.usecase.RegionInteractor
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.PlaceState
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.RegionState
 
-
 private const val NUMBER_OF_CACHE_READ_ATTEMPTS = 10
 private const val DELAY_BETWEEN_CACHE_READS = 100L
 private const val SEARCH_DEBOUNCE_DELAY = 1000L

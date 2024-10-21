@@ -8,7 +8,7 @@ data class Place(
 ) {
     companion object {
         fun emptyPlace(): Place {
-            return Place (
+            return Place(
                 idCountry = null,
                 nameCountry = null,
                 idRegion = null,
@@ -19,9 +19,9 @@ data class Place(
 }
 
 fun Place.resetRegion(): Place {
-    return this.copy( idRegion = null, nameRegion = null )
+    return this.copy(idRegion = null, nameRegion = null)
 }
 
 fun Place.setCountry(country: Country): Place {
-    return this.copy( idCountry = country.id, nameCountry = country.name )
+    return this.copy(idCountry = country.id, nameCountry = country.name)
 }

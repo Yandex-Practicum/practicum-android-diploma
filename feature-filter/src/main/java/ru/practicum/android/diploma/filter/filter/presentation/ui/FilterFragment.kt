@@ -48,7 +48,6 @@ internal class FilterFragment : Fragment() {
 
         viewModel.filterOptionsBufferLiveData.observe(viewLifecycleOwner) { filter ->
             render(filter)
-            visibleClearFilter(filter)
         }
 
         viewModel.newSettingsFilterLiveData.observe(viewLifecycleOwner) { newSettingsFilter ->
@@ -160,6 +159,7 @@ internal class FilterFragment : Fragment() {
     }
 
     private fun render(filter: FilterSettings) {
+        visibleClearFilter(filter)
         renderPlaceFilter(filter)
         renderProfessionFilter(filter)
         renderExpectedSalaryFilter(filter)

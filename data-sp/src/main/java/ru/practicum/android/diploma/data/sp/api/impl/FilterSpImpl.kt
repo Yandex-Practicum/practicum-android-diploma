@@ -115,28 +115,14 @@ class FilterSpImpl(
     }
 
     override fun updateDataFilterBuffer(filterDto: FilterDto): Int {
-        var count = 0
-        count += filterDto.placeDto?.let {
-            updatePlaceInDataFilterBuffer(it)
-        } ?: run {
-            updatePlaceInDataFilterBuffer(PlaceDto.emptyPlaceDto())
-        }
-        count += filterDto.branchOfProfession?.let {
-            updateProfessionInDataFilterBuffer(it)
-        } ?: run {
-            updateProfessionInDataFilterBuffer(IndustryDto.emptyIndustryDto())
-        }
-        count += filterDto.expectedSalary?.let {
-            updateSalaryInDataFilterBuffer(it)
-        } ?: run {
-            updateSalaryInDataFilterBuffer("")
-        }
-        count += updateDoNotShowWithoutSalaryInDataFilterBuffer(filterDto.doNotShowWithoutSalary)
-        return if (count == 4) {
-            1
-        } else {
-            -1
-        }
+        val list = listOf(
+            filterDto.placeDto?.let { updatePlaceInDataFilterBuffer(it) } ?: updatePlaceInDataFilterBuffer(PlaceDto.emptyPlaceDto()),
+            filterDto.branchOfProfession?.let { updateProfessionInDataFilterBuffer(it) } ?: updateProfessionInDataFilterBuffer(IndustryDto.emptyIndustryDto()),
+            filterDto.expectedSalary?.let { updateSalaryInDataFilterBuffer(it) } ?: updateSalaryInDataFilterBuffer(""),
+            updateDoNotShowWithoutSalaryInDataFilterBuffer(filterDto.doNotShowWithoutSalary)
+        )
+        val count = list.sum()
+        return if (count == list.size) 1 else -1
     }
 
     override fun updatePlaceInDataFilterBuffer(placeDto: PlaceDto): Int {

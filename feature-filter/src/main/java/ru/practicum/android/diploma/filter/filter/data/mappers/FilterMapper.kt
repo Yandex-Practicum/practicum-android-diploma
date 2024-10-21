@@ -6,7 +6,6 @@ import ru.practicum.android.diploma.data.sp.dto.PlaceDto
 import ru.practicum.android.diploma.filter.filter.domain.model.FilterSettings
 import ru.practicum.android.diploma.filter.filter.domain.model.IndustrySetting
 import ru.practicum.android.diploma.filter.filter.domain.model.PlaceSettings
-import ru.practicum.android.diploma.filter.place.domain.model.Place
 
 object FilterMapper {
     fun map(filterDto: FilterDto): FilterSettings {
