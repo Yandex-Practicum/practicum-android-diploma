@@ -27,7 +27,7 @@
   - Room (для работы с локальной базой данных)
   - Android Jetpack (для упрощения разработки)
 - **Алгоритм поиска в фильтре**:
-Для реализации функции поиска в фильтре используется алгоритм [Кнута-Морриса-Пратта (KMP)](https://ru.wikipedia.org/wiki/Алгоритм_Кнута_—_Морриса_—_Пратта#:~:text=Алгоритм%20Кнута%20—%20Морриса%20—%20Пратта%20(,следующее%20совпадение%2C%20минуя%20лишние%20проверки.), 
+Для реализации функции поиска в фильтре используется алгоритм [Кнута-Морриса-Пратта (KMP)](https://ru.wikipedia.org/wiki/Алгоритм_Кнута_—_Морриса_—_Пратта#:~:text=Алгоритм%20Кнута%20—%20Морриса%20—%20Пратта%20(,следующее%20совпадение%2C%20минуя%20лишние%20проверки.)), 
 который обеспечивает эффективный поиск подстроки в строке.
 Этот алгоритм работает за линейное время от длины обеих строк и позволяет избежать ненужных сравнений, что значительно ускоряет процесс поиска.
   
@@ -83,6 +83,6 @@
 </p>
 
 ## Ссылки на источники информации
-[Яндекс-Практикум](https://practicum.yandex.ru/profile/android-developer/)https://practicum.yandex.ru/profile/android-developer/
-[Начальная версия приложения Practicum-android-diploma](https://github.com/Yandex-Practicum/practicum-android-diploma) https://github.com/Yandex-Practicum/practicum-android-diploma
-[Официальная документация API hh.ru](https://api.hh.ru/openapi/redoc#tag/Obshie-spravochniki/operation/get-industries) https://api.hh.ru/openapi/redoc
+1) [Яндекс-Практикум](https://practicum.yandex.ru/profile/android-developer/) https://practicum.yandex.ru/profile/android-developer/
+2) [Начальная версия приложения Practicum-android-diploma](https://github.com/Yandex-Practicum/practicum-android-diploma) https://github.com/Yandex-Practicum/practicum-android-diploma
+3) [Официальная документация API hh.ru](https://api.hh.ru/openapi/redoc#tag/Obshie-spravochniki/operation/get-industries) https://api.hh.ru/openapi/redoc
