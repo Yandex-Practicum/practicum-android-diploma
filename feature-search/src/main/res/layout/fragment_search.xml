@@ -56,6 +56,7 @@
         android:layout_marginVertical="@dimen/dp_8"
         android:autofillHints="no"
         android:hint="@string/search_screen_searchbar_hint"
+        android:imeOptions="actionDone"
         app:layout_constraintBottom_toTopOf="@id/searchBarGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
