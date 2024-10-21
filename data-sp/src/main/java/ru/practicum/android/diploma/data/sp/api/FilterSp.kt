@@ -16,7 +16,7 @@ interface FilterSp {
     // filter buffer
     fun getDataFilterBuffer(): FilterDto
     fun updateDataFilterBuffer(filterDto: FilterDto): Int
-    
+
     fun getPlaceDataFilterBuffer(): PlaceDto?
     fun updatePlaceInDataFilterBuffer(placeDto: PlaceDto): Int
     fun getPlaceDataFilterReserveBuffer(): PlaceDto?

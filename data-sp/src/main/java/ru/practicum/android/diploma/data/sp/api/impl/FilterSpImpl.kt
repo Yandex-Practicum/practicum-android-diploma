@@ -116,9 +116,15 @@ class FilterSpImpl(
 
     override fun updateDataFilterBuffer(filterDto: FilterDto): Int {
         val list = listOf(
-            filterDto.placeDto?.let { updatePlaceInDataFilterBuffer(it) } ?: updatePlaceInDataFilterBuffer(PlaceDto.emptyPlaceDto()),
-            filterDto.branchOfProfession?.let { updateProfessionInDataFilterBuffer(it) } ?: updateProfessionInDataFilterBuffer(IndustryDto.emptyIndustryDto()),
-            filterDto.expectedSalary?.let { updateSalaryInDataFilterBuffer(it) } ?: updateSalaryInDataFilterBuffer(""),
+            filterDto.placeDto?.let {
+                updatePlaceInDataFilterBuffer(it)
+            } ?: updatePlaceInDataFilterBuffer(PlaceDto.emptyPlaceDto()),
+            filterDto.branchOfProfession?.let {
+                updateProfessionInDataFilterBuffer(it)
+            } ?: updateProfessionInDataFilterBuffer(IndustryDto.emptyIndustryDto()),
+            filterDto.expectedSalary?.let {
+                updateSalaryInDataFilterBuffer(it)
+            } ?: updateSalaryInDataFilterBuffer(""),
             updateDoNotShowWithoutSalaryInDataFilterBuffer(filterDto.doNotShowWithoutSalary)
         )
         val count = list.sum()
