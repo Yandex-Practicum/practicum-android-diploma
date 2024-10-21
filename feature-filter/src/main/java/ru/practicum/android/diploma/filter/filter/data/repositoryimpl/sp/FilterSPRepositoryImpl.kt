@@ -19,7 +19,7 @@ class FilterSPRepositoryImpl(private val filterSp: FilterSp) : FilterSPRepositor
         return filterSp.isDoNotShowWithoutSalaryDataFilterBuffer()
     }
 
-    override fun getDataFilter(): FilterSettings {
+    override suspend fun getDataFilter(): FilterSettings {
         return FilterMapper.map(filterSp.getDataFilter())
     }
 
