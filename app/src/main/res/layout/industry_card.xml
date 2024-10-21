@@ -4,12 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="@dimen/padding_horizontal_size_16">
+    android:paddingHorizontal="@dimen/padding_horizontal_size_16"
+    android:paddingVertical="@dimen/screen_padding_8">
 
     <RadioButton
         android:id="@+id/industry_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingRight="@dimen/title_top_margin_24"
         android:textAppearance="@style/Text_Regular_16"
         android:layoutDirection="rtl"
         android:clickable="false"
