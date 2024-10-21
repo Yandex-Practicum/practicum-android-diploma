@@ -20,6 +20,7 @@ private const val INDUSTRY_ID = "industry"
 private const val SALARY = "salary"
 private const val AREA_ID = "area"
 private const val ONLY_WITH_SALARY = "only_with_salary"
+private const val TAG = "VacancyListViewModel"
 
 internal class VacancyListViewModel(
     private val vacanciesInteractor: VacanciesInteractor,
@@ -53,17 +54,17 @@ internal class VacancyListViewModel(
         filterSearch.expectedSalary?.let { queryFilter.put(SALARY, it) }
         filterSearch.doNotShowWithoutSalary.let { queryFilter.put(ONLY_WITH_SALARY, it.toString()) }
         filterSearch.placeSearch?.let { place ->
-            place.idRegion?.let { queryFilter.put(AREA_ID, it) }
+            place.idCountry?.let { queryFilter.put(AREA_ID, it) }
         }
         filterSearch.placeSearch?.let { place ->
-            place.idCountry?.let { queryFilter.put(AREA_ID, it) }
+            place.idRegion?.let { queryFilter.put(AREA_ID, it) }
         }
     }
 
     fun initialSearch(query: String) {
         _screenStateLiveData.postValue(SearchScreenState.LOADING_NEW_LIST)
         currentQuery = query
-
+        initQueryFilter(vacanciesInteractor.getDataFilter())
         viewModelScope.launch(Dispatchers.IO) {
             vacanciesInteractor.searchVacancies(
                 page = "0",
