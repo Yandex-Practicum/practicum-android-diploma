@@ -120,6 +120,6 @@ class RegionSelectViewModel(
     }
 
     companion object {
-        private const val SEARCH_DEBOUNCE_DELAY = 500L
+        private const val SEARCH_DEBOUNCE_DELAY = 100L
     }
 }
