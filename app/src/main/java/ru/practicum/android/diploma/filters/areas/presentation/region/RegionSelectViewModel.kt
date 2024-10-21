@@ -50,10 +50,7 @@ class RegionSelectViewModel(
                 if (!areaCashInteractor.getCashArea()?.parentId.isNullOrBlank()) {
                     renderState(
                         RegionSelectScreenState.ChooseItem(
-                            foundAreas.filter {
-                                it.id ==
-                                    areaCashInteractor.getCashArea()?.parentId
-                            }[0].areas
+                            getRegionWithCityList(foundAreas)
                         )
                     )
                 } else {
@@ -90,6 +87,20 @@ class RegionSelectViewModel(
             regions.addAll(area.areas)
         }
         return regions
+    }
+
+    private fun getRegionWithCityList(areaList: List<Area>): List<Area> {
+        var filteredRegionList = areaList.filter {
+            it.id ==
+                areaCashInteractor.getCashArea()?.parentId
+        }[0].areas
+
+        val regionsAndCities = mutableListOf<Area>()
+        regionsAndCities.addAll(filteredRegionList)
+        filteredRegionList.forEach { area ->
+            regionsAndCities.addAll(area.areas)
+        }
+        return regionsAndCities
     }
 
     private fun renderState(state: RegionSelectScreenState) {
