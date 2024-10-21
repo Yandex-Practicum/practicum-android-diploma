@@ -6,16 +6,16 @@ import ru.practicum.android.diploma.filter.filter.domain.usecase.FilterSPInterac
 
 class FilterSPInteractorImpl(private val repository: FilterSPRepository) : FilterSPInteractor {
 
-    override suspend fun clearDataFilter() {
-        return repository.clearDataFilter()
+    override suspend fun clearDataFilterAll() {
+        return repository.clearDataFilterAll()
     }
 
-    override suspend fun getExpectedSalaryDataFilter(): String? {
-        return repository.getExpectedSalaryDataFilter()
+    override suspend fun getExpectedSalaryDataFilterBuffer(): String? {
+        return repository.getExpectedSalaryDataFilterBuffer()
     }
 
-    override suspend fun isDoNotShowWithoutSalaryDataFilter(): Boolean {
-        return repository.isDoNotShowWithoutSalaryDataFilter()
+    override suspend fun isDoNotShowWithoutSalaryDataFilterBuffer(): Boolean {
+        return repository.isDoNotShowWithoutSalaryDataFilterBuffer()
     }
 
     override suspend fun getDataFilter(): FilterSettings {
@@ -42,19 +42,19 @@ class FilterSPInteractorImpl(private val repository: FilterSPRepository) : Filte
         return repository.updateDataFilter(filter)
     }
 
-    override suspend fun clearPlaceInDataFilter(): Int {
-        return repository.clearPlaceInDataFilter()
+    override suspend fun clearPlaceInDataFilterBuffer(): Int {
+        return repository.clearPlaceInDataFilterBuffer()
     }
 
-    override suspend fun clearProfessionInDataFilter(): Int {
-        return repository.clearProfessionInDataFilter()
+    override suspend fun clearProfessionInDataFilterBuffer(): Int {
+        return repository.clearProfessionInDataFilterBuffer()
     }
 
-    override suspend fun updateSalaryInDataFilter(expectedSalary: String): Int {
-        return repository.updateSalaryInDataFilter(expectedSalary)
+    override suspend fun updateSalaryInDataFilterBuffer(expectedSalary: String): Int {
+        return repository.updateSalaryInDataFilterBuffer(expectedSalary)
     }
 
-    override suspend fun updateDoNotShowWithoutSalaryInDataFilter(doNotShowWithoutSalary: Boolean): Int {
-        return repository.updateDoNotShowWithoutSalaryInDataFilter(doNotShowWithoutSalary)
+    override suspend fun updateDoNotShowWithoutSalaryInDataFilterBuffer(doNotShowWithoutSalary: Boolean): Int {
+        return repository.updateDoNotShowWithoutSalaryInDataFilterBuffer(doNotShowWithoutSalary)
     }
 }

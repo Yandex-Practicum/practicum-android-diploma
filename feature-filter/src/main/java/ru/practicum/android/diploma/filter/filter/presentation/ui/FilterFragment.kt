@@ -46,7 +46,7 @@ internal class FilterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.filterOptionsListLiveData.observe(viewLifecycleOwner) { filter ->
+        viewModel.filterOptionsBufferLiveData.observe(viewLifecycleOwner) { filter ->
             render(filter)
             visibleClearFilter(filter)
         }
@@ -65,7 +65,7 @@ internal class FilterFragment : Fragment() {
         binding.editTextFilter.addTextChangedListener(inputSearchWatcher)
 
         binding.checkBox.setOnCheckedChangeListener { compoundButton, isChecked ->
-            viewModel.setDoNotShowWithoutSalaryInDataFilter(isChecked)
+            viewModel.setDoNotShowWithoutSalaryInDataFilterBuffer(isChecked)
         }
     }
 
@@ -79,11 +79,11 @@ internal class FilterFragment : Fragment() {
                     findNavController().navigate(R.id.action_filterFragment_to_industryFragment)
                 }
                 R.id.clickWorkPlaceClear -> {
-                    viewModel.clearPlaceInDataFilter()
+                    viewModel.clearPlaceInDataFilterBuffer()
                     renderPlaceFilterClear()
                 }
                 R.id.clickWorkIndustryClear -> {
-                    viewModel.clearProfessionInDataFilter()
+                    viewModel.clearProfessionInDataFilterBuffer()
                     renderProfessionFilterClear()
                 }
                 R.id.buttonApply -> {
@@ -95,7 +95,7 @@ internal class FilterFragment : Fragment() {
                     findNavController().navigateUp()
                 }
                 R.id.buttonCancel -> {
-                    viewModel.clearDataFilter()
+                    viewModel.clearDataFilterAll()
                     findNavController().navigateUp()
                 }
             }
@@ -152,7 +152,7 @@ internal class FilterFragment : Fragment() {
             requireContext().closeKeyBoard(v)
             val inputSalary = binding.editTextFilter.text
             val textSalary = if (inputSalary.isNullOrEmpty()) "" else inputSalary.toString()
-            viewModel.setSalaryInDataFilter(textSalary)
+            viewModel.setSalaryInDataFilterBuffer(textSalary)
             true
         } else {
             false

@@ -12,8 +12,8 @@ class FilterViewModel(
     private val filterSPInteractor: FilterSPInteractor
 ) : ViewModel() {
 
-    private var _filterOptionsListLiveData: MutableLiveData<FilterSettings> = MutableLiveData<FilterSettings>()
-    val filterOptionsListLiveData: LiveData<FilterSettings> = _filterOptionsListLiveData
+    private var _filterOptionsBufferLiveData: MutableLiveData<FilterSettings> = MutableLiveData<FilterSettings>()
+    val filterOptionsBufferLiveData: LiveData<FilterSettings> = _filterOptionsBufferLiveData
 
     private var _newSettingsFilterLiveData: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
     val newSettingsFilterLiveData: LiveData<Boolean> = _newSettingsFilterLiveData
@@ -36,55 +36,50 @@ class FilterViewModel(
 
     fun getBufferDataFromSpAndCompareFilterSettings() {
         viewModelScope.launch {
-            val filterSettings = filterSPInteractor.getDataFilter()
-            val filterSettingsBuffer = filterSPInteractor.getDataFilterBuffer()
-            _filterOptionsListLiveData.postValue(filterSettingsBuffer)
-
-            val compareFilterSettings = filterSettings == filterSettingsBuffer
-            _newSettingsFilterLiveData.postValue(compareFilterSettings)
+            getBufferDataFromSpAndCompareFilterSettingsSuspend()
         }
     }
 
     private suspend fun getBufferDataFromSpAndCompareFilterSettingsSuspend() {
         val filterSettings = filterSPInteractor.getDataFilter()
         val filterSettingsBuffer = filterSPInteractor.getDataFilterBuffer()
-        _filterOptionsListLiveData.postValue(filterSettingsBuffer)
+        _filterOptionsBufferLiveData.postValue(filterSettingsBuffer)
 
         val compareFilterSettings = filterSettings == filterSettingsBuffer
         _newSettingsFilterLiveData.postValue(compareFilterSettings)
     }
 
-    fun setSalaryInDataFilter(salaryInDataFilter: String) {
+    fun setSalaryInDataFilterBuffer(salaryInDataFilter: String) {
         viewModelScope.launch {
-            filterSPInteractor.updateSalaryInDataFilter(salaryInDataFilter)
+            filterSPInteractor.updateSalaryInDataFilterBuffer(salaryInDataFilter)
             getBufferDataFromSpAndCompareFilterSettingsSuspend()
         }
     }
 
-    fun setDoNotShowWithoutSalaryInDataFilter(doNotShowWithoutSalary: Boolean) {
+    fun setDoNotShowWithoutSalaryInDataFilterBuffer(doNotShowWithoutSalary: Boolean) {
         viewModelScope.launch {
-            filterSPInteractor.updateDoNotShowWithoutSalaryInDataFilter(doNotShowWithoutSalary)
+            filterSPInteractor.updateDoNotShowWithoutSalaryInDataFilterBuffer(doNotShowWithoutSalary)
             getBufferDataFromSpAndCompareFilterSettingsSuspend()
         }
     }
 
-    fun clearPlaceInDataFilter() {
+    fun clearPlaceInDataFilterBuffer() {
         viewModelScope.launch {
-            filterSPInteractor.clearPlaceInDataFilter()
+            filterSPInteractor.clearPlaceInDataFilterBuffer()
             getBufferDataFromSpAndCompareFilterSettingsSuspend()
         }
     }
 
-    fun clearProfessionInDataFilter() {
+    fun clearProfessionInDataFilterBuffer() {
         viewModelScope.launch {
-            filterSPInteractor.clearProfessionInDataFilter()
+            filterSPInteractor.clearProfessionInDataFilterBuffer()
             getBufferDataFromSpAndCompareFilterSettingsSuspend()
         }
     }
 
-    fun clearDataFilter() {
+    fun clearDataFilterAll() {
         viewModelScope.launch {
-            filterSPInteractor.clearDataFilter()
+            filterSPInteractor.clearDataFilterAll()
         }
     }
 

@@ -10,12 +10,12 @@ class IndustryRepositorySpImpl(
 ) : IndustryRepositorySp {
 
     override suspend fun updateProfessionInDataFilter(branchOfProfession: IndustryModel): Int {
-        return filterSp.updateProfessionInDataFilter(
+        return filterSp.updateProfessionInDataFilterBuffer(
             IndustryMapper.map(branchOfProfession)
         )
     }
 
     override suspend fun getBranchOfProfessionDataFilter(): IndustryModel? {
-        return filterSp.getBranchOfProfessionDataFilter()?.let { IndustryMapper.map(it) }
+        return filterSp.getBranchOfProfessionDataFilterBuffer()?.let { IndustryMapper.map(it) }
     }
 }

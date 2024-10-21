@@ -9,16 +9,16 @@ class FilterSPRepositoryImpl(
     val filterSp: FilterSp
 ) : FilterSPRepository {
 
-    override suspend fun clearDataFilter() {
-        filterSp.clearDataFilter()
+    override suspend fun clearDataFilterAll() {
+        filterSp.clearDataFilterAll()
     }
 
-    override suspend fun getExpectedSalaryDataFilter(): String? {
-        return filterSp.getExpectedSalaryDataFilter()
+    override suspend fun getExpectedSalaryDataFilterBuffer(): String? {
+        return filterSp.getExpectedSalaryDataFilterBuffer()
     }
 
-    override suspend fun isDoNotShowWithoutSalaryDataFilter(): Boolean {
-        return filterSp.isDoNotShowWithoutSalaryDataFilter()
+    override suspend fun isDoNotShowWithoutSalaryDataFilterBuffer(): Boolean {
+        return filterSp.isDoNotShowWithoutSalaryDataFilterBuffer()
     }
 
     override suspend fun getDataFilter(): FilterSettings {
@@ -45,19 +45,19 @@ class FilterSPRepositoryImpl(
         return filterSp.updateDataFilter(FilterMapper.map(filter))
     }
 
-    override suspend fun clearPlaceInDataFilter(): Int {
-        return filterSp.updatePlaceInDataFilter(FilterMapper.mapClearPlace())
+    override suspend fun clearPlaceInDataFilterBuffer(): Int {
+        return filterSp.updatePlaceInDataFilterBuffer(FilterMapper.mapClearPlace())
     }
 
-    override suspend fun clearProfessionInDataFilter(): Int {
-        return filterSp.updateProfessionInDataFilter(FilterMapper.mapClearIndustry())
+    override suspend fun clearProfessionInDataFilterBuffer(): Int {
+        return filterSp.updateProfessionInDataFilterBuffer(FilterMapper.mapClearIndustry())
     }
 
-    override suspend fun updateSalaryInDataFilter(expectedSalary: String): Int {
-        return filterSp.updateSalaryInDataFilter(expectedSalary)
+    override suspend fun updateSalaryInDataFilterBuffer(expectedSalary: String): Int {
+        return filterSp.updateSalaryInDataFilterBuffer(expectedSalary)
     }
 
-    override suspend fun updateDoNotShowWithoutSalaryInDataFilter(doNotShowWithoutSalary: Boolean): Int {
-        return filterSp.updateDoNotShowWithoutSalaryInDataFilter(doNotShowWithoutSalary)
+    override suspend fun updateDoNotShowWithoutSalaryInDataFilterBuffer(doNotShowWithoutSalary: Boolean): Int {
+        return filterSp.updateDoNotShowWithoutSalaryInDataFilterBuffer(doNotShowWithoutSalary)
     }
 }
