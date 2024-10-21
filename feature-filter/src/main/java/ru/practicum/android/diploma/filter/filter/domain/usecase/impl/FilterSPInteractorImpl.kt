@@ -18,7 +18,7 @@ class FilterSPInteractorImpl(private val repository: FilterSPRepository) : Filte
         return repository.isDoNotShowWithoutSalaryDataFilterBuffer()
     }
 
-    override suspend fun getDataFilter(): FilterSettings {
+    override fun getDataFilter(): FilterSettings {
         return repository.getDataFilter()
     }
 

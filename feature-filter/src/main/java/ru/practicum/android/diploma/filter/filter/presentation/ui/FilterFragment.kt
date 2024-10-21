@@ -11,6 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView.OnEditorActionListener
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -36,7 +38,7 @@ internal class FilterFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentFilterBinding.inflate(inflater, container, false)
         viewModel.getBufferDataFromSpAndCompareFilterSettings()
@@ -48,7 +50,6 @@ internal class FilterFragment : Fragment() {
 
         viewModel.filterOptionsBufferLiveData.observe(viewLifecycleOwner) { filter ->
             render(filter)
-            visibleClearFilter(filter)
         }
 
         viewModel.newSettingsFilterLiveData.observe(viewLifecycleOwner) { newSettingsFilter ->
@@ -128,7 +129,7 @@ internal class FilterFragment : Fragment() {
 
     private val inputSearchWatcher = object : TextWatcher {
         override fun beforeTextChanged(oldText: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            val text = oldText.toString()
+            //
         }
 
         @SuppressLint("UseCompatLoadingForDrawables")
@@ -139,7 +140,7 @@ internal class FilterFragment : Fragment() {
         }
 
         override fun afterTextChanged(resultText: Editable?) {
-            val text = resultText.toString()
+            //
         }
     }
 
@@ -172,10 +173,10 @@ internal class FilterFragment : Fragment() {
 
     private fun renderExpectedSalaryFilter(filter: FilterSettings) {
         val salary = filter.expectedSalary
-        if (!salary.isNullOrEmpty()) {
-            binding.editTextFilter.setText(salary)
-        } else {
+        if (salary.isNullOrEmpty()) {
             binding.editTextFilter.text?.clear()
+        } else {
+            binding.editTextFilter.setText(salary)
         }
     }
 
@@ -183,8 +184,8 @@ internal class FilterFragment : Fragment() {
         val profession = filter.branchOfProfession
         if (profession != null && !profession.name.isNullOrEmpty()) {
             binding.inputWorkIndustry.setText(profession.name)
-            binding.clickWorkIndustry.visibility = View.GONE
-            binding.clickWorkIndustryClear.visibility = View.VISIBLE
+            binding.clickWorkIndustry.isGone = true
+            binding.clickWorkIndustryClear.isVisible = true
         } else {
             renderProfessionFilterClear()
         }
@@ -192,8 +193,8 @@ internal class FilterFragment : Fragment() {
 
     private fun renderProfessionFilterClear() {
         binding.inputWorkIndustry.text?.clear()
-        binding.clickWorkIndustry.visibility = View.VISIBLE
-        binding.clickWorkIndustryClear.visibility = View.GONE
+        binding.clickWorkIndustry.isVisible = true
+        binding.clickWorkIndustryClear.isGone = true
     }
 
     private fun renderPlaceFilter(filter: FilterSettings) {
@@ -208,14 +209,14 @@ internal class FilterFragment : Fragment() {
                             place.nameRegion
                         )
                     )
-                    binding.clickWorkPlace.visibility = View.GONE
-                    binding.clickWorkPlaceClear.visibility = View.VISIBLE
+                    binding.clickWorkPlace.isGone = true
+                    binding.clickWorkPlaceClear.isVisible = true
                 }
 
                 place.nameCountry != null && place.nameRegion == null -> {
                     binding.inputWorkPlace.setText(place.nameCountry)
-                    binding.clickWorkPlace.visibility = View.GONE
-                    binding.clickWorkPlaceClear.visibility = View.VISIBLE
+                    binding.clickWorkPlace.isGone = true
+                    binding.clickWorkPlaceClear.isVisible = true
                 }
 
                 else -> {
@@ -229,8 +230,8 @@ internal class FilterFragment : Fragment() {
 
     private fun renderPlaceFilterClear() {
         binding.inputWorkPlace.text?.clear()
-        binding.clickWorkPlace.visibility = View.VISIBLE
-        binding.clickWorkPlaceClear.visibility = View.GONE
+        binding.clickWorkPlace.isVisible = true
+        binding.clickWorkPlaceClear.isGone = true
     }
 
     private fun emptyFilterSetting(): FilterSettings {
