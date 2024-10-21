@@ -19,6 +19,7 @@ import ru.practicum.android.diploma.filters.areas.presentation.region.RegionSele
 import ru.practicum.android.diploma.filters.areas.ui.presenter.RegionSelectRecyclerViewAdapter
 import ru.practicum.android.diploma.filters.industries.ui.IndustrySelectFragment
 import ru.practicum.android.diploma.root.ui.RootActivity
+import ru.practicum.android.diploma.util.hideKeyboard
 
 class RegionSelectFragment : Fragment() {
     private var _binding: RegionSelectFragmentBinding? = null
@@ -67,10 +68,6 @@ class RegionSelectFragment : Fragment() {
                 viewModel.searchDebounce(
                     changedText = inputTextValue
                 )
-
-                if (textInInputField.isNullOrEmpty()) {
-                    viewModel.getAllRegions()
-                }
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -127,7 +124,11 @@ class RegionSelectFragment : Fragment() {
 
     private fun showFilteredResult(request: String) {
         adapter.filterResults(request)
-        binding.notFoundPlaceholder.isVisible = adapter.list.isEmpty()
+        binding.recyclerView.isVisible = true
+        binding.notFoundPlaceholder.isVisible = adapter.list.isEmpty() && request.isNotEmpty()
+        binding.notConnectedPlaceholder.isVisible = false
+        binding.emptyPlaceholder.isVisible = false
+        binding.progressCircular.isVisible = false
     }
 
     private fun showEmpty() {
@@ -162,7 +163,7 @@ class RegionSelectFragment : Fragment() {
     }
 
     private fun clearFilter() {
-        viewModel.getAllRegions()
+        view?.hideKeyboard()
         binding.searchLine.setText(IndustrySelectFragment.DEF_TEXT)
     }
 

@@ -72,9 +72,13 @@ class RegionSelectViewModel(
         }
 
     fun searchDebounce(changedText: String) {
-        if (latestSearchText != changedText) {
-            latestSearchText = changedText
-            regionSelectDebounce(changedText)
+        if (changedText.isNotEmpty()) {
+            if (latestSearchText != changedText) {
+                latestSearchText = changedText
+                regionSelectDebounce(changedText)
+            }
+        } else {
+            getAllRegions()
         }
     }
 
