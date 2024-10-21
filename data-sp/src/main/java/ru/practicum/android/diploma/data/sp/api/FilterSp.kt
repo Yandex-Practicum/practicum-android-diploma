@@ -19,8 +19,8 @@ interface FilterSp {
     
     fun getPlaceDataFilterBuffer(): PlaceDto?
     fun updatePlaceInDataFilterBuffer(placeDto: PlaceDto): Int
-    fun updatePlaceInDataFilterReserveBuffer(placeDto: PlaceDto): Int
     fun getPlaceDataFilterReserveBuffer(): PlaceDto?
+    fun updatePlaceInDataFilterReserveBuffer(placeDto: PlaceDto): Int
     fun clearPlaceFilterBuffer()
 
     fun getBranchOfProfessionDataFilterBuffer(): IndustryDto?

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.commonutils.debounce
 import ru.practicum.android.diploma.commonutils.searchsubstring.AlgorithmKnuthMorrisPratt
@@ -15,6 +16,9 @@ import ru.practicum.android.diploma.filter.place.domain.usecase.RegionInteractor
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.PlaceState
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.RegionState
 
+
+private const val NUMBER_OF_CACHE_READ_ATTEMPTS = 10
+private const val DELAY_BETWEEN_CACHE_READS = 100L
 private const val SEARCH_DEBOUNCE_DELAY = 1000L
 
 class RegionViewModel(
@@ -37,16 +41,26 @@ class RegionViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             regionInteractor.getPlaceDataFilterReserveBuffer()?.let { place ->
                 val idCountry = place.idCountry
-                regionInteractor.getCountriesCache()?.let { list ->
-                    places.addAll(list)
-                    regions.clear()
-                    if (idCountry != null) {
-                        getRegions(idCountry)
-                    } else {
-                        getRegionsAll()
+                var attempts = 0
+                var regionsFetched = false
+
+                _regionsStateLiveData.postValue(RegionState.Loading)
+                while (attempts < NUMBER_OF_CACHE_READ_ATTEMPTS && !regionsFetched) {
+                    regionInteractor.getCountriesCache()?.let { list ->
+                        places.addAll(list)
+                        regions.clear()
+                        if (idCountry != null) {
+                            getRegions(idCountry)
+                        } else {
+                            getRegionsAll()
+                        }
+                        _regionsStateLiveData.postValue(RegionState.Content(regions))
+                        regionsFetched = true
                     }
-                    _regionsStateLiveData.postValue(RegionState.Content(regions))
-                } ?: run {
+                    attempts++
+                    delay(DELAY_BETWEEN_CACHE_READS)
+                }
+                if (!regionsFetched) {
                     _regionsStateLiveData.postValue(RegionState.Empty)
                 }
             } ?: run {

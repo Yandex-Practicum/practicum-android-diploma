@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/regionHeader"
+        android:id="@+id/filterHeader"
         style="@style/TextViewMedium22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
         android:layout_height="@dimen/dimens_60"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/regionHeader">
+        app:layout_constraintTop_toBottomOf="@id/filterHeader">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputWorkPlaceLayout"

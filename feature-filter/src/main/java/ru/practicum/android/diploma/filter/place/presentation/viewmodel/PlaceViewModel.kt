@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.filter.place.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -28,6 +29,7 @@ class PlaceViewModel(
                 regionInteractor.updatePlaceInDataFilterReserveBuffer(place)
             }
         }
+        Log.e("copyBufferInSettingDataInSpReserveBuffer", "copyBufferInSettingDataInSpReserveBuffer")
     }
 
     fun copyReserveBufferInSettingsDataInSpBuffer() {
@@ -73,7 +75,7 @@ class PlaceViewModel(
     private val _networkStateLiveData = MutableLiveData<NetworkState>()
     fun observeNetworkState(): LiveData<NetworkState> = _networkStateLiveData
 
-    private fun initDataFromNetworkToCache() {
+    fun initDataFromNetworkToCache() {
         viewModelScope.launch(Dispatchers.IO) {
             regionInteractor.listAreas().collect { areas ->
                 areas.first?.let { list ->
@@ -86,6 +88,7 @@ class PlaceViewModel(
                 areas.second?.let { message ->
                     _networkStateLiveData.postValue(NetworkState.Error(message))
                 }
+                Log.e("initDataFromNetworkToCache", "initDataFromNetworkToCache")
             }
         }
     }
