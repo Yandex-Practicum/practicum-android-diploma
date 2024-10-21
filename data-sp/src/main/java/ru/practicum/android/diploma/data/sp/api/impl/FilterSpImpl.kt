@@ -88,7 +88,7 @@ class FilterSpImpl(
             FilterDto(
                 placeDto = null,
                 branchOfProfession = null,
-                expectedSalary = null,
+                expectedSalary = "",
                 doNotShowWithoutSalary = false
             )
         }

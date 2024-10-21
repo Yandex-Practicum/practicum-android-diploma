@@ -18,10 +18,6 @@ import ru.practicum.android.diploma.commonutils.Utils.closeKeyBoard
 import ru.practicum.android.diploma.filter.R
 import ru.practicum.android.diploma.filter.databinding.FragmentFilterBinding
 import ru.practicum.android.diploma.filter.filter.domain.model.FilterSettings
-import ru.practicum.android.diploma.filter.filter.domain.model.resetBranchOfProfession
-import ru.practicum.android.diploma.filter.filter.domain.model.resetPlaceSettings
-import ru.practicum.android.diploma.filter.filter.domain.model.updateDoNotShowWithoutSalary
-import ru.practicum.android.diploma.filter.filter.domain.model.updateExpectedSalary
 import ru.practicum.android.diploma.filter.filter.presentation.ui.uimanager.ColorManager
 import ru.practicum.android.diploma.filter.filter.presentation.viewmodel.FilterViewModel
 
@@ -84,16 +80,20 @@ internal class FilterFragment : Fragment() {
                 }
                 R.id.clickWorkPlaceClear -> {
                     viewModel.clearPlaceInDataFilter()
-                    viewModel.getBufferDataFromSpAndCompareFilterSettings()
                     renderPlaceFilterClear()
                 }
                 R.id.clickWorkIndustryClear -> {
                     viewModel.clearProfessionInDataFilter()
-                    viewModel.getBufferDataFromSpAndCompareFilterSettings()
                     renderProfessionFilterClear()
                 }
-                R.id.buttonApply -> applyFilters()
-                R.id.buttonBack -> findNavController().navigateUp()
+                R.id.buttonApply -> {
+                    viewModel.copyDataFilterBufferInDataFilter()
+                    findNavController().navigateUp()
+                }
+                R.id.buttonBack -> {
+                    viewModel.copyDataFilterInDataFilterBuffer()
+                    findNavController().navigateUp()
+                }
                 R.id.buttonCancel -> {
                     viewModel.clearDataFilter()
                     findNavController().navigateUp()
@@ -118,11 +118,6 @@ internal class FilterFragment : Fragment() {
         ).forEach { it.setOnClickListener(clickListener) }
     }
 
-    private fun applyFilters() {
-        viewModel.copyDataFilterBufferInDataFilter()
-        findNavController().navigateUp()
-    }
-
     private fun visibleClearFilter(filter: FilterSettings?) {
         binding.buttonCancel.visibility = if (filter != null && !filter.equals(emptyFilterSetting())) {
             View.VISIBLE
@@ -141,8 +136,6 @@ internal class FilterFragment : Fragment() {
             val colors = if (inputText.isNullOrEmpty()) colorsEditTextFilterEmpty else colorsEditTextFilterNoEmpty
             binding.textViewSalary.hintTextColor = ColorStateList(statesEditTextFilter, colors)
             binding.textViewSalary.setDefaultHintTextColor(ColorStateList(statesEditTextFilter, colors))
-            val textSalary = if (inputText.isNullOrEmpty()) "" else inputText.toString()
-            viewModel.setSalaryInDataFilter(textSalary)
         }
 
         override fun afterTextChanged(resultText: Editable?) {
@@ -157,6 +150,9 @@ internal class FilterFragment : Fragment() {
         if (isDoneAction || isEnterKeyPressed) {
             v.clearFocus()
             requireContext().closeKeyBoard(v)
+            val inputSalary = binding.editTextFilter.text
+            val textSalary = if (inputSalary.isNullOrEmpty()) "" else inputSalary.toString()
+            viewModel.setSalaryInDataFilter(textSalary)
             true
         } else {
             false
