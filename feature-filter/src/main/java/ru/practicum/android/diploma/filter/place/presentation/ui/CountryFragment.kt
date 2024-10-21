@@ -107,7 +107,7 @@ internal class CountryFragment : Fragment() {
     private fun initDebounce() {
         countryClickDebounce = onCountryClickDebounce {
             findNavController().navigateUp()
-            countryViewModel.setPlaceInDataFilter(
+            countryViewModel.setPlaceInDataFilterReserveBuffer(
                 Place(
                     idCountry = it.id,
                     nameCountry = it.name,

@@ -22,27 +22,27 @@ internal class RegionInteractorImpl(
         }
     }
 
-    override suspend fun getPlaceDataFilter(): Place? {
+    override suspend fun getPlaceDataFilterBuffer(): Place? {
         return spRepository.getPlaceDataFilterBuffer()
     }
 
-    override suspend fun updatePlaceInDataFilter(place: Place): Int {
+    override suspend fun updatePlaceInDataFilterBuffer(place: Place): Int {
         return spRepository.updatePlaceInDataFilterBuffer(place)
     }
 
-    override suspend fun clearPlaceInDataFilter(): Int {
+    override suspend fun clearPlaceInDataFilterBuffer(): Int {
         return spRepository.clearPlaceInDataFilterBuffer()
     }
 
-    override suspend fun getPlaceDataFilterBuffer(): Place? {
+    override suspend fun getPlaceDataFilterReserveBuffer(): Place? {
         return spRepository.getPlaceDataFilterReserveBuffer()
     }
 
-    override suspend fun updatePlaceInDataFilterBuffer(place: Place): Int {
+    override suspend fun updatePlaceInDataFilterReserveBuffer(place: Place): Int {
         return spRepository.updatePlaceInDataFilterReserveBuffer(place)
     }
 
-    override suspend fun clearPlaceInDataFilterBuffer(): Int {
+    override suspend fun clearPlaceInDataFilterReserveBuffer(): Int {
         return spRepository.clearPlaceInDataFilterReserveBuffer()
     }
 

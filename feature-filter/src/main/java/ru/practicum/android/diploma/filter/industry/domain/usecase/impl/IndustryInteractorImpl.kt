@@ -26,11 +26,11 @@ class IndustryInteractorImpl(
         }
     }
 
-    override suspend fun updateProfessionInDataFilter(branchOfProfession: IndustryModel): Int {
-        return repositorySp.updateProfessionInDataFilter(branchOfProfession)
+    override suspend fun updateProfessionInDataFilterBuffer(branchOfProfession: IndustryModel): Int {
+        return repositorySp.updateProfessionInDataFilterBuffer(branchOfProfession)
     }
 
-    override suspend fun getBranchOfProfessionDataFilter(): IndustryModel? {
-        return repositorySp.getBranchOfProfessionDataFilter()
+    override suspend fun getBranchOfProfessionDataFilterBuffer(): IndustryModel? {
+        return repositorySp.getBranchOfProfessionDataFilterBuffer()
     }
 }

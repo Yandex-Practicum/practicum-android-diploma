@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -168,7 +167,7 @@ internal class RegionFragment : Fragment() {
     private fun initDebounces() {
         regionClickDebounce = onRegionClickDebounce {
             findNavController().navigateUp()
-            regionViewModel.setPlaceInDataFilter(
+            regionViewModel.setPlaceInDataReserveFilter(
                 Place(
                     idCountry = it.parentId,
                     nameCountry = it.parentName,

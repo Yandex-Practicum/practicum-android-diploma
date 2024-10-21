@@ -63,12 +63,12 @@ internal class PlaceFragment : Fragment() {
                 R.id.clickCountryClear -> clearCountrySelection()
                 R.id.clickRegionClear -> clearRegionSelection()
                 R.id.selectButton -> {
-                    placeViewModel.copyBufferInSettingsDataInSp()
+                    placeViewModel.copyReserveBufferInSettingsDataInSpBuffer()
                     placeViewModel.clearCache()
                     findNavController().navigateUp()
                 }
                 R.id.buttonBack -> {
-                    placeViewModel.copySettingsInBufferDataInSp()
+                    placeViewModel.copyBufferInSettingDataInSpReserveBuffer()
                     placeViewModel.clearCache()
                     findNavController().navigateUp()
                 }
@@ -156,7 +156,7 @@ internal class PlaceFragment : Fragment() {
     private fun clearCountrySelection() {
         placeInstance = Place.emptyPlace()
         placeViewModel.setPlaceState(PlaceState.Empty)
-        placeViewModel.setPlaceInDataFilterBuffer(placeInstance)
+        placeViewModel.setPlaceInDataFilterReserveBuffer(placeInstance)
     }
 
     private fun clearRegionSelection() {
@@ -169,7 +169,7 @@ internal class PlaceFragment : Fragment() {
                 )
             )
         )
-        placeViewModel.setPlaceInDataFilterBuffer(placeInstance.resetRegion())
+        placeViewModel.setPlaceInDataFilterReserveBuffer(placeInstance.resetRegion())
     }
 
     override fun onDestroy() {

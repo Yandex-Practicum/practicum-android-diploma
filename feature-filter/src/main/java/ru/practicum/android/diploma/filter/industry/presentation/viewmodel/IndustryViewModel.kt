@@ -64,19 +64,19 @@ class IndustryViewModel(
     private var _currentIndustryInDataFilterLiveData = MutableLiveData<IndustryModel?>()
     val currentIndustryInDataFilterLiveData: LiveData<IndustryModel?> = _currentIndustryInDataFilterLiveData
 
-    fun updateProfessionInDataFilter(branchOfProfession: IndustryModel) {
+    fun updateProfessionInDataFilterBuffer(branchOfProfession: IndustryModel) {
         viewModelScope.launch(Dispatchers.IO) {
-            val success = industryInteractor.updateProfessionInDataFilter(branchOfProfession)
+            val success = industryInteractor.updateProfessionInDataFilterBuffer(branchOfProfession)
             if (success != -1) {
                 _currentIndustryInDataFilterLiveData.postValue(branchOfProfession)
             }
         }
     }
 
-    fun getBranchOfProfessionDataFilter() {
+    fun getBranchOfProfessionDataFilterBuffer() {
         viewModelScope.launch(Dispatchers.IO) {
             _currentIndustryInDataFilterLiveData.postValue(
-                industryInteractor.getBranchOfProfessionDataFilter()
+                industryInteractor.getBranchOfProfessionDataFilterBuffer()
             )
         }
     }

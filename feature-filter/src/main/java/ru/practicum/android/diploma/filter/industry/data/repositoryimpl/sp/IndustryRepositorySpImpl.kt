@@ -9,13 +9,13 @@ class IndustryRepositorySpImpl(
     private val filterSp: FilterSp
 ) : IndustryRepositorySp {
 
-    override suspend fun updateProfessionInDataFilter(branchOfProfession: IndustryModel): Int {
+    override suspend fun updateProfessionInDataFilterBuffer(branchOfProfession: IndustryModel): Int {
         return filterSp.updateProfessionInDataFilterBuffer(
             IndustryMapper.map(branchOfProfession)
         )
     }
 
-    override suspend fun getBranchOfProfessionDataFilter(): IndustryModel? {
+    override suspend fun getBranchOfProfessionDataFilterBuffer(): IndustryModel? {
         return filterSp.getBranchOfProfessionDataFilterBuffer()?.let { IndustryMapper.map(it) }
     }
 }

@@ -19,21 +19,21 @@ class PlaceViewModel(
 
     init {
         initDataFromNetworkToCache()
-        copySettingsInBufferDataInSp()
+        copyBufferInSettingDataInSpReserveBuffer()
     }
 
-    fun copySettingsInBufferDataInSp() {
+    fun copyBufferInSettingDataInSpReserveBuffer() {
         viewModelScope.launch {
-            regionInteractor.getPlaceDataFilter()?.let { place ->
-                regionInteractor.updatePlaceInDataFilterBuffer(place)
+            regionInteractor.getPlaceDataFilterBuffer()?.let { place ->
+                regionInteractor.updatePlaceInDataFilterReserveBuffer(place)
             }
         }
     }
 
-    fun copyBufferInSettingsDataInSp() {
+    fun copyReserveBufferInSettingsDataInSpBuffer() {
         viewModelScope.launch {
-            regionInteractor.getPlaceDataFilterBuffer()?.let { place ->
-                regionInteractor.updatePlaceInDataFilter(place)
+            regionInteractor.getPlaceDataFilterReserveBuffer()?.let { place ->
+                regionInteractor.updatePlaceInDataFilterBuffer(place)
             }
         }
     }
@@ -47,7 +47,7 @@ class PlaceViewModel(
 
     fun initDataFromSp() {
         viewModelScope.launch {
-            regionInteractor.getPlaceDataFilterBuffer()?.let { place ->
+            regionInteractor.getPlaceDataFilterReserveBuffer()?.let { place ->
                 val idCountry = place.idCountry
                 val nameCountry = place.nameCountry
                 val idRegion = place.idRegion
@@ -95,21 +95,21 @@ class PlaceViewModel(
 
     fun checkTheSelectButton() {
         viewModelScope.launch {
-            val place = regionInteractor.getPlaceDataFilter()
-            val placeBuffer = regionInteractor.getPlaceDataFilterBuffer()
+            val place = regionInteractor.getPlaceDataFilterBuffer()
+            val placeBuffer = regionInteractor.getPlaceDataFilterReserveBuffer()
             _placeStateButtonSelectedLiveData.postValue(place != placeBuffer)
         }
     }
 
-    fun setPlaceInDataFilterBuffer(place: Place) {
+    fun setPlaceInDataFilterReserveBuffer(place: Place) {
         viewModelScope.launch {
-            regionInteractor.updatePlaceInDataFilterBuffer(place)
+            regionInteractor.updatePlaceInDataFilterReserveBuffer(place)
         }
     }
 
-    private fun clearPlaceInDataFilterBuffer() {
+    private fun clearPlaceInDataFilterReserveBuffer() {
         viewModelScope.launch {
-            regionInteractor.clearPlaceInDataFilterBuffer()
+            regionInteractor.clearPlaceInDataFilterReserveBuffer()
         }
     }
 
@@ -121,6 +121,6 @@ class PlaceViewModel(
 
     override fun onCleared() {
         super.onCleared()
-        clearPlaceInDataFilterBuffer()
+        clearPlaceInDataFilterReserveBuffer()
     }
 }

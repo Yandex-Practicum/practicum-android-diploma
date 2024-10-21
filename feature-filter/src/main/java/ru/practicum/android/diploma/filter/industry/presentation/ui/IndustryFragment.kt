@@ -72,7 +72,7 @@ internal class IndustryFragment : Fragment() {
 
         industryViewModel.industriesListLiveData.observe(viewLifecycleOwner) { state ->
             render(state)
-            industryViewModel.getBranchOfProfessionDataFilter()
+            industryViewModel.getBranchOfProfessionDataFilterBuffer()
         }
 
         industryViewModel.currentIndustryInDataFilterLiveData.observe(viewLifecycleOwner) { industry ->
@@ -97,7 +97,7 @@ internal class IndustryFragment : Fragment() {
                 findNavController().navigateUp()
             }
             R.id.selectButton -> {
-                industryViewModel.updateProfessionInDataFilter(currentIndustry)
+                industryViewModel.updateProfessionInDataFilterBuffer(currentIndustry)
                 findNavController().navigateUp()
             }
         }

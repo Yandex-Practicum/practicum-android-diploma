@@ -38,9 +38,9 @@ class CountryViewModel(
         }
     }
 
-    fun setPlaceInDataFilter(place: Place) {
+    fun setPlaceInDataFilterReserveBuffer(place: Place) {
         viewModelScope.launch {
-            regionInteractor.updatePlaceInDataFilterBuffer(place)
+            regionInteractor.updatePlaceInDataFilterReserveBuffer(place)
         }
     }
 }

@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.filter.place.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,11 +9,9 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.commonutils.debounce
 import ru.practicum.android.diploma.commonutils.searchsubstring.AlgorithmKnuthMorrisPratt
 import ru.practicum.android.diploma.filter.place.domain.model.AreaInReference
-import ru.practicum.android.diploma.filter.place.domain.model.Country
 import ru.practicum.android.diploma.filter.place.domain.model.Place
 import ru.practicum.android.diploma.filter.place.domain.model.Region
 import ru.practicum.android.diploma.filter.place.domain.usecase.RegionInteractor
-import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.CountryState
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.PlaceState
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.RegionState
 
@@ -38,7 +35,7 @@ class RegionViewModel(
 
     fun initDataFromCacheAndSp() {
         viewModelScope.launch(Dispatchers.IO) {
-            regionInteractor.getPlaceDataFilterBuffer()?.let { place ->
+            regionInteractor.getPlaceDataFilterReserveBuffer()?.let { place ->
                 val idCountry = place.idCountry
                 regionInteractor.getCountriesCache()?.let { list ->
                     places.addAll(list)
@@ -58,9 +55,9 @@ class RegionViewModel(
         }
     }
 
-    fun setPlaceInDataFilter(place: Place) {
+    fun setPlaceInDataReserveFilter(place: Place) {
         viewModelScope.launch(Dispatchers.IO) {
-            regionInteractor.updatePlaceInDataFilterBuffer(place)
+            regionInteractor.updatePlaceInDataFilterReserveBuffer(place)
         }
     }
 
