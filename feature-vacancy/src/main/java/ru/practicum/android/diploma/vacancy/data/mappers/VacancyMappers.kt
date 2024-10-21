@@ -17,7 +17,7 @@ internal object VacancyMappers {
                 idVacancy = id.toInt(),
                 nameVacancy = name,
                 salary = context.formatSalary(salary?.from, salary?.to, salary?.currency),
-                nameCompany = billingType.name,
+                nameCompany = employer.name,
                 location = area.name,
                 experience = experience.name,
                 employment = employment.name,
