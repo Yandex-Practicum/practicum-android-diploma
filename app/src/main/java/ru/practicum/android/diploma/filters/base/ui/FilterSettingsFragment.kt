@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -37,42 +38,28 @@ class FilterSettingsFragment : Fragment() {
 
         viewModel.checkFilterFields()
         observeInit()
-
-        val salaryTextWatcher = object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                // коммент для детекта
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                clearButtonVisibility(p0)
-                viewModel.updateSalary(p0.toString())
-                showApplyButton()
-            }
-
-            override fun afterTextChanged(editableText: Editable?) {
-                // коммент для детекта
-            }
-        }
+        textWatcher()
+        onButtonsClicked()
         with(binding) {
-            applyButton.setOnClickListener {
-                viewModel.setSalary(editText.text.toString())
-                viewModel.setIsShowWithSalary(salaryCheckbox.isChecked)
-                viewModel.saveFilters()
-                findNavController().popBackStack()
-            }
-            clearFilter.setOnClickListener {
-                viewModel.clearFilter()
-                viewModel.checkFilterFields()
-                editText.setText(DEF_TEXT)
-                clearFilter.isVisible = false
-                applyButton.isVisible = false
+            editText.setOnEditorActionListener { v, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    v.clearFocus()
+                    view.hideKeyboard()
+                    true
+                } else {
+                    false
+                }
             }
 
-            editText.addTextChangedListener(salaryTextWatcher)
+            editText.setOnFocusChangeListener { _, _ ->
+                clearButtonVisibility(editText.text)
+            }
 
             salaryCheckbox.setOnCheckedChangeListener { _, isChecked ->
+                viewModel.setIsShowWithSalary(isChecked)
                 viewModel.updateSalaryCheckbox(isChecked)
-                showApplyButton()
+                showApplyAndClearButton()
+
             }
 
             toolBar.setNavigationOnClickListener {
@@ -97,6 +84,26 @@ class FilterSettingsFragment : Fragment() {
         )
     }
 
+    private fun textWatcher() {
+        val salaryTextWatcher = object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                // коммент для детекта
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                clearButtonVisibility(p0)
+                viewModel.setSalary(p0.toString())
+                viewModel.updateSalary(p0.toString())
+                showApplyAndClearButton()
+            }
+
+            override fun afterTextChanged(editableText: Editable?) {
+                // коммент для детекта
+            }
+        }
+        binding.editText.addTextChangedListener(salaryTextWatcher)
+    }
+
     private fun areaAndIndustryClickListenersInit() {
         binding.areaEditText.setOnClickListener {
             findNavController().navigate(
@@ -108,7 +115,8 @@ class FilterSettingsFragment : Fragment() {
                 cleanField(binding.areaEditText)
                 binding.areaInputLayout.setEndIconDrawable(R.drawable.ic_arrow_forward_24px)
                 viewModel.cleanCashArea()
-                showApplyButton()
+                viewModel.clearCurrentArea()
+                showApplyAndClearButton()
             } else {
                 findNavController().navigate(
                     R.id.action_filterSettingsFragment_to_workingRegionFragment
@@ -120,14 +128,14 @@ class FilterSettingsFragment : Fragment() {
                 cleanField(binding.industryEditText)
                 binding.industryInputLayout.setEndIconDrawable(R.drawable.ic_arrow_forward_24px)
                 viewModel.clearIndustry()
-                showApplyButton()
+                viewModel.clearCurrentIndustry()
+                showApplyAndClearButton()
             } else {
                 findNavController().navigate(
                     R.id.action_filterSettingsFragment_to_industrySelectFragment
                 )
             }
         }
-
         binding.industryEditText.setOnClickListener {
             findNavController().navigate(
                 R.id.action_filterSettingsFragment_to_industrySelectFragment
@@ -184,38 +192,45 @@ class FilterSettingsFragment : Fragment() {
     }
 
     private fun clearButtonVisibility(s: CharSequence?) {
-        val visibility = !s.isNullOrEmpty()
+        val visibility = !s.isNullOrEmpty() && binding.editText.hasFocus()
         binding.searchLineCleaner.isVisible = visibility
     }
 
     private fun clearSalary() {
         binding.editText.setText(DEF_TEXT)
-        view?.hideKeyboard()
-        view?.clearFocus()
+        binding.editText.requestFocus()
+
     }
 
-    private fun showApplyButton() {
-        if (viewModel.compareFilters()) {
-            binding.applyButton.isVisible = false
-            binding.clearFilter.isVisible = false
-        } else {
-            binding.applyButton.isVisible = true
-            binding.clearFilter.isVisible = true
-
-        }
+    private fun showApplyAndClearButton() {
+        binding.applyButton.isVisible = !viewModel.compareFilters()
+        binding.clearFilter.isVisible = viewModel.checkFilter()
     }
 
-    private fun showClearButton() {
-        if (viewModel.checkFilter()) {
-            binding.clearFilter.isVisible = true
-        } else {
-            binding.clearFilter.isVisible = false
+    private fun onButtonsClicked() {
+        binding.applyButton.setOnClickListener { onApplyButtonClicked() }
+        binding.clearFilter.setOnClickListener { onClearFilterClicked() }
+    }
+
+    private fun onApplyButtonClicked() {
+        viewModel.saveFilters()
+        findNavController().popBackStack()
+    }
+
+    private fun onClearFilterClicked() {
+        with(binding) {
+            viewModel.clearFilter()
+            viewModel.checkFilterFields()
+            editText.setText(DEF_TEXT)
+            editText.clearFocus()
+            showApplyAndClearButton()
+
         }
     }
 
     override fun onResume() {
         super.onResume()
-        showClearButton()
+        binding.clearFilter.isVisible = viewModel.checkFilter()
     }
 
     companion object {
