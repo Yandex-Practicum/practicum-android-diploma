@@ -20,7 +20,6 @@ private const val INDUSTRY_ID = "industry"
 private const val SALARY = "salary"
 private const val AREA_ID = "area"
 private const val ONLY_WITH_SALARY = "only_with_salary"
-private const val TAG = "VacancyListViewModel"
 
 internal class VacancyListViewModel(
     private val vacanciesInteractor: VacanciesInteractor,
@@ -50,6 +49,8 @@ internal class VacancyListViewModel(
     }
 
     private fun initQueryFilter(filterSearch: FilterSearch) {
+        queryFilter.remove(INDUSTRY_ID)
+        queryFilter.remove(AREA_ID)
         filterSearch.branchOfProfession?.id?.let { queryFilter.put(INDUSTRY_ID, it) }
         filterSearch.expectedSalary?.let { queryFilter.put(SALARY, it) }
         filterSearch.doNotShowWithoutSalary.let { queryFilter.put(ONLY_WITH_SALARY, it.toString()) }
