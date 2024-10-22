@@ -3,7 +3,7 @@ package ru.practicum.android.diploma.favorites.data.mappers
 import ru.practicum.android.diploma.data.db.entity.VacancyEntity
 import ru.practicum.android.diploma.favorites.domain.model.FavoriteVacancy
 
-object VacancyDbMapper {
+internal object VacancyDbMapper {
     fun map(vacancyEntity: VacancyEntity): FavoriteVacancy {
         return with(vacancyEntity) {
             FavoriteVacancy(

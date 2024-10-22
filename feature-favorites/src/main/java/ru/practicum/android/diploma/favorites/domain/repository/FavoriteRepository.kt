@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.commonutils.Resource
 import ru.practicum.android.diploma.favorites.domain.model.FavoriteVacancy
 
-interface FavoriteRepository {
+internal interface FavoriteRepository {
 
     suspend fun getVacancies(): Flow<List<FavoriteVacancy>>
 

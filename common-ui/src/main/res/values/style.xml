@@ -64,20 +64,20 @@
 
     <style name="ButtonRight">
         <item name="android:src">@drawable/button_right</item>
-        <item name="android:layout_margin">@dimen/dimens_16</item>
+        <item name="android:layout_margin">@dimen/dp_16</item>
     </style>
 
     <style name="ButtonLeft">
         <item name="android:src">@drawable/button_left</item>
         <item name="android:paddingVertical">@dimen/filterPadding</item>
-        <item name="android:paddingLeft">@dimen/dimens_16</item>
+        <item name="android:paddingLeft">@dimen/dp_16</item>
     </style>
 
     <style name="VacancyHeaderText">
         <item name="android:textSize">@dimen/textSizeMedium</item>
         <item name="android:fontFamily">@font/ys_display_medium</item>
         <item name="android:textColor">@color/primaryTextAndUIColor</item>
-        <item name="android:padding">@dimen/dimen_15</item>
+        <item name="android:padding">@dimen/dp_16</item>
         <item name="android:text">@string/vacancy_screen_header</item>
     </style>
 
@@ -169,7 +169,7 @@
     </style>
 
     <style name="VacacnyExperienceText">
-        <item name="android:layout_marginStart">@dimen/dimens_16</item>
+        <item name="android:layout_marginStart">@dimen/dp_16</item>
         <item name="android:layout_marginTop">@dimen/filterPadding</item>
         <item name="android:fontFamily">@font/ys_display_medium</item>
         <item name="android:padding">@dimen/noPadding</item>
@@ -197,7 +197,7 @@
 
     <style name="VacancyDescriptionInfo">
         <item name="android:fontFamily">@font/ys_display_regular</item>
-        <item name="android:paddingHorizontal">@dimen/dimens_16</item>
+        <item name="android:paddingHorizontal">@dimen/dp_24</item>
         <item name="android:paddingTop">@dimen/vacancyTextPadding</item>
         <item name="android:paddingBottom">@dimen/noPadding</item>
         <item name="android:textColor">@color/primaryTextAndUIColor</item>
@@ -206,7 +206,7 @@
 
     <style name="VacancyKeySkillsHeader">
         <item name="android:layout_marginStart">@dimen/vacancyTextPadding</item>
-        <item name="android:layout_marginTop">@dimen/dimens_24</item>
+        <item name="android:layout_marginTop">@dimen/dp_24</item>
         <item name="android:fontFamily">@font/ys_display_medium</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:padding">@dimen/noPadding</item>
@@ -222,21 +222,21 @@
     </style>
 
     <style name="PlacesList">
-        <item name="android:paddingStart">@dimen/dimens_16</item>
-        <item name="android:paddingTop">@dimen/dimens_16</item>
+        <item name="android:paddingStart">@dimen/dp_16</item>
+        <item name="android:paddingTop">@dimen/dp_16</item>
     </style>
 
     <style name="ErrorPicture">
-        <item name="android:layout_marginHorizontal">@dimen/dimens_16</item>
-        <item name="android:layout_marginTop">@dimen/dimens_120</item>
+        <item name="android:layout_marginHorizontal">@dimen/dp_16</item>
+        <item name="android:layout_marginTop">@dimen/dp_120</item>
         <item name="android:adjustViewBounds">true</item>
     </style>
 
     <style name="ErrorMessageText">
         <item name="android:fontFamily">@font/ys_display_medium</item>
         <item name="android:gravity">center_horizontal</item>
-        <item name="android:paddingHorizontal">@dimen/dimens_16</item>
-        <item name="android:paddingTop">@dimen/dimens_16</item>
+        <item name="android:paddingHorizontal">@dimen/dp_16</item>
+        <item name="android:paddingTop">@dimen/dp_16</item>
         <item name="android:textColor">@color/primaryTextAndUIColor</item>
         <item name="android:textSize">@dimen/textSizeMedium</item>
         <item name="fontWeight">500</item>
@@ -251,20 +251,20 @@
 
     <style name="ErrorBlock">
         <item name="android:orientation">vertical</item>
-        <item name="android:layout_marginTop">@dimen/dimens_120</item>
+        <item name="android:layout_marginTop">@dimen/dp_120</item>
     </style>
 
     <style name="CountryChooseIcon">
-        <item name="android:layout_marginEnd">@dimen/dimens_4</item>
-        <item name="android:padding">@dimen/dimens_12</item>
+        <item name="android:layout_marginEnd">@dimen/dp_4</item>
+        <item name="android:padding">@dimen/dp_12</item>
     </style>
 
     <style name="FrameLayoutFilter">
-        <item name="android:layout_marginTop">@dimen/dimens_24</item>
-        <item name="android:layout_marginHorizontal">@dimen/dimens_16</item>
+        <item name="android:layout_marginTop">@dimen/dp_24</item>
+        <item name="android:layout_marginHorizontal">@dimen/dp_16</item>
         <item name="android:background">@drawable/rounded_edittext</item>
         <item name="android:orientation">horizontal</item>
-        <item name="android:paddingLeft">@dimen/dimens_16</item>
+        <item name="android:paddingLeft">@dimen/dp_16</item>
     </style>
 
     <style name="EditTextFilter">
@@ -282,7 +282,7 @@
     </style>
 
     <style name="TextViewFilter">
-        <item name="android:layout_marginTop">@dimen/dimens_4</item>
+        <item name="android:layout_marginTop">@dimen/dp_4</item>
         <item name="android:hint">@string/filter_screens_salary_expectations</item>
         <item name="android:textColor">@color/grey</item>
         <item name="android:textSize">@dimen/sp_12</item>
@@ -296,9 +296,8 @@
     </style>
 
     <style name="CheckBoxFilter">
-        <item name="android:layout_marginTop">@dimen/dimens_24</item>
-        <item name="android:padding">@dimen/dimens_16</item>
-        <item name="android:src">@drawable/check_box_off</item>
+        <item name="android:layout_marginTop">@dimen/dp_24</item>
+        <item name="android:padding">@dimen/dp_16</item>
     </style>
 
     <style name="ButtonApply">
@@ -311,7 +310,7 @@
         <item name="android:textAppearance">@font/ys_display_medium</item>
         <item name="android:textSize">@dimen/textSizeLittle</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:layout_margin">@dimen/dimens_16</item>
+        <item name="android:layout_margin">@dimen/dp_16</item>
         <item name="android:visibility">gone</item>
     </style>
 
@@ -324,8 +323,8 @@
         <item name="android:textAppearance">@font/ys_display_medium</item>
         <item name="android:textSize">@dimen/textSizeLittle</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:layout_marginHorizontal">@dimen/dimens_16</item>
-        <item name="android:layout_marginBottom">@dimen/dimens_24</item>
+        <item name="android:layout_marginHorizontal">@dimen/dp_16</item>
+        <item name="android:layout_marginBottom">@dimen/dp_24</item>
         <item name="android:visibility">gone</item>
     </style>
 
