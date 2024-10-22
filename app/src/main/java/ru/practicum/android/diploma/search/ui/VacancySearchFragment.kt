@@ -282,6 +282,8 @@ class VacancySearchFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         checkFilter()
+        viewModel.searchDebounce(DEF_TEXT)
+        viewModel.loadData(inputTextValue)
     }
 
     override fun onDestroyView() {
