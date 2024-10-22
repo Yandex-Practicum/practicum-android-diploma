@@ -1,8 +1,7 @@
 package ru.practicum.android.diploma.search.di
 
-import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
-import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 import ru.practicum.android.diploma.search.data.repositoryimpl.network.VacanciesRepositoryImpl
 import ru.practicum.android.diploma.search.data.repositoryimpl.sp.SearchRepositorySpImpl
@@ -16,31 +15,29 @@ import ru.practicum.android.diploma.search.util.IndustryConverter
 import ru.practicum.android.diploma.search.util.VacancyConverter
 
 val searchModule = module {
-    single {
+    viewModelOf(::VacancyListViewModel)
+    factory {
         AreaConverter()
     }
 
-    single {
+    factory {
         IndustryConverter()
     }
 
-    single {
+    factory {
         VacancyConverter()
     }
 
-    single<VacanciesInteractor> {
+    factory<VacanciesInteractor> {
         VacanciesInteractorImpl(get(), get())
     }
 
-    single<SearchRepositorySp> {
+    factory<SearchRepositorySp> {
         SearchRepositorySpImpl(get())
     }
 
-    single<VacanciesRepository> {
+    factory<VacanciesRepository> {
         VacanciesRepositoryImpl(get(), get(), get(), get(), androidContext())
     }
 
-    viewModel {
-        VacancyListViewModel(get(), androidApplication())
-    }
 }

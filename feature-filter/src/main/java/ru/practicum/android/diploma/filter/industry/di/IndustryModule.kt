@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.filter.industry.di
 
 import org.koin.androidx.viewmodel.dsl.viewModelOf
-import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import ru.practicum.android.diploma.filter.industry.data.repositoryimpl.network.IndustryRepositoryNetworkImpl
@@ -13,10 +12,10 @@ import ru.practicum.android.diploma.filter.industry.domain.usecase.impl.Industry
 import ru.practicum.android.diploma.filter.industry.presentation.viewmodel.IndustryViewModel
 
 val industryModule = module {
-
-    singleOf(::IndustryInteractorImpl) bind IndustryInteractor::class
-    singleOf(::IndustryRepositoryNetworkImpl) bind IndustryRepositoryNetwork::class
-    singleOf(::IndustryRepositorySpImpl) bind IndustryRepositorySp::class
-
     viewModelOf(::IndustryViewModel)
+
+    factory { IndustryInteractorImpl(get(), get()) } bind IndustryInteractor::class
+    factory { IndustryRepositoryNetworkImpl(get(), get()) } bind IndustryRepositoryNetwork::class
+    factory { IndustryRepositorySpImpl(get()) } bind IndustryRepositorySp::class
+
 }
