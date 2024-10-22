@@ -95,7 +95,7 @@ internal class VacancyListViewModel(
     }
 
     fun loadNextPageRequest() {
-        if (paginationInfo.page == paginationInfo.pages) {
+        if (paginationInfo.page >= paginationInfo.pages) {
             return
         }
 
