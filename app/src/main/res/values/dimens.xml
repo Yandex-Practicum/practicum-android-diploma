@@ -16,6 +16,7 @@
 
     <!-- Dimensions For Filter Screen   -->
     <dimen name="filter_item_margin">24dp</dimen>
+    <dimen name="filter_salary_margin">40dp</dimen>
     <dimen name="action_icon_end_margin">24dp</dimen>
     <dimen name="button_height">60dp</dimen>
 

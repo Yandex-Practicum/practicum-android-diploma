@@ -19,6 +19,10 @@ class RegionSelectViewModel(
     private var latestSearchText: String? = null
     private val stateLiveData = MutableLiveData<RegionSelectScreenState>()
 
+    init {
+        getAllRegions()
+    }
+
     fun observeState(): LiveData<RegionSelectScreenState> = stateLiveData
 
     fun getAllRegions() {
@@ -46,10 +50,7 @@ class RegionSelectViewModel(
                 if (!areaCashInteractor.getCashArea()?.parentId.isNullOrBlank()) {
                     renderState(
                         RegionSelectScreenState.ChooseItem(
-                            foundAreas.filter {
-                                it.id ==
-                                    areaCashInteractor.getCashArea()?.parentId
-                            }[0].areas
+                            getRegionWithCityList(foundAreas)
                         )
                     )
                 } else {
@@ -71,9 +72,13 @@ class RegionSelectViewModel(
         }
 
     fun searchDebounce(changedText: String) {
-        if (latestSearchText != changedText) {
-            latestSearchText = changedText
-            regionSelectDebounce(changedText)
+        if (changedText.isNotEmpty()) {
+            if (latestSearchText != changedText) {
+                latestSearchText = changedText
+                regionSelectDebounce(changedText)
+            }
+        } else {
+            getAllRegions()
         }
     }
 
@@ -86,6 +91,20 @@ class RegionSelectViewModel(
             regions.addAll(area.areas)
         }
         return regions
+    }
+
+    private fun getRegionWithCityList(areaList: List<Area>): List<Area> {
+        var filteredRegionList = areaList.filter {
+            it.id ==
+                areaCashInteractor.getCashArea()?.parentId
+        }[0].areas
+
+        val regionsAndCities = mutableListOf<Area>()
+        regionsAndCities.addAll(filteredRegionList)
+        filteredRegionList.forEach { area ->
+            regionsAndCities.addAll(area.areas)
+        }
+        return regionsAndCities
     }
 
     private fun renderState(state: RegionSelectScreenState) {
@@ -101,6 +120,6 @@ class RegionSelectViewModel(
     }
 
     companion object {
-        private const val SEARCH_DEBOUNCE_DELAY = 500L
+        private const val SEARCH_DEBOUNCE_DELAY = 100L
     }
 }

@@ -72,10 +72,13 @@ class IndustrySelectViewModel(
         }
 
     fun searchDebounce(changedText: String) {
-        if (changedText.isEmpty()) loadIndustries()
-        if (latestSearchText != changedText) {
-            latestSearchText = changedText
-            industrySearchDebounce(changedText)
+        if (changedText.isEmpty()) {
+            loadIndustries()
+        } else {
+            if (latestSearchText != changedText) {
+                latestSearchText = changedText
+                industrySearchDebounce(changedText)
+            }
         }
     }
 
@@ -96,6 +99,6 @@ class IndustrySelectViewModel(
     }
 
     companion object {
-        private const val SEARCH_DEBOUNCE_DELAY = 2000L
+        private const val SEARCH_DEBOUNCE_DELAY = 100L
     }
 }

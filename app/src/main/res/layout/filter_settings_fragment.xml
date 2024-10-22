@@ -123,7 +123,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/padding_horizontal_size_16"
-        android:layout_marginTop="@dimen/filter_item_margin"
+        android:layout_marginTop="@dimen/filter_salary_margin"
         android:buttonTint="@color/blue"
         android:minWidth="0dp"
         android:minHeight="0dp"
