@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.favorites.di
 
-import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 import ru.practicum.android.diploma.favorites.data.repositoryimpl.db.FavoriteRepositoryImpl
 import ru.practicum.android.diploma.favorites.domain.repository.FavoriteRepository
@@ -10,11 +10,7 @@ import ru.practicum.android.diploma.favorites.presentation.viewmodel.FavoriteVie
 
 val favoritesModule = module {
     // view-model
-    viewModel {
-        FavoriteViewModel(
-            favoriteInteractor = get()
-        )
-    }
+    viewModelOf(::FavoriteViewModel)
 
     // domain
     factory<FavoriteInteractor> {

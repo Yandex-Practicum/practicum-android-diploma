@@ -1,7 +1,7 @@
 package ru.practicum.android.diploma.filter.place.di
 
 import org.koin.android.ext.koin.androidContext
-import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 import ru.practicum.android.diploma.filter.place.data.repositoryimpl.cache.CacheRepositoryImpl
 import ru.practicum.android.diploma.filter.place.data.repositoryimpl.network.NetworkRepositoryImpl
@@ -16,7 +16,11 @@ import ru.practicum.android.diploma.filter.place.presentation.viewmodel.PlaceVie
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.RegionViewModel
 
 val placeModule = module {
-    single<RegionInteractor> {
+    viewModelOf(::PlaceViewModel)
+    viewModelOf(::CountryViewModel)
+    viewModelOf(::RegionViewModel)
+
+    factory<RegionInteractor> {
         RegionInteractorImpl(
             networkRepository = get(),
             spRepository = get(),
@@ -24,32 +28,22 @@ val placeModule = module {
         )
     }
 
-    single<CacheRepository> {
+    factory<CacheRepository> {
         CacheRepositoryImpl(
             get()
         )
     }
 
-    single<SpRepository> {
+    factory<SpRepository> {
         SpRepositoryImpl(
             get()
         )
     }
 
-    single<NetworkRepository> {
+    factory<NetworkRepository> {
         NetworkRepositoryImpl(
             get(),
             androidContext()
         )
-    }
-
-    viewModel {
-        PlaceViewModel(get())
-    }
-    viewModel {
-        CountryViewModel(get())
-    }
-    viewModel {
-        RegionViewModel(get())
     }
 }
