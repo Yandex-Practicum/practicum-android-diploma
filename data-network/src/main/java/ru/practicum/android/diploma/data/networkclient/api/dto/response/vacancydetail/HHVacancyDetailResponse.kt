@@ -72,7 +72,7 @@ data class HHVacancyDetailResponse(
     @SerializedName("response_letter_required") val responseLetterRequired: Boolean,
     @SerializedName("response_notifications") val responseNotifications: Boolean,
     @SerializedName("response_url") val responseUrl: String?,
-    val salary: Salary,
+    val salary: Salary?,
     val schedule: Schedule,
     val test: Test,
     val type: Type,

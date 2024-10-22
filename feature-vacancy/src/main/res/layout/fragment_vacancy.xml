@@ -73,13 +73,13 @@
                 style="@style/VacancyCard"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/vacancyCardHeight"
+                android:padding="@dimen/dp_16"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/vacancySalary">
 
                 <ImageView
                     android:id="@+id/vacancyImage"
-                    style="@style/VacancyImage"
                     android:layout_width="@dimen/sizeLogoItemFavorite"
                     android:layout_height="@dimen/sizeLogoItemFavorite"
                     android:importantForAccessibility="no"
@@ -95,6 +95,8 @@
                     <TextView
                         android:id="@+id/vacancyCompany"
                         style="@style/CompanyNameText"
+                        android:maxLines="1"
+                        android:ellipsize="end"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
@@ -103,6 +105,8 @@
                     <TextView
                         android:id="@+id/vacancyCity"
                         style="@style/VacancyCity"
+                        android:maxLines="1"
+                        android:ellipsize="end"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:fontWeight="400"
