@@ -16,7 +16,7 @@ import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.Co
 private const val NUMBER_OF_CACHE_READ_ATTEMPTS = 10
 private const val DELAY_BETWEEN_CACHE_READS = 100L
 
-class CountryViewModel(
+internal class CountryViewModel(
     private val regionInteractor: RegionInteractor,
 ) : ViewModel() {
 

@@ -2,7 +2,7 @@ package ru.practicum.android.diploma.filter.filter.domain.repository
 
 import ru.practicum.android.diploma.filter.filter.domain.model.FilterSettings
 
-interface FilterSPRepository {
+internal interface FilterSPRepository {
 
     suspend fun clearDataFilterAll()
 

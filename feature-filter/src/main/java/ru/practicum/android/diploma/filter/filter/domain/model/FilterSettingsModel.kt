@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.filter.filter.domain.model
 
-data class FilterSettingsModel(
+internal data class FilterSettingsModel(
     val region: String?,
     val country: String?,
     val industry: String?,

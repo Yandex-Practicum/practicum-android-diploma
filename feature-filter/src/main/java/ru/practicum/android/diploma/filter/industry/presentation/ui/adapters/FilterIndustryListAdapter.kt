@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.filter.databinding.ItemFilterIndustryBinding
 import ru.practicum.android.diploma.filter.industry.domain.model.IndustryModel
 
-class FilterIndustryListAdapter(private val clickListener: IndustryClickListener) :
+internal class FilterIndustryListAdapter(private val clickListener: IndustryClickListener) :
     RecyclerView.Adapter<IndustryListViewHolder>() {
 
     private var options = emptyList<IndustryModel>()

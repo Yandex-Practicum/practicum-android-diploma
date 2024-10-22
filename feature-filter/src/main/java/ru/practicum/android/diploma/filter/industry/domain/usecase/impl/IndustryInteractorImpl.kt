@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.filter.industry.domain.repository.IndustryRe
 import ru.practicum.android.diploma.filter.industry.domain.repository.IndustryRepositorySp
 import ru.practicum.android.diploma.filter.industry.domain.usecase.IndustryInteractor
 
-class IndustryInteractorImpl(
+internal class IndustryInteractorImpl(
     private val repositoryNetwork: IndustryRepositoryNetwork,
     private val repositorySp: IndustryRepositorySp,
 ) : IndustryInteractor {

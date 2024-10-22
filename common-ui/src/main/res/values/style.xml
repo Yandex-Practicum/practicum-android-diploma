@@ -46,7 +46,6 @@
         <item name="android:textColor">@color/primaryTextAndUIColor</item>
         <item name="android:padding">@dimen/textPadding</item>
     </style>
-
     <style name="TextViewRegular12" parent="TextViewRegular16">
         <item name="android:textSize">@dimen/sp_12</item>
     </style>
@@ -77,7 +76,7 @@
         <item name="android:textSize">@dimen/textSizeMedium</item>
         <item name="android:fontFamily">@font/ys_display_medium</item>
         <item name="android:textColor">@color/primaryTextAndUIColor</item>
-        <item name="android:padding">@dimen/dp_16</item>
+        <item name="android:padding">@dimen/dp_15</item>
         <item name="android:text">@string/vacancy_screen_header</item>
     </style>
 
@@ -197,7 +196,7 @@
 
     <style name="VacancyDescriptionInfo">
         <item name="android:fontFamily">@font/ys_display_regular</item>
-        <item name="android:paddingHorizontal">@dimen/dp_24</item>
+        <item name="android:paddingHorizontal">@dimen/dp_16</item>
         <item name="android:paddingTop">@dimen/vacancyTextPadding</item>
         <item name="android:paddingBottom">@dimen/noPadding</item>
         <item name="android:textColor">@color/primaryTextAndUIColor</item>
@@ -266,9 +265,8 @@
         <item name="android:orientation">horizontal</item>
         <item name="android:paddingLeft">@dimen/dp_16</item>
     </style>
-
     <style name="EditTextFilter">
-        <item name="android:background" />
+        <item name="android:background"/>
         <item name="android:drawablePadding">@dimen/dp_8</item>
         <item name="android:hint">@string/filter_screens_enter_sum</item>
         <item name="android:imeOptions">actionDone</item>
@@ -280,26 +278,22 @@
         <item name="android:textSize">@dimen/textSizeLittle</item>
         <item name="android:textCursorDrawable">@drawable/blue_text_cursor_drawable</item>
     </style>
-
     <style name="TextViewFilter">
         <item name="android:layout_marginTop">@dimen/dp_4</item>
         <item name="android:hint">@string/filter_screens_salary_expectations</item>
         <item name="android:textColor">@color/grey</item>
         <item name="android:textSize">@dimen/sp_12</item>
     </style>
-
     <style name="ButtonClear">
         <item name="android:layout_gravity">right</item>
         <item name="android:layout_margin">@dimen/dp_14</item>
         <item name="android:src">@drawable/clear</item>
         <item name="android:visibility">gone</item>
     </style>
-
     <style name="CheckBoxFilter">
         <item name="android:layout_marginTop">@dimen/dp_24</item>
         <item name="android:padding">@dimen/dp_16</item>
     </style>
-
     <style name="ButtonApply">
         <item name="android:text">@string/filter_screens_apply_button</item>
         <item name="android:gravity">center</item>
@@ -313,7 +307,6 @@
         <item name="android:layout_margin">@dimen/dp_16</item>
         <item name="android:visibility">gone</item>
     </style>
-
     <style name="ButtonCancel">
         <item name="android:text">@string/filter_screens_discard_button</item>
         <item name="android:gravity">center</item>
@@ -323,8 +316,7 @@
         <item name="android:textAppearance">@font/ys_display_medium</item>
         <item name="android:textSize">@dimen/textSizeLittle</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:layout_marginHorizontal">@dimen/dp_16</item>
-        <item name="android:layout_marginBottom">@dimen/dp_24</item>
+        <item name="android:layout_margin">@dimen/dp_16</item>
         <item name="android:visibility">gone</item>
     </style>
 
@@ -333,19 +325,6 @@
         <item name="android:contentDescription">@string/filter_screens_main_header</item>
         <item name="android:paddingHorizontal">@dimen/dp_16</item>
         <item name="android:paddingVertical">@dimen/dp_20</item>
-    </style>
-
-    <style name="SearchIcon">
-        <item name="android:layout_marginVertical">@dimen/dp_4</item>
-        <item name="android:layout_marginEnd">@dimen/dp_4</item>
-        <item name="android:padding">@dimen/dp_16</item>
-    </style>
-
-    <style name="SearchBarIcon">
-        <item name="android:layout_marginVertical">@dimen/dp_4</item>
-        <item name="android:layout_marginEnd">@dimen/dp_4</item>
-        <item name="android:importantForAccessibility">no</item>
-        <item name="android:padding">@dimen/dp_12</item>
     </style>
 
     <style name="LoadingProgressBar">
@@ -404,5 +383,51 @@
         <item name="android:layout_marginTop">@dimen/dp_16</item>
         <item name="android:padding">0dp</item>
         <item name="android:textAlignment">center</item>
+    </style>
+    <style name="SearchIcon">
+        <item name="android:layout_marginVertical">@dimen/dp_4</item>
+        <item name="android:layout_marginEnd">@dimen/dp_4</item>
+        <item name="android:padding">@dimen/dp_16</item>
+    </style>
+
+    <style name="NewTextInputStyle">
+        <item name="android:layout_marginHorizontal">@dimen/dp_16</item>
+        <item name="android:layout_marginVertical">@dimen/dp_24</item>
+        <item name="boxBackgroundColor">@color/backgroundTextInputLayout</item>
+        <item name="android:hint">@string/filter_screens_salary_expectations</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/dp_12</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/dp_12</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/dp_12</item>
+        <item name="boxCornerRadiusTopStart">@dimen/dp_12</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+        <item name="endIconDrawable">@drawable/clear_search</item>
+        <item name="endIconTint">@color/black</item>
+        <item name="endIconMode">clear_text</item>
+        <item name="expandedHintEnabled">false</item>
+    </style>
+
+    <style name="CustomHintTextAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/sp_12</item>
+        <item name="fontFamily">@font/ys_display_regular</item>
+        <item name="fontWeight">400</item>
+        <item name="android:textColor">@color/color_state_input_hint</item>
+    </style>
+
+    <style name="SearchBarIcon">
+        <item name="android:layout_marginVertical">@dimen/dp_4</item>
+        <item name="android:layout_marginEnd">@dimen/dp_4</item>
+        <item name="android:importantForAccessibility">no</item>
+        <item name="android:padding">@dimen/dp_12</item>
+    </style>
+
+    <style name="NewTextInputEdit">
+        <item name="android:imeOptions">actionDone</item>
+        <item name="android:inputType">number</item>
+        <item name="android:lines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textCursorDrawable">@drawable/blue_text_cursor_drawable</item>
+        <item name="android:hint">@string/filter_screens_enter_sum</item>
+        <item name="android:textAppearance">@style/TextViewRegular16</item>
     </style>
 </resources>

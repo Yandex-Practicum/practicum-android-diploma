@@ -1,8 +1,8 @@
 package ru.practicum.android.diploma.vacancy.presentation.viewmodel.state
 
-sealed interface VacancyFavoriteMessageState {
-    object NoAddFavorite : VacancyFavoriteMessageState
-    object NoDeleteFavorite : VacancyFavoriteMessageState
-    object Error : VacancyFavoriteMessageState
-    object Empty : VacancyFavoriteMessageState
+internal sealed interface VacancyFavoriteMessageState {
+    data object NoAddFavorite : VacancyFavoriteMessageState
+    data object NoDeleteFavorite : VacancyFavoriteMessageState
+    data object Error : VacancyFavoriteMessageState
+    data object Empty : VacancyFavoriteMessageState
 }

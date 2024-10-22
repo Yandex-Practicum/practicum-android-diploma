@@ -13,7 +13,7 @@ import ru.practicum.android.diploma.filter.place.domain.usecase.RegionInteractor
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.NetworkState
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.PlaceState
 
-class PlaceViewModel(
+internal class PlaceViewModel(
     private val regionInteractor: RegionInteractor,
 ) : ViewModel() {
 

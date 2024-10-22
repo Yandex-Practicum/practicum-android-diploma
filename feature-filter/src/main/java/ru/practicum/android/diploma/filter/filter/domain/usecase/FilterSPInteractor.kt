@@ -2,7 +2,7 @@ package ru.practicum.android.diploma.filter.filter.domain.usecase
 
 import ru.practicum.android.diploma.filter.filter.domain.model.FilterSettings
 
-interface FilterSPInteractor {
+internal interface FilterSPInteractor {
     suspend fun clearDataFilterAll()
 
     suspend fun getExpectedSalaryDataFilterBuffer(): String?

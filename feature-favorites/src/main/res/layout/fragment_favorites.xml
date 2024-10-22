@@ -40,13 +40,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dp_16"
             android:adjustViewBounds="true"
+            android:importantForAccessibility="no"
             android:src="@drawable/placeholder_empty_list_favorite" />
 
         <TextView
@@ -69,13 +71,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_marginHorizontal="@dimen/dp_16"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
+            android:importantForAccessibility="no"
             android:src="@drawable/placeholder_error_list_favorite" />
 
         <TextView

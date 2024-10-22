@@ -3,7 +3,7 @@ package ru.practicum.android.diploma.filter.place.data.mappers
 import ru.practicum.android.diploma.data.sp.dto.PlaceDto
 import ru.practicum.android.diploma.filter.place.domain.model.Place
 
-object SpMapper {
+internal object SpMapper {
     fun map(place: Place): PlaceDto {
         return with(place) {
             PlaceDto(

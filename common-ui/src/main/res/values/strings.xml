@@ -46,7 +46,8 @@
     <string name="filter_screens_select_button">Выбрать</string>
     <string name="filter_screens_apply_button">Применить</string>
     <string name="filter_screens_discard_button">Сбросить</string>
-    <!-- Vacancy screen, use plurals for job experience-->
+
+    <!-- Vacancy screen -->
     <string name="vacancy_screen_header">Вакансия</string>
     <string name="vacancy_and_location_screen_header">Вакансия, город</string>
     <string name="vacancy_screen_base_salary">от %s %s</string>
@@ -65,6 +66,8 @@
     <string name="vacancy_conditions_placeholder">Полная занятость, Удаленная работа</string>
     <string name="vacancy_description_placeholder">Обязанности\nРазрабатывать новую функциональность приложения\nПомогать с интеграцией нашего SDK в другие приложения\nПроектировать большие новые модули\nПисать UI- и unit-тесты\nСледить за работоспособностью сервиса и устранять технический долг</string>
     <string name="vacancy_key_skills_placeholder">Знание классических алгоритмов и структуры данных\nПрограммирование для Android больше одного года\nЗнание WebRTC</string>
+    <string name="share_link">https://hh.ru/vacancy/</string>
+
     <!-- Favorites screen -->
     <string name="favorites_screen_header">Избранное</string>
     <string name="favorites_screen_empty_list">Список пуст</string>
@@ -85,7 +88,6 @@
     <string name="team_screen_text">Над приложением работали</string>
     <string name="team_screen_developer_list">Павел Захаров Team-lead\n\nЮлия Вакулина Android-разработчик\n\nМаксим Сагациян Android-разработчик\n\nМихаил Гришин Android-разработчик</string>
 
-    <!-- Network -->
 
     <!-- Errors -->
     <string name="check_network_connection">Check network connection</string>
@@ -101,13 +103,20 @@
     <string name="salary_from">от %s %s</string>
     <string name="salary_to">до %s %s</string>
     <string name="salary_from_to">от %s до %s %s</string>
-    @@ -106,23 +125,25 @@
+    <string name="no_salary">Зарплата не указана</string>
+    <string name="currency_rur">₽</string>
+    <string name="currency_br_rur">Br</string>
+    <string name="currency_usd">$</string>
+    <string name="currency_eur">€</string>
+    <string name="currency_kzt">₸</string>
+    <string name="currency_uah">₴</string>
+    <string name="currency_azn">₼</string>
+    <string name="currency_uzs">сўм</string>
+    <string name="currency_gel">ლ</string>
     <string name="currency_kgs">сом</string>
     <string name="currency_amd">֏</string>
 
-    <string name="share_link">https://hh.ru/vacancy/</string>
-
-    <!-- Strings for display -->
+    <!-- Plurals -->
 
     <plurals name="vacancies_found">
         <item quantity="one">Найдена %1$d вакансия</item>
@@ -124,5 +133,8 @@
     </plurals>
 
     <string name="filter_place_form">%s, %s</string>
+
+
+
 
 </resources>

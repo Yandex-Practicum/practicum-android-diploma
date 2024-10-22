@@ -5,7 +5,7 @@ import ru.practicum.android.diploma.filter.industry.data.mappers.IndustryMapper
 import ru.practicum.android.diploma.filter.industry.domain.model.IndustryModel
 import ru.practicum.android.diploma.filter.industry.domain.repository.IndustryRepositorySp
 
-class IndustryRepositorySpImpl(
+internal class IndustryRepositorySpImpl(
     private val filterSp: FilterSp
 ) : IndustryRepositorySp {
 

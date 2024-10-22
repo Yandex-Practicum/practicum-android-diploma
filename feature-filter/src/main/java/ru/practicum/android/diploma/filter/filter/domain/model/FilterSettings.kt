@@ -2,7 +2,7 @@ package ru.practicum.android.diploma.filter.filter.domain.model
 
 import ru.practicum.android.diploma.filter.industry.domain.model.IndustryModel
 
-data class FilterSettings(
+internal data class FilterSettings(
     val placeSettings: PlaceSettings?,
     val branchOfProfession: IndustryModel?,
     val expectedSalary: String?,

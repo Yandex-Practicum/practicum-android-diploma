@@ -17,7 +17,7 @@ import ru.practicum.android.diploma.vacancy.presentation.viewmodel.state.Vacancy
 private const val COMMAND_TO_REMOVE_VACANCY_FROM_FAVORITES = "404"
 private const val DELAY_TO_DEFAULT_STATE_MESSAGE = 100L
 
-class VacancyDetailViewModel(
+internal class VacancyDetailViewModel(
     private val vacancyInteractor: VacancyDetailInteractor,
 ) : ViewModel() {
 

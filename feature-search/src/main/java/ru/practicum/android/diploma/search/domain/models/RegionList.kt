@@ -1,5 +1,5 @@
 package ru.practicum.android.diploma.search.domain.models
 
-data class RegionList(
+internal data class RegionList(
     val regions: ArrayList<Region>,
 )

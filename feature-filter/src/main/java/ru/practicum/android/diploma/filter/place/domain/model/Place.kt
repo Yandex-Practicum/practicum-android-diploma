@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.filter.place.domain.model
 
-data class Place(
+internal data class Place(
     val idCountry: String?,
     val nameCountry: String?,
     val idRegion: String?,
@@ -18,10 +18,10 @@ data class Place(
     }
 }
 
-fun Place.resetRegion(): Place {
+internal fun Place.resetRegion(): Place {
     return this.copy(idRegion = null, nameRegion = null)
 }
 
-fun Place.setCountry(country: Country): Place {
+internal fun Place.setCountry(country: Country): Place {
     return this.copy(idCountry = country.id, nameCountry = country.name)
 }

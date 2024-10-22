@@ -5,7 +5,7 @@ import ru.practicum.android.diploma.filter.place.data.mappers.SpMapper
 import ru.practicum.android.diploma.filter.place.domain.model.Place
 import ru.practicum.android.diploma.filter.place.domain.repository.SpRepository
 
-class SpRepositoryImpl(
+internal class SpRepositoryImpl(
     val filterSp: FilterSp
 ) : SpRepository {
 

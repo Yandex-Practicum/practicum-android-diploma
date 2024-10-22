@@ -13,7 +13,7 @@
         android:contentDescription="@string/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingVertical="@dimen/dimens_24"
+        android:paddingVertical="@dimen/dp_24"
         android:clickable="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,7 +30,7 @@
     <LinearLayout
         android:id="@+id/workPlace"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimens_60"
+        android:layout_height="@dimen/dp_60"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/filterHeader">
@@ -60,24 +60,24 @@
                 android:paddingStart="@dimen/textPadding"
                 android:textColor="@color/primaryTextAndUIColor"
                 android:textColorHint="@color/grey"
-                android:textSize="@dimen/dimen_sp16" />
+                android:textSize="@dimen/sp_16" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
             android:id="@+id/clickWorkPlace"
-            android:layout_width="@dimen/dimens_60"
-            android:layout_height="@dimen/dimens_60"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_60"
             android:layout_gravity="center_vertical"
-            android:padding="@dimen/dimens_16"
+            android:padding="@dimen/dp_16"
             android:src="@drawable/button_right"
             android:visibility="visible" />
 
         <ImageView
             android:id="@+id/clickWorkPlaceClear"
-            android:layout_width="@dimen/dimens_60"
-            android:layout_height="@dimen/dimens_60"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_60"
             android:layout_gravity="center_vertical"
-            android:padding="@dimen/dimens_16"
+            android:padding="@dimen/dp_16"
             android:src="@drawable/clear_place"
             android:visibility="gone" />
 
@@ -86,7 +86,7 @@
     <LinearLayout
         android:id="@+id/workIndustry"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimens_60"
+        android:layout_height="@dimen/dp_60"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/workPlace">
@@ -116,24 +116,24 @@
                 android:paddingStart="@dimen/textPadding"
                 android:textColor="@color/primaryTextAndUIColor"
                 android:textColorHint="@color/grey"
-                android:textSize="@dimen/dimen_sp16" />
+                android:textSize="@dimen/sp_16" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
             android:id="@+id/clickWorkIndustry"
-            android:layout_width="@dimen/dimens_60"
-            android:layout_height="@dimen/dimens_60"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_60"
             android:layout_gravity="center_vertical"
-            android:padding="@dimen/dimens_16"
+            android:padding="@dimen/dp_16"
             android:src="@drawable/button_right"
             android:visibility="visible" />
 
         <ImageView
             android:id="@+id/clickWorkIndustryClear"
-            android:layout_width="@dimen/dimens_60"
-            android:layout_height="@dimen/dimens_60"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_60"
             android:layout_gravity="center_vertical"
-            android:padding="@dimen/dimens_16"
+            android:padding="@dimen/dp_16"
             android:src="@drawable/clear_place"
             android:visibility="gone" />
 
@@ -146,7 +146,7 @@
         app:hintTextColor="@color/color_state_input_hint"
         app:boxStrokeColor="@color/color_state_input_hint"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimens_52"
+        android:layout_height="@dimen/dp_52"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/workIndustry">
@@ -154,13 +154,13 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextFilter"
             style="@style/NewTextInputEdit"
-            android:textSize="@dimen/dimen_sp16"
+            android:textSize="@dimen/sp_16"
             app:fontFamily="@font/ys_display_regular"
             app:fontWeight="400"
             android:textColor="@color/black"
             app:hintTextAppearance="@style/CustomHintTextAppearance"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimens_52" />
+            android:layout_height="@dimen/dp_52" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -169,8 +169,8 @@
         style="@style/TextViewRegular16"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimens_24"
-        android:padding="@dimen/dimens_16"
+        android:layout_marginTop="@dimen/dp_24"
+        android:padding="@dimen/dp_16"
         android:text="@string/filter_screens_hide_without_salary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewSalary" />
@@ -179,10 +179,10 @@
         android:id="@+id/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimens_24"
+        android:layout_marginTop="@dimen/dp_24"
         android:layout_marginEnd="@dimen/dp_8"
         android:buttonTint="@color/blue"
-        android:paddingVertical="@dimen/dimens_16"
+        android:paddingVertical="@dimen/dp_16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewSalary" />
 
@@ -198,7 +198,7 @@
         android:textAppearance="@font/ys_display_medium"
         android:textSize="@dimen/textSizeLittle"
         android:textAllCaps="false"
-        android:layout_marginHorizontal="@dimen/dimens_16"
+        android:layout_marginHorizontal="@dimen/dp_16"
         android:layout_marginBottom="@dimen/dp_8"
         android:backgroundTint="@color/blue"
         app:layout_constraintBottom_toTopOf="@id/buttonCancel"

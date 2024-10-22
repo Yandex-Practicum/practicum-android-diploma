@@ -10,7 +10,7 @@ import ru.practicum.android.diploma.filter.industry.domain.model.IndustryModel
 import ru.practicum.android.diploma.filter.industry.domain.usecase.IndustryInteractor
 import ru.practicum.android.diploma.filter.industry.presentation.viewmodel.state.IndustryState
 
-class IndustryViewModel(
+internal class IndustryViewModel(
     private val industryInteractor: IndustryInteractor
 ) : ViewModel() {
 

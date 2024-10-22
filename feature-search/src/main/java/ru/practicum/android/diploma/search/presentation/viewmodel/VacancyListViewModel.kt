@@ -43,7 +43,7 @@ internal class VacancyListViewModel(
     private val queryFilter: MutableMap<String, String> = mutableMapOf()
 
     init {
-        _screenStateLiveData.value = SearchScreenState.IDLE
+        _screenStateLiveData.value = SearchScreenState.Idle
         _vacancyListStateLiveData.value = VacancyListState.Empty
         _currentResultsCountLiveData.value = 0
         initQueryFilter(vacanciesInteractor.getDataFilter())
@@ -62,7 +62,7 @@ internal class VacancyListViewModel(
     }
 
     fun initialSearch(query: String) {
-        _screenStateLiveData.postValue(SearchScreenState.LOADING_NEW_LIST)
+        _screenStateLiveData.postValue(SearchScreenState.LoadingNewList)
         currentQuery = query
         initQueryFilter(vacanciesInteractor.getDataFilter())
         viewModelScope.launch(Dispatchers.IO) {
@@ -80,9 +80,9 @@ internal class VacancyListViewModel(
                     parseNewList(paginationInfo.items)
                 } else {
                     if (response.second == INTERNET_ERROR) {
-                        parseError(SearchScreenState.Error.NO_INTERNET_ERROR)
+                        parseError(SearchScreenState.Error.NoInternetError)
                     } else {
-                        parseError(SearchScreenState.Error.SERVER_ERROR)
+                        parseError(SearchScreenState.Error.ServerError)
                     }
                 }
             }
@@ -98,7 +98,7 @@ internal class VacancyListViewModel(
             return
         }
 
-        _screenStateLiveData.postValue(SearchScreenState.LOADING_NEW_PAGE)
+        _screenStateLiveData.postValue(SearchScreenState.LoadingNewPage)
         val currentList = (vacancyListStateLiveData.value as VacancyListState.Content).vacancies
         viewModelScope.launch(Dispatchers.IO) {
             vacanciesInteractor.searchVacancies(
@@ -115,9 +115,9 @@ internal class VacancyListViewModel(
                     updateLists(currentList, paginationInfo.items)
                 } else {
                     if (response.second == INTERNET_ERROR) {
-                        parseError(SearchScreenState.Error.NEW_PAGE_NO_INTERNET_ERROR)
+                        parseError(SearchScreenState.Error.NewPageNoInternetError)
                     } else {
-                        parseError(SearchScreenState.Error.NEW_PAGE_SERVER_ERROR)
+                        parseError(SearchScreenState.Error.NewPageServerError)
                     }
                 }
             }
@@ -127,25 +127,25 @@ internal class VacancyListViewModel(
     private fun updateLists(oldList: List<Vacancy>, newList: List<Vacancy>) {
         val combinedList = oldList.toMutableList()
         combinedList.addAll(newList)
-        _screenStateLiveData.postValue(SearchScreenState.VACANCY_LIST_LOADED)
+        _screenStateLiveData.postValue(SearchScreenState.VacancyListLoaded)
         _vacancyListStateLiveData.postValue(VacancyListState.Content(combinedList))
         _currentResultsCountLiveData.postValue(paginationInfo.found)
     }
 
     private fun parseNewList(list: List<Vacancy>) {
         if (list.isEmpty()) {
-            _screenStateLiveData.postValue(SearchScreenState.Error.FAILED_TO_FETCH_VACANCIES_ERROR)
+            _screenStateLiveData.postValue(SearchScreenState.Error.FailedToFetchVacanciesError)
             _vacancyListStateLiveData.postValue(VacancyListState.Empty)
             _currentResultsCountLiveData.postValue(paginationInfo.found)
         } else {
-            _screenStateLiveData.postValue(SearchScreenState.VACANCY_LIST_LOADED)
+            _screenStateLiveData.postValue(SearchScreenState.VacancyListLoaded)
             _vacancyListStateLiveData.postValue(VacancyListState.Content(list))
             _currentResultsCountLiveData.postValue(paginationInfo.found)
         }
     }
 
     fun emptyList() {
-        _screenStateLiveData.postValue(SearchScreenState.IDLE)
+        _screenStateLiveData.postValue(SearchScreenState.Idle)
     }
 
     fun createTitle(model: Vacancy): String {

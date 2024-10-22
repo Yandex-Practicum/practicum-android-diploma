@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.filter.filter.domain.model.FilterSettings
 import ru.practicum.android.diploma.filter.filter.domain.usecase.FilterSPInteractor
 
-class FilterViewModel(
+internal class FilterViewModel(
     private val filterSPInteractor: FilterSPInteractor
 ) : ViewModel() {
 

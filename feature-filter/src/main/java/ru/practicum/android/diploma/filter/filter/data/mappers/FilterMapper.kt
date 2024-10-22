@@ -7,7 +7,7 @@ import ru.practicum.android.diploma.filter.filter.domain.model.FilterSettings
 import ru.practicum.android.diploma.filter.filter.domain.model.PlaceSettings
 import ru.practicum.android.diploma.filter.industry.domain.model.IndustryModel
 
-object FilterMapper {
+internal object FilterMapper {
     fun map(filterDto: FilterDto): FilterSettings {
         return with(filterDto) {
             FilterSettings(

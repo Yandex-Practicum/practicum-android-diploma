@@ -5,7 +5,7 @@ import ru.practicum.android.diploma.search.domain.models.sp.FilterSearch
 import ru.practicum.android.diploma.search.domain.models.sp.IndustrySearch
 import ru.practicum.android.diploma.search.domain.models.sp.PlaceSearch
 
-object SearchMappers {
+internal object SearchMappers {
     fun map(filterDto: FilterDto): FilterSearch {
         return with(filterDto) {
             FilterSearch(

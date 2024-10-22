@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/background"
-    android:layout_marginVertical="@dimen/dimens_9"
+    android:layout_marginVertical="@dimen/dp_9"
     android:id="@+id/itemVacancy">
 
     <ImageView
@@ -20,7 +20,7 @@
         style="@style/TextViewMedium22"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimens_12"
+        android:layout_marginStart="@dimen/dp_12"
         android:ellipsize="end"
         android:maxLines="3"
         android:padding="0dp"
@@ -34,7 +34,7 @@
         style="@style/TextViewRegular16NoPadding"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimens_12"
+        android:layout_marginStart="@dimen/dp_12"
         android:ellipsize="end"
         android:maxLines="1"
         android:text="@string/favorites_company"
@@ -47,7 +47,7 @@
         style="@style/TextViewRegular16NoPadding"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimens_12"
+        android:layout_marginStart="@dimen/dp_12"
         android:ellipsize="end"
         android:maxLines="1"
         android:text="@string/salary_size"

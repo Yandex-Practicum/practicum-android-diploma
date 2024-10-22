@@ -13,7 +13,6 @@ import ru.practicum.android.diploma.filter.industry.di.industryModule
 import ru.practicum.android.diploma.filter.place.di.placeModule
 import ru.practicum.android.diploma.navigate.di.navigateModel
 import ru.practicum.android.diploma.search.di.searchModule
-import ru.practicum.android.diploma.team.di.teamModule
 import ru.practicum.android.diploma.vacancy.di.vacancyDetailModule
 
 class App : Application() {
@@ -33,7 +32,6 @@ class App : Application() {
                 placeModule,
                 favoritesModule,
                 vacancyDetailModule,
-                teamModule,
                 navigateModel,
                 cacheDataModule
             )

@@ -12,7 +12,7 @@
         style="@style/ButtonLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingVertical="@dimen/dimens_24"
+        android:paddingVertical="@dimen/dp_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,7 +50,7 @@
         <ImageView
             style="@style/ErrorPicture"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimens_224"
+            android:layout_height="@dimen/dp_224"
             android:src="@drawable/il_6_1" />
 
         <TextView
