@@ -4,6 +4,7 @@ import ru.practicum.android.diploma.data.sp.dto.FilterDto
 import ru.practicum.android.diploma.data.sp.dto.IndustryDto
 import ru.practicum.android.diploma.data.sp.dto.PlaceDto
 
+@Suppress("TooManyFunctions")
 interface FilterSp {
     // filter base
     fun getDataFilter(): FilterDto
