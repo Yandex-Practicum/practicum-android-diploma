@@ -65,10 +65,11 @@ internal class VacancyListViewModel(
     fun initialSearch(query: String) {
         _screenStateLiveData.postValue(SearchScreenState.LoadingNewList)
         currentQuery = query
+        currentPage = 0
         initQueryFilter(vacanciesInteractor.getDataFilter())
         viewModelScope.launch(Dispatchers.IO) {
             vacanciesInteractor.searchVacancies(
-                page = "0",
+                page = currentPage.toString(),
                 perPage = "${PAGE_SIZE}",
                 queryText = query,
                 industry = queryFilter.get(INDUSTRY_ID),
