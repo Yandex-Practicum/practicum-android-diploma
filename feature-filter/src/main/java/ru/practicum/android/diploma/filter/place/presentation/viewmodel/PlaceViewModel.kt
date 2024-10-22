@@ -68,12 +68,11 @@ internal class PlaceViewModel(
         }
     }
 
-    private val places: MutableList<AreaInReference> = ArrayList<AreaInReference>()
+    private val places: MutableList<AreaInReference> = ArrayList()
 
     private val _networkStateLiveData = MutableLiveData<NetworkState>()
-    // fun observeNetworkState(): LiveData<NetworkState> = _networkStateLiveData todo del
 
-    fun initDataFromNetworkToCache() {
+    private fun initDataFromNetworkToCache() {
         viewModelScope.launch(Dispatchers.IO) {
             regionInteractor.listAreas().collect { areas ->
                 areas.first?.let { list ->
