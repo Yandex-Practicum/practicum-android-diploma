@@ -175,6 +175,7 @@ class VacancySearchFragment : Fragment() {
 
     private fun showLoadingProgress() {
         adapter.notifyDataSetChanged()
+        binding.recyclerView.visibility = View.GONE
         binding.blueTextView.visibility = View.GONE
         binding.defaultSearchPlaceholder.visibility = View.GONE
         binding.notConnectedPlaceholder.visibility = View.GONE
