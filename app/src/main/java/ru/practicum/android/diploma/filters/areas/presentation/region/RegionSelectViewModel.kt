@@ -89,6 +89,12 @@ class RegionSelectViewModel(
 
         foundCountries.forEach { area ->
             regions.addAll(area.areas)
+            area.areas.forEach { subArea ->
+                val new = subArea.areas.map { it.copy(parentId = subArea.parentId) }
+                regions.addAll(
+                    subArea.copy(areas = new).areas
+                )
+            }
         }
         return regions
     }
