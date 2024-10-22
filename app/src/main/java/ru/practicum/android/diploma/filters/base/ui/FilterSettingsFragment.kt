@@ -59,6 +59,7 @@ class FilterSettingsFragment : Fragment() {
             salaryCheckbox.setOnCheckedChangeListener { _, isChecked ->
                 viewModel.setIsShowWithSalary(isChecked)
                 viewModel.updateSalaryCheckbox(isChecked)
+                editText.clearFocus()
                 showApplyAndClearButton()
 
             }
