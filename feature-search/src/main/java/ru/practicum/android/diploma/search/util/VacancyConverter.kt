@@ -65,7 +65,7 @@ internal class VacancyConverter {
                 languages = mapLanguage(languages),
                 name = name,
                 professionalRoles = mapRoles(professionalRoles),
-                salary = mapSalary(salary),
+                salary = salary?.let { mapSalary(it) },
                 schedule = mapSchedule(schedule),
                 workingDays = mapDays(workingDays),
                 workingTimeIntervals = map(workingTimeIntervals)

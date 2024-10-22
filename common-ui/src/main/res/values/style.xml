@@ -152,9 +152,7 @@
 
     <style name="CompanyNameText">
         <item name="android:layout_marginStart">@dimen/vacancyCardPadding</item>
-        <item name="android:layout_marginTop">@dimen/vacancyTextPadding</item>
         <item name="android:fontFamily">@font/ys_display_medium</item>
-        <item name="android:padding">@dimen/noPadding</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/textSizeMedium</item>
     </style>
