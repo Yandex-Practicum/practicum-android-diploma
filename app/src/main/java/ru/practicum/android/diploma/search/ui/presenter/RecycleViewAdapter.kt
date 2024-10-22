@@ -35,6 +35,7 @@ class RecycleViewAdapter(
     fun setList(newVacancyList: List<VacancySearch>) {
         list.clear()
         list.addAll(newVacancyList)
+        list.toSet()
     }
 
     fun listSize(): Int {
