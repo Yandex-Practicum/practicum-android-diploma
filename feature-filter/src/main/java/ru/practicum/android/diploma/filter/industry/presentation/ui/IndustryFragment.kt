@@ -124,7 +124,7 @@ internal class IndustryFragment : Fragment() {
     }
 
     private fun searchBarSetup() {
-        binding.searchBar.doOnTextChanged { text, start, before, count ->
+        binding.searchBar.doOnTextChanged { text, _, _, _ ->
             if (text?.isNotEmpty() == true) {
                 (binding.listIndustry.adapter as FilterIndustryListAdapter).undoSelection()
                 binding.clearSearchIcon.isVisible = true

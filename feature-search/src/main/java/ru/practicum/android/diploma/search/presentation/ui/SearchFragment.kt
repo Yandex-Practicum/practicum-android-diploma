@@ -151,7 +151,7 @@ internal class SearchFragment : Fragment() {
     }
 
     private fun searchBarSetup() {
-        binding.searchBar.doOnTextChanged { text, start, before, count ->
+        binding.searchBar.doOnTextChanged { text, _, _, _ ->
             if (text?.isNotEmpty() == true) {
                 binding.clearSearchIcon.isVisible = true
                 binding.searchBarLoupeIcon.isVisible = false
@@ -188,21 +188,21 @@ internal class SearchFragment : Fragment() {
     private fun updateUI(state: SearchScreenState) {
         disableAllVariableViews()
         when (state) {
-            SearchScreenState.IDLE -> {
+            SearchScreenState.Idle -> {
                 binding.defaultIllustration.isVisible = true
             }
 
-            SearchScreenState.LOADING_NEW_LIST -> {
+            SearchScreenState.LoadingNewList -> {
                 binding.progressBarLoadingFromSearch.isVisible = true
             }
 
-            SearchScreenState.LOADING_NEW_PAGE -> {
+            SearchScreenState.LoadingNewPage -> {
                 binding.resultCountPopup.isVisible = true
                 binding.vacancyRecycler.isVisible = true
                 binding.progressBarLoadingNewPage.isVisible = true
             }
 
-            SearchScreenState.VACANCY_LIST_LOADED -> {
+            SearchScreenState.VacancyListLoaded -> {
                 binding.resultCountPopup.isVisible = true
                 binding.vacancyRecycler.isVisible = true
             }
@@ -215,30 +215,30 @@ internal class SearchFragment : Fragment() {
 
     private fun showError(error: SearchScreenState.Error) {
         when (error) {
-            SearchScreenState.Error.FAILED_TO_FETCH_VACANCIES_ERROR -> {
+            SearchScreenState.Error.FailedToFetchVacanciesError -> {
                 binding.resultCountPopup.isVisible = true
                 binding.failedToFetchListErrorIllustration.isVisible = true
                 binding.failedToFetchListErrorText.isVisible = true
             }
 
-            SearchScreenState.Error.NEW_PAGE_NO_INTERNET_ERROR -> {
+            SearchScreenState.Error.NewPageNoInternetError -> {
                 binding.resultCountPopup.isVisible = true
                 binding.vacancyRecycler.isVisible = true
                 makeToast(getString(ru.practicum.android.diploma.ui.R.string.search_screen_toast_no_internet))
             }
 
-            SearchScreenState.Error.NEW_PAGE_SERVER_ERROR -> {
+            SearchScreenState.Error.NewPageServerError -> {
                 binding.serverErrorIllustration.isVisible = true
                 binding.serverErrorText.isVisible = true
                 makeToast(getString(ru.practicum.android.diploma.ui.R.string.search_screen_toast_error))
             }
 
-            SearchScreenState.Error.NO_INTERNET_ERROR -> {
+            SearchScreenState.Error.NoInternetError -> {
                 binding.noInternetErrorIllustration.isVisible = true
                 binding.noInternetErrorText.isVisible = true
             }
 
-            SearchScreenState.Error.SERVER_ERROR -> {
+            SearchScreenState.Error.ServerError -> {
                 binding.serverErrorIllustration.isVisible = true
                 binding.serverErrorText.isVisible = true
             }

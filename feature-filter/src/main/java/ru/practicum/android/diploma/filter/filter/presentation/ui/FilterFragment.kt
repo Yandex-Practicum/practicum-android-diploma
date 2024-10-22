@@ -69,7 +69,7 @@ internal class FilterFragment : Fragment() {
             viewModel.setDoNotShowWithoutSalaryInDataFilterBuffer(isChecked)
         }
     }
-
+    @Suppress("LongMethod")
     private fun setupClickListeners() {
         val clickListener = View.OnClickListener { view ->
             when (view.id) {

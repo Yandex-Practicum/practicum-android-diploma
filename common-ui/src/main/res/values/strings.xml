@@ -3,31 +3,31 @@
 
     <!-- Content descriptions -->
     <string name="back">Назад</string>
+    <string name="share">Поделиться</string>
+    <string name="add_to_favorites">Добавить в избранное</string>
     <string name="clear_search">Сбросить поисковой запрос</string>
     <string name="select_industry">Выбрать отрасль</string>
     <string name="select_location">Выбрать место работы</string>
+    <string name="clear_filter">Сбросить настройки фильтра</string>
+
+    <string name="placeholder_place">Место</string>
 
     <!-- BottomNavigation tabs -->
     <string name="search">Главная</string>
     <string name="favorites">Избранное</string>
     <string name="team">Команда</string>
     <string name="fragment_placeholder">Данная страница в разработке</string>
-
     <!-- Common errors -->
     <string name="vacancies_list_server_error">Не удалось получить\nсписок вакансий</string>
     <string name="no_internet_error">Нет интернета</string>
     <string name="server_error">Ошибка сервера</string>
-
     <!-- Search screen -->
     <string name="search_screen_header">Поиск вакансий</string>
     <string name="search_screen_no_results_popup">Таких вакансий нет</string>
     <string name="search_screen_searchbar_hint">Введите запрос</string>
-
     <string name="search_vacancy_name_placeholder">Android-разработчик, Москва</string>
-
     <!-- Filter screens -->
     <string name="filter_screens_main_header">Настройки фильтрации</string>
-
     <string name="filter_screens_location">Место работы</string>
     <string name="filter_screens_location_filter_header">Выбор места работы</string>
     <string name="filter_screens_country">Страна</string>
@@ -37,20 +37,17 @@
     <string name="filter_screens_region_searchbar_hint">Введите регион</string>
     <string name="filter_screens_region_no_results_error">Такого региона нет</string>
     <string name="filter_screens_region_list_server_error">Не удалось получить\nсписок</string>
-
     <string name="filter_screens_industry">Отрасль</string>
     <string name="filter_screens_industry_searchbar_hint">Введите отрасль</string>
     <string name="filter_screens_industry_filter_header">Выбор отрасли</string>
-
     <string name="filter_screens_salary_expectations">Ожидаемая зарплата</string>
     <string name="filter_screens_enter_sum">Введите сумму</string>
     <string name="filter_screens_hide_without_salary">Не показывать без зарплаты</string>
-
     <string name="filter_screens_select_button">Выбрать</string>
     <string name="filter_screens_apply_button">Применить</string>
     <string name="filter_screens_discard_button">Сбросить</string>
 
-    <!-- Vacancy screen, use plurals for job experience-->
+    <!-- Vacancy screen -->
     <string name="vacancy_screen_header">Вакансия</string>
     <string name="vacancy_and_location_screen_header">Вакансия, город</string>
     <string name="vacancy_screen_base_salary">от %s %s</string>
@@ -61,7 +58,6 @@
     <string name="vacancy_screen_conditions">Условия</string>
     <string name="vacancy_screen_key_skills">Ключевые навыки</string>
     <string name="vacancy_screen_not_found_error">Вакансия не найдена или удалена</string>
-
     <string name="vacancy_name_placeholder">Android-разработчик</string>
     <string name="vacancy_salary_placeholder">от %1$s ₽</string>
     <string name="vacancy_company_name_placeholder">Еда</string>
@@ -70,6 +66,7 @@
     <string name="vacancy_conditions_placeholder">Полная занятость, Удаленная работа</string>
     <string name="vacancy_description_placeholder">Обязанности\nРазрабатывать новую функциональность приложения\nПомогать с интеграцией нашего SDK в другие приложения\nПроектировать большие новые модули\nПисать UI- и unit-тесты\nСледить за работоспособностью сервиса и устранять технический долг</string>
     <string name="vacancy_key_skills_placeholder">Знание классических алгоритмов и структуры данных\nПрограммирование для Android больше одного года\nЗнание WebRTC</string>
+    <string name="share_link">https://hh.ru/vacancy/</string>
 
     <!-- Favorites screen -->
     <string name="favorites_screen_header">Избранное</string>
@@ -77,23 +74,36 @@
     <string name="favorites_company">Название компании</string>
     <string name="salary_size">Размер заработной платы</string>
 
+    <!-- Favorites screen system messages-->
+    <string name="message_empty">Empty</string>
+    <string name="message_no_add_favorite">No Add Favorite</string>
+    <string name="message_no_delete_favorite">No Delete Favorite</string>
+    <string name="message_error">Error</string>
+
+    <!-- Region screen -->
+    <string name="hint_input_region">Введите регион</string>
+
     <!-- Team screen -->
     <string name="team_screen_header">Команда</string>
     <string name="team_screen_text">Над приложением работали</string>
     <string name="team_screen_developer_list">Павел Захаров Team-lead\n\nЮлия Вакулина Android-разработчик\n\nМаксим Сагациян Android-разработчик\n\nМихаил Гришин Android-разработчик</string>
 
-    <!-- Network -->
+
     <!-- Errors -->
     <string name="check_network_connection">Check network connection</string>
     <string name="request_was_not_accepted">Request was not accepted %1$s</string>
     <string name="unexpected_error">Unexpected error %1$s</string>
     <string name="request_was_not_accepted_404">404</string>
+    <string name="there_is_no_such_region">Такого региона нет</string>
+    <string name="there_is_no_such_industry">Такой отрасли нет</string>
+    <string name="search_screen_toast_no_internet">Проверьте подключение к интернету</string>
+    <string name="search_screen_toast_error">Произошла ошибка</string>
 
+    <!-- Salary -->
     <string name="salary_from">от %s %s</string>
     <string name="salary_to">до %s %s</string>
     <string name="salary_from_to">от %s до %s %s</string>
     <string name="no_salary">Зарплата не указана</string>
-
     <string name="currency_rur">₽</string>
     <string name="currency_br_rur">Br</string>
     <string name="currency_usd">$</string>
@@ -106,16 +116,8 @@
     <string name="currency_kgs">сом</string>
     <string name="currency_amd">֏</string>
 
-    <string name="message_empty">Empty</string>
-    <string name="message_no_add_favorite">No Add Favorite</string>
-    <string name="message_no_delete_favorite">No Delete Favorite</string>
-    <string name="message_error">Error</string>
+    <!-- Plurals -->
 
-    <string name="share_link">https://hh.ru/vacancy/</string>
-
-    <!-- Strings for display -->
-    <string name="search_screen_toast_no_internet">Проверьте подключение к интернету</string>
-    <string name="search_screen_toast_error">Произошла ошибка</string>
     <plurals name="vacancies_found">
         <item quantity="one">Найдена %1$d вакансия</item>
         <item quantity="few">Найдено %1$d вакансии</item>
@@ -123,6 +125,16 @@
         <item quantity="other">Найдено %1$d вакансий</item>
     </plurals>
 
+    <plurals name="age_range">
+        <item quantity="one">От %d года до %d года</item>
+        <item quantity="few">От %d года до %d лет</item>
+        <item quantity="many">От %d лет до %d лет</item>
+        <item quantity="other">От %d лет до %d лет</item>
+    </plurals>
+
     <string name="filter_place_form">%s, %s</string>
+
+
+
 
 </resources>

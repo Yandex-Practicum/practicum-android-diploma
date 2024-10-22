@@ -12,12 +12,11 @@ import ru.practicum.android.diploma.vacancy.domain.model.Vacancy
 import ru.practicum.android.diploma.vacancy.domain.usecase.VacancyDetailInteractor
 import ru.practicum.android.diploma.vacancy.presentation.viewmodel.state.VacancyDetailState
 import ru.practicum.android.diploma.vacancy.presentation.viewmodel.state.VacancyFavoriteMessageState
-import ru.practicum.android.diploma.vacancy.presentation.viewmodel.state.VacancyFavoriteState
 
 private const val COMMAND_TO_REMOVE_VACANCY_FROM_FAVORITES = "404"
 private const val DELAY_TO_DEFAULT_STATE_MESSAGE = 100L
 
-class VacancyDetailViewModel(
+internal class VacancyDetailViewModel(
     private val vacancyInteractor: VacancyDetailInteractor,
 ) : ViewModel() {
 
@@ -50,7 +49,7 @@ class VacancyDetailViewModel(
 
     private suspend fun cleanVacancyFromDbOnError404(messageError: String, vacancyId: Int) {
         if (messageError == COMMAND_TO_REMOVE_VACANCY_FROM_FAVORITES) {
-            vacancyInteractor.checkVacancyExists(vacancyId).collect { (existingId, message) ->
+            vacancyInteractor.checkVacancyExists(vacancyId).collect { (existingId, _) ->
                 existingId?.let { id ->
                     if (id > 0) {
                         deleteFavoriteVacancy(vacancyId)
@@ -60,20 +59,13 @@ class VacancyDetailViewModel(
         }
     }
 
-    private val _vacancyFavoriteStateLiveData = MutableLiveData<VacancyFavoriteState>()
-    fun observeVacancyFavoriteState(): LiveData<VacancyFavoriteState> = _vacancyFavoriteStateLiveData
-
     private val _vacancyFavoriteMessageStateLiveData = MutableLiveData<VacancyFavoriteMessageState>()
     fun observeVacancyFavoriteMessageState(): LiveData<VacancyFavoriteMessageState> =
         _vacancyFavoriteMessageStateLiveData
 
-    fun startInitVacancyFavoriteMessageState() {
-        _vacancyFavoriteMessageStateLiveData.postValue(VacancyFavoriteMessageState.Empty)
-    }
-
     fun modifyingStatusOfVacancyFavorite(vacancy: Vacancy) {
         viewModelScope.launch(Dispatchers.IO) {
-            vacancyInteractor.checkVacancyExists(vacancy.idVacancy).collect { (existingId, message) ->
+            vacancyInteractor.checkVacancyExists(vacancy.idVacancy).collect { (existingId, _) ->
                 existingId?.let { id ->
                     if (id > 0) {
                         deleteFavoriteVacancy(vacancy.idVacancy)
@@ -86,7 +78,7 @@ class VacancyDetailViewModel(
     }
 
     private suspend fun deleteFavoriteVacancy(vacancyId: Int) {
-        vacancyInteractor.deleteVacancy(vacancyId).collect { (numberOfDeleted, deleteMessage) ->
+        vacancyInteractor.deleteVacancy(vacancyId).collect { (numberOfDeleted, _) ->
             if (numberOfDeleted != null && numberOfDeleted > 0) {
                 favoriteStateLiveData.postValue(false)
             } else {
@@ -96,7 +88,7 @@ class VacancyDetailViewModel(
     }
 
     private suspend fun addFavoriteVacancy(addVacancy: Vacancy) {
-        vacancyInteractor.addVacancy(addVacancy).collect { (addId, deleteMessage) ->
+        vacancyInteractor.addVacancy(addVacancy).collect { (addId, _) ->
             if (addId != null && addId != -1L) {
                 favoriteStateLiveData.postValue(true)
             } else {
@@ -115,7 +107,7 @@ class VacancyDetailViewModel(
     fun observeFavoriteState(): LiveData<Boolean> = favoriteStateLiveData
     fun updateFavorite(id: Int) {
         viewModelScope.launch {
-            vacancyInteractor.checkVacancyExists(id).collect { (existingId, message) ->
+            vacancyInteractor.checkVacancyExists(id).collect { (existingId, _) ->
                 existingId?.let { id ->
                     if (id > 0) {
                         favoriteStateLiveData.postValue(true)

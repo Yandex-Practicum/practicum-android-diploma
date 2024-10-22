@@ -8,7 +8,6 @@
     <color name="backgroundTextInputLayout">#E6E8EB</color>
     <color name="hintDefaultTextInputLayout">#AEAFB4</color>
 
-
     <!-- Theme-independent -->
     <color name="black">#1A1B22</color>
     <color name="white">#FDFDFD</color>

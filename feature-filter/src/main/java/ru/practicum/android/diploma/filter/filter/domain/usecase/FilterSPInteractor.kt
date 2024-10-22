@@ -2,7 +2,8 @@ package ru.practicum.android.diploma.filter.filter.domain.usecase
 
 import ru.practicum.android.diploma.filter.filter.domain.model.FilterSettings
 
-interface FilterSPInteractor {
+@Suppress("TooManyFunctions")
+internal interface FilterSPInteractor {
     suspend fun clearDataFilterAll()
 
     suspend fun getExpectedSalaryDataFilterBuffer(): String?

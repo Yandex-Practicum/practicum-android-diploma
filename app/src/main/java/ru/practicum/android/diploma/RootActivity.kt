@@ -12,7 +12,6 @@ import ru.practicum.android.diploma.navigate.api.NavigateArgsToVacancy
 import ru.practicum.android.diploma.navigate.observable.Navigate
 import ru.practicum.android.diploma.navigate.state.NavigateEventState
 
-private const val TAG = "RootActivity"
 class RootActivity : AppCompatActivity() {
 
     private val navigate: Navigate<NavigateEventState> by inject()
@@ -48,9 +47,6 @@ class RootActivity : AppCompatActivity() {
 
         binding.bottomNavigationMenu.setupWithNavController(navController)
 
-        // Пример использования access token для HeadHunter API
-        networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
-
     }
 
     override fun onStart() {
@@ -70,10 +66,6 @@ class RootActivity : AppCompatActivity() {
                 R.id.action_search_fragment_to_filter_navigation
         }
         navController.navigate(actionId, navigateArgsToVacancy.createArgs(state))
-    }
-
-    private fun networkRequestExample(accessToken: String) {
-        // ...
     }
 
     override fun onDestroy() {

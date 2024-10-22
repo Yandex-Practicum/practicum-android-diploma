@@ -2,7 +2,8 @@ package ru.practicum.android.diploma.filter.filter.domain.repository
 
 import ru.practicum.android.diploma.filter.filter.domain.model.FilterSettings
 
-interface FilterSPRepository {
+@Suppress("TooManyFunctions")
+internal interface FilterSPRepository {
 
     suspend fun clearDataFilterAll()
 

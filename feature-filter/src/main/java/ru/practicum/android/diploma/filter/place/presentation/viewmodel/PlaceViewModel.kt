@@ -13,7 +13,7 @@ import ru.practicum.android.diploma.filter.place.domain.usecase.RegionInteractor
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.NetworkState
 import ru.practicum.android.diploma.filter.place.presentation.viewmodel.state.PlaceState
 
-class PlaceViewModel(
+internal class PlaceViewModel(
     private val regionInteractor: RegionInteractor,
 ) : ViewModel() {
 
@@ -68,12 +68,11 @@ class PlaceViewModel(
         }
     }
 
-    private val places: MutableList<AreaInReference> = ArrayList<AreaInReference>()
+    private val places: MutableList<AreaInReference> = ArrayList()
 
     private val _networkStateLiveData = MutableLiveData<NetworkState>()
-    fun observeNetworkState(): LiveData<NetworkState> = _networkStateLiveData
 
-    fun initDataFromNetworkToCache() {
+    private fun initDataFromNetworkToCache() {
         viewModelScope.launch(Dispatchers.IO) {
             regionInteractor.listAreas().collect { areas ->
                 areas.first?.let { list ->

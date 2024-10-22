@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.core.content.ContextCompat
 import java.lang.ref.WeakReference
 
-class ColorManager(private val context: Context) {
+internal class ColorManager(context: Context) {
 
     private val contextRef = WeakReference(context)
 

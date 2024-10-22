@@ -26,7 +26,7 @@ internal class VacancyDetailRepositoryImpl(
 ) : VacancyDetailRepository {
 
     override fun getVacancyNetwork(id: String): Flow<Resource<Vacancy>> =
-        context.executeNetworkRequest<Response, Vacancy>(
+        context.executeNetworkRequest(
             request = { networkClient.doRequest(HHApiVacancyRequest(id)) },
             successHandler = { response: Response ->
                 Resource.Success(VacancyMappers.map(context, response as HHVacancyDetailResponse))

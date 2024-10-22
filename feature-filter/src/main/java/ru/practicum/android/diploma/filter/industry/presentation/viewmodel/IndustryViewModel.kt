@@ -10,13 +10,13 @@ import ru.practicum.android.diploma.filter.industry.domain.model.IndustryModel
 import ru.practicum.android.diploma.filter.industry.domain.usecase.IndustryInteractor
 import ru.practicum.android.diploma.filter.industry.presentation.viewmodel.state.IndustryState
 
-class IndustryViewModel(
+internal class IndustryViewModel(
     private val industryInteractor: IndustryInteractor
 ) : ViewModel() {
 
     private var _industriesListLiveData = MutableLiveData<IndustryState>()
     val industriesListLiveData: LiveData<IndustryState> = _industriesListLiveData
-    var unfilteredList: MutableList<IndustryModel> = mutableListOf()
+    private var unfilteredList: MutableList<IndustryModel> = mutableListOf()
 
     init {
         getIndustriesList()
@@ -38,7 +38,7 @@ class IndustryViewModel(
                     unfilteredList.clear()
                     _industriesListLiveData.postValue(IndustryState.Empty)
                 }
-                response.second?.let { e ->
+                response.second?.let {
                     unfilteredList.clear()
                     _industriesListLiveData.postValue(IndustryState.Error)
                 }

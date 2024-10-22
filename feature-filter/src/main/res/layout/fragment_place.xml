@@ -13,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:contentDescription="@string/back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,7 +29,7 @@
     <LinearLayout
         android:id="@+id/country"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimens_60"
+        android:layout_height="@dimen/dp_60"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/placeHeader">
 
@@ -57,24 +58,26 @@
                 android:paddingStart="@dimen/textPadding"
                 android:textColor="@color/primaryTextAndUIColor"
                 android:textColorHint="@color/grey"
-                android:textSize="@dimen/dimen_sp16" />
+                android:textSize="@dimen/sp_16" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
             android:id="@+id/clickCountry"
-            android:layout_width="@dimen/dimens_60"
-            android:layout_height="@dimen/dimens_60"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_60"
             android:layout_gravity="center_vertical"
-            android:padding="@dimen/dimens_16"
+            android:contentDescription="@string/filter_screens_country_filter_header"
+            android:padding="@dimen/dp_16"
             android:src="@drawable/button_right"
             android:visibility="visible" />
 
         <ImageView
             android:id="@+id/clickCountryClear"
-            android:layout_width="@dimen/dimens_60"
-            android:layout_height="@dimen/dimens_60"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_60"
             android:layout_gravity="center_vertical"
-            android:padding="@dimen/dimens_16"
+            android:contentDescription="@string/clear_filter"
+            android:padding="@dimen/dp_16"
             android:src="@drawable/clear_place"
             android:visibility="gone" />
 
@@ -83,7 +86,7 @@
     <LinearLayout
         android:id="@+id/region"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimens_60"
+        android:layout_height="@dimen/dp_60"
         android:clickable="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/country">
@@ -113,24 +116,26 @@
                 android:paddingStart="@dimen/textPadding"
                 android:textColor="@color/primaryTextAndUIColor"
                 android:textColorHint="@color/grey"
-                android:textSize="@dimen/dimen_sp16" />
+                android:textSize="@dimen/sp_16" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
             android:id="@+id/clickRegion"
-            android:layout_width="@dimen/dimens_60"
-            android:layout_height="@dimen/dimens_60"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_60"
             android:layout_gravity="center_vertical"
-            android:padding="@dimen/dimens_16"
+            android:contentDescription="@string/filter_screens_region_filter_header"
+            android:padding="@dimen/dp_16"
             android:src="@drawable/button_right"
             android:visibility="visible" />
 
         <ImageView
             android:id="@+id/clickRegionClear"
-            android:layout_width="@dimen/dimens_60"
-            android:layout_height="@dimen/dimens_60"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_60"
             android:layout_gravity="center_vertical"
-            android:padding="@dimen/dimens_16"
+            android:contentDescription="@string/clear_filter"
+            android:padding="@dimen/dp_16"
             android:src="@drawable/clear_place"
             android:visibility="gone" />
     </LinearLayout>
@@ -139,8 +144,8 @@
         android:id="@+id/selectButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/dimens_16"
-        android:layout_marginBottom="@dimen/dimens_24"
+        android:layout_marginHorizontal="@dimen/dp_16"
+        android:layout_marginBottom="@dimen/dp_24"
         android:background="@drawable/rounded_12dp_blue_bg"
         android:gravity="center"
         android:paddingHorizontal="@dimen/dp_8"

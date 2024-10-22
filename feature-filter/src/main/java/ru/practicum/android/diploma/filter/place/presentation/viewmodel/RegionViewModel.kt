@@ -20,7 +20,7 @@ private const val NUMBER_OF_CACHE_READ_ATTEMPTS = 10
 private const val DELAY_BETWEEN_CACHE_READS = 100L
 private const val SEARCH_DEBOUNCE_DELAY = 1000L
 
-class RegionViewModel(
+internal class RegionViewModel(
     private val regionInteractor: RegionInteractor,
 ) : ViewModel() {
 
@@ -79,7 +79,7 @@ class RegionViewModel(
         places.filter(filter).map { country ->
             val nameCountry = country.name
             country.areas.map { region ->
-                region.parentId?.let {
+                region.parentId.let {
                     regions.add(
                         Region(
                             id = region.id,

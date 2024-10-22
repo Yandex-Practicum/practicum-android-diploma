@@ -27,10 +27,10 @@
         android:id="@+id/buttonLeftIndustry"
         style="@style/ButtonLeft"
         android:contentDescription="@string/back"
-        android:padding="@dimen/dimens_16"
+        android:padding="@dimen/dp_16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimens_4"
+        android:layout_marginStart="@dimen/dp_16"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/topBarGuideline"/>
@@ -115,8 +115,8 @@
         android:textColor="@color/white"
         android:paddingVertical="@dimen/dp_20"
         android:paddingHorizontal="@dimen/dp_8"
-        android:layout_marginHorizontal="@dimen/dimens_16"
-        android:layout_marginBottom="@dimen/dimens_24"
+        android:layout_marginHorizontal="@dimen/dp_16"
+        android:layout_marginBottom="@dimen/dp_16"
         android:text="@string/filter_screens_select_button"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
@@ -133,12 +133,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/searchBarGuideline" >
+        app:layout_constraintTop_toTopOf="@+id/searchBarGuideline"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             style="@style/ErrorPicture"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimens_224"
+            android:layout_height="@dimen/dp_224"
+            android:importantForAccessibility="no"
             android:src="@drawable/il_6_1" />
 
         <TextView
@@ -159,12 +161,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/searchBarGuideline" >
+        app:layout_constraintTop_toTopOf="@+id/searchBarGuideline"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             style="@style/ErrorPicture"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimens_224"
+            android:layout_height="@dimen/dp_224"
+            android:importantForAccessibility="no"
             android:src="@drawable/il_5" />
 
         <TextView

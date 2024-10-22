@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.favorites.domain.model
 
-data class FavoriteVacancy(
+internal data class FavoriteVacancy(
     val idVacancy: Int,
     val nameVacancy: String,
     val salary: String,

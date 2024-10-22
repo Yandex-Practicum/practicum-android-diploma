@@ -13,7 +13,7 @@
         <item name="android:textSize">@dimen/textSizeLittle</item>
     </style>
     <style name="TextViewFilter">
-        <item name="android:layout_marginTop">@dimen/dimens_4</item>
+        <item name="android:layout_marginTop">@dimen/dp_4</item>
         <item name="android:text">@string/filter_screens_salary_expectations</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/sp_12</item>

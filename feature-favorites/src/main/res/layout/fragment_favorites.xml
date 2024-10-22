@@ -20,8 +20,8 @@
         android:id="@+id/favorite_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/dimens_16"
-        android:paddingHorizontal="@dimen/dimens_16"
+        android:layout_marginTop="@dimen/dp_16"
+        android:paddingHorizontal="@dimen/dp_16"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,20 +40,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/dimens_16"
+            android:layout_marginHorizontal="@dimen/dp_16"
             android:adjustViewBounds="true"
+            android:importantForAccessibility="no"
             android:src="@drawable/placeholder_empty_list_favorite" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/TextViewMediumNoPadding22"
-            android:paddingTop="@dimen/dimens_16"
+            android:paddingTop="@dimen/dp_16"
             android:paddingBottom="0dp"
             android:layout_marginBottom="0dp"
             android:gravity="center_horizontal"
@@ -69,21 +71,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_marginHorizontal="@dimen/dimens_16"
+            android:layout_marginHorizontal="@dimen/dp_16"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
+            android:importantForAccessibility="no"
             android:src="@drawable/placeholder_error_list_favorite" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/TextViewMediumNoPadding22"
-            android:paddingTop="@dimen/dimens_16"
-            android:paddingHorizontal="@dimen/dimens_16"
+            android:paddingTop="@dimen/dp_16"
+            android:paddingHorizontal="@dimen/dp_16"
             android:gravity="center_horizontal"
             android:text="@string/vacancies_list_server_error" />
     </LinearLayout>

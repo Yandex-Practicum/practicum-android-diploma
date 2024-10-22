@@ -4,7 +4,7 @@ import ru.practicum.android.diploma.filter.filter.domain.model.FilterSettings
 import ru.practicum.android.diploma.filter.filter.domain.repository.FilterSPRepository
 import ru.practicum.android.diploma.filter.filter.domain.usecase.FilterSPInteractor
 
-class FilterSPInteractorImpl(private val repository: FilterSPRepository) : FilterSPInteractor {
+internal class FilterSPInteractorImpl(private val repository: FilterSPRepository) : FilterSPInteractor {
 
     override suspend fun clearDataFilterAll() {
         return repository.clearDataFilterAll()

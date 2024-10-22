@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="check_network_connection">Check network connection</string>
-    <string name="request_was_not_accepted">Request was not accepted %1$s</string>
-    <string name="unexpected_error">Unexpected error %1$s</string>
-</resources>

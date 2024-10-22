@@ -5,8 +5,8 @@ import ru.practicum.android.diploma.filter.place.data.mappers.SpMapper
 import ru.practicum.android.diploma.filter.place.domain.model.Place
 import ru.practicum.android.diploma.filter.place.domain.repository.SpRepository
 
-class SpRepositoryImpl(
-    val filterSp: FilterSp
+internal class SpRepositoryImpl(
+    private val filterSp: FilterSp
 ) : SpRepository {
 
     override suspend fun getPlaceDataFilterBuffer(): Place? {

@@ -34,7 +34,7 @@ internal class CountryFragment : Fragment() {
     private var countryClickDebounce: ((Country) -> Unit)? = null
 
     private val countriesAdapter: PlacesAdapter<Country> by lazy(LazyThreadSafetyMode.NONE) {
-        PlacesAdapter<Country>(
+        PlacesAdapter(
             placeClickListener = {
                 selectCountry(it)
             },
@@ -116,12 +116,12 @@ internal class CountryFragment : Fragment() {
         }
     }
 
-    private fun onCountryClickDebounce(action: (Country) -> Unit): (Country) -> Unit = debounce<Country>(
+    private fun onCountryClickDebounce(action: (Country) -> Unit): (Country) -> Unit = debounce(
         DELAY_CLICK_COUNTRY,
         lifecycleScope,
-        false,
-        false,
-        action
+        useLastParam = false,
+        actionThenDelay = false,
+        action = action
     )
 
     override fun onDestroy() {

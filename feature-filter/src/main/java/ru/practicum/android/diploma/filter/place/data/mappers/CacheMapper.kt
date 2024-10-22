@@ -5,7 +5,7 @@ import ru.practicum.android.diploma.cache.dto.RegionCache
 import ru.practicum.android.diploma.filter.place.domain.model.AreaInReference
 import ru.practicum.android.diploma.filter.place.domain.model.Region
 
-object CacheMapper {
+internal object CacheMapper {
     fun map(countryCache: CountryCache): AreaInReference {
         return with(countryCache) {
             AreaInReference(

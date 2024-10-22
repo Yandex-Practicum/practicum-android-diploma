@@ -13,13 +13,14 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/vacancyHeader"
                 style="@style/ButtonLeft"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/back"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,6 +37,7 @@
                 style="@style/ButtonFavorite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/add_to_favorites"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,6 +46,7 @@
                 style="@style/ButtonShare"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/share"
                 app:layout_constraintEnd_toStartOf="@id/favoriteButton"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -79,6 +82,7 @@
                     style="@style/VacancyImage"
                     android:layout_width="@dimen/sizeLogoItemFavorite"
                     android:layout_height="@dimen/sizeLogoItemFavorite"
+                    android:importantForAccessibility="no"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/vacancyCard"
                     tools:src="@drawable/placeholder_logo_item_favorite" />
@@ -146,7 +150,7 @@
                 style="@style/VacancyDescriptionInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="@dimen/dimens_16"
+                android:paddingHorizontal="@dimen/dp_16"
                 android:paddingTop="@dimen/vacancyTextPadding"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/vacancyDescription"
@@ -181,12 +185,14 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="UseCompoundDrawables">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:importantForAccessibility="no"
                     android:src="@drawable/vacancy_error_not_found" />
 
                 <TextView
@@ -209,13 +215,15 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="UseCompoundDrawables">
 
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="224dp"
 
+                    android:importantForAccessibility="no"
                     android:src="@drawable/vacancy_server_error" />
 
                 <TextView
@@ -228,7 +236,8 @@
                     android:textAlignment="center"
                     android:textColor="@color/primaryTextAndUIColor"
                     android:textFontWeight="500"
-                    android:textSize="@dimen/textSizeMedium" />
+                    android:textSize="@dimen/textSizeMedium"
+                    tools:ignore="UnusedAttribute" />
 
             </LinearLayout>
 

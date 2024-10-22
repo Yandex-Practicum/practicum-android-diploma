@@ -26,7 +26,7 @@ private const val INPUT_NETWORK_STATE = 0
 private const val INPUT_DB_STATE = 1
 private const val RADIUS_ROUND_VIEW = 12f
 
-class VacancyFragment : Fragment() {
+internal class VacancyFragment : Fragment() {
 
     private var _binding: FragmentVacancyBinding? = null
     private val binding get() = _binding!!

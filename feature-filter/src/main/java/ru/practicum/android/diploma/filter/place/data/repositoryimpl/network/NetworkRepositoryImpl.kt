@@ -19,7 +19,7 @@ internal class NetworkRepositoryImpl(
     private val context: Context,
 ) : NetworkRepository {
     override fun listAreas(): Flow<Resource<List<AreaInReference>>> =
-        context.executeNetworkRequest<Response, List<AreaInReference>>(
+        context.executeNetworkRequest(
             request = { networkClient.doRequest(HHApiRegionsRequest) },
             successHandler = { response: Response ->
                 Log.d(TAG, response.toString())

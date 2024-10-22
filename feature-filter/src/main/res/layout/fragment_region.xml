@@ -12,7 +12,8 @@
         style="@style/ButtonLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingVertical="@dimen/dimens_24"
+        android:contentDescription="@string/back"
+        android:paddingVertical="@dimen/dp_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,7 +42,7 @@
         android:layout_marginVertical="@dimen/dp_8"
         android:autofillHints="no"
         android:drawableEnd="@drawable/search_loupe"
-        android:paddingEnd="@dimen/dimens_16"
+        android:paddingEnd="@dimen/dp_24"
         android:hint="@string/hint_input_region"
         app:layout_constraintBottom_toTopOf="@id/searchBarGuideline"
         app:layout_constraintEnd_toEndOf="parent"
@@ -75,12 +76,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/searchBarGuideline" >
+        app:layout_constraintTop_toTopOf="@+id/searchBarGuideline"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             style="@style/ErrorPicture"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimens_224"
+            android:layout_height="@dimen/dp_224"
+            android:importantForAccessibility="no"
             android:src="@drawable/il_6_1" />
 
         <TextView
@@ -101,12 +104,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/searchBarGuideline" >
+        app:layout_constraintTop_toTopOf="@+id/searchBarGuideline"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             style="@style/ErrorPicture"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimens_224"
+            android:layout_height="@dimen/dp_224"
+            android:importantForAccessibility="no"
             android:src="@drawable/il_5" />
 
         <TextView

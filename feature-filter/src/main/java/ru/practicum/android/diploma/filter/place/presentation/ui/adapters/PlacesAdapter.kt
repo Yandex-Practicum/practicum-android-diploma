@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.filter.databinding.ItemPlaceBinding
 
-class PlacesAdapter<T>(
+internal class PlacesAdapter<T>(
     private val placeClickListener: PlaceClickListener<T>,
     private val itemBinder: (binding: ItemPlaceBinding, item: T) -> Unit
 ) : RecyclerView.Adapter<PlacesAdapter.PlacesViewHolder<T>>() {
