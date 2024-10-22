@@ -49,7 +49,7 @@ internal class FavoritesFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentFavoritesBinding.inflate(inflater, container, false)
         viewArray = arrayOf(
             binding.favoriteList,
@@ -122,12 +122,12 @@ internal class FavoritesFragment : Fragment() {
     }
 
     private fun onVacancyClickDebounce(action: (Int) -> Unit): (Int) -> Unit {
-        return debounce<Int>(
+        return debounce(
             DELAY_CLICK_VACANCY,
             lifecycleScope,
-            false,
-            true,
-            action
+            useLastParam = false,
+            actionThenDelay = true,
+            action = action
         )
     }
 }

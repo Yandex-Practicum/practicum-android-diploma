@@ -6,7 +6,7 @@ import ru.practicum.android.diploma.search.domain.models.IndustryList
 import ru.practicum.android.diploma.data.networkclient.api.dto.response.industries.item.Industry as IndustryDto
 
 internal class IndustryConverter {
-    fun map(industry: IndustryDto): Industry {
+    private fun map(industry: IndustryDto): Industry {
         return with(industry) {
             Industry(id = id, name = name)
         }
@@ -18,7 +18,7 @@ internal class IndustryConverter {
         }
     }
 
-    fun map(industries: List<IndustryDto>): List<Industry> {
+    private fun map(industries: List<IndustryDto>): List<Industry> {
         return industries.map { map(it) }
     }
 }

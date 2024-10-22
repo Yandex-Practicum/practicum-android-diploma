@@ -79,7 +79,7 @@ internal class RegionViewModel(
         places.filter(filter).map { country ->
             val nameCountry = country.name
             country.areas.map { region ->
-                region.parentId?.let {
+                region.parentId.let {
                     regions.add(
                         Region(
                             id = region.id,

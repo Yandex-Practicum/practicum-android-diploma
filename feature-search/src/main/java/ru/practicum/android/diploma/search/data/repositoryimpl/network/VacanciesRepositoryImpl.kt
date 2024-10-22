@@ -50,7 +50,7 @@ internal class VacanciesRepositoryImpl(
             options["salary"] = salary
         }
         area?.let { options["area"] = area }
-        return context.executeNetworkRequest<Response, PaginationInfo>(
+        return context.executeNetworkRequest(
             request = { networkClient.doRequest(HHApiVacanciesRequest(options)) },
             successHandler = { response: Response ->
                 Resource.Success(
@@ -66,7 +66,7 @@ internal class VacanciesRepositoryImpl(
     }
 
     override fun listVacancy(id: String): Flow<Resource<VacancyDetail>> =
-        context.executeNetworkRequest<Response, VacancyDetail>(request = {
+        context.executeNetworkRequest(request = {
             networkClient.doRequest(
                 HHApiVacancyRequest(id)
             )
@@ -74,7 +74,7 @@ internal class VacanciesRepositoryImpl(
             Resource.Success(vacancyConverter.map(response as HHVacancyDetailResponse))
         })
 
-    override fun listAreas(): Flow<Resource<RegionList>> = context.executeNetworkRequest<Response, RegionList>(
+    override fun listAreas(): Flow<Resource<RegionList>> = context.executeNetworkRequest(
         request = { networkClient.doRequest(HHApiRegionsRequest) },
         successHandler = { response: Response ->
             Resource.Success(areaConverter.map(response as HHRegionsResponse))
@@ -82,7 +82,7 @@ internal class VacanciesRepositoryImpl(
     )
 
     override fun listIndustries(): Flow<Resource<List<IndustryList>>> =
-        context.executeNetworkRequest<Response, List<IndustryList>>(request = {
+        context.executeNetworkRequest(request = {
             networkClient.doRequest(HHApiIndustriesRequest)
         }, successHandler = { response: Response ->
             Resource.Success(industryConverter.map(response as HHIndustriesResponse))

@@ -16,7 +16,7 @@ internal class IndustryViewModel(
 
     private var _industriesListLiveData = MutableLiveData<IndustryState>()
     val industriesListLiveData: LiveData<IndustryState> = _industriesListLiveData
-    var unfilteredList: MutableList<IndustryModel> = mutableListOf()
+    private var unfilteredList: MutableList<IndustryModel> = mutableListOf()
 
     init {
         getIndustriesList()
@@ -38,7 +38,7 @@ internal class IndustryViewModel(
                     unfilteredList.clear()
                     _industriesListLiveData.postValue(IndustryState.Empty)
                 }
-                response.second?.let { e ->
+                response.second?.let {
                     unfilteredList.clear()
                     _industriesListLiveData.postValue(IndustryState.Error)
                 }

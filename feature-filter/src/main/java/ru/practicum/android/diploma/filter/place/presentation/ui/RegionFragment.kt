@@ -41,7 +41,7 @@ internal class RegionFragment : Fragment() {
     private var regionClickDebounce: ((Region) -> Unit)? = null
 
     private val regionAdapter: PlacesAdapter<Region> by lazy(LazyThreadSafetyMode.NONE) {
-        PlacesAdapter<Region>(
+        PlacesAdapter(
             placeClickListener = {
                 regionSelection(it)
             },
@@ -76,7 +76,7 @@ internal class RegionFragment : Fragment() {
 
         regionViewModel.initDataFromCacheAndSp()
 
-        initDebounces()
+        initDebounce()
 
         regionViewModel.observePlaceState().observe(viewLifecycleOwner) {
             renderInitRegions(it)
@@ -164,7 +164,7 @@ internal class RegionFragment : Fragment() {
         }
     }
 
-    private fun initDebounces() {
+    private fun initDebounce() {
         regionClickDebounce = onRegionClickDebounce {
             findNavController().navigateUp()
             regionViewModel.setPlaceInDataReserveFilter(
@@ -179,12 +179,12 @@ internal class RegionFragment : Fragment() {
     }
 
     private fun onRegionClickDebounce(action: (Region) -> Unit): ((Region) -> Unit) {
-        return debounce<Region>(
+        return debounce(
             DELAY_CLICK_ITEM,
             lifecycleScope,
-            false,
-            true,
-            action
+            useLastParam = false,
+            actionThenDelay = true,
+            action = action
         )
     }
 

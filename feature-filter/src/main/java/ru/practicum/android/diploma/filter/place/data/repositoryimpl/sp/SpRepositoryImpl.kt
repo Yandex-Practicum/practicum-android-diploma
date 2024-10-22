@@ -6,7 +6,7 @@ import ru.practicum.android.diploma.filter.place.domain.model.Place
 import ru.practicum.android.diploma.filter.place.domain.repository.SpRepository
 
 internal class SpRepositoryImpl(
-    val filterSp: FilterSp
+    private val filterSp: FilterSp
 ) : SpRepository {
 
     override suspend fun getPlaceDataFilterBuffer(): Place? {

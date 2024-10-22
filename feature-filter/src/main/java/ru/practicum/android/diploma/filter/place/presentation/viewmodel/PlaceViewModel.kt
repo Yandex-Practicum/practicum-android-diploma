@@ -71,7 +71,7 @@ internal class PlaceViewModel(
     private val places: MutableList<AreaInReference> = ArrayList<AreaInReference>()
 
     private val _networkStateLiveData = MutableLiveData<NetworkState>()
-    fun observeNetworkState(): LiveData<NetworkState> = _networkStateLiveData
+    // fun observeNetworkState(): LiveData<NetworkState> = _networkStateLiveData todo del
 
     fun initDataFromNetworkToCache() {
         viewModelScope.launch(Dispatchers.IO) {

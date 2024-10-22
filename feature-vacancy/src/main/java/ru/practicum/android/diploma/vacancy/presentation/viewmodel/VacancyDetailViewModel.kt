@@ -61,15 +61,15 @@ internal class VacancyDetailViewModel(
     }
 
     private val _vacancyFavoriteStateLiveData = MutableLiveData<VacancyFavoriteState>()
-    fun observeVacancyFavoriteState(): LiveData<VacancyFavoriteState> = _vacancyFavoriteStateLiveData
+    // fun observeVacancyFavoriteState(): LiveData<VacancyFavoriteState> = _vacancyFavoriteStateLiveData todo del
 
     private val _vacancyFavoriteMessageStateLiveData = MutableLiveData<VacancyFavoriteMessageState>()
     fun observeVacancyFavoriteMessageState(): LiveData<VacancyFavoriteMessageState> =
         _vacancyFavoriteMessageStateLiveData
 
-    fun startInitVacancyFavoriteMessageState() {
-        _vacancyFavoriteMessageStateLiveData.postValue(VacancyFavoriteMessageState.Empty)
-    }
+    // fun startInitVacancyFavoriteMessageState() { todo del
+    //    _vacancyFavoriteMessageStateLiveData.postValue(VacancyFavoriteMessageState.Empty)
+    // }
 
     fun modifyingStatusOfVacancyFavorite(vacancy: Vacancy) {
         viewModelScope.launch(Dispatchers.IO) {

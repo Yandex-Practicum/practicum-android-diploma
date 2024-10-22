@@ -12,6 +12,7 @@
         style="@style/ButtonLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/back"
         android:paddingVertical="@dimen/dp_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -45,12 +46,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/countryHeader">
+        app:layout_constraintTop_toBottomOf="@id/countryHeader"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             style="@style/ErrorPicture"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_224"
+            android:importantForAccessibility="no"
             android:src="@drawable/il_6_1" />
 
         <TextView

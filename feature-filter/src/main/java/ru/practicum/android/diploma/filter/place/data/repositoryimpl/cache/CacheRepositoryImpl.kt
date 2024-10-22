@@ -6,7 +6,7 @@ import ru.practicum.android.diploma.filter.place.domain.model.AreaInReference
 import ru.practicum.android.diploma.filter.place.domain.repository.CacheRepository
 
 internal class CacheRepositoryImpl(
-    val memoryCache: MemoryCache
+    private val memoryCache: MemoryCache
 ) : CacheRepository {
     override suspend fun putCountries(countries: List<AreaInReference>) {
         memoryCache.putCountries(countries.map { CacheMapper.map(it) })

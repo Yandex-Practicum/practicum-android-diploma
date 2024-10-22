@@ -140,6 +140,7 @@
             style="@style/ErrorPicture"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_224"
+            android:importantForAccessibility="no"
             android:src="@drawable/il_6_1" />
 
         <TextView

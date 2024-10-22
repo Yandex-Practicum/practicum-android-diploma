@@ -10,10 +10,10 @@ internal sealed class SearchScreenState {
     data object LoadingNewPage : SearchScreenState()
 
     sealed class Error : SearchScreenState() {
-        object ServerError : Error()
-        object NoInternetError : Error()
-        object FailedToFetchVacanciesError : Error()
-        object NewPageServerError : Error()
-        object NewPageNoInternetError : Error()
+        data object ServerError : Error()
+        data object NoInternetError : Error()
+        data object FailedToFetchVacanciesError : Error()
+        data object NewPageServerError : Error()
+        data object NewPageNoInternetError : Error()
     }
 }

@@ -20,7 +20,7 @@ internal class CountryViewModel(
     private val regionInteractor: RegionInteractor,
 ) : ViewModel() {
 
-    private val places: MutableList<AreaInReference> = ArrayList<AreaInReference>()
+    private val places: MutableList<AreaInReference> = ArrayList()
 
     private val _countriesStateLiveData = MutableLiveData<CountryState>()
     fun observeCountriesState(): LiveData<CountryState> = _countriesStateLiveData

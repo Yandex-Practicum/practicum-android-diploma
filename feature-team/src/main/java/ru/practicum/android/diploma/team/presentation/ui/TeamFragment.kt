@@ -15,8 +15,7 @@ internal class TeamFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+    ): View {
         _binding = FragmentTeamBinding.inflate(inflater, container, false)
         return binding.root
     }

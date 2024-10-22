@@ -74,9 +74,7 @@ internal class VacancyConverter {
     }
 
     private fun map(area: AreaInVacancyDto): AreaInVacancy {
-        return with(area) {
-            AreaInVacancy(id = area.id, name = area.name, url = area.url)
-        }
+        return AreaInVacancy(id = area.id, name = area.name, url = area.url)
     }
 
     private fun map(employer: EmployerDto): Employer {
