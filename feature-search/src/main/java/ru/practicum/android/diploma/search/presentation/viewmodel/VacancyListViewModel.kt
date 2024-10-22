@@ -102,8 +102,9 @@ internal class VacancyListViewModel(
         _screenStateLiveData.postValue(SearchScreenState.LoadingNewPage)
         val currentList = (vacancyListStateLiveData.value as VacancyListState.Content).vacancies
         viewModelScope.launch(Dispatchers.IO) {
+            currentPage++
             vacanciesInteractor.searchVacancies(
-                page = (currentPage + 1).toString(),
+                page = currentPage.toString(),
                 perPage = "${PAGE_SIZE}",
                 queryText = currentQuery,
                 industry = queryFilter.get(INDUSTRY_ID),
