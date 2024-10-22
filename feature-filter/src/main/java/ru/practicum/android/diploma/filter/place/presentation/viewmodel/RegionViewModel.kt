@@ -60,10 +60,10 @@ internal class RegionViewModel(
                     delay(DELAY_BETWEEN_CACHE_READS)
                 }
                 if (!regionsFetched) {
-                    _regionsStateLiveData.postValue(RegionState.Empty)
+                    _regionsStateLiveData.postValue(RegionState.Error)
                 }
             } ?: run {
-                _regionsStateLiveData.postValue(RegionState.Error)
+                _regionsStateLiveData.postValue(RegionState.Empty)
             }
         }
     }
