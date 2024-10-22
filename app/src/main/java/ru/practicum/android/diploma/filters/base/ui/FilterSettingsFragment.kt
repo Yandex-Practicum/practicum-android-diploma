@@ -51,13 +51,15 @@ class FilterSettingsFragment : Fragment() {
                 }
             }
 
-            editText.setOnFocusChangeListener { _, _ ->
+            editText.setOnFocusChangeListener { view, hasFocus ->
                 clearButtonVisibility(editText.text)
+                if (!hasFocus) view.hideKeyboard()
             }
 
             salaryCheckbox.setOnCheckedChangeListener { _, isChecked ->
                 viewModel.setIsShowWithSalary(isChecked)
                 viewModel.updateSalaryCheckbox(isChecked)
+                editText.clearFocus()
                 showApplyAndClearButton()
 
             }
