@@ -15,4 +15,5 @@ interface RequestBuilderInteractor {
     fun updateBufferedSavedFilters(newBufferedSavedFilters: SavedFilters)
     fun getBufferedSavedFilters(): SavedFilters
     fun saveFiltersToShared()
+    fun clearAllFilters()
 }

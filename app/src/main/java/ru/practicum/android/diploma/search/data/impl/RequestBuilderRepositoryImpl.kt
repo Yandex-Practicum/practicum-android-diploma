@@ -115,6 +115,16 @@ class RequestBuilderRepositoryImpl(
         }
     }
 
+    override fun clearAllFilters() {
+        bufferedSavedFilters = bufferedSavedFilters.copy(
+            savedArea = null,
+            savedIndustry = null,
+            savedCurrency = "",
+            savedSalary = "",
+            savedIsShowWithSalary = false
+        )
+    }
+
     companion object {
         const val SAVED_AREA = "savedArea"
         const val SAVED_INDUSTRY = "savedIndustry"
