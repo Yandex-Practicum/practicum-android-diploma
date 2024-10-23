@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.search.presentation.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -67,9 +68,13 @@ internal class VacancyListViewModel(
     }
 
     fun initialSearch(query: String) {
+        if (query == currentQuery) {
+            if (!vacanciesInteractor.getDataFilter().forceSearch) return
+        }
         _screenStateLiveData.postValue(SearchScreenState.LoadingNewList)
         currentQuery = query
         initQueryFilter(vacanciesInteractor.getDataFilter())
+
         viewModelScope.launch(Dispatchers.IO) {
             vacanciesInteractor.searchVacancies(
                 page = "0",
