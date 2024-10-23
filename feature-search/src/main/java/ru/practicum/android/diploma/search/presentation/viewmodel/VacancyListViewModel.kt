@@ -20,6 +20,8 @@ private const val INDUSTRY_ID = "industry"
 private const val SALARY = "salary"
 private const val AREA_ID = "area"
 private const val ONLY_WITH_SALARY = "only_with_salary"
+private const val FORCE_SEARCH = "force_search"
+
 
 internal class VacancyListViewModel(
     private val vacanciesInteractor: VacanciesInteractor,
@@ -34,6 +36,9 @@ internal class VacancyListViewModel(
 
     private var _currentResultsCountLiveData = MutableLiveData<Int>()
     val currentResultsCountLiveData: LiveData<Int> = _currentResultsCountLiveData
+
+    private var _forceSearchLiveData = MutableLiveData<Boolean>()
+    val forceSearchLiveData: LiveData<Boolean> = _forceSearchLiveData
 
     private var paginationInfo = PaginationInfo(emptyList<Vacancy>(), 0, 0, 0)
     private var currentQuery: String = ""

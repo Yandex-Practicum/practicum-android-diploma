@@ -20,7 +20,8 @@ internal object SearchMappers {
                     name = branchOfProfession?.name
                 ),
                 expectedSalary = expectedSalary,
-                doNotShowWithoutSalary = doNotShowWithoutSalary
+                doNotShowWithoutSalary = doNotShowWithoutSalary,
+                forceSearch = forceSearch
             )
         }
     }

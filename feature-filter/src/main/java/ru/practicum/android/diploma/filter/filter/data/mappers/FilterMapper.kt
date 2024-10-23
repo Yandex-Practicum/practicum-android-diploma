@@ -22,7 +22,8 @@ internal object FilterMapper {
                     name = branchOfProfession?.name
                 ),
                 expectedSalary = expectedSalary,
-                doNotShowWithoutSalary = doNotShowWithoutSalary
+                doNotShowWithoutSalary = doNotShowWithoutSalary,
+                forceSearch = forceSearch,
             )
         }
     }
@@ -41,7 +42,8 @@ internal object FilterMapper {
                     name = branchOfProfession?.name
                 ),
                 expectedSalary = expectedSalary,
-                doNotShowWithoutSalary = doNotShowWithoutSalary
+                doNotShowWithoutSalary = doNotShowWithoutSalary,
+                forceSearch = forceSearch
             )
         }
     }

@@ -13,10 +13,11 @@ private const val PLACE_KEY_SP_RESERVE_BUFFER = "place_key_sp_reserve_buffer"
 private const val BRANCH_OF_PROFESSION_KEY_SP_BUFFER = "branch_of_profession_key_sp_buffer"
 private const val EXPECTED_SALARY_KEY_SP_BUFFER = "expected_salary_key_sp_buffer"
 private const val DO_NOT_SHOW_WITHOUT_SALARY_KEY_SP_BUFFER = "do_not_show_without_salary_key_sp_buffer"
+private const val FORCE_SEARCH = "force_search"
 
 class FilterSpImpl(
     private val filterSp: SharedPreferences,
-    private val gson: Gson
+    private val gson: Gson,
 ) : FilterSp {
 
     override fun clearDataFilterAll() {
@@ -80,7 +81,8 @@ class FilterSpImpl(
                 placeDto = null,
                 branchOfProfession = null,
                 expectedSalary = "",
-                doNotShowWithoutSalary = false
+                doNotShowWithoutSalary = false,
+                forceSearch = false,
             )
         }
     }
@@ -102,7 +104,8 @@ class FilterSpImpl(
             placeDto = getPlaceDataFilterBuffer(),
             branchOfProfession = getBranchOfProfessionDataFilterBuffer(),
             expectedSalary = getExpectedSalaryDataFilterBuffer(),
-            doNotShowWithoutSalary = isDoNotShowWithoutSalaryDataFilterBuffer()
+            doNotShowWithoutSalary = isDoNotShowWithoutSalaryDataFilterBuffer(),
+            forceSearch = isSearchEnabled(),
         )
     }
 
@@ -183,5 +186,25 @@ class FilterSpImpl(
             onSuccess = { 1 },
             onFailure = { -1 }
         )
+    }
+
+    override fun enableSearch() {
+        runCatching {
+            filterSp.edit()
+                .putBoolean(FORCE_SEARCH, true)
+                .apply()
+        }
+    }
+
+    override fun disableSearch() {
+        runCatching {
+            filterSp.edit()
+                .putBoolean(FORCE_SEARCH, false)
+                .apply()
+        }
+    }
+
+    override fun isSearchEnabled(): Boolean {
+        return filterSp.getBoolean(FORCE_SEARCH, false)
     }
 }
