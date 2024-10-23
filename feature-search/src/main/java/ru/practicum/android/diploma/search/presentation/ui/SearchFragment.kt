@@ -151,7 +151,6 @@ internal class SearchFragment : Fragment() {
     }
 
     private fun searchBarSetup() {
-
         binding.searchBar.doOnTextChanged { text, _, _, _ ->
             if (text?.isNotEmpty() == true) {
                 binding.clearSearchIcon.isVisible = true
