@@ -68,7 +68,7 @@ internal class VacancyListViewModel(
 
     fun initialSearch(query: String) {
         if (query == currentQuery) {
-            if (!vacanciesInteractor.getDataFilter().forceSearch) return
+            if (!_forceSearchLiveData.value!!) return
         }
         _screenStateLiveData.postValue(SearchScreenState.LoadingNewList)
         currentQuery = query
