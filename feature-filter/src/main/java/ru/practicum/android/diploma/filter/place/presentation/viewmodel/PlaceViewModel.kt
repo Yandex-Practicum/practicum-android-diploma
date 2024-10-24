@@ -73,7 +73,7 @@ internal class PlaceViewModel(
     private val _networkStateLiveData = MutableLiveData<NetworkState>()
 
     private fun initDataFromNetworkToCache() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.Default) {
             regionInteractor.listAreas().collect { areas ->
                 areas.first?.let { list ->
                     places.addAll(list)
@@ -113,7 +113,7 @@ internal class PlaceViewModel(
     }
 
     fun clearCache() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.Default) {
             regionInteractor.clearCache()
         }
     }

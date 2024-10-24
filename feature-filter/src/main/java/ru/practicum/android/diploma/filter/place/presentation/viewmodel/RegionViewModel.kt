@@ -37,7 +37,7 @@ internal class RegionViewModel(
         get() = regions.toList()
 
     fun initDataFromCacheAndSp() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.Default) {
             regionInteractor.getPlaceDataFilterReserveBuffer()?.let { place ->
                 val idCountry = place.idCountry
                 readDataFromCache(idCountry)
@@ -76,7 +76,7 @@ internal class RegionViewModel(
     }
 
     fun setPlaceInDataReserveFilter(place: Place) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             regionInteractor.updatePlaceInDataFilterReserveBuffer(place)
         }
     }
