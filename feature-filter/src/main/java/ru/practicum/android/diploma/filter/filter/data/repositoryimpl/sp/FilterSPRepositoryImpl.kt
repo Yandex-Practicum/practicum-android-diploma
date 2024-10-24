@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.filter.filter.data.repositoryimpl.sp
 
 import ru.practicum.android.diploma.data.sp.api.FilterSp
-import ru.practicum.android.diploma.data.sp.api.SpResult
 import ru.practicum.android.diploma.filter.filter.data.mappers.FilterMapper
 import ru.practicum.android.diploma.filter.filter.domain.model.FilterSettings
 import ru.practicum.android.diploma.filter.filter.domain.repository.FilterSPRepository
@@ -36,28 +35,28 @@ internal class FilterSPRepositoryImpl(private val filterSp: FilterSp) : FilterSP
         filterSp.copyDataFilterBufferInDataFilter()
     }
 
-    override suspend fun updateDataFilterBuffer(filter: FilterSettings): SpResult {
-        return filterSp.updateDataFilterBuffer(FilterMapper.map(filter))
+    override suspend fun updateDataFilterBuffer(filter: FilterSettings): Int {
+        return filterSp.updateDataFilterBuffer(FilterMapper.map(filter)).code
     }
 
-    override suspend fun updateDataFilter(filter: FilterSettings): SpResult {
-        return filterSp.updateDataFilter(FilterMapper.map(filter))
+    override suspend fun updateDataFilter(filter: FilterSettings): Int {
+        return filterSp.updateDataFilter(FilterMapper.map(filter)).code
     }
 
-    override suspend fun clearPlaceInDataFilterBuffer(): SpResult {
-        return filterSp.updatePlaceInDataFilterBuffer(FilterMapper.mapClearPlace())
+    override suspend fun clearPlaceInDataFilterBuffer(): Int {
+        return filterSp.updatePlaceInDataFilterBuffer(FilterMapper.mapClearPlace()).code
     }
 
-    override suspend fun clearProfessionInDataFilterBuffer(): SpResult {
-        return filterSp.updateProfessionInDataFilterBuffer(FilterMapper.mapClearIndustry())
+    override suspend fun clearProfessionInDataFilterBuffer(): Int {
+        return filterSp.updateProfessionInDataFilterBuffer(FilterMapper.mapClearIndustry()).code
     }
 
-    override suspend fun updateSalaryInDataFilterBuffer(expectedSalary: String): SpResult {
-        return filterSp.updateSalaryInDataFilterBuffer(expectedSalary)
+    override suspend fun updateSalaryInDataFilterBuffer(expectedSalary: String): Int {
+        return filterSp.updateSalaryInDataFilterBuffer(expectedSalary).code
     }
 
-    override suspend fun updateDoNotShowWithoutSalaryInDataFilterBuffer(doNotShowWithoutSalary: Boolean): SpResult {
-        return filterSp.updateDoNotShowWithoutSalaryInDataFilterBuffer(doNotShowWithoutSalary)
+    override suspend fun updateDoNotShowWithoutSalaryInDataFilterBuffer(doNotShowWithoutSalary: Boolean): Int {
+        return filterSp.updateDoNotShowWithoutSalaryInDataFilterBuffer(doNotShowWithoutSalary).code
     }
 
     override suspend fun setForceSearch() {

@@ -3,7 +3,6 @@ package ru.practicum.android.diploma.filter.industry.domain.usecase.impl
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import ru.practicum.android.diploma.commonutils.Resource
-import ru.practicum.android.diploma.data.sp.api.SpResult
 import ru.practicum.android.diploma.filter.industry.domain.model.IndustryModel
 import ru.practicum.android.diploma.filter.industry.domain.repository.IndustryRepositoryNetwork
 import ru.practicum.android.diploma.filter.industry.domain.repository.IndustryRepositorySp
@@ -27,7 +26,7 @@ internal class IndustryInteractorImpl(
         }
     }
 
-    override suspend fun updateProfessionInDataFilterBuffer(branchOfProfession: IndustryModel): SpResult {
+    override suspend fun updateProfessionInDataFilterBuffer(branchOfProfession: IndustryModel): Int {
         return repositorySp.updateProfessionInDataFilterBuffer(branchOfProfession)
     }
 

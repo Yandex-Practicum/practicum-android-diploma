@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.filter.filter.domain.usecase.impl
 
-import ru.practicum.android.diploma.data.sp.api.SpResult
 import ru.practicum.android.diploma.filter.filter.domain.model.FilterSettings
 import ru.practicum.android.diploma.filter.filter.domain.repository.FilterSPRepository
 import ru.practicum.android.diploma.filter.filter.domain.usecase.FilterSPInteractor
@@ -35,27 +34,27 @@ internal class FilterSPInteractorImpl(private val repository: FilterSPRepository
         repository.copyDataFilterBufferInDataFilter()
     }
 
-    override suspend fun updateDataFilterBuffer(filter: FilterSettings): SpResult {
+    override suspend fun updateDataFilterBuffer(filter: FilterSettings): Int {
         return repository.updateDataFilterBuffer(filter)
     }
 
-    override suspend fun updateDataFilter(filter: FilterSettings): SpResult {
+    override suspend fun updateDataFilter(filter: FilterSettings): Int {
         return repository.updateDataFilter(filter)
     }
 
-    override suspend fun clearPlaceInDataFilterBuffer(): SpResult {
+    override suspend fun clearPlaceInDataFilterBuffer(): Int {
         return repository.clearPlaceInDataFilterBuffer()
     }
 
-    override suspend fun clearProfessionInDataFilterBuffer(): SpResult {
+    override suspend fun clearProfessionInDataFilterBuffer(): Int {
         return repository.clearProfessionInDataFilterBuffer()
     }
 
-    override suspend fun updateSalaryInDataFilterBuffer(expectedSalary: String): SpResult {
+    override suspend fun updateSalaryInDataFilterBuffer(expectedSalary: String): Int {
         return repository.updateSalaryInDataFilterBuffer(expectedSalary)
     }
 
-    override suspend fun updateDoNotShowWithoutSalaryInDataFilterBuffer(doNotShowWithoutSalary: Boolean): SpResult {
+    override suspend fun updateDoNotShowWithoutSalaryInDataFilterBuffer(doNotShowWithoutSalary: Boolean): Int {
         return repository.updateDoNotShowWithoutSalaryInDataFilterBuffer(doNotShowWithoutSalary)
     }
 

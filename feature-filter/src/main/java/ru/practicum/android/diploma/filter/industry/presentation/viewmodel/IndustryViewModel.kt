@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.data.sp.api.SpResult
 import ru.practicum.android.diploma.filter.industry.domain.model.IndustryModel
 import ru.practicum.android.diploma.filter.industry.domain.usecase.IndustryInteractor
 import ru.practicum.android.diploma.filter.industry.presentation.viewmodel.state.IndustryState
@@ -68,7 +67,7 @@ internal class IndustryViewModel(
     fun updateProfessionInDataFilterBuffer(branchOfProfession: IndustryModel) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = industryInteractor.updateProfessionInDataFilterBuffer(branchOfProfession)
-            if (result != SpResult.FAILURE) {
+            if (result != -1) {
                 _currentIndustryInDataFilterLiveData.postValue(branchOfProfession)
             }
         }
