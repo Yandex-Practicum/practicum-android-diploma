@@ -9,7 +9,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.search.domain.models.PaginationInfo
 import ru.practicum.android.diploma.search.domain.models.Vacancy
-import ru.practicum.android.diploma.search.domain.models.sp.FilterSearch
 import ru.practicum.android.diploma.search.domain.usecase.VacanciesInteractor
 import ru.practicum.android.diploma.search.presentation.SearchScreenState
 import ru.practicum.android.diploma.search.presentation.viewmodel.state.VacancyListState
@@ -51,10 +50,10 @@ internal class VacancyListViewModel(
         _screenStateLiveData.value = SearchScreenState.Idle
         _vacancyListStateLiveData.value = VacancyListState.Empty
         _currentResultsCountLiveData.value = 0
-        initQueryFilter(vacanciesInteractor.getDataFilter())
     }
 
-    private fun initQueryFilter(filterSearch: FilterSearch) {
+    fun initQueryFilter() {
+        val filterSearch = vacanciesInteractor.getDataFilterBuffer()
         queryFilter.remove(INDUSTRY_ID)
         queryFilter.remove(AREA_ID)
         filterSearch.branchOfProfession?.id?.let { queryFilter.put(INDUSTRY_ID, it) }
@@ -67,6 +66,13 @@ internal class VacancyListViewModel(
             place.idRegion?.let { queryFilter.put(AREA_ID, it) }
         }
         _forceSearchLiveData.postValue(filterSearch.forceSearch)
+        if (!queryFilter[INDUSTRY_ID].isNullOrEmpty() || !queryFilter[SALARY].isNullOrEmpty() ||
+            !queryFilter[AREA_ID].isNullOrEmpty() || queryFilter[ONLY_WITH_SALARY].toBoolean()
+        ) {
+            _enableIconLiveData.value = true
+        } else {
+            _enableIconLiveData.value = false
+        }
     }
 
     @Suppress("detekt.ComplexCondition")
@@ -78,15 +84,6 @@ internal class VacancyListViewModel(
         currentQuery = query
 
         viewModelScope.launch(Dispatchers.IO) {
-            if (queryFilter.get(INDUSTRY_ID).isNullOrEmpty() && queryFilter.get(SALARY).isNullOrEmpty() &&
-                queryFilter.get(AREA_ID).isNullOrEmpty() && queryFilter.get(ONLY_WITH_SALARY).toBoolean()
-            ) {
-                _enableIconLiveData.postValue(false)
-                initQueryFilter(vacanciesInteractor.getDataFilter())
-            } else {
-                _enableIconLiveData.postValue(true)
-                initQueryFilter(vacanciesInteractor.getDataFilterBuffer())
-            }
             queryFilterContinue = queryFilter.toMap()
             vacanciesInteractor.searchVacancies(
                 page = "0",
@@ -177,11 +174,5 @@ internal class VacancyListViewModel(
 
     fun createTitle(model: Vacancy): String {
         return model.title + ", " + model.area.name + ""
-    }
-
-    fun checkFilterState(): Boolean {
-        initQueryFilter(vacanciesInteractor.getDataFilter())
-        return (queryFilter[INDUSTRY_ID] != null || queryFilter[AREA_ID] != null
-            || !queryFilter[SALARY].isNullOrBlank() || queryFilter[ONLY_WITH_SALARY].toBoolean())
     }
 }
