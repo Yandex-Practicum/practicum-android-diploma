@@ -178,7 +178,7 @@ internal class FilterFragment : Fragment() {
     private fun renderExpectedSalaryFilter(filter: FilterSettings) {
         val salary = filter.expectedSalary
         val inputSalary = binding.editTextFilter.text.toString()
-        if(salary != inputSalary) {
+        if (salary != inputSalary) {
             if (salary.isNullOrEmpty()) {
                 binding.editTextFilter.text?.clear()
             } else {

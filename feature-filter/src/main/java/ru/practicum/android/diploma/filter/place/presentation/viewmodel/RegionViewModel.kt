@@ -53,17 +53,11 @@ internal class RegionViewModel(
         _regionsStateLiveData.postValue(RegionState.Loading)
         while (attempts < NUMBER_OF_CACHE_READ_ATTEMPTS && !regionsFetched) {
             regionInteractor.getCountriesCache()?.let { list ->
-                if(list.isEmpty()) {
-                    _regionsStateLiveData.postValue(RegionState.Empty)
+                places.addAll(list)
+                if (idCountry != null) {
+                    getRegions(idCountry)
                 } else {
-                    places.addAll(list)
-                    regions.clear()
-                    if (idCountry != null) {
-                        getRegions(idCountry)
-                    } else {
-                        getRegionsAll()
-                    }
-                    _regionsStateLiveData.postValue(RegionState.Content(regions))
+                    getRegionsAll()
                 }
                 regionsFetched = true
             }
@@ -97,9 +91,12 @@ internal class RegionViewModel(
                     )
                 }
             }
-
         }
-        _regionsStateLiveData.postValue(RegionState.Content(regions))
+        if (regions.isEmpty()) {
+            _regionsStateLiveData.postValue(RegionState.Empty)
+        } else {
+            _regionsStateLiveData.postValue(RegionState.Content(regions))
+        }
     }
 
     fun getRegionsAll() {
