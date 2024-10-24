@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.search.presentation.viewmodel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -70,6 +69,7 @@ internal class VacancyListViewModel(
         _forceSearchLiveData.postValue(filterSearch.forceSearch)
     }
 
+    @Suppress("detekt.ComplexCondition")
     fun initialSearch(query: String) {
         if (query == currentQuery && !_forceSearchLiveData.value!!) {
             return
