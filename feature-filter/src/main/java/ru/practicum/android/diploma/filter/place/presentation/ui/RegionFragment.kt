@@ -215,8 +215,8 @@ internal class RegionFragment : Fragment() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         inputSearchWatcher.let { binding.searchRegion.removeTextChangedListener(it) }
         _binding = null
         viewArray = null

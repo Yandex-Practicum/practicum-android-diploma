@@ -172,8 +172,8 @@ internal class PlaceFragment : Fragment() {
         placeViewModel.setPlaceInDataFilterReserveBuffer(placeInstance.resetRegion())
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 }

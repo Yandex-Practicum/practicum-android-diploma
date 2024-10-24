@@ -245,8 +245,8 @@ internal class FilterFragment : Fragment() {
         return FilterSettings.emptyFilterSettings()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         inputSearchWatcher.let { binding.editTextFilter.removeTextChangedListener(it) }
         _binding = null
     }
