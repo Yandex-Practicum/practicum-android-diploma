@@ -21,8 +21,6 @@ private const val INDUSTRY_ID = "industry"
 private const val SALARY = "salary"
 private const val AREA_ID = "area"
 private const val ONLY_WITH_SALARY = "only_with_salary"
-private const val FORCE_SEARCH = "force_search"
-
 
 internal class VacancyListViewModel(
     private val vacanciesInteractor: VacanciesInteractor,
@@ -65,6 +63,7 @@ internal class VacancyListViewModel(
         filterSearch.placeSearch?.let { place ->
             place.idRegion?.let { queryFilter.put(AREA_ID, it) }
         }
+        _forceSearchLiveData.value = filterSearch.forceSearch
     }
 
     fun initialSearch(query: String) {

@@ -74,10 +74,14 @@ class FilterSpImpl(
 
     override fun getDataFilter(): FilterDto {
         val json = filterSp.getString(FILTER_KEY_SP, null)
-        return if (json != null) {
-            gson.fromJson(json, FilterDto::class.java)
+        if (json != null) {
+            var retrievedFilter = gson.fromJson(json, FilterDto::class.java)
+            if (isForceSearchEnabled()) retrievedFilter = retrievedFilter.copy(forceSearch = true) //
+            // updateDataFilterBuffer (most likely) messes up the forceSearch Settings, json always has it as false...
+            disableForceSearch() // precaution against SP's forceSearch somehow remaining as true
+            return retrievedFilter
         } else {
-            FilterDto(
+            return FilterDto(
                 placeDto = null,
                 branchOfProfession = null,
                 expectedSalary = "",
@@ -105,7 +109,7 @@ class FilterSpImpl(
             branchOfProfession = getBranchOfProfessionDataFilterBuffer(),
             expectedSalary = getExpectedSalaryDataFilterBuffer(),
             doNotShowWithoutSalary = isDoNotShowWithoutSalaryDataFilterBuffer(),
-            forceSearch = isSearchEnabled(),
+            forceSearch = isForceSearchEnabled(),
         )
     }
 
@@ -128,7 +132,7 @@ class FilterSpImpl(
             filterDto.expectedSalary?.let {
                 updateSalaryInDataFilterBuffer(it)
             } ?: updateSalaryInDataFilterBuffer(""),
-            updateDoNotShowWithoutSalaryInDataFilterBuffer(filterDto.doNotShowWithoutSalary)
+            updateDoNotShowWithoutSalaryInDataFilterBuffer(filterDto.doNotShowWithoutSalary),
         )
         val count = list.sum()
         return if (count == list.size) 1 else -1
@@ -188,7 +192,7 @@ class FilterSpImpl(
         )
     }
 
-    override fun enableSearch() {
+    override fun forceSearch() {
         runCatching {
             filterSp.edit()
                 .putBoolean(FORCE_SEARCH, true)
@@ -196,7 +200,7 @@ class FilterSpImpl(
         }
     }
 
-    override fun disableSearch() {
+    override fun disableForceSearch() {
         runCatching {
             filterSp.edit()
                 .putBoolean(FORCE_SEARCH, false)
@@ -204,7 +208,7 @@ class FilterSpImpl(
         }
     }
 
-    override fun isSearchEnabled(): Boolean {
+    override fun isForceSearchEnabled(): Boolean {
         return filterSp.getBoolean(FORCE_SEARCH, false)
     }
 }

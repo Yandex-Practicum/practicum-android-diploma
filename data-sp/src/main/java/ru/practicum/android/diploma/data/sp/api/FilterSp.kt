@@ -39,7 +39,7 @@ interface FilterSp {
     fun clearDataFilterAll()
 
     // tech utils
-    fun enableSearch()
-    fun disableSearch()
-    fun isSearchEnabled(): Boolean
+    fun forceSearch()
+    fun disableForceSearch()
+    fun isForceSearchEnabled(): Boolean
 }

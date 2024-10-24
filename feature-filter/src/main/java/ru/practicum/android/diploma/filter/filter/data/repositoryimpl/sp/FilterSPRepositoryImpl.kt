@@ -60,10 +60,10 @@ internal class FilterSPRepositoryImpl(private val filterSp: FilterSp) : FilterSP
     }
 
     override suspend fun setForceSearch() {
-        filterSp.enableSearch()
+        filterSp.forceSearch()
     }
 
     override suspend fun dropForceSearch() {
-        filterSp.disableSearch()
+        filterSp.disableForceSearch()
     }
 }
