@@ -46,6 +46,7 @@ internal class VacancyListViewModel(
     private var currentQuery: String = ""
 
     private val queryFilter: MutableMap<String, String> = mutableMapOf()
+    private var queryFilterContinue: Map<String, String>? = null
 
     init {
         _screenStateLiveData.value = SearchScreenState.Idle
@@ -86,6 +87,7 @@ internal class VacancyListViewModel(
                 _enableIconLiveData.postValue(true)
                 initQueryFilter(vacanciesInteractor.getDataFilterBuffer())
             }
+            queryFilterContinue = queryFilter.toMap()
             vacanciesInteractor.searchVacancies(
                 page = "0",
                 perPage = "${PAGE_SIZE}",
@@ -125,10 +127,10 @@ internal class VacancyListViewModel(
                 page = (paginationInfo.page + 1).toString(),
                 perPage = "${PAGE_SIZE}",
                 queryText = currentQuery,
-                industry = queryFilter.get(INDUSTRY_ID),
-                salary = queryFilter.get(SALARY),
-                area = queryFilter.get(AREA_ID),
-                onlyWithSalary = queryFilter.get(ONLY_WITH_SALARY).toBoolean()
+                industry = queryFilterContinue?.get(INDUSTRY_ID),
+                salary = queryFilterContinue?.get(SALARY),
+                area = queryFilterContinue?.get(AREA_ID),
+                onlyWithSalary = queryFilterContinue?.get(ONLY_WITH_SALARY).toBoolean()
             ).collect { response ->
                 if (response.first != null) {
                     paginationInfo = response.first ?: paginationInfo
