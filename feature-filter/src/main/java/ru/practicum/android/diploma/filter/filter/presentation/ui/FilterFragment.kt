@@ -5,6 +5,7 @@ import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -96,8 +97,10 @@ internal class FilterFragment : Fragment() {
                     findNavController().navigateUp()
                 }
                 R.id.buttonCancel -> {
+                    viewModel.copyDataFilterInDataFilterBuffer()
                     viewModel.clearDataFilterAll()
-                    findNavController().navigateUp()
+                    viewModel.getBufferDataFromSpAndCompareFilterSettings()
+//                    findNavController().navigateUp()
                 }
             }
         }
@@ -120,6 +123,7 @@ internal class FilterFragment : Fragment() {
     }
 
     private fun visibleClearFilter(filter: FilterSettings?) {
+        Log.e("visibleClearFilter", "visibleClearFilter $filter")
         binding.buttonCancel.visibility = if (filter != null && !filter.equals(emptyFilterSetting())) {
             View.VISIBLE
         } else {

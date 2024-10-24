@@ -21,7 +21,7 @@ internal object FilterMapper {
                     id = branchOfProfession?.id,
                     name = branchOfProfession?.name
                 ),
-                expectedSalary = expectedSalary,
+                expectedSalary = expectedSalary?:"",
                 doNotShowWithoutSalary = doNotShowWithoutSalary
             )
         }
