@@ -26,7 +26,7 @@ internal class CountryViewModel(
     fun observeCountriesState(): LiveData<CountryState> = _countriesStateLiveData
 
     fun initDataFromCache() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.Default) {
             var attempts = 0
             var countriesFetched = false
 

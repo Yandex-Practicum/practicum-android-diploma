@@ -26,7 +26,7 @@ import ru.practicum.android.diploma.ui.R
 
 private const val DELAY_CLICK_ITEM = 250L
 private const val INDEX_DRAWABLE_RIGHT = 2
-private const val CALIBRATION_COEFFICIENT = 1.2
+private const val CALIBRATION_COEFFICIENT = 2.1
 
 internal class RegionFragment : Fragment() {
 
@@ -73,7 +73,6 @@ internal class RegionFragment : Fragment() {
     @SuppressLint("NotifyDataSetChanged", "ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         regionViewModel.initDataFromCacheAndSp()
 
         initDebounce()
@@ -216,8 +215,8 @@ internal class RegionFragment : Fragment() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         inputSearchWatcher.let { binding.searchRegion.removeTextChangedListener(it) }
         _binding = null
         viewArray = null

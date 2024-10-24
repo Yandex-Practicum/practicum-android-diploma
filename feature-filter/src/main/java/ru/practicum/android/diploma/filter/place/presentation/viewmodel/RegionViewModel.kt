@@ -37,39 +37,40 @@ internal class RegionViewModel(
         get() = regions.toList()
 
     fun initDataFromCacheAndSp() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.Default) {
             regionInteractor.getPlaceDataFilterReserveBuffer()?.let { place ->
                 val idCountry = place.idCountry
-                var attempts = 0
-                var regionsFetched = false
-
-                _regionsStateLiveData.postValue(RegionState.Loading)
-                while (attempts < NUMBER_OF_CACHE_READ_ATTEMPTS && !regionsFetched) {
-                    regionInteractor.getCountriesCache()?.let { list ->
-                        places.addAll(list)
-                        regions.clear()
-                        if (idCountry != null) {
-                            getRegions(idCountry)
-                        } else {
-                            getRegionsAll()
-                        }
-                        _regionsStateLiveData.postValue(RegionState.Content(regions))
-                        regionsFetched = true
-                    }
-                    attempts++
-                    delay(DELAY_BETWEEN_CACHE_READS)
-                }
-                if (!regionsFetched) {
-                    _regionsStateLiveData.postValue(RegionState.Error)
-                }
+                readDataFromCache(idCountry)
             } ?: run {
-                _regionsStateLiveData.postValue(RegionState.Empty)
+                readDataFromCache()
             }
         }
     }
 
+    private suspend fun readDataFromCache(idCountry: String? = null) {
+        var attempts = 0
+        var regionsFetched = false
+        _regionsStateLiveData.postValue(RegionState.Loading)
+        while (attempts < NUMBER_OF_CACHE_READ_ATTEMPTS && !regionsFetched) {
+            regionInteractor.getCountriesCache()?.let { list ->
+                places.addAll(list)
+                if (idCountry != null) {
+                    getRegions(idCountry)
+                } else {
+                    getRegionsAll()
+                }
+                regionsFetched = true
+            }
+            attempts++
+            delay(DELAY_BETWEEN_CACHE_READS)
+        }
+        if (!regionsFetched) {
+            _regionsStateLiveData.postValue(RegionState.Error)
+        }
+    }
+
     fun setPlaceInDataReserveFilter(place: Place) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             regionInteractor.updatePlaceInDataFilterReserveBuffer(place)
         }
     }
@@ -90,9 +91,12 @@ internal class RegionViewModel(
                     )
                 }
             }
-
         }
-        _regionsStateLiveData.postValue(RegionState.Content(regions))
+        if (regions.isEmpty()) {
+            _regionsStateLiveData.postValue(RegionState.Empty)
+        } else {
+            _regionsStateLiveData.postValue(RegionState.Content(regions))
+        }
     }
 
     fun getRegionsAll() {

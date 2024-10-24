@@ -12,7 +12,7 @@ internal class IndustryRepositorySpImpl(
     override suspend fun updateProfessionInDataFilterBuffer(branchOfProfession: IndustryModel): Int {
         return filterSp.updateProfessionInDataFilterBuffer(
             IndustryMapper.map(branchOfProfession)
-        )
+        ).code
     }
 
     override suspend fun getBranchOfProfessionDataFilterBuffer(): IndustryModel? {

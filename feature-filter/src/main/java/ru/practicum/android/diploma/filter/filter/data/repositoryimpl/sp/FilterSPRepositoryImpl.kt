@@ -36,27 +36,27 @@ internal class FilterSPRepositoryImpl(private val filterSp: FilterSp) : FilterSP
     }
 
     override suspend fun updateDataFilterBuffer(filter: FilterSettings): Int {
-        return filterSp.updateDataFilterBuffer(FilterMapper.map(filter))
+        return filterSp.updateDataFilterBuffer(FilterMapper.map(filter)).code
     }
 
     override suspend fun updateDataFilter(filter: FilterSettings): Int {
-        return filterSp.updateDataFilter(FilterMapper.map(filter))
+        return filterSp.updateDataFilter(FilterMapper.map(filter)).code
     }
 
     override suspend fun clearPlaceInDataFilterBuffer(): Int {
-        return filterSp.updatePlaceInDataFilterBuffer(FilterMapper.mapClearPlace())
+        return filterSp.updatePlaceInDataFilterBuffer(FilterMapper.mapClearPlace()).code
     }
 
     override suspend fun clearProfessionInDataFilterBuffer(): Int {
-        return filterSp.updateProfessionInDataFilterBuffer(FilterMapper.mapClearIndustry())
+        return filterSp.updateProfessionInDataFilterBuffer(FilterMapper.mapClearIndustry()).code
     }
 
     override suspend fun updateSalaryInDataFilterBuffer(expectedSalary: String): Int {
-        return filterSp.updateSalaryInDataFilterBuffer(expectedSalary)
+        return filterSp.updateSalaryInDataFilterBuffer(expectedSalary).code
     }
 
     override suspend fun updateDoNotShowWithoutSalaryInDataFilterBuffer(doNotShowWithoutSalary: Boolean): Int {
-        return filterSp.updateDoNotShowWithoutSalaryInDataFilterBuffer(doNotShowWithoutSalary)
+        return filterSp.updateDoNotShowWithoutSalaryInDataFilterBuffer(doNotShowWithoutSalary).code
     }
 
     override suspend fun setForceSearch() {

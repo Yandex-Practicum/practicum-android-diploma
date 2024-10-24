@@ -5,6 +5,7 @@ import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -71,6 +72,7 @@ internal class FilterFragment : Fragment() {
             viewModel.setDoNotShowWithoutSalaryInDataFilterBuffer(isChecked)
         }
     }
+
     @Suppress("LongMethod")
     private fun setupClickListeners() {
         val clickListener = View.OnClickListener { view ->
@@ -95,12 +97,12 @@ internal class FilterFragment : Fragment() {
                     findNavController().navigateUp()
                 }
                 R.id.buttonBack -> {
-                    viewModel.copyDataFilterInDataFilterBuffer()
                     findNavController().navigateUp()
                 }
                 R.id.buttonCancel -> {
+                    viewModel.copyDataFilterInDataFilterBuffer()
                     viewModel.clearDataFilterAll()
-                    findNavController().navigateUp()
+                    viewModel.getBufferDataFromSpAndCompareFilterSettings()
                 }
             }
         }
@@ -123,6 +125,7 @@ internal class FilterFragment : Fragment() {
     }
 
     private fun visibleClearFilter(filter: FilterSettings?) {
+        Log.e("visibleClearFilter", "visibleClearFilter $filter")
         binding.buttonCancel.visibility = if (filter != null && !filter.equals(emptyFilterSetting())) {
             View.VISIBLE
         } else {
@@ -140,6 +143,9 @@ internal class FilterFragment : Fragment() {
             val colors = if (inputText.isNullOrEmpty()) colorsEditTextFilterEmpty else colorsEditTextFilterNoEmpty
             binding.textViewSalary.hintTextColor = ColorStateList(statesEditTextFilter, colors)
             binding.textViewSalary.setDefaultHintTextColor(ColorStateList(statesEditTextFilter, colors))
+            val inputSalary = binding.editTextFilter.text
+            val textSalary = if (inputSalary.isNullOrEmpty()) "" else inputSalary.toString()
+            viewModel.setSalaryInDataFilterBuffer(textSalary)
         }
 
         override fun afterTextChanged(resultText: Editable?) {
@@ -154,9 +160,6 @@ internal class FilterFragment : Fragment() {
         if (isDoneAction || isEnterKeyPressed) {
             v.clearFocus()
             requireContext().closeKeyBoard(v)
-            val inputSalary = binding.editTextFilter.text
-            val textSalary = if (inputSalary.isNullOrEmpty()) "" else inputSalary.toString()
-            viewModel.setSalaryInDataFilterBuffer(textSalary)
             true
         } else {
             false
@@ -177,10 +180,13 @@ internal class FilterFragment : Fragment() {
 
     private fun renderExpectedSalaryFilter(filter: FilterSettings) {
         val salary = filter.expectedSalary
-        if (salary.isNullOrEmpty()) {
-            binding.editTextFilter.text?.clear()
-        } else {
-            binding.editTextFilter.setText(salary)
+        val inputSalary = binding.editTextFilter.text.toString()
+        if (salary != inputSalary) {
+            if (salary.isNullOrEmpty()) {
+                binding.editTextFilter.text?.clear()
+            } else {
+                binding.editTextFilter.setText(salary)
+            }
         }
     }
 
@@ -242,8 +248,8 @@ internal class FilterFragment : Fragment() {
         return FilterSettings.emptyFilterSettings()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         inputSearchWatcher.let { binding.editTextFilter.removeTextChangedListener(it) }
         _binding = null
     }
