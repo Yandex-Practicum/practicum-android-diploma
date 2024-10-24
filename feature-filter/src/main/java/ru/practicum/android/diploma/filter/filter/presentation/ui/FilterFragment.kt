@@ -49,6 +49,8 @@ internal class FilterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.dropFilterSearch()
+
         viewModel.filterOptionsBufferLiveData.observe(viewLifecycleOwner) { filter ->
             render(filter)
         }
@@ -91,6 +93,7 @@ internal class FilterFragment : Fragment() {
                 }
                 R.id.buttonApply -> {
                     viewModel.copyDataFilterBufferInDataFilter()
+                    viewModel.setFilterSearch()
                     findNavController().navigateUp()
                 }
                 R.id.buttonBack -> {

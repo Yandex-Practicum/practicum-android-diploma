@@ -25,4 +25,7 @@ internal interface FilterSPRepository {
 
     suspend fun updateSalaryInDataFilterBuffer(expectedSalary: String): SpResult
     suspend fun updateDoNotShowWithoutSalaryInDataFilterBuffer(doNotShowWithoutSalary: Boolean): SpResult
+
+    suspend fun setForceSearch()
+    suspend fun dropForceSearch()
 }

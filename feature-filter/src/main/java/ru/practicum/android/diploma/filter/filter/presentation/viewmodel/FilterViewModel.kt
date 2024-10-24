@@ -79,6 +79,18 @@ internal class FilterViewModel(
         }
     }
 
+    fun setFilterSearch() {
+        viewModelScope.launch {
+            filterSPInteractor.setForceSearch()
+        }
+    }
+
+    fun dropFilterSearch() {
+        viewModelScope.launch {
+            filterSPInteractor.dropForceSearch()
+        }
+    }
+
     override fun onCleared() {
         super.onCleared()
         viewModelScope.launch {

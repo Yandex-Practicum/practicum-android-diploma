@@ -35,6 +35,9 @@ internal class VacancyListViewModel(
     private var _currentResultsCountLiveData = MutableLiveData<Int>()
     val currentResultsCountLiveData: LiveData<Int> = _currentResultsCountLiveData
 
+    private var _forceSearchLiveData = MutableLiveData<Boolean>()
+    val forceSearchLiveData: LiveData<Boolean> = _forceSearchLiveData
+
     private var paginationInfo = PaginationInfo(emptyList<Vacancy>(), 0, 0, 0)
     private var currentQuery: String = ""
 
@@ -59,12 +62,17 @@ internal class VacancyListViewModel(
         filterSearch.placeSearch?.let { place ->
             place.idRegion?.let { queryFilter.put(AREA_ID, it) }
         }
+        _forceSearchLiveData.value = filterSearch.forceSearch
     }
 
     fun initialSearch(query: String) {
+        if (query == currentQuery && !_forceSearchLiveData.value!!) {
+            return
+        }
         _screenStateLiveData.postValue(SearchScreenState.LoadingNewList)
         currentQuery = query
         initQueryFilter(vacanciesInteractor.getDataFilter())
+
         viewModelScope.launch(Dispatchers.IO) {
             vacanciesInteractor.searchVacancies(
                 page = "0",

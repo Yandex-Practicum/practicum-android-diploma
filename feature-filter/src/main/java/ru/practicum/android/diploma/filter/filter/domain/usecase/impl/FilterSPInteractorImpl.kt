@@ -58,4 +58,12 @@ internal class FilterSPInteractorImpl(private val repository: FilterSPRepository
     override suspend fun updateDoNotShowWithoutSalaryInDataFilterBuffer(doNotShowWithoutSalary: Boolean): SpResult {
         return repository.updateDoNotShowWithoutSalaryInDataFilterBuffer(doNotShowWithoutSalary)
     }
+
+    override suspend fun setForceSearch() {
+        repository.setForceSearch()
+    }
+
+    override suspend fun dropForceSearch() {
+        repository.dropForceSearch()
+    }
 }

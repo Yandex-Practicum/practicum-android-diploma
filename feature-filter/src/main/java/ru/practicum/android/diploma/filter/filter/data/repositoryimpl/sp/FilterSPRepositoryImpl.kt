@@ -59,4 +59,12 @@ internal class FilterSPRepositoryImpl(private val filterSp: FilterSp) : FilterSP
     override suspend fun updateDoNotShowWithoutSalaryInDataFilterBuffer(doNotShowWithoutSalary: Boolean): SpResult {
         return filterSp.updateDoNotShowWithoutSalaryInDataFilterBuffer(doNotShowWithoutSalary)
     }
+
+    override suspend fun setForceSearch() {
+        filterSp.forceSearch()
+    }
+
+    override suspend fun dropForceSearch() {
+        filterSp.disableForceSearch()
+    }
 }

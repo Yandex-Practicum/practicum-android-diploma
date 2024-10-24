@@ -113,6 +113,12 @@ internal class SearchFragment : Fragment() {
             }
         }
 
+        vacancyListViewModel.forceSearchLiveData.observe(viewLifecycleOwner) { searchRequired ->
+            if (searchRequired && binding.searchBar.text.isNotEmpty()) {
+                debouncedSearch(binding.searchBar.text.toString())
+            }
+        }
+
         binding.filter.setOnClickListener {
             navigate.navigateTo(NavigateEventState.ToFilter)
         }
@@ -151,11 +157,14 @@ internal class SearchFragment : Fragment() {
 
     private fun searchBarSetup() {
         binding.searchBar.doOnTextChanged { text, _, _, _ ->
+
             if (text?.isNotEmpty() == true) {
                 binding.clearSearchIcon.isVisible = true
                 binding.searchBarLoupeIcon.isVisible = false
-                localVacancyList = ArrayList()
-                debouncedSearch(text.toString())
+                if (binding.searchBar.hasFocus()) { // prevents automatic searches on returning to this screen
+                    localVacancyList = ArrayList()
+                    debouncedSearch(text.toString())
+                }
             } else {
                 binding.clearSearchIcon.isVisible = false
                 binding.searchBarLoupeIcon.isVisible = true

@@ -22,6 +22,6 @@ internal interface FilterSPInteractor {
     suspend fun clearPlaceInDataFilterBuffer(): SpResult
     suspend fun clearProfessionInDataFilterBuffer(): SpResult
 
-    suspend fun updateSalaryInDataFilterBuffer(expectedSalary: String): SpResult
-    suspend fun updateDoNotShowWithoutSalaryInDataFilterBuffer(doNotShowWithoutSalary: Boolean): SpResult
+    suspend fun setForceSearch()
+    suspend fun dropForceSearch()
 }
