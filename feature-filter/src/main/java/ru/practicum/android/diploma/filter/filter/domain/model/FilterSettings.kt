@@ -7,6 +7,7 @@ internal data class FilterSettings(
     val branchOfProfession: IndustryModel?,
     val expectedSalary: String?,
     val doNotShowWithoutSalary: Boolean,
+    val forceSearch: Boolean,
 ) {
     companion object {
         fun emptyFilterSettings(): FilterSettings {
@@ -14,7 +15,8 @@ internal data class FilterSettings(
                 placeSettings = PlaceSettings(null, null, null, null),
                 branchOfProfession = IndustryModel(null, null),
                 expectedSalary = "",
-                doNotShowWithoutSalary = false
+                doNotShowWithoutSalary = false,
+                forceSearch = false
             )
         }
     }

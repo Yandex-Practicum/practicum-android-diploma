@@ -5,4 +5,5 @@ internal data class FilterSearch(
     val branchOfProfession: IndustrySearch?,
     val expectedSalary: String?,
     val doNotShowWithoutSalary: Boolean,
+    val forceSearch: Boolean,
 )
