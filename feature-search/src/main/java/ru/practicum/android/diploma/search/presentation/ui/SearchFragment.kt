@@ -119,6 +119,22 @@ internal class SearchFragment : Fragment() {
             }
         }
 
+        vacancyListViewModel.enableIconLiveData.observe(viewLifecycleOwner) { enable ->
+            val filterOnDrawable = AppCompatResources.getDrawable(
+                requireContext(),
+                ru.practicum.android.diploma.ui.R.drawable.search_filter_on_state
+            )
+            val filterOffDrawable = AppCompatResources.getDrawable(
+                requireContext(),
+                ru.practicum.android.diploma.ui.R.drawable.filter
+            )
+            if (enable) {
+                binding.filter.setImageDrawable(filterOnDrawable)
+            } else {
+                binding.filter.setImageDrawable(filterOffDrawable)
+            }
+        }
+
         binding.filter.setOnClickListener {
             navigate.navigateTo(NavigateEventState.ToFilter)
         }

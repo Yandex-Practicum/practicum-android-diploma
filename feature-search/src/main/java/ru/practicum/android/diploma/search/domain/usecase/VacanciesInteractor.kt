@@ -25,4 +25,5 @@ internal interface VacanciesInteractor {
 
     fun getDataFilter(): FilterSearch
     fun forceSearch()
+    fun getDataFilterBuffer(): FilterSearch
 }

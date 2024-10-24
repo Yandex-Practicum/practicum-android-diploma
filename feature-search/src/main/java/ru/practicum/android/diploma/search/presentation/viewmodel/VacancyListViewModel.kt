@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.search.presentation.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -38,6 +39,9 @@ internal class VacancyListViewModel(
     private var _forceSearchLiveData = MutableLiveData<Boolean>()
     val forceSearchLiveData: LiveData<Boolean> = _forceSearchLiveData
 
+    private var _enableIconLiveData = MutableLiveData<Boolean>()
+    val enableIconLiveData: LiveData<Boolean> = _enableIconLiveData
+
     private var paginationInfo = PaginationInfo(emptyList<Vacancy>(), 0, 0, 0)
     private var currentQuery: String = ""
 
@@ -62,7 +66,7 @@ internal class VacancyListViewModel(
         filterSearch.placeSearch?.let { place ->
             place.idRegion?.let { queryFilter.put(AREA_ID, it) }
         }
-        _forceSearchLiveData.value = filterSearch.forceSearch
+        _forceSearchLiveData.postValue(filterSearch.forceSearch)
     }
 
     fun initialSearch(query: String) {
@@ -71,9 +75,17 @@ internal class VacancyListViewModel(
         }
         _screenStateLiveData.postValue(SearchScreenState.LoadingNewList)
         currentQuery = query
-        initQueryFilter(vacanciesInteractor.getDataFilter())
 
         viewModelScope.launch(Dispatchers.IO) {
+            if (queryFilter.get(INDUSTRY_ID).isNullOrEmpty() && queryFilter.get(SALARY).isNullOrEmpty() &&
+                queryFilter.get(AREA_ID).isNullOrEmpty() && queryFilter.get(ONLY_WITH_SALARY).toBoolean()
+            ) {
+                _enableIconLiveData.postValue(false)
+                initQueryFilter(vacanciesInteractor.getDataFilter())
+            } else {
+                _enableIconLiveData.postValue(true)
+                initQueryFilter(vacanciesInteractor.getDataFilterBuffer())
+            }
             vacanciesInteractor.searchVacancies(
                 page = "0",
                 perPage = "${PAGE_SIZE}",

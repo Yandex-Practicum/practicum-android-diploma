@@ -15,4 +15,8 @@ internal class SearchRepositorySpImpl(
     override fun forceSearch() {
         filterSp.forceSearch()
     }
+
+    override fun getDataFilterBuffer(): FilterSearch {
+        return SearchMappers.map(filterSp.getDataFilterBuffer())
+    }
 }
