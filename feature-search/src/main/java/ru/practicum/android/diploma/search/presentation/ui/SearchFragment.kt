@@ -176,6 +176,7 @@ internal class SearchFragment : Fragment() {
             binding.searchBar.text.clear()
             requireContext().closeKeyBoard(binding.searchBar)
             vacancyListViewModel.emptyList()
+            vacancyListViewModel.enableSearch()
         }
     }
 
