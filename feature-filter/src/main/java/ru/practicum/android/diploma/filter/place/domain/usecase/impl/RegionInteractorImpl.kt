@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.filter.place.domain.usecase.impl
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import ru.practicum.android.diploma.commonutils.Resource
+import ru.practicum.android.diploma.data.sp.api.SpResult
 import ru.practicum.android.diploma.filter.place.domain.model.AreaInReference
 import ru.practicum.android.diploma.filter.place.domain.model.Place
 import ru.practicum.android.diploma.filter.place.domain.repository.CacheRepository
@@ -26,11 +27,11 @@ internal class RegionInteractorImpl(
         return spRepository.getPlaceDataFilterBuffer()
     }
 
-    override suspend fun updatePlaceInDataFilterBuffer(place: Place): Int {
+    override suspend fun updatePlaceInDataFilterBuffer(place: Place): SpResult {
         return spRepository.updatePlaceInDataFilterBuffer(place)
     }
 
-    override suspend fun clearPlaceInDataFilterBuffer(): Int {
+    override suspend fun clearPlaceInDataFilterBuffer(): SpResult {
         return spRepository.clearPlaceInDataFilterBuffer()
     }
 
@@ -38,11 +39,11 @@ internal class RegionInteractorImpl(
         return spRepository.getPlaceDataFilterReserveBuffer()
     }
 
-    override suspend fun updatePlaceInDataFilterReserveBuffer(place: Place): Int {
+    override suspend fun updatePlaceInDataFilterReserveBuffer(place: Place): SpResult {
         return spRepository.updatePlaceInDataFilterReserveBuffer(place)
     }
 
-    override suspend fun clearPlaceInDataFilterReserveBuffer(): Int {
+    override suspend fun clearPlaceInDataFilterReserveBuffer(): SpResult {
         return spRepository.clearPlaceInDataFilterReserveBuffer()
     }
 

@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.filter.filter.domain.repository
 
+import ru.practicum.android.diploma.data.sp.api.SpResult
 import ru.practicum.android.diploma.filter.filter.domain.model.FilterSettings
 
 @Suppress("TooManyFunctions")
@@ -16,12 +17,12 @@ internal interface FilterSPRepository {
     suspend fun copyDataFilterInDataFilterBuffer()
     suspend fun copyDataFilterBufferInDataFilter()
 
-    suspend fun updateDataFilterBuffer(filter: FilterSettings): Int
-    suspend fun updateDataFilter(filter: FilterSettings): Int
+    suspend fun updateDataFilterBuffer(filter: FilterSettings): SpResult
+    suspend fun updateDataFilter(filter: FilterSettings): SpResult
 
-    suspend fun clearPlaceInDataFilterBuffer(): Int
-    suspend fun clearProfessionInDataFilterBuffer(): Int
+    suspend fun clearPlaceInDataFilterBuffer(): SpResult
+    suspend fun clearProfessionInDataFilterBuffer(): SpResult
 
-    suspend fun updateSalaryInDataFilterBuffer(expectedSalary: String): Int
-    suspend fun updateDoNotShowWithoutSalaryInDataFilterBuffer(doNotShowWithoutSalary: Boolean): Int
+    suspend fun updateSalaryInDataFilterBuffer(expectedSalary: String): SpResult
+    suspend fun updateDoNotShowWithoutSalaryInDataFilterBuffer(doNotShowWithoutSalary: Boolean): SpResult
 }

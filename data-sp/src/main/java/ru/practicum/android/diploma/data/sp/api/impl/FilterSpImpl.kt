@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.data.sp.api.impl
 import android.content.SharedPreferences
 import com.google.gson.Gson
 import ru.practicum.android.diploma.data.sp.api.FilterSp
+import ru.practicum.android.diploma.data.sp.api.SpResult
 import ru.practicum.android.diploma.data.sp.dto.FilterDto
 import ru.practicum.android.diploma.data.sp.dto.IndustryDto
 import ru.practicum.android.diploma.data.sp.dto.PlaceDto
@@ -85,15 +86,15 @@ class FilterSpImpl(
         }
     }
 
-    override fun updateDataFilter(filterDto: FilterDto): Int {
+    override fun updateDataFilter(filterDto: FilterDto): SpResult {
         return runCatching {
             val json = gson.toJson(filterDto)
             filterSp.edit()
                 .putString(FILTER_KEY_SP, json)
                 .apply()
         }.fold(
-            onSuccess = { 1 },
-            onFailure = { -1 }
+            onSuccess = { SpResult.SUCCESS },
+            onFailure = { SpResult.FAILURE }
         )
     }
 
@@ -114,74 +115,74 @@ class FilterSpImpl(
         updateDataFilter(getDataFilterBuffer())
     }
 
-    override fun updateDataFilterBuffer(filterDto: FilterDto): Int {
+    override fun updateDataFilterBuffer(filterDto: FilterDto): SpResult {
         val list = listOf(
             filterDto.placeDto?.let {
-                updatePlaceInDataFilterBuffer(it)
-            } ?: updatePlaceInDataFilterBuffer(PlaceDto.emptyPlaceDto()),
+                updatePlaceInDataFilterBuffer(it).code
+            } ?: updatePlaceInDataFilterBuffer(PlaceDto.emptyPlaceDto()).code,
             filterDto.branchOfProfession?.let {
-                updateProfessionInDataFilterBuffer(it)
-            } ?: updateProfessionInDataFilterBuffer(IndustryDto.emptyIndustryDto()),
+                updateProfessionInDataFilterBuffer(it).code
+            } ?: updateProfessionInDataFilterBuffer(IndustryDto.emptyIndustryDto()).code,
             filterDto.expectedSalary?.let {
-                updateSalaryInDataFilterBuffer(it)
-            } ?: updateSalaryInDataFilterBuffer(""),
-            updateDoNotShowWithoutSalaryInDataFilterBuffer(filterDto.doNotShowWithoutSalary)
+                updateSalaryInDataFilterBuffer(it).code
+            } ?: updateSalaryInDataFilterBuffer("").code,
+            updateDoNotShowWithoutSalaryInDataFilterBuffer(filterDto.doNotShowWithoutSalary).code
         )
         val count = list.sum()
-        return if (count == list.size) 1 else -1
+        return if (count == list.size) SpResult.SUCCESS else SpResult.FAILURE
     }
 
-    override fun updatePlaceInDataFilterBuffer(placeDto: PlaceDto): Int {
+    override fun updatePlaceInDataFilterBuffer(placeDto: PlaceDto): SpResult {
         return updatePlaceInDataFilterBase(placeDto, PLACE_KEY_SP_BUFFER)
     }
 
-    override fun updatePlaceInDataFilterReserveBuffer(placeDto: PlaceDto): Int {
+    override fun updatePlaceInDataFilterReserveBuffer(placeDto: PlaceDto): SpResult {
         return updatePlaceInDataFilterBase(placeDto, PLACE_KEY_SP_RESERVE_BUFFER)
     }
 
-    private fun updatePlaceInDataFilterBase(placeDto: PlaceDto, key: String): Int {
+    private fun updatePlaceInDataFilterBase(placeDto: PlaceDto, key: String): SpResult {
         return runCatching {
             val json = gson.toJson(placeDto)
             filterSp.edit()
                 .putString(key, json)
                 .apply()
         }.fold(
-            onSuccess = { 1 },
-            onFailure = { -1 }
+            onSuccess = { SpResult.SUCCESS },
+            onFailure = { SpResult.FAILURE }
         )
     }
 
-    override fun updateProfessionInDataFilterBuffer(branchOfProfession: IndustryDto): Int {
+    override fun updateProfessionInDataFilterBuffer(branchOfProfession: IndustryDto): SpResult {
         return runCatching {
             val json = gson.toJson(branchOfProfession)
             filterSp.edit()
                 .putString(BRANCH_OF_PROFESSION_KEY_SP_BUFFER, json)
                 .apply()
         }.fold(
-            onSuccess = { 1 },
-            onFailure = { -1 }
+            onSuccess = { SpResult.SUCCESS },
+            onFailure = { SpResult.FAILURE }
         )
     }
 
-    override fun updateSalaryInDataFilterBuffer(expectedSalary: String): Int {
+    override fun updateSalaryInDataFilterBuffer(expectedSalary: String): SpResult {
         return runCatching {
             filterSp.edit()
                 .putString(EXPECTED_SALARY_KEY_SP_BUFFER, expectedSalary)
                 .apply()
         }.fold(
-            onSuccess = { 1 },
-            onFailure = { -1 }
+            onSuccess = { SpResult.SUCCESS },
+            onFailure = { SpResult.FAILURE }
         )
     }
 
-    override fun updateDoNotShowWithoutSalaryInDataFilterBuffer(doNotShowWithoutSalary: Boolean): Int {
+    override fun updateDoNotShowWithoutSalaryInDataFilterBuffer(doNotShowWithoutSalary: Boolean): SpResult {
         return runCatching {
             filterSp.edit()
                 .putBoolean(DO_NOT_SHOW_WITHOUT_SALARY_KEY_SP_BUFFER, doNotShowWithoutSalary)
                 .apply()
         }.fold(
-            onSuccess = { 1 },
-            onFailure = { -1 }
+            onSuccess = { SpResult.SUCCESS },
+            onFailure = { SpResult.FAILURE }
         )
     }
 }

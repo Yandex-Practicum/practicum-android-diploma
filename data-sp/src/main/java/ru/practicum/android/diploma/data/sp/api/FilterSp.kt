@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.data.sp.dto.PlaceDto
 interface FilterSp {
     // filter base
     fun getDataFilter(): FilterDto
-    fun updateDataFilter(filterDto: FilterDto): Int
+    fun updateDataFilter(filterDto: FilterDto): SpResult
 
     // filter reconfiguration
     fun copyDataFilterInDataFilterBuffer()
@@ -16,24 +16,24 @@ interface FilterSp {
 
     // filter buffer
     fun getDataFilterBuffer(): FilterDto
-    fun updateDataFilterBuffer(filterDto: FilterDto): Int
+    fun updateDataFilterBuffer(filterDto: FilterDto): SpResult
 
     fun getPlaceDataFilterBuffer(): PlaceDto?
-    fun updatePlaceInDataFilterBuffer(placeDto: PlaceDto): Int
+    fun updatePlaceInDataFilterBuffer(placeDto: PlaceDto): SpResult
     fun getPlaceDataFilterReserveBuffer(): PlaceDto?
-    fun updatePlaceInDataFilterReserveBuffer(placeDto: PlaceDto): Int
+    fun updatePlaceInDataFilterReserveBuffer(placeDto: PlaceDto): SpResult
     fun clearPlaceFilterBuffer()
 
     fun getBranchOfProfessionDataFilterBuffer(): IndustryDto?
-    fun updateProfessionInDataFilterBuffer(branchOfProfession: IndustryDto): Int
+    fun updateProfessionInDataFilterBuffer(branchOfProfession: IndustryDto): SpResult
     fun clearIndustryFilterBuffer()
 
     fun getExpectedSalaryDataFilterBuffer(): String?
-    fun updateSalaryInDataFilterBuffer(expectedSalary: String): Int
+    fun updateSalaryInDataFilterBuffer(expectedSalary: String): SpResult
     fun clearSalaryFilterBuffer()
 
     fun isDoNotShowWithoutSalaryDataFilterBuffer(): Boolean
-    fun updateDoNotShowWithoutSalaryInDataFilterBuffer(doNotShowWithoutSalary: Boolean): Int
+    fun updateDoNotShowWithoutSalaryInDataFilterBuffer(doNotShowWithoutSalary: Boolean): SpResult
 
     // clear sp
     fun clearDataFilterAll()
