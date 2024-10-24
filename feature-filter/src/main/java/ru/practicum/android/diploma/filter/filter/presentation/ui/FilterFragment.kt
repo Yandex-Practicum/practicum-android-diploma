@@ -100,7 +100,6 @@ internal class FilterFragment : Fragment() {
                     viewModel.copyDataFilterInDataFilterBuffer()
                     viewModel.clearDataFilterAll()
                     viewModel.getBufferDataFromSpAndCompareFilterSettings()
-//                    findNavController().navigateUp()
                 }
             }
         }

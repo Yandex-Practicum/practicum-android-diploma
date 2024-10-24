@@ -190,24 +190,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewSalary" />
 
-    <Button
+    <TextView
         android:id="@+id/buttonApply"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:text="@string/filter_screens_apply_button"
-        android:gravity="center"
-        android:padding="@dimen/filterPadding"
-        android:textColor="@color/white"
-        android:textAppearance="@font/ys_display_medium"
-        android:textSize="@dimen/textSizeLittle"
-        android:textAllCaps="false"
         android:layout_marginHorizontal="@dimen/dp_16"
         android:layout_marginBottom="@dimen/dp_8"
-        android:backgroundTint="@color/blue"
+        android:background="@drawable/rounded_12dp_blue_bg"
+        android:gravity="center"
+        android:fontFamily="@font/ys_display_medium"
+        android:textSize="@dimen/sp_16"
+        android:textFontWeight="500"
+        android:paddingHorizontal="@dimen/dp_8"
+        android:paddingVertical="@dimen/dp_20"
+        android:text="@string/filter_screens_apply_button"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        android:clickable="true"
         app:layout_constraintBottom_toTopOf="@id/buttonCancel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:targetApi="p" />
 
     <Button
         android:id="@+id/buttonCancel"
@@ -219,5 +222,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
