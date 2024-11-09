@@ -53,12 +53,10 @@ class RootActivity : AppCompatActivity() {
         }
     }
 
-
     private fun networkRequestExample(accessToken: String) {
         // ...
     }
     fun bottomNavigationVisibility(isVisibile: Boolean) {
-        // TODO: этим методом можно скрывать или показывать навигатор при необходимости из фрагментов
         binding?.bottomNavigation?.isVisible = isVisibile
     }
 }

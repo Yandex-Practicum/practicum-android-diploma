@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchJobFragment"
-        android:name="ru.practicum.android.diploma.ui.search_job.SearchJobFragment"
+        android:name="ru.practicum.android.diploma.ui.searchJob.SearchJobFragment"
         android:label="fragment_search_job"
         tools:layout="@layout/fragment_search_job" >
         <action
