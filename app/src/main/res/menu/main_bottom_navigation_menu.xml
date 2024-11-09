@@ -4,18 +4,18 @@
         android:background="@color/transparent"
         android:id="@+id/searchJobFragment"
         android:icon="@drawable/main_icon"
-        android:title="Главная"
+        android:title="@string/main_but"
         android:enabled="true"/>
     <item
         android:background="@color/transparent"
         android:id="@+id/favoriteJobFragment"
         android:icon="@drawable/favorites_icon"
-        android:title="Избранное"
+        android:title="@string/favorite_but"
         android:enabled="true"/>
     <item
         android:background="@color/transparent"
         android:id="@+id/teamFragment"
         android:icon="@drawable/team_24px"
-        android:title="Команда"
+        android:title="@string/team_but"
         android:enabled="true"/>
 </menu>

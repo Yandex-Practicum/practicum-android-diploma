@@ -7,7 +7,7 @@
     android:animateLayoutChanges="true"
     android:orientation="vertical"
     android:background="@color/red"
-    tools:context=".ui.searchJob.SearchJobFragment">
+    tools:context=".ui.search.SearchJobFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
