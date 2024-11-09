@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blue"
-    tools:context=".ui.favorite_job.FavoriteJobFragment">
+    tools:context=".ui.favoriteJob.FavoriteJobFragment">
 
     <TextView
         android:layout_width="match_parent"

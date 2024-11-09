@@ -10,10 +10,11 @@ import ru.practicum.android.diploma.databinding.FragmentSearchJobBinding
 
 class SearchJobFragment : Fragment() {
     private var binding: FragmentSearchJobBinding? = null
-    private val viewModel : SearchJobViewModel by viewModels()
+    private val viewModel: SearchJobViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
         binding = FragmentSearchJobBinding.inflate(layoutInflater)
