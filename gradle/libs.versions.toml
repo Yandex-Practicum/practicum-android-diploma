@@ -22,7 +22,7 @@ targetSdk = "33"
 detekt = "1.23.3"
 detektTwitterComposeRules ="0.0.26"
 viewpager2 = "1.1.0"
-kotlin = "1.9.0"
+kotlin = "2.0.21"
 
 [libraries]
 
@@ -53,7 +53,7 @@ staticAnalysis-detektLibraries = { module = "io.gitlab.arturbosch.detekt:detekt-
 staticAnalysis-detektTwitterComposeRules = { module = "com.twitter.compose.rules:detekt", version.ref = "detektTwitterComposeRules" }
 
 # AndroidX
-androidX-core = "androidx.core:core-ktx:1.15.0"
+androidX-core = "androidx.core:core-ktx:1.13.1"
 androidX-appCompat = "androidx.appcompat:appcompat:1.7.0"
 
 # UI layer libraries
