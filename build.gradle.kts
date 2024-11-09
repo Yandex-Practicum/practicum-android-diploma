@@ -2,7 +2,7 @@
 buildscript {
     dependencies {
         // for safe args&navigation
-        classpath (libs.navigation.safe.args.gradle.plugin)
+        classpath(libs.navigation.safe.args.gradle.plugin)
     }
 }
 plugins {

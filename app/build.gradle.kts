@@ -61,13 +61,12 @@ dependencies {
     androidTestImplementation(libs.uiTests.espressoCore)
     // endregion
 
-
     // navFragment
     implementation(libs.activity.ktx)
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.navigation.ui.ktx)
 
-    //room
+    // room
     annotationProcessor(libs.room.compiler)
     implementation(libs.room.runtime)
     ksp(libs.room.compiler)
@@ -77,24 +76,24 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
 
-    //serialization/deserialization library
+    // serialization/deserialization library
     implementation(libs.gson)
 
-    //glide
+    // glide
     implementation(libs.glide)
     ksp(libs.ksp)
 
-    //koin
+    // koin
     implementation(libs.koin.android)
 
-    //fragment & viewPager
+    // fragment & viewPager
     implementation(libs.fragment.ktx)
     implementation(libs.viewpager2)
 
-    //coroutines
+    // coroutines
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlin.script.runtime)
 
-    //permissions???
+    // permissions???
     implementation(libs.peko)
 }
