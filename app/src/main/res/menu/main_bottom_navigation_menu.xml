@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:background="@color/transparent"
+        android:id="@+id/searchJobFragment"
+        android:icon="@drawable/main_icon"
+        android:title="@string/main_but"
+        android:enabled="true"/>
+    <item
+        android:background="@color/transparent"
+        android:id="@+id/favoriteJobFragment"
+        android:icon="@drawable/favorites_icon"
+        android:title="@string/favorite_but"
+        android:enabled="true"/>
+    <item
+        android:background="@color/transparent"
+        android:id="@+id/teamFragment"
+        android:icon="@drawable/team_24px"
+        android:title="@string/team_but"
+        android:enabled="true"/>
+</menu>

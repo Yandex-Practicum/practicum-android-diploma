@@ -1,5 +1,11 @@
 <resources>
-
-    <style name="Widget.Theme.PracticumAndroidDiploma.ButtonBar.Fullscreen" parent="">
+    <style name="BottomNavigator" >
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorOnSurface">@color/gray</item>
+        <item name="background">@color/white</item>
+        <item name="iconSize">24dp</item>
+        <item name="fontFamily">@font/ys_display_regular</item>
+        <item name="fontWeight">400</item>
+        <item name="android:textSize">12sp</item>
     </style>
 </resources>

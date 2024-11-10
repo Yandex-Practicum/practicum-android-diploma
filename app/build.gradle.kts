@@ -51,6 +51,9 @@ dependencies {
     // UI layer libraries
     implementation(libs.ui.material)
     implementation(libs.ui.constraintLayout)
+    implementation(libs.legacy.support.v4)
+    implementation(libs.lifecycle.livedata.ktx)
+    implementation(libs.lifecycle.viewmodel.ktx)
 
     // region Unit tests
     testImplementation(libs.unitTests.junit)

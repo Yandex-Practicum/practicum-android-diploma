@@ -3,34 +3,42 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/searchJobFragment">
 
     <fragment
-        android:id="@+id/detailsFragment"
-        android:name="ru.practicum.android.diploma.ui.fragments.details.DetailsFragment"
-        android:label="fragment_details"
-        tools:layout="@layout/fragment_details" />
-    <fragment
-        android:id="@+id/favouritesFragment"
-        android:name="ru.practicum.android.diploma.ui.fragments.favourites.FavouritesFragment"
-        android:label="fragment_favourites"
-        tools:layout="@layout/fragment_favourites" >
+        android:id="@+id/favoriteJobFragment"
+        android:name="ru.practicum.android.diploma.ui.favorites.FavoriteJobFragment"
+        android:label="fragment_favorite_job"
+        tools:layout="@layout/fragment_favorite_job" >
         <action
-            android:id="@+id/action_favouritesFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
+            android:id="@+id/action_favoriteJobFragment2_to_searchJobFragment2"
+            app:destination="@id/searchJobFragment" />
+        <action
+            android:id="@+id/action_favoriteJobFragment2_to_teamFragment2"
+            app:destination="@id/teamFragment" />
     </fragment>
     <fragment
-        android:id="@+id/mainFragment"
-        android:name="ru.practicum.android.diploma.ui.fragments.main.MainFragment"
-        android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
+        android:id="@+id/searchJobFragment"
+        android:name="ru.practicum.android.diploma.ui.search.SearchJobFragment"
+        android:label="fragment_search_job"
+        tools:layout="@layout/fragment_search_job" >
         <action
-            android:id="@+id/action_mainFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
+            android:id="@+id/action_searchJobFragment2_to_favoriteJobFragment2"
+            app:destination="@id/favoriteJobFragment" />
+        <action
+            android:id="@+id/action_searchJobFragment2_to_teamFragment2"
+            app:destination="@id/teamFragment" />
     </fragment>
     <fragment
         android:id="@+id/teamFragment"
-        android:name="ru.practicum.android.diploma.ui.fragments.team.TeamFragment"
+        android:name="ru.practicum.android.diploma.ui.team.TeamFragment"
         android:label="fragment_team"
-        tools:layout="@layout/fragment_team" />
+        tools:layout="@layout/fragment_team" >
+        <action
+            android:id="@+id/action_teamFragment2_to_favoriteJobFragment2"
+            app:destination="@id/favoriteJobFragment" />
+        <action
+            android:id="@+id/action_teamFragment2_to_searchJobFragment2"
+            app:destination="@id/searchJobFragment" />
+    </fragment>
 </navigation>
