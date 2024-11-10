@@ -4,4 +4,9 @@
     <string name="main_but">Главная</string>
     <string name="favorite_but">Избранное</string>
     <string name="team_but">Команда</string>
+    <string name="search_jobs">Поиск вакансий</string>
+    <string name="enter_request">Введите запрос</string>
+    <string name="no_internet">Нет интернета</string>
+    <string name="couldnt_get_job_list">Не удалось получить список вакансий</string>
+    <string name="filter">фильтр</string>
 </resources>

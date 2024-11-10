@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="9dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="12dp">
+
+        <ImageView
+            android:id="@+id/card_image"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@color/blue"/>
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="12dp">
+
+        <TextView
+            android:id="@+id/card_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:fontFamily="@font/ys_display_medium"
+            android:text="Название"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/card_description_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:fontFamily="@font/ys_display_regular"
+            android:text="Описание"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/card_salary_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:fontFamily="@font/ys_display_regular"
+            android:text="Зарплата"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>
