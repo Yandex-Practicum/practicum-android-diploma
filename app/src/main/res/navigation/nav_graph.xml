@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/searchJobFragment">
+
+    <fragment
+        android:id="@+id/favoriteJobFragment"
+        android:name="ru.practicum.android.diploma.ui.favorites.FavoriteJobFragment"
+        android:label="fragment_favorite_job"
+        tools:layout="@layout/fragment_favorite_job" >
+        <action
+            android:id="@+id/action_favoriteJobFragment2_to_searchJobFragment2"
+            app:destination="@id/searchJobFragment" />
+        <action
+            android:id="@+id/action_favoriteJobFragment2_to_teamFragment2"
+            app:destination="@id/teamFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchJobFragment"
+        android:name="ru.practicum.android.diploma.ui.search.SearchJobFragment"
+        android:label="fragment_search_job"
+        tools:layout="@layout/fragment_search_job" >
+        <action
+            android:id="@+id/action_searchJobFragment2_to_favoriteJobFragment2"
+            app:destination="@id/favoriteJobFragment" />
+        <action
+            android:id="@+id/action_searchJobFragment2_to_teamFragment2"
+            app:destination="@id/teamFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/teamFragment"
+        android:name="ru.practicum.android.diploma.ui.team.TeamFragment"
+        android:label="fragment_team"
+        tools:layout="@layout/fragment_team" >
+        <action
+            android:id="@+id/action_teamFragment2_to_favoriteJobFragment2"
+            app:destination="@id/favoriteJobFragment" />
+        <action
+            android:id="@+id/action_teamFragment2_to_searchJobFragment2"
+            app:destination="@id/searchJobFragment" />
+    </fragment>
+</navigation>

@@ -10,4 +10,5 @@
     <color name="light_gray">#FDFDFD</color>
     <color name="background_alpha_50">#1A1B2280</color>
     <color name="blackout_overlay">#99000000</color>
+    <color name="transparent">#00000000</color>
 </resources>

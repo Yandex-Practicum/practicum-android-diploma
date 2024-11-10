@@ -23,6 +23,9 @@ detekt = "1.23.3"
 detektTwitterComposeRules ="0.0.26"
 viewpager2 = "1.1.0"
 kotlin = "2.0.21"
+legacySupportV4 = "1.0.0"
+lifecycleLivedataKtx = "2.8.3"
+lifecycleViewmodelKtx = "2.8.3"
 
 [libraries]
 
@@ -67,6 +70,9 @@ unitTests-junit = "junit:junit:4.13.2"
 uiTests-junitExt = "androidx.test.ext:junit:1.2.1"
 uiTests-espressoCore = "androidx.test.espresso:espresso-core:3.6.1"
 viewpager2 = { module = "androidx.viewpager2:viewpager2", version.ref = "viewpager2" }
+legacy-support-v4 = { group = "androidx.legacy", name = "legacy-support-v4", version.ref = "legacySupportV4" }
+lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
+lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
 [plugins]
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 
