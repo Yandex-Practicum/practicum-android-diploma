@@ -1,6 +1,6 @@
 [versions]
 room = "2.6.1"
-kotlinx-coroutines = "1.7.1"
+kotlinx-coroutines = "1.7.3"
 navigation-compose = "2.8.4"
 navigation-fragment-ktx = "2.8.4"
 navigation-ui-ktx = "2.8.4"
@@ -20,7 +20,7 @@ java = "VERSION_1_8"
 
 # Build constants
 minSdk = "26"
-compileSdk = "34"
+compileSdk = "35"
 targetSdk = "33"
 
 # Detekt
