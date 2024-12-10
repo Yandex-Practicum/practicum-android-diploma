@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation_graph"
+    app:startDestination="@id/testFragment">
+    <fragment
+        android:id="@+id/testFragment"
+        android:name="ru.practicum.android.diploma.ui.TestFragment"
+        android:label="SettingsFragment"
+        tools:layout="@layout/fragment_test"/>
+
+</navigation>
