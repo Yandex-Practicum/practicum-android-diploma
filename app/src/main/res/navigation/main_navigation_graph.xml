@@ -6,7 +6,7 @@
     app:startDestination="@id/testFragment">
     <fragment
         android:id="@+id/testFragment"
-        android:name="ru.practicum.android.diploma.presentation.TestFragment"
+        android:name="ru.practicum.android.diploma.ui.TestFragment"
         android:label="SettingsFragment"
         tools:layout="@layout/fragment_test"/>
 
