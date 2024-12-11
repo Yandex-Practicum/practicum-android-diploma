@@ -16,23 +16,6 @@ lifecycleLivedataKtx = "2.8.7"
 lifecycleViewmodelKtx = "2.8.7"
 fragmentKtx = "1.8.5"
 
-room = "2.6.1"
-kotlinx-coroutines = "1.7.3"
-navigation-compose = "2.8.4"
-navigation-fragment-ktx = "2.8.4"
-navigation-ui-ktx = "2.8.4"
-koin = "3.3.0"
-activity-ktx = "1.9.3"
-viewpager2 = "1.1.0"
-glide = "4.14.2"
-gson = "2.10.1"
-retrofit = "2.9.0"
-converter-gson = "2.9.0"
-legacySupportV4 = "1.0.0"
-lifecycleLivedataKtx = "2.8.7"
-lifecycleViewmodelKtx = "2.8.7"
-fragmentKtx = "1.8.5"
-
 java = "VERSION_1_8"
 
 # Build constants
@@ -46,8 +29,6 @@ detekt = "1.23.3"
 detektTwitterComposeRules ="0.0.26"
 navigationFragment = "2.8.4"
 kotlin = "1.9.24"
- 8-подготовить-общие-компоненты-data-слоя-api
-
 
 [libraries]
 
@@ -75,7 +56,6 @@ unitTests-junit = "junit:junit:4.13.2"
 uiTests-junitExt = "androidx.test.ext:junit:1.2.1"
 uiTests-espressoCore = "androidx.test.espresso:espresso-core:3.6.1"
 
-
 #added 20241208
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
@@ -100,29 +80,4 @@ androidx-navigation-fragment = { group = "androidx.navigation", name = "navigati
 [plugins]
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 
-
-
-#added 20241208
-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
-kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation-fragment-ktx" }
-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation-ui-ktx" }
-koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activity-ktx" }
-viewpager2 = { module = "androidx.viewpager2:viewpager2", version.ref = "viewpager2" }
-glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
-glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
-gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converter-gson" }
-androidx-legacy-support-v4 = { group = "androidx.legacy", name = "legacy-support-v4", version.ref = "legacySupportV4" }
-androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
-androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
-androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragmentKtx" }
-androidx-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
-[plugins]
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 [bundles]
