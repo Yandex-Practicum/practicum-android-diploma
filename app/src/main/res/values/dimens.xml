@@ -4,5 +4,9 @@
     <dimen name="text_size_22">22sp</dimen>
     <dimen name="text_size_16">16sp</dimen>
     <dimen name="text_size_12">12sp</dimen>
-    <dimen name="size_16dp">16dp</dimen>
+    <dimen name="guideline_indent">16dp</dimen>
+    <dimen name="team_indent">16dp</dimen>
+    <dimen name="toolbar_margin_indent">19dp</dimen>
+    <dimen name="bottom_navigation_indent">57dp</dimen>
+    <dimen name="top_toolbar_indent">64dp</dimen>
 </resources>
