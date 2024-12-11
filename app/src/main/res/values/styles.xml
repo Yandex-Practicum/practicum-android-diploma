@@ -29,8 +29,8 @@
         <item name="android:textCursorDrawable">@drawable/cursor_for_search_edittext</item>
         <item name="android:background">@drawable/background_for_search_edit_text</item>
         <item name="android:backgroundTint">@color/another_grey</item>
-        <item name="android:paddingHorizontal">@dimen/size_16dp</item>
-        <item name="android:paddingVertical">@dimen/size_16dp</item>
+        <item name="android:paddingHorizontal">@dimen/team_indent</item>
+        <item name="android:paddingVertical">@dimen/team_indent</item>
     </style>
     
     <style name="BlueButton" parent="Widget.Material3.Button.UnelevatedButton">
