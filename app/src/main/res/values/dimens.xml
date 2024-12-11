@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="guideline_indent">16dp</dimen>
+    <dimen name="team_indent">16dp</dimen>
+    <dimen name="toolbar_margin_indent">19dp</dimen>
+    <dimen name="bottom_navigation_indent">57dp</dimen>
+    <dimen name="top_toolbar_indent">64dp</dimen>
+</resources>

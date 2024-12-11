@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.ui.root
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -13,6 +14,7 @@ class RootActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         binding = ActivityRootBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
@@ -38,7 +40,7 @@ class RootActivity : AppCompatActivity() {
     }
 
     //private fun networkRequestExample(accessToken: String) {
-        // ...
+    // ...
     //}
 
 }
