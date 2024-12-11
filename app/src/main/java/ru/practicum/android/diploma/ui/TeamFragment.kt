@@ -9,7 +9,7 @@ import ru.practicum.android.diploma.databinding.FragmentTeamBinding
 
 class TeamFragment : Fragment() {
 
-    private lateinit var binding: FragmentTeamBinding
+    private var binding: FragmentTeamBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -17,12 +17,12 @@ class TeamFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentTeamBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        binding = FragmentTeamBinding.inflate(layoutInflater)
+        binding = null
     }
 
 }

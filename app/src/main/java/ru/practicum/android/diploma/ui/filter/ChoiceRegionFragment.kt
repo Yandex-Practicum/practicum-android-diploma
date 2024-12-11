@@ -9,7 +9,7 @@ import ru.practicum.android.diploma.databinding.FragmentChoiceRegionBinding
 
 class ChoiceRegionFragment : Fragment() {
 
-    private lateinit var binding: FragmentChoiceRegionBinding
+    private var binding: FragmentChoiceRegionBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -17,12 +17,12 @@ class ChoiceRegionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentChoiceRegionBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        binding = FragmentChoiceRegionBinding.inflate(layoutInflater)
+        binding = null
     }
 
 }

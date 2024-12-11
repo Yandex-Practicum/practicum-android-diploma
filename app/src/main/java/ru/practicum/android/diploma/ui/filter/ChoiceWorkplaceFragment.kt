@@ -9,7 +9,7 @@ import ru.practicum.android.diploma.databinding.FragmentChoiceWorkplaceBinding
 
 class ChoiceWorkplaceFragment : Fragment() {
 
-    private lateinit var binding: FragmentChoiceWorkplaceBinding
+    private var binding: FragmentChoiceWorkplaceBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -17,12 +17,12 @@ class ChoiceWorkplaceFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentChoiceWorkplaceBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        binding = FragmentChoiceWorkplaceBinding.inflate(layoutInflater)
+        binding = null
     }
 
 }

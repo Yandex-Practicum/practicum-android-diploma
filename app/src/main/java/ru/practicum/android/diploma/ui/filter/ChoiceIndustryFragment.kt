@@ -9,7 +9,7 @@ import ru.practicum.android.diploma.databinding.FragmentChoiceIndustryBinding
 
 class ChoiceIndustryFragment : Fragment() {
 
-    private lateinit var binding: FragmentChoiceIndustryBinding
+    private var binding: FragmentChoiceIndustryBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -17,12 +17,12 @@ class ChoiceIndustryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentChoiceIndustryBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        binding = FragmentChoiceIndustryBinding.inflate(layoutInflater)
+        binding = null
     }
 
 }

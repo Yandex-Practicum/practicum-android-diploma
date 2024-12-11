@@ -9,7 +9,7 @@ import ru.practicum.android.diploma.databinding.FragmentFilterSettingsBinding
 
 class FilterSettingsFragment : Fragment() {
 
-    private lateinit var binding: FragmentFilterSettingsBinding
+    private var binding: FragmentFilterSettingsBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -17,12 +17,12 @@ class FilterSettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentFilterSettingsBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        binding = FragmentFilterSettingsBinding.inflate(layoutInflater)
+        binding = null
     }
 
 }

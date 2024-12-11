@@ -9,7 +9,7 @@ import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
 
 class VacancyFragment : Fragment() {
 
-    private lateinit var binding: FragmentVacancyBinding
+    private var binding: FragmentVacancyBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -17,12 +17,12 @@ class VacancyFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentVacancyBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        binding = FragmentVacancyBinding.inflate(layoutInflater)
+        binding = null
     }
 
 }
