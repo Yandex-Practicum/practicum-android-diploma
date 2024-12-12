@@ -21,11 +21,20 @@
         app:navGraph="@navigation/main_navigation_graph" />
 
     <View
+        android:id="@+id/line_bottom"
         android:layout_width="match_parent"
         android:layout_height="@dimen/line_up_bottom_menu"
         android:background="@color/hh_grey"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         tools:ignore="MissingConstraints" />
+
+    <!-- Это начало тестовой кнопки  <Button
+        android:id="@+id/testButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/line_bottom">
+
+    </Button>   это конец тестовой кнопки -->
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
