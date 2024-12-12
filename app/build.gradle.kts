@@ -10,15 +10,6 @@ plugins {
 }
 
 
-fun Properties.loadFromResource(fileName: String) {
-    val inputStream = FileInputStream(file(fileName))
-    this.load(inputStream)
-    inputStream.close()
-}
-
-val properties = Properties()
-properties.loadFromResource("develop.properties")
-
 android {
     namespace = "ru.practicum.android.diploma"
     compileSdk = libs.versions.compileSdk.get().toInt()
@@ -30,9 +21,9 @@ android {
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "APPLICATION_NAME", "\"${properties.getProperty("APPLICATION_NAME")}\"")
-        buildConfigField("String", "HH_ACCESS_TOKEN", "\"${properties.getProperty("HH_ACCESS_TOKEN")}\"")
-        buildConfigField("String", "EMAIL", "\"${properties.getProperty("EMAIL")}\"")
+
+        buildConfigField(type = "String", name = "HH_ACCESS_TOKEN", value = "\"${developProperties.hhAccessToken}\"")
+
     }
 
     buildFeatures {

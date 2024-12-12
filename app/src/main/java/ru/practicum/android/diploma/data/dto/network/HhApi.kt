@@ -10,8 +10,8 @@ import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.model.VacancyDto
 
 const val token = BuildConfig.HH_ACCESS_TOKEN
-const val email = BuildConfig.EMAIL
-const val applicationName = BuildConfig.APPLICATION_NAME
+const val email = "SOME_EMAIL"
+const val applicationName = "APPLICATION_NAME"
 
 interface HhApi {
         @Headers(
