@@ -5,4 +5,5 @@
     <dimen name="toolbar_margin_indent">19dp</dimen>
     <dimen name="bottom_navigation_indent">57dp</dimen>
     <dimen name="top_toolbar_indent">64dp</dimen>
+    <dimen name="line_up_bottom_menu">2dp</dimen>
 </resources>
