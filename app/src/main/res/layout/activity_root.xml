@@ -20,6 +20,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/main_navigation_graph" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_up_bottom_menu"
+        android:background="@color/hh_grey"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        tools:ignore="MissingConstraints" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="0dp"
