@@ -17,14 +17,15 @@ interface HhApi {
         "Authorization: Bearer $TOKEN",
         "HH-User-Agent: $APPLICATION_NAME($EMAIL)"
     )
+
     @GET("/vacancies/{vacancy_id}")
     suspend fun getVacancyById(@Path("vacancy_id") vacancyId: String): VacancyDto
-
 
     @Headers(
         "Authorization: Bearer $TOKEN",
         "HH-User-Agent: $APPLICATION_NAME($EMAIL)"
     )
+
     @GET("/vacancies")
     suspend fun getVacancies(@Query("text") vacancyName: String): Response
 }
