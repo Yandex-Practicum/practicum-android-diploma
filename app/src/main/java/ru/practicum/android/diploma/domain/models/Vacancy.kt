@@ -7,12 +7,16 @@ data class Vacancy(
     val area: String,
     val text: String,
     val searchField: String,
-    val experience: String, // т.к. вроде в фильтрации нигде не используется дальше, поэтому оставил стринг просто для вывода
+    // т.к. вроде в фильтрации нигде не используется дальше, поэтому оставил стринг просто для вывода
+    val experience: String,
     val employment: String, // Тип занятости - напр. полная
     val schedule: String,
-    val industry: String,  // искать надо по id (Int), но хранить наверное уже лучше в тексте
-    val salary : Int,
-    val employer : String,
-    val onlyWithSalary : Boolean
-
-) : Serializable
+    val industry: String, // искать надо по id (Int), но хранить наверное уже лучше в тексте
+    val salary: Int,
+    val employer: String,
+    val onlyWithSalary: Boolean
+) : Serializable {
+    companion object {
+        private const val serialVersionUID: Long = 1L
+    }
+}
