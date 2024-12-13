@@ -28,6 +28,6 @@ val dataModule = module {
     }
 
     single<NetworkClient> {
-        RetrofitNetworkClient(connectivityManager = get(), hhService = get())
+        RetrofitNetworkClient(connectivityManager = get() )//, hhService = get())
     }
 }
