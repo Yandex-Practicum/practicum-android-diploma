@@ -6,10 +6,10 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 fun <T> debounce(
-                 delayMillis: Long,
-                 coroutineScope: CoroutineScope,
-                 useLastParam: Boolean,
-                 action: (T) -> Unit
+    delayMillis: Long,
+    coroutineScope: CoroutineScope,
+    useLastParam: Boolean,
+    action: (T) -> Unit
 ): (T) -> Unit {
 
     var debounceJob: Job? = null
