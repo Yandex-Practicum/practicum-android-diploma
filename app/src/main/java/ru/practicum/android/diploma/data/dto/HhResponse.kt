@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.data.dto
 
 import ru.practicum.android.diploma.data.dto.model.ItemDto
-import ru.practicum.android.diploma.data.dto.model.VacancyDto
 
 class HhResponse(
     val arguments: List<HhResponse>,
