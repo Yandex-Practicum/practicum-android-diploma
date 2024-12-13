@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.data.dto.network
 
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -40,10 +41,11 @@ class RetrofitNetworkClient(
 
             } catch (e: HttpException) {
                 when (e.code()) {
-                    404 -> Response(ERROR0)
+                    ERROR404 -> Response(ERROR0)
                     else -> Response(ERROR404)
                 }
             } catch (e: IOException) {
+                Log.e("error","$e")
                 Response(ERROR500)
             }
         }
