@@ -24,7 +24,8 @@ val dataModule = module {
 
     single<ConnectivityManager> {
         androidContext().getSystemService(
-            Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            Context.CONNECTIVITY_SERVICE
+        ) as ConnectivityManager
     }
 
     single<NetworkClient> {
