@@ -13,7 +13,7 @@ import ru.practicum.android.diploma.databinding.ActivityRootBinding
 class RootActivity : AppCompatActivity() {
     private var binding: ActivityRootBinding? = null
 
-    private lateinit var networkClient: RetrofitNetworkClient
+    // private lateinit var networkClient: RetrofitNetworkClient // for test button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,9 +43,7 @@ class RootActivity : AppCompatActivity() {
 //        networkClient = RetrofitNetworkClient(connectivityManager)
 //        binding?.testButton?.setOnClickListener { findVacancy("5621764775") }
         // end of test block
-
     }
-
     // start of test block
 //    private fun findVacancy(vacancyName: String) {
 //        CoroutineScope(Dispatchers.Main).launch {
@@ -62,6 +60,5 @@ class RootActivity : AppCompatActivity() {
 //            }
 //        }
 //    }
-    // end of test block
-
+    //  end of test block
 }
