@@ -6,11 +6,9 @@ import ru.practicum.android.diploma.data.dto.model.VacancyDto
 class HhResponse(
     val arguments: List<HhResponse>,
     val clusters: Any?,
-    val fixes: Any?,
-    val found: Int,
     val items: List<ItemDto>,
     val page: Int,
-    val pages: Int,
-    val per_page: Int,
+    val perPage: Int,
     val suggests: Any?,
-    resultCode: Int) : Response(resultCode)
+    resultCode: Int
+) : Response(resultCode)

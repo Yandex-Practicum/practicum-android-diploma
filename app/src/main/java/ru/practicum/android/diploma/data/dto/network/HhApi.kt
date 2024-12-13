@@ -10,22 +10,22 @@ import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.model.VacancyDto
 
 const val token = BuildConfig.HH_ACCESS_TOKEN
-const val email = "SOME_EMAIL"
-const val applicationName = "APPLICATION_NAME"
+const val email = "someEmail"
+const val applicationName = "applicationName"
 
 interface HhApi {
-        @Headers(
-            "Authorization: Bearer $token",
-            "HH-User-Agent: ${applicationName}(${email})"
-        )
-        @GET("/vacancies/{vacancy_id}")
-        suspend fun getVacancyById(@Path("vacancy_id") vacancyId: String): VacancyDto
+    @Headers(
+        "Authorization: Bearer $token",
+        "HH-User-Agent: $applicationName($email)"
+    )
+    @GET("/vacancies/{vacancy_id}")
+    suspend fun getVacancyById(@Path("vacancy_id") vacancyId: String): VacancyDto
 
 
     @Headers(
         "Authorization: Bearer $token",
-        "HH-User-Agent: ${applicationName}(${email})"
+        "HH-User-Agent: $applicationName($email)"
     )
     @GET("/vacancies")
-    suspend fun getVacancies(@Query("text") vacancyName:String): Response
+    suspend fun getVacancies(@Query("text") vacancyName: String): Response
 }

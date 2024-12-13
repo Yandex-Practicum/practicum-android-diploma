@@ -9,11 +9,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.VacancySearchRequest
 import ru.practicum.android.diploma.domain.NetworkClient
+const val error400 = 400
+const val error200 = 200
+const val error500 = 500
 
 class RetrofitNetworkClient(
     private val connectivityManager: ConnectivityManager,
 //    private val hhService: HhApi,
-    ) : NetworkClient {
+) : NetworkClient {
 
     private val baseURL = "https://api.hh.ru/"
 
@@ -30,16 +33,17 @@ class RetrofitNetworkClient(
         }
 
         if (dto !is VacancySearchRequest) {
-            return Response(400)
+            return Response(error400)
         }
 
         return withContext(Dispatchers.IO) {
             try {
                 val resp =
                     hhService.getVacancies(dto.vacancyName)
-                resp.apply { resultCode = 200 }
-            } catch (e: Throwable) {
-                Response(500)
+                resp.apply { resultCode = error200 }
+            }
+            catch (e: Throwable) {
+                Response(error500)
             }
         }
 
