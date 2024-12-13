@@ -23,30 +23,30 @@ class RetrofitNetworkClient(
 ) : NetworkClient {
 
     override suspend fun doRequest(dto: Any): Response {
+        val result: Response
+
         if (!isConnected()) {
-            return Response(-1)
-        }
-
-        if (dto !is VacancySearchRequest) {
-            return Response(ERROR400)
-        }
-
-        return withContext(Dispatchers.IO) {
-            try {
-                val resp =
-                    hhService.getVacancies(dto.vacancyName)
-                resp.apply { resultCode = ERROR200 }
-
-            } catch (e: HttpException) {
-                when (e.code()) {
-                    ERROR404 -> Response(ERROR0)
-                    else -> Response(ERROR404)
+            result = Response(-1)
+        } else if (dto !is VacancySearchRequest) {
+            result = Response(ERROR400)
+        } else {
+            result = withContext(Dispatchers.IO) {
+                try {
+                    val resp = hhService.getVacancies(dto.vacancyName)
+                    resp.apply { resultCode = ERROR200 }
+                } catch (e: HttpException) {
+                    when (e.code()) {
+                        ERROR404 -> Response(ERROR0)
+                        else -> Response(ERROR404)
+                    }
+                } catch (e: IOException) {
+                    Log.e("error", "$e")
+                    Response(ERROR500)
                 }
-            } catch (e: IOException) {
-                Log.e("error", "$e")
-                Response(ERROR500)
             }
         }
+
+        return result
     }
 
     private fun isConnected(): Boolean {
