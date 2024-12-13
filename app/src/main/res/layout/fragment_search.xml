@@ -34,6 +34,53 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="@dimen/guideline_indent" />
 
+    <TextView
+        android:id="@+id/tvSearchHeader"
+        style="@style/Header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/startGuideline"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/toolbar_margin_indent"
+        android:text="@string/vacancy_search" />
+
+    <ImageView
+        android:id="@+id/ivFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/endGuideline"
+        app:layout_constraintTop_toTopOf="@id/tvSearchHeader"
+        app:layout_constraintBottom_toBottomOf="@id/tvSearchHeader"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/filter_icon" />
+
+    <FrameLayout
+        android:id="@+id/flSearchElements"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/startGuideline"
+        app:layout_constraintEnd_toEndOf="@id/endGuideline"
+        app:layout_constraintTop_toBottomOf="@id/tvSearchHeader"
+        android:layout_marginTop="27dp" >
+
+        <EditText
+            android:id="@+id/etSearchVacancy"
+            style="@style/SearchEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_query" />
+
+        <ImageButton
+            android:id="@+id/ibClearQuery"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginEnd="@dimen/team_indent"
+            android:layout_gravity="end|center"
+            android:src="@drawable/search_icon"
+            android:backgroundTint="@android:color/transparent" />
+
+    </FrameLayout>
+
     <ImageView
         android:id="@+id/placeholder"
         android:layout_width="0dp"
