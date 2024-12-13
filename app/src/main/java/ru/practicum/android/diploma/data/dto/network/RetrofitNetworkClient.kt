@@ -4,28 +4,24 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.VacancySearchRequest
 import ru.practicum.android.diploma.domain.NetworkClient
-const val error400 = 400
-const val error200 = 200
-const val error500 = 500
+import java.io.IOException
+
+const val ERROR400 = 400
+const val ERROR200 = 200
+const val ERROR500 = 500
+const val ERROR0 = 0
+const val ERROR404 = 0
 
 class RetrofitNetworkClient(
     private val connectivityManager: ConnectivityManager,
-//    private val hhService: HhApi,
+    private val hhService: HhApi,
 ) : NetworkClient {
-
-    private val baseURL = "https://api.hh.ru/"
-
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(baseURL)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-
-    private val hhService = retrofit.create(HhApi::class.java)
 
     override suspend fun doRequest(dto: Any): Response {
         if (!isConnected()) {
@@ -33,20 +29,24 @@ class RetrofitNetworkClient(
         }
 
         if (dto !is VacancySearchRequest) {
-            return Response(error400)
+            return Response(ERROR400)
         }
 
         return withContext(Dispatchers.IO) {
             try {
                 val resp =
                     hhService.getVacancies(dto.vacancyName)
-                resp.apply { resultCode = error200 }
-            }
-            catch (e: Throwable) {
-                Response(error500)
+                resp.apply { resultCode = ERROR200 }
+
+            } catch (e: HttpException) {
+                when (e.code()) {
+                    404 -> Response(ERROR0)
+                    else -> Response(ERROR404)
+                }
+            } catch (e: IOException) {
+                Response(ERROR500)
             }
         }
-
     }
 
     private fun isConnected(): Boolean {
@@ -61,5 +61,4 @@ class RetrofitNetworkClient(
         }
         return false
     }
-
 }
