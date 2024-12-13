@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <dimen name="guideline_indent">16dp</dimen>
     <dimen name="team_indent">16dp</dimen>
     <dimen name="toolbar_margin_indent">19dp</dimen>
     <dimen name="bottom_navigation_indent">57dp</dimen>
     <dimen name="top_toolbar_indent">64dp</dimen>
-    <dimen name="line_up_bottom_menu">2dp</dimen>
+    <dimen name="line_up_bottom_menu">1dp</dimen>
+
 </resources>
