@@ -2,11 +2,13 @@
 <resources>
     <style name="Bold32Text">
         <item name="android:fontFamily">@font/ys_display_bold</item>
+        <item name="android:textColor">?attr/colorOfText</item>
         <item name="android:textSize">@dimen/text_size_32</item>
     </style>
 
     <style name="Medium22Text">
         <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textColor">?attr/colorOfText</item>
         <item name="android:textSize">@dimen/text_size_22</item>
     </style>
 
@@ -27,6 +29,7 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:textAppearance">@style/Regular16Text</item>
         <item name="android:textCursorDrawable">@drawable/cursor_for_search_edittext</item>
+        <item name="android:maxLines">1</item>
         <item name="android:background">@drawable/background_for_search_edit_text</item>
         <item name="android:backgroundTint">@color/another_grey</item>
         <item name="android:paddingHorizontal">@dimen/team_indent</item>
