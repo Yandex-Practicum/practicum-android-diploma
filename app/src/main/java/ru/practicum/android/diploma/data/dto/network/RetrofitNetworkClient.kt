@@ -45,7 +45,7 @@ class RetrofitNetworkClient(
                     else -> Response(ERROR404)
                 }
             } catch (e: IOException) {
-                Log.e("error","$e")
+                Log.e("error", "$e")
                 Response(ERROR500)
             }
         }
