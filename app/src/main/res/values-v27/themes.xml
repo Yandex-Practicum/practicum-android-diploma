@@ -9,5 +9,6 @@
         <item name="android:navigationBarColor">@color/white</item>
         <item name="android:windowLightNavigationBar">true</item>
         <item name="colorOfEditText">@color/another_grey</item>
+        <item name="colorOfText">@color/black</item>
     </style>
 </resources>

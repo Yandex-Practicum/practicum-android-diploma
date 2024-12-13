@@ -2,6 +2,7 @@
 <resources>
     <style name="Bold32Text">
         <item name="android:fontFamily">@font/ys_display_bold</item>
+        <item name="android:textColor">?attr/colorOfText</item>
         <item name="android:textSize">@dimen/text_size_32</item>
         <item name="android:textFontWeight">700</item>
         <item name="android:lineHeight">38dp</item>
@@ -9,6 +10,7 @@
 
     <style name="Medium22Text">
         <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textColor">?attr/colorOfText</item>
         <item name="android:textSize">@dimen/text_size_22</item>
         <item name="android:textFontWeight">500</item>
         <item name="android:lineHeight">26dp</item>

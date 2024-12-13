@@ -36,13 +36,12 @@
 
     <TextView
         android:id="@+id/favoritesTittle"
+        style="@style/Header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/toolbar_margin_indent"
         android:layout_marginBottom="@dimen/toolbar_margin_indent"
         android:text="@string/favorites"
-        android:textColor="@color/black"
-        android:textSize="22sp"
         app:layout_constraintStart_toStartOf="@id/startGuideline"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -57,19 +56,18 @@
         app:layout_constraintBottom_toTopOf="@id/bottomGuideline"
         app:layout_constraintEnd_toEndOf="@id/endGuideline"
         app:layout_constraintStart_toStartOf="@id/startGuideline"
-        app:layout_constraintTop_toBottomOf="@id/topGuideline" />
+        app:layout_constraintTop_toBottomOf="@id/topGuideline"
+        tools:ignore="contentDescription" />
 
     <TextView
         android:id="@+id/emptyText"
+        style="@style/Header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/empty_list"
-        android:textColor="@color/black"
-        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="@id/placeholder"
         app:layout_constraintStart_toStartOf="@id/placeholder"
         app:layout_constraintTop_toBottomOf="@id/placeholder" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
