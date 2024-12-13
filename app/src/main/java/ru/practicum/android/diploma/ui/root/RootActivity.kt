@@ -1,26 +1,12 @@
 package ru.practicum.android.diploma.ui.root
 
-import android.content.Context
-import android.net.ConnectivityManager
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import okhttp3.Dispatcher
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.data.dto.HhResponse
-import ru.practicum.android.diploma.data.dto.VacancySearchRequest
-import ru.practicum.android.diploma.data.dto.network.HhApi
 import ru.practicum.android.diploma.data.dto.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.databinding.ActivityRootBinding
 
@@ -52,18 +38,15 @@ class RootActivity : AppCompatActivity() {
             }
         }
 
-
-        //start of test block
+        // start of test block
 //        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 //        networkClient = RetrofitNetworkClient(connectivityManager)
 //        binding?.testButton?.setOnClickListener { findVacancy("5621764775") }
-        //end of test block
-
+        // end of test block
 
     }
 
-
-    //start of test block
+    // start of test block
 //    private fun findVacancy(vacancyName: String) {
 //        CoroutineScope(Dispatchers.Main).launch {
 //            val vacancySearchRequest = VacancySearchRequest(vacancyName)
@@ -79,6 +62,6 @@ class RootActivity : AppCompatActivity() {
 //            }
 //        }
 //    }
-    //end of test block
+    // end of test block
 
 }

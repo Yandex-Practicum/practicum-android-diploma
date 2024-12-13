@@ -9,6 +9,6 @@ data class FavouritesVacancyEntity(
     @PrimaryKey @ColumnInfo(name = "vacancy_id") val id: String,
     val uriPickture: String,
     val name: String,
-    val employer : String,
-    val salary : Int,
+    val employer: String,
+    val salary: Int,
 )

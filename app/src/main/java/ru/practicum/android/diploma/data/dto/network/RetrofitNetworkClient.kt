@@ -42,18 +42,19 @@ class RetrofitNetworkClient(
                 Response(500)
             }
         }
-
     }
 
     private fun isConnected(): Boolean {
         val capabilities =
             connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
         if (capabilities != null) {
-            when {
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> return true
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> return true
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> return true
+            val result = when {
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+                else -> false
             }
+            return result
         }
         return false
     }
