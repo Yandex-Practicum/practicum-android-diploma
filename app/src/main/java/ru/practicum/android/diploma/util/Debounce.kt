@@ -11,7 +11,6 @@ fun <T> debounce(
     useLastParam: Boolean,
     action: (T) -> Unit
 ): (T) -> Unit {
-
     var debounceJob: Job? = null
     return { param: T ->
         if (useLastParam) {
