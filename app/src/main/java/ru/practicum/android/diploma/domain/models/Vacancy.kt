@@ -14,4 +14,5 @@ data class Vacancy(
     val salary : Int,
     val employer : String,
     val onlyWithSalary : Boolean
+
 ) : Serializable

@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.ui.root
 
-
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
@@ -39,17 +38,12 @@ class RootActivity : AppCompatActivity() {
             }
         }
 
-
         // start of test block
 //        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 //        networkClient = RetrofitNetworkClient(connectivityManager)
 //        binding?.testButton?.setOnClickListener { findVacancy("5621764775") }
         // end of test block
-
-
     }
-
-
     // start of test block
 //    private fun findVacancy(vacancyName: String) {
 //        CoroutineScope(Dispatchers.Main).launch {
@@ -67,5 +61,4 @@ class RootActivity : AppCompatActivity() {
 //        }
 //    }
     //  end of test block
-
 }
