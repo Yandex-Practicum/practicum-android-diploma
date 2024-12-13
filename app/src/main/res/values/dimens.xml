@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="text_size_32">32sp</dimen>
+    <dimen name="text_size_22">22sp</dimen>
+    <dimen name="text_size_16">16sp</dimen>
+    <dimen name="text_size_12">12sp</dimen>
     <dimen name="guideline_indent">16dp</dimen>
     <dimen name="team_indent">16dp</dimen>
     <dimen name="toolbar_margin_indent">19dp</dimen>
     <dimen name="bottom_navigation_indent">57dp</dimen>
     <dimen name="top_toolbar_indent">64dp</dimen>
-    <dimen name="line_up_bottom_menu">2dp</dimen>
+    <dimen name="line_up_bottom_menu">1dp</dimen>
+
 </resources>

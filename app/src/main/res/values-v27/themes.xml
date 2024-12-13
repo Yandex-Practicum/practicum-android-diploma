@@ -1,16 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Base application theme. -->
+
     <style name="Base.Theme.PracticumAndroidDiploma" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <item name="android:background">@color/white</item>
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:windowLightNavigationBar">true</item>
         <item name="colorOfEditText">@color/another_grey</item>
     </style>
-
-    <style name="Theme.PracticumAndroidDiploma" parent="Base.Theme.PracticumAndroidDiploma">
-        <item name="backgroundColor">@color/white</item>
-    </style>
-  
 </resources>
