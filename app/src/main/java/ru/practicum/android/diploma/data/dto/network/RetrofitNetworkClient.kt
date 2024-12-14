@@ -11,11 +11,11 @@ import ru.practicum.android.diploma.data.dto.VacancySearchRequest
 import ru.practicum.android.diploma.domain.NetworkClient
 import java.io.IOException
 
-const val ERROR400 = 400
-const val ERROR200 = 200
-const val ERROR500 = 500
-const val ERROR0 = 0
-const val ERROR404 = 0
+const val ERROR_400 = 400
+const val ERROR_200 = 200
+const val ERROR_500 = 500
+const val ERROR_0 = 0
+const val ERROR_404 = 0
 
 class RetrofitNetworkClient(
     private val connectivityManager: ConnectivityManager,
@@ -28,20 +28,20 @@ class RetrofitNetworkClient(
         if (!isConnected()) {
             result = Response(-1)
         } else if (dto !is VacancySearchRequest) {
-            result = Response(ERROR400)
+            result = Response(ERROR_400)
         } else {
             result = withContext(Dispatchers.IO) {
                 try {
                     val resp = hhService.getVacancies(dto.vacancyName)
-                    resp.apply { resultCode = ERROR200 }
+                    resp.apply { resultCode = ERROR_200 }
                 } catch (e: HttpException) {
                     when (e.code()) {
-                        ERROR404 -> Response(ERROR0)
-                        else -> Response(ERROR404)
+                        ERROR_404 -> Response(ERROR_0)
+                        else -> Response(ERROR_404)
                     }
                 } catch (e: IOException) {
                     Log.e("error", "$e")
-                    Response(ERROR500)
+                    Response(ERROR_500)
                 }
             }
         }
