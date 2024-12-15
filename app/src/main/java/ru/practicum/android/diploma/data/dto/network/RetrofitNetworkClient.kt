@@ -5,7 +5,9 @@ import android.net.NetworkCapabilities
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.OkHttpClient
 import retrofit2.HttpException
+import retrofit2.Retrofit
 import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.VacancySearchRequest
 import ru.practicum.android.diploma.domain.NetworkClient
@@ -21,6 +23,12 @@ class RetrofitNetworkClient(
     private val connectivityManager: ConnectivityManager,
     private val hhService: HhApi,
 ) : NetworkClient {
+
+    private val headerClient = OkHttpClient.Builder().addInterceptor(HeaderInterceptor()).build()
+    private val retrofit = Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .client(headerClient)
+        .build()
 
     override suspend fun doRequest(dto: Any): Response {
         val result: Response
@@ -62,5 +70,9 @@ class RetrofitNetworkClient(
             return result
         }
         return false
+    }
+
+    companion object {
+        private const val BASE_URL = "https://api.hh.ru/"
     }
 }
