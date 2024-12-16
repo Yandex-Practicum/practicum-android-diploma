@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/ivCompanyLogo"
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
+        android:layout_marginTop="@dimen/icon_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/company_logo_placeholder" />
+    
+    <TextView
+        android:id="@+id/tvTitleOfVacancy"
+        style="@style/Medium22Text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/ivCompanyLogo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/ivCompanyLogo"
+        android:layout_marginStart="12dp"
+        android:maxLines="3"
+        android:ellipsize="end"
+        tools:text="Android-разработчик, Москва"  />
+
+    <TextView
+        android:id="@+id/tvCompanyName"
+        style="@style/Regular16Text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/tvTitleOfVacancy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitleOfVacancy"
+        android:layout_marginEnd="128dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        tools:text="Какая-то компания, точно хорошая" />
+
+    <TextView
+        android:id="@+id/tvVacancySalary"
+        style="@style/Regular16Text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/tvTitleOfVacancy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCompanyName"
+        android:layout_marginEnd="128dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        tools:text="от 0 до 10050000000000000 $" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
