@@ -49,7 +49,7 @@ class VacancyAdapter(
     class VacancyViewHolder(
         private val binding: VacancyListItemBinding,
         onItemClicked: (Int) -> Unit
-    ): RecyclerView.ViewHolder(binding.root) {
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
             binding.root.setOnClickListener {
@@ -58,7 +58,6 @@ class VacancyAdapter(
         }
 
         fun bind(model: Vacancy) {
-            //TODO("Добавить корректное отображение для всех полей элемента списка после исправления класса Vacancy")
             Glide.with(binding.root)
                 .load(R.drawable.company_logo_placeholder)
                 .placeholder(R.drawable.company_logo_placeholder)

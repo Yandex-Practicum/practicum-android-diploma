@@ -28,10 +28,10 @@ class FavoritesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val onItemClickListener: (Vacancy) -> Unit = {
-            //Логика, исполняемая по нажатию на элемент списка вакансий
+            // Логика, исполняемая по нажатию на элемент списка вакансий
         }
         val onItemLongClickListener: (Vacancy) -> Unit = {
-            //Логика, исполняемая по длительному нажатию на элемент списка вакансий
+            // Логика, исполняемая по длительному нажатию на элемент списка вакансий
         }
         favoriteVacanciesRecyclerViewAdapter = VacancyAdapter(
             onItemClicked = onItemClickListener,
