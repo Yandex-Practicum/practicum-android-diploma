@@ -66,6 +66,7 @@
         <EditText
             android:id="@+id/etSearchVacancy"
             style="@style/SearchEditText"
+            android:focusableInTouchMode="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/enter_query" />
@@ -76,7 +77,17 @@
             android:layout_height="18dp"
             android:layout_marginEnd="@dimen/team_indent"
             android:layout_gravity="end|center"
-            android:src="@drawable/search_icon"
+            android:visibility="gone"
+            app:srcCompat="@drawable/search_clear_icon"
+            android:backgroundTint="@android:color/transparent" />
+
+        <ImageButton
+            android:id="@+id/ibClearSearch"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginEnd="@dimen/team_indent"
+            android:layout_gravity="end|center"
+            app:srcCompat="@drawable/search_icon"
             android:backgroundTint="@android:color/transparent" />
 
     </FrameLayout>
