@@ -11,4 +11,5 @@
     <string name="grade_name">Ольга Петровна Оценка</string>
     <string name="design_name">Вениамин Петрович Дизайн</string>
     <string name="dev_name">Антон Андроидович</string>
+    <string name="not_found_counter_vacancy_text">Таких вакансий нет</string>
 </resources>
