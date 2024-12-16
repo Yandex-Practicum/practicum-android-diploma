@@ -1,22 +1,13 @@
 package ru.practicum.android.diploma.data.dto.model
 
-import java.io.Serializable
-
 data class VacancyDto(
-    val id: String,
-    val area: String,
-    val text: String,
-    val searchField: String,
-    // т.к. вроде в фильтрации нигде не используется дальше, поэтому оставил стринг просто для вывода
-    val experience: String,
-    val employment: String, // Тип занятости - напр. полная
-    val schedule: String,
-    val industry: Int, // искать надо по id (Int), но хранить наверное уже лучше в тексте
-    val salary: Int,
-    val employer: String,
-    val onlyWithSalary: Boolean
-) : Serializable {
-    companion object {
-        private const val serialVersionUID: Long = 1L
-    }
-}
+    val id: String, // Уникальный идентификатор вакансии
+    val name: String, // Название вакансии
+    val area: AreaDto, // Описание региона, в котором находится вакансия
+    val salary: SalaryDto?, // Описание зарплаты
+    val employer: EmployerDto, // Информация о компании-работодателе
+    val employment: EmploymentDto?, // Информация о типе занятости
+    val experience: ExperienceDto?, // Информация об опыте работы
+    val snippet: SnippetDto, // Информация о требованиях по вакансии
+    val schedule: ScheduleDto? // График работы
+)
