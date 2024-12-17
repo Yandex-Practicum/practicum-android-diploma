@@ -5,8 +5,8 @@ import ru.practicum.android.diploma.domain.api.ShareInteractor
 import ru.practicum.android.diploma.domain.api.ShareRepository
 import ru.practicum.android.diploma.domain.models.Vacancy
 
-class ShareInteractorImpl(private val shareRepository: ShareRepository, vacancy: Vacancy) : ShareInteractor {
-    override fun getShareData(vacancy: Vacancy): ShareData {
-        return shareRepository.getShareData(vacancy)
+class ShareInteractorImpl(private val shareRepository: ShareRepository, id: String) : ShareInteractor {
+    override fun getShareData(id: String): ShareData {
+        return shareRepository.getShareData(id)
     }
 }

@@ -7,10 +7,13 @@ import ru.practicum.android.diploma.data.dto.model.favorites.ShareData
 import ru.practicum.android.diploma.domain.api.ShareInteractor
 import ru.practicum.android.diploma.util.SingleLiveEvent
 
-class VacancyFragmentViewModel(shareInteractor: ShareInteractor) : ViewModel() {
+class VacancyFragmentViewModel(private val shareInteractor: ShareInteractor) : ViewModel() {
 
     private val shareState = SingleLiveEvent<ShareData>()
 
     fun observeShareState(): LiveData<ShareData> = shareState
 
+    fun shareVacancy(id: String) {
+        shareState.postValue(shareInteractor.getShareData(id))
+    }
 }

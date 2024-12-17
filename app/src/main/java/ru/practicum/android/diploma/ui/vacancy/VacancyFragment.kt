@@ -33,7 +33,7 @@ class VacancyFragment : Fragment() {
         val vacancy = Vacancy("id", "mock", "mock", "mock", "mock", "mock", "mock", "mock", 1, "mock", true)
         binding.shareButton.setOnClickListener {
             viewModel.observeShareState().observe(viewLifecycleOwner) { sData ->
-                shareCourseLink(sData)
+                shareVacancy(sData)
             }
         }
     }
@@ -43,7 +43,7 @@ class VacancyFragment : Fragment() {
         _binding = null
     }
 
-    private fun shareCourseLink(data: ShareData) {
+    private fun shareVacancy(data: ShareData) {
         val share = Intent.createChooser(Intent().apply {
             action = Intent.ACTION_SEND
             putExtra(Intent.EXTRA_TEXT, data.url)
