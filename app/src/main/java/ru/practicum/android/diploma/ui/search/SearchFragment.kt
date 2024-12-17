@@ -10,15 +10,16 @@ import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
+import ru.practicum.android.diploma.ui.search.view_model.SearchViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.domain.models.Vacancy
 
 class SearchFragment : Fragment() {
 
-    companion object {
-        private const val CLEAR_TEXT = ""
-    }
-
     private var _binding: FragmentSearchBinding? = null
+
     private val binding get() = _binding!!
+    private val viewModel: SearchViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,7 +27,7 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
-        return binding.root
+        return _binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,6 +35,7 @@ class SearchFragment : Fragment() {
 
         val inputEditText = binding.etSearchVacancy
         val clearButton = binding.ibClearQuery
+        val foundedVacanciesRecyclerView = binding.rvFoundedVacancies
 
         inputEditText.addTextChangedListener(onTextChanged = { s: CharSequence?, _, _, _ ->
             clearButton.isVisible = !s.isNullOrEmpty()
@@ -46,11 +48,22 @@ class SearchFragment : Fragment() {
             val imm = requireContext().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(inputEditText, InputMethodManager.SHOW_IMPLICIT)
         }
+
+        val onItemClickListener: (Vacancy) -> Unit = {
+            // Логика для выполнения по обычному нажатию на элемент
+        }
+        val onItemLongClickListener: (Vacancy) -> Unit = {
+            // Логика для выполнения по долгому нажатию на элемент
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        private const val CLEAR_TEXT = ""
     }
 
 }
