@@ -1,38 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.search.SearchFragment">
+    android:layout_height="wrap_content"
+    tools:context=".ui.vacancy.VacancyFragment">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/bottomGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_end="@dimen/bottom_navigation_indent" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/startTopGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/guideline_indent" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/startGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="@dimen/guideline_indent" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/endGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="@dimen/guideline_indent" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/endTopGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/guideline_indent" />
 
     <ImageView
         android:id="@+id/ivBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        app:layout_constraintStart_toStartOf="@id/startGuideline"
+        android:layout_marginTop="@dimen/margin24"
+        app:layout_constraintStart_toStartOf="@id/startTopGuideline"
         app:layout_constraintTop_toTopOf="parent"
         android:src="@drawable/arrow_back" />
 
@@ -41,7 +35,7 @@
         style="@style/Header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="@dimen/margin16"
         android:text="@string/vacancy_detail"
         app:layout_constraintBottom_toBottomOf="@id/ivBack"
         app:layout_constraintStart_toEndOf="@id/ivBack"
@@ -54,7 +48,7 @@
         app:layout_constraintEnd_toStartOf="@id/ivFavorites"
         app:layout_constraintTop_toTopOf="@id/tvVacancyHeader"
         app:layout_constraintBottom_toBottomOf="@id/tvVacancyHeader"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="@dimen/margin16"
         android:src="@drawable/sharing_icon" />
 
     <ImageView
@@ -63,90 +57,243 @@
         android:layout_height="wrap_content"
         android:src="@drawable/favorites_off"
         app:layout_constraintBottom_toBottomOf="@id/ivSharing"
-        app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+        app:layout_constraintEnd_toStartOf="@+id/endTopGuideline"
         app:layout_constraintTop_toTopOf="@id/ivSharing" />
 
-    <TextView
-        android:id="@+id/tvName"
-        style="@style/Bold32Text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:maxLines="3"
-        android:ellipsize="end"
-        android:layout_marginTop="34dp"
-        android:text="@string/vacancy_detail"
-        app:layout_constraintTop_toBottomOf="@id/ivBack"
-        app:layout_constraintStart_toEndOf="@id/startGuideline"
-        app:layout_constraintEnd_toStartOf="@id/endGuideline" />
+    <ScrollView
+        android:id="@+id/scrollableContent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin34"
+        app:layout_constraintTop_toBottomOf="@id/ivFavorites">
 
-    <TextView
-        android:id="@+id/tvSalary"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        style="@style/Medium22Text"
-        android:maxLines="1"
-        android:ellipsize="end"
-        android:text="от 100 000 р"
-        app:layout_constraintTop_toBottomOf="@id/tvName"
-        app:layout_constraintStart_toEndOf="@id/startGuideline"
-        app:layout_constraintEnd_toStartOf="@id/endGuideline" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutAllVacancy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-<LinearLayout
-    android:id="@+id/llEmployer"
-    android:layout_width="0dp"
-    android:layout_height="80dp"
-    android:background="@drawable/rounded_corner_vacancy"
-    android:layout_marginTop="24dp"
-    app:layout_constraintTop_toBottomOf="@id/tvSalary"
-    app:layout_constraintStart_toEndOf="@id/startGuideline"
-    app:layout_constraintEnd_toStartOf="@id/endGuideline">
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/startGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/guideline_indent" />
 
-    <ImageView
-        android:id="@+id/ivImageEmployer"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_gravity="center"
-        android:background="@drawable/rounded_corner_12"
-        android:src="@color/white"
-        android:layout_marginStart="16dp"/>
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/endGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/guideline_indent" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:layout_gravity="center"
-        android:layout_marginStart="8dp"
-        android:orientation="vertical">
+            <TextView
+                android:id="@+id/tvName"
+                style="@style/Bold32Text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:text="@string/vacancy_detail"
+                app:layout_constraintEnd_toStartOf="@id/endGuideline"
+                app:layout_constraintStart_toEndOf="@id/startGuideline"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvEmployer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/Medium22Text"
-        android:background="null"
-        android:text="Еда"/>
+            <TextView
+                android:id="@+id/tvSalary"
+                style="@style/Medium22Text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/salary"
+                app:layout_constraintEnd_toStartOf="@id/endGuideline"
+                app:layout_constraintStart_toEndOf="@id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@id/tvName" />
 
-        <TextView
-            android:id="@+id/tvCountryEmployer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/Regular16Text"
-            android:background="null"
-            android:text="Москва"/>
+            <LinearLayout
+                android:id="@+id/llEmployer"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/llEmployer"
+                android:layout_marginTop="@dimen/margin24"
+                android:background="@drawable/rounded_corner_vacancy"
+                app:layout_constraintEnd_toStartOf="@id/endGuideline"
+                app:layout_constraintStart_toEndOf="@id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@id/tvSalary">
 
-    </LinearLayout>
+                <ImageView
+                    android:id="@+id/ivImageEmployer"
+                    android:layout_width="@dimen/img_size48"
+                    android:layout_height="@dimen/img_size48"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/margin16"
+                    android:background="@drawable/rounded_corner_12"
+                    android:src="@color/white" />
 
-</LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/margin8"
+                    android:background="@android:color/transparent"
+                    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tvExperience"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:text="Требуемый опыт"
-        app:layout_constraintStart_toEndOf="@id/startGuideline"
-        app:layout_constraintTop_toBottomOf="@id/llEmployer" />
+                    <TextView
+                        android:id="@+id/tvEmployer"
+                        style="@style/Medium22Text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@string/text_employer"
+                        android:textColor="@color/black" />
 
+                    <TextView
+                        android:id="@+id/tvAddressEmployer"
+                        style="@style/Regular16Text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/margin8"
+                        android:background="@android:color/transparent"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:text="@string/address_employer"
+                        android:textColor="@color/black" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvExperienceTitle"
+                style="@style/Medium16Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin24"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/experience_title"
+                app:layout_constraintStart_toEndOf="@id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@id/llEmployer" />
+
+            <TextView
+                android:id="@+id/tvExperienceText"
+                style="@style/Regular16Text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:text="@string/text_list"
+                app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+                app:layout_constraintStart_toEndOf="@id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@id/tvExperienceTitle" />
+
+            <TextView
+                android:id="@+id/tvJobDescriptionTitle"
+                style="@style/Medium22Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin32"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/job_description"
+                app:layout_constraintStart_toEndOf="@id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@id/tvExperienceText" />
+
+            <TextView
+                android:id="@+id/tvResponsibilitiesTitle"
+                style="@style/Medium16Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin16"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/responsibilities_title"
+                app:layout_constraintStart_toEndOf="@id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@id/tvJobDescriptionTitle" />
+
+            <TextView
+                android:id="@+id/tvResponsibilitiesText"
+                style="@style/Regular16Text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:text="@string/text_list"
+                app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+                app:layout_constraintStart_toEndOf="@id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@id/tvResponsibilitiesTitle" />
+
+            <TextView
+                android:id="@+id/tvRequirementsTitle"
+                style="@style/Medium16Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin16"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/requirements_title"
+                app:layout_constraintStart_toEndOf="@id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@id/tvResponsibilitiesText" />
+
+            <TextView
+                android:id="@+id/tvRequirementsText"
+                style="@style/Regular16Text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:text="@string/text_list"
+                app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+                app:layout_constraintStart_toEndOf="@id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@id/tvRequirementsTitle" />
+
+            <TextView
+                android:id="@+id/tvConditionsTitle"
+                style="@style/Medium16Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin16"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/conditions_title"
+                app:layout_constraintStart_toEndOf="@id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@id/tvRequirementsText" />
+
+            <TextView
+                android:id="@+id/tvConditionsText"
+                style="@style/Regular16Text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:text="@string/text_list"
+                app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+                app:layout_constraintStart_toEndOf="@id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@id/tvConditionsTitle" />
+
+            <TextView
+                android:id="@+id/tvKeySkillsTitle"
+                style="@style/Medium22Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin24"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/key_skills_title"
+                app:layout_constraintStart_toEndOf="@id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@id/tvConditionsText" />
+
+            <TextView
+                android:id="@+id/tvKeySkillsText"
+                style="@style/Regular16Text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin16"
+                android:ellipsize="end"
+                android:text="@string/text_list"
+                app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+                app:layout_constraintStart_toEndOf="@id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@id/tvKeySkillsTitle" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
