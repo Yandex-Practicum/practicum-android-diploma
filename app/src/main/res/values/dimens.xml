@@ -12,5 +12,6 @@
     <dimen name="line_up_bottom_menu">1dp</dimen>
     <dimen name="icon_size">48dp</dimen>
     <dimen name="icon_margin">8dp</dimen>
-
+    <dimen name="indent_12">12dp</dimen>
+    <dimen name="indent_4">4dp</dimen>
 </resources>

@@ -66,6 +66,7 @@
         <EditText
             android:id="@+id/etSearchVacancy"
             style="@style/SearchEditText"
+            android:focusableInTouchMode="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/enter_query" />
@@ -76,10 +77,36 @@
             android:layout_height="18dp"
             android:layout_marginEnd="@dimen/team_indent"
             android:layout_gravity="end|center"
-            android:src="@drawable/search_icon"
+            android:visibility="gone"
+            app:srcCompat="@drawable/search_clear_icon"
+            android:backgroundTint="@android:color/transparent" />
+
+        <ImageButton
+            android:id="@+id/ibClearSearch"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginEnd="@dimen/team_indent"
+            android:layout_gravity="end|center"
+            app:srcCompat="@drawable/search_icon"
             android:backgroundTint="@android:color/transparent" />
 
     </FrameLayout>
+
+    <TextView
+        android:id="@+id/vacancyCounter"
+        style="@style/vacancyCounter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:paddingStart="@dimen/indent_12"
+        android:paddingTop="@dimen/indent_4"
+        android:paddingEnd="@dimen/indent_12"
+        android:paddingBottom="@dimen/indent_4"
+        android:text="@string/not_found_counter_vacancy_text"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/endGuideline"
+        app:layout_constraintStart_toStartOf="@id/startGuideline"
+        app:layout_constraintTop_toBottomOf="@id/topGuideline" />
 
     <ImageView
         android:id="@+id/placeholder"
