@@ -4,22 +4,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".ui.vacancy.VacancyFragment">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/startTopGuideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="@dimen/guideline_indent" />
+    <androidx.constraintlayout.widget.Guideline
+       android:id="@+id/startTopGuideline"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:orientation="vertical"
+       app:layout_constraintGuide_begin="@dimen/guideline_indent" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/endTopGuideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_end="@dimen/guideline_indent" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/endTopGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/guideline_indent" />
 
     <ImageView
         android:id="@+id/ivBack"
@@ -28,7 +28,8 @@
         android:layout_marginTop="@dimen/margin24"
         app:layout_constraintStart_toStartOf="@id/startTopGuideline"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/arrow_back" />
+        android:src="@drawable/arrow_back"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/tvVacancyHeader"
@@ -49,7 +50,8 @@
         app:layout_constraintTop_toTopOf="@id/tvVacancyHeader"
         app:layout_constraintBottom_toBottomOf="@id/tvVacancyHeader"
         android:layout_marginEnd="@dimen/margin16"
-        android:src="@drawable/sharing_icon" />
+        android:src="@drawable/sharing_icon"
+        tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/ivFavorites"
@@ -58,13 +60,52 @@
         android:src="@drawable/favorites_off"
         app:layout_constraintBottom_toBottomOf="@id/ivSharing"
         app:layout_constraintEnd_toStartOf="@+id/endTopGuideline"
-        app:layout_constraintTop_toTopOf="@id/ivSharing" />
+        app:layout_constraintTop_toTopOf="@id/ivSharing"
+        tools:ignore="ContentDescription" />
+
+    <ProgressBar
+        android:id="@+id/progressBarVacancy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/hh_blue"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/endTopGuideline"
+        app:layout_constraintStart_toStartOf="@id/startTopGuideline"
+        app:layout_constraintTop_toBottomOf="@id/ivFavorites" />
+
+    <LinearLayout
+        android:id="@+id/llVacancyNotFound"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/endTopGuideline"
+        app:layout_constraintStart_toStartOf="@id/startTopGuideline"
+        app:layout_constraintTop_toBottomOf="@id/ivFavorites"
+        tools:ignore="UseCompoundDrawables">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/Medium22Text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/vacancy_not_found"
+            android:drawablePadding="@dimen/margin16"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@string/vacancy_not_found"
+            android:textAlignment="center"
+            tools:ignore="UseCompatTextViewDrawableXml" />
+
+    </LinearLayout>
 
     <ScrollView
         android:id="@+id/scrollableContent"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/margin34"
+        android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@id/ivFavorites">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -127,7 +168,8 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/margin16"
                     android:background="@drawable/rounded_corner_12"
-                    android:src="@color/white" />
+                    android:src="@color/white"
+                    tools:ignore="ContentDescription" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -161,7 +203,6 @@
                         android:textColor="@color/black" />
 
                 </LinearLayout>
-
             </LinearLayout>
 
             <TextView
