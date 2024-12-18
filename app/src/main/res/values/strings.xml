@@ -11,5 +11,17 @@
     <string name="grade_name">Ольга Петровна Оценка</string>
     <string name="design_name">Вениамин Петрович Дизайн</string>
     <string name="dev_name">Антон Андроидович</string>
+    <string name="vacancy_detail">Вакансия</string>
+    <string name="salary">Зарплата не указана</string>
+    <string name="text_employer">Название организации</string>
+    <string name="address_employer">Адрес организации</string>
+    <string name="experience_title">Требуемый опыт</string>
+    <string name="text_list">Текст списком</string>
+    <string name="job_description">Описание вакансии</string>
+    <string name="responsibilities_title">Описание вакансии</string>
+    <string name="requirements_title">Требования</string>
+    <string name="conditions_title">Условия</string>
+    <string name="key_skills_title">Ключевые навыки</string>
+    <string name="vacancy_not_found">Вакансия не найдена или \nудалена</string>
     <string name="not_found_counter_vacancy_text">Таких вакансий нет</string>
 </resources>

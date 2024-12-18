@@ -8,9 +8,9 @@ class VacancyConverter {
     fun mapVacancyToEntity(vacancy: Vacancy): FavouritesVacancyEntity {
         return FavouritesVacancyEntity(
             id = vacancy.id,
-            uriPickture = vacancy.area,
-            name = vacancy.text,
-            employer = vacancy.employer,
+            uriPicture = vacancy.employerLogoUrl,
+            name = vacancy.titleOfVacancy,
+            employer = vacancy.employerName,
             salary = vacancy.salary
         )
     }
