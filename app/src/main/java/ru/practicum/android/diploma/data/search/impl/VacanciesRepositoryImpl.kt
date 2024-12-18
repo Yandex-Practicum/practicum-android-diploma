@@ -2,6 +2,9 @@ package ru.practicum.android.diploma.data.search.impl
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import okhttp3.ResponseBody
+import retrofit2.HttpException
+import retrofit2.Response
 import ru.practicum.android.diploma.data.dto.VacancySearchRequest
 import ru.practicum.android.diploma.data.dto.VacancySearchResponse
 import ru.practicum.android.diploma.data.dto.model.SalaryDto
@@ -37,22 +40,22 @@ class VacanciesRepositoryImpl(
                     }
                 }
                 RetrofitNetworkClient.HTTP_PAGE_NOT_FOUND_CODE -> {
-                    throw Exception("Not Found 404")
+                    throw HttpException(Response.error<Any>(404, ResponseBody.create(null, "Not Found")))
                 }
                 RetrofitNetworkClient.HTTP_INTERNAL_SERVER_ERROR_CODE -> {
-                    throw Exception("Server Error 500")
+                    throw HttpException(Response.error<Any>(500, ResponseBody.create(null, "Server Error")))
                 }
                 RetrofitNetworkClient.HTTP_BAD_REQUEST_CODE -> {
-                    throw Exception("Bad Request 400")
+                    throw HttpException(Response.error<Any>(400, ResponseBody.create(null, "Bad Request")))
                 }
                 RetrofitNetworkClient.HTTP_CODE_0 -> {
-                    throw Exception("Unknown Error 0")
+                    throw HttpException(Response.error<Any>(0, ResponseBody.create(null, "Unknown Error")))
                 }
                 -1 -> {
                     throw IOException("Network Error")
                 }
                 else -> {
-                    throw Exception("Unexpected Error: ${response.resultCode}.")
+                    throw HttpException(Response.error<Any>(response.resultCode, ResponseBody.create(null, "Unexpected Error: ${response.resultCode}")))
                 }
             }
         }

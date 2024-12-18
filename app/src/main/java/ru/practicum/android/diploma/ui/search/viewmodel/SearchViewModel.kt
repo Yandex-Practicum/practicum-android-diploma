@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import ru.practicum.android.diploma.domain.search.SearchInteractor
 import ru.practicum.android.diploma.domain.search.models.SearchParams
 import ru.practicum.android.diploma.domain.search.models.SearchScreenState
@@ -31,18 +32,22 @@ class SearchViewModel(
                 }
             } catch (e: IOException) {
                 searchScreenStateLiveData.postValue(SearchScreenState.NetworkError)
-            } catch (e: Exception) {
-                when (e.message) {
-                    "Server Error 500" -> {
-                        searchScreenStateLiveData.postValue(SearchScreenState.ServerError)
-                    }
-                    "Not Found 404" -> {
+            } catch (e: HttpException) {
+                when (e.code()) {
+                    404 -> {
                         searchScreenStateLiveData.postValue(SearchScreenState.NotFound)
                     }
+
+                    500 -> {
+                        searchScreenStateLiveData.postValue(SearchScreenState.ServerError)
+                    }
+
                     else -> {
-                        searchScreenStateLiveData.postValue(SearchScreenState.Error(e.message ?: "Unknown Error"))
+                        searchScreenStateLiveData.postValue(SearchScreenState.Error("HTTP Error: ${e.code()}"))
                     }
                 }
+            } catch (e: Exception) {
+                searchScreenStateLiveData.postValue(SearchScreenState.Error(e.message ?: "Unknown Error"))
             }
         }
     }
