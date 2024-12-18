@@ -58,12 +58,34 @@ class VacanciesRepositoryImpl(
             null
         } else {
             if (salary.from == salary.to) {
-                String.format(Locale.getDefault(), "%d %s", salary.to, salary.currency)
+                String.format(Locale.getDefault(), "%d %s", salary.to, getCurrencySymbolByCode(salary.currency!!))
             } else if (salary.to == null) {
-                String.format(Locale.getDefault(), "от %d %s", salary.from, salary.currency)
+                String.format(Locale.getDefault(), "от %d %s", salary.from, getCurrencySymbolByCode(salary.currency!!))
             } else {
-                String.format(Locale.getDefault(), "от %d до %d %s", salary.from, salary.to, salary.currency)
+                String.format(
+                    Locale.getDefault(),
+                    "от %d до %d %s",
+                    salary.from,
+                    salary.to,
+                    getCurrencySymbolByCode(salary.currency!!)
+                )
             }
+        }
+    }
+
+    private fun getCurrencySymbolByCode(code: String): String {
+        return when (code) {
+            "AZN" -> "₼"
+            "BYR" -> "Br"
+            "EUR" -> "€"
+            "GEL" -> "₾"
+            "KGS" -> "⃀"
+            "KZT" -> "₸"
+            "RUR" -> "₽"
+            "UAH" -> "₴"
+            "USD" -> "$"
+            "UZS" -> "Soʻm"
+            else -> ""
         }
     }
 

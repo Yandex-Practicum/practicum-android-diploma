@@ -12,7 +12,7 @@
     <string name="design_name">Вениамин Петрович Дизайн</string>
     <string name="dev_name">Антон Андроидович</string>
     <string name="vacancy_detail">Вакансия</string>
-    <string name="salary">зарплата не указана</string>
+    <string name="salary">Зарплата не указана</string>
     <string name="text_employer">Название организации</string>
     <string name="address_employer">Адрес организации</string>
     <string name="experience_title">Требуемый опыт</string>
