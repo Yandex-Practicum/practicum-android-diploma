@@ -1,22 +1,10 @@
 package ru.practicum.android.diploma.domain.models
 
-import java.io.Serializable
-
 data class Vacancy(
-    val id: String,
-    val area: String,
-    val text: String,
-    val searchField: String,
-    // т.к. вроде в фильтрации нигде не используется дальше, поэтому оставил стринг просто для вывода
-    val experience: String,
-    val employment: String, // Тип занятости - напр. полная
-    val schedule: String,
-    val industry: String, // искать надо по id (Int), но хранить наверное уже лучше в тексте
-    val salary: Int,
-    val employer: String,
-    val onlyWithSalary: Boolean
-) : Serializable {
-    companion object {
-        private const val serialVersionUID: Long = 1L
-    }
-}
+    val id: String, // Идентификатор вакансии
+    val titleOfVacancy: String, // Название вакансии
+    val regionName: String, // Название региона, в котором размещена вакансия
+    val salary: String?, // Зарплата
+    val employerName: String, // Название компании-работодателя
+    val employerLogoUrl: String?, // Ссылка на логотип компании-работодателя
+)

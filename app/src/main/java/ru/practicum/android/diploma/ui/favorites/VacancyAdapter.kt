@@ -59,14 +59,14 @@ class VacancyAdapter(
 
         fun bind(model: Vacancy) {
             Glide.with(binding.root)
-                .load(R.drawable.company_logo_placeholder)
+                .load(model.employerLogoUrl)
                 .placeholder(R.drawable.company_logo_placeholder)
                 .centerCrop()
                 .into(binding.ivCompanyLogo)
 
-            binding.tvTitleOfVacancy.text = "Какая-то вакансия"
-            binding.tvCompanyName.text = "Какое-то название компании"
-            binding.tvVacancySalary.text = "от 100500 тысяч"
+            binding.tvTitleOfVacancy.text = model.titleOfVacancy
+            binding.tvCompanyName.text = model.employerName
+            binding.tvVacancySalary.text = model.salary
         }
 
     }
