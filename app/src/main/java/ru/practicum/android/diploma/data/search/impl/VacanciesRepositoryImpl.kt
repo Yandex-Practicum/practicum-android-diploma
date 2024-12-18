@@ -40,22 +40,47 @@ class VacanciesRepositoryImpl(
                     }
                 }
                 RetrofitNetworkClient.HTTP_PAGE_NOT_FOUND_CODE -> {
-                    throw HttpException(Response.error<Any>(404, ResponseBody.create(null, "Not Found")))
+                    throw HttpException(
+                        Response.error<Any>(
+                            RetrofitNetworkClient.HTTP_PAGE_NOT_FOUND_CODE,
+                            ResponseBody.create(null, "Not Found")
+                        )
+                    )
                 }
                 RetrofitNetworkClient.HTTP_INTERNAL_SERVER_ERROR_CODE -> {
-                    throw HttpException(Response.error<Any>(500, ResponseBody.create(null, "Server Error")))
+                    throw HttpException(
+                        Response.error<Any>(
+                            RetrofitNetworkClient.HTTP_INTERNAL_SERVER_ERROR_CODE,
+                            ResponseBody.create(null, "Server Error")
+                        )
+                    )
                 }
                 RetrofitNetworkClient.HTTP_BAD_REQUEST_CODE -> {
-                    throw HttpException(Response.error<Any>(400, ResponseBody.create(null, "Bad Request")))
+                    throw HttpException(
+                        Response.error<Any>(
+                            RetrofitNetworkClient.HTTP_BAD_REQUEST_CODE,
+                            ResponseBody.create(null, "Bad Request")
+                        )
+                    )
                 }
                 RetrofitNetworkClient.HTTP_CODE_0 -> {
-                    throw HttpException(Response.error<Any>(0, ResponseBody.create(null, "Unknown Error")))
+                    throw HttpException(
+                        Response.error<Any>(
+                            RetrofitNetworkClient.HTTP_CODE_0,
+                            ResponseBody.create(null, "Unknown Error")
+                        )
+                    )
                 }
                 -1 -> {
                     throw IOException("Network Error")
                 }
                 else -> {
-                    throw HttpException(Response.error<Any>(response.resultCode, ResponseBody.create(null, "Unexpected Error: ${response.resultCode}")))
+                    throw HttpException(
+                        Response.error<Any>(
+                            response.resultCode,
+                            ResponseBody.create(null, "Unexpected Error: ${response.resultCode}")
+                        )
+                    )
                 }
             }
         }
@@ -96,5 +121,4 @@ class VacanciesRepositoryImpl(
             else -> ""
         }
     }
-
 }
