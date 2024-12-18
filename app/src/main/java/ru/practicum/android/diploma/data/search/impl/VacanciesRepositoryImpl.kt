@@ -10,6 +10,7 @@ import ru.practicum.android.diploma.data.search.VacanciesRepository
 import ru.practicum.android.diploma.domain.NetworkClient
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.search.models.SearchParams
+import java.util.Locale
 
 class VacanciesRepositoryImpl(
     private val networkClient: NetworkClient
@@ -57,11 +58,11 @@ class VacanciesRepositoryImpl(
             null
         } else {
             if (salary.from == salary.to) {
-                String.format("%D %S", salary.to, salary.currency)
+                String.format(Locale.getDefault(), "%d %s", salary.to, salary.currency)
             } else if (salary.to == null) {
-                String.format("от %D %S", salary.from, salary.currency)
+                String.format(Locale.getDefault(),"от %d %s", salary.from, salary.currency)
             } else {
-                String.format("от %D до %D %S", salary.from, salary.to, salary.currency)
+                String.format(Locale.getDefault(), "от %d до %d %s", salary.from, salary.to, salary.currency)
             }
         }
     }
