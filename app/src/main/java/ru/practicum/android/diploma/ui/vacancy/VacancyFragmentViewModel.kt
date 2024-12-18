@@ -44,5 +44,4 @@ class VacancyFragmentViewModel(private val vacancyInteractor: VacancyInteractor)
             }
         }
     }
-
 }
