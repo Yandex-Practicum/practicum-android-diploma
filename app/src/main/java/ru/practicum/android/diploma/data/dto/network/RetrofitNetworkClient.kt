@@ -49,7 +49,6 @@ class RetrofitNetworkClient(
                         } catch (e: HttpException) {
                             when (e.code()) {
                                 HTTP_PAGE_NOT_FOUND_CODE -> Response().apply { resultCode = HTTP_PAGE_NOT_FOUND_CODE }
-                                403 -> Response().apply { resultCode = 403 }
                                 else -> Response().apply { resultCode = HTTP_CODE_0 }
                             }
                         } catch (e: IOException) {
@@ -74,7 +73,9 @@ class RetrofitNetworkClient(
                 capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
                 else -> false
             }
-        } else false
+        } else {
+            false
+        }
     }
 
     companion object {
