@@ -19,4 +19,7 @@ interface FavouritesVacancyDao {
 
     @Delete(entity = FavouritesVacancyEntity::class)
     suspend fun deleteFavouritesVacancyEntity(vacancy: FavouritesVacancyEntity)
+
+    @Query("SELECT COUNT(*) > 0 FROM favourites_vacancy_table WHERE vacancy_id = :vacancyId")
+    suspend fun isFavorite(vacancyId: String): Boolean
 }

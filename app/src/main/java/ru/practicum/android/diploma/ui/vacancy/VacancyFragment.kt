@@ -36,6 +36,12 @@ class VacancyFragment : Fragment() {
                 shareVacancy(sData)
             }
         }
+
+        vacancy?.let { viewModel.isVacancyInFavorites(it.id) }
+
+        binding.favoriteButton.setOnClickListener {
+            viewModel.onFavoriteClicked(vacancy)
+        }
     }
 
     override fun onDestroyView() {
