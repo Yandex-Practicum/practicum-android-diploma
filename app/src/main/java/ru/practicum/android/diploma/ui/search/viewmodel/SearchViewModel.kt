@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.search.view_model
+package ru.practicum.android.diploma.ui.search.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

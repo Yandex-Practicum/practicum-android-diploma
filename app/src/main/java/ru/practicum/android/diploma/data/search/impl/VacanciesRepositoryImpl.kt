@@ -19,7 +19,7 @@ class VacanciesRepositoryImpl(
     override fun getVacancies(searchParams: SearchParams): Flow<List<Vacancy>> {
         return flow {
             val response = networkClient.doRequest(VacancySearchRequest(searchParams))
-            when(response.resultCode) {
+            when (response.resultCode) {
                 RetrofitNetworkClient.HTTP_OK_CODE -> {
                     with(response as VacancySearchResponse) {
                         val listOfFoundedVacancies = items.map {
@@ -60,7 +60,7 @@ class VacanciesRepositoryImpl(
             if (salary.from == salary.to) {
                 String.format(Locale.getDefault(), "%d %s", salary.to, salary.currency)
             } else if (salary.to == null) {
-                String.format(Locale.getDefault(),"от %d %s", salary.from, salary.currency)
+                String.format(Locale.getDefault(), "от %d %s", salary.from, salary.currency)
             } else {
                 String.format(Locale.getDefault(), "от %d до %d %s", salary.from, salary.to, salary.currency)
             }

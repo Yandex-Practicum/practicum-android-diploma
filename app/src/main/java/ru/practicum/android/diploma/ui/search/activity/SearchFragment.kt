@@ -10,14 +10,12 @@ import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
-import ru.practicum.android.diploma.databinding.FragmentSearchBinding
-import ru.practicum.android.diploma.ui.search.view_model.SearchViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.search.models.SearchParams
 import ru.practicum.android.diploma.ui.favorites.VacancyAdapter
-import ru.practicum.android.diploma.util.debounce
+import ru.practicum.android.diploma.ui.search.viewmodel.SearchViewModel
 
 class SearchFragment : Fragment() {
 
