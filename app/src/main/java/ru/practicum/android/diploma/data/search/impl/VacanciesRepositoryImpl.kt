@@ -10,6 +10,7 @@ import ru.practicum.android.diploma.data.search.VacanciesRepository
 import ru.practicum.android.diploma.domain.NetworkClient
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.search.models.SearchParams
+import java.io.IOException
 import java.util.Locale
 
 class VacanciesRepositoryImpl(
@@ -35,19 +36,23 @@ class VacanciesRepositoryImpl(
                         emit(listOfFoundedVacancies)
                     }
                 }
+                RetrofitNetworkClient.HTTP_PAGE_NOT_FOUND_CODE -> {
+                    throw Exception("Not Found 404")
+                }
+                RetrofitNetworkClient.HTTP_INTERNAL_SERVER_ERROR_CODE -> {
+                    throw Exception("Server Error 500")
+                }
+                RetrofitNetworkClient.HTTP_BAD_REQUEST_CODE -> {
+                    throw Exception("Bad Request 400")
+                }
+                RetrofitNetworkClient.HTTP_CODE_0 -> {
+                    throw Exception("Unknown Error 0")
+                }
+                -1 -> {
+                    throw IOException("Network Error")
+                }
                 else -> {
-                    emit(
-                        listOf(
-                            Vacancy(
-                                "-1",
-                                "",
-                                "",
-                                null,
-                                "",
-                                null
-                            )
-                        )
-                    )
+                    throw Exception("Unexpected Error: ${response.resultCode}.")
                 }
             }
         }
