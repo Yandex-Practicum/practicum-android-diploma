@@ -33,13 +33,13 @@ class VacancyFragmentViewModel(private val vacancyInteractor: VacancyInteractor)
 
     fun onFavoriteClicked(vacancy: Vacancy) {
         viewModelScope.launch(Dispatchers.IO) {
-            if (vacancy.isFavorites) {
-                vacancyInteractor.deleteTrackFromFavorites(vacancy)
-                vacancy.isFavorites = false
+            if (vacancy.isFavorite) {
+                vacancyInteractor.deleteFavouritesVacancyEntity(vacancy)
+                vacancy.isFavorite = false
                 favoritesState.postValue(false)
             } else {
                 vacancyInteractor.addVacancyToFavorites(vacancy)
-                vacancy.isFavorites = true
+                vacancy.isFavorite = true
                 favoritesState.postValue(true)
             }
         }

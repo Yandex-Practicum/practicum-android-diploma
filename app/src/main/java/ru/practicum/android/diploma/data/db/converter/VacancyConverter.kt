@@ -11,7 +11,8 @@ class VacancyConverter {
             uriPicture = vacancy.employerLogoUrl,
             name = vacancy.titleOfVacancy,
             employer = vacancy.employerName,
-            salary = vacancy.salary
+            salary = vacancy.salary,
+            isFavorite = vacancy.isFavorite
         )
     }
 }

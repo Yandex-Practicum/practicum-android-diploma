@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.data.db.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity(tableName = "favourites_vacancy_table")
 data class FavouritesVacancyEntity(
@@ -11,4 +12,5 @@ data class FavouritesVacancyEntity(
     val name: String,
     val employer: String,
     val salary: String?,
-)
+    var isFavorite: Boolean
+): Serializable

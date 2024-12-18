@@ -7,4 +7,5 @@ interface ShareRepository {
     fun getShareData(id: String): ShareData
     suspend fun isFavorite(id: String): Boolean
     suspend fun insertFavouritesVacancyEntity(vacancy: Vacancy)
+    suspend fun deleteFavouritesVacancyEntity(vacancy: Vacancy)
 }

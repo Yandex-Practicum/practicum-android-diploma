@@ -24,4 +24,7 @@ class ShareRepositoryImpl(
     override suspend fun insertFavouritesVacancyEntity(vacancy: Vacancy) {
         appDatabase.favouritesVacancyDao().insertFavouritesVacancyEntity(vacancyConvertor.mapVacancyToEntity(vacancy))
     }
+
+    override suspend fun deleteFavouritesVacancyEntity(vacancy: Vacancy) {
+        appDatabase.favouritesVacancyDao().deleteFavouritesVacancyEntity(vacancyConvertor.mapVacancyToEntity(vacancy))    }
 }

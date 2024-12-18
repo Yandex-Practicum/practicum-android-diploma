@@ -17,4 +17,8 @@ class VacancyInteractorImpl(private val shareRepository: ShareRepository, id: St
     override suspend fun addVacancyToFavorites(vacancy: Vacancy) {
         shareRepository.insertFavouritesVacancyEntity(vacancy)
     }
+
+    override suspend fun deleteFavouritesVacancyEntity(vacancy: Vacancy) {
+        shareRepository.deleteFavouritesVacancyEntity(vacancy)
+    }
 }
