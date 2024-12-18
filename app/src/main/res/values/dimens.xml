@@ -10,6 +10,15 @@
     <dimen name="bottom_navigation_indent">57dp</dimen>
     <dimen name="top_toolbar_indent">64dp</dimen>
     <dimen name="line_up_bottom_menu">1dp</dimen>
+    <dimen name="cornerRadius">16dp</dimen>
+    <dimen name="margin34">34dp</dimen>
+    <dimen name="margin32">32dp</dimen>
+    <dimen name="margin24">24dp</dimen>
+    <dimen name="margin16">16dp</dimen>
+    <dimen name="margin12">12dp</dimen>
+    <dimen name="margin8">8dp</dimen>
+    <dimen name="llEmployer">80dp</dimen>
+    <dimen name="img_size48">48dp</dimen>
     <dimen name="icon_size">48dp</dimen>
     <dimen name="icon_margin">8dp</dimen>
     <dimen name="indent_12">12dp</dimen>
