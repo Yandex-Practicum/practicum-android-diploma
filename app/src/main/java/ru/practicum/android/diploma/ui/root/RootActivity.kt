@@ -6,7 +6,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.ActivityRootBinding
 
@@ -37,7 +36,6 @@ class RootActivity : AppCompatActivity() {
                 }
             }
         }
-
 
         // start of test block
 //        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
