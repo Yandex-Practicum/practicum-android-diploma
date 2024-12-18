@@ -7,8 +7,7 @@ import ru.practicum.android.diploma.domain.api.ShareRepository
 import ru.practicum.android.diploma.domain.models.Vacancy
 
 class ShareRepositoryImpl(
-    id: String,
-    private val appDatabase: AppDatabase,
+    id: String, private val appDatabase: AppDatabase,
     private val vacancyConvertor: VacancyConverter
 ) : ShareRepository {
     override fun getShareData(id: String): ShareData {
@@ -22,9 +21,14 @@ class ShareRepositoryImpl(
     }
 
     override suspend fun insertFavouritesVacancyEntity(vacancy: Vacancy) {
-        appDatabase.favouritesVacancyDao().insertFavouritesVacancyEntity(vacancyConvertor.mapVacancyToEntity(vacancy))
+        val favouritesVacancyDao = appDatabase.favouritesVacancyDao()
+        val vacancyEntity = vacancyConvertor.mapVacancyToEntity(vacancy)
+        favouritesVacancyDao.insertFavouritesVacancyEntity(vacancyEntity)
     }
 
     override suspend fun deleteFavouritesVacancyEntity(vacancy: Vacancy) {
-        appDatabase.favouritesVacancyDao().deleteFavouritesVacancyEntity(vacancyConvertor.mapVacancyToEntity(vacancy))    }
+        val favouritesVacancyDao = appDatabase.favouritesVacancyDao()
+        val vacancyEntity = vacancyConvertor.mapVacancyToEntity(vacancy)
+        favouritesVacancyDao.deleteFavouritesVacancyEntity(vacancyEntity)
+    }
 }

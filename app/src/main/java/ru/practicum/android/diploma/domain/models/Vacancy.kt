@@ -8,4 +8,4 @@ data class Vacancy(
     val employerName: String, // Название компании-работодателя
     val employerLogoUrl: String?, // Ссылка на логотип компании-работодателя
     var isFavorite: Boolean = false
-    )
+)

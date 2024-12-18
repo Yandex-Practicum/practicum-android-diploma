@@ -13,4 +13,4 @@ data class FavouritesVacancyEntity(
     val employer: String,
     val salary: String?,
     var isFavorite: Boolean
-): Serializable
+) : Serializable
