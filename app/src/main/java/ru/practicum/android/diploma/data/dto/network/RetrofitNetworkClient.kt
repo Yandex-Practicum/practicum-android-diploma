@@ -30,42 +30,42 @@ class RetrofitNetworkClient(
         return if (!isConnected()) {
             Response().apply { resultCode = -1 }
         } else {
-             when (dto) {
-                 is VacancySearchRequest -> {
-                     withContext(Dispatchers.IO) {
-                         try {
-                             hhApiService
-                                 .getVacancies(
-                                     dto.searchParams.searchQuery,
-                                     dto.searchParams.nameOfCityForFilter,
-                                     dto.searchParams.nameOfIndustryForFilter,
-                                     dto.searchParams.onlyWithSalary,
-                                     dto.searchParams.currencyOfSalary,
-                                     dto.searchParams.expectedSalary,
-                                     dto.searchParams.numberOfVacanciesOnPage,
-                                     dto.searchParams.numberOfPage
-                                 )
-                                 .apply {
-                                     resultCode = HTTP_OK_CODE
-                                 }
-                         } catch (e: HttpException) {
-                             when (e.code()) {
-                                 HTTP_PAGE_NOT_FOUND_CODE -> Response().apply { resultCode = HTTP_PAGE_NOT_FOUND_CODE }
+            when (dto) {
+                is VacancySearchRequest -> {
+                    withContext(Dispatchers.IO) {
+                        try {
+                            hhApiService
+                                .getVacancies(
+                                    dto.searchParams.searchQuery,
+                                    dto.searchParams.nameOfCityForFilter,
+                                    dto.searchParams.nameOfIndustryForFilter,
+                                    dto.searchParams.onlyWithSalary,
+                                    dto.searchParams.currencyOfSalary,
+                                    dto.searchParams.expectedSalary,
+                                    dto.searchParams.numberOfVacanciesOnPage,
+                                    dto.searchParams.numberOfPage
+                                )
+                                .apply {
+                                    resultCode = HTTP_OK_CODE
+                                }
+                        } catch (e: HttpException) {
+                            when (e.code()) {
+                                HTTP_PAGE_NOT_FOUND_CODE -> Response().apply { resultCode = HTTP_PAGE_NOT_FOUND_CODE }
 
-                                 else -> Response().apply { resultCode = HTTP_CODE_0 }
-                             }
-                         } catch (e: IOException) {
-                             Log.e("error", "$e")
-                             Response().apply { resultCode = HTTP_INTERNAL_SERVER_ERROR_CODE }
-                         }
-                     }
-                 }
+                                else -> Response().apply { resultCode = HTTP_CODE_0 }
+                            }
+                        } catch (e: IOException) {
+                            Log.e("error", "$e")
+                            Response().apply { resultCode = HTTP_INTERNAL_SERVER_ERROR_CODE }
+                        }
+                    }
+                }
 
-                 else -> {
-                     Response().apply { resultCode = HTTP_BAD_REQUEST_CODE }
-                 }
-             }
-         }
+                else -> {
+                    Response().apply { resultCode = HTTP_BAD_REQUEST_CODE }
+                }
+            }
+        }
     }
 
     private fun isConnected(): Boolean {
