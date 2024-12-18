@@ -7,7 +7,8 @@ import ru.practicum.android.diploma.domain.api.ShareRepository
 import ru.practicum.android.diploma.domain.models.Vacancy
 
 class ShareRepositoryImpl(
-    id: String, private val appDatabase: AppDatabase,
+    id: String,
+    private val appDatabase: AppDatabase,
     private val vacancyConvertor: VacancyConverter
 ) : ShareRepository {
     override fun getShareData(id: String): ShareData {
