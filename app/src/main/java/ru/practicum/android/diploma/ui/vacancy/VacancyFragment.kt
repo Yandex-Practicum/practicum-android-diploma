@@ -71,6 +71,7 @@ class VacancyFragment : Fragment() {
     }
 
     private fun showContent(item: VacancyFullItemDto) {
+        val imgSizeInPx = dpToPx(R.dimen.img_size48.toFloat(), requireContext())
         binding.progressBarVacancy.isVisible = false
         binding.scrollableContent.isVisible = true
         binding.llVacancyNotFound.isVisible = false
@@ -78,8 +79,8 @@ class VacancyFragment : Fragment() {
         binding.tvSalary.text = salary(item)
         Glide.with(this)
             .load(item.employer.logoUrls?.logo90pxUrl)
-            .override(dpToPx(48f, requireContext()), dpToPx(48f, requireContext()))
-            .transform(RoundedCorners(10))
+            .override(imgSizeInPx, imgSizeInPx)
+            .transform(RoundedCorners(R.dimen.corner_radius_10))
             .placeholder(R.drawable.grey_android_icon)
             .into(binding.ivImageEmployer)
         binding.tvEmployer.text = item.employer.name

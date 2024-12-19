@@ -16,7 +16,7 @@ class VacancyViewModel(
 ) : AndroidViewModel(application) {
 
     private val vacancyScreenStateLiveData = MutableLiveData<VacancyState>()
-    private lateinit var listVacancy: VacancyFullItemDto
+    private var listVacancy: VacancyFullItemDto? = null
 
     val getVacancyScreenStateLiveData: LiveData<VacancyState> = vacancyScreenStateLiveData
 
@@ -32,7 +32,7 @@ class VacancyViewModel(
     private fun processResult(vacancy: VacancyFullItemDto?, errorMessage: String?) {
         if (vacancy != null) {
             listVacancy = vacancy
-            renderState(VacancyState.Content(listVacancy))
+            renderState(VacancyState.Content(listVacancy!!))
         }
 
         when (errorMessage) {

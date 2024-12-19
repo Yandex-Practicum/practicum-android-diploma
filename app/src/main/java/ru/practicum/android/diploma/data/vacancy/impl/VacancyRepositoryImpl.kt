@@ -15,7 +15,6 @@ class VacancyRepositoryImpl(
 ) : VacancyRepository {
 
     override fun getVacancyId(id: String): Flow<Resource<VacancyFullItemDto>> = flow {
-
         val response = networkClient.doRequest(VacancyRequest(id))
         emit(
             when (response.code) {
@@ -29,11 +28,6 @@ class VacancyRepositoryImpl(
                     Resource.Error("Ошибка сервера")
                 }
             }
-
         )
     }
-
 }
-
-
-

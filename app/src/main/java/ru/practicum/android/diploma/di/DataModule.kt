@@ -22,14 +22,14 @@ val dataModule = module {
 
     single<HhApi> {
         Retrofit.Builder()
-        .baseUrl("https://api.hh.ru/")
-        .client(OkHttpClient.Builder().addInterceptor(HeaderInterceptor()).build())
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-        .create(HhApi::class.java)
+            .baseUrl("https://api.hh.ru/")
+            .client(OkHttpClient.Builder().addInterceptor(HeaderInterceptor()).build())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(HhApi::class.java)
     }
 
     single<NetworkClient> {
-        RetrofitNetworkClient(connectivityManager =  get(), imbdService =  get())
+        RetrofitNetworkClient(get(), get())
     }
 }
