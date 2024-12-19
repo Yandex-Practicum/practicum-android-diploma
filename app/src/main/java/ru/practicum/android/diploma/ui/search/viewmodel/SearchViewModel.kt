@@ -53,7 +53,7 @@ class SearchViewModel(
                         searchScreenStateLiveData.postValue(SearchScreenState.Error("HTTP Error: ${e.code()}"))
                     }
                 }
-            } catch (e: Exception) {
+            } catch (e: Throwable) {
                 Log.e(
                     "SearchViewModel",
                     "Unexpected error",
