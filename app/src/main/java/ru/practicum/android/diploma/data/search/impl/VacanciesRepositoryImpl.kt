@@ -19,7 +19,7 @@ class VacanciesRepositoryImpl(
     override fun getVacancies(searchParams: SearchParams): Flow<List<Vacancy>> {
         return flow {
             val response = networkClient.doRequest(VacancySearchRequest(searchParams))
-            when (response.resultCode) {
+            when (response.code) {
                 RetrofitNetworkClient.HTTP_OK_CODE -> {
                     with(response as VacancySearchResponse) {
                         val listOfFoundedVacancies = items.map {

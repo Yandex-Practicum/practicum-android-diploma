@@ -106,7 +106,8 @@
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/margin34"
         android:visibility="visible"
-        app:layout_constraintTop_toBottomOf="@id/ivFavorites">
+        app:layout_constraintTop_toBottomOf="@id/ivFavorites"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutAllVacancy"
@@ -229,6 +230,17 @@
                 app:layout_constraintTop_toBottomOf="@id/tvExperienceTitle" />
 
             <TextView
+                android:id="@+id/tvScheduleText"
+                style="@style/Regular16Text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:text="@string/text_list"
+                app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+                app:layout_constraintStart_toEndOf="@id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@id/tvExperienceText" />
+
+            <TextView
                 android:id="@+id/tvJobDescriptionTitle"
                 style="@style/Medium22Text"
                 android:layout_width="wrap_content"
@@ -238,76 +250,19 @@
                 android:maxLines="1"
                 android:text="@string/job_description"
                 app:layout_constraintStart_toEndOf="@id/startGuideline"
-                app:layout_constraintTop_toBottomOf="@id/tvExperienceText" />
-
-            <TextView
-                android:id="@+id/tvResponsibilitiesTitle"
-                style="@style/Medium16Text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin16"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="@string/responsibilities_title"
-                app:layout_constraintStart_toEndOf="@id/startGuideline"
-                app:layout_constraintTop_toBottomOf="@id/tvJobDescriptionTitle" />
+                app:layout_constraintTop_toBottomOf="@id/tvScheduleText" />
 
             <TextView
                 android:id="@+id/tvResponsibilitiesText"
                 style="@style/Regular16Text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:text="@string/text_list"
-                app:layout_constraintEnd_toStartOf="@+id/endGuideline"
-                app:layout_constraintStart_toEndOf="@id/startGuideline"
-                app:layout_constraintTop_toBottomOf="@id/tvResponsibilitiesTitle" />
-
-            <TextView
-                android:id="@+id/tvRequirementsTitle"
-                style="@style/Medium16Text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin16"
                 android:ellipsize="end"
-                android:maxLines="1"
-                android:text="@string/requirements_title"
-                app:layout_constraintStart_toEndOf="@id/startGuideline"
-                app:layout_constraintTop_toBottomOf="@id/tvResponsibilitiesText" />
-
-            <TextView
-                android:id="@+id/tvRequirementsText"
-                style="@style/Regular16Text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
                 android:text="@string/text_list"
                 app:layout_constraintEnd_toStartOf="@+id/endGuideline"
                 app:layout_constraintStart_toEndOf="@id/startGuideline"
-                app:layout_constraintTop_toBottomOf="@id/tvRequirementsTitle" />
-
-            <TextView
-                android:id="@+id/tvConditionsTitle"
-                style="@style/Medium16Text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin16"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="@string/conditions_title"
-                app:layout_constraintStart_toEndOf="@id/startGuideline"
-                app:layout_constraintTop_toBottomOf="@id/tvRequirementsText" />
-
-            <TextView
-                android:id="@+id/tvConditionsText"
-                style="@style/Regular16Text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:text="@string/text_list"
-                app:layout_constraintEnd_toStartOf="@+id/endGuideline"
-                app:layout_constraintStart_toEndOf="@id/startGuideline"
-                app:layout_constraintTop_toBottomOf="@id/tvConditionsTitle" />
+                app:layout_constraintTop_toBottomOf="@id/tvJobDescriptionTitle" />
 
             <TextView
                 android:id="@+id/tvKeySkillsTitle"
@@ -319,7 +274,7 @@
                 android:maxLines="1"
                 android:text="@string/key_skills_title"
                 app:layout_constraintStart_toEndOf="@id/startGuideline"
-                app:layout_constraintTop_toBottomOf="@id/tvConditionsText" />
+                app:layout_constraintTop_toBottomOf="@id/tvResponsibilitiesText" />
 
             <TextView
                 android:id="@+id/tvKeySkillsText"
@@ -327,8 +282,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin16"
+                android:layout_marginBottom="@dimen/margin24"
                 android:ellipsize="end"
                 android:text="@string/text_list"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/endGuideline"
                 app:layout_constraintStart_toEndOf="@id/startGuideline"
                 app:layout_constraintTop_toBottomOf="@id/tvKeySkillsTitle" />
