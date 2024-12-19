@@ -13,27 +13,24 @@ import ru.practicum.android.diploma.domain.vacancy.model.VacancyState
 class VacancyViewModel(
     application: Application,
     private val interactor: VacancyInteractor
-): AndroidViewModel(application) {
+) : AndroidViewModel(application) {
 
     private val vacancyScreenStateLiveData = MutableLiveData<VacancyState>()
     private lateinit var listVacancy: VacancyFullItemDto
 
     val getVacancyScreenStateLiveData: LiveData<VacancyState> = vacancyScreenStateLiveData
 
-    fun getVacancyRessurces(id: String){
+    fun getVacancyRessurces(id: String) {
         renderState(VacancyState.Loading)
         viewModelScope.launch {
-            interactor.getVacancyId(id).collect {
-                pair ->
+            interactor.getVacancyId(id).collect { pair ->
                 processResult(pair.first, pair.second)
             }
         }
     }
 
     private fun processResult(vacancy: VacancyFullItemDto?, errorMessage: String?) {
-
         if (vacancy != null) {
-
             listVacancy = vacancy
             renderState(VacancyState.Content(listVacancy))
         }
@@ -42,13 +39,15 @@ class VacancyViewModel(
             "Is empty" -> {
                 renderState(VacancyState.Empty)
             }
+
             "Not connect internet" -> {
                 renderState(VacancyState.Error)
             }
-            "Ошибка сервера" -> {
 
+            "Ошибка сервера" -> {
                 renderState(VacancyState.Error)
             }
+
             "404" -> {
                 renderState(VacancyState.Error)
             }
@@ -59,7 +58,3 @@ class VacancyViewModel(
         vacancyScreenStateLiveData.postValue(state)
     }
 }
-
-
-
-

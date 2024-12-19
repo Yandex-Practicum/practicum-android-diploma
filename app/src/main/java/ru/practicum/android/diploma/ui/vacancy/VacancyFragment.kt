@@ -6,6 +6,7 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -53,19 +54,31 @@ class VacancyFragment : Fragment() {
         }
     }
 
-    private fun showLoading() {}
+    private fun showLoading() {
+        binding.progressBarVacancy.isVisible = true
+        binding.scrollableContent.isVisible = false
+        binding.llVacancyNotFound.isVisible = false
+    }
 
-    private fun showError() {}
+    private fun showError() {
+        Toast(context).show()
+    }
 
-    private fun showEmpty() {}
+    private fun showEmpty() {
+        binding.progressBarVacancy.isVisible = false
+        binding.scrollableContent.isVisible = false
+        binding.llVacancyNotFound.isVisible = true
+    }
 
     private fun showContent(item: VacancyFullItemDto) {
-
+        binding.progressBarVacancy.isVisible = false
+        binding.scrollableContent.isVisible = true
+        binding.llVacancyNotFound.isVisible = false
         binding.tvName.text = item.name
         binding.tvSalary.text = salary(item)
         Glide.with(this)
             .load(item.employer.logoUrls?.logo90pxUrl)
-            .override(dpToPx(48f, requireContext()),dpToPx(48f, requireContext()))
+            .override(dpToPx(48f, requireContext()), dpToPx(48f, requireContext()))
             .transform(RoundedCorners(10))
             .placeholder(R.drawable.grey_android_icon)
             .into(binding.ivImageEmployer)
@@ -75,11 +88,9 @@ class VacancyFragment : Fragment() {
         binding.tvScheduleText.text = "${item.employment.name}, ${item.schedule.name}"
         binding.tvResponsibilitiesText.text = Html.fromHtml(item.description, HtmlCompat.FROM_HTML_MODE_LEGACY)
         keySkills(item)
-
-
     }
 
-    private fun salary(item: VacancyFullItemDto): String{
+    private fun salary(item: VacancyFullItemDto): String {
         val currencyCodeMapping = mapOf(
             "RUR" to "₽",
             "BYR" to "Br",
@@ -90,31 +101,31 @@ class VacancyFragment : Fragment() {
         )
         val codeSalary = currencyCodeMapping[item.salary?.currency] ?: item.salary?.currency
         val str: String
-        if (item.salary == null){
+        if (item.salary == null) {
             str = "зарплата не указана"
         } else if (item.salary.to == null || item.salary.from == item.salary.to) {
             str = "от ${item.salary.from} $codeSalary"
-        }else {
+        } else {
             str = "от ${item.salary.from} $codeSalary до ${item.salary.to} $codeSalary"
         }
         return str
     }
 
-    private fun addresEmployer(item: VacancyFullItemDto): String{
+    private fun addresEmployer(item: VacancyFullItemDto): String {
         val str: String
-        if (item.address == null){
+        if (item.address == null) {
             str = item.area.name
-        }else {
+        } else {
             str = item.address.raw
         }
         return str
     }
 
-    private fun keySkills(item: VacancyFullItemDto){
-        if (item.keySkills.isEmpty()){
+    private fun keySkills(item: VacancyFullItemDto) {
+        if (item.keySkills.isEmpty()) {
             binding.tvKeySkillsText.isVisible = false
             binding.tvKeySkillsTitle.isVisible = false
-        }else {
+        } else {
             val formatedText = item.keySkills.joinToString(separator = "\n") { itemKey ->
                 "• ${itemKey.name.replace(",", ",\n")}"
             }

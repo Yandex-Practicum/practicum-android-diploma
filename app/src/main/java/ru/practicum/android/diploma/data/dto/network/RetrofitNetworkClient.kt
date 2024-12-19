@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.data.dto.network
 
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -54,12 +55,13 @@ class RetrofitNetworkClient(
                     else -> Response().apply { code = HTTP_CODE_0 }
                 }
             } catch (e: IOException) {
+                Log.e("errorSearchVacancy", "$e")
                 Response().apply { code = HTTP_INTERNAL_SERVER_ERROR_CODE }
             }
         }
     }
 
-    private suspend fun getFullVacancy(request: VacancyRequest): Response{
+    private suspend fun getFullVacancy(request: VacancyRequest): Response {
         return withContext(Dispatchers.IO) {
             try {
                 VacancyResponse(imbdService.getVacancyById(request.id))
@@ -68,6 +70,7 @@ class RetrofitNetworkClient(
                 Response().apply { code = e.code() }
 
             } catch (e: IOException) {
+                Log.e("errorFullVacancy", "$e")
                 Response().apply { code = HTTP_INTERNAL_SERVER_ERROR_CODE }
             }
         }
