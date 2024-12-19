@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.domain.vacancy.model
+package ru.practicum.android.diploma.ui.vacancy
 
 import ru.practicum.android.diploma.data.dto.model.VacancyFullItemDto
 
@@ -10,8 +10,12 @@ sealed interface VacancyState {
         val item: VacancyFullItemDto,
     ) : VacancyState
 
-    object Error : VacancyState
-
     object Empty : VacancyState
+
+    object NetworkError: VacancyState
+
+    object BadRequest: VacancyState
+
+    object ServerError: VacancyState
 
 }

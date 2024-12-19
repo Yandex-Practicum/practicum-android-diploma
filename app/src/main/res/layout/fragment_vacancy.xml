@@ -87,14 +87,44 @@
         tools:ignore="UseCompoundDrawables">
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/atvVacancyNotFound"
             style="@style/Medium22Text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableTop="@drawable/vacancy_not_found"
             android:drawablePadding="@dimen/margin16"
+            android:visibility="visible"
             android:ellipsize="end"
             android:maxLines="2"
             android:text="@string/vacancy_not_found"
+            android:textAlignment="center"
+            tools:ignore="UseCompatTextViewDrawableXml" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/atvErrorServer"
+            style="@style/Medium22Text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/error_server_vacancy"
+            android:drawablePadding="@dimen/margin16"
+            android:visibility="gone"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@string/server_error_text"
+            android:textAlignment="center"
+            tools:ignore="UseCompatTextViewDrawableXml" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/atvErrorInternet"
+            style="@style/Medium22Text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/placeholder_network_error"
+            android:drawablePadding="@dimen/margin16"
+            android:visibility="gone"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@string/network_error_text"
             android:textAlignment="center"
             tools:ignore="UseCompatTextViewDrawableXml" />
 

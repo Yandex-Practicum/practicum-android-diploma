@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.presentation.vacancy
+package ru.practicum.android.diploma.ui.vacancy
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -7,8 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.data.dto.model.VacancyFullItemDto
+import ru.practicum.android.diploma.data.dto.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.domain.vacancy.VacancyInteractor
-import ru.practicum.android.diploma.domain.vacancy.model.VacancyState
 
 class VacancyViewModel(
     application: Application,
@@ -36,20 +36,24 @@ class VacancyViewModel(
         }
 
         when (errorMessage) {
-            "Is empty" -> {
+
+            "Network Error" -> {
+                renderState(VacancyState.NetworkError)
+            }
+
+            "Bad Request" -> {
+                renderState(VacancyState.BadRequest)
+            }
+
+            "Not Found" -> {
                 renderState(VacancyState.Empty)
             }
 
-            "Not connect internet" -> {
-                renderState(VacancyState.Error)
+            "Unknown Error" -> {
+                renderState(VacancyState.ServerError)
             }
-
-            "Ошибка сервера" -> {
-                renderState(VacancyState.Error)
-            }
-
-            "404" -> {
-                renderState(VacancyState.Error)
+            "Server Error" -> {
+                renderState(VacancyState.ServerError)
             }
         }
     }

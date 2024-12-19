@@ -16,8 +16,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.dto.model.VacancyFullItemDto
 import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
-import ru.practicum.android.diploma.domain.vacancy.model.VacancyState
-import ru.practicum.android.diploma.presentation.vacancy.VacancyViewModel
 
 class VacancyFragment : Fragment() {
 
@@ -41,14 +39,16 @@ class VacancyFragment : Fragment() {
             render(it)
         }
 
-        viewModel.getVacancyRessurces("114171883")
+        viewModel.getVacancyRessurces("1")
 
     }
 
     private fun render(state: VacancyState) {
         when (state) {
             is VacancyState.Loading -> showLoading()
-            is VacancyState.Error -> showError()
+            is VacancyState.ServerError -> showError()
+            is VacancyState.BadRequest -> badRequest()
+            is VacancyState.NetworkError -> networkError()
             is VacancyState.Empty -> showEmpty()
             is VacancyState.Content -> showContent(state.item)
         }
@@ -61,13 +61,39 @@ class VacancyFragment : Fragment() {
     }
 
     private fun showError() {
-        Toast(context).show()
+        binding.progressBarVacancy.isVisible = false
+        binding.scrollableContent.isVisible = false
+        binding.llVacancyNotFound.isVisible = true
+        binding.atvErrorServer.isVisible = true
+        binding.atvErrorInternet.isVisible = false
+        binding.atvVacancyNotFound.isVisible = false
+    }
+
+    private fun badRequest(){
+        binding.progressBarVacancy.isVisible = false
+        binding.scrollableContent.isVisible = false
+        binding.llVacancyNotFound.isVisible = true
+        binding.atvErrorServer.isVisible = true
+        binding.atvErrorInternet.isVisible = false
+        binding.atvVacancyNotFound.isVisible = false
+    }
+
+    private fun networkError(){
+        binding.progressBarVacancy.isVisible = false
+        binding.scrollableContent.isVisible = false
+        binding.llVacancyNotFound.isVisible = true
+        binding.atvErrorServer.isVisible = false
+        binding.atvErrorInternet.isVisible = true
+        binding.atvVacancyNotFound.isVisible = false
     }
 
     private fun showEmpty() {
         binding.progressBarVacancy.isVisible = false
         binding.scrollableContent.isVisible = false
         binding.llVacancyNotFound.isVisible = true
+        binding.atvErrorServer.isVisible = false
+        binding.atvErrorInternet.isVisible = false
+        binding.atvVacancyNotFound.isVisible = true
     }
 
     private fun showContent(item: VacancyFullItemDto) {
@@ -93,12 +119,16 @@ class VacancyFragment : Fragment() {
 
     private fun salary(item: VacancyFullItemDto): String {
         val currencyCodeMapping = mapOf(
-            "RUR" to "₽",
+            "AZN" to "₼",
             "BYR" to "Br",
-            "USD" to "$",
             "EUR" to "€",
-            "RUB" to "₽",
-            "BYN" to "Br"
+            "GEL" to "₾",
+            "KGS" to "⃀",
+            "KZT" to "₸",
+            "RUR" to "₽",
+            "UAH" to "₴",
+            "USD" to "$",
+            "UZS" to "Soʻm",
         )
         val codeSalary = currencyCodeMapping[item.salary?.currency] ?: item.salary?.currency
         val str: String
