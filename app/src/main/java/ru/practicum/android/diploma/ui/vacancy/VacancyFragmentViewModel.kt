@@ -1,13 +1,10 @@
 package ru.practicum.android.diploma.ui.vacancy
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.ViewModel
-
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.data.dto.model.favorites.ShareData
 import ru.practicum.android.diploma.domain.api.VacancyInteractor
 import ru.practicum.android.diploma.domain.models.Vacancy
@@ -26,7 +23,7 @@ class VacancyFragmentViewModel(private val vacancyInteractor: VacancyInteractor)
     }
 
     fun isVacancyInFavorites(trackId: String) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             favoritesState.postValue(
                 vacancyInteractor.isFavorite(trackId)
             )
@@ -34,7 +31,7 @@ class VacancyFragmentViewModel(private val vacancyInteractor: VacancyInteractor)
     }
 
     fun onFavoriteClicked(vacancy: Vacancy) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             if (vacancy.isFavorite) {
                 vacancyInteractor.deleteFavouritesVacancyEntity(vacancy)
                 vacancy.isFavorite = false
