@@ -77,8 +77,8 @@ class VacanciesRepositoryImpl(
                 else -> {
                     throw HttpException(
                         Response.error<Any>(
-                            response.resultCode,
-                            ResponseBody.create(null, "Unexpected Error: ${response.resultCode}")
+                            response.code,
+                            ResponseBody.create(null, "Unexpected Error: ${response.code}")
                         )
                     )
                 }
