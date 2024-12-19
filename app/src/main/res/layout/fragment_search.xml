@@ -119,8 +119,19 @@
         android:layout_marginTop="32dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/hh_blue"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/bottomGuideline"
+        app:layout_constraintEnd_toEndOf="@id/endGuideline"
+        app:layout_constraintStart_toStartOf="@id/startGuideline"
+        app:layout_constraintTop_toBottomOf="@id/topGuideline" />
+
     <ImageView
-        android:id="@+id/placeholder"
+        android:id="@+id/placeholderMain"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="156dp"
@@ -131,6 +142,93 @@
         app:layout_constraintEnd_toEndOf="@id/endGuideline"
         app:layout_constraintStart_toStartOf="@id/startGuideline"
         app:layout_constraintTop_toBottomOf="@id/topGuideline"
-        android:visibility="gone" />
+        android:visibility="visible" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/networkErrorPlaceholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="networkErrorImage,networkErrorText" />
+
+    <ImageView
+        android:id="@+id/networkErrorImage"
+        android:layout_width="@dimen/width_placeholder"
+        android:layout_height="@dimen/height_placeholder"
+        android:src="@drawable/placeholder_network_error"
+        app:layout_constraintBottom_toTopOf="@id/bottomGuideline"
+        app:layout_constraintEnd_toEndOf="@id/endGuideline"
+        app:layout_constraintStart_toStartOf="@id/startGuideline"
+        app:layout_constraintTop_toBottomOf="@id/topGuideline" />
+
+    <TextView
+        android:id="@+id/networkErrorText"
+        style="@style/Medium22Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin16"
+        android:text="@string/network_error_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/networkErrorImage" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/notFoundPlaceholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="notFoundImage,notFoundText" />
+
+    <ImageView
+        android:id="@+id/notFoundImage"
+        android:layout_width="@dimen/width_placeholder"
+        android:layout_height="@dimen/height_placeholder"
+        android:src="@drawable/placeholder_not_found"
+        app:layout_constraintBottom_toTopOf="@id/bottomGuideline"
+        app:layout_constraintEnd_toEndOf="@id/endGuideline"
+        app:layout_constraintStart_toStartOf="@id/startGuideline"
+        app:layout_constraintTop_toBottomOf="@id/topGuideline" />
+
+    <TextView
+        android:id="@+id/notFoundText"
+        style="@style/Medium22Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin16"
+        android:gravity="center"
+        android:text="@string/not_found_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/notFoundImage" />
+
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/serverErrorPlaceholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="serverErrorImage,serverErrorText" />
+
+    <ImageView
+        android:id="@+id/serverErrorImage"
+        android:layout_width="@dimen/width_placeholder"
+        android:layout_height="@dimen/height_placeholder"
+        android:src="@drawable/placeholder_server_error_search"
+        app:layout_constraintBottom_toTopOf="@id/bottomGuideline"
+        app:layout_constraintEnd_toEndOf="@id/endGuideline"
+        app:layout_constraintStart_toStartOf="@id/startGuideline"
+        app:layout_constraintTop_toBottomOf="@id/topGuideline" />
+
+    <TextView
+        android:id="@+id/serverErrorText"
+        style="@style/Medium22Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin16"
+        android:gravity="center"
+        android:text="@string/server_error_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/serverErrorImage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
