@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.data.dto.model.VacancyFullItemDto
-import ru.practicum.android.diploma.data.dto.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.domain.vacancy.VacancyInteractor
 
 class VacancyViewModel(
@@ -36,7 +35,6 @@ class VacancyViewModel(
         }
 
         when (errorMessage) {
-
             "Network Error" -> {
                 renderState(VacancyState.NetworkError)
             }

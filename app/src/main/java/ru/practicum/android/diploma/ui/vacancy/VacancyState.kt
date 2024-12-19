@@ -12,10 +12,10 @@ sealed interface VacancyState {
 
     object Empty : VacancyState
 
-    object NetworkError: VacancyState
+    object NetworkError : VacancyState
 
-    object BadRequest: VacancyState
+    object BadRequest : VacancyState
 
-    object ServerError: VacancyState
+    object ServerError : VacancyState
 
 }
