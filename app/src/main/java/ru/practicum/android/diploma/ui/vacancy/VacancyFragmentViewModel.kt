@@ -1,11 +1,11 @@
 package ru.practicum.android.diploma.ui.vacancy
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.data.dto.model.favorites.ShareData
 import ru.practicum.android.diploma.domain.api.VacancyInteractor
 import ru.practicum.android.diploma.domain.models.Vacancy
