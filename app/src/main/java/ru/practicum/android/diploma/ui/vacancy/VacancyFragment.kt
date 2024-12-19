@@ -71,7 +71,7 @@ class VacancyFragment : Fragment() {
     }
 
     private fun showContent(item: VacancyFullItemDto) {
-        val imgSizeInPx = dpToPx(R.dimen.img_size48.toFloat(), requireContext())
+        val imgSizeInPx = dpToPx(requireContext().resources.getDimension(R.dimen.img_size48), requireContext())
         binding.progressBarVacancy.isVisible = false
         binding.scrollableContent.isVisible = true
         binding.llVacancyNotFound.isVisible = false

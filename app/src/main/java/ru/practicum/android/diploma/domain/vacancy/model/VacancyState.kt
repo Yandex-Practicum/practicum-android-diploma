@@ -7,7 +7,7 @@ sealed interface VacancyState {
     object Loading : VacancyState
 
     data class Content(
-        var item: VacancyFullItemDto,
+        val item: VacancyFullItemDto,
     ) : VacancyState
 
     object Error : VacancyState
