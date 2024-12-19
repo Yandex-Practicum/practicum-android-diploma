@@ -54,7 +54,11 @@ class SearchViewModel(
                     }
                 }
             } catch (e: Exception) {
-                Log.e("SearchViewModel", "Unexpected error", e)
+                Log.e(
+                    "SearchViewModel",
+                    "Unexpected error",
+                    e
+                )
                 searchScreenStateLiveData.postValue(SearchScreenState.Error("Unexpected error: ${e.message ?: "Unknown"}"))
             }
         }
