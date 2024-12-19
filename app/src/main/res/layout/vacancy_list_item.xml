@@ -35,7 +35,7 @@
         app:layout_constraintStart_toStartOf="@id/tvTitleOfVacancy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTitleOfVacancy"
-        android:layout_marginEnd="128dp"
+        android:layout_marginEnd="80dp"
         android:maxLines="1"
         android:ellipsize="end"
         tools:text="Какая-то компания, точно хорошая" />
@@ -48,9 +48,11 @@
         app:layout_constraintStart_toStartOf="@id/tvTitleOfVacancy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvCompanyName"
-        android:layout_marginEnd="128dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="@dimen/icon_margin"
         android:maxLines="1"
         android:ellipsize="end"
-        tools:text="от 0 до 10050000000000000 $" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="Зарплата не указана" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
