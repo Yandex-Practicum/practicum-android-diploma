@@ -1,15 +1,15 @@
 package ru.practicum.android.diploma.ui.vacancy
 
+import ru.practicum.android.diploma.data.dto.model.favorites.ShareData
+import ru.practicum.android.diploma.domain.api.VacancyInteractor
+import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.util.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.LiveData
-import ru.practicum.android.diploma.data.dto.model.favorites.ShareData
-import ru.practicum.android.diploma.domain.api.VacancyInteractor
-import ru.practicum.android.diploma.domain.models.Vacancy
-import ru.practicum.android.diploma.util.SingleLiveEvent
 
 class VacancyFragmentViewModel(private val vacancyInteractor: VacancyInteractor) : ViewModel() {
 
