@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Bold32Text">
+        <item name="android:fontFamily">@font/ys_display_bold</item>
+        <item name="android:textColor">?attr/colorOfText</item>
+        <item name="android:textSize">@dimen/text_size_32</item>
+        <item name="android:textFontWeight">700</item>
+        <item name="android:lineHeight">38dp</item>
+    </style>
+
+    <style name="Medium22Text">
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textColor">?attr/colorOfText</item>
+        <item name="android:textSize">@dimen/text_size_22</item>
+        <item name="android:textFontWeight">500</item>
+        <item name="android:lineHeight">26dp</item>
+    </style>
+
+    <style name="Medium16Text" parent="Medium22Text">
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:lineHeight">19dp</item>
+    </style>
+
+    <style name="Regular16Text" parent="Medium16Text">
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:fontWeight">400</item>
+    </style>
+
+    <style name="Regular12Text" parent="Regular16Text">
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:lineHeight">@dimen/team_indent</item>
+    </style>
+</resources>
