@@ -53,14 +53,6 @@ class SearchViewModel(
                         searchScreenStateLiveData.postValue(SearchScreenState.Error("HTTP Error: ${e.code()}"))
                     }
                 }
-            } catch (e: Throwable) {
-                Log.e(
-                    "SearchViewModel",
-                    "Unexpected error",
-                    e
-                )
-                searchScreenStateLiveData
-                    .postValue(SearchScreenState.Error("Unexpected error: ${e.message ?: "Unknown"}"))
             }
         }
     }
