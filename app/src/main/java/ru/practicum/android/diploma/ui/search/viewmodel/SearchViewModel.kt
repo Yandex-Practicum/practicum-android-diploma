@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.ui.search.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,6 +15,11 @@ import java.io.IOException
 class SearchViewModel(
     private val searchInteractor: SearchInteractor
 ) : ViewModel() {
+
+    companion object {
+        private const val HTTP_NOT_FOUND = 404
+        private const val HTTP_SERVER_ERROR = 500
+    }
 
     private val searchScreenStateLiveData = MutableLiveData<SearchScreenState>()
 
@@ -31,14 +37,15 @@ class SearchViewModel(
                     }
                 }
             } catch (e: IOException) {
+                Log.e("SearchViewModel", "Network error", e)
                 searchScreenStateLiveData.postValue(SearchScreenState.NetworkError)
             } catch (e: HttpException) {
                 when (e.code()) {
-                    404 -> {
+                    HTTP_NOT_FOUND -> {
                         searchScreenStateLiveData.postValue(SearchScreenState.NotFound)
                     }
 
-                    500 -> {
+                    HTTP_SERVER_ERROR -> {
                         searchScreenStateLiveData.postValue(SearchScreenState.ServerError)
                     }
 
@@ -47,7 +54,8 @@ class SearchViewModel(
                     }
                 }
             } catch (e: Exception) {
-                searchScreenStateLiveData.postValue(SearchScreenState.Error(e.message ?: "Unknown Error"))
+                Log.e("SearchViewModel", "Unexpected error", e)
+                searchScreenStateLiveData.postValue(SearchScreenState.Error("Unexpected error: ${e.message ?: "Unknown"}"))
             }
         }
     }
