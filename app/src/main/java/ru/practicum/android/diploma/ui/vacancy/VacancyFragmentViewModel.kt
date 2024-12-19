@@ -15,31 +15,27 @@ class VacancyFragmentViewModel(private val vacancyInteractor: VacancyInteractor)
     private val shareState = SingleLiveEvent<ShareData>()
     fun observeShareState(): LiveData<ShareData> = shareState
 
-    val favoritesState = MutableLiveData<Boolean>()
-    fun observeFavoritesState(): LiveData<Boolean> = favoritesState
+    private val _isFavorite = MutableLiveData<Boolean>()
+    val isFavorite: LiveData<Boolean> get() = _isFavorite
 
     fun shareVacancy(id: String) {
         shareState.postValue(vacancyInteractor.getShareData(id))
     }
 
-    fun isVacancyInFavorites(trackId: String) {
+    fun isVacancyInFavorites(id: String) {
         viewModelScope.launch {
-            favoritesState.postValue(
-                vacancyInteractor.isFavorite(trackId)
-            )
+            _isFavorite.postValue(vacancyInteractor.isFavorite(id))
         }
     }
 
     fun onFavoriteClicked(vacancy: Vacancy) {
         viewModelScope.launch {
-            if (vacancy.isFavorite) {
+            if (_isFavorite.value == true) {
                 vacancyInteractor.deleteFavouritesVacancyEntity(vacancy)
-                vacancy.isFavorite = false
-                favoritesState.postValue(false)
+                _isFavorite.postValue(false)
             } else {
                 vacancyInteractor.addVacancyToFavorites(vacancy)
-                vacancy.isFavorite = true
-                favoritesState.postValue(true)
+                _isFavorite.postValue(true)
             }
         }
     }

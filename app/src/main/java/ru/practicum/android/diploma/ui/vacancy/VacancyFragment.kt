@@ -40,16 +40,14 @@ class VacancyFragment : Fragment() {
             viewModel.shareVacancy(vacancy.id)
         }
 
-        if (vacancy != null) {
-            updateFavoriteState(vacancy.isFavorite)
-        }
-        binding.ivFavorites.setOnClickListener {
-            viewModel.onFavoriteClicked(vacancy)
+        viewModel.isVacancyInFavorites(vacancy.id)
+
+        viewModel.isFavorite.observe(viewLifecycleOwner) { state ->
+            updateFavoriteState(state)
         }
 
-        viewModel.observeFavoritesState().observe(viewLifecycleOwner) { state ->
-            vacancy?.isFavorite = state
-            updateFavoriteState(state)
+        binding.ivFavorites.setOnClickListener {
+            viewModel.onFavoriteClicked(vacancy)
         }
     }
 
