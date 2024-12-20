@@ -4,11 +4,9 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.data.dto.model.favorites.ShareData
-import ru.practicum.android.diploma.domain.api.VacancyInteractor
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.util.SingleLiveEvent
 import ru.practicum.android.diploma.data.dto.model.VacancyFullItemDto
@@ -29,14 +27,13 @@ class VacancyViewModel(
     val getVacancyScreenStateLiveData: LiveData<VacancyState> = vacancyScreenStateLiveData
 
     fun shareVacancy(id: String) {
-        shareState.postValue(vacancyInteractor.getShareData(id))
+        shareState.postValue(interactor.getShareData(id))
     }
 
-    fun isVacancyInFavorites(id: String) {
     fun getVacancyRessurces(id: String) {
         renderState(VacancyState.Loading)
         viewModelScope.launch {
-            _isFavorite.postValue(vacancyInteractor.isFavorite(id))
+            _isFavorite.postValue(interactor.isFavorite(id))
             interactor.getVacancyId(id).collect { pair ->
                 processResult(pair.first, pair.second)
             }
@@ -62,20 +59,32 @@ class VacancyViewModel(
                 renderState(VacancyState.Empty)
             }
 
-    fun onFavoriteClicked(vacancy: Vacancy) {
-        viewModelScope.launch {
-            if (_isFavorite.value == true) {
-                vacancyInteractor.deleteFavouritesVacancyEntity(vacancy)
-                _isFavorite.postValue(false)
-            } else {
-                vacancyInteractor.addVacancyToFavorites(vacancy)
-                _isFavorite.postValue(true)
             "Unknown Error" -> {
                 renderState(VacancyState.ServerError)
             }
+
             "Server Error" -> {
                 renderState(VacancyState.ServerError)
             }
+        }
+    }
+
+    fun onFavoriteClicked(vacancy: Vacancy) {
+        viewModelScope.launch {
+            if (_isFavorite.value == true) {
+                interactor.deleteFavouritesVacancyEntity(vacancy)
+                _isFavorite.postValue(false)
+            } else {
+                interactor.addVacancyToFavorites(vacancy)
+                _isFavorite.postValue(true)
+
+            }
+        }
+    }
+
+    fun isVacancyInFavorites(id: String) {
+        viewModelScope.launch {
+            _isFavorite.postValue(interactor.isFavorite(id))
         }
     }
 

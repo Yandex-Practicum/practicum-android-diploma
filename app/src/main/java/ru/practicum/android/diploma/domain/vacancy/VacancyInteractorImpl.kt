@@ -3,9 +3,12 @@ package ru.practicum.android.diploma.domain.vacancy
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import ru.practicum.android.diploma.data.dto.model.VacancyFullItemDto
+import ru.practicum.android.diploma.data.dto.model.favorites.ShareData
 import ru.practicum.android.diploma.data.vacancy.VacancyRepository
+import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.util.Resource
 
+//keep
 class VacancyInteractorImpl(private val repository: VacancyRepository) : VacancyInteractor {
 
     override fun getVacancyId(id: String): Flow<Pair<VacancyFullItemDto?, String?>> {
@@ -20,5 +23,21 @@ class VacancyInteractorImpl(private val repository: VacancyRepository) : Vacancy
                 }
             }
         }
+    }
+
+    override fun getShareData(id: String): ShareData {
+        return repository.getShareData(id)
+    }
+
+    override suspend fun isFavorite(vacancyId: String): Boolean {
+        return repository.isFavorite(vacancyId)
+    }
+
+    override suspend fun addVacancyToFavorites(vacancy: Vacancy) {
+        repository.insertFavouritesVacancyEntity(vacancy)
+    }
+
+    override suspend fun deleteFavouritesVacancyEntity(vacancy: Vacancy) {
+        repository.deleteFavouritesVacancyEntity(vacancy)
     }
 }
