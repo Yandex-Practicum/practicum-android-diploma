@@ -26,7 +26,7 @@ class VacancyFragment : Fragment() {
     }
 
     private var _binding: FragmentVacancyBinding? = null
-    private val viewModel by viewModel<VacancyFragmentViewModel>()
+    private val viewModel by viewModel<VacancyViewModel>()
 
     private val binding get() = _binding!!
     private val viewModel by viewModel<VacancyViewModel>()
