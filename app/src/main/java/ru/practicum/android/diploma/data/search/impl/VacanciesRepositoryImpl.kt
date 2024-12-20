@@ -23,7 +23,7 @@ class VacanciesRepositoryImpl(
     override fun getVacancies(searchParams: SearchParams): Flow<List<Vacancy>> {
         return flow {
             val response = networkClient.doRequest(VacancySearchRequest(searchParams))
-            when (response.resultCode) {
+            when (response.code) {
                 RetrofitNetworkClient.HTTP_OK_CODE -> {
                     with(response as VacancySearchResponse) {
                         val listOfFoundedVacancies = items.map {
@@ -77,8 +77,8 @@ class VacanciesRepositoryImpl(
                 else -> {
                     throw HttpException(
                         Response.error<Any>(
-                            response.resultCode,
-                            ResponseBody.create(null, "Unexpected Error: ${response.resultCode}")
+                            response.code,
+                            ResponseBody.create(null, "Unexpected Error: ${response.code}")
                         )
                     )
                 }
