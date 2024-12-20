@@ -5,8 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import ru.practicum.android.diploma.data.dto.VacancySearchResponse
 import ru.practicum.android.diploma.data.dto.model.SalaryDto
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.search.SearchInteractor
@@ -46,57 +48,81 @@ class SearchViewModel(
         if (isNextPageLoading) return
         isNextPageLoading = true
 
+        updateLoadingState(searchParams)
+        currentSearchQuery = searchParams.searchQuery
+
+        viewModelScope.launch {
+            try {
+                handleSuccessResponse(searchInteractor.getVacancies(searchParams), searchParams)
+            } catch (e: IOException) {
+                handleNetworkError()
+            } catch (e: HttpException) {
+                handleHttpError(e)
+            } finally {
+                resetLoadingState()
+            }
+        }
+    }
+
+    private fun updateLoadingState(searchParams: SearchParams) {
         if (searchParams.numberOfPage == "0") {
             _isLoading.postValue(true)
         } else {
             _isPaginationLoading.postValue(true)
         }
+    }
 
-        currentSearchQuery = searchParams.searchQuery
-        viewModelScope.launch {
-            try {
-                searchInteractor.getVacancies(searchParams).collect { response ->
-                    Log.d("SearchViewModel", "Received response: $response")
-                    if (response.items.isNotEmpty()) {
-                        if (searchParams.numberOfPage == "0") {
-                            vacanciesList.clear()
-                        }
-                        val vacancies = response.items.map {
-                            Vacancy(
-                                it.id,
-                                it.name,
-                                it.area.name,
-                                getCorrectFormOfSalaryText(it.salary),
-                                it.employer.name,
-                                it.employer.logoUrls?.original
-                            )
-                        }
-                        vacanciesList.addAll(vacancies)
-                        searchScreenStateLiveData.postValue(SearchScreenState.Content(vacanciesList))
-                        currentPage = response.page
-                        maxPages = response.pages
-                        if (searchParams.numberOfPage == "0") {
-                            _counterVacancy.postValue(response.found)
-                        }
-                    } else {
-                        searchScreenStateLiveData.postValue(SearchScreenState.NotFound)
-                    }
+    private suspend fun handleSuccessResponse(response: Flow<VacancySearchResponse>, searchParams: SearchParams) {
+        response.collect { response ->
+            Log.d("SearchViewModel", "Received response: $response")
+            if (response.items.isNotEmpty()) {
+                updateVacanciesList(response, searchParams)
+                searchScreenStateLiveData.postValue(SearchScreenState.Content(vacanciesList))
+                currentPage = response.page
+                maxPages = response.pages
+                if (searchParams.numberOfPage == "0") {
+                    _counterVacancy.postValue(response.found)
                 }
-            } catch (e: IOException) {
-                Log.e("SearchViewModel", "Network error", e)
-                searchScreenStateLiveData.postValue(SearchScreenState.NetworkError)
-            } catch (e: HttpException) {
-                when (e.code()) {
-                    HTTP_NOT_FOUND -> searchScreenStateLiveData.postValue(SearchScreenState.NotFound)
-                    HTTP_SERVER_ERROR -> searchScreenStateLiveData.postValue(SearchScreenState.ServerError)
-                    else -> searchScreenStateLiveData.postValue(SearchScreenState.Error("HTTP Error: ${e.code()}"))
-                }
-            } finally {
-                isNextPageLoading = false
-                _isLoading.postValue(false)
-                _isPaginationLoading.postValue(false)
+            } else {
+                searchScreenStateLiveData.postValue(SearchScreenState.NotFound)
             }
         }
+    }
+
+    private fun updateVacanciesList(response: VacancySearchResponse, searchParams: SearchParams) {
+        if (searchParams.numberOfPage == "0") {
+            vacanciesList.clear()
+        }
+        val vacancies = response.items.map {
+            Vacancy(
+                it.id,
+                it.name,
+                it.area.name,
+                getCorrectFormOfSalaryText(it.salary),
+                it.employer.name,
+                it.employer.logoUrls?.original
+            )
+        }
+        vacanciesList.addAll(vacancies)
+    }
+
+    private fun handleNetworkError() {
+        Log.e("SearchViewModel", "Network error")
+        searchScreenStateLiveData.postValue(SearchScreenState.NetworkError)
+    }
+
+    private fun handleHttpError(e: HttpException) {
+        when (e.code()) {
+            HTTP_NOT_FOUND -> searchScreenStateLiveData.postValue(SearchScreenState.NotFound)
+            HTTP_SERVER_ERROR -> searchScreenStateLiveData.postValue(SearchScreenState.ServerError)
+            else -> searchScreenStateLiveData.postValue(SearchScreenState.Error("HTTP Error: ${e.code()}"))
+        }
+    }
+
+    private fun resetLoadingState() {
+        isNextPageLoading = false
+        _isLoading.postValue(false)
+        _isPaginationLoading.postValue(false)
     }
 
     fun onLastItemReached() {
