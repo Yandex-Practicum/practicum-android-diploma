@@ -67,6 +67,8 @@
             android:id="@+id/etSearchVacancy"
             style="@style/SearchEditText"
             android:focusableInTouchMode="true"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/enter_query" />
@@ -129,6 +131,21 @@
         app:layout_constraintEnd_toEndOf="@id/endGuideline"
         app:layout_constraintStart_toStartOf="@id/startGuideline"
         app:layout_constraintTop_toBottomOf="@id/topGuideline" />
+
+    <FrameLayout
+        android:id="@+id/progressBarPagination"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/endGuideline"
+        app:layout_constraintStart_toStartOf="@id/startGuideline"
+        android:visibility="gone">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/hh_blue"/>
+    </FrameLayout>
 
     <ImageView
         android:id="@+id/placeholderMain"
