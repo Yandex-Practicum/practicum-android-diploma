@@ -9,7 +9,8 @@ interface VacancyInteractor {
 
     fun getVacancyId(id: String): Flow<Pair<VacancyFullItemDto?, String?>>
     fun getShareData(id: String): ShareData
-    suspend fun isFavorite(vacancyId: String): Boolean
-    suspend fun addVacancyToFavorites(vacancy: Vacancy)
-    suspend fun deleteFavouritesVacancyEntity(vacancy: Vacancy)
+    suspend fun isFavorite(id: String): Boolean
+    suspend fun addVacancyToFavorites(id: String)
+    suspend fun deleteFavouritesVacancyEntity(id: String)
+    suspend fun getVacancyById(id: String): Vacancy
 }

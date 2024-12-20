@@ -17,8 +17,8 @@ interface FavouritesVacancyDao {
     @Query("SELECT * FROM favourites_vacancy_table")
     fun getFavouritesVacancyList(): Flow<List<FavouritesVacancyEntity>>
 
-    @Delete(entity = FavouritesVacancyEntity::class)
-    suspend fun deleteFavouritesVacancyEntity(vacancy: FavouritesVacancyEntity)
+    @Query("DELETE FROM favourites_vacancy_table WHERE vacancy_id = :id")
+    suspend fun deleteFavouritesVacancyEntity(id: String)
 
     @Query("SELECT COUNT(*) > 0 FROM favourites_vacancy_table WHERE vacancy_id = :vacancyId")
     suspend fun isFavorite(vacancyId: String): Boolean

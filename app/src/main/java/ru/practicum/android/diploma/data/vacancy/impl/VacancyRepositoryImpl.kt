@@ -1,7 +1,9 @@
 package ru.practicum.android.diploma.data.vacancy.impl
 
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
+import kotlin.collections.firstOrNull
 import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.data.db.converter.VacancyConverter
 import ru.practicum.android.diploma.data.dto.VacancyRequest
@@ -29,16 +31,15 @@ class VacancyRepositoryImpl(
         return appDatabase.favouritesVacancyDao().isFavorite(vacancyId = id)
     }
 
-    override suspend fun insertFavouritesVacancyEntity(vacancy: Vacancy) {
+    override suspend fun insertFavouritesVacancyEntity(id: String) {
         val favouritesVacancyDao = appDatabase.favouritesVacancyDao()
-        val vacancyEntity = vacancyConvertor.mapVacancyToEntity(vacancy)
+        val vacancyEntity = vacancyConvertor.mapVacancyToEntity(id)
         favouritesVacancyDao.insertFavouritesVacancyEntity(vacancyEntity)
     }
 
-    override suspend fun deleteFavouritesVacancyEntity(vacancy: Vacancy) {
+    override suspend fun deleteFavouritesVacancyEntity(id: String) {
         val favouritesVacancyDao = appDatabase.favouritesVacancyDao()
-        val vacancyEntity = vacancyConvertor.mapVacancyToEntity(vacancy)
-        favouritesVacancyDao.deleteFavouritesVacancyEntity(vacancyEntity)
+        favouritesVacancyDao.deleteFavouritesVacancyEntity(id)
     }
 
     override fun getVacancyId(id: String): Flow<Resource<VacancyFullItemDto>> = flow {
@@ -61,5 +62,22 @@ class VacancyRepositoryImpl(
                 }
             }
         )
+    }
+
+    override suspend fun getVacancyById(id: String): VacancyFullItemDto {
+        return try {
+            val resource = getVacancyId(id).first()
+            when (resource) {
+                is Resource.Success -> {
+                    resource.data ?: throw Exception("нет данных")
+                }
+
+                is Resource.Error -> {
+                    throw Exception(resource.message ?: "error")
+                }
+            }
+        } catch (e: Exception) {
+            throw Exception(e.message ?: "error")
+        }
     }
 }

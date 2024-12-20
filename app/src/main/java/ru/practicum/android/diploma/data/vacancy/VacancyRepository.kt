@@ -11,7 +11,8 @@ interface VacancyRepository {
     fun getVacancyId(id: String): Flow<Resource<VacancyFullItemDto>>
     fun getShareData(id: String): ShareData
     suspend fun isFavorite(id: String): Boolean
-    suspend fun insertFavouritesVacancyEntity(vacancy: Vacancy)
-    suspend fun deleteFavouritesVacancyEntity(vacancy: Vacancy)
+    suspend fun insertFavouritesVacancyEntity(id: String)
+    suspend fun deleteFavouritesVacancyEntity(id: String)
+    suspend fun getVacancyById(id: String): VacancyFullItemDto
 
 }

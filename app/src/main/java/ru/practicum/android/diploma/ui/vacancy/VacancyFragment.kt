@@ -45,14 +45,11 @@ class VacancyFragment : Fragment() {
 
 //    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 //        super.onViewCreated(view, savedInstanceState)
-//        viewModel.getVacancyScreenStateLiveData.observe(viewLifecycleOwner) {
-//            render(it)
-//        }
-//
-//        viewModel.getVacancyRessurces(ID_VACANCY)
-//        binding.ivBack.setOnClickListener {
-//            parentFragmentManager.popBackStack()
-//        }
+////        viewModel.getVacancyScreenStateLiveData.observe(viewLifecycleOwner) {
+////            render(it)
+////        }
+////
+
 //
 //        val vacancy = Vacancy("id", "mock", "mock", "mock", "mock", "mock")
 //        viewModel.observeShareState().observe(viewLifecycleOwner) { sData ->
@@ -205,23 +202,27 @@ class VacancyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val vacancy = Vacancy("id", "mock", "mock", "mock", "mock", "mock")
         viewModel.observeShareState().observe(viewLifecycleOwner) { sData ->
             sData?.let { shareVacancy(it) }
         }
 
-        binding.ivSharing.setOnClickListener {
-            viewModel.shareVacancy(vacancy.id)
+        viewModel.getVacancyRessurces(ID_VACANCY)
+        binding.ivBack.setOnClickListener {
+            parentFragmentManager.popBackStack()
         }
 
-        viewModel.isVacancyInFavorites(vacancy.id)
+        binding.ivSharing.setOnClickListener {
+            viewModel.shareVacancy(ID_VACANCY)
+        }
+
+        viewModel.isVacancyInFavorites(ID_VACANCY)
 
         viewModel.isFavorite.observe(viewLifecycleOwner) { state ->
             updateFavoriteState(state)
         }
 
         binding.ivFavorites.setOnClickListener {
-            viewModel.onFavoriteClicked(vacancy)
+            viewModel.onFavoriteClicked(ID_VACANCY)
         }
     }
 
