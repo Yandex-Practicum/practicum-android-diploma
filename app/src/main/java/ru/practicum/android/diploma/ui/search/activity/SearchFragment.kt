@@ -11,12 +11,14 @@ import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.search.models.SearchParams
@@ -58,6 +60,7 @@ class SearchFragment : Fragment() {
             if (!s.isNullOrBlank() && s.toString() != previousTextInEditText) {
                 hidePlaceholders()
                 previousTextInEditText = s.toString()
+
                 searchJob = lifecycleScope.launch {
                     delay(SEARCH_REQUEST_DELAY_IN_MILLISEC)
                     val searchParams = SearchParams(
@@ -78,11 +81,16 @@ class SearchFragment : Fragment() {
         }
 
         val onItemClickListener: (Vacancy) -> Unit = {
+            val bundle = Bundle().apply {
+                putString("vacancy_id", it.id)
+            }
+            findNavController().navigate(R.id.action_searchFragment_to_vacancyFragment, bundle)
             // Логика для выполнения по обычному нажатию на элемент
         }
         val onItemLongClickListener: (Vacancy) -> Unit = {
             // Логика для выполнения по долгому нажатию на элемент
         }
+
         val foundedVacanciesRecyclerViewAdapter = VacancyAdapter(
             onItemClicked = onItemClickListener,
             onLongItemClicked = onItemLongClickListener

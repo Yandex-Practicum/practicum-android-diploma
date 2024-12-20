@@ -4,12 +4,12 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 import ru.practicum.android.diploma.data.dto.VacancySearchResponse
-import ru.practicum.android.diploma.data.dto.model.VacancyItemDto
+import ru.practicum.android.diploma.data.dto.model.VacancyFullItemDto
 
 interface HhApi {
 
     @GET("/vacancies/{vacancy_id}")
-    suspend fun getVacancyById(@Path("vacancy_id") vacancyId: String): VacancyItemDto
+    suspend fun getVacancyById(@Path("vacancy_id") vacancyId: String): VacancyFullItemDto
 
     @GET("/vacancies")
     suspend fun getVacancies(
