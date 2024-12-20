@@ -47,7 +47,7 @@ class VacancyFragment : Fragment() {
         }
 
         viewModel.getVacancyRessurces(ID_VACANCY)
-        binding.ivBack.setOnClickListener{
+        binding.ivBack.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
     }

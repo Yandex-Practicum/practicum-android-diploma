@@ -59,7 +59,6 @@ class SearchFragment : Fragment() {
                 hidePlaceholders()
                 previousTextInEditText = s.toString()
 
-
                 searchJob = lifecycleScope.launch {
                     delay(SEARCH_REQUEST_DELAY_IN_MILLISEC)
                     val searchParams = SearchParams(
