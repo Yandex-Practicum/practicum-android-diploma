@@ -8,10 +8,11 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
-import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -65,19 +66,8 @@ class SearchFragment : Fragment() {
                         searchQuery = s.toString(),
                         numberOfPage = "0"
                     )
-                    viewModel.getVacancies(searchParams)
+                    viewModel.searchVacancies(searchParams)
                 }
-            }
-        }
-
-        inputEditText.doAfterTextChanged { s ->
-            if (s?.isNotEmpty() == true && s.toString() != previousTextInEditText && s.isNotBlank()) {
-                previousTextInEditText = s.toString()
-                val searchParams = SearchParams(
-                    searchQuery = s.toString(),
-                    numberOfPage = "0"
-                )
-                viewModel.getVacancies(searchParams)
             }
         }
 
@@ -107,6 +97,20 @@ class SearchFragment : Fragment() {
 
         foundedVacanciesRecyclerView.adapter = foundedVacanciesRecyclerViewAdapter
 
+        foundedVacanciesRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                if (dy > 0) {
+                    val pos = (foundedVacanciesRecyclerView.layoutManager as LinearLayoutManager)
+                        .findLastVisibleItemPosition()
+                    val itemsCount = foundedVacanciesRecyclerViewAdapter.itemCount
+                    if (pos >= itemsCount - 1) {
+                        viewModel.onLastItemReached()
+                    }
+                }
+            }
+        })
     }
 
     override fun onDestroyView() {
@@ -124,6 +128,21 @@ class SearchFragment : Fragment() {
                 is SearchScreenState.NotFound -> showNotFound()
                 is SearchScreenState.Error -> showServerError()
             }
+        }
+
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.progressBar.isVisible = isLoading && !(viewModel.isPaginationLoading.value ?: false)
+        }
+
+        viewModel.isPaginationLoading.observe(viewLifecycleOwner) { isPaginationLoading ->
+            binding.progressBarPagination.isVisible = isPaginationLoading
+            if (isPaginationLoading) {
+                binding.progressBar.isVisible = false
+            }
+        }
+
+        viewModel.counterVacancy.observe(viewLifecycleOwner) { counter ->
+            binding.vacancyCounter.text = "Найдено $counter вакансий"
         }
     }
 
@@ -146,7 +165,6 @@ class SearchFragment : Fragment() {
         val foundedVacanciesRecyclerView = binding.rvFoundedVacancies
         val adapter = foundedVacanciesRecyclerView.adapter as? VacancyAdapter
         adapter?.setData(state.foundedVacancies)
-        binding.vacancyCounter.text = "Найдено ${state.foundedVacancies.size} вакансий"
     }
 
     private fun showServerError() {
@@ -200,5 +218,4 @@ class SearchFragment : Fragment() {
         private const val SEARCH_REQUEST_DELAY_IN_MILLISEC = 2000L
         private const val NOT_FOUND_VACANCY = "Таких вакансий нет"
     }
-
 }
