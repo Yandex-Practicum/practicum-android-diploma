@@ -18,10 +18,13 @@
     <string name="experience_title">Требуемый опыт</string>
     <string name="text_list">Текст списком</string>
     <string name="job_description">Описание вакансии</string>
-    <string name="responsibilities_title">Описание вакансии</string>
+    <string name="responsibilities_title">Обязанности</string>
     <string name="requirements_title">Требования</string>
     <string name="conditions_title">Условия</string>
     <string name="key_skills_title">Ключевые навыки</string>
     <string name="vacancy_not_found">Вакансия не найдена или \nудалена</string>
     <string name="not_found_counter_vacancy_text">Таких вакансий нет</string>
+    <string name="network_error_text">Нет интернета</string>
+    <string name="not_found_text">Не удалось получить\nсписок вакансий</string>
+    <string name="server_error_text">Ошибка сервера</string>
 </resources>

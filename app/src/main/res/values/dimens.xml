@@ -23,4 +23,7 @@
     <dimen name="icon_margin">8dp</dimen>
     <dimen name="indent_12">12dp</dimen>
     <dimen name="indent_4">4dp</dimen>
+    <dimen name="corner_radius_10">10dp</dimen>
+    <dimen name="width_placeholder">328dp</dimen>
+    <dimen name="height_placeholder">223dp</dimen>
 </resources>
