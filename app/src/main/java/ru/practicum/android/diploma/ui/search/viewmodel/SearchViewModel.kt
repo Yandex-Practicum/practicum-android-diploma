@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.ui.search.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -74,7 +73,6 @@ class SearchViewModel(
 
     private suspend fun handleSuccessResponse(response: Flow<VacancySearchResponse>, searchParams: SearchParams) {
         response.collect { response ->
-            Log.d("SearchViewModel", "Received response: $response")
             if (response.items.isNotEmpty()) {
                 updateVacanciesList(response, searchParams)
                 searchScreenStateLiveData.postValue(SearchScreenState.Content(vacanciesList))
@@ -107,7 +105,6 @@ class SearchViewModel(
     }
 
     private fun handleNetworkError() {
-        Log.e("SearchViewModel", "Network error")
         searchScreenStateLiveData.postValue(SearchScreenState.NetworkError)
     }
 
@@ -166,5 +163,14 @@ class SearchViewModel(
             "UZS" -> "Soʻm"
             else -> ""
         }
+    }
+
+    fun resetSearchState() {
+        currentSearchQuery = ""
+        vacanciesList.clear()
+        currentPage = 0
+        maxPages = 0
+        _counterVacancy.postValue(0)
+        searchScreenStateLiveData.postValue(SearchScreenState.Empty)
     }
 }
