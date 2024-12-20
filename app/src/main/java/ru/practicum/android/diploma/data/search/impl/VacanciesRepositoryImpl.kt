@@ -22,54 +22,36 @@ class VacanciesRepositoryImpl(
             val response = networkClient.doRequest(VacancySearchRequest(searchParams))
             when (response.code) {
                 RetrofitNetworkClient.HTTP_OK_CODE -> {
-                    with(response as VacancySearchResponse) {
-                        emit(this)
-                    }
+                    emit(response as VacancySearchResponse)
                 }
                 RetrofitNetworkClient.HTTP_PAGE_NOT_FOUND_CODE -> {
-                    throw HttpException(
-                        Response.error<Any>(
-                            RetrofitNetworkClient.HTTP_PAGE_NOT_FOUND_CODE,
-                            ResponseBody.create(null, "Not Found")
-                        )
-                    )
+                    throw createHttpException(RetrofitNetworkClient.HTTP_PAGE_NOT_FOUND_CODE, "Not Found")
                 }
                 RetrofitNetworkClient.HTTP_INTERNAL_SERVER_ERROR_CODE -> {
-                    throw HttpException(
-                        Response.error<Any>(
-                            RetrofitNetworkClient.HTTP_INTERNAL_SERVER_ERROR_CODE,
-                            ResponseBody.create(null, "Server Error")
-                        )
-                    )
+                    throw createHttpException(RetrofitNetworkClient.HTTP_INTERNAL_SERVER_ERROR_CODE, "Server Error")
                 }
                 RetrofitNetworkClient.HTTP_BAD_REQUEST_CODE -> {
-                    throw HttpException(
-                        Response.error<Any>(
-                            RetrofitNetworkClient.HTTP_BAD_REQUEST_CODE,
-                            ResponseBody.create(null, "Bad Request")
-                        )
-                    )
+                    throw createHttpException(RetrofitNetworkClient.HTTP_BAD_REQUEST_CODE, "Bad Request")
                 }
                 RetrofitNetworkClient.HTTP_CODE_0 -> {
-                    throw HttpException(
-                        Response.error<Any>(
-                            RetrofitNetworkClient.HTTP_CODE_0,
-                            ResponseBody.create(null, "Unknown Error")
-                        )
-                    )
+                    throw createHttpException(RetrofitNetworkClient.HTTP_CODE_0, "Unknown Error")
                 }
                 -1 -> {
                     throw IOException("Network Error")
                 }
                 else -> {
-                    throw HttpException(
-                        Response.error<Any>(
-                            response.code,
-                            ResponseBody.create(null, "Unexpected Error: ${response.code}")
-                        )
-                    )
+                    throw createHttpException(response.code, "Unexpected Error: ${response.code}")
                 }
             }
         }
+    }
+
+    private fun createHttpException(code: Int, message: String): HttpException {
+        return HttpException(
+            Response.error<Any>(
+                code,
+                ResponseBody.create(null, message)
+            )
+        )
     }
 }
