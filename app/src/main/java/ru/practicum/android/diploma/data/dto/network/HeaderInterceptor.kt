@@ -11,7 +11,7 @@ class HeaderInterceptor : Interceptor {
             proceed(
                 request()
                     .newBuilder()
-                    .addHeader("Authorization", "Bearer APPLSOUV4KKTH3JJIMN3R8OLNI8BF32KK3SIBG2GRQEC1A659BT2E3K5DUAF5QV3")
+                    .addHeader("Authorization", "Bearer ${BuildConfig.HH_ACCESS_TOKEN}")
                     .addHeader("HH-User-Agent", "VacancyApp/1.0 (somedevmail@gmail.com)")
                     .build()
             )

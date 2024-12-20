@@ -8,7 +8,6 @@ import ru.practicum.android.diploma.data.vacancy.VacancyRepository
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.util.Resource
 
-//keep
 class VacancyInteractorImpl(private val repository: VacancyRepository) : VacancyInteractor {
 
     override fun getVacancyId(id: String): Flow<Pair<VacancyFullItemDto?, String?>> {
