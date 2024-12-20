@@ -9,4 +9,5 @@ sealed class SearchScreenState {
     object NetworkError : SearchScreenState()
     object NotFound : SearchScreenState()
     data class Error(val message: String) : SearchScreenState()
+    object Empty : SearchScreenState()
 }

@@ -74,9 +74,10 @@ class SearchFragment : Fragment() {
         clearButton.setOnClickListener {
             inputEditText.setText(CLEAR_TEXT)
             inputEditText.requestFocus()
-            val imm = requireContext().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.showSoftInput(inputEditText, InputMethodManager.SHOW_IMPLICIT)
+            hideKeyboard(inputEditText)
             showEmpty()
+            viewModel.resetSearchState()
+
         }
 
         val onItemClickListener: (Vacancy) -> Unit = {
@@ -127,6 +128,7 @@ class SearchFragment : Fragment() {
                 is SearchScreenState.NetworkError -> showNetworkError()
                 is SearchScreenState.NotFound -> showNotFound()
                 is SearchScreenState.Error -> showServerError()
+                is SearchScreenState.Empty -> showEmpty()
             }
         }
 
@@ -211,6 +213,11 @@ class SearchFragment : Fragment() {
             serverErrorPlaceholder.isVisible = false
             placeholderMain.isVisible = false
         }
+    }
+
+    private fun hideKeyboard(view: View) {
+        val imm = requireContext().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     companion object {
