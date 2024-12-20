@@ -18,6 +18,10 @@ import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
 
 class VacancyFragment : Fragment() {
 
+    companion object {
+        private var ID_VACANCY = ""
+    }
+
     private var _binding: FragmentVacancyBinding? = null
 
     private val binding get() = _binding!!
@@ -28,6 +32,10 @@ class VacancyFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val item = arguments?.getString("vacancy_id")
+        item.let { itemId ->
+            if (itemId != null) ID_VACANCY = itemId
+        }
         _binding = FragmentVacancyBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -38,8 +46,10 @@ class VacancyFragment : Fragment() {
             render(it)
         }
 
-        viewModel.getVacancyRessurces("1")
-
+        viewModel.getVacancyRessurces(ID_VACANCY)
+        binding.ivBack.setOnClickListener{
+            parentFragmentManager.popBackStack()
+        }
     }
 
     private fun render(state: VacancyState) {
