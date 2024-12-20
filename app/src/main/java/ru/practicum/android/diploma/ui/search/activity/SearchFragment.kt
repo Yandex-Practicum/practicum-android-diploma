@@ -102,7 +102,8 @@ class SearchFragment : Fragment() {
                 super.onScrolled(recyclerView, dx, dy)
 
                 if (dy > 0) {
-                    val pos = (foundedVacanciesRecyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                    val pos = (foundedVacanciesRecyclerView.layoutManager as LinearLayoutManager)
+                        .findLastVisibleItemPosition()
                     val itemsCount = foundedVacanciesRecyclerViewAdapter.itemCount
                     if (pos >= itemsCount - 1) {
                         viewModel.onLastItemReached()
@@ -217,5 +218,4 @@ class SearchFragment : Fragment() {
         private const val SEARCH_REQUEST_DELAY_IN_MILLISEC = 2000L
         private const val NOT_FOUND_VACANCY = "Таких вакансий нет"
     }
-
 }
