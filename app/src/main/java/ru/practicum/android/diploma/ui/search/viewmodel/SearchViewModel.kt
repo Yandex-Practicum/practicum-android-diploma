@@ -126,7 +126,7 @@ class SearchViewModel(
     }
 
     fun onLastItemReached() {
-        if (currentPage < maxPages) {
+        if (currentPage < maxPages - 1) {
             _isPaginationLoading.postValue(true)
             searchVacancies(SearchParams(searchQuery = currentSearchQuery, numberOfPage = (currentPage + 1).toString()))
         }
