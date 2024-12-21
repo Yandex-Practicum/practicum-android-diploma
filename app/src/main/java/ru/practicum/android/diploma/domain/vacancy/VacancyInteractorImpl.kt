@@ -41,6 +41,6 @@ class VacancyInteractorImpl(private val repository: VacancyRepository) : Vacancy
     }
 
     override suspend fun getFavoritesVacancies(): Flow<List<Vacancy>> {
-        return (repository.getFavoritesTracks())
+        return repository.getFavoritesTracks()
     }
 }
