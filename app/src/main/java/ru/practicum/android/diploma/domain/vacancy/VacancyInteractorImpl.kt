@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.domain.vacancy
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import ru.practicum.android.diploma.data.dto.model.VacancyFullItemDto
 import ru.practicum.android.diploma.data.dto.model.favorites.ShareData

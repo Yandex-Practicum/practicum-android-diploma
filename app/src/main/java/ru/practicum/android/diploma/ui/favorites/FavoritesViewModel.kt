@@ -14,7 +14,7 @@ class FavoritesViewModel(
     private val interactor: VacancyInteractor
 ) : AndroidViewModel(application) {
 
-    private val favoriteVacancies = MutableLiveData<List<Vacancy>>()
+    val favoriteVacancies = MutableLiveData<List<Vacancy>>()
     fun getFavoriteTracks(): LiveData<List<Vacancy>> = favoriteVacancies
 
     fun returnFavoriteTracks() {
@@ -28,6 +28,4 @@ class FavoritesViewModel(
     init {
         returnFavoriteTracks()
     }
-
-
 }

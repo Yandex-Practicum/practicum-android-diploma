@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.FragmentFavoritesBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
-import ru.practicum.android.diploma.ui.search.viewmodel.SearchViewModel
 
 class FavoritesFragment : Fragment() {
 
@@ -40,9 +40,8 @@ class FavoritesFragment : Fragment() {
             onLongItemClicked = onItemLongClickListener
         )
 
-        val favoriteVacancies = viewModel.getFavoriteTracks()
-
         binding.rvFavoriteVacancies.adapter = favoriteVacanciesRecyclerViewAdapter
+
     }
 
     override fun onDestroyView() {

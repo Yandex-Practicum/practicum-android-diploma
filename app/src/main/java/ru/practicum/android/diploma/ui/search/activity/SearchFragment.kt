@@ -134,7 +134,8 @@ class SearchFragment : Fragment() {
         }
 
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            binding.progressBar.isVisible = isLoading && !(viewModel.isPaginationLoading.value ?: false)
+            binding.progressBar.isVisible =
+                isLoading && !(viewModel.isPaginationLoading.value ?: false)
         }
 
         viewModel.isPaginationLoading.observe(viewLifecycleOwner) { isPaginationLoading ->
