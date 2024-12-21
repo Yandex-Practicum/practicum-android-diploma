@@ -43,34 +43,6 @@ class VacancyFragment : Fragment() {
         return binding.root
     }
 
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-////        viewModel.getVacancyScreenStateLiveData.observe(viewLifecycleOwner) {
-////            render(it)
-////        }
-////
-
-//
-//        val vacancy = Vacancy("id", "mock", "mock", "mock", "mock", "mock")
-//        viewModel.observeShareState().observe(viewLifecycleOwner) { sData ->
-//            sData?.let { shareVacancy(it) }
-//        }
-//
-//        binding.ivSharing.setOnClickListener {
-//            viewModel.shareVacancy(vacancy.id)
-//        }
-//
-//        viewModel.isVacancyInFavorites(vacancy.id)
-//
-//        viewModel.isFavorite.observe(viewLifecycleOwner) { state ->
-//            updateFavoriteState(state)
-//        }
-//
-//        binding.ivFavorites.setOnClickListener {
-//            viewModel.onFavoriteClicked(vacancy)
-//        }
-//    }
-
     private fun render(state: VacancyState) {
         when (state) {
             is VacancyState.Loading -> showLoading()
@@ -223,6 +195,10 @@ class VacancyFragment : Fragment() {
 
         binding.ivFavorites.setOnClickListener {
             viewModel.onFavoriteClicked(ID_VACANCY)
+        }
+
+        viewModel.getVacancyScreenStateLiveData.observe(viewLifecycleOwner) {
+            render(it)
         }
     }
 

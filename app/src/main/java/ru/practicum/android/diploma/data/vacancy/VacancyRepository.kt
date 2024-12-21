@@ -13,6 +13,6 @@ interface VacancyRepository {
     suspend fun isFavorite(id: String): Boolean
     suspend fun insertFavouritesVacancyEntity(id: String)
     suspend fun deleteFavouritesVacancyEntity(id: String)
-    suspend fun getVacancyById(id: String): VacancyFullItemDto
+    suspend fun getVacancyById(id: String): Vacancy
 
 }

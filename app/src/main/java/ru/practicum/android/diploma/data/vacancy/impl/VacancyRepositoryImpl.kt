@@ -10,6 +10,7 @@ import ru.practicum.android.diploma.data.dto.VacancyRequest
 import ru.practicum.android.diploma.data.dto.VacancyResponse
 import ru.practicum.android.diploma.data.dto.model.VacancyFullItemDto
 import ru.practicum.android.diploma.data.dto.model.favorites.ShareData
+import ru.practicum.android.diploma.data.dto.model.favorites.VacancyDtoConverter
 import ru.practicum.android.diploma.data.dto.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.data.vacancy.VacancyRepository
 import ru.practicum.android.diploma.domain.NetworkClient
@@ -19,7 +20,8 @@ import ru.practicum.android.diploma.util.Resource
 class VacancyRepositoryImpl(
     private val appDatabase: AppDatabase,
     private val vacancyConvertor: VacancyConverter,
-    private val networkClient: NetworkClient
+    private val networkClient: NetworkClient,
+    private val vacancyDtoConverter: VacancyDtoConverter,
 ) : VacancyRepository {
     override fun getShareData(id: String): ShareData {
         return ShareData(
@@ -33,7 +35,7 @@ class VacancyRepositoryImpl(
 
     override suspend fun insertFavouritesVacancyEntity(id: String) {
         val favouritesVacancyDao = appDatabase.favouritesVacancyDao()
-        val vacancyEntity = vacancyConvertor.mapVacancyToEntity(id)
+        val vacancyEntity = vacancyConvertor.mapVacancyToEntity(getVacancyById(id))
         favouritesVacancyDao.insertFavouritesVacancyEntity(vacancyEntity)
     }
 
@@ -64,12 +66,13 @@ class VacancyRepositoryImpl(
         )
     }
 
-    override suspend fun getVacancyById(id: String): VacancyFullItemDto {
+    override suspend fun getVacancyById(id: String): Vacancy {
         return try {
             val resource = getVacancyId(id).first()
             when (resource) {
                 is Resource.Success -> {
-                    resource.data ?: throw Exception("нет данных")
+                    val vacancyDto = resource.data ?: throw Exception("нет данных")
+                    vacancyDtoConverter.convertDtoToVacancy(vacancyDto)
                 }
 
                 is Resource.Error -> {

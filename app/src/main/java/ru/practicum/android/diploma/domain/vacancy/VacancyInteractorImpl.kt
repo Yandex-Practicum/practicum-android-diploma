@@ -24,8 +24,8 @@ class VacancyInteractorImpl(private val repository: VacancyRepository) : Vacancy
         }
     }
 
-    override suspend fun getVacancyById(id: String) {
-        repository.getVacancyById(id)
+    override suspend fun getVacancyById(id: String): Vacancy{
+        return repository.getVacancyById(id)
     }
 
     override fun getShareData(id: String): ShareData {
