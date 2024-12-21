@@ -2,7 +2,6 @@ package ru.practicum.android.diploma.di
 
 import org.koin.dsl.module
 import ru.practicum.android.diploma.data.db.converter.VacancyConverter
-import ru.practicum.android.diploma.data.dto.model.favorites.VacancyDtoConverter
 import ru.practicum.android.diploma.data.search.VacanciesRepository
 import ru.practicum.android.diploma.data.search.impl.VacanciesRepositoryImpl
 import ru.practicum.android.diploma.data.vacancy.VacancyRepository

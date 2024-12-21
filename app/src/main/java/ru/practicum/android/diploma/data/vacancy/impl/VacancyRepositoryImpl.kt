@@ -10,7 +10,6 @@ import ru.practicum.android.diploma.data.dto.VacancyRequest
 import ru.practicum.android.diploma.data.dto.VacancyResponse
 import ru.practicum.android.diploma.data.dto.model.VacancyFullItemDto
 import ru.practicum.android.diploma.data.dto.model.favorites.ShareData
-import ru.practicum.android.diploma.data.dto.model.favorites.VacancyDtoConverter
 import ru.practicum.android.diploma.data.dto.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.data.vacancy.VacancyRepository
 import ru.practicum.android.diploma.domain.NetworkClient
