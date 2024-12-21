@@ -1,9 +1,7 @@
 package ru.practicum.android.diploma.data.vacancy.impl
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
-import kotlin.collections.firstOrNull
 import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.data.db.converter.VacancyConverter
 import ru.practicum.android.diploma.data.dto.VacancyRequest

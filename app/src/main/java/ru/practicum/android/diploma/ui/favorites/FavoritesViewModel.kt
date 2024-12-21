@@ -7,6 +7,6 @@ import ru.practicum.android.diploma.domain.vacancy.VacancyInteractor
 class FavoritesViewModel(
     application: Application,
     private val interactor: VacancyInteractor
-) : AndroidViewModel(application) {
-
+) : AndroidViewModel(application){
+   // @TODO
 }
