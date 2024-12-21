@@ -18,11 +18,7 @@ val repositoryModule = module {
         VacancyConverter()
     }
 
-    single<VacancyDtoConverter>{
-        VacancyDtoConverter()
-    }
-
     single<VacancyRepository> {
-        VacancyRepositoryImpl(get(), get(), get(), get())
+        VacancyRepositoryImpl(get(), get(), get())
     }
 }

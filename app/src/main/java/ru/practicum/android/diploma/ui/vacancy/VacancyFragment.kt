@@ -174,6 +174,7 @@ class VacancyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val vacancy = arguments?.getSerializable("vacancy") as Vacancy
         viewModel.observeShareState().observe(viewLifecycleOwner) { sData ->
             sData?.let { shareVacancy(it) }
         }
@@ -194,7 +195,7 @@ class VacancyFragment : Fragment() {
         }
 
         binding.ivFavorites.setOnClickListener {
-            viewModel.onFavoriteClicked(ID_VACANCY)
+            viewModel.onFavoriteClicked(vacancy)
         }
 
         viewModel.getVacancyScreenStateLiveData.observe(viewLifecycleOwner) {

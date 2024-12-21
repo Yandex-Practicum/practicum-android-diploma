@@ -1,5 +1,7 @@
 package ru.practicum.android.diploma.domain.models
 
+import java.io.Serializable
+
 data class Vacancy(
     val id: String, // Идентификатор вакансии
     val titleOfVacancy: String, // Название вакансии
@@ -8,4 +10,4 @@ data class Vacancy(
     val employerName: String, // Название компании-работодателя
     val employerLogoUrl: String?, // Ссылка на логотип компании-работодателя
     val isFavorite: Boolean = false
-)
+) : Serializable

@@ -21,7 +21,6 @@ class VacancyRepositoryImpl(
     private val appDatabase: AppDatabase,
     private val vacancyConvertor: VacancyConverter,
     private val networkClient: NetworkClient,
-    private val vacancyDtoConverter: VacancyDtoConverter,
 ) : VacancyRepository {
     override fun getShareData(id: String): ShareData {
         return ShareData(
@@ -33,9 +32,9 @@ class VacancyRepositoryImpl(
         return appDatabase.favouritesVacancyDao().isFavorite(vacancyId = id)
     }
 
-    override suspend fun insertFavouritesVacancyEntity(id: String) {
+    override suspend fun insertFavouritesVacancyEntity(vacancy: Vacancy) {
         val favouritesVacancyDao = appDatabase.favouritesVacancyDao()
-        val vacancyEntity = vacancyConvertor.mapVacancyToEntity(getVacancyById(id))
+        val vacancyEntity = vacancyConvertor.mapVacancyToEntity(vacancy)
         favouritesVacancyDao.insertFavouritesVacancyEntity(vacancyEntity)
     }
 
@@ -64,23 +63,5 @@ class VacancyRepositoryImpl(
                 }
             }
         )
-    }
-
-    override suspend fun getVacancyById(id: String): Vacancy {
-        return try {
-            val resource = getVacancyId(id).first()
-            when (resource) {
-                is Resource.Success -> {
-                    val vacancyDto = resource.data ?: throw Exception("нет данных")
-                    vacancyDtoConverter.convertDtoToVacancy(vacancyDto)
-                }
-
-                is Resource.Error -> {
-                    throw Exception(resource.message ?: "error")
-                }
-            }
-        } catch (e: Exception) {
-            throw Exception(e.message ?: "error")
-        }
     }
 }

@@ -24,10 +24,6 @@ class VacancyInteractorImpl(private val repository: VacancyRepository) : Vacancy
         }
     }
 
-    override suspend fun getVacancyById(id: String): Vacancy{
-        return repository.getVacancyById(id)
-    }
-
     override fun getShareData(id: String): ShareData {
         return repository.getShareData(id)
     }
@@ -36,8 +32,8 @@ class VacancyInteractorImpl(private val repository: VacancyRepository) : Vacancy
         return repository.isFavorite(id)
     }
 
-    override suspend fun addVacancyToFavorites(id: String) {
-        repository.insertFavouritesVacancyEntity(id)
+    override suspend fun addVacancyToFavorites(vacancy: Vacancy) {
+        repository.insertFavouritesVacancyEntity(vacancy)
     }
 
     override suspend fun deleteFavouritesVacancyEntity(id: String) {

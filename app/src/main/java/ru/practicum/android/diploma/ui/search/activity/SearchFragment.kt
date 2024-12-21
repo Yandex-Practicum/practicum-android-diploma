@@ -83,6 +83,7 @@ class SearchFragment : Fragment() {
         val onItemClickListener: (Vacancy) -> Unit = {
             val bundle = Bundle().apply {
                 putString("vacancy_id", it.id)
+                putSerializable("vacancy", it)
             }
             findNavController().navigate(R.id.action_searchFragment_to_vacancyFragment, bundle)
             // Логика для выполнения по обычному нажатию на элемент

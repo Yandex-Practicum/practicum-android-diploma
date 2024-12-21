@@ -69,13 +69,13 @@ class VacancyViewModel(
         }
     }
 
-    fun onFavoriteClicked(id: String) {
+    fun onFavoriteClicked(vacancy: Vacancy) {
         viewModelScope.launch {
             if (_isFavorite.value == true) {
-                interactor.deleteFavouritesVacancyEntity(id)
+                interactor.deleteFavouritesVacancyEntity(vacancy.id)
                 _isFavorite.postValue(false)
             } else {
-                interactor.addVacancyToFavorites(id)
+                interactor.addVacancyToFavorites(vacancy)
                 _isFavorite.postValue(true)
             }
         }
