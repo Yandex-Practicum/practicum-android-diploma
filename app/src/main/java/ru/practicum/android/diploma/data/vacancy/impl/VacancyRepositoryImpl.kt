@@ -4,6 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.data.db.converter.VacancyConverter
+import ru.practicum.android.diploma.data.db.entity.FavouritesVacancyEntity
 import ru.practicum.android.diploma.data.dto.VacancyRequest
 import ru.practicum.android.diploma.data.dto.VacancyResponse
 import ru.practicum.android.diploma.data.dto.model.VacancyFullItemDto
@@ -38,6 +39,24 @@ class VacancyRepositoryImpl(
     override suspend fun deleteFavouritesVacancyEntity(id: String) {
         val favouritesVacancyDao = appDatabase.favouritesVacancyDao()
         favouritesVacancyDao.deleteFavouritesVacancyEntity(id)
+    }
+
+    override suspend fun getFavoritesTracks(): Flow<List<Vacancy>> {
+        return flow {
+            val favoriteVacancies = appDatabase.favouritesVacancyDao().getFavouritesVacancyList()
+            val vacancies = convertFromTrackEntity(favoriteVacancies)
+            emit(vacancies)
+        }
+    }
+
+    suspend fun convertFromTrackEntity(vacancies: Flow<List<FavouritesVacancyEntity>>): List<Vacancy> {
+        val vacanciesList = mutableListOf<Vacancy>()
+        vacancies.collect { vacancyEntities ->
+            vacancyEntities.forEach { vacancyEntity ->
+                vacanciesList.add(vacancyConvertor.mapEntityToVacancy(vacancyEntity))
+            }
+        }
+        return vacanciesList
     }
 
     override fun getVacancyId(id: String): Flow<Resource<VacancyFullItemDto>> = flow {

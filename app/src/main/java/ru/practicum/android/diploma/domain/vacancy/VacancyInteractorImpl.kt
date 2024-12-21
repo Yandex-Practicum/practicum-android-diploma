@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.domain.vacancy
 
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import ru.practicum.android.diploma.data.dto.model.VacancyFullItemDto
 import ru.practicum.android.diploma.data.dto.model.favorites.ShareData
@@ -38,5 +39,9 @@ class VacancyInteractorImpl(private val repository: VacancyRepository) : Vacancy
 
     override suspend fun deleteFavouritesVacancyEntity(id: String) {
         repository.deleteFavouritesVacancyEntity(id)
+    }
+
+    override suspend fun getFavoritesVacancies(): Flow<List<Vacancy>> {
+        return (repository.getFavoritesTracks())
     }
 }

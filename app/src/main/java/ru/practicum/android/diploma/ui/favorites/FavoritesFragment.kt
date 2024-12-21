@@ -5,14 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.FragmentFavoritesBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.ui.search.viewmodel.SearchViewModel
 
 class FavoritesFragment : Fragment() {
 
     private var _binding: FragmentFavoritesBinding? = null
     private var favoriteVacanciesRecyclerViewAdapter: VacancyAdapter? = null
-
+    private val viewModel: FavoritesViewModel by viewModel()
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -37,6 +39,9 @@ class FavoritesFragment : Fragment() {
             onItemClicked = onItemClickListener,
             onLongItemClicked = onItemLongClickListener
         )
+
+        val favoriteVacancies = viewModel.getFavoriteTracks()
+
         binding.rvFavoriteVacancies.adapter = favoriteVacanciesRecyclerViewAdapter
     }
 

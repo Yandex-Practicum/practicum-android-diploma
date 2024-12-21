@@ -15,4 +15,15 @@ class VacancyConverter {
             isFavorite = vacancy.isFavorite
         )
     }
+    fun mapEntityToVacancy(vacancyEntity: FavouritesVacancyEntity): Vacancy {
+        return Vacancy(
+            id = vacancyEntity.id,
+            titleOfVacancy = vacancyEntity.name,
+            regionName = null,
+            employerName = vacancyEntity.employer,
+            salary = vacancyEntity.salary,
+            employerLogoUrl = vacancyEntity.uriPicture,
+            isFavorite = true
+        )
+    }
 }
