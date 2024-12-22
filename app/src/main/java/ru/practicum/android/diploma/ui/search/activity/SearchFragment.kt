@@ -144,7 +144,7 @@ class SearchFragment : Fragment() {
         }
 
         viewModel.counterVacancy.observe(viewLifecycleOwner) { counter ->
-            binding.vacancyCounter.text = "Найдено $counter вакансий"
+            binding.vacancyCounter.text = viewModel.getVacanciesText(counter)
         }
     }
 
@@ -188,7 +188,7 @@ class SearchFragment : Fragment() {
 
     private fun showNotFound() {
         with(binding) {
-            vacancyCounter.text = NOT_FOUND_VACANCY
+            vacancyCounter.text = viewModel.getVacanciesText()
             progressBar.isVisible = false
             vacancyCounter.isVisible = true
             rvFoundedVacancies.isVisible = false
@@ -223,6 +223,5 @@ class SearchFragment : Fragment() {
     companion object {
         private const val CLEAR_TEXT = ""
         private const val SEARCH_REQUEST_DELAY_IN_MILLISEC = 2000L
-        private const val NOT_FOUND_VACANCY = "Таких вакансий нет"
     }
 }

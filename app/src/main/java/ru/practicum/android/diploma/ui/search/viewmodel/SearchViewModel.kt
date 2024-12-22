@@ -173,4 +173,22 @@ class SearchViewModel(
         _counterVacancy.postValue(0)
         searchScreenStateLiveData.postValue(SearchScreenState.Empty)
     }
+
+    fun getVacanciesText(count: Int = 0): String {
+        val lastDigit = count % 10
+        val lastTwoDigits = count % 100
+
+        val isZero = count == 0
+        val isOne = lastDigit == 1 && lastTwoDigits != 11
+        val isFew = (lastDigit == 2 || lastDigit == 3 || lastDigit == 4) &&
+                !(lastTwoDigits == 12 || lastTwoDigits == 13 || lastTwoDigits == 14)
+
+        return when {
+            isZero -> "Таких вакансий нет"
+            isOne -> "Найдена $count вакансия"
+            isFew -> "Найдено $count вакансии"
+            else -> "Найдено $count вакансий"
+        }
+    }
+
 }
