@@ -76,9 +76,15 @@ class VacancyAdapter(
 
             binding.tvTitleOfVacancy.text = model.titleOfVacancy
             binding.tvCompanyName.text = model.employerName
-            binding.tvVacancySalary.text = model.salary ?: binding.root.resources.getString(R.string.salary)
+            binding.tvVacancySalary.text =
+                model.salary ?: binding.root.resources.getString(R.string.salary)
         }
 
+    }
+
+    fun updateVacancies(newVacancies: List<Vacancy>) {
+        vacancies = newVacancies
+        notifyDataSetChanged()
     }
 
     companion object {

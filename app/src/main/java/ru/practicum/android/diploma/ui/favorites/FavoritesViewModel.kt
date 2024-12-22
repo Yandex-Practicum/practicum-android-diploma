@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.ui.favorites
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -19,8 +20,8 @@ class FavoritesViewModel(
 
     fun returnFavoriteTracks() {
         viewModelScope.launch {
-            interactor.getFavoritesVacancies().collect { trackList ->
-                favoriteVacancies.postValue(trackList)
+            interactor.getFavoritesVacancies().collect { vacancyList ->
+                favoriteVacancies.postValue(vacancyList)
             }
         }
     }

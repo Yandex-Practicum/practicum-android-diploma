@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.data.db.converter
 
+import android.util.Log
 import ru.practicum.android.diploma.data.db.entity.FavouritesVacancyEntity
 import ru.practicum.android.diploma.domain.models.Vacancy
 
