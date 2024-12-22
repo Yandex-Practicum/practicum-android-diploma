@@ -14,11 +14,11 @@ class IndustriesInteractorImpl(private val repository: IndustriesRepository) : I
                 is Resource.Success -> {
                     Pair(result.data, null)
                 }
+
                 is Resource.Error -> {
                     Pair(null, result.message)
                 }
             }
         }
     }
-
 }

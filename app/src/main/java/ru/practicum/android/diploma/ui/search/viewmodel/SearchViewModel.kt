@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import ru.practicum.android.diploma.data.dto.VacancySearchResponse
 import ru.practicum.android.diploma.data.dto.model.SalaryDto
+import ru.practicum.android.diploma.domain.industries.IndustriesInteractor
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.search.SearchInteractor
 import ru.practicum.android.diploma.domain.search.models.SearchParams
@@ -71,7 +72,10 @@ class SearchViewModel(
         }
     }
 
-    private suspend fun handleSuccessResponse(response: Flow<VacancySearchResponse>, searchParams: SearchParams) {
+    private suspend fun handleSuccessResponse(
+        response: Flow<VacancySearchResponse>,
+        searchParams: SearchParams
+    ) {
         response.collect { response ->
             if (response.items.isNotEmpty()) {
                 updateVacanciesList(response, searchParams)
@@ -125,7 +129,12 @@ class SearchViewModel(
     fun onLastItemReached() {
         if (currentPage < maxPages - 1) {
             _isPaginationLoading.postValue(true)
-            searchVacancies(SearchParams(searchQuery = currentSearchQuery, numberOfPage = (currentPage + 1).toString()))
+            searchVacancies(
+                SearchParams(
+                    searchQuery = currentSearchQuery,
+                    numberOfPage = (currentPage + 1).toString()
+                )
+            )
         }
     }
 
@@ -134,9 +143,19 @@ class SearchViewModel(
             null
         } else {
             if (salary.from == salary.to) {
-                String.format(Locale.getDefault(), "%d %s", salary.to, getCurrencySymbolByCode(salary.currency!!))
+                String.format(
+                    Locale.getDefault(),
+                    "%d %s",
+                    salary.to,
+                    getCurrencySymbolByCode(salary.currency!!)
+                )
             } else if (salary.to == null) {
-                String.format(Locale.getDefault(), "от %d %s", salary.from, getCurrencySymbolByCode(salary.currency!!))
+                String.format(
+                    Locale.getDefault(),
+                    "от %d %s",
+                    salary.from,
+                    getCurrencySymbolByCode(salary.currency!!)
+                )
             } else {
                 String.format(
                     Locale.getDefault(),

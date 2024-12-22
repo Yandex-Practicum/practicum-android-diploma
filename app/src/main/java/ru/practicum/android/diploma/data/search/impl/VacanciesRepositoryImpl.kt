@@ -24,21 +24,36 @@ class VacanciesRepositoryImpl(
                 RetrofitNetworkClient.HTTP_OK_CODE -> {
                     emit(response as VacancySearchResponse)
                 }
+
                 RetrofitNetworkClient.HTTP_PAGE_NOT_FOUND_CODE -> {
-                    throw createHttpException(RetrofitNetworkClient.HTTP_PAGE_NOT_FOUND_CODE, "Not Found")
+                    throw createHttpException(
+                        RetrofitNetworkClient.HTTP_PAGE_NOT_FOUND_CODE,
+                        "Not Found"
+                    )
                 }
+
                 RetrofitNetworkClient.HTTP_INTERNAL_SERVER_ERROR_CODE -> {
-                    throw createHttpException(RetrofitNetworkClient.HTTP_INTERNAL_SERVER_ERROR_CODE, "Server Error")
+                    throw createHttpException(
+                        RetrofitNetworkClient.HTTP_INTERNAL_SERVER_ERROR_CODE,
+                        "Server Error"
+                    )
                 }
+
                 RetrofitNetworkClient.HTTP_BAD_REQUEST_CODE -> {
-                    throw createHttpException(RetrofitNetworkClient.HTTP_BAD_REQUEST_CODE, "Bad Request")
+                    throw createHttpException(
+                        RetrofitNetworkClient.HTTP_BAD_REQUEST_CODE,
+                        "Bad Request"
+                    )
                 }
+
                 RetrofitNetworkClient.HTTP_CODE_0 -> {
                     throw createHttpException(RetrofitNetworkClient.HTTP_CODE_0, "Unknown Error")
                 }
+
                 -1 -> {
                     throw IOException("Network Error")
                 }
+
                 else -> {
                     throw createHttpException(response.code, "Unexpected Error: ${response.code}")
                 }

@@ -29,7 +29,8 @@ class RetrofitNetworkClient(
             is VacancyRequest -> getFullVacancy(dto)
             is IndustriesRequest -> getFullIndustries(dto)
             else -> {
-                return Response().apply { code = HTTP_BAD_REQUEST_CODE
+                return Response().apply {
+                    code = HTTP_BAD_REQUEST_CODE
                 }
             }
         }
@@ -107,7 +108,6 @@ class RetrofitNetworkClient(
             false
         }
     }
-
 
 
     companion object {

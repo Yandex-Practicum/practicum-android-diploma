@@ -4,5 +4,5 @@ import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.data.dto.IndustriesResponse
 
 interface IndustriesInteractor {
-    fun getIndustries() : Flow<Pair<IndustriesResponse?, String?>>
+    fun getIndustries(): Flow<Pair<IndustriesResponse?, String?>>
 }
