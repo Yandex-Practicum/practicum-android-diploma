@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -33,6 +32,8 @@ class SearchFragment : Fragment() {
     private var previousTextInEditText: String = ""
     private var searchJob: Job? = null
     private var inputEditText: EditText? = null
+    private var foundedVacanciesRecyclerView: RecyclerView? = null
+    private var foundedVacanciesRecyclerViewAdapter: VacancyAdapter? = null
     private val binding get() = _binding!!
     private val viewModel: SearchViewModel by viewModel()
 
@@ -53,7 +54,7 @@ class SearchFragment : Fragment() {
 
         inputEditText = binding.etSearchVacancy
         val clearButton = binding.ibClearQuery
-        val foundedVacanciesRecyclerView = binding.rvFoundedVacancies
+        foundedVacanciesRecyclerView = binding.rvFoundedVacancies
 
         setupObserversState()
 
@@ -89,25 +90,19 @@ class SearchFragment : Fragment() {
             // Логика для выполнения по долгому нажатию на элемент
         }
 
-        val foundedVacanciesRecyclerViewAdapter = VacancyAdapter(
+        foundedVacanciesRecyclerViewAdapter = VacancyAdapter(
             onItemClicked = onItemClickListener,
             onLongItemClicked = onItemLongClickListener
         )
 
-        foundedVacanciesRecyclerView.adapter = foundedVacanciesRecyclerViewAdapter
+        foundedVacanciesRecyclerView?.adapter = foundedVacanciesRecyclerViewAdapter
 
-        foundedVacanciesRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        foundedVacanciesRecyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
-                if (dy > 0) {
-                    val pos = (foundedVacanciesRecyclerView.layoutManager as LinearLayoutManager)
-                        .findLastVisibleItemPosition()
-                    val itemsCount = foundedVacanciesRecyclerViewAdapter.itemCount
-                    if (pos >= itemsCount - 1) {
-                        viewModel.onLastItemReached()
-                    }
-                }
+                positionUpdate(dy)
+
             }
         })
     }
@@ -115,6 +110,19 @@ class SearchFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun positionUpdate(dy: Int){
+        if (dy > 0) {
+            val pos = (foundedVacanciesRecyclerView?.layoutManager as LinearLayoutManager)
+                .findLastVisibleItemPosition()
+            val itemsCount = foundedVacanciesRecyclerViewAdapter?.itemCount
+            if (itemsCount != null) {
+                if (pos >= itemsCount - 1) {
+                    viewModel.onLastItemReached()
+                }
+            }
+        }
     }
 
     private fun clear() {
