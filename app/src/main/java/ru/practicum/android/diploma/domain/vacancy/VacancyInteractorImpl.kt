@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.domain.vacancy
 
-import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import ru.practicum.android.diploma.data.dto.model.VacancyFullItemDto

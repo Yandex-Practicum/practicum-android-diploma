@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.ui.favorites
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

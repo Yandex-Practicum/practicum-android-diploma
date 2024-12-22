@@ -15,5 +15,5 @@ val viewModelModule = module {
         VacancyViewModel(get(), get())
     }
 
-    viewModel {FavoritesViewModel(get(),get())}
+    viewModel { FavoritesViewModel(get(), get()) }
 }
