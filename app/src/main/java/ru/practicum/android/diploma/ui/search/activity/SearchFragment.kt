@@ -67,11 +67,7 @@ class SearchFragment : Fragment() {
                 previousTextInEditText = s.toString()
                 searchJob = lifecycleScope.launch {
                     delay(SEARCH_REQUEST_DELAY_IN_MILLISEC)
-                    val searchParams = SearchParams(
-                        searchQuery = s.toString(),
-                        numberOfPage = "0"
-                    )
-                    viewModel.searchVacancies(searchParams)
+                    searchJobStart(s.toString())
                 }
             }
         }
@@ -108,6 +104,14 @@ class SearchFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun searchJobStart(s: String) {
+        val searchParams = SearchParams(
+            searchQuery = s,
+            numberOfPage = "0"
+        )
+        viewModel.searchVacancies(searchParams)
     }
 
     private fun positionUpdate(dy: Int) {
