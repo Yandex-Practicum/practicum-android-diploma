@@ -36,13 +36,4 @@ class IndustriesRepositoryImpl(
             }
         }
     }
-
-    private fun createHttpException(code: Int, message: String): HttpException {
-        return HttpException(
-            Response.error<Any>(
-                code,
-                ResponseBody.create(null, message)
-            )
-        )
-    }
 }
