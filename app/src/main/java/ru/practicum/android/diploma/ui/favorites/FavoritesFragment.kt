@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFavoritesBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
 
@@ -31,6 +33,11 @@ class FavoritesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val onItemClickListener: (Vacancy) -> Unit = {
+            val bundle = Bundle().apply {
+                putString("vacancy_id", it.id)
+                putSerializable("vacancy", it)
+            }
+            findNavController().navigate(R.id.action_favoritesFragment_to_vacancyFragment, bundle)
             // Логика, исполняемая по нажатию на элемент списка вакансий
         }
         val onItemLongClickListener: (Vacancy) -> Unit = {
