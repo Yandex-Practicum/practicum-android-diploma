@@ -109,7 +109,6 @@ class RetrofitNetworkClient(
         }
     }
 
-
     companion object {
         const val HTTP_BAD_REQUEST_CODE = 400
         const val HTTP_OK_CODE = 200

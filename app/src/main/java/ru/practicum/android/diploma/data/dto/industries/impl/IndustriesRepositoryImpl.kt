@@ -11,7 +11,6 @@ import ru.practicum.android.diploma.data.dto.industries.IndustriesRepository
 import ru.practicum.android.diploma.data.dto.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.domain.NetworkClient
 import ru.practicum.android.diploma.util.Resource
-import java.io.IOException
 
 class IndustriesRepositoryImpl(
     private val networkClient: NetworkClient
