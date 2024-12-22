@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
+import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -30,7 +32,7 @@ class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
     private var previousTextInEditText: String = ""
     private var searchJob: Job? = null
-
+    private var inputEditText: EditText? = null
     private val binding get() = _binding!!
     private val viewModel: SearchViewModel by viewModel()
 
@@ -49,20 +51,19 @@ class SearchFragment : Fragment() {
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        val inputEditText = binding.etSearchVacancy
+        inputEditText = binding.etSearchVacancy
         val clearButton = binding.ibClearQuery
         val foundedVacanciesRecyclerView = binding.rvFoundedVacancies
 
         setupObserversState()
 
-        inputEditText.addTextChangedListener { s ->
+        inputEditText?.addTextChangedListener { s ->
             clearButton.isVisible = !s.isNullOrEmpty()
             binding.ibClearSearch.isVisible = s.isNullOrEmpty()
             searchJob?.cancel()
             if (!s.isNullOrBlank() && s.toString() != previousTextInEditText) {
                 hidePlaceholders()
                 previousTextInEditText = s.toString()
-
                 searchJob = lifecycleScope.launch {
                     delay(SEARCH_REQUEST_DELAY_IN_MILLISEC)
                     val searchParams = SearchParams(
@@ -75,12 +76,7 @@ class SearchFragment : Fragment() {
         }
 
         clearButton.setOnClickListener {
-            inputEditText.setText(CLEAR_TEXT)
-            inputEditText.requestFocus()
-            hideKeyboard(inputEditText)
-            showEmpty()
-            viewModel.resetSearchState()
-
+            clear()
         }
 
         val onItemClickListener: (Vacancy) -> Unit = {
@@ -88,7 +84,6 @@ class SearchFragment : Fragment() {
                 putString("vacancy_id", it.id)
             }
             findNavController().navigate(R.id.action_searchFragment_to_vacancyFragment, bundle)
-            // Логика для выполнения по обычному нажатию на элемент
         }
         val onItemLongClickListener: (Vacancy) -> Unit = {
             // Логика для выполнения по долгому нажатию на элемент
@@ -120,6 +115,14 @@ class SearchFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun clear() {
+        inputEditText?.setText(CLEAR_TEXT)
+        inputEditText?.requestFocus()
+        inputEditText?.let { hideKeyboard(it) }
+        showEmpty()
+        viewModel.resetSearchState()
     }
 
     private fun setupObserversState() {
