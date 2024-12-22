@@ -7,60 +7,95 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import ru.practicum.android.diploma.data.dto.Response
+import ru.practicum.android.diploma.data.dto.VacancyRequest
+import ru.practicum.android.diploma.data.dto.VacancyResponse
 import ru.practicum.android.diploma.data.dto.VacancySearchRequest
 import ru.practicum.android.diploma.domain.NetworkClient
 import java.io.IOException
 
-const val ERROR400 = 400
-const val ERROR200 = 200
-const val ERROR500 = 500
-const val ERROR0 = 0
-const val ERROR404 = 0
-
 class RetrofitNetworkClient(
     private val connectivityManager: ConnectivityManager,
-    private val hhService: HhApi,
+    private val imbdService: HhApi
 ) : NetworkClient {
 
     override suspend fun doRequest(dto: Any): Response {
-        val result: Response
-
         if (!isConnected()) {
-            result = Response(-1)
-        } else if (dto !is VacancySearchRequest) {
-            result = Response(ERROR400)
-        } else {
-            result = withContext(Dispatchers.IO) {
-                try {
-                    val resp = hhService.getVacancies(dto.vacancyName)
-                    resp.apply { resultCode = ERROR200 }
-                } catch (e: HttpException) {
-                    when (e.code()) {
-                        ERROR404 -> Response(ERROR0)
-                        else -> Response(ERROR404)
-                    }
-                } catch (e: IOException) {
-                    Log.e("error", "$e")
-                    Response(ERROR500)
+            return Response(INTERNET_NOT_CONNECT)
+        }
+        return when (dto) {
+            is VacancySearchRequest -> getSearchVacancy(dto)
+            is VacancyRequest -> getFullVacancy(dto)
+            else -> {
+                return Response().apply { code = HTTP_BAD_REQUEST_CODE
                 }
             }
         }
+    }
 
-        return result
+    private suspend fun getSearchVacancy(request: VacancySearchRequest): Response {
+        return withContext(Dispatchers.IO) {
+            try {
+                imbdService
+                    .getVacancies(
+                        request.searchParams.searchQuery,
+                        request.searchParams.nameOfCityForFilter,
+                        request.searchParams.nameOfIndustryForFilter,
+                        request.searchParams.onlyWithSalary,
+                        request.searchParams.currencyOfSalary,
+                        request.searchParams.expectedSalary,
+                        request.searchParams.numberOfVacanciesOnPage,
+                        request.searchParams.numberOfPage
+                    )
+                    .apply {
+                        code = HTTP_OK_CODE
+                    }
+            } catch (e: HttpException) {
+                when (e.code()) {
+                    HTTP_PAGE_NOT_FOUND_CODE -> Response().apply { code = HTTP_PAGE_NOT_FOUND_CODE }
+                    else -> Response().apply { code = HTTP_CODE_0 }
+                }
+            } catch (e: IOException) {
+                Log.e("errorSearchVacancy", "$e")
+                Response().apply { code = HTTP_INTERNAL_SERVER_ERROR_CODE }
+            }
+        }
+    }
+
+    private suspend fun getFullVacancy(request: VacancyRequest): Response {
+        return withContext(Dispatchers.IO) {
+            try {
+                VacancyResponse(imbdService.getVacancyById(request.id))
+                    .apply { code = HTTP_OK_CODE }
+            } catch (e: HttpException) {
+                Response().apply { code = e.code() }
+
+            } catch (e: IOException) {
+                Log.e("errorFullVacancy", "$e")
+                Response().apply { code = HTTP_INTERNAL_SERVER_ERROR_CODE }
+            }
+        }
     }
 
     private fun isConnected(): Boolean {
-        val capabilities =
-            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-        if (capabilities != null) {
-            val result = when {
+        val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        return if (capabilities != null) {
+            when {
                 capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
                 capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
                 capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
                 else -> false
             }
-            return result
+        } else {
+            false
         }
-        return false
+    }
+
+    companion object {
+        const val HTTP_BAD_REQUEST_CODE = 400
+        const val HTTP_OK_CODE = 200
+        const val HTTP_INTERNAL_SERVER_ERROR_CODE = 500
+        const val HTTP_PAGE_NOT_FOUND_CODE = 404
+        const val HTTP_CODE_0 = 0
+        const val INTERNET_NOT_CONNECT = -1
     }
 }

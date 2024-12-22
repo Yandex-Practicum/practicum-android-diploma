@@ -1,29 +1,33 @@
 package ru.practicum.android.diploma.data.dto.network
 
 import retrofit2.http.GET
-import retrofit2.http.Headers
 import retrofit2.http.Path
 import retrofit2.http.Query
-import ru.practicum.android.diploma.BuildConfig
-import ru.practicum.android.diploma.data.dto.Response
-import ru.practicum.android.diploma.data.dto.model.VacancyDto
-
-const val TOKEN = BuildConfig.HH_ACCESS_TOKEN
-const val EMAIL = "someEmail"
-const val APPLICATION_NAME = "applicationName"
+import ru.practicum.android.diploma.data.dto.VacancySearchResponse
+import ru.practicum.android.diploma.data.dto.model.VacancyFullItemDto
 
 interface HhApi {
-    @Headers(
-        "Authorization: Bearer $TOKEN",
-        "HH-User-Agent: $APPLICATION_NAME($EMAIL)"
-    )
-    @GET("/vacancies/{vacancy_id}")
-    suspend fun getVacancyById(@Path("vacancy_id") vacancyId: String): VacancyDto
 
-    @Headers(
-        "Authorization: Bearer $TOKEN",
-        "HH-User-Agent: $APPLICATION_NAME($EMAIL)"
-    )
+    @GET("/vacancies/{vacancy_id}")
+    suspend fun getVacancyById(@Path("vacancy_id") vacancyId: String): VacancyFullItemDto
+
     @GET("/vacancies")
-    suspend fun getVacancies(@Query("text") vacancyName: String): Response
+    suspend fun getVacancies(
+        // Название вакансии
+        @Query("text") searchQuery: String,
+        // Тут нужно передать id региона из справочника hh.ru
+        @Query("area") nameOfCityForFilter: String? = null,
+        // Тут id отрасли (можно задать несколько, но нам вроде не нужно)
+        @Query("industry") nameOfIndustryForFilter: String? = null,
+        // Тут ставим true для вакансий только с зарплатой
+        @Query("only_with_salary") onlyWithSalary: Boolean = false,
+        // Тут задается валюта (они тоже в справочнике)
+        @Query("currency") currencyOfSalary: String? = null,
+        // Требуемая зарплата (чисто число)
+        @Query("salary") expectedSalary: String? = null,
+        // Количество вакансий на страницу(у нас 20)
+        @Query("per_page") numberOfVacanciesOnPage: String = "20",
+        // Номер нужной страницы списка вакасий
+        @Query("page") numberOfPage: String
+    ): VacancySearchResponse
 }
