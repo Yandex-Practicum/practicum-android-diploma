@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.ui.search.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -54,6 +55,7 @@ class SearchViewModel(
             try {
                 handleSuccessResponse(searchInteractor.getVacancies(searchParams), searchParams)
             } catch (e: IOException) {
+                Log.e("SearchViewModel", "Network error occurred", e)
                 handleNetworkError()
             } catch (e: HttpException) {
                 handleHttpError(e)
