@@ -6,6 +6,8 @@ import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
+import ru.practicum.android.diploma.data.dto.IndustriesRequest
+import ru.practicum.android.diploma.data.dto.IndustriesResponse
 import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.VacancyRequest
 import ru.practicum.android.diploma.data.dto.VacancyResponse
@@ -25,6 +27,7 @@ class RetrofitNetworkClient(
         return when (dto) {
             is VacancySearchRequest -> getSearchVacancy(dto)
             is VacancyRequest -> getFullVacancy(dto)
+            is IndustriesRequest -> getFullIndustries(dto)
             else -> {
                 return Response().apply { code = HTTP_BAD_REQUEST_CODE
                 }
@@ -76,6 +79,21 @@ class RetrofitNetworkClient(
         }
     }
 
+    private suspend fun getFullIndustries(request: IndustriesRequest): Response {
+        return withContext(Dispatchers.IO) {
+            try {
+                IndustriesResponse(imbdService.getAllIndustries())
+                    .apply { code = HTTP_OK_CODE }
+            } catch (e: HttpException) {
+                Response().apply { code = e.code() }
+
+            } catch (e: IOException) {
+                Log.e("errorFullIndustries", "$e")
+                Response().apply { code = HTTP_INTERNAL_SERVER_ERROR_CODE }
+            }
+        }
+    }
+
     private fun isConnected(): Boolean {
         val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
         return if (capabilities != null) {
@@ -89,6 +107,8 @@ class RetrofitNetworkClient(
             false
         }
     }
+
+
 
     companion object {
         const val HTTP_BAD_REQUEST_CODE = 400
