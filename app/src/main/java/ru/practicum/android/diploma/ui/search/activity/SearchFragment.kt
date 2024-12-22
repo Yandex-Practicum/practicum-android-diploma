@@ -100,9 +100,7 @@ class SearchFragment : Fragment() {
         foundedVacanciesRecyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-
                 positionUpdate(dy)
-
             }
         })
     }
@@ -112,15 +110,14 @@ class SearchFragment : Fragment() {
         _binding = null
     }
 
-    private fun positionUpdate(dy: Int){
+    private fun positionUpdate(dy: Int) {
         if (dy > 0) {
             val pos = (foundedVacanciesRecyclerView?.layoutManager as LinearLayoutManager)
                 .findLastVisibleItemPosition()
             val itemsCount = foundedVacanciesRecyclerViewAdapter?.itemCount
-            if (itemsCount != null) {
-                if (pos >= itemsCount - 1) {
-                    viewModel.onLastItemReached()
-                }
+
+            if (itemsCount != null && pos >= itemsCount - 1) {
+                viewModel.onLastItemReached()
             }
         }
     }
