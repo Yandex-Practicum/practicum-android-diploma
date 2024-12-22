@@ -34,7 +34,7 @@ class SearchFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: SearchViewModel by viewModel()
 
-    override fun onCreateView(
+    override fun onCreateView (
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
