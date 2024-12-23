@@ -90,6 +90,7 @@ class SearchViewModel(
                 }
             } else {
                 searchScreenStateLiveData.postValue(SearchScreenState.NotFound)
+                _counterVacancy.postValue(0)
             }
         }
     }
