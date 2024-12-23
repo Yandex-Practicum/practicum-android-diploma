@@ -198,13 +198,13 @@ class SearchViewModel(
     }
 
     fun getVacanciesText(count: Int = 0): String {
-        val lastDigit = count % 10
-        val lastTwoDigits = count % 100
+        val lastDigit = count % DIVISOR_FOR_LAST_DIGIT
+        val lastTwoDigits = count % DIVISOR_FOR_LAST_TWO_DIGITS
 
         val isZero = count == 0
-        val isOne = lastDigit == 1 && lastTwoDigits != 11
-        val isFew = (lastDigit == 2 || lastDigit == 3 || lastDigit == 4) &&
-            !(lastTwoDigits == 12 || lastTwoDigits == 13 || lastTwoDigits == 14)
+        val isOne = lastDigit == ONE && lastTwoDigits != ELEVEN
+        val isFew = (lastDigit == TWO || lastDigit == THREE || lastDigit == FOUR) &&
+            !(lastTwoDigits == TWELVE || lastTwoDigits == THIRTEEN || lastTwoDigits == FOURTEEN)
 
         return when {
             isZero -> "Таких вакансий нет"
@@ -213,7 +213,6 @@ class SearchViewModel(
             else -> "Найдено $count вакансий"
         }
     }
-
 
     fun updatePreviousTextInEditText(text: String) {
         _previousTextInEditText.postValue(text)
@@ -227,6 +226,16 @@ class SearchViewModel(
         private const val HTTP_NOT_FOUND = 404
         private const val HTTP_SERVER_ERROR = 500
         private const val TOAST_ERROR_TEXT = "Отсутствует интернет-соединение"
+        private const val DIVISOR_FOR_LAST_DIGIT = 10
+        private const val DIVISOR_FOR_LAST_TWO_DIGITS = 100
+        private const val ONE = 1
+        private const val TWO = 2
+        private const val THREE = 3
+        private const val FOUR = 4
+        private const val ELEVEN = 11
+        private const val TWELVE = 12
+        private const val THIRTEEN = 13
+        private const val FOURTEEN = 14
     }
 
 }

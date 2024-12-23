@@ -155,7 +155,8 @@ class VacancyFragment : Fragment() {
                 "до ${numberFormat.format(item.salary.to)} $codeSalary"
             }
             else -> {
-                "от ${numberFormat.format(item.salary.from ?: 0)} $codeSalary до ${numberFormat.format(item.salary.to ?: 0)} $codeSalary"
+                "от ${numberFormat.format(item.salary.from ?: 0)} $codeSalary " +
+                    "до ${numberFormat.format(item.salary.to ?: 0)} $codeSalary"
             }
         }
     }

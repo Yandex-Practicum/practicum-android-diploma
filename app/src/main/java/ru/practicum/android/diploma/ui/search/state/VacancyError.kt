@@ -5,5 +5,5 @@ enum class VacancyError {
     BAD_REQUEST,
     NOT_FOUND,
     UNKNOWN_ERROR,
-    SERVER_ERROR;
+    SERVER_ERROR
 }
