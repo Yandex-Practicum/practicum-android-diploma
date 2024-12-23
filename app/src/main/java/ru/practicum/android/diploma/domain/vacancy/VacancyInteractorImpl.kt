@@ -8,15 +8,14 @@ import ru.practicum.android.diploma.util.Resource
 
 class VacancyInteractorImpl(private val repository: VacancyRepository) : VacancyInteractor {
 
-    override fun getVacancyId(id: String): Flow<Pair<VacancyFullItemDto?, String?>> {
+    override fun getVacancyId(id: String): Flow<Resource<VacancyFullItemDto>> {
         return repository.getVacancyId(id).map { result ->
             when (result) {
                 is Resource.Success -> {
-                    Pair(result.data, null)
+                    Resource.Success(result.data)
                 }
-
                 is Resource.Error -> {
-                    Pair(null, result.message)
+                    Resource.Error(result.message)
                 }
             }
         }
