@@ -15,6 +15,7 @@ import ru.practicum.android.diploma.domain.search.SearchInteractor
 import ru.practicum.android.diploma.domain.search.models.SearchParams
 import ru.practicum.android.diploma.domain.search.models.SearchScreenState
 import java.io.IOException
+import java.text.NumberFormat
 import java.util.Locale
 
 class SearchViewModel(
@@ -135,18 +136,28 @@ class SearchViewModel(
         return if (salary == null) {
             null
         } else {
-            if (salary.from == salary.to) {
-                String.format(Locale.getDefault(), "%d %s", salary.to, getCurrencySymbolByCode(salary.currency!!))
-            } else if (salary.to == null) {
-                String.format(Locale.getDefault(), "от %d %s", salary.from, getCurrencySymbolByCode(salary.currency!!))
-            } else {
-                String.format(
-                    Locale.getDefault(),
-                    "от %d до %d %s",
-                    salary.from,
-                    salary.to,
-                    getCurrencySymbolByCode(salary.currency!!)
-                )
+            val currencySymbol = getCurrencySymbolByCode(salary.currency!!)
+            val numberFormat = NumberFormat.getNumberInstance(Locale.getDefault())
+            when {
+                salary.from != null && salary.to != null && salary.from == salary.to -> {
+                    String.format(Locale.getDefault(), "%s %s", numberFormat.format(salary.to), currencySymbol)
+                }
+                salary.from != null && salary.to == null -> {
+                    String.format(Locale.getDefault(), "от %s %s", numberFormat.format(salary.from), currencySymbol)
+                }
+                salary.from == null && salary.to != null -> {
+                    String.format(Locale.getDefault(), "до %s %s", numberFormat.format(salary.to), currencySymbol)
+                }
+                salary.from != null && salary.to != null -> {
+                    String.format(
+                        Locale.getDefault(),
+                        "от %s до %s %s",
+                        numberFormat.format(salary.from),
+                        numberFormat.format(salary.to),
+                        currencySymbol
+                    )
+                }
+                else -> null
             }
         }
     }
