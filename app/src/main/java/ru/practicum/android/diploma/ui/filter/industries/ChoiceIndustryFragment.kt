@@ -11,7 +11,6 @@ import ru.practicum.android.diploma.data.dto.model.industries.IndustriesFullDto
 import ru.practicum.android.diploma.databinding.FragmentChoiceIndustryBinding
 
 class ChoiceIndustryFragment : Fragment(), IndustriesAdapter.Listener {
-
     private var _binding: FragmentChoiceIndustryBinding? = null
     private val viewModel by viewModel<ChoiceIndustryViewModel>()
     private val binding get() = _binding!!
