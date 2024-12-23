@@ -39,7 +39,6 @@ class ChoiceIndustryFragment : Fragment(), IndustriesAdapter.Listener {
     private fun renderState(state: IndustriesState) {
         when (state) {
             is IndustriesState.FoundIndustries -> {
-
                 val adapter = IndustriesAdapter(this)
                 adapter.updateIndustries(state.industries as List<IndustriesFullDto>)
                 binding.rvIndustries.adapter = adapter
