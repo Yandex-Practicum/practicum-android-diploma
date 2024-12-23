@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.data.dto.industries.impl
 
-import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.data.dto.IndustriesRequest

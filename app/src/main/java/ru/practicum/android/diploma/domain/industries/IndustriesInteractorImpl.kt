@@ -9,7 +9,6 @@ import ru.practicum.android.diploma.util.Resource
 class IndustriesInteractorImpl(private val repository: IndustriesRepository) : IndustriesInteractor {
 
     override fun getIndustries(): Flow<List<IndustriesFullDto>> {
-
         return repository.getIndustries()
             .map { result ->
                 when (result) {
