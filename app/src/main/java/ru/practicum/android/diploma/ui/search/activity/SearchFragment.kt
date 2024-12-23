@@ -13,7 +13,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -28,9 +27,6 @@ import ru.practicum.android.diploma.ui.search.viewmodel.SearchViewModel
 class SearchFragment : Fragment() {
 
     private var _binding: FragmentSearchBinding? = null
-    private var previousTextInEditText: String = ""
-    private var searchJob: Job? = null
-
     private val binding get() = _binding!!
     private val viewModel: SearchViewModel by viewModel()
 
@@ -55,19 +51,19 @@ class SearchFragment : Fragment() {
         inputEditText.addTextChangedListener { s ->
             clearButton.isVisible = !s.isNullOrEmpty()
             binding.ibClearSearch.isVisible = s.isNullOrEmpty()
-            searchJob?.cancel()
-            if (!s.isNullOrBlank() && s.toString() != previousTextInEditText) {
+            viewModel.searchJob.value?.cancel()
+            if (!s.isNullOrBlank() && s.toString() != viewModel.previousTextInEditText.value) {
                 hidePlaceholders()
-                previousTextInEditText = s.toString()
+                viewModel.updatePreviousTextInEditText(s.toString())
 
-                searchJob = lifecycleScope.launch {
+                viewModel.updateSearchJob(lifecycleScope.launch {
                     delay(SEARCH_REQUEST_DELAY_IN_MILLISEC)
                     val searchParams = SearchParams(
                         searchQuery = s.toString(),
                         numberOfPage = "0"
                     )
                     viewModel.searchVacancies(searchParams)
-                }
+                })
             }
         }
 
@@ -77,7 +73,6 @@ class SearchFragment : Fragment() {
             hideKeyboard(inputEditText)
             showEmpty()
             viewModel.resetSearchState()
-
         }
 
         val onItemClickListener: (Vacancy) -> Unit = {

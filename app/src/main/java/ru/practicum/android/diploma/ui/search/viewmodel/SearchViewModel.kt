@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -35,6 +36,12 @@ class SearchViewModel(
 
     private val _isPaginationLoading = MutableLiveData<Boolean>()
     val isPaginationLoading: LiveData<Boolean> get() = _isPaginationLoading
+
+    private val _previousTextInEditText = MutableLiveData<String>()
+    val previousTextInEditText: LiveData<String> get() = _previousTextInEditText
+
+    private val _searchJob = MutableLiveData<Job?>()
+    val searchJob: LiveData<Job?> get() = _searchJob
 
     fun getSearchScreenStateLiveData(): LiveData<SearchScreenState> = searchScreenStateLiveData
 
@@ -176,7 +183,7 @@ class SearchViewModel(
         val isZero = count == 0
         val isOne = lastDigit == 1 && lastTwoDigits != 11
         val isFew = (lastDigit == 2 || lastDigit == 3 || lastDigit == 4) &&
-                !(lastTwoDigits == 12 || lastTwoDigits == 13 || lastTwoDigits == 14)
+            !(lastTwoDigits == 12 || lastTwoDigits == 13 || lastTwoDigits == 14)
 
         return when {
             isZero -> "Таких вакансий нет"
@@ -184,6 +191,15 @@ class SearchViewModel(
             isFew -> "Найдено $count вакансии"
             else -> "Найдено $count вакансий"
         }
+    }
+
+
+    fun updatePreviousTextInEditText(text: String) {
+        _previousTextInEditText.postValue(text)
+    }
+
+    fun updateSearchJob(job: Job?) {
+        _searchJob.postValue(job)
     }
 
     companion object {
