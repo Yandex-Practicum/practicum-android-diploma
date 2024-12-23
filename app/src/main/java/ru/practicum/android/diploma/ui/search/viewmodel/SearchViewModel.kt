@@ -91,14 +91,14 @@ class SearchViewModel(
         if (searchParams.numberOfPage == "0") {
             vacanciesList.clear()
         }
-        val vacancies = response.items.map {
+        val vacancies = response.items.map { vacancyDto ->
             Vacancy(
-                it.id,
-                it.name,
-                it.area.name,
-                getCorrectFormOfSalaryText(it.salary),
-                it.employer.name,
-                it.employer.logoUrls?.original
+                vacancyDto.id,
+                vacancyDto.name,
+                vacancyDto.area.name,
+                getCorrectFormOfSalaryText(vacancyDto.salary),
+                vacancyDto.employer.name,
+                vacancyDto.employer.logoUrls?.original
             )
         }
         vacanciesList.addAll(vacancies)
