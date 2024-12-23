@@ -2,9 +2,6 @@ package ru.practicum.android.diploma.data.dto.industries.impl
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import okhttp3.ResponseBody
-import retrofit2.HttpException
-import retrofit2.Response
 import ru.practicum.android.diploma.data.dto.IndustriesRequest
 import ru.practicum.android.diploma.data.dto.IndustriesResponse
 import ru.practicum.android.diploma.data.dto.industries.IndustriesRepository
