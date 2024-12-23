@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -141,6 +142,14 @@ class SearchFragment : Fragment() {
         viewModel.counterVacancy.observe(viewLifecycleOwner) { counter ->
             binding.vacancyCounter.text = viewModel.getVacanciesText(counter)
         }
+
+        viewModel.observeShowToast().observe(viewLifecycleOwner) { message ->
+            showToast(message)
+        }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
     private fun showLoading() {

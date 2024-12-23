@@ -14,6 +14,7 @@ import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.search.SearchInteractor
 import ru.practicum.android.diploma.domain.search.models.SearchParams
 import ru.practicum.android.diploma.domain.search.models.SearchScreenState
+import ru.practicum.android.diploma.ui.search.state.SingleLiveEvent
 import java.io.IOException
 import java.text.NumberFormat
 import java.util.Locale
@@ -44,6 +45,9 @@ class SearchViewModel(
     private val _searchJob = MutableLiveData<Job?>()
     val searchJob: LiveData<Job?> get() = _searchJob
 
+    private val _showToast = SingleLiveEvent<String>()
+    fun observeShowToast(): LiveData<String> = _showToast
+
     fun getSearchScreenStateLiveData(): LiveData<SearchScreenState> = searchScreenStateLiveData
 
     fun searchVacancies(searchParams: SearchParams) {
@@ -57,7 +61,7 @@ class SearchViewModel(
             try {
                 handleSuccessResponse(searchInteractor.getVacancies(searchParams), searchParams)
             } catch (e: IOException) {
-                handleNetworkError()
+                handleNetworkError(searchParams.numberOfPage != "0")
             } catch (e: HttpException) {
                 handleHttpError(e)
             } finally {
@@ -107,8 +111,13 @@ class SearchViewModel(
         vacanciesList.addAll(vacancies)
     }
 
-    private fun handleNetworkError() {
-        searchScreenStateLiveData.postValue(SearchScreenState.NetworkError)
+    private fun handleNetworkError(isPagination: Boolean) {
+        if (isPagination) {
+            _showToast.postValue(TOAST_ERROR_TEXT)
+        } else {
+            searchScreenStateLiveData.postValue(SearchScreenState.NetworkError)
+            vacanciesList.clear()
+        }
     }
 
     private fun handleHttpError(e: HttpException) {
@@ -216,6 +225,7 @@ class SearchViewModel(
     companion object {
         private const val HTTP_NOT_FOUND = 404
         private const val HTTP_SERVER_ERROR = 500
+        private const val TOAST_ERROR_TEXT = "Отсутствует интернет-соединение"
     }
 
 }
