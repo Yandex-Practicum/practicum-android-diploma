@@ -62,4 +62,18 @@
         <item name="android:singleLine">true</item>
     </style>
 
+    <style name="TransparentEndIconStyle">
+        <item name="background">@android:color/transparent</item>
+        <item name="android:foreground">@android:color/transparent</item>
+    </style>
+
+    <style name="filterTextInputLayout">
+        <item name="boxBackgroundColor">?attr/colorBackgroundFilterTextInputLayout</item>
+    </style>
+
+    <style name="filterTextInputEditText">
+        <item name="android:textColorHint">?attr/colorFilterTextInputLayout</item>
+    </style>
+
+
 </resources>

@@ -27,4 +27,12 @@
     <string name="network_error_text">Нет интернета</string>
     <string name="not_found_text">Не удалось получить\nсписок вакансий</string>
     <string name="server_error_text">Ошибка сервера</string>
+    <string name="filter_settings">Настройки фильтрации</string>
+    <string name="place_of_work">Место работы</string>
+    <string name="industries">Отрасль</string>
+    <string name="expected_salary">Ожидаемая зарплата</string>
+    <string name="enter_amount">Введите сумму</string>
+    <string name="check_box_text">Не показывать без зарплаты</string>
+    <string name="button_filter_reset">Сбросить</string>
+    <string name="button_filter_apply">Применить</string>
 </resources>
