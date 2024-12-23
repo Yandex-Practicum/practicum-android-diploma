@@ -11,6 +11,8 @@
         <item name="colorOfText">@color/white</item>
         <item name="colorFilterTextInputLayout">@color/white</item>
         <item name="colorBackgroundFilterTextInputLayout">@color/hh_grey</item>
+        <item name="colorArrowRight">@color/white</item>
+        <item name="colorTextLayoutBackground">@color/black</item>
     </style>
 
 </resources>

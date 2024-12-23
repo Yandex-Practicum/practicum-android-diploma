@@ -35,4 +35,8 @@
     <string name="check_box_text">Не показывать без зарплаты</string>
     <string name="button_filter_reset">Сбросить</string>
     <string name="button_filter_apply">Применить</string>
+    <string name="filter_work_place_text">Выбор места работы</string>
+    <string name="filter_country">Страна</string>
+    <string name="filter_region">Регион</string>
+    <string name="choice_country">Выбор страны</string>
 </resources>

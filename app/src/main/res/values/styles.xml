@@ -67,8 +67,12 @@
         <item name="android:foreground">@android:color/transparent</item>
     </style>
 
-    <style name="filterTextInputLayout">
+    <style name="filterTextInputLayoutWork">
         <item name="boxBackgroundColor">?attr/colorBackgroundFilterTextInputLayout</item>
+    </style>
+
+    <style name="filterTextInputLayout">
+        <item name="boxBackgroundColor">?attr/colorTextLayoutBackground</item>
     </style>
 
     <style name="filterTextInputEditText">

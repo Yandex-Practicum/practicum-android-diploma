@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.vacancy.VacancyFragment">
+    android:background="@color/black"
+    tools:context=".ui.filter.FilterSettingsFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/startGuideline"
@@ -26,9 +26,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin24"
+        android:src="@drawable/arrow_back"
         app:layout_constraintStart_toStartOf="@id/startGuideline"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/arrow_back"
         tools:ignore="ContentDescription" />
 
     <TextView
@@ -42,110 +42,132 @@
         app:layout_constraintStart_toEndOf="@id/ivBack"
         app:layout_constraintTop_toTopOf="@id/ivBack" />
 
-    <TextView
-        android:id="@+id/tvPlaceOfWork"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="@dimen/margin34"
-        android:padding="8dp"
-        android:gravity="center_vertical"
-        style="@style/Regular16Text"
-        android:text="@string/place_of_work"
-        android:textColor="@color/hh_grey"
-        android:textSize="16sp"
-        android:background="@null"
-        android:drawablePadding="8dp"
-        app:drawableEndCompat="@drawable/ic_arrow_right"
-        app:layout_constraintEnd_toEndOf="@id/endGuideline"
-        app:layout_constraintStart_toStartOf="@id/startGuideline"
-        app:layout_constraintTop_toBottomOf="@id/tvFilterSettingsHeader"/>
-
-    <TextView
-        android:id="@+id/tvIndustries"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:padding="8dp"
-        android:gravity="center_vertical"
-        style="@style/Regular16Text"
-        android:text="@string/industries"
-        android:textColor="@color/hh_grey"
-        android:textSize="16sp"
-        android:background="@null"
-        android:drawablePadding="8dp"
-        app:drawableEndCompat="@drawable/ic_arrow_right"
-        app:layout_constraintEnd_toEndOf="@id/endGuideline"
-        app:layout_constraintStart_toStartOf="@id/startGuideline"
-        app:layout_constraintTop_toBottomOf="@id/tvPlaceOfWork"/>
-
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:id="@+id/tilCountry"
         style="@style/filterTextInputLayout"
-        android:hint="@string/expected_salary"
-        app:expandedHintEnabled="false"
-        app:endIconMode="clear_text"
-        android:textColorHint="@color/focus_tint_list"
-        app:endIconDrawable="@drawable/search_clear_icon"
-        android:layout_marginTop="@dimen/margin16"
-        app:boxCornerRadiusTopStart="8dp"
-        app:boxCornerRadiusTopEnd="8dp"
-        app:boxCornerRadiusBottomStart="8dp"
-        app:boxCornerRadiusBottomEnd="8dp"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/button_layout_height_60"
+        android:layout_marginTop="@dimen/margin34"
+        android:hint="@string/place_of_work"
+        android:paddingBottom="@dimen/padding_10"
         app:boxStrokeColor="@null"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
+        app:hintAnimationEnabled="true"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="@id/endGuideline"
         app:layout_constraintStart_toStartOf="@id/startGuideline"
-        app:layout_constraintTop_toBottomOf="@id/tvIndustries">
+        app:layout_constraintTop_toBottomOf="@id/tvFilterSettingsHeader">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etCountry"
+            style="@style/Regular16Text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:text="@string/place_of_work"
+            android:textColor="@color/hh_grey"
+            app:drawableEndCompat="@drawable/ic_arrow_right"
+            app:drawableTint="?attr/colorArrowRight" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilIndustries"
+        style="@style/filterTextInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/button_layout_height_60"
+        android:hint="@string/industries"
+        android:paddingBottom="@dimen/padding_10"
+        app:boxStrokeColor="@null"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:hintAnimationEnabled="true"
+        app:hintEnabled="false"
+        app:layout_constraintEnd_toEndOf="@id/endGuideline"
+        app:layout_constraintStart_toStartOf="@id/startGuideline"
+        app:layout_constraintTop_toBottomOf="@id/tilCountry">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etIndustries"
+            style="@style/Regular16Text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:text="@string/industries"
+            android:textColor="@color/hh_grey"
+            app:drawableEndCompat="@drawable/ic_arrow_right"
+            app:drawableTint="?attr/colorArrowRight" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
+        style="@style/filterTextInputLayoutWork"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="@dimen/margin16"
+        android:hint="@string/expected_salary"
+        android:textColorHint="@color/focus_tint_list"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusTopStart="8dp"
+        app:boxStrokeColor="@null"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:endIconDrawable="@drawable/search_clear_icon"
+        app:endIconMode="clear_text"
+        app:expandedHintEnabled="false"
+        app:layout_constraintEnd_toEndOf="@id/endGuideline"
+        app:layout_constraintStart_toStartOf="@id/startGuideline"
+        app:layout_constraintTop_toBottomOf="@id/tilIndustries">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textInputEditText"
+            style="@style/filterTextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/filterTextInputEditText"
-            android:inputType="number"
             android:hint="@string/enter_amount"
+            android:inputType="number"
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <CheckBox
         android:id="@+id/checkBox"
+        style="@style/Regular16Text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        style="@style/Regular16Text"
-        android:text="@string/check_box_text"
         android:layout_marginTop="@dimen/margin24"
         android:button="@null"
         android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
         android:drawableTint="@color/hh_blue"
+        android:text="@string/check_box_text"
         app:layout_constraintEnd_toStartOf="@+id/endGuideline"
         app:layout_constraintStart_toStartOf="@+id/startGuideline"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
     <Button
         android:id="@+id/button"
+        style="@style/BlueButton"
         android:layout_width="0dp"
         android:layout_height="@dimen/button_layout_height_60"
-        style="@style/BlueButton"
-        android:textColor="@color/hh_red"
-        android:fontFamily="@font/ys_display_medium"
-        android:textSize="@dimen/text_size_16"
         android:background="@color/transparent"
+        android:fontFamily="@font/ys_display_medium"
         android:text="@string/button_filter_reset"
+        android:textColor="@color/hh_red"
+        android:textSize="@dimen/text_size_16"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/endGuideline"
         app:layout_constraintStart_toStartOf="@+id/startGuideline" />
 
     <Button
         android:id="@+id/button2"
+        style="@style/BlueButton"
         android:layout_width="0dp"
         android:layout_height="@dimen/button_layout_height_60"
-        style="@style/BlueButton"
-        android:textColor="@color/white"
         android:fontFamily="@font/ys_display_medium"
-        android:textSize="@dimen/text_size_16"
         android:text="@string/button_filter_apply"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_16"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toStartOf="@+id/endGuideline"
         app:layout_constraintStart_toStartOf="@+id/startGuideline" />

@@ -6,4 +6,6 @@
     <attr name="colorFilterHint" format="color" />
     <attr name="colorFilterTextInputLayout" format="color" />
     <attr name="colorBackgroundFilterTextInputLayout" format="color" />
+    <attr name="colorArrowRight" format="color" />
+    <attr name="colorTextLayoutBackground" format="color" />
 </resources>
