@@ -4,5 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.filter.FilterSettingsFragment">
+<Button
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:text="industries"
+    android:id="@+id/btnIndustries">
 
+</Button>
 </androidx.constraintlayout.widget.ConstraintLayout>
