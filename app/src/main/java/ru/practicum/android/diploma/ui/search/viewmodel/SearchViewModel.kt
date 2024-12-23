@@ -20,11 +20,6 @@ class SearchViewModel(
     private val searchInteractor: SearchInteractor
 ) : ViewModel() {
 
-    companion object {
-        private const val HTTP_NOT_FOUND = 404
-        private const val HTTP_SERVER_ERROR = 500
-    }
-
     private val searchScreenStateLiveData = MutableLiveData<SearchScreenState>()
     private var currentPage = 0
     private var maxPages = 0
@@ -189,6 +184,11 @@ class SearchViewModel(
             isFew -> "Найдено $count вакансии"
             else -> "Найдено $count вакансий"
         }
+    }
+
+    companion object {
+        private const val HTTP_NOT_FOUND = 404
+        private const val HTTP_SERVER_ERROR = 500
     }
 
 }
