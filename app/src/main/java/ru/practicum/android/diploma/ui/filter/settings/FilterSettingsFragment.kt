@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.filter.settings
+package ru.practicum.android.diploma.ui.filter
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -39,6 +39,9 @@ class FilterSettingsFragment : Fragment() {
             findNavController().popBackStack()
         }
 
+        binding.etIndustries.setOnClickListener {
+            findNavController().navigate(R.id.action_filterSettingsFragment_to_choiceIndustryFragment)
+        }
     }
 
     override fun onDestroyView() {

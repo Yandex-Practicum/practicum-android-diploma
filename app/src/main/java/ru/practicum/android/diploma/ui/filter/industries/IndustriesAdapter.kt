@@ -1,16 +1,14 @@
 package ru.practicum.android.diploma.ui.filter.industries
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.dto.model.industries.IndustriesFullDto
+import ru.practicum.android.diploma.databinding.IndustryItemBinding
 
 class IndustriesAdapter(
-    val listener: ChoiceIndustryFragment,
-    private var industries: List<IndustriesFullDto> = ArrayList()
+    private val onItemClicked: (IndustriesFullDto) -> Unit,
+    private var industries: List<IndustriesFullDto> = emptyList()
 ) : RecyclerView.Adapter<IndustriesViewHolder>() {
 
     fun getIndustries(): List<IndustriesFullDto> = industries
@@ -19,8 +17,10 @@ class IndustriesAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IndustriesViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.fragment_industry_list_item, parent, false)
-        return IndustriesViewHolder(itemView)
+        val layoutInflater = LayoutInflater.from(parent.context)
+        return IndustriesViewHolder(IndustryItemBinding.inflate(layoutInflater, parent, false)) {
+            onItemClicked(industries[it])
+        }
     }
 
     override fun getItemCount(): Int {
@@ -28,8 +28,8 @@ class IndustriesAdapter(
     }
 
     override fun onBindViewHolder(holder: IndustriesViewHolder, position: Int) {
-        holder.bind(industries[position], listener)
-        holder.itemView.setOnClickListener { listener.onClick(industries[position]) }
+        holder.bind(industries[position])
+        //holder.itemView.setOnClickListener { listener.onClick(industries[position]) }
     }
 
     fun updateIndustries(newIndustries: List<IndustriesFullDto>) {
@@ -38,14 +38,19 @@ class IndustriesAdapter(
     }
 }
 
-class IndustriesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class IndustriesViewHolder(
+    private val binding: IndustryItemBinding,
+    onItemClicked: (Int) -> Unit
+) : RecyclerView.ViewHolder(binding.root) {
 
-    private val industryNameTextView: TextView = itemView.findViewById(R.id.tvName)
-
-    fun bind(model: IndustriesFullDto, listener: IndustriesAdapter.Listener) {
-        industryNameTextView.text = model.name
-        itemView.setOnClickListener {
-            listener.onClick(model)
+    init {
+        binding.root.setOnClickListener {
+            onItemClicked(adapterPosition)
         }
+    }
+
+    fun bind(model: IndustriesFullDto) {
+
+        binding.checkBox.text = model.name
     }
 }

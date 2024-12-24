@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.data.dto.model.industries.IndustriesFullDto
 import ru.practicum.android.diploma.databinding.FragmentChoiceIndustryBinding
+import ru.practicum.android.diploma.domain.models.Vacancy
 
 class ChoiceIndustryFragment : Fragment(), IndustriesAdapter.Listener {
     private var _binding: FragmentChoiceIndustryBinding? = null
@@ -26,7 +28,7 @@ class ChoiceIndustryFragment : Fragment(), IndustriesAdapter.Listener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //  binding.rvIndustries.isVisible = true
+        binding.rvFoundedIndustry.isVisible = true
         viewModel.showIndustries()
 
         viewModel.industriesState.observe(viewLifecycleOwner) { state ->
@@ -35,12 +37,15 @@ class ChoiceIndustryFragment : Fragment(), IndustriesAdapter.Listener {
     }
 
     private fun renderState(state: IndustriesState) {
+        val onItemClickListener: (IndustriesFullDto) -> Unit = {
+            // Логика, исполняемая по нажатию на элемент списка вакансий
+        }
         when (state) {
             is IndustriesState.FoundIndustries -> {
-                val adapter = IndustriesAdapter(this)
+                val adapter = IndustriesAdapter(onItemClickListener)
                 adapter.updateIndustries(state.industries as List<IndustriesFullDto>)
-//                binding.rvIndustries.adapter = adapter
-//                binding.rvIndustries.isVisible = true
+                binding.rvFoundedIndustry.adapter = adapter
+                binding.rvFoundedIndustry.isVisible = true
             }
 
             is IndustriesState.Error -> {
