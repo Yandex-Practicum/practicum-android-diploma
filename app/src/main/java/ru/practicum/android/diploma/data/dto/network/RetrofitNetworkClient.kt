@@ -17,7 +17,7 @@ import java.io.IOException
 
 class RetrofitNetworkClient(
     private val connectivityManager: ConnectivityManager,
-    private val imbdService: HhApi
+    private val hhService: HhApi
 ) : NetworkClient {
 
     override suspend fun doRequest(dto: Any): Response {
@@ -27,10 +27,8 @@ class RetrofitNetworkClient(
         return when (dto) {
             is VacancySearchRequest -> getSearchVacancy(dto)
             is VacancyRequest -> getFullVacancy(dto)
-            is IndustriesRequest -> getFullIndustries(dto)
             else -> {
-                return Response().apply {
-                    code = HTTP_BAD_REQUEST_CODE
+                return Response().apply { code = HTTP_BAD_REQUEST_CODE
                 }
             }
         }
@@ -39,7 +37,7 @@ class RetrofitNetworkClient(
     private suspend fun getSearchVacancy(request: VacancySearchRequest): Response {
         return withContext(Dispatchers.IO) {
             try {
-                imbdService
+                hhService
                     .getVacancies(
                         request.searchParams.searchQuery,
                         request.searchParams.nameOfCityForFilter,
@@ -68,7 +66,7 @@ class RetrofitNetworkClient(
     private suspend fun getFullVacancy(request: VacancyRequest): Response {
         return withContext(Dispatchers.IO) {
             try {
-                VacancyResponse(imbdService.getVacancyById(request.id))
+                VacancyResponse(hhService.getVacancyById(request.id))
                     .apply { code = HTTP_OK_CODE }
             } catch (e: HttpException) {
                 Response().apply { code = e.code() }
@@ -83,7 +81,7 @@ class RetrofitNetworkClient(
     private suspend fun getFullIndustries(request: IndustriesRequest): Response {
         return withContext(Dispatchers.IO) {
             try {
-                IndustriesResponse(imbdService.getAllIndustries())
+                IndustriesResponse(hhService.getAllIndustries())
                     .apply { code = HTTP_OK_CODE }
             } catch (e: HttpException) {
                 Response().apply { code = e.code() }

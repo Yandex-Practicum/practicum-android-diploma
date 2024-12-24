@@ -14,16 +14,12 @@ import ru.practicum.android.diploma.domain.search.SearchInteractor
 import ru.practicum.android.diploma.domain.search.models.SearchParams
 import ru.practicum.android.diploma.domain.search.models.SearchScreenState
 import java.io.IOException
+import java.text.NumberFormat
 import java.util.Locale
 
 class SearchViewModel(
     private val searchInteractor: SearchInteractor
 ) : ViewModel() {
-
-    companion object {
-        private const val HTTP_NOT_FOUND = 404
-        private const val HTTP_SERVER_ERROR = 500
-    }
 
     private val searchScreenStateLiveData = MutableLiveData<SearchScreenState>()
     private var currentPage = 0
@@ -141,28 +137,28 @@ class SearchViewModel(
         return if (salary == null) {
             null
         } else {
-            if (salary.from == salary.to) {
-                String.format(
-                    Locale.getDefault(),
-                    "%d %s",
-                    salary.to,
-                    getCurrencySymbolByCode(salary.currency!!)
-                )
-            } else if (salary.to == null) {
-                String.format(
-                    Locale.getDefault(),
-                    "от %d %s",
-                    salary.from,
-                    getCurrencySymbolByCode(salary.currency!!)
-                )
-            } else {
-                String.format(
-                    Locale.getDefault(),
-                    "от %d до %d %s",
-                    salary.from,
-                    salary.to,
-                    getCurrencySymbolByCode(salary.currency!!)
-                )
+            val currencySymbol = getCurrencySymbolByCode(salary.currency!!)
+            val numberFormat = NumberFormat.getNumberInstance(Locale.getDefault())
+            when {
+                salary.from != null && salary.to != null && salary.from == salary.to -> {
+                    String.format(Locale.getDefault(), "%s %s", numberFormat.format(salary.to), currencySymbol)
+                }
+                salary.from != null && salary.to == null -> {
+                    String.format(Locale.getDefault(), "от %s %s", numberFormat.format(salary.from), currencySymbol)
+                }
+                salary.from == null && salary.to != null -> {
+                    String.format(Locale.getDefault(), "до %s %s", numberFormat.format(salary.to), currencySymbol)
+                }
+                salary.from != null && salary.to != null -> {
+                    String.format(
+                        Locale.getDefault(),
+                        "от %s до %s %s",
+                        numberFormat.format(salary.from),
+                        numberFormat.format(salary.to),
+                        currencySymbol
+                    )
+                }
+                else -> null
             }
         }
     }
@@ -190,5 +186,10 @@ class SearchViewModel(
         maxPages = 0
         _counterVacancy.postValue(0)
         searchScreenStateLiveData.postValue(SearchScreenState.Empty)
+    }
+
+    companion object {
+        private const val HTTP_NOT_FOUND = 404
+        private const val HTTP_SERVER_ERROR = 500
     }
 }
