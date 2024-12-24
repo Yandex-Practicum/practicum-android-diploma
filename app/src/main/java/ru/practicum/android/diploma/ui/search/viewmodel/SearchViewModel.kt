@@ -81,14 +81,14 @@ class SearchViewModel(
         response: Flow<VacancySearchResponse>,
         searchParams: SearchParams
     ) {
-        response.collect { response ->
-            if (response.items.isNotEmpty()) {
-                updateVacanciesList(response, searchParams)
+        response.collect { resp ->
+            if (resp.items.isNotEmpty()) {
+                updateVacanciesList(resp, searchParams)
                 searchScreenStateLiveData.postValue(SearchScreenState.Content(vacanciesList))
-                currentPage = response.page
-                maxPages = response.pages
+                currentPage = resp.page
+                maxPages = resp.pages
                 if (searchParams.numberOfPage == "0") {
-                    _counterVacancy.postValue(response.found)
+                    _counterVacancy.postValue(resp.found)
                 }
             } else {
                 searchScreenStateLiveData.postValue(SearchScreenState.NotFound)
