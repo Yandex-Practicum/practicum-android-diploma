@@ -78,8 +78,8 @@ class SearchViewModel(
         }
     }
 
-    private suspend fun handleSuccessResponse(response: Flow<VacancySearchResponse>, searchParams: SearchParams) {
-        response.collect { response ->
+    private suspend fun handleSuccessResponse(resp: Flow<VacancySearchResponse>, searchParams: SearchParams) {
+        resp.collect { response ->
             if (response.items.isNotEmpty()) {
                 updateVacanciesList(response, searchParams)
                 searchScreenStateLiveData.postValue(SearchScreenState.Content(vacanciesList))
@@ -101,12 +101,18 @@ class SearchViewModel(
         }
         val vacancies = response.items.map { vacancyDto ->
             Vacancy(
-                vacancyDto.id,
-                vacancyDto.name,
-                vacancyDto.area.name,
-                getCorrectFormOfSalaryText(vacancyDto.salary),
-                vacancyDto.employer.name,
-                vacancyDto.employer.logoUrls?.original
+                it.id,
+                it.name,
+                it.area.name,
+                getCorrectFormOfSalaryText(it.salary),
+                it.employer.name,
+                it.employer.logoUrls?.original,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
             )
         }
         vacanciesList.addAll(vacancies)
@@ -142,9 +148,9 @@ class SearchViewModel(
         }
     }
 
-    private fun getCorrectFormOfSalaryText(salary: SalaryDto?): String? {
+    private fun getCorrectFormOfSalaryText(salary: SalaryDto?): String {
         return if (salary == null) {
-            null
+            "Зарплата не указана"
         } else {
             val currencySymbol = getCurrencySymbolByCode(salary.currency!!)
             val numberFormat = NumberFormat.getNumberInstance(Locale.getDefault())

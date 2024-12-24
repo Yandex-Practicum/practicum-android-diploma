@@ -18,9 +18,13 @@
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="ru.practicum.android.diploma.ui.favorites.FavoritesFragment"
+        android:name="ru.practicum.android.diploma.ui.favorites.activity.FavoritesFragment"
         android:label="fragment_favorites"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_favoritesFragment_to_vacancyFragment"
+            app:destination="@id/vacancyFragment" />
+    </fragment>
     <fragment
         android:id="@+id/teamFragment"
         android:name="ru.practicum.android.diploma.ui.TeamFragment"
@@ -67,7 +71,7 @@
         tools:layout="@layout/fragment_choice_industry" />
     <fragment
         android:id="@+id/vacancyFragment"
-        android:name="ru.practicum.android.diploma.ui.vacancy.VacancyFragment"
+        android:name="ru.practicum.android.diploma.ui.vacancy.activity.VacancyFragment"
         android:label="fragment_vacancy"
         tools:layout="@layout/fragment_vacancy" />
 

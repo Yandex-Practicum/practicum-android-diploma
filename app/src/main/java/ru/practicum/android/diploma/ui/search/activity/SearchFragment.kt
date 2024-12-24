@@ -11,9 +11,10 @@ import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -21,9 +22,11 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.search.models.SearchParams
-import ru.practicum.android.diploma.domain.search.models.SearchScreenState
-import ru.practicum.android.diploma.ui.favorites.VacancyAdapter
+import ru.practicum.android.diploma.ui.favorites.activity.VacancyAdapter
+import ru.practicum.android.diploma.ui.search.viewmodel.SearchScreenState
 import ru.practicum.android.diploma.ui.search.viewmodel.SearchViewModel
+import ru.practicum.android.diploma.ui.vacancy.activity.VacancyFragment
+import java.util.Locale
 
 class SearchFragment : Fragment() {
 
@@ -77,11 +80,17 @@ class SearchFragment : Fragment() {
         }
 
         val onItemClickListener: (Vacancy) -> Unit = {
-            val bundle = Bundle().apply {
-                putString("vacancy_id", it.id)
-            }
-            findNavController().navigate(R.id.action_searchFragment_to_vacancyFragment, bundle)
             // Логика для выполнения по обычному нажатию на элемент
+            requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView).isVisible = false
+            requireActivity().supportFragmentManager
+                .beginTransaction()
+                .replace(
+                    R.id.container_view,
+                    VacancyFragment.newInstance(it.id),
+                    null
+                )
+                .addToBackStack(null)
+                .commit()
         }
         val onItemLongClickListener: (Vacancy) -> Unit = {
             // Логика для выполнения по долгому нажатию на элемент
@@ -129,7 +138,8 @@ class SearchFragment : Fragment() {
         }
 
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            binding.progressBar.isVisible = isLoading && !(viewModel.isPaginationLoading.value ?: false)
+            binding.progressBar.isVisible =
+                isLoading && !(viewModel.isPaginationLoading.value ?: false)
         }
 
         viewModel.isPaginationLoading.observe(viewLifecycleOwner) { isPaginationLoading ->
@@ -140,6 +150,11 @@ class SearchFragment : Fragment() {
         }
 
         viewModel.counterVacancy.observe(viewLifecycleOwner) { counter ->
+            binding.vacancyCounter.text = String.format(
+                Locale.getDefault(),
+                "Найдено %d вакансий",
+                counter
+            )
             binding.vacancyCounter.text = viewModel.getVacanciesText(counter)
         }
 
