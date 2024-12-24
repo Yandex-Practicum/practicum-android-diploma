@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="?attr/backgroundColor"
     tools:context=".ui.filter.FilterSettingsFragment">
 
     <androidx.constraintlayout.widget.Guideline
@@ -49,12 +49,15 @@
         android:layout_height="@dimen/button_layout_height_60"
         android:layout_marginTop="@dimen/margin34"
         android:hint="@string/place_of_work"
-        android:paddingBottom="@dimen/padding_10"
+        android:textColorHint="@color/hh_grey"
+        app:endIconDrawable="@drawable/ic_arrow_right"
+        app:endIconMode="custom"
+        app:endIconTint="?attr/textColorDefault"
         app:boxStrokeColor="@null"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
         app:hintAnimationEnabled="true"
-        app:hintEnabled="false"
+        app:hintEnabled="true"
         app:layout_constraintEnd_toEndOf="@id/endGuideline"
         app:layout_constraintStart_toStartOf="@id/startGuideline"
         app:layout_constraintTop_toBottomOf="@id/tvFilterSettingsHeader">
@@ -65,9 +68,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@null"
-            android:text="@string/place_of_work"
-            android:textColor="@color/hh_grey"
-            app:drawableEndCompat="@drawable/ic_arrow_right"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:text=""
+            android:textColor="?attr/textColorDefault"
             app:drawableTint="?attr/colorArrowRight" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -77,12 +81,15 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/button_layout_height_60"
         android:hint="@string/industries"
-        android:paddingBottom="@dimen/padding_10"
+        android:textColorHint="@color/hh_grey"
+        app:endIconDrawable="@drawable/ic_arrow_right"
+        app:endIconMode="custom"
+        app:endIconTint="?attr/textColorDefault"
         app:boxStrokeColor="@null"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
         app:hintAnimationEnabled="true"
-        app:hintEnabled="false"
+        app:hintEnabled="true"
         app:layout_constraintEnd_toEndOf="@id/endGuideline"
         app:layout_constraintStart_toStartOf="@id/startGuideline"
         app:layout_constraintTop_toBottomOf="@id/tilCountry">
@@ -93,8 +100,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@null"
-            android:text="@string/industries"
-            android:textColor="@color/hh_grey"
+            android:focusable="false"
+            android:cursorVisible="false"
+            android:textColor="?attr/textColorDefault"
             app:drawableEndCompat="@drawable/ic_arrow_right"
             app:drawableTint="?attr/colorArrowRight" />
     </com.google.android.material.textfield.TextInputLayout>

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/backgroundColor"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.filter.ChoiceIndustryFragment">
 
@@ -58,7 +59,8 @@
             android:singleLine="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/enter_industry" />
+            android:hint="@string/enter_industry"
+            tools:ignore="Autofill,TextFields" />
 
         <ImageButton
             android:id="@+id/ibClearQuery"
@@ -68,7 +70,8 @@
             android:layout_gravity="end|center"
             android:visibility="gone"
             app:srcCompat="@drawable/search_clear_icon"
-            android:backgroundTint="@android:color/transparent" />
+            android:backgroundTint="@android:color/transparent"
+            tools:ignore="ContentDescription" />
 
         <ImageButton
             android:id="@+id/ibClearSearch"
@@ -77,7 +80,8 @@
             android:layout_marginEnd="@dimen/team_indent"
             android:layout_gravity="end|center"
             app:srcCompat="@drawable/search_icon"
-            android:backgroundTint="@android:color/transparent" />
+            android:backgroundTint="@android:color/transparent"
+            tools:ignore="ContentDescription" />
     </FrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView

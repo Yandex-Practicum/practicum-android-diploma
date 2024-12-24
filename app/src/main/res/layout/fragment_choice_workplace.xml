@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/backgroundColor"
     tools:context=".ui.filter.ChoiceWorkplaceFragment">
 
     <androidx.constraintlayout.widget.Guideline
@@ -48,12 +49,15 @@
         android:layout_height="@dimen/button_layout_height_60"
         android:layout_marginTop="@dimen/margin34"
         android:hint="@string/filter_country"
-        android:paddingBottom="@dimen/padding_10"
+        android:textColorHint="@color/hh_grey"
+        app:endIconDrawable="@drawable/ic_arrow_right"
+        app:endIconMode="custom"
+        app:endIconTint="?attr/textColorDefault"
         app:boxStrokeColor="@null"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
         app:hintAnimationEnabled="true"
-        app:hintEnabled="false"
+        app:hintEnabled="true"
         app:layout_constraintEnd_toEndOf="@id/endGuideline"
         app:layout_constraintStart_toStartOf="@id/startGuideline"
         app:layout_constraintTop_toBottomOf="@id/tvFilterWorkPlaceHeader">
@@ -64,8 +68,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@null"
-            android:text="@string/filter_country"
-            android:textColor="@color/hh_grey"
+            android:text=""
+            android:focusable="false"
+            android:cursorVisible="false"
+            android:textColor="?attr/textColorDefault"
             app:drawableEndCompat="@drawable/ic_arrow_right"
             app:drawableTint="?attr/colorArrowRight" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -76,12 +82,15 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/button_layout_height_60"
         android:hint="@string/filter_region"
-        android:paddingBottom="@dimen/padding_10"
+        android:textColorHint="@color/hh_grey"
+        app:endIconDrawable="@drawable/ic_arrow_right"
+        app:endIconMode="custom"
+        app:endIconTint="?attr/textColorDefault"
         app:boxStrokeColor="@null"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
         app:hintAnimationEnabled="true"
-        app:hintEnabled="false"
+        app:hintEnabled="true"
         app:layout_constraintEnd_toEndOf="@id/endGuideline"
         app:layout_constraintStart_toStartOf="@id/startGuideline"
         app:layout_constraintTop_toBottomOf="@id/tilCountry">
@@ -92,8 +101,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@null"
-            android:text="@string/filter_region"
-            android:textColor="@color/hh_grey"
+            android:text=""
+            android:focusable="false"
+            android:cursorVisible="false"
+            android:textColor="?attr/textColorDefault"
             app:drawableEndCompat="@drawable/ic_arrow_right"
             app:drawableTint="?attr/colorArrowRight" />
     </com.google.android.material.textfield.TextInputLayout>
