@@ -26,6 +26,7 @@
     <string name="not_found_counter_vacancy_text">Таких вакансий нет</string>
     <string name="network_error_text">Нет интернета</string>
     <string name="not_found_text">Не удалось получить\nсписок вакансий</string>
+    <string name="not_found_region">Не удалось получить\nсписок</string>
     <string name="server_error_text">Ошибка сервера</string>
     <string name="filter_settings">Настройки фильтрации</string>
     <string name="place_of_work">Место работы</string>
@@ -39,4 +40,10 @@
     <string name="filter_country">Страна</string>
     <string name="filter_region">Регион</string>
     <string name="choice_country">Выбор страны</string>
+    <string name="industry_header">Выбор отрасли</string>
+    <string name="region_choice_header">Выбор региона</string>
+    <string name="enter_industry">Введите отрасль</string>
+    <string name="enter_region">Введите регион</string>
+    <string name="button_choice">Выбрать</string>
+    <string name="region_not_found">Такого региона нет</string>
 </resources>

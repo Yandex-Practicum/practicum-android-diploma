@@ -146,7 +146,20 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btApply"
+        style="@style/BlueButton"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/button_layout_height_60"
+        android:fontFamily="@font/ys_display_medium"
+        android:text="@string/button_filter_apply"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_16"
+        app:layout_constraintBottom_toTopOf="@+id/btReset"
+        app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+        app:layout_constraintStart_toStartOf="@+id/startGuideline" />
+
+    <Button
+        android:id="@+id/btReset"
         style="@style/BlueButton"
         android:layout_width="0dp"
         android:layout_height="@dimen/button_layout_height_60"
@@ -159,18 +172,7 @@
         app:layout_constraintEnd_toStartOf="@+id/endGuideline"
         app:layout_constraintStart_toStartOf="@+id/startGuideline" />
 
-    <Button
-        android:id="@+id/button2"
-        style="@style/BlueButton"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/button_layout_height_60"
-        android:fontFamily="@font/ys_display_medium"
-        android:text="@string/button_filter_apply"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_16"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toStartOf="@+id/endGuideline"
-        app:layout_constraintStart_toStartOf="@+id/startGuideline" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
