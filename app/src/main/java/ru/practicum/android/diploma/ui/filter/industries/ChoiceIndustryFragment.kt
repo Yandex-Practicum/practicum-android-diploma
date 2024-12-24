@@ -36,7 +36,6 @@ class ChoiceIndustryFragment : Fragment(), IndustriesAdapter.Listener {
         }
 
         val onItemClickListener: (IndustriesFullDto) -> Unit = {
-
         }
 
         val foundedIndustryAdapter = IndustriesAdapter(
@@ -46,9 +45,7 @@ class ChoiceIndustryFragment : Fragment(), IndustriesAdapter.Listener {
     }
 
     private fun renderState(state: IndustriesState) {
-
         val foundedIndustryRv = binding.rvFoundedIndustry
-
         when (state) {
             is IndustriesState.FoundIndustries -> {
                 val adapter = foundedIndustryRv.adapter as IndustriesAdapter

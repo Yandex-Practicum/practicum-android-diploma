@@ -29,7 +29,7 @@ class IndustriesAdapter(
 
     override fun onBindViewHolder(holder: IndustriesViewHolder, position: Int) {
         holder.bind(industries[position])
-        //holder.itemView.setOnClickListener { listener.onClick(industries[position]) }
+        // holder.itemView.setOnClickListener { listener.onClick(industries[position]) }
     }
 
     fun updateIndustries(newIndustries: List<IndustriesFullDto>) {
@@ -50,7 +50,6 @@ class IndustriesViewHolder(
     }
 
     fun bind(model: IndustriesFullDto) {
-
         binding.checkBox.text = model.name
     }
 }
