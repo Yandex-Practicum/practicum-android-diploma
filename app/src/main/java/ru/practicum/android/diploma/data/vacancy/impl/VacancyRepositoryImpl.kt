@@ -18,6 +18,7 @@ class VacancyRepositoryImpl(
     override fun getVacancyId(id: String): Flow<Resource<VacancyFullItemDto>> = flow {
         val response = networkClient.doRequest(VacancyRequest(id))
         when (response.code) {
+
             RetrofitNetworkClient.INTERNET_NOT_CONNECT -> {
                 emit(Resource.Error(VacancyError.NETWORK_ERROR))
             }
