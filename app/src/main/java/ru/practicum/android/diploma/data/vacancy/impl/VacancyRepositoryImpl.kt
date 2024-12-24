@@ -8,6 +8,7 @@ import ru.practicum.android.diploma.data.dto.model.VacancyFullItemDto
 import ru.practicum.android.diploma.data.dto.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.data.vacancy.VacancyRepository
 import ru.practicum.android.diploma.domain.NetworkClient
+import ru.practicum.android.diploma.ui.search.state.VacancyError
 import ru.practicum.android.diploma.util.Resource
 
 class VacancyRepositoryImpl(
@@ -16,23 +17,27 @@ class VacancyRepositoryImpl(
 
     override fun getVacancyId(id: String): Flow<Resource<VacancyFullItemDto>> = flow {
         val response = networkClient.doRequest(VacancyRequest(id))
-        emit(
-            when (response.code) {
-                RetrofitNetworkClient.INTERNET_NOT_CONNECT -> Resource.Error("Network Error")
-                RetrofitNetworkClient.HTTP_CODE_0 -> Resource.Error("Unknown Error")
-                RetrofitNetworkClient.HTTP_BAD_REQUEST_CODE -> Resource.Error("Bad Request")
-                RetrofitNetworkClient.HTTP_PAGE_NOT_FOUND_CODE -> Resource.Error("Not Found")
-                RetrofitNetworkClient.HTTP_INTERNAL_SERVER_ERROR_CODE -> Resource.Error("Server Error")
-                RetrofitNetworkClient.HTTP_OK_CODE -> {
-                    with(response as VacancyResponse) {
-                        Resource.Success(response.items)
-                    }
-                }
-
-                else -> {
-                    Resource.Error("Server Error")
+        when (response.code) {
+            RetrofitNetworkClient.INTERNET_NOT_CONNECT -> {
+                emit(Resource.Error(VacancyError.NETWORK_ERROR))
+            }
+            RetrofitNetworkClient.HTTP_BAD_REQUEST_CODE -> {
+                emit(Resource.Error(VacancyError.BAD_REQUEST))
+            }
+            RetrofitNetworkClient.HTTP_PAGE_NOT_FOUND_CODE -> {
+                emit(Resource.Error(VacancyError.NOT_FOUND))
+            }
+            RetrofitNetworkClient.HTTP_INTERNAL_SERVER_ERROR_CODE -> {
+                emit(Resource.Error(VacancyError.SERVER_ERROR))
+            }
+            RetrofitNetworkClient.HTTP_OK_CODE -> {
+                with(response as VacancyResponse) {
+                    emit(Resource.Success(response.items))
                 }
             }
-        )
+            else -> {
+                emit(Resource.Error(VacancyError.UNKNOWN_ERROR))
+            }
+        }
     }
 }

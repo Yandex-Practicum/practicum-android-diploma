@@ -15,6 +15,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.dto.model.VacancyFullItemDto
 import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
+import java.text.NumberFormat
+import java.util.Locale
 
 class VacancyFragment : Fragment() {
 
@@ -140,15 +142,23 @@ class VacancyFragment : Fragment() {
             "UZS" to "Soʻm",
         )
         val codeSalary = currencyCodeMapping[item.salary?.currency] ?: item.salary?.currency
-        val str: String
-        if (item.salary == null) {
-            str = "зарплата не указана"
-        } else if (item.salary.to == null || item.salary.from == item.salary.to) {
-            str = "от ${item.salary.from} $codeSalary"
-        } else {
-            str = "от ${item.salary.from} $codeSalary до ${item.salary.to} $codeSalary"
+        val numberFormat = NumberFormat.getNumberInstance(Locale.getDefault())
+        return when {
+            item.salary == null -> "Зарплата не указана"
+            item.salary.from != null && item.salary.to != null && item.salary.from == item.salary.to -> {
+                "${numberFormat.format(item.salary.from)} $codeSalary"
+            }
+            item.salary.from != null && item.salary.to == null -> {
+                "от ${numberFormat.format(item.salary.from)} $codeSalary"
+            }
+            item.salary.from == null && item.salary.to != null -> {
+                "до ${numberFormat.format(item.salary.to)} $codeSalary"
+            }
+            else -> {
+                "от ${numberFormat.format(item.salary.from ?: 0)} $codeSalary " +
+                    "до ${numberFormat.format(item.salary.to ?: 0)} $codeSalary"
+            }
         }
-        return str
     }
 
     private fun addresEmployer(item: VacancyFullItemDto): String {

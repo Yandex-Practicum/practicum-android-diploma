@@ -8,6 +8,8 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.data.dto.model.VacancyFullItemDto
 import ru.practicum.android.diploma.domain.vacancy.VacancyInteractor
+import ru.practicum.android.diploma.ui.search.state.VacancyError
+import ru.practicum.android.diploma.util.Resource
 
 class VacancyViewModel(
     application: Application,
@@ -22,36 +24,33 @@ class VacancyViewModel(
     fun getVacancyRessurces(id: String) {
         renderState(VacancyState.Loading)
         viewModelScope.launch {
-            interactor.getVacancyId(id).collect { pair ->
-                processResult(pair.first, pair.second)
+            interactor.getVacancyId(id).collect { resource ->
+                processResult(resource)
             }
         }
     }
 
-    private fun processResult(vacancy: VacancyFullItemDto?, errorMessage: String?) {
-        if (vacancy != null) {
-            listVacancy = vacancy
-            renderState(VacancyState.Content(listVacancy!!))
-        }
-
-        when (errorMessage) {
-            "Network Error" -> {
-                renderState(VacancyState.NetworkError)
+    private fun processResult(resource: Resource<VacancyFullItemDto>) {
+        when (resource) {
+            is Resource.Success -> {
+                listVacancy = resource.data
+                renderState(VacancyState.Content(listVacancy!!))
             }
-
-            "Bad Request" -> {
-                renderState(VacancyState.BadRequest)
-            }
-
-            "Not Found" -> {
-                renderState(VacancyState.Empty)
-            }
-
-            "Unknown Error" -> {
-                renderState(VacancyState.ServerError)
-            }
-            "Server Error" -> {
-                renderState(VacancyState.ServerError)
+            is Resource.Error -> {
+                when (resource.message) {
+                    VacancyError.NETWORK_ERROR -> {
+                        renderState(VacancyState.NetworkError)
+                    }
+                    VacancyError.BAD_REQUEST -> {
+                        renderState(VacancyState.BadRequest)
+                    }
+                    VacancyError.NOT_FOUND -> {
+                        renderState(VacancyState.Empty)
+                    }
+                    VacancyError.UNKNOWN_ERROR, VacancyError.SERVER_ERROR -> {
+                        renderState(VacancyState.ServerError)
+                    }
+                }
             }
         }
     }
