@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/backgroundColor"
     tools:context=".ui.search.activity.SearchFragment">
 
     <androidx.constraintlayout.widget.Guideline
@@ -52,7 +53,8 @@
         app:layout_constraintTop_toTopOf="@id/tvSearchHeader"
         app:layout_constraintBottom_toBottomOf="@id/tvSearchHeader"
         android:layout_marginEnd="10dp"
-        android:src="@drawable/filter_icon" />
+        android:src="@drawable/filter_icon"
+        tools:ignore="ContentDescription" />
 
     <FrameLayout
         android:id="@+id/flSearchElements"
@@ -71,7 +73,8 @@
             android:singleLine="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/enter_query" />
+            android:hint="@string/enter_query"
+            tools:ignore="Autofill,TextFields" />
 
         <ImageButton
             android:id="@+id/ibClearQuery"
@@ -81,7 +84,8 @@
             android:layout_gravity="end|center"
             android:visibility="gone"
             app:srcCompat="@drawable/search_clear_icon"
-            android:backgroundTint="@android:color/transparent" />
+            android:backgroundTint="@android:color/transparent"
+            tools:ignore="ContentDescription" />
 
         <ImageButton
             android:id="@+id/ibClearSearch"
@@ -90,7 +94,8 @@
             android:layout_marginEnd="@dimen/team_indent"
             android:layout_gravity="end|center"
             app:srcCompat="@drawable/search_icon"
-            android:backgroundTint="@android:color/transparent" />
+            android:backgroundTint="@android:color/transparent"
+            tools:ignore="ContentDescription" />
 
     </FrameLayout>
 
@@ -160,7 +165,8 @@
         app:layout_constraintEnd_toEndOf="@id/endGuideline"
         app:layout_constraintStart_toStartOf="@id/startGuideline"
         app:layout_constraintTop_toBottomOf="@id/topGuideline"
-        android:visibility="visible" />
+        android:visibility="visible"
+        tools:ignore="ContentDescription" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/networkErrorPlaceholder"
@@ -177,7 +183,8 @@
         app:layout_constraintBottom_toTopOf="@id/bottomGuideline"
         app:layout_constraintEnd_toEndOf="@id/endGuideline"
         app:layout_constraintStart_toStartOf="@id/startGuideline"
-        app:layout_constraintTop_toBottomOf="@id/topGuideline" />
+        app:layout_constraintTop_toBottomOf="@id/topGuideline"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/networkErrorText"
@@ -205,7 +212,8 @@
         app:layout_constraintBottom_toTopOf="@id/bottomGuideline"
         app:layout_constraintEnd_toEndOf="@id/endGuideline"
         app:layout_constraintStart_toStartOf="@id/startGuideline"
-        app:layout_constraintTop_toBottomOf="@id/topGuideline" />
+        app:layout_constraintTop_toBottomOf="@id/topGuideline"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/notFoundText"
@@ -235,7 +243,8 @@
         app:layout_constraintBottom_toTopOf="@id/bottomGuideline"
         app:layout_constraintEnd_toEndOf="@id/endGuideline"
         app:layout_constraintStart_toStartOf="@id/startGuideline"
-        app:layout_constraintTop_toBottomOf="@id/topGuideline" />
+        app:layout_constraintTop_toBottomOf="@id/topGuideline"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/serverErrorText"
