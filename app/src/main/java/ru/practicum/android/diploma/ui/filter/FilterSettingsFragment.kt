@@ -27,9 +27,9 @@ class FilterSettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnIndustries.setOnClickListener {
-            findNavController().navigate(R.id.action_filterSettingsFragment_to_choiceIndustryFragment)
-        }
+//        binding.btnIndustries.setOnClickListener {
+//            findNavController().navigate(R.id.action_filterSettingsFragment_to_choiceIndustryFragment)
+//        }
     }
 
     override fun onDestroyView() {

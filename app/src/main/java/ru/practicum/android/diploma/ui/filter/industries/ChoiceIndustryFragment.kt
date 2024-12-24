@@ -27,7 +27,7 @@ class ChoiceIndustryFragment : Fragment(), IndustriesAdapter.Listener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.rvIndustries.isVisible = true
+      //  binding.rvIndustries.isVisible = true
         viewModel.showIndustries()
 
         viewModel.industriesState.observe(viewLifecycleOwner) { state ->
@@ -41,8 +41,8 @@ class ChoiceIndustryFragment : Fragment(), IndustriesAdapter.Listener {
             is IndustriesState.FoundIndustries -> {
                 val adapter = IndustriesAdapter(this)
                 adapter.updateIndustries(state.industries as List<IndustriesFullDto>)
-                binding.rvIndustries.adapter = adapter
-                binding.rvIndustries.isVisible = true
+//                binding.rvIndustries.adapter = adapter
+//                binding.rvIndustries.isVisible = true
             }
 
             is IndustriesState.Error -> {
