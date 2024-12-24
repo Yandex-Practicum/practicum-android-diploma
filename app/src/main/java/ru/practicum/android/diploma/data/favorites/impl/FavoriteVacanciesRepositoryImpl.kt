@@ -1,7 +1,7 @@
 package ru.practicum.android.diploma.data.favorites.impl
 
+import android.database.sqlite.SQLiteException
 import android.util.Log
-import androidx.sqlite.SQLiteException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.data.db.AppDatabase
