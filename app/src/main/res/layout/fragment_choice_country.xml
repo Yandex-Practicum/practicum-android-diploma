@@ -31,7 +31,7 @@
         tools:ignore="ContentDescription" />
 
     <TextView
-        android:id="@+id/tvFilterSettingsHeader"
+        android:id="@+id/tvChoiceCountryHeader"
         style="@style/Header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,13 +42,13 @@
         app:layout_constraintTop_toTopOf="@id/ivBack" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvListCountry"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/margin34"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/endGuideline"
         app:layout_constraintStart_toStartOf="@+id/startGuideline"
-        app:layout_constraintTop_toBottomOf="@+id/tvFilterSettingsHeader" />
-
+        app:layout_constraintTop_toBottomOf="@+id/tvChoiceCountryHeader" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

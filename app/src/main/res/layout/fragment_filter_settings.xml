@@ -58,6 +58,7 @@
         app:layout_constraintEnd_toEndOf="@id/endGuideline"
         app:layout_constraintStart_toStartOf="@id/startGuideline"
         app:layout_constraintTop_toBottomOf="@id/tvFilterSettingsHeader">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etCountry"
             style="@style/Regular16Text"
@@ -85,6 +86,7 @@
         app:layout_constraintEnd_toEndOf="@id/endGuideline"
         app:layout_constraintStart_toStartOf="@id/startGuideline"
         app:layout_constraintTop_toBottomOf="@id/tilCountry">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etIndustries"
             style="@style/Regular16Text"
@@ -97,10 +99,8 @@
             app:drawableTint="?attr/colorArrowRight" />
     </com.google.android.material.textfield.TextInputLayout>
 
-
-
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
+        android:id="@+id/ilSalary"
         style="@style/filterTextInputLayoutWork"
         android:layout_width="0dp"
         android:layout_height="60dp"
@@ -122,7 +122,7 @@
         app:layout_constraintTop_toBottomOf="@id/tilIndustries">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputEditText"
+            android:id="@+id/etSalary"
             style="@style/filterTextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -132,7 +132,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/checkBoxSalary"
         style="@style/Regular16Text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -143,13 +143,14 @@
         android:text="@string/check_box_text"
         app:layout_constraintEnd_toStartOf="@+id/endGuideline"
         app:layout_constraintStart_toStartOf="@+id/startGuideline"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/ilSalary" />
 
     <Button
         android:id="@+id/btApply"
         style="@style/BlueButton"
         android:layout_width="0dp"
         android:layout_height="@dimen/button_layout_height_60"
+        android:visibility="gone"
         android:fontFamily="@font/ys_display_medium"
         android:text="@string/button_filter_apply"
         android:textColor="@color/white"
@@ -163,6 +164,7 @@
         style="@style/BlueButton"
         android:layout_width="0dp"
         android:layout_height="@dimen/button_layout_height_60"
+        android:visibility="gone"
         android:background="@color/transparent"
         android:fontFamily="@font/ys_display_medium"
         android:text="@string/button_filter_reset"
@@ -171,8 +173,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/endGuideline"
         app:layout_constraintStart_toStartOf="@+id/startGuideline" />
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
