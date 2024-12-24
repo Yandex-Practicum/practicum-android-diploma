@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -13,7 +14,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -28,9 +28,6 @@ import ru.practicum.android.diploma.ui.search.viewmodel.SearchViewModel
 class SearchFragment : Fragment() {
 
     private var _binding: FragmentSearchBinding? = null
-    private var previousTextInEditText: String = ""
-    private var searchJob: Job? = null
-
     private val binding get() = _binding!!
     private val viewModel: SearchViewModel by viewModel()
 
@@ -55,19 +52,19 @@ class SearchFragment : Fragment() {
         inputEditText.addTextChangedListener { s ->
             clearButton.isVisible = !s.isNullOrEmpty()
             binding.ibClearSearch.isVisible = s.isNullOrEmpty()
-            searchJob?.cancel()
-            if (!s.isNullOrBlank() && s.toString() != previousTextInEditText) {
+            viewModel.searchJob.value?.cancel()
+            if (!s.isNullOrBlank() && s.toString() != viewModel.previousTextInEditText.value) {
                 hidePlaceholders()
-                previousTextInEditText = s.toString()
+                viewModel.updatePreviousTextInEditText(s.toString())
 
-                searchJob = lifecycleScope.launch {
+                viewModel.updateSearchJob(lifecycleScope.launch {
                     delay(SEARCH_REQUEST_DELAY_IN_MILLISEC)
                     val searchParams = SearchParams(
                         searchQuery = s.toString(),
                         numberOfPage = "0"
                     )
                     viewModel.searchVacancies(searchParams)
-                }
+                })
             }
         }
 
@@ -77,7 +74,6 @@ class SearchFragment : Fragment() {
             hideKeyboard(inputEditText)
             showEmpty()
             viewModel.resetSearchState()
-
         }
 
         val onItemClickListener: (Vacancy) -> Unit = {
@@ -149,8 +145,16 @@ class SearchFragment : Fragment() {
         }
 
         viewModel.counterVacancy.observe(viewLifecycleOwner) { counter ->
-            binding.vacancyCounter.text = "Найдено $counter вакансий"
+            binding.vacancyCounter.text = viewModel.getVacanciesText(counter)
         }
+
+        viewModel.observeShowToast().observe(viewLifecycleOwner) { message ->
+            showToast(message)
+        }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
     private fun showLoading() {
@@ -193,7 +197,7 @@ class SearchFragment : Fragment() {
 
     private fun showNotFound() {
         with(binding) {
-            vacancyCounter.text = NOT_FOUND_VACANCY
+            vacancyCounter.text = viewModel.getVacanciesText()
             progressBar.isVisible = false
             vacancyCounter.isVisible = true
             rvFoundedVacancies.isVisible = false
@@ -228,6 +232,5 @@ class SearchFragment : Fragment() {
     companion object {
         private const val CLEAR_TEXT = ""
         private const val SEARCH_REQUEST_DELAY_IN_MILLISEC = 2000L
-        private const val NOT_FOUND_VACANCY = "Таких вакансий нет"
     }
 }

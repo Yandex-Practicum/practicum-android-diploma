@@ -3,18 +3,111 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/backgroundColor"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.filter.industries.ChoiceIndustryFragment">
+    tools:context=".ui.filter.ChoiceIndustryFragment">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/startGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/guideline_indent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/endGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/guideline_indent" />
+
+    <ImageView
+        android:id="@+id/ivBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin24"
+        app:layout_constraintStart_toStartOf="@id/startGuideline"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/arrow_back"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/tvIndustryHeader"
+        style="@style/Header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin16"
+        android:text="@string/industry_header"
+        app:layout_constraintBottom_toBottomOf="@id/ivBack"
+        app:layout_constraintStart_toEndOf="@id/ivBack"
+        app:layout_constraintTop_toTopOf="@id/ivBack" />
+
+    <FrameLayout
+        android:id="@+id/flFrameSearchIndustry"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/startGuideline"
+        app:layout_constraintEnd_toEndOf="@id/endGuideline"
+        app:layout_constraintTop_toBottomOf="@id/tvIndustryHeader"
+        android:layout_marginTop="27dp" >
+
+        <EditText
+            android:id="@+id/etSearchIndustry"
+            style="@style/SearchEditText"
+            android:focusableInTouchMode="true"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_industry"
+            tools:ignore="Autofill,TextFields" />
+
+        <ImageButton
+            android:id="@+id/ibClearQuery"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginEnd="@dimen/team_indent"
+            android:layout_gravity="end|center"
+            android:visibility="gone"
+            app:srcCompat="@drawable/search_clear_icon"
+            android:backgroundTint="@android:color/transparent"
+            tools:ignore="ContentDescription" />
+
+        <ImageButton
+            android:id="@+id/ibClearSearch"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginEnd="@dimen/team_indent"
+            android:layout_gravity="end|center"
+            app:srcCompat="@drawable/search_icon"
+            android:backgroundTint="@android:color/transparent"
+            tools:ignore="ContentDescription" />
+    </FrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvIndustries"
+        android:id="@+id/rvFoundedIndustry"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_margin="32dp"
+        app:layout_constraintStart_toStartOf="@id/startGuideline"
+        app:layout_constraintEnd_toEndOf="@id/endGuideline"
+        app:layout_constraintTop_toBottomOf="@id/flFrameSearchIndustry"
+        app:layout_constraintBottom_toTopOf="@+id/btEnter"
+        android:layout_marginTop="32dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    <Button
+        android:id="@+id/btEnter"
+        style="@style/BlueButton"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/button_layout_height_60"
+        android:fontFamily="@font/ys_display_medium"
+        android:text="@string/button_choice"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        android:textSize="@dimen/text_size_16"
+        android:layout_marginBottom="@dimen/margin24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+        app:layout_constraintStart_toStartOf="@+id/startGuideline" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

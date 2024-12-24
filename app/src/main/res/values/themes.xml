@@ -2,16 +2,22 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.PracticumAndroidDiploma" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <item name="android:background">@color/white</item>
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:navigationBarColor">@color/white</item>
         <item name="colorOfEditText">@color/another_grey</item>
         <item name="colorOfText">@color/white</item>
+        <item name="colorFilterTextInputLayout">@color/hh_grey</item>
+        <item name="colorBackgroundFilterTextInputLayout">@color/another_grey</item>
+        <item name="colorArrowRight">@color/black</item>
+        <item name="colorTextLayoutBackground">@color/white</item>
+        <item name="backgroundColor">@color/white</item>
+        <item name="textColorDefault">@color/black</item>
     </style>
 
     <style name="Theme.PracticumAndroidDiploma" parent="Base.Theme.PracticumAndroidDiploma">
         <item name="backgroundColor">@color/white</item>
+
     </style>
 
 </resources>

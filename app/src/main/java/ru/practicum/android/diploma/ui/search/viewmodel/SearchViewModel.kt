@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -13,6 +14,7 @@ import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.search.SearchInteractor
 import ru.practicum.android.diploma.domain.search.models.SearchParams
 import ru.practicum.android.diploma.domain.search.models.SearchScreenState
+import ru.practicum.android.diploma.ui.search.state.SingleLiveEvent
 import java.io.IOException
 import java.text.NumberFormat
 import java.util.Locale
@@ -37,6 +39,15 @@ class SearchViewModel(
     private val _isPaginationLoading = MutableLiveData<Boolean>()
     val isPaginationLoading: LiveData<Boolean> get() = _isPaginationLoading
 
+    private val _previousTextInEditText = MutableLiveData<String>()
+    val previousTextInEditText: LiveData<String> get() = _previousTextInEditText
+
+    private val _searchJob = MutableLiveData<Job?>()
+    val searchJob: LiveData<Job?> get() = _searchJob
+
+    private val _showToast = SingleLiveEvent<String>()
+    fun observeShowToast(): LiveData<String> = _showToast
+
     fun getSearchScreenStateLiveData(): LiveData<SearchScreenState> = searchScreenStateLiveData
 
     fun searchVacancies(searchParams: SearchParams) {
@@ -50,7 +61,7 @@ class SearchViewModel(
             try {
                 handleSuccessResponse(searchInteractor.getVacancies(searchParams), searchParams)
             } catch (e: IOException) {
-                handleNetworkError()
+                handleNetworkError(searchParams.numberOfPage != "0")
             } catch (e: HttpException) {
                 handleHttpError(e)
             } finally {
@@ -82,6 +93,7 @@ class SearchViewModel(
                 }
             } else {
                 searchScreenStateLiveData.postValue(SearchScreenState.NotFound)
+                _counterVacancy.postValue(0)
             }
         }
     }
@@ -90,21 +102,26 @@ class SearchViewModel(
         if (searchParams.numberOfPage == "0") {
             vacanciesList.clear()
         }
-        val vacancies = response.items.map {
+        val vacancies = response.items.map { vacancyDto ->
             Vacancy(
-                it.id,
-                it.name,
-                it.area.name,
-                getCorrectFormOfSalaryText(it.salary),
-                it.employer.name,
-                it.employer.logoUrls?.original
+                vacancyDto.id,
+                vacancyDto.name,
+                vacancyDto.area.name,
+                getCorrectFormOfSalaryText(vacancyDto.salary),
+                vacancyDto.employer.name,
+                vacancyDto.employer.logoUrls?.original
             )
         }
         vacanciesList.addAll(vacancies)
     }
 
-    private fun handleNetworkError() {
-        searchScreenStateLiveData.postValue(SearchScreenState.NetworkError)
+    private fun handleNetworkError(isPagination: Boolean) {
+        if (isPagination) {
+            _showToast.postValue(TOAST_ERROR_TEXT)
+        } else {
+            searchScreenStateLiveData.postValue(SearchScreenState.NetworkError)
+            vacanciesList.clear()
+        }
     }
 
     private fun handleHttpError(e: HttpException) {
@@ -188,8 +205,44 @@ class SearchViewModel(
         searchScreenStateLiveData.postValue(SearchScreenState.Empty)
     }
 
+    fun getVacanciesText(count: Int = 0): String {
+        val lastDigit = count % DIVISOR_FOR_LAST_DIGIT
+        val lastTwoDigits = count % DIVISOR_FOR_LAST_TWO_DIGITS
+
+        val isZero = count == 0
+        val isOne = lastDigit == ONE && lastTwoDigits != ELEVEN
+        val isFew = (lastDigit == TWO || lastDigit == THREE || lastDigit == FOUR) &&
+            !(lastTwoDigits == TWELVE || lastTwoDigits == THIRTEEN || lastTwoDigits == FOURTEEN)
+
+        return when {
+            isZero -> "Таких вакансий нет"
+            isOne -> "Найдена $count вакансия"
+            isFew -> "Найдено $count вакансии"
+            else -> "Найдено $count вакансий"
+        }
+    }
+
+    fun updatePreviousTextInEditText(text: String) {
+        _previousTextInEditText.postValue(text)
+    }
+
+    fun updateSearchJob(job: Job?) {
+        _searchJob.postValue(job)
+    }
+
     companion object {
         private const val HTTP_NOT_FOUND = 404
         private const val HTTP_SERVER_ERROR = 500
+        private const val TOAST_ERROR_TEXT = "Отсутствует интернет-соединение"
+        private const val DIVISOR_FOR_LAST_DIGIT = 10
+        private const val DIVISOR_FOR_LAST_TWO_DIGITS = 100
+        private const val ONE = 1
+        private const val TWO = 2
+        private const val THREE = 3
+        private const val FOUR = 4
+        private const val ELEVEN = 11
+        private const val TWELVE = 12
+        private const val THIRTEEN = 13
+        private const val FOURTEEN = 14
     }
 }

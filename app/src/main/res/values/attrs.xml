@@ -3,4 +3,11 @@
     <attr name="colorOfEditText" format="color"/>
     <attr name="backgroundColor" format="color" />
     <attr name="colorOfText" format="color" />
+    <attr name="colorFilterHint" format="color" />
+    <attr name="colorFilterTextInputLayout" format="color" />
+    <attr name="colorBackgroundFilterTextInputLayout" format="color" />
+    <attr name="colorArrowRight" format="color" />
+    <attr name="colorTextLayoutBackground" format="color" />
+    <attr name="textColorDefault" format="color" />
+
 </resources>

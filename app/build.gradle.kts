@@ -63,6 +63,7 @@ dependencies {
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.navigation.ui.ktx)
     implementation(libs.androidx.fragment.ktx)
+    implementation(libs.ui.material)
 
     // region Unit tests
     testImplementation(libs.unitTests.junit)
@@ -79,5 +80,5 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.glide)
     implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.androidx.lifecycle.viewmodel.ktx.v261)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
 }
