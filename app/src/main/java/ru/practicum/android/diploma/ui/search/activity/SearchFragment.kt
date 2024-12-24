@@ -108,6 +108,10 @@ class SearchFragment : Fragment() {
                 }
             }
         })
+
+        binding.ivFilter.setOnClickListener {
+            findNavController().navigate(R.id.action_searchFragment_to_filterSettingsFragment)
+        }
     }
 
     override fun onDestroyView() {
@@ -129,7 +133,8 @@ class SearchFragment : Fragment() {
         }
 
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            binding.progressBar.isVisible = isLoading && !(viewModel.isPaginationLoading.value ?: false)
+            binding.progressBar.isVisible =
+                isLoading && !(viewModel.isPaginationLoading.value ?: false)
         }
 
         viewModel.isPaginationLoading.observe(viewLifecycleOwner) { isPaginationLoading ->

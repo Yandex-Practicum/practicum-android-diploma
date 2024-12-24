@@ -78,7 +78,10 @@ class SearchViewModel(
         }
     }
 
-    private suspend fun handleSuccessResponse(response: Flow<VacancySearchResponse>, searchParams: SearchParams) {
+    private suspend fun handleSuccessResponse(
+        response: Flow<VacancySearchResponse>,
+        searchParams: SearchParams
+    ) {
         response.collect { response ->
             if (response.items.isNotEmpty()) {
                 updateVacanciesList(response, searchParams)
@@ -138,7 +141,12 @@ class SearchViewModel(
     fun onLastItemReached() {
         if (currentPage < maxPages - 1) {
             _isPaginationLoading.postValue(true)
-            searchVacancies(SearchParams(searchQuery = currentSearchQuery, numberOfPage = (currentPage + 1).toString()))
+            searchVacancies(
+                SearchParams(
+                    searchQuery = currentSearchQuery,
+                    numberOfPage = (currentPage + 1).toString()
+                )
+            )
         }
     }
 
@@ -237,5 +245,4 @@ class SearchViewModel(
         private const val THIRTEEN = 13
         private const val FOURTEEN = 14
     }
-
 }
