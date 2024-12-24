@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterSettingsBinding
 
 class FilterSettingsFragment : Fragment() {
@@ -25,9 +27,9 @@ class FilterSettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        binding.btnIndustries.setOnClickListener {
-//            findNavController().navigate(R.id.action_filterSettingsFragment_to_choiceIndustryFragment)
-//        }
+        binding.etIndustries.setOnClickListener {
+            findNavController().navigate(R.id.action_filterSettingsFragment_to_choiceIndustryFragment)
+        }
     }
 
     override fun onDestroyView() {
