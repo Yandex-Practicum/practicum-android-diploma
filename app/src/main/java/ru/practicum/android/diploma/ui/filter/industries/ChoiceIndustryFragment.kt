@@ -26,7 +26,7 @@ class ChoiceIndustryFragment : Fragment(), IndustriesAdapter.Listener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-      //  binding.rvIndustries.isVisible = true
+        //  binding.rvIndustries.isVisible = true
         viewModel.showIndustries()
 
         viewModel.industriesState.observe(viewLifecycleOwner) { state ->

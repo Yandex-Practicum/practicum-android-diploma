@@ -21,12 +21,14 @@ class VacanciesRepositoryImpl(
         return flow {
             val response = networkClient.doRequest(VacancySearchRequest(searchParams))
             when (response.code) {
-
                 RetrofitNetworkClient.HTTP_OK_CODE -> emit(response as VacancySearchResponse)
+
                 RetrofitNetworkClient.HTTP_PAGE_NOT_FOUND_CODE ->
                     throw createHttpException(RetrofitNetworkClient.HTTP_PAGE_NOT_FOUND_CODE, "Not Found")
+
                 RetrofitNetworkClient.HTTP_INTERNAL_SERVER_ERROR_CODE ->
                     throw createHttpException(RetrofitNetworkClient.HTTP_INTERNAL_SERVER_ERROR_CODE, "Server Error")
+
                 RetrofitNetworkClient.HTTP_BAD_REQUEST_CODE ->
                     throw createHttpException(RetrofitNetworkClient.HTTP_BAD_REQUEST_CODE, "Bad Request")
 
