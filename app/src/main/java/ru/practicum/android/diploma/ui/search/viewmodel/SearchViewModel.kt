@@ -13,7 +13,6 @@ import ru.practicum.android.diploma.data.dto.model.SalaryDto
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.search.SearchInteractor
 import ru.practicum.android.diploma.domain.search.models.SearchParams
-import ru.practicum.android.diploma.domain.search.models.SearchScreenState
 import ru.practicum.android.diploma.ui.search.state.SingleLiveEvent
 import java.io.IOException
 import java.text.NumberFormat
@@ -78,7 +77,10 @@ class SearchViewModel(
         }
     }
 
-    private suspend fun handleSuccessResponse(resp: Flow<VacancySearchResponse>, searchParams: SearchParams) {
+    private suspend fun handleSuccessResponse(
+        resp: Flow<VacancySearchResponse>,
+        searchParams: SearchParams
+    ) {
         resp.collect { response ->
             if (response.items.isNotEmpty()) {
                 updateVacanciesList(response, searchParams)
@@ -101,12 +103,12 @@ class SearchViewModel(
         }
         val vacancies = response.items.map { vacancyDto ->
             Vacancy(
-                it.id,
-                it.name,
-                it.area.name,
-                getCorrectFormOfSalaryText(it.salary),
-                it.employer.name,
-                it.employer.logoUrls?.original,
+                vacancyDto.id,
+                vacancyDto.name,
+                vacancyDto.area.name,
+                getCorrectFormOfSalaryText(vacancyDto.salary),
+                vacancyDto.employer.name,
+                vacancyDto.employer.logoUrls?.original,
                 null,
                 null,
                 null,
@@ -144,7 +146,12 @@ class SearchViewModel(
     fun onLastItemReached() {
         if (currentPage < maxPages - 1) {
             _isPaginationLoading.postValue(true)
-            searchVacancies(SearchParams(searchQuery = currentSearchQuery, numberOfPage = (currentPage + 1).toString()))
+            searchVacancies(
+                SearchParams(
+                    searchQuery = currentSearchQuery,
+                    numberOfPage = (currentPage + 1).toString()
+                )
+            )
         }
     }
 
@@ -152,28 +159,28 @@ class SearchViewModel(
         return if (salary == null) {
             "Зарплата не указана"
         } else {
-            val currencySymbol = getCurrencySymbolByCode(salary.currency!!)
-            val numberFormat = NumberFormat.getNumberInstance(Locale.getDefault())
-            when {
-                salary.from != null && salary.to != null && salary.from == salary.to -> {
-                    String.format(Locale.getDefault(), "%s %s", numberFormat.format(salary.to), currencySymbol)
-                }
-                salary.from != null && salary.to == null -> {
-                    String.format(Locale.getDefault(), "от %s %s", numberFormat.format(salary.from), currencySymbol)
-                }
-                salary.from == null && salary.to != null -> {
-                    String.format(Locale.getDefault(), "до %s %s", numberFormat.format(salary.to), currencySymbol)
-                }
-                salary.from != null && salary.to != null -> {
-                    String.format(
-                        Locale.getDefault(),
-                        "от %s до %s %s",
-                        numberFormat.format(salary.from),
-                        numberFormat.format(salary.to),
-                        currencySymbol
-                    )
-                }
-                else -> null
+            if (salary.from == salary.to) {
+                String.format(
+                    Locale.getDefault(),
+                    "%d %s",
+                    salary.to,
+                    getCurrencySymbolByCode(salary.currency!!)
+                )
+            } else if (salary.to == null) {
+                String.format(
+                    Locale.getDefault(),
+                    "от %d %s",
+                    salary.from,
+                    getCurrencySymbolByCode(salary.currency!!)
+                )
+            } else {
+                String.format(
+                    Locale.getDefault(),
+                    "от %d до %d %s",
+                    salary.from,
+                    salary.to,
+                    getCurrencySymbolByCode(salary.currency!!)
+                )
             }
         }
     }
@@ -210,7 +217,7 @@ class SearchViewModel(
         val isZero = count == 0
         val isOne = lastDigit == ONE && lastTwoDigits != ELEVEN
         val isFew = (lastDigit == TWO || lastDigit == THREE || lastDigit == FOUR) &&
-            !(lastTwoDigits == TWELVE || lastTwoDigits == THIRTEEN || lastTwoDigits == FOURTEEN)
+                !(lastTwoDigits == TWELVE || lastTwoDigits == THIRTEEN || lastTwoDigits == FOURTEEN)
 
         return when {
             isZero -> "Таких вакансий нет"

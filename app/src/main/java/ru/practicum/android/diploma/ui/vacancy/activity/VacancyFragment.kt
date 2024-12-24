@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.ui.vacancy.activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.Html
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,20 +25,12 @@ import ru.practicum.android.diploma.ui.vacancy.VacancyState
 import ru.practicum.android.diploma.ui.vacancy.viewmodel.FavoriteVacancyButtonState
 import ru.practicum.android.diploma.ui.vacancy.viewmodel.VacancyViewModel
 import ru.practicum.android.diploma.util.DimenConvertor
-import java.util.Locale
 
 class VacancyFragment : Fragment() {
 
-    companion object {
-        private var ID_VACANCY = ""
-    }
-
     private var _binding: FragmentVacancyBinding? = null
-
     private val binding get() = _binding!!
     private val viewModel by viewModel<VacancyViewModel>()
-
-    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -79,8 +72,10 @@ class VacancyFragment : Fragment() {
 
         binding.ivFavorites.setOnClickListener {
             if (viewModel.getFavoriteVacancyButtonStateLiveData.value == FavoriteVacancyButtonState.VacancyIsFavorite) {
+                Log.d("testt", "vac is fav")
                 viewModel.deleteVacancyFromFavorites()
             } else {
+                Log.d("testt", "vac is not fav")
                 viewModel.insertVacancyInFavorites()
             }
         }
@@ -248,18 +243,20 @@ class VacancyFragment : Fragment() {
             item.salary.from != null && item.salary.to != null && item.salary.from == item.salary.to -> {
                 "${numberFormat.format(item.salary.from)} $codeSalary"
             }
+
             item.salary.from != null && item.salary.to == null -> {
                 "от ${numberFormat.format(item.salary.from)} $codeSalary"
             }
+
             item.salary.from == null && item.salary.to != null -> {
                 "до ${numberFormat.format(item.salary.to)} $codeSalary"
             }
+
             else -> {
                 "от ${numberFormat.format(item.salary.from ?: 0)} $codeSalary " +
                     "до ${numberFormat.format(item.salary.to ?: 0)} $codeSalary"
             }
         }
-        return str
     }
 
     private fun getCorrectFormOfEmployerAddress(item: VacancyFullItemDto): String {
@@ -268,7 +265,6 @@ class VacancyFragment : Fragment() {
         } else {
             item.address.raw
         }
-        return str
     }
 
     private fun keySkills(item: VacancyFullItemDto) {
@@ -301,6 +297,7 @@ class VacancyFragment : Fragment() {
 
     companion object {
         private const val KEY_FOR_BUNDLE_DATA = "selected_vacancy_id"
+        private var ID_VACANCY = ""
 
         fun newInstance(vacancyId: String): VacancyFragment {
             val fragment = VacancyFragment()

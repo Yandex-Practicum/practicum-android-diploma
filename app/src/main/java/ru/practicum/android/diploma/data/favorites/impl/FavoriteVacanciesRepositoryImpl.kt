@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.data.favorites.impl
 
 import android.database.sqlite.SQLiteException
-import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.data.db.AppDatabase
@@ -31,7 +30,6 @@ class FavoriteVacanciesRepositoryImpl(
                     }
                 emit(foundedFavoriteVacancies)
             } catch (e: SQLiteException) {
-                Log.e("Error in db", "Handled error: $e")
                 emit(null)
             }
         }

@@ -9,10 +9,10 @@ data class Vacancy(
     val salary: String, // Зарплата
     val employerName: String, // Название компании-работодателя
     val employerLogoUrl: String?, // Ссылка на логотип компании-работодателя
-    val experience: String?, // Опыт работы
-    val employmentType: String?, // Тип занятости (удаленка или нет)
-    val scheduleType: String?, // Расписание (полный рабочий день и т. п.)
-    val keySkills: String?, // Ключевые навыки
-    val description: String?, // Описание вакансии, в которое входят обязанности, требования, условия
-    val alternateUrl: String? // Ссылка на вакансию для шаринга
+    val experience: String? = null, // Опыт работы
+    val employmentType: String? = null, // Тип занятости (удаленка или нет)
+    val scheduleType: String? = null, // Расписание (полный рабочий день и т. п.)
+    val keySkills: String? = null, // Ключевые навыки
+    val description: String? = null, // Описание вакансии, в которое входят обязанности, требования, условия
+    val alternateUrl: String? = null // Ссылка на вакансию для шаринга
 ) : Serializable

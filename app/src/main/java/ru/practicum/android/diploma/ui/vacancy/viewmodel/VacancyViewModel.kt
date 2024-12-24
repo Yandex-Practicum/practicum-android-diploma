@@ -9,7 +9,9 @@ import ru.practicum.android.diploma.data.dto.model.VacancyFullItemDto
 import ru.practicum.android.diploma.domain.favorites.FavoriteVacanciesInteractor
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.vacancy.VacancyInteractor
+import ru.practicum.android.diploma.ui.search.state.VacancyError
 import ru.practicum.android.diploma.ui.vacancy.VacancyState
+import ru.practicum.android.diploma.util.Resource
 
 class VacancyViewModel(
     private val interactor: VacancyInteractor,
@@ -22,7 +24,7 @@ class VacancyViewModel(
     private val vacancyScreenStateLiveData = MutableLiveData<VacancyState>()
     private val favoriteVacancyButtonStateLiveData = MutableLiveData<FavoriteVacancyButtonState>()
     private val shareLinkStateLiveData = MutableLiveData<ShareLinkState>()
-
+    private var listVacancy: VacancyFullItemDto? = null
     val getVacancyScreenStateLiveData: LiveData<VacancyState> = vacancyScreenStateLiveData
     val getFavoriteVacancyButtonStateLiveData: LiveData<FavoriteVacancyButtonState> = favoriteVacancyButtonStateLiveData
     val getShareLinkStateLiveData: LiveData<ShareLinkState> = shareLinkStateLiveData
@@ -47,48 +49,65 @@ class VacancyViewModel(
 
     fun getVacancyResources(id: String) {
         renderState(VacancyState.Loading)
-        currentVacancyId = id
+
         viewModelScope.launch {
-            interactor.getVacancyId(id).collect { pair ->
-                processResult(pair.first, pair.second)
-            }
-        }
-    }
-
-    private fun processResult(vacancy: VacancyFullItemDto?, errorMessage: String?) {
-        if (vacancy != null) {
-            currentVacancy = convertToAppEntity(vacancy)
-            renderState(VacancyState.Content(vacancy))
-
-            viewModelScope.launch {
-                favoriteVacanciesInteractor.getFavoriteVacancyById(vacancy.id).collect { vacancyFromDb ->
-                    favoriteVacancyButtonStateLiveData.postValue(
-                        if (vacancyFromDb == null) {
-                            FavoriteVacancyButtonState.VacancyIsNotFavorite
-                        } else {
-                            FavoriteVacancyButtonState.VacancyIsFavorite
+            favoriteVacanciesInteractor.getFavoriteVacancyById(id).collect { vacancyFromDb ->
+                if (vacancyFromDb == null) {
+                    viewModelScope.launch {
+                        interactor.getVacancyId(id).collect { resource ->
+                            processResult(resource)
                         }
-                    )
+                    }
+                    FavoriteVacancyButtonState.VacancyIsNotFavorite
+                } else {
+                    currentVacancy = vacancyFromDb
+                    getFavoriteVacancyDetailsFromDb(id)
+                    FavoriteVacancyButtonState.VacancyIsFavorite
                 }
             }
-
-        } else {
-            getFavoriteVacancyDetailsFromDb(currentVacancyId!!, errorMessage)
         }
     }
 
-    private fun getFavoriteVacancyDetailsFromDb(vacancyId: String, errorMessage: String?) {
+    private fun processResult(resource: Resource<VacancyFullItemDto>) {
+        when (resource) {
+            is Resource.Success -> {
+                listVacancy = resource.data
+                currentVacancy = convertToAppEntity(resource.data)
+                renderState(VacancyState.Content(listVacancy!!))
+            }
+
+            is Resource.Error -> {
+                when (resource.message) {
+                    VacancyError.NETWORK_ERROR -> {
+                        renderState(VacancyState.NetworkError)
+                    }
+
+                    VacancyError.BAD_REQUEST -> {
+                        renderState(VacancyState.BadRequest)
+                    }
+
+                    VacancyError.NOT_FOUND -> {
+                        renderState(VacancyState.Empty)
+                    }
+
+                    VacancyError.UNKNOWN_ERROR, VacancyError.SERVER_ERROR -> {
+                        renderState(VacancyState.ServerError)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getFavoriteVacancyDetailsFromDb(
+        vacancyId: String
+    ) {
         viewModelScope.launch {
             favoriteVacanciesInteractor
                 .getFavoriteVacancyById(vacancyId)
                 .collect { foundedVacancy ->
-                    if (foundedVacancy == null) {
-                        renderErrorState(errorMessage)
-                    } else {
-                        currentVacancy = foundedVacancy
-                        favoriteVacancyButtonStateLiveData.postValue(FavoriteVacancyButtonState.VacancyIsFavorite)
-                        renderState(VacancyState.ContentWithAppEntity(foundedVacancy))
-                    }
+                    currentVacancy = foundedVacancy
+                    favoriteVacancyButtonStateLiveData.postValue(FavoriteVacancyButtonState.VacancyIsFavorite)
+                    renderState(VacancyState.ContentWithAppEntity(foundedVacancy!!))
                 }
         }
     }
@@ -97,31 +116,8 @@ class VacancyViewModel(
         vacancyScreenStateLiveData.postValue(state)
     }
 
-    private fun renderErrorState(errorMessage: String?) {
-        when (errorMessage) {
-            "Network Error" -> {
-                renderState(VacancyState.NetworkError)
-            }
-
-            "Bad Request" -> {
-                renderState(VacancyState.BadRequest)
-            }
-
-            "Not Found" -> {
-                renderState(VacancyState.Empty)
-            }
-
-            "Unknown Error" -> {
-                renderState(VacancyState.ServerError)
-            }
-
-            "Server Error" -> {
-                renderState(VacancyState.ServerError)
-            }
-        }
-    }
-
-    private fun convertToAppEntity(vacancyForConvert: VacancyFullItemDto): Vacancy {
+    private fun convertToAppEntity(vacancyForConvert: VacancyFullItemDto)
+        : Vacancy {
         return Vacancy(
             id = vacancyForConvert.id,
             titleOfVacancy = vacancyForConvert.name,
@@ -138,7 +134,8 @@ class VacancyViewModel(
         )
     }
 
-    private fun getCorrectFormOfEmployerAddress(item: VacancyFullItemDto): String {
+    private fun getCorrectFormOfEmployerAddress(item: VacancyFullItemDto)
+        : String {
         return if (item.address == null) {
             item.area.name
         } else {
@@ -146,7 +143,8 @@ class VacancyViewModel(
         }
     }
 
-    private fun getCorrectFormOfSalary(item: VacancyFullItemDto): String {
+    private fun getCorrectFormOfSalary(item: VacancyFullItemDto)
+        : String {
         val currencyCodeMapping = mapOf(
             "AZN" to "₼",
             "BYR" to "Br",
@@ -170,7 +168,8 @@ class VacancyViewModel(
         }
     }
 
-    private fun getCorrectFormOfKeySkills(item: VacancyFullItemDto): String {
+    private fun getCorrectFormOfKeySkills(item: VacancyFullItemDto)
+        : String {
         return item.keySkills.joinToString(separator = "\n") { itemKey ->
             "• ${itemKey.name.replace(",", ",\n")}"
         }

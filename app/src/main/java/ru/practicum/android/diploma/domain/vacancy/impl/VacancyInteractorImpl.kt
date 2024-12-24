@@ -17,11 +17,11 @@ class VacancyInteractorImpl(
                 is Resource.Success -> {
                     Resource.Success(result.data)
                 }
+
                 is Resource.Error -> {
                     Resource.Error(result.message)
                 }
             }
         }
     }
-
 }
