@@ -12,7 +12,6 @@ import ru.practicum.android.diploma.data.dto.model.SalaryDto
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.search.SearchInteractor
 import ru.practicum.android.diploma.domain.search.models.SearchParams
-import ru.practicum.android.diploma.domain.search.models.SearchScreenState
 import java.io.IOException
 import java.util.Locale
 
@@ -71,8 +70,8 @@ class SearchViewModel(
         }
     }
 
-    private suspend fun handleSuccessResponse(response: Flow<VacancySearchResponse>, searchParams: SearchParams) {
-        response.collect { response ->
+    private suspend fun handleSuccessResponse(resp: Flow<VacancySearchResponse>, searchParams: SearchParams) {
+        resp.collect { response ->
             if (response.items.isNotEmpty()) {
                 updateVacanciesList(response, searchParams)
                 searchScreenStateLiveData.postValue(SearchScreenState.Content(vacanciesList))
@@ -98,7 +97,13 @@ class SearchViewModel(
                 it.area.name,
                 getCorrectFormOfSalaryText(it.salary),
                 it.employer.name,
-                it.employer.logoUrls?.original
+                it.employer.logoUrls?.original,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
             )
         }
         vacanciesList.addAll(vacancies)
@@ -129,9 +134,9 @@ class SearchViewModel(
         }
     }
 
-    private fun getCorrectFormOfSalaryText(salary: SalaryDto?): String? {
+    private fun getCorrectFormOfSalaryText(salary: SalaryDto?): String {
         return if (salary == null) {
-            null
+            "Зарплата не указана"
         } else {
             if (salary.from == salary.to) {
                 String.format(Locale.getDefault(), "%d %s", salary.to, getCurrencySymbolByCode(salary.currency!!))

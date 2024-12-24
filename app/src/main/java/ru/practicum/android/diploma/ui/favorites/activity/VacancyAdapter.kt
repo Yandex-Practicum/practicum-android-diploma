@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.favorites
+package ru.practicum.android.diploma.ui.favorites.activity
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -76,15 +76,9 @@ class VacancyAdapter(
 
             binding.tvTitleOfVacancy.text = model.titleOfVacancy
             binding.tvCompanyName.text = model.employerName
-            binding.tvVacancySalary.text =
-                model.salary ?: binding.root.resources.getString(R.string.salary)
+            binding.tvVacancySalary.text = model.salary
         }
 
-    }
-
-    fun updateVacancies(newVacancies: List<Vacancy>) {
-        vacancies = newVacancies
-        notifyDataSetChanged()
     }
 
     companion object {

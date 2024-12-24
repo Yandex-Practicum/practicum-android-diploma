@@ -5,25 +5,38 @@ import ru.practicum.android.diploma.domain.models.Vacancy
 
 class VacancyConverter {
 
-    fun mapVacancyToEntity(vacancy: Vacancy): FavouritesVacancyEntity {
+    fun map(vacancy: Vacancy): FavouritesVacancyEntity {
         return FavouritesVacancyEntity(
             id = vacancy.id,
-            uriPicture = vacancy.employerLogoUrl,
-            name = vacancy.titleOfVacancy,
-            employer = vacancy.employerName,
+            pictureOfCompanyLogoUri = vacancy.employerLogoUrl,
+            titleOfVacancy = vacancy.titleOfVacancy,
+            companyName = vacancy.employerName,
             salary = vacancy.salary,
-            isFavorite = vacancy.isFavorite
+            address = vacancy.regionName,
+            experience = vacancy.experience,
+            employmentType = vacancy.employmentType,
+            scheduleType = vacancy.scheduleType,
+            keySkills = vacancy.keySkills,
+            vacancyDescription = vacancy.description,
+            vacancyUrl = vacancy.alternateUrl
         )
     }
-    fun mapEntityToVacancy(vacancyEntity: FavouritesVacancyEntity): Vacancy {
+
+    fun map(vacancyEntity: FavouritesVacancyEntity): Vacancy {
         return Vacancy(
             id = vacancyEntity.id,
-            titleOfVacancy = vacancyEntity.name,
-            regionName = null,
-            employerName = vacancyEntity.employer,
+            titleOfVacancy = vacancyEntity.titleOfVacancy,
+            regionName = vacancyEntity.address,
             salary = vacancyEntity.salary,
-            employerLogoUrl = vacancyEntity.uriPicture,
-            isFavorite = true
+            employerName = vacancyEntity.companyName,
+            employerLogoUrl = vacancyEntity.pictureOfCompanyLogoUri,
+            experience = vacancyEntity.experience,
+            employmentType = vacancyEntity.employmentType,
+            scheduleType = vacancyEntity.scheduleType,
+            keySkills = vacancyEntity.keySkills,
+            description = vacancyEntity.vacancyDescription,
+            alternateUrl = vacancyEntity.vacancyUrl
         )
     }
+
 }

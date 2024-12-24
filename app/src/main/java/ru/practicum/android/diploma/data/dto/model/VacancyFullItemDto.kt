@@ -15,4 +15,6 @@ data class VacancyFullItemDto(
     @SerializedName("key_skills")
     val keySkills: List<KeySkillsDto>,
     val description: String,
+    @SerializedName("alternate_url")
+    val vacancyUrl: String?
 )
