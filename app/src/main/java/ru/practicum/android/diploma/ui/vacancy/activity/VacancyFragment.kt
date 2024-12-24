@@ -53,8 +53,11 @@ class VacancyFragment : Fragment() {
 
         viewModel.getFavoriteVacancyButtonStateLiveData.observe(viewLifecycleOwner) { favoriteButtonState ->
             binding.ivFavorites.setImageResource(
-                if (favoriteButtonState is FavoriteVacancyButtonState.VacancyIsFavorite) R.drawable.favorites_on
-                else R.drawable.favorites_off
+                if (favoriteButtonState is FavoriteVacancyButtonState.VacancyIsFavorite) {
+                    R.drawable.favorites_on
+                } else {
+                    R.drawable.favorites_off
+                }
             )
         }
 

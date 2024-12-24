@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.data.favorites.impl
 
+import android.database.sqlite.SQLiteException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.data.db.AppDatabase
@@ -28,7 +29,7 @@ class FavoriteVacanciesRepositoryImpl(
                         vacancyConverter.map(item)
                     }
                 emit(foundedFavoriteVacancies)
-            } catch (e: Exception) {
+            } catch (e: SQLiteException) {
                 emit(null)
             }
         }
@@ -38,8 +39,11 @@ class FavoriteVacanciesRepositoryImpl(
         return flow {
             val foundedVacancy = appDatabase.favouritesVacancyDao().getFavoriteVacancyById(vacancyId)
             emit(
-                if (foundedVacancy == null) null
-                else vacancyConverter.map(foundedVacancy)
+                if (foundedVacancy == null) {
+                    null
+                } else {
+                    vacancyConverter.map(foundedVacancy)
+                }
             )
         }
     }

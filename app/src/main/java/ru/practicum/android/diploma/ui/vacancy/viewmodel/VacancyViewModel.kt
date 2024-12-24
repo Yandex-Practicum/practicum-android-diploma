@@ -63,8 +63,11 @@ class VacancyViewModel(
             viewModelScope.launch {
                 favoriteVacanciesInteractor.getFavoriteVacancyById(vacancy.id).collect { vacancyFromDb ->
                     favoriteVacancyButtonStateLiveData.postValue(
-                        if (vacancyFromDb == null) FavoriteVacancyButtonState.VacancyIsNotFavorite
-                        else FavoriteVacancyButtonState.VacancyIsFavorite
+                        if (vacancyFromDb == null) {
+                            FavoriteVacancyButtonState.VacancyIsNotFavorite
+                        } else {
+                            FavoriteVacancyButtonState.VacancyIsFavorite
+                        }
                     )
                 }
             }
