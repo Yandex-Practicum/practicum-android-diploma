@@ -16,7 +16,7 @@ class VacancyViewModel(
     private val favoriteVacanciesInteractor: FavoriteVacanciesInteractor
 ) : ViewModel() {
 
-    private var currentVacancy: VacancyFullItemDto? = null
+    private var currentVacancy: Vacancy? = null
     private var currentVacancyId: String? = null
 
     private val vacancyScreenStateLiveData = MutableLiveData<VacancyState>()
@@ -28,12 +28,12 @@ class VacancyViewModel(
     val getShareLinkStateLiveData: LiveData<ShareLinkState> = shareLinkStateLiveData
 
     fun shareVacancy() {
-        shareLinkStateLiveData.postValue(ShareLinkState(currentVacancy?.vacancyUrl))
+        shareLinkStateLiveData.postValue(ShareLinkState(currentVacancy?.alternateUrl))
     }
 
     fun insertVacancyInFavorites() {
         viewModelScope.launch {
-            favoriteVacanciesInteractor.insertFavoriteVacancy(convertToAppEntity(currentVacancy!!))
+            favoriteVacanciesInteractor.insertFavoriteVacancy(currentVacancy!!)
             favoriteVacancyButtonStateLiveData.postValue(FavoriteVacancyButtonState.VacancyIsFavorite)
         }
     }
@@ -57,8 +57,8 @@ class VacancyViewModel(
 
     private fun processResult(vacancy: VacancyFullItemDto?, errorMessage: String?) {
         if (vacancy != null) {
-            currentVacancy = vacancy
-            renderState(VacancyState.Content(currentVacancy!!))
+            currentVacancy = convertToAppEntity(vacancy)
+            renderState(VacancyState.Content(vacancy))
 
             viewModelScope.launch {
                 favoriteVacanciesInteractor.getFavoriteVacancyById(vacancy.id).collect { vacancyFromDb ->
@@ -85,6 +85,7 @@ class VacancyViewModel(
                     if (foundedVacancy == null) {
                         renderErrorState(errorMessage)
                     } else {
+                        currentVacancy = foundedVacancy
                         favoriteVacancyButtonStateLiveData.postValue(FavoriteVacancyButtonState.VacancyIsFavorite)
                         renderState(VacancyState.ContentWithAppEntity(foundedVacancy))
                     }
