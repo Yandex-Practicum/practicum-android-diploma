@@ -179,6 +179,7 @@ class SearchViewModel(
         }
     }
 
+
     private fun getCurrencySymbolByCode(code: String): String {
         return when (code) {
             "AZN" -> "₼"

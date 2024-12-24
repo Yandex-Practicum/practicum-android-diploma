@@ -11,7 +11,7 @@ data class FavouritesVacancyEntity(
     @ColumnInfo(name = "picture_of_company_logo_uri") val pictureOfCompanyLogoUri: String?,
     @ColumnInfo(name = "title_of_vacancy") val titleOfVacancy: String,
     @ColumnInfo(name = "company_name") val companyName: String,
-    @ColumnInfo(name = "salary") val salary: String,
+    @ColumnInfo(name = "salary") val salary: String?,
     @ColumnInfo(name = "address") val address: String?,
     @ColumnInfo(name = "experience") val experience: String?,
     @ColumnInfo(name = "employment_type") val employmentType: String?,
