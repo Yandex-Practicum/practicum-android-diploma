@@ -10,7 +10,7 @@ activity-ktx = "1.9.3"
 viewpager2 = "1.1.0"
 glide = "4.14.2"
 gson = "2.10.1"
-retrofit = "2.9.0"
+retrofit = "2.10.0"
 converter-gson = "2.9.0"
 legacySupportV4 = "1.0.0"
 lifecycleLivedataKtx = "2.8.7"
@@ -30,6 +30,7 @@ detekt = "1.23.3"
 detektTwitterComposeRules ="0.0.26"
 navigationFragment = "2.8.5"
 kotlin = "1.9.24"
+sqliteAndroid = "2.5.0-alpha12"
 
 [libraries]
 
@@ -79,6 +80,7 @@ androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecy
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
 androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragmentKtx" }
 androidx-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
+androidx-sqlite-android = { group = "androidx.sqlite", name = "sqlite-android", version.ref = "sqliteAndroid" }
 [plugins]
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 

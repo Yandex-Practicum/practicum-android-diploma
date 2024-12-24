@@ -55,6 +55,7 @@ dependencies {
     // Room Db
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
+    implementation(libs.androidx.sqlite.android)
     ksp(libs.room.compiler)
 
     // UI layer libraries
