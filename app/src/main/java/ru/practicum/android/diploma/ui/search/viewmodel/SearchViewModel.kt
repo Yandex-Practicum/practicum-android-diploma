@@ -78,10 +78,10 @@ class SearchViewModel(
     }
 
     private suspend fun handleSuccessResponse(
-        resp: Flow<VacancySearchResponse>,
+        response: Flow<VacancySearchResponse>,
         searchParams: SearchParams
     ) {
-        resp.collect { response ->
+        response.collect { response ->
             if (response.items.isNotEmpty()) {
                 updateVacanciesList(response, searchParams)
                 searchScreenStateLiveData.postValue(SearchScreenState.Content(vacanciesList))
@@ -108,13 +108,7 @@ class SearchViewModel(
                 vacancyDto.area.name,
                 getCorrectFormOfSalaryText(vacancyDto.salary),
                 vacancyDto.employer.name,
-                vacancyDto.employer.logoUrls?.original,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null
+                vacancyDto.employer.logoUrls?.original
             )
         }
         vacanciesList.addAll(vacancies)
@@ -155,32 +149,32 @@ class SearchViewModel(
         }
     }
 
-    private fun getCorrectFormOfSalaryText(salary: SalaryDto?): String {
+    private fun getCorrectFormOfSalaryText(salary: SalaryDto?): String? {
         return if (salary == null) {
-            "Зарплата не указана"
+            null
         } else {
-            if (salary.from == salary.to) {
-                String.format(
-                    Locale.getDefault(),
-                    "%d %s",
-                    salary.to,
-                    getCurrencySymbolByCode(salary.currency!!)
-                )
-            } else if (salary.to == null) {
-                String.format(
-                    Locale.getDefault(),
-                    "от %d %s",
-                    salary.from,
-                    getCurrencySymbolByCode(salary.currency!!)
-                )
-            } else {
-                String.format(
-                    Locale.getDefault(),
-                    "от %d до %d %s",
-                    salary.from,
-                    salary.to,
-                    getCurrencySymbolByCode(salary.currency!!)
-                )
+            val currencySymbol = getCurrencySymbolByCode(salary.currency!!)
+            val numberFormat = NumberFormat.getNumberInstance(Locale.getDefault())
+            when {
+                salary.from != null && salary.to != null && salary.from == salary.to -> {
+                    String.format(Locale.getDefault(), "%s %s", numberFormat.format(salary.to), currencySymbol)
+                }
+                salary.from != null && salary.to == null -> {
+                    String.format(Locale.getDefault(), "от %s %s", numberFormat.format(salary.from), currencySymbol)
+                }
+                salary.from == null && salary.to != null -> {
+                    String.format(Locale.getDefault(), "до %s %s", numberFormat.format(salary.to), currencySymbol)
+                }
+                salary.from != null && salary.to != null -> {
+                    String.format(
+                        Locale.getDefault(),
+                        "от %s до %s %s",
+                        numberFormat.format(salary.from),
+                        numberFormat.format(salary.to),
+                        currencySymbol
+                    )
+                }
+                else -> null
             }
         }
     }
@@ -217,7 +211,7 @@ class SearchViewModel(
         val isZero = count == 0
         val isOne = lastDigit == ONE && lastTwoDigits != ELEVEN
         val isFew = (lastDigit == TWO || lastDigit == THREE || lastDigit == FOUR) &&
-                !(lastTwoDigits == TWELVE || lastTwoDigits == THIRTEEN || lastTwoDigits == FOURTEEN)
+            !(lastTwoDigits == TWELVE || lastTwoDigits == THIRTEEN || lastTwoDigits == FOURTEEN)
 
         return when {
             isZero -> "Таких вакансий нет"
@@ -250,5 +244,4 @@ class SearchViewModel(
         private const val THIRTEEN = 13
         private const val FOURTEEN = 14
     }
-
 }

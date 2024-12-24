@@ -38,5 +38,4 @@ class VacancyConverter {
             alternateUrl = vacancyEntity.vacancyUrl
         )
     }
-
 }

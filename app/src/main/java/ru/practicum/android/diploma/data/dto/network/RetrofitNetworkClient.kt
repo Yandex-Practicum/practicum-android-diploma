@@ -6,6 +6,8 @@ import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
+import ru.practicum.android.diploma.data.dto.IndustriesRequest
+import ru.practicum.android.diploma.data.dto.IndustriesResponse
 import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.VacancyRequest
 import ru.practicum.android.diploma.data.dto.VacancyResponse
@@ -71,6 +73,21 @@ class RetrofitNetworkClient(
 
             } catch (e: IOException) {
                 Log.e("errorFullVacancy", "$e")
+                Response().apply { code = HTTP_INTERNAL_SERVER_ERROR_CODE }
+            }
+        }
+    }
+
+    private suspend fun getFullIndustries(request: IndustriesRequest): Response {
+        return withContext(Dispatchers.IO) {
+            try {
+                IndustriesResponse(hhService.getAllIndustries())
+                    .apply { code = HTTP_OK_CODE }
+            } catch (e: HttpException) {
+                Response().apply { code = e.code() }
+
+            } catch (e: IOException) {
+                Log.e("errorFullIndustries", "$e")
                 Response().apply { code = HTTP_INTERNAL_SERVER_ERROR_CODE }
             }
         }

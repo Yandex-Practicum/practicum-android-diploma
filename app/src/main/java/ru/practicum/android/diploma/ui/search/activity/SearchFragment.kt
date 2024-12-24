@@ -117,6 +117,10 @@ class SearchFragment : Fragment() {
                 }
             }
         })
+
+        binding.ivFilter.setOnClickListener {
+            findNavController().navigate(R.id.action_searchFragment_to_filterSettingsFragment)
+        }
     }
 
     override fun onDestroyView() {
