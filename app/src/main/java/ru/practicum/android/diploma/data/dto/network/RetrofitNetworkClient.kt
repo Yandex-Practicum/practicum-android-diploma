@@ -30,6 +30,7 @@ class RetrofitNetworkClient(
             is VacancySearchRequest -> getSearchVacancy(dto)
             is VacancyRequest -> getFullVacancy(dto)
             is CountriesRequest -> CountriesResponse(hhService.getCountries())
+            is  IndustriesRequest -> getFullIndustries(dto)
             else -> {
                 return Response().apply { code = HTTP_BAD_REQUEST_CODE
                 }
