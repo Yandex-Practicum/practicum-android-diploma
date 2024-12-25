@@ -1,31 +1,34 @@
-package ru.practicum.android.diploma.ui.vacancy
+package ru.practicum.android.diploma.ui.vacancy.activity
 
-import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.Html
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.dto.model.VacancyFullItemDto
 import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
 import java.text.NumberFormat
 import java.util.Locale
+import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.ui.vacancy.VacancyState
+import ru.practicum.android.diploma.ui.vacancy.viewmodel.FavoriteVacancyButtonState
+import ru.practicum.android.diploma.ui.vacancy.viewmodel.VacancyViewModel
+import ru.practicum.android.diploma.util.DimenConvertor
 
 class VacancyFragment : Fragment() {
 
-    companion object {
-        private var ID_VACANCY = ""
-    }
-
     private var _binding: FragmentVacancyBinding? = null
-
     private val binding get() = _binding!!
     private val viewModel by viewModel<VacancyViewModel>()
 
@@ -44,14 +47,63 @@ class VacancyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         viewModel.getVacancyScreenStateLiveData.observe(viewLifecycleOwner) {
             render(it)
         }
 
-        viewModel.getVacancyRessurces(ID_VACANCY)
-        binding.ivBack.setOnClickListener {
-            parentFragmentManager.popBackStack()
+        viewModel.getShareLinkStateLiveData.observe(viewLifecycleOwner) {
+            shareVacancy(it.shareLink)
         }
+
+        viewModel.getFavoriteVacancyButtonStateLiveData.observe(viewLifecycleOwner) { favoriteButtonState ->
+            binding.ivFavorites.setImageResource(
+                if (favoriteButtonState is FavoriteVacancyButtonState.VacancyIsFavorite) {
+                    R.drawable.favorites_on
+                } else {
+                    R.drawable.favorites_off
+                }
+            )
+        }
+
+        binding.ivSharing.setOnClickListener {
+            viewModel.shareVacancy()
+        }
+
+        binding.ivFavorites.setOnClickListener {
+            if (viewModel.getFavoriteVacancyButtonStateLiveData.value == FavoriteVacancyButtonState.VacancyIsFavorite) {
+                Log.d("testt", "vac is fav")
+                viewModel.deleteVacancyFromFavorites()
+            } else {
+                Log.d("testt", "vac is not fav")
+                viewModel.insertVacancyInFavorites()
+            }
+        }
+
+        binding.ivBack.setOnClickListener {
+            goToPrevScreen()
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback {
+            goToPrevScreen()
+        }
+
+        val bundle = this.arguments
+        if (bundle != null) {
+            val vacancyId = bundle.getString(KEY_FOR_BUNDLE_DATA)
+            viewModel.getVacancyResources(vacancyId!!)
+        }
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun goToPrevScreen() {
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView).isVisible = true
+        requireActivity().supportFragmentManager.popBackStack()
     }
 
     private fun render(state: VacancyState) {
@@ -62,6 +114,43 @@ class VacancyFragment : Fragment() {
             is VacancyState.NetworkError -> networkError()
             is VacancyState.Empty -> showEmpty()
             is VacancyState.Content -> showContent(state.item)
+            is VacancyState.ContentWithAppEntity -> showContentWithVacancyEntity(state.item)
+        }
+    }
+
+    private fun showContentWithVacancyEntity(vacancyForDisplay: Vacancy) {
+        val imgSizeInPx =
+            DimenConvertor.dpToPx(requireContext().resources.getDimension(R.dimen.img_size48), requireContext())
+        binding.progressBarVacancy.isVisible = false
+        binding.scrollableContent.isVisible = true
+        binding.llVacancyNotFound.isVisible = false
+        binding.tvName.text = vacancyForDisplay.titleOfVacancy
+        binding.tvSalary.text = vacancyForDisplay.salary
+        Glide.with(this)
+            .load(vacancyForDisplay.employerLogoUrl)
+            .override(imgSizeInPx, imgSizeInPx)
+            .transform(RoundedCorners(R.dimen.corner_radius_10))
+            .placeholder(R.drawable.grey_android_icon)
+            .into(binding.ivImageEmployer)
+        binding.tvEmployer.text = vacancyForDisplay.employerName
+        binding.tvAddressEmployer.text = vacancyForDisplay.regionName
+        binding.tvExperienceText.text = vacancyForDisplay.experience
+        binding.tvScheduleText.text = String.format(
+            Locale.getDefault(),
+            "%s, %s",
+            vacancyForDisplay.employmentType,
+            vacancyForDisplay.scheduleType
+        )
+        binding.tvResponsibilitiesText.text =
+            Html.fromHtml(vacancyForDisplay.description, HtmlCompat.FROM_HTML_MODE_LEGACY)
+
+        if (vacancyForDisplay.keySkills == null) {
+            binding.tvKeySkillsText.isVisible = false
+            binding.tvKeySkillsTitle.isVisible = false
+        } else {
+            binding.tvKeySkillsText.text = vacancyForDisplay.keySkills
+            binding.tvKeySkillsText.isVisible = true
+            binding.tvKeySkillsTitle.isVisible = true
         }
     }
 
@@ -108,7 +197,8 @@ class VacancyFragment : Fragment() {
     }
 
     private fun showContent(item: VacancyFullItemDto) {
-        val imgSizeInPx = dpToPx(requireContext().resources.getDimension(R.dimen.img_size48), requireContext())
+        val imgSizeInPx =
+            DimenConvertor.dpToPx(requireContext().resources.getDimension(R.dimen.img_size48), requireContext())
         binding.progressBarVacancy.isVisible = false
         binding.scrollableContent.isVisible = true
         binding.llVacancyNotFound.isVisible = false
@@ -121,9 +211,14 @@ class VacancyFragment : Fragment() {
             .placeholder(R.drawable.grey_android_icon)
             .into(binding.ivImageEmployer)
         binding.tvEmployer.text = item.employer.name
-        binding.tvAddressEmployer.text = addresEmployer(item)
+        binding.tvAddressEmployer.text = getCorrectFormOfEmployerAddress(item)
         binding.tvExperienceText.text = item.experience.name
-        binding.tvScheduleText.text = "${item.employment.name}, ${item.schedule.name}"
+        binding.tvScheduleText.text = String.format(
+            Locale.getDefault(),
+            "%s, %s",
+            item.employment.name,
+            item.schedule.name
+        )
         binding.tvResponsibilitiesText.text = Html.fromHtml(item.description, HtmlCompat.FROM_HTML_MODE_LEGACY)
         keySkills(item)
     }
@@ -148,12 +243,15 @@ class VacancyFragment : Fragment() {
             item.salary.from != null && item.salary.to != null && item.salary.from == item.salary.to -> {
                 "${numberFormat.format(item.salary.from)} $codeSalary"
             }
+
             item.salary.from != null && item.salary.to == null -> {
                 "от ${numberFormat.format(item.salary.from)} $codeSalary"
             }
+
             item.salary.from == null && item.salary.to != null -> {
                 "до ${numberFormat.format(item.salary.to)} $codeSalary"
             }
+
             else -> {
                 "от ${numberFormat.format(item.salary.from ?: 0)} $codeSalary " +
                     "до ${numberFormat.format(item.salary.to ?: 0)} $codeSalary"
@@ -161,14 +259,12 @@ class VacancyFragment : Fragment() {
         }
     }
 
-    private fun addresEmployer(item: VacancyFullItemDto): String {
-        val str: String
-        if (item.address == null) {
-            str = item.area.name
+    private fun getCorrectFormOfEmployerAddress(item: VacancyFullItemDto): String {
+        return if (item.address == null) {
+            item.area.name
         } else {
-            str = item.address.raw
+            item.address.raw
         }
-        return str
     }
 
     private fun keySkills(item: VacancyFullItemDto) {
@@ -185,14 +281,34 @@ class VacancyFragment : Fragment() {
         }
     }
 
-    fun dpToPx(dp: Float, context: Context): Int {
-        val density = context.resources.displayMetrics.density
-        return (dp * density).toInt()
+    private fun shareVacancy(shareLink: String?) {
+        if (shareLink != null) {
+            val share = Intent.createChooser(
+                Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, shareLink)
+                    setType("text/plain")
+                },
+                null
+            )
+            startActivity(share)
+        }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    companion object {
+        private const val KEY_FOR_BUNDLE_DATA = "selected_vacancy_id"
+        private var ID_VACANCY = ""
+
+        fun newInstance(vacancyId: String): VacancyFragment {
+            val fragment = VacancyFragment()
+            val bundle = Bundle().apply {
+                putString(KEY_FOR_BUNDLE_DATA, vacancyId)
+            }
+            fragment.arguments = bundle
+
+            return fragment
+        }
+
     }
 
 }

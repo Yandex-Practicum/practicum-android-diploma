@@ -21,20 +21,25 @@ class VacancyRepositoryImpl(
             RetrofitNetworkClient.INTERNET_NOT_CONNECT -> {
                 emit(Resource.Error(VacancyError.NETWORK_ERROR))
             }
+
             RetrofitNetworkClient.HTTP_BAD_REQUEST_CODE -> {
                 emit(Resource.Error(VacancyError.BAD_REQUEST))
             }
+
             RetrofitNetworkClient.HTTP_PAGE_NOT_FOUND_CODE -> {
                 emit(Resource.Error(VacancyError.NOT_FOUND))
             }
+
             RetrofitNetworkClient.HTTP_INTERNAL_SERVER_ERROR_CODE -> {
                 emit(Resource.Error(VacancyError.SERVER_ERROR))
             }
+
             RetrofitNetworkClient.HTTP_OK_CODE -> {
                 with(response as VacancyResponse) {
                     emit(Resource.Success(response.items))
                 }
             }
+
             else -> {
                 emit(Resource.Error(VacancyError.UNKNOWN_ERROR))
             }
