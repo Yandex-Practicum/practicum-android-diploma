@@ -30,5 +30,4 @@ val repositoryModule = module {
     single<CountriesRepository> {
         CountriesRepositoryImpl(get(), get())
     }
-
 }

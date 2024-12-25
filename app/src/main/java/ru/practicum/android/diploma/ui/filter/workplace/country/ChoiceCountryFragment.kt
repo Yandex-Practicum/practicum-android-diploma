@@ -20,7 +20,6 @@ class ChoiceCountryFragment : Fragment() {
     private val viewModel by viewModel<CountriesViewModel>()
     private val adapter = CountriesAdapter { selectCountry(it) }
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -65,7 +64,6 @@ class ChoiceCountryFragment : Fragment() {
         findNavController().previousBackStackEntry?.savedStateHandle?.set(COUNTRY_BACKSTACK_KEY, country)
         findNavController().popBackStack()
     }
-
 
     private fun showLoading() {
         binding.rvListCountry.isVisible = false
