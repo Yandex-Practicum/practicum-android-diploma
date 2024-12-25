@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.favorites
+package ru.practicum.android.diploma.ui.favorites.activity
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
