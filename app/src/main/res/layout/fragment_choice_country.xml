@@ -5,7 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/backgroundColor"
-    tools:context=".ui.filter.ChoiceCountryFragment">
+    tools:context=".ui.filter.workplace.country.ChoiceCountryFragment">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/topGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/top_toolbar_indent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/bottomGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="@dimen/bottom_navigation_indent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/startGuideline"
@@ -50,6 +64,53 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/endGuideline"
         app:layout_constraintStart_toStartOf="@+id/startGuideline"
-        app:layout_constraintTop_toBottomOf="@+id/tvChoiceCountryHeader" />
+        app:layout_constraintTop_toBottomOf="@+id/tvChoiceCountryHeader"
+        tools:listitem="@layout/country_list_item"/>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/notFoundListPlaceholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="ivEmptyListPlaceholder,tvEmptyListText" />
+
+    <ImageView
+        android:id="@+id/ivEmptyListPlaceholder"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="171dp"
+        android:layout_marginBottom="213dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/placeholder_not_found_regions"
+        app:layout_constraintBottom_toTopOf="@id/bottomGuideline"
+        app:layout_constraintEnd_toEndOf="@id/endGuideline"
+        app:layout_constraintStart_toStartOf="@id/startGuideline"
+        app:layout_constraintTop_toBottomOf="@id/topGuideline"
+        android:visibility="gone"
+        tools:ignore="contentDescription" />
+
+    <TextView
+        android:id="@+id/tvEmptyListText"
+        style="@style/Header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/cant_get_list"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="@id/ivEmptyListPlaceholder"
+        app:layout_constraintStart_toStartOf="@id/ivEmptyListPlaceholder"
+        app:layout_constraintTop_toBottomOf="@id/ivEmptyListPlaceholder"
+        android:visibility="gone" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/hh_blue"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topGuideline" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

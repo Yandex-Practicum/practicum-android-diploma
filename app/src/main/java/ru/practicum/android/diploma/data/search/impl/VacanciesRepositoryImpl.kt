@@ -5,8 +5,8 @@ import kotlinx.coroutines.flow.flow
 import okhttp3.ResponseBody
 import retrofit2.HttpException
 import retrofit2.Response
-import ru.practicum.android.diploma.data.dto.VacancySearchRequest
-import ru.practicum.android.diploma.data.dto.VacancySearchResponse
+import ru.practicum.android.diploma.data.dto.request.VacancySearchRequest
+import ru.practicum.android.diploma.data.dto.response.VacancySearchResponse
 import ru.practicum.android.diploma.data.dto.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.data.search.VacanciesRepository
 import ru.practicum.android.diploma.domain.NetworkClient

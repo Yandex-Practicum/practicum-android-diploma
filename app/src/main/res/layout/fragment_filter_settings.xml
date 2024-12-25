@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/backgroundColor"
-    tools:context=".ui.filter.FilterSettingsFragment">
+    tools:context=".ui.filter.settings.FilterSettingsFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/startGuideline"

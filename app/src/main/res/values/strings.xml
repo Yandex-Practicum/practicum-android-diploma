@@ -46,4 +46,5 @@
     <string name="enter_region">Введите регион</string>
     <string name="button_choice">Выбрать</string>
     <string name="region_not_found">Такого региона нет</string>
+    <string name="cant_get_list">Не удалось получить\nсписок</string>
 </resources>

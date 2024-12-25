@@ -28,4 +28,7 @@
     <dimen name="width_placeholder">328dp</dimen>
     <dimen name="height_placeholder">223dp</dimen>
     <dimen name="button_layout_height_60">60dp</dimen>
+    <dimen name="item_filter_height">60dp</dimen>
+    <dimen name="item_filter_padding_vertical">6dp</dimen>
+    <dimen name="item_filter_button_paddings">12dp</dimen>
 </resources>
