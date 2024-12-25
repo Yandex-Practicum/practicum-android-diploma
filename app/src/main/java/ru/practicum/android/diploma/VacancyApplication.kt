@@ -9,6 +9,8 @@ import ru.practicum.android.diploma.di.interactorModule
 import ru.practicum.android.diploma.di.repositoryModule
 import ru.practicum.android.diploma.di.viewModelModule
 
+const val SHARED_PREFERENCES = "user_preferences"
+
 class VacancyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
