@@ -4,19 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <CheckBox
-        android:id="@+id/checkBox"
-        style="@style/Regular16Text"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/button_layout_height_60"
-        android:button="@null"
-        android:drawableEnd="?android:attr/listChoiceIndicatorSingle"
-        android:drawableTint="@color/hh_blue"
-        android:paddingStart="@dimen/margin16"
-        android:paddingEnd="@dimen/margin16"
-        android:text="@string/check_box_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<RadioButton
+    android:id="@+id/radioButton"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/button_layout_height_60"
+    android:paddingStart="@dimen/margin16"
+    android:paddingEnd="@dimen/margin16"
+    android:text="@string/industry_header"
+    android:layoutDirection="rtl"
+    android:buttonTint="@color/hh_blue"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
