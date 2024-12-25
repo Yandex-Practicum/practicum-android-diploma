@@ -5,10 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import ru.practicum.android.diploma.data.dto.model.industries.IndustriesFullDto
 import ru.practicum.android.diploma.databinding.FragmentChoiceIndustryBinding
+import ru.practicum.android.diploma.domain.models.Industries
 
 class ChoiceIndustryFragment : Fragment(), IndustriesAdapter.Listener {
     private var _binding: FragmentChoiceIndustryBinding? = null
@@ -26,7 +27,7 @@ class ChoiceIndustryFragment : Fragment(), IndustriesAdapter.Listener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val list: List<String> = emptyList()
         val foundedIndustryRv = binding.rvFoundedIndustry
         binding.rvFoundedIndustry.isVisible = true
         viewModel.showIndustries()
@@ -35,13 +36,22 @@ class ChoiceIndustryFragment : Fragment(), IndustriesAdapter.Listener {
             renderState(state)
         }
 
-        val onItemClickListener: (IndustriesFullDto) -> Unit = {
+        val onItemClickListener: (Industries) -> Unit = {
         }
 
         val foundedIndustryAdapter = IndustriesAdapter(
             onItemClicked = onItemClickListener
         )
         foundedIndustryRv.adapter = foundedIndustryAdapter
+
+        binding.etSearchIndustry.addTextChangedListener(
+            afterTextChanged = { text ->
+                binding.ibClearQuery.isVisible = !text.isNullOrEmpty()
+                binding.ibClearSearch.isVisible = text.isNullOrEmpty()
+
+                viewModel.searchDebounce(text.toString())
+            }
+        )
     }
 
     private fun renderState(state: IndustriesState) {
@@ -49,7 +59,7 @@ class ChoiceIndustryFragment : Fragment(), IndustriesAdapter.Listener {
         when (state) {
             is IndustriesState.FoundIndustries -> {
                 val adapter = foundedIndustryRv.adapter as IndustriesAdapter
-                adapter.updateIndustries(state.industries as List<IndustriesFullDto>)
+                adapter.updateIndustries(state.industries as List<Industries>)
                 binding.rvFoundedIndustry.adapter = adapter
                 binding.rvFoundedIndustry.isVisible = true
             }
@@ -70,7 +80,7 @@ class ChoiceIndustryFragment : Fragment(), IndustriesAdapter.Listener {
         _binding = null
     }
 
-    override fun onClick(industry: IndustriesFullDto) {
+    override fun onClick(industry: Industries) {
         TODO("Not yet implemented")
     }
 }
