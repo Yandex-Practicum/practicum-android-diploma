@@ -21,7 +21,6 @@ val viewModelModule = module {
         ChoiceIndustryViewModel(get(), get())
     }
 
-
     viewModel {
         CountriesViewModel(get())
     }
