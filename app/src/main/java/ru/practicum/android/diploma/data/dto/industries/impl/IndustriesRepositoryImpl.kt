@@ -2,8 +2,8 @@ package ru.practicum.android.diploma.data.dto.industries.impl
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import ru.practicum.android.diploma.data.dto.IndustriesRequest
-import ru.practicum.android.diploma.data.dto.IndustriesResponse
+import ru.practicum.android.diploma.data.dto.request.IndustriesRequest
+import ru.practicum.android.diploma.data.dto.response.IndustriesResponse
 import ru.practicum.android.diploma.data.dto.industries.IndustriesRepository
 import ru.practicum.android.diploma.data.dto.model.industries.IndustriesFullDto
 import ru.practicum.android.diploma.data.dto.network.RetrofitNetworkClient

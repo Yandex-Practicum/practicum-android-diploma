@@ -2,8 +2,8 @@ package ru.practicum.android.diploma.data.vacancy.impl
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import ru.practicum.android.diploma.data.dto.VacancyRequest
-import ru.practicum.android.diploma.data.dto.VacancyResponse
+import ru.practicum.android.diploma.data.dto.request.VacancyRequest
+import ru.practicum.android.diploma.data.dto.response.VacancyResponse
 import ru.practicum.android.diploma.data.dto.model.VacancyFullItemDto
 import ru.practicum.android.diploma.data.dto.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.data.vacancy.VacancyRepository

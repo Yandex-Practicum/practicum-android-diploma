@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
+    style="@style/countryListItem">
+
+    <TextView
+        android:id="@+id/country_name"
+        style="@style/Regular16Text"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        tool:text="Страна"/>
+
+    <ImageView
+        android:id="@+id/arrowCountry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/item_filter_button_paddings"
+        android:src="@drawable/ic_arrow_right"/>
+
+</LinearLayout>

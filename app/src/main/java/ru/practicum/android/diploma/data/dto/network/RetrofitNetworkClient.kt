@@ -6,12 +6,14 @@ import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
-import ru.practicum.android.diploma.data.dto.IndustriesRequest
-import ru.practicum.android.diploma.data.dto.IndustriesResponse
+import ru.practicum.android.diploma.data.dto.request.IndustriesRequest
+import ru.practicum.android.diploma.data.dto.response.IndustriesResponse
 import ru.practicum.android.diploma.data.dto.Response
-import ru.practicum.android.diploma.data.dto.VacancyRequest
-import ru.practicum.android.diploma.data.dto.VacancyResponse
-import ru.practicum.android.diploma.data.dto.VacancySearchRequest
+import ru.practicum.android.diploma.data.dto.request.CountriesRequest
+import ru.practicum.android.diploma.data.dto.request.VacancyRequest
+import ru.practicum.android.diploma.data.dto.response.VacancyResponse
+import ru.practicum.android.diploma.data.dto.request.VacancySearchRequest
+import ru.practicum.android.diploma.data.dto.response.CountriesResponse
 import ru.practicum.android.diploma.domain.NetworkClient
 import java.io.IOException
 
@@ -27,6 +29,7 @@ class RetrofitNetworkClient(
         return when (dto) {
             is VacancySearchRequest -> getSearchVacancy(dto)
             is VacancyRequest -> getFullVacancy(dto)
+            is CountriesRequest -> CountriesResponse(hhService.getCountries())
             else -> {
                 return Response().apply { code = HTTP_BAD_REQUEST_CODE
                 }
@@ -107,6 +110,7 @@ class RetrofitNetworkClient(
         }
     }
 
+    // возможно стоит вынести в отдельный object?
     companion object {
         const val HTTP_BAD_REQUEST_CODE = 400
         const val HTTP_OK_CODE = 200
