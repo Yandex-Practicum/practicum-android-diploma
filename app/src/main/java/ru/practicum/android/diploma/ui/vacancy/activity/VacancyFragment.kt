@@ -15,11 +15,11 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.text.NumberFormat
+import java.util.Locale
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.dto.model.VacancyFullItemDto
 import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
-import java.text.NumberFormat
-import java.util.Locale
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.ui.vacancy.VacancyState
 import ru.practicum.android.diploma.ui.vacancy.viewmodel.FavoriteVacancyButtonState
