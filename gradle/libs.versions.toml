@@ -1,4 +1,6 @@
 [versions]
+kotlinStdlib = "1.9.23"
+kotlinxParcelize = "1.5.31"
 lifecycleViewmodelKtxVersion = "2.8.7"
 room = "2.6.1"
 kotlinx-coroutines = "1.7.3"
@@ -34,6 +36,8 @@ kotlin = "1.9.24"
 [libraries]
 
 # Detekt
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlinStdlib" }
+kotlinx-parcelize = { module = "org.jetbrains.kotlinx:kotlinx-parcelize", version.ref = "kotlinxParcelize" }
 staticAnalysis-detektPlugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
 staticAnalysis-detektCli = { module = "io.gitlab.arturbosch.detekt:detekt-cli", version.ref = "detekt" }
 staticAnalysis-detektApi = { module = "io.gitlab.arturbosch.detekt:detekt-api", version.ref = "detekt" }

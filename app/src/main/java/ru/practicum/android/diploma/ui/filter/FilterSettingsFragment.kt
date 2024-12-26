@@ -27,6 +27,8 @@ class FilterSettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.etIndustries.setText("")
+
         binding.etIndustries.setOnClickListener {
             findNavController().navigate(R.id.action_filterSettingsFragment_to_choiceIndustryFragment)
         }

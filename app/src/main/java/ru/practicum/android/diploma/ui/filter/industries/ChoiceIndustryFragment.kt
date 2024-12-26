@@ -15,6 +15,8 @@ class ChoiceIndustryFragment : Fragment(), IndustriesAdapter.Listener {
     private var _binding: FragmentChoiceIndustryBinding? = null
     private val viewModel by viewModel<ChoiceIndustryViewModel>()
     private val binding get() = _binding!!
+    private var adapter: IndustriesAdapter? = null
+    private var data: Industries? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,8 +29,8 @@ class ChoiceIndustryFragment : Fragment(), IndustriesAdapter.Listener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val list: List<String> = emptyList()
         val foundedIndustryRv = binding.rvFoundedIndustry
+
         binding.rvFoundedIndustry.isVisible = true
         viewModel.showIndustries()
 
@@ -36,7 +38,15 @@ class ChoiceIndustryFragment : Fragment(), IndustriesAdapter.Listener {
             renderState(state)
         }
 
+        binding.ivBack.setOnClickListener {
+            parentFragmentManager.popBackStack()
+
+        }
+
         val onItemClickListener: (Industries) -> Unit = {
+            binding.btEnter.isVisible = true
+            data = it
+
         }
 
         val foundedIndustryAdapter = IndustriesAdapter(
@@ -48,29 +58,38 @@ class ChoiceIndustryFragment : Fragment(), IndustriesAdapter.Listener {
             afterTextChanged = { text ->
                 binding.ibClearQuery.isVisible = !text.isNullOrEmpty()
                 binding.ibClearSearch.isVisible = text.isNullOrEmpty()
-
                 viewModel.searchDebounce(text.toString())
             }
         )
+
+        binding.btEnter.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
+
+        binding.ibClearQuery.setOnClickListener {
+            binding.etSearchIndustry.setText("")
+        }
     }
 
     private fun renderState(state: IndustriesState) {
         val foundedIndustryRv = binding.rvFoundedIndustry
         when (state) {
             is IndustriesState.FoundIndustries -> {
-                val adapter = foundedIndustryRv.adapter as IndustriesAdapter
-                adapter.updateIndustries(state.industries as List<Industries>)
+                adapter = foundedIndustryRv.adapter as IndustriesAdapter
+                adapter?.updateIndustries(state.industries as List<Industries>)
                 binding.rvFoundedIndustry.adapter = adapter
                 binding.rvFoundedIndustry.isVisible = true
             }
 
             is IndustriesState.Error -> {
+
             }
 
             is IndustriesState.Loading -> {
             }
 
             is IndustriesState.NothingFound -> {
+                adapter?.updateIndustries(emptyList())
             }
         }
     }

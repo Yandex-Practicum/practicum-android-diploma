@@ -3,9 +3,7 @@ package ru.practicum.android.diploma.ui.filter.industries
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import org.koin.core.KoinApplication.Companion.init
-import org.koin.core.qualifier.named
-import ru.practicum.android.diploma.data.dto.model.industries.IndustriesFullDto
+
 import ru.practicum.android.diploma.databinding.IndustryItemBinding
 import ru.practicum.android.diploma.domain.models.Industries
 
@@ -14,7 +12,7 @@ class IndustriesAdapter(
     private var industries: List<Industries> = emptyList()
 ) : RecyclerView.Adapter<IndustriesViewHolder>() {
 
-    var selectedPosition: Int = -1
+    var selectedPosition: String = ""
 
     fun getIndustries(): List<Industries> = industries
     fun interface Listener {
@@ -45,18 +43,16 @@ class IndustriesAdapter(
         notifyDataSetChanged()
     }
 
-    fun updateSelection(position: Int) {
-        val previousSelectedPosition = selectedPosition
-        selectedPosition = position
-        notifyItemChanged(previousSelectedPosition)
-        notifyItemChanged(selectedPosition)
+    fun updateSelection(model: Industries) {
+        selectedPosition = model.id
+        notifyDataSetChanged()
     }
 }
 
 class IndustriesViewHolder(
     private val binding: IndustryItemBinding,
     private val adapter: IndustriesAdapter,
-    onItemClicked: (Int) -> Unit,
+    private val onItemClicked: (Int) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
 
     init {
@@ -67,11 +63,11 @@ class IndustriesViewHolder(
 
     fun bind(model: Industries, position: Int) {
         binding.radioButton.text = model.name
-
-        binding.radioButton.isChecked = position == adapter.selectedPosition
+        binding.radioButton.isChecked = model.id == adapter.selectedPosition
         binding.radioButton.setOnClickListener {
-            if (position != adapter.selectedPosition) {
-                adapter.updateSelection(position)
+            onItemClicked(position)
+            if (model.id != adapter.selectedPosition) {
+                adapter.updateSelection(model)
             }
         }
 
