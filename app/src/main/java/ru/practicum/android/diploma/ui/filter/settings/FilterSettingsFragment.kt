@@ -10,7 +10,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterSettingsBinding
 import ru.practicum.android.diploma.domain.models.Filter
-import ru.practicum.android.diploma.ui.filter.industries.ChoiceIndustryViewModel
 
 class FilterSettingsFragment : Fragment() {
 
