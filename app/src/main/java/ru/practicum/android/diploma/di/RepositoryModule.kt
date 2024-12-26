@@ -2,8 +2,8 @@ package ru.practicum.android.diploma.di
 
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
-import android.content.SharedPreferences
 import android.content.Context
+import android.content.SharedPreferences
 import ru.practicum.android.diploma.SHARED_PREFERENCES
 import ru.practicum.android.diploma.data.converters.CountriesConverter
 import ru.practicum.android.diploma.data.converters.RegionsConverter
