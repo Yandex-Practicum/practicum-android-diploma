@@ -42,7 +42,7 @@ class ChoiceIndustryViewModel(
     ) {
 
         if (result != null) {
-            for (industries in result){
+            for (industries in result) {
                 listIndustry.add(Industries(industries!!.id, industries.name))
                 for (industries in industries.industries) {
                     listIndustry.add(Industries(industries.id, industries.name))
@@ -82,10 +82,6 @@ class ChoiceIndustryViewModel(
 
     private fun renderState(state: IndustriesState) {
         _industriesState.postValue(state)
-    }
-
-    private fun saveToFilter(filter: Filter){
-
     }
 
     companion object {
