@@ -39,6 +39,9 @@ class FilterSettingsFragment : Fragment() {
             findNavController().popBackStack()
         }
 
+        binding.etIndustries.setOnClickListener {
+            findNavController().navigate(R.id.action_filterSettingsFragment_to_choiceIndustryFragment)
+        }
     }
 
     override fun onDestroyView() {

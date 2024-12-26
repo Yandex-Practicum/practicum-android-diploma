@@ -9,11 +9,14 @@ import retrofit2.HttpException
 import ru.practicum.android.diploma.data.dto.request.IndustriesRequest
 import ru.practicum.android.diploma.data.dto.response.IndustriesResponse
 import ru.practicum.android.diploma.data.dto.Response
+import ru.practicum.android.diploma.data.dto.request.AllRegionsRequest
 import ru.practicum.android.diploma.data.dto.request.CountriesRequest
+import ru.practicum.android.diploma.data.dto.request.CountryRegionsRequest
 import ru.practicum.android.diploma.data.dto.request.VacancyRequest
 import ru.practicum.android.diploma.data.dto.response.VacancyResponse
 import ru.practicum.android.diploma.data.dto.request.VacancySearchRequest
 import ru.practicum.android.diploma.data.dto.response.CountriesResponse
+import ru.practicum.android.diploma.data.dto.response.RegionResponse
 import ru.practicum.android.diploma.domain.NetworkClient
 import java.io.IOException
 
@@ -30,6 +33,9 @@ class RetrofitNetworkClient(
             is VacancySearchRequest -> getSearchVacancy(dto)
             is VacancyRequest -> getFullVacancy(dto)
             is CountriesRequest -> CountriesResponse(hhService.getCountries())
+            is AllRegionsRequest -> RegionResponse(hhService.getAllRegions())
+            is CountryRegionsRequest -> hhService.getCountryRegions(countryId = dto.countryId)
+            is  IndustriesRequest -> getFullIndustries(dto)
             else -> {
                 return Response().apply { code = HTTP_BAD_REQUEST_CODE
                 }

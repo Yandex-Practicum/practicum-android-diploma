@@ -4,8 +4,10 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Region
-    (
-    val id: String,
-    val name: String
+class Region(
+    val includedRegions: List<Region>,
+    val id: String?,
+    val name: String?,
+    val parentId: String? = null,
+    var parentCountry: Country? = null
 ) : Parcelable
