@@ -116,8 +116,7 @@ class VacancyViewModel(
         vacancyScreenStateLiveData.postValue(state)
     }
 
-    private fun convertToAppEntity(vacancyForConvert: VacancyFullItemDto)
-        : Vacancy {
+    private fun convertToAppEntity(vacancyForConvert: VacancyFullItemDto): Vacancy {
         return Vacancy(
             id = vacancyForConvert.id,
             titleOfVacancy = vacancyForConvert.name,
@@ -134,8 +133,7 @@ class VacancyViewModel(
         )
     }
 
-    private fun getCorrectFormOfEmployerAddress(item: VacancyFullItemDto)
-        : String {
+    private fun getCorrectFormOfEmployerAddress(item: VacancyFullItemDto): String {
         return if (item.address == null) {
             item.area.name
         } else {
