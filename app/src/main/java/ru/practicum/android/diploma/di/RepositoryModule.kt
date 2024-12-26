@@ -1,7 +1,5 @@
 package ru.practicum.android.diploma.di
 
-import android.content.SharedPreferences
-import android.content.Context
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import ru.practicum.android.diploma.SHARED_PREFERENCES
@@ -22,6 +20,8 @@ import ru.practicum.android.diploma.data.vacancy.VacancyRepository
 import ru.practicum.android.diploma.data.vacancy.impl.VacancyRepositoryImpl
 import ru.practicum.android.diploma.domain.api.country.CountriesRepository
 import ru.practicum.android.diploma.domain.api.region.RegionsRepository
+import android.content.SharedPreferences
+import android.content.Context
 
 val repositoryModule = module {
 
