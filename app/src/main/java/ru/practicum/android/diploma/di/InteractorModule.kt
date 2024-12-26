@@ -42,7 +42,7 @@ val interactorModule = module {
         RegionsInteractorImpl(get())
     }
 
-    single<FilterSharedPreferencesInteractor>{
+    single<FilterSharedPreferencesInteractor> {
         FilterSharedPreferencesInteractorImpl(get())
     }
 

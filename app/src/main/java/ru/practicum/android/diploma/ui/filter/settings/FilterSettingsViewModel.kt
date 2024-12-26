@@ -14,15 +14,15 @@ class FilterSettingsViewModel(
         interactor.getFilterSharedPrefs() ?: Filter()
     }
 
-    fun setSavedFilterToUi(): Filter{
+    fun setSavedFilterToUi(): Filter {
         return currentFilter
     }
 
-    fun saveFilterFromUi(filter: Filter){
+    fun saveFilterFromUi(filter: Filter) {
         interactor.setFilterSharedPrefs(filter)
     }
 
-    fun clearFilters(){
+    fun clearFilters() {
         interactor.deleteFilterSharedPrefs()
     }
 
