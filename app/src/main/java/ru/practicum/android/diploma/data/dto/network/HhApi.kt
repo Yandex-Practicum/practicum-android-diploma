@@ -7,6 +7,7 @@ import ru.practicum.android.diploma.data.dto.response.VacancySearchResponse
 import ru.practicum.android.diploma.data.dto.model.VacancyFullItemDto
 import ru.practicum.android.diploma.data.dto.model.industries.IndustriesFullDto
 import ru.practicum.android.diploma.data.dto.response.CountryResponse
+import ru.practicum.android.diploma.data.dto.response.RegionResponse
 
 interface HhApi {
 
@@ -38,4 +39,12 @@ interface HhApi {
 
     @GET("/areas")
     suspend fun getCountries(): List<CountryResponse>
+
+    @GET("/areas")
+    suspend fun getAllRegions(): ArrayList<RegionResponse>
+
+    @GET("/areas/{area_id}")
+    suspend fun getCountryRegions(
+        @Path("area_id") countryId: String
+    ): RegionResponse
 }
