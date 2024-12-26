@@ -11,6 +11,8 @@
     android:paddingStart="@dimen/margin16"
     android:paddingEnd="@dimen/margin16"
     android:text="@string/industry_header"
+    android:ellipsize="end"
+    android:maxLines="3"
     android:layoutDirection="rtl"
     android:buttonTint="@color/hh_blue"
     app:layout_constraintEnd_toEndOf="parent"
