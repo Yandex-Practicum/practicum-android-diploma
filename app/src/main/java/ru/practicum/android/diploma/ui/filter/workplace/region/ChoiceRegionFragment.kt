@@ -90,9 +90,9 @@ class ChoiceRegionFragment : Fragment() {
     private fun setFilteredRegions(s: CharSequence?) {
         if (!s.isNullOrEmpty()) {
             viewModel.getRegionsList()
-                ?.let { it ->
-                    adapter.setData(it.filter {
-                        it.name?.lowercase()?.contains(s.toString().lowercase()) ?: false
+                ?.let {
+                    adapter.setData(it.filter { region ->
+                        region.name?.lowercase()?.contains(s.toString().lowercase()) ?: false
                     })
                 }
         } else {
