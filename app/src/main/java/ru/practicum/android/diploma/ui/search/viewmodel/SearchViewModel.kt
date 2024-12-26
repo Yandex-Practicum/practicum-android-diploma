@@ -159,12 +159,15 @@ class SearchViewModel(
                 salary.from != null && salary.to != null && salary.from == salary.to -> {
                     String.format(Locale.getDefault(), "%s %s", numberFormat.format(salary.to), currencySymbol)
                 }
+
                 salary.from != null && salary.to == null -> {
                     String.format(Locale.getDefault(), "от %s %s", numberFormat.format(salary.from), currencySymbol)
                 }
+
                 salary.from == null && salary.to != null -> {
                     String.format(Locale.getDefault(), "до %s %s", numberFormat.format(salary.to), currencySymbol)
                 }
+
                 salary.from != null && salary.to != null -> {
                     String.format(
                         Locale.getDefault(),
@@ -174,6 +177,7 @@ class SearchViewModel(
                         currencySymbol
                     )
                 }
+
                 else -> null
             }
         }

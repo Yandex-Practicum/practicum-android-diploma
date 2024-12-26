@@ -168,8 +168,7 @@ class VacancyViewModel(
         }
     }
 
-    private fun getCorrectFormOfKeySkills(item: VacancyFullItemDto)
-        : String {
+    private fun getCorrectFormOfKeySkills(item: VacancyFullItemDto): String {
         return item.keySkills.joinToString(separator = "\n") { itemKey ->
             "• ${itemKey.name.replace(",", ",\n")}"
         }
