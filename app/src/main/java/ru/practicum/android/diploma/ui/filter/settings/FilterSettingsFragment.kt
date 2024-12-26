@@ -6,14 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterSettingsBinding
+import ru.practicum.android.diploma.domain.models.Filter
 
 class FilterSettingsFragment : Fragment() {
 
     private var _binding: FragmentFilterSettingsBinding? = null
 
     private val binding get() = _binding!!
+
+    private val viewModel by viewModel<FilterSettingsViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,9 +31,7 @@ class FilterSettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        binding.btnIndustries.setOnClickListener {
-//            findNavController().navigate(R.id.action_filterSettingsFragment_to_choiceIndustryFragment)
-//        }
+        setFilteredUi(viewModel.currentFilter)
 
         binding.etCountry.setOnClickListener {
             findNavController().navigate(R.id.action_filterSettingsFragment_to_choiceWorkplaceFragment)
@@ -49,4 +51,11 @@ class FilterSettingsFragment : Fragment() {
         _binding = null
     }
 
+    private fun setFilteredUi(filter: Filter) {
+        binding.etCountry.setText(filter.country?.name ?: "")
+        binding.etIndustries.setText(filter.industry?.name ?: "")
+        binding.etSalary.setText(if (filter.salary != null && filter.salary != 0) filter.salary.toString() else "")
+        binding.checkBoxSalary.setChecked(filter.onlyWithSalary)
+
+    }
 }
