@@ -7,19 +7,24 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.data.dto.model.industries.IndustriesFullDto
+import ru.practicum.android.diploma.domain.filter.FilterSharedPreferencesInteractor
 import ru.practicum.android.diploma.domain.industries.IndustriesInteractor
+import ru.practicum.android.diploma.domain.models.Filter
 import ru.practicum.android.diploma.domain.models.Industries
 import ru.practicum.android.diploma.util.debounce
 
 class ChoiceIndustryViewModel(
     application: Application,
-    private val interactor: IndustriesInteractor
+    private val interactor: IndustriesInteractor,
+    private val sharePrefsInteractor: FilterSharedPreferencesInteractor
 ) : AndroidViewModel(application) {
 
     val listIndustry = mutableListOf<Industries>()
     private var latestSearchText: String? = null
     private val _industriesState = MutableLiveData<IndustriesState>()
     val industriesState: LiveData<IndustriesState> get() = _industriesState
+
+    var currentFilter: Filter = sharePrefsInteractor.getFilterSharedPrefs() ?: Filter()
 
     fun showIndustries() {
         viewModelScope.launch {
@@ -77,6 +82,10 @@ class ChoiceIndustryViewModel(
 
     private fun renderState(state: IndustriesState) {
         _industriesState.postValue(state)
+    }
+
+    private fun saveToFilter(filter: Filter){
+
     }
 
     companion object {

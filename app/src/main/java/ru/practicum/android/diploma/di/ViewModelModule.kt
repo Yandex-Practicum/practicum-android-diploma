@@ -20,7 +20,7 @@ val viewModelModule = module {
     }
 
     viewModel {
-        ChoiceIndustryViewModel(get(), get())
+        ChoiceIndustryViewModel(get(), get(), get())
     }
 
     viewModel {
