@@ -5,8 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Region
-(
+    (
     val id: String,
     val name: String
-) : Parcelable {
-}
+) : Parcelable

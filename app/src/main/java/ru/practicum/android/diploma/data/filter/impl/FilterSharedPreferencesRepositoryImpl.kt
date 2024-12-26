@@ -24,6 +24,6 @@ class FilterSharedPreferencesRepositoryImpl(private val sharedPrefs: SharedPrefe
     }
 
     companion object {
-        val USER_KEY = "filter"
+        const val USER_KEY = "filter"
     }
 }
