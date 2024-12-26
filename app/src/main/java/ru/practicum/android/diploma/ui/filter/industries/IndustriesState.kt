@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.ui.filter.industries
 
-import ru.practicum.android.diploma.data.dto.model.industries.IndustriesFullDto
 import ru.practicum.android.diploma.domain.models.Industries
 
 sealed interface IndustriesState {
