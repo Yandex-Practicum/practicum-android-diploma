@@ -35,6 +35,7 @@ class RetrofitNetworkClient(
             is CountriesRequest -> CountriesResponse(hhService.getCountries())
             is AllRegionsRequest -> RegionResponse(hhService.getAllRegions())
             is CountryRegionsRequest -> hhService.getCountryRegions(countryId = dto.countryId)
+            is  IndustriesRequest -> getFullIndustries(dto)
             else -> {
                 return Response().apply { code = HTTP_BAD_REQUEST_CODE
                 }
