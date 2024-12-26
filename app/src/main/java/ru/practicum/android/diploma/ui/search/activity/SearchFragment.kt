@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import android.widget.EditText
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -28,6 +29,11 @@ import ru.practicum.android.diploma.ui.search.viewmodel.SearchViewModel
 class SearchFragment : Fragment() {
 
     private var _binding: FragmentSearchBinding? = null
+    private var previousTextInEditText: String = ""
+    private var searchJob: Job? = null
+    private var inputEditText: EditText? = null
+    private var foundedVacanciesRecyclerView: RecyclerView? = null
+    private var foundedVacanciesRecyclerViewAdapter: VacancyAdapter? = null
     private val binding get() = _binding!!
     private val viewModel: SearchViewModel by viewModel()
 
@@ -40,16 +46,19 @@ class SearchFragment : Fragment() {
         return _binding?.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
-        val inputEditText = binding.etSearchVacancy
+        inputEditText = binding.etSearchVacancy
         val clearButton = binding.ibClearQuery
-        val foundedVacanciesRecyclerView = binding.rvFoundedVacancies
+        foundedVacanciesRecyclerView = binding.rvFoundedVacancies
 
         setupObserversState()
 
-        inputEditText.addTextChangedListener { s ->
+        inputEditText?.addTextChangedListener { s ->
             clearButton.isVisible = !s.isNullOrEmpty()
             binding.ibClearSearch.isVisible = s.isNullOrEmpty()
             viewModel.searchJob.value?.cancel()
@@ -65,6 +74,12 @@ class SearchFragment : Fragment() {
                     )
                     viewModel.searchVacancies(searchParams)
                 })
+
+                previousTextInEditText = s.toString()
+                searchJob = lifecycleScope.launch {
+                    delay(SEARCH_REQUEST_DELAY_IN_MILLISEC)
+                    searchJobStart(s.toString())
+                }
             }
         }
 
@@ -74,6 +89,7 @@ class SearchFragment : Fragment() {
             hideKeyboard(inputEditText)
             showEmpty()
             viewModel.resetSearchState()
+            clear()
         }
 
         val onItemClickListener: (Vacancy) -> Unit = {
@@ -81,31 +97,22 @@ class SearchFragment : Fragment() {
                 putString("vacancy_id", it.id)
             }
             findNavController().navigate(R.id.action_searchFragment_to_vacancyFragment, bundle)
-            // Логика для выполнения по обычному нажатию на элемент
         }
         val onItemLongClickListener: (Vacancy) -> Unit = {
             // Логика для выполнения по долгому нажатию на элемент
         }
 
-        val foundedVacanciesRecyclerViewAdapter = VacancyAdapter(
+        foundedVacanciesRecyclerViewAdapter = VacancyAdapter(
             onItemClicked = onItemClickListener,
             onLongItemClicked = onItemLongClickListener
         )
 
-        foundedVacanciesRecyclerView.adapter = foundedVacanciesRecyclerViewAdapter
+        foundedVacanciesRecyclerView?.adapter = foundedVacanciesRecyclerViewAdapter
 
-        foundedVacanciesRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        foundedVacanciesRecyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-
-                if (dy > 0) {
-                    val pos = (foundedVacanciesRecyclerView.layoutManager as LinearLayoutManager)
-                        .findLastVisibleItemPosition()
-                    val itemsCount = foundedVacanciesRecyclerViewAdapter.itemCount
-                    if (pos >= itemsCount - 1) {
-                        viewModel.onLastItemReached()
-                    }
-                }
+                positionUpdate(dy)
             }
         })
 
@@ -117,6 +124,34 @@ class SearchFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun searchJobStart(s: String) {
+        val searchParams = SearchParams(
+            searchQuery = s,
+            numberOfPage = "0"
+        )
+        viewModel.searchVacancies(searchParams)
+    }
+
+    private fun positionUpdate(dy: Int) {
+        if (dy > 0) {
+            val pos = (foundedVacanciesRecyclerView?.layoutManager as LinearLayoutManager)
+                .findLastVisibleItemPosition()
+            val itemsCount = foundedVacanciesRecyclerViewAdapter?.itemCount
+
+            if (itemsCount != null && pos >= itemsCount - 1) {
+                viewModel.onLastItemReached()
+            }
+        }
+    }
+
+    private fun clear() {
+        inputEditText?.setText(CLEAR_TEXT)
+        inputEditText?.requestFocus()
+        inputEditText?.let { hideKeyboard(it) }
+        showEmpty()
+        viewModel.resetSearchState()
     }
 
     private fun setupObserversState() {
