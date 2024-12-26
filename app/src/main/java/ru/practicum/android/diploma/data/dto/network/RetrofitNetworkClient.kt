@@ -6,17 +6,17 @@ import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
-import ru.practicum.android.diploma.data.dto.request.IndustriesRequest
-import ru.practicum.android.diploma.data.dto.response.IndustriesResponse
 import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.request.AllRegionsRequest
 import ru.practicum.android.diploma.data.dto.request.CountriesRequest
 import ru.practicum.android.diploma.data.dto.request.CountryRegionsRequest
+import ru.practicum.android.diploma.data.dto.request.IndustriesRequest
 import ru.practicum.android.diploma.data.dto.request.VacancyRequest
-import ru.practicum.android.diploma.data.dto.response.VacancyResponse
 import ru.practicum.android.diploma.data.dto.request.VacancySearchRequest
 import ru.practicum.android.diploma.data.dto.response.CountriesResponse
+import ru.practicum.android.diploma.data.dto.response.IndustriesResponse
 import ru.practicum.android.diploma.data.dto.response.RegionResponse
+import ru.practicum.android.diploma.data.dto.response.VacancyResponse
 import ru.practicum.android.diploma.domain.NetworkClient
 import java.io.IOException
 
@@ -34,11 +34,25 @@ class RetrofitNetworkClient(
             is VacancyRequest -> getFullVacancy(dto)
             is CountriesRequest -> CountriesResponse(hhService.getCountries())
             is AllRegionsRequest -> RegionResponse(hhService.getAllRegions())
-            is CountryRegionsRequest -> hhService.getCountryRegions(countryId = dto.countryId)
+            is CountryRegionsRequest -> getCountryRegions(countryId = dto.countryId)
             is  IndustriesRequest -> getFullIndustries(dto)
             else -> {
                 return Response().apply { code = HTTP_BAD_REQUEST_CODE
                 }
+            }
+        }
+    }
+
+    private suspend fun getCountryRegions(countryId: String): Response {
+        return withContext(Dispatchers.IO) {
+            try {
+                hhService.getCountryRegions(countryId).apply { code = HTTP_OK_CODE }
+            } catch (e: HttpException) {
+                Log.e("some error in html", "$e")
+                Response().apply { code = HTTP_CODE_0 }
+            } catch (e: IOException) {
+                Log.e("error in fetching country regions", "$e")
+                Response().apply { code = HTTP_INTERNAL_SERVER_ERROR_CODE }
             }
         }
     }
