@@ -21,6 +21,20 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="@dimen/guideline_indent" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/topGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/top_toolbar_indent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/bottomGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="@dimen/bottom_navigation_indent" />
+
     <ImageView
         android:id="@+id/ivBack"
         android:layout_width="wrap_content"
@@ -42,14 +56,17 @@
         app:layout_constraintStart_toEndOf="@id/ivBack"
         app:layout_constraintTop_toTopOf="@id/ivBack" />
 
-    <FrameLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/flFrameSearchRegion"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="27dp"
+        app:endIconDrawable="@drawable/search_icon"
+        app:endIconMode="custom"
         app:layout_constraintStart_toStartOf="@id/startGuideline"
         app:layout_constraintEnd_toEndOf="@id/endGuideline"
         app:layout_constraintTop_toBottomOf="@id/tvRegionHeader"
-        android:layout_marginTop="27dp" >
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <EditText
             android:id="@+id/etSearchRegion"
@@ -61,28 +78,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/enter_region"
             tools:ignore="Autofill,TextFields" />
-
-        <ImageButton
-            android:id="@+id/ibClearQuery"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_marginEnd="@dimen/team_indent"
-            android:layout_gravity="end|center"
-            android:visibility="gone"
-            app:srcCompat="@drawable/search_clear_icon"
-            android:backgroundTint="@android:color/transparent"
-            tools:ignore="ContentDescription" />
-
-        <ImageButton
-            android:id="@+id/ibClearSearch"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_marginEnd="@dimen/team_indent"
-            android:layout_gravity="end|center"
-            app:srcCompat="@drawable/search_icon"
-            android:backgroundTint="@android:color/transparent"
-            tools:ignore="ContentDescription" />
-    </FrameLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvFoundedRegion"
@@ -95,6 +91,17 @@
         app:layout_constraintEnd_toEndOf="@id/endGuideline"
         app:layout_constraintStart_toStartOf="@id/startGuideline"
         app:layout_constraintTop_toBottomOf="@id/flFrameSearchRegion" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/hh_blue"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/bottomGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/flFrameSearchRegion" />
 
     <LinearLayout
         android:id="@+id/placeholderNotFound"
