@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.data.converters
 
 import ru.practicum.android.diploma.data.dto.response.RegionResponse
+import ru.practicum.android.diploma.domain.models.Country
 import ru.practicum.android.diploma.domain.models.Region
 
 class RegionsConverter {
@@ -14,9 +15,18 @@ class RegionsConverter {
     fun convertRegion(region: RegionResponse): Region {
         return Region(
             includedRegions = region.areas.map { convertRegion(it) },
-            id = region.id?.let { region.id },
-            name = region.name?.let { region.name },
-            parentId = region.parentId?.let { region.parentId }
+            id = region.id ?: "",
+            name = region.name ?: "",
+            parentId = region.parentId
+        )
+    }
+
+    fun convertRegionToCountry(region: RegionResponse): Country {
+        return Country(
+            id = region.id ?: "",
+            name = region.name ?: "",
+            parentId = region.parentId,
+            includedRegions = ArrayList()
         )
     }
 }
