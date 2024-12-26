@@ -37,10 +37,8 @@ class ChoiceIndustryViewModel(
     }
 
     private fun processResult(
-        result:
-        List<IndustriesFullDto?>?
+        result: List<IndustriesFullDto?>?
     ) {
-
         if (result != null) {
             for (industries in result) {
                 listIndustry.add(Industries(industries!!.id, industries.name))
@@ -71,7 +69,6 @@ class ChoiceIndustryViewModel(
         filteredIndustries = listIndustry.filter { industry: Industries ->
             industry.name.contains(searchText)
         }.toMutableList()
-
 
         if (filteredIndustries.isEmpty()) {
             renderState(IndustriesState.NothingFound)

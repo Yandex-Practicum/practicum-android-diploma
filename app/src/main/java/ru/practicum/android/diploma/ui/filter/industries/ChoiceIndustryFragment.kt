@@ -82,7 +82,6 @@ class ChoiceIndustryFragment : Fragment(), IndustriesAdapter.Listener {
             }
 
             is IndustriesState.Error -> {
-
             }
 
             is IndustriesState.Loading -> {
