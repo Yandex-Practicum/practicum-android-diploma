@@ -1,7 +1,7 @@
 package ru.practicum.android.diploma.di
 
-import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
+import org.koin.android.ext.koin.androidContext
 import android.content.Context
 import android.content.SharedPreferences
 import ru.practicum.android.diploma.SHARED_PREFERENCES
