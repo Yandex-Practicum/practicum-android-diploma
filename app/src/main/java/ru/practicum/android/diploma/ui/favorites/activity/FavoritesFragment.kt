@@ -54,7 +54,6 @@ class FavoritesFragment : Fragment() {
         }
         favoriteVacanciesRecyclerViewAdapter = VacancyAdapter(
             onItemClicked = onItemClickListener,
-            onLongItemClicked = onItemLongClickListener
         )
         binding.rvFavoriteVacancies.layoutManager = LinearLayoutManager(requireContext())
         binding.rvFavoriteVacancies.adapter = favoriteVacanciesRecyclerViewAdapter

@@ -10,7 +10,6 @@ import ru.practicum.android.diploma.domain.models.Vacancy
 class VacancyAdapter(
     private var vacancies: List<Vacancy> = emptyList(),
     private val onItemClicked: (Vacancy) -> Unit,
-    private val onLongItemClicked: (Vacancy) -> Unit
 ) : RecyclerView.Adapter<VacancyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VacancyViewHolder {
