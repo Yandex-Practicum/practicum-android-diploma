@@ -35,7 +35,7 @@ class RetrofitNetworkClient(
             is CountriesRequest -> CountriesResponse(hhService.getCountries())
             is AllRegionsRequest -> RegionResponse(hhService.getAllRegions())
             is CountryRegionsRequest -> getCountryRegions(countryId = dto.countryId)
-            is IndustriesRequest -> getFullIndustries(dto)
+            is IndustriesRequest -> getFullIndustries()
             else -> {
                 return Response().apply { code = HTTP_BAD_REQUEST_CODE
                 }
@@ -89,11 +89,9 @@ class RetrofitNetworkClient(
     private suspend fun getFullVacancy(request: VacancyRequest): Response {
         return withContext(Dispatchers.IO) {
             try {
-                VacancyResponse(hhService.getVacancyById(request.id))
-                    .apply { code = HTTP_OK_CODE }
+                VacancyResponse(hhService.getVacancyById(request.id)).apply { code = HTTP_OK_CODE }
             } catch (e: HttpException) {
                 Response().apply { code = e.code() }
-
             } catch (e: IOException) {
                 Log.e("errorFullVacancy", "$e")
                 Response().apply { code = HTTP_INTERNAL_SERVER_ERROR_CODE }
@@ -101,7 +99,7 @@ class RetrofitNetworkClient(
         }
     }
 
-    private suspend fun getFullIndustries(request: IndustriesRequest): Response {
+    private suspend fun getFullIndustries(): Response {
         return withContext(Dispatchers.IO) {
             try {
                 IndustriesResponse(hhService.getAllIndustries())
