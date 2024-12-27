@@ -24,15 +24,7 @@ class Salary {
             return "Зарплата не указана"
         }
         val codeSalary = currencyCodeMapping[item.currency] ?: item.currency
-        val salaryRange = when {
-            item.to == null && item.from == null -> SalaryRange.NotSpecified
-            item.from != null && item.to != null && item.from == item.to -> SalaryRange.SingleValue(item.from)
-            item.from != null && item.to == null -> SalaryRange.FromValue(item.from)
-            item.from == null && item.to != null -> SalaryRange.ToValue(item.to)
-            else -> SalaryRange.Range(item.from ?: 0, item.to ?: 0)
-        }
-
-        return when (salaryRange) {
+        return when (val salaryRange = SalaryItem().salaryDetermine(item)) {
             is SalaryRange.NotSpecified -> "Зарплата не указана"
             is SalaryRange.SingleValue -> formatSalary(salaryRange.amount, formatNumber, codeSalary)
             is SalaryRange.FromValue -> "от ${formatSalary(salaryRange.from, formatNumber, codeSalary)}"
