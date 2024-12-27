@@ -31,7 +31,7 @@ class VacancyFragment : Fragment() {
     private var _binding: FragmentVacancyBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModel<VacancyViewModel>()
-    private val salary : Salary? = null
+    private val salary: Salary? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,

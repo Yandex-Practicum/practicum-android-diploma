@@ -83,7 +83,7 @@ class ChoiceIndustryViewModel(
     }
 
     fun setFilter(filterIndustry: Filter) {
-    interactorSharedPreference.setFilterSharedPrefs(filterIndustry)
+        interactorSharedPreference.setFilterSharedPrefs(filterIndustry)
     }
 
     private fun renderState(state: IndustriesState) {
