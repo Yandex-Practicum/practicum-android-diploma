@@ -81,7 +81,4 @@ class VacancyRepositoryImpl(
             convertingVacancy.address.raw
         }
     }
-
-
 }
-

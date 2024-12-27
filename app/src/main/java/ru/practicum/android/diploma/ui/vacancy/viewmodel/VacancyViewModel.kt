@@ -68,8 +68,11 @@ class VacancyViewModel(
                         .getFavoriteVacancyById(currentVacancyId!!)
                         .collect { foundedVacancy ->
                             favoriteVacancyButtonStateLiveData.postValue(
-                                if (foundedVacancy == null) FavoriteVacancyButtonState.VacancyIsNotFavorite
-                                else FavoriteVacancyButtonState.VacancyIsFavorite
+                                if (foundedVacancy == null) {
+                                    FavoriteVacancyButtonState.VacancyIsNotFavorite
+                                } else {
+                                    FavoriteVacancyButtonState.VacancyIsFavorite
+                                }
                             )
                         }
                 }
