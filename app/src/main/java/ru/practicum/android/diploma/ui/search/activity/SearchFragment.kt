@@ -100,10 +100,8 @@ class SearchFragment : Fragment() {
                     val pos = (foundedVacanciesRecyclerView?.layoutManager as LinearLayoutManager)
                         .findLastVisibleItemPosition()
                     val itemsCount = foundedVacanciesRecyclerViewAdapter?.itemCount
-                    if (itemsCount != null) {
-                        if (pos >= itemsCount - 1) {
-                            viewModel.onLastItemReached()
-                        }
+                    if (itemsCount != null && pos >= itemsCount - 1) {
+                        viewModel.onLastItemReached()
                     }
                 }
             }
