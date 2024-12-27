@@ -4,18 +4,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.databinding.IndustryItemBinding
-import ru.practicum.android.diploma.domain.models.Industries
+import ru.practicum.android.diploma.domain.models.Industry
 
 class IndustriesAdapter(
-    private val onItemClicked: (Industries) -> Unit,
-    private var industries: List<Industries> = emptyList()
+    private val onItemClicked: (Industry) -> Unit,
+    private var industries: List<Industry> = emptyList()
 ) : RecyclerView.Adapter<IndustriesViewHolder>() {
 
     var selectedPosition: String = ""
 
-    fun getIndustries(): List<Industries> = industries
+    fun getIndustries(): List<Industry> = industries
     fun interface Listener {
-        fun onClick(industry: Industries)
+        fun onClick(industry: Industry)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IndustriesViewHolder {
@@ -37,12 +37,12 @@ class IndustriesAdapter(
         // holder.itemView.setOnClickListener { listener.onClick(industries[position]) }
     }
 
-    fun updateIndustries(newIndustries: List<Industries>) {
+    fun updateIndustries(newIndustries: List<Industry>) {
         industries = newIndustries
         notifyDataSetChanged()
     }
 
-    fun updateSelection(model: Industries) {
+    fun updateSelection(model: Industry) {
         selectedPosition = model.id
         notifyDataSetChanged()
     }
@@ -60,7 +60,7 @@ class IndustriesViewHolder(
         }
     }
 
-    fun bind(model: Industries, position: Int) {
+    fun bind(model: Industry, position: Int) {
         binding.radioButton.text = model.name
         binding.radioButton.isChecked = model.id == adapter.selectedPosition
         binding.radioButton.setOnClickListener {
@@ -69,6 +69,5 @@ class IndustriesViewHolder(
                 adapter.updateSelection(model)
             }
         }
-
     }
 }

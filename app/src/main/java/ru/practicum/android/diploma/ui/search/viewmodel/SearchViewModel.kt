@@ -9,14 +9,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import ru.practicum.android.diploma.data.dto.response.VacancySearchResponse
-import ru.practicum.android.diploma.data.dto.model.SalaryDto
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.search.SearchInteractor
 import ru.practicum.android.diploma.domain.search.models.SearchParams
 import ru.practicum.android.diploma.ui.search.state.SingleLiveEvent
+import ru.practicum.android.diploma.util.Salary
 import java.io.IOException
-import java.text.NumberFormat
-import java.util.Locale
 
 class SearchViewModel(
     private val searchInteractor: SearchInteractor
@@ -28,6 +26,7 @@ class SearchViewModel(
     private var isNextPageLoading = false
     private val vacanciesList = mutableListOf<Vacancy>()
     private var currentSearchQuery: String = ""
+    private val salary = Salary()
 
     private val _counterVacancy = MutableLiveData(0)
     val counterVacancy: LiveData<Int> get() = _counterVacancy
@@ -106,7 +105,7 @@ class SearchViewModel(
                 vacancyDto.id,
                 vacancyDto.name,
                 vacancyDto.area.name,
-                getCorrectFormOfSalaryText(vacancyDto.salary),
+                salary.salaryFun(vacancyDto.salary),
                 vacancyDto.employer.name,
                 vacancyDto.employer.logoUrls?.original
             )
@@ -146,57 +145,6 @@ class SearchViewModel(
                     numberOfPage = (currentPage + 1).toString()
                 )
             )
-        }
-    }
-
-    private fun getCorrectFormOfSalaryText(salary: SalaryDto?): String? {
-        return if (salary == null) {
-            null
-        } else {
-            val currencySymbol = getCurrencySymbolByCode(salary.currency!!)
-            val numberFormat = NumberFormat.getNumberInstance(Locale.getDefault())
-            when {
-                salary.from != null && salary.to != null && salary.from == salary.to -> {
-                    String.format(Locale.getDefault(), "%s %s", numberFormat.format(salary.to), currencySymbol)
-                }
-
-                salary.from != null && salary.to == null -> {
-                    String.format(Locale.getDefault(), "от %s %s", numberFormat.format(salary.from), currencySymbol)
-                }
-
-                salary.from == null && salary.to != null -> {
-                    String.format(Locale.getDefault(), "до %s %s", numberFormat.format(salary.to), currencySymbol)
-                }
-
-                salary.from != null && salary.to != null -> {
-                    String.format(
-                        Locale.getDefault(),
-                        "от %s до %s %s",
-                        numberFormat.format(salary.from),
-                        numberFormat.format(salary.to),
-                        currencySymbol
-                    )
-                }
-
-                else -> null
-            }
-        }
-    }
-
-
-    private fun getCurrencySymbolByCode(code: String): String {
-        return when (code) {
-            "AZN" -> "₼"
-            "BYR" -> "Br"
-            "EUR" -> "€"
-            "GEL" -> "₾"
-            "KGS" -> "⃀"
-            "KZT" -> "₸"
-            "RUR" -> "₽"
-            "UAH" -> "₴"
-            "USD" -> "$"
-            "UZS" -> "Soʻm"
-            else -> ""
         }
     }
 

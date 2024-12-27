@@ -15,8 +15,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.text.NumberFormat
-import java.util.Locale
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.dto.model.VacancyFullItemDto
 import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
@@ -25,12 +23,15 @@ import ru.practicum.android.diploma.ui.vacancy.VacancyState
 import ru.practicum.android.diploma.ui.vacancy.viewmodel.FavoriteVacancyButtonState
 import ru.practicum.android.diploma.ui.vacancy.viewmodel.VacancyViewModel
 import ru.practicum.android.diploma.util.DimenConvertor
+import ru.practicum.android.diploma.util.Salary
+import java.util.Locale
 
 class VacancyFragment : Fragment() {
 
     private var _binding: FragmentVacancyBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModel<VacancyViewModel>()
+    private val salary : Salary? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -71,13 +72,7 @@ class VacancyFragment : Fragment() {
         }
 
         binding.ivFavorites.setOnClickListener {
-            if (viewModel.getFavoriteVacancyButtonStateLiveData.value == FavoriteVacancyButtonState.VacancyIsFavorite) {
-                Log.d("testt", "vac is fav")
-                viewModel.deleteVacancyFromFavorites()
-            } else {
-                Log.d("testt", "vac is not fav")
-                viewModel.insertVacancyInFavorites()
-            }
+            isFavorites()
         }
 
         binding.ivBack.setOnClickListener {
@@ -93,12 +88,21 @@ class VacancyFragment : Fragment() {
             val vacancyId = bundle.getString(KEY_FOR_BUNDLE_DATA)
             viewModel.getVacancyResources(vacancyId!!)
         }
-
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun isFavorites() {
+        if (viewModel.getFavoriteVacancyButtonStateLiveData.value == FavoriteVacancyButtonState.VacancyIsFavorite) {
+            Log.d("test", "vac is fav")
+            viewModel.deleteVacancyFromFavorites()
+        } else {
+            Log.d("test", "vac is not fav")
+            viewModel.insertVacancyInFavorites()
+        }
     }
 
     private fun goToPrevScreen() {
@@ -203,7 +207,7 @@ class VacancyFragment : Fragment() {
         binding.scrollableContent.isVisible = true
         binding.llVacancyNotFound.isVisible = false
         binding.tvName.text = item.name
-        binding.tvSalary.text = salary(item)
+        binding.tvSalary.text = item.salary?.let { salary?.salaryFun(it) }
         Glide.with(this)
             .load(item.employer.logoUrls?.logo90pxUrl)
             .override(imgSizeInPx, imgSizeInPx)
@@ -221,42 +225,6 @@ class VacancyFragment : Fragment() {
         )
         binding.tvResponsibilitiesText.text = Html.fromHtml(item.description, HtmlCompat.FROM_HTML_MODE_LEGACY)
         keySkills(item)
-    }
-
-    private fun salary(item: VacancyFullItemDto): String {
-        val currencyCodeMapping = mapOf(
-            "AZN" to "₼",
-            "BYR" to "Br",
-            "EUR" to "€",
-//            "GEL" to "₾",
-//            "KGS" to "⃀",
-            "KZT" to "₸",
-            "RUR" to "₽",
-            "UAH" to "₴",
-            "USD" to "$",
-            "UZS" to "Soʻm",
-        )
-        val codeSalary = currencyCodeMapping[item.salary?.currency] ?: item.salary?.currency
-        val numberFormat = NumberFormat.getNumberInstance(Locale.getDefault())
-        return when {
-            item.salary == null -> "Зарплата не указана"
-            item.salary.from != null && item.salary.to != null && item.salary.from == item.salary.to -> {
-                "${numberFormat.format(item.salary.from)} $codeSalary"
-            }
-
-            item.salary.from != null && item.salary.to == null -> {
-                "от ${numberFormat.format(item.salary.from)} $codeSalary"
-            }
-
-            item.salary.from == null && item.salary.to != null -> {
-                "до ${numberFormat.format(item.salary.to)} $codeSalary"
-            }
-
-            else -> {
-                "от ${numberFormat.format(item.salary.from ?: 0)} $codeSalary " +
-                    "до ${numberFormat.format(item.salary.to ?: 0)} $codeSalary"
-            }
-        }
     }
 
     private fun getCorrectFormOfEmployerAddress(item: VacancyFullItemDto): String {
