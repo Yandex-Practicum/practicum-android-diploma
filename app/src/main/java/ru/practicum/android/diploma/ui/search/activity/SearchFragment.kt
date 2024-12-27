@@ -116,7 +116,7 @@ class SearchFragment : Fragment() {
         _binding = null
     }
 
-    private fun itemClickListener(item: Vacancy){
+    private fun itemClickListener(item: Vacancy) {
         requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView).isVisible = false
         requireActivity().supportFragmentManager
             .beginTransaction()
