@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
@@ -33,6 +34,7 @@ class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
     private val viewModel: SearchViewModel by viewModel()
+    private var inputEditText: EditText? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,13 +48,13 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val inputEditText = binding.etSearchVacancy
+        inputEditText = binding.etSearchVacancy
         val clearButton = binding.ibClearQuery
         val foundedVacanciesRecyclerView = binding.rvFoundedVacancies
 
         setupObserversState()
 
-        inputEditText.addTextChangedListener { s ->
+        inputEditText?.addTextChangedListener { s ->
             clearButton.isVisible = !s.isNullOrEmpty()
             binding.ibClearSearch.isVisible = s.isNullOrEmpty()
             viewModel.searchJob.value?.cancel()
@@ -72,25 +74,11 @@ class SearchFragment : Fragment() {
         }
 
         clearButton.setOnClickListener {
-            inputEditText.setText(CLEAR_TEXT)
-            inputEditText.requestFocus()
-            hideKeyboard(inputEditText)
-            showEmpty()
-            viewModel.resetSearchState()
+            clearSearch()
         }
 
         val onItemClickListener: (Vacancy) -> Unit = {
-            // Логика для выполнения по обычному нажатию на элемент
-            requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView).isVisible = false
-            requireActivity().supportFragmentManager
-                .beginTransaction()
-                .replace(
-                    R.id.container_view,
-                    VacancyFragment.newInstance(it.id),
-                    null
-                )
-                .addToBackStack(null)
-                .commit()
+            itemClickListener(it)
         }
         val onItemLongClickListener: (Vacancy) -> Unit = {
             // Логика для выполнения по долгому нажатию на элемент
@@ -126,6 +114,27 @@ class SearchFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun itemClickListener(item: Vacancy) {
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView).isVisible = false
+        requireActivity().supportFragmentManager
+            .beginTransaction()
+            .replace(
+                R.id.container_view,
+                VacancyFragment.newInstance(item.id),
+                null
+            )
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private fun clearSearch() {
+        inputEditText?.setText(CLEAR_TEXT)
+        inputEditText?.requestFocus()
+        inputEditText?.let { hideKeyboard(it) }
+        showEmpty()
+        viewModel.resetSearchState()
     }
 
     private fun setupObserversState() {
