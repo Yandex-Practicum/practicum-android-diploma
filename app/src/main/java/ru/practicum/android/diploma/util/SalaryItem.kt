@@ -4,7 +4,7 @@ import ru.practicum.android.diploma.data.dto.model.SalaryDto
 import ru.practicum.android.diploma.domain.models.SalaryRange
 
 class SalaryItem {
-        fun salaryDetermine(item: SalaryDto?): SalaryRange {
+    fun salaryDetermine(item: SalaryDto?): SalaryRange {
         if (item == null || item.to == null && item.from == null) {
             return SalaryRange.NotSpecified
         }
