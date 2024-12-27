@@ -27,21 +27,25 @@ class Salary {
             item.to == null && item.from == null -> "Зарплата не указана"
 
             item.from != null && item.to != null && item.from == item.to -> {
-                "${formatNumber.format(item.from).replace(',', ' ')} $codeSalary"
+                formatSalary(item.from, formatNumber, codeSalary)
             }
 
             item.from != null && item.to == null -> {
-                "от ${formatNumber.format(item.from).replace(',', ' ')} $codeSalary"
+                "от ${formatSalary(item.from, formatNumber, codeSalary)}"
             }
 
             item.from == null && item.to != null -> {
-                "до ${formatNumber.format(item.to).replace(',', ' ')} $codeSalary"
+                "до ${formatSalary(item.to, formatNumber, codeSalary)}"
             }
 
             else -> {
-                "от ${formatNumber.format(item.from ?: 0).replace(',', ' ')} $codeSalary " +
-                    "до ${formatNumber.format(item.to ?: 0).replace(',', ' ')} $codeSalary"
+                "от ${formatSalary(item.from ?: 0, formatNumber, codeSalary)} " +
+                    "до ${formatSalary(item.to ?: 0, formatNumber, codeSalary)}"
             }
         }
+    }
+
+    private fun formatSalary(amount: Number, formatNumber: DecimalFormat, codeSalary: String?): String {
+        return "${formatNumber.format(amount).replace(',', ' ')} $codeSalary"
     }
 }
