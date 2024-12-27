@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.util
 
 import ru.practicum.android.diploma.data.dto.model.SalaryDto
+import ru.practicum.android.diploma.domain.models.SalaryRange
 import java.text.DecimalFormat
 
 class Salary {
@@ -9,7 +10,7 @@ class Salary {
         "BYR" to "Br",
         "EUR" to "€",
         //   "GEL" to "₾",
-        //    "KGS" to "⃀",
+        //   "KGS" to "⃀",
         "KZT" to "₸",
         "RUR" to "₽",
         "UAH" to "₴",
@@ -23,25 +24,21 @@ class Salary {
             return "Зарплата не указана"
         }
         val codeSalary = currencyCodeMapping[item.currency] ?: item.currency
-        return when {
-            item.to == null && item.from == null -> "Зарплата не указана"
+        val salaryRange = when {
+            item.to == null && item.from == null -> SalaryRange.NotSpecified
+            item.from != null && item.to != null && item.from == item.to -> SalaryRange.SingleValue(item.from)
+            item.from != null && item.to == null -> SalaryRange.FromValue(item.from)
+            item.from == null && item.to != null -> SalaryRange.ToValue(item.to)
+            else -> SalaryRange.Range(item.from ?: 0, item.to ?: 0)
+        }
 
-            item.from != null && item.to != null && item.from == item.to -> {
-                formatSalary(item.from, formatNumber, codeSalary)
-            }
-
-            item.from != null && item.to == null -> {
-                "от ${formatSalary(item.from, formatNumber, codeSalary)}"
-            }
-
-            item.from == null && item.to != null -> {
-                "до ${formatSalary(item.to, formatNumber, codeSalary)}"
-            }
-
-            else -> {
-                "от ${formatSalary(item.from ?: 0, formatNumber, codeSalary)} " +
-                    "до ${formatSalary(item.to ?: 0, formatNumber, codeSalary)}"
-            }
+        return when (salaryRange) {
+            is SalaryRange.NotSpecified -> "Зарплата не указана"
+            is SalaryRange.SingleValue -> formatSalary(salaryRange.amount, formatNumber, codeSalary)
+            is SalaryRange.FromValue -> "от ${formatSalary(salaryRange.from, formatNumber, codeSalary)}"
+            is SalaryRange.ToValue -> "до ${formatSalary(salaryRange.to, formatNumber, codeSalary)}"
+            is SalaryRange.Range -> "от ${formatSalary(salaryRange.from, formatNumber, codeSalary)} " +
+                "до ${formatSalary(salaryRange.to, formatNumber, codeSalary)}"
         }
     }
 
