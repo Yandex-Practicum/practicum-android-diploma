@@ -109,12 +109,14 @@ class VacancyFragment : Fragment() {
     }
 
     private fun showLoading() {
+        changeClickableOfButtons(false)
         binding.progressBarVacancy.isVisible = true
         binding.scrollableContent.isVisible = false
         binding.llVacancyNotFound.isVisible = false
     }
 
     private fun showError() {
+        changeClickableOfButtons(false)
         binding.progressBarVacancy.isVisible = false
         binding.scrollableContent.isVisible = false
         binding.llVacancyNotFound.isVisible = true
@@ -124,6 +126,7 @@ class VacancyFragment : Fragment() {
     }
 
     private fun badRequest() {
+        changeClickableOfButtons(false)
         binding.progressBarVacancy.isVisible = false
         binding.scrollableContent.isVisible = false
         binding.llVacancyNotFound.isVisible = true
@@ -133,6 +136,7 @@ class VacancyFragment : Fragment() {
     }
 
     private fun networkError() {
+        changeClickableOfButtons(false)
         binding.progressBarVacancy.isVisible = false
         binding.scrollableContent.isVisible = false
         binding.llVacancyNotFound.isVisible = true
@@ -142,6 +146,7 @@ class VacancyFragment : Fragment() {
     }
 
     private fun showEmpty() {
+        changeClickableOfButtons(false)
         binding.progressBarVacancy.isVisible = false
         binding.scrollableContent.isVisible = false
         binding.llVacancyNotFound.isVisible = true
@@ -173,6 +178,14 @@ class VacancyFragment : Fragment() {
         binding.tvKeySkillsTitle.isVisible = item.keySkills != null
         binding.tvKeySkillsText.isVisible = item.keySkills != null
         binding.tvKeySkillsText.text = item.keySkills
+        changeClickableOfButtons(true)
+    }
+
+    private fun changeClickableOfButtons(clickable: Boolean) {
+        binding.ivSharing.isClickable = clickable
+        binding.ivSharing.isActivated = clickable
+        binding.ivFavorites.isClickable = clickable
+        binding.ivFavorites.isActivated = clickable
     }
 
     private fun shareVacancy(shareLink: String?) {
