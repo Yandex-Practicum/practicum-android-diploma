@@ -32,6 +32,25 @@ class RootActivity : AppCompatActivity() {
                 R.id.choiceIndustryFragment -> {
                     bottomNavigationView?.visibility = View.GONE
                 }
+                R.id.filterSettingsFragment -> {
+                    bottomNavigationView?.visibility = View.GONE
+                }
+
+                R.id.choiceIndustryFragment -> {
+                    bottomNavigationView?.visibility = View.GONE
+                }
+
+                R.id.choiceRegionFragment -> {
+                    bottomNavigationView?.visibility = View.GONE
+                }
+
+                R.id.choiceCountryFragment -> {
+                    bottomNavigationView?.visibility = View.GONE
+                }
+
+                R.id.choiceWorkplaceFragment -> {
+                    bottomNavigationView?.visibility = View.GONE
+                }
                 else -> {
                     bottomNavigationView?.visibility = View.VISIBLE
                 }

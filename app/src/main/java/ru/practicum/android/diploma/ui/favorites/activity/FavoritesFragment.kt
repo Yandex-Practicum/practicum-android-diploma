@@ -6,15 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFavoritesBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.ui.favorites.viewmodel.FavoriteVacanciesScreenState
 import ru.practicum.android.diploma.ui.favorites.viewmodel.FavoritesViewModel
-import ru.practicum.android.diploma.ui.vacancy.activity.VacancyFragment
 
 class FavoritesFragment : Fragment() {
 
@@ -46,17 +45,12 @@ class FavoritesFragment : Fragment() {
 
         val onItemClickListener: (Vacancy) -> Unit = {
             // Логика, исполняемая по нажатию на элемент списка вакансий
-            requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView).isVisible = false
-
-            requireActivity().supportFragmentManager
-                .beginTransaction()
-                .replace(
-                    R.id.container_view,
-                    VacancyFragment.newInstance(it.id),
-                    null
-                )
-                .addToBackStack(null)
-                .commit()
+            val bundle = Bundle()
+            bundle.putString(KEY_FOR_BUNDLE_DATA, it.id)
+            findNavController().navigate(R.id.action_favoritesFragment_to_vacancyFragment, bundle)
+        }
+        val onItemLongClickListener: (Vacancy) -> Unit = {
+            // Логика, исполняемая по длительному нажатию на элемент списка вакансий
         }
         favoriteVacanciesRecyclerViewAdapter = VacancyAdapter(
             onItemClicked = onItemClickListener,
@@ -106,6 +100,10 @@ class FavoritesFragment : Fragment() {
         binding.rvFavoriteVacancies.isVisible = true
         binding.ivEmptyListPlaceholder.isVisible = false
         binding.tvEmptyListText.isVisible = false
+    }
+
+    companion object {
+        private const val KEY_FOR_BUNDLE_DATA = "selected_vacancy_id"
     }
 
 }

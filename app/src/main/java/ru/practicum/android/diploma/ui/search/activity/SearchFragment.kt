@@ -15,7 +15,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -26,7 +25,6 @@ import ru.practicum.android.diploma.domain.search.models.SearchParams
 import ru.practicum.android.diploma.ui.favorites.activity.VacancyAdapter
 import ru.practicum.android.diploma.ui.search.viewmodel.SearchScreenState
 import ru.practicum.android.diploma.ui.search.viewmodel.SearchViewModel
-import ru.practicum.android.diploma.ui.vacancy.activity.VacancyFragment
 import java.util.Locale
 
 class SearchFragment : Fragment() {
@@ -114,16 +112,9 @@ class SearchFragment : Fragment() {
     }
 
     private fun itemClickListener(item: Vacancy) {
-        requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView).isVisible = false
-        requireActivity().supportFragmentManager
-            .beginTransaction()
-            .replace(
-                R.id.container_view,
-                VacancyFragment.newInstance(item.id),
-                null
-            )
-            .addToBackStack(null)
-            .commit()
+        val bundle = Bundle()
+        bundle.putString(KEY_FOR_BUNDLE_DATA, item.id)
+        findNavController().navigate(R.id.action_searchFragment_to_vacancyFragment, bundle)
     }
 
     private fun clearSearch() {
@@ -252,5 +243,6 @@ class SearchFragment : Fragment() {
     companion object {
         private const val CLEAR_TEXT = ""
         private const val SEARCH_REQUEST_DELAY_IN_MILLISEC = 2000L
+        private const val KEY_FOR_BUNDLE_DATA = "selected_vacancy_id"
     }
 }
