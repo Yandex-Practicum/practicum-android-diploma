@@ -12,6 +12,7 @@ import ru.practicum.android.diploma.domain.vacancy.VacancyInteractor
 import ru.practicum.android.diploma.ui.search.state.VacancyError
 import ru.practicum.android.diploma.ui.vacancy.VacancyState
 import ru.practicum.android.diploma.util.Resource
+import ru.practicum.android.diploma.util.Salary
 
 class VacancyViewModel(
     private val interactor: VacancyInteractor,
@@ -20,6 +21,7 @@ class VacancyViewModel(
 
     private var currentVacancy: Vacancy? = null
     private var currentVacancyId: String? = null
+    private val salary = Salary()
 
     private val vacancyScreenStateLiveData = MutableLiveData<VacancyState>()
     private val favoriteVacancyButtonStateLiveData = MutableLiveData<FavoriteVacancyButtonState>()
@@ -121,7 +123,7 @@ class VacancyViewModel(
             id = vacancyForConvert.id,
             titleOfVacancy = vacancyForConvert.name,
             regionName = getCorrectFormOfEmployerAddress(vacancyForConvert),
-            salary = getCorrectFormOfSalary(vacancyForConvert),
+            salary = salary.salaryFun(vacancyForConvert.salary),
             employerName = vacancyForConvert.employer.name,
             employerLogoUrl = vacancyForConvert.employer.logoUrls?.original,
             experience = vacancyForConvert.experience.name,
@@ -133,36 +135,13 @@ class VacancyViewModel(
         )
     }
 
-    private fun getCorrectFormOfEmployerAddress(item: VacancyFullItemDto): String {
+    private fun getCorrectFormOfEmployerAddress(
+        item: VacancyFullItemDto
+    ): String {
         return if (item.address == null) {
             item.area.name
         } else {
             item.address.raw
-        }
-    }
-
-    private fun getCorrectFormOfSalary(item: VacancyFullItemDto)
-        : String {
-        val currencyCodeMapping = mapOf(
-            "AZN" to "₼",
-            "BYR" to "Br",
-            "EUR" to "€",
-            "GEL" to "₾",
-            "KGS" to "⃀",
-            "KZT" to "₸",
-            "RUR" to "₽",
-            "UAH" to "₴",
-            "USD" to "$",
-            "UZS" to "Soʻm",
-        )
-        val codeSalary = currencyCodeMapping[item.salary?.currency] ?: item.salary?.currency
-
-        return if (item.salary == null) {
-            "Зарплата не указана"
-        } else if (item.salary.to == null || item.salary.from == item.salary.to) {
-            "от ${item.salary.from} $codeSalary"
-        } else {
-            "от ${item.salary.from} $codeSalary до ${item.salary.to} $codeSalary"
         }
     }
 
