@@ -57,14 +57,9 @@ class FavoritesFragment : Fragment() {
                 )
                 .addToBackStack(null)
                 .commit()
-
-        }
-        val onItemLongClickListener: (Vacancy) -> Unit = {
-            // Логика, исполняемая по длительному нажатию на элемент списка вакансий
         }
         favoriteVacanciesRecyclerViewAdapter = VacancyAdapter(
             onItemClicked = onItemClickListener,
-            onLongItemClicked = onItemLongClickListener
         )
         binding.rvFavoriteVacancies.layoutManager = LinearLayoutManager(requireContext())
         binding.rvFavoriteVacancies.adapter = favoriteVacanciesRecyclerViewAdapter

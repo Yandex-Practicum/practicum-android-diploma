@@ -35,6 +35,8 @@ class SearchFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: SearchViewModel by viewModel()
     private var inputEditText: EditText? = null
+    var foundedVacanciesRecyclerView: RecyclerView? = null
+    var foundedVacanciesRecyclerViewAdapter: VacancyAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,8 +52,7 @@ class SearchFragment : Fragment() {
 
         inputEditText = binding.etSearchVacancy
         val clearButton = binding.ibClearQuery
-        val foundedVacanciesRecyclerView = binding.rvFoundedVacancies
-
+        foundedVacanciesRecyclerView = binding.rvFoundedVacancies
         setupObserversState()
 
         inputEditText?.addTextChangedListener { s ->
@@ -61,7 +62,6 @@ class SearchFragment : Fragment() {
             if (!s.isNullOrBlank() && s.toString() != viewModel.previousTextInEditText.value) {
                 hidePlaceholders()
                 viewModel.updatePreviousTextInEditText(s.toString())
-
                 viewModel.updateSearchJob(lifecycleScope.launch {
                     delay(SEARCH_REQUEST_DELAY_IN_MILLISEC)
                     val searchParams = SearchParams(
@@ -80,35 +80,34 @@ class SearchFragment : Fragment() {
         val onItemClickListener: (Vacancy) -> Unit = {
             itemClickListener(it)
         }
-        val onItemLongClickListener: (Vacancy) -> Unit = {
-            // Логика для выполнения по долгому нажатию на элемент
-        }
-
-        val foundedVacanciesRecyclerViewAdapter = VacancyAdapter(
+        foundedVacanciesRecyclerViewAdapter = VacancyAdapter(
             onItemClicked = onItemClickListener,
-            onLongItemClicked = onItemLongClickListener
         )
 
-        foundedVacanciesRecyclerView.adapter = foundedVacanciesRecyclerViewAdapter
+        foundedVacanciesRecyclerView?.adapter = foundedVacanciesRecyclerViewAdapter
+        updateScroll()
+        binding.ivFilter.setOnClickListener {
+            findNavController().navigate(R.id.action_searchFragment_to_filterSettingsFragment)
+        }
+    }
 
-        foundedVacanciesRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+    private fun updateScroll() {
+        foundedVacanciesRecyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
                 if (dy > 0) {
-                    val pos = (foundedVacanciesRecyclerView.layoutManager as LinearLayoutManager)
+                    val pos = (foundedVacanciesRecyclerView?.layoutManager as LinearLayoutManager)
                         .findLastVisibleItemPosition()
-                    val itemsCount = foundedVacanciesRecyclerViewAdapter.itemCount
-                    if (pos >= itemsCount - 1) {
-                        viewModel.onLastItemReached()
+                    val itemsCount = foundedVacanciesRecyclerViewAdapter?.itemCount
+                    if (itemsCount != null) {
+                        if (pos >= itemsCount - 1) {
+                            viewModel.onLastItemReached()
+                        }
                     }
                 }
             }
         })
-
-        binding.ivFilter.setOnClickListener {
-            findNavController().navigate(R.id.action_searchFragment_to_filterSettingsFragment)
-        }
     }
 
     override fun onDestroyView() {
