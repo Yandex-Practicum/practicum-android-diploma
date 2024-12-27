@@ -80,9 +80,8 @@ class VacancyFragment : Fragment() {
             goToPrevScreen()
         }
 
-        val bundle = this.arguments
-        if (bundle != null) {
-            val vacancyId = bundle.getString(KEY_FOR_BUNDLE_DATA)
+        if (arguments != null) {
+            val vacancyId = requireArguments().getString(KEY_FOR_BUNDLE_DATA)
             viewModel.getVacancyResources(vacancyId!!)
         }
     }
@@ -205,15 +204,5 @@ class VacancyFragment : Fragment() {
     companion object {
         private const val KEY_FOR_BUNDLE_DATA = "selected_vacancy_id"
         private const val RADIUS_OF_ROUNDED_CORNERS_IN_DP = 12f
-
-        fun newInstance(vacancyId: String): VacancyFragment {
-            val fragment = VacancyFragment()
-            val bundle = Bundle().apply {
-                putString(KEY_FOR_BUNDLE_DATA, vacancyId)
-            }
-            fragment.arguments = bundle
-
-            return fragment
-        }
     }
 }
