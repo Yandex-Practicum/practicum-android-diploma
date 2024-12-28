@@ -12,9 +12,11 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentChoiceWorkplaceBinding
 import ru.practicum.android.diploma.domain.models.Country
+import ru.practicum.android.diploma.domain.models.Filter
 import ru.practicum.android.diploma.domain.models.Region
 import ru.practicum.android.diploma.ui.filter.workplace.country.ChoiceCountryFragment.Companion.COUNTRY_BACKSTACK_KEY
 import ru.practicum.android.diploma.ui.filter.workplace.region.ChoiceRegionFragment
@@ -23,9 +25,7 @@ import ru.practicum.android.diploma.ui.filter.workplace.region.ChoiceRegionFragm
 class ChoiceWorkplaceFragment : Fragment() {
 
     private var _binding: FragmentChoiceWorkplaceBinding? = null
-
     private val binding get() = _binding!!
-
     private var regionModel: Region? = null
     private var countryModel: Country? = null
     private var countryContainer: TextInputLayout? = null
@@ -34,6 +34,7 @@ class ChoiceWorkplaceFragment : Fragment() {
     private var regionContainer: TextInputLayout? = null
     private var submitButton: TextView? = null
     private var backButton: ImageView? = null
+    private val viewModel by viewModel<ChoiceWorkplaceViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -88,8 +89,13 @@ class ChoiceWorkplaceFragment : Fragment() {
         }
 
         submitButton?.setOnClickListener {
-            findNavController().previousBackStackEntry?.savedStateHandle?.set(COUNTRY_BACKSTACK_KEY, countryModel)
-            findNavController().previousBackStackEntry?.savedStateHandle?.set(REGION_BACKSTACK_KEY, regionModel)
+            val filterSettings: Filter = if (regionModel?.name.isNullOrEmpty()) {
+                viewModel.clearRegion(Filter(region = regionModel))
+                Filter(country = countryModel, region = regionModel)
+            } else {
+                Filter(country = countryModel, region = regionModel)
+            }
+            viewModel.setFilter(filterSettings)
             findNavController().popBackStack()
         }
 
@@ -116,7 +122,6 @@ class ChoiceWorkplaceFragment : Fragment() {
         val countryTextWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
-
             override fun afterTextChanged(s: Editable?) {
                 with(countryContainer!!) {
                     if (s.isNullOrBlank()) {
@@ -133,7 +138,6 @@ class ChoiceWorkplaceFragment : Fragment() {
                         setEndIconOnClickListener {
                             s.clear()
                             regionTextInput?.text?.clear()
-
                             countryModel = null
                             regionModel = null
 
@@ -146,7 +150,6 @@ class ChoiceWorkplaceFragment : Fragment() {
                                 REGION_BACKSTACK_KEY,
                                 null
                             )
-
                             submitButton?.visibility = View.VISIBLE
                         }
                     }
@@ -188,7 +191,6 @@ class ChoiceWorkplaceFragment : Fragment() {
                 }
             }
         }
-
         countryTextInput?.addTextChangedListener(countryTextWatcher)
         regionTextInput?.addTextChangedListener(regionTextWatcher)
     }
