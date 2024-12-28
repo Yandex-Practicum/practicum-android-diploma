@@ -40,10 +40,7 @@ class ChoiceIndustryFragment : Fragment(), IndustriesAdapter.Listener {
             renderState(state)
         }
 
-        filterSharedPreferences = viewModel.getFilter()
-        if (!filterSharedPreferences?.industry?.id.isNullOrEmpty()) {
-            data = filterSharedPreferences?.industry
-        }
+        getFilter()
 
         binding.ivBack.setOnClickListener {
             parentFragmentManager.popBackStack()
@@ -92,6 +89,13 @@ class ChoiceIndustryFragment : Fragment(), IndustriesAdapter.Listener {
             is IndustriesState.NothingFound -> {
                 adapter?.updateIndustries(emptyList())
             }
+        }
+    }
+
+    private fun getFilter() {
+        filterSharedPreferences = viewModel.getFilter()
+        if (!filterSharedPreferences?.industry?.id.isNullOrEmpty()) {
+            data = filterSharedPreferences?.industry
         }
     }
 
