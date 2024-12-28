@@ -81,18 +81,21 @@ class SearchFragment : Fragment() {
             clearSearch()
         }
 
+        initAdapter()
+        updateScroll()
+        binding.ivFilter.setOnClickListener {
+            findNavController().navigate(R.id.action_searchFragment_to_filterSettingsFragment)
+        }
+    }
+
+    private fun initAdapter() {
         val onItemClickListener: (Vacancy) -> Unit = {
             itemClickListener(it)
         }
         foundedVacanciesRecyclerViewAdapter = VacancyAdapter(
             onItemClicked = onItemClickListener,
         )
-
         foundedVacanciesRecyclerView?.adapter = foundedVacanciesRecyclerViewAdapter
-        updateScroll()
-        binding.ivFilter.setOnClickListener {
-            findNavController().navigate(R.id.action_searchFragment_to_filterSettingsFragment)
-        }
     }
 
     private fun updateScroll() {
