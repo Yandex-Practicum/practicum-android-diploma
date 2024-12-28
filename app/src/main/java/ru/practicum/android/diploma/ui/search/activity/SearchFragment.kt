@@ -45,7 +45,10 @@ class SearchFragment : Fragment() {
         return _binding?.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         inputEditText = binding.etSearchVacancy
