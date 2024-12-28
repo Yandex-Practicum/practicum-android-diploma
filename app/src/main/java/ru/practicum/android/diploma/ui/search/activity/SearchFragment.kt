@@ -57,8 +57,13 @@ class SearchFragment : Fragment() {
             clearButton.isVisible = !s.isNullOrEmpty()
             binding.ibClearSearch.isVisible = s.isNullOrEmpty()
             viewModel.searchJob.value?.cancel()
+            if (s.isNullOrEmpty()) {
+                showEmpty()
+            }
             if (!s.isNullOrBlank() && s.toString() != viewModel.previousTextInEditText.value) {
                 hidePlaceholders()
+                binding.vacancyCounter.isVisible = false
+                binding.rvFoundedVacancies.isVisible = false
                 viewModel.updatePreviousTextInEditText(s.toString())
                 viewModel.updateSearchJob(lifecycleScope.launch {
                     delay(SEARCH_REQUEST_DELAY_IN_MILLISEC)
