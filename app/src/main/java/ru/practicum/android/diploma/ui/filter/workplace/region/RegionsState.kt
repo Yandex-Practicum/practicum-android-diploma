@@ -5,6 +5,7 @@ import ru.practicum.android.diploma.domain.models.Region
 sealed interface RegionsState {
 
     object Loading : RegionsState
-    data class Error(val message: String) : RegionsState
+    object Error : RegionsState
     data class Content(val data: List<Region>) : RegionsState
+    object NotFound : RegionsState
 }
