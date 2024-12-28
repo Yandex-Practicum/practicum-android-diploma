@@ -10,8 +10,7 @@ class IndustriesAdapter(
     private val onItemClicked: (Industry) -> Unit,
     var selectedPosition: String? = "",
     private var industries: List<Industry> = emptyList(),
-
-    ) : RecyclerView.Adapter<IndustriesViewHolder>() {
+) : RecyclerView.Adapter<IndustriesViewHolder>() {
 
     fun interface Listener {
         fun onClick(industry: Industry)
