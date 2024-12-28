@@ -6,4 +6,5 @@ interface FilterSharedPreferencesInteractor {
     fun getFilterSharedPrefs(): Filter?
     fun setFilterSharedPrefs(filter: Filter)
     fun deleteFilterSharedPrefs()
+    fun clearRegions(newFilter: Filter)
 }

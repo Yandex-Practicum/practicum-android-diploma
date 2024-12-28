@@ -41,6 +41,35 @@ class FilterSharedPreferencesRepositoryImpl(private val sharedPrefs: SharedPrefe
             .apply()
     }
 
+    override fun clearRegions(newFilter: Filter) {
+        val currentFilterJson = sharedPrefs.getString(USER_KEY, null)
+        var currentFilter = if (currentFilterJson != null) {
+            Gson().fromJson(currentFilterJson, Filter::class.java)
+        } else {
+            Filter()
+        }
+        if (newFilter.country != null) {
+            currentFilter.country = newFilter.country
+        }
+
+            currentFilter.region = newFilter.region
+
+        if (newFilter.industry != null) {
+            currentFilter.industry = newFilter.industry
+        }
+        if (newFilter.salary != null) {
+            currentFilter.salary = newFilter.salary
+        }
+        if (newFilter.onlyWithSalary != null) {
+            currentFilter.onlyWithSalary = newFilter.onlyWithSalary
+        }
+
+        val updatedJson = Gson().toJson(currentFilter)
+        sharedPrefs.edit()
+            .putString(USER_KEY, updatedJson)
+            .apply()
+    }
+
     override fun clearFilterSharedPrefs() {
         sharedPrefs.edit().clear().apply()
     }

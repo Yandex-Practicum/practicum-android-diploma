@@ -101,7 +101,11 @@ class FilterSettingsFragment : Fragment() {
     }
 
     private fun setFilteredUi(filter: Filter) {
-        binding.etCountry.setText(filter.country?.name ?: "")
+        if (filter.region?.name.isNullOrEmpty()){
+            binding.etCountry.setText(filter.country?.name ?: "")
+        }else {
+            binding.etCountry.setText("${filter.country?.name ?:""}, ${filter.region?.name ?:""}")
+        }
         binding.etIndustries.setText(filter.industry?.name ?: "")
         binding.etSalary.setText(if (filter.salary != null && filter.salary != 0) filter.salary.toString() else "")
         if (filter.onlyWithSalary != null) {

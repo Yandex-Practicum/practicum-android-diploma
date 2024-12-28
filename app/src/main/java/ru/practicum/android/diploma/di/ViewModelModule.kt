@@ -7,6 +7,7 @@ import ru.practicum.android.diploma.ui.filter.industries.ChoiceIndustryViewModel
 import ru.practicum.android.diploma.ui.filter.workplace.country.CountriesViewModel
 import ru.practicum.android.diploma.ui.favorites.viewmodel.FavoritesViewModel
 import ru.practicum.android.diploma.ui.filter.settings.FilterSettingsViewModel
+import ru.practicum.android.diploma.ui.filter.workplace.ChoiceWorkplaceViewModel
 import ru.practicum.android.diploma.ui.filter.workplace.region.RegionsViewModel
 import ru.practicum.android.diploma.ui.search.viewmodel.SearchViewModel
 import ru.practicum.android.diploma.ui.vacancy.viewmodel.VacancyViewModel
@@ -35,5 +36,9 @@ val viewModelModule = module {
 
     viewModel {
         FilterSettingsViewModel(get(), get())
+    }
+
+    viewModel {
+        ChoiceWorkplaceViewModel(get())
     }
 }
