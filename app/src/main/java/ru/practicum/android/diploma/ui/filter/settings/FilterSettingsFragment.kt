@@ -63,7 +63,10 @@ class FilterSettingsFragment : Fragment() {
             filterSave = Filter(onlyWithSalary = checkBox)
         } else {
             val salary = binding.etSalary.text.toString().toInt()
-            filterSave = Filter(salary = salary, onlyWithSalary = checkBox)
+            filterSave = Filter(
+                salary = salary,
+                onlyWithSalary = checkBox
+            )
         }
         viewModel.saveFilterFromUi(filterSave!!)
         findNavController().popBackStack()

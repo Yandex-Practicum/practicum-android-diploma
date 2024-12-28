@@ -11,11 +11,8 @@ class IndustriesAdapter(
     var selectedPosition: String? = "",
     private var industries: List<Industry> = emptyList(),
 
-) : RecyclerView.Adapter<IndustriesViewHolder>() {
+    ) : RecyclerView.Adapter<IndustriesViewHolder>() {
 
-
-
-    fun getIndustries(): List<Industry> = industries
     fun interface Listener {
         fun onClick(industry: Industry)
     }
@@ -36,7 +33,6 @@ class IndustriesAdapter(
 
     override fun onBindViewHolder(holder: IndustriesViewHolder, position: Int) {
         holder.bind(industries[position], position)
-        // holder.itemView.setOnClickListener { listener.onClick(industries[position]) }
     }
 
     fun updateIndustries(newIndustries: List<Industry>) {
