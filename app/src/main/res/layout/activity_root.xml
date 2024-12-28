@@ -29,20 +29,12 @@
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         tools:ignore="MissingConstraints" />
 
-    <!-- Это начало тестовой кнопки  <Button
-        android:id="@+id/testButton"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:layout_constraintBottom_toBottomOf="@+id/line_bottom">
-
-    </Button>   это конец тестовой кнопки -->
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         style="@style/Widget.MaterialComponents.BottomNavigationView"
-        android:background="@color/white"
+        android:background="?attr/backgroundColor"
         app:itemRippleColor="@null"
         app:itemTextAppearanceActiveBoldEnabled="false"
         app:itemActiveIndicatorStyle="@null"
