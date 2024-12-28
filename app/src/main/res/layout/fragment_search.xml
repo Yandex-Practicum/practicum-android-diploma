@@ -99,32 +99,55 @@
 
     </FrameLayout>
 
-    <TextView
-        android:id="@+id/vacancyCounter"
-        style="@style/vacancyCounter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:paddingStart="@dimen/indent_12"
-        android:paddingTop="@dimen/indent_4"
-        android:paddingEnd="@dimen/indent_12"
-        android:paddingBottom="@dimen/indent_4"
-        android:text="@string/not_found_counter_vacancy_text"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="@id/endGuideline"
-        app:layout_constraintStart_toStartOf="@id/startGuideline"
-        app:layout_constraintTop_toBottomOf="@id/topGuideline" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvFoundedVacancies"
+    <FrameLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:orientation="vertical"
         app:layout_constraintStart_toStartOf="@id/startGuideline"
         app:layout_constraintEnd_toEndOf="@id/endGuideline"
-        app:layout_constraintTop_toBottomOf="@id/topGuideline"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="32dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        app:layout_constraintTop_toBottomOf="@id/flSearchElements"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvFoundedVacancies"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:paddingTop="46dp"
+                android:layout_weight="1"
+                android:visibility="visible"
+                android:clipToPadding="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+            <ProgressBar
+                android:id="@+id/progressBarPagination"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_horizontal|bottom"
+                android:indeterminateTint="@color/hh_blue"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/vacancyCounter"
+            style="@style/vacancyCounter"
+            android:layout_marginTop="11dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|top"
+            android:paddingStart="@dimen/indent_12"
+            android:paddingTop="@dimen/indent_4"
+            android:paddingEnd="@dimen/indent_12"
+            android:paddingBottom="@dimen/indent_4"
+            android:text="@string/not_found_counter_vacancy_text"
+            android:visibility="gone" />
+
+    </FrameLayout>
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -137,21 +160,6 @@
         app:layout_constraintEnd_toEndOf="@id/endGuideline"
         app:layout_constraintStart_toStartOf="@id/startGuideline"
         app:layout_constraintTop_toBottomOf="@id/topGuideline" />
-
-    <FrameLayout
-        android:id="@+id/progressBarPagination"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/endGuideline"
-        app:layout_constraintStart_toStartOf="@id/startGuideline"
-        android:visibility="gone">
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:indeterminateTint="@color/hh_blue"/>
-    </FrameLayout>
 
     <ImageView
         android:id="@+id/placeholderMain"
