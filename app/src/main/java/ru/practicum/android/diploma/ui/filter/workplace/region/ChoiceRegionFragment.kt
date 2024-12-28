@@ -57,7 +57,7 @@ class ChoiceRegionFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                setFilteredRegions(s)
+                viewModel.searchRegions(s.toString())
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -68,7 +68,10 @@ class ChoiceRegionFragment : Fragment() {
                         findViewById<View>(com.google.android.material.R.id.text_input_end_icon).isClickable = false
                     } else {
                         setEndIconDrawable(R.drawable.search_clear_icon)
-                        setEndIconOnClickListener { s.clear() }
+                        setEndIconOnClickListener {
+                            s.clear()
+                            viewModel.resetSearch()
+                        }
                     }
                 }
             }
@@ -87,46 +90,46 @@ class ChoiceRegionFragment : Fragment() {
         findNavController().popBackStack()
     }
 
-    private fun setFilteredRegions(s: CharSequence?) {
-        if (!s.isNullOrEmpty()) {
-            viewModel.getRegionsList()
-                ?.let {
-                    adapter.setData(it.filter { region ->
-                        region.name?.lowercase()?.contains(s.toString().lowercase()) ?: false
-                    })
-                }
-        } else {
-            viewModel.getRegionsList()?.let { adapter.setData(it) }
-        }
-    }
-
     private fun renderState(state: RegionsState) {
         when (state) {
             is RegionsState.Loading -> showLoading()
             is RegionsState.Error -> showError()
             is RegionsState.Content -> showContent(state.data)
+            is RegionsState.NotFound -> showNotFound()
         }
     }
 
     private fun showLoading() {
         binding.rvFoundedRegion.isVisible = false
         binding.placeholderNotFound.isVisible = false
+        binding.placeholderNotConnect.isVisible = false
         binding.progressBar.isVisible = true
     }
 
     private fun showError() {
         binding.rvFoundedRegion.isVisible = false
-        binding.placeholderNotFound.isVisible = true
+        binding.placeholderNotConnect.isVisible = true
+        binding.placeholderNotFound.isVisible = false
         binding.progressBar.isVisible = false
     }
 
     private fun showContent(data: List<Region>) {
         binding.rvFoundedRegion.isVisible = true
         binding.placeholderNotFound.isVisible = false
+        binding.placeholderNotConnect.isVisible = false
         binding.progressBar.isVisible = false
 
         adapter.clear()
         adapter.setData(data)
+    }
+
+    private fun showNotFound() {
+        with(binding) {
+            progressBar.isVisible = false
+            rvFoundedRegion.isVisible = false
+            placeholderNotFound.isVisible = true
+            placeholderNotConnect.isVisible = false
+        }
     }
 
     companion object {
