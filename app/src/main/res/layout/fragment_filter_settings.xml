@@ -58,8 +58,8 @@
         app:boxStrokeWidthFocused="0dp"
         app:hintAnimationEnabled="true"
         app:hintEnabled="true"
-        app:layout_constraintEnd_toEndOf="@id/endGuideline"
-        app:layout_constraintStart_toStartOf="@id/startGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvFilterSettingsHeader">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -90,8 +90,8 @@
         app:boxStrokeWidthFocused="0dp"
         app:hintAnimationEnabled="true"
         app:hintEnabled="true"
-        app:layout_constraintEnd_toEndOf="@id/endGuideline"
-        app:layout_constraintStart_toStartOf="@id/startGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tilCountry">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -148,10 +148,12 @@
         android:button="@null"
         android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
         android:drawableTint="@color/hh_blue"
+        android:paddingEnd="@dimen/margin8"
         android:text="@string/check_box_text"
-        app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/startGuideline"
-        app:layout_constraintTop_toBottomOf="@+id/ilSalary" />
+        app:layout_constraintTop_toBottomOf="@+id/ilSalary"
+        tools:ignore="RtlSymmetry" />
 
     <Button
         android:id="@+id/btApply"

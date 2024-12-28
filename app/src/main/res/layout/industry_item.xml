@@ -4,19 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-<RadioButton
-    android:id="@+id/radioButton"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/button_layout_height_60"
-    android:paddingStart="@dimen/margin16"
-    android:paddingEnd="@dimen/margin16"
-    android:text="@string/industry_header"
-    android:ellipsize="end"
-    android:maxLines="3"
-    android:layoutDirection="rtl"
-    android:buttonTint="@color/hh_blue"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"/>
+    <RadioButton
+        android:id="@+id/radioButton"
+        style="@style/Regular16Text"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_layout_height_60"
+        android:buttonTint="@color/hh_blue"
+        android:ellipsize="end"
+        android:layoutDirection="rtl"
+        android:maxLines="3"
+        android:paddingHorizontal="@dimen/margin16"
+        android:text="@string/industry_header"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

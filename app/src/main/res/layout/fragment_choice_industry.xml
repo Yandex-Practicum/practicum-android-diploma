@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="?attr/backgroundColor"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.filter.ChoiceIndustryFragment">
+    tools:context=".ui.filter.industries.ChoiceIndustryFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/startGuideline"
@@ -88,12 +88,15 @@
         android:id="@+id/rvFoundedIndustry"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="@id/startGuideline"
-        app:layout_constraintEnd_toEndOf="@id/endGuideline"
+        android:paddingEnd="10dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/flFrameSearchIndustry"
         app:layout_constraintBottom_toTopOf="@+id/btEnter"
         android:layout_marginTop="32dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="RtlSymmetry"
+        tools:listitem="@layout/industry_item" />
 
     <Button
         android:id="@+id/btEnter"
