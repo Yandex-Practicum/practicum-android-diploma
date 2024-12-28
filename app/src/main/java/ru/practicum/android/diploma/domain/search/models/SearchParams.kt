@@ -8,5 +8,5 @@ class SearchParams(
     var currencyOfSalary: String? = null,
     var expectedSalary: String? = null,
     val numberOfVacanciesOnPage: String = "20",
-    val numberOfPage: String
+    var numberOfPage: String
 )

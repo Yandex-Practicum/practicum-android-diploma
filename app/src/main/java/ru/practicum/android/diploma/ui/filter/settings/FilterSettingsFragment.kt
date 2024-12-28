@@ -11,13 +11,15 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterSettingsBinding
 import ru.practicum.android.diploma.domain.models.Filter
+import java.util.Locale
 
 class FilterSettingsFragment : Fragment() {
 
     private var _binding: FragmentFilterSettingsBinding? = null
+    private var filterSave: Filter? = null
+
     private val binding get() = _binding!!
     private val viewModel by viewModel<FilterSettingsViewModel>()
-    private var filterSave: Filter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -104,7 +106,9 @@ class FilterSettingsFragment : Fragment() {
         if (filter.region?.name.isNullOrEmpty()) {
             binding.etCountry.setText(filter.country?.name ?: "")
         } else {
-            binding.etCountry.setText("${filter.country?.name ?: ""}, ${filter.region?.name ?: ""}")
+            binding.etCountry.setText(
+                String.format(Locale.getDefault(), "%s, %s", filter.country?.name ?: "", filter.region?.name ?: "")
+            )
         }
         binding.etIndustries.setText(filter.industry?.name ?: "")
         binding.etSalary.setText(if (filter.salary != null && filter.salary != 0) filter.salary.toString() else "")

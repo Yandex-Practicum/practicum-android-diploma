@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import ru.practicum.android.diploma.data.dto.response.VacancySearchResponse
+import ru.practicum.android.diploma.domain.filter.FilterSharedPreferencesInteractor
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.search.SearchInteractor
 import ru.practicum.android.diploma.domain.search.models.SearchParams
@@ -17,7 +18,8 @@ import ru.practicum.android.diploma.util.Salary
 import java.io.IOException
 
 class SearchViewModel(
-    private val searchInteractor: SearchInteractor
+    private val searchInteractor: SearchInteractor,
+    private val filterSharPrefInteractor: FilterSharedPreferencesInteractor
 ) : ViewModel() {
 
     private val searchScreenStateLiveData = MutableLiveData<SearchScreenState>()
@@ -25,7 +27,7 @@ class SearchViewModel(
     private var maxPages = 0
     private var isNextPageLoading = false
     private val vacanciesList = mutableListOf<Vacancy>()
-    private var currentSearchQuery: String = ""
+    private var currentSearchParams = SearchParams("", numberOfPage = "0")
     private val salary = Salary()
 
     private val _counterVacancy = MutableLiveData(0)
@@ -48,24 +50,43 @@ class SearchViewModel(
 
     fun getSearchScreenStateLiveData(): LiveData<SearchScreenState> = searchScreenStateLiveData
 
-    fun searchVacancies(searchParams: SearchParams) {
+    fun searchVacancies() {
         if (isNextPageLoading) return
         isNextPageLoading = true
 
-        updateLoadingState(searchParams)
-        currentSearchQuery = searchParams.searchQuery
+        val filter = filterSharPrefInteractor.getFilterSharedPrefs()
+
+        if (filter != null) {
+            currentSearchParams.expectedSalary = filter.salary?.toString()
+            currentSearchParams.onlyWithSalary = filter.onlyWithSalary ?: false
+            currentSearchParams.nameOfCityForFilter =
+                if (filter.region != null) {
+                    filter.region?.id
+                } else if (filter.country != null) {
+                    filter.country?.id
+                } else {
+                    null
+                }
+            currentSearchParams.nameOfIndustryForFilter = filter.industry?.id
+        }
+
+        updateLoadingState(currentSearchParams)
 
         viewModelScope.launch {
             try {
-                handleSuccessResponse(searchInteractor.getVacancies(searchParams), searchParams)
+                handleSuccessResponse(searchInteractor.getVacancies(currentSearchParams), currentSearchParams)
             } catch (e: IOException) {
-                handleNetworkError(searchParams.numberOfPage != "0")
+                handleNetworkError(currentSearchParams.numberOfPage != "0")
             } catch (e: HttpException) {
                 handleHttpError(e)
             } finally {
                 resetLoadingState()
             }
         }
+    }
+
+    fun saveSearchParams(params: SearchParams) {
+        currentSearchParams = params
     }
 
     private fun updateLoadingState(searchParams: SearchParams) {
@@ -139,17 +160,13 @@ class SearchViewModel(
     fun onLastItemReached() {
         if (currentPage < maxPages - 1) {
             _isPaginationLoading.postValue(true)
-            searchVacancies(
-                SearchParams(
-                    searchQuery = currentSearchQuery,
-                    numberOfPage = (currentPage + 1).toString()
-                )
-            )
+            currentSearchParams.numberOfPage = (currentPage + 1).toString()
+            searchVacancies()
         }
     }
 
     fun resetSearchState() {
-        currentSearchQuery = ""
+        currentSearchParams = SearchParams("", numberOfPage = "0")
         vacanciesList.clear()
         currentPage = 0
         maxPages = 0

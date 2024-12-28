@@ -71,7 +71,8 @@ class SearchFragment : Fragment() {
                         searchQuery = s.toString(),
                         numberOfPage = "0"
                     )
-                    viewModel.searchVacancies(searchParams)
+                    viewModel.saveSearchParams(searchParams)
+                    viewModel.searchVacancies()
                 })
             }
         }
@@ -109,6 +110,14 @@ class SearchFragment : Fragment() {
                 }
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (viewModel.getSearchScreenStateLiveData().value is SearchScreenState.Content) {
+            viewModel.searchVacancies()
+        }
     }
 
     override fun onDestroyView() {

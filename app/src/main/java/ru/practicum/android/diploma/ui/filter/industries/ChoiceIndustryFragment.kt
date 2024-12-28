@@ -47,19 +47,16 @@ class ChoiceIndustryFragment : Fragment(), IndustriesAdapter.Listener {
 
         binding.ivBack.setOnClickListener {
             parentFragmentManager.popBackStack()
-
         }
 
         val onItemClickListener: (Industry) -> Unit = {
             binding.btEnter.isVisible = true
             data = it
-
         }
 
         val foundedIndustryAdapter = IndustriesAdapter(
             onItemClicked = onItemClickListener,
             selectedPosition = data?.id
-
         )
         foundedIndustryRv.adapter = foundedIndustryAdapter
 
