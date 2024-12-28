@@ -8,12 +8,10 @@ import ru.practicum.android.diploma.domain.models.Industry
 
 class IndustriesAdapter(
     private val onItemClicked: (Industry) -> Unit,
-    private var industries: List<Industry> = emptyList()
+    var selectedPosition: String? = "",
+    private var industries: List<Industry> = emptyList(),
 ) : RecyclerView.Adapter<IndustriesViewHolder>() {
 
-    var selectedPosition: String = ""
-
-    fun getIndustries(): List<Industry> = industries
     fun interface Listener {
         fun onClick(industry: Industry)
     }
@@ -34,7 +32,6 @@ class IndustriesAdapter(
 
     override fun onBindViewHolder(holder: IndustriesViewHolder, position: Int) {
         holder.bind(industries[position], position)
-        // holder.itemView.setOnClickListener { listener.onClick(industries[position]) }
     }
 
     fun updateIndustries(newIndustries: List<Industry>) {

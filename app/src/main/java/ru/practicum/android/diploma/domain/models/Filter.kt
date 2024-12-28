@@ -5,5 +5,5 @@ class Filter(
     var region: Region? = null,
     var industry: Industry? = null,
     var salary: Int? = null,
-    var onlyWithSalary: Boolean = false
+    var onlyWithSalary: Boolean? = null
 )

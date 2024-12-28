@@ -57,7 +57,9 @@ class ChoiceIndustryFragment : Fragment(), IndustriesAdapter.Listener {
         }
 
         val foundedIndustryAdapter = IndustriesAdapter(
-            onItemClicked = onItemClickListener
+            onItemClicked = onItemClickListener,
+            selectedPosition = data?.id
+
         )
         foundedIndustryRv.adapter = foundedIndustryAdapter
 
@@ -88,12 +90,6 @@ class ChoiceIndustryFragment : Fragment(), IndustriesAdapter.Listener {
                 adapter?.updateIndustries(state.industries as List<Industry>)
                 binding.rvFoundedIndustry.adapter = adapter
                 binding.rvFoundedIndustry.isVisible = true
-            }
-
-            is IndustriesState.Error -> {
-            }
-
-            is IndustriesState.Loading -> {
             }
 
             is IndustriesState.NothingFound -> {

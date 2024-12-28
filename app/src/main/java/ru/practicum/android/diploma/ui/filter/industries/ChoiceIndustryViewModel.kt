@@ -17,15 +17,12 @@ class ChoiceIndustryViewModel(
     application: Application,
     private val interactor: IndustriesInteractor,
     private val interactorSharedPreference: FilterSharedPreferencesInteractor,
-    private val sharePrefsInteractor: FilterSharedPreferencesInteractor
 ) : AndroidViewModel(application) {
 
-    val listIndustry = mutableListOf<Industry>()
+    private val listIndustry = mutableListOf<Industry>()
     private var latestSearchText: String? = null
     private val _industriesState = MutableLiveData<IndustriesState>()
     val industriesState: LiveData<IndustriesState> get() = _industriesState
-
-    var currentFilter: Filter = sharePrefsInteractor.getFilterSharedPrefs() ?: Filter()
 
     fun showIndustries() {
         viewModelScope.launch {
@@ -41,9 +38,9 @@ class ChoiceIndustryViewModel(
         result: List<IndustriesFullDto?>?
     ) {
         if (result != null) {
-            for (industries in result) {
-                listIndustry.add(Industry(industries!!.id, industries.name))
-                for (industries in industries.industries) {
+            for (industry in result) {
+                listIndustry.add(Industry(industry!!.id, industry.name))
+                for (industries in industry.industries) {
                     listIndustry.add(Industry(industries.id, industries.name))
                 }
             }
@@ -65,7 +62,6 @@ class ChoiceIndustryViewModel(
         }
 
     private fun searchIndustries(searchText: String) {
-        renderState(IndustriesState.Loading)
         var filteredIndustries = emptyList<Industry>()
         filteredIndustries = listIndustry.filter { industry: Industry ->
             industry.name.contains(searchText)
