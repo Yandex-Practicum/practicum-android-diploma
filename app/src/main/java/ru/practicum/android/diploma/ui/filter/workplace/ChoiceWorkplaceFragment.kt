@@ -92,8 +92,9 @@ class ChoiceWorkplaceFragment : Fragment() {
             val filterSettings: Filter = if (regionModel?.name.isNullOrEmpty()) {
                 viewModel.clearRegion(Filter(region = regionModel))
                 Filter(country = countryModel, region = regionModel)
-            } else
+            } else {
                 Filter(country = countryModel, region = regionModel)
+            }
             viewModel.setFilter(filterSettings)
             findNavController().popBackStack()
         }

@@ -52,7 +52,7 @@ class FilterSharedPreferencesRepositoryImpl(private val sharedPrefs: SharedPrefe
             currentFilter.country = newFilter.country
         }
 
-            currentFilter.region = newFilter.region
+        currentFilter.region = newFilter.region
 
         if (newFilter.industry != null) {
             currentFilter.industry = newFilter.industry
