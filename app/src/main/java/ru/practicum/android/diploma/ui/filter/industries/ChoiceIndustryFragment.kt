@@ -92,12 +92,6 @@ class ChoiceIndustryFragment : Fragment(), IndustriesAdapter.Listener {
                 binding.rvFoundedIndustry.isVisible = true
             }
 
-            is IndustriesState.Error -> {
-            }
-
-            is IndustriesState.Loading -> {
-            }
-
             is IndustriesState.NothingFound -> {
                 adapter?.updateIndustries(emptyList())
             }

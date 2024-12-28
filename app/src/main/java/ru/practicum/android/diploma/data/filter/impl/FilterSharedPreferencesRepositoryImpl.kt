@@ -14,16 +14,26 @@ class FilterSharedPreferencesRepositoryImpl(private val sharedPrefs: SharedPrefe
 
     override fun setFilterSharedPrefs(newFilter: Filter) {
         val currentFilterJson = sharedPrefs.getString(USER_KEY, null)
-        val currentFilter = if (currentFilterJson != null) {
+        var currentFilter = if (currentFilterJson != null) {
             Gson().fromJson(currentFilterJson, Filter::class.java)
         } else {
             Filter()
         }
-        newFilter.country.let { currentFilter.country = it }
-        newFilter.region.let { currentFilter.region = it }
-        newFilter.industry.let { currentFilter.industry = it }
-        newFilter.salary.let { currentFilter.salary = it }
-        newFilter.onlyWithSalary.let { currentFilter.onlyWithSalary = it }
+        if (newFilter.country != null) {
+            currentFilter.country = newFilter.country
+        }
+        if (newFilter.region != null) {
+            currentFilter.region = newFilter.region
+        }
+        if (newFilter.industry != null) {
+            currentFilter.industry = newFilter.industry
+        }
+        if (newFilter.salary != null) {
+            currentFilter.salary = newFilter.salary
+        }
+        if (newFilter.onlyWithSalary != null) {
+            currentFilter.onlyWithSalary = newFilter.onlyWithSalary
+        }
 
         val updatedJson = Gson().toJson(currentFilter)
         sharedPrefs.edit()

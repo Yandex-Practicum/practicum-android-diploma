@@ -4,10 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import ru.practicum.android.diploma.data.dto.model.industries.IndustriesFullDto
 import ru.practicum.android.diploma.domain.filter.FilterSharedPreferencesInteractor
 import ru.practicum.android.diploma.domain.models.Filter
-import ru.practicum.android.diploma.ui.filter.industries.IndustriesState
 
 class FilterSettingsViewModel(
     application: Application,
@@ -35,6 +33,7 @@ class FilterSettingsViewModel(
 
     fun clearFilters() {
         interactor.deleteFilterSharedPrefs()
+        renderState(FilterSettingsState.Empty)
     }
 
     private fun renderState(state: FilterSettingsState) {
