@@ -2,20 +2,31 @@ package ru.practicum.android.diploma.ui.filter.settings
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import ru.practicum.android.diploma.data.dto.model.industries.IndustriesFullDto
 import ru.practicum.android.diploma.domain.filter.FilterSharedPreferencesInteractor
 import ru.practicum.android.diploma.domain.models.Filter
+import ru.practicum.android.diploma.ui.filter.industries.IndustriesState
 
 class FilterSettingsViewModel(
     application: Application,
     private val interactor: FilterSharedPreferencesInteractor
 ) : AndroidViewModel(application) {
 
-    val currentFilter: Filter by lazy {
-        interactor.getFilterSharedPrefs() ?: Filter()
+    private val _counterFilter = MutableLiveData<FilterSettingsState>()
+    val counterFilter: LiveData<FilterSettingsState> get() = _counterFilter
+
+    fun currentFilter() {
+        processResult(interactor.getFilterSharedPrefs())
     }
 
-    fun setSavedFilterToUi(): Filter {
-        return currentFilter
+    private fun processResult(result: Filter?) {
+        if (result != null) {
+            renderState(FilterSettingsState.FilterSettings(result))
+        } else {
+            renderState(FilterSettingsState.Empty)
+        }
     }
 
     fun saveFilterFromUi(filter: Filter) {
@@ -26,4 +37,7 @@ class FilterSettingsViewModel(
         interactor.deleteFilterSharedPrefs()
     }
 
+    private fun renderState(state: FilterSettingsState) {
+        _counterFilter.postValue(state)
+    }
 }

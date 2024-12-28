@@ -57,7 +57,9 @@ class ChoiceIndustryFragment : Fragment(), IndustriesAdapter.Listener {
         }
 
         val foundedIndustryAdapter = IndustriesAdapter(
-            onItemClicked = onItemClickListener
+            onItemClicked = onItemClickListener,
+            selectedPosition = data?.id
+
         )
         foundedIndustryRv.adapter = foundedIndustryAdapter
 

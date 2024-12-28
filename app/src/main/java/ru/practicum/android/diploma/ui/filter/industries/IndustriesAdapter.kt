@@ -8,10 +8,12 @@ import ru.practicum.android.diploma.domain.models.Industry
 
 class IndustriesAdapter(
     private val onItemClicked: (Industry) -> Unit,
-    private var industries: List<Industry> = emptyList()
+    var selectedPosition: String? = "",
+    private var industries: List<Industry> = emptyList(),
+
 ) : RecyclerView.Adapter<IndustriesViewHolder>() {
 
-    var selectedPosition: String = ""
+
 
     fun getIndustries(): List<Industry> = industries
     fun interface Listener {
