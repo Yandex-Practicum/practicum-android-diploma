@@ -19,7 +19,7 @@ class CountriesViewModel(
         _countriesState.postValue(CountriesState.Loading)
         viewModelScope.launch {
             countriesInteractor.getCountries()
-                .collect() { pair ->
+                .collect { pair ->
                     processResult(pair.first, pair.second.toString())
                 }
         }

@@ -83,8 +83,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/item_filter_height</item>
         <item name="android:paddingVertical">@dimen/item_filter_padding_vertical</item>
-        <item name="android:paddingEnd">@dimen/indent_4</item>
-        <item name="android:paddingStart">@dimen/margin16</item>
+        <item name="android:paddingHorizontal">@dimen/margin16</item>
         <item name="android:gravity">center_vertical</item>
     </style>
 
