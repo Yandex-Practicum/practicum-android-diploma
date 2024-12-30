@@ -21,7 +21,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
-import ru.practicum.android.diploma.domain.search.models.SearchParams
 import ru.practicum.android.diploma.ui.favorites.activity.VacancyAdapter
 import ru.practicum.android.diploma.ui.search.viewmodel.FilterButtonState
 import ru.practicum.android.diploma.ui.search.viewmodel.SearchScreenState
@@ -69,11 +68,7 @@ class SearchFragment : Fragment() {
                 viewModel.updatePreviousTextInEditText(s.toString())
                 viewModel.updateSearchJob(lifecycleScope.launch {
                     delay(SEARCH_REQUEST_DELAY_IN_MILLISEC)
-                    val searchParams = SearchParams(
-                        searchQuery = s.toString(),
-                        numberOfPage = "0"
-                    )
-                    viewModel.saveSearchParams(searchParams)
+                    viewModel.insertQueryInSearchParams(s.toString())
                     viewModel.searchVacancies()
                 })
             }

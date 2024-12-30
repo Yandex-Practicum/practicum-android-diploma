@@ -72,8 +72,8 @@ class SearchViewModel(
         }
     }
 
-    fun saveSearchParams(params: SearchParams) {
-        currentSearchParams = params
+    fun insertQueryInSearchParams(query: String) {
+        currentSearchParams.searchQuery = query
     }
 
     fun updateFilterState() {

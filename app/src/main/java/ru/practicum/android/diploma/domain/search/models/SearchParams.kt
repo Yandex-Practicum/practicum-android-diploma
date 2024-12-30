@@ -1,7 +1,7 @@
 package ru.practicum.android.diploma.domain.search.models
 
 class SearchParams(
-    val searchQuery: String,
+    var searchQuery: String,
     var nameOfCityForFilter: String? = null,
     var nameOfIndustryForFilter: String? = null,
     var onlyWithSalary: Boolean = false,
