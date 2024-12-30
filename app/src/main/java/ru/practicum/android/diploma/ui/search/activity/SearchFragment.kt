@@ -21,8 +21,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
-import ru.practicum.android.diploma.domain.search.models.SearchParams
 import ru.practicum.android.diploma.ui.favorites.activity.VacancyAdapter
+import ru.practicum.android.diploma.ui.search.viewmodel.FilterButtonState
 import ru.practicum.android.diploma.ui.search.viewmodel.SearchScreenState
 import ru.practicum.android.diploma.ui.search.viewmodel.SearchViewModel
 import java.util.Locale
@@ -52,6 +52,7 @@ class SearchFragment : Fragment() {
         val clearButton = binding.ibClearQuery
         foundedVacanciesRecyclerView = binding.rvFoundedVacancies
         setupObserversState()
+        viewModel.updateFilterState()
 
         inputEditText?.addTextChangedListener { s ->
             clearButton.isVisible = !s.isNullOrEmpty()
@@ -67,11 +68,7 @@ class SearchFragment : Fragment() {
                 viewModel.updatePreviousTextInEditText(s.toString())
                 viewModel.updateSearchJob(lifecycleScope.launch {
                     delay(SEARCH_REQUEST_DELAY_IN_MILLISEC)
-                    val searchParams = SearchParams(
-                        searchQuery = s.toString(),
-                        numberOfPage = "0"
-                    )
-                    viewModel.saveSearchParams(searchParams)
+                    viewModel.insertQueryInSearchParams(s.toString())
                     viewModel.searchVacancies()
                 })
             }
@@ -118,6 +115,7 @@ class SearchFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
+        viewModel.updateFilterState()
         if (viewModel.getSearchScreenStateLiveData().value is SearchScreenState.Content) {
             viewModel.searchVacancies()
         }
@@ -153,6 +151,16 @@ class SearchFragment : Fragment() {
                 is SearchScreenState.Error -> showServerError()
                 is SearchScreenState.Empty -> showEmpty()
             }
+        }
+
+        viewModel.getFilterButtonStateLiveData().observe(viewLifecycleOwner) { filterButtonState ->
+            binding.ivFilter.setImageResource(
+                if (filterButtonState is FilterButtonState.FilterOn) {
+                    R.drawable.filter_on_icon
+                } else {
+                    R.drawable.filter_icon
+                }
+            )
         }
 
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
