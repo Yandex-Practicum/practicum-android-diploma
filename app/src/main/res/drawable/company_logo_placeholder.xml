@@ -11,7 +11,7 @@
 
         <shape android:shape="rectangle">
             <stroke
-                android:color="@color/another_grey"
+                android:color="@android:color/transparent"
                 android:width="@dimen/line_up_bottom_menu" />
             <corners android:radius="12dp" />
         </shape>

@@ -29,12 +29,12 @@ class Salary {
             is SalaryRange.SingleValue -> formatSalary(salaryRange.amount, formatNumber, codeSalary)
             is SalaryRange.FromValue -> "от ${formatSalary(salaryRange.from, formatNumber, codeSalary)}"
             is SalaryRange.ToValue -> "до ${formatSalary(salaryRange.to, formatNumber, codeSalary)}"
-            is SalaryRange.Range -> "от ${formatSalary(salaryRange.from, formatNumber, codeSalary)} " +
+            is SalaryRange.Range -> "от ${formatSalary(salaryRange.from, formatNumber, null)} " +
                 "до ${formatSalary(salaryRange.to, formatNumber, codeSalary)}"
         }
     }
 
     private fun formatSalary(amount: Number, formatNumber: DecimalFormat, codeSalary: String?): String {
-        return "${formatNumber.format(amount).replace(',', ' ')} $codeSalary"
+        return "${formatNumber.format(amount).replace(',', ' ')} ${codeSalary ?: ""}"
     }
 }
