@@ -88,12 +88,24 @@ class FilterSettingsFragment : Fragment() {
                 binding.btReset.isVisible = false
                 binding.btApply.isVisible = false
                 binding.checkBoxSalary.setOnCheckedChangeListener { _, isChecked ->
-                    binding.btApply.isVisible = isChecked
-                    binding.btReset.isVisible = isChecked
+                    binding.btApply.isVisible = binding.etSalary.text?.isNotEmpty() == true &&
+                        binding.etSalary.text?.isNotBlank() == true || isChecked ||
+                        binding.etCountry.text?.toString()?.isNotEmpty() == true ||
+                        binding.etIndustries.text?.toString()?.isNotEmpty() == true
+                    binding.btReset.isVisible = binding.etSalary.text?.isNotEmpty() == true &&
+                        binding.etSalary.text?.isNotBlank() == true || isChecked ||
+                        binding.etCountry.text?.toString()?.isNotEmpty() == true ||
+                        binding.etIndustries.text?.toString()?.isNotEmpty() == true
                 }
                 binding.etSalary.doAfterTextChanged { text ->
-                    binding.btApply.isVisible = !text.isNullOrEmpty() && text.isNotBlank()
-                    binding.btReset.isVisible = !text.isNullOrEmpty() && text.isNotBlank()
+                    binding.btApply.isVisible =
+                        !text.isNullOrEmpty() && text.isNotBlank() || binding.checkBoxSalary.isChecked ||
+                            binding.etCountry.text?.toString()?.isNotEmpty() == true ||
+                            binding.etIndustries.text?.toString()?.isNotEmpty() == true
+                    binding.btReset.isVisible =
+                        !text.isNullOrEmpty() && text.isNotBlank() || binding.checkBoxSalary.isChecked ||
+                            binding.etCountry.text?.toString()?.isNotEmpty() == true ||
+                            binding.etIndustries.text?.toString()?.isNotEmpty() == true
                 }
             }
         }
