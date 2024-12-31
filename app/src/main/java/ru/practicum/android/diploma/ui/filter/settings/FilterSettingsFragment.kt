@@ -99,11 +99,13 @@ class FilterSettingsFragment : Fragment() {
                 }
                 binding.etSalary.doAfterTextChanged { text ->
                     binding.btApply.isVisible =
-                        !text.isNullOrEmpty() && text.isNotBlank() || binding.checkBoxSalary.isChecked || binding.etCountry.text?.toString()
-                            ?.isNotEmpty() == true || binding.etIndustries.text?.toString()?.isNotEmpty() == true
+                        !text.isNullOrEmpty() && text.isNotBlank() || binding.checkBoxSalary.isChecked ||
+                            binding.etCountry.text?.toString()?.isNotEmpty() == true ||
+                            binding.etIndustries.text?.toString()?.isNotEmpty() == true
                     binding.btReset.isVisible =
-                        !text.isNullOrEmpty() && text.isNotBlank() || binding.checkBoxSalary.isChecked || binding.etCountry.text?.toString()
-                            ?.isNotEmpty() == true || binding.etIndustries.text?.toString()?.isNotEmpty() == true
+                        !text.isNullOrEmpty() && text.isNotBlank() || binding.checkBoxSalary.isChecked ||
+                            binding.etCountry.text?.toString()?.isNotEmpty() == true ||
+                            binding.etIndustries.text?.toString()?.isNotEmpty() == true
                 }
             }
         }
