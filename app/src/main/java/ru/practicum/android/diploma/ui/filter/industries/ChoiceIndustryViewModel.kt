@@ -64,7 +64,7 @@ class ChoiceIndustryViewModel(
     private fun searchIndustries(searchText: String) {
         var filteredIndustries = emptyList<Industry>()
         filteredIndustries = listIndustry.filter { industry: Industry ->
-            industry.name.contains(searchText)
+            Regex(searchText, RegexOption.IGNORE_CASE).containsMatchIn(industry.name)
         }.toMutableList()
 
         if (filteredIndustries.isEmpty()) {
