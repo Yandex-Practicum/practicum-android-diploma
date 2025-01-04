@@ -71,6 +71,7 @@
             android:cursorVisible="false"
             android:focusable="false"
             android:text=""
+            android:singleLine="true"
             android:textColor="?attr/textColorDefault"
             app:drawableTint="?attr/colorArrowRight" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -102,6 +103,7 @@
             android:background="@null"
             android:focusable="false"
             android:cursorVisible="false"
+            android:singleLine="true"
             android:textColor="?attr/textColorDefault"
             app:drawableEndCompat="@drawable/ic_arrow_right"
             app:drawableTint="?attr/colorArrowRight" />
