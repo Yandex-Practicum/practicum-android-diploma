@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
 import ru.practicum.android.diploma.data.dto.model.industries.IndustriesFullDto
 import ru.practicum.android.diploma.domain.filter.FilterSharedPreferencesInteractor
 import ru.practicum.android.diploma.domain.industries.IndustriesInteractor
@@ -14,8 +13,6 @@ import ru.practicum.android.diploma.domain.models.Filter
 import ru.practicum.android.diploma.domain.models.Industry
 import ru.practicum.android.diploma.ui.search.state.VacancyError
 import ru.practicum.android.diploma.util.debounce
-import java.net.HttpURLConnection.HTTP_INTERNAL_ERROR
-import java.net.HttpURLConnection.HTTP_NOT_FOUND
 
 class ChoiceIndustryViewModel(
     application: Application,
