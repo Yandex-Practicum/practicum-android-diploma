@@ -13,4 +13,6 @@ sealed interface CountriesState {
     data class Error(
         val message: String
     ) : CountriesState
+
+    object NotFound : CountriesState
 }

@@ -57,7 +57,15 @@ class ChoiceCountryFragment : Fragment() {
             is CountriesState.Loading -> showLoading()
             is CountriesState.Error -> showError()
             is CountriesState.Content -> showContent(state.data)
+            is CountriesState.NotFound -> showNotFound()
         }
+    }
+
+    private fun showNotFound() {
+        binding.rvListCountry.isVisible = false
+        binding.notFoundListPlaceholder.isVisible = true
+        binding.progressBar.isVisible = false
+        binding.placeholderNotConnect.isVisible = false
     }
 
     private fun selectCountry(country: Country) {
@@ -69,11 +77,12 @@ class ChoiceCountryFragment : Fragment() {
         binding.rvListCountry.isVisible = false
         binding.notFoundListPlaceholder.isVisible = false
         binding.progressBar.isVisible = true
+        binding.placeholderNotConnect.isVisible = false
     }
 
     private fun showError() {
         binding.rvListCountry.isVisible = false
-        binding.notFoundListPlaceholder.isVisible = true
+        binding.placeholderNotConnect.isVisible = true
         binding.progressBar.isVisible = false
     }
 
@@ -81,7 +90,7 @@ class ChoiceCountryFragment : Fragment() {
         binding.rvListCountry.isVisible = true
         binding.notFoundListPlaceholder.isVisible = false
         binding.progressBar.isVisible = false
-
+        binding.placeholderNotConnect.isVisible = false
         adapter.clear()
         adapter.setData(data)
     }

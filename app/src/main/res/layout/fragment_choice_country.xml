@@ -81,7 +81,7 @@
         android:layout_marginTop="171dp"
         android:layout_marginBottom="213dp"
         android:scaleType="centerInside"
-        android:src="@drawable/placeholder_not_found_regions"
+        android:src="@drawable/placeholder_network_error"
         app:layout_constraintBottom_toTopOf="@id/bottomGuideline"
         app:layout_constraintEnd_toEndOf="@id/endGuideline"
         app:layout_constraintStart_toStartOf="@id/startGuideline"
@@ -112,5 +112,33 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topGuideline" />
+
+    <LinearLayout
+        android:id="@+id/placeholderNotConnect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin16"
+            android:src="@drawable/placeholder_network_error"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            style="@style/Medium22Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/network_error_text" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

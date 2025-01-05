@@ -148,14 +148,14 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/placeholder_not_found_regions"
+            android:src="@drawable/placeholder_network_error"
             android:layout_marginBottom="@dimen/margin16"
             tools:ignore="ContentDescription" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/not_found_region"
+            android:text="@string/network_error_text"
             android:gravity="center"
             style="@style/Medium22Text"/>
     </LinearLayout>
