@@ -6,12 +6,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import ru.practicum.android.diploma.data.dto.model.industries.IndustriesFullDto
 import ru.practicum.android.diploma.domain.filter.FilterSharedPreferencesInteractor
 import ru.practicum.android.diploma.domain.industries.IndustriesInteractor
 import ru.practicum.android.diploma.domain.models.Filter
 import ru.practicum.android.diploma.domain.models.Industry
+import ru.practicum.android.diploma.ui.search.state.VacancyError
 import ru.practicum.android.diploma.util.debounce
+import java.net.HttpURLConnection.HTTP_INTERNAL_ERROR
+import java.net.HttpURLConnection.HTTP_NOT_FOUND
 
 class ChoiceIndustryViewModel(
     application: Application,
@@ -26,16 +30,17 @@ class ChoiceIndustryViewModel(
 
     fun showIndustries() {
         viewModelScope.launch {
-            interactor
-                .getIndustries()
-                .collect { industry ->
-                    processResult(industry)
-                }
+                interactor
+                    .getIndustries()
+                    .collect { pair ->
+                        processResult(pair.first, pair.second)
+                    }
         }
     }
 
     private fun processResult(
-        result: List<IndustriesFullDto?>?
+        result: List<IndustriesFullDto?>?,
+        error: VacancyError?
     ) {
         if (result != null) {
             for (industry in result) {
@@ -44,9 +49,17 @@ class ChoiceIndustryViewModel(
                     listIndustry.add(Industry(industries.id, industries.name))
                 }
             }
+            listIndustry.toList()
+            renderState(IndustriesState.FoundIndustries(listIndustry))
         }
-        listIndustry.toList()
-        renderState(IndustriesState.FoundIndustries(listIndustry))
+        when(error){
+            VacancyError.NETWORK_ERROR -> renderState(IndustriesState.NetworkError)
+            VacancyError.BAD_REQUEST -> renderState(IndustriesState.NothingFound)
+            VacancyError.NOT_FOUND -> renderState(IndustriesState.NothingFound)
+            VacancyError.UNKNOWN_ERROR -> renderState(IndustriesState.ServerError)
+            VacancyError.SERVER_ERROR -> renderState(IndustriesState.ServerError)
+            null -> Unit
+        }
     }
 
     fun searchDebounce(changedText: String) {
@@ -71,6 +84,14 @@ class ChoiceIndustryViewModel(
             renderState(IndustriesState.NothingFound)
         } else {
             renderState(IndustriesState.FoundIndustries(filteredIndustries))
+        }
+    }
+
+    private fun handleHttpError(e: HttpException) {
+        when (e.code()) {
+            HTTP_NOT_FOUND -> renderState(IndustriesState.NothingFound)
+            HTTP_INTERNAL_ERROR -> renderState(IndustriesState.ServerError)
+            else -> renderState(IndustriesState.ServerError)
         }
     }
 
