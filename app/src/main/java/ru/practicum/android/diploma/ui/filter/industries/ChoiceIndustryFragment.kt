@@ -84,10 +84,29 @@ class ChoiceIndustryFragment : Fragment(), IndustriesAdapter.Listener {
                 adapter?.updateIndustries(state.industries as List<Industry>)
                 binding.rvFoundedIndustry.adapter = adapter
                 binding.rvFoundedIndustry.isVisible = true
+                binding.placeholderNoInternet.isVisible = false
+                binding.placeholderNotFound.isVisible = false
+                binding.placeholderServerError.isVisible = false
             }
-
             is IndustriesState.NothingFound -> {
                 adapter?.updateIndustries(emptyList())
+                binding.rvFoundedIndustry.isVisible = false
+                binding.placeholderNoInternet.isVisible = false
+                binding.placeholderServerError.isVisible = false
+                binding.placeholderNotFound.isVisible = true
+
+            }
+            IndustriesState.NetworkError -> {
+                binding.rvFoundedIndustry.isVisible = false
+                binding.placeholderNotFound.isVisible = false
+                binding.placeholderServerError.isVisible = false
+                binding.placeholderNoInternet.isVisible = true
+            }
+            IndustriesState.ServerError -> {
+                binding.rvFoundedIndustry.isVisible = false
+                binding.placeholderNotFound.isVisible = false
+                binding.placeholderNoInternet.isVisible = false
+                binding.placeholderServerError.isVisible = true
             }
         }
     }

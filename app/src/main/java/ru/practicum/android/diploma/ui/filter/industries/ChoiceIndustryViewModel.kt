@@ -11,6 +11,7 @@ import ru.practicum.android.diploma.domain.filter.FilterSharedPreferencesInterac
 import ru.practicum.android.diploma.domain.industries.IndustriesInteractor
 import ru.practicum.android.diploma.domain.models.Filter
 import ru.practicum.android.diploma.domain.models.Industry
+import ru.practicum.android.diploma.ui.search.state.VacancyError
 import ru.practicum.android.diploma.util.debounce
 
 class ChoiceIndustryViewModel(
@@ -28,14 +29,15 @@ class ChoiceIndustryViewModel(
         viewModelScope.launch {
             interactor
                 .getIndustries()
-                .collect { industry ->
-                    processResult(industry)
+                .collect { pair ->
+                    processResult(pair.first, pair.second)
                 }
         }
     }
 
     private fun processResult(
-        result: List<IndustriesFullDto?>?
+        result: List<IndustriesFullDto?>?,
+        error: VacancyError?
     ) {
         if (result != null) {
             for (industry in result) {
@@ -44,9 +46,17 @@ class ChoiceIndustryViewModel(
                     listIndustry.add(Industry(industries.id, industries.name))
                 }
             }
+            listIndustry.toList()
+            renderState(IndustriesState.FoundIndustries(listIndustry))
         }
-        listIndustry.toList()
-        renderState(IndustriesState.FoundIndustries(listIndustry))
+        when (error) {
+            VacancyError.NETWORK_ERROR -> renderState(IndustriesState.NetworkError)
+            VacancyError.BAD_REQUEST -> renderState(IndustriesState.NothingFound)
+            VacancyError.NOT_FOUND -> renderState(IndustriesState.NothingFound)
+            VacancyError.UNKNOWN_ERROR -> renderState(IndustriesState.ServerError)
+            VacancyError.SERVER_ERROR -> renderState(IndustriesState.ServerError)
+            null -> Unit
+        }
     }
 
     fun searchDebounce(changedText: String) {
