@@ -30,11 +30,11 @@ class ChoiceIndustryViewModel(
 
     fun showIndustries() {
         viewModelScope.launch {
-                interactor
-                    .getIndustries()
-                    .collect { pair ->
-                        processResult(pair.first, pair.second)
-                    }
+            interactor
+                .getIndustries()
+                .collect { pair ->
+                    processResult(pair.first, pair.second)
+                }
         }
     }
 
@@ -52,7 +52,7 @@ class ChoiceIndustryViewModel(
             listIndustry.toList()
             renderState(IndustriesState.FoundIndustries(listIndustry))
         }
-        when(error){
+        when (error) {
             VacancyError.NETWORK_ERROR -> renderState(IndustriesState.NetworkError)
             VacancyError.BAD_REQUEST -> renderState(IndustriesState.NothingFound)
             VacancyError.NOT_FOUND -> renderState(IndustriesState.NothingFound)
@@ -84,14 +84,6 @@ class ChoiceIndustryViewModel(
             renderState(IndustriesState.NothingFound)
         } else {
             renderState(IndustriesState.FoundIndustries(filteredIndustries))
-        }
-    }
-
-    private fun handleHttpError(e: HttpException) {
-        when (e.code()) {
-            HTTP_NOT_FOUND -> renderState(IndustriesState.NothingFound)
-            HTTP_INTERNAL_ERROR -> renderState(IndustriesState.ServerError)
-            else -> renderState(IndustriesState.ServerError)
         }
     }
 
