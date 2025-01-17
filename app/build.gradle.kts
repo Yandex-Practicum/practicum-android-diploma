@@ -64,23 +64,23 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
 
-    //Coroutines
+    // Coroutines
     implementation(libs.kotlinx.coroutines.android)
 
-    //Navigation
+    // Navigation
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.fragment.ktx)
 
-    //Retrofit
+    // Retrofit
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
 
-    //Glide
+    // Glide
     implementation(libs.glide)
 
-    //Koin
+    // Koin
     implementation(libs.koin.core)
     implementation(libs.koin.android)
 
