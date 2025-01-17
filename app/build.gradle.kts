@@ -46,7 +46,6 @@ dependencies {
     implementation(libs.androidX.core)
     implementation(libs.androidX.appCompat)
 
-
     // UI layer libraries
     implementation(libs.ui.material)
     implementation(libs.ui.constraintLayout)
@@ -59,8 +58,6 @@ dependencies {
     androidTestImplementation(libs.uiTests.junitExt)
     androidTestImplementation(libs.uiTests.espressoCore)
     // endregion
-
-
 
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.convertergson)
