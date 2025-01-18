@@ -12,4 +12,8 @@
         <item name="android:textAllCaps">false</item>
     </style>
 
+    <style name="ThemeBackgroundTint">
+        <item name="android:backgroundTint">@color/white</item>
+    </style>
+
 </resources>
