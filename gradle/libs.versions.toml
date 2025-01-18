@@ -1,19 +1,43 @@
 [versions]
 
+activityKtx = "1.10.0"
+glide = "4.16.0"
 java = "VERSION_1_8"
 
 # Build constants
+koinAndroid = "3.3.0"
+kotlinxCoroutinesCore = "1.7.3"
+ksp = "4.15.1"
+lifecycleLivedataKtx = "2.8.7"
 minSdk = "26"
 compileSdk = "34"
+navigationFragmentKtx = "2.8.5"
+retrofit = "2.11.0"
+roomRuntime = "2.6.1"
 targetSdk = "33"
 
 # Detekt
 detekt = "1.23.3"
-detektTwitterComposeRules ="0.0.26"
+detektTwitterComposeRules = "0.0.26"
 
 [libraries]
 
 # Detekt
+activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinAndroid" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesCore" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
+ksp = { module = "com.github.bumptech.glide:ksp", version.ref = "ksp" }
+lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
+lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleLivedataKtx" }
+navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationFragmentKtx" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 staticAnalysis-detektPlugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
 staticAnalysis-detektCli = { module = "io.gitlab.arturbosch.detekt:detekt-cli", version.ref = "detekt" }
 staticAnalysis-detektApi = { module = "io.gitlab.arturbosch.detekt:detekt-api", version.ref = "detekt" }
