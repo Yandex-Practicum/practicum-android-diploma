@@ -3,31 +3,31 @@
     <!-- Стили текста -->
     <style name="TextBold_32">
         <item name="android:textSize">@dimen/sp_32</item>
-        <item name="android:fontFamily">@fonts/ys_display_bold</item>
+        <item name="android:fontFamily">@font/ys_display_bold</item>
         <item name="android:textFontWeight" tools:targetApi="28">700</item>
     </style>
 
     <style name="TextMedium_22">
         <item name="android:textSize">@dimen/sp_22</item>
-        <item name="android:fontFamily">@fonts/ys_display_medium</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
         <item name="android:textFontWeight" tools:targetApi="28">500</item>
     </style>
 
     <style name="TextMedium_16">
         <item name="android:textSize">@dimen/sp_16</item>
-        <item name="android:fontFamily">@fonts/ys_display_medium</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
         <item name="android:textFontWeight" tools:targetApi="28">500</item>
     </style>
 
     <style name="TextRegular_16">
         <item name="android:textSize">@dimen/sp_16</item>
-        <item name="android:fontFamily">@fonts/ys_display_regular</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
         <item name="android:textFontWeight" tools:targetApi="28">400</item>
     </style>
 
     <style name="TextRegular_12">
         <item name="android:textSize">@dimen/sp_12</item>
-        <item name="android:fontFamily">@fonts/ys_display_regular</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
         <item name="android:textFontWeight" tools:targetApi="28">400</item>
     </style>
 
