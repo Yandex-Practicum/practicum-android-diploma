@@ -10,10 +10,16 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.AppDatabase
 import ru.practicum.android.diploma.common.data.network.hhApi
+import ru.practicum.android.diploma.common.util.Converter
 import ru.practicum.android.diploma.favorites.data.repository.FavoritesRepositoryImpl
 import ru.practicum.android.diploma.favorites.domain.repository.FavoriteRepository
 import ru.practicum.android.diploma.filter.data.repository.FilterRepositoryImpl
 import ru.practicum.android.diploma.filter.domain.repository.FilterRepository
+import ru.practicum.android.diploma.search.data.repository.SearchRepositoryImpl
+import ru.practicum.android.diploma.search.domain.repository.SearchRepository
+import ru.practicum.android.diploma.vacancy.data.repository.VacancyRepositoryImpl
+import ru.practicum.android.diploma.vacancy.domain.interactor.VacancyInteractorImpl
+import ru.practicum.android.diploma.vacancy.domain.repository.VacancyRepository
 
 val dataModule = module {
 
@@ -50,6 +56,18 @@ val dataModule = module {
 
     single <FilterRepository> {
         FilterRepositoryImpl(get(), get(), get())
+    }
+
+    single <SearchRepository> {
+        SearchRepositoryImpl(get(), get())
+    }
+
+    single <VacancyRepository> {
+        VacancyRepositoryImpl(get())
+    }
+
+    factory {
+        Converter()
     }
 
 }
