@@ -1,17 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.PracticumAndroidDiploma" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
-    </style>
+    <!-- Базовая тема приложения -->
+    <style name="Base.Theme.PracticumAndroidDiploma" parent="Theme.Material3.DayNight.NoActionBar"/>
 
-    <style name="headers_title">
-        <item name="android:textSize">@dimen/text_22sp</item>
-        <item name="android:textAllCaps">false</item>
-    </style>
+    <style name="Theme.PracticumAndroidDiploma" parent="Base.Theme.PracticumAndroidDiploma">
+        <item name="android:colorBackground">@color/black</item> <!-- Цвет фона -->
+        <item name="colorOnPrimary">@color/white</item> <!-- Основной цвет текста и иконок -->
+        <item name="colorHint">@color/gray</item><!-- Цвет полей ввода -->
+        <item name="colorTextOnAccent">@color/white</item><!-- Цвет текста на основном акцентном цвете(цвет текста на кнопках) -->
 
-    <style name="ThemeBackgroundTint">
-        <item name="android:backgroundTint">@color/black</item>
+        <!-- Цвета статус-бара -->
+        <item name="android:statusBarColor">@color/black</item> <!-- Цвет темного статус-бара -->
+        <item name="android:windowLightStatusBar">false</item> <!-- Включает темный статус-бар -->
     </style>
-
 </resources>

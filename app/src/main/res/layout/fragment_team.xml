@@ -28,6 +28,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="@string/team"
-        app:titleTextAppearance="@style/headers_title"/>
+        app:titleTextAppearance="@style/TextMedium_22"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
