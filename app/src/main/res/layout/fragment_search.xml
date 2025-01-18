@@ -30,7 +30,7 @@
         app:titleTextAppearance="@style/TextMedium_22">
 
     <ImageButton
-        android:id="@+id/nav_button"
+        android:id="@+id/filter_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:theme="@style/FilterButtonBackground"

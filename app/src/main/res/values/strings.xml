@@ -9,4 +9,5 @@
     <string name="filter_region">Выбор региона</string>
     <string name="filter_industry">Выбор отрасли</string>
     <string name="team">Команда</string>
+    <string name="menu_main">Главная</string>
 </resources>
