@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="colorHint" format="color" />
+    <attr name="colorTextOnAccent" format="color" />
+    <attr name="colorRed" format="color" />
+    <attr name="colorIcon" format="color" />
+    <attr name="colorHintCard" format="color" />
+</resources>

@@ -1,9 +1,22 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.PracticumAndroidDiploma" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <!-- Базовая тема приложения -->
+    <style name="Base.Theme.PracticumAndroidDiploma" parent="Theme.Material3.DayNight.NoActionBar"/>
+
+    <!-- Основная тема приложения -->
+    <style name="Theme.PracticumAndroidDiploma" parent="Base.Theme.PracticumAndroidDiploma">
+        <item name="android:colorBackground">@color/white</item> <!-- Цвет фона -->
+        <item name="colorAccent">@color/blue</item> <!-- Основной акцентный голубой цвет -->
+        <item name="colorOnPrimary">@color/black</item> <!-- Основной цвет текста и иконок -->
+        <item name="colorHint">@color/light_gray</item><!-- Цвет полей ввода -->
+        <item name="colorHintCard">@color/light_gray</item><!-- Цвет фона названия компании -->
+        <item name="colorTextOnAccent">@color/white</item><!-- Цвет текста на основном акцентном цвете(цвет текста на кнопках) -->
+        <item name="colorRed">@color/red</item><!-- Акцентный красный цвет -->
+        <item name="colorIcon">@color/gray</item><!-- Цвет иконки нижней навигации -->
+
+        <!-- Цвета статус-бара -->
+        <item name="android:statusBarColor">@color/white</item> <!-- Цвет светлого статус-бара -->
+        <item name="android:windowLightStatusBar">true</item> <!-- Включает светлый статус-бар -->
     </style>
 
-    <style name="Theme.PracticumAndroidDiploma" parent="Base.Theme.PracticumAndroidDiploma" />
 </resources>
+
