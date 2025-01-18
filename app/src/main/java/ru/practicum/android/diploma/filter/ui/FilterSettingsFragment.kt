@@ -28,7 +28,7 @@ class FilterSettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.topBar.setOnClickListener{
+        binding.topBar.setOnClickListener {
             findNavController().popBackStack()
         }
     }
