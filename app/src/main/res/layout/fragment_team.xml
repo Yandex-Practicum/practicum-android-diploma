@@ -30,4 +30,78 @@
         app:title="@string/team"
         app:titleTextAppearance="@style/TextMedium_22"/>
 
+
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:lines="2"
+        app:layout_constraintTop_toBottomOf="@id/topBar"
+        app:layout_constraintStart_toStartOf="@id/glBegin"
+        app:layout_constraintEnd_toEndOf="@id/glEnd"
+        android:text="@string/working_on_the_app"
+        android:textAppearance="@style/TextBold_32"
+        android:textColor="?attr/colorOnPrimary"/>
+
+    <TextView
+        android:id="@+id/fio1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/header"
+        app:layout_constraintStart_toStartOf="@id/glBegin"
+        app:layout_constraintEnd_toEndOf="@id/glEnd"
+        android:text="@string/fio1"
+        android:textAppearance="@style/TextMedium_16"
+        android:textColor="?attr/colorOnPrimary"/>
+
+    <TextView
+        android:id="@+id/fio2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/fio1"
+        app:layout_constraintStart_toStartOf="@id/glBegin"
+        app:layout_constraintEnd_toEndOf="@id/glEnd"
+        android:text="@string/fio2"
+        android:textAppearance="@style/TextMedium_16"
+        android:textColor="?attr/colorOnPrimary"/>
+
+    <TextView
+        android:id="@+id/fio3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/fio2"
+        app:layout_constraintStart_toStartOf="@id/glBegin"
+        app:layout_constraintEnd_toEndOf="@id/glEnd"
+        android:text="@string/fio3"
+        android:textAppearance="@style/TextMedium_16"
+        android:textColor="?attr/colorOnPrimary"/>
+
+    <TextView
+        android:id="@+id/fio4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/fio3"
+        app:layout_constraintStart_toStartOf="@id/glBegin"
+        app:layout_constraintEnd_toEndOf="@id/glEnd"
+        android:text="@string/fio4"
+        android:textAppearance="@style/TextMedium_16"
+        android:textColor="?attr/colorOnPrimary"/>
+
+    <TextView
+        android:id="@+id/fio5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/fio4"
+        app:layout_constraintStart_toStartOf="@id/glBegin"
+        app:layout_constraintEnd_toEndOf="@id/glEnd"
+        android:text="@string/fio5"
+        android:textAppearance="@style/TextMedium_16"
+        android:textColor="?attr/colorOnPrimary"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
