@@ -5,5 +5,4 @@ import ru.practicum.android.diploma.search.domain.interactor.SearchInteractor
 
 class SearchViewModel(
     private val searchInteractor: SearchInteractor
-): ViewModel() {
-}
+) : ViewModel()

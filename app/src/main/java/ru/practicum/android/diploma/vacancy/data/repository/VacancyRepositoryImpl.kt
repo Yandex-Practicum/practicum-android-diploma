@@ -5,5 +5,4 @@ import ru.practicum.android.diploma.vacancy.domain.repository.VacancyRepository
 
 class VacancyRepositoryImpl(
     private val networkClient: RetrofitNetworkClient
-): VacancyRepository {
-}
+) : VacancyRepository

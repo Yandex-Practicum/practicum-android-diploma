@@ -7,5 +7,4 @@ import ru.practicum.android.diploma.search.domain.repository.SearchRepository
 class SearchRepositoryImpl(
     private val networkClient: RetrofitNetworkClient,
     private val appDatabase: AppDatabase,
-): SearchRepository {
-}
+) : SearchRepository

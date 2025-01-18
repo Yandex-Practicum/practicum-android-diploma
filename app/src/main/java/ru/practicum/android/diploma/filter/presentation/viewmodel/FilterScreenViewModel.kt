@@ -5,5 +5,4 @@ import ru.practicum.android.diploma.filter.domain.interactor.FilterInteractor
 
 class FilterScreenViewModel(
     private val filterInteractor: FilterInteractor
-): ViewModel() {
-}
+) : ViewModel()

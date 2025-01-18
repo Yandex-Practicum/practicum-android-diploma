@@ -23,5 +23,4 @@ val viewModelModule = module {
         VacancyScreenViewModel(get())
     }
 
-
 }

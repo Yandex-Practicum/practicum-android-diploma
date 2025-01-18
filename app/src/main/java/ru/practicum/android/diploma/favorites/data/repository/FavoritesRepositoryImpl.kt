@@ -13,5 +13,4 @@ class FavoritesRepositoryImpl(
     private val sharedPrefs: SharedPreferences,
     private val converter: Converter,
     private val context: Context
-): FavoriteRepository {
-}
+) : FavoriteRepository

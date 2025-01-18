@@ -5,5 +5,4 @@ import ru.practicum.android.diploma.favorites.domain.interactor.FavoriteInteract
 
 class FavoriteScreenViewModel(
     private val favoriteInteractor: FavoriteInteractor
-): ViewModel() {
-}
+) : ViewModel()

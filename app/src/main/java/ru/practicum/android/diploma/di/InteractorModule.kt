@@ -12,19 +12,19 @@ import ru.practicum.android.diploma.vacancy.domain.interactor.VacancyInteractorI
 
 val interactorModule = module {
 
-    single <FavoriteInteractor> {
+    single<FavoriteInteractor> {
         FavoriteInteractorImpl(get())
     }
 
-    single <FilterInteractor> {
+    single<FilterInteractor> {
         FilterInteractorImpl(get())
     }
 
-    single <SearchInteractor> {
+    single<SearchInteractor> {
         SearchInteractorImpl(get())
     }
 
-    single <VacancyInteractor> {
+    single<VacancyInteractor> {
         VacancyInteractorImpl(get())
     }
 }

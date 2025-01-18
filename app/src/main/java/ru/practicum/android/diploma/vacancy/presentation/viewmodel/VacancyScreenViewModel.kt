@@ -5,5 +5,4 @@ import ru.practicum.android.diploma.vacancy.domain.interactor.VacancyInteractor
 
 class VacancyScreenViewModel(
     private val vacancyInteractor: VacancyInteractor
-): ViewModel() {
-}
+) : ViewModel()

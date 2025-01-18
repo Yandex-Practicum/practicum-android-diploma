@@ -18,7 +18,6 @@ import ru.practicum.android.diploma.filter.domain.repository.FilterRepository
 import ru.practicum.android.diploma.search.data.repository.SearchRepositoryImpl
 import ru.practicum.android.diploma.search.domain.repository.SearchRepository
 import ru.practicum.android.diploma.vacancy.data.repository.VacancyRepositoryImpl
-import ru.practicum.android.diploma.vacancy.domain.interactor.VacancyInteractorImpl
 import ru.practicum.android.diploma.vacancy.domain.repository.VacancyRepository
 
 val dataModule = module {
@@ -38,7 +37,7 @@ val dataModule = module {
         ).build()
     }
 
-    single <hhApi> {
+    single<hhApi> {
         Retrofit.Builder()
             .baseUrl("https://api.hh.ru/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -50,19 +49,19 @@ val dataModule = module {
         Gson()
     }
 
-    single <FavoriteRepository> {
+    single<FavoriteRepository> {
         FavoritesRepositoryImpl(get(), get(), get(), get(), androidApplication())
     }
 
-    single <FilterRepository> {
+    single<FilterRepository> {
         FilterRepositoryImpl(get(), get(), get())
     }
 
-    single <SearchRepository> {
+    single<SearchRepository> {
         SearchRepositoryImpl(get(), get())
     }
 
-    single <VacancyRepository> {
+    single<VacancyRepository> {
         VacancyRepositoryImpl(get())
     }
 

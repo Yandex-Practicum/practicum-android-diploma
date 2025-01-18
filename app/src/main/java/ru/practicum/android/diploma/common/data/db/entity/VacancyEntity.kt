@@ -5,5 +5,4 @@ data class VacancyEntity(
     val job: String,
     val location: String,
     val salary: Int
-){
-}
+)

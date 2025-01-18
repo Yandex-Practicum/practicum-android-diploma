@@ -4,5 +4,4 @@ import ru.practicum.android.diploma.favorites.domain.repository.FavoriteReposito
 
 class FavoriteInteractorImpl(
     favoriteRepository: FavoriteRepository
-): FavoriteInteractor {
-}
+) : FavoriteInteractor
