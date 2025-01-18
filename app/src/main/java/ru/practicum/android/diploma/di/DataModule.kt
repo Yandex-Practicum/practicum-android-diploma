@@ -9,7 +9,7 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.AppDatabase
-import ru.practicum.android.diploma.common.data.network.hhApi
+import ru.practicum.android.diploma.common.data.network.HeadHunterApi
 import ru.practicum.android.diploma.common.util.Converter
 import ru.practicum.android.diploma.favorites.data.repository.FavoritesRepositoryImpl
 import ru.practicum.android.diploma.favorites.domain.repository.FavoriteRepository
@@ -37,12 +37,12 @@ val dataModule = module {
         ).build()
     }
 
-    single<hhApi> {
+    single<HeadHunterApi> {
         Retrofit.Builder()
             .baseUrl("https://api.hh.ru/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(hhApi::class.java)
+            .create(HeadHunterApi::class.java)
     }
 
     single {
