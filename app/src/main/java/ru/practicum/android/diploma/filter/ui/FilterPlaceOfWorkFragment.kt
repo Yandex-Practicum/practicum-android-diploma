@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ru.practicum.android.diploma.databinding.FragmentFilterPlaceOfWorkBinding
 
-class FilterPlaceOfWorkFragment: Fragment() {
+class FilterPlaceOfWorkFragment : Fragment() {
     private var _binding: FragmentFilterPlaceOfWorkBinding? = null
     private val binding get() = _binding!!
 
