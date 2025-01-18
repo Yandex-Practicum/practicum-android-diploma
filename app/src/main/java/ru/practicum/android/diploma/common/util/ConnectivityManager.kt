@@ -10,7 +10,6 @@ class ConnectivityManager(
     fun isConnected(): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-
         connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork).let { networkCapabilities ->
             return when {
                 networkCapabilities?.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) == true -> true
@@ -21,7 +20,3 @@ class ConnectivityManager(
         }
     }
 }
-
-
-
-
