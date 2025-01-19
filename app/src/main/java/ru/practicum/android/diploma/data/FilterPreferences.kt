@@ -1,14 +1,14 @@
 package ru.practicum.android.diploma.data
 
 interface FilterPreferences {
-    suspend fun saveCity(city: String)
-    suspend fun getCity(): String?
+    suspend fun savePlace(city: String)
+    suspend fun getPlace(): String?
 
     suspend fun saveIndustry(industry: String)
     suspend fun getIndustry(): String?
 
-    suspend fun saveMinSalary(minSalary: Int)
-    suspend fun getMinSalary(): Int?
+    suspend fun saveExpectedSalary(minSalary: Int)
+    suspend fun getExpectedSalary(): Int?
 
     suspend fun saveSalaryRequired(isRequired: Boolean)
     suspend fun isSalaryRequired(): Boolean
