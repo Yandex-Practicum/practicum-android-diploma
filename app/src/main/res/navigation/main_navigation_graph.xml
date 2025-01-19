@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation_graph"
+    app:startDestination="@id/searchFragment">
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="ru.practicum.android.diploma.ui.search.fragment.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_searchFragment_to_filterCommonFragment"
+            app:destination="@id/filterCommonFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_vacancyFragment2"
+            app:destination="@id/vacancyFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/favouritesFragment"
+        android:name="ru.practicum.android.diploma.ui.favourites.fragment.FavouritesFragment"
+        android:label="fragment_favourites"
+        tools:layout="@layout/fragment_favourites">
+        <action
+            android:id="@+id/action_favouritesFragment_to_vacancyFragment"
+            app:destination="@id/vacancyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/teamFragment"
+        android:name="ru.practicum.android.diploma.ui.team.fragment.TeamFragment"
+        android:label="fragment_team"
+        tools:layout="@layout/fragment_team" />
+    <fragment
+        android:id="@+id/filterCommonFragment"
+        android:name="ru.practicum.android.diploma.ui.filter.common.fragment.FilterCommonFragment"
+        android:label="fragment_filter_common"
+        tools:layout="@layout/fragment_filter_common">
+        <action
+            android:id="@+id/action_filterCommonFragment_to_filterCountryRegionFragment"
+            app:destination="@id/filterCountryRegionFragment" />
+        <action
+            android:id="@+id/action_filterCommonFragment_to_filterIndustryFragment"
+            app:destination="@id/filterIndustryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/vacancyFragment"
+        android:name="ru.practicum.android.diploma.ui.vacancy.fragment.VacancyFragment"
+        android:label="fragment_vacancy"
+        tools:layout="@layout/fragment_vacancy" />
+    <fragment
+        android:id="@+id/vacancyFragment2"
+        android:name="ru.practicum.android.diploma.ui.vacancy.fragment.VacancyFragment"
+        android:label="fragment_vacancy"
+        tools:layout="@layout/fragment_vacancy" />
+    <fragment
+        android:id="@+id/filterCountryRegionFragment"
+        android:name="ru.practicum.android.diploma.ui.filter.country_region.fragment.FilterCountryRegionFragment"
+        android:label="fragment_filter_country_region"
+        tools:layout="@layout/fragment_filter_country_region">
+        <action
+            android:id="@+id/action_filterCountryRegionFragment_to_filterCountryFragment"
+            app:destination="@id/filterCountryFragment" />
+        <action
+            android:id="@+id/action_filterCountryRegionFragment_to_filterRegionFragment"
+            app:destination="@id/filterRegionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/filterIndustryFragment"
+        android:name="ru.practicum.android.diploma.ui.filter.industry.fragment.FilterIndustryFragment"
+        android:label="fragment_filter_industry"
+        tools:layout="@layout/fragment_filter_industry" />
+    <fragment
+        android:id="@+id/filterCountryFragment"
+        android:name="ru.practicum.android.diploma.ui.filter.country.fragment.FilterCountryFragment"
+        android:label="fragment_filter_country"
+        tools:layout="@layout/fragment_filter_country" />
+    <fragment
+        android:id="@+id/filterRegionFragment"
+        android:name="ru.practicum.android.diploma.ui.filter.region.fragment.FilterRegionFragment"
+        android:label="fragment_filter_region"
+        tools:layout="@layout/fragment_filter_region" />
+</navigation>
