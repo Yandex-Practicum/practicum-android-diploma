@@ -10,9 +10,5 @@
     <string name="filter_industry">Выбор отрасли</string>
     <string name="team">Команда</string>
     <string name="working_on_the_app">Над приложением работали</string>
-    <string name="fio1">Новаковская Светлана Александровна</string>
-    <string name="fio2">Потакин Владислав Николаевич</string>
-    <string name="fio3">Сатин Максим Владимирович</string>
-    <string name="fio4">Спиридонов Давид Сергеевич</string>
-    <string name="fio5">Цыпленков Данил Олегович</string>
+    <string name="fio">Новаковская Светлана Александровна\nПотакин Владислав Николаевич\nСатин Максим Владимирович\nСпиридонов Давид Сергеевич\nЦыпленков Данил Олегович</string>
 </resources>
