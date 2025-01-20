@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.vacancy.viewModel
+package ru.practicum.android.diploma.ui.vacancy.viewmodel
 
 import androidx.lifecycle.ViewModel
 import org.koin.core.component.KoinComponent

@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.filter.country.viewModel
+package ru.practicum.android.diploma.ui.filter.country.viewmodel
 
 import androidx.lifecycle.ViewModel
 import org.koin.core.component.KoinComponent

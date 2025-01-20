@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.favourites.viewModel
+package ru.practicum.android.diploma.ui.favourites.viewmodel
 
 import androidx.lifecycle.ViewModel
 import org.koin.core.component.KoinComponent
