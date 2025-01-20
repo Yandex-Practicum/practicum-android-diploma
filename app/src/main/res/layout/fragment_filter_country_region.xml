@@ -3,6 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.filter.country_region.fragment.FilterCountryRegionFragment">
+    tools:context=".ui.filter.countryRegion.fragment.FilterCountryRegionFragment">
 
 </LinearLayout>

@@ -55,7 +55,7 @@
         tools:layout="@layout/fragment_vacancy" />
     <fragment
         android:id="@+id/filterCountryRegionFragment"
-        android:name="ru.practicum.android.diploma.ui.filter.country_region.fragment.FilterCountryRegionFragment"
+        android:name="ru.practicum.android.diploma.ui.filter.countryRegion.fragment.FilterCountryRegionFragment"
         android:label="fragment_filter_country_region"
         tools:layout="@layout/fragment_filter_country_region">
         <action

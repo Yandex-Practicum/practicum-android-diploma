@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.filter.country_region.fragment
+package ru.practicum.android.diploma.ui.filter.countryRegion.fragment
 
 import androidx.fragment.app.Fragment
 
