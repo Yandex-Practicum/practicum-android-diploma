@@ -10,14 +10,14 @@ class RetrofitNetworkClient(
     private val headHunterApi: HeadHunterApi,
     private val mapper: Mapper,
     // private val connectivityManager: ConnectivityManager
-): NetworkClient{
+) : NetworkClient {
     override suspend fun doRequest(dto: Any): Response {
         return if (dto is SearchVacancyRequest) {
-            withContext(Dispatchers.IO){
+            withContext(Dispatchers.IO) {
                 try {
                     val resp = headHunterApi.searchVacancies(mapper.map(dto.expression))
                     resp.apply { resultCode = 200 }
-                }catch (e: Throwable){
+                } catch (e: Throwable) {
                     Response().apply { resultCode = 500 }
                 }
             }

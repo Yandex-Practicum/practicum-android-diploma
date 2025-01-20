@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.search.domain.model
 
-data class VacancyList (
+data class VacancyList(
     val items: List<VacancyItems>, // список вакансий
     val found: Int, // число найденных вакансий
     val pages: Int, // число найденных страниц

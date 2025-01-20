@@ -29,7 +29,7 @@ class Mapper {
             pages = response.pages ?: 0,
             page = response.page ?: 0,
             perPage = response.perPage ?: 0,
-            )
+        )
     }
 
     fun map(searchVacancyDto: SearchVacancyDto): VacancyItems {
@@ -54,5 +54,5 @@ class Mapper {
     }
 
     private fun getAreaName(areaDto: AreaDto?): String = areaDto?.name ?: ""
-    private fun getEmployerLogo(employerDto: EmployerDto?): String? = employerDto?.logoUrls?.s240
+    private fun getEmployerLogo(employerDto: EmployerDto?): String? = employerDto?.logoUrls?.iconBig
 }

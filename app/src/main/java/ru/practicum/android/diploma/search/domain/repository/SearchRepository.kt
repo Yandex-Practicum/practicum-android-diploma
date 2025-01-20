@@ -4,6 +4,6 @@ import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.search.domain.model.SearchQueryParams
 import ru.practicum.android.diploma.search.domain.model.SearchViewState
 
-interface SearchRepository{
+interface SearchRepository {
     suspend fun searchVacancy(expression: SearchQueryParams): Flow<SearchViewState>
 }

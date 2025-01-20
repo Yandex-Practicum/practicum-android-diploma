@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.search.domain.model
 
-data class VacancyItems (
+data class VacancyItems(
     val id: String,
     val name: String, // Название вакансии
     val areaName: String, // Город

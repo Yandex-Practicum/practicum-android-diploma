@@ -7,4 +7,4 @@ data class EmployerDto(
     val id: String,
     val name: String,
     @SerializedName("logo_urls") val logoUrls: LogoUrls? = null,
-): Serializable
+) : Serializable

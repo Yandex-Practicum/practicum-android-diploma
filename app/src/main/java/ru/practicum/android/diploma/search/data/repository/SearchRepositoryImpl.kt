@@ -8,7 +8,6 @@ import ru.practicum.android.diploma.common.data.Mapper
 import ru.practicum.android.diploma.common.data.dto.SearchVacancyRequest
 import ru.practicum.android.diploma.common.data.dto.SearchVacancyResponse
 import ru.practicum.android.diploma.common.data.network.RetrofitNetworkClient
-import ru.practicum.android.diploma.common.util.ConnectivityManager
 import ru.practicum.android.diploma.search.domain.model.SearchQueryParams
 import ru.practicum.android.diploma.search.domain.model.SearchViewState
 import ru.practicum.android.diploma.search.domain.repository.SearchRepository
@@ -16,8 +15,8 @@ import ru.practicum.android.diploma.search.domain.repository.SearchRepository
 class SearchRepositoryImpl(
     private val networkClient: RetrofitNetworkClient,
     private val mapper: Mapper,
- //   private val check: ConnectivityManager
-    ) : SearchRepository {
+    //   private val check: ConnectivityManager
+) : SearchRepository {
 
     override suspend fun searchVacancy(expression: SearchQueryParams): Flow<SearchViewState> = flow {
 //        if (!check.isConnected()) {
@@ -25,24 +24,23 @@ class SearchRepositoryImpl(
 //        }
         val response = networkClient.doRequest(SearchVacancyRequest(expression))
         when (response.resultCode) {
-            200 ->{
+            200 -> {
                 val result = (response as SearchVacancyResponse).items
-                if (result.isEmpty()){
+                if (result.isEmpty()) {
                     emit(SearchViewState.NotFoundError)
-                }else{
+                } else {
                     val data = response.items.map {
                         mapper.map(it as SearchVacancyResponse)
                     }
                     emit(SearchViewState.Success(data))
                 }
             }
-            400 ->{
+            400 -> {
                 emit(SearchViewState.NotFoundError)
-            }else ->{
-            emit(SearchViewState.ServerError)
-        }
+            } else -> {
+                emit(SearchViewState.ServerError)
+            }
         }
     }.flowOn(Dispatchers.IO)
-
 
 }

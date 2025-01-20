@@ -8,14 +8,12 @@ data class Salary(
     fun getSalaryToString(salary: Salary?): String {
         return if (salary == null) {
             "Зарплата не указана"
-        } else
-            if (salary.from != null && salary.to != null) {
-                "от ${salary.from} до ${salary.to} " + salary.currency
-            } else
-                if (salary.from != null){
-                    "от ${salary.from} " + salary.currency
-                } else {
-                    "до ${salary.to} " + salary.currency
-                }
+        } else if (salary.from != null && salary.to != null) {
+            "от ${salary.from} до ${salary.to} " + salary.currency
+        } else if (salary.from != null) {
+            "от ${salary.from} " + salary.currency
+        } else {
+            "до ${salary.to} " + salary.currency
+        }
     }
 }
