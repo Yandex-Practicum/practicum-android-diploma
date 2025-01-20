@@ -10,11 +10,11 @@ import ru.practicum.android.diploma.databinding.FragmentFavouritesBinding
 
 class FavouritesFragment : Fragment() {
 
-    private lateinit var binding: FragmentFavouritesBinding
+    private var binding: FragmentFavouritesBinding? = null
 
 //    private val viewModel: FavouritesViewModel by viewModel()
 
-    private lateinit var templateTextView: TextView
+    private var templateTextView: TextView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,12 +22,12 @@ class FavouritesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentFavouritesBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        templateTextView = binding.templateText
+        templateTextView = binding?.templateText
     }
 }

@@ -10,11 +10,11 @@ import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 
 class SearchFragment : Fragment() {
 
-    private lateinit var binding: FragmentSearchBinding
+    private var binding: FragmentSearchBinding? = null
 
 //    private val viewModel: SearchViewModel by viewModel()
 
-    private lateinit var templateTextView: TextView
+    private var templateTextView: TextView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,12 +22,12 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSearchBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        templateTextView = binding.templateText
+        templateTextView = binding?.templateText
     }
 }

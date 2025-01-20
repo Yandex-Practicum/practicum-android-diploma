@@ -10,11 +10,11 @@ import ru.practicum.android.diploma.databinding.FragmentTeamBinding
 
 class TeamFragment : Fragment() {
 
-    private lateinit var binding: FragmentTeamBinding
+    private var binding: FragmentTeamBinding? = null
 
 //    private val viewModel: TeamViewModel by viewModel()
 
-    private lateinit var templateTextView: TextView
+    private var templateTextView: TextView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,12 +22,12 @@ class TeamFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentTeamBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        templateTextView = binding.templateText
+        templateTextView = binding?.templateText
     }
 }
