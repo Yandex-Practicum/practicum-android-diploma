@@ -42,7 +42,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">?attr/blackToWhite</item>
-        <item name="android:background">@color/white</item>
+        <item name="android:background">?attr/whiteToBlack</item>
         <item name="navigationIconTint">?attr/blackToWhite</item>
         <item name="titleTextAppearance">@style/MediumText22</item>
     </style>
@@ -58,5 +58,9 @@
 
     <style name="Teammate1TextStyle" parent="MediumText16">
         <item name="android:paddingTop">@dimen/teammate1_padding_top</item>
+    </style>
+
+    <style name="FragmentBgStyle">
+        <item name="android:background">?attr/whiteToBlack</item>
     </style>
 </resources>
