@@ -3,4 +3,10 @@
     <string name="menu_main_label">Главная</string>
     <string name="menu_favourites_label">Избранное</string>
     <string name="menu_team_label">Команда</string>
+    <string name="team_title">Над приложением работали</string>
+    <string name="teammate_nikita">Беляков Никита</string>
+    <string name="teammate_anna">Маёршина Анна</string>
+    <string name="teammate_andrey">Семёнов Андрей</string>
+    <string name="teammate_rustam">Фахрутдинов Рустам</string>
+    <string name="teammate_faina">Шигапова Фаина</string>
 </resources>

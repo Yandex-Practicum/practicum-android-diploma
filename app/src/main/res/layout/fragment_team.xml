@@ -1,16 +1,90 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.team.fragment.TeamFragment">
+    tools:context=".ui.team.fragment.TeamFragment"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/guidelines_left_right" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/guidelines_left_right" />
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        style="@style/SimpleToolbar"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+        app:title="@string/menu_team_label"
+        tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/templateText"
-        android:text="Команда"
+        android:id="@+id/title"
+        android:text="@string/team_title"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:textColor="@color/gray" />
-</LinearLayout>
+        android:layout_height="wrap_content"
+        style="@style/TeammateTitleTextStyle"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline" />
+
+    <TextView
+        android:id="@+id/teammate1"
+        android:text="@string/teammate_nikita"
+        android:layout_width="0dp"
+        style="@style/TeammatesTextStyle"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline" />
+
+    <TextView
+        android:id="@+id/teammate2"
+        android:text="@string/teammate_anna"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@style/TeammatesTextStyle"
+        app:layout_constraintTop_toBottomOf="@id/teammate1"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline" />
+
+    <TextView
+        android:id="@+id/teammate3"
+        android:text="@string/teammate_andrey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@style/TeammatesTextStyle"
+        app:layout_constraintTop_toBottomOf="@id/teammate2"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline" />
+
+    <TextView
+        android:id="@+id/teammate4"
+        android:text="@string/teammate_rustam"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@style/TeammatesTextStyle"
+        app:layout_constraintTop_toBottomOf="@id/teammate3"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline" />
+
+    <TextView
+        android:id="@+id/teammate5"
+        android:text="@string/teammate_faina"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@style/TeammatesTextStyle"
+        app:layout_constraintTop_toBottomOf="@id/teammate4"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
