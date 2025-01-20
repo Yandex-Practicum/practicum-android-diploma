@@ -4,16 +4,14 @@ import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
 import retrofit2.http.QueryMap
-import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.data.dto.VacanciesResponse
 import ru.practicum.android.diploma.data.dto.VacancyResponse
 
 interface VacancyApi {
-    @Headers(/*"Authorization: Bearer ${BuildConfig.HH_ACCESS_TOKEN}",*/
-        "HH-User-Agent: Application 17_android_team_4?locale=RU")
-    @GET("/vacancies/{vacancy_id}")
+    @Headers("HH-User-Agent: Application Practicum_17_android_team")
+    @GET("/vacancies/{vacancy_id}?locale=RU")
     suspend fun getVacancy(@Path("vacancy_id") id: String): VacancyResponse
-    @Headers("HH-User-Agent: Application 17_android_team_4")
+    @Headers("HH-User-Agent: Application Practicum_17_android_team")
     @GET("/vacancies")
     suspend fun searchVacancy(@QueryMap options: Map<String, String>): VacanciesResponse
 }
