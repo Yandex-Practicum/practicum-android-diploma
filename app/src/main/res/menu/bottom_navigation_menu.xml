@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/searchFragment"
+        android:icon="@drawable/ic_main_24"
+        android:title="@string/menu_main_label" />
+
+    <item
+        android:id="@+id/favouritesFragment"
+        android:icon="@drawable/ic_like_on_24"
+        android:title="@string/menu_favourites_label" />
+
+    <item
+        android:id="@+id/teamFragment"
+        android:icon="@drawable/ic_team_24"
+        android:title="@string/menu_team_label" />
+</menu>
