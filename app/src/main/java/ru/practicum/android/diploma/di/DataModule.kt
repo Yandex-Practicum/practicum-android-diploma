@@ -26,7 +26,7 @@ val dataModule = module {
             .create(HhApi::class.java)
     }
 
-    single(named("filterPrefs")) {
+    single(named(FILTER_PREFERENCES)) {
         androidContext()
             .getSharedPreferences(FILTER_PREFERENCES, Context.MODE_PRIVATE)
     }
