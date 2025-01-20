@@ -6,6 +6,7 @@
     tools:context=".ui.search.fragment.SearchFragment">
 
     <TextView
+        android:id="@+id/templateText"
         android:text="Поиск"
         android:layout_width="0dp"
         android:layout_height="match_parent"

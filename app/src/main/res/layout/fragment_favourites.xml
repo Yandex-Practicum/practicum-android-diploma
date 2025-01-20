@@ -6,6 +6,7 @@
     tools:context=".ui.favourites.fragment.FavouritesFragment">
 
     <TextView
+        android:id="@+id/templateText"
         android:text="Избранное"
         android:layout_width="0dp"
         android:layout_height="match_parent"
