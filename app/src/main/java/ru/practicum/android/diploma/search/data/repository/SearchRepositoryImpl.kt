@@ -8,6 +8,7 @@ import ru.practicum.android.diploma.common.data.Mapper
 import ru.practicum.android.diploma.common.data.dto.SearchVacancyRequest
 import ru.practicum.android.diploma.common.data.dto.SearchVacancyResponse
 import ru.practicum.android.diploma.common.data.network.RetrofitNetworkClient
+import ru.practicum.android.diploma.common.util.ConnectivityManager
 import ru.practicum.android.diploma.search.domain.model.SearchQueryParams
 import ru.practicum.android.diploma.search.domain.model.SearchViewState
 import ru.practicum.android.diploma.search.domain.repository.SearchRepository
@@ -15,10 +16,13 @@ import ru.practicum.android.diploma.search.domain.repository.SearchRepository
 class SearchRepositoryImpl(
     private val networkClient: RetrofitNetworkClient,
     private val mapper: Mapper,
+ //   private val check: ConnectivityManager
     ) : SearchRepository {
 
     override suspend fun searchVacancy(expression: SearchQueryParams): Flow<SearchViewState> = flow {
+//        if (!check.isConnected()) {
 
+//        }
         val response = networkClient.doRequest(SearchVacancyRequest(expression))
         when (response.resultCode) {
             200 ->{
