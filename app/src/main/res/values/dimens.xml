@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="text_input_cursor_width">2dp</dimen>
     <dimen name="item_vacancy_icon_width">48dp</dimen>
     <dimen name="item_vacancy_icon_height">48dp</dimen>
+    <dimen name="search_text_input_height">56dp</dimen>
     <dimen name="margin_8dp">8dp</dimen>
     <dimen name="margin_12dp">12dp</dimen>
     <dimen name="margin_begin_end_gl_16dp">16dp</dimen>
@@ -11,6 +13,7 @@
     <dimen name="sp_22">22sp</dimen>
     <dimen name="sp_16">16sp</dimen>
     <dimen name="sp_12">12sp</dimen>
+    <dimen name="radius_2">2dp</dimen>
     <dimen name="radius_12">12dp</dimen>
     <dimen name="stroke_1">1dp</dimen>
 

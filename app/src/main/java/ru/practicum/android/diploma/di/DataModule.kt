@@ -10,6 +10,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.AppDatabase
 import ru.practicum.android.diploma.common.data.network.HeadHunterApi
+import ru.practicum.android.diploma.common.project_constants.APP_DATA_BASE
+import ru.practicum.android.diploma.common.project_constants.APP_SHARED_PREFS
+import ru.practicum.android.diploma.common.project_constants.HH_BASE_URL
 import ru.practicum.android.diploma.common.util.Converter
 import ru.practicum.android.diploma.favorites.data.repository.FavoritesRepositoryImpl
 import ru.practicum.android.diploma.favorites.domain.repository.FavoriteRepository
@@ -24,7 +27,7 @@ val dataModule = module {
 
     single {
         androidContext().getSharedPreferences(
-            "app_shared_prefs",
+            APP_SHARED_PREFS,
             Context.MODE_PRIVATE
         )
     }
@@ -33,13 +36,13 @@ val dataModule = module {
         Room.databaseBuilder(
             androidApplication(),
             AppDatabase::class.java,
-            "database.db"
+            APP_DATA_BASE
         ).build()
     }
 
     single<HeadHunterApi> {
         Retrofit.Builder()
-            .baseUrl("https://api.hh.ru/")
+            .baseUrl(HH_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(HeadHunterApi::class.java)
@@ -49,19 +52,19 @@ val dataModule = module {
         Gson()
     }
 
-    single<FavoriteRepository> {
+    factory<FavoriteRepository> {
         FavoritesRepositoryImpl(get(), get(), get(), get(), androidApplication())
     }
 
-    single<FilterRepository> {
+    factory<FilterRepository> {
         FilterRepositoryImpl(get(), get(), get())
     }
 
-    single<SearchRepository> {
+    factory<SearchRepository> {
         SearchRepositoryImpl(get(), get())
     }
 
-    single<VacancyRepository> {
+    factory<VacancyRepository> {
         VacancyRepositoryImpl(get())
     }
 
