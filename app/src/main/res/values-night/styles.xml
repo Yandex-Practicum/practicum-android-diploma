@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <style name="SearchLine" parent="@style/TextRegular_16_400">
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:paddingStart">16dp</item>
+    </style>
+
+
+</resources>
