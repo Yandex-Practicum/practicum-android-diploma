@@ -15,13 +15,9 @@ import ru.practicum.android.diploma.search.domain.repository.SearchRepository
 class SearchRepositoryImpl(
     private val networkClient: RetrofitNetworkClient,
     private val mapper: Mapper,
-    //   private val check: ConnectivityManager
 ) : SearchRepository {
 
     override suspend fun searchVacancy(expression: SearchQueryParams): Flow<SearchViewState> = flow {
-//        if (!check.isConnected()) {
-
-//        }
         val response = networkClient.doRequest(SearchVacancyRequest(expression))
         when (response.resultCode) {
             200 -> {
@@ -29,9 +25,7 @@ class SearchRepositoryImpl(
                 if (result.isEmpty()) {
                     emit(SearchViewState.NotFoundError)
                 } else {
-                    val data = response.items.map {
-                        mapper.map(it as SearchVacancyResponse)
-                    }
+                    val data = mapper.map (response)
                     emit(SearchViewState.Success(data))
                 }
             }

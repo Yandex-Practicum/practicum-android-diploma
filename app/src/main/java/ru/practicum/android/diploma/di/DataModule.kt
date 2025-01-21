@@ -10,6 +10,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.AppDatabase
 import ru.practicum.android.diploma.common.data.network.HeadHunterApi
+import ru.practicum.android.diploma.common.data.network.NetworkClient
+import ru.practicum.android.diploma.common.data.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.common.util.Converter
 import ru.practicum.android.diploma.favorites.data.repository.FavoritesRepositoryImpl
 import ru.practicum.android.diploma.favorites.domain.repository.FavoriteRepository
@@ -43,6 +45,10 @@ val dataModule = module {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(HeadHunterApi::class.java)
+    }
+
+    single<NetworkClient> {
+        RetrofitNetworkClient(get(), get(), get())
     }
 
     single {
