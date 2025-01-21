@@ -15,5 +15,7 @@ class SearchItemViewHolder(
         }
     }
 
-    fun bind(vacancy: Vacancy){}
+    fun bind(vacancy: Vacancy){
+
+    }
 }

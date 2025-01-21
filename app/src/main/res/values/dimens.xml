@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="text_input_cursor_width">2dp</dimen>
+    <dimen name="search_hint_height">28dp</dimen>
     <dimen name="item_vacancy_icon_width">48dp</dimen>
     <dimen name="item_vacancy_icon_height">48dp</dimen>
     <dimen name="search_text_input_height">56dp</dimen>
+    <dimen name="margin_4dp">4dp</dimen>
     <dimen name="margin_8dp">8dp</dimen>
     <dimen name="margin_12dp">12dp</dimen>
     <dimen name="margin_begin_end_gl_16dp">16dp</dimen>
