@@ -1,13 +1,16 @@
 package ru.practicum.android.diploma.search.ui
 
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.ItemVacancyBinding
-import ru.practicum.android.diploma.search.domain.model.Vacancy
+import ru.practicum.android.diploma.search.domain.model.VacancyItems
 
 class SearchItemViewHolder(
     private val binding: ItemVacancyBinding,
-    onItemClicked: (position: Int) -> Unit
-): RecyclerView.ViewHolder(binding.root) {
+    onItemClicked: (position: Int) -> Unit,
+) : RecyclerView.ViewHolder(binding.root) {
 
     init {
         itemView.setOnClickListener {
@@ -15,7 +18,29 @@ class SearchItemViewHolder(
         }
     }
 
-    fun bind(vacancy: Vacancy){
+    fun bind(vacancy: VacancyItems) {
+        with(vacancy) {
+            upLoadImage(iconUrl, binding.vacancyIcon)
+            binding.job.text = getJobDescription(name, areaName)
+            binding.salary.text = salary.getSalaryToString()
+        }
+    }
 
+    private fun upLoadImage(url: String?, imageView: ImageView) {
+        Glide.with(binding.root.context)
+            .load(url)
+            .placeholder(R.drawable.ic_empty_ph)
+            .fitCenter()
+            .into(imageView)
+
+    }
+
+    private fun getJobDescription(job: String, areaName: String): String {
+        val jobDescription = if (areaName.isEmpty()) {
+            job
+        } else {
+            "${job}, ${areaName}"
+        }
+        return jobDescription
     }
 }

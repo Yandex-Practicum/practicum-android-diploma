@@ -5,13 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.databinding.ItemVacancyBinding
-import ru.practicum.android.diploma.search.domain.model.Vacancy
+import ru.practicum.android.diploma.search.domain.model.VacancyItems
 
 class SearchAdapter(
-    private val onItemClicked: (vacancy: Vacancy) -> Unit,
+    private val onItemClicked: (vacancy: VacancyItems) -> Unit,
 ) : RecyclerView.Adapter<SearchItemViewHolder>() {
 
-    private var vacancyList: List<Vacancy> = emptyList()
+    private var vacancyList: List<VacancyItems> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchItemViewHolder {
         val binding = ItemVacancyBinding.inflate(
@@ -37,7 +37,7 @@ class SearchAdapter(
         }
     }
 
-    fun updateItems(items: List<Vacancy>) {
+    fun updateItems(items: List<VacancyItems>) {
         val oldItems = this.vacancyList
         val newItemsList = items.toMutableList()
         val diffResult = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
