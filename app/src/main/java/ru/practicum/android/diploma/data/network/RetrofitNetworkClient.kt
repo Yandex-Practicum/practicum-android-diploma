@@ -6,14 +6,14 @@ import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.VacancyDescriptionRequest
-import ru.practicum.android.diploma.data.dto.VacancyRequest
+import ru.practicum.android.diploma.data.dto.VacanciesRequest
 
 class RetrofitNetworkClient(private val vacancyService: VacancyApi) : NetworkClient {
     override suspend fun doRequest(dto: Any): Response {
         return withContext(Dispatchers.IO) {
             try {
                 when (dto) {
-                    is VacancyRequest -> {
+                    is VacanciesRequest -> {
                         val resp = vacancyService.searchVacancy(dto.options)
                         resp.apply { resultCode = SuccessfulRequest }
                     }
