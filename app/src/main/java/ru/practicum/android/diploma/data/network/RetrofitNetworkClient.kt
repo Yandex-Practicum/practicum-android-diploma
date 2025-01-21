@@ -5,8 +5,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import ru.practicum.android.diploma.data.dto.Response
-import ru.practicum.android.diploma.data.dto.VacancyDescriptionRequest
 import ru.practicum.android.diploma.data.dto.VacanciesRequest
+import ru.practicum.android.diploma.data.dto.VacancyDescriptionRequest
 
 class RetrofitNetworkClient(private val vacancyService: VacancyApi) : NetworkClient {
     override suspend fun doRequest(dto: Any): Response {
