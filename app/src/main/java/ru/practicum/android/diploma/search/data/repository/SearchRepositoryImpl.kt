@@ -25,7 +25,7 @@ class SearchRepositoryImpl(
                 if (result.isEmpty()) {
                     emit(SearchViewState.NotFoundError)
                 } else {
-                    val data = mapper.map (response)
+                    val data = mapper.map(response)
                     emit(SearchViewState.Success(data))
                 }
             }
