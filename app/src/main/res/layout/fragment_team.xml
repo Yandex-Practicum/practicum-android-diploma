@@ -7,17 +7,17 @@
     tools:context=".presentation.ui.TeamFragment">
 
     <TextView
+        style="@style/TextMedium_22_500"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingStart="16dp"
         android:paddingTop="8dp"
         android:paddingEnd="8dp"
         android:paddingBottom="8dp"
-        android:text="Команда"
-        android:textColor="#1A1B22"
-        android:textSize="22sp" />
+        android:text="@string/team" />
 
     <TextView
+        style="@style/TextBold_32_700"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -25,75 +25,60 @@
         android:paddingTop="8dp"
         android:paddingEnd="16dp"
         android:paddingBottom="8dp"
-        android:text="Над приложением работали"
-        android:textColor="#1A1B22"
-        android:textSize="32sp" />
+        android:text="@string/work_on_application" />
 
     <TextView
+        style="@style/TextMedium_16_500"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:lineHeight="19sp"
         android:paddingStart="16dp"
         android:paddingEnd="8dp"
-        android:text="Никита Сергеевич"
-        android:textColor="#1A1B22"
-        android:textSize="16sp" />
+        android:text="Никита Сергеевич" />
 
     <TextView
+        style="@style/TextMedium_16_500"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:lineHeight="19sp"
         android:paddingStart="16dp"
         android:paddingEnd="8dp"
-        android:text="Данил Ремзиевич"
-        android:textColor="#1A1B22"
-        android:textSize="16sp" />
+        android:text="Данил Ремзиевич" />
 
     <TextView
+        style="@style/TextMedium_16_500"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:lineHeight="19sp"
         android:paddingStart="16dp"
         android:paddingEnd="8dp"
-        android:text="Тимофей Михайлович"
-        android:textColor="#1A1B22"
-        android:textSize="16sp" />
+        android:text="Тимофей Михайлович" />
 
     <TextView
+        style="@style/TextMedium_16_500"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:lineHeight="19sp"
         android:paddingStart="16dp"
         android:paddingEnd="8dp"
-        android:text="Геннадий Юрьевич"
-        android:textColor="#1A1B22"
-        android:textSize="16sp" />
+        android:text="Геннадий Юрьевич" />
 
     <TextView
+        style="@style/TextMedium_16_500"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:lineHeight="19sp"
         android:paddingStart="16dp"
         android:paddingEnd="8dp"
-        android:text="Михаил Иванович"
-        android:textColor="#1A1B22"
-        android:textSize="16sp" />
+        android:text="Михаил Иванович" />
 
     <TextView
+        style="@style/TextMedium_16_500"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:lineHeight="19sp"
         android:paddingStart="16dp"
         android:paddingEnd="8dp"
-        android:text="Егор"
-        android:textColor="#1A1B22"
-        android:textSize="16sp" />
-
+        android:text="Егор" />
 
 </LinearLayout>
