@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.data.network
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.VacancyDescriptionRequest
 import ru.practicum.android.diploma.data.dto.VacancyRequest
@@ -14,19 +15,19 @@ class RetrofitNetworkClient(private val vacancyService: VacancyApi) : NetworkCli
                 when (dto) {
                     is VacancyRequest -> {
                         val resp = vacancyService.searchVacancy(dto.options)
-                        resp.apply { resultCode = 200 }
+                        resp.apply { resultCode = SuccessfulRequest }
                     }
 
                     is VacancyDescriptionRequest -> {
                         val resp = vacancyService.getVacancy(dto.id)
-                        resp.apply { resultCode = 200 }
+                        resp.apply { resultCode = SuccessfulRequest }
                     }
 
                     else -> {
                         Response().apply { resultCode = BadRequest }
                     }
                 }
-            } catch (e: Exception) {
+            } catch (e: HttpException) {
                 Log.d(
                     "RETROFIT_LOG",
                     "${e.message}"
@@ -37,6 +38,7 @@ class RetrofitNetworkClient(private val vacancyService: VacancyApi) : NetworkCli
     }
 
     companion object {
+        const val SuccessfulRequest = 200
         const val BadRequest = 400
     }
 }
