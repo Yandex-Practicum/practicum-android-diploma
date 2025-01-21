@@ -2,22 +2,28 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <dimen name="design_bottom_navigation_text_size" tools:override="true">12sp</dimen>
     <dimen name="design_bottom_navigation_active_text_size" tools:override="true">12sp</dimen>
+
     <dimen name="dp_1">1dp</dimen>
     <dimen name="dp_2">2dp</dimen>
+    <dimen name="dp_4">4dp</dimen>
+    <dimen name="dp_8">8dp</dimen>
     <dimen name="dp_12">12dp</dimen>
+    <dimen name="dp_16">16dp</dimen>
     <dimen name="dp_20">20dp</dimen>
+    <dimen name="dp_24">24dp</dimen>
     <dimen name="dp_28">28dp</dimen>
+    <dimen name="dp_32">32dp</dimen>
     <dimen name="dp_48">48dp</dimen>
     <dimen name="dp_52">52dp</dimen>
+    <dimen name="dp_112">112dp</dimen>
+    <dimen name="dp_120">120dp</dimen>
+    <dimen name="dp_136">136dp</dimen>
+    <dimen name="dp_156">156dp</dimen>
+    <dimen name="dp_168">168dp</dimen>
+    <dimen name="dp_184">184dp</dimen>
 
     <dimen name="sp_12">12sp</dimen>
     <dimen name="sp_16">16sp</dimen>
     <dimen name="sp_22">22sp</dimen>
     <dimen name="sp_32">32sp</dimen>
-
-    <dimen name="guidelines_left_right">16dp</dimen>
-    <dimen name="teammates_title_margin_top">16dp</dimen>
-    <dimen name="teammates_title_padding_vertical">8dp</dimen>
-    <dimen name="teammate_padding_top">16dp</dimen>
-    <dimen name="teammate1_padding_top">24dp</dimen>
 </resources>

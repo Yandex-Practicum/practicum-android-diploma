@@ -1,91 +1,91 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.team.fragment.TeamFragment"
     style="@style/FragmentBgStyle"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    tools:context=".ui.team.fragment.TeamFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/leftGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="@dimen/guidelines_left_right" />
+        app:layout_constraintGuide_begin="@dimen/dp_16" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/rightGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="@dimen/guidelines_left_right" />
+        app:layout_constraintGuide_end="@dimen/dp_16" />
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         style="@style/SimpleToolbar"
-        app:layout_constraintStart_toStartOf="@id/leftGuideline"
         app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
         app:title="@string/menu_team_label"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/title"
-        android:text="@string/team_title"
+        style="@style/TeammateTitleTextStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        style="@style/TeammateTitleTextStyle"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        android:text="@string/team_title"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
-        app:layout_constraintEnd_toEndOf="@id/rightGuideline" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <TextView
         android:id="@+id/teammate1"
-        android:text="@string/teammate_nikita"
-        android:layout_width="0dp"
         style="@style/TeammatesTextStyle"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/title"
+        android:text="@string/teammate_nikita"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
-        app:layout_constraintEnd_toEndOf="@id/rightGuideline" />
+        app:layout_constraintTop_toBottomOf="@id/title" />
 
     <TextView
         android:id="@+id/teammate2"
-        android:text="@string/teammate_anna"
+        style="@style/TeammatesTextStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        style="@style/TeammatesTextStyle"
-        app:layout_constraintTop_toBottomOf="@id/teammate1"
+        android:text="@string/teammate_anna"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
-        app:layout_constraintEnd_toEndOf="@id/rightGuideline" />
+        app:layout_constraintTop_toBottomOf="@id/teammate1" />
 
     <TextView
         android:id="@+id/teammate3"
-        android:text="@string/teammate_andrey"
+        style="@style/TeammatesTextStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        style="@style/TeammatesTextStyle"
-        app:layout_constraintTop_toBottomOf="@id/teammate2"
+        android:text="@string/teammate_andrey"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
-        app:layout_constraintEnd_toEndOf="@id/rightGuideline" />
+        app:layout_constraintTop_toBottomOf="@id/teammate2" />
 
     <TextView
         android:id="@+id/teammate4"
-        android:text="@string/teammate_rustam"
+        style="@style/TeammatesTextStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        style="@style/TeammatesTextStyle"
-        app:layout_constraintTop_toBottomOf="@id/teammate3"
+        android:text="@string/teammate_rustam"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
-        app:layout_constraintEnd_toEndOf="@id/rightGuideline" />
+        app:layout_constraintTop_toBottomOf="@id/teammate3" />
 
     <TextView
         android:id="@+id/teammate5"
-        android:text="@string/teammate_faina"
+        style="@style/TeammatesTextStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        style="@style/TeammatesTextStyle"
-        app:layout_constraintTop_toBottomOf="@id/teammate4"
+        android:text="@string/teammate_faina"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
-        app:layout_constraintEnd_toEndOf="@id/rightGuideline" />
+        app:layout_constraintTop_toBottomOf="@id/teammate4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

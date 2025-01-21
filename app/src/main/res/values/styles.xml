@@ -46,16 +46,16 @@
     </style>
 
     <style name="TeammateTitleTextStyle" parent="BoldText32">
-        <item name="android:layout_marginTop">@dimen/teammates_title_margin_top</item>
-        <item name="android:paddingVertical">@dimen/teammates_title_padding_vertical</item>
+        <item name="android:layout_marginTop">@dimen/dp_16</item>
+        <item name="android:paddingVertical">@dimen/dp_8</item>
     </style>
 
     <style name="TeammatesTextStyle" parent="MediumText16">
-        <item name="android:paddingTop">@dimen/teammate_padding_top</item>
+        <item name="android:paddingTop">@dimen/dp_16</item>
     </style>
 
     <style name="Teammate1TextStyle" parent="MediumText16">
-        <item name="android:paddingTop">@dimen/teammate1_padding_top</item>
+        <item name="android:paddingTop">@dimen/dp_24</item>
     </style>
 
     <style name="FragmentBgStyle">
