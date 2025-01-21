@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <style name="TextMedium_22_500">
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="fontWeight">500</item>
+        <item name="android:textSize">@dimen/text_22</item>
+        
+    </style>
+    
+    <style name="TextRegular_16_400">
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="fontWeight">400</item>
+        <item name="android:textSize">@dimen/text_16</item>
+    </style>
+    
+    <style name="TextBold_32_700">
+        <item name="android:fontFamily">@font/ys_display_bold</item>
+        <item name="fontWeight">700</item>
+        <item name="android:textSize">@dimen/text_32</item>
+    </style>
+
+    <style name="Toolbar" parent="@style/TextMedium_22_500">
+        <item name="maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="ButtonSelect" parent="@style/TextMedium_22_500">
+        <item name="android:textSize">@dimen/text_16</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="cornerRadius">12dp</item>
+    </style>
+
+    <style name="ButtonReset" parent="@style/TextMedium_22_500">
+        <item name="android:textSize">@dimen/text_16</item>
+        <item name="android:textColor">@color/red</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="cornerRadius">12dp</item>
+    </style>
+    
+    <style name="ChoiceList" parent="@style/TextRegular_16_400">
+    </style>
+
+    <style name="SearchLine" parent="@style/TextRegular_16_400">
+        <item name="android:textColorHint">@color/dark_gray</item>
+        <item name="android:paddingStart">16dp</item>
+    </style>
+
+    <style name="placeholderSearch" parent="@style/TextRegular_16_400">
+        <item name="android:background">@drawable/placeholder_search</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:radius">12dp</item>
+        <item name="android:paddingVertical">4dp</item>
+        <item name="android:paddingHorizontal">12dp</item>
+    </style>
+
+</resources>
