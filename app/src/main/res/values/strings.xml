@@ -13,4 +13,6 @@
     <string name="fio">Новаковская Светлана Александровна\nПотакин Владислав Николаевич\nСатин Максим Владимирович\nСпиридонов Давид Сергеевич\nЦыпленков Данил Олегович</string>
     <string name="menu_main">Главная</string>
     <string name="text_input_hint">Введите запрос</string>
+    <string name="no_connection_text_hint">Нет интернета</string>
+    <string name="no_vacancies_found_text_hint">Не удалось получить\nсписок вакансий</string>
 </resources>

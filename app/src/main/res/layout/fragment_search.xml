@@ -77,13 +77,15 @@
         app:layout_constraintTop_toTopOf="@id/textInput" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/searchVacanciesRV"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textInput"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:listitem="@layout/item_vacancy"/>
+        tools:listitem="@layout/item_vacancy"
+        android:visibility="gone"/>
     
     <TextView
         android:id="@+id/textHint"
@@ -100,4 +102,90 @@
         app:layout_constraintTop_toBottomOf="@id/textInput"
         app:layout_constraintStart_toStartOf="@id/textInput"
         app:layout_constraintEnd_toEndOf="@id/textInput"/>
+
+    <ImageView
+        android:id="@+id/initScreenPH"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/init_screen_ph"
+        android:layout_marginHorizontal="@dimen/margin_begin_end_gl_16dp"
+        app:layout_constraintTop_toBottomOf="@id/textInput"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="visible"/>
+
+
+<LinearLayout
+    android:id="@+id/noConnectionPH"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    app:layout_constraintTop_toBottomOf="@id/textInput"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:orientation="vertical"
+    android:visibility="gone">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/ph_height"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_136"
+        android:layout_marginHorizontal="@dimen/margin_begin_end_gl_16dp"
+        android:src="@drawable/no_connection_ph"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textInput" />
+
+    <TextView
+        android:id="@+id/noConnectionTextHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_begin_end_gl_16dp"
+        android:layout_marginHorizontal="@dimen/margin_46"
+        android:text="@string/no_connection_text_hint"
+        android:textAppearance="@style/TextMedium_22"
+        android:textColor="?attr/colorOnPrimary"/>
+</LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/noVacanciesFoundPH"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/textHint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/ph_height"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_104"
+            android:layout_marginHorizontal="@dimen/margin_begin_end_gl_16dp"
+            android:src="@drawable/failed_to_load_vacancies_ph"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textInput" />
+
+        <TextView
+            android:id="@+id/noVacanciesFoundPHTextHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/margin_begin_end_gl_16dp"
+            android:layout_marginHorizontal="@dimen/margin_46"
+            android:text="@string/no_vacancies_found_text_hint"
+            android:textAppearance="@style/TextMedium_22"
+            android:textColor="?attr/colorOnPrimary"/>
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

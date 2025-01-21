@@ -33,7 +33,6 @@ class SearchAdapter(
     override fun onBindViewHolder(holder: SearchItemViewHolder, position: Int) {
         vacancyList.getOrNull(position)?.let { vacancy ->
             holder.bind(vacancy)
-
         }
     }
 

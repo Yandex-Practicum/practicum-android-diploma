@@ -20,27 +20,25 @@ class SearchItemViewHolder(
 
     fun bind(vacancy: VacancyItems) {
         with(vacancy) {
-            upLoadImage(iconUrl, binding.vacancyIcon)
+            uploadImage(iconUrl, binding.vacancyIcon)
             binding.job.text = getJobDescription(name, areaName)
-            binding.salary.text = salary.getSalaryToString()
+            binding.employer.text = employer
+            binding.salary.text = salary?.getSalaryToString()
         }
     }
 
-    private fun upLoadImage(url: String?, imageView: ImageView) {
+    private fun uploadImage(url: String?, imageView: ImageView) {
         Glide.with(binding.root.context)
             .load(url)
             .placeholder(R.drawable.ic_empty_ph)
             .fitCenter()
             .into(imageView)
-
     }
 
     private fun getJobDescription(job: String, areaName: String): String {
-        val jobDescription = if (areaName.isEmpty()) {
-            job
-        } else {
-            "${job}, ${areaName}"
+        return when {
+            areaName.isEmpty() -> job
+            else -> "${job}, ${areaName}"
         }
-        return jobDescription
     }
 }

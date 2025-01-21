@@ -5,12 +5,16 @@
     <dimen name="item_vacancy_icon_width">48dp</dimen>
     <dimen name="item_vacancy_icon_height">48dp</dimen>
     <dimen name="search_text_input_height">56dp</dimen>
+    <dimen name="ph_height">233dp</dimen>
     <dimen name="margin_4dp">4dp</dimen>
     <dimen name="margin_8dp">8dp</dimen>
     <dimen name="margin_12dp">12dp</dimen>
     <dimen name="margin_begin_end_gl_16dp">16dp</dimen>
     <dimen name="margin_24">24dp</dimen>
+    <dimen name="margin_46">46dp</dimen>
     <dimen name="margin_64">64dp</dimen>
+    <dimen name="margin_104">104dp</dimen>
+    <dimen name="margin_136">136dp</dimen>
     <dimen name="sp_32">32sp</dimen>
     <dimen name="sp_22">22sp</dimen>
     <dimen name="sp_16">16sp</dimen>
