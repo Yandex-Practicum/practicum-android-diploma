@@ -14,12 +14,12 @@ class RetrofitNetworkClient(private val vacancyService: VacancyApi) : NetworkCli
                 when (dto) {
                     is VacancyRequest -> {
                         val resp = vacancyService.searchVacancy(dto.options)
-                        resp.apply { resultCode= 200 }
+                        resp.apply { resultCode = 200 }
                     }
 
                     is VacancyDescriptionRequest -> {
                         val resp = vacancyService.getVacancy(dto.id)
-                        resp.apply { resultCode= 200 }
+                        resp.apply { resultCode = 200 }
                     }
 
                     else -> {

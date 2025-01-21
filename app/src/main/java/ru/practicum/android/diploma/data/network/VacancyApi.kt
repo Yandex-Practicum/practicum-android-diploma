@@ -11,6 +11,7 @@ interface VacancyApi {
     @Headers("HH-User-Agent: Application Practicum_17_android_team")
     @GET("/vacancies/{vacancy_id}?locale=RU")
     suspend fun getVacancy(@Path("vacancy_id") id: String): VacancyResponse
+
     @Headers("HH-User-Agent: Application Practicum_17_android_team")
     @GET("/vacancies")
     suspend fun searchVacancy(@QueryMap options: Map<String, String>): VacanciesResponse
