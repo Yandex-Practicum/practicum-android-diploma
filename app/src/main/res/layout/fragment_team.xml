@@ -1,13 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".presentation.ui.TeamFragment">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Экран с описанием команды" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="8dp"
+        android:text="Команда"
+        android:textColor="#1A1B22"
+        android:textSize="22sp" />
 
-</FrameLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp"
+        android:text="Над приложением работали"
+        android:textColor="#1A1B22"
+        android:textSize="32sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:lineHeight="19sp"
+        android:paddingStart="16dp"
+        android:paddingEnd="8dp"
+        android:text="Никита Сергеевич"
+        android:textColor="#1A1B22"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:lineHeight="19sp"
+        android:paddingStart="16dp"
+        android:paddingEnd="8dp"
+        android:text="Данил Ремзиевич"
+        android:textColor="#1A1B22"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:lineHeight="19sp"
+        android:paddingStart="16dp"
+        android:paddingEnd="8dp"
+        android:text="Тимофей Михайлович"
+        android:textColor="#1A1B22"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:lineHeight="19sp"
+        android:paddingStart="16dp"
+        android:paddingEnd="8dp"
+        android:text="Геннадий Юрьевич"
+        android:textColor="#1A1B22"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:lineHeight="19sp"
+        android:paddingStart="16dp"
+        android:paddingEnd="8dp"
+        android:text="Михаил Иванович"
+        android:textColor="#1A1B22"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:lineHeight="19sp"
+        android:paddingStart="16dp"
+        android:paddingEnd="8dp"
+        android:text="Егор"
+        android:textColor="#1A1B22"
+        android:textSize="16sp" />
+
+
+</LinearLayout>
