@@ -1,3 +1,49 @@
 <resources>
-    <string name="app_name">Practicum-Android-Diploma</string>
+    <string name="app_name" translatable="false">Practicum-Android-Diploma</string>
+    <string name="search_job" translatable="false">Поиск вакансий</string>
+    <string name="filtering_settings" translatable="false">Настройки фильтрации</string>
+
+    <string name="choice_of_work" translatable="false">Выбор места работы</string>
+    <string name="choice_of_country" translatable="false">Выбор страны</string>
+    <string name="choice_work" translatable="false">Выбор места работы</string>
+    <string name="choice_of_region" translatable="false">Выбор региона</string>
+    <string name="choice_of_industry" translatable="false">Выбор отрасли</string>
+
+    <string name="vacancy" translatable="false">Вакансия</string>
+
+    <string name="do_not_have_internet" translatable="false">Нет интернета</string>
+    <string name="server_error" translatable="false">Ошибка сервера</string>
+    <string name="Job_not_found_or_deleted" translatable="false">Вакансия не найдена или удалена</string>
+    <string name="list_is_empty" translatable="false">Список пуст</string>
+    <string name="could_not_get_job_list" translatable="false">Не удалось получить список вакансий</string>
+    <string name="no_such_region" translatable="false">Такого региона нет</string>
+    <string name="failed_to_get_list" translatable="false">Не удалось получить список</string>
+
+    <string name="team" translatable="false">Команда</string>
+    <string name="work_on_application" translatable="false">Над приложением работали</string>
+    <string name="do_not_show_without_pay" translatable="false">Не показывать без зарплаты</string>
+
+    <string name="enter_the_amount" translatable="false">Введите сумму</string>
+    <string name="enter_industry" translatable="false">Введите отрасль</string>
+    
+    <string name="the_expected_salary" translatable="false">Ожидаемая зарплата</string>
+
+    <string name="industry" translatable="false">Отрасль</string>
+    <string name="workplace" translatable="false">Место работы</string>
+    <string name="country" translatable="false">Страна</string>
+    <string name="region" translatable="false">Регион</string>
+    
+    <string name="apply" translatable="false">Применить</string>
+    <string name="reset" translatable="false">Сбросить</string>
+
+    <string name="main" translatable="false">Главная</string>
+    <string name="favorites" translatable="false">Избранное</string>
+
+    <string name="found" translatable="false">Найдено</string>
+    <string name="vacancies" translatable="false">вакансий</string>
+
+    <string name="enter_the_query" translatable="false">Введите запрос</string>
+    <string name="No_such_vacancies" translatable="false">Таких вакансий нет</string>
+
+    
 </resources>
