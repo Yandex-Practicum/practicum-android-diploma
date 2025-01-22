@@ -11,4 +11,8 @@
     <string name="teammate_faina">Шигапова Фаина</string>
     <string name="job_search">Поиск вакансий</string>
     <string name="hint_search">Введите запрос</string>
+    <string name="developer_С">Разработчик на С++ в команду внутренних сервисов, Москва</string>
+    <string name="avto_ru">Авто.ру</string>
+    <string name="salary_to_from">от 1 000 до 1 500 €</string>
+
 </resources>

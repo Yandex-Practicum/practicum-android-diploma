@@ -42,10 +42,6 @@
     <EditText
         android:id="@+id/edit_text_search"
         style="@style/EditTextStyle"
-        android:layout_width="@dimen/dp_0"
-        android:layout_height="wrap_content"
-        android:background="@drawable/shape_rounded_rectangle_48"
-        android:backgroundTint="@color/light_gray"
         android:fontFamily="@font/ys_display_regular"
         android:hint="@string/hint_search"
         android:padding="@dimen/dp_20"

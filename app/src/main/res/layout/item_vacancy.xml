@@ -30,7 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/image_view_vacancy_logo"
         app:layout_constraintTop_toTopOf="@id/image_view_vacancy_logo"
-        tools:text="Разработчик на С++ в команду внутренних сервисов, Москва" />
+        tools:text="@string/developer_С" />
 
     <TextView
         android:id="@+id/text_view_vacancy_employer"
@@ -41,7 +41,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/text_view_vacancy_title"
         app:layout_constraintTop_toBottomOf="@id/text_view_vacancy_title"
-        tools:text="Авто.ру" />
+        tools:text="@string/avto_ru" />
 
     <TextView
         android:id="@+id/text_view_vacancy_salary"
@@ -52,6 +52,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/text_view_vacancy_employer"
         app:layout_constraintTop_toBottomOf="@id/text_view_vacancy_employer"
-        tools:text="от 1 000 до 1 500 €" />
+        tools:text="@string/salary_to_from" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
