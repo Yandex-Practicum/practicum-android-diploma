@@ -7,6 +7,7 @@
         <item name="colorOnPrimary">@color/white</item> <!-- Основной цвет текста и иконок -->
         <item name="colorHint">@color/gray</item><!-- Цвет полей ввода -->
         <item name="colorTextOnAccent">@color/white</item><!-- Цвет текста на основном акцентном цвете(цвет текста на кнопках) -->
+        <item name="titleTextColor">@color/white</item><!-- Цвет заголовка -->
 
         <!-- Цвета статус-бара -->
         <item name="android:statusBarColor">@color/black</item> <!-- Цвет темного статус-бара -->

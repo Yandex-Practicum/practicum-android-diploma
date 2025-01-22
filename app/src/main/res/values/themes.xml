@@ -12,6 +12,7 @@
         <item name="colorTextOnAccent">@color/white</item><!-- Цвет текста на основном акцентном цвете(цвет текста на кнопках) -->
         <item name="colorRed">@color/red</item><!-- Акцентный красный цвет -->
         <item name="colorIcon">@color/gray</item><!-- Цвет иконки нижней навигации -->
+        <item name="titleTextColor">@color/black</item><!-- Цвет заголовка -->
 
         <!-- Цвета статус-бара -->
         <item name="android:statusBarColor">@color/white</item> <!-- Цвет светлого статус-бара -->

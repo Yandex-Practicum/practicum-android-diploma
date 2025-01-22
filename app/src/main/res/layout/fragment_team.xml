@@ -28,7 +28,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="@string/team"
-        app:titleTextAppearance="@style/TextMedium_22"/>
+        app:titleTextAppearance="@style/TextMedium_22"
+        app:titleTextColor="?attr/titleTextColor"/>
 
     <TextView
         android:id="@+id/header"
@@ -36,12 +37,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_24"
         android:lines="2"
-        app:layout_constraintTop_toBottomOf="@id/topBar"
-        app:layout_constraintStart_toStartOf="@id/glBegin"
-        app:layout_constraintEnd_toEndOf="@id/glEnd"
         android:text="@string/working_on_the_app"
         android:textAppearance="@style/TextBold_32"
-        android:textColor="?attr/colorOnPrimary"/>
+        android:textColor="?attr/colorOnPrimary"
+        app:layout_constraintEnd_toEndOf="@id/glEnd"
+        app:layout_constraintStart_toStartOf="@id/glBegin"
+        app:layout_constraintTop_toBottomOf="@id/topBar" />
 
     <TextView
         android:id="@+id/fio"

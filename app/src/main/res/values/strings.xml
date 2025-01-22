@@ -12,4 +12,6 @@
     <string name="working_on_the_app">Над приложением работали</string>
     <string name="fio">Новаковская Светлана Александровна\nПотакин Владислав Николаевич\nСатин Максим Владимирович\nСпиридонов Давид Сергеевич\nЦыпленков Данил Олегович</string>
     <string name="menu_main">Главная</string>
+    <string name="list_is_empty">Список пуст</string>
+    <string name="list_is_not_recieved">Не удалось получить\nсписок вакансий</string>
 </resources>

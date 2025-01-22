@@ -4,6 +4,7 @@
     <dimen name="item_vacancy_icon_height">48dp</dimen>
     <dimen name="margin_8dp">8dp</dimen>
     <dimen name="margin_12dp">12dp</dimen>
+    <dimen name="margin_16dp">16dp</dimen>
     <dimen name="margin_begin_end_gl_16dp">16dp</dimen>
     <dimen name="margin_24">24dp</dimen>
     <dimen name="margin_64">64dp</dimen>
@@ -13,5 +14,7 @@
     <dimen name="sp_12">12sp</dimen>
     <dimen name="radius_12">12dp</dimen>
     <dimen name="stroke_1">1dp</dimen>
+    <dimen name="placeholder_width">328dp</dimen>
+    <dimen name="placeholder_height">223dp</dimen>
 
 </resources>
