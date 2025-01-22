@@ -37,7 +37,7 @@ class SearchFragment : Fragment() {
             findNavController().navigate(R.id.action_searchFragment_to_filterSettingsFragment)
         }
         viewModel.observeState().observe(viewLifecycleOwner) {
-           // render(it)
+//           render(it)
         }
         viewModel.searchVacancy("Программист")
     }
@@ -48,6 +48,7 @@ class SearchFragment : Fragment() {
             SearchViewState.ConnectionError -> TODO()
             SearchViewState.NotFoundError -> TODO()
             SearchViewState.ServerError -> TODO()
+            else -> {}
         }
     }
 

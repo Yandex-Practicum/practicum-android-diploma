@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import ru.practicum.android.diploma.common.data.Mapper
+import ru.practicum.android.diploma.common.data.dto.Response
 import ru.practicum.android.diploma.common.data.dto.SearchVacancyRequest
 import ru.practicum.android.diploma.common.data.dto.SearchVacancyResponse
 import ru.practicum.android.diploma.common.data.network.RetrofitNetworkClient
@@ -20,7 +21,7 @@ class SearchRepositoryImpl(
     override suspend fun searchVacancy(expression: SearchQueryParams): Flow<SearchViewState> = flow {
         val response = networkClient.doRequest(SearchVacancyRequest(expression))
         when (response.resultCode) {
-            200 -> {
+            Response.SUCCESS_RESPONSE_CODE -> {
                 val result = (response as SearchVacancyResponse).items
                 if (result.isEmpty()) {
                     emit(SearchViewState.NotFoundError)
@@ -29,7 +30,7 @@ class SearchRepositoryImpl(
                     emit(SearchViewState.Success(data))
                 }
             }
-            400 -> {
+            Response.BAD_REQUEST_ERROR_CODE -> {
                 emit(SearchViewState.NotFoundError)
             } else -> {
                 emit(SearchViewState.ServerError)

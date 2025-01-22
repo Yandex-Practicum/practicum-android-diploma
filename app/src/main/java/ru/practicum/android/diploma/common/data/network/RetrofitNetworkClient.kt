@@ -14,27 +14,19 @@ class RetrofitNetworkClient(
 ) : NetworkClient {
     override suspend fun doRequest(dto: Any): Response =
         if (!connectivityManager.isConnected()) {
-            Response().apply { resultCode = NO_INTERNET_ERROR_CODE }
+            Response().apply { resultCode =  Response.NO_INTERNET_ERROR_CODE }
         } else {
             if (dto is SearchVacancyRequest) {
                 withContext(Dispatchers.IO) {
                     try {
                         val resp = headHunterApi.searchVacancies(mapper.map(dto.expression))
-                        resp.apply { resultCode = SUCCESS_RESPONSE_CODE }
+                        resp.apply { resultCode = Response.SUCCESS_RESPONSE_CODE }
                     } catch (e: Throwable) {
-                        Response().apply { resultCode = INTERNAL_SERVER_ERROR_CODE }
+                        Response().apply { resultCode = Response.INTERNAL_SERVER_ERROR_CODE }
                     }
                 }
             } else {
-                Response().apply { resultCode = BAD_REQUEST_ERROR_CODE }
+                Response().apply { resultCode = Response.BAD_REQUEST_ERROR_CODE }
             }
         }
-
-    companion object {
-        const val NO_INTERNET_ERROR_CODE = -1
-        const val SUCCESS_RESPONSE_CODE = 200
-        const val BAD_REQUEST_ERROR_CODE = 400
-        const val INTERNAL_SERVER_ERROR_CODE = 500
-    }
-
 }
