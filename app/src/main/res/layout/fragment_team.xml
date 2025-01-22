@@ -34,7 +34,7 @@
         android:layout_marginTop="24dp"
         android:paddingStart="16dp"
         android:paddingEnd="8dp"
-        android:text="Никита Сергеевич" />
+        android:text="@string/Nikita" />
 
     <TextView
         style="@style/TextMedium_16_500"
@@ -43,7 +43,7 @@
         android:layout_marginTop="16dp"
         android:paddingStart="16dp"
         android:paddingEnd="8dp"
-        android:text="Данил Ремзиевич" />
+        android:text="@string/Daniil" />
 
     <TextView
         style="@style/TextMedium_16_500"
@@ -52,7 +52,7 @@
         android:layout_marginTop="16dp"
         android:paddingStart="16dp"
         android:paddingEnd="8dp"
-        android:text="Тимофей Михайлович" />
+        android:text="@string/Timofey" />
 
     <TextView
         style="@style/TextMedium_16_500"
@@ -61,7 +61,7 @@
         android:layout_marginTop="16dp"
         android:paddingStart="16dp"
         android:paddingEnd="8dp"
-        android:text="Геннадий Юрьевич" />
+        android:text="@string/Gennadi" />
 
     <TextView
         style="@style/TextMedium_16_500"
@@ -70,7 +70,7 @@
         android:layout_marginTop="16dp"
         android:paddingStart="16dp"
         android:paddingEnd="8dp"
-        android:text="Михаил Иванович" />
+        android:text="@string/Mihail" />
 
     <TextView
         style="@style/TextMedium_16_500"
@@ -79,6 +79,6 @@
         android:layout_marginTop="16dp"
         android:paddingStart="16dp"
         android:paddingEnd="8dp"
-        android:text="Егор" />
+        android:text="@string/Egor" />
 
 </LinearLayout>
