@@ -1,0 +1,109 @@
+package ru.practicum.android.diploma.data.converters
+
+import ru.practicum.android.diploma.data.dto.AreaDto
+import ru.practicum.android.diploma.data.dto.EmployerDto
+import ru.practicum.android.diploma.data.dto.EmploymentFormDto
+import ru.practicum.android.diploma.data.dto.ExperienceDto
+import ru.practicum.android.diploma.data.dto.LogoUrlsDto
+import ru.practicum.android.diploma.data.dto.SalaryDto
+import ru.practicum.android.diploma.data.dto.ScheduleDto
+import ru.practicum.android.diploma.data.dto.VacanciesResponseDto
+import ru.practicum.android.diploma.data.dto.VacancyDto
+import ru.practicum.android.diploma.domain.models.Area
+import ru.practicum.android.diploma.domain.models.Employer
+import ru.practicum.android.diploma.domain.models.EmploymentForm
+import ru.practicum.android.diploma.domain.models.Experience
+import ru.practicum.android.diploma.domain.models.LogoUrls
+import ru.practicum.android.diploma.domain.models.Salary
+import ru.practicum.android.diploma.domain.models.Schedule
+import ru.practicum.android.diploma.domain.models.VacanciesResponse
+import ru.practicum.android.diploma.domain.models.Vacancy
+
+class VacanciesConverter {
+
+    fun convertCut(response: VacanciesResponseDto): VacanciesResponse {
+        return with(response) {
+            VacanciesResponse(
+                found = this.found,
+                items = items.map {
+                    it.toVacancyCut()
+                }
+            )
+        }
+    }
+
+    // для запроса деталей вакансии (задача 30)
+    fun convertFull(response: VacancyDto): Vacancy {
+        return Vacancy(
+            vacancyId = response.vacancyId,
+            name = response.name,
+            area = response.area?.toArea(),
+            employer = response.employer?.toEmployer(),
+            salary = response.salary?.toSalary(),
+            experience = response.experience?.toExperience(),
+            employmentForm = response.employmentForm?.toEmploymentForm(),
+            schedule = response.schedule?.toSchedule()
+        )
+    }
+
+    // для запроса списка вакансия (все поля не нужны, поэтому они null)
+    private fun VacancyDto.toVacancyCut(): Vacancy {
+        return Vacancy(
+            vacancyId = this.vacancyId,
+            name = this.name,
+            area = this.area?.toArea(),
+            employer = this.employer?.toEmployer(),
+            salary = this.salary?.toSalary(),
+            experience = null,
+            employmentForm = null,
+            schedule = null
+        )
+    }
+
+    private fun AreaDto.toArea(): Area {
+        return Area(
+            name = this.name,
+        )
+    }
+
+    private fun EmployerDto.toEmployer(): Employer {
+        return Employer(
+            name = this.name,
+            logoUrls = this.logoUrls?.toLogoUrls()
+        )
+    }
+
+    private fun LogoUrlsDto.toLogoUrls(): LogoUrls {
+        return LogoUrls(
+            original = this.original,
+            size90 = this.size90,
+            size240 = this.size240
+        )
+    }
+
+    private fun SalaryDto.toSalary(): Salary {
+        return Salary(
+            currency = this.currency,
+            from = this.from,
+            to = this.to
+        )
+    }
+
+    private fun ExperienceDto.toExperience(): Experience {
+        return Experience(
+            name = this.name
+        )
+    }
+
+    private fun EmploymentFormDto.toEmploymentForm(): EmploymentForm {
+        return EmploymentForm(
+            name = this.name
+        )
+    }
+
+    private fun ScheduleDto.toSchedule(): Schedule {
+        return Schedule(
+            name = this.name
+        )
+    }
+}

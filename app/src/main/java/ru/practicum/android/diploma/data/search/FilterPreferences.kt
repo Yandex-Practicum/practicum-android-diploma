@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data
+package ru.practicum.android.diploma.data.search
 
 interface FilterPreferences {
     suspend fun savePlace(city: String)

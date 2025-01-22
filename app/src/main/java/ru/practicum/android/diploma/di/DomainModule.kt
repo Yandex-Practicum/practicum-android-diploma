@@ -1,9 +1,10 @@
 package ru.practicum.android.diploma.di
 
-import com.google.gson.Gson
 import org.koin.dsl.module
+import ru.practicum.android.diploma.domain.search.usecase.GetVacanciesUseCase
 
 val domainModule = module {
-    // заглушка (чтобы проект собрался), потом убрать
-    factory { Gson() }
+    factory<GetVacanciesUseCase> {
+        GetVacanciesUseCase(get())
+    }
 }
