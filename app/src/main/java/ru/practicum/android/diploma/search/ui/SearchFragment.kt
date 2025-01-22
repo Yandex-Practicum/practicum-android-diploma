@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
+import ru.practicum.android.diploma.search.domain.model.SearchViewState
 import ru.practicum.android.diploma.search.presentation.viewmodel.SearchViewModel
 
 class SearchFragment : Fragment() {
@@ -36,19 +37,19 @@ class SearchFragment : Fragment() {
             findNavController().navigate(R.id.action_searchFragment_to_filterSettingsFragment)
         }
         viewModel.observeState().observe(viewLifecycleOwner) {
-//           render(it)
+          // render(it)
         }
         viewModel.searchVacancy("Программист")
     }
-//    private fun render(state: SearchViewState) {
-//        when (state) {
-//            is SearchViewState.Success -> TODO()
-//            is SearchViewState.Loading -> TODO()
-//            SearchViewState.ConnectionError -> TODO()
-//            SearchViewState.NotFoundError -> TODO()
-//            SearchViewState.ServerError -> TODO()
-//            else -> {}
-//        }
-//    }
+    private fun render(state: SearchViewState) {
+        when (state) {
+            is SearchViewState.Success -> TODO()
+            is SearchViewState.Loading -> TODO()
+            SearchViewState.ConnectionError -> TODO()
+            SearchViewState.NotFoundError -> TODO()
+            SearchViewState.ServerError -> TODO()
+            else -> {}
+        }
+    }
 
 }
