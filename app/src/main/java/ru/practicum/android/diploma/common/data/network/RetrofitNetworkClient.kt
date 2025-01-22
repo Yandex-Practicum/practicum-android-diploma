@@ -24,9 +24,17 @@ class RetrofitNetworkClient(
                         val resp = headHunterApi.searchVacancies(mapper.map(dto.expression))
                         resp.apply { resultCode = Response.SUCCESS_RESPONSE_CODE }
                     } catch (e: HttpException) {
-                        Log.e("RetrofitNetworkClient", "Unexpected error: ${e.message}", e)
+                        Log.e("RetrofitNetworkClient", "HTTP error: ${e.message}", e)
                         Response().apply { resultCode = Response.INTERNAL_SERVER_ERROR_CODE }
                     }
+                    /** Сетевой клиент
+                     * @author Цыпленков Д.О.
+                     * Я бы добавил обработку и прочих исключений, но к сожалению с ней не проходит detekt
+                     *                     catch (e: Exception) {
+                     *                         Log.e("RetrofitNetworkClient", "Unexpected error: ${e.message}", e)
+                     *                         Response().apply { resultCode = Response.INTERNAL_SERVER_ERROR_CODE }
+                     *                     }
+                     * */
                 }
             } else {
                 Response().apply { resultCode = Response.BAD_REQUEST_ERROR_CODE }

@@ -18,7 +18,7 @@ class SearchRepositoryImpl(
     private val mapper: Mapper,
 ) : SearchRepository {
 
-    override suspend fun searchVacancy(expression: SearchQueryParams): Flow<SearchViewState> = flow {
+    override fun searchVacancy(expression: SearchQueryParams): Flow<SearchViewState> = flow {
         val response = networkClient.doRequest(SearchVacancyRequest(expression))
         when (response.resultCode) {
             Response.SUCCESS_RESPONSE_CODE -> {
