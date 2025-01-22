@@ -14,7 +14,6 @@ class SearchFragment : Fragment() {
 
 //    private val viewModel: SearchViewModel by viewModel()
 
-    private var templateTextView: TextView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,6 +27,6 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        templateTextView = binding?.templateText
+        // templateTextView = binding?.templateText
     }
 }

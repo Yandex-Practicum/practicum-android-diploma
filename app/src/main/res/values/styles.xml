@@ -61,4 +61,38 @@
     <style name="FragmentBgStyle">
         <item name="android:background">?attr/whiteToBlack</item>
     </style>
+
+    <style name="RoundedImageView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/dp_12</item>
+    </style>
+
+    <style name="PlaceholderTextStyle">
+        <item name="android:textColor">?attr/blackToWhite</item>
+        <item name="android:textSize">@dimen/sp_22</item>
+        <item name="fontFamily">@font/ys_display_medium</item>
+    </style>
+
+    <style name="EditTextStyle">
+        <item name="android:layout_width">@dimen/dp_0</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/shape_rounded_rectangle_48</item>
+        <item name="android:backgroundTint">@color/light_gray</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textColor">?attr/blackToWhite</item>
+        <item name="android:textColorHint">?attr/grayToWhite</item>
+        <item name="android:textCursorDrawable">@color/blue</item>
+        <item name="android:imeOptions">actionDone</item>
+        <item name="android:inputType">text</item>
+        <item name="android:maxLength">30</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="GuidelineStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
 </resources>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/dp_8">
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/image_view_vacancy_logo"
+        android:layout_width="@dimen/dp_48"
+        android:layout_height="@dimen/dp_48"
+        android:layout_marginStart="@dimen/dp_8"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_droid_placeholder_32"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/RoundedImageView"
+        app:strokeColor="@color/light_gray"
+        app:strokeWidth="@dimen/dp_1" />
+
+    <TextView
+        android:id="@+id/text_view_vacancy_title"
+        style="@style/MediumText22"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_12"
+        android:layout_marginEnd="@dimen/dp_8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/image_view_vacancy_logo"
+        app:layout_constraintTop_toTopOf="@id/image_view_vacancy_logo"
+        tools:text="Разработчик на С++ в команду внутренних сервисов, Москва" />
+
+    <TextView
+        android:id="@+id/text_view_vacancy_employer"
+        style="@style/RegularText16"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/text_view_vacancy_title"
+        app:layout_constraintTop_toBottomOf="@id/text_view_vacancy_title"
+        tools:text="Авто.ру" />
+
+    <TextView
+        android:id="@+id/text_view_vacancy_salary"
+        style="@style/RegularText16"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/text_view_vacancy_employer"
+        app:layout_constraintTop_toBottomOf="@id/text_view_vacancy_employer"
+        tools:text="от 1 000 до 1 500 €" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

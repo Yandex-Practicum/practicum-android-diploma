@@ -9,4 +9,6 @@
     <string name="teammate_andrey">Семёнов Андрей</string>
     <string name="teammate_rustam">Фахрутдинов Рустам</string>
     <string name="teammate_faina">Шигапова Фаина</string>
+    <string name="job_search">Поиск вакансий</string>
+    <string name="hint_search">Введите запрос</string>
 </resources>
