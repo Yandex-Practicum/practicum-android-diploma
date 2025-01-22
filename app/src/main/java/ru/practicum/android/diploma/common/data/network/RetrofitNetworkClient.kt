@@ -3,12 +3,10 @@ package ru.practicum.android.diploma.common.data.network
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import retrofit2.HttpException
 import ru.practicum.android.diploma.common.data.Mapper
 import ru.practicum.android.diploma.common.data.dto.Response
 import ru.practicum.android.diploma.common.data.dto.SearchVacancyRequest
 import ru.practicum.android.diploma.common.util.ConnectivityManager
-import java.io.IOException
 
 class RetrofitNetworkClient(
     private val headHunterApi: HeadHunterApi,
@@ -24,14 +22,6 @@ class RetrofitNetworkClient(
                     try {
                         val resp = headHunterApi.searchVacancies(mapper.map(dto.expression))
                         resp.apply { resultCode = Response.SUCCESS_RESPONSE_CODE }
-                    } catch (e: HttpException) {
-                        // Обработайте ошибки HTTP (например, 404, 500 и т.д.)
-                        Log.e("RetrofitNetworkClient", "HTTP error: ${e.code()}", e)
-                        Response().apply { resultCode = Response.INTERNAL_SERVER_ERROR_CODE }
-                    } catch (e: IOException) {
-                        // Обработайте ошибки ввода/вывода (например, проблемы с сетью)
-                        Log.e("RetrofitNetworkClient", "Network error: ${e.message}", e)
-                        Response().apply { resultCode = Response.NO_INTERNET_ERROR_CODE }
                     } catch (e: Exception) {
                         // Обработайте другие исключения, которые могут возникнуть
                         Log.e("RetrofitNetworkClient", "Unexpected error: ${e.message}", e)
