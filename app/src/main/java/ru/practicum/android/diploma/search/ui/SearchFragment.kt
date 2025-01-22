@@ -42,11 +42,11 @@ class SearchFragment : Fragment() {
     }
 /*    private fun render(state: SearchViewState) {
         when (state) {
-            is SearchViewState.Success -> TODO()
-            is SearchViewState.Loading -> TODO()
-            SearchViewState.ConnectionError -> TODO()
-            SearchViewState.NotFoundError -> TODO()
-            SearchViewState.ServerError -> TODO()
+            is SearchViewState.Success ->
+            is SearchViewState.Loading ->
+            SearchViewState.ConnectionError ->
+            SearchViewState.NotFoundError ->
+            SearchViewState.ServerError ->
             else -> {}
         }
     }
