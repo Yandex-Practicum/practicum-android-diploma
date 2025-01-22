@@ -5,7 +5,7 @@ data class Salary(
     val to: Int? = null,
     val currency: String
 ) {
-    fun getSalaryString(salary: Salary?): String {
+/*    fun getSalaryString(salary: Salary?): String {
         return if (salary == null) {
             "Зарплата не указана"
         } else if (salary.from != null && salary.to != null) {
@@ -16,4 +16,5 @@ data class Salary(
             "до ${salary.to} " + salary.currency
         }
     }
+*/
 }
