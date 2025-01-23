@@ -9,7 +9,10 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.AppDatabase
+import ru.practicum.android.diploma.common.data.Mapper
 import ru.practicum.android.diploma.common.data.network.HeadHunterApi
+import ru.practicum.android.diploma.common.data.network.RetrofitNetworkClient
+import ru.practicum.android.diploma.common.util.ConnectivityManager
 import ru.practicum.android.diploma.common.util.Converter
 import ru.practicum.android.diploma.favorites.data.repository.FavoritesRepositoryImpl
 import ru.practicum.android.diploma.favorites.domain.repository.FavoriteRepository
@@ -43,6 +46,18 @@ val dataModule = module {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(HeadHunterApi::class.java)
+    }
+
+    single<Mapper> {
+        Mapper()
+    }
+
+    single<ConnectivityManager> {
+        ConnectivityManager(androidApplication())
+    }
+
+    single<RetrofitNetworkClient> {
+        RetrofitNetworkClient(get(), get(), get())
     }
 
     single {
