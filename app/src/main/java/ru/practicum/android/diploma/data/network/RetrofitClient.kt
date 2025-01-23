@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.data.network
 
-import android.accounts.NetworkErrorException
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
