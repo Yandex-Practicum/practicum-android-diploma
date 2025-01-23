@@ -4,6 +4,7 @@ import android.accounts.NetworkErrorException
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.data.dto.VacanciesResponseDto
@@ -27,8 +28,8 @@ object RetrofitClient {
         return withContext(Dispatchers.IO) {
             try {
                 api.searchVacancies()
-            } catch (e: NetworkErrorException) {
-                Log.w("NetworkErrorException", e)
+            } catch (e: HttpException) {
+                Log.w("HttpException", e)
                 null
             }
         }
