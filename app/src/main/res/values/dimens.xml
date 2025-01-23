@@ -3,16 +3,19 @@
     <dimen name="design_bottom_navigation_text_size" tools:override="true">12sp</dimen>
     <dimen name="design_bottom_navigation_active_text_size" tools:override="true">12sp</dimen>
 
+    <dimen name="dp_0">0dp</dimen>
     <dimen name="dp_1">1dp</dimen>
     <dimen name="dp_2">2dp</dimen>
     <dimen name="dp_4">4dp</dimen>
     <dimen name="dp_8">8dp</dimen>
+    <dimen name="dp_11">11dp</dimen>
     <dimen name="dp_12">12dp</dimen>
     <dimen name="dp_16">16dp</dimen>
     <dimen name="dp_20">20dp</dimen>
     <dimen name="dp_24">24dp</dimen>
     <dimen name="dp_28">28dp</dimen>
     <dimen name="dp_32">32dp</dimen>
+    <dimen name="dp_46">46dp</dimen>
     <dimen name="dp_48">48dp</dimen>
     <dimen name="dp_52">52dp</dimen>
     <dimen name="dp_112">112dp</dimen>

@@ -1,17 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/FragmentBgStyle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/FragmentBgStyle"
-    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.search.fragment.SearchFragment">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftGuideline"
+        style="@style/GuidelineStyle"
+        app:layout_constraintGuide_begin="@dimen/dp_16" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightGuideline"
+        style="@style/GuidelineStyle"
+        app:layout_constraintGuide_end="@dimen/dp_16" />
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        style="@style/SimpleToolbar"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
+        app:title="@string/job_search"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="-3dp" />
+
+    <ImageView
+        android:id="@+id/button_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_8"
+        android:padding="@dimen/dp_12"
+        android:src="@drawable/ic_filter_off_24"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/toolbar"
+        tools:ignore="ContentDescription" />
+
+    <EditText
+        android:id="@+id/edit_text_search"
+        style="@style/EditTextStyle"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_search"
+        android:padding="@dimen/dp_20"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        tools:ignore="Autofill" />
+
+    <ImageView
+        android:id="@+id/image_view_edit_text_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_16"
+        android:src="@drawable/ic_search_24"
+        app:layout_constraintBottom_toBottomOf="@id/edit_text_search"
+        app:layout_constraintEnd_toEndOf="@id/edit_text_search"
+        app:layout_constraintTop_toTopOf="@id/edit_text_search"
+        tools:ignore="ContentDescription" />
+
     <TextView
-        android:id="@+id/templateText"
-        android:text="Поиск"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:id="@+id/text_view_vacancies"
+        style="@style/RegularWhiteText16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_11"
+        android:background="@drawable/shape_blue_pill_message"
+        android:paddingHorizontal="@dimen/dp_12"
+        android:paddingVertical="@dimen/dp_4"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_search"
+        tools:text="@string/there_are_no_such_vacancies"
+        tools:visibility="visible" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_search"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0"
+        android:layout_marginTop="@dimen/dp_46"
         android:layout_weight="1"
-        android:gravity="center"
-        android:textColor="@color/gray" />
-</LinearLayout>
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_search"
+        tools:ignore="MissingConstraints"
+        tools:itemCount="4"
+        tools:listitem="@layout/item_vacancy"
+        tools:visibility="visible" />
+
+    <include
+        android:id="@+id/placeholder"
+        layout="@layout/placeholder_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp_16"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar_search"
+        style="@style/ProgressBarStyle"
+        android:layout_width="@dimen/dp_48"
+        android:layout_height="@dimen/dp_48"
+        android:layout_gravity="center"
+        android:layout_marginVertical="@dimen/dp_16"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recycler_view_search"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
