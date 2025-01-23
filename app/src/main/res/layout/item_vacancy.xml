@@ -22,7 +22,7 @@
 
     <TextView
         android:id="@+id/text_view_vacancy_title"
-        style="@style/MediumText22"
+        style="@style/VacancyTitleStyle"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_12"
@@ -34,7 +34,7 @@
 
     <TextView
         android:id="@+id/text_view_vacancy_employer"
-        style="@style/RegularText16"
+        style="@style/VacancyEmployerStyle"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/dp_8"
@@ -45,7 +45,7 @@
 
     <TextView
         android:id="@+id/text_view_vacancy_salary"
-        style="@style/RegularText16"
+        style="@style/VacancySalary"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/dp_8"

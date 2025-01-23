@@ -42,7 +42,8 @@
     <EditText
         android:id="@+id/edit_text_search"
         style="@style/EditTextStyle"
-        android:fontFamily="@font/ys_display_regular"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
         android:hint="@string/hint_search"
         android:padding="@dimen/dp_20"
         app:layout_constraintEnd_toEndOf="@id/rightGuideline"
@@ -63,20 +64,18 @@
 
     <TextView
         android:id="@+id/text_view_vacancies"
+        style="@style/RegularWhiteText16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_11"
         android:background="@drawable/shape_blue_pill_message"
-        android:fontFamily="@font/ys_display_regular"
         android:paddingHorizontal="@dimen/dp_12"
         android:paddingVertical="@dimen/dp_4"
-        android:textColor="@color/white"
-        android:textSize="@dimen/sp_16"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edit_text_search"
-        tools:text="Таких вакансий нет"
+        tools:text="@string/there_are_no_such_vacancies"
         tools:visibility="visible" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -106,11 +105,11 @@
 
     <ProgressBar
         android:id="@+id/progress_bar_search"
+        style="@style/ProgressBarStyle"
         android:layout_width="@dimen/dp_48"
         android:layout_height="@dimen/dp_48"
         android:layout_gravity="center"
         android:layout_marginVertical="@dimen/dp_16"
-        android:indeterminateTint="@color/blue"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
