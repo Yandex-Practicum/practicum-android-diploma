@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.ActivityRootBinding
 
@@ -42,13 +41,5 @@ class RootActivity : AppCompatActivity() {
             }
         }
         bottomNavigationView.setupWithNavController(navController)
-
-        // Пример использования access token для HeadHunter API
-        networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
     }
-
-    private fun networkRequestExample(accessToken: String) {
-        // ...
-    }
-
 }

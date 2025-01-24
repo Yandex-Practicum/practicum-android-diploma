@@ -1,7 +1,9 @@
 package ru.practicum.android.diploma.data
 
-import ru.practicum.android.diploma.data.network.ApiResponse
+import ru.practicum.android.diploma.data.dto.VacanciesResponseDto
+import ru.practicum.android.diploma.data.dto.VacancyDto
 
 interface NetworkClient {
-    suspend fun doRequest(dto: Any): ApiResponse<Any>
+    suspend fun doRequestVacancies(): VacanciesResponseDto?
+    suspend fun doRequestVacancy(id: String): VacancyDto?
 }
