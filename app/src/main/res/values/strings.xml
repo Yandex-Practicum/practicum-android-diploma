@@ -52,8 +52,11 @@
     <string name="Gennadi">Геннадий Юрьевич</string>
     <string name="Mihail">Михаил Иванович</string>
     <string name="Egor">Егор</string>
+
     <string name="mock_item_vacancy_name">Senior Android разработчик, Москва</string>
     <string name="mock_item_vacancy_employer">Яндекс</string>
     <string name="mock_item_vacancy_salary">от 10 000 $</string>
+
+    <string name="item_vacancy_name">%1$s, %2$s</string>
 
 </resources>
