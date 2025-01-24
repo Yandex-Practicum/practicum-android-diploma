@@ -15,5 +15,26 @@
     <string name="avto_ru">Авто.ру</string>
     <string name="salary_to_from">от 1 000 до 1 500 €</string>
     <string name="there_are_no_such_vacancies">Таких вакансий нет</string>
-
+    <string name="vacancy">Вакансия</string>
+    <string name="experience">Требуемый опыт</string>
+    <string name="vacancy_description">Описание вакансии</string>
+    <string name="skills">Ключевые навыки</string>
+    <string name="job_description">
+        • Разрабатывать новую функциональность приложения\n
+        • Помогать с интеграцией нашего SDK в другие приложения\n
+        • Проектировать большие новые модули\n
+        • Писать UI- и unit-тесты\n
+        • Следить за работоспособностью сервиса и устранять технический долг
+    </string>
+    <string name="skills_description">
+        • Знание классических алгоритмов и структуры данных\n
+        • Программирование для Android больше одного года\n
+        • Знание WebRTC\n
+    </string>
+    <string name="vacancy_schedule">Полная занятость, Удаленная работа</string>
+    <string name="vacancy_experience_to_from">От 1 года до 3 лет</string>
+    <string name="moscow">Москва</string>
+    <string name="food">Еда</string>
+    <string name="vacancy_salary">от 100 000 ₽</string>
+    <string name="vacancy_name">Android-разработчик</string>
 </resources>

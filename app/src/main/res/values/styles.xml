@@ -123,5 +123,47 @@
         <item name="android:textFontWeight" tools:targetApi="p">400</item>
     </style>
 
+    <style name="VacancyDescriptionTextStyle" parent="RegularText16">
+        <item name="fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/sp_16</item>
+        <item name="android:textColor">?attr/blackToWhite</item>
+        <item name="android:textFontWeight" tools:targetApi="p">400</item>
+    </style>
 
+    <style name="VacancyNameTextStyle" parent="BoldText32">
+        <item name="android:textColor">?attr/blackToWhite</item>
+        <item name="android:textSize">@dimen/sp_32</item>
+        <item name="android:fontFamily">@font/ys_display_bold</item>
+    </style>
+
+    <style name="VacancySalaryTextStyle" parent="MediumText22">
+        <item name="android:textColor">?attr/blackToWhite</item>
+        <item name="android:textSize">@dimen/sp_22</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+    </style>
+
+    <style name="VacancyEmployerNameTextStyle" parent="MediumText22">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/sp_22</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+    </style>
+
+    <style name="VacancyEmployerCityTextStyle" parent="RegularText16">
+        <item name="fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/sp_16</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textFontWeight" tools:targetApi="p">400</item>
+    </style>
+
+    <style name="VacancyExperienceTextStyle" parent="MediumText22">
+        <item name="android:textColor">?attr/blackToWhite</item>
+        <item name="android:textSize">@dimen/dp_16</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+    </style>
+
+    <style name="VacancyDescriptionTitleTextStyle" parent="MediumText22">
+        <item name="android:textColor">?attr/blackToWhite</item>
+        <item name="android:textSize">@dimen/sp_22</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+    </style>
 </resources>

@@ -1,11 +1,25 @@
 package ru.practicum.android.diploma.ui.vacancy.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.vacancy.api.VacancyInteractor
 
 class VacancyViewModel(
     private val vacancyInteractor: VacancyInteractor,
 ) : ViewModel() {
+
+    // Временное решение для кнопок "Поделиться" и "Избранное"
+    private val _vacancy = MutableLiveData<Vacancy>()
+    val vacancy: LiveData<Vacancy> get() = _vacancy
+
+    private val _isFavorite = MutableLiveData<Boolean>(false)
+    val isFavorite: LiveData<Boolean> get() = _isFavorite
+
+    fun onFavoriteClicked() {
+        _isFavorite.value = _isFavorite.value?.not()
+    }
 
 //    private val searchResultData: MutableLiveData<SearchResult> =
 //        MutableLiveData(SearchResult.Empty)
