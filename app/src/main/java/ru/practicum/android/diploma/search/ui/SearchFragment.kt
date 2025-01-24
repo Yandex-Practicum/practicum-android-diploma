@@ -38,7 +38,7 @@ class SearchFragment : Fragment() {
         viewModel.observeState().observe(viewLifecycleOwner) {
 //           render(it)
         }
-        viewModel.searchVacancy("ываыацуацуауацув")
+        viewModel.searchVacancy("Программист")
     }
 /*    private fun render(state: SearchViewState) {
         when (state) {
