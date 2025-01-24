@@ -7,6 +7,7 @@ import ru.practicum.android.diploma.data.dto.ExperienceDto
 import ru.practicum.android.diploma.data.dto.LogoUrlsDto
 import ru.practicum.android.diploma.data.dto.SalaryDto
 import ru.practicum.android.diploma.data.dto.ScheduleDto
+import ru.practicum.android.diploma.data.dto.SkillDto
 import ru.practicum.android.diploma.data.dto.VacanciesResponseDto
 import ru.practicum.android.diploma.data.dto.VacancyDto
 import ru.practicum.android.diploma.domain.models.Area
@@ -16,6 +17,7 @@ import ru.practicum.android.diploma.domain.models.Experience
 import ru.practicum.android.diploma.domain.models.LogoUrls
 import ru.practicum.android.diploma.domain.models.Salary
 import ru.practicum.android.diploma.domain.models.Schedule
+import ru.practicum.android.diploma.domain.models.Skill
 import ru.practicum.android.diploma.domain.models.VacanciesResponse
 import ru.practicum.android.diploma.domain.models.Vacancy
 
@@ -42,11 +44,14 @@ class VacanciesConverter {
             salary = response.salary?.toSalary(),
             experience = response.experience?.toExperience(),
             employmentForm = response.employmentForm?.toEmploymentForm(),
-            schedule = response.schedule?.toSchedule()
+            employment = response.employment?.toEmploymentForm(),
+            schedule = response.schedule?.toSchedule(),
+            description = response.description,
+            keySkills = response.keySkills.map { it?.toSkill() }
         )
     }
 
-    // для запроса списка вакансия (все поля не нужны, поэтому они null)
+    // для запроса списка вакансий (все поля не нужны, поэтому они null)
     private fun VacancyDto.toVacancyCut(): Vacancy {
         return Vacancy(
             vacancyId = this.vacancyId,
@@ -56,7 +61,10 @@ class VacanciesConverter {
             salary = this.salary?.toSalary(),
             experience = null,
             employmentForm = null,
-            schedule = null
+            employment = null,
+            schedule = null,
+            description = null,
+            keySkills = emptyList()
         )
     }
 
@@ -103,6 +111,12 @@ class VacanciesConverter {
 
     private fun ScheduleDto.toSchedule(): Schedule {
         return Schedule(
+            name = this.name
+        )
+    }
+
+    private fun SkillDto.toSkill(): Skill {
+        return Skill(
             name = this.name
         )
     }

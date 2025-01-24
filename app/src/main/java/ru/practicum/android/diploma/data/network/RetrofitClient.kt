@@ -7,6 +7,7 @@ import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.data.dto.VacanciesResponseDto
+import ru.practicum.android.diploma.data.dto.VacancyDto
 
 object RetrofitClient {
 
@@ -27,6 +28,17 @@ object RetrofitClient {
         return withContext(Dispatchers.IO) {
             try {
                 api.searchVacancies()
+            } catch (e: HttpException) {
+                Log.w("HttpException", e)
+                null
+            }
+        }
+    }
+
+    suspend fun doRequestVacancy(id: String): VacancyDto? {
+        return withContext(Dispatchers.IO) {
+            try {
+                api.getVacancy(id)
             } catch (e: HttpException) {
                 Log.w("HttpException", e)
                 null

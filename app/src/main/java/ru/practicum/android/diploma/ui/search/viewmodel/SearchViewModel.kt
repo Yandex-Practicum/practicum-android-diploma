@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.practicum.android.diploma.domain.common.SearchResult
-import ru.practicum.android.diploma.domain.search.usecase.GetVacanciesUseCase
+import ru.practicum.android.diploma.domain.search.api.VacanciesInteractor
 
 class SearchViewModel(
-    private val getVacanciesUseCase: GetVacanciesUseCase,
+    private val vacanciesInteractor: VacanciesInteractor
 ) : ViewModel() {
 
     private val searchResultData: MutableLiveData<SearchResult> =
@@ -16,15 +16,15 @@ class SearchViewModel(
     fun searchResultLiveData(): LiveData<SearchResult> = searchResultData
 
 //    init {
-//        searchTracks()
+//        searchVacancies()
 //    }
 //
-//    private fun searchTracks() {
+//    private fun searchVacancies() {
 //        var searchResult: SearchResult = SearchResult.Loading
 //        searchResultData.postValue(searchResult)
 //
 //        viewModelScope.launch {
-//            getVacanciesUseCase
+//            vacanciesInteractor
 //                .execute()
 //                .collect { result ->
 //                    searchResult = if (result != null) {
@@ -40,8 +40,13 @@ class SearchViewModel(
 //                    } else {
 //                        SearchResult.Error
 //                    }
+//                    /*
+//                   еще потом докинуть условие в каком случае нет интернета
+//                   то есть в каком случае возращать SearchResult.NoConnection (задача 27)
+//                    */
 //                    searchResultData.postValue(searchResult)
 //                }
 //        }
 //    }
+
 }

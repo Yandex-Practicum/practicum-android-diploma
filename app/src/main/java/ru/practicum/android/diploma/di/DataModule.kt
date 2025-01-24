@@ -9,7 +9,9 @@ import org.koin.dsl.module
 import ru.practicum.android.diploma.data.converters.VacanciesConverter
 import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.data.search.VacanciesRepositoryImpl
+import ru.practicum.android.diploma.data.vacancy.VacancyRepositoryImpl
 import ru.practicum.android.diploma.domain.search.api.VacanciesRepository
+import ru.practicum.android.diploma.domain.vacancy.api.VacancyRepository
 
 const val FILTER_KEY = "key_for_filter"
 const val FILTER_PREFERENCES = "filter_preferences"
@@ -37,5 +39,9 @@ val dataModule = module {
 
     single<VacanciesRepository> {
         VacanciesRepositoryImpl(get())
+    }
+
+    single<VacancyRepository> {
+        VacancyRepositoryImpl(get())
     }
 }

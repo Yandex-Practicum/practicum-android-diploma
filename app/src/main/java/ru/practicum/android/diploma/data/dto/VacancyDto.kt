@@ -12,5 +12,9 @@ data class VacancyDto(
     val experience: ExperienceDto?,
     @SerializedName("employment_form")
     val employmentForm: EmploymentFormDto?,
-    val schedule: ScheduleDto?
+    val employment: EmploymentFormDto?, // deprecated
+    val schedule: ScheduleDto?,
+    val description: String?,
+    @SerializedName("key_skills")
+    val keySkills: List<SkillDto?>
 )

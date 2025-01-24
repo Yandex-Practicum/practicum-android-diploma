@@ -14,5 +14,9 @@ sealed interface SearchResult {
         val items: List<Vacancy>
     ) : SearchResult
 
+    data class GetVacancyContent(
+        val vacancy: Vacancy
+    ) : SearchResult
+
     data object Error : SearchResult
 }

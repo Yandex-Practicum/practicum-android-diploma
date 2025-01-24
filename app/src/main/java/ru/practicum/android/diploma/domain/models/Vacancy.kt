@@ -8,5 +8,8 @@ data class Vacancy(
     val salary: Salary?,
     val experience: Experience?,
     val employmentForm: EmploymentForm?,
-    val schedule: Schedule?
+    val employment: EmploymentForm?,
+    val schedule: Schedule?,
+    val description: String?,
+    val keySkills: List<Skill?>
 )
