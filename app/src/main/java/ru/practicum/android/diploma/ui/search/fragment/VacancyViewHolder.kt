@@ -7,7 +7,6 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.ItemVacancyBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
-import java.util.Currency
 
 class VacancyViewHolder(
     private val binding: ItemVacancyBinding,
@@ -34,16 +33,21 @@ class VacancyViewHolder(
     }
 
     private fun getTitleWithCity(name: String?, city: String?): String? {
-        return if (city == null)
+        return if (city == null) {
             name
-        else
+        } else {
             "$name, $city"
+        }
 
     }
 
     private fun createSalaryInterval(from: Int?, to: Int?, currency: String?): String {
-        return if (from != null && to == null) "от $from $currency"
-        else if (from == null && to != null) "до $to $currency"
-        else "Зарплата не указана" // как достать строку из ресурсов файла strings.xml?
+        return if (from != null && to == null) {
+            "от $from $currency"
+        } else if (from == null && to != null) {
+            "до $to $currency"
+        } else {
+            "Зарплата не указана" // как достать строку из ресурсов файла strings.xml?
+        }
     }
 }
