@@ -27,7 +27,9 @@ class VacancyFragment : Fragment() {
     private val vacancyId: Long = DEFAULT_VACANCY_ID
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         _binding = FragmentVacancyBinding.inflate(inflater, container, false)
         return binding.root
