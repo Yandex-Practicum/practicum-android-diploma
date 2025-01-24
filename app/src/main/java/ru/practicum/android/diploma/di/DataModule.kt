@@ -8,10 +8,10 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.converters.VacanciesConverter
 import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.data.network.HhApi
-import ru.practicum.android.diploma.data.network.NetworkClient
 import ru.practicum.android.diploma.data.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.data.search.VacanciesRepositoryImpl
 import ru.practicum.android.diploma.data.vacancy.VacancyRepositoryImpl
@@ -24,7 +24,7 @@ const val FILTER_PREFERENCES = "filter_preferences"
 
 val dataModule = module {
 
-    single<HhApi> {
+    single {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())

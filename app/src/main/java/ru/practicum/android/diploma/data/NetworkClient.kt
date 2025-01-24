@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data.network
+package ru.practicum.android.diploma.data
 
 import ru.practicum.android.diploma.data.dto.VacanciesResponseDto
 import ru.practicum.android.diploma.data.dto.VacancyDto
