@@ -47,7 +47,8 @@ class VacanciesConverter {
             employment = response.employment?.toEmploymentForm(),
             schedule = response.schedule?.toSchedule(),
             description = response.description,
-            keySkills = response.keySkills.map { it?.toSkill() }
+            keySkills = response.keySkills.map { it?.toSkill() },
+            alternateUrl = response.alternateUrl
         )
     }
 
@@ -64,7 +65,8 @@ class VacanciesConverter {
             employment = null,
             schedule = null,
             description = null,
-            keySkills = emptyList()
+            keySkills = emptyList(),
+            alternateUrl = null
         )
     }
 
