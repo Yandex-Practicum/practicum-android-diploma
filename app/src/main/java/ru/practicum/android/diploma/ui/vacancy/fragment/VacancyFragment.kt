@@ -19,7 +19,6 @@ class VacancyFragment : Fragment() {
 
     private val viewModel: VacancyViewModel by viewModels()
 
-
     // Временная заглушка + fix detekt
     companion object {
         private const val DEFAULT_VACANCY_ID: Long = 123L
@@ -27,11 +26,8 @@ class VacancyFragment : Fragment() {
 
     private val vacancyId: Long = DEFAULT_VACANCY_ID
 
-
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentVacancyBinding.inflate(inflater, container, false)
         return binding.root
@@ -49,13 +45,11 @@ class VacancyFragment : Fragment() {
         favoriteButton(vacancyId)
     }
 
-    private fun backButton() =
-        binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
+    private fun backButton() = binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
 
-    private fun favoriteButton(vacancyId: Long) =
-        binding.imageViewFavorites.setOnClickListener {
-            viewModel.onFavoriteClicked()
-        }
+    private fun favoriteButton(vacancyId: Long) = binding.imageViewFavorites.setOnClickListener {
+        viewModel.onFavoriteClicked()
+    }
 
     private fun shareButton() {
         binding.imageViewSharing.setOnClickListener {
