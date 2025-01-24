@@ -6,6 +6,7 @@ import com.bumptech.glide.Glide
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.ItemVacancyBinding
 import ru.practicum.android.diploma.search.domain.model.VacancyItems
+import ru.practicum.android.diploma.search.presentation.list_items.ListItem
 
 class SearchItemViewHolder(
     private val binding: ItemVacancyBinding,
@@ -18,7 +19,7 @@ class SearchItemViewHolder(
         }
     }
 
-    fun bind(vacancy: VacancyItems) {
+    fun bind(vacancy: ListItem.Vacancy) {
         with(vacancy) {
             uploadImage(iconUrl, binding.vacancyIcon)
             binding.job.text = getJobDescription(name, areaName)
