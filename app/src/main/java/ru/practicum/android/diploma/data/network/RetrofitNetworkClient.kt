@@ -4,27 +4,14 @@ import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.data.dto.VacanciesResponseDto
 import ru.practicum.android.diploma.data.dto.VacancyDto
 
-object RetrofitClient {
+class RetrofitNetworkClient(
+    private val api: HhApi
+) : NetworkClient {
 
-    private const val BASE_URL = "https://api.hh.ru/"
-
-    private val client: Retrofit by lazy {
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
-
-    private val api: HhApi by lazy {
-        client.create(HhApi::class.java)
-    }
-
-    suspend fun doRequest(): VacanciesResponseDto? {
+    override suspend fun doRequestVacancies(): VacanciesResponseDto? {
         return withContext(Dispatchers.IO) {
             try {
                 api.searchVacancies()
@@ -35,7 +22,7 @@ object RetrofitClient {
         }
     }
 
-    suspend fun doRequestVacancy(id: String): VacancyDto? {
+    override suspend fun doRequestVacancy(id: String): VacancyDto? {
         return withContext(Dispatchers.IO) {
             try {
                 api.getVacancy(id)

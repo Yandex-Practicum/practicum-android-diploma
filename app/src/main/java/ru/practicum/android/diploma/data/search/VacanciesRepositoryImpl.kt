@@ -4,16 +4,17 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.data.converters.VacanciesConverter
 import ru.practicum.android.diploma.data.network.ApiResponse
-import ru.practicum.android.diploma.data.network.RetrofitClient
+import ru.practicum.android.diploma.data.network.NetworkClient
 import ru.practicum.android.diploma.domain.models.VacanciesResponse
 import ru.practicum.android.diploma.domain.search.api.VacanciesRepository
 
 class VacanciesRepositoryImpl(
     private val vacanciesConverter: VacanciesConverter,
+    private val networkClient: NetworkClient,
 ) : VacanciesRepository {
 
     override fun getVacancies(): Flow<ApiResponse<VacanciesResponse>> = flow {
-        when (val response = RetrofitClient.doRequest()) {
+        when (val response = networkClient.doRequestVacancies()) {
             null -> {
                 emit(ApiResponse.Error())
             }
