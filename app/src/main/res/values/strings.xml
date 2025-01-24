@@ -46,16 +46,14 @@
     <string name="enter_the_query" translatable="false">Введите запрос</string>
     <string name="No_such_vacancies" translatable="false">Таких вакансий нет</string>
 
-    
-
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="Nikita">Никита Сергеевич</string>
     <string name="Daniil">Данил Ремзиевич</string>
     <string name="Timofey">Тимофей Михайлович</string>
     <string name="Gennadi">Геннадий Юрьевич</string>
     <string name="Mihail">Михаил Иванович</string>
     <string name="Egor">Егор</string>
+    <string name="mock_item_vacancy_name">Senior Android разработчик, Москва</string>
+    <string name="mock_item_vacancy_employer">Яндекс</string>
+    <string name="mock_item_vacancy_salary">от 10 000 $</string>
 
 </resources>
