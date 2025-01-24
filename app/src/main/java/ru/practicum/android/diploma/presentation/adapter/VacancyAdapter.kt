@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.Vacancy
 
@@ -23,7 +22,9 @@ class VacancyAdapter : RecyclerView.Adapter<VacancyAdapter.VacancyViewHolder>() 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VacancyViewHolder {
-        return VacancyViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.vacancy_item_view, parent, false))
+        return VacancyViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.vacancy_item_view, parent, false)
+        )
     }
 
     override fun getItemCount(): Int {
