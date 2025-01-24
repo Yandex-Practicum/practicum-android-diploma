@@ -19,8 +19,14 @@ class VacancyFragment : Fragment() {
 
     private val viewModel: VacancyViewModel by viewModels()
 
-    // Временная заглушка
-    private val vacancyId: Long = 123L
+
+    // Временная заглушка + fix detekt
+    companion object {
+        private const val DEFAULT_VACANCY_ID: Long = 123L
+    }
+
+    private val vacancyId: Long = DEFAULT_VACANCY_ID
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,16 +57,18 @@ class VacancyFragment : Fragment() {
             viewModel.onFavoriteClicked()
         }
 
-    private fun shareButton() =
+    private fun shareButton() {
         binding.imageViewSharing.setOnClickListener {
-            val vacancy = viewModel.vacancy.value ?: return@setOnClickListener
-            val shareText = "${vacancy.name ?: "Вакансия"}\n\n${vacancy.alternateUrl ?: ""}"
-            val shareIntent = Intent(Intent.ACTION_SEND).apply {
-                type = "text/plain"
-                putExtra(Intent.EXTRA_TEXT, shareText)
+            viewModel.vacancy.value?.let { vacancy ->
+                val shareText = "${vacancy.name ?: "Вакансия"}\n\n${vacancy.alternateUrl ?: ""}"
+                val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_TEXT, shareText)
+                }
+                startActivity(Intent.createChooser(shareIntent, ""))
             }
-            startActivity(Intent.createChooser(shareIntent, ""))
         }
+    }
 
     private fun updateFavoriteIcon(isFavorite: Boolean) {
         val resId = if (isFavorite) {
