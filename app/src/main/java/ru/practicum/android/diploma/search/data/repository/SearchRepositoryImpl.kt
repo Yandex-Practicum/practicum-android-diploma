@@ -30,8 +30,11 @@ class SearchRepositoryImpl(
                     emit(SearchViewState.Success(data))
                 }
             }
-            Response.BAD_REQUEST_ERROR_CODE -> {
+            Response.BAD_REQUEST_ERROR_CODE, Response.NOT_FOUND_ERROR_CODE -> {
                 emit(SearchViewState.NotFoundError)
+            }
+            Response.NO_INTERNET_ERROR_CODE -> {
+                emit(SearchViewState.ConnectionError)
             } else -> {
                 emit(SearchViewState.ServerError)
             }
