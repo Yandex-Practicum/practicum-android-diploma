@@ -15,5 +15,7 @@
     <string name="avto_ru">Авто.ру</string>
     <string name="salary_to_from">от 1 000 до 1 500 €</string>
     <string name="there_are_no_such_vacancies">Таких вакансий нет</string>
+    <string name="empty_favorites_list">Список пуст</string>
+    <string name="favorite_load_error">Не удалось получить\nсписок вакансий</string>
 
 </resources>
