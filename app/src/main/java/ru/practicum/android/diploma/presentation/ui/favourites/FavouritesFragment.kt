@@ -10,10 +10,6 @@ import ru.practicum.android.diploma.R
 
 class FavouritesFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = FavouritesFragment()
-    }
-
     private val viewModel: FavouritesViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,5 +22,9 @@ class FavouritesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         return inflater.inflate(R.layout.fragment_favourites, container, false)
+    }
+
+    companion object {
+        fun newInstance() = FavouritesFragment()
     }
 }
