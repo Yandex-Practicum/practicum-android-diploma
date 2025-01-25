@@ -1,16 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/FragmentBgStyle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/whiteToBlack"
     tools:context=".ui.vacancy.fragment.VacancyFragment">
+    
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftGuideline1"
+        style="@style/GuidelineStyle"
+        app:layout_constraintGuide_begin="@dimen/dp_16" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightGuideline1"
+        style="@style/GuidelineStyle"
+        app:layout_constraintGuide_end="@dimen/dp_16" />
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        style="@style/SimpleToolbar"
+        app:contentInsetStartWithNavigation="@dimen/dp_0"
+        app:layout_constraintEnd_toEndOf="16dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline1"
+        app:navigationIcon="@drawable/ic_arrow_back_24"
+        app:title="@string/vacancy"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="-3dp" />
+
+    <ImageView
+        android:id="@+id/image_view_favorites"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_0"
+        android:layout_marginEnd="@dimen/dp_4"
+        android:src="@drawable/ic_like_off_24"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar"
+        app:layout_constraintEnd_toStartOf="@id/rightGuideline1"
+        app:layout_constraintTop_toTopOf="@id/toolbar"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/image_view_sharing"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_0"
+        android:layout_marginEnd="@dimen/dp_24"
+        android:src="@drawable/ic_sharing_24"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar"
+        app:layout_constraintEnd_toStartOf="@id/image_view_favorites"
+        app:layout_constraintTop_toTopOf="@id/toolbar" />
 
     <ScrollView
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
         android:overScrollMode="always">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,39 +71,6 @@
                 android:id="@+id/rightGuideline"
                 style="@style/GuidelineStyle"
                 app:layout_constraintGuide_end="@dimen/dp_16" />
-
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/toolbar"
-                style="@style/SimpleToolbar"
-                app:contentInsetStartWithNavigation="@dimen/dp_0"
-                app:layout_constraintEnd_toEndOf="@id/rightGuideline"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@id/leftGuideline"
-                app:navigationIcon="@drawable/ic_arrow_back_24"
-                app:title="@string/vacancy"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteY="-3dp" />
-
-            <ImageView
-                android:id="@+id/image_view_favorites"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_0"
-                android:layout_marginEnd="@dimen/dp_4"
-                android:src="@drawable/ic_like_off_24"
-                app:layout_constraintBottom_toBottomOf="@id/toolbar"
-                app:layout_constraintEnd_toStartOf="@id/rightGuideline"
-                app:layout_constraintTop_toTopOf="@id/toolbar"
-                tools:ignore="ContentDescription" />
-
-            <ImageView
-                android:id="@+id/image_view_sharing"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_0"
-                android:layout_marginEnd="@dimen/dp_24"
-                android:src="@drawable/ic_sharing_24"
-                app:layout_constraintBottom_toBottomOf="@id/toolbar"
-                app:layout_constraintEnd_toStartOf="@id/image_view_favorites"
-                app:layout_constraintTop_toTopOf="@id/toolbar" />
 
             <androidx.constraintlayout.widget.Group
                 android:id="@+id/group_vacancy"
@@ -81,7 +92,7 @@
                 android:layout_marginTop="@dimen/dp_24"
                 app:layout_constraintEnd_toStartOf="@id/rightGuideline"
                 app:layout_constraintStart_toStartOf="@id/leftGuideline"
-                app:layout_constraintTop_toBottomOf="@id/toolbar"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="@string/vacancy_name" />
 
             <TextView
@@ -255,6 +266,6 @@
         android:layout_height="match_parent"
         android:background="@color/overlay"
         android:visibility="gone" />
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
