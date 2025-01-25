@@ -12,6 +12,8 @@ import ru.practicum.android.diploma.search.domain.model.AdapterState
 import ru.practicum.android.diploma.search.domain.model.SearchViewState
 import ru.practicum.android.diploma.search.presentation.list_items.ListItem
 import ru.practicum.android.diploma.search.presentation.list_items.Mapper
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
 
 class SearchViewModel(
     private val searchInteractor: SearchInteractor,
@@ -29,8 +31,7 @@ class SearchViewModel(
         SEARCH_DEBOUNCE_DELAY,
         viewModelScope,
         true
-    )
-    { query ->
+    ) { query ->
         searchVacancy(query)
     }
 
@@ -38,8 +39,7 @@ class SearchViewModel(
         CLICK_DEBOUNCE_DELAY,
         viewModelScope,
         useLastParam = false
-    )
-    { isAllowed ->
+    ) { isAllowed ->
         isClickAllowed = isAllowed
     }
 
@@ -80,36 +80,29 @@ class SearchViewModel(
                         .collect { viewState ->
                             renderScreenState(viewState)
                         }
+                    isNextPageLoading = false
                 }
             }
-
         }
-        isNextPageLoading = false
     }
 
     fun onLastItemReached(query: String) {
-        if (currentPage != maxPages && maxPages != 0) {
-            if (this.latestSearchQuery != query) {
-                return
-            } else {
-                currentPage += 1
-                if (query.isNotEmpty()) {
-                    if (!isNextPageLoading) {
-                        viewModelScope.launch {
-                            isNextPageLoading = true
-                            renderAdapterState(AdapterState.IsLoading)
-                            searchInteractor
-                                .searchVacancy(query, currentPage)
-                                .collect { viewState ->
-                                    renderScreenState(viewState)
-                                }
-                            renderAdapterState(AdapterState.Idle)
-                            isNextPageLoading = false
-                        }
+        if (!(currentPage != maxPages && maxPages != 0)) return
+        if (this.latestSearchQuery != query) return
+        if (query.isEmpty()) return
 
+        if (!isNextPageLoading) {
+            currentPage += 1
+            viewModelScope.launch {
+                isNextPageLoading = true
+                renderAdapterState(AdapterState.IsLoading)
+                searchInteractor
+                    .searchVacancy(query, currentPage)
+                    .collect { viewState ->
+                        renderScreenState(viewState)
                     }
-                }
-
+                renderAdapterState(AdapterState.Idle)
+                isNextPageLoading = false
             }
         }
     }
@@ -120,7 +113,6 @@ class SearchViewModel(
                 vacancyItems is ListItem.Vacancy -> {
                     showVacancyDetails.postValue(vacancyItems.id)
                 }
-
                 else -> return
             }
         }
@@ -138,7 +130,6 @@ class SearchViewModel(
     private fun renderScreenState(state: SearchViewState) {
         if (state is SearchViewState.Success) {
             this.maxPages = state.vacancyList.pages
-//            this.vacancyList += state.vacancyList.items.map { vacancy -> Mapper.map(vacancy) }
             Log.d("NewpageVacancies", "${state.vacancyList.items.size}")
             stateLiveData.postValue(
                 SearchViewState.Content(
@@ -146,13 +137,6 @@ class SearchViewModel(
                     makeFoundVacanciesHint(state.vacancyList.found)
                 )
             )
-//        if (state is SearchViewState.Success) {
-//            this.maxPages = state.vacancyList.pages
-//            this.vacancyList += state.vacancyList.items
-//            val vacancyList = state.vacancyList.copy(items = this.vacancyList)
-//            stateLiveData.postValue(
-//                SearchViewState.Success(vacancyList)
-//            )
         } else {
             stateLiveData.postValue(state)
         }
@@ -164,23 +148,28 @@ class SearchViewModel(
 
     private fun makeFoundVacanciesHint(vacanciesNumber: Int): String {
         return when {
-            vacanciesNumber % 10 == 0 -> "Найдено $vacanciesNumber вакансий"
-            vacanciesNumber % 10 == 1 -> "Найдена $vacanciesNumber вакансия"
-            vacanciesNumber % 10 in 2..4 -> "Найдено $vacanciesNumber вакансии"
-            vacanciesNumber % 10 in 5..9 -> "Найдено $vacanciesNumber вакансий"
-            vacanciesNumber % 100 in 11..19 -> "Найдено $vacanciesNumber вакансий"
+            vacanciesNumber % 10 == 0 -> "Найдено ${formatFoundVacanciesNumber(vacanciesNumber)} вакансий"
+            vacanciesNumber % 10 == 1 -> "Найдена ${formatFoundVacanciesNumber(vacanciesNumber)} вакансия"
+            vacanciesNumber % 10 in 2..4 -> "Найдено ${formatFoundVacanciesNumber(vacanciesNumber)} вакансии"
+            vacanciesNumber % 10 in 5..9 -> "Найдено ${formatFoundVacanciesNumber(vacanciesNumber)} вакансий"
+            vacanciesNumber % 100 in 11..19 -> "Найдено ${formatFoundVacanciesNumber(vacanciesNumber)} вакансий"
             else -> ""
         }
     }
 
-    companion object {
-        private val SEARCH_REQUEST_TOKEN = Any()
+    private fun formatFoundVacanciesNumber(vacanciesNumber: Int?): String {
+        if (vacanciesNumber == null) return ""
 
-        private const val KEY = "KEY"
-        private const val TRACK_ITEM_KEY = "trackItem"
+        val dfs = DecimalFormatSymbols().apply {
+            groupingSeparator = ' '
+        }
+        val df = DecimalFormat("###,###", dfs)
+        return df.format(vacanciesNumber)
+    }
+
+    companion object {
         private const val CLICK_DEBOUNCE_DELAY = 1_000L
         private const val SEARCH_DEBOUNCE_DELAY = 2_000L
     }
-
 
 }

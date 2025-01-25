@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.search.ui.decorations
 
+import android.content.Context
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
@@ -7,6 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 class LayoutItemDecoration(
     private val firstItemTopOffSet: Int,
 ) : RecyclerView.ItemDecoration() {
+
+    private var marginInPx = 0
+
+    fun init(context: Context) {
+        marginInPx = (firstItemTopOffSet * context.resources.displayMetrics.density).toInt()
+    }
 
     override fun getItemOffsets(
         outRect: Rect,
@@ -20,7 +27,7 @@ class LayoutItemDecoration(
         if (!adapter.isFirstPosition(currentPosition)) return
 
         with(outRect) {
-            top = firstItemTopOffSet
+            top = marginInPx
         }
     }
 

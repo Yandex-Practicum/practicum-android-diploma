@@ -2,7 +2,6 @@ package ru.practicum.android.diploma.search.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.databinding.ItemLoadingBinding
@@ -13,7 +12,6 @@ class SearchAdapter(
     private val onItemClicked: (listItem: ListItem) -> Unit,
 ) : ListAdapter<ListItem, RecyclerView.ViewHolder>(ListItemDiffCallBack()) {
 
-    //    private var vacancyList: MutableList<ListItem> = mutableListOf()
     private var isLoading = false
 
     override fun getItemViewType(position: Int): Int {
@@ -60,7 +58,6 @@ class SearchAdapter(
         submitList(updatedList)
     }
 
-
     fun showLoading() {
         if (!isLoading) {
             isLoading = true
@@ -74,27 +71,13 @@ class SearchAdapter(
     fun hideLoading() {
         if (isLoading) {
             isLoading = false
-
             val updatedList = currentList.toMutableList().apply {
                 removeAll { it is ListItem.LoadingItem }
             }
 
-            // Форсируем обновление списка, если оно не происходит автоматически
-//            submitList(null)
             submitList(updatedList)
         }
     }
-//    fun hideLoading() {
-//        if (isLoading) {
-//            isLoading = false
-//            val updatedList = currentList.toMutableList().apply {
-//                removeAll { it is ListItem.LoadingItem }
-//            }
-//            submitList(updatedList)
-//        }
-//    }
-
-//    override fun getItemCount(): Int = vacancyList.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
@@ -109,50 +92,8 @@ class SearchAdapter(
         }
     }
 
-//    fun showLoading() {
-//        vacancyList.add(ListItem.LoadingItem)
-//        notifyItemRemoved(vacancyList.size - 1)
-//    }
-//
-//    fun hideLoading() {
-//        val position = vacancyList.indexOfLast { it is ListItem.LoadingItem }
-//        if (position != -1) {
-//            vacancyList.removeAt(position)
-//            notifyItemRemoved(position)
-//        }
-//    }
-
-//    fun updateItems(items: List<ListItem>) {
-//        val oldItems = this.vacancyList
-//        val updatedList = items.toMutableList()
-//        val diffResult = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
-//            override fun getOldListSize(): Int = oldItems.size
-//
-//            override fun getNewListSize(): Int = updatedList.size
-//
-//            override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-//                val oldItem = oldItems[oldItemPosition]
-//                val newItem = updatedList[newItemPosition]
-//                return when {
-//                    oldItem is ListItem.Vacancy && newItem is ListItem.Vacancy ->
-//                        oldItem.id == newItem.id
-//                    oldItem is ListItem.LoadingItem && newItem is ListItem.LoadingItem -> true
-//                    else -> false
-//                }
-//            }
-//
-//            override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-//                return oldItems[oldItemPosition] == updatedList[newItemPosition]
-//            }
-//        })
-//
-//        diffResult.dispatchUpdatesTo(this)
-//        this.vacancyList = updatedList
-//    }
-
     companion object {
         private const val TYPE_VACANCY = 0
         private const val TYPE_LOADING = 1
     }
 }
-

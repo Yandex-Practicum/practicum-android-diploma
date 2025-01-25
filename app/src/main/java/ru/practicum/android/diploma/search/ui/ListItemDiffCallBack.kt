@@ -16,5 +16,3 @@ class ListItemDiffCallBack : DiffUtil.ItemCallback<ListItem>() {
         return oldItem == newItem
     }
 }
-
-

@@ -21,10 +21,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.search.domain.model.AdapterState
-import ru.practicum.android.diploma.search.domain.model.Salary
 import ru.practicum.android.diploma.search.domain.model.SearchViewState
-import ru.practicum.android.diploma.search.domain.model.VacancyItems
-import ru.practicum.android.diploma.search.presentation.list_items.ListItem
 import ru.practicum.android.diploma.search.presentation.viewmodel.SearchViewModel
 import ru.practicum.android.diploma.search.ui.decorations.LayoutItemDecoration
 
@@ -34,37 +31,9 @@ class SearchFragment : Fragment() {
     private val viewModel by viewModel<SearchViewModel>()
     private var adapter: SearchAdapter? = null
     private val handler: Handler = Handler(Looper.getMainLooper())
-    private var textInput = ""
-    private var isNewQueryLoading = false
-
-    val vacancyItem = VacancyItems(
-        "1",
-        "Программист",
-        "Москва",
-        "Sber",
-        null,
-        Salary(
-            40000,
-            100000,
-            "RUR"
-        )
-    )
-
-    private var vacancyList = arrayListOf(
-        vacancyItem,
-        vacancyItem,
-        vacancyItem,
-        vacancyItem,
-        vacancyItem,
-        vacancyItem,
-        vacancyItem,
-        vacancyItem,
-        vacancyItem,
-        vacancyItem,
-        vacancyItem,
-        vacancyItem
-    )
-
+    private var editTextWatcher: TextWatcher? = null
+    private lateinit var runnable: Runnable
+    private lateinit var textInput: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -76,8 +45,11 @@ class SearchFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
+        adapter = null
+        handler.removeCallbacks(this.runnable)
+        editTextWatcher?.let { binding.textInput.removeTextChangedListener(it) }
         _binding = null
+        super.onDestroyView()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -94,12 +66,14 @@ class SearchFragment : Fragment() {
         adapter = SearchAdapter(viewModel::showVacancyDetails)
         binding.searchVacanciesRV.adapter = adapter
 
-        binding.searchVacanciesRV.addItemDecoration(LayoutItemDecoration(86))
+        val itemDecoration = LayoutItemDecoration(46).apply {
+            init(requireContext())
+        }
+        binding.searchVacanciesRV.addItemDecoration(itemDecoration)
 
         binding.clearIcon.setOnClickListener {
             onClearIconPressed()
             inputMethodManager?.hideSoftInputFromWindow(view.windowToken, 0)
-
         }
 
         binding.textInput.setOnEditorActionListener { v, actionId, event ->
@@ -110,13 +84,12 @@ class SearchFragment : Fragment() {
             false
         }
 
-        val editTextWatcher = object : TextWatcher {
+        editTextWatcher = object : TextWatcher {
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, ncout: Int) {
-
                 with(binding) {
                     if (textInput.hasFocus() && s?.isEmpty() == true) {
                         initScreenPH.isVisible = false
@@ -129,7 +102,7 @@ class SearchFragment : Fragment() {
                     }
                 }
                 textInput = s.toString()
-                processNewQuery(textInput)
+                viewModel.searchDebounce(textInput)
                 binding.clearIcon.visibility = clearButtonVisibility(s)
                 binding.searchIcon.visibility = searchIconVisibility(s)
             }
@@ -150,7 +123,6 @@ class SearchFragment : Fragment() {
                     val itemsCount = adapter!!.itemCount
                     if (pos >= itemsCount - 1) {
                         loadNextPage()
-                        Log.d("VacancyItems", "${vacancyList.size}")
                     }
                 }
             }
@@ -158,20 +130,9 @@ class SearchFragment : Fragment() {
 
         viewModel.observeState().observe(viewLifecycleOwner) { state ->
             render(state)
-
-//            if (state is SearchViewState.Content) {
-//                Log.d("DetailsState", "${state}")
-//
-//                handler.postDelayed(
-//                    {
-//                        adapter?.hideLoading()
-//                    },
-//                    2000
-//                )
-//            }
         }
 
-        viewModel.getAdapterStateLiveData().observe(viewLifecycleOwner){ adapterState ->
+        viewModel.getAdapterStateLiveData().observe(viewLifecycleOwner) { adapterState ->
             Log.d("adapterState", "$adapterState")
             renderAdapterState(adapterState)
         }
@@ -181,30 +142,11 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun processNewQuery(query: String) {
-        viewModel.searchDebounce(query)
-//        isNewQueryLoading = true
-    }
-
-    private fun renderAdapterState(state: AdapterState){
+    private fun renderAdapterState(state: AdapterState) {
         Log.d("AdapterState", "$state")
-        when(state) {
-            is AdapterState.IsLoading -> {
-                adapter?.showLoading()
-//                handler.postDelayed(
-//                    {adapter?.hideLoading()},
-//                    2000
-//                )
-            }
-            is AdapterState.Idle -> {
-                handler.postDelayed(
-                    {adapter?.hideLoading()},
-                    1000
-                )
-            }
-//                adapter?.hideLoading()
-
-
+        when (state) {
+            is AdapterState.IsLoading -> adapter?.showLoading()
+            is AdapterState.Idle -> hideAdapterLoading()
         }
     }
 
@@ -267,11 +209,12 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun showAdapterLoading(isLoading: Boolean) {
-        when (isLoading) {
-            true -> adapter?.showLoading()
-            false -> adapter?.hideLoading()
-        }
+    private fun hideAdapterLoading() {
+        runnable = Runnable { adapter?.hideLoading() }
+        handler.postDelayed(
+            runnable,
+            DELAY_1000
+        )
     }
 
     private fun loadNextPage() {
@@ -287,23 +230,11 @@ class SearchFragment : Fragment() {
             textHint.isVisible = false
             noConnectionPH.isVisible = false
             serverErrorPH.isVisible = false
-
         }
     }
 
     private fun showContent(state: SearchViewState.Content) {
         with(binding) {
-//            adapter?.hideLoading()
-            val position = state.listItem.lastIndex
-//            if(!(state.listItem.get(position) is ListItem.LoadingItem)){
-//                val mutableList = state.listItem.toMutableList()
-//                mutableList.add(ListItem.LoadingItem)
-//            }
-
-//            val updatedList = state.listItem.toMutableList().apply {
-//                removeAll { it is ListItem.LoadingItem }
-//            }
-//
             adapter?.submitData(state.listItem)
             textHint.text = state.vacanciesFoundHint
             textHint.isVisible = true
@@ -337,9 +268,6 @@ class SearchFragment : Fragment() {
     }
 
     companion object {
-        private const val VACANCY_ID_KEY = "vacancy_id_key"
+        private const val DELAY_1000 = 1_000L
     }
 }
-
-
-

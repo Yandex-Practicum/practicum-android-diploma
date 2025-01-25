@@ -87,26 +87,10 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_8dp"
             android:src="@drawable/ic_clear"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/textInput"
             app:layout_constraintEnd_toEndOf="@id/textInput"
-            app:layout_constraintTop_toTopOf="@id/textInput"
-            android:visibility="gone"/>
-
-        <!--        <ScrollView-->
-        <!--            android:id="@+id/scrollView"-->
-        <!--            android:layout_width="0dp"-->
-        <!--            android:layout_height="0dp"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@id/textInput"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            android:orientation="vertical"-->
-        <!--            android:visibility="visible">-->
-
-        <!--        <LinearLayout-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:orientation="vertical">-->
+            app:layout_constraintTop_toTopOf="@id/textInput" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/searchVacanciesRV"
@@ -118,17 +102,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textInput"
             tools:listitem="@layout/item_vacancy" />
-
-        <!--            <ProgressBar-->
-        <!--                android:id="@+id/progressBar"-->
-        <!--                android:layout_width="@dimen/progressbar_side"-->
-        <!--                android:layout_height="@dimen/progressbar_side"-->
-        <!--                android:layout_marginTop="@dimen/margin_begin_end_gl_16dp"-->
-        <!--                android:layout_marginBottom="@dimen/margin_46"-->
-        <!--                android:layout_gravity="center"-->
-        <!--                android:visibility="gone"/>-->
-        <!--            </LinearLayout>-->
-        <!--        </ScrollView>-->
 
         <TextView
             android:id="@+id/textHint"

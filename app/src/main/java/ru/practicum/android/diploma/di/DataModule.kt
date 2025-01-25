@@ -11,10 +11,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.AppDatabase
 import ru.practicum.android.diploma.common.data.Mapper
 import ru.practicum.android.diploma.common.data.network.HeadHunterApi
+import ru.practicum.android.diploma.common.data.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.common.project_constants.APP_DATA_BASE
 import ru.practicum.android.diploma.common.project_constants.APP_SHARED_PREFS
 import ru.practicum.android.diploma.common.project_constants.HH_BASE_URL
-import ru.practicum.android.diploma.common.data.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.common.util.ConnectivityManager
 import ru.practicum.android.diploma.common.util.Converter
 import ru.practicum.android.diploma.favorites.data.repository.FavoritesRepositoryImpl
