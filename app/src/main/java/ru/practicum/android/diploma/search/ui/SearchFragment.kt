@@ -19,11 +19,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.common.presentation.SearchAdapter
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.search.domain.model.AdapterState
 import ru.practicum.android.diploma.search.domain.model.SearchViewState
 import ru.practicum.android.diploma.search.presentation.viewmodel.SearchViewModel
-import ru.practicum.android.diploma.search.ui.decorations.LayoutItemDecoration
+import ru.practicum.android.diploma.common.presentation.decorations.LayoutItemDecoration
 
 class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null

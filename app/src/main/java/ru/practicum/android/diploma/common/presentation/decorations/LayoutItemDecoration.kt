@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.search.ui.decorations
+package ru.practicum.android.diploma.common.presentation.decorations
 
 import android.content.Context
 import android.graphics.Rect

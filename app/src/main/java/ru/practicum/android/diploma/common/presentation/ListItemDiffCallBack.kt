@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.search.ui
+package ru.practicum.android.diploma.common.presentation
 
 import androidx.recyclerview.widget.DiffUtil
 import ru.practicum.android.diploma.search.presentation.list_items.ListItem
