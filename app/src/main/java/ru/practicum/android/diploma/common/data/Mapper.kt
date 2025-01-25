@@ -9,6 +9,7 @@ import ru.practicum.android.diploma.search.domain.model.Salary
 import ru.practicum.android.diploma.search.domain.model.SearchQueryParams
 import ru.practicum.android.diploma.search.domain.model.VacancyItems
 import ru.practicum.android.diploma.search.domain.model.VacancyList
+import ru.practicum.android.diploma.search.presentation.list_items.ListItem
 
 class Mapper {
     fun map(searchQueryParams: SearchQueryParams): Map<String, String> {
@@ -53,6 +54,22 @@ class Mapper {
         }
     }
 
+    fun map(vacancyItems: VacancyItems): ListItem.Vacancy {
+        return with(vacancyItems) {
+            ListItem.Vacancy(
+                id,
+                name,
+                areaName,
+                employer,
+                iconUrl,
+                salary
+            )
+        }
+    }
+
     private fun getAreaName(areaDto: AreaDto?): String = areaDto?.name ?: ""
     private fun getEmployerLogo(employerDto: EmployerDto?): String? = employerDto?.logoUrls?.iconBig
 }
+
+
+

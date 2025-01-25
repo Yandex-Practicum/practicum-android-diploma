@@ -6,17 +6,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.common.data.Mapper
 import ru.practicum.android.diploma.common.util.debounce
 import ru.practicum.android.diploma.search.domain.interactor.SearchInteractor
 import ru.practicum.android.diploma.search.domain.model.AdapterState
 import ru.practicum.android.diploma.search.domain.model.SearchViewState
 import ru.practicum.android.diploma.search.presentation.list_items.ListItem
-import ru.practicum.android.diploma.search.presentation.list_items.Mapper
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 
 class SearchViewModel(
     private val searchInteractor: SearchInteractor,
+    private val mapper: Mapper,
 ) : ViewModel() {
 
     private var currentPage: Int = 0
@@ -89,20 +90,21 @@ class SearchViewModel(
     fun onLastItemReached(query: String) {
         if (!(currentPage != maxPages && maxPages != 0)) return
         if (this.latestSearchQuery != query) return
-        if (query.isEmpty()) return
+        if (query.isNotEmpty()) {
 
-        if (!isNextPageLoading) {
-            currentPage += 1
-            viewModelScope.launch {
-                isNextPageLoading = true
-                renderAdapterState(AdapterState.IsLoading)
-                searchInteractor
-                    .searchVacancy(query, currentPage)
-                    .collect { viewState ->
-                        renderScreenState(viewState)
-                    }
-                renderAdapterState(AdapterState.Idle)
-                isNextPageLoading = false
+            if (!isNextPageLoading) {
+                currentPage += 1
+                viewModelScope.launch {
+                    isNextPageLoading = true
+                    renderAdapterState(AdapterState.IsLoading)
+                    searchInteractor
+                        .searchVacancy(query, currentPage)
+                        .collect { viewState ->
+                            renderScreenState(viewState)
+                        }
+                    renderAdapterState(AdapterState.Idle)
+                    isNextPageLoading = false
+                }
             }
         }
     }
@@ -113,6 +115,7 @@ class SearchViewModel(
                 vacancyItems is ListItem.Vacancy -> {
                     showVacancyDetails.postValue(vacancyItems.id)
                 }
+
                 else -> return
             }
         }
@@ -133,7 +136,7 @@ class SearchViewModel(
             Log.d("NewpageVacancies", "${state.vacancyList.items.size}")
             stateLiveData.postValue(
                 SearchViewState.Content(
-                    state.vacancyList.items.map { vacancy -> Mapper.map(vacancy) },
+                    state.vacancyList.items.map { vacancy -> mapper.map(vacancy) },
                     makeFoundVacanciesHint(state.vacancyList.found)
                 )
             )
@@ -148,11 +151,11 @@ class SearchViewModel(
 
     private fun makeFoundVacanciesHint(vacanciesNumber: Int): String {
         return when {
-            vacanciesNumber % 10 == 0 -> "$FOUND_LITERAL ${formatFoundVacanciesNumber(vacanciesNumber)} вакансий"
-            vacanciesNumber % 10 == 1 -> "Найдена ${formatFoundVacanciesNumber(vacanciesNumber)} вакансия"
-            vacanciesNumber % 10 in 2..4 -> "$FOUND_LITERAL ${formatFoundVacanciesNumber(vacanciesNumber)} вакансии"
-            vacanciesNumber % 10 in 5..9 -> "$FOUND_LITERAL ${formatFoundVacanciesNumber(vacanciesNumber)} вакансий"
-            vacanciesNumber % 100 in 11..19 -> "$FOUND_LITERAL ${formatFoundVacanciesNumber(vacanciesNumber)} вакансий"
+            vacanciesNumber % 10 == 0 -> "$NAIDENO_LITERAL ${formatFoundVacanciesNumber(vacanciesNumber)} вакансий"
+            vacanciesNumber % 10 == 1 -> "$NAIDENA_LITERAL ${formatFoundVacanciesNumber(vacanciesNumber)} вакансия"
+            vacanciesNumber % 10 in 2..4 -> "$NAIDENO_LITERAL ${formatFoundVacanciesNumber(vacanciesNumber)} вакансии"
+            vacanciesNumber % 10 in 5..9 -> "$NAIDENO_LITERAL ${formatFoundVacanciesNumber(vacanciesNumber)} вакансий"
+            vacanciesNumber % 100 in 11..19 -> "$NAIDENO_LITERAL ${formatFoundVacanciesNumber(vacanciesNumber)} вакансий"
             else -> ""
         }
     }
@@ -168,7 +171,8 @@ class SearchViewModel(
     }
 
     companion object {
-        private const val FOUND_LITERAL = "Найдено"
+        private const val NAIDENO_LITERAL = "Найдено"
+        private const val NAIDENA_LITERAL = "Найдена"
         private const val CLICK_DEBOUNCE_DELAY = 1_000L
         private const val SEARCH_DEBOUNCE_DELAY = 2_000L
     }

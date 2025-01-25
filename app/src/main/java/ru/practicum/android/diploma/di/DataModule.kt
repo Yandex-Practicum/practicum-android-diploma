@@ -51,7 +51,7 @@ val dataModule = module {
             .create(HeadHunterApi::class.java)
     }
 
-    single<Mapper> {
+    factory<Mapper> {
         Mapper()
     }
 

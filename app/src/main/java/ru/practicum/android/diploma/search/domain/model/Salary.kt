@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.search.domain.model
 
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
+import java.util.Locale
 
 data class Salary(
     val from: Int? = null,
@@ -11,17 +12,20 @@ data class Salary(
     fun getSalaryToString(): String {
         return when {
             from != null && to != null -> String.format(
+                Locale.getDefault(),
                 "от %s до %s %s",
                 formatSalary(from),
                 formatSalary(to),
                 formatCurrency(currency)
             )
             from != null -> String.format(
+                Locale.getDefault(),
                 "от %s %s",
                 formatSalary(from),
                 formatCurrency(currency)
             )
             to != null -> String.format(
+                Locale.getDefault(),
                 "до %s %s",
                 formatSalary(to),
                 formatCurrency(currency)

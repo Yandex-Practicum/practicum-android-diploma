@@ -65,7 +65,7 @@ class SearchFragment : Fragment() {
         binding.initScreenPH.isVisible = true
         adapter = SearchAdapter(viewModel::showVacancyDetails)
         binding.searchVacanciesRV.adapter = adapter
-        val itemDecoration = LayoutItemDecoration(46).apply {
+        val itemDecoration = LayoutItemDecoration(FIRST_ITEM_MARGIN_TOP).apply {
             init(requireContext())
         }
         binding.searchVacanciesRV.addItemDecoration(itemDecoration)
@@ -265,6 +265,7 @@ class SearchFragment : Fragment() {
     }
 
     companion object {
+        private const val FIRST_ITEM_MARGIN_TOP = 46
         private const val DELAY_1000 = 1_000L
     }
 }
