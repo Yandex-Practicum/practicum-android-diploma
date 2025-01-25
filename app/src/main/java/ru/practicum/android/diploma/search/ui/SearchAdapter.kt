@@ -71,16 +71,28 @@ class SearchAdapter(
         }
     }
 
-
     fun hideLoading() {
         if (isLoading) {
             isLoading = false
+
             val updatedList = currentList.toMutableList().apply {
                 removeAll { it is ListItem.LoadingItem }
             }
+
+            // Форсируем обновление списка, если оно не происходит автоматически
+//            submitList(null)
             submitList(updatedList)
         }
     }
+//    fun hideLoading() {
+//        if (isLoading) {
+//            isLoading = false
+//            val updatedList = currentList.toMutableList().apply {
+//                removeAll { it is ListItem.LoadingItem }
+//            }
+//            submitList(updatedList)
+//        }
+//    }
 
 //    override fun getItemCount(): Int = vacancyList.size
 

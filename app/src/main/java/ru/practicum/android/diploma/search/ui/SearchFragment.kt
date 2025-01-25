@@ -24,6 +24,7 @@ import ru.practicum.android.diploma.search.domain.model.AdapterState
 import ru.practicum.android.diploma.search.domain.model.Salary
 import ru.practicum.android.diploma.search.domain.model.SearchViewState
 import ru.practicum.android.diploma.search.domain.model.VacancyItems
+import ru.practicum.android.diploma.search.presentation.list_items.ListItem
 import ru.practicum.android.diploma.search.presentation.viewmodel.SearchViewModel
 import ru.practicum.android.diploma.search.ui.decorations.LayoutItemDecoration
 
@@ -171,6 +172,7 @@ class SearchFragment : Fragment() {
         }
 
         viewModel.getAdapterStateLiveData().observe(viewLifecycleOwner){ adapterState ->
+            Log.d("adapterState", "$adapterState")
             renderAdapterState(adapterState)
         }
 
@@ -185,14 +187,24 @@ class SearchFragment : Fragment() {
     }
 
     private fun renderAdapterState(state: AdapterState){
+        Log.d("AdapterState", "$state")
         when(state) {
-            is AdapterState.IsLoading -> adapter?.showLoading()
+            is AdapterState.IsLoading -> {
+                adapter?.showLoading()
+//                handler.postDelayed(
+//                    {adapter?.hideLoading()},
+//                    2000
+//                )
+            }
             is AdapterState.Idle -> {
                 handler.postDelayed(
                     {adapter?.hideLoading()},
-                    2000
+                    1000
                 )
             }
+//                adapter?.hideLoading()
+
+
         }
     }
 
@@ -269,15 +281,29 @@ class SearchFragment : Fragment() {
     private fun onClearIconPressed() {
         with(binding) {
             textInput.setText("")
-            viewModel.clearSearchList()
-            searchVacanciesRV.isVisible = false
+            adapter?.submitData(emptyList())
             initScreenPH.isVisible = true
+            searchVacanciesRV.isVisible = false
+            textHint.isVisible = false
+            noConnectionPH.isVisible = false
+            serverErrorPH.isVisible = false
+
         }
     }
 
     private fun showContent(state: SearchViewState.Content) {
         with(binding) {
-            adapter?.hideLoading()
+//            adapter?.hideLoading()
+            val position = state.listItem.lastIndex
+//            if(!(state.listItem.get(position) is ListItem.LoadingItem)){
+//                val mutableList = state.listItem.toMutableList()
+//                mutableList.add(ListItem.LoadingItem)
+//            }
+
+//            val updatedList = state.listItem.toMutableList().apply {
+//                removeAll { it is ListItem.LoadingItem }
+//            }
+//
             adapter?.submitData(state.listItem)
             textHint.text = state.vacanciesFoundHint
             textHint.isVisible = true

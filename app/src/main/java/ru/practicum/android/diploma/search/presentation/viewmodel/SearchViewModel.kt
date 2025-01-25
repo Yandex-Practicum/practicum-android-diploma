@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.search.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -94,23 +95,21 @@ class SearchViewModel(
                 currentPage += 1
                 if (query.isNotEmpty()) {
                     if (!isNextPageLoading) {
-                        isNextPageLoading = true
-                        renderAdapterState(
-                            AdapterState.IsLoading
-                        )
                         viewModelScope.launch {
+                            isNextPageLoading = true
+                            renderAdapterState(AdapterState.IsLoading)
                             searchInteractor
                                 .searchVacancy(query, currentPage)
                                 .collect { viewState ->
                                     renderScreenState(viewState)
                                 }
+                            renderAdapterState(AdapterState.Idle)
+                            isNextPageLoading = false
                         }
-                        renderAdapterState(
-                            AdapterState.Idle
-                        )
+
                     }
                 }
-                isNextPageLoading = false
+
             }
         }
     }
@@ -139,10 +138,11 @@ class SearchViewModel(
     private fun renderScreenState(state: SearchViewState) {
         if (state is SearchViewState.Success) {
             this.maxPages = state.vacancyList.pages
-            this.vacancyList += state.vacancyList.items.map { vacancy -> Mapper.map(vacancy) }
+//            this.vacancyList += state.vacancyList.items.map { vacancy -> Mapper.map(vacancy) }
+            Log.d("NewpageVacancies", "${state.vacancyList.items.size}")
             stateLiveData.postValue(
                 SearchViewState.Content(
-                    this.vacancyList,
+                    state.vacancyList.items.map { vacancy -> Mapper.map(vacancy) },
                     makeFoundVacanciesHint(state.vacancyList.found)
                 )
             )
@@ -158,8 +158,8 @@ class SearchViewModel(
         }
     }
 
-    private fun renderAdapterState(state: AdapterState){
-        adapterStateLiveData.postValue(state)
+    private fun renderAdapterState(state: AdapterState) {
+        adapterStateLiveData.value = state
     }
 
     private fun makeFoundVacanciesHint(vacanciesNumber: Int): String {
