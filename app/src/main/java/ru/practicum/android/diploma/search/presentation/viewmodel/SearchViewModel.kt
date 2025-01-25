@@ -148,11 +148,11 @@ class SearchViewModel(
 
     private fun makeFoundVacanciesHint(vacanciesNumber: Int): String {
         return when {
-            vacanciesNumber % 10 == 0 -> "Найдено ${formatFoundVacanciesNumber(vacanciesNumber)} вакансий"
+            vacanciesNumber % 10 == 0 -> "$FOUND_LITERAL ${formatFoundVacanciesNumber(vacanciesNumber)} вакансий"
             vacanciesNumber % 10 == 1 -> "Найдена ${formatFoundVacanciesNumber(vacanciesNumber)} вакансия"
-            vacanciesNumber % 10 in 2..4 -> "Найдено ${formatFoundVacanciesNumber(vacanciesNumber)} вакансии"
-            vacanciesNumber % 10 in 5..9 -> "Найдено ${formatFoundVacanciesNumber(vacanciesNumber)} вакансий"
-            vacanciesNumber % 100 in 11..19 -> "Найдено ${formatFoundVacanciesNumber(vacanciesNumber)} вакансий"
+            vacanciesNumber % 10 in 2..4 -> "$FOUND_LITERAL ${formatFoundVacanciesNumber(vacanciesNumber)} вакансии"
+            vacanciesNumber % 10 in 5..9 -> "$FOUND_LITERAL ${formatFoundVacanciesNumber(vacanciesNumber)} вакансий"
+            vacanciesNumber % 100 in 11..19 -> "$FOUND_LITERAL ${formatFoundVacanciesNumber(vacanciesNumber)} вакансий"
             else -> ""
         }
     }
@@ -168,6 +168,7 @@ class SearchViewModel(
     }
 
     companion object {
+        private const val FOUND_LITERAL = "Найдено"
         private const val CLICK_DEBOUNCE_DELAY = 1_000L
         private const val SEARCH_DEBOUNCE_DELAY = 2_000L
     }

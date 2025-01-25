@@ -63,10 +63,8 @@ class SearchFragment : Fragment() {
             requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
 
         binding.initScreenPH.isVisible = true
-
         adapter = SearchAdapter(viewModel::showVacancyDetails)
         binding.searchVacanciesRV.adapter = adapter
-
         val itemDecoration = LayoutItemDecoration(46).apply {
             init(requireContext())
         }
@@ -86,7 +84,6 @@ class SearchFragment : Fragment() {
         }
 
         editTextWatcher = object : TextWatcher {
-
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
@@ -111,7 +108,6 @@ class SearchFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {
             }
         }
-
         binding.textInput.addTextChangedListener(editTextWatcher)
 
         binding.searchVacanciesRV.addOnScrollListener(object : RecyclerView.OnScrollListener() {
