@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.vacancy.fragment.VacancyFragment">
-    
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/leftGuideline1"
         style="@style/GuidelineStyle"
@@ -21,7 +21,7 @@
         android:id="@+id/toolbar"
         style="@style/SimpleToolbar"
         app:contentInsetStartWithNavigation="@dimen/dp_0"
-        app:layout_constraintEnd_toEndOf="16dp"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline1"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/leftGuideline1"
         app:navigationIcon="@drawable/ic_arrow_back_24"
