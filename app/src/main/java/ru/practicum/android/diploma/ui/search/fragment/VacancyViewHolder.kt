@@ -3,10 +3,14 @@ package ru.practicum.android.diploma.ui.search.fragment
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.ItemVacancyBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.util.format.dpToPx
+
+private const val CORNER_RADIUS = 12
 
 class VacancyViewHolder(
     private val binding: ItemVacancyBinding,
@@ -19,14 +23,11 @@ class VacancyViewHolder(
             createSalaryInterval(model.salary?.from, model.salary?.to, model.salary?.currency)
         val image: ImageView = binding.imageViewVacancyLogo
 
-        val radius = itemView.resources.getDimensionPixelSize(R.dimen.dp_12)
-
         Glide.with(itemView)
             .load(model.employer?.logoUrls?.size240)
             .placeholder(R.drawable.ic_droid_48)
             .error(R.drawable.ic_droid_48)
-            .centerCrop()
-            .transform(RoundedCorners(radius))
+            .transform(CenterCrop(), RoundedCorners(itemView.context.dpToPx(CORNER_RADIUS)))
             .into(image)
 
         binding.root.setOnClickListener { _ -> onClick(model) }
@@ -46,6 +47,8 @@ class VacancyViewHolder(
             "от $from $currency"
         } else if (from == null && to != null) {
             "до $to $currency"
+        } else if (from != null) {
+            "от $from до $to $currency"
         } else {
             "Зарплата не указана" // как достать строку из ресурсов файла strings.xml?
         }
