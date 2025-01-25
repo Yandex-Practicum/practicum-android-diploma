@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.data.converters
 
+import ru.practicum.android.diploma.data.dto.AddressDto
 import ru.practicum.android.diploma.data.dto.AreaDto
 import ru.practicum.android.diploma.data.dto.EmployerDto
 import ru.practicum.android.diploma.data.dto.EmploymentFormDto
@@ -10,6 +11,7 @@ import ru.practicum.android.diploma.data.dto.ScheduleDto
 import ru.practicum.android.diploma.data.dto.SkillDto
 import ru.practicum.android.diploma.data.dto.VacanciesResponseDto
 import ru.practicum.android.diploma.data.dto.VacancyDto
+import ru.practicum.android.diploma.domain.models.Address
 import ru.practicum.android.diploma.domain.models.Area
 import ru.practicum.android.diploma.domain.models.Employer
 import ru.practicum.android.diploma.domain.models.EmploymentForm
@@ -48,7 +50,8 @@ class VacanciesConverter {
             schedule = response.schedule?.toSchedule(),
             description = response.description,
             keySkills = response.keySkills.map { it?.toSkill() },
-            alternateUrl = response.alternateUrl
+            alternateUrl = response.alternateUrl,
+            address = response.address?.toAddress()
         )
     }
 
@@ -66,7 +69,8 @@ class VacanciesConverter {
             schedule = null,
             description = null,
             keySkills = emptyList(),
-            alternateUrl = null
+            alternateUrl = null,
+            address = this.address?.toAddress()
         )
     }
 
@@ -120,6 +124,12 @@ class VacanciesConverter {
     private fun SkillDto.toSkill(): Skill {
         return Skill(
             name = this.name
+        )
+    }
+
+    private fun AddressDto.toAddress(): Address {
+        return Address(
+            city = this.city
         )
     }
 }

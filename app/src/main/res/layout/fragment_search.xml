@@ -86,6 +86,7 @@
         android:layout_weight="1"
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/edit_text_search"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:ignore="MissingConstraints"
         tools:itemCount="4"
         tools:listitem="@layout/item_vacancy"
@@ -114,7 +115,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recycler_view_search"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_search"
         tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
