@@ -43,14 +43,11 @@ class VacancyViewHolder(
     }
 
     private fun createSalaryInterval(from: Int?, to: Int?, currency: String?): String {
-        return if (from != null && to == null) {
-            "от $from $currency"
-        } else if (from == null && to != null) {
-            "до $to $currency"
-        } else if (from != null) {
-            "от $from до $to $currency"
-        } else {
-            "Зарплата не указана" // как достать строку из ресурсов файла strings.xml?
+        return when {
+            from != null && to == null -> "от $from $currency"
+            from == null && to != null -> "до $to $currency"
+            from != null && to != null -> "от $from до $to $currency"
+            else -> itemView.context.getString(R.string.salary_not_specified)
         }
     }
 }
