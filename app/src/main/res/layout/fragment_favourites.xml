@@ -21,12 +21,10 @@
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         style="@style/SimpleToolbar"
-        android:layout_height="@dimen/dp_64"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
-        app:title="@string/menu_favourites_label"
-        tools:layout_editor_absoluteY="-3dp" />
+        app:title="@string/menu_favourites_label" />
 
     <ImageView
         android:id="@+id/emptyListPlaceholderImage"
@@ -43,16 +41,14 @@
 
     <TextView
         android:id="@+id/emptyListPlaceholderText"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
-        style="@style/PlaceholderTextStyle"
+        style="@style/MediumText22"
         android:text="@string/empty_favorites_list"
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@id/emptyListPlaceholderImage"
         app:layout_constraintStart_toStartOf="@id/emptyListPlaceholderImage"
         app:layout_constraintEnd_toEndOf="@id/emptyListPlaceholderImage"
-        android:layout_marginStart="@dimen/dp_30"
-        android:layout_marginEnd="@dimen/dp_30"
         android:layout_marginTop="@dimen/dp_16"/>
 
     <androidx.constraintlayout.widget.Group
@@ -77,16 +73,14 @@
 
     <TextView
         android:id="@+id/errorPlaceholderText"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
-        style="@style/PlaceholderTextStyle"
+        style="@style/MediumText22"
         android:text="@string/favorite_load_error"
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@id/errorPlaceholderImage"
         app:layout_constraintStart_toStartOf="@id/errorPlaceholderImage"
         app:layout_constraintEnd_toEndOf="@id/errorPlaceholderImage"
-        android:layout_marginStart="@dimen/dp_30"
-        android:layout_marginEnd="@dimen/dp_30"
         android:layout_marginTop="@dimen/dp_16"/>
 
     <androidx.constraintlayout.widget.Group
@@ -97,14 +91,12 @@
         android:visibility="invisible"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:padding="@dimen/dp_0"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
-        android:layout_marginStart="@dimen/dp_16"
-        android:layout_marginEnd="@dimen/dp_16"
         android:visibility="invisible"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
