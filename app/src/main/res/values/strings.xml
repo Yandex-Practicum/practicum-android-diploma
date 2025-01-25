@@ -15,6 +15,8 @@
     <string name="avto_ru">Авто.ру</string>
     <string name="salary_to_from">от 1 000 до 1 500 €</string>
     <string name="there_are_no_such_vacancies">Таких вакансий нет</string>
+    <string name="empty_favorites_list">Список пуст</string>
+    <string name="favorite_load_error">Не удалось получить\nсписок вакансий</string>
     <string name="vacancy">Вакансия</string>
     <string name="experience">Требуемый опыт</string>
     <string name="vacancy_description">Описание вакансии</string>
@@ -38,4 +40,5 @@
     <string name="vacancy_salary">от 100 000 ₽</string>
     <string name="vacancy_name">Android-разработчик</string>
     <string name="salary_not_specified">Зарплата не указана</string>
+
 </resources>

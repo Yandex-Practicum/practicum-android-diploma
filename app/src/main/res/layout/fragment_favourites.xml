@@ -1,17 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     style="@style/FragmentBgStyle"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.favourites.fragment.FavouritesFragment">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftGuideline"
+        style="@style/GuidelineStyle"
+        app:layout_constraintGuide_begin="@dimen/dp_16" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightGuideline"
+        style="@style/GuidelineStyle"
+        app:layout_constraintGuide_end="@dimen/dp_16" />
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        style="@style/SimpleToolbar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
+        app:title="@string/menu_favourites_label" />
+
+    <ImageView
+        android:id="@+id/emptyListPlaceholderImage"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_0"
+        android:contentDescription="@string/empty_favorites_list"
+        android:scaleType="fitCenter"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
+        android:layout_marginTop="171dp"
+        app:layout_constraintDimensionRatio="656:446"
+        android:src="@drawable/placeholder_favorite_empty_list"/>
+
     <TextView
-        android:id="@+id/templateText"
-        android:text="Избранное"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:id="@+id/emptyListPlaceholderText"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        style="@style/MediumText22"
+        android:text="@string/empty_favorites_list"
         android:gravity="center"
-        android:textColor="@color/gray" />
-</LinearLayout>
+        app:layout_constraintTop_toBottomOf="@id/emptyListPlaceholderImage"
+        app:layout_constraintStart_toStartOf="@id/emptyListPlaceholderImage"
+        app:layout_constraintEnd_toEndOf="@id/emptyListPlaceholderImage"
+        android:layout_marginTop="@dimen/dp_16"/>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/emptyListPlaceholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="emptyListPlaceholderImage, emptyListPlaceholderText"
+        android:visibility="visible"/>
+
+    <ImageView
+        android:id="@+id/errorPlaceholderImage"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_0"
+        android:contentDescription="@string/empty_favorites_list"
+        android:scaleType="fitCenter"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
+        android:layout_marginTop="171dp"
+        app:layout_constraintDimensionRatio="656:446"
+        android:src="@drawable/placeholder_search_no_vacancy"/>
+
+    <TextView
+        android:id="@+id/errorPlaceholderText"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        style="@style/MediumText22"
+        android:text="@string/favorite_load_error"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/errorPlaceholderImage"
+        app:layout_constraintStart_toStartOf="@id/errorPlaceholderImage"
+        app:layout_constraintEnd_toEndOf="@id/errorPlaceholderImage"
+        android:layout_marginTop="@dimen/dp_16"/>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/errorListPlaceholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="errorPlaceholderImage, errorPlaceholderText"
+        android:visibility="invisible"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_0"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
+        android:visibility="invisible"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
