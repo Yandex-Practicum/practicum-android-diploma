@@ -7,4 +7,5 @@
     <color name="gray">#AEAFB4</color>
     <color name="light_gray">#E6E8EB</color>
     <color name="background">#501A1B22</color>
+    <color name="overlay">#99000000</color>
 </resources>

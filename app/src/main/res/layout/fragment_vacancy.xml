@@ -1,8 +1,271 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/FragmentBgStyle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.vacancy.fragment.VacancyFragment">
 
-</LinearLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftGuideline1"
+        style="@style/GuidelineStyle"
+        app:layout_constraintGuide_begin="@dimen/dp_16" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightGuideline1"
+        style="@style/GuidelineStyle"
+        app:layout_constraintGuide_end="@dimen/dp_16" />
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        style="@style/SimpleToolbar"
+        app:contentInsetStartWithNavigation="@dimen/dp_0"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline1"
+        app:navigationIcon="@drawable/ic_arrow_back_24"
+        app:title="@string/vacancy"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="-3dp" />
+
+    <ImageView
+        android:id="@+id/image_view_favorites"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_0"
+        android:layout_marginEnd="@dimen/dp_4"
+        android:src="@drawable/ic_like_off_24"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar"
+        app:layout_constraintEnd_toStartOf="@id/rightGuideline1"
+        app:layout_constraintTop_toTopOf="@id/toolbar"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/image_view_sharing"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_0"
+        android:layout_marginEnd="@dimen/dp_24"
+        android:src="@drawable/ic_sharing_24"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar"
+        app:layout_constraintEnd_toStartOf="@id/image_view_favorites"
+        app:layout_constraintTop_toTopOf="@id/toolbar" />
+
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:overScrollMode="always">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_vacancy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/leftGuideline"
+                style="@style/GuidelineStyle"
+                app:layout_constraintGuide_begin="@dimen/dp_16" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/rightGuideline"
+                style="@style/GuidelineStyle"
+                app:layout_constraintGuide_end="@dimen/dp_16" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/group_vacancy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="text_view_vacancy_name,
+                text_view_vacancy_salary,image_view_vacancy_logo_frame,
+                image_view_vacancy_logo,text_view_vacancy_employer_name,
+                text_view_vacancy_employer_city,text_view_vacancy_experience_title,
+                text_view_vacancy_experience,text_view_vacancy_schedule,
+                text_view_vacancy_description_title,text_view_vacancy_skills_title,
+                text_view_vacancy_skills" />
+
+            <TextView
+                android:id="@+id/text_view_vacancy_name"
+                style="@style/VacancyNameTextStyle"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_24"
+                app:layout_constraintEnd_toStartOf="@id/rightGuideline"
+                app:layout_constraintStart_toStartOf="@id/leftGuideline"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/vacancy_name" />
+
+            <TextView
+                android:id="@+id/text_view_vacancy_salary"
+                style="@style/VacancySalaryTextStyle"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_4"
+                app:layout_constraintEnd_toStartOf="@id/rightGuideline"
+                app:layout_constraintStart_toStartOf="@id/leftGuideline"
+                app:layout_constraintTop_toBottomOf="@id/text_view_vacancy_name"
+                tools:text="@string/vacancy_salary" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/image_view_vacancy_logo_frame"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="@dimen/dp_0"
+                android:background="@color/light_gray"
+                app:layout_constraintBottom_toBottomOf="@id/text_view_vacancy_employer_city"
+                app:layout_constraintEnd_toStartOf="@id/rightGuideline"
+                app:layout_constraintStart_toStartOf="@id/leftGuideline"
+                app:layout_constraintTop_toTopOf="@id/text_view_vacancy_employer_name"
+                app:shapeAppearanceOverlay="@style/RoundedImageView" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/image_view_vacancy_logo"
+                android:layout_width="@dimen/dp_48"
+                android:layout_height="@dimen/dp_48"
+                android:layout_margin="@dimen/dp_16"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_vacancy_logo_frame"
+                app:layout_constraintStart_toStartOf="@id/leftGuideline"
+                app:layout_constraintTop_toTopOf="@id/image_view_vacancy_logo_frame"
+                app:shapeAppearanceOverlay="@style/RoundedImageView"
+                tools:src="@drawable/placeholder_ya" />
+
+            <TextView
+                android:id="@+id/text_view_vacancy_employer_name"
+                style="@style/VacancyEmployerNameTextStyle"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_40"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:paddingTop="@dimen/dp_16"
+                app:layout_constraintEnd_toEndOf="@id/image_view_vacancy_logo_frame"
+                app:layout_constraintStart_toEndOf="@id/image_view_vacancy_logo"
+                app:layout_constraintTop_toBottomOf="@id/text_view_vacancy_salary"
+                tools:text="@string/food" />
+
+            <TextView
+                android:id="@+id/text_view_vacancy_employer_city"
+                style="@style/VacancyEmployerCityTextStyle"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:paddingBottom="@dimen/dp_20"
+                app:layout_constraintEnd_toEndOf="@id/image_view_vacancy_logo_frame"
+                app:layout_constraintStart_toEndOf="@id/image_view_vacancy_logo"
+                app:layout_constraintTop_toBottomOf="@id/text_view_vacancy_employer_name"
+                tools:text="@string/moscow" />
+
+            <TextView
+                android:id="@+id/text_view_vacancy_experience_title"
+                style="@style/VacancyExperienceTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_24"
+                android:text="@string/experience"
+                app:layout_constraintStart_toStartOf="@id/leftGuideline"
+                app:layout_constraintTop_toBottomOf="@id/image_view_vacancy_logo_frame" />
+
+            <TextView
+                android:id="@+id/text_view_vacancy_experience"
+                style="@style/VacancyDescriptionTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_4"
+                app:layout_constraintStart_toStartOf="@id/leftGuideline"
+                app:layout_constraintTop_toBottomOf="@id/text_view_vacancy_experience_title"
+                tools:text="@string/vacancy_experience_to_from" />
+
+            <TextView
+                android:id="@+id/text_view_vacancy_schedule"
+                style="@style/VacancyDescriptionTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                app:layout_constraintStart_toStartOf="@id/leftGuideline"
+                app:layout_constraintTop_toBottomOf="@id/text_view_vacancy_experience"
+                tools:text="@string/vacancy_schedule" />
+
+            <TextView
+                android:id="@+id/text_view_vacancy_description_title"
+                style="@style/VacancyDescriptionTitleTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/sp_32"
+                android:text="@string/vacancy_description"
+                app:layout_constraintStart_toStartOf="@id/leftGuideline"
+                app:layout_constraintTop_toBottomOf="@id/text_view_vacancy_schedule" />
+
+            <TextView
+                android:id="@+id/text_view_vacancy_description"
+                style="@style/VacancyDescriptionTextStyle"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                app:layout_constraintEnd_toStartOf="@id/rightGuideline"
+                app:layout_constraintStart_toStartOf="@id/leftGuideline"
+                app:layout_constraintTop_toBottomOf="@id/text_view_vacancy_description_title"
+                tools:text="@string/job_description" />
+
+            <TextView
+                android:id="@+id/text_view_vacancy_skills_title"
+                style="@style/VacancyDescriptionTitleTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/sp_32"
+                android:text="@string/skills"
+                app:layout_constraintStart_toStartOf="@id/leftGuideline"
+                app:layout_constraintTop_toBottomOf="@id/text_view_vacancy_description" />
+
+            <TextView
+                android:id="@+id/text_view_vacancy_skills"
+                style="@style/VacancyDescriptionTextStyle"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:paddingBottom="@dimen/dp_24"
+                app:layout_constraintEnd_toStartOf="@id/rightGuideline"
+                app:layout_constraintStart_toStartOf="@id/leftGuideline"
+                app:layout_constraintTop_toBottomOf="@id/text_view_vacancy_skills_title"
+                tools:text="@string/skills_description" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/placeholder"
+            layout="@layout/placeholder_layout"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp_16"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/pb_vacancy"
+            style="@style/ProgressBarStyle"
+            android:layout_width="@dimen/dp_48"
+            android:layout_height="@dimen/dp_48"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/overlay"
+        android:visibility="gone" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
