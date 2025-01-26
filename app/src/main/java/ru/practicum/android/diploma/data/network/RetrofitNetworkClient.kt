@@ -17,7 +17,6 @@ class RetrofitNetworkClient(
     companion object {
         private const val NO_INTERNET_CONNNECTION = -1
         private const val INTERNAL_SERVER_ERROR = 500
-        private const val BAD_REQUEST_ERROR = 400
         private const val SUCCESSFUL_REQUEST = 200
     }
 

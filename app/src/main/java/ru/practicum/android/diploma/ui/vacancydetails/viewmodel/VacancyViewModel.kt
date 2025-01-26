@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.practicum.android.diploma.domain.models.Vacancy
-import ru.practicum.android.diploma.domain.vacancydetails.api.GetVacancyDetailsUseCase
+import ru.practicum.android.diploma.domain.vacancydetails.api.VacancyDetailsInteractor
 
 class VacancyViewModel(
-    private val getVacancyDetailsUseCase: GetVacancyDetailsUseCase,
+    private val vacancyDetailsInteractor: VacancyDetailsInteractor,
 ) : ViewModel() {
 
     // Временное решение для кнопок "Поделиться" и "Избранное"
@@ -38,8 +38,8 @@ class VacancyViewModel(
 //        searchResultData.postValue(searchResult)
 //
 //        viewModelScope.launch {
-//            vacancyInteractor
-//                .execute(id)
+//            vacancyDetailsInteractor
+//                .getVacancyDetails(id)
 //                .collect { result ->
 //                    searchResult = if (result != null) {
 //                        /*

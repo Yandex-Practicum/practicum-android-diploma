@@ -4,14 +4,14 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import ru.practicum.android.diploma.domain.Resource
 import ru.practicum.android.diploma.domain.models.Vacancy
-import ru.practicum.android.diploma.domain.vacancydetails.api.GetVacancyDetailsUseCase
+import ru.practicum.android.diploma.domain.vacancydetails.api.VacancyDetailsInteractor
 import ru.practicum.android.diploma.domain.vacancydetails.api.VacancyDetailsRepository
 
-class GetVacancyDetailsUseCaseImpl(
+class VacancyDetailsInteractorImpl(
     private val vacancyDetailsRepository: VacancyDetailsRepository
-) : GetVacancyDetailsUseCase {
+) : VacancyDetailsInteractor {
 
-    override fun execute(vacancyId: String): Flow<Pair<Vacancy?, String?>> {
+    override fun getVacancyDetails(vacancyId: String): Flow<Pair<Vacancy?, String?>> {
         return vacancyDetailsRepository.searchVacancyById(vacancyId).map { result ->
             when (result) {
                 is Resource.Success -> {
