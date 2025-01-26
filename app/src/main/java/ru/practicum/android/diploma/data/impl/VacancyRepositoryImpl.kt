@@ -58,6 +58,7 @@ class VacancyRepositoryImpl(
         return Vacancy(
             vacancy.id,
             vacancy.name,
+            vacancy.employer.logoUrls?.url90,
             Area(vacancy.area.id, vacancy.area.name),
             salary,
             vacancy.employer.name,
