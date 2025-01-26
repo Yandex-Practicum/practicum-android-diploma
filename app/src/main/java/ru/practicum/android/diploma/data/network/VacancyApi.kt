@@ -10,13 +10,17 @@ import ru.practicum.android.diploma.data.dto.VacancyDto
 
 interface VacancyApi {
 
-    @Headers("Authorization: Bearer ${BuildConfig.HH_ACCESS_TOKEN}",
-        "HH-User-Agent: Application Practicum_17_android_team")
+    @Headers(
+        "Authorization: Bearer ${BuildConfig.HH_ACCESS_TOKEN}",
+        "HH-User-Agent: Application Practicum_17_android_team"
+    )
     @GET("/vacancies/{vacancy_id}?locale=RU")
     suspend fun getVacancy(@Path("vacancy_id") id: String): VacancyDto
 
-    @Headers("Authorization: Bearer ${BuildConfig.HH_ACCESS_TOKEN}",
-        "HH-User-Agent: Application Practicum_17_android_team")
+    @Headers(
+        "Authorization: Bearer ${BuildConfig.HH_ACCESS_TOKEN}",
+        "HH-User-Agent: Application Practicum_17_android_team"
+    )
     @GET("/vacancies?per_page=20")
     suspend fun searchVacancy(@QueryMap options: Map<String, String>): VacanciesResponse
 }

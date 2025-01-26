@@ -19,7 +19,7 @@ class VacancyRepositoryImpl(
 ) : VacancyRepository {
     override fun getVacancies(options: Map<String, String>): Flow<Resource<Page>> = flow {
         val request = Request.VacanciesRequest(options)
-        val response = (networkClient.doRequest(request) as VacanciesResponse)
+        val response = networkClient.doRequest(request) as VacanciesResponse
         val result = if (response.resultCode == SuccessfulRequest) {
             Resource.Success(
                 Page(
@@ -36,7 +36,7 @@ class VacancyRepositoryImpl(
 
     override fun getVacancy(vacancyId: String): Flow<Resource<Vacancy>> = flow {
         val request = Request.VacancyRequest(vacancyId)
-        val response = (networkClient.doRequest(request) as VacancyResponse)
+        val response = networkClient.doRequest(request) as VacancyResponse
         val result = if (response.resultCode == SuccessfulRequest) {
             Resource.Success(convertFromVacancyDto(response.vacancy))
         } else {
@@ -52,8 +52,9 @@ class VacancyRepositoryImpl(
                 vacancy.salary.from,
                 vacancy.salary.to
             )
-        } else
+        } else {
             null
+        }
         return Vacancy(
             vacancy.id,
             vacancy.name,
