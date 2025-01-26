@@ -15,11 +15,11 @@ class RetrofitNetworkClient(private val vacancyService: VacancyApi) : NetworkCli
             try {
                 val resp = when (dto) {
                     is Request.VacanciesRequest -> {
-                         vacancyService.searchVacancy(dto.options)
+                        vacancyService.searchVacancy(dto.options)
                     }
 
                     is Request.VacancyRequest -> {
-                         VacancyResponse(vacancyService.getVacancy(dto.id))
+                        VacancyResponse(vacancyService.getVacancy(dto.id))
                     }
 
                     is Request.CountriesRequest -> {
