@@ -52,8 +52,8 @@ class VacanciesConverter {
         )
     }
 
-    fun convertFromDBtoVacancy(entity: VacancyEntity): Vacancy? {
-        val keySkill = entity.keySkills?.let { JsonUtils.fromJsonList<Skill?>(it) } ?: return null
+    fun convertFromDBtoVacancy(entity: VacancyEntity): Vacancy {
+        val keySkill = entity.keySkills?.let { JsonUtils.fromJsonList<Skill?>(it) } ?: emptyList()
         return Vacancy(
             vacancyId = entity.vacancyId,
             name = entity.name,
