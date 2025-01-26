@@ -58,5 +58,9 @@
     <string name="mock_item_vacancy_salary">от 10 000 $</string>
 
     <string name="item_vacancy_name">%1$s, %2$s</string>
+    <string name="emptySalary">Зарплата не указана</string>
+    <string name="item_vacancy_salary_to">до %1$s %2$s</string>
+    <string name="item_vacancy_salary_from">от %1$s %2$s</string>
+    <string name="item_vacancy_salary_from_to">от %1$s до %2$s %3$s</string>
 
 </resources>

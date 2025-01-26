@@ -1,23 +1,117 @@
 package ru.practicum.android.diploma.presentation.adapter
 
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.Vacancy
+import java.text.NumberFormat
+import java.util.Locale
 
 class VacancyAdapter : RecyclerView.Adapter<VacancyAdapter.VacancyViewHolder>() {
 
     private var vacancyList = mutableListOf<Vacancy>()
 
+    fun updateItems(items: List<Vacancy>) {
+
+        val oldItems = this.vacancyList
+        val newItems = items.toMutableList()
+        val diffResult = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
+            override fun getOldListSize(): Int {
+                return oldItems.size
+            }
+
+            override fun getNewListSize(): Int {
+                return newItems.size
+            }
+
+            override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+                return oldItems[oldItemPosition].id == newItems[newItemPosition].id
+            }
+
+            override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+                return oldItems[oldItemPosition] == newItems[newItemPosition]
+            }
+        })
+
+        this.vacancyList = newItems.toMutableList()
+        diffResult.dispatchUpdatesTo(this)
+    }
+
+    var onItemClick: ((Vacancy) -> Unit)? = null
+
     inner class VacancyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        private val vacancyImage: ImageView = itemView.findViewById(R.id.vacancyImage)
         private val vacancyNameAndArea: TextView = itemView.findViewById(R.id.vacancyNameAndArea)
+        private val vacancyEmployerName: TextView = itemView.findViewById(R.id.employerName)
+        private val vacancySalary: TextView = itemView.findViewById(R.id.salary)
 
         fun bind(vacancy: Vacancy) {
+
+            itemView.setOnClickListener { onItemClick?.let { it1 -> it1(vacancy) } }
+
+            with(vacancyImage) {
+                Glide.with(itemView)
+                    .load(vacancy.logoUrl90)
+                    .placeholder(R.drawable.image_placeholder)
+                    .centerCrop()
+                    .transform(
+                        RoundedCorners(
+                            TypedValue.applyDimension(
+                                TypedValue.COMPLEX_UNIT_DIP,
+                                12F,
+                                context.resources.displayMetrics
+                            ).toInt()
+                        )
+                    )
+                    .into(vacancyImage)
+            }
+
             vacancyNameAndArea.text =
                 itemView.resources.getString(R.string.item_vacancy_name, vacancy.name, vacancy.area)
+            vacancyEmployerName.text = vacancy.employer
+
+            if (vacancy.salary == null) {
+                vacancySalary.text = itemView.resources.getString(R.string.emptySalary)
+
+            } else {
+                val currencySymbol = getCurrencySymbol(vacancy.salary.currency)
+                val numberFormat = NumberFormat.getInstance(Locale.getDefault())
+
+                if (vacancy.salary.from == null) {
+                    vacancySalary.text =
+                        itemView.resources.getString(
+                            R.string.item_vacancy_salary_to,
+                            numberFormat.format(vacancy.salary.to).replace(",", " "),
+                            currencySymbol
+                        )
+
+                } else if (vacancy.salary.to == null) {
+                    vacancySalary.text =
+                        itemView.resources.getString(
+                            R.string.item_vacancy_salary_from,
+                            numberFormat.format(vacancy.salary.from).replace(",", " "),
+                            currencySymbol
+                        )
+
+                } else {
+                    vacancySalary.text =
+                        itemView.resources.getString(
+                            R.string.item_vacancy_salary_from_to,
+                            numberFormat.format(vacancy.salary.from).replace(",", " "),
+                            numberFormat.format(vacancy.salary.to).replace(",", " "),
+                            currencySymbol
+                        )
+                }
+            }
         }
     }
 
@@ -33,5 +127,20 @@ class VacancyAdapter : RecyclerView.Adapter<VacancyAdapter.VacancyViewHolder>() 
 
     override fun onBindViewHolder(holder: VacancyViewHolder, position: Int) {
         holder.bind(vacancyList[position])
+    }
+}
+
+fun getCurrencySymbol(currency: String): String {
+    return when (currency) {
+        "BYR" -> "Br"
+        "USD" -> "$"
+        "EUR" -> "€"
+        "KZT" -> "₸"
+        "UAH" -> "₴"
+        "AZN" -> "₼"
+        "UZS" -> "сум"
+        "GEL" -> "₾"
+        "KGT" -> "сом"
+        else -> "₽"
     }
 }
