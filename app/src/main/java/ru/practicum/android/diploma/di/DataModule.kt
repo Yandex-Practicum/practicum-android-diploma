@@ -14,9 +14,9 @@ import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.data.network.HhApi
 import ru.practicum.android.diploma.data.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.data.search.VacanciesRepositoryImpl
-import ru.practicum.android.diploma.data.vacancy.VacancyRepositoryImpl
+import ru.practicum.android.diploma.data.vacancydetails.VacancyDetailsRepositoryImpl
 import ru.practicum.android.diploma.domain.search.api.VacanciesRepository
-import ru.practicum.android.diploma.domain.vacancy.api.VacancyRepository
+import ru.practicum.android.diploma.domain.vacancydetails.api.VacancyDetailsRepository
 
 private const val BASE_URL = "https://api.hh.ru/"
 const val FILTER_KEY = "key_for_filter"
@@ -33,7 +33,7 @@ val dataModule = module {
     }
 
     single<NetworkClient> {
-        RetrofitNetworkClient(get())
+        RetrofitNetworkClient(get(), get())
     }
 
     single(named(FILTER_PREFERENCES)) {
@@ -59,7 +59,7 @@ val dataModule = module {
         VacanciesRepositoryImpl(get(), get())
     }
 
-    single<VacancyRepository> {
-        VacancyRepositoryImpl(get(), get())
+    single<VacancyDetailsRepository> {
+        VacancyDetailsRepositoryImpl(get(), get())
     }
 }

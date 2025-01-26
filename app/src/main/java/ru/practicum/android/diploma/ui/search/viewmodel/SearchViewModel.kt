@@ -20,32 +20,30 @@ class SearchViewModel(
     fun searchResultLiveData(): LiveData<SearchResult> = searchResultData
 
     fun searchVacancies() {
-        var searchResult: SearchResult = SearchResult.Loading
-        searchResultData.postValue(searchResult)
+        searchResultData.postValue(SearchResult.Loading)
 
         viewModelScope.launch {
             vacanciesInteractor
-                .execute()
-                .collect { result ->
-                    searchResult = if (result != null) {
-                        if (result.found == 0) {
-                            SearchResult.NotFound
-                        } else {
-                            SearchResult.SearchVacanciesContent(
-                                result.found,
-                                result.items
-                            )
-
-                        }
-                    } else {
-                        SearchResult.Error
-                    }
+                .searchVacancies()
+                .collect { resultPair ->
+                    resultHandle(resultPair.first, resultPair.second)
                     /*
                    еще потом докинуть условие в каком случае нет интернета
                    то есть в каком случае возращать SearchResult.NoConnection (задача 27)
                     */
-                    searchResultData.postValue(searchResult)
                 }
+        }
+    }
+
+    private fun resultHandle(foundVacancies: List<Vacancy>?, errorMessage: String?) {
+        if (errorMessage != null) {
+            searchResultData.postValue(SearchResult.Error)
+        } else if (foundVacancies != null) {
+            if (foundVacancies.isEmpty()) {
+                searchResultData.postValue(SearchResult.NotFound)
+            } else {
+                searchResultData.postValue(SearchResult.SearchVacanciesContent(foundVacancies.size, foundVacancies))
+            }
         }
     }
 

@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.vacancy.fragment
+package ru.practicum.android.diploma.ui.vacancydetails.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
-import ru.practicum.android.diploma.ui.vacancy.viewmodel.VacancyViewModel
+import ru.practicum.android.diploma.ui.vacancydetails.viewmodel.VacancyViewModel
 
 class VacancyFragment : Fragment() {
 

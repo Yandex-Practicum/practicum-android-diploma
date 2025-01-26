@@ -20,19 +20,13 @@ import ru.practicum.android.diploma.domain.models.LogoUrls
 import ru.practicum.android.diploma.domain.models.Salary
 import ru.practicum.android.diploma.domain.models.Schedule
 import ru.practicum.android.diploma.domain.models.Skill
-import ru.practicum.android.diploma.domain.models.VacanciesResponse
 import ru.practicum.android.diploma.domain.models.Vacancy
 
 class VacanciesConverter {
 
-    fun convertCut(response: VacanciesResponseDto): VacanciesResponse {
-        return with(response) {
-            VacanciesResponse(
-                found = this.found,
-                items = items.map {
-                    it.toVacancyCut()
-                }
-            )
+    fun convertCut(response: VacanciesResponseDto): List<Vacancy> {
+        return response.items.map {
+            it.toVacancyCut()
         }
     }
 
