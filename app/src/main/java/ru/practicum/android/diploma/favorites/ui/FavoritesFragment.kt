@@ -6,13 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFavoritesBinding
+import ru.practicum.android.diploma.favorites.presentation.state.FavoritesScreenState
 import ru.practicum.android.diploma.favorites.presentation.viewmodel.FavoriteScreenViewModel
 import ru.practicum.android.diploma.search.domain.model.VacancyItems
 import ru.practicum.android.diploma.search.ui.VacancyAdapter
@@ -52,50 +55,59 @@ class FavoritesFragment : Fragment(), VacancyViewHolder.OnItemClickListener {
 
         viewModel.getScreenState().observe(viewLifecycleOwner) { state ->
             when (state) {
-                is LikeTracksScreenState.Content -> {
+                is FavoritesScreenState.Content -> {
                     showContent(state.data)
                 }
 
-                is LikeTracksScreenState.Error -> {
+                is FavoritesScreenState.Error -> {
                     showError(state.message)
                 }
             }
         }
     }
 
-  /*  private fun showError(code: String) {
-        trackList.clear()
-        trackAdapter.notifyDataSetChanged()
+    private fun showError(message: String) {
+        vacancyList.clear()
+        vacancyAdapter.notifyDataSetChanged()
 
-        val placeholderImage: ImageView = binding.errorImageLikeTracks
-        val placeholderLayout: LinearLayout = binding.errorLayoutLikeTracks
+        val placeholderImage: ImageView = binding.placeholderImage
+        val placeholderText: TextView = binding.placeholderText
+        val placeholderLayout: LinearLayout = binding.placeholder
+        val recyclerView: RecyclerView = binding.rvFavoriteItems
 
         placeholderLayout.visibility = View.VISIBLE
-        placeholderImage.setImageResource(R.drawable.nothing_found)
-
-        var recyclerView: RecyclerView = binding.rvLikeItems
         recyclerView.visibility = View.GONE
+
+        if(message == getString(R.string.list_is_not_recieved)) placeholderImage.setImageResource(R.drawable.list_is_not_received)
+        else placeholderImage.setImageResource(R.drawable.list_is_empty)
+
+        placeholderText.text = message
     }
 
-    private fun showContent(data: List<Track>) {
-        val recyclerView: RecyclerView = binding.rvLikeItems
-        recyclerView.apply {
-            adapter = trackAdapter
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+    private fun showContent(data: List<VacancyItems>) {
+        if(data.isEmpty()){
+            showError(getString(R.string.list_is_empty))
+        } else {
+            val recyclerView: RecyclerView = binding.rvFavoriteItems
+            val placeholderImage: ImageView = binding.placeholderImage
+            val placeholderText: TextView = binding.placeholderText
+            val placeholderLayout: LinearLayout = binding.placeholder
+
+            recyclerView.apply {
+                adapter = vacancyAdapter
+                layoutManager =
+                    LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            }
+            vacancyList.clear()
+            vacancyList.addAll(data)
+
+            vacancyAdapter.items = vacancyList
+            vacancyAdapter.notifyDataSetChanged()
+
+            placeholderLayout.visibility = View.GONE
+            recyclerView.visibility = View.VISIBLE
         }
-        trackList.clear()
-
-        trackList.addAll(data)
-        trackAdapter.items = trackList
-        trackAdapter.notifyDataSetChanged()
-
-        val placeholderLayout: LinearLayout = binding.errorLayoutLikeTracks
-        placeholderLayout.visibility = View.GONE
-
-        recyclerView.visibility = View.VISIBLE
     }
-     */
 
     override fun onDestroyView() {
         super.onDestroyView()

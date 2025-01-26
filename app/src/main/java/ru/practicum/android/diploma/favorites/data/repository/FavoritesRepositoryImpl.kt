@@ -10,7 +10,7 @@ import ru.practicum.android.diploma.AppDatabase
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.common.data.db.entity.VacancyEntity
 import ru.practicum.android.diploma.common.domain.models.Resource
-import ru.practicum.android.diploma.common.util.Converter
+import ru.practicum.android.diploma.common.util.VacancyEntityConverter
 import ru.practicum.android.diploma.favorites.domain.repository.FavoriteRepository
 import ru.practicum.android.diploma.search.domain.model.VacancyItems
 
@@ -18,7 +18,7 @@ class FavoritesRepositoryImpl(
     private val appDatabase: AppDatabase,
     private val gson: Gson,
     private val sharedPrefs: SharedPreferences,
-    private val converter: Converter,
+    private val converter: VacancyEntityConverter,
     private val context: Context
 ) : FavoriteRepository {
     override suspend fun getVacancyList(): Flow<Resource<List<VacancyItems>>>  = flow {
@@ -26,7 +26,7 @@ class FavoritesRepositoryImpl(
             val vacancyList = appDatabase.favoriteDao().getVacancyListByTime()
             emit(Resource.Success(convert(vacancyList)))
         } catch (e: SQLiteException) {
-            emit(Resource.Error(R.string.list_is_not_recieved.toString())) // не удалось получить список вакансий
+            emit(Resource.Error(context.getString(R.string.list_is_not_recieved))) // не удалось получить список вакансий
         }
    }
 

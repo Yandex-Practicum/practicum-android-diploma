@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.di
 
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import ru.practicum.android.diploma.favorites.presentation.viewmodel.FavoriteScreenViewModel
@@ -10,7 +11,7 @@ import ru.practicum.android.diploma.vacancy.presentation.viewmodel.VacancyScreen
 val viewModelModule = module {
 
     viewModel {
-        FavoriteScreenViewModel(get())
+        FavoriteScreenViewModel(get(), androidContext())
     }
     viewModel {
         FilterScreenViewModel(get())

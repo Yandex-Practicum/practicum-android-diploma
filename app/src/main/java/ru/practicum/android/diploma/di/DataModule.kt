@@ -13,7 +13,7 @@ import ru.practicum.android.diploma.common.data.Mapper
 import ru.practicum.android.diploma.common.data.network.HeadHunterApi
 import ru.practicum.android.diploma.common.data.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.common.util.ConnectivityManager
-import ru.practicum.android.diploma.common.util.Converter
+import ru.practicum.android.diploma.common.util.VacancyEntityConverter
 import ru.practicum.android.diploma.favorites.data.repository.FavoritesRepositoryImpl
 import ru.practicum.android.diploma.favorites.domain.repository.FavoriteRepository
 import ru.practicum.android.diploma.filter.data.repository.FilterRepositoryImpl
@@ -37,7 +37,9 @@ val dataModule = module {
             androidApplication(),
             AppDatabase::class.java,
             "database.db"
-        ).build()
+        )
+            //.addTypeConverter(VacancyEntityConverter())
+            .build()
     }
 
     single<HeadHunterApi> {
@@ -81,7 +83,7 @@ val dataModule = module {
     }
 
     factory {
-        Converter()
+        VacancyEntityConverter()
     }
 
 }

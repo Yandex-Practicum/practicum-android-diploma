@@ -6,7 +6,7 @@ import java.text.DecimalFormatSymbols
 data class Salary(
     val from: Int? = null,
     val to: Int? = null,
-    val currency: String,
+    val currency: String? = null,
 ) {
     fun getSalaryToString(): String {
         return when {
