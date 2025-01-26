@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.data.converters
 
+import ru.practicum.android.diploma.data.db.entity.VacancyEntity
 import ru.practicum.android.diploma.data.dto.AddressDto
 import ru.practicum.android.diploma.data.dto.AreaDto
 import ru.practicum.android.diploma.data.dto.EmployerDto
@@ -49,7 +50,7 @@ class VacanciesConverter {
             employment = response.employment?.toEmploymentForm(),
             schedule = response.schedule?.toSchedule(),
             description = response.description,
-            keySkills = response.keySkills.map { it?.toSkill() },
+            keySkills = response.keySkills?.map { it.toSkill() },
             alternateUrl = response.alternateUrl,
             address = response.address?.toAddress()
         )
@@ -130,6 +131,24 @@ class VacanciesConverter {
     private fun AddressDto.toAddress(): Address {
         return Address(
             city = this.city
+        )
+    }
+
+    fun VacancyEntity.toVacancy(): Vacancy {
+        return Vacancy(
+            vacancyId = this.vacancyId,
+            name = this.name,
+            employer = this.employer,
+            salary = this.salary,
+            area = null,
+            experience = null,
+            employmentForm = null,
+            employment = null,
+            schedule = null,
+            description = null,
+            keySkills = null,
+            alternateUrl = null,
+            address = null
         )
     }
 }
