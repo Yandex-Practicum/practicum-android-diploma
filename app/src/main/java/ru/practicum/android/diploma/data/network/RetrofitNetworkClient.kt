@@ -4,32 +4,28 @@ import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
+import ru.practicum.android.diploma.data.dto.Request
 import ru.practicum.android.diploma.data.dto.Response
-import ru.practicum.android.diploma.data.dto.VacanciesRequest
-import ru.practicum.android.diploma.data.dto.VacancyDescriptionRequest
+import ru.practicum.android.diploma.data.dto.VacancyResponse
 
 class RetrofitNetworkClient(private val vacancyService: VacancyApi) : NetworkClient {
-    override suspend fun doRequest(dto: Any): Response {
+    override suspend fun doRequest(dto: Request): Response {
         return withContext(Dispatchers.IO) {
             try {
                 when (dto) {
-                    is VacanciesRequest -> {
+                    is Request.VacanciesRequest -> {
                         val resp = vacancyService.searchVacancy(dto.options)
                         resp.apply { resultCode = SuccessfulRequest }
                     }
 
-                    is VacancyDescriptionRequest -> {
-                        val resp = vacancyService.getVacancy(dto.id)
+                    is Request.VacancyRequest -> {
+                        val resp = VacancyResponse(vacancyService.getVacancy(dto.id))
                         resp.apply { resultCode = SuccessfulRequest }
-                    }
-
-                    else -> {
-                        Response().apply { resultCode = BadRequest }
                     }
                 }
             } catch (e: HttpException) {
                 Log.d(
-                    "RETROFIT_LOG",
+                    RETROFIT_LOG,
                     "${e.message}"
                 )
                 Response().apply { resultCode = BadRequest }
@@ -38,7 +34,8 @@ class RetrofitNetworkClient(private val vacancyService: VacancyApi) : NetworkCli
     }
 
     companion object {
-        const val SuccessfulRequest = 200
-        const val BadRequest = 400
+        private const val RETROFIT_LOG = "RETROFIT_LOG"
+        private const val SuccessfulRequest = 200
+        private const val BadRequest = 400
     }
 }
