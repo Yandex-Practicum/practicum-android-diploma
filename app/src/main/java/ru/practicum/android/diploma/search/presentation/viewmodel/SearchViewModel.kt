@@ -71,7 +71,7 @@ class SearchViewModel(
 
     fun searchVacancy(searchQuery: String) {
         if (searchQuery.isNotEmpty()) {
-            Log.d("SearchQuery","$searchQuery")
+            Log.d("SearchQuery", "$searchQuery")
             if (!isNextPageLoading) {
                 isNextPageLoading = true
                 renderScreenState(SearchViewState.Loading)
@@ -88,8 +88,9 @@ class SearchViewModel(
     }
 
     fun onLastItemReached(query: String) {
-        if (!(currentPage != maxPages && maxPages != 0) || this.latestSearchQuery != query) return
-        if (query.isNotEmpty()) {
+        if (!(currentPage != maxPages && maxPages != 0) || this.latestSearchQuery != query){
+            return
+        } else if (query.isNotEmpty()) {
             if (!isNextPageLoading) {
                 currentPage += 1
                 viewModelScope.launch {
@@ -100,7 +101,7 @@ class SearchViewModel(
                         .collect { viewState ->
                             renderScreenState(viewState)
                         }
-                    Log.d("CurrentPage","$currentPage")
+                    Log.d("CurrentPage", "$currentPage")
                     renderAdapterState(AdapterState.Idle)
                     isNextPageLoading = false
                 }

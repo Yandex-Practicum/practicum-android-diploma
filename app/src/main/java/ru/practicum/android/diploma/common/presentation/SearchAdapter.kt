@@ -52,10 +52,10 @@ class SearchAdapter(
     }
 
     fun submitData(data: List<ListItem>) {
-            val updatedList = currentList.toMutableList().apply {
-                addAll(data)
-            }
-            submitList(updatedList)
+        val updatedList = currentList.toMutableList().apply {
+            addAll(data)
+        }
+        submitList(updatedList)
     }
 
     fun showLoading() {
