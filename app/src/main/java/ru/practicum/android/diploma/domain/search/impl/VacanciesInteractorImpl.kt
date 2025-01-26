@@ -24,18 +24,4 @@ class VacanciesInteractorImpl(
             }
         }
     }
-
-    //    override fun execute(): Flow<VacanciesResponse?> {
-//        return vacanciesRepository.getVacancies().map { result ->
-//            when (result) {
-//                is Resource.Success -> {
-//                    result.data
-//                }
-//
-//                is Resource.Error -> {
-//                    null
-//                }
-//            }
-//        }
-//    }
 }

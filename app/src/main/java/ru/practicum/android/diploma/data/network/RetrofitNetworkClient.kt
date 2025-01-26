@@ -55,39 +55,4 @@ class RetrofitNetworkClient(
             }
         }
     }
-
-//    override suspend fun doRequest(dto: Any): Response {
-//        // Если подключение к интернету отсутствует
-//        if (!isConnected) {
-//            return Response().apply { resultCode = NO_INTERNET_CONNNECTION }
-//        }
-//
-//        if (dto is Request.VacanciesSearchRequest) {
-//            return withContext(Dispatchers.IO) {
-//                try {
-//                    val response = api.searchVacancies()
-//                    response.apply { resultCode = SUCCESSFUL_REQUEST }
-//                } catch (e: HttpException) {
-//                    Log.w("HttpException", e)
-//                    Response().apply { resultCode = INTERNAL_SERVER_ERROR }
-//                }
-//            }
-//        }
-//
-//        if (dto is Request.VacancyDetailsRequest) {
-//            return withContext(Dispatchers.IO) {
-//                try {
-//                    val response = api.getVacancyDetails(dto.vacancyId)
-//                    response.apply { resultCode = SUCCESSFUL_REQUEST }
-//                } catch (e: HttpException) {
-//                    Log.w("HttpException", e)
-//                    Response().apply { resultCode = INTERNAL_SERVER_ERROR }
-//                }
-//            }
-//        }
-//
-//        // Если запрос составлен неверно - возвращает ответ с кодом ошибки 400
-//        // Лучше заменить эту конструкцию с if-ами на when
-//        return Response().apply { resultCode = BAD_REQUEST_ERROR }
-//    }
 }
