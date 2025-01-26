@@ -13,32 +13,29 @@ class RetrofitNetworkClient(private val vacancyService: VacancyApi) : NetworkCli
     override suspend fun doRequest(dto: Request): Response {
         return withContext(Dispatchers.IO) {
             try {
-                when (dto) {
+                val resp = when (dto) {
                     is Request.VacanciesRequest -> {
-                        val resp = vacancyService.searchVacancy(dto.options)
-                        resp.apply { resultCode = SuccessfulRequest }
+                         vacancyService.searchVacancy(dto.options)
                     }
 
                     is Request.VacancyRequest -> {
-                        val resp = VacancyResponse(vacancyService.getVacancy(dto.id))
-                        resp.apply { resultCode = SuccessfulRequest }
+                         VacancyResponse(vacancyService.getVacancy(dto.id))
                     }
 
                     is Request.CountriesRequest -> {
-                        val resp = AreasResponse(vacancyService.getCountries())
-                        resp.apply { resultCode = SuccessfulRequest }
+                        AreasResponse(vacancyService.getCountries())
                     }
 
                     is Request.AreasRequest -> {
-                        val resp = vacancyService.getAreasById(dto.id)
-                        resp.apply { resultCode = SuccessfulRequest }
+                        vacancyService.getAreasById(dto.id)
                     }
 
                     is Request.ProfessionalRolesRequest -> {
-                        val resp = vacancyService.getProfessionalRoles()
-                        resp.apply { resultCode = SuccessfulRequest }
+                        vacancyService.getProfessionalRoles()
                     }
                 }
+
+                resp.apply { resultCode = SuccessfulRequest }
             } catch (e: HttpException) {
                 Log.d(
                     RETROFIT_LOG,
