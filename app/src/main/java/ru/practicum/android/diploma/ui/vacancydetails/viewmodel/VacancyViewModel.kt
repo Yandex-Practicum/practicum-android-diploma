@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.domain.Resource
 import ru.practicum.android.diploma.domain.favorites.api.FavoritesInteractor
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.vacancydetails.api.VacancyDetailsInteractor
@@ -25,7 +24,7 @@ class VacancyViewModel(
     private val _vacancy = MutableLiveData<Vacancy>()
     val vacancy: LiveData<Vacancy> get() = _vacancy
 
-    private val _isFavorite = MutableLiveData<Boolean>(false)
+    private val _isFavorite = MutableLiveData(false)
     val isFavorite: LiveData<Boolean> get() = _isFavorite
 
     // Обработка нажатия на кнопку Избранное
@@ -44,14 +43,8 @@ class VacancyViewModel(
     private fun getFavorites() {
         viewModelScope.launch {
             _vacancy.value?.let {
-                favoritesInteractor
-                    .getFavoritesById(it.vacancyId)
-                    .collect { result ->
-                        when (result) {
-                            is Resource.Error -> _isFavorite.value = false
-                            is Resource.Success -> _isFavorite.value = result.value?.isNotEmpty() == true
-                        }
-                    }
+                val result = favoritesInteractor.getFavoritesById(it.vacancyId)
+                _isFavorite.postValue(result)
             }
         }
     }
