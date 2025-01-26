@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.domain.models.Salary
 import ru.practicum.android.diploma.domain.models.Vacancy
 import java.text.NumberFormat
 import java.util.Locale
@@ -20,7 +21,6 @@ class VacancyAdapter : RecyclerView.Adapter<VacancyAdapter.VacancyViewHolder>() 
     private var vacancyList = mutableListOf<Vacancy>()
 
     fun updateItems(items: List<Vacancy>) {
-
         val oldItems = this.vacancyList
         val newItems = items.toMutableList()
         val diffResult = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
@@ -55,7 +55,6 @@ class VacancyAdapter : RecyclerView.Adapter<VacancyAdapter.VacancyViewHolder>() 
         private val vacancySalary: TextView = itemView.findViewById(R.id.salary)
 
         fun bind(vacancy: Vacancy) {
-
             itemView.setOnClickListener { onItemClick?.let { it1 -> it1(vacancy) } }
 
             with(vacancyImage) {
@@ -67,7 +66,7 @@ class VacancyAdapter : RecyclerView.Adapter<VacancyAdapter.VacancyViewHolder>() 
                         RoundedCorners(
                             TypedValue.applyDimension(
                                 TypedValue.COMPLEX_UNIT_DIP,
-                                12F,
+                                ROUNDED_CORNERS_IMAGE_VACANCY,
                                 context.resources.displayMetrics
                             ).toInt()
                         )
@@ -78,38 +77,38 @@ class VacancyAdapter : RecyclerView.Adapter<VacancyAdapter.VacancyViewHolder>() 
             vacancyNameAndArea.text =
                 itemView.resources.getString(R.string.item_vacancy_name, vacancy.name, vacancy.area)
             vacancyEmployerName.text = vacancy.employer
+            vacancySalary.text = getVacancySalaryText(vacancy.salary)
+        }
 
-            if (vacancy.salary == null) {
-                vacancySalary.text = itemView.resources.getString(R.string.emptySalary)
+        private fun getVacancySalaryText(salary: Salary?): String {
+            if (salary == null) {
+                return itemView.resources.getString(R.string.emptySalary)
 
             } else {
-                val currencySymbol = getCurrencySymbol(vacancy.salary.currency)
+                val currencySymbol = getCurrencySymbol(salary.currency)
                 val numberFormat = NumberFormat.getInstance(Locale.getDefault())
 
-                if (vacancy.salary.from == null) {
-                    vacancySalary.text =
-                        itemView.resources.getString(
-                            R.string.item_vacancy_salary_to,
-                            numberFormat.format(vacancy.salary.to).replace(",", " "),
-                            currencySymbol
-                        )
+                if (salary.from == null) {
+                    return itemView.resources.getString(
+                        R.string.item_vacancy_salary_to,
+                        numberFormat.format(salary.to).replace(",", " "),
+                        currencySymbol
+                    )
 
-                } else if (vacancy.salary.to == null) {
-                    vacancySalary.text =
-                        itemView.resources.getString(
-                            R.string.item_vacancy_salary_from,
-                            numberFormat.format(vacancy.salary.from).replace(",", " "),
-                            currencySymbol
-                        )
+                } else if (salary.to == null) {
+                    return itemView.resources.getString(
+                        R.string.item_vacancy_salary_from,
+                        numberFormat.format(salary.from).replace(",", " "),
+                        currencySymbol
+                    )
 
                 } else {
-                    vacancySalary.text =
-                        itemView.resources.getString(
-                            R.string.item_vacancy_salary_from_to,
-                            numberFormat.format(vacancy.salary.from).replace(",", " "),
-                            numberFormat.format(vacancy.salary.to).replace(",", " "),
-                            currencySymbol
-                        )
+                    return itemView.resources.getString(
+                        R.string.item_vacancy_salary_from_to,
+                        numberFormat.format(salary.from).replace(",", " "),
+                        numberFormat.format(salary.to).replace(",", " "),
+                        currencySymbol
+                    )
                 }
             }
         }
@@ -128,6 +127,10 @@ class VacancyAdapter : RecyclerView.Adapter<VacancyAdapter.VacancyViewHolder>() 
     override fun onBindViewHolder(holder: VacancyViewHolder, position: Int) {
         holder.bind(vacancyList[position])
     }
+
+    companion object {
+        private const val ROUNDED_CORNERS_IMAGE_VACANCY = 12F
+    }
 }
 
 fun getCurrencySymbol(currency: String): String {
@@ -144,3 +147,5 @@ fun getCurrencySymbol(currency: String): String {
         else -> "₽"
     }
 }
+
+
