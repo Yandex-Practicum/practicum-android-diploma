@@ -4,41 +4,51 @@ import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
+import ru.practicum.android.diploma.data.dto.AreasResponse
+import ru.practicum.android.diploma.data.dto.Request
 import ru.practicum.android.diploma.data.dto.Response
-import ru.practicum.android.diploma.data.dto.VacanciesRequest
-import ru.practicum.android.diploma.data.dto.VacancyDescriptionRequest
+import ru.practicum.android.diploma.data.dto.VacancyResponse
 
 class RetrofitNetworkClient(private val vacancyService: VacancyApi) : NetworkClient {
-    override suspend fun doRequest(dto: Any): Response {
+    companion object {
+        private const val RETROFIT_LOG = "RETROFIT_LOG"
+        private const val SuccessfulRequest = 200
+        private const val BadRequest = 400
+    }
+
+    override suspend fun doRequest(dto: Request): Response {
         return withContext(Dispatchers.IO) {
             try {
-                when (dto) {
-                    is VacanciesRequest -> {
-                        val resp = vacancyService.searchVacancy(dto.options)
-                        resp.apply { resultCode = SuccessfulRequest }
+                val resp = when (dto) {
+                    is Request.VacanciesRequest -> {
+                        vacancyService.searchVacancy(dto.options)
                     }
 
-                    is VacancyDescriptionRequest -> {
-                        val resp = vacancyService.getVacancy(dto.id)
-                        resp.apply { resultCode = SuccessfulRequest }
+                    is Request.VacancyRequest -> {
+                        VacancyResponse(vacancyService.getVacancy(dto.id))
                     }
 
-                    else -> {
-                        Response().apply { resultCode = BadRequest }
+                    is Request.CountriesRequest -> {
+                        AreasResponse(vacancyService.getCountries())
+                    }
+
+                    is Request.AreasRequest -> {
+                        vacancyService.getAreasById(dto.id)
+                    }
+
+                    is Request.ProfessionalRolesRequest -> {
+                        vacancyService.getProfessionalRoles()
                     }
                 }
+
+                resp.apply { resultCode = SuccessfulRequest }
             } catch (e: HttpException) {
                 Log.d(
-                    "RETROFIT_LOG",
+                    RETROFIT_LOG,
                     "${e.message}"
                 )
                 Response().apply { resultCode = BadRequest }
             }
         }
-    }
-
-    companion object {
-        const val SuccessfulRequest = 200
-        const val BadRequest = 400
     }
 }
