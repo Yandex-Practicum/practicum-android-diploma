@@ -23,17 +23,5 @@ class GetVacancyDetailsUseCaseImpl(
                 }
             }
         }
-
-//        return vacancyRepository.getVacancy(id).map { result ->
-//            when (result) {
-//                is Resource.Success -> {
-//                    result.data
-//                }
-//
-//                is Resource.Error -> {
-//                    null
-//                }
-//            }
-//        }
     }
 }
