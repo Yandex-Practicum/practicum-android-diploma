@@ -23,7 +23,6 @@ class VacanciesRepositoryImpl(
 
             ResponseCode.SERVER_ERROR.code -> emit(Resource.Error(ResponseCode.SERVER_ERROR.code))
 
-
             ResponseCode.SUCCESS.code -> {
                 with(response as VacanciesResponseDto) {
                     val data = vacanciesConverter.convertCut(response)

@@ -25,7 +25,7 @@ class RetrofitNetworkClient(
             return withContext(Dispatchers.IO) {
                 try {
                     val response = api.searchVacancies()
-                    response.apply { resultCode = ResponseCode.SUCCESS.code}
+                    response.apply { resultCode = ResponseCode.SUCCESS.code }
                 } catch (e: HttpException) {
                     Log.w("HttpException", e)
                     Response().apply { resultCode = ResponseCode.SERVER_ERROR.code }

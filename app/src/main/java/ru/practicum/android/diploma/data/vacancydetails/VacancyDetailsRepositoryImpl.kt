@@ -21,7 +21,7 @@ class VacancyDetailsRepositoryImpl(
         when (response.resultCode) {
             ResponseCode.NO_INTERNET.code -> emit(Resource.Error(ResponseCode.NO_INTERNET.code))
 
-            ResponseCode.SERVER_ERROR.code -> emit(Resource.Error( ResponseCode.SERVER_ERROR.code))
+            ResponseCode.SERVER_ERROR.code -> emit(Resource.Error(ResponseCode.SERVER_ERROR.code))
 
             ResponseCode.SUCCESS.code -> {
                 with(response as VacancyDetailsResponse) {
