@@ -63,7 +63,7 @@ class VacancyRepositoryImpl(
             vacancy.id,
             vacancy.name,
             vacancy.employer.logoUrls?.url90,
-            Area(vacancy.area.id, vacancy.area.name),
+            vacancy.area.name,
             salary,
             vacancy.employer.name,
             vacancy.employment?.name,
