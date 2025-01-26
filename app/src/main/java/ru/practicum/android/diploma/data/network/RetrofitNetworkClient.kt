@@ -4,6 +4,7 @@ import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
+import ru.practicum.android.diploma.data.dto.AreasResponse
 import ru.practicum.android.diploma.data.dto.Request
 import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.VacancyResponse
@@ -20,6 +21,21 @@ class RetrofitNetworkClient(private val vacancyService: VacancyApi) : NetworkCli
 
                     is Request.VacancyRequest -> {
                         val resp = VacancyResponse(vacancyService.getVacancy(dto.id))
+                        resp.apply { resultCode = SuccessfulRequest }
+                    }
+
+                    is Request.CountriesRequest -> {
+                        val resp = AreasResponse(vacancyService.getCountries())
+                        resp.apply { resultCode = SuccessfulRequest }
+                    }
+
+                    is Request.AreasRequest -> {
+                        val resp = vacancyService.getAreasById(dto.id)
+                        resp.apply { resultCode = SuccessfulRequest }
+                    }
+
+                    is Request.ProfessionalRolesRequest -> {
+                        val resp = vacancyService.getProfessionalRoles()
                         resp.apply { resultCode = SuccessfulRequest }
                     }
                 }
