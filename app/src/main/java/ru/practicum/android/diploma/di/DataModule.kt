@@ -38,7 +38,6 @@ val dataModule = module {
             AppDatabase::class.java,
             "database.db"
         )
-            //.addTypeConverter(VacancyEntityConverter())
             .build()
     }
 

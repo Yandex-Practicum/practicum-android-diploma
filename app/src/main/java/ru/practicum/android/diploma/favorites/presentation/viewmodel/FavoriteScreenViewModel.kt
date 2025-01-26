@@ -57,4 +57,13 @@ class FavoriteScreenViewModel(
             }
         }
     }
+
+    /// для отладки
+    fun insertFavoriteVacancy(vacancy: VacancyItems){
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                favoriteInteractor.insertFavoriteVacancy(vacancy)
+            }
+        }
+    }
 }

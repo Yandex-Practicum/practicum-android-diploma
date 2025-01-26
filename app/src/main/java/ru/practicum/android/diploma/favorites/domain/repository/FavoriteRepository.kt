@@ -6,4 +6,5 @@ import ru.practicum.android.diploma.search.domain.model.VacancyItems
 
 interface FavoriteRepository{
     suspend fun getVacancyList(): Flow<Resource<List<VacancyItems>>>
+    suspend fun insertFavoriteVacancy(vacancy: VacancyItems)
 }

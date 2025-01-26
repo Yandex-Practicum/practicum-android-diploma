@@ -17,6 +17,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFavoritesBinding
 import ru.practicum.android.diploma.favorites.presentation.state.FavoritesScreenState
 import ru.practicum.android.diploma.favorites.presentation.viewmodel.FavoriteScreenViewModel
+import ru.practicum.android.diploma.search.domain.model.Salary
 import ru.practicum.android.diploma.search.domain.model.VacancyItems
 import ru.practicum.android.diploma.search.ui.VacancyAdapter
 import ru.practicum.android.diploma.search.ui.VacancyViewHolder
@@ -28,7 +29,6 @@ class FavoritesFragment : Fragment(), VacancyViewHolder.OnItemClickListener {
     private val viewModel by viewModel<FavoriteScreenViewModel>()
     private var vacancyList: ArrayList<VacancyItems> = arrayListOf()
     private val vacancyAdapter = VacancyAdapter()
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,7 +42,17 @@ class FavoritesFragment : Fragment(), VacancyViewHolder.OnItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        vacancyAdapter.onItemClickListener = this
+        /// для отладки
+        var vacancy1 = VacancyItems("1", "Вакансия 1", "Город 1", "Работoдатель1", null, Salary(null, 50000, "РУБ"))
+        var vacancy2 = VacancyItems("2", "Вакансия 2", "Город 1", "Работoдатель2", null, Salary(20000, null, "РУБ"))
+        var vacancy3 = VacancyItems("3", "Вакансия 3", "Город 2", "Работoдатель2", null, Salary(100000, 150000, "РУБ"))
+        viewModel.insertFavoriteVacancy(vacancy1)
+        viewModel.insertFavoriteVacancy(vacancy2)
+        viewModel.insertFavoriteVacancy(vacancy3)
+
+
+
+      /*  vacancyAdapter.onItemClickListener = this
 
         // для поиска
         val rvItems: RecyclerView = binding.rvFavoriteItems
@@ -52,7 +62,7 @@ class FavoritesFragment : Fragment(), VacancyViewHolder.OnItemClickListener {
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         }
         vacancyAdapter.items = vacancyList
-
+*/
         viewModel.getScreenState().observe(viewLifecycleOwner) { state ->
             when (state) {
                 is FavoritesScreenState.Content -> {

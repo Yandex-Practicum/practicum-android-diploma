@@ -33,4 +33,8 @@ class FavoritesRepositoryImpl(
     private fun convert(vacancyList: List<VacancyEntity>) : List<VacancyItems> {
         return vacancyList.map { vacancy -> converter.map(vacancy)}
     }
+
+    override suspend fun insertFavoriteVacancy(vacancy: VacancyItems){
+        appDatabase.favoriteDao().insertVacancy(converter.map(vacancy))
+    }
 }

@@ -22,4 +22,8 @@ class FavoriteInteractorImpl(
             }
         }
     }
+
+    override suspend fun insertFavoriteVacancy(vacancy: VacancyItems){
+        favoriteRepository.insertFavoriteVacancy(vacancy)
+    }
 }
