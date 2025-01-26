@@ -16,7 +16,7 @@ data class VacancyDto(
     val schedule: ScheduleDto?,
     val description: String?,
     @SerializedName("key_skills")
-    val keySkills: List<SkillDto>?,
+    val keySkills: List<SkillDto?>,
     @SerializedName("alternate_url")
     val alternateUrl: String?,
     val address: AddressDto?

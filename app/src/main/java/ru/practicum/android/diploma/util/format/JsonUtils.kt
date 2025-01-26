@@ -19,4 +19,8 @@ object JsonUtils {
         val type = object : TypeToken<List<T>>() {}.type
         return gson.fromJson(json, type)
     }
+
+    inline fun <reified T> deserializeField(json: String?, clazz: Class<T>): T? {
+        return json?.let { fromJson(it, clazz) }
+    }
 }

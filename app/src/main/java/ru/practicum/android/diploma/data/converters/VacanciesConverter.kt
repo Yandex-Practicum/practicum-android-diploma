@@ -23,6 +23,7 @@ import ru.practicum.android.diploma.domain.models.Schedule
 import ru.practicum.android.diploma.domain.models.Skill
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.util.format.JsonUtils
+import ru.practicum.android.diploma.util.format.JsonUtils.deserializeField
 
 class VacanciesConverter {
 
@@ -45,27 +46,28 @@ class VacanciesConverter {
             employment = response.employment?.toEmploymentForm(),
             schedule = response.schedule?.toSchedule(),
             description = response.description,
-            keySkills = response.keySkills?.map { it.toSkill() },
+            keySkills = response.keySkills.map { it?.toSkill() },
             alternateUrl = response.alternateUrl,
             address = response.address?.toAddress()
         )
     }
 
-    fun convertFromDBtoVacancy(entity: VacancyEntity): Vacancy {
+    fun convertFromDBtoVacancy(entity: VacancyEntity): Vacancy? {
+        val keySkill = entity.keySkills?.let { JsonUtils.fromJsonList<Skill?>(it) } ?: return null
         return Vacancy(
             vacancyId = entity.vacancyId,
             name = entity.name,
-            employer = entity.employer?.let { JsonUtils.fromJson(it, Employer::class.java) },
-            salary = entity.salary?.let { JsonUtils.fromJson(it, Salary::class.java) },
-            area = null,
-            experience = null,
-            employmentForm = null,
-            employment = null,
-            schedule = null,
-            description = null,
-            keySkills = null,
-            alternateUrl = null,
-            address = null
+            employer = deserializeField(entity.employer, Employer::class.java),
+            salary = deserializeField(entity.salary, Salary::class.java),
+            area = deserializeField(entity.area, Area::class.java),
+            experience = deserializeField(entity.experience, Experience::class.java),
+            employmentForm = deserializeField(entity.employmentForm, EmploymentForm::class.java),
+            employment = deserializeField(entity.employmentForm, EmploymentForm::class.java),
+            schedule = deserializeField(entity.schedule, Schedule::class.java),
+            description = entity.description,
+            keySkills = keySkill,
+            alternateUrl = entity.alternateUrl,
+            address = deserializeField(entity.address, Address::class.java)
         )
     }
 
@@ -74,7 +76,17 @@ class VacanciesConverter {
             vacancyId = vacancy.vacancyId,
             name = vacancy.name,
             employer = JsonUtils.toJson(vacancy.employer),
-            salary = JsonUtils.toJson(vacancy.salary)
+            salary = JsonUtils.toJson(vacancy.salary),
+            area = JsonUtils.toJson(vacancy.area),
+            experience = JsonUtils.toJson(vacancy.experience),
+            employmentForm = JsonUtils.toJson(vacancy.employmentForm),
+            employment = JsonUtils.toJson(vacancy.employmentForm),
+            schedule = JsonUtils.toJson(vacancy.schedule),
+            description = vacancy.description,
+            keySkills = JsonUtils.toJson(vacancy.keySkills),
+            alternateUrl = vacancy.alternateUrl,
+            address = JsonUtils.toJson(vacancy.address),
+            timeStamp = System.currentTimeMillis()
         )
     }
 

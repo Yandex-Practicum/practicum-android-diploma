@@ -38,10 +38,10 @@ class FavouritesFragment : Fragment() {
         adapter = VacancyAdapter(onSearchTrackClick)
 
         binding.emptyListPlaceholder.isVisible = true
-        binding.favoritesList.isVisible = false
+        binding.favoritesRecyclerView.isVisible = false
 
-        binding.favoritesList.layoutManager = LinearLayoutManager(context)
-        binding.favoritesList.adapter = adapter
+        binding.favoritesRecyclerView.layoutManager = LinearLayoutManager(context)
+        binding.favoritesRecyclerView.adapter = adapter
 
         viewModel.favoriteVacancies.observe(viewLifecycleOwner) { resource ->
             when (resource) {
@@ -58,12 +58,12 @@ class FavouritesFragment : Fragment() {
 
     private fun showErrorPlaceholder() {
         binding.errorListPlaceholder.isVisible = true
-        binding.favoritesList.isVisible = false
+        binding.favoritesRecyclerView.isVisible = false
         binding.emptyListPlaceholder.isVisible = false
     }
 
     private fun favoritesRender(vacancies: List<Vacancy>) {
-        binding.favoritesList.isVisible = vacancies.isNotEmpty()
+        binding.favoritesRecyclerView.isVisible = vacancies.isNotEmpty()
         binding.emptyListPlaceholder.isVisible = vacancies.isEmpty()
         binding.errorListPlaceholder.isVisible = false
 
