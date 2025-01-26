@@ -36,10 +36,10 @@
 
             <ImageButton
                 android:id="@+id/filter_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_gravity="end"
-                android:layout_marginEnd="20dp"
+                android:layout_marginEnd="8dp"
                 android:src="@drawable/ic_button_filter"
                 android:theme="@style/FilterButtonBackground" />
 
@@ -58,6 +58,7 @@
             android:layout_height="@dimen/search_text_input_height"
             android:background="@drawable/text_input_background"
             android:hint="@string/text_input_hint"
+            android:textColorHint="?attr/hintTextColor"
             android:imeOptions="actionDone"
             android:inputType="textCapWords"
             android:maxLength="50"
@@ -65,7 +66,7 @@
             android:paddingHorizontal="@dimen/margin_begin_end_gl_16dp"
             android:textAlignment="textStart"
             android:textAppearance="@style/TextRegular_16"
-            android:textColor="?attr/colorOnPrimary"
+            android:textColor="?attr/colorTextSearch"
             android:textCursorDrawable="@drawable/text_input_cursor"
             app:layout_constraintEnd_toStartOf="@id/glEnd"
             app:layout_constraintStart_toEndOf="@id/glBegin"

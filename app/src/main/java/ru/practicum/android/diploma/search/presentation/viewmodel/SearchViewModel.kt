@@ -91,7 +91,6 @@ class SearchViewModel(
         if (!(currentPage != maxPages && maxPages != 0)) return
         if (this.latestSearchQuery != query) return
         if (query.isNotEmpty()) {
-
             if (!isNextPageLoading) {
                 currentPage += 1
                 viewModelScope.launch {
@@ -155,7 +154,9 @@ class SearchViewModel(
             vacanciesNumber % 10 == 1 -> "$NAIDENA_LITERAL ${formatFoundVacanciesNumber(vacanciesNumber)} вакансия"
             vacanciesNumber % 10 in 2..4 -> "$NAIDENO_LITERAL ${formatFoundVacanciesNumber(vacanciesNumber)} вакансии"
             vacanciesNumber % 10 in 5..9 -> "$NAIDENO_LITERAL ${formatFoundVacanciesNumber(vacanciesNumber)} вакансий"
-            vacanciesNumber % 100 in 11..19 -> "$NAIDENO_LITERAL ${formatFoundVacanciesNumber(vacanciesNumber)} вакансий"
+            vacanciesNumber % 100 in 11..19 -> "$NAIDENO_LITERAL ${formatFoundVacanciesNumber(
+                vacanciesNumber
+            )} вакансий"
             else -> ""
         }
     }

@@ -70,6 +70,3 @@ class Mapper {
     private fun getAreaName(areaDto: AreaDto?): String = areaDto?.name ?: ""
     private fun getEmployerLogo(employerDto: EmployerDto?): String? = employerDto?.logoUrls?.iconBig
 }
-
-
-
