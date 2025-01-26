@@ -4,7 +4,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.converters.VacanciesConverter
-import ru.practicum.android.diploma.data.dto.Request
 import ru.practicum.android.diploma.data.dto.VacanciesResponseDto
 import ru.practicum.android.diploma.domain.Resource
 import ru.practicum.android.diploma.domain.models.Vacancy
@@ -21,7 +20,7 @@ class VacanciesRepositoryImpl(
     }
 
     override fun searchVacancies(): Flow<Resource<List<Vacancy>>> = flow {
-        val response = networkClient.doRequest(Request.VacanciesSearchRequest())
+        val response = networkClient.doRequestVacancies()
 
         when (response.resultCode) {
             NO_INTERNET_CONNECTION -> emit(Resource.Error("No internet connection"))
