@@ -75,8 +75,8 @@ class VacancyAdapter : RecyclerView.Adapter<VacancyAdapter.VacancyViewHolder>() 
             }
 
             vacancyNameAndArea.text =
-                itemView.resources.getString(R.string.item_vacancy_name, vacancy.name, vacancy.area)
-            vacancyEmployerName.text = vacancy.employer
+                itemView.resources.getString(R.string.item_vacancy_name, vacancy.name, vacancy.area.name)
+            vacancyEmployerName.text = vacancy.employerName
             vacancySalary.text = getVacancySalaryText(vacancy.salary)
         }
 
@@ -86,7 +86,7 @@ class VacancyAdapter : RecyclerView.Adapter<VacancyAdapter.VacancyViewHolder>() 
                 vacancyText = itemView.resources.getString(R.string.emptySalary)
 
             } else {
-                val currencySymbol = getCurrencySymbol(salary.currency)
+                val currencySymbol = getCurrencySymbol(salary.currency!!)
                 val numberFormat = NumberFormat.getInstance(Locale.getDefault())
 
                 if (salary.from == null) {
