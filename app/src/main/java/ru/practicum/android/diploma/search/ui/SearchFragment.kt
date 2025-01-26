@@ -33,8 +33,8 @@ class SearchFragment : Fragment() {
     private var adapter: SearchAdapter? = null
     private val handler: Handler = Handler(Looper.getMainLooper())
     private var editTextWatcher: TextWatcher? = null
-    private lateinit var runnable: Runnable
-    private lateinit var textInput: String
+    private var runnable = Runnable { adapter?.hideLoading() }
+    private var textInput: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,7 +47,7 @@ class SearchFragment : Fragment() {
 
     override fun onDestroyView() {
         adapter = null
-        handler.removeCallbacks(this.runnable)
+        handler.removeCallbacksAndMessages(this.runnable)
         editTextWatcher?.let { binding.textInput.removeTextChangedListener(it) }
         _binding = null
         super.onDestroyView()
@@ -207,7 +207,6 @@ class SearchFragment : Fragment() {
     }
 
     private fun hideAdapterLoading() {
-        runnable = Runnable { adapter?.hideLoading() }
         handler.postDelayed(
             runnable,
             DELAY_1000
