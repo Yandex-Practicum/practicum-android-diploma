@@ -30,8 +30,8 @@ class SearchItemViewHolder(
     private fun uploadImage(url: String?, imageView: ImageView) {
         Glide.with(binding.root.context)
             .load(url)
+            .centerCrop()
             .placeholder(R.drawable.ic_empty_ph)
-            .fitCenter()
             .into(imageView)
     }
 
