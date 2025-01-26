@@ -88,7 +88,7 @@ class SearchViewModel(
     }
 
     fun onLastItemReached(query: String) {
-        if (!(currentPage != maxPages && maxPages != 0) || this.latestSearchQuery != query){
+        if (!(currentPage != maxPages && maxPages != 0) || this.latestSearchQuery != query) {
             return
         } else if (query.isNotEmpty()) {
             if (!isNextPageLoading) {
