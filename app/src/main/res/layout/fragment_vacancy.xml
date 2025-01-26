@@ -5,7 +5,7 @@
     style="@style/FragmentBgStyle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.vacancy.fragment.VacancyFragment">
+    tools:context=".ui.vacancydetails.fragment.VacancyFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/leftGuideline1"

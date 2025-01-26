@@ -45,12 +45,12 @@
     </fragment>
     <fragment
         android:id="@+id/vacancyFragment"
-        android:name="ru.practicum.android.diploma.ui.vacancy.fragment.VacancyFragment"
+        android:name="ru.practicum.android.diploma.ui.vacancydetails.fragment.VacancyFragment"
         android:label="fragment_vacancy"
         tools:layout="@layout/fragment_vacancy" />
     <fragment
         android:id="@+id/vacancyFragment2"
-        android:name="ru.practicum.android.diploma.ui.vacancy.fragment.VacancyFragment"
+        android:name="ru.practicum.android.diploma.ui.vacancydetails.fragment.VacancyFragment"
         android:label="fragment_vacancy"
         tools:layout="@layout/fragment_vacancy" />
     <fragment

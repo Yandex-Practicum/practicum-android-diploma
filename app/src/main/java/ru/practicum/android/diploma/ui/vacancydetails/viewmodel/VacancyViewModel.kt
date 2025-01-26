@@ -1,13 +1,13 @@
-package ru.practicum.android.diploma.ui.vacancy.viewmodel
+package ru.practicum.android.diploma.ui.vacancydetails.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.practicum.android.diploma.domain.models.Vacancy
-import ru.practicum.android.diploma.domain.vacancy.api.VacancyInteractor
+import ru.practicum.android.diploma.domain.vacancydetails.api.GetVacancyDetailsUseCase
 
 class VacancyViewModel(
-    private val vacancyInteractor: VacancyInteractor,
+    private val getVacancyDetailsUseCase: GetVacancyDetailsUseCase,
 ) : ViewModel() {
 
     // Временное решение для кнопок "Поделиться" и "Избранное"

@@ -5,7 +5,7 @@ import retrofit2.http.Headers
 import retrofit2.http.Path
 import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.data.dto.VacanciesResponseDto
-import ru.practicum.android.diploma.data.dto.VacancyDto
+import ru.practicum.android.diploma.data.dto.VacancyDetailsResponse
 
 interface HhApi {
     @Headers(
@@ -28,5 +28,5 @@ interface HhApi {
         "HH-User-Agent: heheru (heheru2025@gmail.com)"
     )
     @GET("/vacancies/{vacancy_id}")
-    suspend fun getVacancy(@Path("vacancy_id") id: String): VacancyDto
+    suspend fun getVacancyDetails(@Path("vacancy_id") id: String): VacancyDetailsResponse
 }
