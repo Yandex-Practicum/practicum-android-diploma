@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.room.util.query
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.common.data.Mapper
 import ru.practicum.android.diploma.common.util.Converter
@@ -14,8 +13,6 @@ import ru.practicum.android.diploma.search.domain.interactor.SearchInteractor
 import ru.practicum.android.diploma.search.domain.model.AdapterState
 import ru.practicum.android.diploma.search.domain.model.SearchViewState
 import ru.practicum.android.diploma.search.presentation.items.ListItem
-import java.text.DecimalFormat
-import java.text.DecimalFormatSymbols
 
 class SearchViewModel(
     private val searchInteractor: SearchInteractor,
@@ -92,7 +89,6 @@ class SearchViewModel(
 
     fun onLastItemReached(query: String) {
         if (!(currentPage != maxPages && maxPages != 0) || this.latestSearchQuery != query) return
-//        if (this.latestSearchQuery != query) return
         if (query.isNotEmpty()) {
             if (!isNextPageLoading) {
                 currentPage += 1
@@ -155,31 +151,9 @@ class SearchViewModel(
 
     private fun makeFoundVacanciesHint(vacanciesNumber: Int): String {
         return Converter.buildResultingSentence(vacanciesNumber, "Найдено")
-//        when {
-//            vacanciesNumber % 10 == 0 -> "$NAIDENO_LITERAL ${Converter.applyDigitSeparation(vacanciesNumber)} вакансий"
-//            vacanciesNumber % 10 == 1 -> "$NAIDENA_LITERAL ${Converter.applyDigitSeparation(vacanciesNumber)} вакансия"
-//            vacanciesNumber % 10 in 2..4 -> "$NAIDENO_LITERAL ${Converter.applyDigitSeparation(vacanciesNumber)} вакансии"
-//            vacanciesNumber % 10 in 5..9 -> "$NAIDENO_LITERAL ${Converter.applyDigitSeparation(vacanciesNumber)} вакансий"
-//            vacanciesNumber % 100 in 11..19 -> "$NAIDENO_LITERAL ${Converter.applyDigitSeparation(
-//                vacanciesNumber
-//            )} вакансий"
-//            else -> ""
-//        }
-    }
-
-    private fun formatFoundVacanciesNumber(vacanciesNumber: Int?): String {
-        if (vacanciesNumber == null) return ""
-
-        val dfs = DecimalFormatSymbols().apply {
-            groupingSeparator = ' '
-        }
-        val df = DecimalFormat("###,###", dfs)
-        return df.format(vacanciesNumber)
     }
 
     companion object {
-        private const val NAIDENO_LITERAL = "Найдено"
-        private const val NAIDENA_LITERAL = "Найдена"
         private const val CLICK_DEBOUNCE_DELAY = 1_000L
         private const val SEARCH_DEBOUNCE_DELAY = 2_000L
     }

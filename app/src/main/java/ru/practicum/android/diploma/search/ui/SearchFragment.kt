@@ -102,47 +102,14 @@ class SearchFragment : Fragment() {
                     }
                 }
                 textInput = s.toString()
-                while (textInput != s.toString()) {
-                    handler.postDelayed(
-                        {
-                            textInput = s.toString()
-                        },
-                        1000
-                    )
-                }
-
-                searchOnTextChanged(textInput)
-
-//                searchOnTextChanged(textInput)
-//                handler.removeCallbacks(searchVacanciesRunnable)
-//                handler.postDelayed(
-//                    searchVacanciesRunnable,
-//                    2000
-//                )
                 Log.d("TextInput", "$textInput")
-
                 binding.clearIcon.visibility = clearButtonVisibility(s)
                 binding.searchIcon.visibility = searchIconVisibility(s)
             }
 
             override fun afterTextChanged(s: Editable?) {
                 Log.d("AfterTextChanged", "$s")
-//                if (!s.isNullOrEmpty()) {
-//                    searchOnTextChanged(textInput)
-//                }
-//                    textInput = s.toString()
-//                    handler.removeCallbacks(searchVacanciesRunnable)
-//                    handler.postDelayed(
-//                        searchVacanciesRunnable,
-//                        DELAY_500
-//                    )
-//
-////                    viewModel.searchDebounce(s.toString())
-//                }
-//                handler.postDelayed(
-//                    searchVacanciesRunnable,
-//                    500
-//                )
+                searchOnTextChanged(textInput)
             }
         }
         binding.textInput.addTextChangedListener(editTextWatcher)
@@ -223,6 +190,7 @@ class SearchFragment : Fragment() {
     private fun showNoConnectionPH() {
         with(binding) {
             noConnectionPH.isVisible = true
+            noConnectionTextHint.isVisible = true
             initScreenPH.isVisible = false
             textHint.isVisible = false
             mainProgressBar.isVisible = false

@@ -61,20 +61,6 @@ object Converter {
         return "$nounForm ${applyDigitSeparation(count)} $appliedSentenceEnding"
     }
 
-//    fun declineVacancy(count: Int): String {
-//        val lastDigit = count % 10
-//        val lastTwoDigits = count % 100
-//
-//        val nounForm: String = when {
-//            lastTwoDigits in 11..14 -> VACANCIY
-//            lastDigit == 1 -> VACANCIYA
-//            lastDigit in 2..4 -> VACANCYY
-//            else -> VACANCIY
-//        }
-//
-//        return "$count $nounForm"
-//    }
-
     // java.util.Currency не поддерживает большинство символов, поэтому метод написан вручную
     private fun addCurrencySymbol(abbr: String?): String {
         if (abbr == null) return ""
