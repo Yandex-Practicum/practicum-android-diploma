@@ -26,7 +26,18 @@ class FavoritesRepositoryImpl(
                 }
             }
         } catch (e: IOException) {
-            emit(Resource.Error(e.message ?: "Неизвестная ошибка"))
+            emit(Resource.Error(e.message ?: String()))
+        }
+    }
+
+    override fun getFavoritesById(vacancyId: Long): Flow<Resource<List<Vacancy>>> = flow {
+        try {
+            vacancyDao.getFavoritesById(vacancyId).collect { entities ->
+                val vacancy = convertFromDB(entities)
+                emit(Resource.Success(vacancy))
+            }
+        } catch (e: IOException) {
+            emit(Resource.Error(e.message ?: String()))
         }
     }
 

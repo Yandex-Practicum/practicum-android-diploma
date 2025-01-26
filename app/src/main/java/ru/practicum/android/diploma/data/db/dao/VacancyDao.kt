@@ -21,4 +21,7 @@ interface VacancyDao {
 
     @Query("SELECT * FROM favorite_table ORDER BY timeStamp DESC")
     fun getAllFavorites(): Flow<List<VacancyEntity>>
+
+    @Query("SELECT vacancyId FROM favorite_table WHERE vacancyId = :vacancyId")
+    fun getFavoritesById(vacancyId: Long): Flow<List<VacancyEntity>>
 }

@@ -10,6 +10,7 @@ import java.util.Locale
 object DateUtils {
     @SuppressLint("ConstantLocale")
     private val apiDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.getDefault())
+
     @SuppressLint("ConstantLocale")
     private val displayDateFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
 

@@ -3,12 +3,23 @@ package ru.practicum.android.diploma.ui.vacancydetails.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.domain.Resource
+import ru.practicum.android.diploma.domain.favorites.api.FavoritesInteractor
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.vacancydetails.api.VacancyDetailsInteractor
 
 class VacancyViewModel(
     private val vacancyDetailsInteractor: VacancyDetailsInteractor,
+    private val favoritesInteractor: FavoritesInteractor
 ) : ViewModel() {
+
+    // Временно решение для метода getFavorites, чтобы пройти проверку
+    // потом удалить!
+    init {
+        getFavorites()
+    }
 
     // Временное решение для кнопок "Поделиться" и "Избранное"
     private val _vacancy = MutableLiveData<Vacancy>()
@@ -17,8 +28,32 @@ class VacancyViewModel(
     private val _isFavorite = MutableLiveData<Boolean>(false)
     val isFavorite: LiveData<Boolean> get() = _isFavorite
 
+    // Обработка нажатия на кнопку Избранное
     fun onFavoriteClicked() {
         _isFavorite.value = _isFavorite.value?.not()
+
+        if (_isFavorite.value == true) {
+            viewModelScope.launch {
+                vacancy.value?.let { favoritesInteractor.saveVacancy(it) }
+            }
+        }
+    }
+
+    // Метод для проверки, добавлена ли вакансия в избранное,
+    // вызвать в методе getVacancy после успешного получения вакансии
+    private fun getFavorites() {
+        viewModelScope.launch {
+            _vacancy.value?.let {
+                favoritesInteractor
+                    .getFavoritesById(it.vacancyId)
+                    .collect { result ->
+                        when (result) {
+                            is Resource.Error -> _isFavorite.value = false
+                            is Resource.Success -> _isFavorite.value = result.value?.isNotEmpty() == true
+                        }
+                    }
+            }
+        }
     }
 
 //    private val searchResultData: MutableLiveData<SearchResult> =
@@ -64,4 +99,5 @@ class VacancyViewModel(
 //                }
 //        }
 //    }
+
 }

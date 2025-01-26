@@ -6,6 +6,7 @@ import ru.practicum.android.diploma.domain.models.Vacancy
 
 interface FavoritesInteractor {
     fun getFavorites(): Flow<Resource<List<Vacancy>>>
+    fun getFavoritesById(vacancyId: Long): Flow<Resource<List<Vacancy>>>
 
     suspend fun saveVacancy(vacancy: Vacancy)
     suspend fun deleteVacancy(vacancy: Vacancy)

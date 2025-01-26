@@ -65,7 +65,7 @@ val dataModule = module {
         VacancyDetailsRepositoryImpl(get(), get())
     }
 
-    single<FavoritesRepository> {
+    factory<FavoritesRepository> {
         FavoritesRepositoryImpl(get(), get())
     }
 }
