@@ -23,7 +23,7 @@ class VacancyDetailsRepositoryImpl(
         val response = networkClient.doRequestVacancyDetails(vacancyId)
 
         when (response.resultCode) {
-            NO_INTERNET_CONNECTION -> emit(Resource.Error("No internet connection"))
+            NO_INTERNET_CONNECTION -> emit(Resource.Error(-1))
 
             SUCCESSFUL_RESPONSE -> {
                 with(response as VacancyDetailsResponse) {

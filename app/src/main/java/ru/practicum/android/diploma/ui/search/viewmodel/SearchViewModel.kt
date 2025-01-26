@@ -35,9 +35,14 @@ class SearchViewModel(
         }
     }
 
-    private fun resultHandle(foundVacancies: List<Vacancy>?, errorMessage: String?) {
-        if (errorMessage != null) {
-            searchResultData.postValue(SearchResult.Error)
+    private fun resultHandle(foundVacancies: List<Vacancy>?, errorCode: Int?) {
+        if (errorCode != null) {
+            if (errorCode == -1) {
+                searchResultData.postValue(SearchResult.NoConnection)
+            } else {
+                searchResultData.postValue(SearchResult.Error)
+            }
+
         } else if (foundVacancies != null) {
             if (foundVacancies.isEmpty()) {
                 searchResultData.postValue(SearchResult.NotFound)

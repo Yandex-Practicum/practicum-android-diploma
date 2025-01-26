@@ -11,7 +11,7 @@ class VacanciesInteractorImpl(
     private val vacanciesRepository: VacanciesRepository
 ) : VacanciesInteractor {
 
-    override fun searchVacancies(): Flow<Pair<List<Vacancy>?, String?>> {
+    override fun searchVacancies(): Flow<Pair<List<Vacancy>?, Int?>> {
         return vacanciesRepository.searchVacancies().map { result ->
             when (result) {
                 is Resource.Success -> {
@@ -19,7 +19,7 @@ class VacanciesInteractorImpl(
                 }
 
                 is Resource.Error -> {
-                    Pair(null, result.message)
+                    Pair(null, result.errorCode)
                 }
             }
         }
