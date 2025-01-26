@@ -18,7 +18,7 @@
         android:id="@+id/list_vacancy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_16"
+        android:layout_marginTop="@dimen/_16dp"
         android:visibility="gone"/>
 
     <ImageView
@@ -32,6 +32,7 @@
         android:id="@+id/placeholder_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16dp"
         android:gravity="center"
         style="@style/TextMedium_22_500"
         android:visibility="gone"/>
