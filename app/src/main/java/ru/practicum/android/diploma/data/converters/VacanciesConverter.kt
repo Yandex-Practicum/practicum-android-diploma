@@ -22,6 +22,7 @@ import ru.practicum.android.diploma.domain.models.Salary
 import ru.practicum.android.diploma.domain.models.Schedule
 import ru.practicum.android.diploma.domain.models.Skill
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.util.format.JsonUtils
 
 class VacanciesConverter {
 
@@ -47,6 +48,33 @@ class VacanciesConverter {
             keySkills = response.keySkills?.map { it.toSkill() },
             alternateUrl = response.alternateUrl,
             address = response.address?.toAddress()
+        )
+    }
+
+    fun convertFromDBtoVacancy(entity: VacancyEntity): Vacancy {
+        return Vacancy(
+            vacancyId = entity.vacancyId,
+            name = entity.name,
+            employer = entity.employer?.let { JsonUtils.fromJson(it, Employer::class.java) },
+            salary = entity.salary?.let { JsonUtils.fromJson(it, Salary::class.java) },
+            area = null,
+            experience = null,
+            employmentForm = null,
+            employment = null,
+            schedule = null,
+            description = null,
+            keySkills = null,
+            alternateUrl = null,
+            address = null
+        )
+    }
+
+    fun convertFromVacancyToDB(vacancy: Vacancy): VacancyEntity {
+        return VacancyEntity(
+            vacancyId = vacancy.vacancyId,
+            name = vacancy.name,
+            employer = JsonUtils.toJson(vacancy.employer),
+            salary = JsonUtils.toJson(vacancy.salary)
         )
     }
 
@@ -125,24 +153,6 @@ class VacanciesConverter {
     private fun AddressDto.toAddress(): Address {
         return Address(
             city = this.city
-        )
-    }
-
-    fun VacancyEntity.toVacancy(): Vacancy {
-        return Vacancy(
-            vacancyId = this.vacancyId,
-            name = this.name,
-            employer = this.employer,
-            salary = this.salary,
-            area = null,
-            experience = null,
-            employmentForm = null,
-            employment = null,
-            schedule = null,
-            description = null,
-            keySkills = null,
-            alternateUrl = null,
-            address = null
         )
     }
 }

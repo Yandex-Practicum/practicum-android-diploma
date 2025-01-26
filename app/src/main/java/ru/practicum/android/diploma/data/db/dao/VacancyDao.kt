@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.data.db.entity.VacancyEntity
 
 @Dao
-interface VacancyDao{
+interface VacancyDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addToFavorites(vacancy: VacancyEntity)
 

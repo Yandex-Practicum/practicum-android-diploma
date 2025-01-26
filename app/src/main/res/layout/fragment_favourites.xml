@@ -91,6 +91,7 @@
         android:visibility="invisible"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/favoritesList"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:padding="@dimen/dp_0"
