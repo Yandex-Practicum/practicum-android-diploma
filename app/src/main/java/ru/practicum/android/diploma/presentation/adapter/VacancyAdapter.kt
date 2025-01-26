@@ -75,7 +75,7 @@ class VacancyAdapter : RecyclerView.Adapter<VacancyAdapter.VacancyViewHolder>() 
             }
 
             vacancyNameAndArea.text =
-                itemView.resources.getString(R.string.item_vacancy_name, vacancy.name, vacancy.area.name)
+                itemView.resources.getString(R.string.item_vacancy_name, vacancy.name, vacancy.area)
             vacancyEmployerName.text = vacancy.employerName
             vacancySalary.text = getVacancySalaryText(vacancy.salary)
         }
