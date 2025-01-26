@@ -81,29 +81,30 @@ class VacancyAdapter : RecyclerView.Adapter<VacancyAdapter.VacancyViewHolder>() 
         }
 
         private fun getVacancySalaryText(salary: Salary?): String {
+            val vacancyText: String
             if (salary == null) {
-                return itemView.resources.getString(R.string.emptySalary)
+                vacancyText = itemView.resources.getString(R.string.emptySalary)
 
             } else {
                 val currencySymbol = getCurrencySymbol(salary.currency)
                 val numberFormat = NumberFormat.getInstance(Locale.getDefault())
 
                 if (salary.from == null) {
-                    return itemView.resources.getString(
+                    vacancyText = itemView.resources.getString(
                         R.string.item_vacancy_salary_to,
                         numberFormat.format(salary.to).replace(",", " "),
                         currencySymbol
                     )
 
                 } else if (salary.to == null) {
-                    return itemView.resources.getString(
+                    vacancyText = itemView.resources.getString(
                         R.string.item_vacancy_salary_from,
                         numberFormat.format(salary.from).replace(",", " "),
                         currencySymbol
                     )
 
                 } else {
-                    return itemView.resources.getString(
+                    vacancyText = itemView.resources.getString(
                         R.string.item_vacancy_salary_from_to,
                         numberFormat.format(salary.from).replace(",", " "),
                         numberFormat.format(salary.to).replace(",", " "),
@@ -111,6 +112,7 @@ class VacancyAdapter : RecyclerView.Adapter<VacancyAdapter.VacancyViewHolder>() 
                     )
                 }
             }
+            return vacancyText
         }
     }
 
@@ -147,5 +149,3 @@ fun getCurrencySymbol(currency: String): String {
         else -> "₽"
     }
 }
-
-
