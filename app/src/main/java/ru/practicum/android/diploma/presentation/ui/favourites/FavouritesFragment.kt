@@ -12,7 +12,7 @@ import ru.practicum.android.diploma.databinding.FragmentFavouritesBinding
 class FavouritesFragment : Fragment() {
 
     private val viewModel: FavouritesViewModel by viewModels()
-    /*private lateinit var binding: FragmentFavouritesBinding*/
+    private lateinit var binding: FragmentFavouritesBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,6 +25,7 @@ class FavouritesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.placeholderText.text = (R.id.placeholder_text).toString()
     }
 
     companion object {

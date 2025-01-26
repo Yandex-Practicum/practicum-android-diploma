@@ -1,10 +1,11 @@
 package ru.practicum.android.diploma.domain
 
 import kotlinx.coroutines.flow.Flow
+import ru.practicum.android.diploma.domain.models.Vacancy
 
 interface FavouritesInteractor {
 
-    fun likeVacancy(vacancy: Vacancy)
-    fun dislikeVacancy(vacancy: Vacancy)
-    suspend fun getFavouritesVacancy(): Flow<List<Vacancy>>
+    suspend fun likeVacancy(vacancy: Vacancy)
+    suspend fun dislikeVacancy(vacancy: Vacancy)
+    fun getFavouritesVacancy(): Flow<List<Vacancy>>
 }
