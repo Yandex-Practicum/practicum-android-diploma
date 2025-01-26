@@ -27,22 +27,24 @@
 
     <TextView
         android:id="@+id/job"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_12dp"
         android:textAppearance="@style/TextMedium_22"
         android:textColor="?attr/colorOnPrimary"
         app:layout_constraintStart_toEndOf="@id/vacancyIconCV"
         app:layout_constraintTop_toTopOf="@id/vacancyIconCV"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:text="Разработчик на С++ в команду внутренних сервисов, Москва" />
 
     <TextView
-        android:id="@+id/company"
-        android:layout_width="wrap_content"
+        android:id="@+id/employer"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextRegular_16"
         android:textColor="?attr/colorOnPrimary"
         app:layout_constraintStart_toStartOf="@id/job"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/job"
         tools:text="Авто.ру" />
 
@@ -52,8 +54,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextRegular_16"
         android:textColor="?attr/colorOnPrimary"
-        app:layout_constraintStart_toStartOf="@id/company"
-        app:layout_constraintTop_toBottomOf="@id/company"
+        app:layout_constraintStart_toStartOf="@id/employer"
+        app:layout_constraintTop_toBottomOf="@id/employer"
         tools:text="от 40 000 до 80 000 ₽" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
