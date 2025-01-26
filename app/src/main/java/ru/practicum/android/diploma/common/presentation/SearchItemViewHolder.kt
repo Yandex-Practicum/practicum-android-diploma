@@ -4,8 +4,9 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.common.util.Converter
 import ru.practicum.android.diploma.databinding.ItemVacancyBinding
-import ru.practicum.android.diploma.search.presentation.list_items.ListItem
+import ru.practicum.android.diploma.search.presentation.items.ListItem
 
 class SearchItemViewHolder(
     private val binding: ItemVacancyBinding,
@@ -23,7 +24,11 @@ class SearchItemViewHolder(
             uploadImage(iconUrl, binding.vacancyIcon)
             binding.job.text = getJobDescription(name, areaName)
             binding.employer.text = employer
-            binding.salary.text = salary?.getSalaryToString()
+            binding.salary.text = Converter.convertSalaryToString(
+                salary?.from,
+                salary?.to,
+                salary?.currency
+            )
         }
     }
 

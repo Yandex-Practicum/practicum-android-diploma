@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.search.domain.model
 
-import ru.practicum.android.diploma.search.presentation.list_items.ListItem
+import ru.practicum.android.diploma.search.presentation.items.ListItem
 
 sealed interface SearchViewState {
     data class Success(val vacancyList: VacancyList) : SearchViewState

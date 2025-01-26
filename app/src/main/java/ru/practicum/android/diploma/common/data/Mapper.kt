@@ -9,7 +9,7 @@ import ru.practicum.android.diploma.search.domain.model.Salary
 import ru.practicum.android.diploma.search.domain.model.SearchQueryParams
 import ru.practicum.android.diploma.search.domain.model.VacancyItems
 import ru.practicum.android.diploma.search.domain.model.VacancyList
-import ru.practicum.android.diploma.search.presentation.list_items.ListItem
+import ru.practicum.android.diploma.search.presentation.items.ListItem
 
 class Mapper {
     fun map(searchQueryParams: SearchQueryParams): Map<String, String> {

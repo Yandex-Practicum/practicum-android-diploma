@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.common.project_constants
+package ru.practicum.android.diploma.common.constants
 
 const val APP_SHARED_PREFS = "app_shared_prefs"
 const val APP_DATA_BASE = "database.db"

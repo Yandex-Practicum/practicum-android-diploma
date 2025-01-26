@@ -33,7 +33,12 @@ class SearchFragment : Fragment() {
     private var adapter: SearchAdapter? = null
     private val handler: Handler = Handler(Looper.getMainLooper())
     private var editTextWatcher: TextWatcher? = null
-    private var runnable = Runnable { adapter?.hideLoading() }
+    private var hideAdapterLoadingRunnable = Runnable {
+        adapter?.hideLoading()
+    }
+    private var searchVacanciesRunnable = Runnable {
+        searchOnTextChanged(textInput)
+    }
     private var textInput: String = ""
 
     override fun onCreateView(
@@ -47,7 +52,7 @@ class SearchFragment : Fragment() {
 
     override fun onDestroyView() {
         adapter = null
-        handler.removeCallbacksAndMessages(this.runnable)
+        handler.removeCallbacksAndMessages(this.hideAdapterLoadingRunnable)
         editTextWatcher?.let { binding.textInput.removeTextChangedListener(it) }
         _binding = null
         super.onDestroyView()
@@ -89,25 +94,55 @@ class SearchFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, ncout: Int) {
                 with(binding) {
                     if (textInput.hasFocus() && s?.isEmpty() == true) {
-                        initScreenPH.isVisible = false
+                        initScreenPH.isVisible = true
                         textHint.isVisible = false
                         searchVacanciesRV.isVisible = false
                         noVacanciesFoundPH.isVisible = false
                         noConnectionPH.isVisible = false
-                    } else {
-                        searchVacanciesRV.isVisible = false
                     }
                 }
                 textInput = s.toString()
-                viewModel.searchDebounce(textInput)
+                while (textInput != s.toString()) {
+                    handler.postDelayed(
+                        {
+                            textInput = s.toString()
+                        },
+                        1000
+                    )
+                }
+
+                searchOnTextChanged(textInput)
+
+//                searchOnTextChanged(textInput)
+//                handler.removeCallbacks(searchVacanciesRunnable)
+//                handler.postDelayed(
+//                    searchVacanciesRunnable,
+//                    2000
+//                )
+                Log.d("TextInput", "$textInput")
+
                 binding.clearIcon.visibility = clearButtonVisibility(s)
                 binding.searchIcon.visibility = searchIconVisibility(s)
             }
 
             override fun afterTextChanged(s: Editable?) {
-                if (!s.isNullOrEmpty()) {
-                    viewModel.searchDebounce(s.toString())
-                }
+                Log.d("AfterTextChanged", "$s")
+//                if (!s.isNullOrEmpty()) {
+//                    searchOnTextChanged(textInput)
+//                }
+//                    textInput = s.toString()
+//                    handler.removeCallbacks(searchVacanciesRunnable)
+//                    handler.postDelayed(
+//                        searchVacanciesRunnable,
+//                        DELAY_500
+//                    )
+//
+////                    viewModel.searchDebounce(s.toString())
+//                }
+//                handler.postDelayed(
+//                    searchVacanciesRunnable,
+//                    500
+//                )
             }
         }
         binding.textInput.addTextChangedListener(editTextWatcher)
@@ -162,9 +197,10 @@ class SearchFragment : Fragment() {
 
     private fun showNoVacanciesFoundPH() {
         with(binding) {
+            textHint.text = NO_VACANCIES_FOUND
+            textHint.isVisible = true
             noVacanciesFoundPH.isVisible = true
             initScreenPH.isVisible = false
-            textHint.isVisible = false
             serverErrorPH.isVisible = false
             noConnectionPH.isVisible = false
             mainProgressBar.isVisible = false
@@ -210,7 +246,7 @@ class SearchFragment : Fragment() {
 
     private fun hideAdapterLoading() {
         handler.postDelayed(
-            runnable,
+            hideAdapterLoadingRunnable,
             DELAY_1000
         )
     }
@@ -219,10 +255,21 @@ class SearchFragment : Fragment() {
         viewModel.onLastItemReached(textInput)
     }
 
+    private fun searchOnTextChanged(query: String) {
+        with(binding) {
+            textHint.isVisible = false
+            noConnectionTextHint.isVisible = false
+            noVacanciesFoundPH.isVisible = false
+            serverErrorPH.isVisible = false
+        }
+        viewModel.searchDebounce(query)
+        adapter?.submitList(emptyList())
+    }
+
     private fun onClearIconPressed() {
         with(binding) {
             textInput.setText("")
-            adapter?.submitData(emptyList())
+            adapter?.submitList(emptyList())
             initScreenPH.isVisible = true
             searchVacanciesRV.isVisible = false
             textHint.isVisible = false
@@ -268,5 +315,7 @@ class SearchFragment : Fragment() {
     companion object {
         private const val FIRST_ITEM_MARGIN_TOP = 46
         private const val DELAY_1000 = 1_000L
+        private const val DELAY_500 = 500L
+        private const val NO_VACANCIES_FOUND = "Таких вакансий нет"
     }
 }

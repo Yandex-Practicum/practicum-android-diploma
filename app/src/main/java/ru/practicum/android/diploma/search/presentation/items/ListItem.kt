@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.search.presentation.list_items
+package ru.practicum.android.diploma.search.presentation.items
 
 import ru.practicum.android.diploma.search.domain.model.Salary
 

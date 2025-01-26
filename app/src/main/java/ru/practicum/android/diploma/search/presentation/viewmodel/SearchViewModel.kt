@@ -5,13 +5,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.room.util.query
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.common.data.Mapper
+import ru.practicum.android.diploma.common.util.Converter
 import ru.practicum.android.diploma.common.util.debounce
 import ru.practicum.android.diploma.search.domain.interactor.SearchInteractor
 import ru.practicum.android.diploma.search.domain.model.AdapterState
 import ru.practicum.android.diploma.search.domain.model.SearchViewState
-import ru.practicum.android.diploma.search.presentation.list_items.ListItem
+import ru.practicum.android.diploma.search.presentation.items.ListItem
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 
@@ -20,7 +22,7 @@ class SearchViewModel(
     private val mapper: Mapper,
 ) : ViewModel() {
 
-    private var currentPage: Int = 0
+    private var currentPage: Int = 1
     private var maxPages: Int? = 0
     private var latestSearchQuery: String? = null
     private var vacancyList = mutableListOf<ListItem>()
@@ -72,6 +74,7 @@ class SearchViewModel(
 
     fun searchVacancy(searchQuery: String) {
         if (searchQuery.isNotEmpty()) {
+            Log.d("SearchQuery","$searchQuery")
             if (!isNextPageLoading) {
                 isNextPageLoading = true
                 renderScreenState(SearchViewState.Loading)
@@ -88,8 +91,8 @@ class SearchViewModel(
     }
 
     fun onLastItemReached(query: String) {
-        if (!(currentPage != maxPages && maxPages != 0)) return
-        if (this.latestSearchQuery != query) return
+        if (!(currentPage != maxPages && maxPages != 0) || this.latestSearchQuery != query) return
+//        if (this.latestSearchQuery != query) return
         if (query.isNotEmpty()) {
             if (!isNextPageLoading) {
                 currentPage += 1
@@ -101,6 +104,7 @@ class SearchViewModel(
                         .collect { viewState ->
                             renderScreenState(viewState)
                         }
+                    Log.d("CurrentPage","$currentPage")
                     renderAdapterState(AdapterState.Idle)
                     isNextPageLoading = false
                 }
@@ -133,6 +137,7 @@ class SearchViewModel(
         if (state is SearchViewState.Success) {
             this.maxPages = state.vacancyList.pages
             Log.d("NewpageVacancies", "${state.vacancyList.items.size}")
+            Log.d("VacanciesFound", "${state.vacancyList.items}")
             stateLiveData.postValue(
                 SearchViewState.Content(
                     state.vacancyList.items.map { vacancy -> mapper.map(vacancy) },
@@ -149,16 +154,17 @@ class SearchViewModel(
     }
 
     private fun makeFoundVacanciesHint(vacanciesNumber: Int): String {
-        return when {
-            vacanciesNumber % 10 == 0 -> "$NAIDENO_LITERAL ${formatFoundVacanciesNumber(vacanciesNumber)} вакансий"
-            vacanciesNumber % 10 == 1 -> "$NAIDENA_LITERAL ${formatFoundVacanciesNumber(vacanciesNumber)} вакансия"
-            vacanciesNumber % 10 in 2..4 -> "$NAIDENO_LITERAL ${formatFoundVacanciesNumber(vacanciesNumber)} вакансии"
-            vacanciesNumber % 10 in 5..9 -> "$NAIDENO_LITERAL ${formatFoundVacanciesNumber(vacanciesNumber)} вакансий"
-            vacanciesNumber % 100 in 11..19 -> "$NAIDENO_LITERAL ${formatFoundVacanciesNumber(
-                vacanciesNumber
-            )} вакансий"
-            else -> ""
-        }
+        return Converter.buildResultingSentence(vacanciesNumber, "Найдено")
+//        when {
+//            vacanciesNumber % 10 == 0 -> "$NAIDENO_LITERAL ${Converter.applyDigitSeparation(vacanciesNumber)} вакансий"
+//            vacanciesNumber % 10 == 1 -> "$NAIDENA_LITERAL ${Converter.applyDigitSeparation(vacanciesNumber)} вакансия"
+//            vacanciesNumber % 10 in 2..4 -> "$NAIDENO_LITERAL ${Converter.applyDigitSeparation(vacanciesNumber)} вакансии"
+//            vacanciesNumber % 10 in 5..9 -> "$NAIDENO_LITERAL ${Converter.applyDigitSeparation(vacanciesNumber)} вакансий"
+//            vacanciesNumber % 100 in 11..19 -> "$NAIDENO_LITERAL ${Converter.applyDigitSeparation(
+//                vacanciesNumber
+//            )} вакансий"
+//            else -> ""
+//        }
     }
 
     private fun formatFoundVacanciesNumber(vacanciesNumber: Int?): String {

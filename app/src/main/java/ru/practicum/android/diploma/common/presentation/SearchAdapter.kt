@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.databinding.ItemLoadingBinding
 import ru.practicum.android.diploma.databinding.ItemVacancyBinding
-import ru.practicum.android.diploma.search.presentation.list_items.ListItem
+import ru.practicum.android.diploma.search.presentation.items.ListItem
 
 class SearchAdapter(
     private val onItemClicked: (listItem: ListItem) -> Unit,
@@ -52,10 +52,10 @@ class SearchAdapter(
     }
 
     fun submitData(data: List<ListItem>) {
-        val updatedList = currentList.toMutableList().apply {
-            addAll(data)
-        }
-        submitList(updatedList)
+            val updatedList = currentList.toMutableList().apply {
+                addAll(data)
+            }
+            submitList(updatedList)
     }
 
     fun showLoading() {
@@ -74,7 +74,6 @@ class SearchAdapter(
             val updatedList = currentList.toMutableList().apply {
                 removeAll { it is ListItem.LoadingItem }
             }
-
             submitList(updatedList)
         }
     }
