@@ -65,6 +65,7 @@ class FavouritesFragment : Fragment() {
     private fun favoritesRender(vacancies: List<Vacancy>) {
         binding.favoritesList.isVisible = vacancies.isNotEmpty()
         binding.emptyListPlaceholder.isVisible = vacancies.isEmpty()
+        binding.errorListPlaceholder.isVisible = false
 
         if (vacancies.isNotEmpty()) {
             adapter?.submitList(vacancies)
