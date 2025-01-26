@@ -17,6 +17,10 @@ import ru.practicum.android.diploma.domain.models.Vacancy
 class VacancyRepositoryImpl(
     private val networkClient: NetworkClient
 ) : VacancyRepository {
+    companion object {
+        private const val SuccessfulRequest = 200
+    }
+
     override fun getVacancies(options: Map<String, String>): Flow<Resource<Page>> = flow {
         val request = Request.VacanciesRequest(options)
         val response = networkClient.doRequest(request) as VacanciesResponse
@@ -67,9 +71,5 @@ class VacancyRepositoryImpl(
             vacancy.description,
             vacancy.alternateUrl
         )
-    }
-
-    companion object {
-        private const val SuccessfulRequest = 200
     }
 }

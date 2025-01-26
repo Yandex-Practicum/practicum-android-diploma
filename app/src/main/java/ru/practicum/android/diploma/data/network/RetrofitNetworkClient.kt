@@ -10,6 +10,12 @@ import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.VacancyResponse
 
 class RetrofitNetworkClient(private val vacancyService: VacancyApi) : NetworkClient {
+    companion object {
+        private const val RETROFIT_LOG = "RETROFIT_LOG"
+        private const val SuccessfulRequest = 200
+        private const val BadRequest = 400
+    }
+
     override suspend fun doRequest(dto: Request): Response {
         return withContext(Dispatchers.IO) {
             try {
@@ -44,11 +50,5 @@ class RetrofitNetworkClient(private val vacancyService: VacancyApi) : NetworkCli
                 Response().apply { resultCode = BadRequest }
             }
         }
-    }
-
-    companion object {
-        private const val RETROFIT_LOG = "RETROFIT_LOG"
-        private const val SuccessfulRequest = 200
-        private const val BadRequest = 400
     }
 }
