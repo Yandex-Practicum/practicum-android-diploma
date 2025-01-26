@@ -84,8 +84,7 @@ class SearchFragment : Fragment() {
         }
 
         editTextWatcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, ncout: Int) {
                 with(binding) {
@@ -106,6 +105,9 @@ class SearchFragment : Fragment() {
             }
 
             override fun afterTextChanged(s: Editable?) {
+                if (!s.isNullOrEmpty()) {
+                    viewModel.searchDebounce(s.toString())
+                }
             }
         }
         binding.textInput.addTextChangedListener(editTextWatcher)
