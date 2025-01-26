@@ -9,4 +9,9 @@
 
 
     <color name="searchBackground">@color/light_gray</color>
+    <color name="blackWhite">@color/black</color>
+    <color name="whiteBlack">@color/white</color>
+    <color name="darkGrayWhite">@color/dark_gray</color>
+    <color name="lightGrayDarkGray">@color/light_gray</color>
+    <color name="DarkGraylightGray">@color/dark_gray</color>
 </resources>

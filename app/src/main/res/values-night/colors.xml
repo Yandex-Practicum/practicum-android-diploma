@@ -3,4 +3,9 @@
 
 
     <color name="searchBackground">@color/dark_gray</color>
+    <color name="blackWhite">@color/white</color>
+    <color name="whiteBlack">@color/black</color>
+    <color name="darkGrayWhite">@color/white</color>
+    <color name="lightGrayDarkGray">@color/dark_gray</color>
+    <color name="DarkGraylightGray">@color/light_gray</color>
 </resources>
