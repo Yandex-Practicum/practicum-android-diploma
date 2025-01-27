@@ -62,6 +62,7 @@ class SearchFragment : Fragment() {
         handler.removeCallbacksAndMessages(this.hideAdapterLoadingRunnable)
         editTextWatcher?.let { binding.textInput.removeTextChangedListener(it) }
         _binding = null
+        job = null
         super.onDestroyView()
     }
 
@@ -134,7 +135,6 @@ class SearchFragment : Fragment() {
                             { loadNextPage() },
                             DELAY_500
                         )
-//                        loadNextPage()
                     }
                 }
             }
@@ -174,7 +174,69 @@ class SearchFragment : Fragment() {
         }
     }
 
+//    private fun showMainNoVacanciesFoundPH() {
+//        with(binding) {
+//            textHint.text = NO_VACANCIES_FOUND
+//            textHint.isVisible = true
+//            noVacanciesFoundPH.isVisible = true
+//            initScreenPH.isVisible = false
+//            serverErrorPH.isVisible = false
+//            noConnectionPH.isVisible = false
+//            mainProgressBar.isVisible = false
+//            searchVacanciesRV.isVisible = false
+//        }
+//    }
+
+//    private fun showServerErrorPH() {
+//        with(binding) {
+//            serverErrorPH.isVisible = true
+//            initScreenPH.isVisible = false
+//            textHint.isVisible = false
+//            noConnectionPH.isVisible = false
+//            mainProgressBar.isVisible = false
+//            searchVacanciesRV.isVisible = false
+//            noVacanciesFoundPH.isVisible = false
+//        }
+//    }
+
+    private fun showNoConnectionPH() {
+        when {
+            adapter?.currentList.isNullOrEmpty() -> showMainNoConnectionPH()
+            job?.isActive == true -> return
+            job?.isActive != true -> showPaginationNoConnectionPH()
+        }
+    }
+
     private fun showNoVacanciesFoundPH() {
+        when {
+            adapter?.currentList.isNullOrEmpty() -> showMainNoVacanciesFoundPH()
+            job?.isActive == true -> return
+            job?.isActive != true -> showPaginationNoVacanciesPH()
+        }
+    }
+
+    private fun showServerErrorPH() {
+        when {
+            adapter?.currentList.isNullOrEmpty() -> showMainServerErrorPH()
+            job?.isActive == true -> return
+            job?.isActive != true -> showPaginationServerErrorPH()
+        }
+    }
+
+    private fun showMainNoConnectionPH() {
+        with(binding) {
+            noConnectionPH.isVisible = true
+            noConnectionTextHint.isVisible = true
+            initScreenPH.isVisible = false
+            textHint.isVisible = false
+            mainProgressBar.isVisible = false
+            searchVacanciesRV.isVisible = false
+            noVacanciesFoundPH.isVisible = false
+            serverErrorPH.isVisible = false
+        }
+    }
+
+    private fun showMainNoVacanciesFoundPH() {
         with(binding) {
             textHint.text = NO_VACANCIES_FOUND
             textHint.isVisible = true
@@ -187,7 +249,7 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun showServerErrorPH() {
+    private fun showMainServerErrorPH() {
         with(binding) {
             serverErrorPH.isVisible = true
             initScreenPH.isVisible = false
@@ -199,60 +261,27 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun showNoConnectionPH() {
-        when {
-            adapter?.currentList.isNullOrEmpty() -> {
-                with(binding) {
-                    noConnectionPH.isVisible = true
-                    noConnectionTextHint.isVisible = true
-                    initScreenPH.isVisible = false
-                    textHint.isVisible = false
-                    mainProgressBar.isVisible = false
-                    searchVacanciesRV.isVisible = false
-                    noVacanciesFoundPH.isVisible = false
-                    serverErrorPH.isVisible = false
-                }
-            }
+    private fun showPaginationServerErrorPH() {
+        job = CoroutineScope(Dispatchers.Main).launch {
+            hideAdapterLoading()
+            Toast.makeText(requireContext(), SERVER_ERROR, Toast.LENGTH_LONG).show()
+            delay(DELAY_2000)
+        }
+    }
 
-            job?.isActive == true -> return
-            job?.isActive != true -> {
-                job = CoroutineScope(Dispatchers.Main).launch {
-                    hideAdapterLoading()
-                    Toast.makeText(requireContext(), "Проверьте подключение", Toast.LENGTH_LONG).show()
-                    delay(DELAY_2000)
-                }
-            }
+    private fun showPaginationNoVacanciesPH() {
+        job = CoroutineScope(Dispatchers.Main).launch {
+            hideAdapterLoading()
+            Toast.makeText(requireContext(), ERROR_NO_VACANCIES_FOUND, Toast.LENGTH_LONG).show()
+            delay(DELAY_2000)
+        }
+    }
 
-//        if (adapter?.currentList.isNullOrEmpty()) {
-//            with(binding) {
-//                noConnectionPH.isVisible = true
-//                noConnectionTextHint.isVisible = true
-//                initScreenPH.isVisible = false
-//                textHint.isVisible = false
-//                mainProgressBar.isVisible = false
-//                searchVacanciesRV.isVisible = false
-//                noVacanciesFoundPH.isVisible = false
-//                serverErrorPH.isVisible = false
-//            }
-//        } else {
-//            if (job?.isActive == true) return
-//            job = CoroutineScope(Dispatchers.Main).launch {
-//                hideAdapterLoading()
-//                Toast.makeText(requireContext(), "Проверьте подключение", Toast.LENGTH_LONG).show()
-//                delay(DELAY_2000)
-//            }
-//            if(!job.isCompleted) {
-//                return
-//            } else{
-//                job.start()
-//            }
-//            CoroutineScope(Dispatchers.Main).launch {
-//                hideAdapterLoading()
-//                Toast.makeText(requireContext(), "Проверьте подключение", Toast.LENGTH_LONG).show()
-//                delay(2000)
-//            }
-//            hideAdapterLoading()
-//            Toast.makeText(requireContext(), "Проверьте подключение", Toast.LENGTH_LONG).show()
+    private fun showPaginationNoConnectionPH() {
+        job = CoroutineScope(Dispatchers.Main).launch {
+            hideAdapterLoading()
+            Toast.makeText(requireContext(), CHECK_YOUR_CONNECTION, Toast.LENGTH_LONG).show()
+            delay(DELAY_2000)
         }
     }
 
@@ -348,5 +377,8 @@ class SearchFragment : Fragment() {
         private const val DELAY_1000 = 1_000L
         private const val DELAY_500 = 500L
         private const val NO_VACANCIES_FOUND = "Таких вакансий нет"
+        private const val ERROR_NO_VACANCIES_FOUND = "Ошибка. Вакансии не найдены"
+        private const val CHECK_YOUR_CONNECTION = "Проверьте подключение"
+        private const val SERVER_ERROR = "Ошибка сервера"
     }
 }

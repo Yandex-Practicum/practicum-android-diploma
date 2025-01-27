@@ -111,7 +111,8 @@ class SearchViewModel(
             }
         }
     }
-    fun declineLastSearch(){
+
+    fun declineLastSearch() {
         job?.cancel()
         job = null
     }
@@ -159,6 +160,11 @@ class SearchViewModel(
 
     private fun makeFoundVacanciesHint(vacanciesNumber: Int): String {
         return Converter.buildResultingSentence(vacanciesNumber, "Найдено")
+    }
+
+    override fun onCleared() {
+        job = null
+        super.onCleared()
     }
 
     companion object {
