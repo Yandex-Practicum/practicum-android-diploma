@@ -8,24 +8,22 @@ import ru.practicum.android.diploma.data.dto.VacanciesResponseDto
 import ru.practicum.android.diploma.domain.Resource
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.search.api.VacanciesRepository
+import ru.practicum.android.diploma.util.ResponseCode
 
 class VacanciesRepositoryImpl(
     private val vacanciesConverter: VacanciesConverter,
     private val networkClient: NetworkClient,
 ) : VacanciesRepository {
 
-    companion object {
-        private const val NO_INTERNET_CONNECTION = -1
-        private const val SUCCESSFUL_RESPONSE = 200
-    }
-
     override fun searchVacancies(): Flow<Resource<List<Vacancy>>> = flow {
         val response = networkClient.doRequestVacancies()
 
         when (response.resultCode) {
-            NO_INTERNET_CONNECTION -> emit(Resource.Error("No internet connection"))
+            ResponseCode.NO_INTERNET.code -> emit(Resource.Error(ResponseCode.NO_INTERNET.code))
 
-            SUCCESSFUL_RESPONSE -> {
+            ResponseCode.SERVER_ERROR.code -> emit(Resource.Error(ResponseCode.SERVER_ERROR.code))
+
+            ResponseCode.SUCCESS.code -> {
                 with(response as VacanciesResponseDto) {
                     val data = vacanciesConverter.convertCut(response)
                     emit(Resource.Success(data))

@@ -7,6 +7,7 @@ import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.dto.Response
+import ru.practicum.android.diploma.util.ResponseCode
 import ru.practicum.android.diploma.util.network.CheckNetworkConnect
 
 class RetrofitNetworkClient(
@@ -14,26 +15,20 @@ class RetrofitNetworkClient(
     private val context: Context
 ) : NetworkClient {
 
-    companion object {
-        private const val NO_INTERNET_CONNNECTION = -1
-        private const val INTERNAL_SERVER_ERROR = 500
-        private const val SUCCESSFUL_REQUEST = 200
-    }
-
     private val isConnected = CheckNetworkConnect.isNetworkAvailable(context)
 
     override suspend fun doRequestVacancies(): Response {
         // Если подключение к интернету отсутствует
         if (!isConnected) {
-            return Response().apply { resultCode = NO_INTERNET_CONNNECTION }
+            return Response().apply { resultCode = ResponseCode.NO_INTERNET.code }
         } else {
             return withContext(Dispatchers.IO) {
                 try {
                     val response = api.searchVacancies()
-                    response.apply { resultCode = SUCCESSFUL_REQUEST }
+                    response.apply { resultCode = ResponseCode.SUCCESS.code }
                 } catch (e: HttpException) {
                     Log.w("HttpException", e)
-                    Response().apply { resultCode = INTERNAL_SERVER_ERROR }
+                    Response().apply { resultCode = ResponseCode.SERVER_ERROR.code }
                 }
             }
         }
@@ -41,15 +36,15 @@ class RetrofitNetworkClient(
 
     override suspend fun doRequestVacancyDetails(vacancyId: String): Response {
         if (!isConnected) {
-            return Response().apply { resultCode = NO_INTERNET_CONNNECTION }
+            return Response().apply { resultCode = ResponseCode.NO_INTERNET.code }
         } else {
             return withContext(Dispatchers.IO) {
                 try {
                     val response = api.getVacancyDetails(vacancyId)
-                    response.apply { resultCode = SUCCESSFUL_REQUEST }
+                    response.apply { resultCode = ResponseCode.SUCCESS.code }
                 } catch (e: HttpException) {
                     Log.w("HttpException", e)
-                    Response().apply { resultCode = INTERNAL_SERVER_ERROR }
+                    Response().apply { resultCode = ResponseCode.SERVER_ERROR.code }
                 }
             }
         }
