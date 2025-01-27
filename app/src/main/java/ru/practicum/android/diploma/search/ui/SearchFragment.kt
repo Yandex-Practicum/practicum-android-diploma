@@ -12,11 +12,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.common.presentation.SearchAdapter
@@ -36,6 +42,7 @@ class SearchFragment : Fragment() {
     private var hideAdapterLoadingRunnable = Runnable {
         adapter?.hideLoading()
     }
+    private var job: Job? = null
     private var searchVacanciesRunnable = Runnable {
         searchOnTextChanged(textInput)
     }
@@ -55,6 +62,7 @@ class SearchFragment : Fragment() {
         handler.removeCallbacksAndMessages(this.hideAdapterLoadingRunnable)
         editTextWatcher?.let { binding.textInput.removeTextChangedListener(it) }
         _binding = null
+        job = null
         super.onDestroyView()
     }
 
@@ -123,13 +131,17 @@ class SearchFragment : Fragment() {
                         (binding.searchVacanciesRV.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
                     val itemsCount = adapter!!.itemCount
                     if (pos >= itemsCount - 1) {
-                        loadNextPage()
+                        handler.postDelayed(
+                            { loadNextPage() },
+                            DELAY_500
+                        )
                     }
                 }
             }
         })
 
         viewModel.observeState().observe(viewLifecycleOwner) { state ->
+            Log.d("state", "$state")
             render(state)
         }
 
@@ -162,7 +174,44 @@ class SearchFragment : Fragment() {
         }
     }
 
+    private fun showNoConnectionPH() {
+        when {
+            adapter?.currentList.isNullOrEmpty() -> showMainNoConnectionPH()
+            job?.isActive == true -> return
+            job?.isActive != true -> showPaginationNoConnectionPH()
+        }
+    }
+
     private fun showNoVacanciesFoundPH() {
+        when {
+            adapter?.currentList.isNullOrEmpty() -> showMainNoVacanciesFoundPH()
+            job?.isActive == true -> return
+            job?.isActive != true -> showPaginationNoVacanciesPH()
+        }
+    }
+
+    private fun showServerErrorPH() {
+        when {
+            adapter?.currentList.isNullOrEmpty() -> showMainServerErrorPH()
+            job?.isActive == true -> return
+            job?.isActive != true -> showPaginationServerErrorPH()
+        }
+    }
+
+    private fun showMainNoConnectionPH() {
+        with(binding) {
+            noConnectionPH.isVisible = true
+            noConnectionTextHint.isVisible = true
+            initScreenPH.isVisible = false
+            textHint.isVisible = false
+            mainProgressBar.isVisible = false
+            searchVacanciesRV.isVisible = false
+            noVacanciesFoundPH.isVisible = false
+            serverErrorPH.isVisible = false
+        }
+    }
+
+    private fun showMainNoVacanciesFoundPH() {
         with(binding) {
             textHint.text = NO_VACANCIES_FOUND
             textHint.isVisible = true
@@ -175,7 +224,7 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun showServerErrorPH() {
+    private fun showMainServerErrorPH() {
         with(binding) {
             serverErrorPH.isVisible = true
             initScreenPH.isVisible = false
@@ -187,16 +236,27 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun showNoConnectionPH() {
-        with(binding) {
-            noConnectionPH.isVisible = true
-            noConnectionTextHint.isVisible = true
-            initScreenPH.isVisible = false
-            textHint.isVisible = false
-            mainProgressBar.isVisible = false
-            searchVacanciesRV.isVisible = false
-            noVacanciesFoundPH.isVisible = false
-            serverErrorPH.isVisible = false
+    private fun showPaginationServerErrorPH() {
+        job = CoroutineScope(Dispatchers.Main).launch {
+            hideAdapterLoading()
+            Toast.makeText(requireContext(), SERVER_ERROR, Toast.LENGTH_LONG).show()
+            delay(DELAY_2000)
+        }
+    }
+
+    private fun showPaginationNoVacanciesPH() {
+        job = CoroutineScope(Dispatchers.Main).launch {
+            hideAdapterLoading()
+            Toast.makeText(requireContext(), ERROR_NO_VACANCIES_FOUND, Toast.LENGTH_LONG).show()
+            delay(DELAY_2000)
+        }
+    }
+
+    private fun showPaginationNoConnectionPH() {
+        job = CoroutineScope(Dispatchers.Main).launch {
+            hideAdapterLoading()
+            Toast.makeText(requireContext(), CHECK_YOUR_CONNECTION, Toast.LENGTH_LONG).show()
+            delay(DELAY_2000)
         }
     }
 
@@ -236,6 +296,7 @@ class SearchFragment : Fragment() {
 
     private fun onClearIconPressed() {
         with(binding) {
+            viewModel.declineLastSearch()
             textInput.setText("")
             adapter?.submitList(emptyList())
             initScreenPH.isVisible = true
@@ -243,11 +304,15 @@ class SearchFragment : Fragment() {
             textHint.isVisible = false
             noConnectionPH.isVisible = false
             serverErrorPH.isVisible = false
+            mainProgressBar.isVisible = false
         }
     }
 
     private fun showContent(state: SearchViewState.Content) {
         with(binding) {
+            if (job?.isActive == true) {
+                job?.cancel()
+            }
             adapter?.submitData(state.listItem)
             textHint.text = state.vacanciesFoundHint
             textHint.isVisible = true
@@ -255,6 +320,7 @@ class SearchFragment : Fragment() {
             mainProgressBar.isVisible = false
             noVacanciesFoundPH.isVisible = false
             noConnectionPH.isVisible = false
+            initScreenPH.isVisible = false
         }
     }
 
@@ -282,8 +348,12 @@ class SearchFragment : Fragment() {
 
     companion object {
         private const val FIRST_ITEM_MARGIN_TOP = 46
+        private const val DELAY_2000 = 2_000L
         private const val DELAY_1000 = 1_000L
         private const val DELAY_500 = 500L
         private const val NO_VACANCIES_FOUND = "Таких вакансий нет"
+        private const val ERROR_NO_VACANCIES_FOUND = "Ошибка. Вакансии не найдены"
+        private const val CHECK_YOUR_CONNECTION = "Проверьте подключение"
+        private const val SERVER_ERROR = "Ошибка сервера"
     }
 }

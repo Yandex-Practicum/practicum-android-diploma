@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.common.data.Mapper
 import ru.practicum.android.diploma.common.util.Converter
@@ -26,6 +27,7 @@ class SearchViewModel(
     private val emptyVacancyList = emptyList<ListItem>()
     private var isNextPageLoading: Boolean = false
     private var isClickAllowed = true
+    private var job: Job? = null
 
     private val debounceSearch = debounce<String>(
         SEARCH_DEBOUNCE_DELAY,
@@ -75,13 +77,18 @@ class SearchViewModel(
             if (!isNextPageLoading) {
                 isNextPageLoading = true
                 renderScreenState(SearchViewState.Loading)
-                viewModelScope.launch {
-                    searchInteractor
-                        .searchVacancy(searchQuery, 1)
-                        .collect { viewState ->
-                            renderScreenState(viewState)
-                        }
-                    isNextPageLoading = false
+                job = viewModelScope.launch {
+                    try {
+                        searchInteractor
+                            .searchVacancy(searchQuery, 1)
+                            .collect { viewState ->
+                                renderScreenState(viewState)
+                                isNextPageLoading = false
+                            }
+
+                    } finally {
+                        isNextPageLoading = false
+                    }
                 }
             }
         }
@@ -93,20 +100,31 @@ class SearchViewModel(
         } else if (query.isNotEmpty()) {
             if (!isNextPageLoading) {
                 currentPage += 1
-                viewModelScope.launch {
-                    isNextPageLoading = true
-                    renderAdapterState(AdapterState.IsLoading)
-                    searchInteractor
-                        .searchVacancy(query, currentPage)
-                        .collect { viewState ->
-                            renderScreenState(viewState)
-                        }
+                job = viewModelScope.launch {
+                    try {
+                        isNextPageLoading = true
+                        renderAdapterState(AdapterState.IsLoading)
+                        searchInteractor
+                            .searchVacancy(query, currentPage)
+                            .collect { viewState ->
+                                renderScreenState(viewState)
+                                isNextPageLoading = false
+                            }
+                    } finally {
+                        isNextPageLoading = false
+                    }
                     Log.d("CurrentPage", "$currentPage")
                     renderAdapterState(AdapterState.Idle)
-                    isNextPageLoading = false
+
                 }
             }
         }
+    }
+
+    fun declineLastSearch() {
+        job?.cancel()
+        renderAdapterState(AdapterState.Idle)
+        job = null
     }
 
     fun showVacancyDetails(vacancyItems: ListItem) {
@@ -152,6 +170,11 @@ class SearchViewModel(
 
     private fun makeFoundVacanciesHint(vacanciesNumber: Int): String {
         return Converter.buildResultingSentence(vacanciesNumber, "Найдено")
+    }
+
+    override fun onCleared() {
+        job = null
+        super.onCleared()
     }
 
     companion object {
