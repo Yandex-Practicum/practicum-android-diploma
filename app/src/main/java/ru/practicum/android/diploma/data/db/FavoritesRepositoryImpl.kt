@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.data.db
 
+import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.data.converters.VacanciesConverter
@@ -8,6 +9,7 @@ import ru.practicum.android.diploma.data.db.entity.VacancyEntity
 import ru.practicum.android.diploma.domain.Resource
 import ru.practicum.android.diploma.domain.favorites.api.FavoritesRepository
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.util.ResponseCode
 import java.io.IOException
 
 class FavoritesRepositoryImpl(
@@ -26,7 +28,8 @@ class FavoritesRepositoryImpl(
                 }
             }
         } catch (e: IOException) {
-            emit(Resource.Error(e.message ?: String()))
+            Log.i("DB", e.toString())
+            emit(Resource.Error(ResponseCode.DATABASE_ERROR.code)) // e.message ?: String())
         }
     }
 
