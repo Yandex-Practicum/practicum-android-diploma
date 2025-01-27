@@ -1,13 +1,13 @@
 package ru.practicum.android.diploma.search.domain.model
 
-import java.text.DecimalFormat
+/*import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
-
+*/
 data class Salary(
     val from: Int? = null,
     val to: Int? = null,
-    val currency: String? = null,
-) {
+    val currency: String,//? = null,
+) /*{
     fun getSalaryToString(): String {
         return when {
             from != null && to != null -> String.format(
@@ -58,3 +58,4 @@ data class Salary(
         }
     }
 }
+*/

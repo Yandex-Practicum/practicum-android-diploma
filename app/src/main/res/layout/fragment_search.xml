@@ -36,10 +36,10 @@
 
             <ImageButton
                 android:id="@+id/filter_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_gravity="end"
-                android:layout_marginEnd="20dp"
+                android:layout_marginEnd="8dp"
                 android:src="@drawable/ic_button_filter"
                 android:theme="@style/FilterButtonBackground" />
 
@@ -52,12 +52,13 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-     <!--   <EditText
+        <EditText
             android:id="@+id/textInput"
             android:layout_width="0dp"
             android:layout_height="@dimen/search_text_input_height"
             android:background="@drawable/text_input_background"
             android:hint="@string/text_input_hint"
+            android:textColorHint="?attr/hintTextColor"
             android:imeOptions="actionDone"
             android:inputType="textCapWords"
             android:maxLength="50"
@@ -65,7 +66,7 @@
             android:paddingHorizontal="@dimen/margin_begin_end_gl_16dp"
             android:textAlignment="textStart"
             android:textAppearance="@style/TextRegular_16"
-            android:textColor="?attr/colorOnPrimary"
+            android:textColor="?attr/colorTextSearch"
             android:textCursorDrawable="@drawable/text_input_cursor"
             app:layout_constraintEnd_toStartOf="@id/glEnd"
             app:layout_constraintStart_toEndOf="@id/glBegin"
@@ -132,6 +133,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textInput" />
 
+
         <LinearLayout
             android:id="@+id/noConnectionPH"
             android:layout_width="0dp"
@@ -184,12 +186,12 @@
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="@dimen/margin_begin_end_gl_16dp"
                 android:layout_marginTop="@dimen/margin_104"
-                android:src="@drawable/list_is_not_received"
+                android:src="@drawable/failed_to_load_vacancies_ph"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textInput" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/noVacanciesFoundPHTextHint"
@@ -199,7 +201,7 @@
                 android:layout_marginHorizontal="@dimen/margin_46"
                 android:layout_marginTop="@dimen/margin_begin_end_gl_16dp"
                 android:gravity="center"
-                android:text="@string/list_is_not_recieved"
+                android:text="@string/no_vacancies_found_text_hint"
                 android:textAppearance="@style/TextMedium_22"
                 android:textColor="?attr/colorOnPrimary" />
         </LinearLayout>
@@ -249,7 +251,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textInput" /> -->
+            app:layout_constraintTop_toBottomOf="@id/textInput" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

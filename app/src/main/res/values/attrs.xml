@@ -5,4 +5,6 @@
     <attr name="colorRed" format="color" />
     <attr name="colorIcon" format="color" />
     <attr name="colorHintCard" format="color" />
+    <attr name="colorTextSearch" format="color" />
+    <attr name="hintTextColor" format="color" />
 </resources>

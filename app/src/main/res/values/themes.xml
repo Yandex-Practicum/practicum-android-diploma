@@ -13,6 +13,8 @@
         <item name="colorRed">@color/red</item><!-- Акцентный красный цвет -->
         <item name="colorIcon">@color/gray</item><!-- Цвет иконки нижней навигации -->
         <item name="titleTextColor">@color/black</item><!-- Цвет заголовка -->
+        <item name="colorTextSearch">@color/black</item><!-- Цвет в строке ввода -->
+        <item name="hintTextColor">@color/gray</item><!-- Цвет плейсхолдера в строке ввода -->
 
         <!-- Цвета статус-бара -->
         <item name="android:statusBarColor">@color/white</item> <!-- Цвет светлого статус-бара -->
