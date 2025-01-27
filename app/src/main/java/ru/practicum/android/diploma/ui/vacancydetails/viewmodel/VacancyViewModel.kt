@@ -20,10 +20,6 @@ class VacancyViewModel(
 
     private var vacancy: Vacancy? = null
 
-    //    // Временное решение для кнопок "Поделиться" и "Избранное"
-//    private val _vacancy = MutableLiveData<Vacancy>()
-//    val vacancy: LiveData<Vacancy> get() = _vacancy
-
     private val _vacancyDetailsScreenState = MutableLiveData<VacancyDetailsScreenState>()
     val vacancyDetailsScreenState: LiveData<VacancyDetailsScreenState> = _vacancyDetailsScreenState
 
@@ -31,10 +27,7 @@ class VacancyViewModel(
     val isFavorite: LiveData<Boolean> get() = _isFavorite
 
 
-    // Временно решение для метода getFavorites, чтобы пройти проверку
-    // потом удалить!
     init {
-        checkFavoriteStatus()
         // здесь будем загружать детали вакансии
         searchVacancyDetails()
     }
@@ -59,10 +52,6 @@ class VacancyViewModel(
     // вызвать в методе getVacancy после успешного получения вакансии
     private fun checkFavoriteStatus() {
         viewModelScope.launch {
-//            _vacancy.value?.let {
-//                val result = favoritesInteractor.getFavoritesById(it.vacancyId)
-//                _isFavorite.postValue(result)
-//            }
             favoritesInteractor.getFavoritesById(currentVacancyId).collect { favouriteStatus ->
                 _isFavorite.postValue(favouriteStatus)
             }
@@ -84,16 +73,17 @@ class VacancyViewModel(
             is Resource.Error -> {
                 if (resource.errorCode == ResponseCode.SERVER_ERROR.code) {
                     _vacancyDetailsScreenState.postValue(VacancyDetailsScreenState.ServerError)
-                } else {
-                    // Проверить, что это точно работает
-                    _vacancyDetailsScreenState.postValue(VacancyDetailsScreenState.NotFoundError)
                 }
             }
 
             is Resource.Success -> {
                 if (resource.value != null) {
                     vacancy = resource.value
+                    checkFavoriteStatus()
                     _vacancyDetailsScreenState.postValue(VacancyDetailsScreenState.Content(resource.value))
+                } else {
+                    // Проверить, что это точно работает
+                    _vacancyDetailsScreenState.postValue(VacancyDetailsScreenState.NotFoundError)
                 }
             }
         }
