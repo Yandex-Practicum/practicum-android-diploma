@@ -12,11 +12,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.common.presentation.SearchAdapter
@@ -36,6 +44,7 @@ class SearchFragment : Fragment() {
     private var hideAdapterLoadingRunnable = Runnable {
         adapter?.hideLoading()
     }
+    private var job: Job? = null
     private var searchVacanciesRunnable = Runnable {
         searchOnTextChanged(textInput)
     }
@@ -123,13 +132,18 @@ class SearchFragment : Fragment() {
                         (binding.searchVacanciesRV.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
                     val itemsCount = adapter!!.itemCount
                     if (pos >= itemsCount - 1) {
-                        loadNextPage()
+                        handler.postDelayed(
+                            { loadNextPage() },
+                            DELAY_500
+                        )
+//                        loadNextPage()
                     }
                 }
             }
         })
 
         viewModel.observeState().observe(viewLifecycleOwner) { state ->
+            Log.d("state", "$state")
             render(state)
         }
 
@@ -188,15 +202,59 @@ class SearchFragment : Fragment() {
     }
 
     private fun showNoConnectionPH() {
-        with(binding) {
-            noConnectionPH.isVisible = true
-            noConnectionTextHint.isVisible = true
-            initScreenPH.isVisible = false
-            textHint.isVisible = false
-            mainProgressBar.isVisible = false
-            searchVacanciesRV.isVisible = false
-            noVacanciesFoundPH.isVisible = false
-            serverErrorPH.isVisible = false
+        when {
+            adapter?.currentList.isNullOrEmpty() -> {
+                with(binding) {
+                    noConnectionPH.isVisible = true
+                    noConnectionTextHint.isVisible = true
+                    initScreenPH.isVisible = false
+                    textHint.isVisible = false
+                    mainProgressBar.isVisible = false
+                    searchVacanciesRV.isVisible = false
+                    noVacanciesFoundPH.isVisible = false
+                    serverErrorPH.isVisible = false
+                }
+            }
+
+            job?.isActive == true -> return
+            job?.isActive != true -> {
+                job = CoroutineScope(Dispatchers.Main).launch {
+                    hideAdapterLoading()
+                    Toast.makeText(requireContext(), "Проверьте подключение", Toast.LENGTH_LONG).show()
+                    delay(DELAY_2000)
+                }
+            }
+
+//        if (adapter?.currentList.isNullOrEmpty()) {
+//            with(binding) {
+//                noConnectionPH.isVisible = true
+//                noConnectionTextHint.isVisible = true
+//                initScreenPH.isVisible = false
+//                textHint.isVisible = false
+//                mainProgressBar.isVisible = false
+//                searchVacanciesRV.isVisible = false
+//                noVacanciesFoundPH.isVisible = false
+//                serverErrorPH.isVisible = false
+//            }
+//        } else {
+//            if (job?.isActive == true) return
+//            job = CoroutineScope(Dispatchers.Main).launch {
+//                hideAdapterLoading()
+//                Toast.makeText(requireContext(), "Проверьте подключение", Toast.LENGTH_LONG).show()
+//                delay(DELAY_2000)
+//            }
+//            if(!job.isCompleted) {
+//                return
+//            } else{
+//                job.start()
+//            }
+//            CoroutineScope(Dispatchers.Main).launch {
+//                hideAdapterLoading()
+//                Toast.makeText(requireContext(), "Проверьте подключение", Toast.LENGTH_LONG).show()
+//                delay(2000)
+//            }
+//            hideAdapterLoading()
+//            Toast.makeText(requireContext(), "Проверьте подключение", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -236,6 +294,7 @@ class SearchFragment : Fragment() {
 
     private fun onClearIconPressed() {
         with(binding) {
+            viewModel.declineOnLastItemReachSearch()
             textInput.setText("")
             adapter?.submitList(emptyList())
             initScreenPH.isVisible = true
@@ -248,6 +307,9 @@ class SearchFragment : Fragment() {
 
     private fun showContent(state: SearchViewState.Content) {
         with(binding) {
+            if (job?.isActive == true) {
+                job?.cancel()
+            }
             adapter?.submitData(state.listItem)
             textHint.text = state.vacanciesFoundHint
             textHint.isVisible = true
@@ -255,6 +317,7 @@ class SearchFragment : Fragment() {
             mainProgressBar.isVisible = false
             noVacanciesFoundPH.isVisible = false
             noConnectionPH.isVisible = false
+            initScreenPH.isVisible = false
         }
     }
 
@@ -282,6 +345,7 @@ class SearchFragment : Fragment() {
 
     companion object {
         private const val FIRST_ITEM_MARGIN_TOP = 46
+        private const val DELAY_2000 = 2_000L
         private const val DELAY_1000 = 1_000L
         private const val DELAY_500 = 500L
         private const val NO_VACANCIES_FOUND = "Таких вакансий нет"
