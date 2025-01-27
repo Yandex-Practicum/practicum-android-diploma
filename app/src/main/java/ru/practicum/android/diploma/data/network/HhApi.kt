@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.data.network
 
+import retrofit2.http.Query
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
@@ -14,7 +15,7 @@ interface HhApi {
     )
     @GET("vacancies")
     suspend fun searchVacancies(
-//        @Query("text") text: String,
+        @Query("text") text: String?,
 //        @Query("area") area: String? = null,
 //        @Query("industry") industry: String? = null,
 //        @Query("salary") salary: Int? = null,

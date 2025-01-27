@@ -10,6 +10,7 @@ import ru.practicum.android.diploma.domain.Resource
 import ru.practicum.android.diploma.domain.common.SearchResult
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.search.api.VacanciesInteractor
+import ru.practicum.android.diploma.util.SingleEventLiveData
 
 class SearchViewModel(
     private val vacanciesInteractor: VacanciesInteractor
@@ -20,12 +21,19 @@ class SearchViewModel(
 
     fun searchResultLiveData(): LiveData<SearchResult> = searchResultData
 
-    fun searchVacancies() {
+    private val openMediaPlayerTrigger = SingleEventLiveData<Long>()
+    fun getOpenMediaPlayerTrigger(): SingleEventLiveData<Long> = openMediaPlayerTrigger
+
+    fun clearSearchResults() {
+        searchResultData.postValue(SearchResult.Empty)
+    }
+
+    fun searchVacancies(text: String?) {
         searchResultData.postValue(SearchResult.Loading)
 
         viewModelScope.launch {
             vacanciesInteractor
-                .searchVacancies()
+                .searchVacancies(text)
                 .collect { result ->
                     resultHandle(result)
                     /*
