@@ -1,5 +1,7 @@
 package ru.practicum.android.diploma.data
 
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import ru.practicum.android.diploma.data.db.AppDatabase
@@ -7,8 +9,6 @@ import ru.practicum.android.diploma.domain.FavouritesRepository
 import ru.practicum.android.diploma.data.db.entity.FavoriteVacancyEntity
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.models.Salary
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 
 class FavouritesRepositoryImpl(
     private val appDatabase: AppDatabase,
@@ -35,11 +35,15 @@ class FavouritesRepositoryImpl(
         return Vacancy(
             id = this.id,
             name = this.name,
-            logoUrl = this.logoUrl,
+            logoUrl90 = this.logoUrl,
             area = this.area,
             salary = this.salary?.let { gson.fromJson(it, object : TypeToken<Salary>() {}.type) },
-            employer = this.employer,
-            description = this.description
+            employerName = this.employerName,
+            description = this.description,
+            alternateUrl = this.alternateUrl,
+            employment = this.employment,
+            experience = this.experience
+
         )
     }
 
@@ -47,11 +51,14 @@ class FavouritesRepositoryImpl(
         return FavoriteVacancyEntity(
             id = this.id,
             name = this.name,
-            logoUrl = this.logoUrl,
+            logoUrl = this.logoUrl90,
             area = this.area,
             salary = this.salary?.let { gson.toJson(it) },
-            employer = this.employer,
-            description = this.description
+            employerName = this.employerName,
+            description = this.description,
+            alternateUrl = this.alternateUrl,
+            employment = this.employment,
+            experience = this.experience
         )
     }
 }

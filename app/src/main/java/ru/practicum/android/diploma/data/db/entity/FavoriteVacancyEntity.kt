@@ -9,8 +9,11 @@ data class FavoriteVacancyEntity(
     val id: String,
     val name: String,
     val logoUrl: String?,
-    val area: String?,
+    val area: String,
     val salary: String?,
-    val employer: String?,
-    val description: String?
+    val employerName: String,
+    val description: String?,
+    val alternateUrl: String,
+    val employment: String?,
+    val experience: String?
 )
