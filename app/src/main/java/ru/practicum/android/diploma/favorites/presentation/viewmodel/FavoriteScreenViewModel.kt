@@ -46,7 +46,7 @@ class FavoriteScreenViewModel(
         when {
             errorMessage != null -> {
                 val error = FavoritesScreenState.Error(
-                    message = errorMessage//context.getString(R.string.your_mediateka_is_empty)
+                    message = errorMessage // context.getString(R.string.your_mediateka_is_empty)
                 )
                 state.postValue(error)
             }
@@ -58,8 +58,8 @@ class FavoriteScreenViewModel(
         }
     }
 
-    /// для отладки
-    fun insertFavoriteVacancy(vacancy: VacancyItems){
+    // для отладки
+    fun insertFavoriteVacancy(vacancy: VacancyItems) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 favoriteInteractor.insertFavoriteVacancy(vacancy)

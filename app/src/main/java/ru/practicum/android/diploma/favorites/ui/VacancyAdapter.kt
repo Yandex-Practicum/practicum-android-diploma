@@ -1,10 +1,12 @@
-package ru.practicum.android.diploma.search.ui
+package ru.practicum.android.diploma.favorites.ui
 
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.search.domain.model.VacancyItems
 
-class VacancyAdapter: RecyclerView.Adapter<VacancyViewHolder>() {
+class VacancyAdapter : RecyclerView.Adapter<VacancyViewHolder>() {
     var items: MutableList<VacancyItems> = mutableListOf()
         set(value) {
             field = value.toMutableList()
@@ -14,14 +16,20 @@ class VacancyAdapter: RecyclerView.Adapter<VacancyViewHolder>() {
     var onItemClickListener: VacancyViewHolder.OnItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VacancyViewHolder {
-        TODO("Not yet implemented")
+        val itemView =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_vacancy, parent, false)
+
+        return VacancyViewHolder(itemView)
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return items.size
     }
 
     override fun onBindViewHolder(holder: VacancyViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        holder.bind(
+            item = items[position],
+            onItemClickListener = onItemClickListener
+        )
     }
 }
