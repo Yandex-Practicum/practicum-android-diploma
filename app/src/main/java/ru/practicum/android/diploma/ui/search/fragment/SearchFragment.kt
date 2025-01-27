@@ -126,10 +126,17 @@ class SearchFragment : Fragment() {
     }
 
     private fun renderSearchResult(result: SearchResult) {
+        val textView = binding.textViewVacancies
         when (result) {
             is SearchResult.SearchVacanciesContent -> {
                 binding.recyclerViewSearch.isVisible = true
                 vacancyAdapter?.submitList(result.items)
+                val searchedText = resources.getString(R.string.searched_text)
+                val vacanciesText = resources.getString(R.string.vacancies_text)
+                val text = "$searchedText ${result.items.size} $vacanciesText"
+                textView.text = String.format(text)
+                textView.isVisible = true
+
             }
             is SearchResult.NoConnection -> {
                 Toast.makeText(
