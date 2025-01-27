@@ -16,7 +16,7 @@
     <string name="server_error" translatable="false">Ошибка сервера</string>
     <string name="Job_not_found_or_deleted" translatable="false">Вакансия не найдена или удалена</string>
     <string name="list_is_empty" translatable="false">Список пуст</string>
-    <string name="could_not_get_job_list" translatable="false">Не удалось получить список вакансий</string>
+    <string name="could_not_get_job_list" translatable="false">Не удалось получить \n список вакансий</string>
     <string name="no_such_region" translatable="false">Такого региона нет</string>
     <string name="failed_to_get_list" translatable="false">Не удалось получить список</string>
 
@@ -46,9 +46,10 @@
     <string name="enter_the_query" translatable="false">Введите запрос</string>
     <string name="No_such_vacancies" translatable="false">Таких вакансий нет</string>
 
+
     <string name="Nikita">Никита Сергеевич</string>
     <string name="Daniil">Данил Ремзиевич</string>
-    <string name="Timofey">Тимофей Михайлович</string>
+    <string name="Timofei">Тимофей Михайлович</string>
     <string name="Gennadi">Геннадий Юрьевич</string>
     <string name="Mihail">Михаил Иванович</string>
     <string name="Egor">Егор</string>

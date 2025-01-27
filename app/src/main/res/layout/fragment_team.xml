@@ -52,7 +52,7 @@
         android:layout_marginTop="16dp"
         android:paddingStart="16dp"
         android:paddingEnd="8dp"
-        android:text="@string/Timofey" />
+        android:text="@string/Timofei" />
 
     <TextView
         style="@style/TextMedium_16_500"

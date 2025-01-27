@@ -6,4 +6,7 @@
     <dimen name="text_32">32sp</dimen>
     <dimen name="_12dp">12dp</dimen>
 
+    <dimen name="_16dp">16dp</dimen>
+    <dimen name="placeholder_height">233dp</dimen>
+    <dimen name="placeholder_width">328dp</dimen>
 </resources>
