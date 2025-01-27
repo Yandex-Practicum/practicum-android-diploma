@@ -28,7 +28,7 @@ class VacancyViewModel(
 
     init {
         // здесь будем загружать детали вакансии
-        // searchVacancyDetails()
+        searchVacancyDetails()
     }
 
     // Обработка нажатия на кнопку Избранное
