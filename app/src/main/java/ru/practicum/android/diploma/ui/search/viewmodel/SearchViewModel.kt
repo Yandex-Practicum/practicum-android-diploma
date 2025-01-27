@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.ui.search.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,8 +20,8 @@ class SearchViewModel(
 
     fun searchResultLiveData(): LiveData<SearchResult> = searchResultData
 
-    private val openMediaPlayerTrigger = SingleEventLiveData<Long>()
-    fun getOpenMediaPlayerTrigger(): SingleEventLiveData<Long> = openMediaPlayerTrigger
+    private val openVacancyTrigger = SingleEventLiveData<Long>()
+    fun getVacancyTrigger(): SingleEventLiveData<Long> = openVacancyTrigger
 
     fun clearSearchResults() {
         searchResultData.postValue(SearchResult.Empty)
@@ -61,8 +60,8 @@ class SearchViewModel(
         }
     }
 
-    fun onVacancyClicked(vacancy: Vacancy) {
-        Log.i("isClicked", "Пользователь нажал на вакансию")
+    fun onVacancyClicked(vacancyId: Long) {
+        openVacancyTrigger.value = vacancyId
     }
 
 }

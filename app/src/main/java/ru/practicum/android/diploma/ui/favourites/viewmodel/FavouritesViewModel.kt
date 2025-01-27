@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.ui.favourites.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,6 +8,7 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.Resource
 import ru.practicum.android.diploma.domain.favorites.api.FavoritesInteractor
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.util.SingleEventLiveData
 
 class FavouritesViewModel(
     private val interactor: FavoritesInteractor
@@ -18,11 +18,14 @@ class FavouritesViewModel(
         loadFavorites()
     }
 
+    private val openVacancyTrigger = SingleEventLiveData<Long>()
+    fun getVacancyTrigger(): SingleEventLiveData<Long> = openVacancyTrigger
+
     private val _favoriteVacancies = MutableLiveData<Resource<List<Vacancy>>>()
     val favoriteVacancies: LiveData<Resource<List<Vacancy>>> = _favoriteVacancies
 
-    fun onVacancyClicked(vacancy: Vacancy) {
-        Log.i("isClicked", "Пользователь нажал на вакансию")
+    fun onVacancyClicked(vacancyId: Long) {
+        openVacancyTrigger.value = vacancyId
     }
 
     private fun loadFavorites() {

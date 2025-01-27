@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.util.diffutils.VacancyDiffCallback
 
 class VacancyAdapter(
-    private val onProductClick: (vacancy: Vacancy) -> Unit,
+    private val onProductClick: (vacancyId: Long) -> Unit,
 ) : ListAdapter<Vacancy, VacancyViewHolder>(VacancyDiffCallback()) {
 
     override fun onCreateViewHolder(

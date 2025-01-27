@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 
 object CoroutineUtils {
 
-    private var debounceJob: Job? = null
+    var debounceJob: Job? = null
 
     fun debounce(
         scope: CoroutineScope,
