@@ -40,14 +40,14 @@ class FavoritesFragment : Fragment(), VacancyViewHolder.OnItemClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         // / для отладки
-        var vacancy1 = VacancyItems("1", "Вакансия 1", "Город 1", "Работoдатель1", null, Salary(null, 50000, "РУБ"))
+       /* var vacancy1 = VacancyItems("1", "Вакансия 1", "Город 1", "Работoдатель1", null, Salary(null, 50000, "РУБ"))
         var vacancy2 = VacancyItems("2", "Вакансия 2", "Город 1", "Работoдатель2", null, Salary(20000, null, "РУБ"))
         var vacancy3 = VacancyItems("3", "Вакансия 3", "Город 2", "Работoдатель2", null, Salary(100000, 150000, "РУБ"))
         var vacancy4 = VacancyItems("4", "Вакансия 4", "Город 3", "Работoдатель3", null, Salary(null, null, null))
         viewModel.insertFavoriteVacancy(vacancy1)
         viewModel.insertFavoriteVacancy(vacancy2)
         viewModel.insertFavoriteVacancy(vacancy3)
-        viewModel.insertFavoriteVacancy(vacancy4)
+        viewModel.insertFavoriteVacancy(vacancy4)*/
 
         vacancyAdapter.onItemClickListener = this
 

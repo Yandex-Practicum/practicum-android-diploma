@@ -14,5 +14,5 @@ data class VacancyEntity(
     val salaryFrom: Int? = null,
     val salaryTo: Int? = null,
     val salaryCurrency: String? = null,
-    var timeOfLikeSec: Long // время добавления в избранное (в секундах от начала эпохи UNIX - 1970-01-01 00:00:00 UTC)
+    val timeOfLikeSec: Long // время добавления в избранное (в секундах от начала эпохи UNIX - 1970-01-01 00:00:00 UTC)
 )

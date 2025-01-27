@@ -22,7 +22,7 @@ class VacancyEntityConverter {
         var to = vacancy.salaryTo
         var currency = vacancy.salaryCurrency
 
-        return if ((from == null) && (to == null) && currency.isNullOrBlank()) {
+        return if (from == null && to == null && currency.isNullOrBlank()) {
             VacancyItems(
                 vacancy.id,
                 vacancy.name,
