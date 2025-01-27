@@ -12,14 +12,15 @@ import ru.practicum.android.diploma.databinding.FragmentFavouritesBinding
 class FavouritesFragment : Fragment() {
 
     private val viewModel: FavouritesViewModel by viewModels()
-    private lateinit var binding: FragmentFavouritesBinding
+    private var _binding: FragmentFavouritesBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentFavouritesBinding.inflate(inflater, container, false)
+        _binding = FragmentFavouritesBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -28,6 +29,10 @@ class FavouritesFragment : Fragment() {
         binding.placeholderText.text = (R.id.placeholder_text).toString()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
     companion object {
         fun newInstance() = FavouritesFragment()
     }
