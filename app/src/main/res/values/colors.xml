@@ -9,4 +9,5 @@
 
 
     <color name="searchBackground">@color/light_gray</color>
+    <color name="textColor">@color/black</color>
 </resources>
