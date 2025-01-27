@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.data.converters
 
+import ru.practicum.android.diploma.data.db.entity.VacancyEntity
 import ru.practicum.android.diploma.data.dto.AddressDto
 import ru.practicum.android.diploma.data.dto.AreaDto
 import ru.practicum.android.diploma.data.dto.EmployerDto
@@ -21,6 +22,8 @@ import ru.practicum.android.diploma.domain.models.Salary
 import ru.practicum.android.diploma.domain.models.Schedule
 import ru.practicum.android.diploma.domain.models.Skill
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.util.format.JsonUtils
+import ru.practicum.android.diploma.util.format.JsonUtils.deserializeField
 
 class VacanciesConverter {
 
@@ -46,6 +49,44 @@ class VacanciesConverter {
             keySkills = response.keySkills.map { it?.toSkill() },
             alternateUrl = response.alternateUrl,
             address = response.address?.toAddress()
+        )
+    }
+
+    fun convertFromDBtoVacancy(entity: VacancyEntity): Vacancy {
+        val keySkill = entity.keySkills?.let { JsonUtils.fromJsonList<Skill?>(it) } ?: emptyList()
+        return Vacancy(
+            vacancyId = entity.vacancyId,
+            name = entity.name,
+            employer = deserializeField(entity.employer, Employer::class.java),
+            salary = deserializeField(entity.salary, Salary::class.java),
+            area = deserializeField(entity.area, Area::class.java),
+            experience = deserializeField(entity.experience, Experience::class.java),
+            employmentForm = deserializeField(entity.employmentForm, EmploymentForm::class.java),
+            employment = deserializeField(entity.employmentForm, EmploymentForm::class.java),
+            schedule = deserializeField(entity.schedule, Schedule::class.java),
+            description = entity.description,
+            keySkills = keySkill,
+            alternateUrl = entity.alternateUrl,
+            address = deserializeField(entity.address, Address::class.java)
+        )
+    }
+
+    fun convertFromVacancyToDB(vacancy: Vacancy): VacancyEntity {
+        return VacancyEntity(
+            vacancyId = vacancy.vacancyId,
+            name = vacancy.name,
+            employer = JsonUtils.toJson(vacancy.employer),
+            salary = JsonUtils.toJson(vacancy.salary),
+            area = JsonUtils.toJson(vacancy.area),
+            experience = JsonUtils.toJson(vacancy.experience),
+            employmentForm = JsonUtils.toJson(vacancy.employmentForm),
+            employment = JsonUtils.toJson(vacancy.employmentForm),
+            schedule = JsonUtils.toJson(vacancy.schedule),
+            description = vacancy.description,
+            keySkills = JsonUtils.toJson(vacancy.keySkills),
+            alternateUrl = vacancy.alternateUrl,
+            address = JsonUtils.toJson(vacancy.address),
+            timeStamp = System.currentTimeMillis()
         )
     }
 

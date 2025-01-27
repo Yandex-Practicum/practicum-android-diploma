@@ -58,8 +58,7 @@ class SearchFragment : Fragment() {
         when (result) {
             is SearchResult.SearchVacanciesContent -> {
                 binding.recyclerViewSearch.isVisible = true
-                vacancyAdapter?.setItems(result.items)
-                vacancyAdapter?.notifyDataSetChanged()
+                vacancyAdapter?.submitList(result.items)
             }
 
             else -> {}
