@@ -36,8 +36,6 @@ class VacancyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
         getVacancyId()
         setupListeners()
         observeViewModel()
@@ -46,7 +44,6 @@ class VacancyFragment : Fragment() {
     private fun getVacancyId() {
         vacancyId = requireArguments().getLong(ARGS_VACANCY_ID)
     }
-
 
     private fun setupListeners() {
         binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
@@ -88,7 +85,6 @@ class VacancyFragment : Fragment() {
         binding.imageViewFavorites.setImageResource(resId)
     }
 
-
     private fun render(state: VacancyDetailsScreenState) {
         when (state) {
             is VacancyDetailsScreenState.Loading -> showLoading()
@@ -98,14 +94,25 @@ class VacancyFragment : Fragment() {
         }
     }
 
-    private fun showLoading() {}
-    private fun showServerErrorPlaceholder() {}
-    private fun showNotFoundPlaceholder() {}
+    private fun showLoading() {
+        // Делаем видимым только прогрессбар
+    }
+
+    private fun showServerErrorPlaceholder() {
+        // Делаем видимым только плейсхолдер
+    }
+
+    private fun showNotFoundPlaceholder() {
+        // Делаем видимым только плейсхолдер
+    }
+
     private fun showVacancyDetails(vacancy: Vacancy) {
         bindData(vacancy)
     }
 
-    private fun bindData(vacancy: Vacancy) {}
+    private fun bindData(vacancy: Vacancy) {
+        // Здесь биндим данные в соответствующие поля
+    }
 
     // Временная заглушка + fix detekt
     companion object {

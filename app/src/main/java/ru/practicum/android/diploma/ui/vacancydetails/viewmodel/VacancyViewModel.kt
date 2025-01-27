@@ -26,12 +26,10 @@ class VacancyViewModel(
     private val _isFavorite = MutableLiveData(false)
     val isFavorite: LiveData<Boolean> get() = _isFavorite
 
-
     init {
         // здесь будем загружать детали вакансии
         searchVacancyDetails()
     }
-
 
     // Обработка нажатия на кнопку Избранное
     fun onFavoriteClicked() {
