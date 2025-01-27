@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.ui.search.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,6 +9,7 @@ import ru.practicum.android.diploma.domain.Resource
 import ru.practicum.android.diploma.domain.common.SearchResult
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.search.api.VacanciesInteractor
+import ru.practicum.android.diploma.util.SingleEventLiveData
 
 class SearchViewModel(
     private val vacanciesInteractor: VacanciesInteractor
@@ -20,12 +20,19 @@ class SearchViewModel(
 
     fun searchResultLiveData(): LiveData<SearchResult> = searchResultData
 
-    fun searchVacancies() {
+    private val openVacancyTrigger = SingleEventLiveData<Long>()
+    fun getVacancyTrigger(): SingleEventLiveData<Long> = openVacancyTrigger
+
+    fun clearSearchResults() {
+        searchResultData.postValue(SearchResult.Empty)
+    }
+
+    fun searchVacancies(text: String?) {
         searchResultData.postValue(SearchResult.Loading)
 
         viewModelScope.launch {
             vacanciesInteractor
-                .searchVacancies()
+                .searchVacancies(text)
                 .collect { result ->
                     resultHandle(result)
                     /*
@@ -53,8 +60,8 @@ class SearchViewModel(
         }
     }
 
-    fun onVacancyClicked(vacancy: Vacancy) {
-        Log.i("isClicked", "Пользователь нажал на вакансию")
+    fun onVacancyClicked(vacancyId: Long) {
+        openVacancyTrigger.value = vacancyId
     }
 
 }

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -22,6 +23,11 @@ class VacancyFragment : Fragment() {
     // Временная заглушка + fix detekt
     companion object {
         private const val DEFAULT_VACANCY_ID: Long = 123L
+
+        private const val ARGS_FACT = "vacancy"
+
+        fun createArgs(vacancyId: Long): Bundle =
+            bundleOf(ARGS_FACT to vacancyId)
     }
 
     private val vacancyId: Long = DEFAULT_VACANCY_ID

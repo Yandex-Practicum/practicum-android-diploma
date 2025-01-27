@@ -14,8 +14,9 @@ private const val CORNER_RADIUS = 12
 
 class VacancyViewHolder(
     private val binding: ItemVacancyBinding,
-    private val onClick: (vacancy: Vacancy) -> Unit,
+    private val onClick: (vacancyId: Long) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
+
     fun bind(model: Vacancy) {
         binding.textViewVacancyTitle.text = getTitleWithCity(model.name, model.address?.city)
         binding.textViewVacancyEmployer.text = model.name
@@ -30,7 +31,7 @@ class VacancyViewHolder(
             .transform(CenterCrop(), RoundedCorners(itemView.context.dpToPx(CORNER_RADIUS)))
             .into(image)
 
-        binding.root.setOnClickListener { _ -> onClick(model) }
+        binding.root.setOnClickListener { _ -> onClick(model.vacancyId) }
     }
 
     private fun getTitleWithCity(name: String?, city: String?): String? {
