@@ -16,7 +16,6 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFavoritesBinding
 import ru.practicum.android.diploma.favorites.presentation.state.FavoritesScreenState
 import ru.practicum.android.diploma.favorites.presentation.viewmodel.FavoriteScreenViewModel
-import ru.practicum.android.diploma.search.domain.model.Salary
 import ru.practicum.android.diploma.search.domain.model.VacancyItems
 
 class FavoritesFragment : Fragment(), VacancyViewHolder.OnItemClickListener {
