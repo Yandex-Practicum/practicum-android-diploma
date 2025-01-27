@@ -26,7 +26,6 @@ class FavouritesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.placeholderText.text = (R.id.placeholder_text).toString()
     }
 
     override fun onDestroyView() {

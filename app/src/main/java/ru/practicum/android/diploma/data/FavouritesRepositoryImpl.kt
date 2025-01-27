@@ -4,12 +4,11 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.domain.FavouritesRepository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import ru.practicum.android.diploma.data.db.entity.FavoriteVacancyEntity
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.models.Salary
-
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class FavouritesRepositoryImpl(
     private val appDatabase: AppDatabase,
