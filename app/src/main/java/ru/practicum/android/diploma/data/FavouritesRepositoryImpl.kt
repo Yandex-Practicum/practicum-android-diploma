@@ -1,18 +1,18 @@
 package ru.practicum.android.diploma.data
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import ru.practicum.android.diploma.data.db.AppDatabase
-import ru.practicum.android.diploma.domain.FavouritesRepository
 import ru.practicum.android.diploma.data.db.entity.FavoriteVacancyEntity
-import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.domain.FavouritesRepository
 import ru.practicum.android.diploma.domain.models.Salary
+import ru.practicum.android.diploma.domain.models.Vacancy
+
 
 class FavouritesRepositoryImpl(
-    private val appDatabase: AppDatabase,
-    private val gson: Gson
+    private val appDatabase: AppDatabase, private val gson: Gson
 ) : FavouritesRepository {
 
     override suspend fun insertVacancy(vacancy: Vacancy) {
@@ -26,8 +26,7 @@ class FavouritesRepositoryImpl(
     }
 
     override fun getVacancies(): Flow<List<Vacancy>> {
-        return appDatabase.getFavoriteVacancyDao()
-            .getVacancies()
+        return appDatabase.getFavoriteVacancyDao().getVacancies()
             .map { vacancyEntity -> vacancyEntity.map { it.toDomain() } }
     }
 
