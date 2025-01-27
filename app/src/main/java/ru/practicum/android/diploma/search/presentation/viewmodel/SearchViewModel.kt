@@ -77,7 +77,7 @@ class SearchViewModel(
             if (!isNextPageLoading) {
                 isNextPageLoading = true
                 renderScreenState(SearchViewState.Loading)
-                viewModelScope.launch {
+                job = viewModelScope.launch {
                     searchInteractor
                         .searchVacancy(searchQuery, 1)
                         .collect { viewState ->
@@ -111,8 +111,9 @@ class SearchViewModel(
             }
         }
     }
-    fun declineOnLastItemReachSearch(){
+    fun declineLastSearch(){
         job?.cancel()
+        job = null
     }
 
     fun showVacancyDetails(vacancyItems: ListItem) {

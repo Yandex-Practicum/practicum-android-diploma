@@ -23,8 +23,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.common.presentation.SearchAdapter
@@ -294,7 +292,7 @@ class SearchFragment : Fragment() {
 
     private fun onClearIconPressed() {
         with(binding) {
-            viewModel.declineOnLastItemReachSearch()
+            viewModel.declineLastSearch()
             textInput.setText("")
             adapter?.submitList(emptyList())
             initScreenPH.isVisible = true
@@ -302,6 +300,7 @@ class SearchFragment : Fragment() {
             textHint.isVisible = false
             noConnectionPH.isVisible = false
             serverErrorPH.isVisible = false
+            mainProgressBar.isVisible = false
         }
     }
 
