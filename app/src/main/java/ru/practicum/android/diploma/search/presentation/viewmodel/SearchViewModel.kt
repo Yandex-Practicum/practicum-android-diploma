@@ -78,12 +78,17 @@ class SearchViewModel(
                 isNextPageLoading = true
                 renderScreenState(SearchViewState.Loading)
                 job = viewModelScope.launch {
-                    searchInteractor
-                        .searchVacancy(searchQuery, 1)
-                        .collect { viewState ->
-                            renderScreenState(viewState)
-                        }
-                    isNextPageLoading = false
+                    try {
+                        searchInteractor
+                            .searchVacancy(searchQuery, 1)
+                            .collect { viewState ->
+                                renderScreenState(viewState)
+                                isNextPageLoading = false
+                            }
+
+                    } finally {
+                        isNextPageLoading = false
+                    }
                 }
             }
         }
@@ -96,14 +101,18 @@ class SearchViewModel(
             if (!isNextPageLoading) {
                 currentPage += 1
                 job = viewModelScope.launch {
-                    isNextPageLoading = true
-                    renderAdapterState(AdapterState.IsLoading)
-                    searchInteractor
-                        .searchVacancy(query, currentPage)
-                        .collect { viewState ->
-                            renderScreenState(viewState)
-                            isNextPageLoading = false
-                        }
+                    try {
+                        isNextPageLoading = true
+                        renderAdapterState(AdapterState.IsLoading)
+                        searchInteractor
+                            .searchVacancy(query, currentPage)
+                            .collect { viewState ->
+                                renderScreenState(viewState)
+                                isNextPageLoading = false
+                            }
+                    } finally {
+                        isNextPageLoading = false
+                    }
                     Log.d("CurrentPage", "$currentPage")
                     renderAdapterState(AdapterState.Idle)
 
@@ -114,6 +123,7 @@ class SearchViewModel(
 
     fun declineLastSearch() {
         job?.cancel()
+        renderAdapterState(AdapterState.Idle)
         job = null
     }
 

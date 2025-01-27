@@ -174,31 +174,6 @@ class SearchFragment : Fragment() {
         }
     }
 
-//    private fun showMainNoVacanciesFoundPH() {
-//        with(binding) {
-//            textHint.text = NO_VACANCIES_FOUND
-//            textHint.isVisible = true
-//            noVacanciesFoundPH.isVisible = true
-//            initScreenPH.isVisible = false
-//            serverErrorPH.isVisible = false
-//            noConnectionPH.isVisible = false
-//            mainProgressBar.isVisible = false
-//            searchVacanciesRV.isVisible = false
-//        }
-//    }
-
-//    private fun showServerErrorPH() {
-//        with(binding) {
-//            serverErrorPH.isVisible = true
-//            initScreenPH.isVisible = false
-//            textHint.isVisible = false
-//            noConnectionPH.isVisible = false
-//            mainProgressBar.isVisible = false
-//            searchVacanciesRV.isVisible = false
-//            noVacanciesFoundPH.isVisible = false
-//        }
-//    }
-
     private fun showNoConnectionPH() {
         when {
             adapter?.currentList.isNullOrEmpty() -> showMainNoConnectionPH()
