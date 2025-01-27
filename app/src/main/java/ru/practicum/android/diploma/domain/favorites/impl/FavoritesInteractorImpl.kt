@@ -14,8 +14,10 @@ class FavoritesInteractorImpl(
         favoritesRepository.getFavorites()
     }
 
-    override suspend fun getFavoritesById(vacancyId: Long): Boolean =
-        favoritesRepository.getFavoritesById(vacancyId)
+    override suspend fun getFavoritesById(vacancyId: Long): Flow<Boolean> {
+        return favoritesRepository.getFavoritesById(vacancyId)
+    }
+
 
     override suspend fun saveVacancy(vacancy: Vacancy) {
         favoritesRepository.saveVacancy(vacancy)

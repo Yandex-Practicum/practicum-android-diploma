@@ -33,8 +33,8 @@ class FavoritesRepositoryImpl(
         }
     }
 
-    override suspend fun getFavoritesById(vacancyId: Long): Boolean {
-        return vacancyDao.getFavoritesById(vacancyId).isNotEmpty()
+    override suspend fun getFavoritesById(vacancyId: Long): Flow<Boolean> = flow {
+        emit(vacancyDao.getFavoritesById(vacancyId).isNotEmpty())
     }
 
     override suspend fun saveVacancy(vacancy: Vacancy) {
