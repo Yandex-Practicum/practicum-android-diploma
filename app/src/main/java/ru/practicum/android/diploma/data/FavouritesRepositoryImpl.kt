@@ -10,9 +10,9 @@ import ru.practicum.android.diploma.domain.FavouritesRepository
 import ru.practicum.android.diploma.domain.models.Salary
 import ru.practicum.android.diploma.domain.models.Vacancy
 
-
 class FavouritesRepositoryImpl(
-    private val appDatabase: AppDatabase, private val gson: Gson
+    private val appDatabase: AppDatabase,
+    private val gson: Gson
 ) : FavouritesRepository {
 
     override suspend fun insertVacancy(vacancy: Vacancy) {
