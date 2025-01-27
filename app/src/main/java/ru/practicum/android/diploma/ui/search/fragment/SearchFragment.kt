@@ -14,10 +14,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.domain.common.SearchResult
+import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.ui.search.viewmodel.SearchViewModel
 import ru.practicum.android.diploma.ui.vacancydetails.fragment.VacancyFragment
 import ru.practicum.android.diploma.util.coroutine.CoroutineUtils
@@ -76,6 +78,21 @@ class SearchFragment : Fragment() {
             false
         }
 
+        binding.recyclerViewSearch.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0) {
+                    val pos = (binding.recyclerViewSearch.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                    val itemsCount = vacancyAdapter?.itemCount
+                    if (itemsCount != null) {
+                        if (pos >= itemsCount - 1) {
+                            viewModel.onLastItemReached()
+                        }
+                    }
+                }
+            }
+        })
+
         // очистить строку поиска
         binding.clearIcon.setOnClickListener {
             clearSearchText()
@@ -129,6 +146,7 @@ class SearchFragment : Fragment() {
         val textView = binding.textViewVacancies
         when (result) {
             is SearchResult.SearchVacanciesContent -> {
+                binding.progressBarSearch.isVisible = false
                 binding.recyclerViewSearch.isVisible = true
                 vacancyAdapter?.submitList(result.items)
                 val searchedText = resources.getString(R.string.searched_text)
@@ -144,6 +162,9 @@ class SearchFragment : Fragment() {
                     "Отсутствует подключение к интернету",
                     Toast.LENGTH_LONG
                 ).show()
+            }
+            is SearchResult.Loading -> {
+                binding.progressBarSearch.isVisible = true
             }
 
             else -> {}

@@ -8,6 +8,7 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.Resource
 import ru.practicum.android.diploma.domain.common.SearchResult
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.domain.models.VacancyResponse
 import ru.practicum.android.diploma.domain.search.api.VacanciesInteractor
 import ru.practicum.android.diploma.util.SingleEventLiveData
 
@@ -20,6 +21,14 @@ class SearchViewModel(
 
     fun searchResultLiveData(): LiveData<SearchResult> = searchResultData
 
+    private var currentPage: Int = 0
+    private var maxPages: Int = 0
+    private var isNextPageLoading = false
+    private val vacanciesList = arrayListOf<Vacancy>()
+
+    val options: HashMap<String, Int> = HashMap()
+
+    fun searchVacancies() {
     private val openVacancyTrigger = SingleEventLiveData<Long>()
     fun getVacancyTrigger(): SingleEventLiveData<Long> = openVacancyTrigger
 
@@ -30,20 +39,23 @@ class SearchViewModel(
     fun searchVacancies(text: String?) {
         searchResultData.postValue(SearchResult.Loading)
 
+        isNextPageLoading = true
+        options["page"] = currentPage
+
         viewModelScope.launch {
             vacanciesInteractor
-                .searchVacancies(text)
+                .searchVacancies(text,options)
                 .collect { result ->
+                    maxPages = result.value?.pages ?: 0
+                    vacanciesList.addAll(result.value?.items ?: emptyList())
                     resultHandle(result)
-                    /*
-                   еще потом докинуть условие в каком случае нет интернета
-                   то есть в каком случае возращать SearchResult.NoConnection (задача 27)
-                    */
+                    currentPage++
+                    isNextPageLoading = false
                 }
         }
     }
-
-    private fun resultHandle(result: Resource<List<Vacancy>>) {
+}
+    private fun resultHandle(result: Resource<VacancyResponse>) {
         if (result.errorCode != null) {
             if (result.errorCode == -1) {
                 searchResultData.postValue(SearchResult.NoConnection)
@@ -52,16 +64,25 @@ class SearchViewModel(
             }
 
         } else if (result.value != null) {
-            if (result.value.isEmpty()) {
+            if (result.value.items.isEmpty()) {
                 searchResultData.postValue(SearchResult.NotFound)
             } else {
-                searchResultData.postValue(SearchResult.SearchVacanciesContent(result.value.size, result.value))
+                searchResultData.postValue(SearchResult.SearchVacanciesContent(vacanciesList.size, vacanciesList))
             }
         }
     }
 
     fun onVacancyClicked(vacancyId: Long) {
         openVacancyTrigger.value = vacancyId
+    }
+
+    fun onLastItemReached() {
+        if (!isNextPageLoading) {
+            if (currentPage < maxPages) {
+                searchVacancies()
+            }
+        }
+
     }
 
 }
