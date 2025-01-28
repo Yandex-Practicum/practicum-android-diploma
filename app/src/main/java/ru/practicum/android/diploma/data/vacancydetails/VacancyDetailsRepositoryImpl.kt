@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.converters.VacanciesConverter
-import ru.practicum.android.diploma.data.dto.VacancyDetailsResponse
+import ru.practicum.android.diploma.data.dto.VacancyDto
 import ru.practicum.android.diploma.domain.Resource
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.vacancydetails.api.VacancyDetailsRepository
@@ -24,8 +24,8 @@ class VacancyDetailsRepositoryImpl(
             ResponseCode.SERVER_ERROR.code -> emit(Resource.Error(ResponseCode.SERVER_ERROR.code))
 
             ResponseCode.SUCCESS.code -> {
-                with(response as VacancyDetailsResponse) {
-                    val data = vacanciesConverter.convertFull(response.vacancyDto)
+                with(response as VacancyDto) {
+                    val data = vacanciesConverter.convertFull(response)
                     // Тут нужно будет проверять находится ли вакансия в избранном или нет
                     emit(Resource.Success(data))
                 }

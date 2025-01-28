@@ -20,4 +20,4 @@ data class VacancyDto(
     @SerializedName("alternate_url")
     val alternateUrl: String?,
     val address: AddressDto?
-)
+) : Response()
