@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.di
 import android.content.Context
 import androidx.room.Room
 import com.google.gson.Gson
+import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
@@ -12,6 +13,7 @@ import ru.practicum.android.diploma.AppDatabase
 import ru.practicum.android.diploma.common.constants.APP_DATA_BASE
 import ru.practicum.android.diploma.common.constants.APP_SHARED_PREFS
 import ru.practicum.android.diploma.common.constants.HH_BASE_URL
+import ru.practicum.android.diploma.common.constants.TIMEOUT
 import ru.practicum.android.diploma.common.data.Mapper
 import ru.practicum.android.diploma.common.data.network.HeadHunterApi
 import ru.practicum.android.diploma.common.data.network.RetrofitNetworkClient
@@ -25,6 +27,7 @@ import ru.practicum.android.diploma.search.data.repository.SearchRepositoryImpl
 import ru.practicum.android.diploma.search.domain.repository.SearchRepository
 import ru.practicum.android.diploma.vacancy.data.repository.VacancyRepositoryImpl
 import ru.practicum.android.diploma.vacancy.domain.repository.VacancyRepository
+import java.util.concurrent.TimeUnit
 
 val dataModule = module {
 
@@ -43,9 +46,18 @@ val dataModule = module {
         ).build()
     }
 
+    single {
+        OkHttpClient.Builder()
+            .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
+            .readTimeout(TIMEOUT, TimeUnit.SECONDS)
+            .writeTimeout(TIMEOUT, TimeUnit.SECONDS)
+            .build()
+    }
+
     single<HeadHunterApi> {
         Retrofit.Builder()
             .baseUrl(HH_BASE_URL)
+            .client(get())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(HeadHunterApi::class.java)
