@@ -28,7 +28,7 @@ class VacancyFragment : Fragment() {
     значит запрос делаем только в БД,
     иначе -> идем в сеть, потом идем в БД проверить она в избранном или нет -> обновить иконку избранного
      */
-    private var isNeedGetFRomDB: Boolean = false
+    private var isFromFavouritesScreen: Boolean = false
 
     private val viewModel: VacancyViewModel by viewModel { parametersOf(vacancyId) }
 
@@ -51,7 +51,7 @@ class VacancyFragment : Fragment() {
 
     private fun getVacancyId() {
         vacancyId = requireArguments().getLong(ARGS_VACANCY_ID)
-        isNeedGetFRomDB = requireArguments().getBoolean(IS_NEED_GET_FROM_DB)
+        isFromFavouritesScreen = requireArguments().getBoolean(FROM_FAVOURITES_SCREEN)
     }
 
     private fun setupListeners() {
@@ -127,9 +127,9 @@ class VacancyFragment : Fragment() {
     companion object {
         // private const val DEFAULT_VACANCY_ID: Long = 123L
         private const val ARGS_VACANCY_ID = "vacancy_id"
-        private const val IS_NEED_GET_FROM_DB = "is_need_get_from_db"
+        private const val FROM_FAVOURITES_SCREEN = "from_favourites_screen"
 
-        fun createArgs(vacancyId: Long, isNeedGetFromDB: Boolean): Bundle =
-            bundleOf(ARGS_VACANCY_ID to vacancyId, IS_NEED_GET_FROM_DB to isNeedGetFromDB)
+        fun createArgs(vacancyId: Long, isFromFavouritesScreen: Boolean): Bundle =
+            bundleOf(ARGS_VACANCY_ID to vacancyId, FROM_FAVOURITES_SCREEN to isFromFavouritesScreen)
     }
 }
