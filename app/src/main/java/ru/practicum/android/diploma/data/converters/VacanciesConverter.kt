@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.data.converters
 
+import ru.practicum.android.diploma.data.db.entity.ShortVacancyEntity
 import ru.practicum.android.diploma.data.db.entity.VacancyEntity
 import ru.practicum.android.diploma.data.dto.AddressDto
 import ru.practicum.android.diploma.data.dto.AreaDto
@@ -94,6 +95,33 @@ class VacanciesConverter {
             alternateUrl = vacancy.alternateUrl,
             address = JsonUtils.toJson(vacancy.address),
             timeStamp = System.currentTimeMillis()
+        )
+    }
+
+    fun convertFromShortEntyty(entity: ShortVacancyEntity): Vacancy {
+        return Vacancy(
+            vacancyId = entity.vacancyId,
+            name = entity.name,
+            area = null,
+            employer = deserializeField(entity.employer, Employer::class.java),
+            salary = deserializeField(entity.salary, Salary::class.java),
+            experience = null,
+            employmentForm = null,
+            employment = null,
+            schedule = null,
+            description = null,
+            keySkills = emptyList(),
+            alternateUrl = null,
+            address = null
+        )
+    }
+
+    fun convertToShortEntity(vacancy: Vacancy): ShortVacancyEntity {
+        return ShortVacancyEntity(
+            vacancyId = vacancy.vacancyId,
+            name = vacancy.name,
+            employer = JsonUtils.toJson(vacancy.employer),
+            salary = JsonUtils.toJson(vacancy.salary),
         )
     }
 

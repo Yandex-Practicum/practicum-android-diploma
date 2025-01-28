@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.domain.DatabaseResult
 import ru.practicum.android.diploma.domain.Resource
 import ru.practicum.android.diploma.domain.favorites.api.FavoritesInteractor
 import ru.practicum.android.diploma.domain.models.Vacancy
@@ -22,8 +23,8 @@ class FavouritesViewModel(
     private val openVacancyTrigger = SingleEventLiveData<Long>()
     fun getVacancyTrigger(): SingleEventLiveData<Long> = openVacancyTrigger
 
-    private val _favoriteVacancies = MutableLiveData<Resource<List<Vacancy>>>()
-    val favoriteVacancies: LiveData<Resource<List<Vacancy>>> = _favoriteVacancies
+    private val _favoriteVacancies = MutableLiveData<DatabaseResult>()
+    val favoriteVacancies: LiveData<DatabaseResult> = _favoriteVacancies
 
     fun onVacancyClicked(vacancyId: Long) {
         openVacancyTrigger.value = vacancyId
@@ -31,7 +32,7 @@ class FavouritesViewModel(
 
     private fun loadFavorites() {
         viewModelScope.launch(Dispatchers.IO) {
-            interactor.getFavorites()
+            interactor.getFavoritesList()
                 .collect { resource ->
                     _favoriteVacancies.value = resource
                 }

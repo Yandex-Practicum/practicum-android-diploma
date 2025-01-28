@@ -3,10 +3,15 @@ package ru.practicum.android.diploma.data.db
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.data.converters.VacanciesConverter
 import ru.practicum.android.diploma.data.db.entity.VacancyEntity
+import ru.practicum.android.diploma.domain.DatabaseResult
 import ru.practicum.android.diploma.domain.Resource
 import ru.practicum.android.diploma.domain.favorites.api.FavoritesRepository
 import ru.practicum.android.diploma.domain.models.Vacancy
@@ -33,6 +38,22 @@ class FavoritesRepositoryImpl(
             emit(Resource.Error(ResponseCode.DATABASE_ERROR.code)) // e.message ?: String())
         }
     }
+
+    override fun getFavoritesList(): Flow<DatabaseResult> = flow {
+        try {
+            appDatabase.vacancyDao().getFavoritesList().collect { entities ->
+                if (entities.isEmpty()) {
+                    emit(DatabaseResult.Empty)
+                } else {
+                    val vacancies = entities.map { converter.convertFromShortEntyty(it) }
+                    emit(DatabaseResult.Success(vacancies))
+                }
+            }
+        } catch (e: IOException) {
+            emit(DatabaseResult.Error("Ошибка базы данных: ${e.message}"))
+        }
+    }.flowOn(Dispatchers.IO)
+
 
     override suspend fun getFavoriteById(vacancyId: Long): Boolean {
         return getFavouriteByIdRequest(vacancyId) != null

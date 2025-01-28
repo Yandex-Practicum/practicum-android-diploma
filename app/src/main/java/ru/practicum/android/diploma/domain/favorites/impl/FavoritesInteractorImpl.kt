@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.domain.favorites.impl
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import ru.practicum.android.diploma.domain.DatabaseResult
 import ru.practicum.android.diploma.domain.Resource
 import ru.practicum.android.diploma.domain.favorites.api.FavoritesInteractor
 import ru.practicum.android.diploma.domain.favorites.api.FavoritesRepository
@@ -12,6 +13,10 @@ class FavoritesInteractorImpl(
 ) : FavoritesInteractor {
     override fun getFavorites(): Flow<Resource<List<Vacancy>>> = flow {
         favoritesRepository.getFavorites()
+    }
+
+    override fun getFavoritesList(): Flow<DatabaseResult> = flow{
+        favoritesRepository.getFavoritesList()
     }
 
     override suspend fun getFavoriteById(vacancyId: Long): Boolean {
