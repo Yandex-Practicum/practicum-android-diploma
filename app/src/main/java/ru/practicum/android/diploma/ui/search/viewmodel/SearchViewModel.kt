@@ -76,10 +76,8 @@ class SearchViewModel(
     }
 
     fun onLastItemReached(text: String?) {
-        if (!isNextPageLoading) {
-            if (currentPage < maxPages) {
-                searchVacancies(text)
-            }
+        if (!isNextPageLoading && currentPage < maxPages) {
+            searchVacancies(text)
         }
 
     }

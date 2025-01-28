@@ -81,12 +81,11 @@ class SearchFragment : Fragment() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (dy > 0) {
-                    val pos = (binding.recyclerViewSearch.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                    val pos = (binding.recyclerViewSearch.layoutManager as LinearLayoutManager)
+                        .findLastVisibleItemPosition()
                     val itemsCount = vacancyAdapter?.itemCount
-                    if (itemsCount != null) {
-                        if (pos >= itemsCount - 1) {
-                            viewModel.onLastItemReached(binding.editTextSearch.text.toString())
-                        }
+                    if (itemsCount != null && pos >= itemsCount - 1) {
+                        viewModel.onLastItemReached(binding.editTextSearch.text.toString())
                     }
                 }
             }
