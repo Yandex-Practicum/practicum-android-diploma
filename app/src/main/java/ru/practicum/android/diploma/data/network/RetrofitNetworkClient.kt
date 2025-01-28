@@ -17,7 +17,7 @@ class RetrofitNetworkClient(
 
     private val isConnected = CheckNetworkConnect.isNetworkAvailable(context)
 
-    override suspend fun doRequestVacancies(options: HashMap<String, Int>,text: String?): Response {
+    override suspend fun doRequestVacancies(text: String?, options: HashMap<String, Int>): Response {
         // Если подключение к интернету отсутствует
         if (!isConnected) {
             return Response().apply { resultCode = ResponseCode.NO_INTERNET.code }

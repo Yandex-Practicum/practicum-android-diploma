@@ -27,9 +27,9 @@ class SearchViewModel(
     private val vacanciesList = arrayListOf<Vacancy>()
 
     val options: HashMap<String, Int> = HashMap()
-
-    fun searchVacancies() {
     private val openVacancyTrigger = SingleEventLiveData<Long>()
+
+
     fun getVacancyTrigger(): SingleEventLiveData<Long> = openVacancyTrigger
 
     fun clearSearchResults() {
@@ -44,7 +44,7 @@ class SearchViewModel(
 
         viewModelScope.launch {
             vacanciesInteractor
-                .searchVacancies(text,options)
+                .searchVacancies(text, options)
                 .collect { result ->
                     maxPages = result.value?.pages ?: 0
                     vacanciesList.addAll(result.value?.items ?: emptyList())
@@ -54,7 +54,8 @@ class SearchViewModel(
                 }
         }
     }
-}
+
+
     private fun resultHandle(result: Resource<VacancyResponse>) {
         if (result.errorCode != null) {
             if (result.errorCode == -1) {
@@ -76,10 +77,10 @@ class SearchViewModel(
         openVacancyTrigger.value = vacancyId
     }
 
-    fun onLastItemReached() {
+    fun onLastItemReached(text: String?) {
         if (!isNextPageLoading) {
             if (currentPage < maxPages) {
-                searchVacancies()
+                searchVacancies(text)
             }
         }
 

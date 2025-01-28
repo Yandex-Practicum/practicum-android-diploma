@@ -4,6 +4,6 @@ import ru.practicum.android.diploma.data.dto.Response
 
 interface NetworkClient {
     // suspend fun doRequest(dto: Any): Response
-    suspend fun doRequestVacancies(options: HashMap<String, Int>,text: String?): Response
+    suspend fun doRequestVacancies(text: String?, options: HashMap<String, Int>): Response
     suspend fun doRequestVacancyDetails(vacancyId: String): Response
 }

@@ -14,10 +14,8 @@ class VacanciesRepositoryImpl(
     private val vacanciesConverter: VacanciesConverter,
     private val networkClient: NetworkClient,
 ) : VacanciesRepository {
-
-    override fun searchVacancies(text: String?,options: HashMap<String, Int>): Flow<Resource<VacancyResponse>> = flow {
+    override fun searchVacancies(text: String?, options: HashMap<String, Int>): Flow<Resource<VacancyResponse>> = flow {
         val response = networkClient.doRequestVacancies(text = text, options = options)
-
         when (response.resultCode) {
             ResponseCode.NO_INTERNET.code -> emit(Resource.Error(ResponseCode.NO_INTERNET.code))
 

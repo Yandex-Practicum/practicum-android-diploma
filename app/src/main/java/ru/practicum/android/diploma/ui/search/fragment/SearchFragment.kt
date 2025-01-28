@@ -86,7 +86,7 @@ class SearchFragment : Fragment() {
                     val itemsCount = vacancyAdapter?.itemCount
                     if (itemsCount != null) {
                         if (pos >= itemsCount - 1) {
-                            viewModel.onLastItemReached()
+                            viewModel.onLastItemReached(binding.editTextSearch.text.toString())
                         }
                     }
                 }
