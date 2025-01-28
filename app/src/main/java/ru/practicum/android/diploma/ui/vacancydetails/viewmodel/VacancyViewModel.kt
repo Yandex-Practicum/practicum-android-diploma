@@ -46,16 +46,15 @@ class VacancyViewModel(
         }
     }
 
-    // ПОКА ЗАКОММЕНТИРУЮ - НАДО ВЫЯСНИТЬ ПОЧЕМУ НЕ РАБОТАЕТ
     // Метод для проверки, добавлена ли вакансия в избранное,
     // вызвать в методе getVacancy после успешного получения вакансии
-//    private fun checkFavoriteStatus() {
-//        viewModelScope.launch {
-//            favoritesInteractor.getFavoritesById(currentVacancyId).collect { favouriteStatus ->
-//                _isFavorite.postValue(favouriteStatus)
-//            }
-//        }
-//    }
+    private fun checkFavoriteStatus() {
+        viewModelScope.launch {
+            favoritesInteractor.getFavoriteById(currentVacancyId).collect { favouriteStatus ->
+                _isFavorite.postValue(favouriteStatus)
+            }
+        }
+    }
 
     private fun searchVacancyDetails() {
         _vacancyDetailsScreenState.postValue(VacancyDetailsScreenState.Loading)
@@ -78,8 +77,7 @@ class VacancyViewModel(
             is Resource.Success -> {
                 if (resource.value != null) {
                     vacancy = resource.value
-                    // пока не работает checkFavoriteStatus
-                    // checkFavoriteStatus()
+                    checkFavoriteStatus()
                     _vacancyDetailsScreenState.postValue(VacancyDetailsScreenState.Content(resource.value))
                 } else {
                     // Проверить, что это точно работает
