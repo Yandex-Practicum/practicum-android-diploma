@@ -23,12 +23,6 @@ class FavoritesRepositoryImpl(
     private val context: Context
 ) : FavoriteRepository {
     override suspend fun getVacancyList(): Flow<Resource<List<VacancyItems>>> = flow {
-        /*try {
-            val vacancyList = appDatabase.favoriteDao().getVacancyListByTime()
-            emit(Resource.Success(convert(vacancyList)))
-        } catch (e: SQLiteException) {
-            emit(Resource.Error(context.getString(R.string.no_vacancies_found_text_hint)))
-        }*/
         try {
             val vacancyList = appDatabase.favoriteDao().getVacancyListByTime()
             emit(Resource.Success(convert(vacancyList)))
