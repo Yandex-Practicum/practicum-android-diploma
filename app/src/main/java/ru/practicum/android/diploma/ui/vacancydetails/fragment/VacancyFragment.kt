@@ -22,6 +22,14 @@ class VacancyFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var vacancyId by Delegates.notNull<Long>()
+
+    /*
+    переменная-индиктор: если из предыдущего экрана (Поиск или Избранное) она получает значение true,
+    значит запрос делаем только в БД,
+    иначе -> идем в сеть, потом идем в БД проверить она в избранном или нет -> обновить иконку избранного
+     */
+    private var isNeedGetFRomDB: Boolean = false
+
     private val viewModel: VacancyViewModel by viewModel { parametersOf(vacancyId) }
 
     override fun onCreateView(
@@ -43,6 +51,7 @@ class VacancyFragment : Fragment() {
 
     private fun getVacancyId() {
         vacancyId = requireArguments().getLong(ARGS_VACANCY_ID)
+        isNeedGetFRomDB = requireArguments().getBoolean(IS_NEED_GET_FROM_DB)
     }
 
     private fun setupListeners() {
@@ -118,8 +127,9 @@ class VacancyFragment : Fragment() {
     companion object {
         // private const val DEFAULT_VACANCY_ID: Long = 123L
         private const val ARGS_VACANCY_ID = "vacancy_id"
+        private const val IS_NEED_GET_FROM_DB = "is_need_get_from_db"
 
-        fun createArgs(vacancyId: Long): Bundle =
-            bundleOf(ARGS_VACANCY_ID to vacancyId)
+        fun createArgs(vacancyId: Long, isNeedGetFromDB: Boolean): Bundle =
+            bundleOf(ARGS_VACANCY_ID to vacancyId, IS_NEED_GET_FROM_DB to isNeedGetFromDB)
     }
 }
