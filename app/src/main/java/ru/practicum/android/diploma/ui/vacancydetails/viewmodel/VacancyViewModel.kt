@@ -77,7 +77,8 @@ class VacancyViewModel(
             is Resource.Success -> {
                 if (resource.value != null) {
                     vacancy = resource.value
-                    checkFavoriteStatus()
+                    // пока не работает checkFavoriteStatus
+                    //checkFavoriteStatus()
                     _vacancyDetailsScreenState.postValue(VacancyDetailsScreenState.Content(resource.value))
                 } else {
                     // Проверить, что это точно работает
