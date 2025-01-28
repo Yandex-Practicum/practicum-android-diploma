@@ -5,5 +5,5 @@ import ru.practicum.android.diploma.domain.Resource
 import ru.practicum.android.diploma.domain.models.VacancyResponse
 
 interface VacanciesInteractor {
-    fun searchVacancies(text: String?,options: HashMap<String, Int>): Flow<Resource<VacancyResponse>>
+    fun searchVacancies(text: String?, options: HashMap<String, Int>): Flow<Resource<VacancyResponse>>
 }

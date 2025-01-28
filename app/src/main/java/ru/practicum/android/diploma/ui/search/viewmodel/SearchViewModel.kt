@@ -29,7 +29,6 @@ class SearchViewModel(
     val options: HashMap<String, Int> = HashMap()
     private val openVacancyTrigger = SingleEventLiveData<Long>()
 
-
     fun getVacancyTrigger(): SingleEventLiveData<Long> = openVacancyTrigger
 
     fun clearSearchResults() {
@@ -54,7 +53,6 @@ class SearchViewModel(
                 }
         }
     }
-
 
     private fun resultHandle(result: Resource<VacancyResponse>) {
         if (result.errorCode != null) {
