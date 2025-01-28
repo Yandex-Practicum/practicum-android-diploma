@@ -1,51 +1,257 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="ru.practicum.android.diploma.search.ui.SearchFragment">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/glBegin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="@dimen/margin_begin_end_gl_16dp" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/glEnd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="@dimen/margin_begin_end_gl_16dp" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glBegin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/margin_begin_end_gl_16dp" />
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/topBar"
-        android:layout_width="0dp"
-        android:layout_height="64dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:titleTextAppearance="@style/TextMedium_22">
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/margin_begin_end_gl_16dp" />
 
-    <ImageButton
-        android:id="@+id/filter_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:theme="@style/FilterButtonBackground"
-        android:src="@drawable/ic_button_filter"
-        android:layout_gravity="end"
-        android:layout_marginEnd="20dp"/>
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/topBar"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:titleTextAppearance="@style/TextMedium_22">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/search_vacancies"
-        style="@style/TextMedium_22"/>
+            <ImageButton
+                android:id="@+id/filter_button"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_button_filter"
+                android:theme="@style/FilterButtonBackground" />
+
+            <TextView
+                style="@style/TextMedium_22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/search_vacancies" />
 
 
-    </androidx.appcompat.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
 
+        <EditText
+            android:id="@+id/textInput"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/search_text_input_height"
+            android:background="@drawable/text_input_background"
+            android:hint="@string/text_input_hint"
+            android:textColorHint="?attr/hintTextColor"
+            android:imeOptions="actionDone"
+            android:inputType="textCapWords"
+            android:maxLength="50"
+            android:maxLines="1"
+            android:paddingHorizontal="@dimen/margin_begin_end_gl_16dp"
+            android:textAlignment="textStart"
+            android:textAppearance="@style/TextRegular_16"
+            android:textColor="?attr/colorTextSearch"
+            android:textCursorDrawable="@drawable/text_input_cursor"
+            app:layout_constraintEnd_toStartOf="@id/glEnd"
+            app:layout_constraintStart_toEndOf="@id/glBegin"
+            app:layout_constraintTop_toBottomOf="@id/topBar" />
+
+        <ImageView
+            android:id="@+id/searchIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_8dp"
+            android:src="@drawable/ic_search"
+            app:layout_constraintBottom_toBottomOf="@id/textInput"
+            app:layout_constraintEnd_toEndOf="@id/textInput"
+            app:layout_constraintTop_toTopOf="@id/textInput" />
+
+        <ImageView
+            android:id="@+id/clearIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_8dp"
+            android:src="@drawable/ic_clear"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/textInput"
+            app:layout_constraintEnd_toEndOf="@id/textInput"
+            app:layout_constraintTop_toTopOf="@id/textInput" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/searchVacanciesRV"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textInput"
+            tools:listitem="@layout/item_vacancy" />
+
+        <TextView
+            android:id="@+id/textHint"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/search_hint_height"
+            android:layout_marginTop="@dimen/margin_12dp"
+            android:background="@drawable/search_hint_background"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/margin_12dp"
+            android:paddingVertical="@dimen/margin_4dp"
+            android:textAppearance="@style/TextRegular_16"
+            android:textColor="?attr/colorTextOnAccent"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@id/textInput"
+            app:layout_constraintStart_toStartOf="@id/textInput"
+            app:layout_constraintTop_toBottomOf="@id/textInput"
+            tools:text="Найдено 286 вакансий" />
+
+        <ImageView
+            android:id="@+id/initScreenPH"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/margin_begin_end_gl_16dp"
+            android:src="@drawable/init_screen_ph"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textInput" />
+
+
+        <LinearLayout
+            android:id="@+id/noConnectionPH"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textInput">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/ph_height"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/margin_begin_end_gl_16dp"
+                android:layout_marginTop="@dimen/margin_136"
+                android:src="@drawable/no_connection_ph"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textInput" />
+
+            <TextView
+                android:id="@+id/noConnectionTextHint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/margin_46"
+                android:layout_marginTop="@dimen/margin_begin_end_gl_16dp"
+                android:text="@string/no_connection_text_hint"
+                android:textAppearance="@style/TextMedium_22"
+                android:textColor="?attr/colorOnPrimary" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/noVacanciesFoundPH"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textHint">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/ph_height"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/margin_begin_end_gl_16dp"
+                android:layout_marginTop="@dimen/margin_104"
+                android:src="@drawable/failed_to_load_vacancies_ph"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/noVacanciesFoundPHTextHint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/margin_46"
+                android:layout_marginTop="@dimen/margin_begin_end_gl_16dp"
+                android:gravity="center"
+                android:text="@string/no_vacancies_found_text_hint"
+                android:textAppearance="@style/TextMedium_22"
+                android:textColor="?attr/colorOnPrimary" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/serverErrorPH"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textHint">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/ph_height"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/margin_begin_end_gl_16dp"
+                android:layout_marginTop="@dimen/margin_104"
+                android:src="@drawable/server_error_ph"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textInput" />
+
+            <TextView
+                android:id="@+id/serverErrorPHTextHint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/margin_46"
+                android:layout_marginTop="@dimen/margin_begin_end_gl_16dp"
+                android:gravity="center"
+                android:text="@string/server_error_text_hint"
+                android:textAppearance="@style/TextMedium_22"
+                android:textColor="?attr/colorOnPrimary" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/mainProgressBar"
+            android:layout_width="@dimen/progressbar_side"
+            android:layout_height="@dimen/progressbar_side"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textInput" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
