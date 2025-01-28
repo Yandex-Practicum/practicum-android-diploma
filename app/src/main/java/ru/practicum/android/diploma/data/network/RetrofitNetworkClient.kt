@@ -17,14 +17,14 @@ class RetrofitNetworkClient(
 
     private val isConnected = CheckNetworkConnect.isNetworkAvailable(context)
 
-    override suspend fun doRequestVacancies(text: String?): Response {
+    override suspend fun doRequestVacancies(text: String?, options: HashMap<String, Int>): Response {
         // Если подключение к интернету отсутствует
         if (!isConnected) {
             return Response().apply { resultCode = ResponseCode.NO_INTERNET.code }
         } else {
             return withContext(Dispatchers.IO) {
                 try {
-                    val response = api.searchVacancies(text)
+                    val response = api.searchVacancies(text = text, options = options)
                     response.apply { resultCode = ResponseCode.SUCCESS.code }
                 } catch (e: HttpException) {
                     Log.w("HttpException", e)

@@ -98,10 +98,11 @@
         android:layout_marginTop="@dimen/dp_46"
         android:layout_weight="1"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/edit_text_search"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/progress_bar_search"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_search"
         tools:ignore="MissingConstraints"
-        tools:itemCount="4"
+        tools:itemCount="20"
         tools:listitem="@layout/item_vacancy"
         tools:visibility="visible" />
 
@@ -123,12 +124,22 @@
         android:layout_width="@dimen/dp_48"
         android:layout_height="@dimen/dp_48"
         android:layout_gravity="center"
-        android:layout_marginVertical="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_16"
+        android:layout_marginBottom="@dimen/dp_16"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/bottomBorder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_text_search"
-        tools:visibility="visible" />
+        app:layout_constraintTop_toBottomOf="@id/recycler_view_search"
+        tools:visibility="gone" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/bottomBorder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="56dp" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,15 +22,22 @@ import ru.practicum.android.diploma.domain.models.Salary
 import ru.practicum.android.diploma.domain.models.Schedule
 import ru.practicum.android.diploma.domain.models.Skill
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.domain.models.VacancyResponse
 import ru.practicum.android.diploma.util.format.JsonUtils
 import ru.practicum.android.diploma.util.format.JsonUtils.deserializeField
 
 class VacanciesConverter {
 
-    fun convertCut(response: VacanciesResponseDto): List<Vacancy> {
-        return response.items.map {
-            it.toVacancyCut()
-        }
+    fun convertCut(response: VacanciesResponseDto): VacancyResponse {
+//        response.items.map {
+//            it.toVacancyCut()
+//        }
+        return VacancyResponse(
+            found = response.found,
+            response.items.map { it.toVacancyCut() },
+            page = response.page,
+            pages = response.pages
+        )
     }
 
     // для запроса деталей вакансии (задача 30)
