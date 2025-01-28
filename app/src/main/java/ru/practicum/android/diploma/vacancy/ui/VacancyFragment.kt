@@ -47,9 +47,7 @@ class VacancyFragment : Fragment() {
             viewModel.share(requireContext())
         }
 
-        binding.favoriteButton.setOnClickListener {
-            // TODO: Add favorite
-        }
+        binding.favoriteButton.setOnClickListener {}
 
         viewModel.getVacancyState().observe(viewLifecycleOwner) { state ->
             renderState(state)
