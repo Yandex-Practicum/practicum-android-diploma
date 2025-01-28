@@ -79,7 +79,6 @@ class VacancyFragment : Fragment() {
             progressCircular.visibility = View.GONE
             emptyError.visibility = View.GONE
 
-
             companyName.text = vacancy.companyName ?: ""
             city.text = vacancy.address ?: ""
             experience.text = vacancy.experience ?: ""

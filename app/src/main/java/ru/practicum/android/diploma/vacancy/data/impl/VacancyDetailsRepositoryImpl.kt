@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.vacancy.data.impl
 
-import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -22,8 +21,8 @@ class VacancyDetailsRepositoryImpl(
         val response = networkClient.doRequest(VacancyDetailsRequest(vacancyId))
         when (response.resultCode) {
             Response.SUCCESS_RESPONSE_CODE -> {
-                val result = (response as VacancyDetailsResponse)
-                if (result.isEmpty()) {
+                val result = response as VacancyDetailsResponse
+                if (result.id.isEmpty()) {
                     emit(VacancyScreenState.EmptyState)
                 } else {
                     val data = mapper.map(response)

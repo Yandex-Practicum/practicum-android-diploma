@@ -24,9 +24,4 @@ data class VacancyDetailsResponse(
     val description: String,
     @SerializedName("alternate_url") val alternateUrl: String,
     @SerializedName("key_skills") val keySkills: List<KeySkillDto>,
-) : Response() {
-    fun isEmpty(): Boolean {
-        return id == null &&
-            name == null
-    }
-}
+) : Response()
