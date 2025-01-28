@@ -14,6 +14,7 @@ import ru.practicum.android.diploma.util.ResponseCode
 
 class VacancyViewModel(
     private val currentVacancyId: Long,
+    private val isFromFavoritesScreen: Boolean,
     private val vacancyDetailsInteractor: VacancyDetailsInteractor,
     private val favoritesInteractor: FavoritesInteractor
 ) : ViewModel() {
@@ -27,9 +28,15 @@ class VacancyViewModel(
     val isFavorite: LiveData<Boolean> get() = _isFavorite
 
     init {
-        // здесь будем загружать детали вакансии
-        checkFavoriteStatus()
-        searchVacancyDetails()
+        chooseVacancyDownloadStrategy()
+    }
+
+    private fun chooseVacancyDownloadStrategy() {
+        if (isFromFavoritesScreen) {
+            // Метод получения вакансии из базы вставить сюда.
+        } else {
+            searchVacancyDetails()
+        }
     }
 
     // Обработка нажатия на кнопку Избранное
@@ -76,7 +83,7 @@ class VacancyViewModel(
             is Resource.Success -> {
                 if (resource.value != null) {
                     vacancy = resource.value
-
+                    checkFavoriteStatus()
                     _vacancyDetailsScreenState.postValue(VacancyDetailsScreenState.Content(resource.value))
                 } else {
                     // Проверить, что это точно работает

@@ -28,9 +28,9 @@ class VacancyFragment : Fragment() {
     значит запрос делаем только в БД,
     иначе -> идем в сеть, потом идем в БД проверить она в избранном или нет -> обновить иконку избранного
      */
-    private var isFromFavouritesScreen: Boolean = false
+    private var isFromFavoritesScreen: Boolean = false
 
-    private val viewModel: VacancyViewModel by viewModel { parametersOf(vacancyId) }
+    private val viewModel: VacancyViewModel by viewModel { parametersOf(vacancyId, isFromFavoritesScreen) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,11 +51,11 @@ class VacancyFragment : Fragment() {
 
     private fun getVacancyId() {
         vacancyId = requireArguments().getLong(ARGS_VACANCY_ID)
-        isFromFavouritesScreen = requireArguments().getBoolean(FROM_FAVOURITES_SCREEN)
+        isFromFavoritesScreen = requireArguments().getBoolean(FROM_FAVORITES_SCREEN)
     }
 
     private fun setupListeners() {
-        binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
+        binding.toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
 
         // Этот метод нужно вынести в data-слой
 
@@ -87,7 +87,7 @@ class VacancyFragment : Fragment() {
 
     private fun updateFavoriteIcon(isFavorite: Boolean) {
         val resId = if (isFavorite) {
-            R.drawable.ic_like_on_24
+            R.drawable.ic_like_on_red_24
         } else {
             R.drawable.ic_like_off_24
         }
@@ -121,15 +121,15 @@ class VacancyFragment : Fragment() {
 
     private fun bindData(vacancy: Vacancy) {
         // Здесь биндим данные в соответствующие поля
+        binding.textViewVacancyName.text = vacancy.name
     }
 
     // Временная заглушка + fix detekt
     companion object {
-        // private const val DEFAULT_VACANCY_ID: Long = 123L
         private const val ARGS_VACANCY_ID = "vacancy_id"
-        private const val FROM_FAVOURITES_SCREEN = "from_favourites_screen"
+        private const val FROM_FAVORITES_SCREEN = "from_favorites_screen"
 
-        fun createArgs(vacancyId: Long, isFromFavouritesScreen: Boolean): Bundle =
-            bundleOf(ARGS_VACANCY_ID to vacancyId, FROM_FAVOURITES_SCREEN to isFromFavouritesScreen)
+        fun createArgs(vacancyId: Long, isFromFavoritesScreen: Boolean): Bundle =
+            bundleOf(ARGS_VACANCY_ID to vacancyId, FROM_FAVORITES_SCREEN to isFromFavoritesScreen)
     }
 }
