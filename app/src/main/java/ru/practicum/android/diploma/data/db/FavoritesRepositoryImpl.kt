@@ -35,7 +35,7 @@ class FavoritesRepositoryImpl(
     }
 
     override suspend fun getFavoriteById(vacancyId: Long): Boolean {
-        return (getFavouriteByIdRequest(vacancyId) != null)
+        return getFavouriteByIdRequest(vacancyId) != null
     }
 
     private suspend fun getFavouriteByIdRequest(vacancyId: Long): VacancyEntity? {
