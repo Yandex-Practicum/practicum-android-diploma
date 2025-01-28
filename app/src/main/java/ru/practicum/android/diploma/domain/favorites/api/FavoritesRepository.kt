@@ -7,8 +7,9 @@ import ru.practicum.android.diploma.domain.models.Vacancy
 
 interface FavoritesRepository {
     fun getFavorites(): Flow<Resource<List<Vacancy>>>
-    fun getFavoritesList() : Flow<DatabaseResult>
+    fun getFavoritesList(): Flow<DatabaseResult>
 
+    suspend fun getVacancyByID(vacancyId: Long): Vacancy
     suspend fun getFavoriteById(vacancyId: Long): Boolean
     suspend fun saveVacancy(vacancy: Vacancy)
     suspend fun deleteVacancy(vacancy: Vacancy)

@@ -12,7 +12,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFavouritesBinding
 import ru.practicum.android.diploma.domain.DatabaseResult
-import ru.practicum.android.diploma.domain.Resource
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.ui.favourites.viewmodel.FavouritesViewModel
 import ru.practicum.android.diploma.ui.search.fragment.VacancyAdapter
@@ -45,9 +44,6 @@ class FavouritesFragment : Fragment() {
             { vacancyId: Long -> viewModel.onVacancyClicked(vacancyId) }
         adapter = VacancyAdapter(onSearchTrackClick)
 
-        //binding.emptyListPlaceholder.isVisible = true
-        //binding.favoritesRecyclerView.isVisible = false
-
         binding.favoritesRecyclerView.layoutManager = LinearLayoutManager(context)
         binding.favoritesRecyclerView.adapter = adapter
 
@@ -68,7 +64,7 @@ class FavouritesFragment : Fragment() {
     // перейти на экран деаталей вакансии
     private fun openVacancyDetails(vacancyId: Long) {
         findNavController().navigate(
-            R.id.action_searchFragment_to_vacancyFragment2,
+            R.id.action_favouritesFragment_to_vacancyFragment,
             VacancyFragment.createArgs(vacancyId, true)
         )
     }
