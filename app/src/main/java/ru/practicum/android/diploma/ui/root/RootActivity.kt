@@ -11,7 +11,6 @@ import ru.practicum.android.diploma.databinding.ActivityRootBinding
 class RootActivity : AppCompatActivity() {
 
     private val binding: ActivityRootBinding by lazy { ActivityRootBinding.inflate(layoutInflater) }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -21,9 +20,6 @@ class RootActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(binding.containerView.id) as NavHostFragment
 
         val navController = navHostFragment.navController
-
-        val bottomNavigationView = binding.bottomNavigationView
-
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.filterCommonFragment,
@@ -32,14 +28,16 @@ class RootActivity : AppCompatActivity() {
                 R.id.filterRegionFragment,
                 R.id.filterIndustryFragment,
                 R.id.vacancyFragment -> {
-                    bottomNavigationView.isVisible = false
+                    binding.bottomNavigationView.isVisible = false
+                    binding.divider.isVisible = false
                 }
 
                 else -> {
-                    bottomNavigationView.isVisible = true
+                    binding.bottomNavigationView.isVisible = true
+                    binding.divider.isVisible = true
                 }
             }
         }
-        bottomNavigationView.setupWithNavController(navController)
+        binding.bottomNavigationView.setupWithNavController(navController)
     }
 }

@@ -43,5 +43,7 @@
     <string name="unexpected_error">Неизвестная ошибка</string>
     <string name="searched_text">Найдено</string>
     <string name="vacancies_text">вакансий</string>
+    <string name="server_error">Ошибка сервера</string>
+    <string name="vacancy_not_found">Вакансия не найдена или\nудалена</string>
 
 </resources>

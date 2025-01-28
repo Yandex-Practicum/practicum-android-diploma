@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import ru.practicum.android.diploma.R
@@ -104,24 +106,57 @@ class VacancyFragment : Fragment() {
     }
 
     private fun showLoading() {
-        // Делаем видимым только прогрессбар
+        binding.pbVacancy.isVisible = true
+        binding.overlay.isVisible = false
+        binding.placeholder.layoutPlaceholder.isVisible = false
+        binding.scrollView.isVisible = false
     }
 
     private fun showServerErrorPlaceholder() {
-        // Делаем видимым только плейсхолдер
+        binding.pbVacancy.isVisible = false
+        binding.overlay.isVisible = false
+        binding.scrollView.isVisible = false
+        binding.placeholder.imageViewPlaceholder.setImageResource(R.drawable.placeholder_vacancy_server_error)
+        binding.placeholder.textViewPlaceholder.setText(R.string.server_error)
+        binding.placeholder.layoutPlaceholder.isVisible = true
     }
 
     private fun showNotFoundPlaceholder() {
-        // Делаем видимым только плейсхолдер
+        binding.pbVacancy.isVisible = false
+        binding.overlay.isVisible = false
+        binding.scrollView.isVisible = false
+        binding.placeholder.imageViewPlaceholder.setImageResource(R.drawable.placeholder_vacancy_deleted)
+        binding.placeholder.textViewPlaceholder.setText(R.string.vacancy_not_found)
+        binding.placeholder.layoutPlaceholder.isVisible = true
     }
 
     private fun showVacancyDetails(vacancy: Vacancy) {
+        binding.pbVacancy.isVisible = false
+        binding.overlay.isVisible = false
+        binding.scrollView.isVisible = true
+        binding.placeholder.layoutPlaceholder.isVisible = false
         bindData(vacancy)
     }
 
     private fun bindData(vacancy: Vacancy) {
-        // Здесь биндим данные в соответствующие поля
         binding.textViewVacancyName.text = vacancy.name
+        binding.textViewVacancyEmployerName.text = vacancy.employer?.name
+        binding.textViewVacancyEmployerCity.text = vacancy.address?.city ?: vacancy.area?.name
+        binding.textViewVacancyExperience.text = vacancy.experience?.name
+
+        // ИСПРАВИТЬ!!!
+        binding.textViewVacancySalary.text = vacancy.salary?.to.toString()
+
+        // проверить!!!
+        if (vacancy.employer?.logoUrls?.size240 != null) {
+            binding.imageViewVacancyLogo.strokeWidth = 0F
+            Glide.with(this@VacancyFragment)
+                .load(vacancy.employer.logoUrls.size240)
+                .centerCrop()
+                .into(binding.imageViewVacancyLogo)
+        }
+
+
     }
 
     // Временная заглушка + fix detekt

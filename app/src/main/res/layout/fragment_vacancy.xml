@@ -82,7 +82,7 @@
                 text_view_vacancy_employer_city,text_view_vacancy_experience_title,
                 text_view_vacancy_experience,text_view_vacancy_schedule,
                 text_view_vacancy_description_title,text_view_vacancy_skills_title,
-                text_view_vacancy_skills" />
+                text_view_vacancy_skills,text_view_vacancy_description" />
 
             <TextView
                 android:id="@+id/text_view_vacancy_name"
@@ -127,7 +127,7 @@
                 app:layout_constraintStart_toStartOf="@id/leftGuideline"
                 app:layout_constraintTop_toTopOf="@id/image_view_vacancy_logo_frame"
                 app:shapeAppearanceOverlay="@style/RoundedImageView"
-                tools:src="@drawable/placeholder_ya" />
+                android:src="@drawable/ic_droid_48_transparent_back" />
 
             <TextView
                 android:id="@+id/text_view_vacancy_employer_name"
