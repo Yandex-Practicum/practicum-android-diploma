@@ -6,7 +6,7 @@ import org.koin.dsl.module
 import ru.practicum.android.diploma.favorites.presentation.viewmodel.FavoriteScreenViewModel
 import ru.practicum.android.diploma.filter.presentation.viewmodel.FilterScreenViewModel
 import ru.practicum.android.diploma.search.presentation.viewmodel.SearchViewModel
-import ru.practicum.android.diploma.vacancy.presentation.viewmodel.VacancyScreenViewModel
+import ru.practicum.android.diploma.vacancy.presentation.VacancyDetailsViewModel
 
 val viewModelModule = module {
 
@@ -21,8 +21,8 @@ val viewModelModule = module {
         FilterScreenViewModel(get())
     }
 
-    viewModel {
-        VacancyScreenViewModel(get())
+    viewModel { (vacancyId: String) ->
+        VacancyDetailsViewModel(vacancyId, get())
     }
 
     viewModel {

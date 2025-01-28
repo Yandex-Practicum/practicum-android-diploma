@@ -31,6 +31,7 @@ import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.search.domain.model.AdapterState
 import ru.practicum.android.diploma.search.domain.model.SearchViewState
 import ru.practicum.android.diploma.search.presentation.viewmodel.SearchViewModel
+import ru.practicum.android.diploma.vacancy.ui.VacancyFragment
 
 class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
@@ -343,6 +344,7 @@ class SearchFragment : Fragment() {
     private fun showVacancyDetails(vacancyId: String) {
         findNavController().navigate(
             R.id.action_searchFragment_to_vacancyFragment,
+            VacancyFragment.createArgs(vacancyId)
         )
     }
 

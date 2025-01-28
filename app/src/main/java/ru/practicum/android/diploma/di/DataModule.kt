@@ -25,8 +25,9 @@ import ru.practicum.android.diploma.filter.data.repository.FilterRepositoryImpl
 import ru.practicum.android.diploma.filter.domain.repository.FilterRepository
 import ru.practicum.android.diploma.search.data.repository.SearchRepositoryImpl
 import ru.practicum.android.diploma.search.domain.repository.SearchRepository
-import ru.practicum.android.diploma.vacancy.data.repository.VacancyRepositoryImpl
-import ru.practicum.android.diploma.vacancy.domain.repository.VacancyRepository
+import ru.practicum.android.diploma.vacancy.data.converter.VacancyConverter
+import ru.practicum.android.diploma.vacancy.data.impl.VacancyDetailsRepositoryImpl
+import ru.practicum.android.diploma.vacancy.domain.api.VacancyDetailsRepository
 import java.util.concurrent.TimeUnit
 
 val dataModule = module {
@@ -91,8 +92,11 @@ val dataModule = module {
         SearchRepositoryImpl(get(), get())
     }
 
-    factory<VacancyRepository> {
-        VacancyRepositoryImpl(get())
+    single<VacancyDetailsRepository> {
+        VacancyDetailsRepositoryImpl(get(), get())
+    }
+    factory<VacancyConverter> {
+        VacancyConverter(androidContext())
     }
 
     factory {

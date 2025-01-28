@@ -7,8 +7,8 @@ import ru.practicum.android.diploma.filter.domain.interactor.FilterInteractor
 import ru.practicum.android.diploma.filter.domain.interactor.FilterInteractorImpl
 import ru.practicum.android.diploma.search.domain.interactor.SearchInteractor
 import ru.practicum.android.diploma.search.domain.interactor.SearchInteractorImpl
-import ru.practicum.android.diploma.vacancy.domain.interactor.VacancyInteractor
-import ru.practicum.android.diploma.vacancy.domain.interactor.VacancyInteractorImpl
+import ru.practicum.android.diploma.vacancy.domain.api.VacancyDetailsInteractor
+import ru.practicum.android.diploma.vacancy.domain.impl.VacancyDetailsInteractorImpl
 
 val interactorModule = module {
 
@@ -24,7 +24,7 @@ val interactorModule = module {
         SearchInteractorImpl(get())
     }
 
-    factory<VacancyInteractor> {
-        VacancyInteractorImpl(get())
+    single<VacancyDetailsInteractor> {
+        VacancyDetailsInteractorImpl(get())
     }
 }
