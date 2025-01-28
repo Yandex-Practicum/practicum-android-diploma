@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.favorites.data.repository
 import android.content.Context
 import android.content.SharedPreferences
 import android.database.sqlite.SQLiteException
+import android.util.Log
 import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -22,10 +23,17 @@ class FavoritesRepositoryImpl(
     private val context: Context
 ) : FavoriteRepository {
     override suspend fun getVacancyList(): Flow<Resource<List<VacancyItems>>> = flow {
+        /*try {
+            val vacancyList = appDatabase.favoriteDao().getVacancyListByTime()
+            emit(Resource.Success(convert(vacancyList)))
+        } catch (e: SQLiteException) {
+            emit(Resource.Error(context.getString(R.string.no_vacancies_found_text_hint)))
+        }*/
         try {
             val vacancyList = appDatabase.favoriteDao().getVacancyListByTime()
             emit(Resource.Success(convert(vacancyList)))
         } catch (e: SQLiteException) {
+            Log.e("Favorites", "Database error fetching vacancies", e)
             emit(Resource.Error(context.getString(R.string.no_vacancies_found_text_hint)))
         }
     }
