@@ -18,7 +18,7 @@ data class VacancyEntity(
     val salary: String?,
     @ColumnInfo(name = "experience")
     val experience: String?,
-    @ColumnInfo(name = "employmentForm")
+    @ColumnInfo(name = "employment_form")
     val employmentForm: String?,
     @ColumnInfo(name = "employment")
     val employment: String?,
@@ -26,9 +26,9 @@ data class VacancyEntity(
     val schedule: String?,
     @ColumnInfo(name = "description")
     val description: String?,
-    @ColumnInfo(name = "keySkills")
+    @ColumnInfo(name = "key_skills")
     val keySkills: String?,
-    @ColumnInfo(name = "alternateUrl")
+    @ColumnInfo(name = "alternate_url")
     val alternateUrl: String?,
     @ColumnInfo(name = "address")
     val address: String,
