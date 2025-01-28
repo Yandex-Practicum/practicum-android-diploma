@@ -63,7 +63,7 @@ class FavouritesFragment : Fragment() {
     private fun openVacancyDetails(vacancyId: Long) {
         findNavController().navigate(
             R.id.action_searchFragment_to_vacancyFragment2,
-            VacancyFragment.createArgs(vacancyId)
+            VacancyFragment.createArgs(vacancyId, true)
         )
     }
 

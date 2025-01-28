@@ -11,8 +11,8 @@ val viewModelModule = module {
         SearchViewModel(get())
     }
 
-    viewModel {
-        VacancyViewModel(get(), get())
+    viewModel { (vacancyId: Long) ->
+        VacancyViewModel(vacancyId, get(), get())
     }
 
     viewModel {

@@ -136,7 +136,7 @@ class SearchFragment : Fragment() {
     private fun openVacancyDetails(vacancyId: Long) {
         findNavController().navigate(
             R.id.action_searchFragment_to_vacancyFragment2,
-            VacancyFragment.createArgs(vacancyId)
+            VacancyFragment.createArgs(vacancyId, false)
         )
     }
 
@@ -154,6 +154,7 @@ class SearchFragment : Fragment() {
                 textView.isVisible = true
 
             }
+
             is SearchResult.NoConnection -> {
                 Toast.makeText(
                     requireContext(),
@@ -161,6 +162,7 @@ class SearchFragment : Fragment() {
                     Toast.LENGTH_LONG
                 ).show()
             }
+
             is SearchResult.Loading -> {
                 binding.progressBarSearch.isVisible = true
             }
