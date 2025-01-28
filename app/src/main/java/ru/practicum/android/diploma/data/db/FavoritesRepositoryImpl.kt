@@ -70,8 +70,9 @@ class FavoritesRepositoryImpl(
         return withContext(Dispatchers.IO) {
             try {
                 appDatabase.vacancyDao().getFavoriteById(vacancyId)
-            } catch (e: IllegalArgumentException) {
-                throw VacancyNotFoundException("Ошибка преобразования вакансии с id $vacancyId", e)
+            } catch (e: IOException) {
+                Log.i("DB", e.toString())
+                null
             }
         }
     }
