@@ -28,6 +28,7 @@ class VacancyViewModel(
 
     init {
         // здесь будем загружать детали вакансии
+        checkFavoriteStatus()
         searchVacancyDetails()
     }
 
@@ -50,9 +51,7 @@ class VacancyViewModel(
     // вызвать в методе getVacancy после успешного получения вакансии
     private fun checkFavoriteStatus() {
         viewModelScope.launch {
-            favoritesInteractor.getFavoriteById(currentVacancyId).collect { favouriteStatus ->
-                _isFavorite.postValue(favouriteStatus)
-            }
+            _isFavorite.postValue(favoritesInteractor.getFavoriteById(currentVacancyId))
         }
     }
 
@@ -77,7 +76,7 @@ class VacancyViewModel(
             is Resource.Success -> {
                 if (resource.value != null) {
                     vacancy = resource.value
-                    checkFavoriteStatus()
+
                     _vacancyDetailsScreenState.postValue(VacancyDetailsScreenState.Content(resource.value))
                 } else {
                     // Проверить, что это точно работает

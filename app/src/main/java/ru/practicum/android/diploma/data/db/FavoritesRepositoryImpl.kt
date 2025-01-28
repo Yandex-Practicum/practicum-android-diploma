@@ -34,9 +34,8 @@ class FavoritesRepositoryImpl(
         }
     }
 
-    override suspend fun getFavoriteById(vacancyId: Long): Flow<Boolean> = flow {
-        val vacancyEntity = getFavouriteByIdRequest(vacancyId)
-        emit(vacancyEntity != null)
+    override suspend fun getFavoriteById(vacancyId: Long): Boolean {
+        return (getFavouriteByIdRequest(vacancyId) != null)
     }
 
     private suspend fun getFavouriteByIdRequest(vacancyId: Long): VacancyEntity? {
