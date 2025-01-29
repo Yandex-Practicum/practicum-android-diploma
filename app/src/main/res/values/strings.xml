@@ -40,10 +40,22 @@
     <string name="vacancy_salary">от 100 000 ₽</string>
     <string name="vacancy_name">Android-разработчик</string>
     <string name="salary_not_specified">Зарплата не указана</string>
+    <string name="experience_not_specified">Опыт не указан</string>
+    <string name="schedule_not_specified">График работы не указан</string>
     <string name="unexpected_error">Неизвестная ошибка</string>
     <string name="searched_text">Найдено</string>
     <string name="vacancies_text">вакансий</string>
     <string name="server_error">Ошибка сервера</string>
     <string name="vacancy_not_found">Вакансия не найдена или\nудалена</string>
-
+    <string name="AZN">₼</string>
+    <string name="BYR">р.</string>
+    <string name="EUR">€</string>
+    <string name="GEL">₾</string>
+    <string name="KGS">сом</string>
+    <string name="KZT">₸</string>
+    <string name="RUR">₽</string>
+    <string name="UAH">₴</string>
+    <string name="USD">$</string>
+    <string name="UZS">сўм</string>
+    <string name="dot_with_key_skill">• %1$s\n</string>
 </resources>

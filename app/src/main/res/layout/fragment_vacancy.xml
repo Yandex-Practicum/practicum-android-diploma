@@ -60,7 +60,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint_layout_vacancy"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/leftGuideline"
@@ -164,7 +164,8 @@
                 android:layout_marginTop="@dimen/dp_24"
                 android:text="@string/experience"
                 app:layout_constraintStart_toStartOf="@id/leftGuideline"
-                app:layout_constraintTop_toBottomOf="@id/image_view_vacancy_logo_frame" />
+                app:layout_constraintTop_toBottomOf="@id/image_view_vacancy_logo_frame"
+                app:layout_constraintBottom_toTopOf="@id/text_view_vacancy_experience"/>
 
             <TextView
                 android:id="@+id/text_view_vacancy_experience"
@@ -174,6 +175,7 @@
                 android:layout_marginTop="@dimen/dp_4"
                 app:layout_constraintStart_toStartOf="@id/leftGuideline"
                 app:layout_constraintTop_toBottomOf="@id/text_view_vacancy_experience_title"
+                app:layout_constraintBottom_toTopOf="@id/text_view_vacancy_schedule"
                 tools:text="@string/vacancy_experience_to_from" />
 
             <TextView
@@ -184,6 +186,7 @@
                 android:layout_marginTop="@dimen/dp_8"
                 app:layout_constraintStart_toStartOf="@id/leftGuideline"
                 app:layout_constraintTop_toBottomOf="@id/text_view_vacancy_experience"
+                app:layout_constraintBottom_toTopOf="@id/text_view_vacancy_description_title"
                 tools:text="@string/vacancy_schedule" />
 
             <TextView
@@ -194,9 +197,10 @@
                 android:layout_marginTop="@dimen/sp_32"
                 android:text="@string/vacancy_description"
                 app:layout_constraintStart_toStartOf="@id/leftGuideline"
-                app:layout_constraintTop_toBottomOf="@id/text_view_vacancy_schedule" />
+                app:layout_constraintTop_toBottomOf="@id/text_view_vacancy_schedule"
+                app:layout_constraintBottom_toTopOf="@id/text_view_vacancy_description"/>
 
-            <TextView
+            <WebView
                 android:id="@+id/text_view_vacancy_description"
                 style="@style/VacancyDescriptionTextStyle"
                 android:layout_width="@dimen/dp_0"
@@ -205,6 +209,7 @@
                 app:layout_constraintEnd_toStartOf="@id/rightGuideline"
                 app:layout_constraintStart_toStartOf="@id/leftGuideline"
                 app:layout_constraintTop_toBottomOf="@id/text_view_vacancy_description_title"
+                app:layout_constraintBottom_toTopOf="@id/text_view_vacancy_skills_title"
                 tools:text="@string/job_description" />
 
             <TextView
@@ -212,10 +217,11 @@
                 style="@style/VacancyDescriptionTitleTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/sp_32"
+                android:layout_marginTop="@dimen/dp_24"
                 android:text="@string/skills"
                 app:layout_constraintStart_toStartOf="@id/leftGuideline"
-                app:layout_constraintTop_toBottomOf="@id/text_view_vacancy_description" />
+                app:layout_constraintTop_toBottomOf="@id/text_view_vacancy_description"
+                app:layout_constraintBottom_toTopOf="@id/text_view_vacancy_skills"/>
 
             <TextView
                 android:id="@+id/text_view_vacancy_skills"
@@ -223,10 +229,12 @@
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_16"
+                android:paddingHorizontal="@dimen/dp_20"
                 android:paddingBottom="@dimen/dp_24"
                 app:layout_constraintEnd_toStartOf="@id/rightGuideline"
                 app:layout_constraintStart_toStartOf="@id/leftGuideline"
                 app:layout_constraintTop_toBottomOf="@id/text_view_vacancy_skills_title"
+                app:layout_constraintBottom_toBottomOf="parent"
                 tools:text="@string/skills_description" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

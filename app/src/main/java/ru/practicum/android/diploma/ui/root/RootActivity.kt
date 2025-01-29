@@ -1,8 +1,8 @@
 package ru.practicum.android.diploma.ui.root
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import ru.practicum.android.diploma.R
@@ -20,24 +20,24 @@ class RootActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(binding.containerView.id) as NavHostFragment
 
         val navController = navHostFragment.navController
+
+        binding.bottomNavigationView.setupWithNavController(navController)
+
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.filterCommonFragment,
-                R.id.filterCountryRegionFragment,
-                R.id.filterCountryFragment,
-                R.id.filterRegionFragment,
-                R.id.filterIndustryFragment,
                 R.id.vacancyFragment -> {
-                    binding.bottomNavigationView.isVisible = false
-                    binding.divider.isVisible = false
+                    binding.bottomNavigationView.visibility = View.GONE
+                    binding.divider.visibility = View.GONE
                 }
-
+                R.id.vacancyFragment2 -> {
+                    binding.bottomNavigationView.visibility = View.GONE
+                    binding.divider.visibility = View.GONE
+                }
                 else -> {
-                    binding.bottomNavigationView.isVisible = true
-                    binding.divider.isVisible = true
+                    binding.bottomNavigationView.visibility = View.VISIBLE
+                    binding.divider.visibility = View.VISIBLE
                 }
             }
         }
-        binding.bottomNavigationView.setupWithNavController(navController)
     }
 }

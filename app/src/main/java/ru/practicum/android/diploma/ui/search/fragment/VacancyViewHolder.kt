@@ -44,10 +44,23 @@ class VacancyViewHolder(
     }
 
     private fun createSalaryInterval(from: Int?, to: Int?, currency: String?): String {
+        val currencyInSymbol = when (currency) {
+            "AZN" -> itemView.context.getString(R.string.AZN)
+            "BYR" -> itemView.context.getString(R.string.BYR)
+            "EUR" -> itemView.context.getString(R.string.EUR)
+            "GEL" -> itemView.context.getString(R.string.GEL)
+            "KGS" -> itemView.context.getString(R.string.KGS)
+            "KZT" -> itemView.context.getString(R.string.KZT)
+            "RUR" -> itemView.context.getString(R.string.RUR)
+            "UAH" -> itemView.context.getString(R.string.UAH)
+            "USD" -> itemView.context.getString(R.string.USD)
+            "UZS" -> itemView.context.getString(R.string.UZS)
+            else -> ""
+        }
         return when {
-            from != null && to == null -> "от $from $currency"
-            from == null && to != null -> "до $to $currency"
-            from != null && to != null -> "от $from до $to $currency"
+            from != null && to == null -> "от $from $currencyInSymbol"
+            from == null && to != null -> "до $to $currencyInSymbol"
+            from != null && to != null -> "от $from до $to $currencyInSymbol"
             else -> itemView.context.getString(R.string.salary_not_specified)
         }
     }
