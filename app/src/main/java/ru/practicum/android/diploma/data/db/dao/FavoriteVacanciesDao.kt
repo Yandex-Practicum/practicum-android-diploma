@@ -16,6 +16,9 @@ interface FavoriteVacanciesDao {
     @Query("SELECT * FROM favorite_vacancies_table")
     fun getVacancies(): Flow<List<FavoriteVacancyEntity>>
 
+    @Query("SELECT * FROM favorite_vacancies_table WHERE id = :vacancyId LIMIT 1")
+    suspend fun getVacancyById(vacancyId: String): FavoriteVacancyEntity?
+
     @Delete(entity = FavoriteVacancyEntity::class)
     suspend fun deleteVacancy(vacancy: FavoriteVacancyEntity)
 }
