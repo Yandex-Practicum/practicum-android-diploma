@@ -29,7 +29,7 @@
         app:itemTextAppearanceActive="@style/BottomNavBarTextStyle"
         app:itemTextAppearanceInactive="@style/BottomNavBarTextStyle"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/bottom_menu_height"
         app:itemIconTint="@drawable/bottom_nav_colors"
         app:itemTextColor="@drawable/bottom_nav_colors"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -19,11 +18,16 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.domain.common.SearchResult
+import ru.practicum.android.diploma.ui.favourites.fragment.FavouritesFragment.PlaceholderState
 import ru.practicum.android.diploma.ui.search.viewmodel.SearchViewModel
 import ru.practicum.android.diploma.ui.vacancydetails.fragment.VacancyFragment
 import ru.practicum.android.diploma.util.coroutine.CoroutineUtils
 
 class SearchFragment : Fragment() {
+
+    enum class PlaceholderState {
+        CONTENT, NO_CONNECTION, LOADING, PAGINATION_LOADING, NOT_FOUND, EMPTY
+    }
 
     private val binding: FragmentSearchBinding by lazy { FragmentSearchBinding.inflate(layoutInflater) }
 
@@ -32,6 +36,11 @@ class SearchFragment : Fragment() {
     private var vacancyAdapter: VacancyAdapter? = null
 
     private var searchText: String = TEXT_VALUE
+
+    override fun onResume() {
+        super.onResume()
+        CoroutineUtils.debounceJob?.cancel()
+    }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -141,38 +150,66 @@ class SearchFragment : Fragment() {
     }
 
     private fun renderSearchResult(result: SearchResult) {
-        val textView = binding.textViewVacancies
         when (result) {
-            is SearchResult.SearchVacanciesContent -> {
-                binding.progressBarSearch.isVisible = false
-                binding.recyclerViewSearch.isVisible = true
-                vacancyAdapter?.submitList(result.items)
-                val searchedText = resources.getString(R.string.searched_text)
-                val vacanciesText = resources.getString(R.string.vacancies_text)
-                val text = "$searchedText ${result.items.size} $vacanciesText"
-                textView.text = String.format(text)
-                textView.isVisible = true
+            is SearchResult.SearchVacanciesContent -> showPlaceholders(PlaceholderState.CONTENT)
+            is SearchResult.NoConnection -> showPlaceholders(PlaceholderState.NO_CONNECTION)
+            is SearchResult.Loading -> showPlaceholders(PlaceholderState.LOADING)
+            is SearchResult.PaginationLoading -> showPlaceholders(PlaceholderState.PAGINATION_LOADING)
+            is SearchResult.NotFound -> showPlaceholders(PlaceholderState.NOT_FOUND)
+            is SearchResult.Empty -> showPlaceholders(PlaceholderState.EMPTY)
+            else -> {}
+        }
 
-            }
+        when (result) {
+            is SearchResult.SearchVacanciesContent -> showProgressBars(PlaceholderState.CONTENT)
+            is SearchResult.NoConnection -> showProgressBars(PlaceholderState.NO_CONNECTION)
+            is SearchResult.Loading -> showProgressBars(PlaceholderState.LOADING)
+            is SearchResult.PaginationLoading -> showProgressBars(PlaceholderState.PAGINATION_LOADING)
+            is SearchResult.NotFound -> showProgressBars(PlaceholderState.NOT_FOUND)
+            is SearchResult.Empty -> showProgressBars(PlaceholderState.EMPTY)
+            else -> {}
+        }
 
-            is SearchResult.NoConnection -> {
-                Toast.makeText(
-                    requireContext(),
-                    "Отсутствует подключение к интернету",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-
-            is SearchResult.Loading -> {
-                binding.progressBarSearch.isVisible = true
-            }
-
+        when (result) {
+            is SearchResult.SearchVacanciesContent -> showContent(PlaceholderState.CONTENT, result)
+            is SearchResult.NoConnection -> showContent(PlaceholderState.NO_CONNECTION, result)
+            is SearchResult.Loading -> showContent(PlaceholderState.LOADING, result)
+            is SearchResult.PaginationLoading -> showContent(PlaceholderState.PAGINATION_LOADING, result)
+            is SearchResult.NotFound -> showContent(PlaceholderState.NOT_FOUND, result)
+            is SearchResult.Empty -> showContent(PlaceholderState.EMPTY, result)
             else -> {}
         }
     }
 
+    private fun showPlaceholders(state: PlaceholderState) {
+        binding.noConnectionPlaceholderGroup.isVisible = state == PlaceholderState.NO_CONNECTION
+        binding.notFoundPlaceholderGroup.isVisible = state == PlaceholderState.NOT_FOUND
+        binding.searchDefaultPlaceholderImage.isVisible = state == PlaceholderState.EMPTY
+    }
+
+    private fun showProgressBars(state: PlaceholderState) {
+        binding.progressBarSearch.isVisible = state == PlaceholderState.LOADING
+        binding.progressBarPagination.isVisible = state == PlaceholderState.PAGINATION_LOADING
+    }
+
+    private fun showContent(state: PlaceholderState, result: SearchResult) {
+        val textView = binding.textViewVacancies
+        val recyclerViewSearch = binding.recyclerViewSearch
+
+        if (state == PlaceholderState.CONTENT) {
+            val content = result as SearchResult.SearchVacanciesContent
+            vacancyAdapter?.submitList(content.items)
+            textView.text = getString(R.string.vacancy_count, result.found)
+        } else {
+            textView.text = getString(R.string.not_found_search_list)
+        }
+
+        recyclerViewSearch.isVisible = state == PlaceholderState.CONTENT
+        textView.isVisible = state == PlaceholderState.CONTENT || state == PlaceholderState.NOT_FOUND
+    }
+
     private fun enterSearch() {
-        viewModel.searchVacancies(binding.editTextSearch.text.toString())
+        viewModel.searchVacancies(binding.editTextSearch.text.toString(), true)
     }
 
     private fun clearButtonIsVisible(s: CharSequence?): Boolean {

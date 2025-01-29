@@ -24,7 +24,7 @@ class SearchViewModel(
     private var currentPage: Int = 0
     private var maxPages: Int = 0
     private var isNextPageLoading = false
-    private val vacanciesList = arrayListOf<Vacancy>()
+    private var vacanciesList = arrayListOf<Vacancy>()
 
     val options: HashMap<String, Int> = HashMap()
     private val openVacancyTrigger = SingleEventLiveData<Long>()
@@ -35,11 +35,21 @@ class SearchViewModel(
         searchResultData.postValue(SearchResult.Empty)
     }
 
-    fun searchVacancies(text: String?) {
-        searchResultData.postValue(SearchResult.Loading)
+    fun searchVacancies(text: String?, isNewRequest: Boolean) {
+        searchResultData.postValue(SearchResult.PaginationLoading)
+        if (isNewRequest) {
+            searchResultData.postValue(SearchResult.Loading)
+        }
 
         isNextPageLoading = true
         options["page"] = currentPage
+
+        if (isNewRequest) {
+            isNextPageLoading = false
+            options["page"] = 0
+            currentPage = 0
+            vacanciesList = arrayListOf<Vacancy>()
+        }
 
         viewModelScope.launch {
             vacanciesInteractor
@@ -66,7 +76,7 @@ class SearchViewModel(
             if (result.value.items.isEmpty()) {
                 searchResultData.postValue(SearchResult.NotFound)
             } else {
-                searchResultData.postValue(SearchResult.SearchVacanciesContent(vacanciesList.size, vacanciesList))
+                searchResultData.postValue(SearchResult.SearchVacanciesContent(result.value.found, vacanciesList))
             }
         }
     }
@@ -77,7 +87,7 @@ class SearchViewModel(
 
     fun onLastItemReached(text: String?) {
         if (!isNextPageLoading && currentPage < maxPages) {
-            searchVacancies(text)
+            searchVacancies(text, false)
         }
 
     }

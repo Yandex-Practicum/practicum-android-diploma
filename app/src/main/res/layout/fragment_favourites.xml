@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -28,21 +29,20 @@
     <ImageView
         android:id="@+id/emptyListPlaceholderImage"
         android:layout_width="@dimen/dp_0"
-        android:layout_height="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
         android:contentDescription="@string/empty_favorites_list"
-        android:scaleType="fitCenter"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toTopOf="@id/bottomBorder"
         app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
-        android:layout_marginTop="171dp"
-        app:layout_constraintDimensionRatio="656:446"
         android:src="@drawable/placeholder_favorite_empty_list" />
 
     <TextView
         android:id="@+id/emptyListPlaceholderText"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
-        style="@style/MediumText22"
+        style="@style/PlaceholdersTextStyle"
         android:text="@string/empty_favorites_list"
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@id/emptyListPlaceholderImage"
@@ -60,22 +60,21 @@
     <ImageView
         android:id="@+id/errorPlaceholderImage"
         android:layout_width="@dimen/dp_0"
-        android:layout_height="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
         android:contentDescription="@string/empty_favorites_list"
-        android:scaleType="fitCenter"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toTopOf="@id/bottomBorder"
         app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
-        android:layout_marginTop="171dp"
-        app:layout_constraintDimensionRatio="656:446"
-        android:src="@drawable/placeholder_search_no_vacancy" />
+        android:src="@drawable/placeholder_search_not_found" />
 
     <TextView
         android:id="@+id/errorPlaceholderText"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
-        style="@style/MediumText22"
-        android:text="@string/favorite_load_error"
+        style="@style/PlaceholdersTextStyle"
+        android:text="@string/vacancies_list_not_found_placeholder_text"
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@id/errorPlaceholderImage"
         app:layout_constraintStart_toStartOf="@id/errorPlaceholderImage"
@@ -99,5 +98,11 @@
         app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
         android:visibility="invisible" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/bottomBorder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/BottomMenuStyle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

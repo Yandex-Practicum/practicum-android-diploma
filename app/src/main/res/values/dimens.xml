@@ -33,4 +33,7 @@
     <dimen name="sp_16">16sp</dimen>
     <dimen name="sp_22">22sp</dimen>
     <dimen name="sp_32">32sp</dimen>
+
+
+    <dimen name="bottom_menu_height">56sp</dimen>
 </resources>
