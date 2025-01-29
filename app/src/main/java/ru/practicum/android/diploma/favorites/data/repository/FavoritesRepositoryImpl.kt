@@ -11,9 +11,9 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.common.data.db.entity.VacancyEntity
 import ru.practicum.android.diploma.common.domain.models.Resource
 import ru.practicum.android.diploma.favorites.data.VacancyEntityMapper
+import ru.practicum.android.diploma.favorites.domain.entity.VacancyFavorite
 import ru.practicum.android.diploma.favorites.domain.repository.FavoriteRepository
 import ru.practicum.android.diploma.search.domain.model.VacancyItems
-import ru.practicum.android.diploma.favorites.domain.entity.VacancyFavorite
 
 class FavoritesRepositoryImpl(
     private val appDatabase: AppDatabase,

@@ -3,13 +3,13 @@ package ru.practicum.android.diploma.vacancy.data.converter
 import android.content.Context
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.common.util.Converter.convertSalaryToString
+import ru.practicum.android.diploma.favorites.domain.entity.VacancyFavorite
 import ru.practicum.android.diploma.search.domain.model.Salary
 import ru.practicum.android.diploma.vacancy.data.dto.EmployerDto
 import ru.practicum.android.diploma.vacancy.data.dto.ExperienceDto
 import ru.practicum.android.diploma.vacancy.data.dto.KeySkillDto
 import ru.practicum.android.diploma.vacancy.data.network.VacancyDetailsResponse
 import ru.practicum.android.diploma.vacancy.domain.entity.Vacancy
-import ru.practicum.android.diploma.favorites.domain.entity.VacancyFavorite
 
 class VacancyConverter(private val context: Context) {
     fun map(response: VacancyDetailsResponse): Vacancy {
