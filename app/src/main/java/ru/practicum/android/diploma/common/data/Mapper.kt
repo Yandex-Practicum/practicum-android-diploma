@@ -77,12 +77,12 @@ class Mapper {
     }
 
 
-        fun map(response: IndustriesResponse): List<Industry> {
+    fun map(response: IndustriesResponse): List<Industry> {
         return response.result.flatMap { industryDto ->
             industryDto.industries?.map { nestedIndustryDto ->
                 Industry(id = nestedIndustryDto.id, name = nestedIndustryDto.name)
             } ?: emptyList()
-        }
+        }.sortedBy { it.name }
     }
 
     private fun getAreaName(areaDto: AreaDto?): String = areaDto?.name ?: ""
