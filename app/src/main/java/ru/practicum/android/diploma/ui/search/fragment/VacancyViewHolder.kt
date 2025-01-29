@@ -55,13 +55,17 @@ class VacancyViewHolder(
             "UAH" -> itemView.context.getString(R.string.UAH)
             "USD" -> itemView.context.getString(R.string.USD)
             "UZS" -> itemView.context.getString(R.string.UZS)
-            else -> ""
+            else -> currency
         }
         return when {
-            from != null && to == null -> "от $from $currencyInSymbol"
-            from == null && to != null -> "до $to $currencyInSymbol"
-            from != null && to != null -> "от $from до $to $currencyInSymbol"
+            from != null && to == null -> "от ${formattedSalary(from)} $currencyInSymbol"
+            from == null && to != null -> "до ${formattedSalary(to)} $currencyInSymbol"
+            from != null && to != null -> "от ${formattedSalary(from)} до ${formattedSalary(to)} $currencyInSymbol"
             else -> itemView.context.getString(R.string.salary_not_specified)
         }
+    }
+
+    private fun formattedSalary(value: Int): String {
+        return "%,d".format(value).replace(",", " ")
     }
 }
