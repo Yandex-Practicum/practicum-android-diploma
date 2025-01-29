@@ -53,6 +53,7 @@
     <string name="Gennadi">Геннадий Юрьевич</string>
     <string name="Mihail">Михаил Иванович</string>
     <string name="Egor">Егор</string>
+    <string name="empty_string" />
 
     <string name="mock_item_vacancy_name">Senior Android разработчик, Москва</string>
     <string name="mock_item_vacancy_employer">Яндекс</string>
