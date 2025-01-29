@@ -153,7 +153,7 @@ class VacancyFragment : Fragment() {
 
         val stringFromApi = vacancy.description
 
-        val paddingLeft = dpToPx(10f, requireContext())
+        val paddingLeft = dpToPx(NUMBER_FOR_DP_TO_PX, requireContext())
 
         val htmlContent = htmlContentForDescription(stringFromApi, paddingLeft)
         binding.textViewVacancyDescription.loadDataWithBaseURL(
@@ -183,15 +183,6 @@ class VacancyFragment : Fragment() {
                 .centerCrop()
                 .into(binding.imageViewVacancyLogo)
         }
-    }
-
-    // Временная заглушка + fix detekt
-    companion object {
-        private const val ARGS_VACANCY_ID = "vacancy_id"
-        private const val FROM_FAVORITES_SCREEN = "from_favorites_screen"
-
-        fun createArgs(vacancyId: Long, isFromFavoritesScreen: Boolean): Bundle =
-            bundleOf(ARGS_VACANCY_ID to vacancyId, FROM_FAVORITES_SCREEN to isFromFavoritesScreen)
     }
 
     private fun createSalaryInterval(from: Int?, to: Int?, currency: String?): String {
@@ -255,5 +246,15 @@ class VacancyFragment : Fragment() {
             </html>
         """
         return htmlContent
+    }
+
+    // Временная заглушка + fix detekt
+    companion object {
+        private const val ARGS_VACANCY_ID = "vacancy_id"
+        private const val FROM_FAVORITES_SCREEN = "from_favorites_screen"
+        private const val NUMBER_FOR_DP_TO_PX = 10f
+
+        fun createArgs(vacancyId: Long, isFromFavoritesScreen: Boolean): Bundle =
+            bundleOf(ARGS_VACANCY_ID to vacancyId, FROM_FAVORITES_SCREEN to isFromFavoritesScreen)
     }
 }
