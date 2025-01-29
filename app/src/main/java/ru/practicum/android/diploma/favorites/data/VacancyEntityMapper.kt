@@ -5,16 +5,13 @@ import com.google.gson.Gson
 import ru.practicum.android.diploma.common.data.db.entity.VacancyEntity
 import ru.practicum.android.diploma.search.domain.model.Salary
 import ru.practicum.android.diploma.search.domain.model.VacancyItems
-import ru.practicum.android.diploma.vacancy.domain.entity.VacancyFavorite
+import ru.practicum.android.diploma.favorites.domain.entity.VacancyFavorite
 import java.time.Instant
 
 class VacancyEntityMapper {
 
-
-
     @TypeConverter
     fun convertToVacancyItems(vacancy: VacancyEntity): VacancyItems {
-
         return VacancyItems(
             id = vacancy.id,
             name = vacancy.name,

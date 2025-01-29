@@ -2,7 +2,6 @@ package ru.practicum.android.diploma.favorites.data.dao
 
 import android.database.sqlite.SQLiteException
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query

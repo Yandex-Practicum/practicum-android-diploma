@@ -3,7 +3,7 @@ package ru.practicum.android.diploma.favorites.domain.repository
 import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.common.domain.models.Resource
 import ru.practicum.android.diploma.search.domain.model.VacancyItems
-import ru.practicum.android.diploma.vacancy.domain.entity.VacancyFavorite
+import ru.practicum.android.diploma.favorites.domain.entity.VacancyFavorite
 
 interface FavoriteRepository {
     suspend fun getVacancyList(): Flow<Resource<List<VacancyItems>>>

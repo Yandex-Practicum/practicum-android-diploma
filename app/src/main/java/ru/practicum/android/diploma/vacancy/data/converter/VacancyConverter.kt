@@ -9,7 +9,7 @@ import ru.practicum.android.diploma.vacancy.data.dto.ExperienceDto
 import ru.practicum.android.diploma.vacancy.data.dto.KeySkillDto
 import ru.practicum.android.diploma.vacancy.data.network.VacancyDetailsResponse
 import ru.practicum.android.diploma.vacancy.domain.entity.Vacancy
-import ru.practicum.android.diploma.vacancy.domain.entity.VacancyFavorite
+import ru.practicum.android.diploma.favorites.domain.entity.VacancyFavorite
 
 class VacancyConverter(private val context: Context) {
     fun map(response: VacancyDetailsResponse): Vacancy {
@@ -47,7 +47,6 @@ class VacancyConverter(private val context: Context) {
             vacancyUrl = response.alternateUrl
         )
     }
-
 
     private fun getKeySkills(keySkills: List<KeySkillDto>): String {
         var keySkillsString = ""

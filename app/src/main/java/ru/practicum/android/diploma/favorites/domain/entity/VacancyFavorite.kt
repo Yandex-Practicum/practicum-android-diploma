@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.vacancy.domain.entity
+package ru.practicum.android.diploma.favorites.domain.entity
 
 import ru.practicum.android.diploma.search.domain.model.Salary
 

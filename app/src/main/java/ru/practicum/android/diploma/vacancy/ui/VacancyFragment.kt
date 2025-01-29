@@ -15,7 +15,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
-import ru.practicum.android.diploma.vacancy.data.network.VacancyDetailsResponse
 import ru.practicum.android.diploma.vacancy.domain.entity.Vacancy
 import ru.practicum.android.diploma.vacancy.presentation.VacancyDetailsViewModel
 import ru.practicum.android.diploma.vacancy.presentation.VacancyScreenState
