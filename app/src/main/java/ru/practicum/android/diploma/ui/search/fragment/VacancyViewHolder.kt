@@ -19,7 +19,7 @@ class VacancyViewHolder(
 
     fun bind(model: Vacancy) {
         binding.textViewVacancyTitle.text = getTitleWithCity(model.name, model.address?.city)
-        binding.textViewVacancyEmployer.text = model.name
+        binding.textViewVacancyEmployer.text = model.employer?.name
         binding.textViewVacancySalary.text =
             createSalaryInterval(model.salary?.from, model.salary?.to, model.salary?.currency)
         val image: ImageView = binding.imageViewVacancyLogo
