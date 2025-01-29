@@ -44,7 +44,7 @@ class FavoritesRepositoryImpl(
                 if (entities.isEmpty()) {
                     emit(DatabaseResult.Empty)
                 } else {
-                    val vacancies = entities.map { converter.convertFromShortEntyty(it) }
+                    val vacancies = entities.map { converter.convertFromShortEntity(it) }
                     emit(DatabaseResult.Success(vacancies))
                 }
             }

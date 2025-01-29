@@ -11,6 +11,8 @@ data class ShortVacancyEntity(
     val employer: String?,
     @ColumnInfo(name = "salary")
     val salary: String?,
+    @ColumnInfo(name = "address")
+    val address: String?,
     @ColumnInfo(name = "timeStamp")
     val timeStamp: Long = System.currentTimeMillis()
 )
