@@ -12,7 +12,7 @@ val viewModelModule = module {
     }
 
     viewModel { (vacancyId: Long, fromFavoritesScreen: Boolean) ->
-        VacancyViewModel(vacancyId, fromFavoritesScreen, get(), get())
+        VacancyViewModel(vacancyId, fromFavoritesScreen, get(), get(), get())
     }
 
     viewModel {

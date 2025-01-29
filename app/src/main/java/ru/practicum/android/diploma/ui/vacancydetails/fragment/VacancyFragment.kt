@@ -63,6 +63,10 @@ class VacancyFragment : Fragment() {
         binding.imageViewFavorites.setOnClickListener {
             viewModel.onFavoriteClicked()
         }
+
+        binding.imageViewSharing.setOnClickListener {
+            viewModel.shareVacancy()
+        }
     }
 
     private fun observeViewModel() {
@@ -160,7 +164,7 @@ class VacancyFragment : Fragment() {
             }
             binding.textViewVacancySkills.text = tempString
         }
-        // проверить!!!
+
         if (vacancy.employer?.logoUrls?.size240 != null) {
             binding.imageViewVacancyLogo.strokeWidth = 0F
             Glide.with(this@VacancyFragment)
@@ -227,7 +231,6 @@ class VacancyFragment : Fragment() {
         return HtmlTemplate.format(textColorHex, backgroundColorHex, paddingLeft, stringFromApi)
     }
 
-    // Временная заглушка + fix detekt
     companion object {
         private const val ARGS_VACANCY_ID = "vacancy_id"
         private const val FROM_FAVORITES_SCREEN = "from_favorites_screen"

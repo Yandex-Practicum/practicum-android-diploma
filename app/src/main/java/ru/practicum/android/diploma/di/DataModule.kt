@@ -15,9 +15,11 @@ import ru.practicum.android.diploma.data.db.FavoritesRepositoryImpl
 import ru.practicum.android.diploma.data.network.HhApi
 import ru.practicum.android.diploma.data.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.data.search.VacanciesRepositoryImpl
+import ru.practicum.android.diploma.data.sharing.ExternalNavigatorImpl
 import ru.practicum.android.diploma.data.vacancydetails.VacancyDetailsRepositoryImpl
 import ru.practicum.android.diploma.domain.favorites.api.FavoritesRepository
 import ru.practicum.android.diploma.domain.search.api.VacanciesRepository
+import ru.practicum.android.diploma.domain.sharing.api.ExternalNavigator
 import ru.practicum.android.diploma.domain.vacancydetails.api.VacancyDetailsRepository
 
 private const val BASE_URL = "https://api.hh.ru/"
@@ -67,5 +69,9 @@ val dataModule = module {
 
     factory<FavoritesRepository> {
         FavoritesRepositoryImpl(get(), get())
+    }
+
+    factory<ExternalNavigator> {
+        ExternalNavigatorImpl(get())
     }
 }

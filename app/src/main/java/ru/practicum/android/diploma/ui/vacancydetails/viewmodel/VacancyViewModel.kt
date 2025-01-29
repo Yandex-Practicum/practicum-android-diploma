@@ -8,6 +8,7 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.Resource
 import ru.practicum.android.diploma.domain.favorites.api.FavoritesInteractor
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.domain.sharing.api.ShareVacancyUseCase
 import ru.practicum.android.diploma.domain.vacancydetails.api.VacancyDetailsInteractor
 import ru.practicum.android.diploma.ui.vacancydetails.state.VacancyDetailsScreenState
 import ru.practicum.android.diploma.util.ResponseCode
@@ -16,7 +17,8 @@ class VacancyViewModel(
     private val currentVacancyId: Long,
     private val isFromFavoritesScreen: Boolean,
     private val vacancyDetailsInteractor: VacancyDetailsInteractor,
-    private val favoritesInteractor: FavoritesInteractor
+    private val favoritesInteractor: FavoritesInteractor,
+    private val shareVacancyUseCase: ShareVacancyUseCase
 ) : ViewModel() {
 
     private var vacancy: Vacancy? = null
@@ -90,6 +92,16 @@ class VacancyViewModel(
                     // Проверить, что это точно работает
                     _vacancyDetailsScreenState.postValue(VacancyDetailsScreenState.NotFoundError)
                 }
+            }
+        }
+    }
+
+    fun shareVacancy() {
+        val linkToShare = vacancy?.alternateUrl
+
+        if (linkToShare != null) {
+            viewModelScope.launch {
+                shareVacancyUseCase.execute(linkToShare)
             }
         }
     }
