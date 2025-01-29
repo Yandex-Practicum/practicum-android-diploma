@@ -94,7 +94,7 @@ class VacancyViewModel(
     private fun handleResult(resource: Resource<Vacancy>) {
         when (resource) {
             is Resource.Error -> {
-                    _vacancyDetailsScreenState.postValue(VacancyDetailsScreenState.ServerError)
+                _vacancyDetailsScreenState.postValue(VacancyDetailsScreenState.ServerError)
             }
             is Resource.Success -> {
                 if (resource.value != null) {
@@ -102,7 +102,7 @@ class VacancyViewModel(
                     _vacancyDetailsScreenState.postValue(VacancyDetailsScreenState.Content(resource.value))
                 } else {
                     // Проверить, что это точно работает
-                    //Удаляем из бд, если вакансия пришла как null
+                    // Удаляем из бд, если вакансия пришла как null
                     viewModelScope.launch {
                         favoritesInteractor.removeVacancyById(currentVacancyId)
                     }
