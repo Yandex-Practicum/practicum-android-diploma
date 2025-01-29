@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="flowers">
+        <item quantity="one">Найдено %d вакансия</item>
+        <item quantity="few">Найдено %d вакансии</item>
+        <item quantity="many">Найдено %d вакаенсий</item>
+    </plurals>
+</resources>

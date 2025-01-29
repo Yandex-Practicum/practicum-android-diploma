@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.presentation.ui.search
 
+import android.content.res.Resources
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -27,6 +28,7 @@ class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
     private val searchAdapter = VacancyAdapter()
+
 
 
 
@@ -100,8 +102,10 @@ class SearchFragment : Fragment() {
 
             is SearchScreenState.ShowVacancies -> {
                 clearScreen()
+                binding.searchResult.text= state.page.found.toString()
+                binding.searchResult.isVisible=true
                 binding.recyclerView.isVisible = true
-                searchAdapter.updateItems(state.vacancies)
+                searchAdapter.updateItems(state.page.vacancies)
                 searchAdapter.notifyDataSetChanged()
             }
             is SearchScreenState.LoadNextPage -> {

@@ -109,7 +109,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/_0dp</item>
         <item name="android:layout_marginTop">@dimen/_8dp</item>
-        <item name="android:paddingTop">@dimen/_38dp</item>
+        <item name="android:paddingTop">@dimen/_8dp</item>
         <item name="android:visibility">gone</item>
     </style>
 

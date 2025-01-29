@@ -83,7 +83,7 @@ class SearchViewModel(
                 if (vacancies.isEmpty()) {
                     SearchScreenState.EmptyList
                 }
-                SearchScreenState.ShowVacancies(vacancies)
+                SearchScreenState.ShowVacancies(result.data.copy(vacancies = vacancies))
             }
 
         }

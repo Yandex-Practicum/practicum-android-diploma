@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@null"
-    android:paddingVertical="8dp">
+    android:paddingVertical="8dp"
+    android:paddingHorizontal="@dimen/_16dp">
 
     <ImageView
         android:id="@+id/vacancyImage"
