@@ -151,8 +151,11 @@ class SearchFragment : Fragment() {
             renderAdapterState(adapterState)
         }
 
-        viewModel.getShowVacancyDetails().observe(viewLifecycleOwner) { vacancyId ->
-            showVacancyDetails(vacancyId)
+        viewModel.showVacancyDetails.observe(viewLifecycleOwner) { vacancyId ->
+            vacancyId?.let {
+                showVacancyDetails(vacancyId)
+                viewModel.resetVacancyDetails()
+            }
         }
     }
 
