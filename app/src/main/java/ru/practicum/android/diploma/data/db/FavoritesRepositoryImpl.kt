@@ -4,10 +4,13 @@ import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.data.converters.VacanciesConverter
 import ru.practicum.android.diploma.data.db.entity.VacancyEntity
+import ru.practicum.android.diploma.domain.DatabaseResult
 import ru.practicum.android.diploma.domain.Resource
+import ru.practicum.android.diploma.domain.VacancyNotFoundException
 import ru.practicum.android.diploma.domain.favorites.api.FavoritesRepository
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.util.ResponseCode
@@ -18,6 +21,7 @@ class FavoritesRepositoryImpl(
     private val converter: VacanciesConverter
 ) : FavoritesRepository {
 
+    // Этот метод будет удален, не используйте его
     override fun getFavorites(): Flow<Resource<List<Vacancy>>> = flow {
         try {
             appDatabase.vacancyDao().getAllFavorites().collect { entities ->
@@ -31,6 +35,30 @@ class FavoritesRepositoryImpl(
         } catch (e: IOException) {
             Log.i("DB", e.toString())
             emit(Resource.Error(ResponseCode.DATABASE_ERROR.code)) // e.message ?: String())
+        }
+    }
+
+    override fun getFavoritesList(): Flow<DatabaseResult> = flow {
+        try {
+            appDatabase.vacancyDao().getFavoritesList().collect { entities ->
+                if (entities.isEmpty()) {
+                    emit(DatabaseResult.Empty)
+                } else {
+                    val vacancies = entities.map { converter.convertFromShortEntity(it) }
+                    emit(DatabaseResult.Success(vacancies))
+                }
+            }
+        } catch (e: IOException) {
+            emit(DatabaseResult.Error("Ошибка базы данных: ${e.message}"))
+        }
+    }.flowOn(Dispatchers.IO)
+
+    override suspend fun getVacancyByID(vacancyId: Long): Vacancy {
+        return try {
+            val entity = appDatabase.vacancyDao().getFavoriteById(vacancyId)
+            converter.convertFromDBtoVacancy(entity)
+        } catch (e: IllegalArgumentException) {
+            throw VacancyNotFoundException("Ошибка преобразования вакансии с id $vacancyId", e)
         }
     }
 

@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.data.converters
 
+import ru.practicum.android.diploma.data.db.entity.ShortVacancyEntity
 import ru.practicum.android.diploma.data.db.entity.VacancyEntity
 import ru.practicum.android.diploma.data.dto.AddressDto
 import ru.practicum.android.diploma.data.dto.AreaDto
@@ -29,9 +30,6 @@ import ru.practicum.android.diploma.util.format.JsonUtils.deserializeField
 class VacanciesConverter {
 
     fun convertCut(response: VacanciesResponseDto): VacancyResponse {
-//        response.items.map {
-//            it.toVacancyCut()
-//        }
         return VacancyResponse(
             found = response.found,
             response.items.map { it.toVacancyCut() },
@@ -40,7 +38,7 @@ class VacanciesConverter {
         )
     }
 
-    // для запроса деталей вакансии (задача 30)
+    // для запроса деталей вакансии
     fun convertFull(response: VacancyDto): Vacancy {
         return Vacancy(
             vacancyId = response.vacancyId,
@@ -56,6 +54,25 @@ class VacanciesConverter {
             keySkills = response.keySkills.map { it?.toSkill() },
             alternateUrl = response.alternateUrl,
             address = response.address?.toAddress()
+        )
+    }
+
+    // для запроса списка вакансий (все поля не нужны, поэтому они null)
+    private fun VacancyDto.toVacancyCut(): Vacancy {
+        return Vacancy(
+            vacancyId = this.vacancyId,
+            name = this.name,
+            area = null,
+            employer = this.employer?.toEmployer(),
+            salary = this.salary?.toSalary(),
+            experience = null,
+            employmentForm = null,
+            employment = null,
+            schedule = null,
+            description = null,
+            keySkills = emptyList(),
+            alternateUrl = null,
+            address = this.address?.toAddress()
         )
     }
 
@@ -97,14 +114,13 @@ class VacanciesConverter {
         )
     }
 
-    // для запроса списка вакансий (все поля не нужны, поэтому они null)
-    private fun VacancyDto.toVacancyCut(): Vacancy {
+    fun convertFromShortEntity(entity: ShortVacancyEntity): Vacancy {
         return Vacancy(
-            vacancyId = this.vacancyId,
-            name = this.name,
-            area = this.area?.toArea(),
-            employer = this.employer?.toEmployer(),
-            salary = this.salary?.toSalary(),
+            vacancyId = entity.vacancyId,
+            name = entity.name,
+            area = null,
+            employer = deserializeField(entity.employer, Employer::class.java),
+            salary = deserializeField(entity.salary, Salary::class.java),
             experience = null,
             employmentForm = null,
             employment = null,
@@ -112,7 +128,7 @@ class VacanciesConverter {
             description = null,
             keySkills = emptyList(),
             alternateUrl = null,
-            address = this.address?.toAddress()
+            address = deserializeField(entity.address, Address::class.java),
         )
     }
 
