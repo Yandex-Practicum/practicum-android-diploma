@@ -217,43 +217,14 @@ class VacancyFragment : Fragment() {
 
         return htmlContent
     }
+
     private fun htmlStyle(
         textColorHex: String,
         backgroundColorHex: String,
         paddingLeft: Int,
         stringFromApi: String?
     ): String {
-        val htmlContent = """
-            <html>
-            <head>
-                <style>
-                 @font-face {
-                        font-family: 'MyCustomFont';
-                        src: url('file:///android_asset/fonts/ys_display_regular.ttf');
-                    }
-                    body {
-                        font-family: 'MyCustomFont', sans-serif;
-                        font-size: 16px;
-                        margin: 0; /* Убираем отступы */
-                        padding: 0; /* Убираем паддинги */
-                        text-align: left; /* Выравнивание текста по левому краю */
-                        color: $textColorHex; /* Динамический цвет текста */
-                        background-color: $backgroundColorHex; /* Динамический цвет фона */
-                    }
-                    ul, ol {
-                        padding-left: ${paddingLeft}px; /* Добавляем отступ слева для списков */
-                    }
-                    ul li::marker {
-                        font-size: 9px; /* Уменьшаем размер точек */
-                    }
-                </style>
-            </head>
-            <body>
-                $stringFromApi
-            </body>
-            </html>
-        """
-        return htmlContent
+        return HtmlTemplate.format(textColorHex, backgroundColorHex, paddingLeft, stringFromApi)
     }
 
     // Временная заглушка + fix detekt
@@ -267,3 +238,34 @@ class VacancyFragment : Fragment() {
             bundleOf(ARGS_VACANCY_ID to vacancyId, FROM_FAVORITES_SCREEN to isFromFavoritesScreen)
     }
 }
+
+const val HtmlTemplate = """
+    <html>
+    <head>
+        <style>
+         @font-face {
+                font-family: 'MyCustomFont';
+                src: url('file:///android_asset/fonts/ys_display_regular.ttf');
+            }
+            body {
+                font-family: 'MyCustomFont', sans-serif;
+                font-size: 16px;
+                margin: 0; /* Убираем отступы */
+                padding: 0; /* Убираем паддинги */
+                text-align: left; /* Выравнивание текста по левому краю */
+                color: %s; /* Динамический цвет текста */
+                background-color: %s; /* Динамический цвет фона */
+            }
+            ul, ol {
+                padding-left: %dpx; /* Добавляем отступ слева для списков */
+            }
+            ul li::marker {
+                font-size: 9px; /* Уменьшаем размер точек */
+            }
+        </style>
+    </head>
+    <body>
+        %s
+    </body>
+    </html>
+"""

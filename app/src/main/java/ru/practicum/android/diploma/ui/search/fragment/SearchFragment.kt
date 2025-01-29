@@ -214,9 +214,14 @@ class SearchFragment : Fragment() {
             }
         }
 
-        recyclerViewSearch.isVisible = state == PlaceholderState.CONTENT || state == PlaceholderState.PAGINATION_LOADING
-        textView.isVisible =
-            state == PlaceholderState.CONTENT || state == PlaceholderState.NOT_FOUND || state == PlaceholderState.PAGINATION_LOADING
+        recyclerViewSearch.isVisible =
+            state == PlaceholderState.CONTENT || state == PlaceholderState.PAGINATION_LOADING
+
+        textView.isVisible = when (state) {
+            PlaceholderState.CONTENT, PlaceholderState.NOT_FOUND, PlaceholderState.PAGINATION_LOADING -> true
+            else -> false
+        }
+
     }
 
     private fun enterSearch() {
