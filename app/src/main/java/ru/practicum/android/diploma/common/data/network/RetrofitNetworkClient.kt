@@ -5,6 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import ru.practicum.android.diploma.common.data.Mapper
+import ru.practicum.android.diploma.common.data.dto.IndustryRequest
 import ru.practicum.android.diploma.common.data.dto.Response
 import ru.practicum.android.diploma.common.data.dto.SearchVacancyRequest
 import ru.practicum.android.diploma.common.util.ConnectivityManager
@@ -30,6 +31,16 @@ class RetrofitNetworkClient(
                     }
                 }
                 // <- сюда добавлять запросы для других ручек
+                is IndustryRequest -> {
+                    withContext(Dispatchers.IO) {
+                        try {
+                            val resp = headHunterApi.getIndustries()
+                            resp.apply { resultCode = Response.SUCCESS_RESPONSE_CODE }
+                        } catch (e: HttpException) {
+                            error(e)
+                        }
+                    }
+                }
                 else -> { Response().apply { resultCode = Response.BAD_REQUEST_ERROR_CODE } }
             }
         }

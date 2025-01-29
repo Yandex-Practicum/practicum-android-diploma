@@ -1,6 +1,8 @@
 package ru.practicum.android.diploma.common.data
 
+import ru.practicum.android.diploma.common.data.dto.IndustriesResponse
 import ru.practicum.android.diploma.common.data.dto.SearchVacancyResponse
+import ru.practicum.android.diploma.filter.domain.model.Industry
 import ru.practicum.android.diploma.search.data.dto.model.AreaDto
 import ru.practicum.android.diploma.search.data.dto.model.EmployerDto
 import ru.practicum.android.diploma.search.data.dto.model.SalaryDto
@@ -64,6 +66,14 @@ class Mapper {
                 iconUrl,
                 salary
             )
+        }
+    }
+
+    fun map(response: IndustriesResponse): List<Industry> {
+        return response.result.flatMap { industryDto ->
+            industryDto.industries?.map { nestedIndustryDto ->
+                Industry(id = nestedIndustryDto.id, name = nestedIndustryDto.name)
+            } ?: emptyList()
         }
     }
 
