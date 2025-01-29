@@ -1,12 +1,12 @@
 package ru.practicum.android.diploma.favorites.data
 
+import java.time.Instant
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import ru.practicum.android.diploma.common.data.db.entity.VacancyEntity
+import ru.practicum.android.diploma.favorites.domain.entity.VacancyFavorite
 import ru.practicum.android.diploma.search.domain.model.Salary
 import ru.practicum.android.diploma.search.domain.model.VacancyItems
-import ru.practicum.android.diploma.favorites.domain.entity.VacancyFavorite
-import java.time.Instant
 
 class VacancyEntityMapper {
 
@@ -68,6 +68,7 @@ class VacancyEntityMapper {
         val gson = Gson()
         return gson.toJson(salary, Salary::class.java)
     }
+
     private fun convertStringToSalary(salary: String?): Salary? {
         val gson = Gson()
         return gson.fromJson(salary, Salary::class.java)
