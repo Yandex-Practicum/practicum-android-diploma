@@ -48,6 +48,7 @@
             android:maxLines="2"
             android:text="@string/list_is_empty"
             android:textAlignment="center"
+            android:textColor="?attr/colorOnPrimary"
             android:textAppearance="@style/TextMedium_22" />
 
     </LinearLayout>

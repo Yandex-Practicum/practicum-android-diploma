@@ -18,7 +18,7 @@ import ru.practicum.android.diploma.common.data.Mapper
 import ru.practicum.android.diploma.common.data.network.HeadHunterApi
 import ru.practicum.android.diploma.common.data.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.common.util.ConnectivityManager
-import ru.practicum.android.diploma.common.util.VacancyEntityConverter
+import ru.practicum.android.diploma.favorites.data.VacancyEntityMapper
 import ru.practicum.android.diploma.favorites.data.repository.FavoritesRepositoryImpl
 import ru.practicum.android.diploma.favorites.domain.repository.FavoriteRepository
 import ru.practicum.android.diploma.filter.data.repository.FilterRepositoryImpl
@@ -81,7 +81,7 @@ val dataModule = module {
     }
 
     factory<FavoriteRepository> {
-        FavoritesRepositoryImpl(get(), get(), get(), get(), androidApplication())
+        FavoritesRepositoryImpl(get(), get(), get())
     }
 
     factory<FilterRepository> {
@@ -100,7 +100,7 @@ val dataModule = module {
     }
 
     factory {
-        VacancyEntityConverter()
+        VacancyEntityMapper()
     }
 
 }
