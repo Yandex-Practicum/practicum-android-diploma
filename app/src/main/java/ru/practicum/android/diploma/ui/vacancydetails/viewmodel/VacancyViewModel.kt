@@ -59,9 +59,10 @@ class VacancyViewModel(
         _vacancyDetailsScreenState.postValue(VacancyDetailsScreenState.Loading)
 
         viewModelScope.launch {
-            vacancyDetailsInteractor.getVacancyDetails(currentVacancyId.toString()).collect { resource ->
-                handleSearchResult(resource)
-            }
+            vacancyDetailsInteractor.getVacancyDetails(currentVacancyId.toString())
+                .collect { resource ->
+                    handleSearchResult(resource)
+                }
         }
     }
 

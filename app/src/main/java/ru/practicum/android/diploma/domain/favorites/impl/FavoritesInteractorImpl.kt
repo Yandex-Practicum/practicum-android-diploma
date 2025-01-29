@@ -2,7 +2,9 @@ package ru.practicum.android.diploma.domain.favorites.impl
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import ru.practicum.android.diploma.domain.DatabaseResult
 import ru.practicum.android.diploma.domain.Resource
+import ru.practicum.android.diploma.domain.VacancyNotFoundException
 import ru.practicum.android.diploma.domain.favorites.api.FavoritesInteractor
 import ru.practicum.android.diploma.domain.favorites.api.FavoritesRepository
 import ru.practicum.android.diploma.domain.models.Vacancy
@@ -14,8 +16,22 @@ class FavoritesInteractorImpl(
         favoritesRepository.getFavorites()
     }
 
+    override fun getFavoritesList(): Flow<DatabaseResult> = flow {
+        favoritesRepository.getFavoritesList().collect { result ->
+            emit(result)
+        }
+    }
+
     override suspend fun getFavoriteById(vacancyId: Long): Boolean {
         return favoritesRepository.getFavoriteById(vacancyId)
+    }
+
+    override suspend fun getVacancyByID(vacancyId: Long): Vacancy {
+        return try {
+            favoritesRepository.getVacancyByID(vacancyId)
+        } catch (e: VacancyNotFoundException) {
+            throw e
+        }
     }
 
     override suspend fun saveVacancy(vacancy: Vacancy) {
