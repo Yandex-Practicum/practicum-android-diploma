@@ -1,8 +1,10 @@
 package ru.practicum.android.diploma.favorites.data
 
 import java.time.Instant
+
 import androidx.room.TypeConverter
 import com.google.gson.Gson
+
 import ru.practicum.android.diploma.common.data.db.entity.VacancyEntity
 import ru.practicum.android.diploma.favorites.domain.entity.VacancyFavorite
 import ru.practicum.android.diploma.search.domain.model.Salary
