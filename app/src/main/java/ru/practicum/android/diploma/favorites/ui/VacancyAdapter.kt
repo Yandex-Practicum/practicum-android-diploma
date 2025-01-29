@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.favorites.ui
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,6 +9,7 @@ import ru.practicum.android.diploma.search.domain.model.VacancyItems
 
 class VacancyAdapter : RecyclerView.Adapter<VacancyViewHolder>() {
     var items: MutableList<VacancyItems> = mutableListOf()
+        @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value.toMutableList()
             notifyDataSetChanged()

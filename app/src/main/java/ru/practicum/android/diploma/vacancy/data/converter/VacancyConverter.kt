@@ -3,12 +3,13 @@ package ru.practicum.android.diploma.vacancy.data.converter
 import android.content.Context
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.common.util.Converter.convertSalaryToString
+import ru.practicum.android.diploma.search.domain.model.Salary
 import ru.practicum.android.diploma.vacancy.data.dto.EmployerDto
 import ru.practicum.android.diploma.vacancy.data.dto.ExperienceDto
 import ru.practicum.android.diploma.vacancy.data.dto.KeySkillDto
-import ru.practicum.android.diploma.vacancy.data.dto.SalaryDto
 import ru.practicum.android.diploma.vacancy.data.network.VacancyDetailsResponse
 import ru.practicum.android.diploma.vacancy.domain.entity.Vacancy
+import ru.practicum.android.diploma.vacancy.domain.entity.VacancyFavorite
 
 class VacancyConverter(private val context: Context) {
     fun map(response: VacancyDetailsResponse): Vacancy {
@@ -25,9 +26,28 @@ class VacancyConverter(private val context: Context) {
             employment = response.employment?.name,
             description = response.description,
             keySkills = getKeySkills(response.keySkills),
-            vacancyUrl = response.alternateUrl,
+            vacancyUrl = response.alternateUrl
         )
     }
+
+    fun mapDetailsToFavorite(response: VacancyDetailsResponse): VacancyFavorite {
+        return VacancyFavorite(
+            id = response.id,
+            name = response.name,
+            salary = response.salary,
+            companyLogo = getLogo(response.employer),
+            companyName = getCompanyName(response.employer),
+            area = response.area.name,
+            address = getAddress(response),
+            experience = getExperience(response.experience),
+            schedule = response.schedule?.name,
+            employment = response.employment?.name,
+            description = response.description,
+            keySkills = getKeySkills(response.keySkills),
+            vacancyUrl = response.alternateUrl
+        )
+    }
+
 
     private fun getKeySkills(keySkills: List<KeySkillDto>): String {
         var keySkillsString = ""
@@ -54,7 +74,7 @@ class VacancyConverter(private val context: Context) {
         }
     }
 
-    private fun getSalary(salaryDto: SalaryDto?): String {
+    private fun getSalary(salaryDto: Salary?): String {
         val salaryFormatter = convertSalaryToString(salaryDto?.from, salaryDto?.to, salaryDto?.currency)
         return salaryFormatter
     }

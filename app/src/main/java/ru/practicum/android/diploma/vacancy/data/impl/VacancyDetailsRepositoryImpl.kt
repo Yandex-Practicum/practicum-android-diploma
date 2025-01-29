@@ -26,7 +26,7 @@ class VacancyDetailsRepositoryImpl(
                     emit(VacancyScreenState.EmptyState)
                 } else {
                     val data = mapper.map(response)
-                    emit(VacancyScreenState.ContentState(data))
+                    emit(VacancyScreenState.ContentState(data, response))
                 }
             }
             Response.BAD_REQUEST_ERROR_CODE, Response.NOT_FOUND_ERROR_CODE -> {

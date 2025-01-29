@@ -13,7 +13,7 @@
 ```properties
 hhAccessToken=my_access_token
 ```
-test
+
 Вместо `my_access_token` вставьте полученный после регистрации токен доступа к API HeadHunter. После изменения значения
 синхронизируйте проект.
 

@@ -5,6 +5,7 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -14,6 +15,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
+import ru.practicum.android.diploma.vacancy.data.network.VacancyDetailsResponse
 import ru.practicum.android.diploma.vacancy.domain.entity.Vacancy
 import ru.practicum.android.diploma.vacancy.presentation.VacancyDetailsViewModel
 import ru.practicum.android.diploma.vacancy.presentation.VacancyScreenState
@@ -22,6 +24,7 @@ class VacancyFragment : Fragment() {
     private var _binding: FragmentVacancyBinding? = null
     private val binding get() = _binding!!
 
+    private var currentState: VacancyScreenState? = null
     private val vacancyId by lazy { requireArguments().getString(VACANCY_ID) }
     private val viewModel by viewModel<VacancyDetailsViewModel> {
         parametersOf(vacancyId)
@@ -47,7 +50,13 @@ class VacancyFragment : Fragment() {
             viewModel.share(requireContext())
         }
 
-        binding.favoriteButton.setOnClickListener {}
+        viewModel.isFavorite.observe(viewLifecycleOwner) { isFavorite ->
+            updateFavoriteIcon(isFavorite)
+        }
+
+        binding.favoriteButton.setOnClickListener {
+            onClickFavorite()
+        }
 
         viewModel.getVacancyState().observe(viewLifecycleOwner) { state ->
             renderState(state)
@@ -60,6 +69,7 @@ class VacancyFragment : Fragment() {
     }
 
     private fun renderState(state: VacancyScreenState) {
+        currentState = state
         when (state) {
             is VacancyScreenState.ContentState -> showContent(state.vacancy)
             VacancyScreenState.EmptyState -> showEmpty()
@@ -95,6 +105,7 @@ class VacancyFragment : Fragment() {
                 .placeholder(R.drawable.ic_placeholder_32px)
                 .transform(RoundedCorners(resources.getDimension(R.dimen.margin_12dp).toInt()))
                 .into(logo)
+
         }
     }
 
@@ -134,6 +145,31 @@ class VacancyFragment : Fragment() {
             progressCircular.visibility = View.GONE
             emptyError.visibility = View.GONE
             serverErrorPlaceholder.visibility = View.VISIBLE
+        }
+    }
+
+    private fun onClickFavorite() {
+        val currentVacancy = when (val state = currentState) {
+            is VacancyScreenState.ContentState -> state.vacancyDetails
+            else -> null
+        }
+
+        if (currentVacancy != null) {
+            val isAddedToFavorites = viewModel.onFavoriteClicked(currentVacancy)
+            val message = if (isAddedToFavorites) {
+                getString(R.string.vacancy_add_toast)
+            } else {
+                getString(R.string.vacancy_del_toast)
+            }
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun updateFavoriteIcon(isFavorite: Boolean) {
+        if (isFavorite) {
+            binding.favoriteButton.setImageResource(R.drawable.ic_favorites_active_24px)
+        } else {
+            binding.favoriteButton.setImageResource(R.drawable.ic_favorites_24px)
         }
     }
 

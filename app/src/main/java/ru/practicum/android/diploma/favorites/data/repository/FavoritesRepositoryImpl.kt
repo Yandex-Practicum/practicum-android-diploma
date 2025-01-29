@@ -1,25 +1,23 @@
 package ru.practicum.android.diploma.favorites.data.repository
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.database.sqlite.SQLiteException
 import android.util.Log
-import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import ru.practicum.android.diploma.AppDatabase
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.common.data.db.entity.VacancyEntity
 import ru.practicum.android.diploma.common.domain.models.Resource
-import ru.practicum.android.diploma.common.util.VacancyEntityConverter
+import ru.practicum.android.diploma.favorites.data.VacancyEntityMapper
 import ru.practicum.android.diploma.favorites.domain.repository.FavoriteRepository
 import ru.practicum.android.diploma.search.domain.model.VacancyItems
+import ru.practicum.android.diploma.vacancy.domain.entity.VacancyFavorite
 
 class FavoritesRepositoryImpl(
     private val appDatabase: AppDatabase,
-    private val gson: Gson,
-    private val sharedPrefs: SharedPreferences,
-    private val converter: VacancyEntityConverter,
+    private val converter: VacancyEntityMapper,
     private val context: Context
 ) : FavoriteRepository {
     override suspend fun getVacancyList(): Flow<Resource<List<VacancyItems>>> = flow {
@@ -33,10 +31,23 @@ class FavoritesRepositoryImpl(
     }
 
     private fun convert(vacancyList: List<VacancyEntity>): List<VacancyItems> {
-        return vacancyList.map { vacancy -> converter.map(vacancy) }
+        return vacancyList.map { vacancy -> converter.convertToVacancyItems(vacancy) }
     }
 
-    override suspend fun insertFavoriteVacancy(vacancy: VacancyItems) {
+    override suspend fun isVacancyFavorite(vacancyId: String): Boolean {
+        return appDatabase.favoriteDao().isVacancyFavorite(vacancyId)
+    }
+
+    override suspend fun deleteVacancyById(id: String) {
+        appDatabase.favoriteDao().deleteVacancyById(id)
+    }
+
+    override fun getVacancyById(id: String): Flow<VacancyFavorite?> {
+        return appDatabase.favoriteDao().getVacancyById(id)
+            .map { vacancyEntity -> converter.map(vacancyEntity) }
+    }
+
+    override suspend fun insertFavoriteVacancy(vacancy: VacancyFavorite) {
         appDatabase.favoriteDao().insertVacancy(converter.map(vacancy))
     }
 }
