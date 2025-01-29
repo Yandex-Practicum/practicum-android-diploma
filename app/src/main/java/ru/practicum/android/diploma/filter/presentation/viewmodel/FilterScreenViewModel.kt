@@ -22,12 +22,12 @@ class FilterScreenViewModel(
             filterInteractor
                 .getIndustries()
                 .collect { viewState ->
-                    renderState(viewState)
                     if (lowerCaseQuery.isNotEmpty() && viewState is IndustryViewState.Success){
                         viewState.industryList.filter { industry ->
                             industry.name.lowercase().contains(lowerCaseQuery)
                         }
                     }
+                    renderState(viewState)
                 }
         }
     }

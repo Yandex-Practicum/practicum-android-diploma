@@ -37,7 +37,7 @@ class FilterSettingsFragment : Fragment() {
         viewModel.observeState().observe(viewLifecycleOwner) {
       //     render(it)
         }
-        viewModel.getIndustries("")
+        viewModel.getIndustries("Авиа")
     }
 
 }
