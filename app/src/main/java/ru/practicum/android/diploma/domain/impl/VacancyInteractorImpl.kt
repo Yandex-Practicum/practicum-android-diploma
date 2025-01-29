@@ -14,7 +14,7 @@ class VacancyInteractorImpl(
         return vacancyRepository.getVacancies(options)
     }
 
-    override fun getVacancy(vacancyId: String): Flow<Resource<Vacancy>> {
+    override suspend fun getVacancy(vacancyId: String): Resource<Vacancy> {
         return vacancyRepository.getVacancy(vacancyId)
     }
 

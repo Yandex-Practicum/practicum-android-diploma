@@ -7,5 +7,5 @@ import ru.practicum.android.diploma.domain.models.Vacancy
 
 interface VacancyRepository {
     fun getVacancies(options: Map<String, String>): Flow<Resource<Page>>
-    fun getVacancy(vacancyId: String): Flow<Resource<Vacancy>>
+    suspend fun getVacancy(vacancyId: String): Resource<Vacancy>
 }

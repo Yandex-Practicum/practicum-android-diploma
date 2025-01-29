@@ -7,11 +7,9 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.data.db.AppDatabase
-import ru.practicum.android.diploma.data.impl.VacancyRepositoryImpl
 import ru.practicum.android.diploma.data.network.NetworkClient
 import ru.practicum.android.diploma.data.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.data.network.VacancyApi
-import ru.practicum.android.diploma.domain.api.VacancyRepository
 
 val dataModule = module {
     single {
@@ -29,10 +27,6 @@ val dataModule = module {
 
     single<NetworkClient> {
         RetrofitNetworkClient(get())
-    }
-
-    single<VacancyRepository> {
-        VacancyRepositoryImpl(get())
     }
 
     factory { Gson() }

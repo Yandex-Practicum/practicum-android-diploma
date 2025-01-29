@@ -25,6 +25,7 @@
         android:id="@+id/placeholder_button"
         android:layout_width="@dimen/placeholder_width"
         android:layout_height="@dimen/placeholder_height"
+        android:src="@drawable/empty_favorite_vacancy"
         android:layout_marginTop="158dp"
         android:layout_gravity="center"
         android:visibility="gone"/>

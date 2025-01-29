@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data
+package ru.practicum.android.diploma.data.impl
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -6,11 +6,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.data.db.entity.FavoriteVacancyEntity
-import ru.practicum.android.diploma.domain.FavouritesRepository
+import ru.practicum.android.diploma.domain.api.FavouritesRepository
 import ru.practicum.android.diploma.domain.models.Salary
 import ru.practicum.android.diploma.domain.models.Vacancy
 
-class FavouritesRepositoryImpl(
+open class FavouritesRepositoryImpl(
     private val appDatabase: AppDatabase,
     private val gson: Gson
 ) : FavouritesRepository {
@@ -41,7 +41,8 @@ class FavouritesRepositoryImpl(
             description = this.description,
             alternateUrl = this.alternateUrl,
             employment = this.employment,
-            experience = this.experience
+            experience = this.experience,
+            isFavorite = true
 
         )
     }

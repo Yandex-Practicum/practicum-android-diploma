@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.domain.FavouritesInteractor
+import ru.practicum.android.diploma.domain.api.FavouritesInteractor
 import ru.practicum.android.diploma.domain.models.Vacancy
 
 class FavouritesViewModel(
