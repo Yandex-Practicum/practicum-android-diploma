@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr name="blackToWhite" />
-    <attr name="whiteToBlack" />
+    <attr name="blackToWhite" format="color" />
+    <attr name="whiteToBlack" format="color"/>
     <attr name="lightGrayToGray" />
     <attr name="grayToWhite" />
 </resources>

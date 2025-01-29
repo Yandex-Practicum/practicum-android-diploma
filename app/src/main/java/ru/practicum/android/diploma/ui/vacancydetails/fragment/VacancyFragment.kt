@@ -197,14 +197,18 @@ class VacancyFragment : Fragment() {
             "UAH" -> requireContext().getString(R.string.UAH)
             "USD" -> requireContext().getString(R.string.USD)
             "UZS" -> requireContext().getString(R.string.UZS)
-            else -> ""
+            else -> currency
         }
         return when {
-            from != null && to == null -> "от $from $currencyInSymbol"
-            from == null && to != null -> "до $to $currencyInSymbol"
-            from != null && to != null -> "от $from до $to $currencyInSymbol"
+            from != null && to == null -> "от ${formattedSalary(from)} $currencyInSymbol"
+            from == null && to != null -> "до ${formattedSalary(to)} $currencyInSymbol"
+            from != null && to != null -> "от ${formattedSalary(from)} до ${formattedSalary(to)} $currencyInSymbol"
             else -> requireContext().getString(R.string.salary_not_specified)
         }
+    }
+
+    private fun formattedSalary(value: Int): String {
+        return "%,d".format(value).replace(",", " ")
     }
 
     private fun dpToPx(dp: Float, context: Context): Int {
@@ -216,6 +220,17 @@ class VacancyFragment : Fragment() {
     }
 
     private fun htmlContentForDescription(stringFromApi: String?, paddingLeft: Int): String {
+        val typedArray = requireContext().theme.obtainStyledAttributes(
+            intArrayOf(R.attr.blackToWhite, R.attr.whiteToBlack) // Цвет текста и фона
+        )
+
+        val textColor = typedArray.getColor(0, 0xFFFFFFFF.toInt()) // Цвет текста (белый/чёрный)
+        val backgroundColor = typedArray.getColor(1, 0xFF000000.toInt()) // Цвет фона (чёрный/белый)
+        typedArray.recycle()
+
+        // Конвертируем цвет в HEX для использования в HTML
+        val textColorHex = String.format("#%06X", (0xFFFFFF and textColor))
+        val backgroundColorHex = String.format("#%06X", (0xFFFFFF and backgroundColor))
         val htmlContent = """
             <html>
             <head>
@@ -230,6 +245,8 @@ class VacancyFragment : Fragment() {
                         margin: 0; /* Убираем отступы */
                         padding: 0; /* Убираем паддинги */
                         text-align: left; /* Выравнивание текста по левому краю */
+                        color: $textColorHex; /* Динамический цвет текста */
+                        background-color: $backgroundColorHex; /* Динамический цвет фона */
                     }
                     
                     ul, ol {
