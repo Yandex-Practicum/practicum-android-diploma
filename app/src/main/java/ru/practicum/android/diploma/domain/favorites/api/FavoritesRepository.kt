@@ -10,7 +10,7 @@ interface FavoritesRepository {
     fun getFavoritesList(): Flow<DatabaseResult>
 
     suspend fun getVacancyByID(vacancyId: Long): Vacancy
-    suspend fun getFavoriteById(vacancyId: Long): Boolean
+    suspend fun checkFavoriteStatus(vacancyId: Long): Boolean
     suspend fun saveVacancy(vacancy: Vacancy)
     suspend fun deleteVacancy(vacancy: Vacancy)
     suspend fun removeVacancyById(vacancyId: Long)

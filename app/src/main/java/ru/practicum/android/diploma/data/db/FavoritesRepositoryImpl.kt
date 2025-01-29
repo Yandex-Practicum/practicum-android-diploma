@@ -62,7 +62,7 @@ class FavoritesRepositoryImpl(
         }
     }
 
-    override suspend fun getFavoriteById(vacancyId: Long): Boolean {
+    override suspend fun checkFavoriteStatus(vacancyId: Long): Boolean {
         return getFavouriteByIdRequest(vacancyId) != null
     }
 
