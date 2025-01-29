@@ -8,6 +8,7 @@ import ru.practicum.android.diploma.common.data.Mapper
 import ru.practicum.android.diploma.common.data.dto.Response
 import ru.practicum.android.diploma.common.data.dto.SearchVacancyRequest
 import ru.practicum.android.diploma.common.util.ConnectivityManager
+import ru.practicum.android.diploma.vacancy.data.network.VacancyDetailsRequest
 
 class RetrofitNetworkClient(
     private val headHunterApi: HeadHunterApi,
@@ -23,6 +24,16 @@ class RetrofitNetworkClient(
                     withContext(Dispatchers.IO) {
                         try {
                             val resp = headHunterApi.searchVacancies(mapper.map(dto.expression))
+                            resp.apply { resultCode = Response.SUCCESS_RESPONSE_CODE }
+                        } catch (e: HttpException) {
+                            error(e)
+                        }
+                    }
+                }
+                is VacancyDetailsRequest -> {
+                    withContext(Dispatchers.IO) {
+                        try {
+                            val resp = headHunterApi.getVacancyDetails(dto.vacancyId)
                             resp.apply { resultCode = Response.SUCCESS_RESPONSE_CODE }
                         } catch (e: HttpException) {
                             error(e)

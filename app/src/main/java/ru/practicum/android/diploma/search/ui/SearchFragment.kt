@@ -31,6 +31,7 @@ import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.search.domain.model.AdapterState
 import ru.practicum.android.diploma.search.domain.model.SearchViewState
 import ru.practicum.android.diploma.search.presentation.viewmodel.SearchViewModel
+import ru.practicum.android.diploma.vacancy.ui.VacancyFragment
 
 class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
@@ -150,8 +151,11 @@ class SearchFragment : Fragment() {
             renderAdapterState(adapterState)
         }
 
-        viewModel.getShowVacancyDetails().observe(viewLifecycleOwner) { vacancyId ->
-            showVacancyDetails(vacancyId)
+        viewModel.showVacancyDetails.observe(viewLifecycleOwner) { vacancyId ->
+            vacancyId?.let {
+                showVacancyDetails(vacancyId)
+                viewModel.resetVacancyDetails()
+            }
         }
     }
 
@@ -343,6 +347,7 @@ class SearchFragment : Fragment() {
     private fun showVacancyDetails(vacancyId: String) {
         findNavController().navigate(
             R.id.action_searchFragment_to_vacancyFragment,
+            VacancyFragment.createArgs(vacancyId)
         )
     }
 

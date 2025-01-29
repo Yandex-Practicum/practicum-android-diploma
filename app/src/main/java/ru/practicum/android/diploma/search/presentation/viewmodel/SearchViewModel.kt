@@ -45,8 +45,8 @@ class SearchViewModel(
         isClickAllowed = isAllowed
     }
 
-    private val showVacancyDetails = MutableLiveData<String>()
-    fun getShowVacancyDetails(): LiveData<String> = showVacancyDetails
+    private val _showVacancyDetails = MutableLiveData<String?>()
+    val showVacancyDetails: MutableLiveData<String?> get() = _showVacancyDetails
 
     private val stateLiveData = MutableLiveData<SearchViewState>()
     fun observeState(): LiveData<SearchViewState> = stateLiveData
@@ -129,14 +129,14 @@ class SearchViewModel(
 
     fun showVacancyDetails(vacancyItems: ListItem) {
         if (clickDebounce()) {
-            when {
-                vacancyItems is ListItem.Vacancy -> {
-                    showVacancyDetails.postValue(vacancyItems.id)
-                }
-
-                else -> return
+            if (vacancyItems is ListItem.Vacancy) {
+                _showVacancyDetails.value = vacancyItems.id
             }
         }
+    }
+
+    fun resetVacancyDetails() {
+        _showVacancyDetails.value = null
     }
 
     fun clearSearchList() {

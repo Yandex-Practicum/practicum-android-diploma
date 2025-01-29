@@ -26,5 +26,7 @@
     <dimen name="stroke_1">1dp</dimen>
     <dimen name="placeholder_width">328dp</dimen>
     <dimen name="placeholder_height">223dp</dimen>
-
+    <dimen name="margin_32dp">32dp</dimen>
+    <dimen name="margin_20dp">20dp</dimen>
+    <dimen name="margin_24dp">24dp</dimen>
 </resources>
