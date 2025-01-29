@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    android:paddingVertical="8dp">
+
+    <ImageView
+        android:id="@+id/vacancyImage"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/image_placeholder" />
+
+    <TextView
+        android:id="@+id/vacancyNameAndArea"
+        style="@style/TextMedium_22_500"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_12dp"
+        android:textColor="@color/textColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/vacancyImage"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/mock_item_vacancy_name" />
+
+    <TextView
+        android:id="@+id/employerName"
+        style="@style/TextRegular_16_400"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_12dp"
+        android:textColor="@color/textColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/vacancyImage"
+        app:layout_constraintTop_toBottomOf="@+id/vacancyNameAndArea"
+        tools:text="@string/mock_item_vacancy_employer" />
+
+    <TextView
+        android:id="@+id/salary"
+        style="@style/TextRegular_16_400"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_12dp"
+        android:textColor="@color/textColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/vacancyImage"
+        app:layout_constraintTop_toBottomOf="@+id/employerName"
+        tools:text="@string/mock_item_vacancy_salary" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
