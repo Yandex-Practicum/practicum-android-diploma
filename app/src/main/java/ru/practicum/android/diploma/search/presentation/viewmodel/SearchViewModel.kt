@@ -128,10 +128,8 @@ class SearchViewModel(
     }
 
     fun showVacancyDetails(vacancyItems: ListItem) {
-        if (clickDebounce()) {
-            if (vacancyItems is ListItem.Vacancy) {
-                _showVacancyDetails.value = vacancyItems.id
-            }
+        if (clickDebounce() && vacancyItems is ListItem.Vacancy) {
+            _showVacancyDetails.value = vacancyItems.id
         }
     }
 
