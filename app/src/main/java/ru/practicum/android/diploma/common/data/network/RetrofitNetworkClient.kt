@@ -15,43 +15,35 @@ class RetrofitNetworkClient(
     private val mapper: Mapper,
     private val connectivityManager: ConnectivityManager
 ) : NetworkClient {
-    override suspend fun doRequest(dto: Any): Response =
+
+    override suspend fun doRequest(dto: Any): Response {
         if (!connectivityManager.isConnected()) {
-            Response().apply { resultCode = Response.NO_INTERNET_ERROR_CODE }
-        } else {
-            when (dto) {
-                is SearchVacancyRequest -> {
-                    withContext(Dispatchers.IO) {
-                        try {
-                            val resp = headHunterApi.searchVacancies(mapper.map(dto.expression))
-                            resp.apply { resultCode = Response.SUCCESS_RESPONSE_CODE }
-                        } catch (e: HttpException) {
-                            error(e)
-                        }
-                    }
-                }
-                is VacancyDetailsRequest -> {
-                    withContext(Dispatchers.IO) {
-                        try {
-                            val resp = headHunterApi.getVacancyDetails(dto.vacancyId)
-                            resp.apply { resultCode = Response.SUCCESS_RESPONSE_CODE }
-                        } catch (e: HttpException) {
-                            error(e)
-                        }
-                    }
-                }
-                // <- сюда добавлять запросы для других ручек
-                else -> { Response().apply { resultCode = Response.BAD_REQUEST_ERROR_CODE } }
+            return Response().apply { resultCode = Response.NO_INTERNET_ERROR_CODE }
+        }
+
+        return when (dto) {
+            is SearchVacancyRequest -> executeRequest { headHunterApi.searchVacancies(mapper.map(dto.expression)) }
+            is VacancyDetailsRequest -> executeRequest { headHunterApi.getVacancyDetails(dto.vacancyId) }
+            else -> Response().apply { resultCode = Response.BAD_REQUEST_ERROR_CODE }
+        }
+    }
+
+    private suspend fun executeRequest(apiCall: suspend () -> Response): Response =
+        withContext(Dispatchers.IO) {
+            try {
+                apiCall().apply { resultCode = Response.SUCCESS_RESPONSE_CODE }
+            } catch (e: HttpException) {
+                handleError(e)
             }
         }
 
-    private fun error(error: HttpException): Response =
-        if (error.code() == Response.NOT_FOUND_ERROR_CODE) {
-            Log.e("RetrofitNetworkClient", "HTTP error: ${error.message}", error)
-            Response().apply { resultCode = Response.NOT_FOUND_ERROR_CODE }
+    private fun handleError(error: HttpException): Response {
+        val errorCode = if (error.code() == Response.NOT_FOUND_ERROR_CODE) {
+            Response.NOT_FOUND_ERROR_CODE
         } else {
-            Log.e("RetrofitNetworkClient", "HTTP error: ${error.message}", error)
-            Response().apply { resultCode = Response.INTERNAL_SERVER_ERROR_CODE }
+            Response.INTERNAL_SERVER_ERROR_CODE
         }
-
+        Log.e("RetrofitNetworkClient", "HTTP error: ${error.message}", error)
+        return Response().apply { resultCode = errorCode }
+    }
 }
