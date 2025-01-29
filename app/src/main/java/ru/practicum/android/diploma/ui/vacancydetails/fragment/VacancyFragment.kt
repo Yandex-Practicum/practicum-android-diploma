@@ -1,12 +1,16 @@
 package ru.practicum.android.diploma.ui.vacancydetails.fragment
 
+import android.content.Context
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import ru.practicum.android.diploma.R
@@ -14,13 +18,12 @@ import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.ui.vacancydetails.state.VacancyDetailsScreenState
 import ru.practicum.android.diploma.ui.vacancydetails.viewmodel.VacancyViewModel
+import java.util.Locale
 import kotlin.properties.Delegates
 
 class VacancyFragment : Fragment() {
-
     private var _binding: FragmentVacancyBinding? = null
     private val binding get() = _binding!!
-
     private var vacancyId by Delegates.notNull<Long>()
 
     /*
@@ -28,9 +31,9 @@ class VacancyFragment : Fragment() {
     значит запрос делаем только в БД,
     иначе -> идем в сеть, потом идем в БД проверить она в избранном или нет -> обновить иконку избранного
      */
-    private var isFromFavouritesScreen: Boolean = false
+    private var isFromFavoritesScreen: Boolean = false
 
-    private val viewModel: VacancyViewModel by viewModel { parametersOf(vacancyId) }
+    private val viewModel: VacancyViewModel by viewModel { parametersOf(vacancyId, isFromFavoritesScreen) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,24 +54,11 @@ class VacancyFragment : Fragment() {
 
     private fun getVacancyId() {
         vacancyId = requireArguments().getLong(ARGS_VACANCY_ID)
-        isFromFavouritesScreen = requireArguments().getBoolean(FROM_FAVOURITES_SCREEN)
+        isFromFavoritesScreen = requireArguments().getBoolean(FROM_FAVORITES_SCREEN)
     }
 
     private fun setupListeners() {
-        binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
-
-        // Этот метод нужно вынести в data-слой
-
-//        binding.imageViewSharing.setOnClickListener {
-//            viewModel.vacancy.value?.let { vacancy ->
-//                val shareText = "${vacancy.name ?: "Вакансия"}\n\n${vacancy.alternateUrl ?: ""}"
-//                val shareIntent = Intent(Intent.ACTION_SEND).apply {
-//                    type = "text/plain"
-//                    putExtra(Intent.EXTRA_TEXT, shareText)
-//                }
-//                startActivity(Intent.createChooser(shareIntent, ""))
-//            }
-//        }
+        binding.toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
 
         binding.imageViewFavorites.setOnClickListener {
             viewModel.onFavoriteClicked()
@@ -87,7 +77,7 @@ class VacancyFragment : Fragment() {
 
     private fun updateFavoriteIcon(isFavorite: Boolean) {
         val resId = if (isFavorite) {
-            R.drawable.ic_like_on_24
+            R.drawable.ic_like_on_red_24
         } else {
             R.drawable.ic_like_off_24
         }
@@ -104,32 +94,176 @@ class VacancyFragment : Fragment() {
     }
 
     private fun showLoading() {
-        // Делаем видимым только прогрессбар
+        binding.pbVacancy.isVisible = true
+        binding.overlay.isVisible = false
+        binding.placeholder.layoutPlaceholder.isVisible = false
+        binding.scrollView.isVisible = false
     }
 
     private fun showServerErrorPlaceholder() {
-        // Делаем видимым только плейсхолдер
+        binding.pbVacancy.isVisible = false
+        binding.overlay.isVisible = false
+        binding.scrollView.isVisible = false
+        binding.placeholder.imageViewPlaceholder.setImageResource(R.drawable.placeholder_vacancy_server_error)
+        binding.placeholder.textViewPlaceholder.setText(R.string.server_error)
+        binding.placeholder.layoutPlaceholder.isVisible = true
     }
 
     private fun showNotFoundPlaceholder() {
-        // Делаем видимым только плейсхолдер
+        binding.pbVacancy.isVisible = false
+        binding.overlay.isVisible = false
+        binding.scrollView.isVisible = false
+        binding.placeholder.imageViewPlaceholder.setImageResource(R.drawable.placeholder_vacancy_deleted)
+        binding.placeholder.textViewPlaceholder.setText(R.string.vacancy_not_found)
+        binding.placeholder.layoutPlaceholder.isVisible = true
     }
 
     private fun showVacancyDetails(vacancy: Vacancy) {
+        binding.pbVacancy.isVisible = false
+        binding.overlay.isVisible = false
+        binding.scrollView.isVisible = true
+        binding.placeholder.layoutPlaceholder.isVisible = false
         bindData(vacancy)
     }
 
     private fun bindData(vacancy: Vacancy) {
-        // Здесь биндим данные в соответствующие поля
+        binding.textViewVacancyName.text = vacancy.name
+        binding.textViewVacancyEmployerName.text = vacancy.employer?.name
+        binding.textViewVacancyEmployerCity.text = vacancy.address?.city ?: vacancy.area?.name
+        binding.textViewVacancyExperience.text =
+            vacancy.experience?.name ?: requireContext().getString(R.string.experience_not_specified)
+        binding.textViewVacancySalary.text =
+            createSalaryInterval(vacancy.salary?.from, vacancy.salary?.to, vacancy.salary?.currency)
+        binding.textViewVacancySchedule.text =
+            vacancy.schedule?.name ?: requireContext().getString(R.string.schedule_not_specified)
+
+        val stringFromApi = vacancy.description
+
+        val paddingLeft = dpToPx(NUMBER_FOR_DP_TO_PX, requireContext())
+
+        val htmlContent = htmlContentForDescription(stringFromApi, paddingLeft)
+        binding.textViewVacancyDescription.loadDataWithBaseURL(
+            null,
+            htmlContent,
+            "text/html",
+            "UTF-8",
+            null
+        )
+        if (vacancy.keySkills.isEmpty()) {
+            binding.textViewVacancySkillsTitle.isVisible = false
+            binding.textViewVacancySkills.isVisible = false
+        } else {
+            var tempString = ""
+            for (skill in vacancy.keySkills) {
+                tempString +=
+                    requireContext().getString(R.string.dot_with_key_skill, skill?.name)
+            }
+            binding.textViewVacancySkills.text = tempString
+        }
+        // проверить!!!
+        if (vacancy.employer?.logoUrls?.size240 != null) {
+            binding.imageViewVacancyLogo.strokeWidth = 0F
+            Glide.with(this@VacancyFragment)
+                .load(vacancy.employer.logoUrls.size240)
+                .centerCrop()
+                .into(binding.imageViewVacancyLogo)
+        }
+    }
+
+    private fun createSalaryInterval(from: Int?, to: Int?, currency: String?): String {
+        val currencyInSymbol = when (currency) {
+            "AZN" -> requireContext().getString(R.string.AZN)
+            "BYR" -> requireContext().getString(R.string.BYR)
+            "EUR" -> requireContext().getString(R.string.EUR)
+            "GEL" -> requireContext().getString(R.string.GEL)
+            "KGS" -> requireContext().getString(R.string.KGS)
+            "KZT" -> requireContext().getString(R.string.KZT)
+            "RUR" -> requireContext().getString(R.string.RUR)
+            "UAH" -> requireContext().getString(R.string.UAH)
+            "USD" -> requireContext().getString(R.string.USD)
+            "UZS" -> requireContext().getString(R.string.UZS)
+            else -> currency
+        }
+        return when {
+            from != null && to == null -> "от ${formattedSalary(from)} $currencyInSymbol"
+            from == null && to != null -> "до ${formattedSalary(to)} $currencyInSymbol"
+            from != null && to != null -> "от ${formattedSalary(from)} до ${formattedSalary(to)} $currencyInSymbol"
+            else -> requireContext().getString(R.string.salary_not_specified)
+        }
+    }
+
+    private fun formattedSalary(value: Int): String {
+        return "%,d".format(value).replace(",", " ")
+    }
+
+    private fun dpToPx(dp: Float, context: Context): Int {
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            dp,
+            context.resources.displayMetrics
+        ).toInt()
+    }
+
+    private fun htmlContentForDescription(stringFromApi: String?, paddingLeft: Int): String {
+        val typedArray = requireContext().theme.obtainStyledAttributes(
+            intArrayOf(R.attr.blackToWhite, R.attr.whiteToBlack) // Цвет текста и фона
+        )
+        val textColor = typedArray.getColor(0, 0xFFFFFFFF.toInt()) // Цвет текста (белый/чёрный)
+        val backgroundColor = typedArray.getColor(1, 0xFF000000.toInt()) // Цвет фона (чёрный/белый)
+        typedArray.recycle()
+        val textColorHex = String.format(Locale.US, "#%06X", MASK_FOR_COLOR and textColor)
+        val backgroundColorHex = String.format(Locale.US, "#%06X", MASK_FOR_COLOR and backgroundColor)
+        val htmlContent = htmlStyle(textColorHex, backgroundColorHex, paddingLeft, stringFromApi)
+
+        return htmlContent
+    }
+    private fun htmlStyle(
+        textColorHex: String,
+        backgroundColorHex: String,
+        paddingLeft: Int,
+        stringFromApi: String?
+    ): String {
+        val htmlContent = """
+            <html>
+            <head>
+                <style>
+                 @font-face {
+                        font-family: 'MyCustomFont';
+                        src: url('file:///android_asset/fonts/ys_display_regular.ttf');
+                    }
+                    body {
+                        font-family: 'MyCustomFont', sans-serif;
+                        font-size: 16px;
+                        margin: 0; /* Убираем отступы */
+                        padding: 0; /* Убираем паддинги */
+                        text-align: left; /* Выравнивание текста по левому краю */
+                        color: $textColorHex; /* Динамический цвет текста */
+                        background-color: $backgroundColorHex; /* Динамический цвет фона */
+                    }
+                    ul, ol {
+                        padding-left: ${paddingLeft}px; /* Добавляем отступ слева для списков */
+                    }
+                    ul li::marker {
+                        font-size: 9px; /* Уменьшаем размер точек */
+                    }
+                </style>
+            </head>
+            <body>
+                $stringFromApi
+            </body>
+            </html>
+        """
+        return htmlContent
     }
 
     // Временная заглушка + fix detekt
     companion object {
-        // private const val DEFAULT_VACANCY_ID: Long = 123L
         private const val ARGS_VACANCY_ID = "vacancy_id"
-        private const val FROM_FAVOURITES_SCREEN = "from_favourites_screen"
+        private const val FROM_FAVORITES_SCREEN = "from_favorites_screen"
+        private const val NUMBER_FOR_DP_TO_PX = 10f
+        private const val MASK_FOR_COLOR = 0xFFFFFF
 
-        fun createArgs(vacancyId: Long, isFromFavouritesScreen: Boolean): Bundle =
-            bundleOf(ARGS_VACANCY_ID to vacancyId, FROM_FAVOURITES_SCREEN to isFromFavouritesScreen)
+        fun createArgs(vacancyId: Long, isFromFavoritesScreen: Boolean): Bundle =
+            bundleOf(ARGS_VACANCY_ID to vacancyId, FROM_FAVORITES_SCREEN to isFromFavoritesScreen)
     }
 }

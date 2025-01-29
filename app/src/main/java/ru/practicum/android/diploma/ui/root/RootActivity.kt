@@ -1,8 +1,8 @@
 package ru.practicum.android.diploma.ui.root
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import ru.practicum.android.diploma.R
@@ -11,7 +11,6 @@ import ru.practicum.android.diploma.databinding.ActivityRootBinding
 class RootActivity : AppCompatActivity() {
 
     private val binding: ActivityRootBinding by lazy { ActivityRootBinding.inflate(layoutInflater) }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -22,24 +21,23 @@ class RootActivity : AppCompatActivity() {
 
         val navController = navHostFragment.navController
 
-        val bottomNavigationView = binding.bottomNavigationView
+        binding.bottomNavigationView.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.filterCommonFragment,
-                R.id.filterCountryRegionFragment,
-                R.id.filterCountryFragment,
-                R.id.filterRegionFragment,
-                R.id.filterIndustryFragment,
                 R.id.vacancyFragment -> {
-                    bottomNavigationView.isVisible = false
+                    binding.bottomNavigationView.visibility = View.GONE
+                    binding.divider.visibility = View.GONE
                 }
-
+                R.id.vacancyFragment2 -> {
+                    binding.bottomNavigationView.visibility = View.GONE
+                    binding.divider.visibility = View.GONE
+                }
                 else -> {
-                    bottomNavigationView.isVisible = true
+                    binding.bottomNavigationView.visibility = View.VISIBLE
+                    binding.divider.visibility = View.VISIBLE
                 }
             }
         }
-        bottomNavigationView.setupWithNavController(navController)
     }
 }

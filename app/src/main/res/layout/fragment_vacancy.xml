@@ -60,7 +60,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint_layout_vacancy"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/leftGuideline"
@@ -82,7 +82,7 @@
                 text_view_vacancy_employer_city,text_view_vacancy_experience_title,
                 text_view_vacancy_experience,text_view_vacancy_schedule,
                 text_view_vacancy_description_title,text_view_vacancy_skills_title,
-                text_view_vacancy_skills" />
+                text_view_vacancy_skills,text_view_vacancy_description" />
 
             <TextView
                 android:id="@+id/text_view_vacancy_name"
@@ -123,11 +123,11 @@
                 android:layout_height="@dimen/dp_48"
                 android:layout_margin="@dimen/dp_16"
                 android:scaleType="centerCrop"
+                android:src="@drawable/ic_droid_48_transparent_back"
                 app:layout_constraintBottom_toBottomOf="@id/image_view_vacancy_logo_frame"
                 app:layout_constraintStart_toStartOf="@id/leftGuideline"
                 app:layout_constraintTop_toTopOf="@id/image_view_vacancy_logo_frame"
-                app:shapeAppearanceOverlay="@style/RoundedImageView"
-                tools:src="@drawable/placeholder_ya" />
+                app:shapeAppearanceOverlay="@style/RoundedImageView" />
 
             <TextView
                 android:id="@+id/text_view_vacancy_employer_name"
@@ -163,6 +163,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_24"
                 android:text="@string/experience"
+                app:layout_constraintBottom_toTopOf="@id/text_view_vacancy_experience"
                 app:layout_constraintStart_toStartOf="@id/leftGuideline"
                 app:layout_constraintTop_toBottomOf="@id/image_view_vacancy_logo_frame" />
 
@@ -172,6 +173,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_4"
+                app:layout_constraintBottom_toTopOf="@id/text_view_vacancy_schedule"
                 app:layout_constraintStart_toStartOf="@id/leftGuideline"
                 app:layout_constraintTop_toBottomOf="@id/text_view_vacancy_experience_title"
                 tools:text="@string/vacancy_experience_to_from" />
@@ -182,6 +184,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_8"
+                app:layout_constraintBottom_toTopOf="@id/text_view_vacancy_description_title"
                 app:layout_constraintStart_toStartOf="@id/leftGuideline"
                 app:layout_constraintTop_toBottomOf="@id/text_view_vacancy_experience"
                 tools:text="@string/vacancy_schedule" />
@@ -193,15 +196,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/sp_32"
                 android:text="@string/vacancy_description"
+                app:layout_constraintBottom_toTopOf="@id/text_view_vacancy_description"
                 app:layout_constraintStart_toStartOf="@id/leftGuideline"
                 app:layout_constraintTop_toBottomOf="@id/text_view_vacancy_schedule" />
 
-            <TextView
+            <WebView
                 android:id="@+id/text_view_vacancy_description"
                 style="@style/VacancyDescriptionTextStyle"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_16"
+                android:backgroundTint="?attr/whiteToBlack"
+
+                app:layout_constraintBottom_toTopOf="@id/text_view_vacancy_skills_title"
                 app:layout_constraintEnd_toStartOf="@id/rightGuideline"
                 app:layout_constraintStart_toStartOf="@id/leftGuideline"
                 app:layout_constraintTop_toBottomOf="@id/text_view_vacancy_description_title"
@@ -212,8 +219,9 @@
                 style="@style/VacancyDescriptionTitleTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/sp_32"
+                android:layout_marginTop="@dimen/dp_24"
                 android:text="@string/skills"
+                app:layout_constraintBottom_toTopOf="@id/text_view_vacancy_skills"
                 app:layout_constraintStart_toStartOf="@id/leftGuideline"
                 app:layout_constraintTop_toBottomOf="@id/text_view_vacancy_description" />
 
@@ -223,7 +231,9 @@
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_16"
+                android:paddingHorizontal="@dimen/dp_20"
                 android:paddingBottom="@dimen/dp_24"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/rightGuideline"
                 app:layout_constraintStart_toStartOf="@id/leftGuideline"
                 app:layout_constraintTop_toBottomOf="@id/text_view_vacancy_skills_title"
