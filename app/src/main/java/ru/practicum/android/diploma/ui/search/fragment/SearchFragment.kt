@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -207,6 +208,22 @@ class SearchFragment : Fragment() {
 
             is SearchResult.PaginationLoading -> {
                 textView.text = getString(R.string.vacancy_count, vacanciesCount)
+            }
+
+            is SearchResult.NoConnection -> {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.no_connection_toast),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+
+            is SearchResult.Error -> {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.search_error_toast),
+                    Toast.LENGTH_LONG
+                ).show()
             }
 
             else -> {
