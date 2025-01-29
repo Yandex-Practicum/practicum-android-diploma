@@ -39,6 +39,7 @@
 
     <string name="main" translatable="false">Главная</string>
     <string name="favorites" translatable="false">Избранное</string>
+    <string name="share" translatable="false">Поделиться</string>
 
     <string name="found" translatable="false">Найдено</string>
     <string name="vacancies" translatable="false">вакансий</string>

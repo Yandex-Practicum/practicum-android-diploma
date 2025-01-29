@@ -1,13 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.ui.vacancy.VacancyFragment">
+    android:layout_height="match_parent">
 
-    <TextView
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Экран с описанием вакансии" />
+        android:layout_height="wrap_content"
+        app:title="@string/vacancy"
+        app:titleTextColor="@android:color/black"
+        app:navigationIcon="@drawable/arrow_back"
+        app:buttonGravity="center_vertical"
+        app:titleTextAppearance="@style/Toolbar">
 
-</FrameLayout>
+        <ImageButton
+            android:id="@+id/btn_favorite"
+            android:layout_width="@dimen/_48dp"
+            android:layout_height="@dimen/_48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/add_to_favorite"
+            android:contentDescription="@string/favorites"
+            android:layout_gravity="end"
+            android:layout_marginVertical="@dimen/_8dp"
+            android:layout_marginEnd="@dimen/_8dp"
+            android:layout_marginStart="@dimen/_4dp"
+            android:padding="@dimen/_8dp" />
+
+        <ImageButton
+            android:id="@+id/btn_share"
+            android:layout_width="@dimen/_48dp"
+            android:layout_height="@dimen/_48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/share"
+            android:contentDescription="@string/share"
+            android:layout_marginVertical="@dimen/_8dp"
+            android:layout_gravity="end"
+            android:padding="@dimen/_8dp" />
+    </androidx.appcompat.widget.Toolbar>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
