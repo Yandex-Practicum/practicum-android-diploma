@@ -29,10 +29,12 @@ class RootActivity : AppCompatActivity() {
                     binding.bottomNavigationView.visibility = View.GONE
                     binding.divider.visibility = View.GONE
                 }
-                R.id.vacancyFragment2 -> {
+
+                R.id.vacancyFragment -> {
                     binding.bottomNavigationView.visibility = View.GONE
                     binding.divider.visibility = View.GONE
                 }
+
                 else -> {
                     binding.bottomNavigationView.visibility = View.VISIBLE
                     binding.divider.visibility = View.VISIBLE

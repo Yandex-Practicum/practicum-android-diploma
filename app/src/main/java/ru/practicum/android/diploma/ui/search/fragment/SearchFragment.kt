@@ -146,7 +146,7 @@ class SearchFragment : Fragment() {
     // перейти на экран деаталей вакансии
     private fun openVacancyDetails(vacancyId: Long) {
         findNavController().navigate(
-            R.id.action_searchFragment_to_vacancyFragment2,
+            R.id.action_searchFragment_to_vacancyFragment,
             VacancyFragment.createArgs(vacancyId, false)
         )
     }
