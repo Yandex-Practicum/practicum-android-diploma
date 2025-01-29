@@ -2,11 +2,11 @@ package ru.practicum.android.diploma.favorites.data
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
-import java.time.Instant
 import ru.practicum.android.diploma.common.data.db.entity.VacancyEntity
-import ru.practicum.android.diploma.favorites.domain.entity.VacancyFavorite
 import ru.practicum.android.diploma.search.domain.model.Salary
 import ru.practicum.android.diploma.search.domain.model.VacancyItems
+import ru.practicum.android.diploma.favorites.domain.entity.VacancyFavorite
+import java.time.Instant
 
 class VacancyEntityMapper {
 
