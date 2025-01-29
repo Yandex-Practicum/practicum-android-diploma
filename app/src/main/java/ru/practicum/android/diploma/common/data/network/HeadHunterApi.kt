@@ -20,6 +20,7 @@ interface HeadHunterApi {
 
     @GET("vacancies/{vacancyId}")
     suspend fun getVacancyDetails(@Path("vacancyId") vacancyId: String): VacancyDetailsResponse
+
     @GET("industries")
-    suspend fun getIndustries(): ArrayList<IndustryDto> //IndustriesResponse
+    suspend fun getIndustries(): List<IndustryDto> //IndustriesResponse
 }
