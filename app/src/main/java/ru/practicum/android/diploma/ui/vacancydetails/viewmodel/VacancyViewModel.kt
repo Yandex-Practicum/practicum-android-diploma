@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.Resource
 import ru.practicum.android.diploma.domain.favorites.api.FavoritesInteractor
@@ -30,11 +31,13 @@ class VacancyViewModel(
     val isFavorite: LiveData<Boolean> get() = _isFavorite
 
     init {
+        checkFavoriteStatus()
         chooseVacancyDownloadStrategy()
     }
 
     private fun chooseVacancyDownloadStrategy() {
         if (isFromFavoritesScreen) {
+            getVacancyDetailsFromBD()
             // Метод получения вакансии из базы вставить сюда.
         } else {
             searchVacancyDetails()
@@ -60,7 +63,7 @@ class VacancyViewModel(
     // вызвать в методе getVacancy после успешного получения вакансии
     private fun checkFavoriteStatus() {
         viewModelScope.launch {
-            _isFavorite.postValue(favoritesInteractor.getFavoriteById(currentVacancyId))
+            _isFavorite.postValue(favoritesInteractor.checkFavoriteStatus(currentVacancyId))
         }
     }
 
@@ -70,26 +73,39 @@ class VacancyViewModel(
         viewModelScope.launch {
             vacancyDetailsInteractor.getVacancyDetails(currentVacancyId.toString())
                 .collect { resource ->
-                    handleSearchResult(resource)
+                    handleResult(resource)
                 }
         }
     }
 
-    private fun handleSearchResult(resource: Resource<Vacancy>) {
+    private fun getVacancyDetailsFromBD() {
+        _vacancyDetailsScreenState.postValue(VacancyDetailsScreenState.Loading)
+        viewModelScope.launch(Dispatchers.IO) {
+            val resource: Resource<Vacancy> = if (favoritesInteractor.checkFavoriteStatus(currentVacancyId)) {
+                vacancy = favoritesInteractor.getVacancyByID(currentVacancyId)
+                Resource.Success(vacancy!!)
+            } else {
+                Resource.Error(ResponseCode.DATABASE_ERROR.code)
+            }
+            handleResult(resource)
+        }
+    }
+
+    private fun handleResult(resource: Resource<Vacancy>) {
         when (resource) {
             is Resource.Error -> {
-                if (resource.errorCode == ResponseCode.SERVER_ERROR.code) {
                     _vacancyDetailsScreenState.postValue(VacancyDetailsScreenState.ServerError)
-                }
             }
-
             is Resource.Success -> {
                 if (resource.value != null) {
                     vacancy = resource.value
-                    checkFavoriteStatus()
                     _vacancyDetailsScreenState.postValue(VacancyDetailsScreenState.Content(resource.value))
                 } else {
                     // Проверить, что это точно работает
+                    //Удаляем из бд, если вакансия пришла как null
+                    viewModelScope.launch {
+                        favoritesInteractor.removeVacancyById(currentVacancyId)
+                    }
                     _vacancyDetailsScreenState.postValue(VacancyDetailsScreenState.NotFoundError)
                 }
             }

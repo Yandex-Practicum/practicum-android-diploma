@@ -15,11 +15,9 @@ class RetrofitNetworkClient(
     private val context: Context
 ) : NetworkClient {
 
-    private val isConnected = CheckNetworkConnect.isNetworkAvailable(context)
-
     override suspend fun doRequestVacancies(text: String?, options: HashMap<String, Int>): Response {
         // Если подключение к интернету отсутствует
-        if (!isConnected) {
+        if (!CheckNetworkConnect.isNetworkAvailable(context)) {
             return Response().apply { resultCode = ResponseCode.NO_INTERNET.code }
         } else {
             return withContext(Dispatchers.IO) {
@@ -35,7 +33,7 @@ class RetrofitNetworkClient(
     }
 
     override suspend fun doRequestVacancyDetails(vacancyId: String): Response {
-        if (!isConnected) {
+        if (!CheckNetworkConnect.isNetworkAvailable(context)) {
             return Response().apply { resultCode = ResponseCode.NO_INTERNET.code }
         } else {
             return withContext(Dispatchers.IO) {
