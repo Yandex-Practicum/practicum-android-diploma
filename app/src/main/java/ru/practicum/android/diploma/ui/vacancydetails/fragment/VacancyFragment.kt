@@ -18,13 +18,12 @@ import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.ui.vacancydetails.state.VacancyDetailsScreenState
 import ru.practicum.android.diploma.ui.vacancydetails.viewmodel.VacancyViewModel
+import java.util.Locale
 import kotlin.properties.Delegates
 
 class VacancyFragment : Fragment() {
-
     private var _binding: FragmentVacancyBinding? = null
     private val binding get() = _binding!!
-
     private var vacancyId by Delegates.notNull<Long>()
 
     /*
@@ -60,19 +59,6 @@ class VacancyFragment : Fragment() {
 
     private fun setupListeners() {
         binding.toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-
-        // Этот метод нужно вынести в data-слой
-
-//        binding.imageViewSharing.setOnClickListener {
-//            viewModel.vacancy.value?.let { vacancy ->
-//                val shareText = "${vacancy.name ?: "Вакансия"}\n\n${vacancy.alternateUrl ?: ""}"
-//                val shareIntent = Intent(Intent.ACTION_SEND).apply {
-//                    type = "text/plain"
-//                    putExtra(Intent.EXTRA_TEXT, shareText)
-//                }
-//                startActivity(Intent.createChooser(shareIntent, ""))
-//            }
-//        }
 
         binding.imageViewFavorites.setOnClickListener {
             viewModel.onFavoriteClicked()
@@ -163,7 +149,6 @@ class VacancyFragment : Fragment() {
             "UTF-8",
             null
         )
-
         if (vacancy.keySkills.isEmpty()) {
             binding.textViewVacancySkillsTitle.isVisible = false
             binding.textViewVacancySkills.isVisible = false
@@ -223,14 +208,21 @@ class VacancyFragment : Fragment() {
         val typedArray = requireContext().theme.obtainStyledAttributes(
             intArrayOf(R.attr.blackToWhite, R.attr.whiteToBlack) // Цвет текста и фона
         )
-
         val textColor = typedArray.getColor(0, 0xFFFFFFFF.toInt()) // Цвет текста (белый/чёрный)
         val backgroundColor = typedArray.getColor(1, 0xFF000000.toInt()) // Цвет фона (чёрный/белый)
         typedArray.recycle()
+        val textColorHex = String.format(Locale.US, "#%06X", MASK_FOR_COLOR and textColor)
+        val backgroundColorHex = String.format(Locale.US, "#%06X", MASK_FOR_COLOR and backgroundColor)
+        val htmlContent = htmlStyle(textColorHex, backgroundColorHex, paddingLeft, stringFromApi)
 
-        // Конвертируем цвет в HEX для использования в HTML
-        val textColorHex = String.format("#%06X", (0xFFFFFF and textColor))
-        val backgroundColorHex = String.format("#%06X", (0xFFFFFF and backgroundColor))
+        return htmlContent
+    }
+    private fun htmlStyle(
+        textColorHex: String,
+        backgroundColorHex: String,
+        paddingLeft: Int,
+        stringFromApi: String?
+    ): String {
         val htmlContent = """
             <html>
             <head>
@@ -248,7 +240,6 @@ class VacancyFragment : Fragment() {
                         color: $textColorHex; /* Динамический цвет текста */
                         background-color: $backgroundColorHex; /* Динамический цвет фона */
                     }
-                    
                     ul, ol {
                         padding-left: ${paddingLeft}px; /* Добавляем отступ слева для списков */
                     }
@@ -270,6 +261,7 @@ class VacancyFragment : Fragment() {
         private const val ARGS_VACANCY_ID = "vacancy_id"
         private const val FROM_FAVORITES_SCREEN = "from_favorites_screen"
         private const val NUMBER_FOR_DP_TO_PX = 10f
+        private const val MASK_FOR_COLOR = 0xFFFFFF
 
         fun createArgs(vacancyId: Long, isFromFavoritesScreen: Boolean): Bundle =
             bundleOf(ARGS_VACANCY_ID to vacancyId, FROM_FAVORITES_SCREEN to isFromFavoritesScreen)
