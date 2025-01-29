@@ -37,6 +37,8 @@ class SearchFragment : Fragment() {
 
     private var searchText: String = TEXT_VALUE
 
+    private var vacanciesCount: Int = 0
+
     override fun onResume() {
         super.onResume()
         CoroutineUtils.debounceJob?.cancel()
@@ -196,16 +198,25 @@ class SearchFragment : Fragment() {
         val textView = binding.textViewVacancies
         val recyclerViewSearch = binding.recyclerViewSearch
 
-        if (state == PlaceholderState.CONTENT) {
-            val content = result as SearchResult.SearchVacanciesContent
-            vacancyAdapter?.submitList(content.items)
-            textView.text = getString(R.string.vacancy_count, result.found)
-        } else {
-            textView.text = getString(R.string.not_found_search_list)
+        when (result) {
+            is SearchResult.SearchVacanciesContent -> {
+                vacancyAdapter?.submitList(result.items)
+                textView.text = getString(R.string.vacancy_count, result.found)
+                vacanciesCount = result.found
+            }
+
+            is SearchResult.PaginationLoading -> {
+                textView.text = getString(R.string.vacancy_count, vacanciesCount)
+            }
+
+            else -> {
+                textView.text = getString(R.string.not_found_search_list)
+            }
         }
 
-        recyclerViewSearch.isVisible = state == PlaceholderState.CONTENT
-        textView.isVisible = state == PlaceholderState.CONTENT || state == PlaceholderState.NOT_FOUND
+        recyclerViewSearch.isVisible = state == PlaceholderState.CONTENT || state == PlaceholderState.PAGINATION_LOADING
+        textView.isVisible =
+            state == PlaceholderState.CONTENT || state == PlaceholderState.NOT_FOUND || state == PlaceholderState.PAGINATION_LOADING
     }
 
     private fun enterSearch() {
