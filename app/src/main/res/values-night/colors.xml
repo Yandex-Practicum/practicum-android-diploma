@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+
     <color name="searchBackground">@color/dark_gray</color>
+    <color name="blackWhite">@color/white</color>
+    <color name="whiteBlack">@color/black</color>
+    <color name="darkGrayWhite">@color/white</color>
+    <color name="lightGrayDarkGray">@color/dark_gray</color>
+    <color name="DarkGraylightGray">@color/light_gray</color>
     <color name="textColor">@color/white</color>
 </resources>
