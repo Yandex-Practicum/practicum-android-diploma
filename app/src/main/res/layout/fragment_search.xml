@@ -99,27 +99,101 @@
         android:layout_weight="1"
         android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/progress_bar_search"
+        app:layout_constraintBottom_toTopOf="@id/progress_bar_pagination"
         app:layout_constraintTop_toBottomOf="@id/edit_text_search"
         tools:ignore="MissingConstraints"
         tools:itemCount="20"
         tools:listitem="@layout/item_vacancy"
         tools:visibility="visible" />
 
-    <include
-        android:id="@+id/placeholder"
-        layout="@layout/placeholder_layout"
+    <ImageView
+        android:id="@+id/no_connection_placeholder_image"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/dp_16"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/empty_favorites_list"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toTopOf="@id/bottomBorder"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
+        android:src="@drawable/placeholder_search_no_internet" />
+
+    <TextView
+        android:id="@+id/no_connection_placeholder_text"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        style="@style/PlaceholdersTextStyle"
+        android:text="@string/no_connection_placeholder_text"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/not_found_placeholder_image"
+        app:layout_constraintStart_toStartOf="@id/not_found_placeholder_image"
+        app:layout_constraintEnd_toEndOf="@id/not_found_placeholder_image"
+        android:layout_marginTop="@dimen/dp_16" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/no_connection_placeholder_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="no_connection_placeholder_image, no_connection_placeholder_text"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/not_found_placeholder_image"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/empty_favorites_list"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toTopOf="@id/bottomBorder"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
+        android:src="@drawable/placeholder_search_not_found" />
+
+    <TextView
+        android:id="@+id/not_found_placeholder_text"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        style="@style/PlaceholdersTextStyle"
+        android:text="@string/vacancies_list_not_found_placeholder_text"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/not_found_placeholder_image"
+        app:layout_constraintStart_toStartOf="@id/not_found_placeholder_image"
+        app:layout_constraintEnd_toEndOf="@id/not_found_placeholder_image"
+        android:layout_marginTop="@dimen/dp_16" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/not_found_placeholder_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="not_found_placeholder_image, not_found_placeholder_text"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/search_default_placeholder_image"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/empty_favorites_list"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toTopOf="@id/bottomBorder"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
+        android:src="@drawable/placeholder_search_looking" />
 
     <ProgressBar
         android:id="@+id/progress_bar_search"
+        style="@style/ProgressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/bottomBorder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_search"
+        tools:visibility="visible" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar_pagination"
         style="@style/ProgressBarStyle"
         android:layout_width="@dimen/dp_48"
         android:layout_height="@dimen/dp_48"
@@ -130,16 +204,13 @@
         app:layout_constraintBottom_toBottomOf="@id/bottomBorder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recycler_view_search"
-        tools:visibility="gone" />
+        tools:visibility="visible" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/bottomBorder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_end="56dp" />
-
+        style="@style/BottomMenuStyle" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

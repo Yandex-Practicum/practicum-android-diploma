@@ -16,7 +16,6 @@
     <string name="salary_to_from">от 1 000 до 1 500 €</string>
     <string name="there_are_no_such_vacancies">Таких вакансий нет</string>
     <string name="empty_favorites_list">Список пуст</string>
-    <string name="favorite_load_error">Не удалось получить\nсписок вакансий</string>
     <string name="vacancy">Вакансия</string>
     <string name="experience">Требуемый опыт</string>
     <string name="vacancy_description">Описание вакансии</string>
@@ -43,6 +42,11 @@
     <string name="experience_not_specified">Опыт не указан</string>
     <string name="schedule_not_specified">График работы не указан</string>
     <string name="unexpected_error">Неизвестная ошибка</string>
+    <string name="vacancy_count">Найдено %d вакансий</string>
+    <string name="not_found_search_list">Таких вакансий нет</string>
+    <string name="no_connection_placeholder_text">Нет интернета</string>
+    <string name="vacancies_list_not_found_placeholder_text">Не удалось получить\nсписок вакансий</string>
+
     <string name="searched_text">Найдено</string>
     <string name="vacancies_text">вакансий</string>
     <string name="server_error">Ошибка сервера</string>

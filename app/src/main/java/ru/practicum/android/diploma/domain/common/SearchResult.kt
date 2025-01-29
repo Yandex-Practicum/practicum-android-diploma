@@ -6,6 +6,7 @@ sealed interface SearchResult {
 
     data object Empty : SearchResult
     data object Loading : SearchResult
+    data object PaginationLoading : SearchResult
     data object NotFound : SearchResult
     data object NoConnection : SearchResult
 
