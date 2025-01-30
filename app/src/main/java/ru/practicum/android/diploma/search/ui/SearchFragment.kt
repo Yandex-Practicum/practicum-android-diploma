@@ -100,10 +100,10 @@ class SearchFragment : Fragment() {
                 start: Int,
                 before: Int,
                 count: Int
-            ) = updateVisibilityBasedOnInput(
-                s
-            ).also { binding.clearIcon.visibility = if (s.isNullOrEmpty()) View.GONE else View.VISIBLE
-                binding.searchIcon.visibility = if (s.isNullOrEmpty()) View.VISIBLE else View.GONE }
+            ) = updateVisibilityBasedOnInput(s).also {
+                binding.clearIcon.visibility = if (s.isNullOrEmpty()) View.GONE else View.VISIBLE
+                binding.searchIcon.visibility = if (s.isNullOrEmpty()) View.VISIBLE else View.GONE
+            }
             override fun afterTextChanged(s: Editable?) { searchOnTextChanged(s.toString()) }
         })
     }
