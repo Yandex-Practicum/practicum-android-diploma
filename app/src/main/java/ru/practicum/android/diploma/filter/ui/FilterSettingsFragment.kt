@@ -35,9 +35,9 @@ class FilterSettingsFragment : Fragment() {
             findNavController().popBackStack()
         }
         viewModel.observeState().observe(viewLifecycleOwner) {
-      //     render(it)
+            //     render(it)
         }
-        viewModel.getIndustries("Авиа")
+        viewModel.getIndustries("")
     }
 
 }

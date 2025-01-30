@@ -76,7 +76,6 @@ class Mapper {
         )
     }
 
-
     fun map(response: IndustriesResponse): List<Industry> {
         return response.result.flatMap { industryDto ->
             industryDto.industries?.map { nestedIndustryDto ->
