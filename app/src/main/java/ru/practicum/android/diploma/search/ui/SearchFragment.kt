@@ -6,7 +6,6 @@ import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,30 +37,18 @@ class SearchFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel by viewModel<SearchViewModel>()
     private var adapter: SearchAdapter? = null
-    private val handler: Handler = Handler(Looper.getMainLooper())
-    private var editTextWatcher: TextWatcher? = null
-    private var hideAdapterLoadingRunnable = Runnable {
-        adapter?.hideLoading()
-    }
+    private val handler = Handler(Looper.getMainLooper())
     private var job: Job? = null
-    private var searchVacanciesRunnable = Runnable {
-        searchOnTextChanged(textInput)
-    }
     private var textInput: String = ""
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onDestroyView() {
         adapter = null
-        handler.removeCallbacksAndMessages(this.hideAdapterLoadingRunnable)
-        editTextWatcher?.let { binding.textInput.removeTextChangedListener(it) }
+        handler.removeCallbacksAndMessages(null)
         _binding = null
         job = null
         super.onDestroyView()
@@ -69,286 +56,204 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.filterButton.setOnClickListener {
-            findNavController().navigate(R.id.action_searchFragment_to_filterSettingsFragment)
-        }
+        setupNavigation()
+        setupRecyclerView()
+        setupTextInput()
+        setupClearIcon()
+        observeViewModel()
+    }
 
-        val inputMethodManager =
-            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+    private fun setupNavigation() {
+        binding.filterButton.setOnClickListener { findNavController().navigate(
+            R.id.action_searchFragment_to_filterSettingsFragment
+        ) }
+    }
 
-        binding.initScreenPH.isVisible = true
+    private fun setupRecyclerView() {
         adapter = SearchAdapter(viewModel::showVacancyDetails)
         binding.searchVacanciesRV.adapter = adapter
-        val itemDecoration = LayoutItemDecoration(FIRST_ITEM_MARGIN_TOP).apply {
-            init(requireContext())
-        }
-        binding.searchVacanciesRV.addItemDecoration(itemDecoration)
-
-        binding.clearIcon.setOnClickListener {
-            onClearIconPressed()
-            inputMethodManager?.hideSoftInputFromWindow(view.windowToken, 0)
-        }
-
-        binding.textInput.setOnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                viewModel.searchVacancy(textInput)
-                true
-            }
-            false
-        }
-
-        editTextWatcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, ncout: Int) {
-                with(binding) {
-                    if (textInput.hasFocus() && s?.isEmpty() == true) {
-                        initScreenPH.isVisible = true
-                        textHint.isVisible = false
-                        searchVacanciesRV.isVisible = false
-                        noVacanciesFoundPH.isVisible = false
-                        noConnectionPH.isVisible = false
-                    }
-                }
-                textInput = s.toString()
-                Log.d("TextInput", "$textInput")
-                binding.clearIcon.visibility = clearButtonVisibility(s)
-                binding.searchIcon.visibility = searchIconVisibility(s)
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                Log.d("AfterTextChanged", "$s")
-                searchOnTextChanged(textInput)
-            }
-        }
-        binding.textInput.addTextChangedListener(editTextWatcher)
-
+        binding.searchVacanciesRV.addItemDecoration(
+            LayoutItemDecoration(FIRST_ITEM_MARGIN_TOP).apply { init(requireContext()) }
+        )
         binding.searchVacanciesRV.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                Log.d("OnScroll", "scrollEvent")
-                if (dy > 0) {
-                    val pos =
-                        (binding.searchVacanciesRV.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
-                    val itemsCount = adapter!!.itemCount
-                    if (pos >= itemsCount - 1) {
-                        handler.postDelayed(
-                            { loadNextPage() },
-                            DELAY_500
-                        )
-                    }
+                if (dy > 0 && (binding.searchVacanciesRV.layoutManager as LinearLayoutManager)
+                        .findLastVisibleItemPosition() >= adapter!!.itemCount - 1) {
+                    handler.postDelayed({ loadNextPage() }, DELAY_500)
                 }
             }
         })
-
-        viewModel.observeState().observe(viewLifecycleOwner) { state ->
-            Log.d("state", "$state")
-            render(state)
-        }
-
-        viewModel.getAdapterStateLiveData().observe(viewLifecycleOwner) { adapterState ->
-            Log.d("adapterState", "$adapterState")
-            renderAdapterState(adapterState)
-        }
-
-        viewModel.showVacancyDetails.observe(viewLifecycleOwner) { vacancyId ->
-            vacancyId?.let {
-                showVacancyDetails(vacancyId)
-                viewModel.resetVacancyDetails()
-            }
-        }
     }
 
-    private fun renderAdapterState(state: AdapterState) {
-        Log.d("AdapterState", "$state")
-        when (state) {
-            is AdapterState.IsLoading -> adapter?.showLoading()
-            is AdapterState.Idle -> hideAdapterLoading()
-        }
+    private fun setupTextInput() {
+        binding.textInput.setOnEditorActionListener { _, actionId, _ -> if (actionId == EditorInfo.IME_ACTION_DONE) {
+            viewModel.searchVacancy(
+                binding.textInput.text.toString()
+            ).let { true }
+        } else {
+            false
+        } }
+        binding.textInput.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+            override fun onTextChanged(
+                s: CharSequence?,
+                start: Int,
+                before: Int,
+                count: Int
+            ) = updateVisibilityBasedOnInput(
+                s
+            ).also { binding.clearIcon.visibility = if (s.isNullOrEmpty()) View.GONE else View.VISIBLE
+                binding.searchIcon.visibility = if (s.isNullOrEmpty()) View.VISIBLE else View.GONE }
+            override fun afterTextChanged(s: Editable?) { searchOnTextChanged(s.toString()) }
+        })
     }
 
-    private fun render(state: SearchViewState) {
-        when (state) {
-            is SearchViewState.Content -> showContent(state)
-            is SearchViewState.Loading -> showMainProgressBar()
-            is SearchViewState.ConnectionError -> showNoConnectionPH()
-            is SearchViewState.NotFoundError -> showNoVacanciesFoundPH()
-            is SearchViewState.ServerError -> showServerErrorPH()
-            else -> {}
-        }
+    private fun setupClearIcon() {
+        binding.clearIcon.setOnClickListener { onClearIconPressed(); (requireContext().getSystemService(
+            Context.INPUT_METHOD_SERVICE
+        ) as? InputMethodManager)?.hideSoftInputFromWindow(view?.windowToken, 0) }
     }
 
-    private fun showNoConnectionPH() {
-        when {
-            adapter?.currentList.isNullOrEmpty() -> showMainNoConnectionPH()
-            job?.isActive == true -> return
-            job?.isActive != true -> showPaginationNoConnectionPH()
-        }
+    private fun updateVisibilityBasedOnInput(s: CharSequence?) = with(binding) {
+        initScreenPH.isVisible = textInput.hasFocus() && s.isNullOrEmpty()
+        textHint.isVisible = !initScreenPH.isVisible
+        searchVacanciesRV.isVisible = !initScreenPH.isVisible
+        noVacanciesFoundPH.isVisible = false
+        noConnectionPH.isVisible = false
     }
 
-    private fun showNoVacanciesFoundPH() {
-        when {
-            adapter?.currentList.isNullOrEmpty() -> showMainNoVacanciesFoundPH()
-            job?.isActive == true -> return
-            job?.isActive != true -> showPaginationNoVacanciesPH()
-        }
+    private fun observeViewModel() {
+        viewModel.observeState().observe(viewLifecycleOwner) { render(it) }
+        viewModel.getAdapterStateLiveData().observe(viewLifecycleOwner) { renderAdapterState(it) }
+        viewModel.showVacancyDetails.observe(
+            viewLifecycleOwner
+        ) { it?.let { showVacancyDetails(it); viewModel.resetVacancyDetails() } }
     }
 
-    private fun showServerErrorPH() {
-        when {
-            adapter?.currentList.isNullOrEmpty() -> showMainServerErrorPH()
-            job?.isActive == true -> return
-            job?.isActive != true -> showPaginationServerErrorPH()
-        }
+    private fun renderAdapterState(state: AdapterState) = when (state) {
+        is AdapterState.IsLoading -> adapter?.showLoading()
+        is AdapterState.Idle -> hideAdapterLoading()
     }
 
-    private fun showMainNoConnectionPH() {
-        with(binding) {
-            noConnectionPH.isVisible = true
-            noConnectionTextHint.isVisible = true
-            initScreenPH.isVisible = false
-            textHint.isVisible = false
-            mainProgressBar.isVisible = false
-            searchVacanciesRV.isVisible = false
-            noVacanciesFoundPH.isVisible = false
-            serverErrorPH.isVisible = false
-        }
+    private fun render(state: SearchViewState) = when (state) {
+        is SearchViewState.Content -> showContent(state)
+        is SearchViewState.Loading -> showMainProgressBar()
+        is SearchViewState.ConnectionError -> showNoConnectionPH()
+        is SearchViewState.NotFoundError -> showNoVacanciesFoundPH()
+        is SearchViewState.ServerError -> showServerErrorPH()
+        else -> {}
     }
 
-    private fun showMainNoVacanciesFoundPH() {
-        with(binding) {
-            textHint.text = NO_VACANCIES_FOUND
-            textHint.isVisible = true
-            noVacanciesFoundPH.isVisible = true
-            initScreenPH.isVisible = false
-            serverErrorPH.isVisible = false
-            noConnectionPH.isVisible = false
-            mainProgressBar.isVisible = false
-            searchVacanciesRV.isVisible = false
-        }
+    private fun showNoConnectionPH() = if (adapter?.currentList.isNullOrEmpty()) {
+        showMainNoConnectionPH()
+    } else if (job?.isActive != true) {
+        showPaginationNoConnectionPH()
+    } else {}
+
+    private fun showNoVacanciesFoundPH() = if (adapter?.currentList.isNullOrEmpty()) {
+        showMainNoVacanciesFoundPH()
+    } else if (job?.isActive != true) {
+        showPaginationNoVacanciesPH()
+    } else {}
+
+    private fun showServerErrorPH() = if (adapter?.currentList.isNullOrEmpty()) {
+        showMainServerErrorPH()
+    } else if (job?.isActive != true) {
+        showPaginationServerErrorPH()
+    } else {}
+
+    private fun showMainNoConnectionPH() = with(binding) {
+        noConnectionPH.isVisible = true
+        noConnectionTextHint.isVisible = true
+        initScreenPH.isVisible = false
+        textHint.isVisible = false
+        mainProgressBar.isVisible = false
+        searchVacanciesRV.isVisible = false
+        noVacanciesFoundPH.isVisible = false
+        serverErrorPH.isVisible = false
     }
 
-    private fun showMainServerErrorPH() {
-        with(binding) {
-            serverErrorPH.isVisible = true
-            initScreenPH.isVisible = false
-            textHint.isVisible = false
-            noConnectionPH.isVisible = false
-            mainProgressBar.isVisible = false
-            searchVacanciesRV.isVisible = false
-            noVacanciesFoundPH.isVisible = false
-        }
+    private fun showMainNoVacanciesFoundPH() = with(binding) {
+        textHint.text = NO_VACANCIES_FOUND
+        textHint.isVisible = true
+        noVacanciesFoundPH.isVisible = true
+        initScreenPH.isVisible = false
+        serverErrorPH.isVisible = false
+        noConnectionPH.isVisible = false
+        mainProgressBar.isVisible = false
+        searchVacanciesRV.isVisible = false
     }
 
-    private fun showPaginationServerErrorPH() {
-        job = CoroutineScope(Dispatchers.Main).launch {
-            hideAdapterLoading()
-            Toast.makeText(requireContext(), SERVER_ERROR, Toast.LENGTH_LONG).show()
-            delay(DELAY_2000)
-        }
+    private fun showMainServerErrorPH() = with(binding) {
+        serverErrorPH.isVisible = true
+        initScreenPH.isVisible = false
+        textHint.isVisible = false
+        noConnectionPH.isVisible = false
+        mainProgressBar.isVisible = false
+        searchVacanciesRV.isVisible = false
+        noVacanciesFoundPH.isVisible = false
     }
 
-    private fun showPaginationNoVacanciesPH() {
-        job = CoroutineScope(Dispatchers.Main).launch {
-            hideAdapterLoading()
-            Toast.makeText(requireContext(), ERROR_NO_VACANCIES_FOUND, Toast.LENGTH_LONG).show()
-            delay(DELAY_2000)
-        }
+    private fun showPaginationServerErrorPH() = launchJob(SERVER_ERROR)
+    private fun showPaginationNoVacanciesPH() = launchJob(ERROR_NO_VACANCIES_FOUND)
+    private fun showPaginationNoConnectionPH() = launchJob(CHECK_YOUR_CONNECTION)
+
+    private fun showMainProgressBar() = with(binding) {
+        mainProgressBar.isVisible = true
+        initScreenPH.isVisible = false
+        textHint.isVisible = false
+        searchVacanciesRV.isVisible = false
+        noVacanciesFoundPH.isVisible = false
+        noConnectionPH.isVisible = false
+        serverErrorPH.isVisible = false
     }
 
-    private fun showPaginationNoConnectionPH() {
-        job = CoroutineScope(Dispatchers.Main).launch {
-            hideAdapterLoading()
-            Toast.makeText(requireContext(), CHECK_YOUR_CONNECTION, Toast.LENGTH_LONG).show()
-            delay(DELAY_2000)
-        }
-    }
+    private fun hideAdapterLoading() = handler.postDelayed({ adapter?.hideLoading() }, DELAY_1000)
 
-    private fun showMainProgressBar() {
-        with(binding) {
-            mainProgressBar.isVisible = true
-            initScreenPH.isVisible = false
-            textHint.isVisible = false
-            searchVacanciesRV.isVisible = false
-            noVacanciesFoundPH.isVisible = false
-            noConnectionPH.isVisible = false
-            serverErrorPH.isVisible = false
-        }
-    }
+    private fun loadNextPage() = viewModel.onLastItemReached(textInput)
 
-    private fun hideAdapterLoading() {
-        handler.postDelayed(
-            hideAdapterLoadingRunnable,
-            DELAY_1000
-        )
-    }
-
-    private fun loadNextPage() {
-        viewModel.onLastItemReached(textInput)
-    }
-
-    private fun searchOnTextChanged(query: String) {
-        with(binding) {
-            textHint.isVisible = false
-            noConnectionTextHint.isVisible = false
-            noVacanciesFoundPH.isVisible = false
-            serverErrorPH.isVisible = false
-        }
+    private fun searchOnTextChanged(query: String) = with(binding) {
+        textHint.isVisible = false
+        noConnectionTextHint.isVisible = false
+        noVacanciesFoundPH.isVisible = false
+        serverErrorPH.isVisible = false
         viewModel.searchDebounce(query)
         adapter?.submitList(emptyList())
     }
 
-    private fun onClearIconPressed() {
-        with(binding) {
-            viewModel.declineLastSearch()
-            textInput.setText("")
-            adapter?.submitList(emptyList())
-            initScreenPH.isVisible = true
-            searchVacanciesRV.isVisible = false
-            textHint.isVisible = false
-            noConnectionPH.isVisible = false
-            serverErrorPH.isVisible = false
-            mainProgressBar.isVisible = false
-        }
+    private fun onClearIconPressed() = with(binding) {
+        viewModel.declineLastSearch()
+        textInput.setText("")
+        adapter?.submitList(emptyList())
+        initScreenPH.isVisible = true
+        searchVacanciesRV.isVisible = false
+        textHint.isVisible = false
+        noConnectionPH.isVisible = false
+        serverErrorPH.isVisible = false
+        mainProgressBar.isVisible = false
     }
 
-    private fun showContent(state: SearchViewState.Content) {
-        with(binding) {
-            if (job?.isActive == true) {
-                job?.cancel()
-            }
-            adapter?.submitData(state.listItem)
-            textHint.text = state.vacanciesFoundHint
-            textHint.isVisible = true
-            searchVacanciesRV.isVisible = true
-            mainProgressBar.isVisible = false
-            noVacanciesFoundPH.isVisible = false
-            noConnectionPH.isVisible = false
-            initScreenPH.isVisible = false
-        }
+    private fun showContent(state: SearchViewState.Content) = with(binding) {
+        job?.cancel()
+        adapter?.submitData(state.listItem)
+        textHint.text = state.vacanciesFoundHint
+        textHint.isVisible = true
+        searchVacanciesRV.isVisible = true
+        mainProgressBar.isVisible = false
+        noVacanciesFoundPH.isVisible = false
+        noConnectionPH.isVisible = false
+        initScreenPH.isVisible = false
     }
 
-    private fun clearButtonVisibility(s: CharSequence?): Int {
-        return if (s.isNullOrEmpty()) {
-            View.GONE
-        } else {
-            View.VISIBLE
-        }
-    }
+    private fun showVacancyDetails(vacancyId: String) = findNavController()
+        .navigate(R.id.action_searchFragment_to_vacancyFragment, VacancyFragment.createArgs(vacancyId))
 
-    private fun searchIconVisibility(s: CharSequence?): Int {
-        return if (s.isNullOrEmpty()) {
-            View.VISIBLE
-        } else {
-            View.GONE
+    private fun launchJob(message: String) {
+        job = CoroutineScope(Dispatchers.Main).launch {
+            hideAdapterLoading()
+            Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+            delay(DELAY_2000)
         }
-    }
-
-    private fun showVacancyDetails(vacancyId: String) {
-        findNavController().navigate(
-            R.id.action_searchFragment_to_vacancyFragment,
-            VacancyFragment.createArgs(vacancyId)
-        )
     }
 
     companion object {
