@@ -3,5 +3,5 @@ package ru.practicum.android.diploma.common.data.dto
 import ru.practicum.android.diploma.filter.data.dto.model.IndustryDto
 
 data class IndustriesResponse(
-    var result: List<IndustryDto>
+    val result: List<IndustryDto>
 ) : Response()

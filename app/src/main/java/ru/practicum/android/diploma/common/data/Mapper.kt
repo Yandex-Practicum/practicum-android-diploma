@@ -3,7 +3,6 @@ package ru.practicum.android.diploma.common.data
 import ru.practicum.android.diploma.common.data.dto.IndustriesResponse
 import ru.practicum.android.diploma.common.data.dto.SearchVacancyResponse
 import ru.practicum.android.diploma.filter.data.dto.model.IndustryDto
-import ru.practicum.android.diploma.filter.domain.model.Industry
 import ru.practicum.android.diploma.search.data.dto.model.AreaDto
 import ru.practicum.android.diploma.search.data.dto.model.EmployerDto
 import ru.practicum.android.diploma.search.data.dto.model.SalaryDto
@@ -26,7 +25,7 @@ class Mapper {
     }
 
     fun map(response: SearchVacancyResponse): VacancyList {
-        val items: List<VacancyItems> = response.items.map { map(it) }
+        val items: List<VacancyItems> = response.items.map { mapVacancyItems(it) }
         return VacancyList(
             items = items,
             found = response.found ?: 0,
@@ -36,18 +35,18 @@ class Mapper {
         )
     }
 
-    fun map(searchVacancyDto: SearchVacancyDto): VacancyItems {
+    private fun mapVacancyItems(searchVacancyDto: SearchVacancyDto): VacancyItems {
         return VacancyItems(
             id = searchVacancyDto.id,
             name = searchVacancyDto.name,
             employer = searchVacancyDto.employer?.name ?: "",
             areaName = getAreaName(searchVacancyDto.area),
             iconUrl = getEmployerLogo(searchVacancyDto.employer),
-            salary = map(searchVacancyDto.salary),
+            salary = mapSalary(searchVacancyDto.salary),
         )
     }
 
-    fun map(salaryDto: SalaryDto?): Salary? {
+    private fun mapSalary(salaryDto: SalaryDto?): Salary? {
         return salaryDto?.let {
             Salary(
                 from = it.from,
@@ -74,14 +73,6 @@ class Mapper {
         return IndustriesResponse(
             result = list
         )
-    }
-
-    fun map(response: IndustriesResponse): List<Industry> {
-        return response.result.flatMap { industryDto ->
-            industryDto.industries?.map { nestedIndustryDto ->
-                Industry(id = nestedIndustryDto.id, name = nestedIndustryDto.name)
-            } ?: emptyList()
-        }.sortedBy { it.name }
     }
 
     private fun getAreaName(areaDto: AreaDto?): String = areaDto?.name ?: ""
