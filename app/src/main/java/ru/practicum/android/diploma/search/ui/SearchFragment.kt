@@ -144,23 +144,26 @@ class SearchFragment : Fragment() {
         else -> {}
     }
 
-    private fun showNoConnectionPH() = if (adapter?.currentList.isNullOrEmpty()) {
-        showMainNoConnectionPH()
-    } else if (job?.isActive != true) {
-        showPaginationNoConnectionPH()
-    } else {}
+    private fun showNoConnectionPH() {
+        when {
+            adapter?.currentList.isNullOrEmpty() -> showMainNoConnectionPH()
+            job?.isActive != true -> showPaginationNoConnectionPH()
+        }
+    }
 
-    private fun showNoVacanciesFoundPH() = if (adapter?.currentList.isNullOrEmpty()) {
-        showMainNoVacanciesFoundPH()
-    } else if (job?.isActive != true) {
-        showPaginationNoVacanciesPH()
-    } else {}
+    private fun showNoVacanciesFoundPH() {
+        when {
+            adapter?.currentList.isNullOrEmpty() -> showMainNoVacanciesFoundPH()
+            job?.isActive != true -> showPaginationNoVacanciesPH()
+        }
+    }
 
-    private fun showServerErrorPH() = if (adapter?.currentList.isNullOrEmpty()) {
-        showMainServerErrorPH()
-    } else if (job?.isActive != true) {
-        showPaginationServerErrorPH()
-    } else {}
+    private fun showServerErrorPH() {
+        when {
+            adapter?.currentList.isNullOrEmpty() -> showMainServerErrorPH()
+            job?.isActive != true -> showPaginationServerErrorPH()
+        }
+    }
 
     private fun showMainNoConnectionPH() = with(binding) {
         noConnectionPH.isVisible = true
