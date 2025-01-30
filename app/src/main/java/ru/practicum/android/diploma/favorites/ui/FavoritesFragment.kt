@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.favorites.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,8 +8,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -17,6 +18,7 @@ import ru.practicum.android.diploma.databinding.FragmentFavoritesBinding
 import ru.practicum.android.diploma.favorites.presentation.state.FavoritesScreenState
 import ru.practicum.android.diploma.favorites.presentation.viewmodel.FavoriteScreenViewModel
 import ru.practicum.android.diploma.search.domain.model.VacancyItems
+import ru.practicum.android.diploma.vacancy.ui.VacancyFragment
 
 class FavoritesFragment : Fragment(), VacancyViewHolder.OnItemClickListener {
     private var _binding: FragmentFavoritesBinding? = null
@@ -37,16 +39,6 @@ class FavoritesFragment : Fragment(), VacancyViewHolder.OnItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // / для отладки
-       /* var vacancy1 = VacancyItems("1", "Вакансия 1", "Город 1", "Работoдатель1", null, Salary(null, 50000, "РУБ"))
-        var vacancy2 = VacancyItems("2", "Вакансия 2", "Город 1", "Работoдатель2", null, Salary(20000, null, "РУБ"))
-        var vacancy3 = VacancyItems("3", "Вакансия 3", "Город 2", "Работoдатель2", null, Salary(100000, 150000, "РУБ"))
-        var vacancy4 = VacancyItems("4", "Вакансия 4", "Город 3", "Работoдатель3", null, Salary(null, null, null))
-        viewModel.insertFavoriteVacancy(vacancy1)
-        viewModel.insertFavoriteVacancy(vacancy2)
-        viewModel.insertFavoriteVacancy(vacancy3)
-        viewModel.insertFavoriteVacancy(vacancy4)*/
 
         vacancyAdapter.onItemClickListener = this
 
@@ -71,6 +63,13 @@ class FavoritesFragment : Fragment(), VacancyViewHolder.OnItemClickListener {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        viewModel.loadData()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
     private fun showError(message: String) {
         vacancyList.clear()
         vacancyAdapter.notifyDataSetChanged()
@@ -92,6 +91,7 @@ class FavoritesFragment : Fragment(), VacancyViewHolder.OnItemClickListener {
         placeholderText.text = message
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun showContent(data: List<VacancyItems>) {
         if (data.isEmpty()) {
             showError(getString(R.string.list_is_empty))
@@ -121,7 +121,14 @@ class FavoritesFragment : Fragment(), VacancyViewHolder.OnItemClickListener {
     }
 
     override fun onItemClick(item: VacancyItems) {
-        Toast.makeText(requireContext(), "Кликнули", Toast.LENGTH_LONG).show()
+        showVacancyDetails(item.id)
+    }
+
+    private fun showVacancyDetails(vacancyId: String) {
+        findNavController().navigate(
+            R.id.action_favoritesFragment_to_vacancyFragment,
+            VacancyFragment.createArgs(vacancyId)
+        )
     }
 
 }

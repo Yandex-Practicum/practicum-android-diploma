@@ -23,4 +23,6 @@
     <string name="key_skills">Ключевые навыки</string>
     <string name="vacancy_not_found">Вакансия не найдена или удалена</string>
     <string name="vacancy_server_error">Ошибка сервера</string>
+    <string name="vacancy_add_toast">Вакансия добавлена в избранное</string>
+    <string name="vacancy_del_toast">Вакансия удалена из избранного</string>
 </resources>
