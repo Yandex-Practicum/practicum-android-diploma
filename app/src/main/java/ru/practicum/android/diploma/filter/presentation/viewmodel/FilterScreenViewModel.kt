@@ -19,17 +19,17 @@ class FilterScreenViewModel(
 
     private var lastSearchText: String? = null
 
-    private val trackSearchDebounce = debounce<String>(SEARCH_DEBOUNCE_DELAY, viewModelScope, true) { changedText ->
+    private val industriesSearchDebounce = debounce<String>(SEARCH_DEBOUNCE_DELAY, viewModelScope, true) { changedText ->
         getIndustries(changedText)
     }
 
     fun searchDebounce(changedText: String) {
         if (lastSearchText != changedText) {
             lastSearchText = changedText
-            trackSearchDebounce(changedText)
+            industriesSearchDebounce(changedText)
         }
     }
-    fun getIndustries(query: String) { // получить список всех индустрий
+    private fun getIndustries(query: String) { // получить список всех индустрий
         val lowerCaseQuery = query.lowercase()
         renderState(IndustryViewState.Loading)
         viewModelScope.launch {
@@ -62,6 +62,6 @@ class FilterScreenViewModel(
     }
 
     companion object {
-        private const val SEARCH_DEBOUNCE_DELAY = 1000L
+        private const val SEARCH_DEBOUNCE_DELAY = 300L
     }
 }
