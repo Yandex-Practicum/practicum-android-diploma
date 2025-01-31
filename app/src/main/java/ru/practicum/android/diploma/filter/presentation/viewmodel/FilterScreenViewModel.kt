@@ -5,15 +5,30 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.common.util.debounce
 import ru.practicum.android.diploma.filter.domain.interactor.FilterInteractor
+import ru.practicum.android.diploma.filter.domain.model.Industry
 import ru.practicum.android.diploma.filter.domain.model.IndustryViewState
 
 class FilterScreenViewModel(
     private val filterInteractor: FilterInteractor
 ) : ViewModel() {
+    private var selectedIndustry: Industry? = null
     private val stateLiveData = MutableLiveData<IndustryViewState>()
     fun observeState(): LiveData<IndustryViewState> = stateLiveData
 
+    private var lastSearchText: String? = null
+
+    private val trackSearchDebounce = debounce<String>(SEARCH_DEBOUNCE_DELAY, viewModelScope, true) { changedText ->
+        getIndustries(changedText)
+    }
+
+    fun searchDebounce(changedText: String) {
+        if (lastSearchText != changedText) {
+            lastSearchText = changedText
+            trackSearchDebounce(changedText)
+        }
+    }
     fun getIndustries(query: String) { // получить список всех индустрий
         val lowerCaseQuery = query.lowercase()
         renderState(IndustryViewState.Loading)
@@ -41,5 +56,12 @@ class FilterScreenViewModel(
 
     private fun renderState(state: IndustryViewState) {
         stateLiveData.postValue(state)
+    }
+    fun setIndustry(industry: Industry) {
+        selectedIndustry = industry.copy(selected = false)
+    }
+
+    companion object {
+        private const val SEARCH_DEBOUNCE_DELAY = 1000L
     }
 }
