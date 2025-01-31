@@ -90,10 +90,10 @@
         android:layout_height="0dp"
         android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/btnSelectIndustry"
-        app:layout_constraintEnd_toEndOf="@id/glRightBorder_16"
-        app:layout_constraintStart_toStartOf="@id/glLeftBorder_16"
-        app:layout_constraintTop_toBottomOf="@id/llSearchIndustryField"
+        app:layout_constraintStart_toStartOf="@id/glBegin"
+        app:layout_constraintEnd_toEndOf="@id/glEnd"
+        app:layout_constraintTop_toBottomOf="@id/textInput"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:listitem="@layout/item_filter_industry" />
 
 
