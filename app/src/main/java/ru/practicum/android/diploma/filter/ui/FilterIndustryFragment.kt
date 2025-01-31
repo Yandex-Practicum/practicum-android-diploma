@@ -24,8 +24,6 @@ class FilterIndustryFragment : Fragment() {
     private val viewModel by viewModel<FilterScreenViewModel>()
     private var listAdapter = IndustryAdapter { clickOnIndustry(it) }
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,6 +40,7 @@ class FilterIndustryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.searchDebounce("")
         val textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 viewModel.searchDebounce(
@@ -60,8 +59,6 @@ class FilterIndustryFragment : Fragment() {
             }
         }
         textWatcher.let { binding.textInput.addTextChangedListener(it) }
-
-
 
         binding.topBar.setOnClickListener {
             findNavController().popBackStack()
@@ -99,6 +96,7 @@ class FilterIndustryFragment : Fragment() {
                     progressBar.isVisible = true
                     noFoundPH.isVisible = false
                     serverErrorPH.isVisible = false
+                    btnSelectIndustry.isVisible = false
                 }
             }
             is IndustryViewState.ConnectionError, is IndustryViewState.ServerError -> {
@@ -107,6 +105,7 @@ class FilterIndustryFragment : Fragment() {
                     progressBar.isVisible = false
                     noFoundPH.isVisible = false
                     serverErrorPH.isVisible = true
+                    btnSelectIndustry.isVisible = false
                 }
             }
             is IndustryViewState.NotFoundError -> {
@@ -115,6 +114,7 @@ class FilterIndustryFragment : Fragment() {
                     progressBar.isVisible = false
                     noFoundPH.isVisible = true
                     serverErrorPH.isVisible = false
+                    btnSelectIndustry.isVisible = false
                 }
             }
         }
@@ -127,7 +127,6 @@ class FilterIndustryFragment : Fragment() {
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
-
 
     private fun clickOnIndustry(industry: Industry) {
         binding.btnSelectIndustry.isVisible = true
