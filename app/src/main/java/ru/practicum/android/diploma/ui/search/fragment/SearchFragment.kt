@@ -129,6 +129,10 @@ class SearchFragment : Fragment() {
             }
         }
         binding.editTextSearch.addTextChangedListener(simpleTextWatcher)
+
+        binding.buttonFilter.setOnClickListener {
+            findNavController().navigate(R.id.action_searchFragment_to_filterCommonFragment)
+        }
     }
 
     private fun clearSearchText() {

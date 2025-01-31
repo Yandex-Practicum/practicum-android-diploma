@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     android:background="?attr/whiteToBlack"
     android:orientation="vertical"
-    android:paddingHorizontal="@dimen/dp_16"
     tools:context=".ui.filter.common.fragment.FilterCommonFragment">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         style="@style/SimpleToolbar"
+        app:contentInsetStartWithNavigation="@dimen/dp_0"
         app:navigationIcon="@drawable/ic_arrow_back_24"
         app:title="@string/filtration_settings" />
 
@@ -21,18 +21,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_16"
-        android:drawableEnd="@drawable/ic_arrow_forward_24"
-        android:gravity="center_vertical"
-        android:minHeight="@dimen/dp_60"
         android:text="@string/place_of_work" />
 
     <LinearLayout
         android:id="@+id/place_of_work_edited_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableEnd="@drawable/ic_arrow_forward_24"
         android:minHeight="@dimen/dp_60"
         android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/dp_16"
         android:visibility="gone">
 
         <LinearLayout
@@ -69,18 +66,15 @@
         style="@style/FiltrationScreenItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableEnd="@drawable/ic_arrow_forward_24"
-        android:gravity="center_vertical"
-        android:minHeight="@dimen/dp_60"
         android:text="@string/industry" />
 
     <LinearLayout
         android:id="@+id/industry_edited_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableEnd="@drawable/ic_arrow_forward_24"
         android:minHeight="@dimen/dp_60"
         android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/dp_16"
         android:visibility="gone">
 
         <LinearLayout
@@ -113,8 +107,68 @@
     </LinearLayout>
 
     <LinearLayout
+        style="@style/ExpectedSalaryEditTextContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_rounded_rectangle_48"
-        android:backgroundTint="?attr/lightGrayToGray" />
+        android:layout_marginHorizontal="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_24"
+        android:minHeight="@dimen/dp_52"
+        android:orientation="vertical">
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/RegularText12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/expected_salary"
+            android:textColor="?attr/grayToWhite" />
+
+        <EditText
+            android:id="@+id/salary_edit_text"
+            style="@style/ExpectedSalaryEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="Autofill,LabelFor" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_24">
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/RegularText16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:paddingHorizontal="@dimen/dp_16"
+            android:text="@string/do_not_show_without_salary" />
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/salary_checkbox"
+            android:layout_width="@dimen/dp_44"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            app:buttonTint="@color/blue" />
+    </FrameLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_8"
+        android:layout_marginHorizontal="@dimen/dp_16"
+        style="@style/ApplyButton"
+        android:text="@string/apply" />
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_24"
+        android:layout_marginHorizontal="@dimen/dp_16"
+        style="@style/ResetButton"
+        android:text="@string/reset" />
 </LinearLayout>
