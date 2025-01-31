@@ -62,4 +62,18 @@
         app:layout_constraintTop_toBottomOf="@id/country"
         tools:ignore="RtlSymmetry" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_select"
+        style="@style/SelectButtonTextStyle"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_60"
+        android:layout_marginBottom="@dimen/dp_24"
+        android:background="@drawable/shape_button_select"
+        android:stateListAnimator="@null"
+        android:text="@string/select"
+        android:textAllCaps="false"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/rightGuideline"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline" />
 </androidx.constraintlayout.widget.ConstraintLayout>
