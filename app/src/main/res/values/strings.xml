@@ -70,4 +70,7 @@
     <string name="not_found_region_text">Такого региона нет</string>
     <string name="get_region_error_text">Не удалось получить список</string>
     <string name="input_region_hint">Введите регион</string>
+    <string name="place_of_work">Выбор места работы</string>
+    <string name="country">Страна</string>
+    <string name="region">Регион</string>
 </resources>
