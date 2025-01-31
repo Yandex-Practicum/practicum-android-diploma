@@ -64,4 +64,6 @@
     <string name="dot_with_key_skill">• %1$s\n</string>
     <string name="no_connection_toast">Проверьте подключение к интернету</string>
     <string name="search_error_toast">Произошла ошибка</string>
+    <string name="industry_title">Название отрасли</string>
+    <string name="enter_industry">Введите отрасль</string>
 </resources>
