@@ -19,7 +19,11 @@ class FilterScreenViewModel(
 
     private var lastSearchText: String? = null
 
-    private val industriesSearchDebounce = debounce<String>(SEARCH_DEBOUNCE_DELAY, viewModelScope, true) { changedText ->
+    private val industriesSearchDebounce = debounce<String>(
+        SEARCH_DEBOUNCE_DELAY,
+        viewModelScope,
+        true
+    ) { changedText ->
         getIndustries(changedText)
     }
 
@@ -42,7 +46,7 @@ class FilterScreenViewModel(
                             val filteredIndustries = viewState.industryList.filter { industry ->
                                 industry.name.lowercase().contains(lowerCaseQuery)
                             }
-                            if(filteredIndustries.isNotEmpty()) {
+                            if (filteredIndustries.isNotEmpty()) {
                                 // Обновляем состояние с отфильтрованным списком
                                 renderState(IndustryViewState.Success(filteredIndustries))
                             } else {

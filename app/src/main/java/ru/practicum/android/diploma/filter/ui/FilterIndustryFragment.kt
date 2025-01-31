@@ -55,8 +55,7 @@ class FilterIndustryFragment : Fragment() {
                     changedText = s?.toString() ?: ""
                 )
             }
-            override fun afterTextChanged(s: Editable?) {
-            }
+            override fun afterTextChanged(s: Editable?) = Unit
         }
         textWatcher.let { binding.textInput.addTextChangedListener(it) }
 
@@ -64,13 +63,13 @@ class FilterIndustryFragment : Fragment() {
             findNavController().popBackStack()
         }
         viewModel.observeState().observe(viewLifecycleOwner) {
-                 render(it)
+            render(it)
         }
 
         binding.apply {
             rvIndustryList.adapter = listAdapter
             clearIcon.setOnClickListener {
-                if (!progressBar.isVisible){
+                if (!progressBar.isVisible) {
                     textInput.text.clear()
                     closeKeyboard()
                 }
@@ -78,44 +77,36 @@ class FilterIndustryFragment : Fragment() {
         }
     }
 
-    private fun render(state: IndustryViewState){
+    private fun render(state: IndustryViewState) {
         when (state) {
             is IndustryViewState.Success -> {
                 listAdapter.setIndustries(state.industryList)
-                binding.apply {
-                    rvIndustryList.isVisible = true
-                    progressBar.isVisible = false
-                    noFoundPH.isVisible = false
-                    serverErrorPH.isVisible = false
-                    rvIndustryList.removeAllViews()
-                }
+                binding.rvIndustryList.isVisible = true
+                binding.progressBar.isVisible = false
+                binding.noFoundPH.isVisible = false
+                binding.serverErrorPH.isVisible = false
+                binding.rvIndustryList.removeAllViews()
             }
             is IndustryViewState.Loading -> {
-                binding.apply {
-                    rvIndustryList.isVisible = false
-                    progressBar.isVisible = true
-                    noFoundPH.isVisible = false
-                    serverErrorPH.isVisible = false
-                    btnSelectIndustry.isVisible = false
-                }
+                binding.rvIndustryList.isVisible = false
+                binding.progressBar.isVisible = true
+                binding.noFoundPH.isVisible = false
+                binding.serverErrorPH.isVisible = false
+                binding.btnSelectIndustry.isVisible = false
             }
             is IndustryViewState.ConnectionError, is IndustryViewState.ServerError -> {
-                binding.apply {
-                    rvIndustryList.isVisible = false
-                    progressBar.isVisible = false
-                    noFoundPH.isVisible = false
-                    serverErrorPH.isVisible = true
-                    btnSelectIndustry.isVisible = false
-                }
+                binding.rvIndustryList.isVisible = false
+                binding.progressBar.isVisible = false
+                binding.noFoundPH.isVisible = false
+                binding.serverErrorPH.isVisible = true
+                binding.btnSelectIndustry.isVisible = false
             }
             is IndustryViewState.NotFoundError -> {
-                binding.apply {
-                    rvIndustryList.isVisible = false
-                    progressBar.isVisible = false
-                    noFoundPH.isVisible = true
-                    serverErrorPH.isVisible = false
-                    btnSelectIndustry.isVisible = false
-                }
+                binding.rvIndustryList.isVisible = false
+                binding.progressBar.isVisible = false
+                binding.noFoundPH.isVisible = true
+                binding.serverErrorPH.isVisible = false
+                binding.btnSelectIndustry.isVisible = false
             }
         }
     }

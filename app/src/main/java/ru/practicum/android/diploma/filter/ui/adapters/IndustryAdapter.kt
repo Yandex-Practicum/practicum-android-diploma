@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.databinding.ItemFilterIndustryBinding
 import ru.practicum.android.diploma.filter.domain.model.Industry
 
-class IndustryAdapter (
+class IndustryAdapter(
     private val listener: IndustryClickListener,
 ) : RecyclerView.Adapter<IndustryViewHolder>() {
 

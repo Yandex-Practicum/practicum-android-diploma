@@ -32,7 +32,7 @@ class FilterSettingsFragment : Fragment() {
         binding.topBar.setOnClickListener {
             findNavController().popBackStack()
         }
-        binding.myButton.setOnClickListener{
+        binding.myButton.setOnClickListener {
             findNavController().navigate(
                 R.id.action_filterSettingsFragment_to_filterIndustryFragment
             )

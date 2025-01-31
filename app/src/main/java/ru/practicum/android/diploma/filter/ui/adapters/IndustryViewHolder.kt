@@ -5,7 +5,7 @@ import ru.practicum.android.diploma.databinding.ItemFilterIndustryBinding
 import ru.practicum.android.diploma.filter.domain.model.Industry
 
 class IndustryViewHolder(
-val binding: ItemFilterIndustryBinding
+    val binding: ItemFilterIndustryBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(model: Industry) {

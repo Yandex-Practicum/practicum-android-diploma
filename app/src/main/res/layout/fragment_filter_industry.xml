@@ -105,7 +105,7 @@
         android:layout_marginBottom="@dimen/margin_24"
         android:background="@drawable/btn_select"
         android:gravity="center"
-        android:text="Выбрать"
+        android:text="@string/select"
         android:textAppearance="@style/TextMedium_16"
         android:textColor="@color/white"
         android:visibility="gone"
@@ -147,7 +147,7 @@
             android:layout_marginHorizontal="@dimen/margin_46"
             android:layout_marginTop="@dimen/margin_begin_end_gl_16dp"
             android:gravity="center"
-            android:text="Такой отрасли нет"
+            android:text="@string/no_such_industry"
             android:textAppearance="@style/TextMedium_22"
             android:textColor="?attr/colorOnPrimary" />
     </LinearLayout>
@@ -184,7 +184,7 @@
             android:layout_marginHorizontal="@dimen/margin_46"
             android:layout_marginTop="@dimen/margin_begin_end_gl_16dp"
             android:gravity="center"
-            android:text="Не удалось получить \nсписок"
+            android:text="@string/failed_to_get_list"
             android:textAppearance="@style/TextMedium_22"
             android:textColor="?attr/colorOnPrimary" />
     </LinearLayout>
