@@ -1,8 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/FragmentBgStyle"
     tools:context=".ui.filter.region.fragment.FilterRegionFragment">
 
-</LinearLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftGuideline"
+        style="@style/GuidelineStyle"
+        app:layout_constraintGuide_begin="@dimen/dp_16" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightGuideline"
+        style="@style/GuidelineStyle"
+        app:layout_constraintGuide_end="@dimen/dp_16" />
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        style="@style/SimpleToolbar"
+        app:contentInsetStartWithNavigation="@dimen/dp_0"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
+        app:navigationIcon="@drawable/ic_arrow_back_24"
+        app:title="@string/select_region_toolbar_text"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/edit_text_search"
+        style="@style/EditTextStyle"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:hint="@string/input_region_hint"
+        android:padding="@dimen/dp_20"
+        android:layout_marginVertical="@dimen/dp_8"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        tools:ignore="Autofill" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_search"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_0"
+        android:layout_marginTop="@dimen/dp_8"
+        android:layout_weight="1"
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_search"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:listitem="@layout/item_list"
+        tools:visibility="visible" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar_search"
+        style="@style/ProgressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/not_found_placeholder_image"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/empty_favorites_list"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
+        android:src="@drawable/placeholder_search_not_found" />
+
+    <TextView
+        android:id="@+id/not_found_placeholder_text"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        style="@style/PlaceholdersTextStyle"
+        android:text="@string/not_found_region_text"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/not_found_placeholder_image"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+        android:layout_marginTop="@dimen/dp_16" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/not_found_placeholder_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="not_found_placeholder_image, not_found_placeholder_text"
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/error_placeholder_image"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/empty_favorites_list"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
+        android:src="@drawable/placeholder_filter_no_list" />
+
+    <TextView
+        android:id="@+id/error_placeholder_text"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        style="@style/PlaceholdersTextStyle"
+        android:text="@string/get_region_error_text"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/error_placeholder_image"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+        android:layout_marginTop="@dimen/dp_16" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/error_placeholder_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="error_placeholder_image, error_placeholder_text"
+        android:visibility="visible" />
+</androidx.constraintlayout.widget.ConstraintLayout>

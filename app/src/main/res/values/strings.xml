@@ -64,4 +64,10 @@
     <string name="dot_with_key_skill">• %1$s\n</string>
     <string name="no_connection_toast">Проверьте подключение к интернету</string>
     <string name="search_error_toast">Произошла ошибка</string>
+    <string name="select_country_toolbar_text">Выбор страны</string>
+    <string name="select_region_toolbar_text">Выбор региона</string>
+    <string name="list_element_text">Элемент списка</string>
+    <string name="not_found_region_text">Такого региона нет</string>
+    <string name="get_region_error_text">Не удалось получить список</string>
+    <string name="input_region_hint">Введите регион</string>
 </resources>
