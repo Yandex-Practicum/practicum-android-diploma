@@ -195,4 +195,8 @@
         <item name="fontFamily">@font/ys_display_medium</item>
         <item name="android:textFontWeight" tools:targetApi="p">500</item>
     </style>
+
+    <style name="FiltrationScreenItem" parent="RegularText16">
+        <item name="android:textColor">@color/gray</item>
+    </style>
 </resources>

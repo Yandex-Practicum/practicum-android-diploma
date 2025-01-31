@@ -1,8 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:background="?attr/whiteToBlack"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/dp_16"
     tools:context=".ui.filter.common.fragment.FilterCommonFragment">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        style="@style/SimpleToolbar"
+        app:navigationIcon="@drawable/ic_arrow_back_24"
+        app:title="@string/filtration_settings" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/place_of_work_default"
+        style="@style/FiltrationScreenItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_16"
+        android:drawableEnd="@drawable/ic_arrow_forward_24"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/dp_60"
+        android:text="@string/place_of_work" />
+
+    <LinearLayout
+        android:id="@+id/place_of_work_edited_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/ic_arrow_forward_24"
+        android:minHeight="@dimen/dp_60"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/RegularText12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/place_of_work" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/place_of_work_edited_value"
+                style="@style/RegularText16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/place_of_work" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_close_24"
+            app:tint="?attr/blackToWhite"
+            tools:ignore="ContentDescription" />
+    </LinearLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/industry_default"
+        style="@style/FiltrationScreenItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/ic_arrow_forward_24"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/dp_60"
+        android:text="@string/industry" />
+
+    <LinearLayout
+        android:id="@+id/industry_edited_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/ic_arrow_forward_24"
+        android:minHeight="@dimen/dp_60"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/RegularText12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/place_of_work" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/industry_edited_value"
+                style="@style/RegularText16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/place_of_work" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_close_24"
+            app:tint="?attr/blackToWhite"
+            tools:ignore="ContentDescription" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_rounded_rectangle_48"
+        android:backgroundTint="?attr/lightGrayToGray" />
 </LinearLayout>
