@@ -6,6 +6,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 import retrofit2.http.QueryMap
 import ru.practicum.android.diploma.BuildConfig
+import ru.practicum.android.diploma.data.dto.AreaDto
 import ru.practicum.android.diploma.data.dto.VacanciesResponseDto
 import ru.practicum.android.diploma.data.dto.VacancyDto
 
@@ -33,4 +34,18 @@ interface HhApi {
     )
     @GET("/vacancies/{vacancy_id}")
     suspend fun getVacancyDetails(@Path("vacancy_id") id: String): VacancyDto
+
+    @Headers(
+        "Authorization: Bearer " + BuildConfig.HH_ACCESS_TOKEN,
+        "HH-User-Agent: heheru (heheru2025@gmail.com)"
+    )
+    @GET("/areas/countries")
+    suspend fun getCountries(): List<AreaDto>
+
+    @Headers(
+        "Authorization: Bearer " + BuildConfig.HH_ACCESS_TOKEN,
+        "HH-User-Agent: heheru (heheru2025@gmail.com)"
+    )
+    @GET("/areas/{area_id}")
+    suspend fun getAreaInfo(@Path("area_id") id: String): AreaDto
 }

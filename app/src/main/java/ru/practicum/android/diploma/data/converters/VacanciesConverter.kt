@@ -134,6 +134,7 @@ class VacanciesConverter {
 
     private fun AreaDto.toArea(): Area {
         return Area(
+            id = this.id,
             name = this.name,
         )
     }
