@@ -45,4 +45,7 @@
         <item name="android:background">?attr/android:colorBackground</item>
     </style>
 
+    <style name="RadioButton" parent="Widget.MaterialComponents.CompoundButton.RadioButton">
+    <item name="buttonTint">?attr/colorAccent</item>
+    </style>
 </resources>
