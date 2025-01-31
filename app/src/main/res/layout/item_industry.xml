@@ -39,18 +39,10 @@
             android:id="@+id/selectionRadioButton"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:button="null"
+            android:buttonTint="@color/blue"
             android:layout_gravity="center"
-            android:background="@drawable/radio_button_selector"
-            android:gravity="center"
-            android:focusable="true"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
             android:clickable="true" />
     </FrameLayout>
-
-
-
-
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
