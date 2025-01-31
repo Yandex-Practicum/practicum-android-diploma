@@ -88,15 +88,106 @@
         android:id="@+id/rvIndustryList"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="@id/glBegin"
         app:layout_constraintEnd_toEndOf="@id/glEnd"
         app:layout_constraintTop_toBottomOf="@id/textInput"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnSelectIndustry"
         tools:listitem="@layout/item_filter_industry" />
 
+    <TextView
+        android:id="@+id/btnSelectIndustry"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="@dimen/margin_8dp"
+        android:layout_marginBottom="@dimen/margin_24"
+        android:background="@drawable/btn_select"
+        android:gravity="center"
+        android:text="Выбрать"
+        android:textAppearance="@style/TextMedium_16"
+        android:textColor="@color/white"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/glBegin"
+        app:layout_constraintEnd_toEndOf="@id/glEnd"
+        app:layout_constraintTop_toBottomOf="@id/rvIndustryList"/>
 
+
+    <LinearLayout
+        android:id="@+id/noFoundPH"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textInput">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/ph_height"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/margin_begin_end_gl_16dp"
+            android:layout_marginTop="@dimen/margin_104"
+            android:src="@drawable/failed_to_load_vacancies_ph"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/noVacanciesFoundPHTextHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/margin_46"
+            android:layout_marginTop="@dimen/margin_begin_end_gl_16dp"
+            android:gravity="center"
+            android:text="Такой отрасли нет"
+            android:textAppearance="@style/TextMedium_22"
+            android:textColor="?attr/colorOnPrimary" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/serverErrorPH"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textInput">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/ph_height"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/margin_begin_end_gl_16dp"
+            android:layout_marginTop="@dimen/margin_104"
+            android:src="@drawable/filter_failed_get_list"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/serverErrorPHTextHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/margin_46"
+            android:layout_marginTop="@dimen/margin_begin_end_gl_16dp"
+            android:gravity="center"
+            android:text="Не удалось получить \nсписок"
+            android:textAppearance="@style/TextMedium_22"
+            android:textColor="?attr/colorOnPrimary" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,7 +12,6 @@
         android:paddingVertical="18dp"
         android:textAppearance="@style/TextRegular_16"
         android:textColor="?attr/colorOnPrimary"
-        app:layout_constrainedWidth="true"
         app:layout_constraintEnd_toStartOf="@id/rbIndustryButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
