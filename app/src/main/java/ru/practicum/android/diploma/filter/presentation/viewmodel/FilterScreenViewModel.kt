@@ -42,8 +42,12 @@ class FilterScreenViewModel(
                             val filteredIndustries = viewState.industryList.filter { industry ->
                                 industry.name.lowercase().contains(lowerCaseQuery)
                             }
-                            // Обновляем состояние с отфильтрованным списком
-                            renderState(IndustryViewState.Success(filteredIndustries))
+                            if(filteredIndustries.isNotEmpty()) {
+                                // Обновляем состояние с отфильтрованным списком
+                                renderState(IndustryViewState.Success(filteredIndustries))
+                            } else {
+                                renderState(IndustryViewState.NotFoundError)
+                            }
                         }
                         else -> {
                             // Если состояние не Success, просто рендерим его
