@@ -64,7 +64,11 @@
         android:id="@+id/filterIndustryFragment"
         android:name="ru.practicum.android.diploma.ui.filter.industry.fragment.FilterIndustryFragment"
         android:label="fragment_filter_industry"
-        tools:layout="@layout/fragment_filter_industry" />
+        tools:layout="@layout/fragment_filter_industry">
+        <action
+            android:id="@+id/action_filterIndustryFragment_to_filterCommonFragment"
+            app:destination="@id/filterCommonFragment" />
+    </fragment>
     <fragment
         android:id="@+id/filterCountryFragment"
         android:name="ru.practicum.android.diploma.ui.filter.country.fragment.FilterCountryFragment"

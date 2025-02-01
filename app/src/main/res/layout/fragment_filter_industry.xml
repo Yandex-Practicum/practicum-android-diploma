@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -59,22 +58,53 @@
         android:padding="@dimen/dp_16"
         android:src="@drawable/ic_close_24"
         android:visibility="gone"
-        tools:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@id/edit_text_search"
         app:layout_constraintEnd_toEndOf="@id/edit_text_search"
         app:layout_constraintTop_toTopOf="@id/edit_text_search"
-        tools:ignore="ContentDescription" />
+        tools:ignore="ContentDescription"
+        tools:visibility="visible" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/industryRecyclerView"
         android:layout_width="@dimen/dp_0"
         android:layout_height="@dimen/dp_0"
         android:paddingTop="@dimen/dp_8"
-        app:layout_constraintTop_toBottomOf="@id/edit_text_search"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:listitem="@layout/item_industry"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_search"
+        tools:listitem="@layout/item_industry" />
+
+    <ImageView
+        android:id="@+id/error_placeholder_image"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/empty_favorites_list"
+        android:src="@drawable/placeholder_filter_no_list"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/error_placeholder_text"
+        style="@style/PlaceholdersTextStyle"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_16"
+        android:gravity="center"
+        android:text="@string/get_region_error_text"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
+        app:layout_constraintTop_toBottomOf="@id/error_placeholder_image" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/error_placeholder_industry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="error_placeholder_image, error_placeholder_text" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_select"
@@ -90,5 +120,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/rightGuideline"
         app:layout_constraintStart_toStartOf="@id/leftGuideline" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

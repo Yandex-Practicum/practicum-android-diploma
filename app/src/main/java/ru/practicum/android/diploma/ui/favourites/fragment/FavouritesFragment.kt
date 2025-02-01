@@ -19,7 +19,7 @@ import ru.practicum.android.diploma.ui.vacancydetails.fragment.VacancyFragment
 
 class FavouritesFragment : Fragment() {
 
-    enum class PlaceholderState {
+    private enum class PlaceholderState {
         ERROR, EMPTY, LOAD
     }
 
