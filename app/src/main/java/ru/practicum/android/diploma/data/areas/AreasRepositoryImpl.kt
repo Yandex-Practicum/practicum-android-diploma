@@ -37,11 +37,7 @@ class AreasRepositoryImpl(
         when (response.resultCode) {
             ResponseCode.SUCCESS.code -> {
                 with(response as AreaDto) {
-                    // в список стран кладём только одну - страну из запроса
-                    val countries = listOf(response)
-                    // берём все дочерние регионы - они не являются странами по определению
-                    val otherAreas = response.areas.flatMap { it.areas }.sortedBy { it.name }
-
+                    val (countries, otherAreas) = splitAreas(AreasDto(areas = listOf(response)))
                     val data = areaConverter.convertAreas(countries, otherAreas)
                     return Resource.Success(data)
                 }
