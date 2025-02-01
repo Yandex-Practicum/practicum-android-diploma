@@ -39,8 +39,8 @@ interface HhApi {
         "Authorization: Bearer " + BuildConfig.HH_ACCESS_TOKEN,
         "HH-User-Agent: heheru (heheru2025@gmail.com)"
     )
-    @GET("/areas/countries")
-    suspend fun getCountries(): List<AreaDto>
+    @GET("/areas")
+    suspend fun getAreas(): List<AreaDto>
 
     @Headers(
         "Authorization: Bearer " + BuildConfig.HH_ACCESS_TOKEN,

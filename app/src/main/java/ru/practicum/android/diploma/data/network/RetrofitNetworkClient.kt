@@ -18,7 +18,7 @@ class RetrofitNetworkClient(
     private val context: Context
 ) : NetworkClient {
 
-    override suspend fun doRequestVacancies(text: String?, options: HashMap<String, Int>): Response {
+    private suspend fun doRequest(actualRequest: suspend () -> Response): Response {
         // Если подключение к интернету отсутствует
         if (!CheckNetworkConnect.isNetworkAvailable(context)) {
             return Response().apply { resultCode = ResponseCode.NO_INTERNET.code }
@@ -26,60 +26,28 @@ class RetrofitNetworkClient(
 
         return withContext(Dispatchers.IO) {
             try {
-                val response = api.searchVacancies(text = text, options = options)
+                val response = actualRequest()
                 response.apply { resultCode = ResponseCode.SUCCESS.code }
             } catch (e: HttpException) {
                 Log.w(HttpExceptionTag, e)
                 Response().apply { resultCode = ResponseCode.SERVER_ERROR.code }
             }
         }
+    }
+
+    override suspend fun doRequestVacancies(text: String?, options: HashMap<String, Int>): Response {
+        return doRequest { api.searchVacancies(text = text, options = options) }
     }
 
     override suspend fun doRequestVacancyDetails(vacancyId: String): Response {
-        if (!CheckNetworkConnect.isNetworkAvailable(context)) {
-            return Response().apply { resultCode = ResponseCode.NO_INTERNET.code }
-        }
-
-        return withContext(Dispatchers.IO) {
-            try {
-                val response = api.getVacancyDetails(vacancyId)
-                response.apply { resultCode = ResponseCode.SUCCESS.code }
-            } catch (e: HttpException) {
-                Log.w(HttpExceptionTag, e)
-                Response().apply { resultCode = ResponseCode.SERVER_ERROR.code }
-            }
-        }
-    }
-
-    override suspend fun doRequestCountries(): Response {
-        if (!CheckNetworkConnect.isNetworkAvailable(context)) {
-            return Response().apply { resultCode = ResponseCode.NO_INTERNET.code }
-        }
-
-        return withContext(Dispatchers.IO) {
-            try {
-                val response = AreasDto(api.getCountries())
-                response.apply { resultCode = ResponseCode.SUCCESS.code }
-            } catch (e: HttpException) {
-                Log.w(HttpExceptionTag, e)
-                Response().apply { resultCode = ResponseCode.SERVER_ERROR.code }
-            }
-        }
+        return doRequest { api.getVacancyDetails(vacancyId) }
     }
 
     override suspend fun doRequestArea(areaId: String): Response {
-        if (!CheckNetworkConnect.isNetworkAvailable(context)) {
-            return Response().apply { resultCode = ResponseCode.NO_INTERNET.code }
-        }
+        return doRequest { api.getAreaInfo(areaId) }
+    }
 
-        return withContext(Dispatchers.IO) {
-            try {
-                val response = api.getAreaInfo(areaId)
-                response.apply { resultCode = ResponseCode.SUCCESS.code }
-            } catch (e: HttpException) {
-                Log.w(HttpExceptionTag, e)
-                Response().apply { resultCode = ResponseCode.SERVER_ERROR.code }
-            }
-        }
+    override suspend fun doRequestAreas(): Response {
+        return doRequest { AreasDto(api.getAreas()) }
     }
 }

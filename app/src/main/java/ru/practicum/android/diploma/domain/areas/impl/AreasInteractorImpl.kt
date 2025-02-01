@@ -6,6 +6,7 @@ import ru.practicum.android.diploma.domain.Resource
 import ru.practicum.android.diploma.domain.areas.api.AreasInteractor
 import ru.practicum.android.diploma.domain.areas.api.AreasRepository
 import ru.practicum.android.diploma.domain.models.Area
+import ru.practicum.android.diploma.domain.models.Areas
 
 class AreasInteractorImpl(
     private val areasRepository: AreasRepository
@@ -14,7 +15,11 @@ class AreasInteractorImpl(
         emit(areasRepository.getCountries())
     }
 
-    override fun getRegions(countryId: String): Flow<Resource<List<Area>>> = flow {
-        emit(areasRepository.getRegions(countryId))
+    override fun getRegionsWithCountries(countryId: String?): Flow<Resource<Areas>> = flow {
+        if (countryId != null) {
+            emit(areasRepository.getAreasByCountry(countryId))
+        } else {
+            emit(areasRepository.getAllAreas())
+        }
     }
 }
