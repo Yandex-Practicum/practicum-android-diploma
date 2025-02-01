@@ -76,4 +76,13 @@
     <string name="select">Выбрать</string>
     <string name="industry_title">Название отрасли</string>
     <string name="enter_industry">Введите отрасль</string>
+
+    <string name="filtration_settings">Настройки фильтрации</string>
+    <string name="place_of_work_title">Место работы</string>
+    <string name="industry">Отрасль</string>
+    <string name="expected_salary">Ожидаемая зарплата</string>
+    <string name="enter_the_amount">Введите сумму</string>
+    <string name="do_not_show_without_salary">Не показывать без зарплаты</string>
+    <string name="apply">Применить</string>
+    <string name="reset">Сбросить</string>
 </resources>
