@@ -59,6 +59,9 @@
         <action
             android:id="@+id/action_filterCountryRegionFragment_to_filterRegionFragment"
             app:destination="@id/filterRegionFragment" />
+        <action
+            android:id="@+id/action_filterCountryRegionFragment_to_filterCommonFragment"
+            app:destination="@id/filterCommonFragment" />
     </fragment>
     <fragment
         android:id="@+id/filterIndustryFragment"
