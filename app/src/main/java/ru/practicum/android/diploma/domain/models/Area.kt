@@ -1,5 +1,7 @@
 package ru.practicum.android.diploma.domain.models
 
 data class Area(
-    val name: String?
+    val id: String,
+    val name: String?,
+    val parentId: String?
 )
