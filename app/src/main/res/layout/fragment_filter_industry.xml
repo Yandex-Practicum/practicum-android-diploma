@@ -52,15 +52,42 @@
         app:layout_constraintTop_toTopOf="@id/edit_text_search"
         tools:ignore="ContentDescription" />
 
-    <!-- RecyclerView -->
+    <ImageView
+        android:id="@+id/clear_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_16"
+        android:src="@drawable/ic_close_24"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/edit_text_search"
+        app:layout_constraintEnd_toEndOf="@id/edit_text_search"
+        app:layout_constraintTop_toTopOf="@id/edit_text_search"
+        tools:ignore="ContentDescription" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/industryRecyclerView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:paddingTop="8dp"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_0"
+        android:paddingTop="@dimen/dp_8"
         app:layout_constraintTop_toBottomOf="@id/edit_text_search"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_select"
+        style="@style/SelectButtonTextStyle"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_60"
+        android:layout_marginBottom="@dimen/dp_24"
+        android:background="@drawable/shape_button_select"
+        android:stateListAnimator="@null"
+        android:text="@string/select"
+        android:textAllCaps="false"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/rightGuideline"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

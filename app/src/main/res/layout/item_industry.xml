@@ -4,22 +4,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="6dp"
-    android:paddingBottom="6dp"
+    android:paddingTop="@dimen/dp_6"
+    android:paddingBottom="@dimen/dp_6"
     android:paddingEnd="@dimen/dp_4"
     android:paddingStart="@dimen/dp_16">
 
     <TextView
         android:id="@+id/industryName"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
+        android:textSize="@dimen/sp_16"
         android:maxLines="2"
         android:ellipsize="end"
-        android:layout_marginStart="@dimen/dp_16"
-        android:layout_marginEnd="@dimen/dp_4"
-        android:layout_marginTop="@dimen/dp_4"
-        android:layout_marginBottom="@dimen/dp_4"
         android:text="@string/industry_title"
         android:fontFamily="@font/ys_display_regular"
         android:textColor="?attr/blackToWhite"
@@ -39,12 +35,12 @@
 
         <RadioButton
             android:id="@+id/selectionRadioButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
             android:buttonTint="@color/blue"
             android:layout_gravity="center"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
+            android:minWidth="@dimen/dp_0"
+            android:minHeight="@dimen/dp_0"
             android:clickable="true" />
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
