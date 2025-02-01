@@ -7,7 +7,7 @@
         <item name="colorAccent">@color/blue</item> <!-- Основной акцентный голубой цвет -->
         <item name="colorOnPrimary">@color/white</item> <!-- Основной цвет текста и иконок -->
         <item name="colorHint">@color/gray</item><!-- Цвет полей ввода -->
-        <item name="colorHintCard">@color/light_gray</item><!-- Цвет фона названия компании -->
+        <item name="colorHintCard">@color/gray</item><!-- Цвет фона названия компании -->
         <item name="colorTextOnAccent">@color/white</item><!-- Цвет текста на основном акцентном цвете(цвет текста на кнопках) -->
         <item name="titleTextColor">@color/white</item><!-- Цвет заголовка -->
         <item name="colorRed">@color/red</item><!-- Акцентный красный цвет -->

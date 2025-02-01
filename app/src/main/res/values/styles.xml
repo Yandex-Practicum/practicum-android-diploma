@@ -32,6 +32,39 @@
     </style>
 
     <!-- Другие стили -->
+    <style name="filterLabel" parent="TextRegular_12">
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="filterLabelValue" parent="TextRegular_16">
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="filterLabelPlaceholder" parent="TextRegular_16">
+        <item name="android:textColor">?attr/hintTextColor</item>
+    </style>
+
+    <style name="editTextStyle">
+        <item name="android:textColor">?attr/colorTextSearch</item>
+        <item name="android:textColorHint">?attr/hintTextColor</item>
+        <item name="android:theme">@style/ThemeOfSearchEditText</item>
+        <item name="android:textCursorDrawable">@drawable/cursor</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:background">@drawable/edit_text</item>
+        <item name="android:drawableTint">?attr/colorTextSearch</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:paddingHorizontal">16dp</item>
+    </style>
+
+    <style name="filterBtnStyle" parent="TextRegular_16">
+        <item name="android:textColor">?attr/colorTextOnAccent</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:paddingHorizontal">8dp</item>
+        <item name="android:paddingVertical">20dp</item>
+    </style>
+
+
     <style name="FilterButtonBackground">
         <item name="android:backgroundTint">?attr/android:colorBackground</item>
     </style>
