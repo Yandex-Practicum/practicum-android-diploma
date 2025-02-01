@@ -3,7 +3,6 @@ package ru.practicum.android.diploma.data.converters
 import ru.practicum.android.diploma.data.db.entity.ShortVacancyEntity
 import ru.practicum.android.diploma.data.db.entity.VacancyEntity
 import ru.practicum.android.diploma.data.dto.AddressDto
-import ru.practicum.android.diploma.data.dto.AreaDto
 import ru.practicum.android.diploma.data.dto.EmployerDto
 import ru.practicum.android.diploma.data.dto.EmploymentFormDto
 import ru.practicum.android.diploma.data.dto.ExperienceDto
@@ -12,6 +11,7 @@ import ru.practicum.android.diploma.data.dto.SalaryDto
 import ru.practicum.android.diploma.data.dto.ScheduleDto
 import ru.practicum.android.diploma.data.dto.SkillDto
 import ru.practicum.android.diploma.data.dto.VacanciesResponseDto
+import ru.practicum.android.diploma.data.dto.VacancyAreaDto
 import ru.practicum.android.diploma.data.dto.VacancyDto
 import ru.practicum.android.diploma.domain.models.Address
 import ru.practicum.android.diploma.domain.models.Area
@@ -132,9 +132,11 @@ class VacanciesConverter {
         )
     }
 
-    private fun AreaDto.toArea(): Area {
+    private fun VacancyAreaDto.toArea(): Area {
         return Area(
+            id = this.id,
             name = this.name,
+            parentId = null // в вакансии не нужен parentId
         )
     }
 
