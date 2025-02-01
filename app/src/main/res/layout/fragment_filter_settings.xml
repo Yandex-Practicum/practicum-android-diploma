@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context="ru.practicum.android.diploma.filter.ui.FilterSettingsFragment">
 
     <androidx.constraintlayout.widget.Guideline
@@ -29,19 +29,256 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_button_back"
         app:title="@string/filter_settings"
-        app:titleTextAppearance="@style/TextMedium_22"/>
+        app:titleTextAppearance="@style/TextMedium_22" />
 
-    <Button
-        android:id="@+id/my_button"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/workplaceContainer"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@id/glEnd"
+        app:layout_constraintStart_toStartOf="@id/glBegin"
+        app:layout_constraintTop_toBottomOf="@id/topBar">
+
+        <ImageView
+            android:id="@+id/workplaceBtn"
+            android:layout_width="48dp"
+            android:layout_height="60dp"
+            android:paddingStart="24dp"
+            android:paddingVertical="18dp"
+            android:src="@drawable/ic_arrow_forward_24px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/workplaceBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/workplacePlaceholder"
+                android:layout_width="match_parent"
+                android:layout_height="19dp"
+                android:text="@string/workplace_label"
+                android:theme="@style/filterLabelPlaceholder"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/workplaceLabel"
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:text="@string/workplace_label"
+                android:theme="@style/filterLabel"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/workplaceValue"
+                android:layout_width="match_parent"
+                android:layout_height="19dp"
+                android:theme="@style/filterLabelValue"
+                android:visibility="gone"
+                tools:text="IT" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/industryContainer"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        app:layout_constraintEnd_toEndOf="@id/glEnd"
+        app:layout_constraintStart_toStartOf="@id/glBegin"
+        app:layout_constraintTop_toBottomOf="@id/workplaceContainer">
+
+        <ImageView
+            android:id="@+id/industryBtn"
+            android:layout_width="48dp"
+            android:layout_height="60dp"
+            android:paddingStart="24dp"
+            android:paddingVertical="18dp"
+            android:src="@drawable/ic_arrow_forward_24px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/industryBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/industryPlaceholder"
+                android:layout_width="match_parent"
+                android:layout_height="19dp"
+                android:text="@string/industry_label"
+                android:theme="@style/filterLabelPlaceholder"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/industryLabel"
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:text="@string/industry_label"
+                android:theme="@style/filterLabel"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/industryValue"
+                android:layout_width="match_parent"
+                android:layout_height="19dp"
+                android:theme="@style/filterLabelValue"
+                android:visibility="gone"
+                tools:text="IT" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/input_salary_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/edit_text"
+        android:orientation="vertical"
+        android:paddingVertical="8dp"
+        app:layout_constraintEnd_toEndOf="@id/glEnd"
+        app:layout_constraintStart_toStartOf="@id/glBegin"
+        app:layout_constraintTop_toBottomOf="@id/industryContainer">
+
+        <TextView
+            android:id="@+id/hint_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:text="@string/expected_salary"
+            android:textColor="@drawable/textinput_selector"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@id/input_salary"
+            app:layout_constraintStart_toStartOf="@id/input_salary_layout"
+            app:layout_constraintTop_toTopOf="@id/input_salary_layout" />
+
+        <EditText
+            android:id="@+id/input_salary"
+            style="@style/editTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_salary"
+            android:inputType="number"
+            app:layout_constraintBottom_toBottomOf="@id/input_salary_layout"
+            app:layout_constraintEnd_toStartOf="@id/clear_salary_button"
+            app:layout_constraintStart_toStartOf="@id/input_salary_layout"
+            app:layout_constraintTop_toBottomOf="@id/hint_title" />
+
+        <ImageView
+            android:id="@+id/clear_salary_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:backgroundTint="@color/light_gray"
+            android:src="@drawable/close_24px"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/input_salary_layout"
+            app:layout_constraintEnd_toEndOf="@+id/input_salary_layout"
+            app:layout_constraintStart_toEndOf="@id/input_salary"
+            app:layout_constraintTop_toTopOf="@+id/input_salary_layout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/checkboxLayout"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@id/glEnd"
+        app:layout_constraintStart_toStartOf="@id/glBegin"
+        app:layout_constraintTop_toBottomOf="@id/input_salary_layout">
+
+        <TextView
+            android:id="@+id/checkboxTitle"
+            style="@style/TextRegular_16"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="start"
+            android:text="@string/dont_show_without_sallary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/checkBox"/>
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:buttonTint="?attr/colorAccent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/checkboxTitle"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/bottomBorder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Переход к экрану Отрасли"
-        app:layout_constraintTop_toBottomOf="@id/topBar"
-        app:layout_constraintStart_toStartOf="@id/glBegin"
-        app:layout_constraintEnd_toEndOf="@id/glEnd"
-        android:textColor="@android:color/white"
-        android:padding="16dp" />
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintGuide_end="150dp" />
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/submit_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/blue"
+        android:visibility="visible"
+        app:cardCornerRadius="12dp"
+        app:layout_constraintBottom_toTopOf="@id/submit_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/bottomBorder">
 
+        <TextView
+            style="@style/filterBtnStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/apply_button" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/reset_button"
+        style="@style/filterBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="?attr/android:windowBackground"
+        android:gravity="center"
+        android:text="@string/reset_filter"
+        android:textColor="@color/red"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/submit_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
