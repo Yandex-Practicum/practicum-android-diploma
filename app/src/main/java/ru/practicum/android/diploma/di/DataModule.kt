@@ -11,9 +11,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.areas.AreasRepositoryImpl
 import ru.practicum.android.diploma.data.converters.AreaConverter
+import ru.practicum.android.diploma.data.converters.IndustriesConverter
 import ru.practicum.android.diploma.data.converters.VacanciesConverter
 import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.data.db.FavoritesRepositoryImpl
+import ru.practicum.android.diploma.data.industries.IndustriesRepositoryImpl
 import ru.practicum.android.diploma.data.network.HhApi
 import ru.practicum.android.diploma.data.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.data.search.VacanciesRepositoryImpl
@@ -21,6 +23,7 @@ import ru.practicum.android.diploma.data.sharing.ExternalNavigatorImpl
 import ru.practicum.android.diploma.data.vacancydetails.VacancyDetailsRepositoryImpl
 import ru.practicum.android.diploma.domain.areas.api.AreasRepository
 import ru.practicum.android.diploma.domain.favorites.api.FavoritesRepository
+import ru.practicum.android.diploma.domain.industries.api.IndustriesRepository
 import ru.practicum.android.diploma.domain.search.api.VacanciesRepository
 import ru.practicum.android.diploma.domain.sharing.api.ExternalNavigator
 import ru.practicum.android.diploma.domain.vacancydetails.api.VacancyDetailsRepository
@@ -82,5 +85,11 @@ val dataModule = module {
 
     single<AreasRepository> {
         AreasRepositoryImpl(get(), get())
+    }
+
+    factory { IndustriesConverter() }
+
+    single<IndustriesRepository> {
+        IndustriesRepositoryImpl(get(), get())
     }
 }

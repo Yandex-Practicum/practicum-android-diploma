@@ -5,6 +5,8 @@ import ru.practicum.android.diploma.domain.areas.api.AreasInteractor
 import ru.practicum.android.diploma.domain.areas.impl.AreasInteractorImpl
 import ru.practicum.android.diploma.domain.favorites.api.FavoritesInteractor
 import ru.practicum.android.diploma.domain.favorites.impl.FavoritesInteractorImpl
+import ru.practicum.android.diploma.domain.industries.api.IndustriesInteractor
+import ru.practicum.android.diploma.domain.industries.impl.IndustriesInteractorImpl
 import ru.practicum.android.diploma.domain.search.api.VacanciesInteractor
 import ru.practicum.android.diploma.domain.search.impl.VacanciesInteractorImpl
 import ru.practicum.android.diploma.domain.sharing.api.ShareVacancyUseCase
@@ -31,5 +33,9 @@ val domainModule = module {
 
     factory<AreasInteractor> {
         AreasInteractorImpl(get())
+    }
+
+    factory<IndustriesInteractor> {
+        IndustriesInteractorImpl(get())
     }
 }
