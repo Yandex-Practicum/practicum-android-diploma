@@ -7,6 +7,7 @@ import retrofit2.http.Query
 import retrofit2.http.QueryMap
 import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.data.dto.AreaDto
+import ru.practicum.android.diploma.data.dto.IndustryDto
 import ru.practicum.android.diploma.data.dto.VacanciesResponseDto
 import ru.practicum.android.diploma.data.dto.VacancyDto
 
@@ -48,4 +49,11 @@ interface HhApi {
     )
     @GET("/areas/{area_id}")
     suspend fun getAreaInfo(@Path("area_id") id: String): AreaDto
+
+    @Headers(
+        "Authorization: Bearer " + BuildConfig.HH_ACCESS_TOKEN,
+        "HH-User-Agent: heheru (heheru2025@gmail.com)"
+    )
+    @GET("/industries")
+    suspend fun getIndustries(): List<IndustryDto>
 }

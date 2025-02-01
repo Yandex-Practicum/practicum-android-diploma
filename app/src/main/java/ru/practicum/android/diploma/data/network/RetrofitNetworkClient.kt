@@ -7,6 +7,7 @@ import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.dto.AreasDto
+import ru.practicum.android.diploma.data.dto.IndustriesResponseDto
 import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.util.ResponseCode
 import ru.practicum.android.diploma.util.network.CheckNetworkConnect
@@ -49,5 +50,9 @@ class RetrofitNetworkClient(
 
     override suspend fun doRequestAreas(): Response {
         return doRequest { AreasDto(api.getAreas()) }
+    }
+
+    override suspend fun doRequestIndustries(): Response {
+        return doRequest { IndustriesResponseDto(industries = api.getIndustries()) }
     }
 }
