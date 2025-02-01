@@ -1,9 +1,16 @@
 package ru.practicum.android.diploma.ui.filter.common.fragment
 
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat.getColor
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.R
@@ -13,10 +20,6 @@ class FilterCommonFragment : Fragment() {
 
     private var _binding: FragmentFilterCommonBinding? = null
     private val binding get() = _binding!!
-
-//    private val salaryTextWatcher: TextWatcher by lazy {
-//        createSalaryTextWatcher()
-//    }
 
     private var expectedSalary: Int? = null
     private var withoutSalary: Boolean = false
@@ -36,7 +39,7 @@ class FilterCommonFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupListeners()
-//        setupSalaryField()
+        setupSalaryField()
     }
 
     private fun setupListeners() {
@@ -64,74 +67,56 @@ class FilterCommonFragment : Fragment() {
             withoutSalary = isChecked
         }
 
-//        binding.clearButton.setOnClickListener {
-// //            binding.salaryEditText.removeTextChangedListener(salaryTextWatcher)
-//            binding.salaryEditText.setText("")
-//            // текст меняется на пустой и перезаписывается
-//            expectedSalary = null
-// //            binding.salaryEditText.addTextChangedListener(salaryTextWatcher)
-//            hideKeyboard(it)
-//        }
+        binding.clearButton.setOnClickListener {
+            expectedSalary = null
+            binding.salaryEditText.setText(TEXT_EMPTY)
+            binding.clearButton.isVisible = false
+            hideKeyboard(it)
+        }
     }
 
-//    private fun setupSalaryField() {
-//        binding.salaryEditText.addTextChangedListener(salaryTextWatcher)
-//
-//        binding.salaryEditText.setOnEditorActionListener { _, actionId, _ ->
-//            if (actionId == EditorInfo.IME_ACTION_DONE) {
-//                // текст поменялся
-//                expectedSalary = null
-//            }
-//            false
-//        }
-//
-//        binding.salaryEditText.setOnFocusChangeListener { _, hasFocus ->
-//
-//            if (hasFocus && binding.salaryEditText.text.isEmpty()) {
-//                // Текст поменялся на пустой
-//                expectedSalary = null
-//            }
-//            // текст НЕ ПУСТОЙ
-//        }
-//    }
-//
-//    private fun createSalaryTextWatcher(): TextWatcher {
-//        return object : TextWatcher {
-//            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-//
-//            override fun onTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int) {
-// //                if (!charSequence.isNullOrEmpty()) {
-// //                    // ТЕКСТ ПОМЕНЯЛСЯ И НЕ ПУСТОЙ
-// //                    expectedSalary = charSequence.toString().toInt()
-// //                }
-// //                expectedSalary = charSequence?.toString()?.toIntOrNull()
-// //                binding.clearButton.isVisible = clearButtonVisibility(charSequence)
-//
-//                if (binding.salaryEditText.hasFocus() && charSequence?.isEmpty() == true) {
-//                    // ТЕКСТ ПОМЕНЯЛСЯ НА ПУСТОЙ
-//                    expectedSalary = null
-//                }
-//
-//                // ТЕКСТ ПОМЕНЯЛСЯ
-//                expectedSalary = charSequence?.toString()?.toInt()
-//            }
-//
-//            override fun afterTextChanged(p0: Editable?) {}
-//
-//        }
-//    }
-//
-// //    private fun clearButtonVisibility(s: CharSequence?): Boolean {
-// //        return !s.isNullOrEmpty()
-// //    }
-//
-//    private fun hideKeyboard(view: View) {
-//        val inputMethodManager: InputMethodManager? =
-//            requireContext().getSystemService(INPUT_METHOD_SERVICE) as? InputMethodManager
-//        inputMethodManager?.hideSoftInputFromWindow(view.windowToken, 0)
-//    }
-//
-// //    companion object {
-// //        const val TEXT_EMPTY = ""
-// //    }
+
+    private fun setupSalaryField() {
+        binding.salaryEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                expectedSalary = binding.salaryEditText.text.toString().takeIf { it.isNotEmpty() }
+                    ?.toIntOrNull()
+
+                binding.clearButton.isVisible = clearButtonVisibility(s)
+                updateExpectedSalaryTitleTextColor(s)
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+    }
+
+    private fun clearButtonVisibility(s: CharSequence?): Boolean {
+        return !s.isNullOrEmpty()
+    }
+
+    private fun updateExpectedSalaryTitleTextColor(s: CharSequence?) {
+        if (!s.isNullOrEmpty()) {
+            binding.expectedSalaryTitle.setTextColor(getColor(requireContext(), R.color.blue))
+        } else {
+            binding.expectedSalaryTitle.setTextColor(getColorFromAttr(R.attr.grayToWhite))
+        }
+    }
+
+    private fun getColorFromAttr(attr: Int): Int {
+        val typedValue = TypedValue()
+        requireContext().theme.resolveAttribute(attr, typedValue, true)
+        return typedValue.data
+    }
+
+    private fun hideKeyboard(view: View) {
+        val inputMethodManager: InputMethodManager? =
+            requireContext().getSystemService(INPUT_METHOD_SERVICE) as? InputMethodManager
+        inputMethodManager?.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+    
+    companion object {
+        const val TEXT_EMPTY = ""
+    }
 }
