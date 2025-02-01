@@ -19,7 +19,7 @@ import ru.practicum.android.diploma.util.FilterNames
 
 class FilterCountryRegionFragment : Fragment() {
 
-    private lateinit var binding: FragmentFilterCountryRegionBinding
+    private var binding: FragmentFilterCountryRegionBinding? = null
     private val sharedPreferences: SharedPreferences by lazy {
         requireActivity().getSharedPreferences("location_prefs", Context.MODE_PRIVATE)
     }
@@ -32,10 +32,9 @@ class FilterCountryRegionFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-
-    ): View {
+    ): View? {
         binding = FragmentFilterCountryRegionBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -68,29 +67,36 @@ class FilterCountryRegionFragment : Fragment() {
     }
 
     private fun backButton() {
-        binding.toolbar.setNavigationOnClickListener {
+        binding?.toolbar?.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
     }
 
     private fun setupListeners() {
-        setupFieldListeners(
-            view = binding.country,
-            onClearField = { viewModel.clearCountry() },
-            onClickEmptyField = {
-                findNavController().navigate(R.id.action_filterCountryRegionFragment_to_filterCountryFragment)
-            },
-        )
-        setupFieldListeners(
-            view = binding.region,
-            onClearField = { viewModel.clearRegion() },
-            onClickEmptyField = {
-                val bundle = Bundle().apply {
-                    putString(FilterNames.COUNTRY_ID, viewModel.countryId.value)
-                }
-                findNavController().navigate(R.id.action_filterCountryRegionFragment_to_filterRegionFragment, bundle)
-            },
-        )
+        binding?.let {
+            setupFieldListeners(
+                view = it.country,
+                onClearField = { viewModel.clearCountry() },
+                onClickEmptyField = {
+                    findNavController().navigate(R.id.action_filterCountryRegionFragment_to_filterCountryFragment)
+                },
+            )
+        }
+        binding?.let {
+            setupFieldListeners(
+                view = it.region,
+                onClearField = { viewModel.clearRegion() },
+                onClickEmptyField = {
+                    val bundle = Bundle().apply {
+                        putString(FilterNames.COUNTRY_ID, viewModel.countryId.value)
+                    }
+                    findNavController().navigate(
+                        R.id.action_filterCountryRegionFragment_to_filterRegionFragment,
+                        bundle
+                    )
+                },
+            )
+        }
     }
 
     private fun setupFieldListeners(
@@ -135,15 +141,15 @@ class FilterCountryRegionFragment : Fragment() {
     }
 
     private fun renderCountry(countryName: String?) {
-        binding.country.editText?.setText(countryName)
+        binding?.country?.editText?.setText(countryName)
     }
 
     private fun renderRegion(regionName: String?) {
-        binding.region.editText?.setText(regionName)
+        binding?.region?.editText?.setText(regionName)
     }
 
     private fun selectButton() {
-        binding.buttonSelect.setOnClickListener {
+        binding?.buttonSelect?.setOnClickListener {
             viewModel.saveFilter()
             val bundle = Bundle().apply {
                 putString(FilterNames.COUNTRY_ID, viewModel.countryId.value)
