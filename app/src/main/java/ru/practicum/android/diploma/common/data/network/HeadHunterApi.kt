@@ -5,7 +5,9 @@ import retrofit2.http.Headers
 import retrofit2.http.Path
 import retrofit2.http.QueryMap
 import ru.practicum.android.diploma.BuildConfig
+import ru.practicum.android.diploma.common.data.dto.region.SearchRegionResponse
 import ru.practicum.android.diploma.common.data.dto.SearchVacancyResponse
+import ru.practicum.android.diploma.filter.data.dto.model.AreaDto
 import ru.practicum.android.diploma.filter.data.dto.model.IndustryDto
 import ru.practicum.android.diploma.vacancy.data.network.VacancyDetailsResponse
 
@@ -22,4 +24,10 @@ interface HeadHunterApi {
 
     @GET("industries")
     suspend fun getIndustries(): List<IndustryDto> // IndustriesResponse
+
+    @GET("areas/{area_id}")
+    suspend fun searchRegionsById(@Path ("area_id") areaId: Int): SearchRegionResponse
+
+    @GET("areas")
+    suspend fun getAllRegions(): List<AreaDto>
 }

@@ -48,4 +48,8 @@
     <style name="RadioButton" parent="Widget.MaterialComponents.CompoundButton.RadioButton">
     <item name="buttonTint">?attr/colorAccent</item>
     </style>
+
+    <style name="LeadingButton">
+        <item name="buttonTint">?attr/colorOnPrimary</item>
+    </style>
 </resources>

@@ -1,5 +1,7 @@
 package ru.practicum.android.diploma.common.util
 
+import ru.practicum.android.diploma.filter.data.dto.model.AreaDto
+import ru.practicum.android.diploma.filter.domain.model.City
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.Locale
