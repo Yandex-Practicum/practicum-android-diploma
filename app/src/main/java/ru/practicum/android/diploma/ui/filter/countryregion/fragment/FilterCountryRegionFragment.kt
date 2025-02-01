@@ -1,7 +1,5 @@
 package ru.practicum.android.diploma.ui.filter.countryregion.fragment
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,12 +18,14 @@ import ru.practicum.android.diploma.util.FilterNames
 class FilterCountryRegionFragment : Fragment() {
 
     private var binding: FragmentFilterCountryRegionBinding? = null
-    private val sharedPreferences: SharedPreferences by lazy {
-        requireActivity().getSharedPreferences("location_prefs", Context.MODE_PRIVATE)
-    }
+
+    private var countryId: String? = null
+    private var countryName: String? = null
+    private var regionId: String? = null
+    private var regionName: String? = null
 
     private val viewModel: FilterCountryRegionViewModel by lazy {
-        FilterCountryRegionViewModel(sharedPreferences)
+        FilterCountryRegionViewModel()
     }
 
     override fun onCreateView(
@@ -45,10 +45,10 @@ class FilterCountryRegionFragment : Fragment() {
         selectButton()
 
         arguments?.let {
-            val countryId = it.getString(FilterNames.COUNTRY_ID)
-            val countryName = it.getString(FilterNames.COUNTRY_NAME)
-            val regionId = it.getString(FilterNames.REGION_ID)
-            val regionName = it.getString(FilterNames.REGION_NAME)
+            countryId = it.getString(FilterNames.COUNTRY_ID)
+            countryName = it.getString(FilterNames.COUNTRY_NAME)
+            regionId = it.getString(FilterNames.REGION_ID)
+            regionName = it.getString(FilterNames.REGION_NAME)
 
             viewModel.setCountry(countryId, countryName)
             viewModel.setRegion(regionId, regionName)
@@ -150,12 +150,11 @@ class FilterCountryRegionFragment : Fragment() {
 
     private fun selectButton() {
         binding?.buttonSelect?.setOnClickListener {
-            viewModel.saveFilter()
             val bundle = Bundle().apply {
-                putString(FilterNames.COUNTRY_ID, viewModel.countryId.value)
-                putString(FilterNames.COUNTRY_NAME, viewModel.countryName.value)
-                putString(FilterNames.REGION_ID, viewModel.regionId.value)
-                putString(FilterNames.REGION_NAME, viewModel.regionName.value)
+                putString(FilterNames.COUNTRY_ID, countryId)
+                putString(FilterNames.COUNTRY_NAME, countryName)
+                putString(FilterNames.REGION_ID, regionId)
+                putString(FilterNames.REGION_NAME, regionName)
             }
             findNavController().navigate(R.id.action_filterCountryRegionFragment_to_filterCommonFragment, bundle)
         }
