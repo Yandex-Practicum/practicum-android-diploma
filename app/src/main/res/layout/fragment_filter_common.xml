@@ -122,6 +122,7 @@
             android:orientation="vertical">
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/expected_salary_title"
                 style="@style/RegularText12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
