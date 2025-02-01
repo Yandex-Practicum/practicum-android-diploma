@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -77,9 +78,19 @@ class SearchFragment : Fragment() {
         )
         binding.searchVacanciesRV.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if (dy > 0 && (binding.searchVacanciesRV.layoutManager as LinearLayoutManager)
-                        .findLastVisibleItemPosition() >= adapter!!.itemCount - 1) {
-                    handler.postDelayed({ loadNextPage() }, DELAY_500)
+                super.onScrolled(recyclerView, dx, dy)
+                Log.d("OnScroll", "scrollEvent")
+                if (dy > 0) {
+                    val pos =
+                        (binding.searchVacanciesRV.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                    val itemsCount = adapter!!.itemCount - 1
+                    Log.d("OnScroll", "pos: $pos, itemsCount: $itemsCount")
+                    if (pos >= itemsCount) {
+                        handler.postDelayed(
+                            { loadNextPage() },
+                            DELAY_500
+                        )
+                    }
                 }
             }
         })
@@ -101,6 +112,7 @@ class SearchFragment : Fragment() {
                 before: Int,
                 count: Int
             ) = updateVisibilityBasedOnInput(s).also {
+                textInput = s.toString()
                 binding.clearIcon.visibility = if (s.isNullOrEmpty()) View.GONE else View.VISIBLE
                 binding.searchIcon.visibility = if (s.isNullOrEmpty()) View.VISIBLE else View.GONE
             }
