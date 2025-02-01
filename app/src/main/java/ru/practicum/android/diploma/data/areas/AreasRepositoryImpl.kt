@@ -7,7 +7,7 @@ import ru.practicum.android.diploma.data.dto.AreasDto
 import ru.practicum.android.diploma.domain.Resource
 import ru.practicum.android.diploma.domain.areas.api.AreasRepository
 import ru.practicum.android.diploma.domain.models.Area
-import ru.practicum.android.diploma.domain.models.Areas
+import ru.practicum.android.diploma.domain.models.Places
 import ru.practicum.android.diploma.util.ResponseCode
 
 class AreasRepositoryImpl(
@@ -31,7 +31,7 @@ class AreasRepositoryImpl(
         }
     }
 
-    override suspend fun getAreasByCountry(countryId: String): Resource<Areas> {
+    override suspend fun getAreasByCountry(countryId: String): Resource<Places> {
         val response = networkClient.doRequestArea(countryId)
 
         when (response.resultCode) {
@@ -48,7 +48,7 @@ class AreasRepositoryImpl(
         }
     }
 
-    override suspend fun getAllAreas(): Resource<Areas> {
+    override suspend fun getAllAreas(): Resource<Places> {
         val response = networkClient.doRequestAreas()
 
         when (response.resultCode) {
