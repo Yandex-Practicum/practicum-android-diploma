@@ -1,8 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:background="?attr/whiteToBlack"
+    android:orientation="vertical"
     tools:context=".ui.filter.common.fragment.FilterCommonFragment">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        style="@style/SimpleToolbar"
+        app:contentInsetStartWithNavigation="@dimen/dp_0"
+        app:navigationIcon="@drawable/ic_arrow_back_24"
+        app:title="@string/filtration_settings" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/place_of_work_default"
+        style="@style/FiltrationScreenItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_16"
+        android:text="@string/place_of_work" />
+
+    <LinearLayout
+        android:id="@+id/place_of_work_edited_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/dp_60"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/dp_16"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/RegularText12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/place_of_work" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/place_of_work_edited_value"
+                style="@style/RegularText16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/place_of_work" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_close_24"
+            app:tint="?attr/blackToWhite"
+            tools:ignore="ContentDescription" />
+    </LinearLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/industry_default"
+        style="@style/FiltrationScreenItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/industry" />
+
+    <LinearLayout
+        android:id="@+id/industry_edited_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/dp_60"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/dp_16"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/RegularText12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/place_of_work" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/industry_edited_value"
+                style="@style/RegularText16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/place_of_work" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_close_24"
+            app:tint="?attr/blackToWhite"
+            tools:ignore="ContentDescription" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/ExpectedSalaryEditTextContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_24"
+        android:minHeight="@dimen/dp_52"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/RegularText12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/expected_salary"
+                android:textColor="?attr/grayToWhite" />
+
+            <EditText
+                android:id="@+id/salary_edit_text"
+                style="@style/ExpectedSalaryEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:ignore="Autofill,LabelFor" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/clear_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:src="@drawable/ic_close_24"
+            android:visibility="gone"
+            tools:ignore="ContentDescription" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_24">
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/RegularText16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:paddingHorizontal="@dimen/dp_16"
+            android:text="@string/do_not_show_without_salary" />
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/salary_checkbox"
+            android:layout_width="@dimen/dp_44"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            app:buttonTint="@color/blue" />
+    </FrameLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/apply_button"
+        style="@style/ApplyButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp_16"
+        android:layout_marginBottom="@dimen/dp_8"
+        android:text="@string/apply" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/reset_button"
+        style="@style/ResetButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp_16"
+        android:layout_marginBottom="@dimen/dp_24"
+        android:text="@string/reset" />
 </LinearLayout>

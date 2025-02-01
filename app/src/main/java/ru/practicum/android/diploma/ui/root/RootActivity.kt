@@ -30,7 +30,7 @@ class RootActivity : AppCompatActivity() {
                     binding.divider.visibility = View.GONE
                 }
 
-                R.id.vacancyFragment -> {
+                R.id.filterCommonFragment -> {
                     binding.bottomNavigationView.visibility = View.GONE
                     binding.divider.visibility = View.GONE
                 }
