@@ -75,10 +75,11 @@ class FilterCommonFragment : Fragment() {
         }
     }
 
-
     private fun setupSalaryField() {
         binding.salaryEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // Ничего не делаем
+            }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 expectedSalary = binding.salaryEditText.text.toString().takeIf { it.isNotEmpty() }
@@ -88,7 +89,9 @@ class FilterCommonFragment : Fragment() {
                 updateExpectedSalaryTitleTextColor(s)
             }
 
-            override fun afterTextChanged(s: Editable?) {}
+            override fun afterTextChanged(s: Editable?) {
+                // Ничего не делаем
+            }
         })
     }
 
@@ -115,7 +118,7 @@ class FilterCommonFragment : Fragment() {
             requireContext().getSystemService(INPUT_METHOD_SERVICE) as? InputMethodManager
         inputMethodManager?.hideSoftInputFromWindow(view.windowToken, 0)
     }
-    
+
     companion object {
         const val TEXT_EMPTY = ""
     }
