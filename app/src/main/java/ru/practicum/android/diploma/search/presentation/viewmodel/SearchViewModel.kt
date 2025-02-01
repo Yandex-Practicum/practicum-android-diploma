@@ -95,7 +95,7 @@ class SearchViewModel(
     }
 
     fun onLastItemReached(query: String) {
-        if (!(currentPage != maxPages && maxPages != 0) || this.latestSearchQuery != query) {
+        if (!(currentPage != maxPages && maxPages != 0) || !this.latestSearchQuery.equals(query)) {
             return
         } else if (query.isNotEmpty()) {
             if (!isNextPageLoading) {
@@ -151,9 +151,12 @@ class SearchViewModel(
             this.maxPages = state.vacancyList.pages
             Log.d("NewpageVacancies", "${state.vacancyList.items.size}")
             Log.d("VacanciesFound", "${state.vacancyList.items}")
+
+            val updatedItems = state.vacancyList.items.map { vacancy -> mapper.map(vacancy) }
+
             stateLiveData.postValue(
                 SearchViewState.Content(
-                    state.vacancyList.items.map { vacancy -> mapper.map(vacancy) },
+                    updatedItems,
                     makeFoundVacanciesHint(state.vacancyList.found)
                 )
             )
