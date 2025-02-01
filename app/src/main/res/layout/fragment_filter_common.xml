@@ -113,21 +113,37 @@
         android:layout_marginHorizontal="@dimen/dp_16"
         android:layout_marginTop="@dimen/dp_24"
         android:minHeight="@dimen/dp_52"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
-        <com.google.android.material.textview.MaterialTextView
-            style="@style/RegularText12"
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/RegularText12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/expected_salary"
+                android:textColor="?attr/grayToWhite" />
+
+            <EditText
+                android:id="@+id/salary_edit_text"
+                style="@style/ExpectedSalaryEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:ignore="Autofill,LabelFor" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/clear_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/expected_salary"
-            android:textColor="?attr/grayToWhite" />
-
-        <EditText
-            android:id="@+id/salary_edit_text"
-            style="@style/ExpectedSalaryEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:ignore="Autofill,LabelFor" />
+            android:layout_gravity="end|center_vertical"
+            android:src="@drawable/ic_close_24"
+            android:visibility="gone"
+            tools:ignore="ContentDescription" />
     </LinearLayout>
 
     <FrameLayout
@@ -157,18 +173,20 @@
         android:layout_weight="1" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/apply_button"
+        style="@style/ApplyButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dp_8"
         android:layout_marginHorizontal="@dimen/dp_16"
-        style="@style/ApplyButton"
+        android:layout_marginBottom="@dimen/dp_8"
         android:text="@string/apply" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/reset_button"
+        style="@style/ResetButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dp_24"
         android:layout_marginHorizontal="@dimen/dp_16"
-        style="@style/ResetButton"
+        android:layout_marginBottom="@dimen/dp_24"
         android:text="@string/reset" />
 </LinearLayout>
