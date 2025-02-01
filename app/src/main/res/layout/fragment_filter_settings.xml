@@ -31,5 +31,17 @@
         app:title="@string/filter_settings"
         app:titleTextAppearance="@style/TextMedium_22"/>
 
+    <Button
+        android:id="@+id/my_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Переход к экрану Отрасли"
+        app:layout_constraintTop_toBottomOf="@id/topBar"
+        app:layout_constraintStart_toStartOf="@id/glBegin"
+        app:layout_constraintEnd_toEndOf="@id/glEnd"
+        android:textColor="@android:color/white"
+        android:padding="16dp" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

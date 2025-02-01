@@ -85,7 +85,7 @@ val dataModule = module {
     }
 
     factory<FilterRepository> {
-        FilterRepositoryImpl(get(), get(), get())
+        FilterRepositoryImpl(get())
     }
 
     factory<SearchRepository> {
