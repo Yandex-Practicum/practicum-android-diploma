@@ -152,9 +152,7 @@ class SearchViewModel(
             Log.d("NewpageVacancies", "${state.vacancyList.items.size}")
             Log.d("VacanciesFound", "${state.vacancyList.items}")
 
-            val newItems = state.vacancyList.items.map { vacancy -> mapper.map(vacancy) }
-            val currentItems = (stateLiveData.value as? SearchViewState.Content)?.listItem ?: emptyList()
-            val updatedItems = currentItems + newItems
+            val updatedItems = state.vacancyList.items.map { vacancy -> mapper.map(vacancy) }
 
             stateLiveData.postValue(
                 SearchViewState.Content(
