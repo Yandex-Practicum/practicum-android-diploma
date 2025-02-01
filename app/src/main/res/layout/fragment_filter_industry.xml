@@ -1,8 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.filter.industry.fragment.FilterIndustryFragment">
 
-</LinearLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftGuideline"
+        style="@style/GuidelineStyle"
+        app:layout_constraintGuide_begin="@dimen/dp_16" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightGuideline"
+        style="@style/GuidelineStyle"
+        app:layout_constraintGuide_end="@dimen/dp_16" />
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        style="@style/SimpleToolbar"
+        app:contentInsetStartWithNavigation="@dimen/dp_0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:navigationIcon="@drawable/ic_arrow_back_24"
+        app:title="Выбор отрасли"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="-3dp" />
+
+    <EditText
+        android:id="@+id/edit_text_search"
+        style="@style/EditTextStyle"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_industry"
+        android:padding="@dimen/dp_20"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        tools:ignore="Autofill" />
+
+    <ImageView
+        android:id="@+id/search_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_16"
+        android:src="@drawable/ic_search_24"
+        app:layout_constraintBottom_toBottomOf="@id/edit_text_search"
+        app:layout_constraintEnd_toEndOf="@id/edit_text_search"
+        app:layout_constraintTop_toTopOf="@id/edit_text_search"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/clear_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_16"
+        android:src="@drawable/ic_close_24"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/edit_text_search"
+        app:layout_constraintEnd_toEndOf="@id/edit_text_search"
+        app:layout_constraintTop_toTopOf="@id/edit_text_search"
+        tools:ignore="ContentDescription" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/industryRecyclerView"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_0"
+        android:paddingTop="@dimen/dp_8"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_search"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:listitem="@layout/item_industry"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_select"
+        style="@style/SelectButtonTextStyle"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_60"
+        android:layout_marginBottom="@dimen/dp_24"
+        android:background="@drawable/shape_button_select"
+        android:stateListAnimator="@null"
+        android:text="@string/select"
+        android:textAllCaps="false"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/rightGuideline"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

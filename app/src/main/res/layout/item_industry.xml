@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/dp_6"
+    android:paddingBottom="@dimen/dp_6"
+    android:paddingEnd="@dimen/dp_4"
+    android:paddingStart="@dimen/dp_16">
+
+    <TextView
+        android:id="@+id/industryName"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_16"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:text="@string/industry_title"
+        android:fontFamily="@font/ys_display_regular"
+        android:textColor="?attr/blackToWhite"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/industrySelector" />
+
+    <FrameLayout
+        android:id="@+id/industrySelector"
+        android:layout_width="@dimen/dp_48"
+        android:layout_height="@dimen/dp_48"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/industryName">
+
+        <RadioButton
+            android:id="@+id/selectionRadioButton"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:buttonTint="@color/blue"
+            android:layout_gravity="center"
+            android:minWidth="@dimen/dp_0"
+            android:minHeight="@dimen/dp_0"
+            android:clickable="true" />
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
