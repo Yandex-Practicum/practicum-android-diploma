@@ -80,7 +80,7 @@ class SearchViewModel(
                 job = viewModelScope.launch {
                     try {
                         searchInteractor
-                            .searchVacancy(searchQuery, 1)
+                            .searchVacancy(searchQuery, 0)
                             .collect { viewState ->
                                 renderScreenState(viewState)
                                 isNextPageLoading = false
@@ -105,7 +105,7 @@ class SearchViewModel(
                         isNextPageLoading = true
                         renderAdapterState(AdapterState.IsLoading)
                         searchInteractor
-                            .searchVacancy(query, currentPage)
+                            .searchVacancy(query, currentPage - 1)
                             .collect { viewState ->
                                 renderScreenState(viewState)
                                 isNextPageLoading = false
