@@ -116,8 +116,10 @@ class SearchFragment : Fragment() {
                 textInput = s.toString()
                  if (s.isNullOrEmpty()){
                      binding.clearIcon.visibility = View.GONE
-                    viewModel.clearSearchList()
-                }else {binding.clearIcon.visibility = View.VISIBLE}
+                     viewModel.clearSearchList()
+                     adapter?.submitList(emptyList())
+                     binding.searchVacanciesRV.adapter = adapter
+                 }else {binding.clearIcon.visibility = View.VISIBLE}
                 binding.searchIcon.visibility = if (s.isNullOrEmpty()) View.VISIBLE else View.GONE
             }
             override fun afterTextChanged(s: Editable?) { searchOnTextChanged(s.toString()) }
