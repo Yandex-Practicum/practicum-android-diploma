@@ -12,6 +12,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.common.sharedprefs.models.City
 import ru.practicum.android.diploma.common.sharedprefs.models.Country
+import ru.practicum.android.diploma.common.sharedprefs.models.Filter
 import ru.practicum.android.diploma.common.sharedprefs.models.Industry
 import ru.practicum.android.diploma.databinding.FragmentFilterSettingsBinding
 import ru.practicum.android.diploma.filter.presentation.viewmodel.FilterSettingsViewModel
@@ -37,7 +38,6 @@ class FilterSettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val currentFilter = viewModel.getFilter()
 
         setupWorkplaceUI(currentFilter.areaCountry, currentFilter.areaCity)
@@ -69,8 +69,7 @@ class FilterSettingsFragment : Fragment() {
     private fun setupWorkplaceUI(country: Country?, city: City?) {
         updateWorkplaceUI(country, city) { country, city ->
             binding.workplaceBtn.setOnClickListener {
-                viewModel.clearCountry()
-                viewModel.clearCity()
+                viewModel.updateFilter(Filter(areaCountry = null, areaCity = null))
                 updateWorkplaceUI(null, null)
             }
         }
@@ -102,7 +101,7 @@ class FilterSettingsFragment : Fragment() {
     private fun setupIndustryUI(industry: Industry?) {
         updateIndustryUI(industry) { industry ->
             binding.industryBtn.setOnClickListener {
-                viewModel.clearIndustry()
+                viewModel.updateFilter(Filter(industry = null))
                 updateIndustryUI(null)
             }
         }
@@ -137,7 +136,7 @@ class FilterSettingsFragment : Fragment() {
         }
 
         binding.checkBox.setOnCheckedChangeListener { _, isChecked ->
-            viewModel.updateWithSalary(isChecked)
+            viewModel.updateFilter(Filter(withSalary = isChecked))
             if (isChecked != withSalary) {
                 updateSubmitButtonVisibility(true)
             }
@@ -154,7 +153,9 @@ class FilterSettingsFragment : Fragment() {
     private fun setupInputSalaryListeners() {
         var isFocused = false
         binding.inputSalary.doAfterTextChanged { text ->
-            binding.clearSalaryButton.isVisible = text?.isNotBlank() == true || (isFocused && text?.isNotBlank() == true)
+            if (text != null) {
+                binding.clearSalaryButton.isVisible = text.isNotBlank() || isFocused && text.isNotBlank()
+            }
         }
         binding.inputSalary.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             isFocused = hasFocus
@@ -164,7 +165,7 @@ class FilterSettingsFragment : Fragment() {
     }
 
     private fun resetButtonClickListener() {
-        viewModel.clearAll()
+        viewModel.clearFilter()
         updateWorkplaceUI(null, null)
         updateIndustryUI(null)
         binding.inputSalary.text = null
@@ -178,12 +179,10 @@ class FilterSettingsFragment : Fragment() {
 
     private fun saveFilterAndNavigateToSearch() {
         val salaryText = binding.inputSalary.text
-        if (salaryText != null) {
-            viewModel.updateSalary(salaryText.toString().toInt())
-        }
+        viewModel.updateFilter(Filter(salary = salaryText.toString().toIntOrNull()))
 
         val withSalary = binding.checkBox.isChecked
-        viewModel.updateWithSalary(withSalary)
+        viewModel.updateFilter(Filter(withSalary = withSalary))
 
         findNavController().navigate(R.id.action_filterSettingsFragment_to_searchFragment)
     }
