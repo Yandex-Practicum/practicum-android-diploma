@@ -142,10 +142,24 @@ class FilterCountryRegionFragment : Fragment() {
 
     private fun renderCountry(countryName: String?) {
         binding?.country?.editText?.setText(countryName)
+        renderField(binding?.country ?: return, countryName)
+        updateSelectButtonVisibility()
     }
 
     private fun renderRegion(regionName: String?) {
         binding?.region?.editText?.setText(regionName)
+        renderField(binding?.region ?: return, regionName)
+        updateSelectButtonVisibility()
+    }
+
+    private fun updateSelectButtonVisibility() {
+        val isCountrySelected = !binding?.country?.editText?.text.isNullOrEmpty()
+        val isRegionSelected = !binding?.region?.editText?.text.isNullOrEmpty()
+        binding?.buttonSelect?.visibility = if (isCountrySelected || isRegionSelected) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
     }
 
     private fun selectButton() {
