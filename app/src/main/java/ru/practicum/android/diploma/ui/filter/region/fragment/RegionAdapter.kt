@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import ru.practicum.android.diploma.databinding.ItemListBinding
-import ru.practicum.android.diploma.ui.filter.region.viewmodel.CountryRegionData
+import ru.practicum.android.diploma.domain.models.CountryRegionData
 import ru.practicum.android.diploma.util.diffutils.CountryRegionDiffCallback
 
 class RegionAdapter(

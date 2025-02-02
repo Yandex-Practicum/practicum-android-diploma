@@ -17,7 +17,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterRegionBinding
 import ru.practicum.android.diploma.domain.common.SearchResult
 import ru.practicum.android.diploma.domain.models.Area
-import ru.practicum.android.diploma.ui.filter.region.viewmodel.CountryRegionData
+import ru.practicum.android.diploma.domain.models.CountryRegionData
 import ru.practicum.android.diploma.ui.filter.region.viewmodel.FilterRegionViewModel
 import ru.practicum.android.diploma.util.FilterNames
 

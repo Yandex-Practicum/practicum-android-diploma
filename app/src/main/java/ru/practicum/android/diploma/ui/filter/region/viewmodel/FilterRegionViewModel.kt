@@ -8,15 +8,9 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.Resource
 import ru.practicum.android.diploma.domain.areas.api.AreasInteractor
 import ru.practicum.android.diploma.domain.common.SearchResult
+import ru.practicum.android.diploma.domain.models.CountryRegionData
 import ru.practicum.android.diploma.domain.models.Places
 import ru.practicum.android.diploma.util.SingleEventLiveData
-
-data class CountryRegionData(
-    val countryId: String,
-    val countryName: String,
-    val regionId: String,
-    val regionName: String
-)
 
 class FilterRegionViewModel(
     private val interactor: AreasInteractor

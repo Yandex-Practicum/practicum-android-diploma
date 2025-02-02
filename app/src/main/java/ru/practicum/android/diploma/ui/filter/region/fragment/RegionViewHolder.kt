@@ -2,7 +2,7 @@ package ru.practicum.android.diploma.ui.filter.region.fragment
 
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.databinding.ItemListBinding
-import ru.practicum.android.diploma.ui.filter.region.viewmodel.CountryRegionData
+import ru.practicum.android.diploma.domain.models.CountryRegionData
 
 class RegionViewHolder(
     private val binding: ItemListBinding,
