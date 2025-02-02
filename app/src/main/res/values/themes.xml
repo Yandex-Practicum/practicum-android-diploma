@@ -21,5 +21,9 @@
         <item name="android:windowLightStatusBar">true</item> <!-- Включает светлый статус-бар -->
     </style>
 
+    <style name="ThemeOfSearchEditText" parent="Base.Theme.PracticumAndroidDiploma">
+        <item name="colorSecondary">@color/blue</item>
+    </style>
+
 </resources>
 
