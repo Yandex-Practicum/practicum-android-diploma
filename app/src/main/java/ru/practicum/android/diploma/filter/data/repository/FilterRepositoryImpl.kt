@@ -8,8 +8,10 @@ import ru.practicum.android.diploma.common.data.dto.IndustriesResponse
 import ru.practicum.android.diploma.common.data.dto.IndustryRequest
 import ru.practicum.android.diploma.common.data.dto.Response
 import ru.practicum.android.diploma.common.data.network.RetrofitNetworkClient
+import ru.practicum.android.diploma.filter.domain.model.Country
 import ru.practicum.android.diploma.filter.domain.model.Industry
 import ru.practicum.android.diploma.filter.domain.model.IndustryViewState
+import ru.practicum.android.diploma.filter.domain.model.Region
 import ru.practicum.android.diploma.filter.domain.repository.FilterRepository
 
 class FilterRepositoryImpl(
@@ -46,4 +48,11 @@ class FilterRepositoryImpl(
         }.sortedBy { it.name }
     }
 
+    override fun getCountry(): Country?{
+        return null
+    }
+
+    override fun getRegion(): Region?{
+        return null
+    }
 }
