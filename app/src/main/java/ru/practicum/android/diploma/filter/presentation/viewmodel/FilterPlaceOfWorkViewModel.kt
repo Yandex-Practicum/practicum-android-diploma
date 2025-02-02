@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import ru.practicum.android.diploma.filter.domain.interactor.FilterInteractor
 
 class FilterPlaceOfWorkViewModel(
-private val filterInteractor: FilterInteractor
+    private val filterInteractor: FilterInteractor
 ) : ViewModel() {
     // private var selectedCountry: Country? = null
     // private var selectedRegion: Region? = null

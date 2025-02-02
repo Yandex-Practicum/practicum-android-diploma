@@ -12,8 +12,8 @@ class FilterCountriesViewModel(
     private val filterInteractor: FilterInteractor
 ) : ViewModel() {
     private var selectedCountry: Country? = null
-   // private val state = MutableLiveData<CountryViewState>()
-   // fun observeState(): LiveData<IndustryViewState> = state {
+    // private val state = MutableLiveData<CountryViewState>()
+    // fun observeState(): LiveData<IndustryViewState> = state {
 
-   // }
+    // }
 }

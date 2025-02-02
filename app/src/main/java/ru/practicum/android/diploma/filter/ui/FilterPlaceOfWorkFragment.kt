@@ -14,7 +14,7 @@ import ru.practicum.android.diploma.databinding.FragmentFilterPlaceOfWorkBinding
 class FilterPlaceOfWorkFragment : Fragment() {
     private var _binding: FragmentFilterPlaceOfWorkBinding? = null
     private val binding get() = _binding!!
-   // private val viewModel by viewModel<FilterPlaceOfWorkViewModel>()
+    // private val viewModel by viewModel<FilterPlaceOfWorkViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
