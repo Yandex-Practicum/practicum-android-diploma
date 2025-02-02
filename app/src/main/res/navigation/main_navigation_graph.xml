@@ -97,7 +97,15 @@
         android:id="@+id/filterRegionFragment"
         android:name="ru.practicum.android.diploma.filter.ui.FilterRegionFragment"
         android:label="fragment_filter_region"
-        tools:layout="@layout/fragment_filter_region" />
+        tools:layout="@layout/fragment_filter_region" >
+        <action
+            android:id="@+id/action_filterRegionFragment_to_filterPlaceOfWorkFragment"
+            app:destination="@id/filterPlaceOfWorkFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/hold"
+            app:popEnterAnim="@anim/hold"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
     <fragment
         android:id="@+id/filterIndustryFragment"
         android:name="ru.practicum.android.diploma.filter.ui.FilterIndustryFragment"

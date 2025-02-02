@@ -35,6 +35,7 @@
     <string name="industry_label">Отрасль</string>
     <string name="expected_salary">Ожидаемая зарплата</string>
     <string name="enter_salary">Введите сумму</string>
+    <string name="enter_region">Введите регион</string>
     <string name="dont_show_without_sallary">Не показывать без зарплаты</string>
     <string name="reset_filter">Сбросить</string>
     <string name="apply_button">Применить</string>

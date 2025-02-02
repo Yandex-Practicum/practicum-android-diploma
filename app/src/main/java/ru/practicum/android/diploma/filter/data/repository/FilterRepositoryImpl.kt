@@ -12,10 +12,7 @@ import ru.practicum.android.diploma.common.data.dto.allregions.RegionsResponse
 import ru.practicum.android.diploma.common.data.dto.region.SearchRegionRequest
 import ru.practicum.android.diploma.common.data.dto.region.SearchRegionResponse
 import ru.practicum.android.diploma.common.data.network.RetrofitNetworkClient
-import ru.practicum.android.diploma.common.util.Converter
 import ru.practicum.android.diploma.common.util.RegionConverter
-import ru.practicum.android.diploma.filter.data.dto.model.AreaDto
-import ru.practicum.android.diploma.filter.domain.model.City
 import ru.practicum.android.diploma.filter.domain.model.Industry
 import ru.practicum.android.diploma.filter.domain.model.IndustryViewState
 import ru.practicum.android.diploma.filter.domain.model.RegionViewState

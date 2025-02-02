@@ -1,9 +1,11 @@
 package ru.practicum.android.diploma.filter.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.common.util.RegionConverter
 import ru.practicum.android.diploma.common.util.debounce
@@ -18,8 +20,11 @@ class RegionFilterViewModel(
 ) : ViewModel() {
 
     private var selectedCity: City? = null
-    private val filter = Filter(region = 113)
+    private val filter = Filter(region = null)
     private var regionList = mutableListOf<Area>()
+    private var job: Job? = null
+    private var isSearchSuccessFull = false
+
     private val stateLiveData = MutableLiveData<RegionViewState>()
     fun observeState(): LiveData<RegionViewState> = stateLiveData
 
@@ -136,36 +141,71 @@ class RegionFilterViewModel(
         }
     }
 
+    fun applyRegionToFilter(area: Area){
+
+    }
+
 
     private fun getNonCisRegionList() {
-        viewModelScope.launch {
+        job?.cancel()
+        job = viewModelScope.launch {
             filterInteractor.getAllRegions().collect { state ->
                 if (state is RegionViewState.Success) {
+                    isSearchSuccessFull = true
                     regionList = RegionConverter.mapNonCisRegions(state.areas).toMutableList()
+                    Log.d("ListRegionsNonCis","${regionList}")
                 } else {
-                    renderState(RegionViewState.NotFoundError)
+                    isSearchSuccessFull = false
+                    renderState(RegionViewState.ServerError)
                 }
             }
         }
     }
 
     private fun getAllCisRegionList() {
-        viewModelScope.launch {
+        job?.cancel()
+        job = viewModelScope.launch {
             filterInteractor.getAllRegions().collect { state ->
                 if (state is RegionViewState.Success) {
+                    isSearchSuccessFull = true
                     regionList = RegionConverter.mapAllCisRegions(state.areas).toMutableList()
+                    Log.d("ListRegionsCis","${regionList}")
                 } else {
-                    renderState(RegionViewState.NotFoundError)
+                    isSearchSuccessFull = false
+                    renderState(RegionViewState.ServerError)
                 }
             }
         }
     }
 
     private fun getRegionsByParentId(parentId: Int) {
-        viewModelScope.launch {
+        job?.cancel()
+        job = viewModelScope.launch {
             filterInteractor.searchRegionsById(parentId).collect { state ->
                 if (state is RegionViewState.Success) {
+                    isSearchSuccessFull = true
                     regionList = RegionConverter.mapRegions(state.areas).toMutableList()
+                    Log.d("ListRegionsById","${regionList}")
+                } else {
+                    isSearchSuccessFull = false
+                    renderState(RegionViewState.ServerError)
+                }
+            }
+        }
+    }
+
+    fun searchRegions(query: String) {
+        job?.cancel()
+        if (isSearchSuccessFull) {
+            job = viewModelScope.launch {
+                renderState(RegionViewState.Loading)
+                val lowerCaseQuery = query.lowercase()
+                val filteredRegions = regionList.filter { region ->
+                    region.name.lowercase().contains(lowerCaseQuery)
+                }
+                if (filteredRegions.isNotEmpty()) {
+                    // Обновляем состояние с отфильтрованным списком
+                    renderState(RegionViewState.Success(filteredRegions))
                 } else {
                     renderState(RegionViewState.NotFoundError)
                 }
@@ -173,20 +213,11 @@ class RegionFilterViewModel(
         }
     }
 
-    private fun searchRegions(query: String) {
-        renderState(RegionViewState.Loading)
-        val lowerCaseQuery = query.lowercase()
-        val filteredRegions = regionList.filter { region ->
-            region.name.lowercase().contains(lowerCaseQuery)
-        }
-        if (filteredRegions.isNotEmpty()) {
-            // Обновляем состояние с отфильтрованным списком
-            renderState(RegionViewState.Success(filteredRegions))
-        } else {
-            renderState(RegionViewState.NotFoundError)
-        }
+    fun declineLastSearch() {
+        job?.cancel()
+        job = null
+        renderState(RegionViewState.Success(regionList))
     }
-
 
     private fun renderState(state: RegionViewState) {
         stateLiveData.postValue(state)
@@ -198,6 +229,11 @@ class RegionFilterViewModel(
 
     companion object {
         private const val SEARCH_DEBOUNCE_DELAY = 300L
+    }
+
+    override fun onCleared() {
+        job = null
+        super.onCleared()
     }
 }
 

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?android:windowBackground"
     tools:context="ru.practicum.android.diploma.filter.ui.FilterRegionFragment">
 
     <androidx.constraintlayout.widget.Guideline
@@ -37,7 +38,7 @@
         android:layout_height="@dimen/search_text_input_height"
         android:layout_marginVertical="@dimen/margin_8dp"
         android:background="@drawable/text_input_background"
-        android:hint="@string/text_input_hint"
+        android:hint="@string/enter_region"
         android:imeOptions="actionDone"
         android:inputType="textCapWords"
         android:maxLength="50"
