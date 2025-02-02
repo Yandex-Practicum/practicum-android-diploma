@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterRegionBinding
 import ru.practicum.android.diploma.domain.common.SearchResult
 import ru.practicum.android.diploma.domain.models.Area
@@ -110,10 +109,8 @@ class FilterRegionFragment : Fragment() {
             putString(FilterNames.REGION_ID, countryRegionData.regionId)
             putString(FilterNames.REGION_NAME, countryRegionData.regionName)
         }
-        findNavController().navigate(
-            R.id.action_filterRegionFragment_to_filterCountryRegionFragment,
-            bundle,
-        )
+        parentFragmentManager.setFragmentResult(FilterNames.REGION_RESULT, bundle)
+        findNavController().popBackStack()
     }
 
     private fun setStates(searchResult: SearchResult) {
