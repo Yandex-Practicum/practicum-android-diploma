@@ -1,35 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context="ru.practicum.android.diploma.filter.ui.FilterPlaceOfWorkFragment">
-
-
-<androidx.constraintlayout.widget.Guideline
-        android:id="@+id/glBegin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="@dimen/margin_begin_end_gl_16dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/glEnd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="@dimen/margin_begin_end_gl_16dp" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/topBar"
-        android:layout_width="0dp"
-        android:layout_height="64dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_64"
         app:navigationIcon="@drawable/ic_button_back"
         app:title="@string/filter_place_of_work"
-        app:titleTextAppearance="@style/TextMedium_22"/>
+        app:titleTextAppearance="@style/TextMedium_22"
+        app:titleTextColor="?attr/titleTextColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <FrameLayout
+        android:id="@+id/frame_country"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_60"
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:layout_marginHorizontal="@dimen/margin_16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topBar">
+
+        <TextView
+            android:id="@+id/only_big_country"
+            style="@style/BigTextGray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/country"
+            android:visibility="visible" />
+
+        <LinearLayout
+            android:id="@+id/small_and_big_country"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/small_text_country"
+                style="@style/SmallTextBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/country"/>
+
+            <TextView
+                android:id="@+id/big_text_country"
+                style="@style/BigTextBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@string/russia"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/button_image_country"
+            android:layout_width="@dimen/margin_24"
+            android:layout_height="@dimen/margin_24"
+            android:layout_gravity="end|center_vertical"
+            tools:src="@drawable/ic_arrow_forward_24px" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/frame_region"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_60"
+        android:layout_marginHorizontal="@dimen/margin_16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frame_country">
+
+        <TextView
+            android:id="@+id/only_big_region"
+            style="@style/BigTextGray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/region"
+            android:visibility="visible" />
+
+        <LinearLayout
+            android:id="@+id/small_and_big_region"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/small_text_region"
+                style="@style/SmallTextBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/region"/>
+
+            <TextView
+                android:id="@+id/big_text_region"
+                style="@style/BigTextBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@string/moscow"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/button_image_region"
+            android:layout_width="@dimen/margin_24"
+            android:layout_height="@dimen/margin_24"
+            android:layout_gravity="end|center_vertical"
+            tools:src="@drawable/ic_arrow_forward_24px" />
+
+    </FrameLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSelectPlaceOfWork"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_60"
+        android:layout_marginBottom="@dimen/margin_24"
+        style="@style/ButtonChoose"
+        android:gravity="center"
+        android:text="@string/select"
+        android:visibility="visible"
+        android:layout_marginHorizontal="@dimen/margin_17dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

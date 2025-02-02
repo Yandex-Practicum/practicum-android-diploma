@@ -1,3 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="SmallTextBlack" parent="TextRegular_12">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <style name="BigTextBlack" parent="TextRegular_16">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
 </resources>

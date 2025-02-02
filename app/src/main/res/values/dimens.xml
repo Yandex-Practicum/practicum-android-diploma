@@ -11,9 +11,11 @@
     <dimen name="margin_8dp">8dp</dimen>
     <dimen name="margin_12dp">12dp</dimen>
     <dimen name="margin_16dp">16dp</dimen>
+    <dimen name="margin_17dp">17dp</dimen>
     <dimen name="margin_begin_end_gl_16dp">16dp</dimen>
     <dimen name="margin_24">24dp</dimen>
     <dimen name="margin_46">46dp</dimen>
+    <dimen name="margin_60">60dp</dimen>
     <dimen name="margin_64">64dp</dimen>
     <dimen name="margin_104">104dp</dimen>
     <dimen name="margin_136">136dp</dimen>
