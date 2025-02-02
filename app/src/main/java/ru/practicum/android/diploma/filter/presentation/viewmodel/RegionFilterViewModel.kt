@@ -8,16 +8,18 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.common.util.RegionConverter
 import ru.practicum.android.diploma.common.util.debounce
 import ru.practicum.android.diploma.filter.domain.interactor.FilterInteractor
+import ru.practicum.android.diploma.filter.domain.model.Area
 import ru.practicum.android.diploma.filter.domain.model.City
 import ru.practicum.android.diploma.filter.domain.model.Industry
 import ru.practicum.android.diploma.filter.domain.model.RegionViewState
 
 class RegionFilterViewModel(
-    private val filterInteractor: FilterInteractor
+    private val filterInteractor: FilterInteractor,
 ) : ViewModel() {
 
     private var selectedCity: City? = null
     private val filter = Filter(region = 113)
+    private var regionList = mutableListOf<Area>()
     private val stateLiveData = MutableLiveData<RegionViewState>()
     fun observeState(): LiveData<RegionViewState> = stateLiveData
 
@@ -28,7 +30,7 @@ class RegionFilterViewModel(
         viewModelScope,
         true
     ) { changedText ->
-        getAllRegions(changedText)
+        searchRegions(changedText)
     }
 
     fun searchDebounce(changedText: String) {
@@ -37,13 +39,14 @@ class RegionFilterViewModel(
             regionsSearchDebounce(changedText)
         }
     }
+
     private fun getAllRegions(query: String) { // получить список всех регионов
         val lowerCaseQuery = query.lowercase()
         renderState(RegionViewState.Loading)
-        when(filter.region) {
+        when (filter.region) {
             -1 -> viewModelScope.launch {
                 filterInteractor.getAllRegions().collect { state ->
-                    if(state is RegionViewState.Success){
+                    if (state is RegionViewState.Success) {
                         val nonCisList = RegionConverter.mapNonCisRegions(state.areas)
                         val filteredRegions = nonCisList.filterNot { region ->
                             region.name.lowercase().contains(lowerCaseQuery)
@@ -58,9 +61,10 @@ class RegionFilterViewModel(
 
                 }
             }
+
             null -> viewModelScope.launch {
                 filterInteractor.getAllRegions().collect { state ->
-                    if(state is RegionViewState.Success){
+                    if (state is RegionViewState.Success) {
                         val cisList = RegionConverter.mapAllCisRegions(state.areas)
                         val filteredRegions = cisList.filterNot { region ->
                             region.name.lowercase().contains(lowerCaseQuery)
@@ -75,9 +79,10 @@ class RegionFilterViewModel(
 
                 }
             }
+
             else -> viewModelScope.launch {
                 filterInteractor.searchRegionsById(filter.region).collect { state ->
-                    if(state is RegionViewState.Success){
+                    if (state is RegionViewState.Success) {
                         val regions = RegionConverter.mapRegions(state.areas)
                         val filteredRegions = regions.filterNot { region ->
                             region.name.lowercase().contains(lowerCaseQuery)
@@ -122,11 +127,57 @@ class RegionFilterViewModel(
         }
     }
 
+    fun loadRegions() {
+        renderState(RegionViewState.Loading)
+        when (filter.region) {
+            -1 -> getNonCisRegionList()
+            null -> getAllCisRegionList()
+            else -> getRegionsByParentId(filter.region)
+        }
+    }
 
-    private fun proceedSuccessState(viewState:RegionViewState.Success, query: String){
-        // Фильтруем список городов
-        val filteredRegions = viewState.areas.filterNot { region ->
-            region.name.lowercase().contains(query)
+
+    private fun getNonCisRegionList() {
+        viewModelScope.launch {
+            filterInteractor.getAllRegions().collect { state ->
+                if (state is RegionViewState.Success) {
+                    regionList = RegionConverter.mapNonCisRegions(state.areas).toMutableList()
+                } else {
+                    renderState(RegionViewState.NotFoundError)
+                }
+            }
+        }
+    }
+
+    private fun getAllCisRegionList() {
+        viewModelScope.launch {
+            filterInteractor.getAllRegions().collect { state ->
+                if (state is RegionViewState.Success) {
+                    regionList = RegionConverter.mapAllCisRegions(state.areas).toMutableList()
+                } else {
+                    renderState(RegionViewState.NotFoundError)
+                }
+            }
+        }
+    }
+
+    private fun getRegionsByParentId(parentId: Int) {
+        viewModelScope.launch {
+            filterInteractor.searchRegionsById(parentId).collect { state ->
+                if (state is RegionViewState.Success) {
+                    regionList = RegionConverter.mapRegions(state.areas).toMutableList()
+                } else {
+                    renderState(RegionViewState.NotFoundError)
+                }
+            }
+        }
+    }
+
+    private fun searchRegions(query: String) {
+        renderState(RegionViewState.Loading)
+        val lowerCaseQuery = query.lowercase()
+        val filteredRegions = regionList.filter { region ->
+            region.name.lowercase().contains(lowerCaseQuery)
         }
         if (filteredRegions.isNotEmpty()) {
             // Обновляем состояние с отфильтрованным списком
@@ -140,6 +191,7 @@ class RegionFilterViewModel(
     private fun renderState(state: RegionViewState) {
         stateLiveData.postValue(state)
     }
+
     fun setIndustry(city: City) {
         selectedCity = city.copy(isSelected = false)
     }
@@ -154,6 +206,6 @@ data class Filter(
     val region: Int? = null,
     val industry: Industry? = null,
     val salary: Int? = null,
-    val onlyWithSalary: Boolean = false
+    val onlyWithSalary: Boolean = false,
 )
 
