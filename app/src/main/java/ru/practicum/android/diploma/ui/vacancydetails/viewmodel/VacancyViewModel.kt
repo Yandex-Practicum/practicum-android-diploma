@@ -96,6 +96,7 @@ class VacancyViewModel(
             is Resource.Error -> {
                 _vacancyDetailsScreenState.postValue(VacancyDetailsScreenState.ServerError)
             }
+
             is Resource.Success -> {
                 if (resource.value != null) {
                     vacancy = resource.value

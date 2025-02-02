@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterCommonBinding
+import ru.practicum.android.diploma.util.FilterNames
 
 class FilterCommonFragment : Fragment() {
 
@@ -23,6 +24,8 @@ class FilterCommonFragment : Fragment() {
 
     private var expectedSalary: Int? = null
     private var withoutSalary: Boolean = false
+
+    private var selectedIndustry: String? = null // Здесь сохраняем ID отрасли, которое выбрал пользователь
 
 //    private val viewModel: FilterCommonViewModel by viewModel()
 
@@ -72,6 +75,14 @@ class FilterCommonFragment : Fragment() {
             binding.salaryEditText.setText(TEXT_EMPTY)
             binding.clearButton.isVisible = false
             hideKeyboard(it)
+        }
+
+        // Здесь мы слушаем параметры от фрагмента выбора отрасли
+        parentFragmentManager.setFragmentResultListener(FilterNames.INDUSTRY_RESULT, viewLifecycleOwner) { _, bundle ->
+            selectedIndustry = bundle.getString(FilterNames.INDUSTRY_ID)
+            val industryName = bundle.getString(FilterNames.INDUSTRY_NAME)
+
+            binding.industryDefault.text = industryName
         }
     }
 
