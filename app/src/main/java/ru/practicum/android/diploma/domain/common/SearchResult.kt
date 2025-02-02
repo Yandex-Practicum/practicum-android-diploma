@@ -25,6 +25,7 @@ sealed interface SearchResult {
     ) : SearchResult
 
     data class GetPlacesContent(
+        val countries: List<Area>,
         val others: List<Area>
     ) : SearchResult
 
