@@ -9,7 +9,7 @@
     android:paddingEnd="@dimen/dp_4">
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/agreementBtn"
+        android:id="@+id/item_text"
         style="@style/ListTextViewStyle"
         android:drawableEnd="@drawable/ic_arrow_forward_48"
         android:text="@string/list_element_text"

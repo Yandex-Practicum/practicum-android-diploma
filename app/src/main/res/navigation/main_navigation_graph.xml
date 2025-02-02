@@ -72,10 +72,18 @@
         android:id="@+id/filterCountryFragment"
         android:name="ru.practicum.android.diploma.ui.filter.country.fragment.FilterCountryFragment"
         android:label="fragment_filter_country"
-        tools:layout="@layout/fragment_filter_country" />
+        tools:layout="@layout/fragment_filter_country">
+        <action
+            android:id="@+id/action_filterCountryFragment_to_filterCountryRegionFragment"
+            app:destination="@id/filterCountryRegionFragment" />
+    </fragment>
     <fragment
         android:id="@+id/filterRegionFragment"
         android:name="ru.practicum.android.diploma.ui.filter.region.fragment.FilterRegionFragment"
         android:label="fragment_filter_region"
-        tools:layout="@layout/fragment_filter_region" />
+        tools:layout="@layout/fragment_filter_region">
+        <action
+            android:id="@+id/action_filterRegionFragment_to_filterCountryRegionFragment"
+            app:destination="@id/filterCountryRegionFragment" />
+    </fragment>
 </navigation>
