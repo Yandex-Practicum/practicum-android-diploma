@@ -47,6 +47,10 @@ class FilterIndustryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
+
         setupSearch()
 
         adapter = IndustryAdapter { thisIndustry ->
