@@ -8,14 +8,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
-import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.databinding.FragmentFilterRegionBinding
 import ru.practicum.android.diploma.filter.domain.model.Area
 import ru.practicum.android.diploma.filter.domain.model.RegionViewState
@@ -29,6 +35,9 @@ class FilterRegionFragment : Fragment() {
     private var adapter: RegionAdapter? = null
     private var editTextWatсher: TextWatcher? = null
     private var inputMethodManager: InputMethodManager? = null
+    private var fadeInAnimation: Animation? = null
+    private var fadeOutAnimation: Animation? = null
+    private var adapterAnimationJob: Job? = null
     private var textInput: String = ""
 
     override fun onCreateView(
@@ -40,18 +49,11 @@ class FilterRegionFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.topBar.setOnClickListener {
-            findNavController().navigateUp()
-        }
-    }
-
     override fun onDestroyView() {
         adapter = null
         editTextWatсher?.let { binding.textInput.removeTextChangedListener(it) }
         inputMethodManager = null
+        adapterAnimationJob = null
         super.onDestroyView()
         _binding = null
     }
@@ -64,8 +66,10 @@ class FilterRegionFragment : Fragment() {
     private fun initializeRegionScreen(){
         setRecyclerView()
         setTextInput()
+        setRegionListAnimation()
         initializeRegionList()
         setRegionListLiveDataObserver()
+        setOnClickListeners()
     }
 
     private fun initializeRegionList() {
@@ -94,6 +98,7 @@ class FilterRegionFragment : Fragment() {
                     }
                 }
                 textInput = s.toString()
+                viewModel.searchDebounce(textInput)
                 Log.d("TextInput", "$textInput")
                 binding.clearIcon.visibility = clearButtonVisibility(s)
                 binding.searchIcon.visibility = searchIconVisibility(s)
@@ -101,7 +106,6 @@ class FilterRegionFragment : Fragment() {
 
             override fun afterTextChanged(s: Editable?) {
                 Log.d("AfterTextChanged", "$s")
-                viewModel.searchDebounce(textInput)
             }
         }
         binding.textInput.addTextChangedListener(editTextWatсher)
@@ -130,7 +134,14 @@ class FilterRegionFragment : Fragment() {
 
     private fun setRegionListLiveDataObserver(){
         viewModel.observeState().observe(viewLifecycleOwner){ state ->
+            Log.d("RegionFragmentScreenState", "$state")
             renderState(state)
+        }
+    }
+
+    private fun setOnClickListeners(){
+        binding.topBar.setOnClickListener {
+            findNavController().navigateUp()
         }
     }
 
@@ -144,9 +155,22 @@ class FilterRegionFragment : Fragment() {
         }
     }
 
+    private fun updateAdapter(areaList: List<Area>){
+        adapterAnimationJob = lifecycleScope
+            .launch(Dispatchers.Main) {
+                binding.rvRegionList.startAnimation(fadeOutAnimation)
+                binding.rvRegionList.isVisible = false
+                delay(DELAY_500)
+                adapter?.updateItems(areaList)
+                delay(DELAY_500)
+                binding.rvRegionList.startAnimation(fadeInAnimation)
+                binding.rvRegionList.isVisible = true
+            }
+        }
+
     private fun showServerErrorPH(){
         with(binding) {
-            adapter?.updateItems(emptyList())
+//            adapter?.updateItems(emptyList())
             serverErrorPH.isVisible = true
             noFoundPH.isVisible = false
             rvRegionList.isVisible = false
@@ -157,7 +181,7 @@ class FilterRegionFragment : Fragment() {
 
     private fun showNothingFoundPH(){
         with(binding) {
-            adapter?.updateItems(emptyList())
+//            adapter?.updateItems(emptyList())
             noFoundPH.isVisible = true
             rvRegionList.isVisible = false
             progressBar.isVisible = false
@@ -168,6 +192,7 @@ class FilterRegionFragment : Fragment() {
 
     private fun showContent(state: RegionViewState.Success) {
         with(binding) {
+//            updateAdapter(state.areas)
             adapter?.updateItems(state.areas)
             rvRegionList.isVisible = true
             progressBar.isVisible = false
@@ -179,7 +204,7 @@ class FilterRegionFragment : Fragment() {
     private fun showLoading(){
         with(binding) {
             progressBar.isVisible = true
-            rvRegionList.isVisible = true
+            rvRegionList.isVisible = false
             serverErrorPH.isVisible = false
             noFoundPH.isVisible = false
         }
@@ -210,11 +235,20 @@ class FilterRegionFragment : Fragment() {
         }
     }
 
+    private fun setRegionListAnimation(){
+        fadeInAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.fade_in)
+        fadeOutAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.fade_out)
+    }
+
     private fun applyRegionToFilter(area: Area){
         viewModel.applyRegionToFilter(area)
         findNavController().navigate(
             R.id.action_filterRegionFragment_to_filterPlaceOfWorkFragment
         )
+    }
+
+    companion object {
+        private const val DELAY_500 = 500L
     }
 
 }

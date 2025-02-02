@@ -153,6 +153,7 @@ class RegionFilterViewModel(
                 if (state is RegionViewState.Success) {
                     isSearchSuccessFull = true
                     regionList = RegionConverter.mapNonCisRegions(state.areas).toMutableList()
+                    renderState(RegionViewState.Success(regionList))
                     Log.d("ListRegionsNonCis","${regionList}")
                 } else {
                     isSearchSuccessFull = false
@@ -169,6 +170,7 @@ class RegionFilterViewModel(
                 if (state is RegionViewState.Success) {
                     isSearchSuccessFull = true
                     regionList = RegionConverter.mapAllCisRegions(state.areas).toMutableList()
+                    renderState(RegionViewState.Success(regionList))
                     Log.d("ListRegionsCis","${regionList}")
                 } else {
                     isSearchSuccessFull = false
@@ -185,6 +187,7 @@ class RegionFilterViewModel(
                 if (state is RegionViewState.Success) {
                     isSearchSuccessFull = true
                     regionList = RegionConverter.mapRegions(state.areas).toMutableList()
+                    renderState(RegionViewState.Success(regionList))
                     Log.d("ListRegionsById","${regionList}")
                 } else {
                     isSearchSuccessFull = false

@@ -6,15 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.ActivityRootBinding
-import ru.practicum.android.diploma.filter.presentation.viewmodel.FilterScreenViewModel
-import ru.practicum.android.diploma.filter.presentation.viewmodel.RegionFilterViewModel
 
 class RootActivity : AppCompatActivity() {
-    val viewModel by viewModel<RegionFilterViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityRootBinding.inflate(LayoutInflater.from(this))
@@ -34,9 +31,6 @@ class RootActivity : AppCompatActivity() {
 
         // Пример использования access token для HeadHunter API
         networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
-
-
-        viewModel.loadRegions()
     }
 
     private fun networkRequestExample(accessToken: String) {
