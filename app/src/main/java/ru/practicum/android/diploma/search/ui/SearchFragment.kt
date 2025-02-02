@@ -97,6 +97,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun setupTextInput() {
+        binding.textInput.requestFocus()
         binding.textInput.setOnEditorActionListener { _, actionId, _ -> if (actionId == EditorInfo.IME_ACTION_DONE) {
             viewModel.searchVacancy(
                 binding.textInput.text.toString()
