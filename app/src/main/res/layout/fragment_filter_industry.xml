@@ -103,7 +103,7 @@
         android:id="@+id/error_placeholder_industry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:constraint_referenced_ids="error_placeholder_image, error_placeholder_text" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -120,6 +120,24 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/rightGuideline"
         app:layout_constraintStart_toStartOf="@id/leftGuideline" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar_industry"
+        style="@style/ProgressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/bottomBorder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_search"
+        tools:visibility="visible" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/bottomBorder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/BottomMenuStyle" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

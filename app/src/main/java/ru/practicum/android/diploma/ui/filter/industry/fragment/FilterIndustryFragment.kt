@@ -11,7 +11,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterIndustryBinding
 import ru.practicum.android.diploma.domain.Resource
 import ru.practicum.android.diploma.domain.models.Industry
@@ -59,14 +58,27 @@ class FilterIndustryFragment : Fragment() {
             binding.buttonSelect.isVisible = true
         }
 
-        val bottomNav = requireActivity().findViewById<View>(R.id.bottomNavigationView)
-        bottomNav.isVisible = false
-
         binding.industryRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = this@FilterIndustryFragment.adapter
         }
 
+        binding.buttonSelect.setOnClickListener {
+            sendSelectedIndustry()
+        }
+
+        binding.clearIcon.setOnClickListener {
+            clearText()
+        }
+
+        binding.errorPlaceholderIndustry.isVisible = false
+        binding.progressBarIndustry.isVisible = true
+
+        observeIndustries()
+        viewModel.loadIndustries()
+    }
+
+    private fun observeIndustries() {
         viewModel.industries.observe(viewLifecycleOwner) { resource ->
             when (resource) {
                 is Resource.Success -> {
@@ -80,14 +92,6 @@ class FilterIndustryFragment : Fragment() {
                 is Resource.Error -> renderList(PlaceholderState.ERROR)
             }
         }
-
-        binding.buttonSelect.setOnClickListener {
-            sendSelectedIndustry()
-        }
-
-        binding.clearIcon.setOnClickListener {
-            clearText()
-        }
     }
 
     override fun onDestroyView() {
@@ -99,12 +103,14 @@ class FilterIndustryFragment : Fragment() {
     private fun renderList(state: PlaceholderState) {
         when (state) {
             PlaceholderState.ERROR -> {
+                binding.progressBarIndustry.isVisible = false
                 binding.errorPlaceholderIndustry.isVisible = true
                 binding.industryRecyclerView.isVisible = false
                 binding.buttonSelect.isVisible = false
             }
 
             PlaceholderState.LOAD -> {
+                binding.progressBarIndustry.isVisible = false
                 binding.errorPlaceholderIndustry.isVisible = false
                 binding.industryRecyclerView.isVisible = true
                 binding.buttonSelect.isVisible = false
@@ -130,12 +136,14 @@ class FilterIndustryFragment : Fragment() {
         binding.errorPlaceholderIndustry.isVisible = false
         binding.industryRecyclerView.isVisible = true
         adapter?.submitList(adapter?.industriesFull?.sortedBy { it.name }?.toList())
+        binding.buttonSelect.isVisible = false
     }
 
     private fun setupSearch() {
         binding.editTextSearch.doOnTextChanged { text, _, _, _ ->
             binding.clearIcon.isVisible = !text.isNullOrEmpty()
             binding.searchIcon.isVisible = text.isNullOrEmpty()
+            binding.buttonSelect.isVisible = false
 
             CoroutineUtils.debounce(viewLifecycleOwner.lifecycleScope, DELAY) {
                 val query = text?.toString()?.trim().orEmpty()

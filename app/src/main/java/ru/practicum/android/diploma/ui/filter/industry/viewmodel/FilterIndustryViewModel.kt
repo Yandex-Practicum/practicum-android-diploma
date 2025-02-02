@@ -13,16 +13,10 @@ class FilterIndustryViewModel(
     private val industriesInteractor: IndustriesInteractor
 ) : ViewModel() {
 
-    init {
-        loadIndustries()
-    }
-
     private val _industries = MutableLiveData<Resource<List<Industry>>>()
     val industries: LiveData<Resource<List<Industry>>> get() = _industries
 
-    private var selectedIndustryId: String? = null
-
-    private fun loadIndustries() {
+    fun loadIndustries() {
         viewModelScope.launch {
             industriesInteractor.getIndustriesList().collect { response ->
                 _industries.postValue(response)
