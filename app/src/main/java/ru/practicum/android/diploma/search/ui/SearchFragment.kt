@@ -114,7 +114,10 @@ class SearchFragment : Fragment() {
                 count: Int
             ) = updateVisibilityBasedOnInput(s).also {
                 textInput = s.toString()
-                binding.clearIcon.visibility = if (s.isNullOrEmpty()) View.GONE else View.VISIBLE
+                 if (s.isNullOrEmpty()){
+                     binding.clearIcon.visibility = View.GONE
+                    viewModel.clearSearchList()
+                }else {binding.clearIcon.visibility = View.VISIBLE}
                 binding.searchIcon.visibility = if (s.isNullOrEmpty()) View.VISIBLE else View.GONE
             }
             override fun afterTextChanged(s: Editable?) { searchOnTextChanged(s.toString()) }
@@ -154,6 +157,7 @@ class SearchFragment : Fragment() {
         is SearchViewState.ConnectionError -> showNoConnectionPH()
         is SearchViewState.NotFoundError -> showNoVacanciesFoundPH()
         is SearchViewState.ServerError -> showServerErrorPH()
+        is SearchViewState.Base -> showBaseView()
         else -> {}
     }
 
@@ -176,6 +180,16 @@ class SearchFragment : Fragment() {
             adapter?.currentList.isNullOrEmpty() -> showMainServerErrorPH()
             job?.isActive != true -> showPaginationServerErrorPH()
         }
+    }
+
+    private fun showBaseView() = with(binding) {
+        noConnectionPH.isVisible = false
+        initScreenPH.isVisible = true
+        textHint.isVisible = false
+        mainProgressBar.isVisible = false
+        searchVacanciesRV.isVisible = false
+        noVacanciesFoundPH.isVisible = false
+        serverErrorPH.isVisible = false
     }
 
     private fun showMainNoConnectionPH() = with(binding) {
