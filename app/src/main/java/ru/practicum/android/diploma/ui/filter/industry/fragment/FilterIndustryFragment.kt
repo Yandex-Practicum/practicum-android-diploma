@@ -16,7 +16,6 @@ import ru.practicum.android.diploma.databinding.FragmentFilterIndustryBinding
 import ru.practicum.android.diploma.domain.Resource
 import ru.practicum.android.diploma.domain.models.Industry
 import ru.practicum.android.diploma.ui.filter.industry.viewmodel.FilterIndustryViewModel
-import ru.practicum.android.diploma.ui.root.RootActivity
 import ru.practicum.android.diploma.util.FilterNames
 import ru.practicum.android.diploma.util.coroutine.CoroutineUtils
 
@@ -121,12 +120,12 @@ class FilterIndustryFragment : Fragment() {
         }
     }
 
-    private fun clearText(){
+    private fun clearText() {
         binding.editTextSearch.setText("")
         binding.editTextSearch.clearFocus()
-        adapter?.submitList(adapter?.industriesFull?.sortedBy { it.name })
-
-        CoroutineUtils.debounceJob?.cancel()
+        binding.errorPlaceholderIndustry.isVisible = false
+        binding.industryRecyclerView.isVisible = true
+        adapter?.submitList(adapter?.industriesFull?.sortedBy { it.name }?.toList())
     }
 
     private fun setupSearch() {
@@ -136,8 +135,9 @@ class FilterIndustryFragment : Fragment() {
 
             CoroutineUtils.debounce(viewLifecycleOwner.lifecycleScope, DELAY) {
                 val query = text?.toString()?.trim().orEmpty()
-                adapter?.filter(query)
-                updatePlaceholder(adapter?.itemCount ?: 0)
+                adapter?.filter(query) {
+                    updatePlaceholder(it)
+                }
             }
         }
     }

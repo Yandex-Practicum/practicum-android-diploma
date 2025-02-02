@@ -39,7 +39,8 @@ class IndustryAdapter(
         submitList(currentList.toList())
     }
 
-    fun filter(query: String) {
+    @SuppressLint("NotifyDataSetChanged")
+    fun filter(query: String, onFilterCompleted: (Int) -> Unit) {
         val filteredList = if (query.isEmpty()) {
             industriesFull.sortedBy { it.name }
         } else {
@@ -47,6 +48,8 @@ class IndustryAdapter(
                 .sortedBy { it.name }
         }
         submitList(filteredList)
+        notifyDataSetChanged()
+        onFilterCompleted(filteredList.size)
     }
 
 }
