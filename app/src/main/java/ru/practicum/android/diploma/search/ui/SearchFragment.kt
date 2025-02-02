@@ -242,6 +242,7 @@ class SearchFragment : Fragment() {
         textInput.setText("")
         adapter?.submitList(emptyList())
         initScreenPH.isVisible = true
+        searchVacanciesRV.adapter = adapter
         searchVacanciesRV.isVisible = false
         textHint.isVisible = false
         noConnectionPH.isVisible = false
