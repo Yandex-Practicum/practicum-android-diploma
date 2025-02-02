@@ -43,6 +43,7 @@ class FilterCountryRegionFragment : Fragment() {
         backButton()
         setupListeners()
         selectButton()
+        listenCountryRegionFragments()
 
         arguments?.let {
             countryId = it.getString(FilterNames.COUNTRY_ID)
@@ -63,6 +64,27 @@ class FilterCountryRegionFragment : Fragment() {
                     renderRegion(regionName)
                 }
             }
+        }
+    }
+
+    private fun listenCountryRegionFragments() {
+        // Здесь мы слушаем параметры от фрагмента выбора страны
+        parentFragmentManager.setFragmentResultListener(FilterNames.COUNTRY_RESULT, viewLifecycleOwner) { _, bundle ->
+            countryId = bundle.getString(FilterNames.COUNTRY_ID)
+            countryName = bundle.getString(FilterNames.COUNTRY_NAME)
+
+            viewModel.setCountry(countryId, countryName)
+        }
+
+        // Здесь мы слушаем параметры от фрагмента выбора региона
+        parentFragmentManager.setFragmentResultListener(FilterNames.REGION_RESULT, viewLifecycleOwner) { _, bundle ->
+            countryId = bundle.getString(FilterNames.COUNTRY_ID)
+            countryName = bundle.getString(FilterNames.COUNTRY_NAME)
+            regionId = bundle.getString(FilterNames.REGION_ID)
+            regionName = bundle.getString(FilterNames.REGION_NAME)
+
+            viewModel.setCountry(countryId, countryName)
+            viewModel.setRegion(regionId, regionName)
         }
     }
 

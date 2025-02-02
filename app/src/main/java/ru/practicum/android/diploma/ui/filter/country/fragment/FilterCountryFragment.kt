@@ -69,10 +69,8 @@ class FilterCountryFragment : Fragment() {
             putString(FilterNames.COUNTRY_ID, id)
             putString(FilterNames.COUNTRY_NAME, name)
         }
-        findNavController().navigate(
-            R.id.action_filterCountryFragment_to_filterCountryRegionFragment,
-            bundle
-        )
+        parentFragmentManager.setFragmentResult(FilterNames.COUNTRY_RESULT, bundle)
+        findNavController().popBackStack()
     }
 
     private fun showUI(state: UIState, searchResult: SearchResult) {
