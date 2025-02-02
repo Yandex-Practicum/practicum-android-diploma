@@ -25,7 +25,7 @@ class FilterCountryFragment : Fragment() {
 
     private val viewModel: FilterCountryViewModel by viewModel()
 
-    private var adapter: AreaAdapter? = null
+    private var adapter: CountryAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,7 +44,7 @@ class FilterCountryFragment : Fragment() {
 
         val onClick: (String, String) -> Unit =
             { countryId: String, countryName: String -> viewModel.onItemClicked(countryId, countryName) }
-        adapter = AreaAdapter(onClick)
+        adapter = CountryAdapter(onClick)
 
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter = adapter
