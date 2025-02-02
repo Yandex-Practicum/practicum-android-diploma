@@ -22,7 +22,7 @@ class FavoritesRepositoryImpl(
 ) : FavoriteRepository {
     override suspend fun getVacancyList(): Flow<Resource<List<VacancyItems>>> = flow {
         try {
-           // throw SQLiteException()
+            // throw SQLiteException()
             val vacancyList = appDatabase.favoriteDao().getVacancyListByTime()
             emit(Resource.Success(convert(vacancyList)))
         } catch (e: SQLiteException) {
