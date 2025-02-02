@@ -8,6 +8,7 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.Resource
 import ru.practicum.android.diploma.domain.areas.api.AreasInteractor
 import ru.practicum.android.diploma.domain.common.SearchResult
+import ru.practicum.android.diploma.domain.models.CountryRegionData
 import ru.practicum.android.diploma.domain.models.Places
 import ru.practicum.android.diploma.util.SingleEventLiveData
 
@@ -15,16 +16,22 @@ class FilterRegionViewModel(
     private val interactor: AreasInteractor
 ) : ViewModel() {
 
-    private val selectRegionTrigger = SingleEventLiveData<Pair<String, String>>()
-    fun selectRegionTrigger(): SingleEventLiveData<Pair<String, String>> = selectRegionTrigger
+    private val selectRegionTrigger = SingleEventLiveData<CountryRegionData>()
+    fun selectRegionTrigger(): SingleEventLiveData<CountryRegionData> =
+        selectRegionTrigger
 
     private val searchResultData: MutableLiveData<SearchResult> =
         MutableLiveData(SearchResult.Loading)
 
     fun searchResultLiveData(): LiveData<SearchResult> = searchResultData
 
-    fun onItemClicked(countryId: String, countryName: String) {
-        selectRegionTrigger.value = Pair(first = countryId, second = countryName)
+    fun onItemClicked(countryId: String, countryName: String, regionId: String, regionName: String) {
+        selectRegionTrigger.value = CountryRegionData(
+            countryId = countryId,
+            countryName = countryName,
+            regionId = regionId,
+            regionName = regionName
+        )
     }
 
     fun searchRegions(countryId: String?) {
@@ -39,7 +46,8 @@ class FilterRegionViewModel(
 
     private fun resultHandle(result: Resource<Places>) {
         if (result.value != null) {
-            searchResultData.postValue(SearchResult.GetPlacesContent(result.value.others))
+            searchResultData.postValue(SearchResult.GetPlacesContent(result.value.countries, result.value.others))
+
         } else if (result.errorCode != null) {
             searchResultData.postValue(SearchResult.Error)
         }
