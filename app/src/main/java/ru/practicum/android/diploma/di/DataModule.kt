@@ -15,6 +15,8 @@ import ru.practicum.android.diploma.data.converters.IndustriesConverter
 import ru.practicum.android.diploma.data.converters.VacanciesConverter
 import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.data.db.FavoritesRepositoryImpl
+import ru.practicum.android.diploma.data.filter.FilterParameters
+import ru.practicum.android.diploma.data.filter.StorageFilter
 import ru.practicum.android.diploma.data.industries.IndustriesRepositoryImpl
 import ru.practicum.android.diploma.data.network.HhApi
 import ru.practicum.android.diploma.data.network.RetrofitNetworkClient
@@ -91,5 +93,11 @@ val dataModule = module {
 
     single<IndustriesRepository> {
         IndustriesRepositoryImpl(get(), get())
+    }
+
+    single { FilterParameters() }
+
+    single<StorageFilter> {
+        StorageFilter(sharedPrefs = get(named(FILTER_PREFERENCES)),get())
     }
 }
