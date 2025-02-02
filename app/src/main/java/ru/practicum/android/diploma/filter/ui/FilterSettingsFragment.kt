@@ -21,7 +21,6 @@ class FilterSettingsFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel by viewModel<FilterSettingsViewModel>()
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -87,7 +86,9 @@ class FilterSettingsFragment : Fragment() {
         with(binding) {
             workplaceValue.text = workplaceText
             workplaceValue.visibility = if (workplaceText != null) View.VISIBLE else View.GONE
-            workplaceBtn.setImageResource(if (workplaceText != null) R.drawable.ic_close_24px else R.drawable.ic_arrow_forward_24px)
+            workplaceBtn.setImageResource(
+                if (workplaceText != null) R.drawable.ic_close_24px else R.drawable.ic_arrow_forward_24px
+            )
             workplacePlaceholder.isVisible = workplaceText == null
             workplaceLabel.isVisible = workplaceText != null
             if (workplaceText == null) {
@@ -112,7 +113,9 @@ class FilterSettingsFragment : Fragment() {
         with(binding) {
             industryValue.text = industryText
             industryValue.visibility = if (industryText != null) View.VISIBLE else View.GONE
-            industryBtn.setImageResource(if (industryText != null) R.drawable.ic_close_24px else R.drawable.ic_arrow_forward_24px)
+            industryBtn.setImageResource(
+                if (industryText != null) R.drawable.ic_close_24px else R.drawable.ic_arrow_forward_24px
+            )
             industryPlaceholder.isVisible = industryText == null
             industryLabel.isVisible = industryText != null
             if (industryText == null) {
@@ -128,13 +131,14 @@ class FilterSettingsFragment : Fragment() {
         withSalary?.let { binding.checkBox.isChecked = it }
 
         binding.inputSalary.doAfterTextChanged { text ->
-            if(text?.isNotBlank() == true && text.toString().toInt() != salary)
+            if (text?.isNotBlank() == true && text.toString().toInt() != salary) {
                 updateSubmitButtonVisibility(true)
+            }
         }
 
         binding.checkBox.setOnCheckedChangeListener { _, isChecked ->
             viewModel.updateWithSalary(isChecked)
-            if(isChecked != withSalary) {
+            if (isChecked != withSalary) {
                 updateSubmitButtonVisibility(true)
             }
 

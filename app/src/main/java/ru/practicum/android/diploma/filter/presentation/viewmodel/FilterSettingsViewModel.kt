@@ -58,6 +58,7 @@ class FilterSettingsViewModel(private val sharedPrefsInteractor: SharedPrefsInte
     fun clearCity() {
         sharedPrefsInteractor.clearCity()
     }
+
     // Очищаем только отрасль
     fun clearIndustry() {
         sharedPrefsInteractor.clearIndustry()

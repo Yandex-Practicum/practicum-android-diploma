@@ -3,8 +3,6 @@ package ru.practicum.android.diploma.di
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
-import ru.practicum.android.diploma.common.sharedprefs.repository.SharedPrefsRepository
-import ru.practicum.android.diploma.common.sharedprefs.repository.SharedPrefsRepositoryImpl
 import ru.practicum.android.diploma.favorites.presentation.viewmodel.FavoriteScreenViewModel
 import ru.practicum.android.diploma.filter.presentation.viewmodel.FilterScreenViewModel
 import ru.practicum.android.diploma.filter.presentation.viewmodel.FilterSettingsViewModel

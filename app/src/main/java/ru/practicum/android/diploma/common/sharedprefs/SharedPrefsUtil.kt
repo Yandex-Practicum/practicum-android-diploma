@@ -4,7 +4,6 @@ import android.content.Context
 import com.google.gson.Gson
 import ru.practicum.android.diploma.common.sharedprefs.models.Filter
 
-
 class SharedPrefsUtil(private val context: Context) {
     private val sharedPreferences = context.getSharedPreferences("FILTER_PREFS", Context.MODE_PRIVATE)
     private val gson = Gson()
