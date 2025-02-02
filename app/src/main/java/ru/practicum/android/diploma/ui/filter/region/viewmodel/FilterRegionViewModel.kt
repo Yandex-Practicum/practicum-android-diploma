@@ -18,7 +18,6 @@ data class CountryRegionData(
     val regionName: String
 )
 
-
 class FilterRegionViewModel(
     private val interactor: AreasInteractor
 ) : ViewModel() {

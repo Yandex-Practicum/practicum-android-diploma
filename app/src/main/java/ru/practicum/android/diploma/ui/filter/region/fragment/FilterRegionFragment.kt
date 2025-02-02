@@ -71,8 +71,8 @@ class FilterRegionFragment : Fragment() {
         binding.recyclerView.adapter = adapter
 
         val owner = getViewLifecycleOwner()
-        viewModel.selectRegionTrigger().observe(owner) { (countryId, countryName, regionId, regionName) ->
-            navigateBackWithParams(countryId, countryName, regionId, regionName)
+        viewModel.selectRegionTrigger().observe(owner) { countryRegionData: CountryRegionData ->
+            navigateBackWithParams(countryRegionData)
         }
 
         // очистить строку поиска
@@ -102,14 +102,13 @@ class FilterRegionFragment : Fragment() {
     }
 
     private fun navigateBackWithParams(
-        countryId: String, countryName: String,
-        regionId: String, regionName: String
+        countryRegionData: CountryRegionData
     ) {
         val bundle = Bundle().apply {
-            putString(FilterNames.COUNTRY_ID, countryId)
-            putString(FilterNames.COUNTRY_NAME, countryName)
-            putString(FilterNames.REGION_ID, regionId)
-            putString(FilterNames.REGION_NAME, regionName)
+            putString(FilterNames.COUNTRY_ID, countryRegionData.countryId)
+            putString(FilterNames.COUNTRY_NAME, countryRegionData.countryName)
+            putString(FilterNames.REGION_ID, countryRegionData.regionId)
+            putString(FilterNames.REGION_NAME, countryRegionData.regionName)
         }
         findNavController().navigate(
             R.id.action_filterRegionFragment_to_filterCountryRegionFragment,
