@@ -37,4 +37,8 @@
     <string name="dont_show_without_sallary">Не показывать без зарплаты</string>
     <string name="reset_filter">Сбросить</string>
     <string name="apply_button">Применить</string>
+    <string name="country">Страна</string>
+    <string name="russia">Россия</string>
+    <string name="region">Регион</string>
+    <string name="moscow">Москва</string>
 </resources>

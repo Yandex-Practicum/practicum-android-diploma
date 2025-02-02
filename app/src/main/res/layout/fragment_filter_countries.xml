@@ -6,21 +6,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="ru.practicum.android.diploma.filter.ui.FilterCountriesFragment">
 
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/glBegin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="@dimen/margin_begin_end_gl_16dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/glEnd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="@dimen/margin_begin_end_gl_16dp" />
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/topBar"
         android:layout_width="0dp"
@@ -30,6 +15,22 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_button_back"
         app:title="@string/filter_countries"
-        app:titleTextAppearance="@style/TextMedium_22"/>
+        app:titleTextAppearance="@style/TextMedium_22"
+        app:titleTextColor="?attr/titleTextColor"/>
+
+    <!-- список избранных треков-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCountryRegionItems"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:layout_weight="1"
+        android:visibility="visible"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topBar"
+        tools:listitem="@layout/item_country_region" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
