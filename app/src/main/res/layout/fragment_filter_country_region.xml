@@ -29,38 +29,44 @@
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteY="-3dp" />
 
-    <com.google.android.material.textview.MaterialTextView
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/country"
-        style="@style/CountryRegionTextStyle"
+        style="@style/SelectionInputTextLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_60"
         android:layout_marginTop="@dimen/dp_16"
-        android:drawableEnd="@drawable/ic_arrow_forward_48"
-        android:drawablePadding="@dimen/dp_8"
-        android:drawableTint="?attr/blackToWhite"
-        android:gravity="center_vertical"
         android:hint="@string/country"
-        android:paddingStart="@dimen/dp_16"
+        android:orientation="vertical"
+        app:endIconDrawable="@drawable/ic_arrow_forward_48"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        tools:ignore="RtlSymmetry" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-    <com.google.android.material.textview.MaterialTextView
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/SelectionInputText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="@dimen/dp_24" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/region"
-        style="@style/CountryRegionTextStyle"
+        style="@style/SelectionInputTextLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_60"
-        android:drawableEnd="@drawable/ic_arrow_forward_48"
-        android:drawablePadding="@dimen/dp_8"
-        android:drawableTint="?attr/blackToWhite"
-        android:gravity="center_vertical"
         android:hint="@string/region"
-        android:paddingStart="@dimen/dp_16"
+        android:orientation="vertical"
+        app:endIconDrawable="@drawable/ic_arrow_forward_48"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
-        app:layout_constraintTop_toBottomOf="@id/country"
-        tools:ignore="RtlSymmetry" />
+        app:layout_constraintTop_toBottomOf="@id/country">
+
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/SelectionInputText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="@dimen/dp_24" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_select"

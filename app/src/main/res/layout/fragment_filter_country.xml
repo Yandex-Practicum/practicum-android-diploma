@@ -29,7 +29,7 @@
         tools:ignore="MissingConstraints" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_search"
+        android:id="@+id/recycler_view"
         android:layout_width="0dp"
         android:layout_height="@dimen/dp_0"
         android:layout_marginTop="@dimen/dp_16"
@@ -45,7 +45,7 @@
         tools:visibility="visible" />
 
     <ProgressBar
-        android:id="@+id/progress_bar_search"
+        android:id="@+id/progress_bar"
         style="@style/ProgressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
