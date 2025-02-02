@@ -9,4 +9,7 @@ object FilterNames {
     const val INDUSTRY_NAME = "industry_name"
     const val EXPECTED_SALARY = "expected_salary"
     const val SHOW_WITHOUT_SALARY = "show_without_salary"
+
+    // ТЕГИ ДЛЯ ПЕРЕДАЧИ ПАРАМЕТРОВ В ФРАГМЕНТ НАСТРОЙКИ ФИЛЬТРА
+    const val INDUSTRY_RESULT = "industry_result"
 }

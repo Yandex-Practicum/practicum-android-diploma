@@ -16,12 +16,14 @@ import ru.practicum.android.diploma.databinding.FragmentFilterIndustryBinding
 import ru.practicum.android.diploma.domain.Resource
 import ru.practicum.android.diploma.domain.models.Industry
 import ru.practicum.android.diploma.ui.filter.industry.viewmodel.FilterIndustryViewModel
+import ru.practicum.android.diploma.ui.root.RootActivity
+import ru.practicum.android.diploma.util.FilterNames
 import ru.practicum.android.diploma.util.coroutine.CoroutineUtils
 
 class FilterIndustryFragment : Fragment() {
 
     private companion object {
-        const val DELAY = 2000L
+        const val DELAY = 1000L
     }
 
     private enum class PlaceholderState {
@@ -48,10 +50,14 @@ class FilterIndustryFragment : Fragment() {
 
         setupSearch()
 
-        adapter = IndustryAdapter { selectedIndustry ->
-            adapter?.selectIndustry(selectedIndustry)
+        adapter = IndustryAdapter { thisIndustry ->
+            adapter?.selectIndustry(thisIndustry)
+            selectedIndustry = thisIndustry
             binding.buttonSelect.isVisible = true
         }
+
+        val bottomNav = requireActivity().findViewById<View>(R.id.bottomNavigationView)
+        bottomNav.isVisible = false
 
         binding.industryRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -65,19 +71,26 @@ class FilterIndustryFragment : Fragment() {
                     resource.value?.let {
                         adapter?.industriesFull = resource.value
                     }
-                    adapter?.submitList(resource.value)
+                    adapter?.submitList(resource.value?.sortedBy { it.name })
                 }
 
                 is Resource.Error -> renderList(PlaceholderState.ERROR)
             }
         }
 
-        setupListeners()
+        binding.buttonSelect.setOnClickListener {
+            sendSelectedIndustry()
+        }
+
+        binding.clearIcon.setOnClickListener {
+            clearText()
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        CoroutineUtils.debounceJob?.cancel()
     }
 
     private fun renderList(state: PlaceholderState) {
@@ -96,22 +109,41 @@ class FilterIndustryFragment : Fragment() {
         }
     }
 
-    private fun setupListeners() {
-        binding.buttonSelect.setOnClickListener {
-            val bundle = Bundle().apply {
-                putString("industry_id", selectedIndustry?.id)
-                putString("industry_name", selectedIndustry?.name)
+    private fun sendSelectedIndustry() {
+        selectedIndustry?.let { industry ->
+            val result = Bundle().apply {
+                putString(FilterNames.INDUSTRY_ID, industry.id)
+                putString(FilterNames.INDUSTRY_NAME, industry.name)
             }
-            findNavController().navigate(R.id.action_filterIndustryFragment_to_filterCommonFragment, bundle)
+            parentFragmentManager.setFragmentResult(FilterNames.INDUSTRY_RESULT, result)
+
+            findNavController().popBackStack()
         }
+    }
+
+    private fun clearText(){
+        binding.editTextSearch.setText("")
+        binding.editTextSearch.clearFocus()
+        adapter?.submitList(adapter?.industriesFull?.sortedBy { it.name })
+
+        CoroutineUtils.debounceJob?.cancel()
     }
 
     private fun setupSearch() {
         binding.editTextSearch.doOnTextChanged { text, _, _, _ ->
+            binding.clearIcon.isVisible = !text.isNullOrEmpty()
+            binding.searchIcon.isVisible = text.isNullOrEmpty()
+
             CoroutineUtils.debounce(viewLifecycleOwner.lifecycleScope, DELAY) {
                 val query = text?.toString()?.trim().orEmpty()
                 adapter?.filter(query)
+                updatePlaceholder(adapter?.itemCount ?: 0)
             }
         }
+    }
+
+    private fun updatePlaceholder(itemCount: Int) {
+        binding.errorPlaceholderIndustry.isVisible = itemCount == 0
+        binding.industryRecyclerView.isVisible = itemCount > 0
     }
 }

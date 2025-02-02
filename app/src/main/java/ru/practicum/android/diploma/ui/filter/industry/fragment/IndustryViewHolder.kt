@@ -13,6 +13,11 @@ class IndustryViewHolder(
         binding.selectionRadioButton.isChecked = isSelected
 
         binding.root.setOnClickListener {
+            binding.selectionRadioButton.isChecked = true
+            onItemSelected(industry)
+        }
+
+        binding.selectionRadioButton.setOnClickListener {
             onItemSelected(industry)
         }
     }

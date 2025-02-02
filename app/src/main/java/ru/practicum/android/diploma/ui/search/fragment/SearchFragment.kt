@@ -19,7 +19,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.domain.common.SearchResult
-import ru.practicum.android.diploma.ui.favourites.fragment.FavouritesFragment.PlaceholderState
 import ru.practicum.android.diploma.ui.search.viewmodel.SearchViewModel
 import ru.practicum.android.diploma.ui.vacancydetails.fragment.VacancyFragment
 import ru.practicum.android.diploma.util.coroutine.CoroutineUtils

@@ -29,8 +29,4 @@ class FilterIndustryViewModel(
             }
         }
     }
-
-    fun selectIndustry(id: String?) {
-        selectedIndustryId = id
-    }
 }
