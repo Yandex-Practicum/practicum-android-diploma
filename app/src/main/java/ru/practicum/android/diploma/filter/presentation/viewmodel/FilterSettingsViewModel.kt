@@ -10,6 +10,10 @@ class FilterSettingsViewModel(private val sharedPrefsInteractor: SharedPrefsInte
         sharedPrefsInteractor.updateFilter(filter)
     }
 
+    fun clearFilterField(field: String) {
+        sharedPrefsInteractor.clearFilterField(field)
+    }
+
     fun getFilter() = sharedPrefsInteractor.getFilter()
 
     fun clearFilter() {

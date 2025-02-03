@@ -7,14 +7,31 @@ class SharedPrefsRepositoryImpl(private val sharedPrefsUtil: SharedPrefsUtil) : 
 
     override fun updateFilter(updatedFilter: Filter) {
         val currentFilter = sharedPrefsUtil.getFilter()
+
         val mergedFilter = Filter(
             areaCountry = updatedFilter.areaCountry ?: currentFilter.areaCountry,
             areaCity = updatedFilter.areaCity ?: currentFilter.areaCity,
             industrySP = updatedFilter.industrySP ?: currentFilter.industrySP,
             salary = updatedFilter.salary ?: currentFilter.salary,
-            withSalary = updatedFilter.withSalary ?: currentFilter.withSalary
+            withSalary = if (updatedFilter.withSalary == false) currentFilter.withSalary else updatedFilter.withSalary
         )
+        println(updatedFilter)
         sharedPrefsUtil.saveFilter(mergedFilter)
+    }
+
+    override fun clearFilterField(field: String) {
+        val currentFilter = sharedPrefsUtil.getFilter()
+
+        val updatedFilter = when (field) {
+            "areaCountry" -> currentFilter.copy(areaCountry = null)
+            "areaCity" -> currentFilter.copy(areaCity = null)
+            "industrySP" -> currentFilter.copy(industrySP = null)
+            "salary" -> currentFilter.copy(salary = null)
+            "withSalary" -> currentFilter.copy(withSalary = false)
+            else -> currentFilter
+        }
+
+        sharedPrefsUtil.saveFilter(updatedFilter)
     }
 
     override fun clearFilter() {
