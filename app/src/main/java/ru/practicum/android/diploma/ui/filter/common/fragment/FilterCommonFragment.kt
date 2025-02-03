@@ -15,8 +15,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.data.filter.FilterParameters
 import ru.practicum.android.diploma.databinding.FragmentFilterCommonBinding
+import ru.practicum.android.diploma.domain.models.FilterParameters
 import ru.practicum.android.diploma.ui.filter.common.viewmodel.FilterCommonViewModel
 import ru.practicum.android.diploma.util.FilterNames
 
@@ -47,12 +47,12 @@ class FilterCommonFragment : Fragment() {
         setupListeners()
         setupSalaryField()
 
-        viewModel.acceptButtonLiveData.observe(viewLifecycleOwner) { isModelsEqual ->
-            showApplyButton(!isModelsEqual)
+        viewModel.acceptButtonLiveData.observe(viewLifecycleOwner) { shouldShowApplyButton ->
+            showApplyButton(shouldShowApplyButton)
         }
 
-        viewModel.resetButtonLiveData.observe(viewLifecycleOwner) { isModelEmpty ->
-            showResetButton(!isModelEmpty)
+        viewModel.resetButtonLiveData.observe(viewLifecycleOwner) { shouldShowResetButton ->
+            showResetButton(shouldShowResetButton)
         }
 
         viewModel.filterParamLiveData.observe(viewLifecycleOwner) { filterParametersModel ->

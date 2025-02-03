@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data.filter
+package ru.practicum.android.diploma.domain.models
 
 data class FilterParameters(
     val countryId: String? = null,

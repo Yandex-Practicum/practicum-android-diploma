@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import ru.practicum.android.diploma.di.FILTER_KEY
+import ru.practicum.android.diploma.domain.models.FilterParameters
 
 class StorageFilter(
     private val sharedPrefs: SharedPreferences,

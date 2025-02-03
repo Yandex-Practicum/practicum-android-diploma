@@ -15,7 +15,6 @@ import ru.practicum.android.diploma.data.converters.IndustriesConverter
 import ru.practicum.android.diploma.data.converters.VacanciesConverter
 import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.data.db.FavoritesRepositoryImpl
-import ru.practicum.android.diploma.data.filter.FilterParameters
 import ru.practicum.android.diploma.data.filter.FilterRepositoryImpl
 import ru.practicum.android.diploma.data.filter.StorageFilter
 import ru.practicum.android.diploma.data.industries.IndustriesRepositoryImpl
@@ -28,6 +27,7 @@ import ru.practicum.android.diploma.domain.areas.api.AreasRepository
 import ru.practicum.android.diploma.domain.favorites.api.FavoritesRepository
 import ru.practicum.android.diploma.domain.filter.api.FilterRepository
 import ru.practicum.android.diploma.domain.industries.api.IndustriesRepository
+import ru.practicum.android.diploma.domain.models.FilterParameters
 import ru.practicum.android.diploma.domain.search.api.VacanciesRepository
 import ru.practicum.android.diploma.domain.sharing.api.ExternalNavigator
 import ru.practicum.android.diploma.domain.vacancydetails.api.VacancyDetailsRepository
