@@ -51,7 +51,7 @@ class FilterPlaceOfWorkFragment : Fragment() {
 
         binding.frameCountry.setOnClickListener {
             if (selectFilter?.areaCountry == null) {
-                viewModel.updateFilter(selectFilter!!)
+               // viewModel.updateFilter(selectFilter!!)
                 findNavController().navigate(
                     R.id.action_filterPlaceOfWorkFragment_to_filterCountriesFragment
                 )
@@ -60,7 +60,7 @@ class FilterPlaceOfWorkFragment : Fragment() {
                     Filter(
                         null,
                         selectFilter!!.areaCity,
-                        selectFilter!!.industry,
+                        selectFilter!!.industrySP,
                         selectFilter!!.salary,
                         selectFilter!!.withSalary
                     )
@@ -70,7 +70,7 @@ class FilterPlaceOfWorkFragment : Fragment() {
 
         binding.frameRegion.setOnClickListener {
             if (selectFilter?.areaCity == null) {
-                viewModel.updateFilter(selectFilter!!)
+              //  viewModel.updateFilter(selectFilter!!)
                 findNavController().navigate(
                     R.id.action_filterPlaceOfWorkFragment_to_filterRegionFragment
                 )
