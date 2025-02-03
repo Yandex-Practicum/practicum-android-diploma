@@ -27,6 +27,7 @@ class FilterCommonFragment : Fragment() {
     private var expectedSalary: Int? = null
     private var withoutSalary: Boolean = false
 
+    private var selectedIndustryId: String? = null
     private var selectedIndustry: String? = null
 
     private var countryId: String? = null
@@ -139,7 +140,12 @@ class FilterCommonFragment : Fragment() {
         binding.placeOfWorkEditedLayout.setOnClickListener {
             findNavController().navigate(
                 R.id.action_filterCommonFragment_to_filterCountryRegionFragment,
-                // Здесь можно принимать параметры
+                Bundle().apply {
+                    putString(FilterNames.COUNTRY_ID, countryId)
+                    putString(FilterNames.COUNTRY_NAME, countryName)
+                    putString(FilterNames.REGION_ID, regionId)
+                    putString(FilterNames.REGION_NAME, regionName)
+                }
             )
         }
 
@@ -149,6 +155,11 @@ class FilterCommonFragment : Fragment() {
 
         binding.industryEditedLayout.setOnClickListener {
             findNavController().navigate(R.id.action_filterCommonFragment_to_filterIndustryFragment)
+            // Здесь можно передавать параметры
+            Bundle().apply {
+                putString(FilterNames.INDUSTRY_ID, selectedIndustryId)
+                putString(FilterNames.INDUSTRY_NAME, selectedIndustry)
+            }
         }
     }
 
@@ -205,9 +216,15 @@ class FilterCommonFragment : Fragment() {
             binding.placeOfWorkEditedLayout.isVisible = true
             binding.placeOfWorkEditedValue.text = filterParameters.countryName
 
+            countryId = filterParameters.countryId
+            countryName = filterParameters.countryName
+
             if (!filterParameters.regionId.isNullOrEmpty()) {
                 val placeOfWorkEditedValue = "${filterParameters.countryName}, ${filterParameters.regionName}"
                 binding.placeOfWorkEditedValue.text = placeOfWorkEditedValue
+
+                regionId = filterParameters.regionId
+                regionName = filterParameters.regionName
             }
         }
 
@@ -215,6 +232,9 @@ class FilterCommonFragment : Fragment() {
             binding.industryDefault.isVisible = false
             binding.industryEditedLayout.isVisible = true
             binding.industryEditedValue.text = filterParameters.industryName
+
+            selectedIndustryId = filterParameters.industryId
+            selectedIndustry = filterParameters.industryName
         } else {
             binding.industryEditedLayout.isVisible = false
             binding.industryDefault.isVisible = true
@@ -227,8 +247,6 @@ class FilterCommonFragment : Fragment() {
 
         binding.salaryCheckbox.isChecked = filterParameters.isWithoutSalaryShowed
     }
-
-//    private fun showIndustryValue
 
     companion object {
         const val TEXT_EMPTY = ""
