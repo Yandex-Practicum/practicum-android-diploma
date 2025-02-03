@@ -10,17 +10,22 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.FragmentFilterRegionBinding
 import ru.practicum.android.diploma.domain.common.SearchResult
-import ru.practicum.android.diploma.domain.models.Area
 import ru.practicum.android.diploma.domain.models.CountryRegionData
 import ru.practicum.android.diploma.ui.filter.region.viewmodel.FilterRegionViewModel
 import ru.practicum.android.diploma.util.FilterNames
+import ru.practicum.android.diploma.util.coroutine.CoroutineUtils
 
 class FilterRegionFragment : Fragment() {
+
+    private companion object {
+        const val DELAY = 200L
+    }
 
     enum class UIState {
         CONTENT, LOADING, ERROR, EMPTY
@@ -87,6 +92,10 @@ class FilterRegionFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 binding.clearIcon.isVisible = clearButtonIsVisible(s)
                 binding.searchIcon.isVisible = !clearButtonIsVisible(s)
+
+                CoroutineUtils.debounce(lifecycleScope, DELAY) {
+                    viewModel.filterRegions(s?.toString()?.trim())
+                }
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -125,10 +134,16 @@ class FilterRegionFragment : Fragment() {
                 searchResult
             )
 
-            is SearchResult.GetPlacesContent -> showUI(
-                UIState.CONTENT,
-                searchResult
-            )
+            is SearchResult.GetPlacesContent -> {
+                if (searchResult.regions.isEmpty()) {
+                    showUI(UIState.EMPTY, searchResult)
+                } else {
+                    showUI(
+                        UIState.CONTENT,
+                        searchResult
+                    )
+                }
+            }
 
             else -> {}
         }
@@ -138,49 +153,38 @@ class FilterRegionFragment : Fragment() {
         state: UIState,
         searchResult: SearchResult
     ) {
-        binding.notFoundPlaceholderGroup.isVisible = false
-
         when (state) {
             UIState.ERROR -> {
                 binding.errorPlaceholderGroup.isVisible = true
                 binding.progressBar.isVisible = false
                 binding.recyclerView.isVisible = false
+                binding.notFoundPlaceholderGroup.isVisible = false
             }
 
             UIState.LOADING -> {
                 binding.errorPlaceholderGroup.isVisible = false
                 binding.progressBar.isVisible = true
                 binding.recyclerView.isVisible = false
+                binding.notFoundPlaceholderGroup.isVisible = false
             }
 
             UIState.CONTENT -> {
                 binding.errorPlaceholderGroup.isVisible = false
                 binding.progressBar.isVisible = false
                 binding.recyclerView.isVisible = true
-                val content = searchResult as SearchResult.GetPlacesContent
+                binding.notFoundPlaceholderGroup.isVisible = false
 
-                val regionMap = content.others.associateBy { it.id } + content.countries.associateBy { it.id }
-                val list = content.others.map { Pair(it, findCountry(it, regionMap)) }.map {
-                    CountryRegionData(
-                        it.second.id,
-                        it.second.name!!,
-                        it.first.id,
-                        it.first.name!!
-                    )
-                }
-                adapter?.submitList(list)
+                val content = searchResult as SearchResult.GetPlacesContent
+                adapter?.submitList(content.regions)
             }
 
-            else -> {}
+            UIState.EMPTY -> {
+                binding.errorPlaceholderGroup.isVisible = false
+                binding.progressBar.isVisible = false
+                binding.recyclerView.isVisible = false
+                binding.notFoundPlaceholderGroup.isVisible = true
+            }
         }
-    }
-
-    private fun findCountry(region: Area, areas: Map<String, Area>): Area {
-        var area = region
-        while (area.parentId != null) {
-            area = areas[area.parentId]!!
-        }
-        return area
     }
 
     private fun clearSearchText() {

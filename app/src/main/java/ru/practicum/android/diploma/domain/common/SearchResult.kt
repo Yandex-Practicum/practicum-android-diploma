@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.domain.common
 
 import ru.practicum.android.diploma.domain.models.Area
+import ru.practicum.android.diploma.domain.models.CountryRegionData
 import ru.practicum.android.diploma.domain.models.Vacancy
 
 sealed interface SearchResult {
@@ -25,8 +26,7 @@ sealed interface SearchResult {
     ) : SearchResult
 
     data class GetPlacesContent(
-        val countries: List<Area>,
-        val others: List<Area>
+        val regions: List<CountryRegionData>
     ) : SearchResult
 
     data object Error : SearchResult
