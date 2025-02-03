@@ -79,7 +79,7 @@
     </style>
 
     <style name="RadioButton" parent="Widget.MaterialComponents.CompoundButton.RadioButton">
-    <item name="buttonTint">?attr/colorAccent</item>
+        <item name="buttonTint">?attr/colorAccent</item>
     </style>
 
     <style name="SmallTextBlack" parent="TextRegular_12">
