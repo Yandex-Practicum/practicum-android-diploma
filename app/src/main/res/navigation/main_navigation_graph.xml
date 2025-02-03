@@ -95,7 +95,11 @@
         android:id="@+id/filterCountriesFragment"
         android:name="ru.practicum.android.diploma.filter.ui.FilterCountriesFragment"
         android:label="fragment_filter_countries"
-        tools:layout="@layout/fragment_filter_countries" />
+        tools:layout="@layout/fragment_filter_countries" >
+        <action
+            android:id="@+id/action_filterCountriesFragment_to_filterPlaceOfWorkFragment"
+            app:destination="@id/filterPlaceOfWorkFragment" />
+    </fragment>
     <fragment
         android:id="@+id/filterRegionFragment"
         android:name="ru.practicum.android.diploma.filter.ui.FilterRegionFragment"

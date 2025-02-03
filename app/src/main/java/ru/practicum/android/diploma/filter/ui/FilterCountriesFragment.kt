@@ -19,7 +19,9 @@ class FilterCountriesFragment : Fragment() {
     private var _binding: FragmentFilterCountriesBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModel<FilterCountriesViewModel>()
-    private var listAdapter = CountryAdapter { }
+    private var listAdapter = CountryAdapter { country ->
+        viewModel.onCountryClicked(country)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,6 +45,10 @@ class FilterCountriesFragment : Fragment() {
             when (state) {
                 is CountryViewState.Success -> {
                     listAdapter.setCountries(state.countryList)
+                }
+                is CountryViewState.CountrySelected -> {
+                    viewModel.saveCountry(state.country)
+                    findNavController().navigate(R.id.action_filterCountriesFragment_to_filterPlaceOfWorkFragment)
                 }
                 is CountryViewState.NotFoundError -> {
                     Toast.makeText(requireContext(), "Страны не найдены", Toast.LENGTH_SHORT).show()
