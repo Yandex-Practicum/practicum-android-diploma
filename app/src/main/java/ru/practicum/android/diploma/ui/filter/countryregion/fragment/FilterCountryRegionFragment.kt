@@ -83,7 +83,6 @@ class FilterCountryRegionFragment : Fragment() {
         binding?.let {
             setupFieldListeners(
                 view = it.country,
-                onClearField = { viewModel.clearCountry() },
                 onClickEmptyField = {
                     findNavController().navigate(R.id.action_filterCountryRegionFragment_to_filterCountryFragment)
                 },
@@ -92,7 +91,6 @@ class FilterCountryRegionFragment : Fragment() {
         binding?.let {
             setupFieldListeners(
                 view = it.region,
-                onClearField = { viewModel.clearRegion() },
                 onClickEmptyField = {
                     val bundle = Bundle().apply {
                         putString(FilterNames.COUNTRY_ID, viewModel.countryId.value)
@@ -108,7 +106,6 @@ class FilterCountryRegionFragment : Fragment() {
 
     private fun setupFieldListeners(
         view: TextInputLayout,
-        onClearField: () -> Unit,
         onClickEmptyField: () -> Unit,
     ) {
         view.editText?.setOnClickListener {
@@ -119,7 +116,6 @@ class FilterCountryRegionFragment : Fragment() {
             if (view.editText?.text.isNullOrEmpty()) {
                 onClickEmptyField()
             } else {
-                onClearField()
                 renderField(view = view, text = null)
             }
         }
@@ -164,19 +160,13 @@ class FilterCountryRegionFragment : Fragment() {
 
     private fun selectButton() {
         binding?.buttonSelect?.setOnClickListener {
-            val countryBundle = Bundle().apply {
-                putString(FilterNames.COUNTRY_ID, viewModel.countryId.value)
-                putString(FilterNames.COUNTRY_NAME, viewModel.countryName.value)
-            }
-            parentFragmentManager.setFragmentResult(FilterNames.COUNTRY_RESULT, countryBundle)
-
             val regionBundle = Bundle().apply {
                 putString(FilterNames.COUNTRY_ID, viewModel.countryId.value)
                 putString(FilterNames.COUNTRY_NAME, viewModel.countryName.value)
                 putString(FilterNames.REGION_ID, viewModel.regionId.value)
                 putString(FilterNames.REGION_NAME, viewModel.regionName.value)
             }
-            parentFragmentManager.setFragmentResult(FilterNames.REGION_RESULT, regionBundle)
+            parentFragmentManager.setFragmentResult(FilterNames.COUNTRY_REGION_RESULT, regionBundle)
             findNavController().popBackStack()
         }
     }
