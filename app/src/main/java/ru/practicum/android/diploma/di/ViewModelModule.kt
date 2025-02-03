@@ -12,7 +12,7 @@ import ru.practicum.android.diploma.ui.vacancydetails.viewmodel.VacancyViewModel
 
 val viewModelModule = module {
     viewModel {
-        SearchViewModel(get())
+        SearchViewModel(get(), get())
     }
 
     viewModel { (vacancyId: Long, fromFavoritesScreen: Boolean) ->
