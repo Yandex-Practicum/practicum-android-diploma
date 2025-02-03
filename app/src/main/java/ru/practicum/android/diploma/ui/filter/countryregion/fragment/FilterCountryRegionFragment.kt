@@ -19,11 +19,6 @@ class FilterCountryRegionFragment : Fragment() {
 
     private var binding: FragmentFilterCountryRegionBinding? = null
 
-    private var countryId: String? = null
-    private var countryName: String? = null
-    private var regionId: String? = null
-    private var regionName: String? = null
-
     private val viewModel: FilterCountryRegionViewModel by lazy {
         FilterCountryRegionViewModel()
     }
@@ -43,49 +38,39 @@ class FilterCountryRegionFragment : Fragment() {
         backButton()
         setupListeners()
         selectButton()
-        listenCountryRegionFragments()
-
-        arguments?.let {
-            countryId = it.getString(FilterNames.COUNTRY_ID)
-            countryName = it.getString(FilterNames.COUNTRY_NAME)
-            regionId = it.getString(FilterNames.REGION_ID)
-            regionName = it.getString(FilterNames.REGION_NAME)
-
-            viewModel.setCountry(countryId, countryName)
-            viewModel.setRegion(regionId, regionName)
-        }
+        handleArgumentsAndResults()
 
         viewLifecycleOwner.lifecycleScope.launch {
-            launch {
-                viewModel.countryName.combine(viewModel.regionName) { countryName, regionName ->
-                    countryName to regionName
-                }.collect { (countryName, regionName) ->
-                    renderCountry(countryName)
-                    renderRegion(regionName)
-                }
+            viewModel.countryName.combine(viewModel.regionName) { countryName, regionName ->
+                countryName to regionName
+            }.collect { (countryName, regionName) ->
+                renderFields(countryName, regionName)
             }
         }
     }
 
-    private fun listenCountryRegionFragments() {
-        // Здесь мы слушаем параметры от фрагмента выбора страны
+    private fun handleArgumentsAndResults() {
+        arguments?.let { bundle ->
+            updateViewModelFromBundle(bundle)
+        }
+
         parentFragmentManager.setFragmentResultListener(FilterNames.COUNTRY_RESULT, viewLifecycleOwner) { _, bundle ->
-            countryId = bundle.getString(FilterNames.COUNTRY_ID)
-            countryName = bundle.getString(FilterNames.COUNTRY_NAME)
-
-            viewModel.setCountry(countryId, countryName)
+            updateViewModelFromBundle(bundle)
         }
 
-        // Здесь мы слушаем параметры от фрагмента выбора региона
         parentFragmentManager.setFragmentResultListener(FilterNames.REGION_RESULT, viewLifecycleOwner) { _, bundle ->
-            countryId = bundle.getString(FilterNames.COUNTRY_ID)
-            countryName = bundle.getString(FilterNames.COUNTRY_NAME)
-            regionId = bundle.getString(FilterNames.REGION_ID)
-            regionName = bundle.getString(FilterNames.REGION_NAME)
-
-            viewModel.setCountry(countryId, countryName)
-            viewModel.setRegion(regionId, regionName)
+            updateViewModelFromBundle(bundle)
         }
+    }
+
+    private fun updateViewModelFromBundle(bundle: Bundle) {
+        val countryId = bundle.getString(FilterNames.COUNTRY_ID)
+        val countryName = bundle.getString(FilterNames.COUNTRY_NAME)
+        val regionId = bundle.getString(FilterNames.REGION_ID)
+        val regionName = bundle.getString(FilterNames.REGION_NAME)
+
+        viewModel.setCountry(countryId, countryName)
+        viewModel.setRegion(regionId, regionName)
     }
 
     private fun backButton() {
@@ -98,7 +83,6 @@ class FilterCountryRegionFragment : Fragment() {
         binding?.let {
             setupFieldListeners(
                 view = it.country,
-                onClearField = { viewModel.clearCountry() },
                 onClickEmptyField = {
                     findNavController().navigate(R.id.action_filterCountryRegionFragment_to_filterCountryFragment)
                 },
@@ -107,7 +91,6 @@ class FilterCountryRegionFragment : Fragment() {
         binding?.let {
             setupFieldListeners(
                 view = it.region,
-                onClearField = { viewModel.clearRegion() },
                 onClickEmptyField = {
                     val bundle = Bundle().apply {
                         putString(FilterNames.COUNTRY_ID, viewModel.countryId.value)
@@ -123,7 +106,6 @@ class FilterCountryRegionFragment : Fragment() {
 
     private fun setupFieldListeners(
         view: TextInputLayout,
-        onClearField: () -> Unit,
         onClickEmptyField: () -> Unit,
     ) {
         view.editText?.setOnClickListener {
@@ -134,15 +116,19 @@ class FilterCountryRegionFragment : Fragment() {
             if (view.editText?.text.isNullOrEmpty()) {
                 onClickEmptyField()
             } else {
-                onClearField()
                 renderField(view = view, text = null)
             }
         }
     }
 
-    private fun renderField(view: TextInputLayout, text: String?) {
-        view.editText?.setText(text)
+    private fun renderFields(countryName: String?, regionName: String?) {
+        renderField(binding?.country, countryName)
+        renderField(binding?.region, if (countryName.isNullOrEmpty()) null else regionName)
+        updateSelectButtonVisibility()
+    }
 
+    private fun renderField(view: TextInputLayout?, text: String?) {
+        view?.editText?.setText(text)
         val typedArray = context?.theme?.obtainStyledAttributes(
             intArrayOf(R.attr.blackToWhite)
         )
@@ -150,28 +136,16 @@ class FilterCountryRegionFragment : Fragment() {
         typedArray?.recycle()
 
         when {
-            view.editText?.text.isNullOrEmpty() -> {
-                view.setEndIconDrawable(R.drawable.ic_arrow_forward_48)
-                view.defaultHintTextColor = requireContext().getColorStateList(R.color.gray)
+            text.isNullOrEmpty() -> {
+                view?.setEndIconDrawable(R.drawable.ic_arrow_forward_48)
+                view?.defaultHintTextColor = requireContext().getColorStateList(R.color.gray)
             }
 
             else -> {
-                view.setEndIconDrawable(R.drawable.ic_close_24)
-                view.defaultHintTextColor = colorStateList
+                view?.setEndIconDrawable(R.drawable.ic_close_24)
+                view?.defaultHintTextColor = colorStateList
             }
         }
-    }
-
-    private fun renderCountry(countryName: String?) {
-        binding?.country?.editText?.setText(countryName)
-        renderField(binding?.country ?: return, countryName)
-        updateSelectButtonVisibility()
-    }
-
-    private fun renderRegion(regionName: String?) {
-        binding?.region?.editText?.setText(regionName)
-        renderField(binding?.region ?: return, regionName)
-        updateSelectButtonVisibility()
     }
 
     private fun updateSelectButtonVisibility() {
@@ -186,13 +160,14 @@ class FilterCountryRegionFragment : Fragment() {
 
     private fun selectButton() {
         binding?.buttonSelect?.setOnClickListener {
-            val bundle = Bundle().apply {
-                putString(FilterNames.COUNTRY_ID, countryId)
-                putString(FilterNames.COUNTRY_NAME, countryName)
-                putString(FilterNames.REGION_ID, regionId)
-                putString(FilterNames.REGION_NAME, regionName)
+            val regionBundle = Bundle().apply {
+                putString(FilterNames.COUNTRY_ID, viewModel.countryId.value)
+                putString(FilterNames.COUNTRY_NAME, viewModel.countryName.value)
+                putString(FilterNames.REGION_ID, viewModel.regionId.value)
+                putString(FilterNames.REGION_NAME, viewModel.regionName.value)
             }
-            findNavController().navigate(R.id.action_filterCountryRegionFragment_to_filterCommonFragment, bundle)
+            parentFragmentManager.setFragmentResult(FilterNames.COUNTRY_REGION_RESULT, regionBundle)
+            findNavController().popBackStack()
         }
     }
 }

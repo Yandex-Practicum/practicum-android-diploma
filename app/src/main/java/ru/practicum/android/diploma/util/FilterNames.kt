@@ -14,4 +14,5 @@ object FilterNames {
     const val INDUSTRY_RESULT = "industry_result"
     const val COUNTRY_RESULT = "country_result"
     const val REGION_RESULT = "region_result"
+    const val COUNTRY_REGION_RESULT = "country_region_result"
 }
