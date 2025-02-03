@@ -34,6 +34,9 @@ class FilterIndustryFragment : Fragment() {
     private var adapter: IndustryAdapter? = null
     private var selectedIndustry: Industry? = null
 
+    private var selectedIndustryId: String? = null
+    private var selectedIndustryName: String? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -45,6 +48,11 @@ class FilterIndustryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        arguments?.let {
+            selectedIndustryId = it.getString(FilterNames.INDUSTRY_ID)
+            selectedIndustryName = it.getString(FilterNames.INDUSTRY_NAME)
+        }
 
         binding.toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
@@ -87,6 +95,11 @@ class FilterIndustryFragment : Fragment() {
                         adapter?.industriesFull = resource.value
                     }
                     adapter?.submitList(resource.value?.sortedBy { it.name })
+
+                    selectedIndustryName?.let { name ->
+                        binding.editTextSearch.setText(name) // Заполняем строку поиска
+                        adapter?.filter(name) { updatePlaceholder(it) }
+                    }
                 }
 
                 is Resource.Error -> renderList(PlaceholderState.ERROR)
@@ -135,6 +148,9 @@ class FilterIndustryFragment : Fragment() {
         binding.editTextSearch.clearFocus()
         binding.errorPlaceholderIndustry.isVisible = false
         binding.industryRecyclerView.isVisible = true
+        selectedIndustryId = null
+        selectedIndustryName = null
+
         adapter?.submitList(adapter?.industriesFull?.sortedBy { it.name }?.toList())
         binding.buttonSelect.isVisible = false
     }

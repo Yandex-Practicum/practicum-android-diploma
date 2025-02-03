@@ -13,6 +13,7 @@ class IndustryAdapter(
 ) : ListAdapter<Industry, IndustryViewHolder>(IndustryDiffCallback()) {
 
     private var selectedIndustryId: String? = null
+    private var selectedIndustryName: String? = null
     var industriesFull: List<Industry> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IndustryViewHolder {
@@ -28,6 +29,7 @@ class IndustryAdapter(
         holder.bind(industry, isSelected) { selectedIndustry ->
             if (selectedIndustryId != selectedIndustry.id) {
                 selectedIndustryId = selectedIndustry.id
+                selectedIndustryName = selectedIndustry.name
                 notifyDataSetChanged()
                 onItemSelected(selectedIndustry)
             }
