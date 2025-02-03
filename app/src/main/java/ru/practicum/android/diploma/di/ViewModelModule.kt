@@ -5,6 +5,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import ru.practicum.android.diploma.favorites.presentation.viewmodel.FavoriteScreenViewModel
 import ru.practicum.android.diploma.filter.presentation.viewmodel.FilterCountriesViewModel
+import ru.practicum.android.diploma.filter.presentation.viewmodel.FilterPlaceOfWorkViewModel
 import ru.practicum.android.diploma.filter.presentation.viewmodel.FilterScreenViewModel
 import ru.practicum.android.diploma.filter.presentation.viewmodel.FilterSettingsViewModel
 import ru.practicum.android.diploma.search.presentation.viewmodel.SearchViewModel
@@ -20,7 +21,11 @@ val viewModelModule = module {
     }
 
     viewModel {
-        FilterScreenViewModel(get())
+        FilterPlaceOfWorkViewModel(get())
+    }
+
+    viewModel {
+        FilterCountriesViewModel(get(), get())
     }
 
     viewModel { (vacancyId: String) ->

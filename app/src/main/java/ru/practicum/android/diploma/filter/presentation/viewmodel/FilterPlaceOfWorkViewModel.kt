@@ -1,15 +1,37 @@
 package ru.practicum.android.diploma.filter.presentation.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import ru.practicum.android.diploma.filter.domain.interactor.FilterInteractor
+import ru.practicum.android.diploma.common.sharedprefs.interactor.SharedPrefsInteractor
+import ru.practicum.android.diploma.common.sharedprefs.models.Filter
 
 class FilterPlaceOfWorkViewModel(
-    private val filterInteractor: FilterInteractor
+    private val sharedPrefsInteractor: SharedPrefsInteractor
 ) : ViewModel() {
-    // private var selectedCountry: Country? = null
-    // private var selectedRegion: Region? = null
-    // private val state = MutableLiveData<CountryViewState>()
-    // fun observeState(): LiveData<IndustryViewState> = state {
+    private var filter = MutableLiveData<Filter>()
 
-    // }
+    init {
+        loadData()
+    }
+
+    fun updateFilter(filter: Filter) {
+        sharedPrefsInteractor.updateFilter(filter)
+        loadData()
+    }
+
+    fun getFilter() = sharedPrefsInteractor.getFilter()
+
+    fun clearFilter() {
+        sharedPrefsInteractor.clearFilter()
+        loadData()
+    }
+
+    fun loadData() {
+        filter.postValue(getFilter())
+    }
+
+    fun getFilterLiveData(): MutableLiveData<Filter> {
+        return filter
+    }
+
 }

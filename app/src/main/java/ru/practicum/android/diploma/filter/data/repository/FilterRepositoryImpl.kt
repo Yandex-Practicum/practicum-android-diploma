@@ -88,5 +88,4 @@ class FilterRepositoryImpl(
             } ?: listOf(Country(id = countryDto.id, name = countryDto.name)) // Добавляем страну без поля countries
         }.sortedBy { it.name }
     }
-
 }
