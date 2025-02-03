@@ -6,7 +6,7 @@ import ru.practicum.android.diploma.domain.filter.api.FilterRepository
 
 class FilterInteractorImpl(
     private val filterRepository: FilterRepository
-): FilterInteractor {
+) : FilterInteractor {
     override fun saveToFilterStorage(filterParameters: FilterParameters) {
         filterRepository.saveToFilterStorage(filterParameters)
     }
