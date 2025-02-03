@@ -4,6 +4,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import ru.practicum.android.diploma.favorites.presentation.viewmodel.FavoriteScreenViewModel
+import ru.practicum.android.diploma.filter.presentation.viewmodel.FilterCountriesViewModel
 import ru.practicum.android.diploma.filter.presentation.viewmodel.FilterScreenViewModel
 import ru.practicum.android.diploma.filter.presentation.viewmodel.FilterSettingsViewModel
 import ru.practicum.android.diploma.search.presentation.viewmodel.SearchViewModel
@@ -34,4 +35,7 @@ val viewModelModule = module {
         FilterSettingsViewModel(get())
     }
 
+    viewModel {
+        FilterCountriesViewModel(get())
+    }
 }

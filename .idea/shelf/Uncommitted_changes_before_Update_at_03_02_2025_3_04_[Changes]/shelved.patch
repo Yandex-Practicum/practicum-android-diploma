@@ -1,0 +1,632 @@
+Index: app/src/main/java/ru/practicum/android/diploma/common/data/network/HeadHunterApi.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.common.data.network\r\n\r\nimport retrofit2.http.GET\r\nimport retrofit2.http.Headers\r\nimport retrofit2.http.Path\r\nimport retrofit2.http.QueryMap\r\nimport ru.practicum.android.diploma.BuildConfig\r\nimport ru.practicum.android.diploma.common.data.dto.SearchVacancyResponse\r\nimport ru.practicum.android.diploma.filter.data.dto.model.IndustryDto\r\nimport ru.practicum.android.diploma.vacancy.data.network.VacancyDetailsResponse\r\n\r\ninterface HeadHunterApi {\r\n    @Headers(\r\n        \"Authorization: Bearer ${BuildConfig.HH_ACCESS_TOKEN}\",\r\n        \"HH-User-Agent: Practicum-Android-Diploma (danil.ciplenkov@yandex.ru)\"\r\n    )\r\n    @GET(\"vacancies\")\r\n    suspend fun searchVacancies(@QueryMap options: Map<String, String>): SearchVacancyResponse\r\n\r\n    @GET(\"vacancies/{vacancyId}\")\r\n    suspend fun getVacancyDetails(@Path(\"vacancyId\") vacancyId: String): VacancyDetailsResponse\r\n\r\n    @GET(\"industries\")\r\n    suspend fun getIndustries(): List<IndustryDto> // IndustriesResponse\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/common/data/network/HeadHunterApi.kt b/app/src/main/java/ru/practicum/android/diploma/common/data/network/HeadHunterApi.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/common/data/network/HeadHunterApi.kt	(revision e44f29c8a02213f01c9811523c4de88933965461)
++++ b/app/src/main/java/ru/practicum/android/diploma/common/data/network/HeadHunterApi.kt	(date 1738537840107)
+@@ -6,6 +6,7 @@
+ import retrofit2.http.QueryMap
+ import ru.practicum.android.diploma.BuildConfig
+ import ru.practicum.android.diploma.common.data.dto.SearchVacancyResponse
++import ru.practicum.android.diploma.filter.data.dto.model.CountryDto
+ import ru.practicum.android.diploma.filter.data.dto.model.IndustryDto
+ import ru.practicum.android.diploma.vacancy.data.network.VacancyDetailsResponse
+ 
+@@ -22,4 +23,7 @@
+ 
+     @GET("industries")
+     suspend fun getIndustries(): List<IndustryDto> // IndustriesResponse
++
++    @GET("areas")
++    suspend fun getCountries(): List<CountryDto> // CountriesResponse
+ }
+Index: app/src/main/java/ru/practicum/android/diploma/common/data/network/RetrofitNetworkClient.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.common.data.network\r\n\r\nimport android.util.Log\r\nimport kotlinx.coroutines.Dispatchers\r\nimport kotlinx.coroutines.withContext\r\nimport retrofit2.HttpException\r\nimport ru.practicum.android.diploma.common.data.Mapper\r\nimport ru.practicum.android.diploma.common.data.dto.IndustryRequest\r\nimport ru.practicum.android.diploma.common.data.dto.Response\r\nimport ru.practicum.android.diploma.common.data.dto.SearchVacancyRequest\r\nimport ru.practicum.android.diploma.common.util.ConnectivityManager\r\nimport ru.practicum.android.diploma.vacancy.data.network.VacancyDetailsRequest\r\n\r\nclass RetrofitNetworkClient(\r\n    private val headHunterApi: HeadHunterApi,\r\n    private val mapper: Mapper,\r\n    private val connectivityManager: ConnectivityManager\r\n) : NetworkClient {\r\n\r\n    override suspend fun doRequest(dto: Any): Response {\r\n        if (!connectivityManager.isConnected()) {\r\n            return Response().apply { resultCode = Response.NO_INTERNET_ERROR_CODE }\r\n        }\r\n\r\n        return when (dto) {\r\n            is SearchVacancyRequest -> executeRequest { headHunterApi.searchVacancies(mapper.map(dto.expression)) }\r\n            is VacancyDetailsRequest -> executeRequest { headHunterApi.getVacancyDetails(dto.vacancyId) }\r\n            is IndustryRequest -> executeRequest { mapper.map(headHunterApi.getIndustries()) }\r\n            else -> Response().apply { resultCode = Response.BAD_REQUEST_ERROR_CODE }\r\n        }\r\n    }\r\n\r\n    private suspend fun executeRequest(apiCall: suspend () -> Response): Response =\r\n        withContext(Dispatchers.IO) {\r\n            try {\r\n                apiCall().apply { resultCode = Response.SUCCESS_RESPONSE_CODE }\r\n            } catch (e: HttpException) {\r\n                handleError(e)\r\n            }\r\n        }\r\n\r\n    private fun handleError(error: HttpException): Response {\r\n        val errorCode = if (error.code() == Response.NOT_FOUND_ERROR_CODE) {\r\n            Response.NOT_FOUND_ERROR_CODE\r\n        } else {\r\n            Response.INTERNAL_SERVER_ERROR_CODE\r\n        }\r\n        Log.e(\"RetrofitNetworkClient\", \"HTTP error: ${error.message}\", error)\r\n        return Response().apply { resultCode = errorCode }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/common/data/network/RetrofitNetworkClient.kt b/app/src/main/java/ru/practicum/android/diploma/common/data/network/RetrofitNetworkClient.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/common/data/network/RetrofitNetworkClient.kt	(revision e44f29c8a02213f01c9811523c4de88933965461)
++++ b/app/src/main/java/ru/practicum/android/diploma/common/data/network/RetrofitNetworkClient.kt	(date 1738537160537)
+@@ -5,6 +5,7 @@
+ import kotlinx.coroutines.withContext
+ import retrofit2.HttpException
+ import ru.practicum.android.diploma.common.data.Mapper
++import ru.practicum.android.diploma.common.data.dto.CountryRequest
+ import ru.practicum.android.diploma.common.data.dto.IndustryRequest
+ import ru.practicum.android.diploma.common.data.dto.Response
+ import ru.practicum.android.diploma.common.data.dto.SearchVacancyRequest
+@@ -26,6 +27,11 @@
+             is SearchVacancyRequest -> executeRequest { headHunterApi.searchVacancies(mapper.map(dto.expression)) }
+             is VacancyDetailsRequest -> executeRequest { headHunterApi.getVacancyDetails(dto.vacancyId) }
+             is IndustryRequest -> executeRequest { mapper.map(headHunterApi.getIndustries()) }
++            is CountryRequest -> {
++                val response = headHunterApi.getCountries()
++                Log.d("RetrofitNetworkClient", "COUNTRY: $response")
++                executeRequest { mapper.map(response) }
++            }
+             else -> Response().apply { resultCode = Response.BAD_REQUEST_ERROR_CODE }
+         }
+     }
+Index: app/src/main/java/ru/practicum/android/diploma/common/data/Mapper.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.common.data\r\n\r\nimport ru.practicum.android.diploma.common.data.dto.IndustriesResponse\r\nimport ru.practicum.android.diploma.common.data.dto.SearchVacancyResponse\r\nimport ru.practicum.android.diploma.filter.data.dto.model.IndustryDto\r\nimport ru.practicum.android.diploma.search.data.dto.model.AreaDto\r\nimport ru.practicum.android.diploma.search.data.dto.model.EmployerDto\r\nimport ru.practicum.android.diploma.search.data.dto.model.SalaryDto\r\nimport ru.practicum.android.diploma.search.data.dto.model.SearchVacancyDto\r\nimport ru.practicum.android.diploma.search.domain.model.Salary\r\nimport ru.practicum.android.diploma.search.domain.model.SearchQueryParams\r\nimport ru.practicum.android.diploma.search.domain.model.VacancyItems\r\nimport ru.practicum.android.diploma.search.domain.model.VacancyList\r\nimport ru.practicum.android.diploma.search.presentation.items.ListItem\r\n\r\nclass Mapper {\r\n    fun map(searchQueryParams: SearchQueryParams): Map<String, String> {\r\n        val map = mutableMapOf<String, String>()\r\n\r\n        map[\"text\"] = searchQueryParams.text\r\n        map[\"page\"] = searchQueryParams.page.toString()\r\n        map[\"per_page\"] = \"20\"\r\n\r\n        return map\r\n    }\r\n\r\n    fun map(response: SearchVacancyResponse): VacancyList {\r\n        val items: List<VacancyItems> = response.items.map { mapVacancyItems(it) }\r\n        return VacancyList(\r\n            items = items,\r\n            found = response.found ?: 0,\r\n            pages = response.pages ?: 0,\r\n            page = response.page ?: 0,\r\n            perPage = response.perPage ?: 0,\r\n        )\r\n    }\r\n\r\n    private fun mapVacancyItems(searchVacancyDto: SearchVacancyDto): VacancyItems {\r\n        return VacancyItems(\r\n            id = searchVacancyDto.id,\r\n            name = searchVacancyDto.name,\r\n            employer = searchVacancyDto.employer?.name ?: \"\",\r\n            areaName = getAreaName(searchVacancyDto.area),\r\n            iconUrl = getEmployerLogo(searchVacancyDto.employer),\r\n            salary = mapSalary(searchVacancyDto.salary),\r\n        )\r\n    }\r\n\r\n    private fun mapSalary(salaryDto: SalaryDto?): Salary? {\r\n        return salaryDto?.let {\r\n            Salary(\r\n                from = it.from,\r\n                to = it.to,\r\n                currency = it.currency ?: \"\"\r\n            )\r\n        }\r\n    }\r\n\r\n    fun map(vacancyItems: VacancyItems): ListItem.Vacancy {\r\n        return with(vacancyItems) {\r\n            ListItem.Vacancy(\r\n                id,\r\n                name,\r\n                areaName,\r\n                employer,\r\n                iconUrl,\r\n                salary\r\n            )\r\n        }\r\n    }\r\n\r\n    fun map(list: List<IndustryDto>): IndustriesResponse {\r\n        return IndustriesResponse(\r\n            result = list\r\n        )\r\n    }\r\n\r\n    private fun getAreaName(areaDto: AreaDto?): String = areaDto?.name ?: \"\"\r\n    private fun getEmployerLogo(employerDto: EmployerDto?): String? = employerDto?.logoUrls?.iconBig\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/common/data/Mapper.kt b/app/src/main/java/ru/practicum/android/diploma/common/data/Mapper.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/common/data/Mapper.kt	(revision e44f29c8a02213f01c9811523c4de88933965461)
++++ b/app/src/main/java/ru/practicum/android/diploma/common/data/Mapper.kt	(date 1738538070117)
+@@ -1,7 +1,9 @@
+ package ru.practicum.android.diploma.common.data
+ 
++import ru.practicum.android.diploma.common.data.dto.CountriesResponse
+ import ru.practicum.android.diploma.common.data.dto.IndustriesResponse
+ import ru.practicum.android.diploma.common.data.dto.SearchVacancyResponse
++import ru.practicum.android.diploma.filter.data.dto.model.CountryDto
+ import ru.practicum.android.diploma.filter.data.dto.model.IndustryDto
+ import ru.practicum.android.diploma.search.data.dto.model.AreaDto
+ import ru.practicum.android.diploma.search.data.dto.model.EmployerDto
+@@ -74,6 +76,12 @@
+             result = list
+         )
+     }
++
++    fun map(list: List<CountryDto>): CountriesResponse {
++        return CountriesResponse(
++            result = list
++        )
++    }
+ 
+     private fun getAreaName(areaDto: AreaDto?): String = areaDto?.name ?: ""
+     private fun getEmployerLogo(employerDto: EmployerDto?): String? = employerDto?.logoUrls?.iconBig
+Index: app/src/main/java/ru/practicum/android/diploma/filter/data/repository/FilterRepositoryImpl.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.filter.data.repository\r\n\r\nimport kotlinx.coroutines.Dispatchers\r\nimport kotlinx.coroutines.flow.Flow\r\nimport kotlinx.coroutines.flow.flow\r\nimport kotlinx.coroutines.flow.flowOn\r\nimport ru.practicum.android.diploma.common.data.dto.IndustriesResponse\r\nimport ru.practicum.android.diploma.common.data.dto.IndustryRequest\r\nimport ru.practicum.android.diploma.common.data.dto.Response\r\nimport ru.practicum.android.diploma.common.data.network.RetrofitNetworkClient\r\nimport ru.practicum.android.diploma.filter.domain.model.Industry\r\nimport ru.practicum.android.diploma.filter.domain.model.IndustryViewState\r\nimport ru.practicum.android.diploma.filter.domain.repository.FilterRepository\r\n\r\nclass FilterRepositoryImpl(\r\n    private val networkClient: RetrofitNetworkClient,\r\n) : FilterRepository {\r\n    override fun getIndustries(): Flow<IndustryViewState> = flow {\r\n        val response = networkClient.doRequest(IndustryRequest)\r\n        when (response.resultCode) {\r\n            Response.SUCCESS_RESPONSE_CODE -> {\r\n                val result = (response as IndustriesResponse).result\r\n                if (result.isEmpty()) {\r\n                    emit(IndustryViewState.NotFoundError)\r\n                } else {\r\n                    val data = mapIndustries(response)\r\n                    emit(IndustryViewState.Success(data))\r\n                }\r\n            }\r\n            Response.BAD_REQUEST_ERROR_CODE, Response.NOT_FOUND_ERROR_CODE -> {\r\n                emit(IndustryViewState.NotFoundError)\r\n            }\r\n            Response.NO_INTERNET_ERROR_CODE -> {\r\n                emit(IndustryViewState.ConnectionError)\r\n            } else -> {\r\n                emit(IndustryViewState.ServerError)\r\n            }\r\n        }\r\n    }.flowOn(Dispatchers.IO)\r\n\r\n    private fun mapIndustries(response: IndustriesResponse): List<Industry> {\r\n        return response.result.flatMap { industryDto ->\r\n            industryDto.industries?.map { nestedIndustryDto ->\r\n                Industry(id = nestedIndustryDto.id, name = nestedIndustryDto.name)\r\n            } ?: emptyList()\r\n        }.sortedBy { it.name }\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/filter/data/repository/FilterRepositoryImpl.kt b/app/src/main/java/ru/practicum/android/diploma/filter/data/repository/FilterRepositoryImpl.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/filter/data/repository/FilterRepositoryImpl.kt	(revision e44f29c8a02213f01c9811523c4de88933965461)
++++ b/app/src/main/java/ru/practicum/android/diploma/filter/data/repository/FilterRepositoryImpl.kt	(date 1738540732529)
+@@ -1,19 +1,25 @@
+ package ru.practicum.android.diploma.filter.data.repository
+ 
++import android.util.Log
++import com.google.gson.Gson
+ import kotlinx.coroutines.Dispatchers
+ import kotlinx.coroutines.flow.Flow
+ import kotlinx.coroutines.flow.flow
+ import kotlinx.coroutines.flow.flowOn
++import ru.practicum.android.diploma.common.data.dto.CountriesResponse
++import ru.practicum.android.diploma.common.data.dto.CountryRequest
+ import ru.practicum.android.diploma.common.data.dto.IndustriesResponse
+ import ru.practicum.android.diploma.common.data.dto.IndustryRequest
+ import ru.practicum.android.diploma.common.data.dto.Response
+ import ru.practicum.android.diploma.common.data.network.RetrofitNetworkClient
++import ru.practicum.android.diploma.filter.domain.model.Country
++import ru.practicum.android.diploma.filter.domain.model.CountryViewState
+ import ru.practicum.android.diploma.filter.domain.model.Industry
+ import ru.practicum.android.diploma.filter.domain.model.IndustryViewState
+ import ru.practicum.android.diploma.filter.domain.repository.FilterRepository
+ 
+ class FilterRepositoryImpl(
+-    private val networkClient: RetrofitNetworkClient,
++    private val networkClient: RetrofitNetworkClient
+ ) : FilterRepository {
+     override fun getIndustries(): Flow<IndustryViewState> = flow {
+         val response = networkClient.doRequest(IndustryRequest)
+@@ -38,12 +44,49 @@
+         }
+     }.flowOn(Dispatchers.IO)
+ 
+-    private fun mapIndustries(response: IndustriesResponse): List<Industry> {
+-        return response.result.flatMap { industryDto ->
+-            industryDto.industries?.map { nestedIndustryDto ->
+-                Industry(id = nestedIndustryDto.id, name = nestedIndustryDto.name)
+-            } ?: emptyList()
+-        }.sortedBy { it.name }
+-    }
++    override fun getCountries(): Flow<CountryViewState> = flow {
++        val response = networkClient.doRequest(CountryRequest)
++        Log.d("RawApiResponse", "Response: $response")
++        when (response.resultCode) {
++            Response.SUCCESS_RESPONSE_CODE -> {
++                val result = (response as CountriesResponse).result
++                if (result.isEmpty()) {
++                    emit(CountryViewState.NotFoundError)
++                } else {
++                    val data = mapCountries(response)
++                    emit(CountryViewState.Success(data))
++                }
++            }
++
++            Response.BAD_REQUEST_ERROR_CODE, Response.NOT_FOUND_ERROR_CODE -> {
++                emit(CountryViewState.NotFoundError)
++            }
++
++            Response.NO_INTERNET_ERROR_CODE -> {
++                emit(CountryViewState.ConnectionError)
++            }
++
++            else -> {
++                emit(CountryViewState.ServerError)
++            }
++        }
++    }.flowOn(Dispatchers.IO)
++
++        private fun mapIndustries(response: IndustriesResponse): List<Industry> {
++            return response.result.flatMap { industryDto ->
++                industryDto.industries?.map { nestedIndustryDto ->
++                    Industry(id = nestedIndustryDto.id, name = nestedIndustryDto.name)
++                } ?: emptyList()
++            }.sortedBy { it.name }
++        }
++
++        private fun mapCountries(response: CountriesResponse): List<Country> {
++            Log.d("MappingCheck", "Raw Country DTOs: ${response.result}")
++            return response.result.flatMap { countryDto ->
++                countryDto.countries?.map { nestedCountryDto ->
++                    Country(id = nestedCountryDto.id, name = nestedCountryDto.name)
++                } ?: emptyList()
++            }.sortedBy { it.name }
++        }
+ 
+ }
+Index: .idea/.gitignore
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+deleted file mode 100644
+--- a/.idea/.gitignore	(revision e44f29c8a02213f01c9811523c4de88933965461)
++++ /dev/null	(revision e44f29c8a02213f01c9811523c4de88933965461)
+@@ -1,3 +0,0 @@
+-# Default ignored files
+-/shelf/
+-/workspace.xml
+Index: .idea/studiobot.xml
+===================================================================
+diff --git a/.idea/studiobot.xml b/.idea/studiobot.xml
+deleted file mode 100644
+--- a/.idea/studiobot.xml	(revision e44f29c8a02213f01c9811523c4de88933965461)
++++ /dev/null	(revision e44f29c8a02213f01c9811523c4de88933965461)
+@@ -1,6 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="StudioBotProjectSettings">
+-    <option name="shareContext" value="OptedIn" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/runConfigurations.xml
+===================================================================
+diff --git a/.idea/runConfigurations.xml b/.idea/runConfigurations.xml
+deleted file mode 100644
+--- a/.idea/runConfigurations.xml	(revision e44f29c8a02213f01c9811523c4de88933965461)
++++ /dev/null	(revision e44f29c8a02213f01c9811523c4de88933965461)
+@@ -1,17 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="RunConfigurationProducerService">
+-    <option name="ignoredProducers">
+-      <set>
+-        <option value="com.intellij.execution.junit.AbstractAllInDirectoryConfigurationProducer" />
+-        <option value="com.intellij.execution.junit.AllInPackageConfigurationProducer" />
+-        <option value="com.intellij.execution.junit.PatternConfigurationProducer" />
+-        <option value="com.intellij.execution.junit.TestInClassConfigurationProducer" />
+-        <option value="com.intellij.execution.junit.UniqueIdConfigurationProducer" />
+-        <option value="com.intellij.execution.junit.testDiscovery.JUnitTestDiscoveryConfigurationProducer" />
+-        <option value="org.jetbrains.kotlin.idea.junit.KotlinJUnitRunConfigurationProducer" />
+-        <option value="org.jetbrains.kotlin.idea.junit.KotlinPatternConfigurationProducer" />
+-      </set>
+-    </option>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .github/workflows/pr_checks.yml
+===================================================================
+diff --git a/.github/workflows/pr_checks.yml b/.github/workflows/pr_checks.yml
+deleted file mode 100644
+--- a/.github/workflows/pr_checks.yml	(revision e44f29c8a02213f01c9811523c4de88933965461)
++++ /dev/null	(revision e44f29c8a02213f01c9811523c4de88933965461)
+@@ -1,84 +0,0 @@
+-name: PR checks
+-
+-on:
+-    push:
+-        branches: [ "main", "develop" ]
+-    pull_request:
+-
+-env:
+-    commonGradleFlags: --parallel --stacktrace --no-configuration-cache --no-daemon
+-    detektReportPath: ./build/reports/detekt/detekt.xml
+-    reviewdogSetup: -f=checkstyle -name="detekt" -level=error -filter-mode=added
+-
+-jobs:
+-    pr-checks:
+-        runs-on: ubuntu-latest
+-        steps:
+-            -   name: Checkout
+-                uses: actions/checkout@v3
+-
+-            -   name: Cleanup Github-Actions bot comments
+-                continue-on-error: true
+-                run: |
+-                    sh ./ci/github_comments_cleanup.sh "${{ github.repository_owner }}" "${{ github.event.repository.name }}" "${{ github.event.number }}" "github-actions[bot]" "${{ secrets.GITHUB_TOKEN }}"
+-
+-            -   name: Setup Reviewdog
+-                uses: reviewdog/action-setup@v1
+-                with:
+-                    reviewdog_version: latest
+-
+-            -   name: Setup JDK 17 for build
+-                uses: actions/setup-java@v3
+-                with:
+-                    java-version: '17'
+-                    distribution: 'temurin'
+-                    cache: gradle
+-
+-            -   name: Grant execute permission for gradlew
+-                run: chmod +x gradlew
+-
+-            -   name: Run detekt
+-                run: ./gradlew detektAll $commonGradleFlags
+-
+-            -   name: Run Reviewdog for Detekt as Github Review
+-                env:
+-                    REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+-                run: |
+-                    reviewdog $reviewdogSetup -reporter=github-pr-review <$detektReportPath
+-
+-            -   name: Run Reviewdog for Detekt as Github CHECK
+-                env:
+-                    REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+-                run: |
+-                    reviewdog $reviewdogSetup -reporter=github-pr-check <$detektReportPath
+-
+-    assemble:
+-        runs-on: ubuntu-latest
+-        steps:
+-            -   name: Checkout
+-                uses: actions/checkout@v3
+-
+-            -   name: Setup JDK 17 for build
+-                uses: actions/setup-java@v3
+-                with:
+-                    java-version: '17'
+-                    distribution: 'temurin'
+-                    cache: gradle
+-
+-            -   name: Grant execute permission for gradlew
+-                run: chmod +x gradlew
+-
+-            -   name: Setup environment
+-                env:
+-                    GH_HH_ACCESS_TOKEN: ${{ secrets.GH_HH_ACCESS_TOKEN }}
+-                run: |
+-                    sh ci/setup_env.sh
+-
+-            -   name: Assemble app
+-                run: ./gradlew :app:assembleDebug $commonGradleFlags
+-
+-            -   name: Archive production artifacts
+-                uses: actions/upload-artifact@v4
+-                with:
+-                    name: app-debug.apk
+-                    path: app/build/outputs/apk/debug/app-debug.apk
+Index: app/src/main/java/ru/practicum/android/diploma/filter/ui/adapters/IndustryViewHolder.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.filter.ui.adapters\r\n\r\nimport androidx.recyclerview.widget.RecyclerView\r\nimport ru.practicum.android.diploma.databinding.ItemFilterIndustryBinding\r\nimport ru.practicum.android.diploma.filter.domain.model.Industry\r\n\r\nclass IndustryViewHolder(\r\n    val binding: ItemFilterIndustryBinding\r\n) : RecyclerView.ViewHolder(binding.root) {\r\n\r\n    fun bind(model: Industry) {\r\n        binding.tvIndustryValue.text = model.name\r\n        binding.rbIndustryButton.isChecked = model.selected\r\n\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/filter/ui/adapters/IndustryViewHolder.kt b/app/src/main/java/ru/practicum/android/diploma/filter/ui/adapters/IndustryViewHolder.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/filter/ui/adapters/IndustryViewHolder.kt	(revision e44f29c8a02213f01c9811523c4de88933965461)
++++ b/app/src/main/java/ru/practicum/android/diploma/filter/ui/adapters/IndustryViewHolder.kt	(date 1738528105661)
+@@ -11,6 +11,5 @@
+     fun bind(model: Industry) {
+         binding.tvIndustryValue.text = model.name
+         binding.rbIndustryButton.isChecked = model.selected
+-
+     }
+ }
+Index: app/src/main/res/layout/fragment_filter_countries.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    tools:context=\"ru.practicum.android.diploma.filter.ui.FilterCountriesFragment\">\r\n\r\n    <androidx.appcompat.widget.Toolbar\r\n        android:id=\"@+id/topBar\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"64dp\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        app:navigationIcon=\"@drawable/ic_button_back\"\r\n        app:title=\"@string/filter_countries\"\r\n        app:titleTextAppearance=\"@style/TextMedium_22\"\r\n        app:titleTextColor=\"?attr/titleTextColor\"/>\r\n\r\n    <!-- список избранных треков-->\r\n    <androidx.recyclerview.widget.RecyclerView\r\n        android:id=\"@+id/rvCountryRegionItems\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"0dp\"\r\n        android:layout_marginTop=\"@dimen/margin_16dp\"\r\n        android:layout_weight=\"1\"\r\n        android:visibility=\"visible\"\r\n        app:layoutManager=\"androidx.recyclerview.widget.LinearLayoutManager\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintHorizontal_bias=\"0.0\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/topBar\"\r\n        tools:listitem=\"@layout/item_country_region\" />\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_filter_countries.xml b/app/src/main/res/layout/fragment_filter_countries.xml
+--- a/app/src/main/res/layout/fragment_filter_countries.xml	(revision e44f29c8a02213f01c9811523c4de88933965461)
++++ b/app/src/main/res/layout/fragment_filter_countries.xml	(date 1738535042845)
+@@ -18,7 +18,6 @@
+         app:titleTextAppearance="@style/TextMedium_22"
+         app:titleTextColor="?attr/titleTextColor"/>
+ 
+-    <!-- список избранных треков-->
+     <androidx.recyclerview.widget.RecyclerView
+         android:id="@+id/rvCountryRegionItems"
+         android:layout_width="match_parent"
+Index: app/src/main/java/ru/practicum/android/diploma/di/ViewModelModule.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.di\r\n\r\nimport org.koin.android.ext.koin.androidContext\r\nimport org.koin.androidx.viewmodel.dsl.viewModel\r\nimport org.koin.dsl.module\r\nimport ru.practicum.android.diploma.favorites.presentation.viewmodel.FavoriteScreenViewModel\r\nimport ru.practicum.android.diploma.filter.presentation.viewmodel.FilterScreenViewModel\r\nimport ru.practicum.android.diploma.search.presentation.viewmodel.SearchViewModel\r\nimport ru.practicum.android.diploma.vacancy.presentation.VacancyDetailsViewModel\r\n\r\nval viewModelModule = module {\r\n\r\n    viewModel {\r\n        FavoriteScreenViewModel(get(), androidContext())\r\n    }\r\n    viewModel {\r\n        FilterScreenViewModel(get())\r\n    }\r\n\r\n    viewModel {\r\n        FilterScreenViewModel(get())\r\n    }\r\n\r\n    viewModel { (vacancyId: String) ->\r\n        VacancyDetailsViewModel(vacancyId, get(), get(), get())\r\n    }\r\n\r\n    viewModel {\r\n        SearchViewModel(get(), get())\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/di/ViewModelModule.kt b/app/src/main/java/ru/practicum/android/diploma/di/ViewModelModule.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/di/ViewModelModule.kt	(revision e44f29c8a02213f01c9811523c4de88933965461)
++++ b/app/src/main/java/ru/practicum/android/diploma/di/ViewModelModule.kt	(date 1738530339781)
+@@ -4,6 +4,7 @@
+ import org.koin.androidx.viewmodel.dsl.viewModel
+ import org.koin.dsl.module
+ import ru.practicum.android.diploma.favorites.presentation.viewmodel.FavoriteScreenViewModel
++import ru.practicum.android.diploma.filter.presentation.viewmodel.FilterCountriesViewModel
+ import ru.practicum.android.diploma.filter.presentation.viewmodel.FilterScreenViewModel
+ import ru.practicum.android.diploma.search.presentation.viewmodel.SearchViewModel
+ import ru.practicum.android.diploma.vacancy.presentation.VacancyDetailsViewModel
+@@ -29,4 +30,7 @@
+         SearchViewModel(get(), get())
+     }
+ 
++    viewModel {
++        FilterCountriesViewModel(get())
++    }
+ }
+Index: app/src/main/java/ru/practicum/android/diploma/filter/domain/repository/FilterRepository.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.filter.domain.repository\r\n\r\nimport kotlinx.coroutines.flow.Flow\r\nimport ru.practicum.android.diploma.filter.domain.model.IndustryViewState\r\n\r\ninterface FilterRepository {\r\n    fun getIndustries(): Flow<IndustryViewState>\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/filter/domain/repository/FilterRepository.kt b/app/src/main/java/ru/practicum/android/diploma/filter/domain/repository/FilterRepository.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/filter/domain/repository/FilterRepository.kt	(revision e44f29c8a02213f01c9811523c4de88933965461)
++++ b/app/src/main/java/ru/practicum/android/diploma/filter/domain/repository/FilterRepository.kt	(date 1738526278042)
+@@ -1,8 +1,10 @@
+ package ru.practicum.android.diploma.filter.domain.repository
+ 
+ import kotlinx.coroutines.flow.Flow
++import ru.practicum.android.diploma.filter.domain.model.CountryViewState
+ import ru.practicum.android.diploma.filter.domain.model.IndustryViewState
+ 
+ interface FilterRepository {
+     fun getIndustries(): Flow<IndustryViewState>
++    fun getCountries(): Flow<CountryViewState>
+ }
+Index: app/src/main/java/ru/practicum/android/diploma/filter/domain/interactor/FilterInteractor.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.filter.domain.interactor\r\n\r\nimport kotlinx.coroutines.flow.Flow\r\nimport ru.practicum.android.diploma.filter.domain.model.IndustryViewState\r\n\r\ninterface FilterInteractor {\r\n    fun getIndustries(): Flow<IndustryViewState>\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/filter/domain/interactor/FilterInteractor.kt b/app/src/main/java/ru/practicum/android/diploma/filter/domain/interactor/FilterInteractor.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/filter/domain/interactor/FilterInteractor.kt	(revision e44f29c8a02213f01c9811523c4de88933965461)
++++ b/app/src/main/java/ru/practicum/android/diploma/filter/domain/interactor/FilterInteractor.kt	(date 1738526278036)
+@@ -1,8 +1,10 @@
+ package ru.practicum.android.diploma.filter.domain.interactor
+ 
+ import kotlinx.coroutines.flow.Flow
++import ru.practicum.android.diploma.filter.domain.model.CountryViewState
+ import ru.practicum.android.diploma.filter.domain.model.IndustryViewState
+ 
+ interface FilterInteractor {
+     fun getIndustries(): Flow<IndustryViewState>
++    fun getCountries(): Flow<CountryViewState>
+ }
+Index: app/src/main/java/ru/practicum/android/diploma/filter/domain/interactor/FilterInteractorImpl.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.filter.domain.interactor\r\n\r\nimport kotlinx.coroutines.flow.Flow\r\nimport ru.practicum.android.diploma.filter.domain.model.IndustryViewState\r\nimport ru.practicum.android.diploma.filter.domain.repository.FilterRepository\r\n\r\nclass FilterInteractorImpl(\r\n    private val filterRepository: FilterRepository\r\n) : FilterInteractor {\r\n    override fun getIndustries(): Flow<IndustryViewState> {\r\n        return filterRepository.getIndustries()\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/filter/domain/interactor/FilterInteractorImpl.kt b/app/src/main/java/ru/practicum/android/diploma/filter/domain/interactor/FilterInteractorImpl.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/filter/domain/interactor/FilterInteractorImpl.kt	(revision e44f29c8a02213f01c9811523c4de88933965461)
++++ b/app/src/main/java/ru/practicum/android/diploma/filter/domain/interactor/FilterInteractorImpl.kt	(date 1738526278060)
+@@ -1,6 +1,7 @@
+ package ru.practicum.android.diploma.filter.domain.interactor
+ 
+ import kotlinx.coroutines.flow.Flow
++import ru.practicum.android.diploma.filter.domain.model.CountryViewState
+ import ru.practicum.android.diploma.filter.domain.model.IndustryViewState
+ import ru.practicum.android.diploma.filter.domain.repository.FilterRepository
+ 
+@@ -10,4 +11,8 @@
+     override fun getIndustries(): Flow<IndustryViewState> {
+         return filterRepository.getIndustries()
+     }
++
++    override fun getCountries(): Flow<CountryViewState> {
++        return filterRepository.getCountries()
++    }
+ }
+Index: .idea/deploymentTargetSelector.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"deploymentTargetSelector\">\r\n    <selectionStates>\r\n      <SelectionState runConfigName=\"app\">\r\n        <option name=\"selectionMode\" value=\"DROPDOWN\" />\r\n        <DropdownSelection timestamp=\"2025-02-01T12:33:38.512850300Z\">\r\n          <Target type=\"DEFAULT_BOOT\">\r\n            <handle>\r\n              <DeviceId pluginId=\"LocalEmulator\" identifier=\"path=C:\\Users\\Davidrofl\\.android\\avd\\Pixel_6_API_34.avd\" />\r\n            </handle>\r\n          </Target>\r\n        </DropdownSelection>\r\n        <DialogSelection />\r\n      </SelectionState>\r\n    </selectionStates>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/deploymentTargetSelector.xml b/.idea/deploymentTargetSelector.xml
+--- a/.idea/deploymentTargetSelector.xml	(revision e44f29c8a02213f01c9811523c4de88933965461)
++++ b/.idea/deploymentTargetSelector.xml	(date 1738515906961)
+@@ -15,4 +15,4 @@
+       </SelectionState>
+     </selectionStates>
+   </component>
+-</project>
+\ No newline at end of file
++</project>
+Index: app/src/main/java/ru/practicum/android/diploma/filter/domain/model/Country.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.filter.domain.model\r\n\r\ndata class Country(\r\n    val id: String,\r\n    val name: String,\r\n    val selected: Boolean = false\r\n)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/filter/domain/model/Country.kt b/app/src/main/java/ru/practicum/android/diploma/filter/domain/model/Country.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/filter/domain/model/Country.kt	(revision e44f29c8a02213f01c9811523c4de88933965461)
++++ b/app/src/main/java/ru/practicum/android/diploma/filter/domain/model/Country.kt	(date 1738529942486)
+@@ -3,5 +3,5 @@
+ data class Country(
+     val id: String,
+     val name: String,
+-    val selected: Boolean = false
++    val selected: Boolean = false,
+ )
+Index: app/src/main/java/ru/practicum/android/diploma/filter/ui/FilterCountriesFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.filter.ui\r\n\r\nimport android.os.Bundle\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport androidx.fragment.app.Fragment\r\nimport androidx.navigation.fragment.findNavController\r\nimport ru.practicum.android.diploma.databinding.FragmentFilterCountriesBinding\r\n\r\nclass FilterCountriesFragment : Fragment() {\r\n    private var _binding: FragmentFilterCountriesBinding? = null\r\n    private val binding get() = _binding!!\r\n\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater,\r\n        container: ViewGroup?,\r\n        savedInstanceState: Bundle?,\r\n    ): View {\r\n        _binding = FragmentFilterCountriesBinding.inflate(inflater, container, false)\r\n        return binding.root\r\n    }\r\n\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n\r\n        binding.topBar.setOnClickListener {\r\n            findNavController().navigateUp()\r\n        }\r\n    }\r\n\r\n    override fun onDestroyView() {\r\n        super.onDestroyView()\r\n        _binding = null\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/filter/ui/FilterCountriesFragment.kt b/app/src/main/java/ru/practicum/android/diploma/filter/ui/FilterCountriesFragment.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/filter/ui/FilterCountriesFragment.kt	(revision e44f29c8a02213f01c9811523c4de88933965461)
++++ b/app/src/main/java/ru/practicum/android/diploma/filter/ui/FilterCountriesFragment.kt	(date 1738532314128)
+@@ -4,13 +4,24 @@
+ import android.view.LayoutInflater
+ import android.view.View
+ import android.view.ViewGroup
++import android.widget.Toast
++import androidx.core.view.isVisible
+ import androidx.fragment.app.Fragment
+ import androidx.navigation.fragment.findNavController
++import androidx.recyclerview.widget.RecyclerView
++import org.koin.androidx.viewmodel.ext.android.viewModel
++import ru.practicum.android.diploma.R
+ import ru.practicum.android.diploma.databinding.FragmentFilterCountriesBinding
++import ru.practicum.android.diploma.filter.domain.model.CountryViewState
++import ru.practicum.android.diploma.filter.presentation.viewmodel.FilterCountriesViewModel
++import ru.practicum.android.diploma.filter.ui.adapters.CountryAdapter
+ 
+ class FilterCountriesFragment : Fragment() {
+     private var _binding: FragmentFilterCountriesBinding? = null
+     private val binding get() = _binding!!
++    private val viewModel by viewModel<FilterCountriesViewModel>()
++    private var listAdapter = CountryAdapter { country -> viewModel.setCountry(country) }
++
+ 
+     override fun onCreateView(
+         inflater: LayoutInflater,
+@@ -23,11 +34,32 @@
+ 
+     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+         super.onViewCreated(view, savedInstanceState)
+-
+         binding.topBar.setOnClickListener {
+-            findNavController().navigateUp()
++            findNavController().popBackStack()
++        }
++        val recyclerView = view.findViewById<RecyclerView>(R.id.rvCountryRegionItems)
++
++        listAdapter = CountryAdapter { country ->
++            viewModel.setCountry(country)
+         }
++
++        recyclerView.adapter = listAdapter
++
++        viewModel.observeState().observe(viewLifecycleOwner) { state ->
++            when (state) {
++                is CountryViewState.Success -> {
++                    listAdapter.setCountries(state.countryList)
++                }
++                is CountryViewState.NotFoundError -> {
++                    Toast.makeText(requireContext(), "Страны не найдены", Toast.LENGTH_SHORT).show()
++                }
++                else -> Unit
++            }
++        }
++
++        viewModel.getCountries("") // Вызов загрузки стран
+     }
++
+ 
+     override fun onDestroyView() {
+         super.onDestroyView()
+Index: app/src/main/java/ru/practicum/android/diploma/filter/presentation/viewmodel/FilterCountriesViewModel.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.filter.presentation.viewmodel\r\n\r\nimport androidx.lifecycle.ViewModel\r\nimport ru.practicum.android.diploma.filter.domain.interactor.FilterInteractor\r\nimport ru.practicum.android.diploma.filter.domain.model.Country\r\n\r\nclass FilterCountriesViewModel(\r\n    private val filterInteractor: FilterInteractor\r\n) : ViewModel() {\r\n    private var selectedCountry: Country? = null\r\n    // private val state = MutableLiveData<CountryViewState>()\r\n    // fun observeState(): LiveData<IndustryViewState> = state {\r\n\r\n    // }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/filter/presentation/viewmodel/FilterCountriesViewModel.kt b/app/src/main/java/ru/practicum/android/diploma/filter/presentation/viewmodel/FilterCountriesViewModel.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/filter/presentation/viewmodel/FilterCountriesViewModel.kt	(revision e44f29c8a02213f01c9811523c4de88933965461)
++++ b/app/src/main/java/ru/practicum/android/diploma/filter/presentation/viewmodel/FilterCountriesViewModel.kt	(date 1738537953347)
+@@ -1,15 +1,61 @@
+ package ru.practicum.android.diploma.filter.presentation.viewmodel
+ 
++import android.util.Log
++import androidx.lifecycle.LiveData
++import androidx.lifecycle.MutableLiveData
+ import androidx.lifecycle.ViewModel
++import androidx.lifecycle.viewModelScope
++import kotlinx.coroutines.launch
+ import ru.practicum.android.diploma.filter.domain.interactor.FilterInteractor
+ import ru.practicum.android.diploma.filter.domain.model.Country
++import ru.practicum.android.diploma.filter.domain.model.CountryViewState
+ 
+ class FilterCountriesViewModel(
+     private val filterInteractor: FilterInteractor
+ ) : ViewModel() {
++
+     private var selectedCountry: Country? = null
+-    // private val state = MutableLiveData<CountryViewState>()
+-    // fun observeState(): LiveData<IndustryViewState> = state {
++    private val stateLiveData = MutableLiveData<CountryViewState>()
++    fun observeState(): LiveData<CountryViewState> = stateLiveData
++
++    fun getCountries(query: String) { // получить список всех стран
++        val lowerCaseQuery = query.lowercase()
++        viewModelScope.launch {
++            filterInteractor
++                .getCountries()
++                .collect { viewState ->
++                    when (viewState) {
++                        is CountryViewState.Success -> {
++                            val filter = setOf("Россия", "Украина", "Казахстан", "Беларусь") // Захардкоженный фильтр
+ 
+-    // }
++                            val filteredCountries = viewState.countryList
++                                .map { it.copy(name = decodeString(it.name)) } // Декодируем названия
++                                .filter { country -> filter.contains(country.name) } // Оставляем только страны из фильтра
++
++                            Log.d("FilteredResponse", "Отфильтрованные страны: $filteredCountries")
++
++                            if (filteredCountries.isNotEmpty()) {
++                                renderState(CountryViewState.Success(filteredCountries))
++                            } else {
++                                renderState(CountryViewState.NotFoundError)
++                            }
++                        }
++                        else -> {
++                            renderState(viewState)
++                        }
++                    }
++                }
++        }
++    }
++    private fun decodeString(text: String): String {
++        return String(text.toByteArray(Charsets.ISO_8859_1), Charsets.UTF_8)
++    }
++
++    private fun renderState(state: CountryViewState) {
++        stateLiveData.postValue(state)
++    }
++    fun setCountry(country: Country) {
++        selectedCountry = country.copy(selected = false)
++    }
++
+ }

@@ -1,7 +1,9 @@
 package ru.practicum.android.diploma.common.data
 
+import ru.practicum.android.diploma.common.data.dto.CountriesResponse
 import ru.practicum.android.diploma.common.data.dto.IndustriesResponse
 import ru.practicum.android.diploma.common.data.dto.SearchVacancyResponse
+import ru.practicum.android.diploma.filter.data.dto.model.CountryDto
 import ru.practicum.android.diploma.filter.data.dto.model.IndustryDto
 import ru.practicum.android.diploma.search.data.dto.model.AreaDto
 import ru.practicum.android.diploma.search.data.dto.model.EmployerDto
@@ -71,6 +73,12 @@ class Mapper {
 
     fun map(list: List<IndustryDto>): IndustriesResponse {
         return IndustriesResponse(
+            result = list
+        )
+    }
+
+    fun map(list: List<CountryDto>): CountriesResponse {
+        return CountriesResponse(
             result = list
         )
     }
