@@ -54,6 +54,7 @@
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/clear_place_of_work_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@drawable/ic_close_24"
@@ -99,6 +100,7 @@
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/clear_industry_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@drawable/ic_close_24"
@@ -173,23 +175,23 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <com.google.android.material.button.MaterialButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/apply_button"
         style="@style/ApplyButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dp_16"
         android:layout_marginBottom="@dimen/dp_8"
-        android:visibility="gone"
-        android:text="@string/apply" />
+        android:text="@string/apply"
+        android:visibility="gone" />
 
-    <com.google.android.material.button.MaterialButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/reset_button"
         style="@style/ResetButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dp_16"
         android:layout_marginBottom="@dimen/dp_24"
-        android:visibility="gone"
-        android:text="@string/reset" />
+        android:text="@string/reset"
+        android:visibility="gone" />
 </LinearLayout>

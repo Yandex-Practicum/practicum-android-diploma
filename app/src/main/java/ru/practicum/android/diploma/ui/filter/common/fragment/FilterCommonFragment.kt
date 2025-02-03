@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.ui.filter.common.fragment
 
-import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,7 +7,6 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -19,6 +17,7 @@ import ru.practicum.android.diploma.databinding.FragmentFilterCommonBinding
 import ru.practicum.android.diploma.domain.models.FilterParameters
 import ru.practicum.android.diploma.ui.filter.common.viewmodel.FilterCommonViewModel
 import ru.practicum.android.diploma.util.FilterNames
+import ru.practicum.android.diploma.util.KeyboardUtils
 
 class FilterCommonFragment : Fragment() {
 
@@ -72,7 +71,7 @@ class FilterCommonFragment : Fragment() {
             expectedSalary = null
             binding.salaryEditText.setText(TEXT_EMPTY)
             binding.clearButton.isVisible = false
-            hideKeyboard(it)
+            KeyboardUtils.hideKeyboard(requireActivity())
         }
 
         binding.applyButton.setOnClickListener {
@@ -154,12 +153,6 @@ class FilterCommonFragment : Fragment() {
         val typedValue = TypedValue()
         requireContext().theme.resolveAttribute(attr, typedValue, true)
         return typedValue.data
-    }
-
-    private fun hideKeyboard(view: View) {
-        val inputMethodManager: InputMethodManager? =
-            requireContext().getSystemService(INPUT_METHOD_SERVICE) as? InputMethodManager
-        inputMethodManager?.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     private fun showApplyButton(isModelsEquals: Boolean) {
