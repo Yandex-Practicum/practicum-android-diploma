@@ -47,7 +47,7 @@ val dataModule = module {
     }
 
     single<NetworkClient> {
-        RetrofitNetworkClient(get(), get())
+        RetrofitNetworkClient(get(), get(), get())
     }
 
     single(named(FILTER_PREFERENCES)) {
