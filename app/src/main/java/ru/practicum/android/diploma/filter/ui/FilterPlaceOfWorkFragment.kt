@@ -20,8 +20,7 @@ class FilterPlaceOfWorkFragment : Fragment() {
     private var _binding: FragmentFilterPlaceOfWorkBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModel<FilterPlaceOfWorkViewModel>()
-    private lateinit var selectFilter: Filter
-
+    private var selectFilter: Filter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,7 +38,7 @@ class FilterPlaceOfWorkFragment : Fragment() {
             selectFilter = filter
             showCountry(filter.areaCountry)
             showCity(filter.areaCity)
-            binding.btnSelectPlaceOfWork.isVisible = (filter.areaCountry != null) || (filter.areaCity != null)
+            binding.btnSelectPlaceOfWork.isVisible = filter.areaCountry != null || filter.areaCity != null
         }
 
         binding.topBar.setOnClickListener {
@@ -51,8 +50,8 @@ class FilterPlaceOfWorkFragment : Fragment() {
         }
 
         binding.frameCountry.setOnClickListener {
-            if (selectFilter.areaCountry == null) {
-                viewModel.updateFilter(selectFilter)
+            if (selectFilter?.areaCountry == null) {
+                viewModel.updateFilter(selectFilter!!)
                 findNavController().navigate(
                     R.id.action_filterPlaceOfWorkFragment_to_filterCountriesFragment
                 )
@@ -60,23 +59,23 @@ class FilterPlaceOfWorkFragment : Fragment() {
                 viewModel.updateFilter(
                     Filter(
                         null,
-                        selectFilter.areaCity,
-                        selectFilter.industry,
-                        selectFilter.salary,
-                        selectFilter.withSalary
+                        selectFilter!!.areaCity,
+                        selectFilter!!.industry,
+                        selectFilter!!.salary,
+                        selectFilter!!.withSalary
                     )
                 )
             }
         }
 
         binding.frameRegion.setOnClickListener {
-            if (selectFilter.areaCity == null) {
-                viewModel.updateFilter(selectFilter)
+            if (selectFilter?.areaCity == null) {
+                viewModel.updateFilter(selectFilter!!)
                 findNavController().navigate(
                     R.id.action_filterPlaceOfWorkFragment_to_filterRegionFragment
                 )
             } else {
-                viewModel.updateFilter(selectFilter)
+                viewModel.updateFilter(selectFilter!!)
             }
         }
 

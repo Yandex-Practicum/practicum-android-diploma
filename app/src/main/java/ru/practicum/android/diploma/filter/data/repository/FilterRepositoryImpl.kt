@@ -15,7 +15,6 @@ import ru.practicum.android.diploma.filter.domain.model.Country
 import ru.practicum.android.diploma.filter.domain.model.CountryViewState
 import ru.practicum.android.diploma.filter.domain.model.Industry
 import ru.practicum.android.diploma.filter.domain.model.IndustryViewState
-import ru.practicum.android.diploma.filter.domain.model.Region
 import ru.practicum.android.diploma.filter.domain.repository.FilterRepository
 
 class FilterRepositoryImpl(
