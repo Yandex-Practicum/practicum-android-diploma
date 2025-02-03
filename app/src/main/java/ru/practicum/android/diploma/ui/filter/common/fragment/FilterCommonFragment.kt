@@ -13,8 +13,11 @@ import androidx.core.content.ContextCompat.getColor
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterCommonBinding
+import ru.practicum.android.diploma.domain.models.FilterParameters
+import ru.practicum.android.diploma.ui.filter.common.viewmodel.FilterCommonViewModel
 import ru.practicum.android.diploma.util.FilterNames
 
 class FilterCommonFragment : Fragment() {
@@ -27,7 +30,7 @@ class FilterCommonFragment : Fragment() {
 
     private var selectedIndustry: String? = null // Здесь сохраняем ID отрасли, которое выбрал пользователь
 
-//    private val viewModel: FilterCommonViewModel by viewModel()
+    private val viewModel: FilterCommonViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,9 +46,56 @@ class FilterCommonFragment : Fragment() {
 
         setupListeners()
         setupSalaryField()
+
+        viewModel.acceptButtonLiveData.observe(viewLifecycleOwner) { shouldShowApplyButton ->
+            showApplyButton(shouldShowApplyButton)
+        }
+
+        viewModel.resetButtonLiveData.observe(viewLifecycleOwner) { shouldShowResetButton ->
+            showResetButton(shouldShowResetButton)
+        }
+
+        viewModel.filterParamLiveData.observe(viewLifecycleOwner) { filterParametersModel ->
+            renderFilters(filterParametersModel)
+        }
     }
 
     private fun setupListeners() {
+        setupNavListeners()
+
+        binding.salaryCheckbox.setOnCheckedChangeListener { _, isChecked ->
+            withoutSalary = isChecked
+            viewModel.setIsWithoutSalaryShowed(isChecked)
+        }
+
+        binding.clearButton.setOnClickListener {
+            expectedSalary = null
+            binding.salaryEditText.setText(TEXT_EMPTY)
+            binding.clearButton.isVisible = false
+            hideKeyboard(it)
+        }
+
+        binding.applyButton.setOnClickListener {
+            viewModel.saveFilterSettings()
+            findNavController().navigateUp()
+        }
+
+        binding.resetButton.setOnClickListener {
+            viewModel.resetFilter()
+        }
+
+        // Здесь мы слушаем параметры от фрагмента выбора отрасли
+        parentFragmentManager.setFragmentResultListener(FilterNames.INDUSTRY_RESULT, viewLifecycleOwner) { _, bundle ->
+            selectedIndustry = bundle.getString(FilterNames.INDUSTRY_ID)
+            val industryName = bundle.getString(FilterNames.INDUSTRY_NAME)
+
+            viewModel.setIndustryParams(selectedIndustry, industryName) // проверка сохранения отрасли в sp
+
+            binding.industryDefault.text = industryName
+        }
+    }
+
+    private fun setupNavListeners() {
         binding.toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
@@ -65,25 +115,6 @@ class FilterCommonFragment : Fragment() {
         binding.industryEditedLayout.setOnClickListener {
             findNavController().navigate(R.id.action_filterCommonFragment_to_filterIndustryFragment)
         }
-
-        binding.salaryCheckbox.setOnCheckedChangeListener { _, isChecked ->
-            withoutSalary = isChecked
-        }
-
-        binding.clearButton.setOnClickListener {
-            expectedSalary = null
-            binding.salaryEditText.setText(TEXT_EMPTY)
-            binding.clearButton.isVisible = false
-            hideKeyboard(it)
-        }
-
-        // Здесь мы слушаем параметры от фрагмента выбора отрасли
-        parentFragmentManager.setFragmentResultListener(FilterNames.INDUSTRY_RESULT, viewLifecycleOwner) { _, bundle ->
-            selectedIndustry = bundle.getString(FilterNames.INDUSTRY_ID)
-            val industryName = bundle.getString(FilterNames.INDUSTRY_NAME)
-
-            binding.industryDefault.text = industryName
-        }
     }
 
     private fun setupSalaryField() {
@@ -98,6 +129,7 @@ class FilterCommonFragment : Fragment() {
 
                 binding.clearButton.isVisible = clearButtonVisibility(s)
                 updateExpectedSalaryTitleTextColor(s)
+                viewModel.setExpectedSalaryParam(expectedSalary) // проверка сохранения зп в sp
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -130,7 +162,43 @@ class FilterCommonFragment : Fragment() {
         inputMethodManager?.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
+    private fun showApplyButton(isModelsEquals: Boolean) {
+        binding.applyButton.isVisible = isModelsEquals
+    }
+
+    private fun showResetButton(isModelEmpty: Boolean) {
+        binding.resetButton.isVisible = isModelEmpty
+    }
+
+    private fun renderFilters(filterParameters: FilterParameters) {
+        if (!filterParameters.countryId.isNullOrEmpty()) {
+            binding.placeOfWorkDefault.isVisible = false
+            binding.placeOfWorkEditedLayout.isVisible = true
+            binding.placeOfWorkEditedValue.text = filterParameters.countryName
+        }
+        if (!filterParameters.regionId.isNullOrEmpty()) {
+            binding.placeOfWorkEditedValue.text = filterParameters.regionName
+        }
+        if (!filterParameters.industryId.isNullOrEmpty()) {
+            binding.industryDefault.isVisible = false
+            binding.industryEditedLayout.isVisible = true
+            binding.industryEditedValue.text = filterParameters.industryName
+        }
+        val currentSalaryText = binding.salaryEditText.text.toString()
+        val newSalaryText = filterParameters.expectedSalary?.toString() ?: TEXT_EMPTY
+        if (currentSalaryText != newSalaryText) {
+            binding.salaryEditText.setText(newSalaryText)
+        }
+//        if (filterParameters.expectedSalary != null) {
+//            binding.salaryEditText.setText(
+//                String.format(Locale.getDefault(),"%d", filterParameters.expectedSalary))
+//        }
+        binding.salaryCheckbox.isChecked = filterParameters.isWithoutSalaryShowed
+
+    }
+
     companion object {
         const val TEXT_EMPTY = ""
     }
+
 }
