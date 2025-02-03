@@ -97,7 +97,7 @@ class FilterIndustryFragment : Fragment() {
                     adapter?.submitList(resource.value?.sortedBy { it.name })
 
                     selectedIndustryName?.let { name ->
-                        binding.editTextSearch.setText(name) // Заполняем строку поиска
+                        binding.editTextSearch.setText(name)
                         adapter?.filter(name) {
                             updatePlaceholder(it)
                             selectedIndustryId?.let { id ->

@@ -159,8 +159,10 @@ class FilterCommonFragment : Fragment() {
                 putString(FilterNames.INDUSTRY_ID, selectedIndustryId)
                 putString(FilterNames.INDUSTRY_NAME, selectedIndustry)
             }
-            findNavController().navigate(R.id.action_filterCommonFragment_to_filterIndustryFragment,
-                industryBundle)
+            findNavController().navigate(
+                R.id.action_filterCommonFragment_to_filterIndustryFragment,
+                industryBundle
+            )
         }
     }
 
