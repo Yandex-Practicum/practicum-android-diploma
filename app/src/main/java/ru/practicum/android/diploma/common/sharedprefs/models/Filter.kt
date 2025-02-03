@@ -5,5 +5,5 @@ data class Filter(
     val areaCity: City? = null,
     val industry: Industry? = null,
     val salary: Int? = null,
-    val withSalary: Boolean? = null
+    val withSalary: Boolean? = false
 )
