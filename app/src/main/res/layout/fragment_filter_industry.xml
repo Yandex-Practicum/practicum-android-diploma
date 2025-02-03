@@ -35,6 +35,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/enter_industry"
         android:padding="@dimen/dp_20"
+        android:maxLength="99999999"
         app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
