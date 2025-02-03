@@ -20,7 +20,6 @@ class CountryAdapter(
         notifyDataSetChanged() // Уведомляем адаптер об изменениях
     }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return CountryViewHolder(

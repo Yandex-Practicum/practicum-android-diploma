@@ -1,0 +1,163 @@
+Index: app/src/main/java/ru/practicum/android/diploma/search/presentation/viewmodel/SearchViewModel.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.search.presentation.viewmodel\r\n\r\nimport android.util.Log\r\nimport androidx.lifecycle.LiveData\r\nimport androidx.lifecycle.MutableLiveData\r\nimport androidx.lifecycle.ViewModel\r\nimport androidx.lifecycle.viewModelScope\r\nimport kotlinx.coroutines.Job\r\nimport kotlinx.coroutines.launch\r\nimport ru.practicum.android.diploma.common.data.Mapper\r\nimport ru.practicum.android.diploma.common.util.Converter\r\nimport ru.practicum.android.diploma.common.util.debounce\r\nimport ru.practicum.android.diploma.search.domain.interactor.SearchInteractor\r\nimport ru.practicum.android.diploma.search.domain.model.AdapterState\r\nimport ru.practicum.android.diploma.search.domain.model.SearchViewState\r\nimport ru.practicum.android.diploma.search.presentation.items.ListItem\r\n\r\nclass SearchViewModel(\r\n    private val searchInteractor: SearchInteractor,\r\n    private val mapper: Mapper,\r\n) : ViewModel() {\r\n\r\n    private var currentPage: Int = 1\r\n    private var maxPages: Int? = 0\r\n    private var latestSearchQuery: String? = null\r\n    private var vacancyList = mutableListOf<ListItem>()\r\n    private val emptyVacancyList = emptyList<ListItem>()\r\n    private var isNextPageLoading: Boolean = false\r\n    private var isClickAllowed = true\r\n    private var job: Job? = null\r\n\r\n    private val debounceSearch = debounce<String>(\r\n        SEARCH_DEBOUNCE_DELAY,\r\n        viewModelScope,\r\n        true\r\n    ) { query ->\r\n        searchVacancy(query)\r\n    }\r\n\r\n    private val setIsClickAllowed = debounce<Boolean>(\r\n        CLICK_DEBOUNCE_DELAY,\r\n        viewModelScope,\r\n        useLastParam = false\r\n    ) { isAllowed ->\r\n        isClickAllowed = isAllowed\r\n    }\r\n\r\n    private val _showVacancyDetails = MutableLiveData<String?>()\r\n    val showVacancyDetails: MutableLiveData<String?> get() = _showVacancyDetails\r\n\r\n    private val stateLiveData = MutableLiveData<SearchViewState>()\r\n    fun observeState(): LiveData<SearchViewState> = stateLiveData\r\n\r\n    private val adapterStateLiveData = MutableLiveData<AdapterState>()\r\n    fun getAdapterStateLiveData(): LiveData<AdapterState> = adapterStateLiveData\r\n\r\n    fun searchDebounce(changedText: String) {\r\n        if (latestSearchQuery == changedText) {\r\n            return\r\n        }\r\n        this.latestSearchQuery = changedText\r\n        debounceSearch(changedText)\r\n    }\r\n\r\n    private fun clickDebounce(): Boolean {\r\n        val current = isClickAllowed\r\n        if (isClickAllowed) {\r\n            isClickAllowed = false\r\n            setIsClickAllowed(true)\r\n        }\r\n        return current\r\n    }\r\n\r\n    fun searchVacancy(searchQuery: String) {\r\n        if (searchQuery.isNotEmpty()) {\r\n            Log.d(\"SearchQuery\", \"$searchQuery\")\r\n            if (!isNextPageLoading) {\r\n                isNextPageLoading = true\r\n                renderScreenState(SearchViewState.Loading)\r\n                job = viewModelScope.launch {\r\n                    try {\r\n                        searchInteractor\r\n                            .searchVacancy(searchQuery, 1)\r\n                            .collect { viewState ->\r\n                                renderScreenState(viewState)\r\n                                isNextPageLoading = false\r\n                            }\r\n\r\n                    } finally {\r\n                        isNextPageLoading = false\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n    fun onLastItemReached(query: String) {\r\n        if (!(currentPage != maxPages && maxPages != 0) || this.latestSearchQuery != query) {\r\n            return\r\n        } else if (query.isNotEmpty()) {\r\n            if (!isNextPageLoading) {\r\n                currentPage += 1\r\n                job = viewModelScope.launch {\r\n                    try {\r\n                        isNextPageLoading = true\r\n                        renderAdapterState(AdapterState.IsLoading)\r\n                        searchInteractor\r\n                            .searchVacancy(query, currentPage)\r\n                            .collect { viewState ->\r\n                                renderScreenState(viewState)\r\n                                isNextPageLoading = false\r\n                            }\r\n                    } finally {\r\n                        isNextPageLoading = false\r\n                    }\r\n                    Log.d(\"CurrentPage\", \"$currentPage\")\r\n                    renderAdapterState(AdapterState.Idle)\r\n\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n    fun declineLastSearch() {\r\n        job?.cancel()\r\n        renderAdapterState(AdapterState.Idle)\r\n        job = null\r\n    }\r\n\r\n    fun showVacancyDetails(vacancyItems: ListItem) {\r\n        if (clickDebounce()) {\r\n            if (vacancyItems is ListItem.Vacancy) {\r\n                _showVacancyDetails.value = vacancyItems.id\r\n            }\r\n        }\r\n    }\r\n\r\n    fun resetVacancyDetails() {\r\n        _showVacancyDetails.value = null\r\n    }\r\n\r\n    fun clearSearchList() {\r\n        renderScreenState(\r\n            SearchViewState.Content(\r\n                emptyVacancyList,\r\n                null\r\n            )\r\n        )\r\n    }\r\n\r\n    private fun renderScreenState(state: SearchViewState) {\r\n        if (state is SearchViewState.Success) {\r\n            this.maxPages = state.vacancyList.pages\r\n            Log.d(\"NewpageVacancies\", \"${state.vacancyList.items.size}\")\r\n            Log.d(\"VacanciesFound\", \"${state.vacancyList.items}\")\r\n            stateLiveData.postValue(\r\n                SearchViewState.Content(\r\n                    state.vacancyList.items.map { vacancy -> mapper.map(vacancy) },\r\n                    makeFoundVacanciesHint(state.vacancyList.found)\r\n                )\r\n            )\r\n        } else {\r\n            stateLiveData.postValue(state)\r\n        }\r\n    }\r\n\r\n    private fun renderAdapterState(state: AdapterState) {\r\n        adapterStateLiveData.value = state\r\n    }\r\n\r\n    private fun makeFoundVacanciesHint(vacanciesNumber: Int): String {\r\n        return Converter.buildResultingSentence(vacanciesNumber, \"Найдено\")\r\n    }\r\n\r\n    override fun onCleared() {\r\n        job = null\r\n        super.onCleared()\r\n    }\r\n\r\n    companion object {\r\n        private const val CLICK_DEBOUNCE_DELAY = 1_000L\r\n        private const val SEARCH_DEBOUNCE_DELAY = 2_000L\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/search/presentation/viewmodel/SearchViewModel.kt b/app/src/main/java/ru/practicum/android/diploma/search/presentation/viewmodel/SearchViewModel.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/search/presentation/viewmodel/SearchViewModel.kt	
++++ b/app/src/main/java/ru/practicum/android/diploma/search/presentation/viewmodel/SearchViewModel.kt	
+@@ -128,10 +128,8 @@
+     }
+ 
+     fun showVacancyDetails(vacancyItems: ListItem) {
+-        if (clickDebounce()) {
+-            if (vacancyItems is ListItem.Vacancy) {
+-                _showVacancyDetails.value = vacancyItems.id
+-            }
++        if (clickDebounce() && vacancyItems is ListItem.Vacancy) {
++            _showVacancyDetails.value = vacancyItems.id
+         }
+     }
+ 
+Index: .idea/.gitignore
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+deleted file mode 100644
+--- a/.idea/.gitignore	
++++ /dev/null	
+@@ -1,3 +0,0 @@
+-# Default ignored files
+-/shelf/
+-/workspace.xml
+Index: .idea/runConfigurations.xml
+===================================================================
+diff --git a/.idea/runConfigurations.xml b/.idea/runConfigurations.xml
+deleted file mode 100644
+--- a/.idea/runConfigurations.xml	
++++ /dev/null	
+@@ -1,17 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="RunConfigurationProducerService">
+-    <option name="ignoredProducers">
+-      <set>
+-        <option value="com.intellij.execution.junit.AbstractAllInDirectoryConfigurationProducer" />
+-        <option value="com.intellij.execution.junit.AllInPackageConfigurationProducer" />
+-        <option value="com.intellij.execution.junit.PatternConfigurationProducer" />
+-        <option value="com.intellij.execution.junit.TestInClassConfigurationProducer" />
+-        <option value="com.intellij.execution.junit.UniqueIdConfigurationProducer" />
+-        <option value="com.intellij.execution.junit.testDiscovery.JUnitTestDiscoveryConfigurationProducer" />
+-        <option value="org.jetbrains.kotlin.idea.junit.KotlinJUnitRunConfigurationProducer" />
+-        <option value="org.jetbrains.kotlin.idea.junit.KotlinPatternConfigurationProducer" />
+-      </set>
+-    </option>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .github/workflows/pr_checks.yml
+===================================================================
+diff --git a/.github/workflows/pr_checks.yml b/.github/workflows/pr_checks.yml
+deleted file mode 100644
+--- a/.github/workflows/pr_checks.yml	
++++ /dev/null	
+@@ -1,84 +0,0 @@
+-name: PR checks
+-
+-on:
+-    push:
+-        branches: [ "main", "develop" ]
+-    pull_request:
+-
+-env:
+-    commonGradleFlags: --parallel --stacktrace --no-configuration-cache --no-daemon
+-    detektReportPath: ./build/reports/detekt/detekt.xml
+-    reviewdogSetup: -f=checkstyle -name="detekt" -level=error -filter-mode=added
+-
+-jobs:
+-    pr-checks:
+-        runs-on: ubuntu-latest
+-        steps:
+-            -   name: Checkout
+-                uses: actions/checkout@v3
+-
+-            -   name: Cleanup Github-Actions bot comments
+-                continue-on-error: true
+-                run: |
+-                    sh ./ci/github_comments_cleanup.sh "${{ github.repository_owner }}" "${{ github.event.repository.name }}" "${{ github.event.number }}" "github-actions[bot]" "${{ secrets.GITHUB_TOKEN }}"
+-
+-            -   name: Setup Reviewdog
+-                uses: reviewdog/action-setup@v1
+-                with:
+-                    reviewdog_version: latest
+-
+-            -   name: Setup JDK 17 for build
+-                uses: actions/setup-java@v3
+-                with:
+-                    java-version: '17'
+-                    distribution: 'temurin'
+-                    cache: gradle
+-
+-            -   name: Grant execute permission for gradlew
+-                run: chmod +x gradlew
+-
+-            -   name: Run detekt
+-                run: ./gradlew detektAll $commonGradleFlags
+-
+-            -   name: Run Reviewdog for Detekt as Github Review
+-                env:
+-                    REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+-                run: |
+-                    reviewdog $reviewdogSetup -reporter=github-pr-review <$detektReportPath
+-
+-            -   name: Run Reviewdog for Detekt as Github CHECK
+-                env:
+-                    REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+-                run: |
+-                    reviewdog $reviewdogSetup -reporter=github-pr-check <$detektReportPath
+-
+-    assemble:
+-        runs-on: ubuntu-latest
+-        steps:
+-            -   name: Checkout
+-                uses: actions/checkout@v3
+-
+-            -   name: Setup JDK 17 for build
+-                uses: actions/setup-java@v3
+-                with:
+-                    java-version: '17'
+-                    distribution: 'temurin'
+-                    cache: gradle
+-
+-            -   name: Grant execute permission for gradlew
+-                run: chmod +x gradlew
+-
+-            -   name: Setup environment
+-                env:
+-                    GH_HH_ACCESS_TOKEN: ${{ secrets.GH_HH_ACCESS_TOKEN }}
+-                run: |
+-                    sh ci/setup_env.sh
+-
+-            -   name: Assemble app
+-                run: ./gradlew :app:assembleDebug $commonGradleFlags
+-
+-            -   name: Archive production artifacts
+-                uses: actions/upload-artifact@v4
+-                with:
+-                    name: app-debug.apk
+-                    path: app/build/outputs/apk/debug/app-debug.apk
+Index: .idea/studiobot.xml
+===================================================================
+diff --git a/.idea/studiobot.xml b/.idea/studiobot.xml
+deleted file mode 100644
+--- a/.idea/studiobot.xml	
++++ /dev/null	
+@@ -1,6 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="StudioBotProjectSettings">
+-    <option name="shareContext" value="OptedIn" />
+-  </component>
+-</project>
+\ No newline at end of file

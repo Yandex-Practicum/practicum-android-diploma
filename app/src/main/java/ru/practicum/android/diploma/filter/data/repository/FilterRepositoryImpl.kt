@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.filter.data.repository
 
 import android.util.Log
-import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -72,20 +71,22 @@ class FilterRepositoryImpl(
         }
     }.flowOn(Dispatchers.IO)
 
-        private fun mapIndustries(response: IndustriesResponse): List<Industry> {
-            return response.result.flatMap { industryDto ->
-                industryDto.industries?.map { nestedIndustryDto ->
-                    Industry(id = nestedIndustryDto.id, name = nestedIndustryDto.name)
-                } ?: emptyList()
-            }.sortedBy { it.name }
-        }
+    private fun mapIndustries(response: IndustriesResponse): List<Industry> {
+        return response.result.flatMap { industryDto ->
+            industryDto.industries?.map { nestedIndustryDto ->
+                Industry(id = nestedIndustryDto.id, name = nestedIndustryDto.name)
+            } ?: emptyList()
+        }.sortedBy { it.name }
+    }
 
-        private fun mapCountries(response: CountriesResponse): List<Country> {
-            Log.d("MappingCheck", "Raw Country DTOs: ${response.result}")
-            return response.result.flatMap { countryDto ->
-                countryDto.countries?.map { nestedCountryDto ->
-                    Country(id = nestedCountryDto.id, name = nestedCountryDto.name)
-                } ?: emptyList()
-            }.sortedBy { it.name }
-        }
+    private fun mapCountries(response: CountriesResponse): List<Country> {
+        Log.d("MappingCheck", "Raw Country DTOs: ${response.result}")
+        return response.result.flatMap { countryDto ->
+            // Если поле countries != null, конвертируем, иначе пропускаем страну
+            countryDto.countries?.map { nestedCountryDto ->
+                Country(id = nestedCountryDto.id, name = nestedCountryDto.name)
+            } ?: listOf(Country(id = countryDto.id, name = countryDto.name)) // Добавляем страну без поля countries
+        }.sortedBy { it.name }
+    }
+
 }

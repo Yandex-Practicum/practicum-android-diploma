@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -20,8 +19,7 @@ class FilterCountriesFragment : Fragment() {
     private var _binding: FragmentFilterCountriesBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModel<FilterCountriesViewModel>()
-    private var listAdapter = CountryAdapter { country -> viewModel.setCountry(country) }
-
+    private var listAdapter = CountryAdapter { }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,9 +37,6 @@ class FilterCountriesFragment : Fragment() {
         }
         val recyclerView = view.findViewById<RecyclerView>(R.id.rvCountryRegionItems)
 
-        listAdapter = CountryAdapter { country ->
-            viewModel.setCountry(country)
-        }
 
         recyclerView.adapter = listAdapter
 
@@ -57,9 +52,8 @@ class FilterCountriesFragment : Fragment() {
             }
         }
 
-        viewModel.getCountries("") // Вызов загрузки стран
+        viewModel.getCountries() // Вызов загрузки стран
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
