@@ -7,14 +7,13 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
-import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.databinding.FragmentFilterPlaceOfWorkBinding
-import ru.practicum.android.diploma.filter.presentation.viewmodel.FilterPlaceOfWorkViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.common.sharedprefs.models.City
 import ru.practicum.android.diploma.common.sharedprefs.models.Country
 import ru.practicum.android.diploma.common.sharedprefs.models.Filter
+import ru.practicum.android.diploma.databinding.FragmentFilterPlaceOfWorkBinding
+import ru.practicum.android.diploma.filter.presentation.viewmodel.FilterPlaceOfWorkViewModel
 
 class FilterPlaceOfWorkFragment : Fragment() {
     private var _binding: FragmentFilterPlaceOfWorkBinding? = null

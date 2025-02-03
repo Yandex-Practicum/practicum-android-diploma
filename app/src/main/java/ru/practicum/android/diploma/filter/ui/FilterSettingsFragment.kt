@@ -87,8 +87,7 @@ class FilterSettingsFragment : Fragment() {
             else -> null
         }
         with(binding) {
-
-            if(workplaceText != null && isFromInternalScreen()) {
+            if (workplaceText != null && isFromInternalScreen()) {
                 updateSubmitButtonVisibility(true)
             }
             workplaceValue.text = workplaceText
@@ -119,7 +118,7 @@ class FilterSettingsFragment : Fragment() {
     private fun updateIndustryUI(industrySP: IndustrySP?, onClear: ((IndustrySP?) -> Unit)? = null) {
         val industryText = industrySP?.name
         with(binding) {
-            if(industryText != null && isFromInternalScreen()) {
+            if (industryText != null && isFromInternalScreen()) {
                 updateSubmitButtonVisibility(true)
             }
             industryValue.text = industryText
@@ -191,7 +190,7 @@ class FilterSettingsFragment : Fragment() {
         updateSubmitButtonVisibility(false)
     }
 
-    private fun isFromInternalScreen() : Boolean{
+    private fun isFromInternalScreen(): Boolean {
         val isFromInternalScreen = findNavController().previousBackStackEntry?.destination?.id in setOf(
             R.id.filterPlaceOfWorkFragment,
             R.id.filterIndustryFragment
