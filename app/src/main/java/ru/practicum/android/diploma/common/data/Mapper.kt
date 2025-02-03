@@ -24,7 +24,7 @@ class Mapper {
         map["per_page"] = "20"
 
         searchQueryParams.filter?.let { params ->
-            params.areaCountry?.let { map["area"] = it.id}
+            params.areaCountry?.let { map["area"] = it.id }
             params.areaCity?.let { map["area"] = it.id }
             params.industry?.let { map["industry"] = it.id }
             params.salary?.let { map["salary"] = it.toString() }
