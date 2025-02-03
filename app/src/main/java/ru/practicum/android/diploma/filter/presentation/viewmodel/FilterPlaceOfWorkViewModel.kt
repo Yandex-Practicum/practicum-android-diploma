@@ -1,36 +1,37 @@
 package ru.practicum.android.diploma.filter.presentation.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import ru.practicum.android.diploma.filter.domain.interactor.FilterInteractor
-import ru.practicum.android.diploma.filter.domain.model.Country
-import ru.practicum.android.diploma.filter.domain.model.Region
+import ru.practicum.android.diploma.common.sharedprefs.interactor.SharedPrefsInteractor
+import ru.practicum.android.diploma.common.sharedprefs.models.Filter
 
 class FilterPlaceOfWorkViewModel(
-    private val filterInteractor: FilterInteractor
+    private val sharedPrefsInteractor: SharedPrefsInteractor
 ) : ViewModel() {
-    private var country = MutableLiveData<Country?>()
-    private var region = MutableLiveData<Region?>()
+    private var filter = MutableLiveData<Filter?>()
 
     init {
         loadData()
     }
 
+    fun updateFilter(filter: Filter) {
+        sharedPrefsInteractor.updateFilter(filter)
+        loadData()
+    }
+
+    fun getFilter() = sharedPrefsInteractor.getFilter()
+
+    fun clearFilter() {
+        sharedPrefsInteractor.clearFilter()
+        loadData()
+    }
+
     fun loadData() {
-        country.postValue(filterInteractor.getCountry())
-        region.postValue(filterInteractor.getRegion())
+        filter.postValue(getFilter())
     }
 
-    fun getCountry(): MutableLiveData<Country?> {
-        return country
+    fun getFilterLiveData(): MutableLiveData<Filter?> {
+        return filter
     }
 
-    fun getRegion(): MutableLiveData<Region?> {
-        return region
-    }
 }

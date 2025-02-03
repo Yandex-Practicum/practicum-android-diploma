@@ -90,6 +90,13 @@
             app:exitAnim="@anim/hold"
             app:popEnterAnim="@anim/hold"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_filterPlaceOfWorkFragment_to_filterSettingsFragment"
+            app:destination="@id/filterSettingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/hold"
+            app:popEnterAnim="@anim/hold"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/filterCountriesFragment"
