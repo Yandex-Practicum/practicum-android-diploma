@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.common.sharedprefs.models.IndustrySP
 import ru.practicum.android.diploma.common.util.debounce
 import ru.practicum.android.diploma.filter.domain.interactor.FilterInteractor
 import ru.practicum.android.diploma.filter.domain.model.Industry
@@ -65,9 +66,18 @@ class FilterScreenViewModel(
     private fun renderState(state: IndustryViewState) {
         stateLiveData.postValue(state)
     }
+
     fun setIndustry(industry: Industry) {
         selectedIndustry = industry.copy(selected = false)
     }
+
+    fun getIndustry(): IndustrySP? =
+        selectedIndustry?.let {
+            IndustrySP(
+                id = it.id,
+                name = it.name
+            )
+        }
 
     companion object {
         private const val SEARCH_DEBOUNCE_DELAY = 300L

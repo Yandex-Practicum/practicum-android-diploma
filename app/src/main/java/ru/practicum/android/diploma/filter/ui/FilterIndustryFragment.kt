@@ -12,16 +12,19 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.common.sharedprefs.models.Filter
 import ru.practicum.android.diploma.databinding.FragmentFilterIndustryBinding
 import ru.practicum.android.diploma.filter.domain.model.Industry
 import ru.practicum.android.diploma.filter.domain.model.IndustryViewState
 import ru.practicum.android.diploma.filter.presentation.viewmodel.FilterScreenViewModel
+import ru.practicum.android.diploma.filter.presentation.viewmodel.FilterSettingsViewModel
 import ru.practicum.android.diploma.filter.ui.adapters.IndustryAdapter
 
 class FilterIndustryFragment : Fragment() {
     private var _binding: FragmentFilterIndustryBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModel<FilterScreenViewModel>()
+    private val viewModelSettings by viewModel<FilterSettingsViewModel>()
     private var listAdapter = IndustryAdapter { clickOnIndustry(it) }
 
     override fun onCreateView(
@@ -62,6 +65,15 @@ class FilterIndustryFragment : Fragment() {
         binding.topBar.setOnClickListener {
             findNavController().popBackStack()
         }
+        binding.btnSelectIndustry.setOnClickListener {
+            viewModelSettings.updateFilter(
+                Filter(
+                    industrySP = viewModel.getIndustry()
+                )
+            )
+            findNavController().popBackStack()
+        }
+
         viewModel.observeState().observe(viewLifecycleOwner) {
             render(it)
         }
