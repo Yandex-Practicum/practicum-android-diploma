@@ -5,6 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import ru.practicum.android.diploma.common.data.Mapper
+import ru.practicum.android.diploma.common.data.dto.CountryRequest
 import ru.practicum.android.diploma.common.data.dto.IndustryRequest
 import ru.practicum.android.diploma.common.data.dto.Response
 import ru.practicum.android.diploma.common.data.dto.SearchVacancyRequest
@@ -26,6 +27,11 @@ class RetrofitNetworkClient(
             is SearchVacancyRequest -> executeRequest { headHunterApi.searchVacancies(mapper.map(dto.expression)) }
             is VacancyDetailsRequest -> executeRequest { headHunterApi.getVacancyDetails(dto.vacancyId) }
             is IndustryRequest -> executeRequest { mapper.map(headHunterApi.getIndustries()) }
+            is CountryRequest -> {
+                val response = headHunterApi.getCountries()
+                Log.d("RetrofitNetworkClient", "COUNTRY: $response")
+                executeRequest { mapper.map(response) }
+            }
             else -> Response().apply { resultCode = Response.BAD_REQUEST_ERROR_CODE }
         }
     }
