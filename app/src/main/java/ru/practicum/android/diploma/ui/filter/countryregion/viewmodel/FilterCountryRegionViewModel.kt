@@ -14,14 +14,12 @@ class FilterCountryRegionViewModel : ViewModel() {
             countryVisible = false,
             regionId = null,
             regionName = null,
-            regionVisible = false,
-
-            )
+            regionVisible = false
+        )
     )
     val countryRegion: StateFlow<CountryRegionFilter> = _countryRegionData
 
     fun setCountry(countryId: String?, countryName: String?) {
-
         _countryRegionData.value = _countryRegionData.value.copy(
             countryId = countryId,
             countryName = countryName,
@@ -30,7 +28,6 @@ class FilterCountryRegionViewModel : ViewModel() {
     }
 
     fun setRegion(regionId: String?, regionName: String?) {
-
         if (!regionId.isNullOrEmpty() && !regionName.isNullOrEmpty()) {
             _countryRegionData.value = _countryRegionData.value.copy(
                 regionId = regionId,
@@ -44,7 +41,6 @@ class FilterCountryRegionViewModel : ViewModel() {
     }
 
     fun clearCountry() {
-
         if (_countryRegionData.value.regionVisible) {
             _countryRegionData.value = _countryRegionData.value.copy(countryVisible = false)
         } else {
@@ -53,7 +49,6 @@ class FilterCountryRegionViewModel : ViewModel() {
     }
 
     fun clearRegion() {
-
         if (_countryRegionData.value.countryVisible) {
             _countryRegionData.value = _countryRegionData.value.copy(
                 regionId = null,
@@ -72,8 +67,7 @@ class FilterCountryRegionViewModel : ViewModel() {
             countryVisible = false,
             regionId = null,
             regionName = null,
-            regionVisible = false,
-
-            )
+            regionVisible = false
+        )
     }
 }
