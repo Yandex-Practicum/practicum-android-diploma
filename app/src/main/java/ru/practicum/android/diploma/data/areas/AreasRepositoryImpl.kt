@@ -38,7 +38,7 @@ class AreasRepositoryImpl(
             ResponseCode.SUCCESS.code -> {
                 with(response as AreaDto) {
                     val (countries, otherAreas) = splitAreas(AreasDto(areas = listOf(response)))
-                    val data = areaConverter.convertAreas(countries, otherAreas)
+                    val data = areaConverter.convertAreas(countries, otherAreas.sortedBy { it.name })
                     return Resource.Success(data)
                 }
             }
