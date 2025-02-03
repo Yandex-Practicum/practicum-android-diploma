@@ -69,7 +69,11 @@
             app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_filterSettingsFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
+            app:destination="@id/searchFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/hold"
+            app:popEnterAnim="@anim/hold"
+            app:popExitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/filterPlaceOfWorkFragment"
@@ -93,10 +97,10 @@
         <action
             android:id="@+id/action_filterPlaceOfWorkFragment_to_filterSettingsFragment"
             app:destination="@id/filterSettingsFragment"
-            app:enterAnim="@anim/slide_in_right"
+            app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/hold"
             app:popEnterAnim="@anim/hold"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_in_left"/>
     </fragment>
     <fragment
         android:id="@+id/filterCountriesFragment"
@@ -105,7 +109,11 @@
         tools:layout="@layout/fragment_filter_countries" >
         <action
             android:id="@+id/action_filterCountriesFragment_to_filterPlaceOfWorkFragment"
-            app:destination="@id/filterPlaceOfWorkFragment" />
+            app:destination="@id/filterPlaceOfWorkFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/hold"
+            app:popEnterAnim="@anim/hold"
+            app:popExitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/filterRegionFragment"
