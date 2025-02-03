@@ -154,12 +154,13 @@ class FilterCommonFragment : Fragment() {
         }
 
         binding.industryEditedLayout.setOnClickListener {
-            findNavController().navigate(R.id.action_filterCommonFragment_to_filterIndustryFragment)
             // Здесь можно передавать параметры
-            Bundle().apply {
+            val industryBundle = Bundle().apply {
                 putString(FilterNames.INDUSTRY_ID, selectedIndustryId)
                 putString(FilterNames.INDUSTRY_NAME, selectedIndustry)
             }
+            findNavController().navigate(R.id.action_filterCommonFragment_to_filterIndustryFragment,
+                industryBundle)
         }
     }
 

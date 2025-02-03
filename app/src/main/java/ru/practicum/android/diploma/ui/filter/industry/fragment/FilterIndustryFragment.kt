@@ -98,7 +98,12 @@ class FilterIndustryFragment : Fragment() {
 
                     selectedIndustryName?.let { name ->
                         binding.editTextSearch.setText(name) // Заполняем строку поиска
-                        adapter?.filter(name) { updatePlaceholder(it) }
+                        adapter?.filter(name) {
+                            updatePlaceholder(it)
+                            selectedIndustryId?.let { id ->
+                                adapter?.selectIndustry(Industry(id, name))
+                            }
+                        }
                     }
                 }
 
@@ -151,6 +156,7 @@ class FilterIndustryFragment : Fragment() {
         selectedIndustryId = null
         selectedIndustryName = null
 
+        adapter?.selectedIndustryId = null
         adapter?.submitList(adapter?.industriesFull?.sortedBy { it.name }?.toList())
         binding.buttonSelect.isVisible = false
     }

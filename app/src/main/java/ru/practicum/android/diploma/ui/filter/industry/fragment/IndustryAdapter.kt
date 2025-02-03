@@ -12,7 +12,7 @@ class IndustryAdapter(
     private val onItemSelected: (Industry) -> Unit
 ) : ListAdapter<Industry, IndustryViewHolder>(IndustryDiffCallback()) {
 
-    private var selectedIndustryId: String? = null
+    var selectedIndustryId: String? = null
     private var selectedIndustryName: String? = null
     var industriesFull: List<Industry> = emptyList()
 
@@ -36,9 +36,10 @@ class IndustryAdapter(
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun selectIndustry(industry: Industry) {
         selectedIndustryId = industry.id
-        submitList(currentList.toList())
+        notifyDataSetChanged()
     }
 
     @SuppressLint("NotifyDataSetChanged")
