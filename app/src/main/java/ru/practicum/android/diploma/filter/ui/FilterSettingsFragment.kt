@@ -1,9 +1,11 @@
 package ru.practicum.android.diploma.filter.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
@@ -39,7 +41,6 @@ class FilterSettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val currentFilter = viewModel.getFilter()
-
         setupWorkplaceUI(currentFilter.areaCountry, currentFilter.areaCity)
         setupIndustryUI(currentFilter.industrySP)
         setupSalaryAndCheckbox(currentFilter.salary, currentFilter.withSalary)
@@ -72,6 +73,7 @@ class FilterSettingsFragment : Fragment() {
                 viewModel.clearFilterField("areaCountry")
                 viewModel.clearFilterField("areaCity")
                 updateWorkplaceUI(null, null)
+                updateSubmitButtonVisibility(true)
             }
         }
     }
@@ -84,6 +86,9 @@ class FilterSettingsFragment : Fragment() {
             else -> null
         }
         with(binding) {
+            if (workplaceText != null && isFromInternalScreen()) {
+                updateSubmitButtonVisibility(true)
+            }
             workplaceValue.text = workplaceText
             workplaceValue.visibility = if (workplaceText != null) View.VISIBLE else View.GONE
             workplaceBtn.setImageResource(
@@ -104,6 +109,7 @@ class FilterSettingsFragment : Fragment() {
             binding.industryBtn.setOnClickListener {
                 viewModel.clearFilterField("industrySP")
                 updateIndustryUI(null)
+                updateSubmitButtonVisibility(true)
             }
         }
     }
@@ -111,6 +117,9 @@ class FilterSettingsFragment : Fragment() {
     private fun updateIndustryUI(industrySP: IndustrySP?, onClear: ((IndustrySP?) -> Unit)? = null) {
         val industryText = industrySP?.name
         with(binding) {
+            if (industryText != null && isFromInternalScreen()) {
+                updateSubmitButtonVisibility(true)
+            }
             industryValue.text = industryText
             industryValue.visibility = if (industryText != null) View.VISIBLE else View.GONE
             industryBtn.setImageResource(
@@ -146,9 +155,15 @@ class FilterSettingsFragment : Fragment() {
 
         binding.clearSalaryButton.setOnClickListener {
             binding.inputSalary.setText("")
-            binding.checkBox.isChecked = false
-            updateSubmitButtonVisibility(false)
+            binding.inputSalary.clearFocus()
+            hideKeyboard(binding.root, requireContext())
+            updateSubmitButtonVisibility(true)
         }
+    }
+
+    private fun hideKeyboard(view: View, context: Context) {
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     private fun setupInputSalaryListeners() {
@@ -174,13 +189,26 @@ class FilterSettingsFragment : Fragment() {
         updateSubmitButtonVisibility(false)
     }
 
+    private fun isFromInternalScreen(): Boolean {
+        val isFromInternalScreen = findNavController().previousBackStackEntry?.destination?.id in setOf(
+            R.id.filterPlaceOfWorkFragment,
+            R.id.filterIndustryFragment
+        )
+        return isFromInternalScreen
+    }
+
     private fun updateSubmitButtonVisibility(state: Boolean) {
         binding.submitButton.isVisible = state
     }
 
     private fun saveFilterAndNavigateToSearch() {
         val salaryText = binding.inputSalary.text
-        viewModel.updateFilter(Filter(salary = salaryText.toString().toIntOrNull()))
+
+        if (salaryText.toString().toIntOrNull() != null) {
+            viewModel.updateFilter(Filter(salary = salaryText.toString().toIntOrNull()))
+        } else {
+            viewModel.clearFilterField("salary")
+        }
 
         val withSalary = binding.checkBox.isChecked
 

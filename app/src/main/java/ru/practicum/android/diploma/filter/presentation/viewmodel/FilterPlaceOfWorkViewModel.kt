@@ -19,14 +19,14 @@ class FilterPlaceOfWorkViewModel(
         loadData()
     }
 
-    fun getFilter() = sharedPrefsInteractor.getFilter()
+    private fun getFilter() = sharedPrefsInteractor.getFilter()
 
-    fun clearFilter() {
-        sharedPrefsInteractor.clearFilter()
+    fun clearFilterField(field: String) {
+        sharedPrefsInteractor.clearFilterField(field)
         loadData()
     }
 
-    fun loadData() {
+    private fun loadData() {
         filter.postValue(getFilter())
     }
 
