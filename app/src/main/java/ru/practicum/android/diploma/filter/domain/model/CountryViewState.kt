@@ -5,4 +5,5 @@ interface CountryViewState {
     data object NotFoundError : CountryViewState
     data object ServerError : CountryViewState
     data object ConnectionError : CountryViewState
+    data class CountrySelected(val country: Country) : CountryViewState
 }
