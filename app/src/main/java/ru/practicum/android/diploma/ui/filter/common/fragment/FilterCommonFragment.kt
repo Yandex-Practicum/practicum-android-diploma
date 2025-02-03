@@ -63,7 +63,10 @@ class FilterCommonFragment : Fragment() {
             viewModel.setIndustryParams(selectedIndustry, industryName) // проверка сохранения отрасли в sp
         }
 
-        parentFragmentManager.setFragmentResultListener(FilterNames.REGION_RESULT, viewLifecycleOwner) { _, bundle ->
+        parentFragmentManager.setFragmentResultListener(
+            FilterNames.COUNTRY_REGION_RESULT,
+            viewLifecycleOwner
+        ) { _, bundle ->
             val countryId = bundle.getString(FilterNames.COUNTRY_ID)
             val countryName = bundle.getString(FilterNames.COUNTRY_NAME)
             val regionId = bundle.getString(FilterNames.REGION_ID)
@@ -203,7 +206,7 @@ class FilterCommonFragment : Fragment() {
             binding.placeOfWorkEditedValue.text = filterParameters.countryName
 
             if (!filterParameters.regionId.isNullOrEmpty()) {
-                val placeOfWorkEditedValue = "${filterParameters.countryName} ${filterParameters.regionName}"
+                val placeOfWorkEditedValue = "${filterParameters.countryName}, ${filterParameters.regionName}"
                 binding.placeOfWorkEditedValue.text = placeOfWorkEditedValue
             }
         }
