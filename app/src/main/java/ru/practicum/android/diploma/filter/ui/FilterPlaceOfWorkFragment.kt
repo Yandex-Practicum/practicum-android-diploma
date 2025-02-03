@@ -20,7 +20,7 @@ class FilterPlaceOfWorkFragment : Fragment() {
     private var _binding: FragmentFilterPlaceOfWorkBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModel<FilterPlaceOfWorkViewModel>()
-    private var selectFilter: Filter? = null
+    private lateinit var selectFilter: Filter
 
 
     override fun onCreateView(
@@ -37,13 +37,9 @@ class FilterPlaceOfWorkFragment : Fragment() {
 
         viewModel.getFilterLiveData().observe(viewLifecycleOwner) { filter ->
             selectFilter = filter
-            if (filter == null)
-                showNullFilter()
-            else {
-                showCountry(filter.areaCountry)
-                showCity(filter.areaCity)
-                binding.btnSelectPlaceOfWork.isVisible = (filter.areaCountry != null) || (filter.areaCity != null)
-            }
+            showCountry(filter.areaCountry)
+            showCity(filter.areaCity)
+            binding.btnSelectPlaceOfWork.isVisible = (filter.areaCountry != null) || (filter.areaCity != null)
         }
 
         binding.topBar.setOnClickListener {
@@ -55,46 +51,33 @@ class FilterPlaceOfWorkFragment : Fragment() {
         }
 
         binding.frameCountry.setOnClickListener {
-            if (selectFilter == null) {
-                //viewModel.clearFilter()
+            if (selectFilter.areaCountry == null) {
+                viewModel.updateFilter(selectFilter)
                 findNavController().navigate(
                     R.id.action_filterPlaceOfWorkFragment_to_filterCountriesFragment
                 )
             } else {
-                if (selectFilter?.areaCountry == null) {
-                    viewModel.updateFilter(selectFilter!!)
-                    findNavController().navigate(
-                        R.id.action_filterPlaceOfWorkFragment_to_filterCountriesFragment
+                viewModel.updateFilter(
+                    Filter(
+                        null,
+                        selectFilter.areaCity,
+                        selectFilter.industry,
+                        selectFilter.salary,
+                        selectFilter.withSalary
                     )
-                } else {
-                    viewModel.updateFilter(
-                        Filter(
-                            null,
-                            selectFilter!!.areaCity,
-                            selectFilter!!.industry,
-                            selectFilter!!.salary,
-                            selectFilter!!.withSalary
-                        )
-                    )
-                }
+                )
             }
         }
 
         binding.frameRegion.setOnClickListener {
-            if (selectFilter == null) {
-                //viewModel.clearFilter()
+            if (selectFilter.areaCity == null) {
+                viewModel.updateFilter(selectFilter)
                 findNavController().navigate(
                     R.id.action_filterPlaceOfWorkFragment_to_filterRegionFragment
                 )
-            } else
-                if (selectFilter?.areaCity == null) {
-                    viewModel.updateFilter(selectFilter!!)
-                    findNavController().navigate(
-                        R.id.action_filterPlaceOfWorkFragment_to_filterRegionFragment
-                    )
-                } else {
-                    viewModel.updateFilter(selectFilter!!)
-                }
+            } else {
+                viewModel.updateFilter(selectFilter)
+            }
         }
 
         /* для отладки
@@ -145,24 +128,6 @@ class FilterPlaceOfWorkFragment : Fragment() {
                 .centerCrop()
                 .into(binding.buttonImageRegion)
         }
-    }
-
-    private fun showNullFilter() {
-        binding.smallAndBigCountry.isVisible = false
-        binding.onlyBigCountry.isVisible = true
-        Glide.with(this)
-            .load(R.drawable.ic_arrow_forward_24px)
-            .centerCrop()
-            .into(binding.buttonImageCountry)
-
-        binding.smallAndBigRegion.isVisible = false
-        binding.onlyBigRegion.isVisible = true
-        Glide.with(this)
-            .load(R.drawable.ic_arrow_forward_24px)
-            .centerCrop()
-            .into(binding.buttonImageRegion)
-
-        binding.btnSelectPlaceOfWork.isVisible = false
     }
 
     override fun onDestroyView() {

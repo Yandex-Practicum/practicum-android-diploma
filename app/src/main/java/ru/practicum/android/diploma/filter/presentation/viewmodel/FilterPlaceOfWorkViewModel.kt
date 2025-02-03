@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.common.sharedprefs.models.Filter
 class FilterPlaceOfWorkViewModel(
     private val sharedPrefsInteractor: SharedPrefsInteractor
 ) : ViewModel() {
-    private var filter = MutableLiveData<Filter?>()
+    private var filter = MutableLiveData<Filter>()
 
     init {
         loadData()
@@ -30,7 +30,7 @@ class FilterPlaceOfWorkViewModel(
         filter.postValue(getFilter())
     }
 
-    fun getFilterLiveData(): MutableLiveData<Filter?> {
+    fun getFilterLiveData(): MutableLiveData<Filter> {
         return filter
     }
 
