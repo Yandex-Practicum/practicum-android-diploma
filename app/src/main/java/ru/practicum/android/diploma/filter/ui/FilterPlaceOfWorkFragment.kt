@@ -51,62 +51,35 @@ class FilterPlaceOfWorkFragment : Fragment() {
 
         binding.frameCountry.setOnClickListener {
             if (selectFilter?.areaCountry == null) {
-                // viewModel.updateFilter(selectFilter!!)
                 findNavController().navigate(
                     R.id.action_filterPlaceOfWorkFragment_to_filterCountriesFragment
-                )
-            } else {
-                viewModel.updateFilter(
-                    Filter(
-                        null,
-                        selectFilter!!.areaCity,
-                        selectFilter!!.industrySP,
-                        selectFilter!!.salary,
-                        selectFilter!!.withSalary
-                    )
                 )
             }
         }
 
         binding.frameRegion.setOnClickListener {
             if (selectFilter?.areaCity == null) {
-                //  viewModel.updateFilter(selectFilter!!)
                 findNavController().navigate(
                     R.id.action_filterPlaceOfWorkFragment_to_filterRegionFragment
                 )
-            } else {
-                viewModel.updateFilter(selectFilter!!)
             }
         }
-
-        /* для отладки
-        binding.addCountry.setOnClickListener {
-            viewModel.updateFilter(Filter(Country("1", "Россия"), selectFilter?.areaCity, null, null, null))
-            viewModel.loadData()
-        }
-        binding.addRegion.setOnClickListener {
-            viewModel.updateFilter(Filter(selectFilter?.areaCountry, City("1", "Москва"), null, null, null))
-            viewModel.loadData()
-        }
-    */
     }
 
     private fun showCountry(country: Country?) {
         if (country == null) {
             binding.smallAndBigCountry.isVisible = false
             binding.onlyBigCountry.isVisible = true
-            Glide.with(this)
-                .load(R.drawable.ic_arrow_forward_24px)
-                .centerCrop()
-                .into(binding.buttonImageCountry)
+            binding.buttonImageCountry.setImageResource(R.drawable.ic_arrow_forward_24px)
         } else {
             binding.smallAndBigCountry.isVisible = true
             binding.onlyBigCountry.isVisible = false
             binding.bigTextCountry.text = country.name
-            Glide.with(this)
-                .load(R.drawable.ic_close_24px)
-                .centerCrop()
-                .into(binding.buttonImageCountry)
+            binding.buttonImageCountry.setImageResource(R.drawable.ic_close_24px)
+            binding.buttonImageCountry.setOnClickListener {
+                viewModel.clearFilterField("areaCountry")
+                showCountry(null)
+            }
         }
     }
 
@@ -114,18 +87,16 @@ class FilterPlaceOfWorkFragment : Fragment() {
         if (city == null) {
             binding.smallAndBigRegion.isVisible = false
             binding.onlyBigRegion.isVisible = true
-            Glide.with(this)
-                .load(R.drawable.ic_arrow_forward_24px)
-                .centerCrop()
-                .into(binding.buttonImageRegion)
+            binding.buttonImageRegion.setImageResource(R.drawable.ic_arrow_forward_24px)
         } else {
             binding.smallAndBigRegion.isVisible = true
             binding.onlyBigRegion.isVisible = false
             binding.bigTextRegion.text = city.name
-            Glide.with(this)
-                .load(R.drawable.ic_close_24px)
-                .centerCrop()
-                .into(binding.buttonImageRegion)
+            binding.buttonImageRegion.setImageResource(R.drawable.ic_close_24px)
+            binding.buttonImageRegion.setOnClickListener {
+                viewModel.clearFilterField("areaCity")
+                showCity(null)
+            }
         }
     }
 

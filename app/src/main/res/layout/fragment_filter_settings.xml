@@ -175,6 +175,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/enter_salary"
             android:inputType="number"
+            android:maxLength="9"
             app:layout_constraintBottom_toBottomOf="@id/input_salary_layout"
             app:layout_constraintEnd_toStartOf="@id/clear_salary_button"
             app:layout_constraintStart_toStartOf="@id/input_salary_layout"
