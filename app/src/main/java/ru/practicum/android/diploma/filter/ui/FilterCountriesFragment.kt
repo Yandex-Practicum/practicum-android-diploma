@@ -37,7 +37,6 @@ class FilterCountriesFragment : Fragment() {
         }
         val recyclerView = view.findViewById<RecyclerView>(R.id.rvCountryRegionItems)
 
-
         recyclerView.adapter = listAdapter
 
         viewModel.observeState().observe(viewLifecycleOwner) { state ->
