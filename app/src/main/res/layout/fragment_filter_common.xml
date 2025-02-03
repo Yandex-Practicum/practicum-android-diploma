@@ -181,7 +181,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dp_16"
-        android:layout_marginBottom="@dimen/dp_8"
         android:text="@string/apply"
         android:visibility="gone" />
 
@@ -191,7 +190,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dp_16"
-        android:layout_marginBottom="@dimen/dp_24"
+        android:layout_marginTop="@dimen/dp_8"
         android:text="@string/reset"
         android:visibility="gone" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_24"
+        app:dividerColor="?attr/whiteToBlack" />
 </LinearLayout>
