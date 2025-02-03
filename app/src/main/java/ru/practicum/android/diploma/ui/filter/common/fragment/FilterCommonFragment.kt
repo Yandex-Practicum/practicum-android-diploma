@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.ui.filter.common.fragment
 
-import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,7 +7,6 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -19,6 +17,7 @@ import ru.practicum.android.diploma.databinding.FragmentFilterCommonBinding
 import ru.practicum.android.diploma.domain.models.FilterParameters
 import ru.practicum.android.diploma.ui.filter.common.viewmodel.FilterCommonViewModel
 import ru.practicum.android.diploma.util.FilterNames
+import ru.practicum.android.diploma.util.KeyboardUtils
 
 class FilterCommonFragment : Fragment() {
 
@@ -28,7 +27,13 @@ class FilterCommonFragment : Fragment() {
     private var expectedSalary: Int? = null
     private var withoutSalary: Boolean = false
 
-    private var selectedIndustry: String? = null // Здесь сохраняем ID отрасли, которое выбрал пользователь
+    private var selectedIndustryId: String? = null
+    private var selectedIndustry: String? = null
+
+    private var countryId: String? = null
+    private var countryName: String? = null
+    private var regionId: String? = null
+    private var regionName: String? = null
 
     private val viewModel: FilterCommonViewModel by viewModel()
 
@@ -44,9 +49,35 @@ class FilterCommonFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        getParamsFromFragments()
         setupListeners()
         setupSalaryField()
+        observeViewModel()
+    }
 
+    private fun getParamsFromFragments() {
+        // Здесь мы слушаем параметры от фрагмента выбора отрасли
+        parentFragmentManager.setFragmentResultListener(FilterNames.INDUSTRY_RESULT, viewLifecycleOwner) { _, bundle ->
+            selectedIndustry = bundle.getString(FilterNames.INDUSTRY_ID)
+            val industryName = bundle.getString(FilterNames.INDUSTRY_NAME)
+
+            viewModel.setIndustryParams(selectedIndustry, industryName) // проверка сохранения отрасли в sp
+        }
+
+        parentFragmentManager.setFragmentResultListener(
+            FilterNames.COUNTRY_REGION_RESULT,
+            viewLifecycleOwner
+        ) { _, bundle ->
+            val countryId = bundle.getString(FilterNames.COUNTRY_ID)
+            val countryName = bundle.getString(FilterNames.COUNTRY_NAME)
+            val regionId = bundle.getString(FilterNames.REGION_ID)
+            val regionName = bundle.getString(FilterNames.REGION_NAME)
+
+            viewModel.setCountryAndRegionParams(countryId, countryName, regionId, regionName)
+        }
+    }
+
+    private fun observeViewModel() {
         viewModel.acceptButtonLiveData.observe(viewLifecycleOwner) { shouldShowApplyButton ->
             showApplyButton(shouldShowApplyButton)
         }
@@ -72,7 +103,19 @@ class FilterCommonFragment : Fragment() {
             expectedSalary = null
             binding.salaryEditText.setText(TEXT_EMPTY)
             binding.clearButton.isVisible = false
-            hideKeyboard(it)
+            KeyboardUtils.hideKeyboard(requireActivity())
+        }
+
+        binding.clearPlaceOfWorkButton.setOnClickListener {
+            binding.placeOfWorkEditedLayout.isVisible = false
+            binding.placeOfWorkDefault.isVisible = true
+            viewModel.setCountryAndRegionParams(null, null, null, null)
+        }
+
+        binding.clearIndustryButton.setOnClickListener {
+            binding.industryEditedLayout.isVisible = false
+            binding.industryDefault.isVisible = true
+            viewModel.setIndustryParams(null, null)
         }
 
         binding.applyButton.setOnClickListener {
@@ -82,16 +125,6 @@ class FilterCommonFragment : Fragment() {
 
         binding.resetButton.setOnClickListener {
             viewModel.resetFilter()
-        }
-
-        // Здесь мы слушаем параметры от фрагмента выбора отрасли
-        parentFragmentManager.setFragmentResultListener(FilterNames.INDUSTRY_RESULT, viewLifecycleOwner) { _, bundle ->
-            selectedIndustry = bundle.getString(FilterNames.INDUSTRY_ID)
-            val industryName = bundle.getString(FilterNames.INDUSTRY_NAME)
-
-            viewModel.setIndustryParams(selectedIndustry, industryName) // проверка сохранения отрасли в sp
-
-            binding.industryDefault.text = industryName
         }
     }
 
@@ -105,7 +138,15 @@ class FilterCommonFragment : Fragment() {
         }
 
         binding.placeOfWorkEditedLayout.setOnClickListener {
-            findNavController().navigate(R.id.action_filterCommonFragment_to_filterCountryRegionFragment)
+            findNavController().navigate(
+                R.id.action_filterCommonFragment_to_filterCountryRegionFragment,
+                Bundle().apply {
+                    putString(FilterNames.COUNTRY_ID, countryId)
+                    putString(FilterNames.COUNTRY_NAME, countryName)
+                    putString(FilterNames.REGION_ID, regionId)
+                    putString(FilterNames.REGION_NAME, regionName)
+                }
+            )
         }
 
         binding.industryDefault.setOnClickListener {
@@ -114,6 +155,11 @@ class FilterCommonFragment : Fragment() {
 
         binding.industryEditedLayout.setOnClickListener {
             findNavController().navigate(R.id.action_filterCommonFragment_to_filterIndustryFragment)
+            // Здесь можно передавать параметры
+            Bundle().apply {
+                putString(FilterNames.INDUSTRY_ID, selectedIndustryId)
+                putString(FilterNames.INDUSTRY_NAME, selectedIndustry)
+            }
         }
     }
 
@@ -156,18 +202,12 @@ class FilterCommonFragment : Fragment() {
         return typedValue.data
     }
 
-    private fun hideKeyboard(view: View) {
-        val inputMethodManager: InputMethodManager? =
-            requireContext().getSystemService(INPUT_METHOD_SERVICE) as? InputMethodManager
-        inputMethodManager?.hideSoftInputFromWindow(view.windowToken, 0)
+    private fun showApplyButton(shouldShowApplyButton: Boolean) {
+        binding.applyButton.isVisible = shouldShowApplyButton
     }
 
-    private fun showApplyButton(isModelsEquals: Boolean) {
-        binding.applyButton.isVisible = isModelsEquals
-    }
-
-    private fun showResetButton(isModelEmpty: Boolean) {
-        binding.resetButton.isVisible = isModelEmpty
+    private fun showResetButton(shouldShowResetButton: Boolean) {
+        binding.resetButton.isVisible = shouldShowResetButton
     }
 
     private fun renderFilters(filterParameters: FilterParameters) {
@@ -175,26 +215,37 @@ class FilterCommonFragment : Fragment() {
             binding.placeOfWorkDefault.isVisible = false
             binding.placeOfWorkEditedLayout.isVisible = true
             binding.placeOfWorkEditedValue.text = filterParameters.countryName
+
+            countryId = filterParameters.countryId
+            countryName = filterParameters.countryName
+
+            if (!filterParameters.regionId.isNullOrEmpty()) {
+                val placeOfWorkEditedValue = "${filterParameters.countryName}, ${filterParameters.regionName}"
+                binding.placeOfWorkEditedValue.text = placeOfWorkEditedValue
+
+                regionId = filterParameters.regionId
+                regionName = filterParameters.regionName
+            }
         }
-        if (!filterParameters.regionId.isNullOrEmpty()) {
-            binding.placeOfWorkEditedValue.text = filterParameters.regionName
-        }
+
         if (!filterParameters.industryId.isNullOrEmpty()) {
             binding.industryDefault.isVisible = false
             binding.industryEditedLayout.isVisible = true
             binding.industryEditedValue.text = filterParameters.industryName
+
+            selectedIndustryId = filterParameters.industryId
+            selectedIndustry = filterParameters.industryName
+        } else {
+            binding.industryEditedLayout.isVisible = false
+            binding.industryDefault.isVisible = true
         }
         val currentSalaryText = binding.salaryEditText.text.toString()
         val newSalaryText = filterParameters.expectedSalary?.toString() ?: TEXT_EMPTY
         if (currentSalaryText != newSalaryText) {
             binding.salaryEditText.setText(newSalaryText)
         }
-//        if (filterParameters.expectedSalary != null) {
-//            binding.salaryEditText.setText(
-//                String.format(Locale.getDefault(),"%d", filterParameters.expectedSalary))
-//        }
-        binding.salaryCheckbox.isChecked = filterParameters.isWithoutSalaryShowed
 
+        binding.salaryCheckbox.isChecked = filterParameters.isWithoutSalaryShowed
     }
 
     companion object {

@@ -21,12 +21,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_16"
-        android:text="@string/place_of_work" />
+        android:text="@string/place_of_work_title" />
 
     <LinearLayout
         android:id="@+id/place_of_work_edited_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_16"
         android:minHeight="@dimen/dp_60"
         android:orientation="horizontal"
         android:paddingHorizontal="@dimen/dp_16"
@@ -43,17 +44,18 @@
                 style="@style/RegularText12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/place_of_work" />
+                android:text="@string/place_of_work_title" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/place_of_work_edited_value"
                 style="@style/RegularText16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/place_of_work" />
+                android:text="@string/place_of_work_title" />
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/clear_place_of_work_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@drawable/ic_close_24"
@@ -88,17 +90,18 @@
                 style="@style/RegularText12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/place_of_work" />
+                android:text="@string/industry" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/industry_edited_value"
                 style="@style/RegularText16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/place_of_work" />
+                android:text="@string/industry" />
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/clear_industry_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@drawable/ic_close_24"
@@ -173,23 +176,27 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <com.google.android.material.button.MaterialButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/apply_button"
         style="@style/ApplyButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dp_16"
-        android:layout_marginBottom="@dimen/dp_8"
-        android:visibility="gone"
-        android:text="@string/apply" />
+        android:text="@string/apply"
+        android:visibility="gone" />
 
-    <com.google.android.material.button.MaterialButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/reset_button"
         style="@style/ResetButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dp_16"
-        android:layout_marginBottom="@dimen/dp_24"
-        android:visibility="gone"
-        android:text="@string/reset" />
+        android:layout_marginTop="@dimen/dp_8"
+        android:text="@string/reset"
+        android:visibility="gone" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_24"
+        app:dividerColor="?attr/whiteToBlack" />
 </LinearLayout>

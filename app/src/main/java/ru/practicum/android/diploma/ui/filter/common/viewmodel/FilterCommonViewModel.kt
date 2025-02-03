@@ -73,6 +73,7 @@ class FilterCommonViewModel(
         filterInteractor.saveToFilterStorage(
             newFilterParameters
         )
+        shouldShowApplyButton()
     }
 
     private fun getFilterSettings(): FilterParameters {
