@@ -7,13 +7,16 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.Resource
 import ru.practicum.android.diploma.domain.common.SearchResult
+import ru.practicum.android.diploma.domain.filter.api.FilterInteractor
+import ru.practicum.android.diploma.domain.models.FilterParameters
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.models.VacancyResponse
 import ru.practicum.android.diploma.domain.search.api.VacanciesInteractor
 import ru.practicum.android.diploma.util.SingleEventLiveData
 
 class SearchViewModel(
-    private val vacanciesInteractor: VacanciesInteractor
+    private val vacanciesInteractor: VacanciesInteractor,
+    private val filterInteractor: FilterInteractor
 ) : ViewModel() {
 
     private val searchResultData: MutableLiveData<SearchResult> =
@@ -21,12 +24,23 @@ class SearchViewModel(
 
     fun searchResultLiveData(): LiveData<SearchResult> = searchResultData
 
+    private val _filterIconLiveData = MutableLiveData<Boolean>()
+    val filterIconLiveData: LiveData<Boolean> = _filterIconLiveData
+
+    private var oldFilterParameters: FilterParameters
+    private var newFilterParameters: FilterParameters
+
+    init {
+        oldFilterParameters = getFilterSettings()
+        newFilterParameters = oldFilterParameters
+        isFilterOn()
+    }
+
     private var currentPage: Int = 0
     private var maxPages: Int = 0
     private var isNextPageLoading = false
     private var vacanciesList = arrayListOf<Vacancy>()
 
-    val options: HashMap<String, Int> = HashMap()
     private val openVacancyTrigger = SingleEventLiveData<Long>()
 
     fun getVacancyTrigger(): SingleEventLiveData<Long> = openVacancyTrigger
@@ -35,7 +49,27 @@ class SearchViewModel(
         searchResultData.postValue(SearchResult.Empty)
     }
 
+    fun setNewFilterParameters() {
+        newFilterParameters = getFilterSettings()
+    }
+
+    fun isFilterOn() {
+        _filterIconLiveData.postValue(newFilterParameters != FilterParameters())
+    }
+
+    private fun onFilterChanged(): Boolean {
+        return oldFilterParameters != newFilterParameters
+    }
+
+    fun refreshSearchQuery(text: String?) {
+        if (onFilterChanged() && !text.isNullOrEmpty()) {
+            searchVacancies(text, true)
+            oldFilterParameters = newFilterParameters
+        }
+    }
+
     fun searchVacancies(text: String?, isNewRequest: Boolean) {
+        val options: HashMap<String, Int> = HashMap()
         searchResultData.postValue(SearchResult.PaginationLoading)
         if (isNewRequest) {
             searchResultData.postValue(SearchResult.Loading)
@@ -90,6 +124,10 @@ class SearchViewModel(
             searchVacancies(text, false)
         }
 
+    }
+
+    private fun getFilterSettings(): FilterParameters {
+        return filterInteractor.readFromFilterStorage()
     }
 
 }

@@ -9,6 +9,7 @@ import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.dto.AreasDto
 import ru.practicum.android.diploma.data.dto.IndustriesResponseDto
 import ru.practicum.android.diploma.data.dto.Response
+import ru.practicum.android.diploma.domain.filter.api.FilterRepository
 import ru.practicum.android.diploma.util.ResponseCode
 import ru.practicum.android.diploma.util.network.CheckNetworkConnect
 
@@ -16,7 +17,8 @@ const val HttpExceptionTag = "HttpException"
 
 class RetrofitNetworkClient(
     private val api: HhApi,
-    private val context: Context
+    private val context: Context,
+    private val filterRepository: FilterRepository
 ) : NetworkClient {
 
     private suspend fun doRequest(actualRequest: suspend () -> Response): Response {
@@ -37,7 +39,27 @@ class RetrofitNetworkClient(
     }
 
     override suspend fun doRequestVacancies(text: String?, options: HashMap<String, Int>): Response {
-        return doRequest { api.searchVacancies(text = text, options = options) }
+        val filterParameters = filterRepository.readFromFilterStorage()
+        val optionsForString: HashMap<String, String> = HashMap()
+        if (filterParameters.expectedSalary != null) {
+            options["salary"] = filterParameters.expectedSalary
+        }
+        if (filterParameters.regionId != null) {
+            optionsForString["area"] = filterParameters.regionId
+        } else if (filterParameters.countryId != null) {
+            optionsForString["area"] = filterParameters.countryId
+        }
+        if (filterParameters.industryId != null) {
+            optionsForString["industry"] = filterParameters.industryId
+        }
+        return doRequest {
+            api.searchVacancies(
+                text = text,
+                optionsForString = optionsForString,
+                optionsForInt = options,
+                onlyWithSalary = filterParameters.isWithoutSalaryShowed
+            )
+        }
     }
 
     override suspend fun doRequestVacancyDetails(vacancyId: String): Response {
