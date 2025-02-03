@@ -10,7 +10,7 @@ class SharedPrefsRepositoryImpl(private val sharedPrefsUtil: SharedPrefsUtil) : 
         val mergedFilter = Filter(
             areaCountry = updatedFilter.areaCountry ?: currentFilter.areaCountry,
             areaCity = updatedFilter.areaCity ?: currentFilter.areaCity,
-            industry = updatedFilter.industry ?: currentFilter.industry,
+            industrySP = updatedFilter.industrySP ?: currentFilter.industrySP,
             salary = updatedFilter.salary ?: currentFilter.salary,
             withSalary = updatedFilter.withSalary ?: currentFilter.withSalary
         )

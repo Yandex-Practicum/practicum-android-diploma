@@ -139,10 +139,7 @@ class SearchViewModel(
 
     fun clearSearchList() {
         renderScreenState(
-            SearchViewState.Content(
-                emptyVacancyList,
-                null
-            )
+            SearchViewState.Base
         )
     }
 

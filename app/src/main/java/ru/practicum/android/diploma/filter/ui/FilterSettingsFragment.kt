@@ -13,7 +13,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.common.sharedprefs.models.City
 import ru.practicum.android.diploma.common.sharedprefs.models.Country
 import ru.practicum.android.diploma.common.sharedprefs.models.Filter
-import ru.practicum.android.diploma.common.sharedprefs.models.Industry
+import ru.practicum.android.diploma.common.sharedprefs.models.IndustrySP
 import ru.practicum.android.diploma.databinding.FragmentFilterSettingsBinding
 import ru.practicum.android.diploma.filter.presentation.viewmodel.FilterSettingsViewModel
 
@@ -41,7 +41,7 @@ class FilterSettingsFragment : Fragment() {
         val currentFilter = viewModel.getFilter()
 
         setupWorkplaceUI(currentFilter.areaCountry, currentFilter.areaCity)
-        setupIndustryUI(currentFilter.industry)
+        setupIndustryUI(currentFilter.industrySP)
         setupSalaryAndCheckbox(currentFilter.salary, currentFilter.withSalary)
         setupListeners()
     }
@@ -98,17 +98,17 @@ class FilterSettingsFragment : Fragment() {
         }
     }
 
-    private fun setupIndustryUI(industry: Industry?) {
-        updateIndustryUI(industry) { industry ->
+    private fun setupIndustryUI(industrySP: IndustrySP?) {
+        updateIndustryUI(industrySP) { industry ->
             binding.industryBtn.setOnClickListener {
-                viewModel.updateFilter(Filter(industry = null))
+                viewModel.updateFilter(Filter(industrySP = null))
                 updateIndustryUI(null)
             }
         }
     }
 
-    private fun updateIndustryUI(industry: Industry?, onClear: ((Industry?) -> Unit)? = null) {
-        val industryText = industry?.name
+    private fun updateIndustryUI(industrySP: IndustrySP?, onClear: ((IndustrySP?) -> Unit)? = null) {
+        val industryText = industrySP?.name
         with(binding) {
             industryValue.text = industryText
             industryValue.visibility = if (industryText != null) View.VISIBLE else View.GONE
@@ -120,7 +120,7 @@ class FilterSettingsFragment : Fragment() {
             if (industryText == null) {
                 industryBtn.setOnClickListener { navigateToIndustryFragment() }
             } else {
-                onClear?.invoke(industry)
+                onClear?.invoke(industrySP)
             }
         }
     }

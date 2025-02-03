@@ -12,4 +12,5 @@ sealed interface SearchViewState {
     data object ServerError : SearchViewState
     data object ConnectionError : SearchViewState
     data object Loading : SearchViewState
+    data object Base : SearchViewState
 }

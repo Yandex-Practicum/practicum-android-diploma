@@ -40,4 +40,7 @@ val viewModelModule = module {
         FilterSettingsViewModel(get())
     }
 
+    viewModel {
+        FilterCountriesViewModel(get(), get())
+    }
 }
