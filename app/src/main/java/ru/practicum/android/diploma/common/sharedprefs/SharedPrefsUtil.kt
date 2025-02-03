@@ -24,7 +24,7 @@ class SharedPrefsUtil(private val context: Context) {
         return if (jsonString != null) {
             gson.fromJson(jsonString, Filter::class.java)
         } else {
-            Filter() // Возвращаем пустой фильтр, если данных нет
+            Filter(areaCountry = null, areaCity = null, industrySP = null, salary = null, withSalary = null)
         }
     }
 

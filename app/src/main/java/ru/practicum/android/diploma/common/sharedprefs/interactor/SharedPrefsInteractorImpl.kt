@@ -9,6 +9,10 @@ class SharedPrefsInteractorImpl(private val sharedPrefsRepository: SharedPrefsRe
         sharedPrefsRepository.updateFilter(updatedFilter)
     }
 
+    override fun clearFilterField(field: String) {
+        sharedPrefsRepository.clearFilterField(field)
+    }
+
     override fun clearFilter() {
         sharedPrefsRepository.clearFilter()
     }

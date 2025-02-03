@@ -69,7 +69,8 @@ class FilterSettingsFragment : Fragment() {
     private fun setupWorkplaceUI(country: Country?, city: City?) {
         updateWorkplaceUI(country, city) { country, city ->
             binding.workplaceBtn.setOnClickListener {
-                viewModel.updateFilter(Filter(areaCountry = null, areaCity = null))
+                viewModel.clearFilterField("areaCountry")
+                viewModel.clearFilterField("areaCity")
                 updateWorkplaceUI(null, null)
             }
         }
@@ -101,7 +102,7 @@ class FilterSettingsFragment : Fragment() {
     private fun setupIndustryUI(industrySP: IndustrySP?) {
         updateIndustryUI(industrySP) { industry ->
             binding.industryBtn.setOnClickListener {
-                viewModel.updateFilter(Filter(industrySP = null))
+                viewModel.clearFilterField("industrySP")
                 updateIndustryUI(null)
             }
         }
@@ -136,7 +137,7 @@ class FilterSettingsFragment : Fragment() {
         }
 
         binding.checkBox.setOnCheckedChangeListener { _, isChecked ->
-            viewModel.updateFilter(Filter(withSalary = isChecked))
+            viewModel.clearFilterField("withSalary")
             if (isChecked != withSalary) {
                 updateSubmitButtonVisibility(true)
             }
@@ -182,7 +183,12 @@ class FilterSettingsFragment : Fragment() {
         viewModel.updateFilter(Filter(salary = salaryText.toString().toIntOrNull()))
 
         val withSalary = binding.checkBox.isChecked
-        viewModel.updateFilter(Filter(withSalary = withSalary))
+
+        if (withSalary) {
+            viewModel.updateFilter(Filter(withSalary = true))
+        } else {
+            viewModel.clearFilterField("withSalary")
+        }
 
         findNavController().navigate(R.id.action_filterSettingsFragment_to_searchFragment)
     }
