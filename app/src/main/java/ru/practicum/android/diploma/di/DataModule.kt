@@ -16,6 +16,7 @@ import ru.practicum.android.diploma.data.converters.VacanciesConverter
 import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.data.db.FavoritesRepositoryImpl
 import ru.practicum.android.diploma.data.filter.FilterParameters
+import ru.practicum.android.diploma.data.filter.FilterRepositoryImpl
 import ru.practicum.android.diploma.data.filter.StorageFilter
 import ru.practicum.android.diploma.data.industries.IndustriesRepositoryImpl
 import ru.practicum.android.diploma.data.network.HhApi
@@ -25,6 +26,7 @@ import ru.practicum.android.diploma.data.sharing.ExternalNavigatorImpl
 import ru.practicum.android.diploma.data.vacancydetails.VacancyDetailsRepositoryImpl
 import ru.practicum.android.diploma.domain.areas.api.AreasRepository
 import ru.practicum.android.diploma.domain.favorites.api.FavoritesRepository
+import ru.practicum.android.diploma.domain.filter.api.FilterRepository
 import ru.practicum.android.diploma.domain.industries.api.IndustriesRepository
 import ru.practicum.android.diploma.domain.search.api.VacanciesRepository
 import ru.practicum.android.diploma.domain.sharing.api.ExternalNavigator
@@ -95,9 +97,15 @@ val dataModule = module {
         IndustriesRepositoryImpl(get(), get())
     }
 
+// зависимости для работы с сохранением фильтров
     single { FilterParameters() }
 
     single<StorageFilter> {
-        StorageFilter(sharedPrefs = get(named(FILTER_PREFERENCES)),get())
+        StorageFilter(sharedPrefs = get(named(FILTER_PREFERENCES)), get())
     }
+
+    single<FilterRepository> {
+        FilterRepositoryImpl(get())
+    }
+// зависимости для работы с сохранением фильтров
 }

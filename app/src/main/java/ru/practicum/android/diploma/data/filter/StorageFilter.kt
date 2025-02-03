@@ -5,9 +5,9 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import ru.practicum.android.diploma.di.FILTER_KEY
 
-
-class StorageFilter(private val sharedPrefs: SharedPreferences,
-                    private val json: Gson
+class StorageFilter(
+    private val sharedPrefs: SharedPreferences,
+    private val json: Gson
 ) {
 
     fun saveToStorage(filterParameters: FilterParameters) {
@@ -18,12 +18,10 @@ class StorageFilter(private val sharedPrefs: SharedPreferences,
     }
 
     fun readFromStorage(): FilterParameters {
-        val json: String? = sharedPrefs.getString(FILTER_KEY, null) ?: return FilterParameters()
+        val json: String = sharedPrefs.getString(FILTER_KEY, null) ?: return FilterParameters()
         val itemType = object : TypeToken<FilterParameters>() {}.type
 
         return Gson().fromJson(json, itemType)
     }
-
-
 
 }
