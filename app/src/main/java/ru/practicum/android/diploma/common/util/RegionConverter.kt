@@ -5,7 +5,6 @@ import ru.practicum.android.diploma.filter.domain.model.Area
 import ru.practicum.android.diploma.filter.domain.model.City
 
 object RegionConverter {
-
     fun convertToArea(areaDto: AreaDto?): Area {
         return areaDto?.let { dto ->
             Area(
@@ -18,43 +17,35 @@ object RegionConverter {
         } ?: Area(id = "", name = "", parentId = null, isSelected = false, areas = emptyList())
     }
 
-    fun convertToCity(areaDto: Area): City {
-        return City(
-            id = areaDto.id,
-            name = areaDto.name,
-            parentId = areaDto.parentId,
-            isSelected = false,
-        )
-    }
-
     fun mapRegions(areas: List<Area>): List<Area> {
         val resultAreaList = mutableListOf<Area>()
-            for (area in areas) {
-                if (area.areas.isEmpty()) {
-                    resultAreaList.add(area)
-                } else {
-                    for (city in area.areas) {
-                        resultAreaList.add(city)
-                    }
+        for (area in areas) {
+            if (area.areas.isEmpty()) {
+                resultAreaList.add(area)
+            } else {
+                for (city in area.areas) {
+                    resultAreaList.add(city)
                 }
-
             }
+
+        }
         return resultAreaList
     }
 
     fun mapAllCisRegions(areas: List<Area>): List<Area> {
         val resultAreaList = mutableListOf<Area>()
-            for (country in areas) {
-                if (!assertRegionIsCis(country.name)) continue
-                    for (region in country.areas) {
-                        if (region.areas.isEmpty()) {
-                            resultAreaList.add(region)
-                        }
-                        for (city in region.areas) {
-                            resultAreaList.add(city)
-                        }
-                    }
+        for (country in areas) {
+            if (!assertRegionIsCis(country.name)) continue
+
+            for (region in country.areas) {
+                if (region.areas.isEmpty()) {
+                    resultAreaList.add(region)
+                }
+                for (city in region.areas) {
+                    resultAreaList.add(city)
+                }
             }
+        }
         return resultAreaList
     }
 
@@ -80,5 +71,4 @@ object RegionConverter {
     private const val UKRAINE = "Украина"
     private const val KYRGYZSTAN = "Кыргызстан"
     private const val UZBEKISTAN = "Узбекистан"
-
 }

@@ -27,9 +27,9 @@ import ru.practicum.android.diploma.filter.ui.adapters.RegionAdapter
 class FilterRegionFragment : Fragment() {
     private var _binding: FragmentFilterRegionBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by viewModel<RegionFilterViewModel>()
-    private var adapter: RegionAdapter? = null
-    private var editTextWatсher: TextWatcher? = null
+    private val regionViewModel by viewModel<RegionFilterViewModel>()
+    private var regionListAdapter: RegionAdapter? = null
+    private var textWatсher: TextWatcher? = null
     private var inputMethodManager: InputMethodManager? = null
     private var fadeInAnimation: Animation? = null
     private var fadeOutAnimation: Animation? = null
@@ -46,8 +46,8 @@ class FilterRegionFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        adapter = null
-        editTextWatсher?.let { binding.textInput.removeTextChangedListener(it) }
+        regionListAdapter = null
+        textWatсher?.let { binding.textInput.removeTextChangedListener(it) }
         inputMethodManager = null
         adapterAnimationJob = null
         fadeInAnimation = null
@@ -71,20 +71,20 @@ class FilterRegionFragment : Fragment() {
     }
 
     private fun initializeRegionList() {
-        viewModel.loadRegions()
+        regionViewModel.loadRegions()
     }
 
     private fun setRecyclerView() {
         with(binding) {
-            adapter = RegionAdapter(::applyRegionToFilter)
-            rvRegionList.adapter = adapter
+            regionListAdapter = RegionAdapter(::applyRegionToFilter)
+            rvRegionList.adapter = regionListAdapter
         }
     }
 
     private fun setTextInput() {
         inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
 
-        editTextWatсher = object : TextWatcher {
+        textWatсher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, ncout: Int) {
@@ -96,7 +96,7 @@ class FilterRegionFragment : Fragment() {
                     }
                 }
                 textInput = s.toString()
-                viewModel.searchDebounce(textInput)
+                regionViewModel.searchDebounce(textInput)
                 Log.d("TextInput", "$textInput")
                 binding.clearIcon.visibility = clearButtonVisibility(s)
                 binding.searchIcon.visibility = searchIconVisibility(s)
@@ -106,7 +106,7 @@ class FilterRegionFragment : Fragment() {
                 Log.d("AfterTextChanged", "$s")
             }
         }
-        binding.textInput.addTextChangedListener(editTextWatсher)
+        binding.textInput.addTextChangedListener(textWatсher)
 
         setClearIconOnClickListener()
         setOnEditorActionListener()
@@ -122,8 +122,8 @@ class FilterRegionFragment : Fragment() {
     private fun setOnEditorActionListener() {
         binding.textInput.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                viewModel.declineLastSearch()
-                viewModel.searchRegions(textInput)
+                regionViewModel.declineLastSearch()
+                regionViewModel.searchRegions(textInput)
                 true
             }
             false
@@ -131,7 +131,7 @@ class FilterRegionFragment : Fragment() {
     }
 
     private fun setRegionListLiveDataObserver() {
-        viewModel.observeState().observe(viewLifecycleOwner) { state ->
+        regionViewModel.observeState().observe(viewLifecycleOwner) { state ->
             Log.d("RegionFragmentScreenState", "$state")
             renderState(state)
         }
@@ -176,7 +176,7 @@ class FilterRegionFragment : Fragment() {
     private fun showContent(state: RegionViewState.Success) {
         with(binding) {
             Log.d("StateAdapter", "${state.areas}")
-            adapter?.updateItems(state.areas)
+            regionListAdapter?.updateItems(state.areas)
             rvRegionList.isVisible = true
             progressBar.isVisible = false
             serverErrorPH.isVisible = false
@@ -195,7 +195,7 @@ class FilterRegionFragment : Fragment() {
 
     private fun onClearIconPressed() {
         with(binding) {
-            viewModel.declineLastSearch()
+            regionViewModel.declineLastSearch()
             textInput.setText("")
             noFoundPH.isVisible = false
             serverErrorPH.isVisible = false
@@ -224,7 +224,7 @@ class FilterRegionFragment : Fragment() {
     }
 
     private fun applyRegionToFilter(area: Area) {
-        viewModel.applyRegionToFilter(area)
+        regionViewModel.applyRegionToFilter(area)
         findNavController().navigate(
             R.id.action_filterRegionFragment_to_filterPlaceOfWorkFragment
         )
