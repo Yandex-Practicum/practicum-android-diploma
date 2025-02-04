@@ -97,6 +97,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun setupTextInput() {
+        viewModel.renderFilterState()
         binding.textInput.requestFocus()
         binding.textInput.setOnEditorActionListener { _, actionId, _ -> if (actionId == EditorInfo.IME_ACTION_DONE) {
             viewModel.searchVacancy(
@@ -146,6 +147,17 @@ class SearchFragment : Fragment() {
         viewModel.showVacancyDetails.observe(
             viewLifecycleOwner
         ) { it?.let { showVacancyDetails(it); viewModel.resetVacancyDetails() } }
+        viewModel.observeFilterStateLiveData().observe(viewLifecycleOwner) { isChecked ->
+            Log.d("FilterFragmentState", "$isChecked")
+            renderFilterState(isChecked)
+        }
+    }
+
+    private fun renderFilterState(isChecked: Boolean) {
+        when (isChecked) {
+            true -> binding.filterButton.setImageResource(R.drawable.ic_filter_applied)
+            false -> binding.filterButton.setImageResource(R.drawable.ic_button_filter)
+        }
     }
 
     private fun renderAdapterState(state: AdapterState) = when (state) {

@@ -9,6 +9,9 @@ import ru.practicum.android.diploma.common.data.dto.CountryRequest
 import ru.practicum.android.diploma.common.data.dto.IndustryRequest
 import ru.practicum.android.diploma.common.data.dto.Response
 import ru.practicum.android.diploma.common.data.dto.SearchVacancyRequest
+import ru.practicum.android.diploma.common.data.dto.allregions.RegionsRequest
+import ru.practicum.android.diploma.common.data.dto.allregions.RegionsResponse
+import ru.practicum.android.diploma.common.data.dto.region.SearchRegionRequest
 import ru.practicum.android.diploma.common.util.ConnectivityManager
 import ru.practicum.android.diploma.vacancy.data.network.VacancyDetailsRequest
 
@@ -32,6 +35,8 @@ class RetrofitNetworkClient(
                 Log.d("RetrofitNetworkClient", "COUNTRY: $response")
                 executeRequest { mapper.map(response) }
             }
+            is SearchRegionRequest -> executeRequest { headHunterApi.searchRegionsById(dto.parentId) }
+            is RegionsRequest -> executeRequest { RegionsResponse(headHunterApi.getAllRegions()) }
             else -> Response().apply { resultCode = Response.BAD_REQUEST_ERROR_CODE }
         }
     }

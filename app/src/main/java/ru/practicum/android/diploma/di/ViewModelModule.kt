@@ -8,6 +8,7 @@ import ru.practicum.android.diploma.filter.presentation.viewmodel.FilterCountrie
 import ru.practicum.android.diploma.filter.presentation.viewmodel.FilterPlaceOfWorkViewModel
 import ru.practicum.android.diploma.filter.presentation.viewmodel.FilterScreenViewModel
 import ru.practicum.android.diploma.filter.presentation.viewmodel.FilterSettingsViewModel
+import ru.practicum.android.diploma.filter.presentation.viewmodel.RegionFilterViewModel
 import ru.practicum.android.diploma.search.presentation.viewmodel.SearchViewModel
 import ru.practicum.android.diploma.vacancy.presentation.VacancyDetailsViewModel
 
@@ -33,7 +34,7 @@ val viewModelModule = module {
     }
 
     viewModel {
-        SearchViewModel(get(), get())
+        SearchViewModel(get(), get(), get())
     }
 
     viewModel {
@@ -43,4 +44,8 @@ val viewModelModule = module {
     viewModel {
         FilterCountriesViewModel(get(), get())
     }
+    viewModel {
+        RegionFilterViewModel(get(), get())
+    }
+
 }

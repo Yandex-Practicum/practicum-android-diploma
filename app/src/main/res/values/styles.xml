@@ -107,4 +107,8 @@
         <item name="android:background">@drawable/btn_select</item>
     </style>
 
+
+    <style name="LeadingButton">
+        <item name="buttonTint">?attr/colorOnPrimary</item>
+    </style>
 </resources>
