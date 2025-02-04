@@ -27,7 +27,7 @@ class Mapper {
             (params.areaCity?.id ?: params.areaCountry?.id)?.let { map["area"] = it }
             params.industrySP?.let { map["industry"] = it.id }
             params.salary?.let { map["salary"] = it.toString() }
-            params.withSalary.let { map["only_with_salary"] = it.toString() }
+            params.withSalary?.let { map["only_with_salary"] = it.toString() }
         }
         return map
     }
