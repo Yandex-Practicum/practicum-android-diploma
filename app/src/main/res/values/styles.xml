@@ -252,4 +252,20 @@
         <item name="android:singleLine">true</item>
         <item name="android:editable">false</item>
     </style>
+
+    <style name="industry_edittext">
+        <item name="android:layout_width">@dimen/dp_0</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/shape_rounded_rectangle_48</item>
+        <item name="android:backgroundTint">?attr/lightGrayToGray</item>
+        <item name="android:imeOptions">actionDone</item>
+        <item name="android:inputType">text</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:padding">@dimen/dp_20</item>
+        <item name="android:paddingEnd">@dimen/dp_48</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">?attr/grayToWhite</item>
+        <item name="android:textCursorDrawable">@drawable/search_cursor_color</item>
+    </style>
 </resources>

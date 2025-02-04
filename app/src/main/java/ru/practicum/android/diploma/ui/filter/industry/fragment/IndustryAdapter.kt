@@ -12,7 +12,8 @@ class IndustryAdapter(
     private val onItemSelected: (Industry) -> Unit
 ) : ListAdapter<Industry, IndustryViewHolder>(IndustryDiffCallback()) {
 
-    private var selectedIndustryId: String? = null
+    var selectedIndustryId: String? = null
+    private var selectedIndustryName: String? = null
     var industriesFull: List<Industry> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IndustryViewHolder {
@@ -28,15 +29,17 @@ class IndustryAdapter(
         holder.bind(industry, isSelected) { selectedIndustry ->
             if (selectedIndustryId != selectedIndustry.id) {
                 selectedIndustryId = selectedIndustry.id
+                selectedIndustryName = selectedIndustry.name
                 notifyDataSetChanged()
                 onItemSelected(selectedIndustry)
             }
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun selectIndustry(industry: Industry) {
         selectedIndustryId = industry.id
-        submitList(currentList.toList())
+        notifyDataSetChanged()
     }
 
     @SuppressLint("NotifyDataSetChanged")
