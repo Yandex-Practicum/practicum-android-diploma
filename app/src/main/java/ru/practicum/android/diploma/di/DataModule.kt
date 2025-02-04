@@ -17,6 +17,9 @@ import ru.practicum.android.diploma.common.constants.TIMEOUT
 import ru.practicum.android.diploma.common.data.Mapper
 import ru.practicum.android.diploma.common.data.network.HeadHunterApi
 import ru.practicum.android.diploma.common.data.network.RetrofitNetworkClient
+import ru.practicum.android.diploma.common.sharedprefs.SharedPrefsUtil
+import ru.practicum.android.diploma.common.sharedprefs.repository.SharedPrefsRepository
+import ru.practicum.android.diploma.common.sharedprefs.repository.SharedPrefsRepositoryImpl
 import ru.practicum.android.diploma.common.util.ConnectivityManager
 import ru.practicum.android.diploma.favorites.data.VacancyEntityMapper
 import ru.practicum.android.diploma.favorites.data.repository.FavoritesRepositoryImpl
@@ -37,6 +40,14 @@ val dataModule = module {
             APP_SHARED_PREFS,
             Context.MODE_PRIVATE
         )
+    }
+
+    single {
+        SharedPrefsUtil(androidContext())
+    }
+
+    single<SharedPrefsRepository> {
+        SharedPrefsRepositoryImpl(get())
     }
 
     single {

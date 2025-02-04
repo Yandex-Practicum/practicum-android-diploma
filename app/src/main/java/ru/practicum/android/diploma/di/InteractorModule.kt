@@ -1,6 +1,8 @@
 package ru.practicum.android.diploma.di
 
 import org.koin.dsl.module
+import ru.practicum.android.diploma.common.sharedprefs.interactor.SharedPrefsInteractor
+import ru.practicum.android.diploma.common.sharedprefs.interactor.SharedPrefsInteractorImpl
 import ru.practicum.android.diploma.favorites.domain.interactor.FavoriteInteractor
 import ru.practicum.android.diploma.favorites.domain.interactor.FavoriteInteractorImpl
 import ru.practicum.android.diploma.filter.domain.interactor.FilterInteractor
@@ -21,10 +23,14 @@ val interactorModule = module {
     }
 
     factory<SearchInteractor> {
-        SearchInteractorImpl(get())
+        SearchInteractorImpl(get(), get())
     }
 
     single<VacancyDetailsInteractor> {
         VacancyDetailsInteractorImpl(get())
+    }
+
+    single<SharedPrefsInteractor> {
+        SharedPrefsInteractorImpl(get())
     }
 }

@@ -11,6 +11,5 @@ class IndustryViewHolder(
     fun bind(model: Industry) {
         binding.tvIndustryValue.text = model.name
         binding.rbIndustryButton.isChecked = model.selected
-
     }
 }

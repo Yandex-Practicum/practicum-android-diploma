@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?android:windowBackground"
     tools:context="ru.practicum.android.diploma.filter.ui.FilterSettingsFragment">
 
     <androidx.constraintlayout.widget.Guideline
@@ -175,6 +176,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/enter_salary"
             android:inputType="number"
+            android:maxLength="9"
             app:layout_constraintBottom_toBottomOf="@id/input_salary_layout"
             app:layout_constraintEnd_toStartOf="@id/clear_salary_button"
             app:layout_constraintStart_toStartOf="@id/input_salary_layout"
@@ -223,11 +225,12 @@
             android:id="@+id/checkBox"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:buttonTint="?attr/colorAccent"
+            app:buttonTint="@color/blue"
+            app:buttonIconTint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/checkboxTitle"/>
+            app:layout_constraintStart_toEndOf="@id/checkboxTitle"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -246,7 +249,7 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="24dp"
         android:backgroundTint="@color/blue"
-        android:visibility="visible"
+        android:visibility="gone"
         app:cardCornerRadius="12dp"
         app:layout_constraintBottom_toTopOf="@id/submit_button"
         app:layout_constraintEnd_toEndOf="parent"

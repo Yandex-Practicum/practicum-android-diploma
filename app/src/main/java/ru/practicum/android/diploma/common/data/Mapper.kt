@@ -1,7 +1,9 @@
 package ru.practicum.android.diploma.common.data
 
+import ru.practicum.android.diploma.common.data.dto.CountriesResponse
 import ru.practicum.android.diploma.common.data.dto.IndustriesResponse
 import ru.practicum.android.diploma.common.data.dto.SearchVacancyResponse
+import ru.practicum.android.diploma.filter.data.dto.model.CountryDto
 import ru.practicum.android.diploma.filter.data.dto.model.IndustryDto
 import ru.practicum.android.diploma.search.data.dto.model.AreaDto
 import ru.practicum.android.diploma.search.data.dto.model.EmployerDto
@@ -21,6 +23,12 @@ class Mapper {
         map["page"] = searchQueryParams.page.toString()
         map["per_page"] = "20"
 
+        searchQueryParams.filter?.let { params ->
+            (params.areaCity?.id ?: params.areaCountry?.id)?.let { map["area"] = it }
+            params.industrySP?.let { map["industry"] = it.id }
+            params.salary?.let { map["salary"] = it.toString() }
+            params.withSalary.let { map["only_with_salary"] = it.toString() }
+        }
         return map
     }
 
@@ -71,6 +79,12 @@ class Mapper {
 
     fun map(list: List<IndustryDto>): IndustriesResponse {
         return IndustriesResponse(
+            result = list
+        )
+    }
+
+    fun map(list: List<CountryDto>): CountriesResponse {
+        return CountriesResponse(
             result = list
         )
     }

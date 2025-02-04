@@ -4,26 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?android:windowBackground"
     tools:context="ru.practicum.android.diploma.filter.ui.FilterPlaceOfWorkFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_64"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_button_back"
         app:title="@string/filter_place_of_work"
         app:titleTextAppearance="@style/TextMedium_22"
-        app:titleTextColor="?attr/titleTextColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:titleTextColor="?attr/titleTextColor" />
 
     <FrameLayout
         android:id="@+id/frame_country"
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_60"
-        android:layout_marginTop="@dimen/margin_16dp"
         android:layout_marginHorizontal="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topBar">
@@ -40,23 +41,23 @@
             android:id="@+id/small_and_big_country"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:orientation="vertical"
-            android:visibility="gone"
-            android:layout_gravity="center_vertical">
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/small_text_country"
                 style="@style/SmallTextBlack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/country"/>
+                android:text="@string/country" />
 
             <TextView
                 android:id="@+id/big_text_country"
                 style="@style/BigTextBlack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="@string/russia"/>
+                tools:text="@string/russia" />
 
         </LinearLayout>
 
@@ -90,23 +91,23 @@
             android:id="@+id/small_and_big_region"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:orientation="vertical"
-            android:visibility="gone"
-            android:layout_gravity="center_vertical">
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/small_text_region"
                 style="@style/SmallTextBlack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/region"/>
+                android:text="@string/region" />
 
             <TextView
                 android:id="@+id/big_text_region"
                 style="@style/BigTextBlack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="@string/moscow"/>
+                tools:text="@string/moscow" />
 
         </LinearLayout>
 
@@ -119,18 +120,50 @@
 
     </FrameLayout>
 
+    <!-- Для отладки
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frame_region">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/addCountry"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/margin_60"
+            android:layout_marginHorizontal="@dimen/margin_17dp"
+
+            android:layout_marginBottom="@dimen/margin_24"
+            android:gravity="start|center_horizontal"
+            android:text="Добавить страну"
+            android:visibility="visible" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/addRegion"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/margin_60"
+            android:layout_marginHorizontal="@dimen/margin_17dp"
+
+            android:layout_marginBottom="@dimen/margin_24"
+            android:gravity="start|center_horizontal"
+            android:text="Добавить регион"
+            android:visibility="visible" />
+    </LinearLayout> -->
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnSelectPlaceOfWork"
+        style="@style/ButtonChoose"
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_60"
+        android:layout_marginHorizontal="@dimen/margin_17dp"
         android:layout_marginBottom="@dimen/margin_24"
-        style="@style/ButtonChoose"
         android:gravity="center"
         android:text="@string/select"
         android:visibility="visible"
-        android:layout_marginHorizontal="@dimen/margin_17dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
