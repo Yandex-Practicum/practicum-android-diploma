@@ -2,7 +2,6 @@ package ru.practicum.android.diploma.common.util
 
 import ru.practicum.android.diploma.filter.data.dto.model.AreaDto
 import ru.practicum.android.diploma.filter.domain.model.Area
-import ru.practicum.android.diploma.filter.domain.model.City
 
 object RegionConverter {
     fun convertToArea(areaDto: AreaDto?): Area {

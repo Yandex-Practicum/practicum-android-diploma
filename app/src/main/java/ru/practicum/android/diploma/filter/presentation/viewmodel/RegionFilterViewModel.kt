@@ -66,22 +66,6 @@ class RegionFilterViewModel(
         )
     }
 
-    private fun getNonCisRegionList(parentId: String) {
-        job?.cancel()
-        job = viewModelScope.launch {
-            filterInteractor.searchRegionsById(parentId).collect { state ->
-                if (state is RegionViewState.Success) {
-                    isSearchSuccessFull = true
-                    regionList = state.areas.toMutableList()
-                    renderState(RegionViewState.Success(regionList))
-                } else {
-                    isSearchSuccessFull = false
-                    renderState(RegionViewState.ServerError)
-                }
-            }
-        }
-    }
-
     private fun getAllCisRegionList() {
         job?.cancel()
         job = viewModelScope.launch {

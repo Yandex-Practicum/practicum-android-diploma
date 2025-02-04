@@ -29,7 +29,7 @@ class FilterRegionFragment : Fragment() {
     private val binding get() = _binding!!
     private val regionViewModel by viewModel<RegionFilterViewModel>()
     private var regionListAdapter: RegionAdapter? = null
-    private var textWatсher: TextWatcher? = null
+    private var textWatcher: TextWatcher? = null
     private var inputMethodManager: InputMethodManager? = null
     private var fadeInAnimation: Animation? = null
     private var fadeOutAnimation: Animation? = null
@@ -47,7 +47,7 @@ class FilterRegionFragment : Fragment() {
 
     override fun onDestroyView() {
         regionListAdapter = null
-        textWatсher?.let { binding.textInput.removeTextChangedListener(it) }
+        textWatcher?.let { binding.textInput.removeTextChangedListener(it) }
         inputMethodManager = null
         adapterAnimationJob = null
         fadeInAnimation = null
@@ -84,7 +84,7 @@ class FilterRegionFragment : Fragment() {
     private fun setTextInput() {
         inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
 
-        textWatсher = object : TextWatcher {
+        textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, ncout: Int) {
@@ -106,7 +106,7 @@ class FilterRegionFragment : Fragment() {
                 Log.d("AfterTextChanged", "$s")
             }
         }
-        binding.textInput.addTextChangedListener(textWatсher)
+        binding.textInput.addTextChangedListener(textWatcher)
 
         setClearIconOnClickListener()
         setOnEditorActionListener()
