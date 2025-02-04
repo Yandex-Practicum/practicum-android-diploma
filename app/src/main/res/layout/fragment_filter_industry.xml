@@ -30,24 +30,12 @@
 
     <EditText
         android:id="@+id/edit_text_search"
-        android:layout_width="@dimen/dp_0"
-        android:layout_height="wrap_content"
-        android:background="@drawable/shape_rounded_rectangle_48"
-        android:backgroundTint="?attr/lightGrayToGray"
         android:hint="@string/enter_industry"
-        android:imeOptions="actionDone"
-        android:inputType="text"
-        android:maxLines="1"
-        android:padding="@dimen/dp_20"
-        android:paddingEnd="@dimen/dp_48"
-        android:singleLine="true"
-        android:textColor="@color/black"
-        android:textColorHint="?attr/grayToWhite"
-        android:textCursorDrawable="@drawable/search_cursor_color"
         app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
-        tools:ignore="Autofill" />
+        tools:ignore="Autofill"
+        style="@style/industry_edittext" />
 
     <ImageView
         android:id="@+id/search_icon"
