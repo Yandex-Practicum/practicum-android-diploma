@@ -29,7 +29,6 @@ object RegionConverter {
 
     fun mapRegions(areas: List<Area>): List<Area> {
         val resultAreaList = mutableListOf<Area>()
-        if (areas.isNotEmpty()) {
             for (area in areas) {
                 if (area.areas.isEmpty()) {
                     resultAreaList.add(area)
@@ -40,16 +39,14 @@ object RegionConverter {
                 }
 
             }
-        }
         return resultAreaList
     }
 
     fun mapAllCisRegions(areas: List<Area>): List<Area> {
         val resultAreaList = mutableListOf<Area>()
-        if (areas.isNotEmpty()) {
             for (country in areas) {
-                if (assertRegionIsCis(country?.name)) {
-                    for (region in country?.areas.orEmpty()) {
+                if (!assertRegionIsCis(country.name)) continue
+                    for (region in country.areas) {
                         if (region.areas.isEmpty()) {
                             resultAreaList.add(region)
                         }
@@ -57,25 +54,7 @@ object RegionConverter {
                             resultAreaList.add(city)
                         }
                     }
-                }
             }
-        }
-        return resultAreaList
-    }
-
-    fun mapNonCisRegions(areas: List<Area>): List<Area> {
-        val resultAreaList = mutableListOf<Area>()
-        if (areas.isNotEmpty()) {
-            for (country in areas) {
-                if (!assertRegionIsCis(country?.name)) {
-                    for (region in country?.areas.orEmpty()) {
-                        for (city in region.areas.orEmpty()) {
-                            resultAreaList.add(city)
-                        }
-                    }
-                }
-            }
-        }
         return resultAreaList
     }
 

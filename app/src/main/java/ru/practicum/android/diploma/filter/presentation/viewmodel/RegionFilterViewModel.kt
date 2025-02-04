@@ -74,7 +74,6 @@ class RegionFilterViewModel(
                     isSearchSuccessFull = true
                     regionList = state.areas.toMutableList()
                     renderState(RegionViewState.Success(regionList))
-                    Log.d("ListRegionsNonCis", "$regionList")
                 } else {
                     isSearchSuccessFull = false
                     renderState(RegionViewState.ServerError)
@@ -91,7 +90,6 @@ class RegionFilterViewModel(
                     isSearchSuccessFull = true
                     regionList = RegionConverter.mapAllCisRegions(state.areas).toMutableList()
                     renderState(RegionViewState.Success(regionList))
-                    Log.d("ListRegionsCis", "$regionList")
                 } else {
                     isSearchSuccessFull = false
                     renderState(RegionViewState.ServerError)
@@ -108,7 +106,6 @@ class RegionFilterViewModel(
                     isSearchSuccessFull = true
                     regionList = RegionConverter.mapRegions(state.areas).toMutableList()
                     renderState(RegionViewState.Success(regionList))
-                    Log.d("ListRegionsById", "$regionList")
                 } else {
                     isSearchSuccessFull = false
                     renderState(RegionViewState.ServerError)
