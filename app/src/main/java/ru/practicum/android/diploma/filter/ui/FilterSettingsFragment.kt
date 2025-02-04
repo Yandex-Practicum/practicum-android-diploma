@@ -48,7 +48,9 @@ class FilterSettingsFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        binding.topBar.setOnClickListener { findNavController().navigate(R.id.action_filterSettingsFragment_to_searchFragment) }
+        binding.topBar.setOnClickListener { findNavController().navigate(
+            R.id.action_filterSettingsFragment_to_searchFragment
+        ) }
         binding.workplaceContainer.setOnClickListener { navigateToPlaceOfWorkFragment() }
         binding.industryContainer.setOnClickListener { navigateToIndustryFragment() }
         binding.resetButton.setOnClickListener { resetButtonClickListener() }
