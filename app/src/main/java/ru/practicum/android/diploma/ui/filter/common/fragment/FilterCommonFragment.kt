@@ -229,6 +229,9 @@ class FilterCommonFragment : Fragment() {
                 regionId = filterParameters.regionId
                 regionName = filterParameters.regionName
             }
+        } else {
+            binding.placeOfWorkDefault.isVisible = true
+            binding.placeOfWorkEditedLayout.isVisible = false
         }
 
         if (!filterParameters.industryId.isNullOrEmpty()) {
