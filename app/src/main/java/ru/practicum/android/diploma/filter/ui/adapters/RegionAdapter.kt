@@ -4,10 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import ru.practicum.android.diploma.filter.domain.model.Area
 import ru.practicum.android.diploma.databinding.ItemFilterRegionBinding
+import ru.practicum.android.diploma.filter.domain.model.Area
 
-class RegionAdapter (
+class RegionAdapter(
     private val onItemClicked: (area: Area) -> Unit,
 ) : RecyclerView.Adapter<RegionViewHolder>() {
 
@@ -37,11 +37,9 @@ class RegionAdapter (
         areaList.getOrNull(position)?.let { track ->
             holder.bind(track)
         }
-
     }
 
     fun updateItems(items: List<Area>) {
-
         val oldItems = this.areaList
         val newItems = items.toMutableList()
         val diffResult = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
@@ -64,5 +62,4 @@ class RegionAdapter (
         this.areaList = newItems
         diffResult.dispatchUpdatesTo(this)
     }
-
 }

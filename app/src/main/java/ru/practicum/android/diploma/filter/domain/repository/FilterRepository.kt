@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.filter.domain.model.RegionViewState
 interface FilterRepository {
     fun getIndustries(): Flow<IndustryViewState>
     fun getCountries(): Flow<CountryViewState>
-    fun searchRegionsById(parentId: Int): Flow<RegionViewState>
+    fun searchRegionsById(parentId: String): Flow<RegionViewState>
     fun getAllRegions(): Flow<RegionViewState>
 //    fun getAllNonCisRegions(): Flow<RegionViewState>
 }

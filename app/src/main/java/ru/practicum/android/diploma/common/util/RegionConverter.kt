@@ -28,23 +28,21 @@ object RegionConverter {
     }
 
     fun mapRegions(areas: List<Area>): List<Area> {
-        return areas.flatMap { regionDto ->
-            regionDto.areas
-        }
-//
-//                ?.map { cities ->
-//                convertToArea(cities)
-//            } ?: emptyList()
-        }
+        val resultAreaList = mutableListOf<Area>()
+        if (areas.isNotEmpty()) {
+            for (area in areas) {
+                if (area.areas.isEmpty()) {
+                    resultAreaList.add(area)
+                } else {
+                    for (city in area.areas) {
+                        resultAreaList.add(city)
+                    }
+                }
 
-
-//    private fun mapAllRegions(areas: List<AreaDto>): List<Area> {
-//        return areas.flatMap { regionDto ->
-//            regionDto.areas?.flatMap { nestedRegionDto ->
-//                nestedRegionDto.areas?.map { Converter.convertToArea(it) }
-//            } ?: emptyList()
-//        }
-//    }
+            }
+        }
+        return resultAreaList
+    }
 
     fun mapAllCisRegions(areas: List<Area>): List<Area> {
         val resultAreaList = mutableListOf<Area>()
@@ -52,7 +50,10 @@ object RegionConverter {
             for (country in areas) {
                 if (assertRegionIsCis(country?.name)) {
                     for (region in country?.areas.orEmpty()) {
-                        for (city in region.areas.orEmpty()) {
+                        if (region.areas.isEmpty()) {
+                            resultAreaList.add(region)
+                        }
+                        for (city in region.areas) {
                             resultAreaList.add(city)
                         }
                     }
@@ -80,27 +81,25 @@ object RegionConverter {
 
     private fun assertRegionIsCis(areaName: String?): Boolean {
         val cisCountries = setOf(
-            RUSSIA, KAZAKHSTAN, UKRAINE, AZERBAIJAN,
-            BELARUS, GEORGIA, KYRGYZSTAN, UZBEKISTAN
+            RUSSIA,
+            KAZAKHSTAN,
+            UKRAINE,
+            AZERBAIJAN,
+            BELARUS,
+            GEORGIA,
+            KYRGYZSTAN,
+            UZBEKISTAN
         )
         return areaName?.trim() in cisCountries
     }
 
-    //    private fun convertToArea(areaDto: AreaDto): Area {
-//        return Area(
-//            id = areaDto.id,
-//            name = areaDto.name,
-//            parentId = areaDto.parentId,
-//            areas = areaDto.areas?.map { convertToArea(it) } ?: emptyList()
-//        )
-//    }
-        private const val RUSSIA = "Россия"
-        private const val KAZAKHSTAN = "Казахстан"
-        private const val AZERBAIJAN = "Азербайджан"
-        private const val BELARUS = "Беларусь"
-        private const val GEORGIA = "Грузия"
-        private const val UKRAINE = "Украина"
-        private const val KYRGYZSTAN = "Кыргызстан"
-        private const val UZBEKISTAN = "Узбекистан"
+    private const val RUSSIA = "Россия"
+    private const val KAZAKHSTAN = "Казахстан"
+    private const val AZERBAIJAN = "Азербайджан"
+    private const val BELARUS = "Беларусь"
+    private const val GEORGIA = "Грузия"
+    private const val UKRAINE = "Украина"
+    private const val KYRGYZSTAN = "Кыргызстан"
+    private const val UZBEKISTAN = "Узбекистан"
 
 }

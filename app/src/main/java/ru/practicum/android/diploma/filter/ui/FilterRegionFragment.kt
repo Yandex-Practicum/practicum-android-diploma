@@ -14,14 +14,10 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.databinding.FragmentFilterRegionBinding
 import ru.practicum.android.diploma.filter.domain.model.Area
 import ru.practicum.android.diploma.filter.domain.model.RegionViewState
@@ -54,6 +50,8 @@ class FilterRegionFragment : Fragment() {
         editTextWatсher?.let { binding.textInput.removeTextChangedListener(it) }
         inputMethodManager = null
         adapterAnimationJob = null
+        fadeInAnimation = null
+        fadeOutAnimation = null
         super.onDestroyView()
         _binding = null
     }
@@ -63,7 +61,7 @@ class FilterRegionFragment : Fragment() {
         initializeRegionScreen()
     }
 
-    private fun initializeRegionScreen(){
+    private fun initializeRegionScreen() {
         setRecyclerView()
         setTextInput()
         setRegionListAnimation()
@@ -76,14 +74,14 @@ class FilterRegionFragment : Fragment() {
         viewModel.loadRegions()
     }
 
-    private fun setRecyclerView(){
-        with(binding){
+    private fun setRecyclerView() {
+        with(binding) {
             adapter = RegionAdapter(::applyRegionToFilter)
             rvRegionList.adapter = adapter
         }
     }
 
-    private fun setTextInput(){
+    private fun setTextInput() {
         inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
 
         editTextWatсher = object : TextWatcher {
@@ -114,14 +112,14 @@ class FilterRegionFragment : Fragment() {
         setOnEditorActionListener()
     }
 
-    private fun setClearIconOnClickListener(){
+    private fun setClearIconOnClickListener() {
         binding.clearIcon.setOnClickListener {
             onClearIconPressed()
             inputMethodManager?.hideSoftInputFromWindow(view?.windowToken, 0)
         }
     }
 
-    private fun setOnEditorActionListener(){
+    private fun setOnEditorActionListener() {
         binding.textInput.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 viewModel.declineLastSearch()
@@ -132,21 +130,23 @@ class FilterRegionFragment : Fragment() {
         }
     }
 
-    private fun setRegionListLiveDataObserver(){
-        viewModel.observeState().observe(viewLifecycleOwner){ state ->
+    private fun setRegionListLiveDataObserver() {
+        viewModel.observeState().observe(viewLifecycleOwner) { state ->
             Log.d("RegionFragmentScreenState", "$state")
             renderState(state)
         }
     }
 
-    private fun setOnClickListeners(){
+    private fun setOnClickListeners() {
         binding.topBar.setOnClickListener {
-            findNavController().navigateUp()
+            findNavController().navigate(
+                R.id.action_filterRegionFragment_to_filterPlaceOfWorkFragment
+            )
         }
     }
 
-    private fun renderState(state: RegionViewState){
-        when(state){
+    private fun renderState(state: RegionViewState) {
+        when (state) {
             is RegionViewState.Loading -> showLoading()
             is RegionViewState.Success -> showContent(state)
             is RegionViewState.NotFoundError -> showNothingFoundPH()
@@ -155,44 +155,27 @@ class FilterRegionFragment : Fragment() {
         }
     }
 
-    private fun updateAdapter(areaList: List<Area>){
-        adapterAnimationJob = lifecycleScope
-            .launch(Dispatchers.Main) {
-                binding.rvRegionList.startAnimation(fadeOutAnimation)
-                binding.rvRegionList.isVisible = false
-                delay(DELAY_500)
-                adapter?.updateItems(areaList)
-                delay(DELAY_500)
-                binding.rvRegionList.startAnimation(fadeInAnimation)
-                binding.rvRegionList.isVisible = true
-            }
-        }
-
-    private fun showServerErrorPH(){
+    private fun showServerErrorPH() {
         with(binding) {
-//            adapter?.updateItems(emptyList())
             serverErrorPH.isVisible = true
             noFoundPH.isVisible = false
             rvRegionList.isVisible = false
             progressBar.isVisible = false
-            noFoundPH.isVisible = true
         }
     }
 
-    private fun showNothingFoundPH(){
+    private fun showNothingFoundPH() {
         with(binding) {
-//            adapter?.updateItems(emptyList())
             noFoundPH.isVisible = true
             rvRegionList.isVisible = false
             progressBar.isVisible = false
             serverErrorPH.isVisible = false
-            noFoundPH.isVisible = true
         }
     }
 
     private fun showContent(state: RegionViewState.Success) {
         with(binding) {
-//            updateAdapter(state.areas)
+            Log.d("StateAdapter", "${state.areas}")
             adapter?.updateItems(state.areas)
             rvRegionList.isVisible = true
             progressBar.isVisible = false
@@ -201,7 +184,7 @@ class FilterRegionFragment : Fragment() {
         }
     }
 
-    private fun showLoading(){
+    private fun showLoading() {
         with(binding) {
             progressBar.isVisible = true
             rvRegionList.isVisible = false
@@ -235,20 +218,15 @@ class FilterRegionFragment : Fragment() {
         }
     }
 
-    private fun setRegionListAnimation(){
+    private fun setRegionListAnimation() {
         fadeInAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.fade_in)
         fadeOutAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.fade_out)
     }
 
-    private fun applyRegionToFilter(area: Area){
+    private fun applyRegionToFilter(area: Area) {
         viewModel.applyRegionToFilter(area)
         findNavController().navigate(
             R.id.action_filterRegionFragment_to_filterPlaceOfWorkFragment
         )
     }
-
-    companion object {
-        private const val DELAY_500 = 500L
-    }
-
 }

@@ -9,4 +9,4 @@ data class SearchRegionResponse(
     @SerializedName("parent_id") val parentId: Int? = null, // id региона в область которого входит регион
     @SerializedName("name") val name: String, // название региона
     @SerializedName("areas") val areas: List<AreaDto>? = null, // список входящих регионов
-): Response()
+) : Response()

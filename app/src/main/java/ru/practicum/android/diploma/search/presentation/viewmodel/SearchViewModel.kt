@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.common.data.Mapper
+import ru.practicum.android.diploma.common.sharedprefs.interactor.SharedPrefsInteractor
 import ru.practicum.android.diploma.common.util.Converter
 import ru.practicum.android.diploma.common.util.debounce
 import ru.practicum.android.diploma.search.domain.interactor.SearchInteractor
@@ -18,6 +19,7 @@ import ru.practicum.android.diploma.search.presentation.items.ListItem
 class SearchViewModel(
     private val searchInteractor: SearchInteractor,
     private val mapper: Mapper,
+    private val sharedPrefsInteractor: SharedPrefsInteractor
 ) : ViewModel() {
 
     private var currentPage: Int = 1
@@ -50,6 +52,9 @@ class SearchViewModel(
 
     private val stateLiveData = MutableLiveData<SearchViewState>()
     fun observeState(): LiveData<SearchViewState> = stateLiveData
+
+    private val filterStateLiveData = MutableLiveData<Boolean>()
+    fun observeFilterStateLiveData(): LiveData<Boolean> = filterStateLiveData
 
     private val adapterStateLiveData = MutableLiveData<AdapterState>()
     fun getAdapterStateLiveData(): LiveData<AdapterState> = adapterStateLiveData
@@ -141,6 +146,18 @@ class SearchViewModel(
         renderScreenState(
             SearchViewState.Base
         )
+    }
+
+    fun renderFilterState() {
+        val filter = sharedPrefsInteractor.getFilter()
+        Log.d("SearchFilterState", "$filter")
+        with(filter) {
+            if (areaCountry == null && areaCity == null && industrySP == null && salary == null && withSalary != true) {
+                filterStateLiveData.postValue(false)
+            } else {
+                filterStateLiveData.postValue(true)
+            }
+        }
     }
 
     private fun renderScreenState(state: SearchViewState) {

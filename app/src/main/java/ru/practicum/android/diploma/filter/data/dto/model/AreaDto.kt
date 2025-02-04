@@ -8,4 +8,3 @@ data class AreaDto( // дерево
     @SerializedName("parent_id") val parentId: String? = null,
     val areas: List<AreaDto>? = null,
 )
-

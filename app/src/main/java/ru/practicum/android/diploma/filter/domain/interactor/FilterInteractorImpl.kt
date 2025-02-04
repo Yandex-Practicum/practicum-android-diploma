@@ -16,7 +16,7 @@ class FilterInteractorImpl(
     override fun getCountries(): Flow<CountryViewState> {
         return filterRepository.getCountries()
     }
-    override fun searchRegionsById(parentId: Int): Flow<RegionViewState> {
+    override fun searchRegionsById(parentId: String): Flow<RegionViewState> {
         return filterRepository.searchRegionsById(parentId)
     }
 
@@ -27,6 +27,5 @@ class FilterInteractorImpl(
 //    override fun getAllNonCisRegions(): Flow<RegionViewState> {
 //        return filterRepository.getAllNonCisRegions()
 //    }
-
 
 }

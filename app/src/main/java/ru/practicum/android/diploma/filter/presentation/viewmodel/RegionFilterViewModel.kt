@@ -5,33 +5,33 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.common.sharedprefs.interactor.SharedPrefsInteractor
+import ru.practicum.android.diploma.common.sharedprefs.models.City
+import ru.practicum.android.diploma.common.sharedprefs.models.Filter
 import ru.practicum.android.diploma.common.util.RegionConverter
 import ru.practicum.android.diploma.common.util.debounce
 import ru.practicum.android.diploma.filter.domain.interactor.FilterInteractor
 import ru.practicum.android.diploma.filter.domain.model.Area
-import ru.practicum.android.diploma.filter.domain.model.City
-import ru.practicum.android.diploma.filter.domain.model.Industry
 import ru.practicum.android.diploma.filter.domain.model.RegionViewState
 
 class RegionFilterViewModel(
     private val filterInteractor: FilterInteractor,
+    private val sharedPrefsInteractor: SharedPrefsInteractor,
 ) : ViewModel() {
 
-    private var selectedCity: City? = null
-    private val filter = Filter(region = null)
+    private val filter = sharedPrefsInteractor.getFilter()
     private var regionList = mutableListOf<Area>()
     private var job: Job? = null
     private var isSearchSuccessFull = false
-
     private val stateLiveData = MutableLiveData<RegionViewState>()
     fun observeState(): LiveData<RegionViewState> = stateLiveData
-
     private var lastSearchText: String? = null
-
     private val regionsSearchDebounce = debounce<String>(
-        SEARCH_DEBOUNCE_DELAY,
+        DELAY_2000,
         viewModelScope,
         true
     ) { changedText ->
@@ -45,116 +45,36 @@ class RegionFilterViewModel(
         }
     }
 
-    private fun getAllRegions(query: String) { // получить список всех регионов
-        val lowerCaseQuery = query.lowercase()
-        renderState(RegionViewState.Loading)
-        when (filter.region) {
-            -1 -> viewModelScope.launch {
-                filterInteractor.getAllRegions().collect { state ->
-                    if (state is RegionViewState.Success) {
-                        val nonCisList = RegionConverter.mapNonCisRegions(state.areas)
-                        val filteredRegions = nonCisList.filterNot { region ->
-                            region.name.lowercase().contains(lowerCaseQuery)
-                        }
-                        if (filteredRegions.isNotEmpty()) {
-                            // Обновляем состояние с отфильтрованным списком
-                            renderState(RegionViewState.Success(filteredRegions))
-                        } else {
-                            renderState(RegionViewState.NotFoundError)
-                        }
-                    }
-
-                }
-            }
-
-            null -> viewModelScope.launch {
-                filterInteractor.getAllRegions().collect { state ->
-                    if (state is RegionViewState.Success) {
-                        val cisList = RegionConverter.mapAllCisRegions(state.areas)
-                        val filteredRegions = cisList.filterNot { region ->
-                            region.name.lowercase().contains(lowerCaseQuery)
-                        }
-                        if (filteredRegions.isNotEmpty()) {
-                            // Обновляем состояние с отфильтрованным списком
-                            renderState(RegionViewState.Success(filteredRegions))
-                        } else {
-                            renderState(RegionViewState.NotFoundError)
-                        }
-                    }
-
-                }
-            }
-
-            else -> viewModelScope.launch {
-                filterInteractor.searchRegionsById(filter.region).collect { state ->
-                    if (state is RegionViewState.Success) {
-                        val regions = RegionConverter.mapRegions(state.areas)
-                        val filteredRegions = regions.filterNot { region ->
-                            region.name.lowercase().contains(lowerCaseQuery)
-                        }
-                        if (filteredRegions.isNotEmpty()) {
-                            // Обновляем состояние с отфильтрованным списком
-                            renderState(RegionViewState.Success(filteredRegions))
-                        } else {
-                            renderState(RegionViewState.NotFoundError)
-                        }
-                    }
-
-                }
-            }
-
-//            viewModelScope.launch {
-//                filterInteractor
-//                    .getAllRegions()
-//                    .collect { viewState ->
-//                        when (viewState) {
-//                            is RegionViewState.Success -> {
-//                                proceedSuccessState(viewState, lowerCaseQuery)
-////                            // Фильтруем список городов
-////                            val filteredRegions = viewState.areas.filterNot { region ->
-////                                region.name.lowercase().contains(lowerCaseQuery)
-////                            }
-////                            if (filteredRegions.isNotEmpty()) {
-////                                // Обновляем состояние с отфильтрованным списком
-////                                renderState(RegionViewState.Success(filteredRegions))
-////                            } else {
-////                                renderState(RegionViewState.NotFoundError)
-////                            }
-//                            }
-//
-//                            else -> {
-//                                // Если состояние не Success, просто рендерим его
-//                                renderState(viewState)
-//                            }
-//                        }
-//                    }
-//            }
-        }
-    }
-
     fun loadRegions() {
         renderState(RegionViewState.Loading)
-        when (filter.region) {
-            -1 -> getNonCisRegionList()
-            null -> getAllCisRegionList()
-            else -> getRegionsByParentId(filter.region)
+        Log.d("RegionFilter", "$filter")
+        when {
+            filter.areaCountry == null -> getAllCisRegionList()
+            filter.areaCountry.id.isNotEmpty() -> getRegionsByParentId(filter.areaCountry.id)
+            else -> {}
         }
     }
 
-    fun applyRegionToFilter(area: Area){
-
+    fun applyRegionToFilter(area: Area) {
+        sharedPrefsInteractor.updateFilter(
+            Filter(
+                areaCity = City(
+                    id = area.id,
+                    name = area.name
+                )
+            )
+        )
     }
 
-
-    private fun getNonCisRegionList() {
+    private fun getNonCisRegionList(parentId: String) {
         job?.cancel()
         job = viewModelScope.launch {
-            filterInteractor.getAllRegions().collect { state ->
+            filterInteractor.searchRegionsById(parentId).collect { state ->
                 if (state is RegionViewState.Success) {
                     isSearchSuccessFull = true
-                    regionList = RegionConverter.mapNonCisRegions(state.areas).toMutableList()
+                    regionList = state.areas.toMutableList()
                     renderState(RegionViewState.Success(regionList))
-                    Log.d("ListRegionsNonCis","${regionList}")
+                    Log.d("ListRegionsNonCis", "$regionList")
                 } else {
                     isSearchSuccessFull = false
                     renderState(RegionViewState.ServerError)
@@ -171,7 +91,7 @@ class RegionFilterViewModel(
                     isSearchSuccessFull = true
                     regionList = RegionConverter.mapAllCisRegions(state.areas).toMutableList()
                     renderState(RegionViewState.Success(regionList))
-                    Log.d("ListRegionsCis","${regionList}")
+                    Log.d("ListRegionsCis", "$regionList")
                 } else {
                     isSearchSuccessFull = false
                     renderState(RegionViewState.ServerError)
@@ -180,7 +100,7 @@ class RegionFilterViewModel(
         }
     }
 
-    private fun getRegionsByParentId(parentId: Int) {
+    private fun getRegionsByParentId(parentId: String) {
         job?.cancel()
         job = viewModelScope.launch {
             filterInteractor.searchRegionsById(parentId).collect { state ->
@@ -188,7 +108,7 @@ class RegionFilterViewModel(
                     isSearchSuccessFull = true
                     regionList = RegionConverter.mapRegions(state.areas).toMutableList()
                     renderState(RegionViewState.Success(regionList))
-                    Log.d("ListRegionsById","${regionList}")
+                    Log.d("ListRegionsById", "$regionList")
                 } else {
                     isSearchSuccessFull = false
                     renderState(RegionViewState.ServerError)
@@ -203,11 +123,12 @@ class RegionFilterViewModel(
             job = viewModelScope.launch {
                 renderState(RegionViewState.Loading)
                 val lowerCaseQuery = query.lowercase()
-                val filteredRegions = regionList.filter { region ->
-                    region.name.lowercase().contains(lowerCaseQuery)
-                }
+                val filteredRegions = async(Dispatchers.Default) {
+                    regionList.filter { region ->
+                        region.name.lowercase().contains(lowerCaseQuery)
+                    }
+                }.await()
                 if (filteredRegions.isNotEmpty()) {
-                    // Обновляем состояние с отфильтрованным списком
                     renderState(RegionViewState.Success(filteredRegions))
                 } else {
                     renderState(RegionViewState.NotFoundError)
@@ -226,12 +147,8 @@ class RegionFilterViewModel(
         stateLiveData.postValue(state)
     }
 
-    fun setIndustry(city: City) {
-        selectedCity = city.copy(isSelected = false)
-    }
-
     companion object {
-        private const val SEARCH_DEBOUNCE_DELAY = 300L
+        private const val DELAY_2000 = 2000L
     }
 
     override fun onCleared() {
@@ -239,12 +156,3 @@ class RegionFilterViewModel(
         super.onCleared()
     }
 }
-
-data class Filter(
-    val country: String? = null,
-    val region: Int? = null,
-    val industry: Industry? = null,
-    val salary: Int? = null,
-    val onlyWithSalary: Boolean = false,
-)
-

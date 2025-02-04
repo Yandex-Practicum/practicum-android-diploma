@@ -5,4 +5,4 @@ import ru.practicum.android.diploma.filter.data.dto.model.AreaDto
 
 data class RegionsResponse(
     val result: List<AreaDto>
-): Response()
+) : Response()

@@ -15,9 +15,9 @@ import ru.practicum.android.diploma.common.data.dto.allregions.RegionsResponse
 import ru.practicum.android.diploma.common.data.dto.region.SearchRegionRequest
 import ru.practicum.android.diploma.common.data.dto.region.SearchRegionResponse
 import ru.practicum.android.diploma.common.data.network.RetrofitNetworkClient
+import ru.practicum.android.diploma.common.util.RegionConverter
 import ru.practicum.android.diploma.filter.domain.model.Country
 import ru.practicum.android.diploma.filter.domain.model.CountryViewState
-import ru.practicum.android.diploma.common.util.RegionConverter
 import ru.practicum.android.diploma.filter.domain.model.Industry
 import ru.practicum.android.diploma.filter.domain.model.IndustryViewState
 import ru.practicum.android.diploma.filter.domain.model.RegionViewState
@@ -80,7 +80,7 @@ class FilterRepositoryImpl(
         }
     }.flowOn(Dispatchers.IO)
 
-    override fun searchRegionsById(parentId: Int): Flow<RegionViewState> = flow {
+    override fun searchRegionsById(parentId: String): Flow<RegionViewState> = flow {
         val response = networkClient.doRequest(SearchRegionRequest(parentId))
         when (response.resultCode) {
             Response.SUCCESS_RESPONSE_CODE -> {
@@ -88,7 +88,8 @@ class FilterRepositoryImpl(
                 if (result.isNullOrEmpty()) {
                     emit(RegionViewState.NotFoundError)
                 } else {
-                    val data = result.map{RegionConverter.convertToArea(it)}
+                    val data = result.map { RegionConverter.convertToArea(it) }
+                    Log.d("searchRegionsByIdRequest", "$data")
                     emit(RegionViewState.Success(data))
                 }
             }
@@ -115,7 +116,7 @@ class FilterRepositoryImpl(
                 if (result.isEmpty()) {
                     emit(RegionViewState.NotFoundError)
                 } else {
-                    val data = result.map{RegionConverter.convertToArea(it)}
+                    val data = result.map { RegionConverter.convertToArea(it) }
                     emit(RegionViewState.Success(data))
                 }
             }
