@@ -12,6 +12,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.common.sharedprefs.models.Filter
 import ru.practicum.android.diploma.databinding.FragmentFilterIndustryBinding
 import ru.practicum.android.diploma.filter.domain.model.Industry
@@ -63,7 +64,7 @@ class FilterIndustryFragment : Fragment() {
         textWatcher.let { binding.textInput.addTextChangedListener(it) }
 
         binding.topBar.setOnClickListener {
-            findNavController().popBackStack()
+            findNavController().navigate(R.id.action_filterIndustryFragment_to_filterSettingsFragment)
         }
         binding.btnSelectIndustry.setOnClickListener {
             viewModelSettings.updateFilter(
@@ -71,7 +72,7 @@ class FilterIndustryFragment : Fragment() {
                     industrySP = viewModel.getIndustry()
                 )
             )
-            findNavController().popBackStack()
+            findNavController().navigate(R.id.action_filterIndustryFragment_to_filterSettingsFragment)
         }
 
         viewModel.observeState().observe(viewLifecycleOwner) {

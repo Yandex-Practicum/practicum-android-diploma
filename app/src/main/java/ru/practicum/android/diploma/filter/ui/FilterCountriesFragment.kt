@@ -35,7 +35,7 @@ class FilterCountriesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.topBar.setOnClickListener {
-            findNavController().popBackStack()
+            findNavController().navigate(R.id.action_filterCountriesFragment_to_filterPlaceOfWorkFragment)
         }
         val recyclerView = view.findViewById<RecyclerView>(R.id.rvCountryRegionItems)
 

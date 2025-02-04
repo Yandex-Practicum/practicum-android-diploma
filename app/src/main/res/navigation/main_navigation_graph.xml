@@ -132,7 +132,15 @@
         android:id="@+id/filterIndustryFragment"
         android:name="ru.practicum.android.diploma.filter.ui.FilterIndustryFragment"
         android:label="fragment_filter_industry"
-        tools:layout="@layout/fragment_filter_industry" />
+        tools:layout="@layout/fragment_filter_industry">
+        <action
+            android:id="@+id/action_filterIndustryFragment_to_filterSettingsFragment"
+            app:destination="@id/filterSettingsFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/hold"
+            app:popEnterAnim="@anim/hold"
+            app:popExitAnim="@anim/slide_in_left"/>
+    </fragment>
     <fragment
         android:id="@+id/teamFragment"
         android:name="ru.practicum.android.diploma.team.ui.TeamFragment"
