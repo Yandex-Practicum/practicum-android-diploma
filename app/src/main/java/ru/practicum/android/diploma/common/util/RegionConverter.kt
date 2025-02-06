@@ -1,7 +1,9 @@
 package ru.practicum.android.diploma.common.util
 
+import ru.practicum.android.diploma.common.data.dto.region.SearchRegionResponse
 import ru.practicum.android.diploma.filter.data.dto.model.AreaDto
 import ru.practicum.android.diploma.filter.domain.model.Area
+import ru.practicum.android.diploma.filter.domain.model.Country
 
 object RegionConverter {
     fun convertToArea(areaDto: AreaDto?): Area {
@@ -14,6 +16,15 @@ object RegionConverter {
                 areas = dto.areas?.map { convertToArea(it) } ?: emptyList()
             )
         } ?: Area(id = "", name = "", parentId = null, isSelected = false, areas = emptyList())
+    }
+
+    fun convertToCountry(searchRegionResponse: SearchRegionResponse?): Country {
+        return searchRegionResponse?.let { response ->
+            Country(
+                id = response.id.toString(),
+                name = response.name,
+            )
+        } ?: Country("", "")
     }
 
     fun mapRegions(areas: List<Area>): List<Area> {
