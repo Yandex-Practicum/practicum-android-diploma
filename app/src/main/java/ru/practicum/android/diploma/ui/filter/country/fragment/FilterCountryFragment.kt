@@ -42,6 +42,8 @@ class FilterCountryFragment : Fragment() {
             findNavController().popBackStack()
         }
 
+        viewModel.searchCountries()
+
         val onClick: (String, String) -> Unit =
             { countryId: String, countryName: String -> viewModel.onItemClicked(countryId, countryName) }
         adapter = CountryAdapter(onClick)
