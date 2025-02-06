@@ -54,7 +54,6 @@ class FilterRepositoryImpl(
 
     override fun getCountries(): Flow<CountryViewState> = flow {
         val response = networkClient.doRequest(CountryRequest)
-        Log.d("RawApiResponse", "Response: $response")
         when (response.resultCode) {
             Response.SUCCESS_RESPONSE_CODE -> {
                 val result = (response as CountriesResponse).result
@@ -78,7 +77,7 @@ class FilterRepositoryImpl(
                 emit(CountryViewState.ServerError)
             }
         }
-    }.flowOn(Dispatchers.IO)
+    }
 
     override fun searchRegionsById(parentId: String): Flow<RegionViewState> = flow {
         val response = networkClient.doRequest(SearchRegionRequest(parentId))

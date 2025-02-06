@@ -133,7 +133,7 @@
             android:layout_gravity="center"
             android:layout_marginHorizontal="@dimen/margin_begin_end_gl_16dp"
             android:layout_marginTop="@dimen/margin_104"
-            android:src="@drawable/failed_to_load_vacancies_ph"
+            android:src="@drawable/failed_to_load_ph"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
