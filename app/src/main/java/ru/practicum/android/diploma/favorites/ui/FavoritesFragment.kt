@@ -83,7 +83,7 @@ class FavoritesFragment : Fragment(), VacancyViewHolder.OnItemClickListener {
         recyclerView.visibility = View.GONE
 
         if (message == getString(R.string.no_vacancies_found_text_hint)) {
-            placeholderImage.setImageResource(R.drawable.failed_to_load_vacancies_ph)
+            placeholderImage.setImageResource(R.drawable.failed_to_load_ph)
         } else {
             placeholderImage.setImageResource(R.drawable.list_is_empty)
         }

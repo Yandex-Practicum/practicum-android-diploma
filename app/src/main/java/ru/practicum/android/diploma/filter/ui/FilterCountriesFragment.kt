@@ -1,10 +1,10 @@
 package ru.practicum.android.diploma.filter.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -42,16 +42,21 @@ class FilterCountriesFragment : Fragment() {
         recyclerView.adapter = listAdapter
 
         viewModel.observeState().observe(viewLifecycleOwner) { state ->
+            Log.d("FilterCountriesFragment", "State received: $state")
             when (state) {
                 is CountryViewState.Success -> {
+                    hideError()
                     listAdapter.setCountries(state.countryList)
                 }
                 is CountryViewState.CountrySelected -> {
                     viewModel.saveCountry(state.country)
                     findNavController().navigate(R.id.action_filterCountriesFragment_to_filterPlaceOfWorkFragment)
                 }
+                is CountryViewState.ConnectionError -> {
+                    showServerError()
+                }
                 is CountryViewState.NotFoundError -> {
-                    Toast.makeText(requireContext(), "Страны не найдены", Toast.LENGTH_SHORT).show()
+                    showNotFoundError()
                 }
                 else -> Unit
             }
@@ -59,7 +64,19 @@ class FilterCountriesFragment : Fragment() {
 
         viewModel.getCountries() // Вызов загрузки стран
     }
-
+    private fun showServerError() {
+        binding.rvCountryRegionItems.visibility = View.GONE
+        binding.serverError.visibility = View.VISIBLE
+    }
+    private fun showNotFoundError() {
+        binding.rvCountryRegionItems.visibility = View.GONE
+        binding.emptyError.visibility = View.VISIBLE
+    }
+    private fun hideError() {
+        binding.rvCountryRegionItems.visibility = View.VISIBLE
+        binding.serverError.visibility = View.GONE
+        binding.emptyError.visibility = View.GONE
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
