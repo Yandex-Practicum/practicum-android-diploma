@@ -108,31 +108,32 @@ class FilterRepositoryImpl(
         }
     }.flowOn(Dispatchers.IO)
 
-    override fun getParentRegionById(parentId: String): Flow<RegionViewState> = flow {
+    override fun getParentRegionById(parentId: String): Flow<CountryViewState> = flow {
         val response = networkClient.doRequest(SearchRegionRequest(parentId))
         when (response.resultCode) {
             Response.SUCCESS_RESPONSE_CODE -> {
                 val result = (response as SearchRegionResponse)
+                Log.d("RegionName", "$result")
                 if (result.name.isEmpty()) {
-                    emit(RegionViewState.NotFoundError)
+                    emit(CountryViewState.NotFoundError)
                 } else {
-                    val data = RegionConverter.convertToArea(result)
-                    Log.d("searchRegionsByIdRequest", "$data")
-                    emit(RegionViewState.Success(data))
+                    val data = RegionConverter.applyCountryById(result)
+                    Log.d("getParentRegionsByIdRequest", "$data")
+                    emit(CountryViewState.CountrySelected(data))
                 }
             }
 
             Response.BAD_REQUEST_ERROR_CODE, Response.NOT_FOUND_ERROR_CODE -> {
-                emit(RegionViewState.NotFoundError)
+                emit(CountryViewState.NotFoundError)
             }
 
 
             Response.NO_INTERNET_ERROR_CODE -> {
-                emit(RegionViewState.ConnectionError)
+                emit(CountryViewState.ConnectionError)
             }
 
             else -> {
-                emit(RegionViewState.ServerError)
+                emit(CountryViewState.ServerError)
             }
         }
     }.flowOn(Dispatchers.IO)

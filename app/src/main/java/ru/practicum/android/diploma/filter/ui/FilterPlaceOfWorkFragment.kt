@@ -1,9 +1,11 @@
 package ru.practicum.android.diploma.filter.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -20,6 +22,7 @@ class FilterPlaceOfWorkFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel by viewModel<FilterPlaceOfWorkViewModel>()
     private var selectFilter: Filter? = null
+    private var parentId: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,8 +36,17 @@ class FilterPlaceOfWorkFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.loadData()
+
+        parentId = arguments?.getString(PARENT_ID)
+
+
         viewModel.getFilterLiveData().observe(viewLifecycleOwner) { filter ->
             selectFilter = filter
+            viewModel.applyCountryIfEmptyByRegionId(filter, parentId)
+            binding.buttonImageCountry.isClickable = activateClearIcon(filter)
+            Log.d("PlaceOfWork", "$filter")
+            Log.d("ClickableButton", "${binding.frameCountry.isClickable}")
             showCountry(filter.areaCountry)
             showCity(filter.areaCity)
             binding.btnSelectPlaceOfWork.isVisible = filter.areaCountry != null || filter.areaCity != null
@@ -63,7 +75,15 @@ class FilterPlaceOfWorkFragment : Fragment() {
                 )
             }
         }
+        binding.buttonImageCountry.setOnClickListener {
+            if (selectFilter?.areaCountry != null) {
+                viewModel.clearFilterField("areaCountry")
+                showCountry(null)
+            }
+        }
     }
+
+
 
     private fun showCountry(country: Country?) {
         if (country == null) {
@@ -75,10 +95,10 @@ class FilterPlaceOfWorkFragment : Fragment() {
             binding.onlyBigCountry.isVisible = false
             binding.bigTextCountry.text = country.name
             binding.buttonImageCountry.setImageResource(R.drawable.ic_close_24px)
-            binding.buttonImageCountry.setOnClickListener {
-                viewModel.clearFilterField("areaCountry")
-                showCountry(null)
-            }
+//            binding.buttonImageCountry.setOnClickListener {
+//                viewModel.clearFilterField("areaCountry")
+//                showCountry(null)
+//            }
         }
     }
 
@@ -99,8 +119,21 @@ class FilterPlaceOfWorkFragment : Fragment() {
         }
     }
 
+    private fun activateClearIcon(filter: Filter): Boolean {
+        return when {
+            filter.areaCountry != null && filter.areaCity != null -> false
+            else -> true
+        }
+    }
+
     override fun onDestroyView() {
+        parentId = null
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        fun createArgs(parentId: String?): Bundle = bundleOf(PARENT_ID to parentId)
+        private const val PARENT_ID = "parent_id_key"
     }
 }

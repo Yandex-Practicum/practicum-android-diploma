@@ -22,7 +22,7 @@ val viewModelModule = module {
     }
 
     viewModel {
-        FilterPlaceOfWorkViewModel(get())
+        FilterPlaceOfWorkViewModel(get(), get())
     }
 
     viewModel {

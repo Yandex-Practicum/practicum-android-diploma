@@ -226,7 +226,8 @@ class FilterRegionFragment : Fragment() {
     private fun applyRegionToFilter(area: Area) {
         regionViewModel.applyRegionToFilter(area)
         findNavController().navigate(
-            R.id.action_filterRegionFragment_to_filterPlaceOfWorkFragment
+            R.id.action_filterRegionFragment_to_filterPlaceOfWorkFragment,
+            FilterPlaceOfWorkFragment.createArgs(area.parentId)
         )
     }
 }

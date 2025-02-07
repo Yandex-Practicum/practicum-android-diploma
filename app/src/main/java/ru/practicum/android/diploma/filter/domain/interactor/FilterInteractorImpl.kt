@@ -7,7 +7,7 @@ import ru.practicum.android.diploma.filter.domain.model.RegionViewState
 import ru.practicum.android.diploma.filter.domain.repository.FilterRepository
 
 class FilterInteractorImpl(
-    private val filterRepository: FilterRepository
+    private val filterRepository: FilterRepository,
 ) : FilterInteractor {
     override fun getIndustries(): Flow<IndustryViewState> {
         return filterRepository.getIndustries()
@@ -16,6 +16,11 @@ class FilterInteractorImpl(
     override fun getCountries(): Flow<CountryViewState> {
         return filterRepository.getCountries()
     }
+
+    override fun getParentRegionById(parentId: String): Flow<CountryViewState> {
+        return filterRepository.getParentRegionById(parentId)
+    }
+
     override fun searchRegionsById(parentId: String): Flow<RegionViewState> {
         return filterRepository.searchRegionsById(parentId)
     }
@@ -23,9 +28,4 @@ class FilterInteractorImpl(
     override fun getAllRegions(): Flow<RegionViewState> {
         return filterRepository.getAllRegions()
     }
-
-//    override fun getAllNonCisRegions(): Flow<RegionViewState> {
-//        return filterRepository.getAllNonCisRegions()
-//    }
-
 }
