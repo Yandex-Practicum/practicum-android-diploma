@@ -27,25 +27,12 @@ class FilterCountriesViewModel(
     fun getCountries() {
         viewModelScope.launch {
             filterInteractor.getCountries().collect { viewState ->
-                stateLiveData.postValue(
-                    when (viewState) {
-                        is CountryViewState.Success ->
-                            CountryViewState.Success(viewState.countryList.sortedBy { sortOrder.indexOf(it.name) })
-                        else -> viewState
-                    }
-                )
+                stateLiveData.postValue(viewState)
             }
         }
     }
 
     fun saveCountry(country: Country) {
         sharedPrefsInteractor.updateFilter(Filter(areaCountry = PrefsCountry(country.id, country.name)))
-    }
-
-    companion object {
-        private val sortOrder = listOf(
-            "Россия", "Украина", "Казахстан", "Азербайджан", "Беларусь",
-            "Грузия", "Кыргызстан", "Узбекистан", "Другие регионы"
-        )
     }
 }
