@@ -82,11 +82,11 @@ class FilterScreenViewModel(
             )
         }
 
-    fun getSelectedIndustry(): Industry?{
+    fun getSelectedIndustry(): Industry? {
         return selectedIndustry
     }
 
-    fun convertIndustrySP(industrySP : IndustrySP?): Industry? =
+    fun convertIndustrySP(industrySP: IndustrySP?): Industry? =
         industrySP?.let {
             Industry(
                 id = it.id,
