@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.common.sharedprefs.interactor.SharedPrefsInteractor
 import ru.practicum.android.diploma.common.sharedprefs.models.IndustrySP
 import ru.practicum.android.diploma.common.util.debounce
 import ru.practicum.android.diploma.filter.domain.interactor.FilterInteractor
@@ -12,9 +13,11 @@ import ru.practicum.android.diploma.filter.domain.model.Industry
 import ru.practicum.android.diploma.filter.domain.model.IndustryViewState
 
 class FilterScreenViewModel(
-    private val filterInteractor: FilterInteractor
+    private val filterInteractor: FilterInteractor,
+    private val sharedPrefsInteractor: SharedPrefsInteractor
 ) : ViewModel() {
-    private var selectedIndustry: Industry? = null
+    private var selectedIndustry: Industry? = sharedPrefsInteractor.getFilter().industrySP?.let { industryFromSP ->
+        convertIndustrySP(industryFromSP) }
     private val stateLiveData = MutableLiveData<IndustryViewState>()
     fun observeState(): LiveData<IndustryViewState> = stateLiveData
 
@@ -71,9 +74,21 @@ class FilterScreenViewModel(
         selectedIndustry = industry.copy(selected = false)
     }
 
-    fun getIndustry(): IndustrySP? =
+    fun getIndustrySP(): IndustrySP? =
         selectedIndustry?.let {
             IndustrySP(
+                id = it.id,
+                name = it.name
+            )
+        }
+
+    fun getSelectedIndustry(): Industry?{
+        return selectedIndustry
+    }
+
+    fun convertIndustrySP(industrySP : IndustrySP?): Industry? =
+        industrySP?.let {
+            Industry(
                 id = it.id,
                 name = it.name
             )

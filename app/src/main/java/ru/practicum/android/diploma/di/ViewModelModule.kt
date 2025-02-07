@@ -18,7 +18,7 @@ val viewModelModule = module {
         FavoriteScreenViewModel(get(), androidContext())
     }
     viewModel {
-        FilterScreenViewModel(get())
+        FilterScreenViewModel(get(), get())
     }
 
     viewModel {

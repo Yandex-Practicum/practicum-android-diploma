@@ -69,7 +69,7 @@ class FilterIndustryFragment : Fragment() {
         binding.btnSelectIndustry.setOnClickListener {
             viewModelSettings.updateFilter(
                 Filter(
-                    industrySP = viewModel.getIndustry()
+                    industrySP = viewModel.getIndustrySP()
                 )
             )
             findNavController().navigate(R.id.action_filterIndustryFragment_to_filterSettingsFragment)
@@ -99,6 +99,13 @@ class FilterIndustryFragment : Fragment() {
                 binding.noFoundPH.isVisible = false
                 binding.serverErrorPH.isVisible = false
                 binding.rvIndustryList.removeAllViews()
+
+                // Устанавливаем выбранную отрасль в адаптер
+                val selectedIndustry = viewModel.getSelectedIndustry()
+                listAdapter.setSelectedIndustry(selectedIndustry)
+                selectedIndustry?.let {
+                    clickOnIndustry(it)
+                }
             }
             is IndustryViewState.Loading -> {
                 binding.rvIndustryList.isVisible = false
@@ -134,6 +141,7 @@ class FilterIndustryFragment : Fragment() {
 
     private fun clickOnIndustry(industry: Industry) {
         binding.btnSelectIndustry.isVisible = true
+
         viewModel.setIndustry(industry)
     }
 

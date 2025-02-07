@@ -12,11 +12,45 @@ class IndustryAdapter(
 
     private val industries = ArrayList<Industry>()
     private var selectedIndex: Int? = null
+    private var selectedIndustry: Industry? = null
+
+//    fun setIndustries(newIndustries: List<Industry>) {
+//        selectedIndex = null
+//        industries.clear()
+//        industries.addAll(newIndustries)
+//    }
 
     fun setIndustries(newIndustries: List<Industry>) {
-        selectedIndex = null
+        // Сохраняем выбранный элемент
+        if (selectedIndex != null) {
+            selectedIndustry = selectedIndex?.let { industries.getOrNull(it) }
+        }
+
+        // Очищаем список и добавляем новые элементы
         industries.clear()
         industries.addAll(newIndustries)
+
+        // Обновляем selectedIndex, если выбранный элемент есть в новом списке
+        selectedIndex = selectedIndustry?.let { selected ->
+            newIndustries.indexOfFirst { it.id == selected.id }.takeIf { it != -1 }
+        }
+        selectedIndex?.let {
+            industries[it] = industries[it].copy(selected = true)
+            notifyItemChanged(it)
+        }
+
+        notifyDataSetChanged()
+    }
+
+    fun setSelectedIndustry(selectedIndustry: Industry?) {
+        selectedIndex = selectedIndustry?.let { industry ->
+            industries.indexOfFirst { it.id == industry.id }.takeIf { it != -1 }
+        }
+        selectedIndex?.let {
+            industries[it] = industries[it].copy(selected = true)
+            notifyItemChanged(it)
+        }
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IndustryViewHolder {
