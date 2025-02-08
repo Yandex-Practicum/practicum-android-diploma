@@ -9,6 +9,7 @@ interface FilterRepository {
     fun getIndustries(): Flow<IndustryViewState>
     fun getCountries(): Flow<CountryViewState>
     fun searchRegionsById(parentId: String): Flow<RegionViewState>
+    fun getParentRegionById(parentId: String): Flow<CountryViewState>
     fun getAllRegions(): Flow<RegionViewState>
 //    fun getAllNonCisRegions(): Flow<RegionViewState>
 }

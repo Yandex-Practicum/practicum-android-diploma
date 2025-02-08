@@ -56,6 +56,12 @@ class FilterPlaceOfWorkFragment : Fragment() {
                 )
             }
         }
+        binding.buttonImageCountry.setOnClickListener {
+            if (selectFilter?.areaCountry != null) {
+                viewModel.clearFilterField("areaCountry")
+                showCountry(null)
+            }
+        }
     }
 
     private fun showCountry(country: Country?) {
@@ -68,10 +74,6 @@ class FilterPlaceOfWorkFragment : Fragment() {
             binding.onlyBigCountry.isVisible = false
             binding.bigTextCountry.text = country.name
             binding.buttonImageCountry.setImageResource(R.drawable.ic_close_24px)
-            binding.buttonImageCountry.setOnClickListener {
-                viewModel.clearFilterField("areaCountry")
-                showCountry(null)
-            }
         }
     }
 
@@ -92,6 +94,13 @@ class FilterPlaceOfWorkFragment : Fragment() {
         }
     }
 
+    private fun activateClearIcon(filter: Filter): Boolean {
+        return when {
+            filter.areaCountry != null && filter.areaCity != null -> false
+            else -> true
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -103,6 +112,8 @@ class FilterPlaceOfWorkFragment : Fragment() {
         viewModel.loadData()
         viewModel.getFilterLiveData().observe(viewLifecycleOwner) { filter ->
             selectFilter = filter
+            viewModel.applyCountryIfEmptyByRegionId(filter)
+            binding.buttonImageCountry.isClickable = activateClearIcon(filter)
             showCountry(filter.areaCountry)
             showCity(filter.areaCity)
             binding.btnSelectPlaceOfWork.isVisible = filter.areaCountry != null || filter.areaCity != null

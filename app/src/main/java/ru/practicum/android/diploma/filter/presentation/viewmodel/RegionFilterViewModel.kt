@@ -23,7 +23,7 @@ class RegionFilterViewModel(
     private val sharedPrefsInteractor: SharedPrefsInteractor,
 ) : ViewModel() {
 
-    private val filter = sharedPrefsInteractor.getFilter()
+    private val filter: Filter = sharedPrefsInteractor.getFilter()
     private var regionList = mutableListOf<Area>()
     private var job: Job? = null
     private var isSearchSuccessFull = false
@@ -60,6 +60,7 @@ class RegionFilterViewModel(
             Filter(
                 areaCity = City(
                     id = area.id,
+                    parentId = area.parentId,
                     name = area.name
                 )
             )

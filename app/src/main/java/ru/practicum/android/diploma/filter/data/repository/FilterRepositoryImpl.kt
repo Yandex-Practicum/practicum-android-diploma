@@ -24,7 +24,7 @@ import ru.practicum.android.diploma.filter.domain.model.RegionViewState
 import ru.practicum.android.diploma.filter.domain.repository.FilterRepository
 
 class FilterRepositoryImpl(
-    private val networkClient: RetrofitNetworkClient
+    private val networkClient: RetrofitNetworkClient,
 ) : FilterRepository {
     override fun getIndustries(): Flow<IndustryViewState> = flow {
         val response = networkClient.doRequest(IndustryRequest)
@@ -38,6 +38,7 @@ class FilterRepositoryImpl(
                     emit(IndustryViewState.Success(data))
                 }
             }
+
             Response.BAD_REQUEST_ERROR_CODE, Response.NOT_FOUND_ERROR_CODE -> {
                 emit(IndustryViewState.NotFoundError)
             }
@@ -107,6 +108,35 @@ class FilterRepositoryImpl(
         }
     }.flowOn(Dispatchers.IO)
 
+    override fun getParentRegionById(parentId: String): Flow<CountryViewState> = flow {
+        val response = networkClient.doRequest(SearchRegionRequest(parentId))
+        when (response.resultCode) {
+            Response.SUCCESS_RESPONSE_CODE -> {
+                val result = response as SearchRegionResponse
+                Log.d("RegionName", "$result")
+                if (result.name.isEmpty()) {
+                    emit(CountryViewState.NotFoundError)
+                } else {
+                    val data = RegionConverter.applyCountryById(result)
+                    Log.d("getParentRegionsByIdRequest", "$data")
+                    emit(CountryViewState.CountrySelected(data))
+                }
+            }
+
+            Response.BAD_REQUEST_ERROR_CODE, Response.NOT_FOUND_ERROR_CODE -> {
+                emit(CountryViewState.NotFoundError)
+            }
+
+            Response.NO_INTERNET_ERROR_CODE -> {
+                emit(CountryViewState.ConnectionError)
+            }
+
+            else -> {
+                emit(CountryViewState.ServerError)
+            }
+        }
+    }.flowOn(Dispatchers.IO)
+
     override fun getAllRegions(): Flow<RegionViewState> = flow {
         val response = networkClient.doRequest(RegionsRequest)
         when (response.resultCode) {
@@ -133,33 +163,6 @@ class FilterRepositoryImpl(
             }
         }
     }.flowOn(Dispatchers.IO)
-
-//    override fun getAllNonCisRegions(): Flow<RegionViewState> = flow {
-//        val response = networkClient.doRequest(RegionsRequest)
-//        when (response.resultCode) {
-//            Response.SUCCESS_RESPONSE_CODE -> {
-//                val result = (response as RegionsResponse).result
-//                if (result.isEmpty()) {
-//                    emit(RegionViewState.NotFoundError)
-//                } else {
-//                    val data = RegionConverter.mapNonCisRegions(result)
-//                    emit(RegionViewState.Success(data))
-//                }
-//            }
-//
-//            Response.BAD_REQUEST_ERROR_CODE, Response.NOT_FOUND_ERROR_CODE -> {
-//                emit(RegionViewState.NotFoundError)
-//            }
-//
-//            Response.NO_INTERNET_ERROR_CODE -> {
-//                emit(RegionViewState.ConnectionError)
-//            }
-//
-//            else -> {
-//                emit(RegionViewState.ServerError)
-//            }
-//        }
-//    }.flowOn(Dispatchers.IO)
 
     private fun mapIndustries(response: IndustriesResponse): List<Industry> {
         return response.result.flatMap { industryDto ->

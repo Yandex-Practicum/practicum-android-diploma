@@ -9,7 +9,6 @@ interface FilterInteractor {
     fun getIndustries(): Flow<IndustryViewState>
     fun searchRegionsById(parentId: String): Flow<RegionViewState>
     fun getAllRegions(): Flow<RegionViewState>
-
-//    fun getAllNonCisRegions(): Flow<RegionViewState>
+    fun getParentRegionById(parentId: String): Flow<CountryViewState>
     fun getCountries(): Flow<CountryViewState>
 }
