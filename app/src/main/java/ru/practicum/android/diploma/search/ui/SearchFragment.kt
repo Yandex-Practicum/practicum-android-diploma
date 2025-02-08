@@ -239,7 +239,6 @@ class SearchFragment : Fragment() {
     }
 
     private fun hideAdapterLoading() = handler.postDelayed({ adapter?.hideLoading() }, DELAY_1000)
-
     private fun loadNextPage() = viewModel.onLastItemReached(textInput)
 
     private fun searchOnTextChanged(query: String) = with(binding) {
