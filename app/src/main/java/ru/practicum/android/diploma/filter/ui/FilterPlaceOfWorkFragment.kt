@@ -33,15 +33,8 @@ class FilterPlaceOfWorkFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getFilterLiveData().observe(viewLifecycleOwner) { filter ->
-            selectFilter = filter
-            showCountry(filter.areaCountry)
-            showCity(filter.areaCity)
-            binding.btnSelectPlaceOfWork.isVisible = filter.areaCountry != null || filter.areaCity != null
-        }
-
         binding.topBar.setOnClickListener {
-            findNavController().navigate(R.id.action_filterPlaceOfWorkFragment_to_filterSettingsFragment)
+            findNavController().navigateUp()
         }
 
         binding.btnSelectPlaceOfWork.setOnClickListener {
@@ -102,5 +95,17 @@ class FilterPlaceOfWorkFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Обновляем данные при каждом появлении фрагмента
+        viewModel.loadData()
+        viewModel.getFilterLiveData().observe(viewLifecycleOwner) { filter ->
+            selectFilter = filter
+            showCountry(filter.areaCountry)
+            showCity(filter.areaCity)
+            binding.btnSelectPlaceOfWork.isVisible = filter.areaCountry != null || filter.areaCity != null
+        }
     }
 }
