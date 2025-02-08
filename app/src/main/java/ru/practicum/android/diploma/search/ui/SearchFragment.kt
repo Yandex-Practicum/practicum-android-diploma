@@ -130,6 +130,7 @@ class SearchFragment : Fragment() {
             onClearIconPressed(); (requireContext().getSystemService(
             Context.INPUT_METHOD_SERVICE
         ) as? InputMethodManager)?.hideSoftInputFromWindow(view?.windowToken, 0)
+
         }
     }
 
