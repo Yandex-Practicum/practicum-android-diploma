@@ -112,7 +112,7 @@ class FilterRepositoryImpl(
         val response = networkClient.doRequest(SearchRegionRequest(parentId))
         when (response.resultCode) {
             Response.SUCCESS_RESPONSE_CODE -> {
-                val result = (response as SearchRegionResponse)
+                val result = response as SearchRegionResponse
                 Log.d("RegionName", "$result")
                 if (result.name.isEmpty()) {
                     emit(CountryViewState.NotFoundError)
@@ -127,7 +127,6 @@ class FilterRepositoryImpl(
                 emit(CountryViewState.NotFoundError)
             }
 
-
             Response.NO_INTERNET_ERROR_CODE -> {
                 emit(CountryViewState.ConnectionError)
             }
@@ -137,7 +136,6 @@ class FilterRepositoryImpl(
             }
         }
     }.flowOn(Dispatchers.IO)
-
 
     override fun getAllRegions(): Flow<RegionViewState> = flow {
         val response = networkClient.doRequest(RegionsRequest)

@@ -36,8 +36,8 @@ object RegionConverter {
         } ?: Country("", "")
     }
 
-    private fun processParentId(parentId: String): Country{
-        return when(parentId){
+    private fun processParentId(parentId: String): Country {
+        return when (parentId) {
             RUSSIA_ID -> Country(id = RUSSIA_ID, name = RUSSIA)
             KAZAKHSTAN_ID -> Country(id = KAZAKHSTAN_ID, name = KAZAKHSTAN)
             AZERBAIJAN_ID -> Country(id = AZERBAIJAN_ID, name = AZERBAIJAN)

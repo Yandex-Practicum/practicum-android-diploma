@@ -60,6 +60,7 @@ class RegionFilterViewModel(
             Filter(
                 areaCity = City(
                     id = area.id,
+                    parentId = area.parentId,
                     name = area.name
                 )
             )

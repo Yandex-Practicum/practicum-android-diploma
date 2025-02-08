@@ -16,16 +16,15 @@ class FilterPlaceOfWorkViewModel(
 ) : ViewModel() {
     private var filter = MutableLiveData<Filter>()
 
-
     private fun updateFilter(filter: Filter) {
         sharedPrefsInteractor.updateFilter(filter)
         loadData()
     }
 
-    fun applyCountryIfEmptyByRegionId(filter: Filter, incomingParentId: String?) {
-        if (filter.areaCountry == null && filter.areaCity?.id != null && incomingParentId != null) {
+    fun applyCountryIfEmptyByRegionId(filter: Filter) {
+        if (filter.areaCountry == null && filter.areaCity?.id != null && filter.areaCity.parentId != null) {
             viewModelScope.launch {
-                filterInteractor.getParentRegionById(incomingParentId)
+                filterInteractor.getParentRegionById(filter.areaCity.parentId)
                     .collect { countryViewState ->
                         renderState(countryViewState)
                     }
