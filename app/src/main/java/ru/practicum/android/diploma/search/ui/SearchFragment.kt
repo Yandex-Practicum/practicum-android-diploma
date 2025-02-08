@@ -108,21 +108,17 @@ class SearchFragment : Fragment() {
         } }
         binding.textInput.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
-            override fun onTextChanged(
-                s: CharSequence?,
-                start: Int,
-                before: Int,
-                count: Int
-            ) = updateVisibilityBasedOnInput(s).also {
-                textInput = s.toString()
-                if (s.isNullOrEmpty()) {
-                    binding.clearIcon.visibility = View.GONE
-                    viewModel.clearSearchList()
-                    adapter?.submitList(emptyList())
-                    binding.searchVacanciesRV.adapter = adapter
-                } else { binding.clearIcon.visibility = View.VISIBLE }
-                binding.searchIcon.visibility = if (s.isNullOrEmpty()) View.VISIBLE else View.GONE
-            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) =
+                updateVisibilityBasedOnInput(s).also {
+                    textInput = s.toString()
+                    if (s.isNullOrEmpty()) {
+                        binding.clearIcon.visibility = View.GONE
+                        viewModel.clearSearchList()
+                        adapter?.submitList(emptyList())
+                        binding.searchVacanciesRV.adapter = adapter
+                    } else { binding.clearIcon.visibility = View.VISIBLE }
+                    binding.searchIcon.visibility = if (s.isNullOrEmpty()) View.VISIBLE else View.GONE
+                }
             override fun afterTextChanged(s: Editable?) { searchOnTextChanged(s.toString()) }
         })
     }
