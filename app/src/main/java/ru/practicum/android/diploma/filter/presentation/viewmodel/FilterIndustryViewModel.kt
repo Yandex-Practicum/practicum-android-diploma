@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import ru.practicum.android.diploma.common.sharedprefs.interactor.SharedPrefsInteractor
 import ru.practicum.android.diploma.common.sharedprefs.models.Filter
 
-class FilterSettingsViewModel(private val sharedPrefsInteractor: SharedPrefsInteractor) : ViewModel() {
+class FilterIndustryViewModel(private val sharedPrefsInteractor: SharedPrefsInteractor) : ViewModel() {
 
     fun updateFilter(filter: Filter) {
         sharedPrefsInteractor.updateFilter(filter)

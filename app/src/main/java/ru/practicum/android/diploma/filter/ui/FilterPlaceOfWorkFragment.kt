@@ -20,7 +20,6 @@ class FilterPlaceOfWorkFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel by viewModel<FilterPlaceOfWorkViewModel>()
     private var selectFilter: Filter? = null
-    private var parentId: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,7 +34,7 @@ class FilterPlaceOfWorkFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.topBar.setOnClickListener {
-            findNavController().navigate(R.id.action_filterPlaceOfWorkFragment_to_filterSettingsFragment)
+            findNavController().navigateUp()
         }
 
         binding.btnSelectPlaceOfWork.setOnClickListener {
@@ -103,7 +102,6 @@ class FilterPlaceOfWorkFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        parentId = null
         super.onDestroyView()
         _binding = null
     }

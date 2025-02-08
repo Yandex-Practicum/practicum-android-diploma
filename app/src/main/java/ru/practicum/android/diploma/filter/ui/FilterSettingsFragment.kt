@@ -17,12 +17,12 @@ import ru.practicum.android.diploma.common.sharedprefs.models.Country
 import ru.practicum.android.diploma.common.sharedprefs.models.Filter
 import ru.practicum.android.diploma.common.sharedprefs.models.IndustrySP
 import ru.practicum.android.diploma.databinding.FragmentFilterSettingsBinding
-import ru.practicum.android.diploma.filter.presentation.viewmodel.FilterSettingsViewModel
+import ru.practicum.android.diploma.filter.presentation.viewmodel.FilterIndustryViewModel
 
 class FilterSettingsFragment : Fragment() {
     private var _binding: FragmentFilterSettingsBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by viewModel<FilterSettingsViewModel>()
+    private val viewModel by viewModel<FilterIndustryViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,9 +48,7 @@ class FilterSettingsFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        binding.topBar.setOnClickListener { findNavController().navigate(
-            R.id.action_filterSettingsFragment_to_searchFragment
-        ) }
+        binding.topBar.setOnClickListener { findNavController().navigateUp() }
         binding.workplaceContainer.setOnClickListener { navigateToPlaceOfWorkFragment() }
         binding.industryContainer.setOnClickListener { navigateToIndustryFragment() }
         binding.resetButton.setOnClickListener { resetButtonClickListener() }
