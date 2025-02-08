@@ -129,9 +129,9 @@ class SearchFragment : Fragment() {
         binding.clearIcon.setOnClickListener {
             onClearIconPressed(); (requireContext().getSystemService(
             Context.INPUT_METHOD_SERVICE
-        )
-            as? InputMethodManager)
-            ?.hideSoftInputFromWindow(view?.windowToken, 0)
+            )
+                as? InputMethodManager)
+                ?.hideSoftInputFromWindow(view?.windowToken, 0)
         }
     }
 
