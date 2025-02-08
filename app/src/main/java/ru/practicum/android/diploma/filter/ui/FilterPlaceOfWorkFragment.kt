@@ -35,11 +35,8 @@ class FilterPlaceOfWorkFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewModel.loadData()
-
         parentId = arguments?.getString(PARENT_ID)
-
 
         viewModel.getFilterLiveData().observe(viewLifecycleOwner) { filter ->
             selectFilter = filter
@@ -95,10 +92,6 @@ class FilterPlaceOfWorkFragment : Fragment() {
             binding.onlyBigCountry.isVisible = false
             binding.bigTextCountry.text = country.name
             binding.buttonImageCountry.setImageResource(R.drawable.ic_close_24px)
-//            binding.buttonImageCountry.setOnClickListener {
-//                viewModel.clearFilterField("areaCountry")
-//                showCountry(null)
-//            }
         }
     }
 

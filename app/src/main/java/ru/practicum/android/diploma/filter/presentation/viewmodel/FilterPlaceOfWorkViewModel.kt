@@ -16,9 +16,6 @@ class FilterPlaceOfWorkViewModel(
 ) : ViewModel() {
     private var filter = MutableLiveData<Filter>()
 
-//    init {
-//        loadData()
-//    }
 
     private fun updateFilter(filter: Filter) {
         sharedPrefsInteractor.updateFilter(filter)

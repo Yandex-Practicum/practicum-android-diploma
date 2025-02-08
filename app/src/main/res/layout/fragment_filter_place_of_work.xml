@@ -120,38 +120,6 @@
 
     </FrameLayout>
 
-    <!-- Для отладки
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frame_region">
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/addCountry"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/margin_60"
-            android:layout_marginHorizontal="@dimen/margin_17dp"
-
-            android:layout_marginBottom="@dimen/margin_24"
-            android:gravity="start|center_horizontal"
-            android:text="Добавить страну"
-            android:visibility="visible" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/addRegion"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/margin_60"
-            android:layout_marginHorizontal="@dimen/margin_17dp"
-
-            android:layout_marginBottom="@dimen/margin_24"
-            android:gravity="start|center_horizontal"
-            android:text="Добавить регион"
-            android:visibility="visible" />
-    </LinearLayout> -->
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnSelectPlaceOfWork"
         style="@style/ButtonChoose"
