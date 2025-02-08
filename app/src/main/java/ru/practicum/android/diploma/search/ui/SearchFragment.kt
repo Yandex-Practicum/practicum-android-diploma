@@ -10,7 +10,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.view.isVisible
@@ -98,14 +97,6 @@ class SearchFragment : Fragment() {
 
     private fun setupTextInput() {
         viewModel.renderFilterState()
-        binding.textInput.requestFocus()
-        binding.textInput.setOnEditorActionListener { _, actionId, _ -> if (actionId == EditorInfo.IME_ACTION_DONE) {
-            viewModel.searchVacancy(
-                binding.textInput.text.toString()
-            ).let { true }
-        } else {
-            false
-        } }
         binding.textInput.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) =
