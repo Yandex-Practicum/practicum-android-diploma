@@ -78,6 +78,7 @@ class SearchViewModel(
     }
 
     fun searchVacancy(searchQuery: String) {
+        Log.d("CurrentPage", "$currentPage")
         if (searchQuery.isNotEmpty()) {
             Log.d("SearchQuery", "$searchQuery")
             if (!isNextPageLoading) {
@@ -106,7 +107,6 @@ class SearchViewModel(
             return
         } else if (query.isNotEmpty()) {
             if (!isNextPageLoading) {
-                currentPage += 1
                 job = viewModelScope.launch {
                     try {
                         isNextPageLoading = true
@@ -122,7 +122,6 @@ class SearchViewModel(
                     }
                     Log.d("CurrentPage", "$currentPage")
                     renderAdapterState(AdapterState.Idle)
-
                 }
             }
         }
@@ -160,6 +159,16 @@ class SearchViewModel(
         }
     }
 
+    fun searchOnAppliedFilter(lastSearchedQuery: String) {
+        val filter = sharedPrefsInteractor.getFilter()
+        val lastSearchedText = this.latestSearchQuery
+        if (!checkFilterFieldsAreNull(filter) || filter.withSalary == true) {
+            searchVacancy(lastSearchedQuery)
+        } else if (lastSearchedText != null) {
+            searchVacancy(lastSearchedText)
+        }
+    }
+
     private fun checkFilterFieldsAreNull(filter: Filter): Boolean {
         return with(filter) {
             areaCountry == null && areaCity == null && industrySP == null && salary == null
@@ -180,6 +189,7 @@ class SearchViewModel(
                     makeFoundVacanciesHint(state.vacancyList.found)
                 )
             )
+            currentPage += 1
         } else {
             stateLiveData.postValue(state)
         }
