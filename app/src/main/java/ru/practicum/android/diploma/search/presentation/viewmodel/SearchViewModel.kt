@@ -23,7 +23,7 @@ class SearchViewModel(
     private val sharedPrefsInteractor: SharedPrefsInteractor,
 ) : ViewModel() {
 
-    private var currentPage: Int = 1
+    private var currentPage: Int = 0
     private var maxPages: Int? = 0
     private var latestSearchQuery: String? = null
     private var vacancyList = mutableListOf<ListItem>()
@@ -90,7 +90,7 @@ class SearchViewModel(
                             .collect { viewState ->
                                 renderScreenState(viewState)
                                 isNextPageLoading = false
-                                currentPage = 1
+                                currentPage = 0
                             }
 
                     } finally {
@@ -112,7 +112,7 @@ class SearchViewModel(
                         isNextPageLoading = true
                         renderAdapterState(AdapterState.IsLoading)
                         searchInteractor
-                            .searchVacancy(query, currentPage - 1)
+                            .searchVacancy(query, currentPage)
                             .collect { viewState ->
                                 renderScreenState(viewState)
                                 isNextPageLoading = false
