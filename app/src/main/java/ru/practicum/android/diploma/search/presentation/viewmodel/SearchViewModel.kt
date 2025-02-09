@@ -90,6 +90,7 @@ class SearchViewModel(
                             .collect { viewState ->
                                 renderScreenState(viewState)
                                 isNextPageLoading = false
+                                currentPage = 1
                             }
 
                     } finally {
