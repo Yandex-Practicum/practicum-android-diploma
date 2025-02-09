@@ -104,7 +104,7 @@ val dataModule = module {
     }
 
     single<VacancyDetailsRepository> {
-        VacancyDetailsRepositoryImpl(get(), get())
+        VacancyDetailsRepositoryImpl(get(), get(), get())
     }
     factory<VacancyConverter> {
         VacancyConverter(androidContext())

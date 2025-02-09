@@ -5,13 +5,13 @@ data class Vacancy(
     val name: String,
     val salary: String?,
     val companyLogo: String?,
-    val companyName: String,
-    val area: String,
+    val companyName: String?,
+    val area: String?,
     val address: String?,
     val experience: String?,
     val schedule: String?,
     val employment: String?,
-    val description: String,
-    val keySkills: String,
-    val vacancyUrl: String
+    val description: String?,
+    val keySkills: String?,
+    val vacancyUrl: String?
 )

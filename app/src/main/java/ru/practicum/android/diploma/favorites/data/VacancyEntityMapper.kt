@@ -4,8 +4,10 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import ru.practicum.android.diploma.common.data.db.entity.VacancyEntity
 import ru.practicum.android.diploma.favorites.domain.entity.VacancyFavorite
-import ru.practicum.android.diploma.search.domain.model.Salary
 import ru.practicum.android.diploma.search.domain.model.VacancyItems
+import ru.practicum.android.diploma.vacancy.data.dto.AreaDto
+import ru.practicum.android.diploma.vacancy.data.dto.EmployerDto
+import ru.practicum.android.diploma.vacancy.data.dto.EmploymentDto
 import java.time.Instant
 
 class VacancyEntityMapper {
@@ -14,10 +16,10 @@ class VacancyEntityMapper {
         return VacancyItems(
             id = vacancy.id,
             name = vacancy.name,
-            salary = convertStringToSalary(vacancy.salary),
-            areaName = vacancy.area ?: "",
-            employer = vacancy.employment ?: "",
-            iconUrl = vacancy.logoLink ?: ""
+            salary = convertJsonToObject(vacancy.salary),
+            areaName = getAreaName(vacancy),
+            employer = getEmploymentName(vacancy),
+            iconUrl = getLogoUrl(vacancy),
         )
     }
     @TypeConverter
@@ -28,16 +30,15 @@ class VacancyEntityMapper {
         return VacancyFavorite(
             id = vacancyEntity.id,
             name = vacancyEntity.name,
-            salary = convertStringToSalary(vacancyEntity.salary),
-            companyLogo = vacancyEntity.logoLink,
-            companyName = vacancyEntity.companyName,
-            area = vacancyEntity.area,
-            address = vacancyEntity.address,
-            experience = vacancyEntity.experience,
-            schedule = vacancyEntity.schedule,
-            employment = vacancyEntity.employment,
+            employer = convertJsonToObject(vacancyEntity.employer),
+            salary = convertJsonToObject(vacancyEntity.salary),
+            area = convertJsonToObject(vacancyEntity.area),
+            address = convertJsonToObject(vacancyEntity.address),
+            experience = convertJsonToObject(vacancyEntity.experience),
+            schedule = convertJsonToObject(vacancyEntity.schedule),
+            employment = convertJsonToObject(vacancyEntity.employment),
             description = vacancyEntity.description,
-            keySkills = vacancyEntity.keySkill,
+            keySkills = convertJsonToObject(vacancyEntity.keySkills),
             vacancyUrl = vacancyEntity.vacancyUrl,
         )
     }
@@ -46,28 +47,44 @@ class VacancyEntityMapper {
         return VacancyEntity(
             id = vacancy.id,
             name = vacancy.name,
-            companyName = vacancy.name,
-            salary = convertSalaryToString(vacancy.salary),
-            area = vacancy.area,
-            address = vacancy.address,
-            experience = vacancy.experience,
-            schedule = vacancy.schedule,
-            employment = vacancy.employment,
+            employer = convertObjectToJson(vacancy.employer),
+            salary = convertObjectToJson(vacancy.salary),
+            area = convertObjectToJson(vacancy.area),
+            address = convertObjectToJson(vacancy.address),
+            experience = convertObjectToJson(vacancy.experience),
+            schedule = convertObjectToJson(vacancy.schedule),
+            employment = convertObjectToJson(vacancy.employment),
             description = vacancy.description,
-            keySkill = vacancy.keySkills,
+            keySkills = convertObjectToJson(vacancy.keySkills),
             vacancyUrl = vacancy.vacancyUrl,
-            logoLink = vacancy.companyLogo,
             timeOfLikeSec = Instant.now().epochSecond
         )
     }
 
-    private fun convertSalaryToString(salary: Salary?): String? {
+    // Json Конвертеры
+    private inline fun <reified T> convertObjectToJson(obj: T?): String? {
         val gson = Gson()
-        return gson.toJson(salary, Salary::class.java)
+        return gson.toJson(obj, T::class.java)
     }
 
-    private fun convertStringToSalary(salary: String?): Salary? {
+    private inline fun <reified T> convertJsonToObject(json: String?): T? {
         val gson = Gson()
-        return gson.fromJson(salary, Salary::class.java)
+        return gson.fromJson(json, T::class.java)
+    }
+
+    // Получение строковых значений не VacancyItems
+    private fun getAreaName(vacancy: VacancyEntity): String {
+        val areaDto = convertJsonToObject<AreaDto>(vacancy.area)
+        return areaDto?.name ?: ""
+    }
+
+    private fun getEmploymentName(vacancy: VacancyEntity): String {
+        val employmentDto = convertJsonToObject<EmploymentDto>(vacancy.employment)
+        return employmentDto?.name ?: ""
+    }
+
+    private fun getLogoUrl(vacancy: VacancyEntity): String {
+        val employerDto = convertJsonToObject<EmployerDto>(vacancy.employer)
+        return employerDto?.logoUrls?.iconBig ?: ""
     }
 }

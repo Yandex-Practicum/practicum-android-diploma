@@ -65,6 +65,9 @@ class VacancyDetailsViewModel(
                     is VacancyScreenState.EmptyState -> {
                         renderState(VacancyScreenState.EmptyState)
                     }
+                    is VacancyScreenState.ConnectionError -> {
+                        renderState(VacancyScreenState.ConnectionError)
+                    }
                     is VacancyScreenState.NetworkErrorState -> {
                         renderState(VacancyScreenState.NetworkErrorState)
                     }
