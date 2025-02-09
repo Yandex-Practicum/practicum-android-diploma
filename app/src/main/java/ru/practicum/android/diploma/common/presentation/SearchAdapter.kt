@@ -2,7 +2,6 @@ package ru.practicum.android.diploma.common.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.databinding.ItemLoadingBinding
 import ru.practicum.android.diploma.databinding.ItemVacancyBinding
@@ -10,15 +9,20 @@ import ru.practicum.android.diploma.search.presentation.items.ListItem
 
 class SearchAdapter(
     private val onItemClicked: (listItem: ListItem) -> Unit,
-) : ListAdapter<ListItem, RecyclerView.ViewHolder>(ListItemDiffCallBack()) {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    private var itemList = mutableListOf<ListItem>()
     private var isLoading = false
 
     override fun getItemViewType(position: Int): Int {
-        return when (getItem(position)) {
+        return when (itemList[position]) {
             is ListItem.Vacancy -> TYPE_VACANCY
             is ListItem.LoadingItem -> TYPE_LOADING
         }
+    }
+
+    override fun getItemCount(): Int {
+        return itemList.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -31,7 +35,7 @@ class SearchAdapter(
                 )
                 SearchItemViewHolder(binding) { position ->
                     if (position != RecyclerView.NO_POSITION) {
-                        getItem(position)?.let { vacancy ->
+                        itemList[position]?.let { vacancy ->
                             onItemClicked(vacancy)
                         }
                     }
@@ -52,36 +56,36 @@ class SearchAdapter(
     }
 
     fun submitData(data: List<ListItem>) {
-        val updatedList = currentList.toMutableList().apply {
-            addAll(data)
-        }
-        submitList(updatedList)
+        itemList.addAll(data)
+        notifyItemRangeInserted(itemList.size - data.size, data.size)
+    }
+
+    fun getCurrentList(): List<ListItem> {
+        return itemList
     }
 
     fun showLoading() {
-        if (!isLoading) {
-            isLoading = true
-            val updatedList = currentList.toMutableList().apply {
-                add(ListItem.LoadingItem)
-            }
-            submitList(updatedList)
-        }
+        itemList.add(ListItem.LoadingItem)
+        notifyItemInserted(itemList.size - 1)
     }
 
     fun hideLoading() {
-        if (isLoading) {
-            isLoading = false
-            val updatedList = currentList.toMutableList().apply {
-                removeAll { it is ListItem.LoadingItem }
-            }
-            submitList(updatedList)
+        val position = itemList.indexOf(ListItem.LoadingItem)
+        if (position != RecyclerView.NO_POSITION) {
+            itemList.removeAt(position)
+            notifyItemRemoved(position)
         }
+    }
+
+    fun clearData() {
+        itemList.clear()
+        notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is SearchItemViewHolder -> {
-                val vacancy = getItem(position) as ListItem.Vacancy
+                val vacancy = itemList[position] as ListItem.Vacancy
                 vacancy?.let { vacancyItems ->
                     holder.bind(vacancyItems)
                 }
