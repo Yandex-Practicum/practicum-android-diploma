@@ -38,7 +38,7 @@ class FilterPlaceOfWorkFragment : Fragment() {
         }
 
         binding.btnSelectPlaceOfWork.setOnClickListener {
-            findNavController().navigate(R.id.action_filterPlaceOfWorkFragment_to_filterSettingsFragment)
+            findNavController().navigateUp()
         }
 
         binding.frameCountry.setOnClickListener {
