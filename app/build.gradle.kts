@@ -2,11 +2,17 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("ru.practicum.android.diploma.plugins.developproperties")
+    id("androidx.navigation.safeargs.kotlin")
+    id("kotlin-kapt")
 }
 
 android {
     namespace = "ru.practicum.android.diploma"
     compileSdk = libs.versions.compileSdk.get().toInt()
+
+    buildFeatures {
+        viewBinding = true
+    }
 
     defaultConfig {
         applicationId = "ru.practicum.android.diploma"
@@ -55,4 +61,29 @@ dependencies {
     androidTestImplementation(libs.uiTests.junitExt)
     androidTestImplementation(libs.uiTests.espressoCore)
     // endregion
+
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:${libs.versions.retrofitVersion.get()}")
+    implementation("com.squareup.retrofit2:converter-gson:${libs.versions.retrofitVersion.get()}")
+
+    // Koin
+    implementation("io.insert-koin:koin-android:${libs.versions.koinVersion.get()}")
+
+    // Glide
+    implementation("com.github.bumptech.glide:glide:${libs.versions.glideVersion.get()}")
+    annotationProcessor("com.github.bumptech.glide:compiler:${libs.versions.glideVersion.get()}")
+
+    // Room
+    implementation("androidx.room:room-runtime:${libs.versions.roomVersion.get()}")
+    kapt("androidx.room:room-compiler:${libs.versions.roomVersion.get()}")
+    implementation("androidx.room:room-ktx:${libs.versions.roomVersion.get()}")
+
+    // Navigation
+    implementation("androidx.navigation:navigation-fragment-ktx:${libs.versions.navigationVersion.get()}")
+    implementation("androidx.navigation:navigation-ui-ktx:${libs.versions.navigationVersion.get()}")
+    implementation("androidx.fragment:fragment-ktx:${libs.versions.fragmentKtxVersion.get()}")
+    implementation("androidx.viewpager2:viewpager2:${libs.versions.viewPagerVersion.get()}")
+
+    // Coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${libs.versions.coroutinesVersion.get()}")
 }
