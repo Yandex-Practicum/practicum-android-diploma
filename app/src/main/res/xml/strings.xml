@@ -1,0 +1,67 @@
+<resourcex>
+
+    <!--ЗАГОЛОВКИ-->
+    <string name="header_Vacancies_search">Поиск вакансий</string>
+    <string name="header_Filters_setup">Настройки фильтрации</string>
+    <string name="header_Jobs_selection">Выбор места работы</string>
+    <string name="header_Country_selection">Выбор страны</string>
+    <string name="header_Region_selection">Выбор региона</string>
+    <string name="header_Industry_selection">Выбор отрасли</string>
+    <string name="header_Vacancy">Вакансия</string>
+
+    <!--ПОДСКАЗКИ-->
+    <string name="hint_Enter_request">Введите запрос</string>
+    <string name="hint_Enter_amount">Введите сумму</string>
+    <string name="hint_Enter_region">Введите регион</string>
+    <string name="hint_Enter_industry">Введите отрасль</string>
+
+    <!--BOTTOM NAVIGATION-->
+    <string name="navigation_Main">Главная</string>
+    <string name="navigation_Favorite">Избранное</string>
+    <string name="navigation_Team">Команда</string>
+
+    <!--ОШИБКИ-->
+    <string name="errors_No_connection">Нет интернета</string>
+    <string name="errors_Server">Ошибка сервера</string>
+    <string name="errors_Server_not_responding">Не удалось получить список вакансий</string>
+    <string name="errors_Region">Такого региона нет</string>
+    <string name="errors_Filter_list">Не удалось получить список</string>
+    <string name="errors_Vacancy">Вакансия не найдена или удалена</string>
+
+    <!--ФИЛЬТРЫ-->
+    <string name="filter_Job">Место работы</string>
+    <string name="filter_Industry">Отрасль</string>
+    <string name="filter_Hide_without_salary">Не показывать без зарплаты</string>
+    <string name="filter_Salary">Ожидаемая зарплата</string>
+    <string name="filter_Country">Страна</string>
+    <string name="filter_Region">Регион</string>
+
+    <!--КНОПКИ-->
+    <string name="buttons_Select">Выбрать</string>
+    <string name="buttons_Apply">Применить</string>
+    <string name="buttons_Clear">Сбросить</string>
+
+    <!--РЕЗУЛЬТАТ ПОИСКА-->
+    <!--val vacanciesCountText = resources.getQuantityString(
+   R.plurals.vacancies_count, vacanciesCount, vacanciesCount
+   )-->
+    <string name="results_Find">Найдено </string>
+    <plurals name="vacancies_count">
+        <item quantity="one">%d вакансия</item>       <!-- 1 вакансия -->
+        <item quantity="few">%d вакансии</item>      <!-- 2, 3, 4 вакансии -->
+        <item quantity="many">%d вакансий</item>    <!-- 5, 6, 7... вакансий -->
+        <item quantity="other">%d вакансий</item>   <!-- 0, 11-19, 20+ вакансий -->
+    </plurals>
+
+    <!--СООБЩЕНИЯ-->
+    <string name="messages_Salary_not_set">Зарплата не указана</string>
+    <string name="messages_List_is_empty">Список пуст</string>
+
+    <!--КОМАНДА-->
+    <string name="team_Who_works">Над приложением работали</string>
+    <string name="team_Ekaterina">Екатерина Языкова</string>
+    <string name="team_Tatyana">Татьяна Швецова</string>
+    <string name="team_Dimitrii">Дмитрий Бурмистров</string>
+    <string name="team_Emil">Эмиль Алмаметов</string>
+
+</resourcex>
