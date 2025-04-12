@@ -10,6 +10,9 @@ targetSdk = "33"
 # Detekt
 detekt = "1.23.3"
 detektTwitterComposeRules ="0.0.26"
+navigationFragmentKtx = "2.8.9"
+navigationUiKtx = "2.8.9"
+kotlin = "1.9.21"
 
 [libraries]
 
@@ -36,5 +39,9 @@ unitTests-junit = "junit:junit:4.13.2"
 # UI tests
 uiTests-junitExt = "androidx.test.ext:junit:1.1.5"
 uiTests-espressoCore = "androidx.test.espresso:espresso-core:3.5.1"
+navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
+[plugins]
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 
 [bundles]
