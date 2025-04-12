@@ -9,18 +9,45 @@
         android:id="@+id/navigation_main"
         android:name="ru.practicum.android.diploma.presentation.search.SearchFragment"
         android:label="@string/navigation_Main"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_navigation_main_to_navigation_vacancy"
+            app:destination="@id/navigation_vacancy" />
+        <action
+            android:id="@+id/action_navigation_main_to_navigation_filters"
+            app:destination="@id/navigation_filters" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_favorites"
         android:name="ru.practicum.android.diploma.presentation.favorites.FavoritesFragment"
         android:label="@string/navigation_Favorite"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_navigation_favorites_to_navigation_vacancy"
+            app:destination="@id/navigation_vacancy" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_team"
         android:name="ru.practicum.android.diploma.presentation.team.TeamFragment"
         android:label="@string/navigation_Team"
         tools:layout="@layout/fragment_team" />
+
+    <fragment
+        android:id="@+id/navigation_filters"
+        android:name="ru.practicum.android.diploma.presentation.filters.FiltersFragment"
+        android:label="@string/navigation_Filters"
+        tools:layout="@layout/fragment_filters" >
+        <action
+            android:id="@+id/action_navigation_filters_to_navigation_main"
+            app:destination="@id/navigation_main" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_vacancy"
+        android:name="ru.practicum.android.diploma.presentation.vacancy.VacancyFragment"
+        android:label="@string/navigation_Vacancy"
+        tools:layout="@layout/fragment_vacancy" />
 
 </navigation>
