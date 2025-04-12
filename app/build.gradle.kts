@@ -50,6 +50,7 @@ dependencies {
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.fragment.ktx)
+    implementation(libs.navigation.fragment)
 
     // region Unit tests
     testImplementation(libs.unitTests.junit)

@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".RootActivity">
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/container_view"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:navGraph="@navigation/navigation_graph"
+        app:defaultNavHost="true"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"/>
+
     <TextView
         android:id="@+id/buildConfigReadExampleTextView"
         android:layout_width="wrap_content"
