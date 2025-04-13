@@ -41,24 +41,23 @@ android {
 }
 
 dependencies {
+
     implementation(libs.androidX.core)
     implementation(libs.androidX.appCompat)
-    implementation("io.insert-koin:koin-android:3.5.0")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.8.9")
-    implementation("androidx.navigation:navigation-ui-ktx:2.8.9")
-    implementation("androidx.fragment:fragment-ktx:1.8.6")
-    implementation("androidx.activity:activity:1.10.1")
-    val roomVersion = "2.7.0"
-    implementation("androidx.room:room-runtime:$roomVersion")
-    ksp("androidx.room:room-compiler:$roomVersion")
-    implementation("androidx.room:room-ktx:$roomVersion")
+    implementation(libs.koin.android)
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.navigation.ui.ktx)
+    implementation(libs.fragment.ktx)
+    implementation(libs.activity)
 
-    implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation(libs.room.runtime)
+    ksp(libs.room.compiler)
+    implementation(libs.room.ktx)
+    implementation(libs.glide)
+    implementation(libs.gson)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 
-    implementation("com.google.code.gson:gson:2.13.0")
-
-    implementation("com.squareup.retrofit2:retrofit:2.11.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
     // UI layer libraries
     implementation(libs.ui.material)
     implementation(libs.ui.constraintLayout)
