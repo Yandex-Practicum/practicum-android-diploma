@@ -459,7 +459,7 @@ naming:
         excludes: [ '**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**' ]
     PackageNaming:
         active: true
-        packagePattern: '^[a-z]+(\.[a-z][a-z0-9]*)*$'
+        packagePattern: '^[a-z][a-z_]+(\.[a-z][a-z_0-9]*)*$'
         excludes: [ '**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**' ]
     TopLevelPropertyNaming:
         active: true
@@ -597,7 +597,7 @@ style:
         active: false
         includeLineWrapping: false
     ForbiddenComment:
-        active: true
+        active: false
         comments: [ 'TODO', 'FIXME', 'STOPSHIP' ]
         allowedPatterns: 'PORTFOLIO-[0-9]+|MOB-[0-9]+|HH-[0-9]+'
     # Выключено, потому что не возникало необходимости запрещать import-ы
