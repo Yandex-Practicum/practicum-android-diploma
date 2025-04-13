@@ -48,7 +48,6 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.navigation.ui.ktx)
-    implementation(libs.fragment.ktx)
     implementation(libs.activity)
     implementation(libs.kotlinx.coroutines.android)
 
