@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginHorizontal="@dimen/margin_16"
+    android:paddingHorizontal="@dimen/margin_16"
+    android:background="?attr/colorPrimary"
     android:orientation="vertical">
 
     <TextView
@@ -11,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_16"
         android:paddingVertical="@dimen/margin_20"
+        android:textColor="?attr/colorOnPrimary"
         android:text="@string/navigation_Team" />
 
     <TextView
@@ -19,6 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_24"
         android:paddingVertical="@dimen/margin_8"
+        android:textColor="?attr/colorOnPrimary"
         android:text="@string/team_Who_works" />
 
     <TextView
@@ -26,6 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_16"
+        android:textColor="?attr/colorOnPrimary"
         android:text="@string/team_Ekaterina" />
 
     <TextView
@@ -33,6 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_16"
+        android:textColor="?attr/colorOnPrimary"
         android:text="@string/team_Tatyana" />
 
     <TextView
@@ -40,12 +45,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_16"
+        android:textColor="?attr/colorOnPrimary"
         android:text="@string/team_Dimitrii" />
 
     <TextView
         style="@style/text_medium_16"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="?attr/colorOnPrimary"
         android:text="@string/team_Emil" />
 
 </LinearLayout>
