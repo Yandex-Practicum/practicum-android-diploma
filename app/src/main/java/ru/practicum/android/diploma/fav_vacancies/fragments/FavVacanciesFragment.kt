@@ -1,11 +1,11 @@
 package ru.practicum.android.diploma.fav_vacancies.fragments
 
-import androidx.fragment.app.viewModels
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.fav_vacancies.view_models.FavVacanciesViewModel
 
@@ -24,7 +24,8 @@ class FavVacanciesFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         return inflater.inflate(R.layout.fragment_fav_vacancies, container, false)
