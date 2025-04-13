@@ -4,7 +4,7 @@ java = "VERSION_1_8"
 
 # Build constants
 minSdk = "26"
-compileSdk = "34"
+compileSdk = "35"
 targetSdk = "33"
 
 # Detekt
