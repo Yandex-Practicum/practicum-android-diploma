@@ -12,5 +12,5 @@ const val DB_NAME = "practicum_diploma.db"
     ]
 )
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun favVacanciesDao(): FavVacanciesDao
+    abstract fun favVacanciesDao(): IFavVacanciesDao
 }

@@ -7,7 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
 @Dao
-interface FavVacanciesDao {
+interface IFavVacanciesDao {
     @Insert(entity = FavVacancyEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertVacancy(vacancy: FavVacancyEntity)
 
