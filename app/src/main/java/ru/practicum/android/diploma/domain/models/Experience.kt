@@ -16,7 +16,10 @@ sealed class Experience(val id: String, val label: String) {
         }
 
         fun all(): List<Experience> = listOf(
-            NoExperience, Between1And3, Between3And6, MoreThan6
+            NoExperience,
+            Between1And3,
+            Between3And6,
+            MoreThan6
         )
     }
 }

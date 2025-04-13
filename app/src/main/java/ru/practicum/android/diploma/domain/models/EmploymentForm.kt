@@ -16,7 +16,10 @@ sealed class EmploymentForm(val id: String, val label: String) {
         }
 
         fun all(): List<EmploymentForm> = listOf(
-            Full, Part, Project, FlyInFlyOut
+            Full,
+            Part,
+            Project,
+            FlyInFlyOut
         )
     }
 }
