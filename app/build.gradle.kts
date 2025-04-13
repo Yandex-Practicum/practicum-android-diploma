@@ -49,6 +49,7 @@ dependencies {
     implementation(libs.navigation.ui.ktx)
     implementation(libs.fragment.ktx)
     implementation(libs.activity)
+    implementation(libs.kotlinx.coroutines.android)
 
     implementation(libs.room.runtime)
     ksp(libs.room.compiler)
