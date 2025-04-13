@@ -66,4 +66,8 @@
     <string name="team_Dimitrii">Дмитрий Бурмистров</string>
     <string name="team_Emil">Эмиль Алмаметов</string>
 
+    <!--ЗАГЛУШКИ-->
+    <string name="navigation_Filters">Фильтры</string>
+    <string name="navigation_Vacancy">Вакансия</string>
+
 </resources>
