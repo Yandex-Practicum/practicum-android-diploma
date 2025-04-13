@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_16"
-        android:paddingVertical="@dimen/margin_19"
+        android:paddingVertical="@dimen/margin_20"
         android:text="@string/navigation_Team" />
 
     <TextView
