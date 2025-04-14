@@ -1,9 +1,10 @@
 package ru.practicum.android.diploma.domain.api
 
 import kotlinx.coroutines.flow.Flow
+import ru.practicum.android.diploma.data.dto.VacancyDetails
 
 interface IFavVacanciesRepository {
-    fun add(vacancy: Vacancy)
-    fun delete(vacancy: Vacancy)
-    fun getAll(): Flow<List<Vacancy>>
+    suspend fun add(vacancy: VacancyDetails)
+    suspend fun delete(vacancy: VacancyDetails)
+    suspend fun getAll(): Flow<List<VacancyDetails>>
 }
