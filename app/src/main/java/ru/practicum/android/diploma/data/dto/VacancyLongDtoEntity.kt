@@ -3,7 +3,7 @@ package ru.practicum.android.diploma.data.dto
 import ru.practicum.android.diploma.domain.models.EmploymentForm
 import ru.practicum.android.diploma.domain.models.Experience
 
-data class VacancyLongDTOEntity(
+data class VacancyLongDtoEntity(
     val vacancyId: String, // id вакансии
     val logoUrl: String?, // иконка компании
     val name: String, // название вакансии

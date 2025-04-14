@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.domain.models
 
-data class VacancyLongDMEntity(
+data class VacancyLongDmEntity(
     val vacancyId: String, // id вакансии
     val logoUrl: String?, // иконка компании
     val name: String, // название вакансии
