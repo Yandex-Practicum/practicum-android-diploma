@@ -54,10 +54,21 @@
         <item quantity="many">%d вакансий</item>    <!-- 5, 6, 7... вакансий -->
         <item quantity="other">%d вакансий</item>   <!-- 0, 11-19, 20+ вакансий -->
     </plurals>
+    <!--Зарплата -->
+    <string name="salaryFrom">от</string>
+    <string name="salaryTo">до</string>
+    <!--Опыт -->
+    <string name="expirienseFrom">от</string>
+    <string name="expirienseTo">до</string>
 
     <!--СООБЩЕНИЯ-->
     <string name="messages_Salary_not_set">Зарплата не указана</string>
     <string name="messages_List_is_empty">Список пуст</string>
+
+    <!--ВАКАНСИЯ-->
+    <string name="vacancy_Expiriense">Требуемый опыт</string>
+    <string name="vacancy_Description">Описание вакансии</string>
+    <string name="vacancy_Skills">Ключевые навыки</string>
 
     <!--КОМАНДА-->
     <string name="team_Who_works">Над приложением работали</string>
