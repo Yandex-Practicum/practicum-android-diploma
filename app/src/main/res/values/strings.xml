@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Vzyali</string>
 
-
     <!--ЗАГОЛОВКИ-->
     <string name="header_Vacancies_search">Поиск вакансий</string>
     <string name="header_Filters_setup">Настройки фильтрации</string>
@@ -69,5 +68,8 @@
     <!--ЗАГЛУШКИ-->
     <string name="navigation_Filters">Фильтры</string>
     <string name="navigation_Vacancy">Вакансия</string>
+    <string name="navigation_Share">Поделиться</string>
+    <string name="navigation_Back">Вернуться назад</string>
+    <string name="navigation_AddToFavorite">Добавить в избранное</string>
 
 </resources>
