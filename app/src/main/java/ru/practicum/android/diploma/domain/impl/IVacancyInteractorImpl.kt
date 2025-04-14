@@ -5,13 +5,14 @@ import ru.practicum.android.diploma.domain.api.IVacancyInteractor
 import ru.practicum.android.diploma.domain.api.IVacancyRepository
 import ru.practicum.android.diploma.domain.api.Resource
 
-class IVacancyInteractorImpl(repository: IVacancyRepository): IVacancyInteractor {
+class IVacancyInteractorImpl(repository: IVacancyRepository) : IVacancyInteractor {
     override suspend fun searchVacancies(expression: String): Flow<Pair<List<Vacancy>?, String?>> {
         return repository.searchVacancies(expression).map { result ->
             when (result) {
                 is Resource.Error -> {
                     Pair(null, result.message)
                 }
+
                 is Resource.Success -> {
                     Pair(result.data, null)
                 }
@@ -25,6 +26,7 @@ class IVacancyInteractorImpl(repository: IVacancyRepository): IVacancyInteractor
                 is Resource.Error -> {
                     Pair(null, result.message)
                 }
+
                 is Resource.Success -> {
                     Pair(result.data, null)
                 }
@@ -38,6 +40,7 @@ class IVacancyInteractorImpl(repository: IVacancyRepository): IVacancyInteractor
                 is Resource.Error -> {
                     Pair(null, result.message)
                 }
+
                 is Resource.Success -> {
                     Pair(result.data, null)
                 }
@@ -51,6 +54,7 @@ class IVacancyInteractorImpl(repository: IVacancyRepository): IVacancyInteractor
                 is Resource.Error -> {
                     Pair(null, result.message)
                 }
+
                 is Resource.Success -> {
                     Pair(result.data, null)
                 }
@@ -64,6 +68,7 @@ class IVacancyInteractorImpl(repository: IVacancyRepository): IVacancyInteractor
                 is Resource.Error -> {
                     Pair(null, result.message)
                 }
+
                 is Resource.Success -> {
                     Pair(result.data, null)
                 }
