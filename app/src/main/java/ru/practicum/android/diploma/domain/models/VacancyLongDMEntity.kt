@@ -13,5 +13,3 @@ data class VacancyLongDMEntity(
     val description: String, // описание вакансии
     val keySkills: List<String>? // ключевые навыки
 )
-
-
