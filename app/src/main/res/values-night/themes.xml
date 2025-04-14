@@ -4,5 +4,6 @@
         <item name="textColorPrimary">@color/yp_white</item>
         <item name="textColorSecondary">@color/yp_gray</item>
         <item name="iconColorPrimary">@color/yp_white</item>
+        <item name="android:statusBarColor">@color/yp_black</item>
     </style>
 </resources>
