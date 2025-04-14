@@ -5,10 +5,10 @@ import ru.practicum.android.diploma.data.dto.ApiResponse
 import ru.practicum.android.diploma.data.dto.Vacancy
 
 data class SearchVacanciesResponse(
-    var found: Int? = null,
-    var items: ArrayList<Vacancy> = arrayListOf(),
-    var page: Int? = null,
-    var pages: Int? = null,
+    val found: Int? = null,
+    val items: ArrayList<Vacancy> = arrayListOf(),
+    val page: Int? = null,
+    val pages: Int? = null,
     @SerializedName("per_page")
-    var perPage: Int? = null
+    val perPage: Int? = null
 ) : ApiResponse()

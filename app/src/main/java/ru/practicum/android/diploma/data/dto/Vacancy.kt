@@ -4,10 +4,10 @@ import com.google.gson.annotations.SerializedName
 
 data class Vacancy(
     val id: String,
-    var name: String,
-    var employer: Employer? = null,
-    var salary: Salary? = null,
+    val name: String,
+    val employer: Employer? = null,
+    val salary: Salary? = null,
 
     @SerializedName("salary_range")
-    var salaryRange: Salary? = null,
+    val salaryRange: Salary? = null,
 )

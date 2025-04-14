@@ -1,60 +1,43 @@
 package ru.practicum.android.diploma.data.network
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import retrofit2.Response
 import ru.practicum.android.diploma.data.IRetrofitApiClient
-import ru.practicum.android.diploma.data.dto.ApiResponse
+import ru.practicum.android.diploma.data.dto.Area
+import ru.practicum.android.diploma.data.dto.Industry
 import ru.practicum.android.diploma.data.network.dto.GetAreasRequest
-import ru.practicum.android.diploma.data.network.dto.GetAreasResponse
 import ru.practicum.android.diploma.data.network.dto.GetIndustriesRequest
-import ru.practicum.android.diploma.data.network.dto.GetIndustriesResponse
 import ru.practicum.android.diploma.data.network.dto.GetVacancyDetailsRequest
+import ru.practicum.android.diploma.data.network.dto.GetVacancyDetailsResponse
 import ru.practicum.android.diploma.data.network.dto.SearchVacanciesRequest
+import ru.practicum.android.diploma.data.network.dto.SearchVacanciesResponse
+import ru.practicum.android.diploma.data.network.dto.toQueryParams
+import ru.practicum.android.diploma.util.handleRequest
 
 class RetrofitApiClient(
     private val api: IApiService
 ) : IRetrofitApiClient {
 
-    override suspend fun searchVacancies(req: SearchVacanciesRequest): ApiResponse {
-        return try {
-            withContext(Dispatchers.IO) {
-                api.searchVacancies(req.toQueryParams()).apply { resultCode = 200 }
-            }
-        } catch (e: Throwable) {
-            ApiResponse().apply { resultCode = 500 }
+    override suspend fun searchVacancies(req: SearchVacanciesRequest): Response<SearchVacanciesResponse> {
+        return handleRequest {
+            api.searchVacancies(req.toQueryParams())
         }
     }
 
-    override suspend fun getVacancyDetails(req: GetVacancyDetailsRequest): ApiResponse {
-        return try {
-            withContext(Dispatchers.IO) {
-                api.getVacancyDetails(id = req.vacancyId).apply { resultCode = 200 }
-            }
-        } catch (e: Throwable) {
-            ApiResponse().apply { resultCode = 500 }
+    override suspend fun getVacancyDetails(req: GetVacancyDetailsRequest): Response<GetVacancyDetailsResponse> {
+        return handleRequest {
+            api.getVacancyDetails(id = req.vacancyId)
         }
     }
 
-    override suspend fun getAreas(req: GetAreasRequest): ApiResponse {
-        return try {
-            withContext(Dispatchers.IO) {
-                GetAreasResponse(areas = api.getAreas(locale = req.locale))
-                    .apply { resultCode = 200 }
-            }
-        } catch (e: Throwable) {
-            ApiResponse().apply { resultCode = 500 }
+    override suspend fun getAreas(req: GetAreasRequest): Response<ArrayList<Area>> {
+        return handleRequest {
+            api.getAreas(locale = req.locale)
         }
     }
 
-    override suspend fun getIndustries(req: GetIndustriesRequest): ApiResponse {
-        return try {
-            withContext(Dispatchers.IO) {
-                GetIndustriesResponse(
-                    industries = api.getIndustries(locale = req.locale)
-                ).apply { resultCode = 200 }
-            }
-        } catch (e: Throwable) {
-            ApiResponse().apply { resultCode = 500 }
+    override suspend fun getIndustries(req: GetIndustriesRequest): Response<ArrayList<Industry>> {
+        return handleRequest {
+            api.getIndustries(locale = req.locale)
         }
     }
 }

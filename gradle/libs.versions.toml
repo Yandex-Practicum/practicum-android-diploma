@@ -11,6 +11,7 @@ kotlinxCoroutinesAndroid = "1.7.3"
 minSdk = "26"
 compileSdk = "35"
 retrofit = "2.11.0"
+okhttp3 = "4.12.0"
 roomVersion = "2.7.0"
 targetSdk = "33"
 
@@ -36,6 +37,7 @@ kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutine
 navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragment" }
 navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationFragment" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+okhttp3 = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp3"}
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomVersion" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomVersion" }
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomVersion" }

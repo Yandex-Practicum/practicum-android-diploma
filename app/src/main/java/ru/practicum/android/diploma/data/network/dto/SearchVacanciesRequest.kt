@@ -18,35 +18,35 @@ data class SearchVacanciesRequest(
     @SerializedName("only_with_salary")
     val onlyWithSalary: Boolean? = null,
 
+    @Suppress("DataClassShouldBeImmutable")
     var page: Int, //  оставил var, чтобы переиспользовать запрос при дозагрузке страниц
 
     @SerializedName("per_page")
-    val perPage: Int = 20
+    val perPage: Int = 20,
 
-) {
+)
 
-    fun toQueryParams(): Map<String, String> {
-        var params: HashMap<String, String> = HashMap()
-        params["text"] = text
-        params["page"] = page.toString()
-        params["per_page"] = perPage.toString()
+fun SearchVacanciesRequest.toQueryParams(): Map<String, String> {
+    var params: HashMap<String, String> = HashMap()
+    params["text"] = text
+    params["page"] = page.toString()
+    params["per_page"] = perPage.toString()
 
-        if (onlyWithSalary != null) {
-            params["only_with_salary"] = onlyWithSalary.toString().lowercase()
-        }
-
-        if (!areaIDs.isNullOrEmpty()) {
-            params["area"] = areaIDs.joinToString(",")
-        }
-
-        if (!industryIDs.isNullOrEmpty()) {
-            params["industry"] = industryIDs.joinToString(",")
-        }
-
-        if (salary != null && salary > 0u) {
-            params["salary"] = salary.toString()
-        }
-
-        return params
+    if (onlyWithSalary != null) {
+        params["only_with_salary"] = onlyWithSalary.toString().lowercase()
     }
+
+    if (!areaIDs.isNullOrEmpty()) {
+        params["area"] = areaIDs.joinToString(",")
+    }
+
+    if (!industryIDs.isNullOrEmpty()) {
+        params["industry"] = industryIDs.joinToString(",")
+    }
+
+    if (salary != null && salary > 0u) {
+        params["salary"] = salary.toString()
+    }
+
+    return params
 }

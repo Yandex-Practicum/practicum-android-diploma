@@ -9,19 +9,19 @@ import ru.practicum.android.diploma.data.dto.KeySkill
 import ru.practicum.android.diploma.data.dto.Salary
 
 data class GetVacancyDetailsResponse(
-    var id: String,
-    var name: String,
+    val id: String,
+    val name: String,
 
-    var area: Area? = Area(),
+    val area: Area? = Area(),
 
-    var description: String? = null,
+    val description: String? = null,
 
-    var employer: Employer? = null,
+    val employer: Employer? = null,
 
-    @SerializedName("key_skills") var keySkills: ArrayList<KeySkill> = arrayListOf(),
+    @SerializedName("key_skills") val keySkills: ArrayList<KeySkill> = arrayListOf(),
 
-    var salary: Salary? = null,
-    var salaryRange: Salary? = null,
+    val salary: Salary? = null,
+    val salaryRange: Salary? = null,
 
-    var experience: Experience? = null,
+    val experience: Experience? = null,
 ) : ApiResponse()

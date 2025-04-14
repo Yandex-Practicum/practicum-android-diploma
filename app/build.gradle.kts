@@ -58,6 +58,7 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
+    implementation(libs.okhttp3)
 
     // UI layer libraries
     implementation(libs.ui.material)

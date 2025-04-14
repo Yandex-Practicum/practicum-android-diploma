@@ -1,7 +1,7 @@
 package ru.practicum.android.diploma.data.dto
 
 data class Industry(
-    var id: String,
-    var name: String,
-    var subIndustries: ArrayList<SubIndustry> = arrayListOf()
+    val id: String,
+    val name: String,
+    val subIndustries: ArrayList<SubIndustry> = arrayListOf()
 )
