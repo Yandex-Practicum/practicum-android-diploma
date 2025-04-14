@@ -17,6 +17,7 @@ class IStorageRepositoryImpl(private val storageSharedPreferences: SharedPrefere
         val json = Gson().toJson(vacancies)
         storageSharedPreferences.edit().putString(STORAGE_PREFERENCES_KEY, json).apply()
     }
+
     companion object {
         const val STORAGE_PREFERENCES = "storage_preferences"
         const val STORAGE_PREFERENCES_KEY = "key_for_storage_preferences"
