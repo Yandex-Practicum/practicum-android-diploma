@@ -1,3 +1,64 @@
 <resources>
     <string name="app_name">Practicum-Android-Diploma</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--    Экран "Поиск вакансий"-->
+    <string name="search_vacancies_title">Поиск вакансий</string>
+    <string name="search_vacancies_hint">Поиск вакансий</string>
+    <string name="search_vacancies_no_internet">Нет интернета</string>
+    <string name="search_vacancies_chip_not_found">Таких вакансий нет</string>
+    <string name="search_vacancies_placeholder_not_found">Не удалось получить \n список вакансий</string>
+    <string name="search_vacancies_placeholder_server_error">Ошибка сервера</string>
+    <string name="search_vacancies_chip_found_vacancies">Найдено %s вакансий</string>
+
+    <!--    Экран "Настройки фильтрации"-->
+    <string name="filter_parameters_title">Настройки фильтрации</string>
+    <string name="filter_parameters_location_hint">Место работы</string>
+    <string name="filter_parameters_industries_hint">Отрасль</string>
+    <string name="filter_parameters_salary_top_hint">Ожидаемая зарплата</string>
+    <string name="filter_parameters_salary_bottom_hint">Введите сумму</string>
+    <string name="filter_parameters_not_show_without_salary">Не показывать без зарплаты</string>
+    <string name="filter_parameters_apply_button">Применить</string>
+    <string name="filter_parameters_reset_button">Сбросить</string>
+
+    <!--    Экран "Выбор места работы"-->
+    <string name="select_location_title">Выбор места работы</string>
+    <string name="select_location_country_hint">Страна</string>
+    <string name="select_location_area_hint">Регион</string>
+    <string name="select_location_select_button">Выбрать</string>
+
+    <!--    Экран "Выбор страны"-->
+    <string name="select_country_title">Выбор страны</string>
+
+    <!--    Экран "Выбор региона"-->
+    <string name="select_area_title">Выбор региона</string>
+    <string name="select_area_search_hint">Введите регион</string>
+    <string name="select_area_not_found">Такого региона нет</string>
+    <string name="select_area_placeholder_not_found">Такого региона нет</string>
+    <string name="select_area_placeholder_error">Не удалось получить список</string>
+
+    <!--    Экран "Выбор отрасли"-->
+    <string name="select_industries_title">Выбор отрасли</string>
+    <string name="select_industries_search_hint">Введите отрасль</string>
+    <string name="select_industries_select_button">Выбрать</string>
+
+    <!--    Экран "Вакансия"-->
+    <string name="vacancy_details_title">Вакансия</string>
+    <string name="vacancy_details_placeholder_not_found">Вакансия не найдена или удалена</string>
+    <string name="vacancy_details_placeholder_server_error">Ошибка сервера</string>
+
+    <!--    Экран "Избранное"-->
+    <string name="fav_vacancies_title">Избранное</string>
+    <string name="fav_vacancies_placeholder_empty_list">Список пуст</string>
+    <string name="fav_vacancies_placeholder_db_error">Не удалось получить список вакансий</string>
+
+    <!--    Экран "Команда"-->
+    <string name="creators_title">Команда</string>
+    <string name="creators_subtitle">Над приложением работали</string>
+    <string name="creators_developer1">Дарья Бандукова</string>
+    <string name="creators_developer2">Александр Федосеев</string>
+    <string name="creators_developer3">Георгий Хришкевич</string>
+    <string name="creators_developer4">Юрий Яковлев</string>
+    <string name="creators_developer5">Иван Алейник</string>
+
 </resources>
