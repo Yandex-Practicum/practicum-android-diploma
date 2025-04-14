@@ -4,7 +4,7 @@ import ru.practicum.android.diploma.domain.models.EmploymentForm
 import ru.practicum.android.diploma.domain.models.Experience
 
 data class VacancyLongDTOEntity(
-    val vacany_id: String, // id вакансии
+    val vacanyId: String, // id вакансии
     val logoUrl: String?, // иконка компании
     val name: String, // название вакансии
     val areaName: String, // город
@@ -12,7 +12,7 @@ data class VacancyLongDTOEntity(
     val salaryFrom: Int?, // строка вида "от 100000 RUR" или "з/п не указана"
     val salaryTo: Int?, // строка вида "от 100000 RUR" или "з/п не указана"
     val currency: String, // Валюта
-    val alternate_url: String, // ссылка на вакансию
+    val alternateUrl: String, // ссылка на вакансию
     val experience: Experience?, // опыт работы
     val employmentForm: EmploymentForm?, // форма занятости
     val description: String,

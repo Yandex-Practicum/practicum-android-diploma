@@ -1,7 +1,7 @@
 package ru.practicum.android.diploma.data.dto
 
 data class VacancyShortDTOEntity(
-    val vacancy_id: String, // id вакансии
+    val vacancyId: String, // id вакансии
     val logoUrl: String?, // иконка компании (можно взять logo_urls["90"])
     val name: String, // название вакансии
     val areaName: String, // город
