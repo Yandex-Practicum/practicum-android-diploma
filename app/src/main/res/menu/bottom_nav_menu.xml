@@ -2,12 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@id/searchVacanciesFragment"
-        android:title="Главная"/>
+        android:title="Главная"
+        android:icon="@drawable/ic_main_24px"/>
     <item
         android:id="@id/favVacanciesFragment"
-        android:title="Избранное"/>
+        android:title="Избранное"
+        android:icon="@drawable/ic_favorites_gray_24px"/>
     <item
         android:id="@id/creatorsFragment"
-        android:title="Команда"/>
+        android:title="Команда"
+        android:icon="@drawable/ic_team_24px"/>
 
 </menu>
