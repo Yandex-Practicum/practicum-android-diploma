@@ -10,17 +10,20 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 
 class SearchFragment : Fragment() {
-    private lateinit var binding: FragmentSearchBinding
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-
-        return inflater.inflate(R.layout.fragment_search, container, false)
+        return inflater.inflate(
+            R.layout.fragment_search,
+            container,
+            false
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding = FragmentSearchBinding.bind(view)
+        val binding = FragmentSearchBinding.bind(view)
 
         binding.toFiltersButton.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_main_to_navigation_filters)

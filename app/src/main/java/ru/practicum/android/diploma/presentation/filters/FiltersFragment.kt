@@ -10,17 +10,20 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFiltersBinding
 
 class FiltersFragment : Fragment() {
-
-    private lateinit var binding: FragmentFiltersBinding
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_filters, container, false)
+        return inflater.inflate(
+            R.layout.fragment_filters,
+            container,
+            false
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding = FragmentFiltersBinding.bind(view)
+        val binding = FragmentFiltersBinding.bind(view)
 
         binding.bAccept.setOnClickListener {
             val args = Bundle().apply { putString("filters", "some_filter_data") }
