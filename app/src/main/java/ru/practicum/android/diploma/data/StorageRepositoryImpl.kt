@@ -5,17 +5,17 @@ import com.google.gson.Gson
 import ru.practicum.android.diploma.data.dto.Vacancy
 import ru.practicum.android.diploma.domain.api.IStorageRepository
 
-class StorageRepositoryImpl(private val storageSharedPreferences: SharedPreferences, private val gson: Gson) :
+class StorageRepositoryImpl(private val storageSharedPreferences: SharedPreferences) :
     IStorageRepository {
 
     override fun read(): List<Vacancy> {
         val json = storageSharedPreferences.getString(STORAGE_PREFERENCES_KEY, null)
             ?: return arrayListOf()
-        return ArrayList(gson.Gson().fromJson(json, Array<Vacancy>::class.java).toList())
+        return ArrayList(Gson().fromJson(json, Array<Vacancy>::class.java).toList())
     }
 
     override fun write(vacancies: List<Vacancy>) {
-        val json = gson.Gson().toJson(vacancies)
+        val json = Gson().toJson(vacancies)
         storageSharedPreferences.edit().putString(STORAGE_PREFERENCES_KEY, json).apply()
     }
 
