@@ -4,4 +4,6 @@
     <dimen name="text_size_md">16sp</dimen>
     <dimen name="text_size_lg">22sp</dimen>
     <dimen name="text_size_xl">32sp</dimen>
+
+    <dimen name="toolbar_height">64dp</dimen>
 </resources>

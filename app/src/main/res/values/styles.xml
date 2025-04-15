@@ -33,4 +33,20 @@
         <item name="fontFamily">@font/ys_display_bold</item>
         <item name="android:textSize">@dimen/text_size_xl</item>
     </style>
+
+    <style name="ToolbarWithoutIconStyle" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/toolbar_height</item>
+        <item name="android:background">?attr/backgroundPrimaryColor</item>
+        <item name="titleTextAppearance">@style/Medium22TextAppearance</item>
+        <item name="titleTextColor">?attr/textColorPrimary</item>
+    </style>
+
+    <style name="DevelopersTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">@style/Medium16TextAppearance</item>
+        <item name="android:textColor">?attr/textColorPrimary</item>
+    </style>
+
 </resources>
