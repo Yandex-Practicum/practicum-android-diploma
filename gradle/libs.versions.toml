@@ -19,6 +19,7 @@ glide = "4.14.2"
 koin = "3.5.0"
 retrofit = "2.11.0"
 room = "2.6.0"
+roomCommonJvm = "2.7.0"
 
 [libraries]
 
@@ -66,6 +67,7 @@ unitTests-junit = "junit:junit:4.13.2"
 # UI tests
 uiTests-junitExt = "androidx.test.ext:junit:1.1.5"
 uiTests-espressoCore = "androidx.test.espresso:espresso-core:3.5.1"
+room-common-jvm = { group = "androidx.room", name = "room-common-jvm", version.ref = "roomCommonJvm" }
 
 [plugins]
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

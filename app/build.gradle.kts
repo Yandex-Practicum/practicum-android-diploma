@@ -20,7 +20,8 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField(type = "String", name = "HH_ACCESS_TOKEN", value = "\"${developProperties.hhAccessToken}\"")
+        val developProps = rootProject.extra["developProperties"] as java.util.Properties
+        buildConfigField("String", "HH_ACCESS_TOKEN", "\"${developProps["hhAccessToken"]}\"")
     }
 
     buildTypes {
@@ -41,9 +42,16 @@ android {
         buildConfig = true
         viewBinding = true
     }
+
+    ksp {
+        arg("room.schemaLocation", "$projectDir/schemas")
+    }
 }
 
 dependencies {
+
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.0")
+
     implementation(libs.androidX.core)
     implementation(libs.androidX.appCompat)
 
@@ -58,6 +66,7 @@ dependencies {
 
     // Glide
     implementation(libs.glide)
+    implementation(libs.room.common.jvm)
     annotationProcessor(libs.glide.compiler)
 
     // DI
