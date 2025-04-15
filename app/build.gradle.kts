@@ -20,7 +20,8 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField(type = "String", name = "HH_ACCESS_TOKEN", value = "\"${developProperties.hhAccessToken}\"")
+        val developProps = rootProject.extra["developProperties"] as java.util.Properties
+        buildConfigField("String", "HH_ACCESS_TOKEN", "\"${developProps["hhAccessToken"]}\"")
     }
 
     buildTypes {
