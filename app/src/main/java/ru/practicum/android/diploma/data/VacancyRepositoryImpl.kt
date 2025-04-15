@@ -14,9 +14,9 @@ import ru.practicum.android.diploma.data.network.dto.SearchVacanciesResponse
 import ru.practicum.android.diploma.domain.api.IVacancyRepository
 import ru.practicum.android.diploma.domain.api.Resource
 
-class IVacancyRepositoryImpl(private val networkClient: IRetrofitApiClient) : IVacancyRepository {
+class VacancyRepositoryImpl(private val networkClient: IRetrofitApiClient) : IVacancyRepository {
 
-    override suspend fun searchVacancies(req: SearchVacanciesRequest): Flow<Resource<SearchVacanciesResponse>> = flow {
+    override fun searchVacancies(req: SearchVacanciesRequest): Flow<Resource<SearchVacanciesResponse>> = flow {
         val result = networkClient.searchVacancies(req)
         val body = result.body()
         if (result.isSuccessful && body != null) {
@@ -26,7 +26,7 @@ class IVacancyRepositoryImpl(private val networkClient: IRetrofitApiClient) : IV
         }
     }
 
-    override suspend fun getCountries(): Flow<Resource<List<Area>>> = flow {
+    override fun getCountries(): Flow<Resource<List<Area>>> = flow {
         val result = networkClient.getAreas(GetAreasRequest())
         val body = result.body()
         if (result.isSuccessful && body != null) {
@@ -36,9 +36,9 @@ class IVacancyRepositoryImpl(private val networkClient: IRetrofitApiClient) : IV
         }
     }
 
-    override suspend fun getRegion(): Flow<Resource<List<Area>>> = getCountries()
+    override fun getRegion(): Flow<Resource<List<Area>>> = getCountries()
 
-    override suspend fun getVacancyDetails(
+    override fun getVacancyDetails(
         req: GetVacancyDetailsRequest
     ): Flow<Resource<VacancyDetails>> = flow {
         val result = networkClient.getVacancyDetails(req)
@@ -50,7 +50,7 @@ class IVacancyRepositoryImpl(private val networkClient: IRetrofitApiClient) : IV
         }
     }
 
-    override suspend fun getIndustries(): Flow<Resource<List<Industry>>> = flow {
+    override fun getIndustries(): Flow<Resource<List<Industry>>> = flow {
         val result = networkClient.getIndustries(GetIndustriesRequest())
         val body = result.body()
         if (result.isSuccessful && body != null) {

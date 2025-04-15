@@ -12,8 +12,8 @@ import ru.practicum.android.diploma.domain.api.IVacancyInteractor
 import ru.practicum.android.diploma.domain.api.IVacancyRepository
 import ru.practicum.android.diploma.domain.api.Resource
 
-class IVacancyInteractorImpl(private val repository: IVacancyRepository) : IVacancyInteractor {
-    override suspend fun searchVacancies(expression: String): Flow<Pair<List<Vacancy>?, String?>> = flow {
+class VacancyInteractorImpl(private val repository: IVacancyRepository) : IVacancyInteractor {
+    override fun searchVacancies(expression: String): Flow<Pair<List<Vacancy>?, String?>> = flow {
         repository.searchVacancies(SearchVacanciesRequest(text = expression, page = 0)).collect { result ->
             when (result) {
                 is Resource.Error -> {
@@ -26,7 +26,7 @@ class IVacancyInteractorImpl(private val repository: IVacancyRepository) : IVaca
         }
     }
 
-    override suspend fun getCountries(): Flow<Pair<List<Area>?, String?>> = flow {
+    override fun getCountries(): Flow<Pair<List<Area>?, String?>> = flow {
         repository.getCountries().collect() { result ->
             when (result) {
                 is Resource.Error -> {
@@ -39,7 +39,7 @@ class IVacancyInteractorImpl(private val repository: IVacancyRepository) : IVaca
         }
     }
 
-    override suspend fun getRegion(): Flow<Pair<List<Area>?, String?>> = flow {
+    override fun getRegion(): Flow<Pair<List<Area>?, String?>> = flow {
         repository.getRegion().collect { result ->
             when (result) {
                 is Resource.Error -> {
@@ -52,7 +52,7 @@ class IVacancyInteractorImpl(private val repository: IVacancyRepository) : IVaca
         }
     }
 
-    override suspend fun getIndustries(): Flow<Pair<List<Industry>?, String?>> = flow {
+    override fun getIndustries(): Flow<Pair<List<Industry>?, String?>> = flow {
         repository.getIndustries().collect { result ->
             when (result) {
                 is Resource.Error -> {
@@ -65,7 +65,7 @@ class IVacancyInteractorImpl(private val repository: IVacancyRepository) : IVaca
         }
     }
 
-    override suspend fun getVacancyDetails(vacancyId: String): Flow<Pair<VacancyDetails?, String?>> = flow {
+    override fun getVacancyDetails(vacancyId: String): Flow<Pair<VacancyDetails?, String?>> = flow {
         repository.getVacancyDetails(GetVacancyDetailsRequest(vacancyId)).collect { result ->
             when (result) {
                 is Resource.Error -> {

@@ -1,8 +1,5 @@
-package ru.practicum.android.diploma.data
+package ru.practicum.android.diploma.data.mapper
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.data.db.FavVacancyEntity
 import ru.practicum.android.diploma.data.dto.Area
 import ru.practicum.android.diploma.data.dto.Employer
@@ -12,22 +9,8 @@ import ru.practicum.android.diploma.data.dto.LogoUrls
 import ru.practicum.android.diploma.data.dto.Salary
 import ru.practicum.android.diploma.data.dto.Vacancy
 import ru.practicum.android.diploma.data.dto.VacancyDetails
-import ru.practicum.android.diploma.domain.api.IFavVacanciesRepository
 
-class IFavVacanciesRepositoryImpl(val dataBase: AppDatabase) : IFavVacanciesRepository {
-    override suspend fun add(vacancy: VacancyDetails) {
-        dataBase.favVacanciesDao().insertVacancy(convertFromVacancyDetails(vacancy))
-    }
-
-    override suspend fun delete(vacancy: VacancyDetails) {
-        dataBase.favVacanciesDao().deleteVacancy(convertFromVacancyDetails(vacancy))
-    }
-
-    override suspend fun getAll(): Flow<List<VacancyDetails>> = flow {
-        val vacancies = dataBase.favVacanciesDao().getAllVacancies()
-        emit(vacancies.map { convertToVacancyDetails(it) })
-    }
-
+class VacancyEntityMapper {
     private fun convertToVacancy(entity: FavVacancyEntity): Vacancy {
         val employer = Employer(
             id = entity.employerId,
@@ -49,7 +32,7 @@ class IFavVacanciesRepositoryImpl(val dataBase: AppDatabase) : IFavVacanciesRepo
         )
     }
 
-    private fun convertToVacancyDetails(entity: FavVacancyEntity): VacancyDetails {
+    fun convertToVacancyDetails(entity: FavVacancyEntity): VacancyDetails {
         val vacancy = convertToVacancy(entity)
         val area = Area(id = entity.areaId, name = entity.areaName)
         val experience = Experience(id = entity.experienceId, name = entity.experienceName)
@@ -69,7 +52,7 @@ class IFavVacanciesRepositoryImpl(val dataBase: AppDatabase) : IFavVacanciesRepo
     }
 
     @Suppress("CyclomaticComplexMethod")
-    private fun convertFromVacancyDetails(vacancy: VacancyDetails): FavVacancyEntity {
+    fun convertFromVacancyDetails(vacancy: VacancyDetails): FavVacancyEntity {
         val salary = if (vacancy.salary != null) {
             Salary(
                 currency = vacancy.salary.currency ?: "",

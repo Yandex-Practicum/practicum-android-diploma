@@ -9,9 +9,9 @@ import ru.practicum.android.diploma.data.network.dto.SearchVacanciesRequest
 import ru.practicum.android.diploma.data.network.dto.SearchVacanciesResponse
 
 interface IVacancyRepository {
-    suspend fun searchVacancies(req: SearchVacanciesRequest): Flow<Resource<SearchVacanciesResponse>>
-    suspend fun getCountries(): Flow<Resource<List<Area>>>
-    suspend fun getRegion(): Flow<Resource<List<Area>>>
-    suspend fun getIndustries(): Flow<Resource<List<Industry>>>
-    suspend fun getVacancyDetails(req: GetVacancyDetailsRequest): Flow<Resource<VacancyDetails>>
+    fun searchVacancies(req: SearchVacanciesRequest): Flow<Resource<SearchVacanciesResponse>>
+    fun getCountries(): Flow<Resource<List<Area>>>
+    fun getRegion(): Flow<Resource<List<Area>>>
+    fun getIndustries(): Flow<Resource<List<Industry>>>
+    fun getVacancyDetails(req: GetVacancyDetailsRequest): Flow<Resource<VacancyDetails>>
 }

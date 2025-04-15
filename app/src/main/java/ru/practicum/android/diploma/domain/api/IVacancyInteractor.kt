@@ -7,9 +7,9 @@ import ru.practicum.android.diploma.data.dto.Vacancy
 import ru.practicum.android.diploma.data.dto.VacancyDetails
 
 interface IVacancyInteractor {
-    suspend fun searchVacancies(expression: String): Flow<Pair<List<Vacancy>?, String?>>
-    suspend fun getCountries(): Flow<Pair<List<Area>?, String?>>
-    suspend fun getRegion(): Flow<Pair<List<Area>?, String?>>
-    suspend fun getIndustries(): Flow<Pair<List<Industry>?, String?>>
-    suspend fun getVacancyDetails(vacancyId: String): Flow<Pair<VacancyDetails?, String?>>
+    fun searchVacancies(expression: String): Flow<Pair<List<Vacancy>?, String?>>
+    fun getCountries(): Flow<Pair<List<Area>?, String?>>
+    fun getRegion(): Flow<Pair<List<Area>?, String?>>
+    fun getIndustries(): Flow<Pair<List<Industry>?, String?>>
+    fun getVacancyDetails(vacancyId: String): Flow<Pair<VacancyDetails?, String?>>
 }

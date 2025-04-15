@@ -5,20 +5,21 @@ import ru.practicum.android.diploma.data.dto.VacancyDetails
 import ru.practicum.android.diploma.domain.api.IFavVacanciesInteractor
 import ru.practicum.android.diploma.domain.api.IFavVacanciesRepository
 
-class IFavVacanciesInteractorImpl(private val iFavVacanciesRepository: IFavVacanciesRepository) :
+class FavVacanciesInteractorImpl(private val favVacanciesRepository: IFavVacanciesRepository) :
     IFavVacanciesInteractor {
     private var isChecked = false
 
-    override suspend fun getFavorite(): Flow<List<VacancyDetails>> {
-        return iFavVacanciesRepository.getAll()
+
+    override fun getFavorite(): Flow<List<VacancyDetails>> {
+        return favVacanciesRepository.getAll()
     }
 
     override suspend fun addToFavorite(vacancy: VacancyDetails) {
-        iFavVacanciesRepository.add(vacancy)
+        favVacanciesRepository.add(vacancy)
     }
 
     override suspend fun deleteFromFavorite(vacancy: VacancyDetails) {
-        iFavVacanciesRepository.delete(vacancy)
+        favVacanciesRepository.delete(vacancy)
     }
 
     override suspend fun isChecked(vacancyId: String): Boolean {
