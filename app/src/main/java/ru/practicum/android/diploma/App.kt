@@ -4,6 +4,7 @@ import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext.startKoin
 import ru.practicum.android.diploma.di.dataModule
+import ru.practicum.android.diploma.di.domainModule
 
 const val APP_PREFERENCES = "practicum_diploma_preferences"
 
@@ -13,7 +14,7 @@ class App : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@App)
-            modules(dataModule)
+            modules(dataModule, domainModule)
         }
     }
 }
