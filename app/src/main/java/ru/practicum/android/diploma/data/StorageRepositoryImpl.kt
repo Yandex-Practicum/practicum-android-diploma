@@ -5,7 +5,6 @@ import com.google.gson.Gson
 import ru.practicum.android.diploma.data.dto.Vacancy
 import ru.practicum.android.diploma.domain.api.IStorageRepository
 
-
 class StorageRepositoryImpl(private val storageSharedPreferences: SharedPreferences, private val gson: Gson) :
     IStorageRepository {
 

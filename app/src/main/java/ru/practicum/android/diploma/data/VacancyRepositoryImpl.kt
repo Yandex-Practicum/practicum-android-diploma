@@ -36,7 +36,6 @@ class VacancyRepositoryImpl(private val networkClient: IRetrofitApiClient) : IVa
         }
     }
 
-
     override fun getVacancyDetails(
         req: GetVacancyDetailsRequest
     ): Flow<Resource<VacancyDetails>> = flow {

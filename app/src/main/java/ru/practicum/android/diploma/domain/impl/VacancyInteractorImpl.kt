@@ -41,7 +41,6 @@ class VacancyInteractorImpl(private val repository: IVacancyRepository) : IVacan
         }
     }
 
-
     override fun getIndustries(): Flow<Pair<List<Industry>?, String?>> = flow {
         repository.getIndustries().collect { result ->
             when (result) {
