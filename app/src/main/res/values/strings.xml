@@ -81,4 +81,7 @@
     <string name="navigation_Filters">Фильтры</string>
     <string name="navigation_Vacancy">Вакансия</string>
 
+    <!--ССЫЛКИ-->
+    <string name="api_link">https://dev.hh.ru</string>
+
 </resources>
