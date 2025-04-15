@@ -7,10 +7,10 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.data.network.token.TokenInterceptor
 import ru.practicum.android.diploma.data.network.token.AccessTokenProvider
-import ru.practicum.android.diploma.data.shared_prefs.AppPrefsService
 import ru.practicum.android.diploma.data.network.token.PrefsAccessTokenProvider
+import ru.practicum.android.diploma.data.network.token.TokenInterceptor
+import ru.practicum.android.diploma.data.storage.AppPrefsService
 
 val dataModule = module {
 
@@ -18,7 +18,7 @@ val dataModule = module {
 
     single { PrefsAccessTokenProvider(get()) } bind AccessTokenProvider::class
 
-    single { TokenInterceptor (get()) }
+    single { TokenInterceptor(get()) }
 
     single {
         OkHttpClient.Builder()

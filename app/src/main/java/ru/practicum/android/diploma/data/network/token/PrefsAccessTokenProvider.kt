@@ -1,13 +1,14 @@
 package ru.practicum.android.diploma.data.network.token
 
-import ru.practicum.android.diploma.data.shared_prefs.AppPrefsService
+import ru.practicum.android.diploma.data.storage.AppPrefsService
 
 class PrefsAccessTokenProvider(
     private val appPrefsService: AppPrefsService
 ) : AccessTokenProvider {
     override fun getAccessToken(): String {
-        return appPrefsService.getString(KEY)
-            ?: throw IllegalStateException("Access token not found")
+        return checkNotNull(appPrefsService.getString(KEY)) {
+            "Токен не найден"
+        }
     }
 
     override fun saveAccessToken(token: String) {

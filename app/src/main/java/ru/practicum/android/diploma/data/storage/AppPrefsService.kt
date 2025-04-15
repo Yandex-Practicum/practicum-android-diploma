@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data.shared_prefs
+package ru.practicum.android.diploma.data.storage
 
 import android.content.Context
 
