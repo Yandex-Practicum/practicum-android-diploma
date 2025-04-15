@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.fav_vacancies.view_models.FavVacanciesViewModel
 
@@ -15,7 +15,7 @@ class FavVacanciesFragment : Fragment() {
         fun newInstance() = FavVacanciesFragment()
     }
 
-    private val viewModel: FavVacanciesViewModel by viewModels()
+    private val viewModel: FavVacanciesViewModel by viewModel<FavVacanciesViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

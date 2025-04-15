@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.filter_settings.view_models.SelectIndustriesViewModel
 
@@ -15,7 +15,7 @@ class SelectIndustriesFragment : Fragment() {
         fun newInstance() = SelectIndustriesFragment()
     }
 
-    private val viewModel: SelectIndustriesViewModel by viewModels()
+    private val viewModel: SelectIndustriesViewModel by viewModel<SelectIndustriesViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.search_vacancies.view_models.SearchVacanciesViewModel
 
@@ -15,7 +15,7 @@ class SearchVacanciesFragment : Fragment() {
         fun newInstance() = SearchVacanciesFragment()
     }
 
-    private val viewModel: SearchVacanciesViewModel by viewModels()
+    private val viewModel: SearchVacanciesViewModel by viewModel<SearchVacanciesViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

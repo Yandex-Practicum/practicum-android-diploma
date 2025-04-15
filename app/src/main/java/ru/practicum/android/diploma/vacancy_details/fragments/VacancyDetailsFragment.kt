@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.vacancy_details.view_models.VacancyDetailsViewModel
 
@@ -15,7 +15,7 @@ class VacancyDetailsFragment : Fragment() {
         fun newInstance() = VacancyDetailsFragment()
     }
 
-    private val viewModel: VacancyDetailsViewModel by viewModels()
+    private val viewModel: VacancyDetailsViewModel by viewModel<VacancyDetailsViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
