@@ -50,9 +50,6 @@ class RetrofitNetworkClient(
         } catch (e: IOException) {
             Log.e(TAG, "Network error: ${e.message}", e)
             Response.ServerError
-        } catch (e: RuntimeException) {
-            Log.e(TAG, "Unexpected error: ${e.message}", e)
-            Response.ServerError
         }
     }
 
