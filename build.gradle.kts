@@ -17,8 +17,15 @@ allprojects {
         }
     }
 }
-val developProperties = Properties().apply {
-    load(File(rootDir, "develop.properties").inputStream())
-}
+val developPropertiesFile = rootProject.file("develop.properties")
 
+val developProperties: java.util.Properties by lazy {
+    java.util.Properties().apply {
+        if (developPropertiesFile.exists()) {
+            developPropertiesFile.inputStream().use { load(it) }
+        } else {
+            println("⚠ develop.properties not found! Using fallback values.")
+        }
+    }
+}
 extra["developProperties"] = developProperties
