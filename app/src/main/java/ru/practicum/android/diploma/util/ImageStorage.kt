@@ -28,7 +28,7 @@ class ImageStorage {
         val outputStream = FileOutputStream(file)
         BitmapFactory
             .decodeStream(inputStream)
-            .compress(Bitmap.CompressFormat.JPEG, 30, outputStream)
+            .compress(Bitmap.CompressFormat.JPEG, IMAGE_QUALITY, outputStream)
 
         return file.absolutePath
     }
@@ -41,5 +41,9 @@ class ImageStorage {
         val file = File(imagePath)
 
         return FileProvider.getUriForFile(context, "${context.packageName}.provider", file)
+    }
+
+    companion object {
+        private const val IMAGE_QUALITY = 30
     }
 }
