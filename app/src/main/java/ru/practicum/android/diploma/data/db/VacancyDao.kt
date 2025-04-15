@@ -24,7 +24,7 @@ interface VacancyDao {
     @Query("SELECT * FROM Favorite_vacancies_table WHERE vacancy_id = :id")
     suspend fun getById(id: Int): VacancyShortDbEntity?
 
-    @Delete (entity = VacancyShortDbEntity::class)
+    @Delete(entity = VacancyShortDbEntity::class)
     suspend fun delete(vacancy: VacancyShortDbEntity)
 
     @Query("DELETE FROM Favorite_vacancies_table")
