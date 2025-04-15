@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface VacancyDao {
-    @Insert(entity = VacancyShortDbEntity::class,onConflict = OnConflictStrategy.REPLACE)
+    @Insert(entity = VacancyShortDbEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertVacancy(vacancy: VacancyShortDbEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
