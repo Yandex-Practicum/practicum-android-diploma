@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface VacancyDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(entity = VacancyShortDbEntity::class,onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertVacancy(vacancy: VacancyShortDbEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -24,7 +24,7 @@ interface VacancyDao {
     @Query("SELECT * FROM Favorite_vacancies_table WHERE vacancy_id = :id")
     suspend fun getById(id: Int): VacancyShortDbEntity?
 
-    @Delete
+    @Delete (entity = VacancyShortDbEntity::class)
     suspend fun delete(vacancy: VacancyShortDbEntity)
 
     @Query("DELETE FROM Favorite_vacancies_table")
