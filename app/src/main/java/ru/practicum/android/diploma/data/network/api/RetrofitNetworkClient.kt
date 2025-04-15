@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.data.network.api
 
+import android.util.Log
 import retrofit2.HttpException
 import ru.practicum.android.diploma.data.dto.main.VacancyLongDtoEntity
 import ru.practicum.android.diploma.data.dto.response.VacancySearchResponseDto
@@ -36,19 +37,27 @@ class RetrofitNetworkClient(
             when (e.code()) {
                 HTTP_BAD_REQUEST -> Response.BadRequest
                 HTTP_NOT_FOUND -> Response.NotFound
-                in HTTP_INTERNAL_ERROR..HTTP_INTERNAL_ERROR_MAX -> Response.ServerError
-                else -> Response.ServerError
+                in HTTP_INTERNAL_ERROR..HTTP_INTERNAL_ERROR_MAX -> {
+                    Log.e(TAG, "Server error: ${e.message}", e)
+                    Response.ServerError
+                }
+
+                else -> {
+                    Log.e(TAG, "Unexpected HTTP error: ${e.message}", e)
+                    Response.ServerError
+                }
             }
         } catch (e: IOException) {
-            e.printStackTrace()
+            Log.e(TAG, "Network error: ${e.message}", e)
             Response.ServerError
-        } catch (e: Exception) {
-            e.printStackTrace()
+        } catch (e: RuntimeException) {
+            Log.e(TAG, "Unexpected error: ${e.message}", e)
             Response.ServerError
         }
     }
 
     private companion object {
+        const val TAG = "RetrofitNetworkClient"
         const val HTTP_BAD_REQUEST = 400
         const val HTTP_NOT_FOUND = 404
         const val HTTP_INTERNAL_ERROR = 500
