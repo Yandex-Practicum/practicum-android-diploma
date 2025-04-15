@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.data.repositories
 
+import android.database.sqlite.SQLiteException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import ru.practicum.android.diploma.data.db.VacancyDao
@@ -13,10 +14,10 @@ class RepositoryFavoriteVacanciesImpl(
 
     override suspend fun insertVacancy(vacancy: VacancyShortDmEntity): Result<Unit> {
         return try {
-            val dataEntity = (domainToData(vacancy))
+            val dataEntity = domainToData(vacancy)
             vacancyDao.insertVacancy(dataEntity)
             Result.success(Unit)
-        } catch (e: Exception) {
+        } catch (e: SQLiteException) {
             Result.failure(e)
         }
     }
@@ -35,7 +36,7 @@ class RepositoryFavoriteVacanciesImpl(
             } else {
                 Result.failure(Exception("Вакансия не найдена"))
             }
-        } catch (e: Exception) {
+        } catch (e: SQLiteException) {
             Result.failure(e)
         }
     }
@@ -44,7 +45,7 @@ class RepositoryFavoriteVacanciesImpl(
         return try {
             vacancyDao.deleteById(vacancyId)
             Result.success(Unit)
-        } catch (e: Exception) {
+        } catch (e: SQLiteException) {
             Result.failure(e)
         }
     }
@@ -58,7 +59,7 @@ class RepositoryFavoriteVacanciesImpl(
         return try {
             vacancyDao.clear()
             Result.success(Unit)
-        } catch (e: Exception) {
+        } catch (e: SQLiteException) {
             Result.failure(e)
         }
     }

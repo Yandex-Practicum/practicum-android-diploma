@@ -46,5 +46,4 @@ val dataModule = module {
     single<RepositoryFavoriteVacancies> {
         RepositoryFavoriteVacanciesImpl(get())
     }
-    //refresh
 }
