@@ -4,6 +4,7 @@ plugins {
     id("kotlin-parcelize")
     id("com.google.devtools.ksp")
     id("ru.practicum.android.diploma.plugins.developproperties")
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -58,6 +59,9 @@ dependencies {
     implementation(libs.ui.constraintLayout)
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.navigation.ui.ktx)
+
+    // Serialization
+    implementation(libs.kotlinx.serialization.json)
 
     // Glide
     implementation(libs.glide)

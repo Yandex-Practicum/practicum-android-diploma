@@ -17,5 +17,4 @@ class App : Application() {
             modules(appModule, dataModule, domainModule)
         }
     }
-
 }
