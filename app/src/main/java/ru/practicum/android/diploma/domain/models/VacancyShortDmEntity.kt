@@ -1,12 +1,10 @@
 package ru.practicum.android.diploma.domain.models
 
 data class VacancyShortDmEntity(
-    val vacancyId: String, // id вакансии
+    val vacancyId: Int, // id вакансии
     val logoUrl: String?, // иконка компании
     val name: String, // название вакансии
     val areaName: String, // город
     val employerName: String, // название компании (employer.name)
-    val salaryFrom: Int?, // строка вида "от 100000 RUR" или "з/п не указана"
-    val salaryTo: Int?, // строка вида "от 100000 RUR" или "з/п не указана"
-    val currency: String, // Валюта
+    val salary: String = "Зарплата не указана"
 )

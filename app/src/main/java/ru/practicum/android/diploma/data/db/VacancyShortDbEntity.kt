@@ -1,10 +1,27 @@
 package ru.practicum.android.diploma.data.db
 
-class VacancyShortDbEntity(
-    val vacancyId: String, // id вакансии
-    val logoUrl: String?, // иконка компании (можно взять logo_urls["90"])
-    val name: String, // название вакансии
-    val areaName: String, // город
-    val employerName: String, // название компании (employer.name)
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "Favorite_vacancies_table")
+data class VacancyShortDbEntity(
+    @PrimaryKey
+    @ColumnInfo(name = "vacancy_id")
+    val vacancyId: Int,
+
+    @ColumnInfo(name = "company_logo", defaultValue = "empty")
+    val logoUrl: String?,
+
+    @ColumnInfo(name = "vacancy_name", defaultValue = "unknown")
+    val name: String,
+
+    @ColumnInfo(name = "area_name", defaultValue = "unknown")
+    val areaName: String,
+
+    @ColumnInfo(name = "company_name", defaultValue = "unknown")
+    val employerName: String,
+
+    @ColumnInfo(name = "salary", defaultValue = "Зарплата не указана")
     val salary: String?
 )

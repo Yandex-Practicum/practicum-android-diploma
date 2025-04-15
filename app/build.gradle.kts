@@ -40,9 +40,16 @@ android {
         buildConfig = true
         viewBinding = true
     }
+
+    ksp {
+        arg("room.schemaLocation", "$projectDir/schemas")
+    }
 }
 
 dependencies {
+
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.0")
+
     implementation(libs.androidX.core)
     implementation(libs.androidX.appCompat)
 
@@ -54,6 +61,7 @@ dependencies {
 
     // Glide
     implementation(libs.glide)
+    implementation(libs.room.common.jvm)
     annotationProcessor(libs.glide.compiler)
 
     // DI
