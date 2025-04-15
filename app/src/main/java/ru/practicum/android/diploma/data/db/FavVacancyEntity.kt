@@ -16,6 +16,7 @@ data class FavVacancyEntity(
     val employerId: String,
     val employerName: String,
     val employerLogoUrl: String,
+    val keySkills: String,
     val salaryFrom: Int,
     val salaryGross: Boolean,
     val salaryTo: String,
