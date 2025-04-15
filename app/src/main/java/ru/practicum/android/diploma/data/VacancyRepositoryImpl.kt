@@ -36,7 +36,6 @@ class VacancyRepositoryImpl(private val networkClient: IRetrofitApiClient) : IVa
         }
     }
 
-    override fun getRegion(): Flow<Resource<List<Area>>> = getCountries()
 
     override fun getVacancyDetails(
         req: GetVacancyDetailsRequest

@@ -1,11 +1,13 @@
 package ru.practicum.android.diploma.data
 
 import android.content.SharedPreferences
+import com.google.gson.Gson
 import ru.practicum.android.diploma.data.dto.Vacancy
 import ru.practicum.android.diploma.domain.api.IStorageRepository
-import com.google.gson.Gson
 
-class StorageRepositoryImpl(private val storageSharedPreferences: SharedPreferences, private val gson: Gson) : IStorageRepository {
+
+class StorageRepositoryImpl(private val storageSharedPreferences: SharedPreferences, private val gson: Gson) :
+    IStorageRepository {
 
     override fun read(): List<Vacancy> {
         val json = storageSharedPreferences.getString(STORAGE_PREFERENCES_KEY, null)

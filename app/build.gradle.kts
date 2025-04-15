@@ -77,7 +77,4 @@ dependencies {
     androidTestImplementation(libs.uiTests.junitExt)
     androidTestImplementation(libs.uiTests.espressoCore)
     // endregion
-
-    implementation("com.google.code.gson:gson:2.11.0")
-    implementation(kotlin("script-runtime"))
 }

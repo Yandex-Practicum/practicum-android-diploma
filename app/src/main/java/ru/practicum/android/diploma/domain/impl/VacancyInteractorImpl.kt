@@ -19,6 +19,7 @@ class VacancyInteractorImpl(private val repository: IVacancyRepository) : IVacan
                 is Resource.Error -> {
                     emit(Pair(null, result.message))
                 }
+
                 is Resource.Success -> {
                     emit(Pair(result.data?.items?.toList(), null))
                 }
@@ -32,6 +33,7 @@ class VacancyInteractorImpl(private val repository: IVacancyRepository) : IVacan
                 is Resource.Error -> {
                     emit(Pair(null, result.message))
                 }
+
                 is Resource.Success -> {
                     Pair(result.data, null)
                 }
@@ -39,18 +41,6 @@ class VacancyInteractorImpl(private val repository: IVacancyRepository) : IVacan
         }
     }
 
-    override fun getRegion(): Flow<Pair<List<Area>?, String?>> = flow {
-        repository.getRegion().collect { result ->
-            when (result) {
-                is Resource.Error -> {
-                    emit(Pair(null, result.message))
-                }
-                is Resource.Success -> {
-                    emit(Pair(result.data, null))
-                }
-            }
-        }
-    }
 
     override fun getIndustries(): Flow<Pair<List<Industry>?, String?>> = flow {
         repository.getIndustries().collect { result ->
@@ -58,6 +48,7 @@ class VacancyInteractorImpl(private val repository: IVacancyRepository) : IVacan
                 is Resource.Error -> {
                     emit(Pair(null, result.message))
                 }
+
                 is Resource.Success -> {
                     emit(Pair(result.data, null))
                 }
@@ -71,6 +62,7 @@ class VacancyInteractorImpl(private val repository: IVacancyRepository) : IVacan
                 is Resource.Error -> {
                     emit(Pair(null, result.message))
                 }
+
                 is Resource.Success -> {
                     if (result.data == null) {
                         emit(Pair(null, result.message))

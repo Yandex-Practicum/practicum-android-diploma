@@ -9,7 +9,6 @@ class FavVacanciesInteractorImpl(private val favVacanciesRepository: IFavVacanci
     IFavVacanciesInteractor {
     private var isChecked = false
 
-
     override fun getFavorite(): Flow<List<VacancyDetails>> {
         return favVacanciesRepository.getAll()
     }
