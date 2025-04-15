@@ -11,10 +11,16 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.APP_PREFERENCES
 import ru.practicum.android.diploma.data.IRetrofitApiClient
+import ru.practicum.android.diploma.data.VacancyRepositoryImpl
 import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.data.db.DB_NAME
 import ru.practicum.android.diploma.data.network.IApiService
 import ru.practicum.android.diploma.data.network.RetrofitApiClient
+import ru.practicum.android.diploma.domain.api.IFavVacanciesRepository
+import ru.practicum.android.diploma.domain.api.ISharingProvider
+import ru.practicum.android.diploma.domain.api.IVacancyRepository
+import ru.practicum.android.diploma.domain.impl.FavVacanciesRepositoryImpl
+import ru.practicum.android.diploma.domain.impl.SharingProviderImpl
 
 val dataModule = module {
 
@@ -42,4 +48,17 @@ val dataModule = module {
             .fallbackToDestructiveMigration()
             .build()
     }
+
+    factory<IFavVacanciesRepository> { params ->
+        FavVacanciesRepositoryImpl(get(), params.get())
+    }
+
+    factory<IVacancyRepository> {
+        VacancyRepositoryImpl(get())
+    }
+
+    factory<ISharingProvider> { params ->
+        SharingProviderImpl(params.get())
+    }
+
 }
