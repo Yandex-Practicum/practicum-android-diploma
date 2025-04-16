@@ -11,7 +11,7 @@ import ru.practicum.android.diploma.data.dto.additional.ProfessionalRoleDto
 import ru.practicum.android.diploma.data.dto.additional.ScheduleDto
 
 @Serializable
-data class VacancyLongDtoEntity(
+data class VacancyLongDto(
     @SerialName("id") val vacancyId: String,
     val name: String,
     val description: String,

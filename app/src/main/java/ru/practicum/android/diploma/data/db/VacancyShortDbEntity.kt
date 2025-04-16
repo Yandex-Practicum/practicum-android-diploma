@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 data class VacancyShortDbEntity(
     @PrimaryKey
     @ColumnInfo(name = "vacancy_id")
-    val vacancyId: Int,
+    val vacancyId: String,
 
     @ColumnInfo(name = "company_logo", defaultValue = "empty")
     val logoUrl: String?,
@@ -23,5 +23,8 @@ data class VacancyShortDbEntity(
     val employerName: String,
 
     @ColumnInfo(name = "salary", defaultValue = "Зарплата не указана")
-    val salary: String?
+    val salary: String?,
+
+    @ColumnInfo(name = "postedAt", defaultValue = "unknown")
+    val postedAt: String
 )

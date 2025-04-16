@@ -1,10 +1,10 @@
 package ru.practicum.android.diploma.data.dto.main
 
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class AreaDto(
-    @SerialName("id") val id: String,
-    @SerialName("name") val name: String
+    val id: String,
+    val name: String,
+    val url: String
 )

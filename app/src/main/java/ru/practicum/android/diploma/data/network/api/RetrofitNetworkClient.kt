@@ -2,7 +2,7 @@ package ru.practicum.android.diploma.data.network.api
 
 import android.util.Log
 import retrofit2.HttpException
-import ru.practicum.android.diploma.data.dto.main.VacancyLongDtoEntity
+import ru.practicum.android.diploma.data.dto.main.VacancyLongDto
 import ru.practicum.android.diploma.data.dto.response.VacancySearchResponseDto
 import ru.practicum.android.diploma.data.network.NetworkChecker
 import ru.practicum.android.diploma.data.network.Response
@@ -18,7 +18,7 @@ class RetrofitNetworkClient(
         }
     }
 
-    override suspend fun getVacancyDetails(id: String): Response<VacancyLongDtoEntity> {
+    override suspend fun getVacancyDetails(id: String): Response<VacancyLongDto> {
         return safeCall {
             api.getVacancyDetails(id)
         }
