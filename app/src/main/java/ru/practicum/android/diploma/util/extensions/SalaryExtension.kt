@@ -8,42 +8,33 @@ import ru.practicum.android.diploma.util.Currency
 import java.util.Locale
 
 fun Salary?.toFormattedString(context: Context): String {
-    if (this == null || (this.from == null && this.to == null)) {
+    if (this == null || from == null && to == null) {
         return context.getString(R.string.salary_not_specified)
     }
 
-    val currencySymbol = Currency.getCurrencySymbol(this.currency ?: "")
-    val formattedFrom = this.from?.let { formatNumber(it) }
-    val formattedTo = this.to?.let { formatNumber(it) }
+    val currencySymbol = Currency.getCurrencySymbol(currency.orEmpty())
+    val grossLabel = gross.toGrossLabel(context)
+    val salaryPart = formatSalaryRange(context, from, to, currencySymbol)
 
-    val grossLabel = when (gross) {
-        true -> " ${context.getString(R.string.salary_gross)}"
-        false -> " ${context.getString(R.string.salary_net)}"
-        null -> ""
-    }
+    return salaryPart + grossLabel
+}
+
+private fun formatSalaryRange(context: Context, from: Int?, to: Int?, symbol: String): String {
+    val formattedFrom = from?.let { formatNumber(it) }
+    val formattedTo = to?.let { formatNumber(it) }
 
     return when {
-        this.from != null && this.to == null -> context.getString(
-            R.string.salary_from,
-            formattedFrom,
-            currencySymbol
-        ) + grossLabel
-
-        this.from == null && this.to != null -> context.getString(
-            R.string.salary_to,
-            formattedTo,
-            currencySymbol
-        ) + grossLabel
-
-        this.from != null && this.to != null -> context.getString(
-            R.string.salary_from_to,
-            formattedFrom,
-            formattedTo,
-            currencySymbol
-        ) + grossLabel
-
+        from != null && to == null -> context.getString(R.string.salary_from, formattedFrom, symbol)
+        from == null && to != null -> context.getString(R.string.salary_to, formattedTo, symbol)
+        from != null && to != null -> context.getString(R.string.salary_from_to, formattedFrom, formattedTo, symbol)
         else -> context.getString(R.string.salary_not_specified)
     }
+}
+
+private fun Boolean?.toGrossLabel(context: Context): String = when (this) {
+    true -> " ${context.getString(R.string.salary_gross)}"
+    false -> " ${context.getString(R.string.salary_net)}"
+    null -> ""
 }
 
 private fun formatNumber(value: Int): String {
