@@ -3,9 +3,9 @@ package ru.practicum.android.diploma.data
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.data.db.AppDatabase
-import ru.practicum.android.diploma.data.dto.VacancyDetails
 import ru.practicum.android.diploma.data.mapper.VacancyEntityMapper
 import ru.practicum.android.diploma.domain.api.IFavVacanciesRepository
+import ru.practicum.android.diploma.domain.models.VacancyDetails
 
 class FavVacanciesRepositoryImpl(val dataBase: AppDatabase, val mapper: VacancyEntityMapper) : IFavVacanciesRepository {
     override suspend fun add(vacancy: VacancyDetails) {

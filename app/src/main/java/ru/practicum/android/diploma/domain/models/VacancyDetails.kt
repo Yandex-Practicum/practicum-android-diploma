@@ -1,21 +1,13 @@
-package ru.practicum.android.diploma.data.dto
-
-import com.google.gson.annotations.SerializedName
+package ru.practicum.android.diploma.domain.models
 
 data class VacancyDetails(
     val id: String,
     val name: String,
-
     val area: Area? = Area(),
-
     val description: String? = null,
-
     val employer: Employer? = null,
-
-    @SerializedName("key_skills") val keySkills: ArrayList<KeySkill> = arrayListOf(),
-
+    val keySkills: List<KeySkill> = arrayListOf(),
     val salary: Salary? = null,
     val salaryRange: Salary? = null,
-
-    val experience: Experience? = null,
+    val experience: Experience? = null
 )

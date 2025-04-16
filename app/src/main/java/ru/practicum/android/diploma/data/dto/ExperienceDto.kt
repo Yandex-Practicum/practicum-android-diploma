@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.data.dto
 
-data class SubIndustry(
+data class ExperienceDto(
     val id: String,
     val name: String
 )

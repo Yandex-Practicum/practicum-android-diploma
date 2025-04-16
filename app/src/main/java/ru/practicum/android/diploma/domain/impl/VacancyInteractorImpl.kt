@@ -1,37 +1,35 @@
 package ru.practicum.android.diploma.domain.impl
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import ru.practicum.android.diploma.data.dto.Area
-import ru.practicum.android.diploma.data.dto.Industry
-import ru.practicum.android.diploma.data.dto.Vacancy
-import ru.practicum.android.diploma.data.dto.VacancyDetails
-import ru.practicum.android.diploma.data.network.dto.GetVacancyDetailsRequest
-import ru.practicum.android.diploma.data.network.dto.SearchVacanciesRequest
+import kotlinx.coroutines.flow.map
 import ru.practicum.android.diploma.domain.api.IVacancyInteractor
 import ru.practicum.android.diploma.domain.api.IVacancyRepository
 import ru.practicum.android.diploma.domain.api.Resource
+import ru.practicum.android.diploma.domain.models.Area
+import ru.practicum.android.diploma.domain.models.Industry
+import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.domain.models.VacancyDetails
 
 class VacancyInteractorImpl(private val repository: IVacancyRepository) : IVacancyInteractor {
-    override fun searchVacancies(expression: String): Flow<Pair<List<Vacancy>?, String?>> = flow {
-        repository.searchVacancies(SearchVacanciesRequest(text = expression, page = 0)).collect { result ->
+    override fun searchVacancies(expression: String): Flow<Pair<List<Vacancy>?, String?>> {
+        return repository.searchVacancies(expression).map { result ->
             when (result) {
                 is Resource.Error -> {
-                    emit(Pair(null, result.message))
+                    Pair(null, result.message)
                 }
 
                 is Resource.Success -> {
-                    emit(Pair(result.data?.items?.toList(), null))
+                    Pair(result.data?.items?.toList(), null)
                 }
             }
         }
     }
 
-    override fun getCountries(): Flow<Pair<List<Area>?, String?>> = flow {
-        repository.getCountries().collect() { result ->
+    override fun getCountries(): Flow<Pair<List<Area>?, String?>> {
+        return repository.getCountries().map { result ->
             when (result) {
                 is Resource.Error -> {
-                    emit(Pair(null, result.message))
+                    Pair(null, result.message)
                 }
 
                 is Resource.Success -> {
@@ -41,32 +39,32 @@ class VacancyInteractorImpl(private val repository: IVacancyRepository) : IVacan
         }
     }
 
-    override fun getIndustries(): Flow<Pair<List<Industry>?, String?>> = flow {
-        repository.getIndustries().collect { result ->
+    override fun getIndustries(): Flow<Pair<List<Industry>?, String?>> {
+        return repository.getIndustries().map { result ->
             when (result) {
                 is Resource.Error -> {
-                    emit(Pair(null, result.message))
+                    Pair(null, result.message)
                 }
 
                 is Resource.Success -> {
-                    emit(Pair(result.data, null))
+                    Pair(result.data, null)
                 }
             }
         }
     }
 
-    override fun getVacancyDetails(vacancyId: String): Flow<Pair<VacancyDetails?, String?>> = flow {
-        repository.getVacancyDetails(GetVacancyDetailsRequest(vacancyId)).collect { result ->
+    override fun getVacancyDetails(vacancyId: String): Flow<Pair<VacancyDetails?, String?>> {
+        return repository.getVacancyDetails(vacancyId).map { result ->
             when (result) {
                 is Resource.Error -> {
-                    emit(Pair(null, result.message))
+                    Pair(null, result.message)
                 }
 
                 is Resource.Success -> {
                     if (result.data == null) {
-                        emit(Pair(null, result.message))
+                        Pair(null, result.message)
                     } else {
-                        emit(Pair(result.data, null))
+                        Pair(result.data, null)
                     }
                 }
             }

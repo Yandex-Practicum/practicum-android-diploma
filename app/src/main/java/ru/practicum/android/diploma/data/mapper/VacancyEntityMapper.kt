@@ -1,14 +1,14 @@
 package ru.practicum.android.diploma.data.mapper
 
 import ru.practicum.android.diploma.data.db.FavVacancyEntity
-import ru.practicum.android.diploma.data.dto.Area
-import ru.practicum.android.diploma.data.dto.Employer
-import ru.practicum.android.diploma.data.dto.Experience
-import ru.practicum.android.diploma.data.dto.KeySkill
-import ru.practicum.android.diploma.data.dto.LogoUrls
-import ru.practicum.android.diploma.data.dto.Salary
-import ru.practicum.android.diploma.data.dto.Vacancy
-import ru.practicum.android.diploma.data.dto.VacancyDetails
+import ru.practicum.android.diploma.domain.models.Area
+import ru.practicum.android.diploma.domain.models.Employer
+import ru.practicum.android.diploma.domain.models.Experience
+import ru.practicum.android.diploma.domain.models.KeySkill
+import ru.practicum.android.diploma.domain.models.LogoUrls
+import ru.practicum.android.diploma.domain.models.Salary
+import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.domain.models.VacancyDetails
 
 class VacancyEntityMapper {
     private fun convertToVacancy(entity: FavVacancyEntity): Vacancy {

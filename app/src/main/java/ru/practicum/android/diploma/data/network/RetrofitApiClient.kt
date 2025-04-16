@@ -2,8 +2,8 @@ package ru.practicum.android.diploma.data.network
 
 import retrofit2.Response
 import ru.practicum.android.diploma.data.IRetrofitApiClient
-import ru.practicum.android.diploma.data.dto.Area
-import ru.practicum.android.diploma.data.dto.Industry
+import ru.practicum.android.diploma.data.dto.AreaDto
+import ru.practicum.android.diploma.data.dto.IndustryDto
 import ru.practicum.android.diploma.data.network.dto.GetAreasRequest
 import ru.practicum.android.diploma.data.network.dto.GetIndustriesRequest
 import ru.practicum.android.diploma.data.network.dto.GetVacancyDetailsRequest
@@ -29,13 +29,13 @@ class RetrofitApiClient(
         }
     }
 
-    override suspend fun getAreas(req: GetAreasRequest): Response<ArrayList<Area>> {
+    override suspend fun getAreas(req: GetAreasRequest): Response<ArrayList<AreaDto>> {
         return handleRequest {
             api.getAreas(locale = req.locale)
         }
     }
 
-    override suspend fun getIndustries(req: GetIndustriesRequest): Response<ArrayList<Industry>> {
+    override suspend fun getIndustries(req: GetIndustriesRequest): Response<ArrayList<IndustryDto>> {
         return handleRequest {
             api.getIndustries(locale = req.locale)
         }

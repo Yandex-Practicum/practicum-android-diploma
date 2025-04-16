@@ -1,9 +1,9 @@
 package ru.practicum.android.diploma.domain.impl
 
 import kotlinx.coroutines.flow.Flow
-import ru.practicum.android.diploma.data.dto.VacancyDetails
 import ru.practicum.android.diploma.domain.api.IFavVacanciesInteractor
 import ru.practicum.android.diploma.domain.api.IFavVacanciesRepository
+import ru.practicum.android.diploma.domain.models.VacancyDetails
 
 class FavVacanciesInteractorImpl(private val favVacanciesRepository: IFavVacanciesRepository) :
     IFavVacanciesInteractor {

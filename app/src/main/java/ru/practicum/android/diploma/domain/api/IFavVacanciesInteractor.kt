@@ -1,7 +1,7 @@
 package ru.practicum.android.diploma.domain.api
 
 import kotlinx.coroutines.flow.Flow
-import ru.practicum.android.diploma.data.dto.VacancyDetails
+import ru.practicum.android.diploma.domain.models.VacancyDetails
 
 interface IFavVacanciesInteractor {
     fun getFavorite(): Flow<List<VacancyDetails>>
