@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.filter_settings.fragments
+package ru.practicum.android.diploma.ui.filter_settings.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,15 +7,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.filter_settings.view_models.FilterParametersViewModel
+import ru.practicum.android.diploma.ui.filter_settings.view_models.SelectLocationViewModel
 
-class FilterParametersFragment : Fragment() {
+class SelectLocationFragment : Fragment() {
 
     companion object {
-        fun newInstance() = FilterParametersFragment()
+        fun newInstance() = SelectLocationFragment()
     }
 
-    private val viewModel: FilterParametersViewModel by viewModel<FilterParametersViewModel>()
+    private val viewModel: SelectLocationViewModel by viewModel<SelectLocationViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +28,6 @@ class FilterParametersFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_filter_parameters, container, false)
+        return inflater.inflate(R.layout.fragment_select_location, container, false)
     }
 }

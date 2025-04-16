@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.search_vacancies.fragments
+package ru.practicum.android.diploma.ui.search_vacancies.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.search_vacancies.view_models.SearchVacanciesViewModel
+import ru.practicum.android.diploma.ui.search_vacancies.view_models.SearchVacanciesViewModel
 
 class SearchVacanciesFragment : Fragment() {
 

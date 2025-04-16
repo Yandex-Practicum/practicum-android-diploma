@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.vacancy_details.fragments
+package ru.practicum.android.diploma.ui.filter_settings.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,15 +7,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.vacancy_details.view_models.VacancyDetailsViewModel
+import ru.practicum.android.diploma.ui.filter_settings.view_models.SelectAreaViewModel
 
-class VacancyDetailsFragment : Fragment() {
+class SelectAreaFragment : Fragment() {
 
     companion object {
-        fun newInstance() = VacancyDetailsFragment()
+        fun newInstance() = SelectAreaFragment()
     }
 
-    private val viewModel: VacancyDetailsViewModel by viewModel<VacancyDetailsViewModel>()
+    private val viewModel: SelectAreaViewModel by viewModel<SelectAreaViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +28,6 @@ class VacancyDetailsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_vacancy_details, container, false)
+        return inflater.inflate(R.layout.fragment_select_area, container, false)
     }
 }

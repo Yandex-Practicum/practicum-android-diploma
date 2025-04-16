@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.fav_vacancies.fragments
+package ru.practicum.android.diploma.ui.fav_vacancies.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.fav_vacancies.view_models.FavVacanciesViewModel
+import ru.practicum.android.diploma.ui.fav_vacancies.view_models.FavVacanciesViewModel
 
 class FavVacanciesFragment : Fragment() {
 
