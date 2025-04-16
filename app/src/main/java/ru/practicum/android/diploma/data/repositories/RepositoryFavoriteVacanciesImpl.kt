@@ -5,14 +5,15 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import ru.practicum.android.diploma.data.db.VacancyDao
 import ru.practicum.android.diploma.data.db.VacancyShortDbEntity
-import ru.practicum.android.diploma.domain.models.VacancyShortDmEntity
+import ru.practicum.android.diploma.domain.models.main.LogoUrls
+import ru.practicum.android.diploma.domain.models.main.VacancyShort
 import ru.practicum.android.diploma.domain.repositories.RepositoryFavoriteVacancies
 
 class RepositoryFavoriteVacanciesImpl(
     private val vacancyDao: VacancyDao,
 ) : RepositoryFavoriteVacancies {
 
-    override suspend fun insertVacancy(vacancy: VacancyShortDmEntity): Result<Unit> {
+    override suspend fun insertVacancy(vacancy: VacancyShort): Result<Unit> {
         return try {
             val dataEntity = domainToData(vacancy)
             vacancyDao.insertVacancy(dataEntity)
@@ -22,13 +23,13 @@ class RepositoryFavoriteVacanciesImpl(
         }
     }
 
-    override suspend fun getAllVacancies(): List<VacancyShortDmEntity> {
+    override suspend fun getAllVacancies(): List<VacancyShort> {
         val vacanciesDataList = vacancyDao.getAll()
         val vacanciesDomainList = vacanciesDataList.map { dataToDomain(it) }
         return vacanciesDomainList
     }
 
-    override suspend fun getById(vacancyId: Int): Result<VacancyShortDmEntity> {
+    override suspend fun getById(vacancyId: Int): Result<VacancyShort> {
         return try {
             val vacancyData = vacancyDao.getById(vacancyId)
             if (vacancyData != null) {
@@ -50,7 +51,7 @@ class RepositoryFavoriteVacanciesImpl(
         }
     }
 
-    override fun getVacanciesFlow(): Flow<List<VacancyShortDmEntity>> {
+    override fun getVacanciesFlow(): Flow<List<VacancyShort>> {
         return vacancyDao.getAllFlow()
             .map { list -> list.map { dataToDomain(it) } }
     }
@@ -64,25 +65,27 @@ class RepositoryFavoriteVacanciesImpl(
         }
     }
 
-    private fun domainToData(vacancy: VacancyShortDmEntity): VacancyShortDbEntity {
+    private fun domainToData(vacancy: VacancyShort): VacancyShortDbEntity {
         return VacancyShortDbEntity(
             vacancyId = vacancy.vacancyId,
-            logoUrl = vacancy.logoUrl,
+            logoUrl = vacancy.logoUrl?.original,
             name = vacancy.name,
-            areaName = vacancy.areaName,
-            employerName = vacancy.employerName,
-            salary = vacancy.salary
+            areaName = vacancy.area,
+            employerName = vacancy.employer,
+            salary = vacancy.salary,
+            postedAt = vacancy.postedAt
         )
     }
 
-    private fun dataToDomain(vacancy: VacancyShortDbEntity): VacancyShortDmEntity {
-        return VacancyShortDmEntity(
+    private fun dataToDomain(vacancy: VacancyShortDbEntity): VacancyShort {
+        return VacancyShort(
             vacancyId = vacancy.vacancyId,
-            logoUrl = vacancy.logoUrl,
+            logoUrl = LogoUrls(original = vacancy.logoUrl),
             name = vacancy.name,
-            areaName = vacancy.areaName,
-            employerName = vacancy.employerName,
-            salary = vacancy.salary ?: "Зарплата не указана"
+            area = vacancy.areaName,
+            employer = vacancy.employerName,
+            salary = vacancy.salary ?: "Зарплата не указана",
+            postedAt = vacancy.postedAt,
         )
     }
 }

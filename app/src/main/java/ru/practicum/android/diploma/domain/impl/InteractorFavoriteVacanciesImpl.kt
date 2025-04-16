@@ -2,21 +2,21 @@ package ru.practicum.android.diploma.domain.impl
 
 import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.domain.api.InteractorFavoriteVacancies
-import ru.practicum.android.diploma.domain.models.VacancyShortDmEntity
+import ru.practicum.android.diploma.domain.models.main.VacancyShort
 import ru.practicum.android.diploma.domain.repositories.RepositoryFavoriteVacancies
 
 class InteractorFavoriteVacanciesImpl(
     private val repositoryVacancies: RepositoryFavoriteVacancies
 ) : InteractorFavoriteVacancies {
-    override suspend fun insertVacancy(vacancy: VacancyShortDmEntity): Result<Unit> {
+    override suspend fun insertVacancy(vacancy: VacancyShort): Result<Unit> {
         return repositoryVacancies.insertVacancy(vacancy)
     }
 
-    override suspend fun getAllVacancies(): List<VacancyShortDmEntity>? {
+    override suspend fun getAllVacancies(): List<VacancyShort>? {
         return repositoryVacancies.getAllVacancies()
     }
 
-    override suspend fun getById(vacancyId: Int): Result<VacancyShortDmEntity> {
+    override suspend fun getById(vacancyId: Int): Result<VacancyShort> {
         return repositoryVacancies.getById(vacancyId)
     }
 
@@ -24,7 +24,7 @@ class InteractorFavoriteVacanciesImpl(
         return repositoryVacancies.deleteById(vacancyId)
     }
 
-    override fun getVacanciesFlow(): Flow<List<VacancyShortDmEntity>> {
+    override fun getVacanciesFlow(): Flow<List<VacancyShort>> {
         return repositoryVacancies.getVacanciesFlow()
     }
 

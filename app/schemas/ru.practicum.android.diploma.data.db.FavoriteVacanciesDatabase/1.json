@@ -1,0 +1,76 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "90755f309a8edff379dc6af96c073140",
+    "entities": [
+      {
+        "tableName": "Favorite_vacancies_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`vacancy_id` TEXT NOT NULL, `company_logo` TEXT DEFAULT 'empty', `vacancy_name` TEXT NOT NULL DEFAULT 'unknown', `area_name` TEXT NOT NULL DEFAULT 'unknown', `company_name` TEXT NOT NULL DEFAULT 'unknown', `salary` TEXT DEFAULT 'Зарплата не указана', `postedAt` TEXT NOT NULL DEFAULT 'unknown', PRIMARY KEY(`vacancy_id`))",
+        "fields": [
+          {
+            "fieldPath": "vacancyId",
+            "columnName": "vacancy_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "logoUrl",
+            "columnName": "company_logo",
+            "affinity": "TEXT",
+            "notNull": false,
+            "defaultValue": "'empty'"
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "vacancy_name",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'unknown'"
+          },
+          {
+            "fieldPath": "areaName",
+            "columnName": "area_name",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'unknown'"
+          },
+          {
+            "fieldPath": "employerName",
+            "columnName": "company_name",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'unknown'"
+          },
+          {
+            "fieldPath": "salary",
+            "columnName": "salary",
+            "affinity": "TEXT",
+            "notNull": false,
+            "defaultValue": "'Зарплата не указана'"
+          },
+          {
+            "fieldPath": "postedAt",
+            "columnName": "postedAt",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'unknown'"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "vacancy_id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '90755f309a8edff379dc6af96c073140')"
+    ]
+  }
+}
