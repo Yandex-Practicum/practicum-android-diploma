@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="?attr/backgroundPrimaryColor"
-    tools:context=".creators.fragments.CreatorsFragment">
+    tools:context=".ui.creators_fragments.CreatorsFragment">
 
     <com.google.android.material.appbar.MaterialToolbar
         style="@style/ToolbarWithoutIconStyle"
@@ -15,10 +15,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/padding16"
         android:orientation="vertical"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="8dp">
+        android:paddingHorizontal="@dimen/padding16"
+        android:paddingVertical="@dimen/padding8">
 
         <TextView
             android:layout_width="match_parent"
@@ -29,27 +29,27 @@
 
         <TextView
             style="@style/DevelopersTextStyle"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/padding24"
             android:text="@string/creators_developer1" />
 
         <TextView
             style="@style/DevelopersTextStyle"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/padding16"
             android:text="@string/creators_developer2" />
 
         <TextView
             style="@style/DevelopersTextStyle"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/padding16"
             android:text="@string/creators_developer3" />
 
         <TextView
             style="@style/DevelopersTextStyle"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/padding16"
             android:text="@string/creators_developer4" />
 
         <TextView
             style="@style/DevelopersTextStyle"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/padding16"
             android:text="@string/creators_developer5" />
     </LinearLayout>
 

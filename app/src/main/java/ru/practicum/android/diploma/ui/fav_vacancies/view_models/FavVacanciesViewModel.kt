@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.fav_vacancies.view_models
+package ru.practicum.android.diploma.ui.fav_vacancies.view_models
 
 import androidx.lifecycle.ViewModel
 
