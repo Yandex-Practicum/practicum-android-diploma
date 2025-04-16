@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class LogoUrls(
-    val logo90: String? = null,
-    val logo240: String? = null,
-    val original: String? = null
+    val logo90: String? = "",
+    val logo240: String? = "",
+    val original: String? = ""
 ) : Parcelable

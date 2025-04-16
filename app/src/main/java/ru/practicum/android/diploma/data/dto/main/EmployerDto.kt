@@ -5,9 +5,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class EmployerDto(
-    val id: String,
-    val name: String,
-    @SerialName("logo_urls") val logoUrls: LogoUrlsDto? = null,
-    val url: String,
+    val id: String?,
+    val name: String?,
+    @SerialName("logo_urls") val logoUrls: LogoUrlsDto?,
+    val url: String?,
     val trusted: Boolean = false
 )

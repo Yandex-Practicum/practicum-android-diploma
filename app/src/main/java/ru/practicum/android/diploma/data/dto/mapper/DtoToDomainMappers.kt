@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.domain.models.mapper
+package ru.practicum.android.diploma.data.dto.mapper
 
 import android.content.Context
 import ru.practicum.android.diploma.data.dto.additional.AddressDto
@@ -40,8 +40,8 @@ fun VacancyShortDto.toDomain(context: Context): VacancyShort = VacancyShort(
     vacancyId = this.vacancyId,
     logoUrl = this.employer.logoUrls?.toDomain(),
     name = this.name,
-    area = this.area.name,
-    employer = this.employer.name,
+    area = this.area.name.orEmpty(),
+    employer = this.employer.name.orEmpty(),
     salary = this.salary?.toDomain().toFormattedString(context),
     schedule = this.schedule?.toDomain(),
     industries = this.industries.map { it.toDomain() }
@@ -53,7 +53,7 @@ fun VacancyLongDto.toDomain(context: Context): VacancyLong = VacancyLong(
     description = this.description,
     salary = this.salary?.toDomain().toFormattedString(context),
     keySkills = this.keySkills.map { it.toDomain() },
-    areaName = this.area.name,
+    areaName = this.area.name.orEmpty(),
     logoUrl = this.employer.logoUrls?.toDomain(),
     employer = this.employer.toDomain(),
     experience = this.experience.toDomain(),
@@ -68,19 +68,17 @@ fun VacancyLongDto.toDomain(context: Context): VacancyLong = VacancyLong(
 )
 
 fun AddressDto.toDomain(): Address = Address(
-    building = this.building,
-    city = this.city,
-    description = this.description,
-    latitude = this.latitude,
-    longitude = this.longitude,
-    metroStations = this.metroStations?.map { it.toDomain() },
-    street = this.street
+    building = this.building.orEmpty(),
+    city = this.city.orEmpty(),
+    description = this.description.orEmpty(),
+    metroStations = this.metroStations?.map { it.toDomain() } ?: emptyList(),
+    street = this.street.orEmpty()
 )
 
 fun ContactsDto.toDomain(): Contacts = Contacts(
-    name = this.name,
-    email = this.email,
-    phones = this.phones.map { it.toDomain() }
+    name = this.name.orEmpty(),
+    email = this.email.orEmpty(),
+    phones = this.phones?.map { it.toDomain() } ?: emptyList()
 )
 
 fun EmploymentDto.toDomain(): Employment =
@@ -90,51 +88,51 @@ fun ExperienceDto.toDomain(): Experience =
     Experience.fromId(this.id)
 
 fun KeySkillDto.toDomain(): KeySkill = KeySkill(
-    name = this.name
+    name = this.name.orEmpty()
 )
 
 fun MetroStationDto.toDomain(): MetroStation = MetroStation(
-    stationId = this.stationId,
-    stationName = this.stationName
+    stationId = this.stationId.orEmpty(),
+    stationName = this.stationName.orEmpty()
 )
 
 fun PhoneDto.toDomain(): Phone = Phone(
-    number = this.number,
-    city = this.city,
-    country = this.country
+    number = this.number.orEmpty(),
+    city = this.city.orEmpty(),
+    country = this.country.orEmpty()
 )
 
 fun ProfessionalRoleDto.toDomain(): ProfessionalRole = ProfessionalRole(
-    id = this.id,
-    name = this.name
+    id = this.id.orEmpty(),
+    name = this.name.orEmpty()
 )
 
-fun ScheduleDto.toDomain(): Schedule =
-    Schedule.fromId(this.id)
+fun ScheduleDto?.toDomain(): Schedule =
+    Schedule.fromId(this?.id) ?: Schedule.FullDay
 
 fun AreaDto.toDomain(): Area = Area(
-    id = this.id,
-    name = this.name,
-    url = this.url
+    id = this.id.orEmpty(),
+    name = this.name.orEmpty(),
+    url = this.url.orEmpty()
 )
 
 fun EmployerDto.toDomain(): Employer = Employer(
-    id = this.id,
-    name = this.name,
+    id = this.id.orEmpty(),
+    name = this.name.orEmpty(),
     logoUrls = this.logoUrls?.toDomain(),
-    url = this.url,
+    url = this.url.orEmpty(),
     trusted = this.trusted
 )
 
 fun IndustryDto.toDomain(): Industry = Industry(
-    id = this.id,
-    name = this.name
+    id = this.id.orEmpty(),
+    name = this.name.orEmpty()
 )
 
 fun LogoUrlsDto.toDomain(): LogoUrls = LogoUrls(
-    logo90 = this.logo90,
-    logo240 = this.logo240,
-    original = this.original
+    logo90 = this.logo90.orEmpty(),
+    logo240 = this.logo240.orEmpty(),
+    original = this.original.orEmpty()
 )
 
 fun SalaryDto.toDomain(): Salary = Salary(

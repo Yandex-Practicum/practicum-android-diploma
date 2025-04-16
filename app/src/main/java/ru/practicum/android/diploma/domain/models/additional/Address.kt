@@ -6,11 +6,9 @@ import kotlinx.serialization.SerialName
 
 @Parcelize
 data class Address(
-    val building: String? = null,
-    val city: String? = null,
-    val description: String? = null,
-    val latitude: Double? = null,
-    val longitude: Double? = null,
-    @SerialName("metro_stations") val metroStations: List<MetroStation>? = null,
-    val street: String? = null
+    val building: String? = "",
+    val city: String? = "",
+    val description: String? = "",
+    @SerialName("metro_stations") val metroStations: List<MetroStation>? = emptyList(),
+    val street: String? = ""
 ) : Parcelable

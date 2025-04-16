@@ -15,13 +15,13 @@ enum class Schedule(val id: String, @StringRes override val labelResId: Int) : P
     FlyInFlyOut("flyInFlyOut", R.string.flyInFlyOut);
 
     companion object {
-        fun fromId(id: String, default: Schedule = FullDay): Schedule = when (id) {
+        fun fromId(id: String?): Schedule? = when (id) {
             FullDay.id -> FullDay
             Shift.id -> Shift
             Flexible.id -> Flexible
             Remote.id -> Remote
             FlyInFlyOut.id -> FlyInFlyOut
-            else -> default
+            else -> null
         }
 
         fun all(): List<Schedule> = listOf(

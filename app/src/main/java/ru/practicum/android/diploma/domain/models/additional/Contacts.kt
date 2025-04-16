@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Contacts(
-    val name: String? = null,
-    val email: String? = null,
+    val name: String? = "",
+    val email: String? = "",
     val phones: List<Phone> = emptyList()
 ) : Parcelable

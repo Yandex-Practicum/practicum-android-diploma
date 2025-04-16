@@ -5,8 +5,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Salary(
-    val from: Int? = null,
-    val to: Int? = null,
-    val currency: String? = null,
-    val gross: Boolean? = null
+    val from: Int?,
+    val to: Int?,
+    val currency: String?,
+    val gross: Boolean?
 ) : Parcelable
