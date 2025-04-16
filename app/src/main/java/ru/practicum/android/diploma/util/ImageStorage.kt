@@ -15,7 +15,7 @@ class ImageStorage {
      * Сохраняет картинку во внешнее хранилище
      * @return путь для дальнейшего извлечения сохраненной картирнки
      */
-    private fun saveImageToPrivateStorage(context: Context, uri: Uri): String {
+    suspend fun saveImageToPrivateStorage(context: Context, uri: Uri): String {
         val filePath = File(
             context.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
             "icons"
@@ -23,12 +23,18 @@ class ImageStorage {
         if (!filePath.exists()) {
             filePath.mkdirs()
         }
-        val file = File(filePath, "${uri.lastPathSegment}.jpg")
-        val inputStream = context.contentResolver.openInputStream(uri)
-        val outputStream = FileOutputStream(file)
-        BitmapFactory
-            .decodeStream(inputStream)
-            .compress(Bitmap.CompressFormat.JPEG, IMAGE_QUALITY, outputStream)
+
+        val fileName = "icon_${System.currentTimeMillis()}"
+
+        val file = File(filePath, "$fileName.jpg")
+
+        context.contentResolver.openInputStream(uri).use { inputStream ->
+            FileOutputStream(file).use { outputStream ->
+                BitmapFactory
+                    .decodeStream(inputStream)
+                    .compress(Bitmap.CompressFormat.JPEG, IMAGE_QUALITY, outputStream)
+            }
+        }
 
         return file.absolutePath
     }
@@ -37,7 +43,7 @@ class ImageStorage {
      * @return Uri ранее сохраненной картинки по пути ее хранения
      * @see saveImageToPrivateStorage
      */
-    private fun getStoredImageUri(imagePath: String, context: Context): Uri {
+    suspend fun getStoredImageUri(imagePath: String, context: Context): Uri {
         val file = File(imagePath)
 
         return FileProvider.getUriForFile(context, "${context.packageName}.provider", file)
