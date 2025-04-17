@@ -1,7 +1,10 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-parcelize")
+    id("com.google.devtools.ksp")
     id("ru.practicum.android.diploma.plugins.developproperties")
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -17,7 +20,8 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField(type = "String", name = "HH_ACCESS_TOKEN", value = "\"${developProperties.hhAccessToken}\"")
+        val developProps = rootProject.extra["developProperties"] as java.util.Properties
+        buildConfigField("String", "HH_ACCESS_TOKEN", "\"${developProps["hhAccessToken"]}\"")
     }
 
     buildTypes {
@@ -36,16 +40,46 @@ android {
 
     buildFeatures {
         buildConfig = true
+        viewBinding = true
+    }
+
+    ksp {
+        arg("room.schemaLocation", "$projectDir/schemas")
     }
 }
 
 dependencies {
+
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.0")
+
     implementation(libs.androidX.core)
     implementation(libs.androidX.appCompat)
 
     // UI layer libraries
     implementation(libs.ui.material)
     implementation(libs.ui.constraintLayout)
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.navigation.ui.ktx)
+
+    // Serialization
+    implementation(libs.kotlinx.serialization.json)
+
+    // Glide
+    implementation(libs.glide)
+    implementation(libs.room.common.jvm)
+    annotationProcessor(libs.glide.compiler)
+
+    // DI
+    implementation(libs.koin.android)
+
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+
+    // Room
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
 
     // region Unit tests
     testImplementation(libs.unitTests.junit)
