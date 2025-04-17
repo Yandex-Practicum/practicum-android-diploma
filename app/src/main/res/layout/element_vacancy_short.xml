@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginHorizontal="@dimen/margin_16"
-    android:layout_marginVertical="@dimen/margin_8">
+    android:background="?attr/colorPrimary"
+    android:paddingHorizontal="@dimen/margin_16"
+    android:paddingVertical="@dimen/margin_8">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imageEmployer"
