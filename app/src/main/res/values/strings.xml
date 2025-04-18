@@ -73,6 +73,7 @@
 
     <!--СООБЩЕНИЯ-->
     <string name="messages_Salary_not_set">Зарплата не указана</string>
+    <string name="messages_Hidden_employer">Работодатель скрыт</string>
     <string name="messages_List_is_empty">Список пуст</string>
 
     <!--ВАКАНСИЯ-->
@@ -96,5 +97,8 @@
 
     <!--ССЫЛКИ-->
     <string name="api_link">https://dev.hh.ru</string>
+
+    <!--ТЕСТИРОВАНИЕ-->
+    <string name="test_Vacancy_name_and_city">Тестовое имя вакансии, Город</string>
 
 </resources>
