@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.di
 
-
 import androidx.room.Room
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
@@ -37,7 +36,8 @@ val dataModule = module {
 
     single<NetworkClient> {
         RetrofitNetworkClient(
-            api = get(), networkChecker = NetworkCheckerImpl(androidContext())
+            api = get(),
+            networkChecker = NetworkCheckerImpl(androidContext())
         )
     }
 
