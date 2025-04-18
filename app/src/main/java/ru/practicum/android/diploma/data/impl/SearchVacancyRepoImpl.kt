@@ -58,7 +58,7 @@ class SearchVacancyRepoImpl(
             is Response.BadRequest -> stringProvider.getString(R.string.errors_bad_request)
             is Response.NotFound -> stringProvider.getString(R.string.errors_not_found)
             is Response.ServerError -> stringProvider.getString(R.string.errors_Server)
-            else -> stringProvider.getString(R.string.error_occured)
+            else -> stringProvider.getString(R.string.errors_occured)
         }
     }
 }
