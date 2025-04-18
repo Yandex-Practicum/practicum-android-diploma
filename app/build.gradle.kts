@@ -63,6 +63,8 @@ dependencies {
 
     // Serialization
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.retrofit.serialization)
+    implementation(libs.okhttp)
 
     // Glide
     implementation(libs.glide)

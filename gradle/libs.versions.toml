@@ -13,6 +13,8 @@ detektTwitterComposeRules ="0.0.26"
 
 kotlin = "1.9.21"
 kotlinx-serialization = "1.6.0"
+retrofit-serialization = "0.8.0"
+okhttp = "4.12.0"
 
 navigation = "2.8.9"
 glide = "4.14.2"
@@ -38,6 +40,8 @@ androidX-appCompat = "androidx.appcompat:appcompat:1.6.1"
 
 # Serialization
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+retrofit-serialization = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "retrofit-serialization" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
 
 # UI layer libraries
 ui-material = "com.google.android.material:material:1.10.0"

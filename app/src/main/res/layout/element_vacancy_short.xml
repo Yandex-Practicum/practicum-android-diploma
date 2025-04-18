@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorPrimary"
+    android:paddingHorizontal="@dimen/margin_16"
+    android:paddingVertical="@dimen/margin_8">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageEmployer"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:adjustViewBounds="true"
+        android:foreground="@drawable/ic_employer_frame"
+        android:scaleType="fitCenter"
+        app:layout_constraintDimensionRatio="H,1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_employer_default_logo" />
+
+    <TextView
+        android:id="@+id/textJobNameAndCity"
+        style="@style/element_vacancy_short_m22"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_12"
+        android:text="@string/test_Vacancy_name_and_city"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imageEmployer"
+        app:layout_constraintTop_toTopOf="@id/imageEmployer"
+        tools:text="Разработчик на С++ в команду внутренних сервисов, Москва" />
+
+    <TextView
+        android:id="@+id/textEmployerName"
+        style="@style/element_vacancy_short_m16"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="@string/messages_Hidden_employer"
+        app:layout_constraintEnd_toEndOf="@id/textJobNameAndCity"
+        app:layout_constraintStart_toStartOf="@id/textJobNameAndCity"
+        app:layout_constraintTop_toBottomOf="@id/textJobNameAndCity"
+        tools:text="Авто.ру" />
+
+    <TextView
+        android:id="@+id/textSalary"
+        style="@style/element_vacancy_short_m16"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/messages_Salary_not_set"
+        app:layout_constraintEnd_toEndOf="@id/textJobNameAndCity"
+        app:layout_constraintStart_toStartOf="@id/textJobNameAndCity"
+        app:layout_constraintTop_toBottomOf="@id/textEmployerName"
+        tools:text="от 40 000 до 80 000 ₽" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
