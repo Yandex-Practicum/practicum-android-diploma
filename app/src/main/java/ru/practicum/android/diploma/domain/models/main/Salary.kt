@@ -8,5 +8,5 @@ data class Salary(
     val from: Int?,
     val to: Int?,
     val currency: String? = "",
-    val gross: Boolean = true
+    val gross: Boolean? = true
 ) : Parcelable
