@@ -1,7 +1,8 @@
-package ru.practicum.android.diploma.data.repositoriesImpl
+package ru.practicum.android.diploma.data.impl
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import retrofit2.HttpException
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.dto.mapper.toDomain
 import ru.practicum.android.diploma.data.network.Response
@@ -11,6 +12,7 @@ import ru.practicum.android.diploma.domain.models.Resource
 import ru.practicum.android.diploma.domain.models.main.VacancyLong
 import ru.practicum.android.diploma.domain.models.main.VacancyShort
 import ru.practicum.android.diploma.domain.repositories.SearchVacancyRepository
+import java.io.IOException
 
 class SearchVacancyRepoImpl(
     private val networkClient: NetworkClient,
@@ -40,8 +42,10 @@ class SearchVacancyRepoImpl(
                 is Response.Success -> emit(Resource.Success(mapper(response.data)))
                 else -> emit(Resource.Error(mapError(response, stringProvider)))
             }
-        } catch (e: Exception) {
-            emit(Resource.Error("${stringProvider.getString(ru.practicum.android.diploma.R.string.error_occured)} ${e.message}"))
+        } catch (e: IOException) {
+            emit(Resource.Error(mapError(Response.NoConnection, stringProvider)))
+        } catch (e: HttpException) {
+            emit(Resource.Error(mapError(Response.ServerError, stringProvider)))
         }
     }
 

@@ -1,13 +1,4 @@
-package ru.practicum.android.diploma.data.repositoriesImpl
-
-import android.database.sqlite.SQLiteException
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
-import ru.practicum.android.diploma.data.db.VacancyDao
-import ru.practicum.android.diploma.data.db.VacancyShortDbEntity
-import ru.practicum.android.diploma.domain.models.main.LogoUrls
-import ru.practicum.android.diploma.domain.models.main.VacancyShort
-import ru.practicum.android.diploma.domain.repositories.RepositoryFavoriteVacancies
+package ru.practicum.android.diploma.data.impl
 
 //class RepositoryFavoriteVacanciesImpl(
 //    private val vacancyDao: VacancyDao,

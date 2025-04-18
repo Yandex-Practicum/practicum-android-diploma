@@ -17,7 +17,7 @@ import ru.practicum.android.diploma.data.network.api.RetrofitNetworkClient
 import ru.practicum.android.diploma.data.network.token.AccessTokenProvider
 import ru.practicum.android.diploma.data.network.token.PrefsAccessTokenProvider
 import ru.practicum.android.diploma.data.network.token.TokenInterceptor
-import ru.practicum.android.diploma.data.repositoriesImpl.SearchVacancyRepoImpl
+import ru.practicum.android.diploma.data.impl.SearchVacancyRepoImpl
 import ru.practicum.android.diploma.data.storage.AppPrefsService
 import ru.practicum.android.diploma.data.utils.StringProvider
 import ru.practicum.android.diploma.data.utils.StringProviderImpl
