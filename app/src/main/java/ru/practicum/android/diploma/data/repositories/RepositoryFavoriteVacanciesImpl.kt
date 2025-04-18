@@ -3,8 +3,10 @@ package ru.practicum.android.diploma.data.repositories
 import android.database.sqlite.SQLiteException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.serialization.json.Json
 import ru.practicum.android.diploma.data.db.VacancyDao
 import ru.practicum.android.diploma.data.db.VacancyShortDbEntity
+import ru.practicum.android.diploma.data.dto.main.SalaryDto
 import ru.practicum.android.diploma.domain.models.main.LogoUrls
 import ru.practicum.android.diploma.domain.models.main.VacancyShort
 import ru.practicum.android.diploma.domain.repositories.RepositoryFavoriteVacancies
@@ -72,7 +74,7 @@ class RepositoryFavoriteVacanciesImpl(
             name = vacancy.name,
             areaName = vacancy.area,
             employerName = vacancy.employer,
-            salary = vacancy.salary,
+            salary = Json.encodeToString(SalaryDto.serializer(), vacancy.salary),
             postedAt = vacancy.postedAt
         )
     }
@@ -84,7 +86,7 @@ class RepositoryFavoriteVacanciesImpl(
             name = vacancy.name,
             area = vacancy.areaName,
             employer = vacancy.employerName,
-            salary = vacancy.salary ?: "Зарплата не указана",
+            salary = Json.decodeFromString(SalaryDto.serializer(), vacancy.salary),
             postedAt = vacancy.postedAt,
         )
     }
