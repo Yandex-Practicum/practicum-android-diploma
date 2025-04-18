@@ -1,11 +1,12 @@
-package ru.practicum.android.diploma.data.repositories
+package ru.practicum.android.diploma.data.impl
 
-import android.database.sqlite.SQLiteException
+import androidx.sqlite.SQLiteException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import ru.practicum.android.diploma.data.db.VacancyDao
 import ru.practicum.android.diploma.data.db.VacancyShortDbEntity
 import ru.practicum.android.diploma.domain.models.main.LogoUrls
+import ru.practicum.android.diploma.domain.models.main.Salary
 import ru.practicum.android.diploma.domain.models.main.VacancyShort
 import ru.practicum.android.diploma.domain.repositories.RepositoryFavoriteVacancies
 
@@ -72,7 +73,7 @@ class RepositoryFavoriteVacanciesImpl(
             name = vacancy.name,
             areaName = vacancy.area,
             employerName = vacancy.employer,
-            salary = vacancy.salary,
+            salary = salaryToString(vacancy.salary),
             postedAt = vacancy.postedAt
         )
     }
@@ -84,8 +85,37 @@ class RepositoryFavoriteVacanciesImpl(
             name = vacancy.name,
             area = vacancy.areaName,
             employer = vacancy.employerName,
-            salary = vacancy.salary ?: "Зарплата не указана",
+            salary = stringToSalary(vacancy.salary),
             postedAt = vacancy.postedAt,
         )
+    }
+
+    private fun salaryToString(input: Salary?): String {
+        if (input == null) return "null*null*null*null"
+
+        val from = input.from?.toString() ?: "null"
+        val to = input.to?.toString() ?: "null"
+        val currency = input.currency ?: "null"
+        val gross = input.gross?.toString() ?: "null"
+
+        return "$from*$to*$currency*$gross"
+    }
+
+    private fun stringToSalary(input: String): Salary {
+        val parts = input.split("*")
+
+        val from = parts.getOrNull(INDEX_FROM)?.takeIf { it != "null" }?.toIntOrNull()
+        val to = parts.getOrNull(INDEX_TO)?.takeIf { it != "null" }?.toIntOrNull()
+        val currency = parts.getOrNull(INDEX_CURRENCY)?.takeIf { it != "null" }
+        val gross = parts.getOrNull(INDEX_GROSS)?.takeIf { it != "null" }?.toBooleanStrictOrNull()
+
+        return Salary(from, to, currency, gross)
+    }
+
+    private companion object {
+        const val INDEX_FROM = 0
+        const val INDEX_TO = 1
+        const val INDEX_CURRENCY = 2
+        const val INDEX_GROSS = 3
     }
 }

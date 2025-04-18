@@ -16,4 +16,6 @@
 
     <!--UNIQUE-->
     <dimen name="loader">36dp</dimen>
+    <dimen name="icon_size_48">48dp</dimen>
+
 </resources>

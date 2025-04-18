@@ -29,4 +29,9 @@
     <style name="element_vacancy_short_m22" parent="text_medium_22">
         <item name="android:textColor">?attr/colorOnPrimary</item>>
     </style>
+
+    <style name="element_vacancy_short_m16" parent="text_regular_16">
+        <item name="android:textColor">?attr/colorOnPrimary</item>>
+    </style>
+
 </resources>

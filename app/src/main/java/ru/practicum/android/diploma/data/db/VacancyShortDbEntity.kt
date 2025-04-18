@@ -23,7 +23,7 @@ data class VacancyShortDbEntity(
     val employerName: String,
 
     @ColumnInfo(name = "salary", defaultValue = "Зарплата не указана")
-    val salary: String?,
+    val salary: String,
 
     @ColumnInfo(name = "postedAt", defaultValue = "unknown")
     val postedAt: String

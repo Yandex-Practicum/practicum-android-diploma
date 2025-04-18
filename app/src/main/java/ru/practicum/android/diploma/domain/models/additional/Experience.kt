@@ -19,6 +19,14 @@ enum class Experience(val id: String, val label: String) : Parcelable {
             else -> throw IllegalArgumentException("Unknown experience id: $id")
         }
 
+        fun fromIdOrNull(id: String): Experience? = when (id) {
+            NoExperience.id -> NoExperience
+            Between1And3.id -> Between1And3
+            Between3And6.id -> Between3And6
+            MoreThan6.id -> MoreThan6
+            else -> null
+        }
+
         fun all(): List<Experience> = listOf(
             NoExperience,
             Between1And3,
