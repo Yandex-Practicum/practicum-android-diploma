@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class AreaDto(
-    val id: String?,
-    val name: String?,
-    val url: String?
+    val id: String? = null,
+    val name: String? = null,
+    val url: String? = null
 )

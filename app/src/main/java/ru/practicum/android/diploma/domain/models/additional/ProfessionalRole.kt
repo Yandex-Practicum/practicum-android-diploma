@@ -5,6 +5,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ProfessionalRole(
-    val id: String?,
-    val name: String?
+    val id: String? = "",
+    val name: String? = ""
 ) : Parcelable
