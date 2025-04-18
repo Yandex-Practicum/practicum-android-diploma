@@ -5,7 +5,8 @@
     <dimen name="text_size_16">16sp</dimen>
     <dimen name="text_size_12">12sp</dimen>
 
-    <dimen name="margin_46">24dp</dimen>
+    <!--MARGIN-->
+    <dimen name="margin_46">46dp</dimen>
     <dimen name="margin_24">24dp</dimen>
     <dimen name="margin_20">20dp</dimen>
     <dimen name="margin_16">16dp</dimen>
@@ -15,4 +16,5 @@
     <!--UNIQUE-->
     <dimen name="loader">36dp</dimen>
     <dimen name="icon_size_48">48dp</dimen>
+
 </resources>
