@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.data.impl
 
+import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
@@ -43,8 +44,10 @@ class SearchVacancyRepoImpl(
                 else -> emit(Resource.Error(mapError(response, stringProvider)))
             }
         } catch (e: IOException) {
+            Log.e("SearchVacancyRepoImpl", "IOException: ${e.message}", e)
             emit(Resource.Error(mapError(Response.NoConnection, stringProvider)))
         } catch (e: HttpException) {
+            Log.e("SearchVacancyRepoImpl", "HttpException: ${e.code()} ${e.message}", e)
             emit(Resource.Error(mapError(Response.ServerError, stringProvider)))
         }
     }
