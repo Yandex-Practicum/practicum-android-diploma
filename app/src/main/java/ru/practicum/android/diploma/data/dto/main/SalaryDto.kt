@@ -4,8 +4,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class SalaryDto(
-    val from: Int?,
-    val to: Int?,
-    val currency: String?,
-    val gross: Boolean?
+    val from: Int? = null,
+    val to: Int? = null,
+    val currency: String? = null,
+    val gross: Boolean? = null
 )

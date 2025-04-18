@@ -19,6 +19,14 @@ enum class Employment(val id: String, val label: String) : Parcelable {
             else -> throw IllegalArgumentException("Unknown employment form id: $id")
         }
 
+        fun fromIdOrNull(id: String): Employment? = when (id) {
+            Full.id -> Full
+            Part.id -> Part
+            Project.id -> Project
+            FlyInFlyOut.id -> FlyInFlyOut
+            else -> null
+        }
+
         fun all(): List<Employment> = listOf(
             Full,
             Part,

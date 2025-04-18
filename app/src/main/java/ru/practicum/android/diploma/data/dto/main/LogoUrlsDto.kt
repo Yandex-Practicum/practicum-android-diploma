@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class LogoUrlsDto(
-    @SerialName("90") val logo90: String?,
-    @SerialName("240") val logo240: String?,
-    @SerialName("original") val original: String?
+    @SerialName("90") val logo90: String? = null,
+    @SerialName("240") val logo240: String? = null,
+    @SerialName("original") val original: String? = null
 )

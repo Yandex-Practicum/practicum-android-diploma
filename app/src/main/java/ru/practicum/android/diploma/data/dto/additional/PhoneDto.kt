@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class PhoneDto(
-    val number: String?,
-    val city: String?,
-    val country: String?
+    val number: String? = null,
+    val city: String? = null,
+    val country: String? = null
 )

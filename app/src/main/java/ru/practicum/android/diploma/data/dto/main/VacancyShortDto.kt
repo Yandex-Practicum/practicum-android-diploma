@@ -6,11 +6,11 @@ import ru.practicum.android.diploma.data.dto.additional.ScheduleDto
 
 @Serializable
 data class VacancyShortDto(
-    @SerialName("published_at") val postedAt: String,
-    @SerialName("id") val vacancyId: String,
-    val name: String,
-    val area: AreaDto,
-    val employer: EmployerDto,
+    @SerialName("published_at") val postedAt: String? = null,
+    @SerialName("id") val vacancyId: String? = null,
+    val name: String? = null,
+    val area: AreaDto? = null,
+    val employer: EmployerDto? = null,
     val salary: SalaryDto? = null,
     val schedule: ScheduleDto? = null,
     val industries: List<IndustryDto> = emptyList()

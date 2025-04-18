@@ -6,6 +6,6 @@ import kotlinx.serialization.SerialName
 
 @Parcelize
 data class MetroStation(
-    @SerialName("station_id") val stationId: String?,
-    @SerialName("station_name") val stationName: String?
+    @SerialName("station_id") val stationId: String? = "",
+    @SerialName("station_name") val stationName: String? = ""
 ) : Parcelable

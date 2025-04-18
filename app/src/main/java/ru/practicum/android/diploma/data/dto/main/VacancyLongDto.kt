@@ -13,20 +13,20 @@ import ru.practicum.android.diploma.data.dto.additional.ScheduleDto
 @Serializable
 data class VacancyLongDto(
     @SerialName("id") val vacancyId: String,
-    val name: String,
-    val description: String,
+    val name: String? = null,
+    val description: String? = null,
     val salary: SalaryDto? = null,
     @SerialName("key_skills") val keySkills: List<KeySkillDto> = emptyList(),
-    val area: AreaDto,
-    val employer: EmployerDto,
-    val experience: ExperienceDto,
-    val employment: EmploymentDto,
-    val schedule: ScheduleDto,
+    val area: AreaDto? = null,
+    val employer: EmployerDto? = null,
+    val experience: ExperienceDto? = null,
+    val employment: EmploymentDto? = null,
+    val schedule: ScheduleDto? = null,
     val contacts: ContactsDto? = null,
     val address: AddressDto? = null,
     @SerialName("professional_roles") val professionalRoles: List<ProfessionalRoleDto> = emptyList(),
     val industries: List<IndustryDto> = emptyList(),
-    @SerialName("published_at") val publishedAt: String,
-    @SerialName("created_at") val createdAt: String,
-    @SerialName("archived") val archived: Boolean
+    @SerialName("published_at") val publishedAt: String? = null,
+    @SerialName("created_at") val createdAt: String? = null,
+    @SerialName("archived") val archived: Boolean? = null
 )
