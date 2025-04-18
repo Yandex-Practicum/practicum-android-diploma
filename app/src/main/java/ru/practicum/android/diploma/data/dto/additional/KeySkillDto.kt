@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class KeySkillDto(
-    val name: String?
+    val name: String? = null
 )

@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.data.dto.mapper
 
-import android.content.Context
 import ru.practicum.android.diploma.data.dto.additional.AddressDto
 import ru.practicum.android.diploma.data.dto.additional.ContactsDto
 import ru.practicum.android.diploma.data.dto.additional.EmploymentDto
@@ -33,37 +32,36 @@ import ru.practicum.android.diploma.domain.models.main.LogoUrls
 import ru.practicum.android.diploma.domain.models.main.Salary
 import ru.practicum.android.diploma.domain.models.main.VacancyLong
 import ru.practicum.android.diploma.domain.models.main.VacancyShort
-import ru.practicum.android.diploma.util.extensions.toFormattedString
 
-fun VacancyShortDto.toDomain(context: Context): VacancyShort = VacancyShort(
-    postedAt = this.postedAt,
-    vacancyId = this.vacancyId,
-    logoUrl = this.employer.logoUrls?.toDomain(),
-    name = this.name,
-    area = this.area.name.orEmpty(),
-    employer = this.employer.name.orEmpty(),
-    salary = this.salary?.toDomain().toFormattedString(context),
+fun VacancyShortDto.toDomain(): VacancyShort = VacancyShort(
+    postedAt = this.postedAt.orEmpty(),
+    vacancyId = this.vacancyId.orEmpty(),
+    logoUrl = this.employer?.logoUrls?.toDomain(),
+    name = this.name.orEmpty(),
+    area = this.area?.name.orEmpty(),
+    employer = this.employer?.name.orEmpty(),
+    salary = this.salary?.toDomain(),
     schedule = this.schedule?.toDomain(),
     industries = this.industries.map { it.toDomain() }
 )
 
-fun VacancyLongDto.toDomain(context: Context): VacancyLong = VacancyLong(
+fun VacancyLongDto.toDomain(): VacancyLong = VacancyLong(
     vacancyId = this.vacancyId,
-    name = this.name,
-    description = this.description,
-    salary = this.salary?.toDomain().toFormattedString(context),
+    name = this.name.orEmpty(),
+    description = this.description.orEmpty(),
+    salary = this.salary?.toDomain(),
     keySkills = this.keySkills.map { it.toDomain() },
-    areaName = this.area.name.orEmpty(),
-    logoUrl = this.employer.logoUrls?.toDomain(),
-    employer = this.employer.toDomain(),
-    experience = this.experience.toDomain(),
-    employmentForm = this.employment.toDomain(),
-    schedule = this.schedule.toDomain(),
+    areaName = this.area?.name.orEmpty(),
+    logoUrl = this.employer?.logoUrls?.toDomain(),
+    employer = this.employer?.toDomain(),
+    experience = this.experience?.toDomain(),
+    employmentForm = this.employment?.toDomain(),
+    schedule = this.schedule?.toDomain(),
     contacts = this.contacts?.toDomain(),
     address = this.address?.toDomain(),
     industries = this.industries.map { it.toDomain() },
-    publishedAt = this.publishedAt,
-    createdAt = this.createdAt,
+    publishedAt = this.publishedAt.orEmpty(),
+    createdAt = this.createdAt.orEmpty(),
     archived = this.archived
 )
 
@@ -81,11 +79,11 @@ fun ContactsDto.toDomain(): Contacts = Contacts(
     phones = this.phones?.map { it.toDomain() } ?: emptyList()
 )
 
-fun EmploymentDto.toDomain(): Employment =
-    Employment.fromId(this.id)
+fun EmploymentDto.toDomain(): Employment? =
+    this.id?.let { Employment.fromIdOrNull(it) }
 
-fun ExperienceDto.toDomain(): Experience =
-    Experience.fromId(this.id)
+fun ExperienceDto.toDomain(): Experience? =
+    this.id?.let { Experience.fromIdOrNull(it) }
 
 fun KeySkillDto.toDomain(): KeySkill = KeySkill(
     name = this.name.orEmpty()
@@ -121,7 +119,7 @@ fun EmployerDto.toDomain(): Employer = Employer(
     name = this.name.orEmpty(),
     logoUrls = this.logoUrls?.toDomain(),
     url = this.url.orEmpty(),
-    trusted = this.trusted
+    trusted = this.trusted ?: false
 )
 
 fun IndustryDto.toDomain(): Industry = Industry(
@@ -139,5 +137,5 @@ fun SalaryDto.toDomain(): Salary = Salary(
     from = this.from,
     to = this.to,
     currency = this.currency,
-    gross = this.gross
+    gross = this.gross ?: true
 )

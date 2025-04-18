@@ -24,10 +24,11 @@
     <!--ОШИБКИ-->
     <string name="errors_No_connection">Нет интернета</string>
     <string name="errors_Server">Ошибка сервера</string>
-    <string name="errors_Server_not_responding">Не удалось получить список вакансий</string>
+    <string name="errors_bad_request">Не удалось получить список вакансий</string>
     <string name="errors_Region">Такого региона нет</string>
     <string name="errors_Filter_list">Не удалось получить список</string>
-    <string name="errors_Vacancy">Вакансия не найдена или удалена</string>
+    <string name="errors_not_found">Вакансия не найдена или удалена</string>
+    <string name="error_occured" translatable="false">Произошла ошибка:</string>
 
     <!--ФИЛЬТРЫ-->
     <string name="filter_Job">Место работы</string>
@@ -96,7 +97,7 @@
     <string name="navigation_AddToFavorite">Добавить в избранное</string>
 
     <!--ССЫЛКИ-->
-    <string name="api_link">https://dev.hh.ru</string>
+    <string name="api_link">https://api.hh.ru</string>
 
     <!--ТЕСТИРОВАНИЕ-->
     <string name="test_Vacancy_name_and_city">Тестовое имя вакансии, Город</string>
