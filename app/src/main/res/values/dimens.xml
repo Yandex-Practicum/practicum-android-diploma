@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_size_sm">12sp</dimen>
+    <dimen name="text_size_md">16sp</dimen>
+    <dimen name="text_size_lg">22sp</dimen>
+    <dimen name="text_size_xl">32sp</dimen>
+
+    <dimen name="padding8">8dp</dimen>
+    <dimen name="padding16">16dp</dimen>
+    <dimen name="padding24">24dp</dimen>
+
+
+    <dimen name="toolbar_height">64dp</dimen>
+
+</resources>

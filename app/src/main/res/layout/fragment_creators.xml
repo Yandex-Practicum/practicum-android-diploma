@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?attr/backgroundPrimaryColor"
+    tools:context=".ui.creators_fragments.CreatorsFragment">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        style="@style/ToolbarWithoutIconStyle"
+        app:title="@string/creators_title" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/padding16"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/padding16"
+        android:paddingVertical="@dimen/padding8">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/creators_subtitle"
+            android:textAppearance="@style/Bold32TextAppearance"
+            android:textColor="?attr/textColorPrimary" />
+
+        <TextView
+            style="@style/DevelopersTextStyle"
+            android:layout_marginTop="@dimen/padding24"
+            android:text="@string/creators_developer1" />
+
+        <TextView
+            style="@style/DevelopersTextStyle"
+            android:layout_marginTop="@dimen/padding16"
+            android:text="@string/creators_developer2" />
+
+        <TextView
+            style="@style/DevelopersTextStyle"
+            android:layout_marginTop="@dimen/padding16"
+            android:text="@string/creators_developer3" />
+
+        <TextView
+            style="@style/DevelopersTextStyle"
+            android:layout_marginTop="@dimen/padding16"
+            android:text="@string/creators_developer4" />
+
+        <TextView
+            style="@style/DevelopersTextStyle"
+            android:layout_marginTop="@dimen/padding16"
+            android:text="@string/creators_developer5" />
+    </LinearLayout>
+
+
+</LinearLayout>
