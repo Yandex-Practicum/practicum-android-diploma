@@ -67,8 +67,6 @@ class RepositoryFavoriteVacanciesImpl(
     }
 
     private fun domainToData(vacancy: VacancyShort): VacancyShortDbEntity {
-
-
         return VacancyShortDbEntity(
             vacancyId = vacancy.vacancyId,
             logoUrl = vacancy.logoUrl?.original,
@@ -78,7 +76,6 @@ class RepositoryFavoriteVacanciesImpl(
             salary = salaryToString(vacancy.salary),
             postedAt = vacancy.postedAt
         )
-
     }
 
     private fun dataToDomain(vacancy: VacancyShortDbEntity): VacancyShort {
@@ -107,11 +104,18 @@ class RepositoryFavoriteVacanciesImpl(
     private fun stringToSalary(input: String): Salary {
         val parts = input.split("*")
 
-        val from = parts.getOrNull(0)?.takeIf { it != "null" }?.toIntOrNull()
-        val to = parts.getOrNull(1)?.takeIf { it != "null" }?.toIntOrNull()
-        val currency = parts.getOrNull(2)?.takeIf { it != "null" }
-        val gross = parts.getOrNull(3)?.takeIf { it != "null" }?.toBooleanStrictOrNull()
+        val from = parts.getOrNull(INDEX_FROM)?.takeIf { it != "null" }?.toIntOrNull()
+        val to = parts.getOrNull(INDEX_TO)?.takeIf { it != "null" }?.toIntOrNull()
+        val currency = parts.getOrNull(INDEX_CURRENCY)?.takeIf { it != "null" }
+        val gross = parts.getOrNull(INDEX_GROSS)?.takeIf { it != "null" }?.toBooleanStrictOrNull()
 
         return Salary(from, to, currency, gross)
+    }
+
+    private companion object {
+        const val INDEX_FROM = 0
+        const val INDEX_TO = 1
+        const val INDEX_CURRENCY = 2
+        const val INDEX_GROSS = 3
     }
 }
