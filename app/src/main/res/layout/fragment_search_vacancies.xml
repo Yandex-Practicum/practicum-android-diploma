@@ -1,13 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.search_vacancies.fragments.SearchVacanciesFragment">
 
-    <TextView
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/search_tool_bar"
+        style="@style/Medium22TextAppearance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="@string/search_vacancies_title"
+        app:titleMarginStart="@dimen/padding16"
+        app:titleTextColor="@color/yp_black">
+
+        <ImageButton
+            android:id="@+id/filter_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/padding16"
+            android:backgroundTint="@color/yp_white"
+            android:src="@drawable/ic_filter_off_24px" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <EditText
+        android:id="@+id/search_bar"
+        style="@style/Regular16TextAppearance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding16"
+        android:layout_marginTop="@dimen/padding8"
+        android:layout_marginBottom="@dimen/padding8"
+        android:background="@drawable/background"
+        android:drawableEnd="@drawable/ic_search_24px"
+        android:hint="@string/search_vacancies_hint"
+        android:inputType="text"
+        android:lines="1"
+        android:padding="@dimen/padding16"
+        android:textColor="@color/yp_black"
+        android:textColorHint="@color/yp_gray"
+        android:textCursorDrawable="@drawable/cursor" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/founded_vacancy"
+            style="@style/Regular16TextAppearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/padding4"
+            android:background="@drawable/background"
+            android:backgroundTint="@color/yp_blue"
+            android:paddingStart="@dimen/padding12"
+            android:paddingTop="@dimen/padding4"
+            android:paddingEnd="@dimen/padding12"
+            android:paddingBottom="@dimen/padding4"
+            android:text="@string/search_vacancies_chip_not_found"
+            android:textColor="@color/yp_white"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/filter_panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/filter_panel_margin"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/calendar"
+                style="@style/Regular16TextAppearance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/calendar"
+                android:textColor="@color/yp_black" />
+
+            <TextView
+                android:id="@+id/salary_not_detailed"
+                style="@style/Regular16TextAppearance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/salary_not_detailed"
+                android:textColor="@color/yp_black" />
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/placeholder_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@+id/search_bar">
 
-</FrameLayout>
+        <ImageView
+            android:id="@+id/vacancy_image_placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/placeholder_height"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/padding16"
+            android:layout_marginEnd="@dimen/padding16"
+            android:src="@drawable/image_search" />
+
+        <TextView
+            android:id="@+id/vacancy_text_placeholder"
+            style="@style/Medium22TextAppearance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/search_vacancies_placeholder_not_found"
+            android:textColor="@color/yp_black"
+            android:visibility="gone"
+
+            />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_vacancy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/yp_blue"
+        android:visibility="gone" />
+</LinearLayout>
+
+
