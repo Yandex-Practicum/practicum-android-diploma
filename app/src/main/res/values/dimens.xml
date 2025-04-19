@@ -5,11 +5,16 @@
     <dimen name="text_size_lg">22sp</dimen>
     <dimen name="text_size_xl">32sp</dimen>
 
+    <dimen name="padding4">4dp</dimen>
     <dimen name="padding8">8dp</dimen>
+    <dimen name="padding12">12dp</dimen>
     <dimen name="padding16">16dp</dimen>
     <dimen name="padding24">24dp</dimen>
 
-
     <dimen name="toolbar_height">64dp</dimen>
+    <dimen name="placeholder_height">223dp</dimen>
+    <dimen name="filter_panel_margin">60dp</dimen>
+
+    <dimen name="vacancy_item_size">48dp</dimen>
 
 </resources>
