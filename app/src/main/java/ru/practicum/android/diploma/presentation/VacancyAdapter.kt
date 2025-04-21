@@ -9,7 +9,7 @@ import ru.practicum.android.diploma.domain.models.main.VacancyShort
 import ru.practicum.android.diploma.util.extensions.toFormattedString
 
 class VacancyAdapter(
-    private val vacancyList: Array<VacancyShort>,
+    private var vacancyList: List<VacancyShort> = emptyList(),
     private val onItemClickListener: (VacancyShort) -> Unit
 ) : RecyclerView.Adapter<VacancyAdapter.ViewHolder>() {
 
@@ -25,6 +25,11 @@ class VacancyAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(vacancyList[position])
+    }
+
+    fun updateVacancies(newVacancies: List<VacancyShort>) {
+        vacancyList = newVacancies
+        notifyDataSetChanged()
     }
 
     class ViewHolder(

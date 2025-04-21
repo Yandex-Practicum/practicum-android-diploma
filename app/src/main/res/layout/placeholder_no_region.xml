@@ -10,6 +10,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_156"
         android:scaleType="center"
         android:src="@drawable/pic_error_response"
         app:layout_constraintBottom_toTopOf="@id/text"
@@ -27,7 +28,6 @@
         android:layout_marginTop="@dimen/margin_16"
         android:text="@string/errors_Region"
         android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/placeholder" />
