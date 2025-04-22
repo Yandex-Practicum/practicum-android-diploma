@@ -78,7 +78,7 @@
     <string name="messages_List_is_empty">Список пуст</string>
 
     <!--ВАКАНСИЯ-->
-    <string name="vacancy_Expiriense">Требуемый опыт</string>
+    <string name="vacancy_Experience">Требуемый опыт</string>
     <string name="vacancy_Description">Описание вакансии</string>
     <string name="vacancy_Skills">Ключевые навыки</string>
 

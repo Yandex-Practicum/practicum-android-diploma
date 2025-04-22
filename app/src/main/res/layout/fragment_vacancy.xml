@@ -4,48 +4,236 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.favorites.FavoritesFragment">
+    tools:context=".presentation.favorites.FavoritesFragment"
+    android:layout_marginHorizontal="@dimen/margin_16">
 
-    <TextView
-        android:id="@+id/header_title"
-        style="@style/text_bold_32"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="200dp"
-        android:text="@string/navigation_Vacancy"
-        app:layout_constraintEnd_toEndOf="parent"
+    <ImageButton
+        android:id="@+id/bToSearch"
+        android:layout_width="40dp"
+        android:layout_height="48dp"
+        android:layout_marginVertical="4dp"
+        android:backgroundTint="@color/white"
+        android:src="@drawable/btn_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <TextView
+        android:id="@+id/header_title"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/layout_48"
+        android:layout_marginVertical="@dimen/margin_4"
+        android:background="@color/white"
+        android:fontFamily="@font/ys_display_medium"
+        android:gravity="center"
+        android:text="@string/header_Vacancy"
+        android:textColor="@color/black"
+        android:textFontWeight="500"
+        android:textSize="@dimen/text_size_22"
+        app:layout_constraintBottom_toTopOf="@id/header_title"
+        app:layout_constraintStart_toEndOf="@id/bToSearch"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
         android:id="@+id/bFavorite"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/navigation_AddToFavorite"
+        android:layout_width="@dimen/icon_size_48"
+        android:layout_height="@dimen/icon_size_48"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header_title" />
+        android:src="@drawable/ic_favorites_off"
+        android:backgroundTint="@color/white" />
 
-    <Button
+    <ImageButton
         android:id="@+id/bShare"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/navigation_Share"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bFavorite" />
+        android:layout_width="@dimen/icon_size_48"
+        android:layout_height="@dimen/icon_size_48"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/bFavorite"
+        android:src="@drawable/ic_sharing"
+        android:backgroundTint="@color/white" />
 
-    <Button
-        android:id="@+id/bToSearch"
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="@dimen/margin_32"
+        app:layout_constraintTop_toBottomOf="@id/header_title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_gravity="center_horizontal"
+        android:indeterminateTint="@color/blue"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/empty_placeholder"
+        layout="@layout/placeholder_vacancy_not_found"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/navigation_Back"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/margin_46"
+        app:layout_constraintTop_toBottomOf="@id/header_title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"
+        />
+
+
+    <TextView
+        android:id="@+id/vacancy_name"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/margin_24"
+        app:layout_constraintTop_toBottomOf="@id/header_title"
+        android:fontFamily="@font/ys_display_bold"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_32"
+        android:textFontWeight="700" />
+    
+    <TextView
+        android:id="@+id/salary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_4"
+        app:layout_constraintTop_toBottomOf="@id/vacancy_name"
+        android:fontFamily="@font/ys_display_medium"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_22"
+        android:textFontWeight="500"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/box_company"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:layout_constraintTop_toBottomOf="@id/salary"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bShare" />
+        android:padding="@dimen/margin_16"
+        android:background="@drawable/shape_vacancy_company">
+        <ImageView
+            android:id="@+id/ic_company"
+            android:layout_width="@dimen/icon_size_48"
+            android:layout_height="@dimen/icon_size_48"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:scaleType="centerCrop" />
+        <TextView
+            android:id="@+id/name_company"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/ic_company"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="@dimen/margin_8"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:fontFamily="@font/ys_display_medium"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_22"
+            android:textFontWeight="500" />
+        <TextView
+            android:id="@+id/place_company"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/ic_company"
+            app:layout_constraintTop_toBottomOf="@id/name_company"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="@dimen/margin_8"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:fontFamily="@font/ys_display_regular"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_16"
+            android:textFontWeight="400" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/header_experience"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/vacancy_Experience"
+        app:layout_constraintTop_toBottomOf="@id/box_company"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/margin_24"
+        android:fontFamily="@font/ys_display_medium"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_16"
+        android:textFontWeight="500" />
+
+    <TextView
+        android:id="@+id/experience"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/header_experience"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/margin_4"
+        android:fontFamily="@font/ys_display_regular"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_16"
+        android:textFontWeight="400" />
+
+    <TextView
+        android:id="@+id/employment_form_schedule"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/experience"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/margin_8"
+        android:fontFamily="@font/ys_display_regular"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_16"
+        android:textFontWeight="400" />
+
+    <TextView
+        android:id="@+id/header_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_32"
+        app:layout_constraintTop_toBottomOf="@id/employment_form_schedule"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/vacancy_Description"
+        android:fontFamily="@font/ys_display_medium"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_22"
+        android:textFontWeight="500"
+        />
+
+    <TextView
+        android:id="@+id/vacancy_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/margin_4"
+        app:layout_constraintTop_toBottomOf="@id/header_description"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/margin_16"
+        android:textIsSelectable="true"/>
+
+    <TextView
+        android:id="@+id/header_key_skills"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_24"
+        app:layout_constraintTop_toBottomOf="@id/vacancy_description"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/vacancy_Skills"
+        android:fontFamily="@font/ys_display_medium"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_22"
+        android:textFontWeight="500"
+        />
+
+    <TextView
+        android:id="@+id/list_key_skills"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/header_key_skills"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/margin_16"
+        android:fontFamily="@font/ys_display_regular"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_16"
+        android:textFontWeight="400"/>
+
+
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

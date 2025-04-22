@@ -7,6 +7,7 @@
 
     <!--MARGIN-->
     <dimen name="margin_46">46dp</dimen>
+    <dimen name="margin_32">32dp</dimen>
     <dimen name="margin_24">24dp</dimen>
     <dimen name="margin_20">20dp</dimen>
     <dimen name="margin_16">16dp</dimen>
@@ -20,5 +21,8 @@
     <dimen name="search_field_height">56dp</dimen>
     <dimen name="top_bar_height">64dp</dimen>
     <dimen name="radius_12">12dp</dimen>
+
+    <!--LAYOUT SIZES-->
+    <dimen name="layout_48">48dp</dimen>
 
 </resources>
