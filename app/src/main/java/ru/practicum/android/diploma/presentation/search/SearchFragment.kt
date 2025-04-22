@@ -1,8 +1,6 @@
 package ru.practicum.android.diploma.presentation.search
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
