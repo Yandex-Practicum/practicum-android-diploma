@@ -24,16 +24,26 @@ class SearchViewModel(
                 _searchState.value.copy(isLoading = true, noContent = true, query = query)
 
             searchVacancyInteractor.searchVacancy(query).collect { (content, error) ->
+                val count = content?.size ?: 0
+                val pluralForm = if (count > 0) {
+                    stringProvider.getQuantityString(R.plurals.vacancies_count, count, count)
+                } else ""
+                val resultText = stringProvider.getString(R.string.results_Find) + " " + pluralForm
                 _searchState.value = when {
                     !content.isNullOrEmpty() -> SearchState(
                         isLoading = false,
                         content = content,
-                        query = query
+                        query = query,
+                        resultCount = count,
+                        showResultText = count > 0,
+                        resultText = resultText
                     )
 
                     content != null && content.isEmpty() -> SearchState(
                         isLoading = false,
-                        content = emptyList(),
+                        error = UiError.BadRequest,
+                        resultText = stringProvider.getString(R.string.results_not_found),
+                        showResultText = true,
                         noContent = true,
                         query = query
                     )
@@ -46,11 +56,15 @@ class SearchViewModel(
 
                     else -> SearchState(
                         isLoading = false,
-                        error = UiError.NotFound,
+                        error = UiError.BadRequest,
                         query = query
                     )
                 }
-                Log.d("SearchVM", "data: $error")
+                Log.d("SearchVM", "content: $content or error: $error")
+                Log.d(
+                    "SearchVM",
+                    "resultCount=${count}, resultText=$resultText, contentSize=${content?.size}"
+                )
             }
         }
     }
@@ -66,7 +80,6 @@ class SearchViewModel(
         return when {
             message?.contains(stringProvider.getString(R.string.errors_No_connection)) == true -> UiError.NoConnection
             message?.contains(stringProvider.getString(R.string.errors_bad_request)) == true -> UiError.BadRequest
-            message?.contains(stringProvider.getString(R.string.errors_not_found)) == true -> UiError.NotFound
             message?.contains(stringProvider.getString(R.string.errors_Server)) == true -> UiError.ServerError
             else -> UiError.ServerError
         }

@@ -70,8 +70,8 @@
             android:layout_width="@dimen/icon_size_48"
             android:layout_height="@dimen/icon_size_48"
             android:layout_marginEnd="@dimen/margin_8"
-            android:background="@android:color/transparent"
             android:visibility="gone"
+            android:background="@android:color/transparent"
             app:srcCompat="@drawable/ic_close"
             app:tint="@color/black" />
 

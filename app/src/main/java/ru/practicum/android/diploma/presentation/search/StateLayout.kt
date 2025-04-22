@@ -41,14 +41,13 @@ class StateLayout @JvmOverloads constructor(
         emptyView = inflateAndAdd(layoutResId)
     }
 
-
     fun show(state: ViewState, error: UiError? = null) {
+        if (state == currentState) return
+        currentState = state
         contentView?.visibility = if (state == ViewState.CONTENT) View.VISIBLE else View.GONE
         loadingView?.visibility = if (state == ViewState.LOADING) View.VISIBLE else View.GONE
         emptyView?.visibility = if (state == ViewState.EMPTY) View.VISIBLE else View.GONE
-
         errorViews.values.forEach { it.visibility = View.GONE }
-
         if (state == ViewState.ERROR && error != null) {
             val errorView = errorViews[error::class.java]
             errorView?.visibility = View.VISIBLE

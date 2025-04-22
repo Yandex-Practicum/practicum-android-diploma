@@ -5,5 +5,8 @@ data class SearchState<T>(
     val noContent: Boolean = true,
     val content: T? = null,
     val error: UiError? = null,
-    val query: String = ""
+    val query: String = "",
+    val resultCount: Int? = 0,
+    val showResultText: Boolean = false,
+    val resultText: String = ""
 )

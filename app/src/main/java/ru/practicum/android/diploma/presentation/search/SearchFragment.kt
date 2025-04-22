@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.presentation.search
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -73,6 +74,7 @@ class SearchFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             searchViewModel.searchState.collect() { state ->
                 renderState(state)
+                Log.d("SearchFragment", "$state")
             }
         }
     }
@@ -87,6 +89,10 @@ class SearchFragment : Fragment() {
                 adapter.updateVacancies(state.content)
             }
         }
+        binding.vacanciesFoundText.apply {
+            text = state.resultText
+            visibility = if (state.showResultText) View.VISIBLE else View.GONE
+        }
     }
 
     private fun editText() {
@@ -95,11 +101,14 @@ class SearchFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 searchQuery = s.toString()
                 binding.clearFieldButton.isVisible = searchQuery.isNotBlank()
+                binding.searchImage.isVisible = searchQuery.isBlank()
                 if (searchQuery.isBlank()) {
                     searchViewModel.clearSearch()
-                } else {
-                    debouncedSearch(searchQuery)
+                    isDebounceEnabled = false
+                    return
                 }
+                isDebounceEnabled = true
+                debouncedSearch(searchQuery)
             }
 
             override fun afterTextChanged(s: Editable?) {}
@@ -112,7 +121,9 @@ class SearchFragment : Fragment() {
             coroutineScope = viewLifecycleOwner.lifecycleScope,
             useLastParam = true
         ) {
+            if (!isDebounceEnabled) return@debounce
             searchViewModel.searchVacancy(searchQuery)
+            toggleKeyboard(binding.searchField, false)
         }
         debouncedClick = debounce(
             delayMillis = CLICK_DEBOUNCE_DELAY,
@@ -130,17 +141,13 @@ class SearchFragment : Fragment() {
             setEmptyView(R.layout.placeholder_search_new)
             setErrorView(UiError.NoConnection::class.java, R.layout.placeholder_no_internet)
             setErrorView(UiError.BadRequest::class.java, R.layout.placeholder_no_vacancies_list)
-            setErrorView(UiError.NotFound::class.java, R.layout.placeholder_no_vacancies_list)
             setErrorView(UiError.ServerError::class.java, R.layout.placeholder_server_error_search)
         }
-
         binding.recyclerView.adapter = adapter
-
         binding.searchField.post {
             binding.searchField.requestFocus()
             toggleKeyboard(binding.searchField, true)
         }
-
         binding.clearFieldButton.setOnClickListener {
             binding.searchField.text.clear()
             binding.searchField.post {
@@ -148,18 +155,17 @@ class SearchFragment : Fragment() {
                 toggleKeyboard(binding.searchField, true)
             }
         }
-
         binding.searchField.setOnEditorActionListener { v, actionId, event ->
             val isActionSearch = actionId == EditorInfo.IME_ACTION_SEARCH
             val isActionDone = actionId == EditorInfo.IME_ACTION_DONE
             val isEnterKey = event?.keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN
             if (isActionSearch || isActionDone || isEnterKey) {
+                isDebounceEnabled = false
                 searchViewModel.searchVacancy(searchQuery)
                 toggleKeyboard(v, false)
                 true
             } else false
         }
-
         binding.toFiltersButton.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_main_to_navigation_filters)
         }

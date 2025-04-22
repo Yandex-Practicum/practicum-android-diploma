@@ -42,9 +42,8 @@ class VacancyAdapter(
                 .into(binding.imageEmployer)
             binding.textJobNameAndCity.text = item.name
             binding.textEmployerName.text = item.employer
-            binding.textSalary.text = item.salary.toFormattedString(itemView.context)
+            binding.textSalary.text = item.salary.toFormattedString(itemView.context, false)
             itemView.setOnClickListener { onItemClickListener.invoke(item) }
         }
-
     }
 }

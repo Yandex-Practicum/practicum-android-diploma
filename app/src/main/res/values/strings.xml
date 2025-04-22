@@ -47,6 +47,8 @@
     <!--val vacanciesCountText = resources.getQuantityString(
    R.plurals.vacancies_count, vacanciesCount, vacanciesCount
    )-->
+
+    <string name="results_not_found">Таких вакансий нет</string>
     <string name="results_Find">Найдено </string>
     <plurals name="vacancies_count">
         <item quantity="one">%d вакансия</item>       <!-- 1 вакансия -->

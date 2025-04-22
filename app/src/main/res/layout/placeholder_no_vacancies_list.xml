@@ -9,7 +9,7 @@
         android:id="@+id/placeholder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_156"
+        android:layout_marginTop="@dimen/margin_102"
         android:layout_marginHorizontal="@dimen/margin_16"
         android:scaleType="center"
         android:src="@drawable/pic_error_response"
