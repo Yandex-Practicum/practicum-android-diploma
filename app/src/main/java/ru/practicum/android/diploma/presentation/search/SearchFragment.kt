@@ -66,7 +66,7 @@ class SearchFragment : Fragment() {
 
     private fun observeSearchState() {
         viewLifecycleOwner.lifecycleScope.launch {
-            searchViewModel.searchState.collect() { state ->
+            searchViewModel.searchState.collect { state ->
                 renderState(state)
                 Log.d("SearchFragment", "$state")
             }
@@ -175,8 +175,6 @@ class SearchFragment : Fragment() {
         }
     }
 
-    // TO DO использовать в Адаптере
-    @Suppress("unused")
     private fun navigateToVacancyScreen(vacancy: VacancyShort) {
         val args = bundleOf("vacancyId" to vacancy.vacancyId)
         findNavController().navigate(R.id.action_navigation_main_to_navigation_vacancy, args)
