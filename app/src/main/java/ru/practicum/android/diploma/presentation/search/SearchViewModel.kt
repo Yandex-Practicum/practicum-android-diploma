@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.presentation.search
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -9,6 +8,7 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.utils.StringProvider
 import ru.practicum.android.diploma.domain.interactor.SearchVacancyInteractor
+import ru.practicum.android.diploma.domain.models.Resource
 import ru.practicum.android.diploma.domain.models.main.VacancyShort
 
 class SearchViewModel(
@@ -20,53 +20,60 @@ class SearchViewModel(
 
     fun searchVacancy(query: String) {
         viewModelScope.launch {
-            _searchState.value =
-                _searchState.value.copy(isLoading = true, noContent = true, query = query)
+            _searchState.value = _searchState.value.copy(
+                isLoading = true,
+                noContent = true,
+                query = query
+            )
 
-            searchVacancyInteractor.searchVacancy(query).collect { (content, error) ->
-                val count = content?.size ?: 0
-                val pluralForm = if (count > 0) {
-                    stringProvider.getQuantityString(R.plurals.vacancies_count, count, count)
-                } else ""
-                val resultText = stringProvider.getString(R.string.results_Find) + " " + pluralForm
-                _searchState.value = when {
-                    !content.isNullOrEmpty() -> SearchState(
-                        isLoading = false,
-                        content = content,
-                        query = query,
-                        resultCount = count,
-                        showResultText = count > 0,
-                        resultText = resultText
-                    )
-
-                    content != null && content.isEmpty() -> SearchState(
-                        isLoading = false,
-                        error = UiError.BadRequest,
-                        resultText = stringProvider.getString(R.string.results_not_found),
-                        showResultText = true,
-                        noContent = true,
-                        query = query
-                    )
-
-                    error != null -> SearchState(
-                        isLoading = false,
-                        error = mapError(error),
-                        query = query
-                    )
-
-                    else -> SearchState(
-                        isLoading = false,
-                        error = UiError.BadRequest,
-                        query = query
-                    )
+            searchVacancyInteractor.searchVacancy(query).collect { resource ->
+                _searchState.value = when (resource) {
+                    is Resource.Success -> buildSuccessState(resource.data, query)
+                    is Resource.Empty -> buildEmptyState(query)
+                    is Resource.Error -> buildErrorState(resource.message, query)
                 }
-                Log.d("SearchVM", "content: $content or error: $error")
-                Log.d(
-                    "SearchVM",
-                    "resultCount=${count}, resultText=$resultText, contentSize=${content?.size}"
-                )
             }
         }
+    }
+
+    private fun buildSuccessState(
+        content: List<VacancyShort>,
+        query: String
+    ): SearchState<List<VacancyShort>> {
+        val count = content.size
+        val plural = stringProvider.getQuantityString(R.plurals.vacancies_count, count, count)
+        val text = stringProvider.getString(R.string.results_Find) + " " + plural
+
+        return SearchState(
+            isLoading = false,
+            content = content,
+            resultCount = count,
+            showResultText = true,
+            resultText = text,
+            query = query
+        )
+    }
+
+    private fun buildEmptyState(query: String): SearchState<List<VacancyShort>> {
+        return SearchState(
+            isLoading = false,
+            error = UiError.BadRequest,
+            resultText = stringProvider.getString(R.string.results_not_found),
+            showResultText = true,
+            noContent = true,
+            query = query
+        )
+    }
+
+    private fun buildErrorState(
+        message: String,
+        query: String
+    ): SearchState<List<VacancyShort>> {
+        return SearchState(
+            isLoading = false,
+            error = mapError(message),
+            query = query
+        )
     }
 
     fun clearSearch() {

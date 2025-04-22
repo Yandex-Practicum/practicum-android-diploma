@@ -30,11 +30,20 @@ class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding ?: error("Binding is not initialized")
     private val searchViewModel by viewModel<SearchViewModel>()
-    private lateinit var debouncedSearch: (String) -> Unit
-    private lateinit var debouncedClick: (VacancyShort) -> Unit
+    private var debouncedSearch: ((String) -> Unit)? = null
+    private var debouncedClick: ((VacancyShort) -> Unit)? = null
     private var searchQuery: String = ""
     private var isDebounceEnabled = true
-    private lateinit var adapter: VacancyAdapter
+    private val adapter: VacancyAdapter = VacancyAdapter(
+        vacancyList = mutableListOf(),
+        onItemClickListener = { vacancy ->
+            if (isDebounceEnabled) {
+                isDebounceEnabled = false
+                navigateToVacancyScreen(vacancy)
+                debouncedClick?.let { it(vacancy) }
+            }
+        }
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,25 +58,11 @@ class SearchFragment : Fragment() {
         with(binding) {
             recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
-            setupAdapter()
             debounceFunc()
             editText()
             setupBindings()
             observeSearchState()
         }
-    }
-
-    private fun setupAdapter() {
-        adapter = VacancyAdapter(
-            vacancyList = mutableListOf(),
-            onItemClickListener = { vacancy ->
-                if (isDebounceEnabled) {
-                    isDebounceEnabled = false
-                    navigateToVacancyScreen(vacancy)
-                    debouncedClick(vacancy)
-                }
-            }
-        )
     }
 
     private fun observeSearchState() {
@@ -108,7 +103,7 @@ class SearchFragment : Fragment() {
                     return
                 }
                 isDebounceEnabled = true
-                debouncedSearch(searchQuery)
+                debouncedSearch?.let { it(searchQuery) }
             }
 
             override fun afterTextChanged(s: Editable?) {}
@@ -121,9 +116,10 @@ class SearchFragment : Fragment() {
             coroutineScope = viewLifecycleOwner.lifecycleScope,
             useLastParam = true
         ) {
-            if (!isDebounceEnabled) return@debounce
-            searchViewModel.searchVacancy(searchQuery)
-            toggleKeyboard(binding.searchField, false)
+            if (isDebounceEnabled) {
+                searchViewModel.searchVacancy(searchQuery)
+                toggleKeyboard(binding.searchField, false)
+            }
         }
         debouncedClick = debounce(
             delayMillis = CLICK_DEBOUNCE_DELAY,
@@ -164,7 +160,9 @@ class SearchFragment : Fragment() {
                 searchViewModel.searchVacancy(searchQuery)
                 toggleKeyboard(v, false)
                 true
-            } else false
+            } else {
+                false
+            }
         }
         binding.toFiltersButton.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_main_to_navigation_filters)
@@ -192,7 +190,10 @@ class SearchFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        if (searchQuery.isNotBlank()) {
+        if (searchQuery.isBlank()) {
+            binding.searchField.requestFocus()
+            toggleKeyboard(binding.searchField, true)
+        } else {
             searchViewModel.searchVacancy(searchQuery)
         }
     }

@@ -36,14 +36,12 @@ class RootActivity : AppCompatActivity() {
 
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
         val view = currentFocus
-        if (view != null && ev.action == MotionEvent.ACTION_DOWN) {
-            if (view is EditText) {
-                val outRect = Rect()
-                view.getGlobalVisibleRect(outRect)
-                if (!outRect.contains(ev.rawX.toInt(), ev.rawY.toInt())) {
-                    view.clearFocus()
-                    hideKeyboard(view)
-                }
+        if (ev.action == MotionEvent.ACTION_DOWN && view is EditText) {
+            val outRect = Rect()
+            view.getGlobalVisibleRect(outRect)
+            if (!outRect.contains(ev.rawX.toInt(), ev.rawY.toInt())) {
+                view.clearFocus()
+                hideKeyboard(view)
             }
         }
         return super.dispatchTouchEvent(ev)
@@ -57,12 +55,12 @@ class RootActivity : AppCompatActivity() {
             val screenHeight = rootView.rootView.height
             val keypadHeight = screenHeight - rect.height()
 
-            val isKeyboardVisible = keypadHeight > screenHeight * 0.15
+            val isKeyboardVisible = keypadHeight > screenHeight * SCREEN_PROPORTION
             val bottomNav = binding.bottomNavigationView
 
             bottomNav.animate()
                 .translationY(if (isKeyboardVisible) bottomNav.height.toFloat() else 0f)
-                .setDuration(200)
+                .setDuration(ANIM_DURATION)
                 .start()
         }
     }
@@ -76,5 +74,10 @@ class RootActivity : AppCompatActivity() {
         tokenProvider.saveAccessToken(accessToken)
         val restoredToken = tokenProvider.getAccessToken()
         Log.d("RootActivity", "Token restored from prefs: $restoredToken")
+    }
+
+    companion object {
+        private const val ANIM_DURATION = 200L
+        private const val SCREEN_PROPORTION = 0.15
     }
 }
