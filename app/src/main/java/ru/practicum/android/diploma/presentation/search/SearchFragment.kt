@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity.INPUT_METHOD_SERVICE
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -91,23 +92,19 @@ class SearchFragment : Fragment() {
     }
 
     private fun editText() {
-        binding.searchField.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                searchQuery = s.toString()
-                binding.clearFieldButton.isVisible = searchQuery.isNotBlank()
-                binding.searchImage.isVisible = searchQuery.isBlank()
-                if (searchQuery.isBlank()) {
-                    searchViewModel.clearSearch()
-                    isDebounceEnabled = false
-                    return
-                }
-                isDebounceEnabled = true
-                debouncedSearch?.let { it(searchQuery) }
-            }
+        binding.searchField.doOnTextChanged { text, _, _, _ ->
+            searchQuery = text.toString()
+            binding.clearFieldButton.isVisible = searchQuery.isNotBlank()
+            binding.searchImage.isVisible = searchQuery.isBlank()
 
-            override fun afterTextChanged(s: Editable?) {}
-        })
+            if (searchQuery.isBlank()) {
+                searchViewModel.clearSearch()
+                isDebounceEnabled = false
+            } else {
+                isDebounceEnabled = true
+                debouncedSearch?.invoke(searchQuery)
+            }
+        }
     }
 
     private fun debounceFunc() {
@@ -131,7 +128,6 @@ class SearchFragment : Fragment() {
     }
 
     private fun setupBindings() {
-
         binding.stateLayout.apply {
             setLoadingView(R.layout.placeholder_loading)
             setEmptyView(R.layout.placeholder_search_new)

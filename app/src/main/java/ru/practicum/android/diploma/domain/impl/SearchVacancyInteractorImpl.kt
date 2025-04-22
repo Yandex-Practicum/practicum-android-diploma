@@ -16,9 +16,13 @@ class SearchVacancyInteractorImpl(
             when (result) {
                 is Resource.Success -> {
                     val data = result.data
-                    if (data.isNullOrEmpty()) Resource.Empty()
-                    else Resource.Success(data)
+                    if (data.isEmpty()) {
+                        Resource.Empty()
+                    } else {
+                        Resource.Success(data)
+                    }
                 }
+
                 is Resource.Error -> Resource.Error(result.message)
                 else -> Resource.Empty()
             }
