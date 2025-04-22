@@ -15,14 +15,13 @@ class SearchViewModel(
     private val searchVacancyInteractor: SearchVacancyInteractor,
     private val stringProvider: StringProvider
 ) : ViewModel() {
-    private val _searchState = MutableStateFlow(SearchState<List<VacancyShort>>())
-    val searchState: StateFlow<SearchState<List<VacancyShort>>> = _searchState
+    private val _searchState = MutableStateFlow(SearchState())
+    val searchState: StateFlow<SearchState> = _searchState
 
     fun searchVacancy(query: String) {
         viewModelScope.launch {
             _searchState.value = _searchState.value.copy(
                 isLoading = true,
-                noContent = true,
                 query = query
             )
 
@@ -39,7 +38,7 @@ class SearchViewModel(
     private fun buildSuccessState(
         content: List<VacancyShort>,
         query: String
-    ): SearchState<List<VacancyShort>> {
+    ): SearchState {
         val count = content.size
         val plural = stringProvider.getQuantityString(R.plurals.vacancies_count, count, count)
         val text = stringProvider.getString(R.string.results_Find) + " " + plural
@@ -54,13 +53,12 @@ class SearchViewModel(
         )
     }
 
-    private fun buildEmptyState(query: String): SearchState<List<VacancyShort>> {
+    private fun buildEmptyState(query: String): SearchState {
         return SearchState(
             isLoading = false,
             error = UiError.BadRequest,
             resultText = stringProvider.getString(R.string.results_not_found),
             showResultText = true,
-            noContent = true,
             query = query
         )
     }
@@ -68,7 +66,7 @@ class SearchViewModel(
     private fun buildErrorState(
         message: String,
         query: String
-    ): SearchState<List<VacancyShort>> {
+    ): SearchState {
         return SearchState(
             isLoading = false,
             error = mapError(message),
@@ -79,7 +77,6 @@ class SearchViewModel(
     fun clearSearch() {
         _searchState.value = SearchState(
             content = emptyList(),
-            noContent = true
         )
     }
 

@@ -73,7 +73,7 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun renderState(state: SearchState<List<VacancyShort>>) {
+    private fun renderState(state: SearchState) {
         when {
             state.isLoading -> binding.stateLayout.show(ViewState.LOADING)
             state.error != null -> binding.stateLayout.show(ViewState.ERROR, state.error)

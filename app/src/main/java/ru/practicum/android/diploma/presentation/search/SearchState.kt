@@ -1,9 +1,10 @@
 package ru.practicum.android.diploma.presentation.search
 
-data class SearchState<T>(
+import ru.practicum.android.diploma.domain.models.main.VacancyShort
+
+data class SearchState(
     val isLoading: Boolean = false,
-    val noContent: Boolean = true,
-    val content: T? = null,
+    val content: List<VacancyShort>? = null,
     val error: UiError? = null,
     val query: String = "",
     val resultCount: Int? = 0,
