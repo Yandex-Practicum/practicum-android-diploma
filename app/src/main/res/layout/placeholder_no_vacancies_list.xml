@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_46"
         android:layout_marginTop="@dimen/margin_16"
-        android:text="@string/buttons_Clear"
+        android:text="@string/errors_bad_request"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

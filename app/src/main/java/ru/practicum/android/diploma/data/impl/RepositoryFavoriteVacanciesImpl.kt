@@ -2,13 +2,14 @@ package ru.practicum.android.diploma.data.impl
 
 import androidx.sqlite.SQLiteException
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.data.db.VacancyDao
 import ru.practicum.android.diploma.data.db.VacancyShortDbEntity
 import ru.practicum.android.diploma.domain.models.main.LogoUrls
 import ru.practicum.android.diploma.domain.models.main.Salary
 import ru.practicum.android.diploma.domain.models.main.VacancyShort
 import ru.practicum.android.diploma.domain.repositories.RepositoryFavoriteVacancies
+import ru.practicum.android.diploma.presentation.favorites.ResponseDb
 
 class RepositoryFavoriteVacanciesImpl(
     private val vacancyDao: VacancyDao,
@@ -52,9 +53,20 @@ class RepositoryFavoriteVacanciesImpl(
         }
     }
 
-    override fun getVacanciesFlow(): Flow<List<VacancyShort>> {
-        return vacancyDao.getAllFlow()
-            .map { list -> list.map { dataToDomain(it) } }
+    override fun getVacanciesFlow(): Flow<ResponseDb<List<VacancyShort>>> = flow {
+        emit(ResponseDb.Loading.cast<List<VacancyShort>>())
+        try {
+            vacancyDao.getAllFlow()
+                .collect { list ->
+                    val domainList = list
+                        .sortedByDescending { it.createdAt }
+                        .map { dataToDomain(it) }
+
+                    emit(ResponseDb.Success(domainList))
+                }
+        } catch (e: Exception) {
+            emit(ResponseDb.Error(e))
+        }
     }
 
     override suspend fun clearDatabase(): Result<Unit> {
@@ -74,7 +86,9 @@ class RepositoryFavoriteVacanciesImpl(
             areaName = vacancy.area,
             employerName = vacancy.employer,
             salary = salaryToString(vacancy.salary),
-            postedAt = vacancy.postedAt
+            postedAt = vacancy.postedAt,
+            createdAt = System.currentTimeMillis()
+
         )
     }
 

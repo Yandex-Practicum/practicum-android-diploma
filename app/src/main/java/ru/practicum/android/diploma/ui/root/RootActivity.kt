@@ -20,6 +20,7 @@ class RootActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        //deleteAllDatabases()
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.main_container) as NavHostFragment
         val navController = navHostFragment.navController
         binding.bottomNavigationView.setupWithNavController(navController)
@@ -31,5 +32,9 @@ class RootActivity : AppCompatActivity() {
         tokenProvider.saveAccessToken(accessToken)
         val restoredToken = tokenProvider.getAccessToken()
         Log.d("RootActivity", "Token restored from prefs: $restoredToken")
+    }
+
+    private fun deleteAllDatabases() {
+        this.deleteDatabase("FavoriteVacanciesDatabase.db")
     }
 }

@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_navigation_favorites_to_navigation_vacancy"
             app:destination="@id/navigation_vacancy" />
+        <argument
+            android:name="vacancyId"
+            app:argType="string" />
     </fragment>
 
     <fragment
