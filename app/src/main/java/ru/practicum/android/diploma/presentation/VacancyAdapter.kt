@@ -96,7 +96,6 @@ class VacancyAdapter(
     }
 
     class LoadingViewHolder(view: View) : RecyclerView.ViewHolder(view)
-
     class HeaderLoadingViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
     companion object {
