@@ -18,7 +18,6 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
-import ru.practicum.android.diploma.domain.models.main.Salary
 
 class VacancyFragment : Fragment() {
 
@@ -85,17 +84,18 @@ class VacancyFragment : Fragment() {
                 binding.experience.text = viewModel.getExperienceLabelById(vacancy.experience?.id)
                 binding.employmentFormSchedule.text = viewModel.formatEmploymentAndSchedule(vacancy.employmentForm?.id, vacancy.schedule?.id, requireContext())
                 binding.vacancyDescription.text = Html.fromHtml(vacancy.description, Html.FROM_HTML_MODE_LEGACY)
+
+                binding.emptyPlaceholder.placeholder.visibility = View.GONE
+                binding.progressBar.visibility = View.GONE
+
+                binding.toggleVacancyVisibility(true)
+
                 if (vacancy.keySkills.isEmpty()) {
                     binding.headerKeySkills.visibility = View.GONE
                     binding.listKeySkills.visibility = View.GONE
                 } else {
                     binding.listKeySkills.text = vacancy.keySkills.joinToString("\n") { "• $it" }
                 }
-
-                binding.emptyPlaceholder.placeholder.visibility = View.GONE
-                binding.progressBar.visibility = View.GONE
-
-                binding.toggleVacancyVisibility(true)
 
                 binding.bShare.setOnClickListener {
                     val context = requireContext()

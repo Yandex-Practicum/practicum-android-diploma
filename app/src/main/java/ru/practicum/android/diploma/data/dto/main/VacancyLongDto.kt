@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.data.dto.main
 
 import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 import ru.practicum.android.diploma.data.dto.additional.AddressDto
 import ru.practicum.android.diploma.data.dto.additional.ContactsDto
 import ru.practicum.android.diploma.data.dto.additional.EmploymentDto
