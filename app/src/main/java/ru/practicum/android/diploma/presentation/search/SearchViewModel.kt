@@ -8,48 +8,81 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.utils.StringProvider
 import ru.practicum.android.diploma.domain.interactor.SearchVacancyInteractor
+import ru.practicum.android.diploma.domain.models.Resource
 import ru.practicum.android.diploma.domain.models.main.VacancyShort
 
 class SearchViewModel(
     private val searchVacancyInteractor: SearchVacancyInteractor,
     private val stringProvider: StringProvider
 ) : ViewModel() {
-    private val _searchState = MutableStateFlow(SearchState<List<VacancyShort>>())
-    val searchState: StateFlow<SearchState<List<VacancyShort>>> = _searchState
+    private val _searchState = MutableStateFlow(SearchState())
+    val searchState: StateFlow<SearchState> = _searchState
 
-    private fun searchVacancy(query: String) {
+    fun searchVacancy(query: String) {
         viewModelScope.launch {
-            _searchState.value = _searchState.value.copy(isLoading = true, query = query)
+            _searchState.value = _searchState.value.copy(
+                isLoading = true,
+                query = query
+            )
 
-            searchVacancyInteractor.searchVacancy(query).collect { (content, error) ->
-                _searchState.value = when {
-                    content != null -> SearchState(
-                        isLoading = false,
-                        content = content,
-                        query = query
-                    )
-
-                    error != null -> SearchState(
-                        isLoading = false,
-                        error = mapError(error),
-                        query = query
-                    )
-
-                    else -> SearchState(
-                        isLoading = false,
-                        error = UiError.ServerError,
-                        query = query
-                    )
+            searchVacancyInteractor.searchVacancy(query).collect { resource ->
+                _searchState.value = when (resource) {
+                    is Resource.Success -> buildSuccessState(resource.data, query)
+                    is Resource.Empty -> buildEmptyState(query)
+                    is Resource.Error -> buildErrorState(resource.message, query)
                 }
             }
         }
+    }
+
+    private fun buildSuccessState(
+        content: List<VacancyShort>,
+        query: String
+    ): SearchState {
+        val count = content.size
+        val plural = stringProvider.getQuantityString(R.plurals.vacancies_count, count, count)
+        val text = stringProvider.getString(R.string.results_Find) + " " + plural
+
+        return SearchState(
+            isLoading = false,
+            content = content,
+            showResultText = true,
+            resultText = text,
+            query = query
+        )
+    }
+
+    private fun buildEmptyState(query: String): SearchState {
+        return SearchState(
+            isLoading = false,
+            error = UiError.BadRequest,
+            resultText = stringProvider.getString(R.string.results_not_found),
+            showResultText = true,
+            query = query
+        )
+    }
+
+    private fun buildErrorState(
+        message: String,
+        query: String
+    ): SearchState {
+        return SearchState(
+            isLoading = false,
+            error = mapError(message),
+            query = query
+        )
+    }
+
+    fun clearSearch() {
+        _searchState.value = SearchState(
+            content = emptyList(),
+        )
     }
 
     private fun mapError(message: String?): UiError {
         return when {
             message?.contains(stringProvider.getString(R.string.errors_No_connection)) == true -> UiError.NoConnection
             message?.contains(stringProvider.getString(R.string.errors_bad_request)) == true -> UiError.BadRequest
-            message?.contains(stringProvider.getString(R.string.errors_not_found)) == true -> UiError.NotFound
             message?.contains(stringProvider.getString(R.string.errors_Server)) == true -> UiError.ServerError
             else -> UiError.ServerError
         }

@@ -46,6 +46,10 @@
         <EditText
             android:id="@+id/search_field"
             style="@style/text_regular_16"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:cursorVisible="true"
+            android:textCursorDrawable="@drawable/cursor_edit"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginVertical="@dimen/margin_4"
@@ -54,7 +58,7 @@
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:hint="@string/hint_Enter_request"
-            android:imeOptions="actionDone"
+            android:imeOptions="actionSearch"
             android:importantForAutofill="no"
             android:inputType="text"
             android:singleLine="true"
@@ -66,8 +70,8 @@
             android:layout_width="@dimen/icon_size_48"
             android:layout_height="@dimen/icon_size_48"
             android:layout_marginEnd="@dimen/margin_8"
-            android:background="@android:color/transparent"
             android:visibility="gone"
+            android:background="@android:color/transparent"
             app:srcCompat="@drawable/ic_close"
             app:tint="@color/black" />
 
@@ -98,11 +102,19 @@
         tools:text="Найдено 3 вакансии"
         tools:visibility="visible" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <ru.practicum.android.diploma.presentation.search.StateLayout
+        android:id="@+id/stateLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:itemCount="3"
-        tools:listitem="@layout/element_vacancy_short" />
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:itemCount="3"
+            tools:listitem="@layout/element_vacancy_short" />
+
+    </ru.practicum.android.diploma.presentation.search.StateLayout>
 
 </LinearLayout>

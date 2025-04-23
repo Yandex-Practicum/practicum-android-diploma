@@ -6,6 +6,8 @@
     <dimen name="text_size_12">12sp</dimen>
 
     <!--MARGIN-->
+    <dimen name="margin_156">156dp</dimen>
+    <dimen name="margin_102">102dp</dimen>
     <dimen name="margin_46">46dp</dimen>
     <dimen name="margin_24">24dp</dimen>
     <dimen name="margin_20">20dp</dimen>

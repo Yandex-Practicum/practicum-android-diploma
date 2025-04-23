@@ -4,12 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.ElementVacancyShortBinding
 import ru.practicum.android.diploma.domain.models.main.VacancyShort
 import ru.practicum.android.diploma.util.extensions.toFormattedString
 
 class VacancyAdapter(
-    private val vacancyList: Array<VacancyShort>,
+    private var vacancyList: List<VacancyShort> = emptyList(),
     private val onItemClickListener: (VacancyShort) -> Unit
 ) : RecyclerView.Adapter<VacancyAdapter.ViewHolder>() {
 
@@ -27,19 +28,25 @@ class VacancyAdapter(
         holder.bind(vacancyList[position])
     }
 
+    fun updateVacancies(newVacancies: List<VacancyShort>) {
+        vacancyList = newVacancies
+        notifyDataSetChanged()
+    }
+
     class ViewHolder(
         private val binding: ElementVacancyShortBinding,
         private val onItemClickListener: (VacancyShort) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: VacancyShort) {
-            Glide.with(binding.imageEmployer.context)
+            Glide.with(itemView.context)
                 .load(item.logoUrl?.logo90)
+                .placeholder(R.drawable.ic_placeholder)
+                .fitCenter()
                 .into(binding.imageEmployer)
-            binding.textJobNameAndCity.text = item.name
+            binding.textJobNameAndCity.text = "${item.name}, ${item.area}"
             binding.textEmployerName.text = item.employer
-            binding.textSalary.text = item.salary.toFormattedString(itemView.context)
+            binding.textSalary.text = item.salary.toFormattedString(itemView.context, false)
             itemView.setOnClickListener { onItemClickListener.invoke(item) }
         }
-
     }
 }

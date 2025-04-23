@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="?attr/colorPrimary"
     android:paddingHorizontal="@dimen/margin_16"
     android:paddingVertical="@dimen/margin_8">
@@ -14,7 +14,7 @@
         android:layout_height="48dp"
         android:adjustViewBounds="true"
         android:foreground="@drawable/ic_employer_frame"
-        android:scaleType="fitCenter"
+        android:scaleType="centerInside"
         app:layout_constraintDimensionRatio="H,1:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
