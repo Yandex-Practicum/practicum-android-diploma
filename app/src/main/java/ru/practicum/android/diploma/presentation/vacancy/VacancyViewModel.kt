@@ -86,6 +86,7 @@ class VacancyViewModel(private val searchVacancyInteractor: SearchVacancyInterac
         return when {
             employment != null && schedule != null ->
                 "${employment.label}, ${context.getString(schedule.labelResId)}"
+
             employment != null -> employment.label
             schedule != null -> context.getString(schedule.labelResId)
             else -> defaultText
