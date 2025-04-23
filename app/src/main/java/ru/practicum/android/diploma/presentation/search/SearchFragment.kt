@@ -8,12 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity.INPUT_METHOD_SERVICE
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -34,7 +37,6 @@ class SearchFragment : Fragment() {
     private var searchQuery: String = ""
     private var isDebounceEnabled = true
     private val adapter: VacancyAdapter = VacancyAdapter(
-        vacancyList = mutableListOf(),
         onItemClickListener = { vacancy ->
             if (isDebounceEnabled) {
                 isDebounceEnabled = false
@@ -61,6 +63,7 @@ class SearchFragment : Fragment() {
             editText()
             setupBindings()
             observeSearchState()
+            observeToastFlow()
         }
     }
 
@@ -73,16 +76,31 @@ class SearchFragment : Fragment() {
         }
     }
 
+    private fun observeToastFlow() {
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                searchViewModel.toastFlow.collect {
+                    Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
     private fun renderState(state: SearchState) {
         when {
-            state.isLoading -> binding.stateLayout.show(ViewState.LOADING)
+            state.isInitialLoading -> binding.stateLayout.show(ViewState.LOADING)
             state.error != null -> binding.stateLayout.show(ViewState.ERROR, state.error)
             state.content.isNullOrEmpty() -> binding.stateLayout.show(ViewState.EMPTY)
             else -> {
                 binding.stateLayout.show(ViewState.CONTENT)
-                adapter.updateVacancies(state.content)
+
             }
         }
+        adapter.updateVacancies(
+            newVacancies = state.content.orEmpty(),
+            showHeaderLoading = state.isRefreshing,
+            showFooterLoading = state.isNextPageLoading
+        )
         binding.vacanciesFoundText.apply {
             text = state.resultText
             visibility = if (state.showResultText) View.VISIBLE else View.GONE
@@ -158,6 +176,29 @@ class SearchFragment : Fragment() {
                 false
             }
         }
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(rv, dx, dy)
+                val state = searchViewModel.searchState.value
+                val layoutManager = rv.layoutManager as? LinearLayoutManager ?: return
+                val lastVisible = layoutManager.findLastVisibleItemPosition()
+                val firstVisible = layoutManager.findFirstCompletelyVisibleItemPosition()
+                val totalItems = adapter.itemCount
+                val threshold = THRESHOLD
+
+                if (lastVisible >= totalItems - threshold) {
+                    searchViewModel.loadNextPage()
+                }
+                if (dy < 0 &&
+                    firstVisible == 0 &&
+                    !state.isRefreshing &&
+                    !state.isInitialLoading &&
+                    !state.isLoading
+                ) {
+                    searchViewModel.refreshSearch()
+                }
+            }
+        })
         binding.toFiltersButton.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_main_to_navigation_filters)
         }
@@ -198,5 +239,6 @@ class SearchFragment : Fragment() {
     companion object {
         private const val SEARCH_DEBOUNCE_DELAY = 2000L
         private const val CLICK_DEBOUNCE_DELAY = 500L
+        private const val THRESHOLD = 2
     }
 }

@@ -22,6 +22,7 @@
     <string name="navigation_Team">Команда</string>
 
     <!--ОШИБКИ-->
+    <string name="errors_check_connection">Нет интернета</string>
     <string name="errors_No_connection">Нет интернета</string>
     <string name="errors_Server">Ошибка сервера</string>
     <string name="errors_bad_request">Не удалось получить \nсписок вакансий</string>
