@@ -1,44 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorPrimary"
-    tools:context=".presentation.favorites.FavoritesFragment">
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_bar_height"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/text_medium_22"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginEnd="@dimen/margin_4"
+            android:layout_weight="1"
+            android:text="@string/header_Vacancies_search"
+            android:textColor="?attr/colorOnPrimary" />
+
+        <ImageButton
+            android:id="@+id/to_filters_button"
+            android:layout_width="@dimen/icon_size_48"
+            android:layout_height="@dimen/icon_size_48"
+            android:layout_marginEnd="@dimen/margin_8"
+            android:background="?attr/colorPrimary"
+            android:contentDescription="@string/navigation_Filters"
+            android:src="@drawable/ic_filter_off" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/search_field_height"
+        android:layout_marginHorizontal="@dimen/margin_16"
+        android:layout_marginVertical="@dimen/margin_8"
+        android:background="@drawable/bg_search_field"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/search_field"
+            style="@style/text_regular_16"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:cursorVisible="true"
+            android:textCursorDrawable="@drawable/cursor_edit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="@dimen/margin_4"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginEnd="@dimen/margin_8"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:hint="@string/hint_Enter_request"
+            android:imeOptions="actionSearch"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textColorHint="?attr/colorOnSecondary" />
+
+        <ImageButton
+            android:id="@+id/clear_field_button"
+            android:layout_width="@dimen/icon_size_48"
+            android:layout_height="@dimen/icon_size_48"
+            android:layout_marginEnd="@dimen/margin_8"
+            android:visibility="gone"
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/ic_close"
+            app:tint="@color/black" />
+
+        <ImageView
+            android:id="@+id/search_image"
+            android:layout_width="@dimen/icon_size_48"
+            android:layout_height="@dimen/icon_size_48"
+            android:layout_marginEnd="@dimen/margin_8"
+            android:background="@android:color/transparent"
+            android:scaleType="center"
+            app:srcCompat="@drawable/ic_search"
+            app:tint="@color/black" />
+
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/header_title"
-        style="@style/text_bold_32"
+        android:id="@+id/vacancies_found_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/navigation_Main"
-        android:layout_marginTop="200dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/margin_4"
+        android:layout_marginBottom="@dimen/margin_8"
+        android:background="@drawable/bg_vacancies_found"
+        android:paddingHorizontal="@dimen/margin_8"
+        android:paddingVertical="@dimen/margin_4"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        tools:text="Найдено 3 вакансии"
+        tools:visibility="visible" />
 
-    <Button
-        android:id="@+id/toFiltersButton"
+    <ru.practicum.android.diploma.presentation.search.StateLayout
+        android:id="@+id/stateLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/navigation_Filters"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header_title"
-        />
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-    <Button
-        android:id="@+id/toVacancyButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/navigation_Vacancy"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toFiltersButton"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:itemCount="3"
+            tools:listitem="@layout/element_vacancy_short" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </ru.practicum.android.diploma.presentation.search.StateLayout>
+
+</LinearLayout>

@@ -1,0 +1,56 @@
+Index: app/schemas/ru.practicum.android.diploma.data.db.FavoriteVacanciesDatabase/1.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\r\n  \"formatVersion\": 1,\r\n  \"database\": {\r\n    \"version\": 1,\r\n    \"identityHash\": \"90755f309a8edff379dc6af96c073140\",\r\n    \"entities\": [\r\n      {\r\n        \"tableName\": \"Favorite_vacancies_table\",\r\n        \"createSql\": \"CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`vacancy_id` TEXT NOT NULL, `company_logo` TEXT DEFAULT 'empty', `vacancy_name` TEXT NOT NULL DEFAULT 'unknown', `area_name` TEXT NOT NULL DEFAULT 'unknown', `company_name` TEXT NOT NULL DEFAULT 'unknown', `salary` TEXT DEFAULT 'Зарплата не указана', `postedAt` TEXT NOT NULL DEFAULT 'unknown', PRIMARY KEY(`vacancy_id`))\",\r\n        \"fields\": [\r\n          {\r\n            \"fieldPath\": \"vacancyId\",\r\n            \"columnName\": \"vacancy_id\",\r\n            \"affinity\": \"TEXT\",\r\n            \"notNull\": true\r\n          },\r\n          {\r\n            \"fieldPath\": \"logoUrl\",\r\n            \"columnName\": \"company_logo\",\r\n            \"affinity\": \"TEXT\",\r\n            \"notNull\": false,\r\n            \"defaultValue\": \"'empty'\"\r\n          },\r\n          {\r\n            \"fieldPath\": \"name\",\r\n            \"columnName\": \"vacancy_name\",\r\n            \"affinity\": \"TEXT\",\r\n            \"notNull\": true,\r\n            \"defaultValue\": \"'unknown'\"\r\n          },\r\n          {\r\n            \"fieldPath\": \"areaName\",\r\n            \"columnName\": \"area_name\",\r\n            \"affinity\": \"TEXT\",\r\n            \"notNull\": true,\r\n            \"defaultValue\": \"'unknown'\"\r\n          },\r\n          {\r\n            \"fieldPath\": \"employerName\",\r\n            \"columnName\": \"company_name\",\r\n            \"affinity\": \"TEXT\",\r\n            \"notNull\": true,\r\n            \"defaultValue\": \"'unknown'\"\r\n          },\r\n          {\r\n            \"fieldPath\": \"salary\",\r\n            \"columnName\": \"salary\",\r\n            \"affinity\": \"TEXT\",\r\n            \"notNull\": false,\r\n            \"defaultValue\": \"'Зарплата не указана'\"\r\n          },\r\n          {\r\n            \"fieldPath\": \"postedAt\",\r\n            \"columnName\": \"postedAt\",\r\n            \"affinity\": \"TEXT\",\r\n            \"notNull\": true,\r\n            \"defaultValue\": \"'unknown'\"\r\n          }\r\n        ],\r\n        \"primaryKey\": {\r\n          \"autoGenerate\": false,\r\n          \"columnNames\": [\r\n            \"vacancy_id\"\r\n          ]\r\n        },\r\n        \"indices\": [],\r\n        \"foreignKeys\": []\r\n      }\r\n    ],\r\n    \"views\": [],\r\n    \"setupQueries\": [\r\n      \"CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)\",\r\n      \"INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '90755f309a8edff379dc6af96c073140')\"\r\n    ]\r\n  }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/schemas/ru.practicum.android.diploma.data.db.FavoriteVacanciesDatabase/1.json b/app/schemas/ru.practicum.android.diploma.data.db.FavoriteVacanciesDatabase/1.json
+--- a/app/schemas/ru.practicum.android.diploma.data.db.FavoriteVacanciesDatabase/1.json	(revision 4843cdd5cfe629f1d6bdc17136ffb09e65cb61dd)
++++ b/app/schemas/ru.practicum.android.diploma.data.db.FavoriteVacanciesDatabase/1.json	(date 1745394708832)
+@@ -2,11 +2,11 @@
+   "formatVersion": 1,
+   "database": {
+     "version": 1,
+-    "identityHash": "90755f309a8edff379dc6af96c073140",
++    "identityHash": "13148fdfad9780a72fd6163e71e360a8",
+     "entities": [
+       {
+         "tableName": "Favorite_vacancies_table",
+-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`vacancy_id` TEXT NOT NULL, `company_logo` TEXT DEFAULT 'empty', `vacancy_name` TEXT NOT NULL DEFAULT 'unknown', `area_name` TEXT NOT NULL DEFAULT 'unknown', `company_name` TEXT NOT NULL DEFAULT 'unknown', `salary` TEXT DEFAULT 'Зарплата не указана', `postedAt` TEXT NOT NULL DEFAULT 'unknown', PRIMARY KEY(`vacancy_id`))",
++        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`vacancy_id` TEXT NOT NULL, `company_logo` TEXT DEFAULT 'empty', `vacancy_name` TEXT NOT NULL DEFAULT 'unknown', `area_name` TEXT NOT NULL DEFAULT 'unknown', `company_name` TEXT NOT NULL DEFAULT 'unknown', `salary` TEXT NOT NULL DEFAULT 'Зарплата не указана', `postedAt` TEXT NOT NULL DEFAULT 'unknown', `date_of_adding` INTEGER NOT NULL, PRIMARY KEY(`vacancy_id`))",
+         "fields": [
+           {
+             "fieldPath": "vacancyId",
+@@ -46,7 +46,7 @@
+             "fieldPath": "salary",
+             "columnName": "salary",
+             "affinity": "TEXT",
+-            "notNull": false,
++            "notNull": true,
+             "defaultValue": "'Зарплата не указана'"
+           },
+           {
+@@ -55,6 +55,12 @@
+             "affinity": "TEXT",
+             "notNull": true,
+             "defaultValue": "'unknown'"
++          },
++          {
++            "fieldPath": "createdAt",
++            "columnName": "date_of_adding",
++            "affinity": "INTEGER",
++            "notNull": true
+           }
+         ],
+         "primaryKey": {
+@@ -70,7 +76,7 @@
+     "views": [],
+     "setupQueries": [
+       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '90755f309a8edff379dc6af96c073140')"
++      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '13148fdfad9780a72fd6163e71e360a8')"
+     ]
+   }
+ }
+\ No newline at end of file

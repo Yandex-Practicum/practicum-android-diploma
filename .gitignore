@@ -10,6 +10,8 @@
 /.idea/gradle.xml
 /.idea/compiler.xml
 /.idea/misc.xml
+/.idea/shelf/Uncommitted_changes_before_Update_at_14_04_2025_13_20_[Changes]
+
 
 # Gradle files
 .gradle/
@@ -47,5 +49,12 @@ google-services.json
 # OS specific
 .DS_Store
 *.log
+/.idea/deploymentTargetSelector.xml
+/.idea/migrations.xml
+/.idea/runConfigurations.xml
+/.idea/shelf/Uncommitted_changes_before_Update_at_14_04_2025_13_20_[Changes]/shelved.patch
+/.idea/shelf/Uncommitted_changes_before_Update_at_14_04_2025_13_20__Changes_.xml
+/.idea/shelf/Uncommitted_changes_before_Update_at_14_04_2025_13_20_[Changes]/shelved.patch
+/.idea/shelf/Uncommitted_changes_before_Update_at_14_04_2025_13_20_[Changes]/shelved.patch
 
 develop.properties

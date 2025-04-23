@@ -2,18 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="@dimen/margin_16"
     android:background="?attr/colorPrimary"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/margin_16">
 
     <TextView
         style="@style/text_medium_22"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/top_bar_height"
         android:layout_marginBottom="@dimen/margin_16"
-        android:paddingVertical="@dimen/margin_20"
-        android:textColor="?attr/colorOnPrimary"
-        android:text="@string/navigation_Team" />
+        android:gravity="center_vertical"
+        android:text="@string/navigation_Team"
+        android:textColor="?attr/colorOnPrimary" />
 
     <TextView
         style="@style/text_bold_32"
@@ -21,38 +21,38 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_24"
         android:paddingVertical="@dimen/margin_8"
-        android:textColor="?attr/colorOnPrimary"
-        android:text="@string/team_Who_works" />
+        android:text="@string/team_Who_works"
+        android:textColor="?attr/colorOnPrimary" />
 
     <TextView
         style="@style/text_medium_16"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_16"
-        android:textColor="?attr/colorOnPrimary"
-        android:text="@string/team_Ekaterina" />
+        android:text="@string/team_Ekaterina"
+        android:textColor="?attr/colorOnPrimary" />
 
     <TextView
         style="@style/text_medium_16"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_16"
-        android:textColor="?attr/colorOnPrimary"
-        android:text="@string/team_Tatyana" />
+        android:text="@string/team_Tatyana"
+        android:textColor="?attr/colorOnPrimary" />
 
     <TextView
         style="@style/text_medium_16"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_16"
-        android:textColor="?attr/colorOnPrimary"
-        android:text="@string/team_Dimitrii" />
+        android:text="@string/team_Dimitrii"
+        android:textColor="?attr/colorOnPrimary" />
 
     <TextView
         style="@style/text_medium_16"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="?attr/colorOnPrimary"
-        android:text="@string/team_Emil" />
+        android:text="@string/team_Emil"
+        android:textColor="?attr/colorOnPrimary" />
 
 </LinearLayout>

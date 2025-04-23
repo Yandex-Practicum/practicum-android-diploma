@@ -7,13 +7,13 @@ import ru.practicum.android.diploma.domain.models.main.Salary
 import ru.practicum.android.diploma.util.Currency
 import java.util.Locale
 
-fun Salary?.toFormattedString(context: Context): String {
+fun Salary?.toFormattedString(context: Context, includeGrossLabel: Boolean = true): String {
     if (this == null || from == null && to == null) {
         return context.getString(R.string.salary_not_specified)
     }
 
     val currencySymbol = Currency.getCurrencySymbol(currency.orEmpty())
-    val grossLabel = gross.toGrossLabel(context)
+    val grossLabel = if (includeGrossLabel) gross.toGrossLabel(context) else ""
     val salaryPart = formatSalaryRange(context, from, to, currencySymbol)
 
     return salaryPart + grossLabel

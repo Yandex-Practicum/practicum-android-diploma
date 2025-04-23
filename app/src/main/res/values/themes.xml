@@ -2,10 +2,13 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Vzyali" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
-        <item name="colorPrimary">@color/white</item> <!--background-->
+
+        <item name="colorPrimary">@color/white</item> <!--screen background-->
+        <item name="colorSecondary">@color/light_grey</item> <!--search field background-->
         <item name="colorOnPrimary">@color/black</item> <!--text-->
         <item name="colorOnSecondary">@color/grey</item> <!--hint-->
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
+        <item name="android:windowLightStatusBar">true</item>
 
     </style>
-
 </resources>

@@ -12,8 +12,8 @@
         android:layout_marginHorizontal="@dimen/margin_16"
         android:scaleType="center"
         android:src="@drawable/pic_empty_search"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

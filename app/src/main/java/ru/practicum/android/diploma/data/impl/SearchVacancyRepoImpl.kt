@@ -5,13 +5,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.data.dto.mapper.VacancyPageResult
 import ru.practicum.android.diploma.data.dto.mapper.toDomain
 import ru.practicum.android.diploma.data.network.Response
 import ru.practicum.android.diploma.data.network.api.NetworkClient
 import ru.practicum.android.diploma.data.utils.StringProvider
 import ru.practicum.android.diploma.domain.models.Resource
 import ru.practicum.android.diploma.domain.models.main.VacancyLong
-import ru.practicum.android.diploma.domain.models.main.VacancyShort
 import ru.practicum.android.diploma.domain.repositories.SearchVacancyRepository
 import java.io.IOException
 
@@ -19,11 +19,24 @@ class SearchVacancyRepoImpl(
     private val networkClient: NetworkClient,
     private val stringProvider: StringProvider
 ) : SearchVacancyRepository {
-    override fun searchVacancy(vacancyName: String): Flow<Resource<List<VacancyShort>>> =
+    override fun searchVacancy(vacancyName: String, page: Int, perPage: Int): Flow<Resource<VacancyPageResult>> =
         handleResponse(
-            request = { networkClient.searchVacancies(mapOf("text" to vacancyName)) },
+            request = {
+                networkClient.searchVacancies(
+                    mapOf(
+                        "text" to vacancyName,
+                        "page" to page.toString(),
+                        "per_page" to perPage.toString()
+                    )
+                )
+            },
             stringProvider = stringProvider,
-            mapper = { dto -> dto.items.map { it.toDomain() } }
+            mapper = { dto ->
+                VacancyPageResult(
+                    vacancies = dto.items.map { it.toDomain() },
+                    found = dto.found
+                )
+            }
         )
 
     override fun searchVacancyDetails(vacancyId: String): Flow<Resource<VacancyLong>> =

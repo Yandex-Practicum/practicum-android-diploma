@@ -27,9 +27,9 @@
         android:layout_marginTop="@dimen/margin_16"
         android:text="@string/errors_not_found"
         android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/placeholder" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

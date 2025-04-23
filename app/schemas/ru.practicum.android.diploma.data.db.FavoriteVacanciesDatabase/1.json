@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "90755f309a8edff379dc6af96c073140",
+    "identityHash": "38fa03116ad933c3941d358edd1da760",
     "entities": [
       {
         "tableName": "Favorite_vacancies_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`vacancy_id` TEXT NOT NULL, `company_logo` TEXT DEFAULT 'empty', `vacancy_name` TEXT NOT NULL DEFAULT 'unknown', `area_name` TEXT NOT NULL DEFAULT 'unknown', `company_name` TEXT NOT NULL DEFAULT 'unknown', `salary` TEXT DEFAULT 'Зарплата не указана', `postedAt` TEXT NOT NULL DEFAULT 'unknown', PRIMARY KEY(`vacancy_id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`vacancy_id` TEXT NOT NULL, `company_logo` TEXT DEFAULT 'empty', `vacancy_name` TEXT NOT NULL DEFAULT 'unknown', `area_name` TEXT NOT NULL DEFAULT 'unknown', `company_name` TEXT NOT NULL DEFAULT 'unknown', `salary` TEXT NOT NULL DEFAULT 'Зарплата не указана', `postedAt` TEXT NOT NULL DEFAULT 'unknown', PRIMARY KEY(`vacancy_id`))",
         "fields": [
           {
             "fieldPath": "vacancyId",
@@ -46,7 +46,7 @@
             "fieldPath": "salary",
             "columnName": "salary",
             "affinity": "TEXT",
-            "notNull": false,
+            "notNull": true,
             "defaultValue": "'Зарплата не указана'"
           },
           {
@@ -70,7 +70,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '90755f309a8edff379dc6af96c073140')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '38fa03116ad933c3941d358edd1da760')"
     ]
   }
 }
