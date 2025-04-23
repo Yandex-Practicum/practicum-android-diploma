@@ -2,7 +2,7 @@ package ru.practicum.android.diploma.domain.api
 
 import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.domain.models.main.VacancyShort
-import ru.practicum.android.diploma.presentation.favorites.ResponseDb
+import ru.practicum.android.diploma.domain.models.ResponseDb
 
 interface InteractorFavoriteVacancies {
     suspend fun insertVacancy(vacancy: VacancyShort): Result<Unit>

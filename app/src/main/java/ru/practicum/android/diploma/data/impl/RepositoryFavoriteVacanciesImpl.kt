@@ -9,7 +9,7 @@ import ru.practicum.android.diploma.domain.models.main.LogoUrls
 import ru.practicum.android.diploma.domain.models.main.Salary
 import ru.practicum.android.diploma.domain.models.main.VacancyShort
 import ru.practicum.android.diploma.domain.repositories.RepositoryFavoriteVacancies
-import ru.practicum.android.diploma.presentation.favorites.ResponseDb
+import ru.practicum.android.diploma.domain.models.ResponseDb
 
 class RepositoryFavoriteVacanciesImpl(
     private val vacancyDao: VacancyDao,

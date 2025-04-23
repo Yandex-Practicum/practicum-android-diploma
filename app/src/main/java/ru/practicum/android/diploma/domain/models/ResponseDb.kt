@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.presentation.favorites
+package ru.practicum.android.diploma.domain.models
 
 sealed class ResponseDb<out T> {
     object Loading : ResponseDb<Nothing>() {
