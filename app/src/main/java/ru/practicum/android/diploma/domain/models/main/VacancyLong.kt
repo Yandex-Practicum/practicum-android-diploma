@@ -27,5 +27,6 @@ data class VacancyLong(
     val industries: List<Industry> = emptyList(),
     val publishedAt: String = "",
     val createdAt: String = "",
-    val archived: Boolean? = null
+    val archived: Boolean? = null,
+    val url: String = ""
 ) : Parcelable
