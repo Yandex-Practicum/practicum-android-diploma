@@ -61,10 +61,9 @@ class RepositoryFavoriteVacanciesImpl(
                     val domainList = list
                         .sortedByDescending { it.createdAt }
                         .map { dataToDomain(it) }
-
                     emit(ResponseDb.Success(domainList))
                 }
-        } catch (e: Exception) {
+        } catch (e: SQLiteException) {
             emit(ResponseDb.Error(e))
         }
     }

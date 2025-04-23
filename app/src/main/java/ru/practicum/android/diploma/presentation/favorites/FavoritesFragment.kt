@@ -18,8 +18,9 @@ class FavoritesFragment : Fragment() {
     private val viewModel: FavoriteViewModel by viewModel()
     private var _binding: FragmentFavoritesBinding? = null
     private val binding: FragmentFavoritesBinding get() = _binding!!
-    private lateinit var adapter: FavoritesAdapter
-
+    private val adapter by lazy {
+        FavoritesAdapter { vacancy -> onVacancyClick(vacancy) }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,13 +44,8 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun setupUI() {
-        adapter = FavoritesAdapter(
-            onClick = { vacancy ->
-                onVacancyClick(vacancy)
-            }
-        )
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 
     private fun onVacancyClick(vacancy: VacancyShort) {
@@ -96,7 +92,7 @@ class FavoritesFragment : Fragment() {
         binding.recyclerView.isVisible = false
         binding.errorView.isVisible = false
     }
-    private fun showError(){
+    private fun showError() {
         binding.loadingView.isVisible = false
         binding.emptyView.isVisible = false
         binding.recyclerView.isVisible = false

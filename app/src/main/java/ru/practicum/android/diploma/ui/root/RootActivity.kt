@@ -20,7 +20,7 @@ class RootActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        //deleteAllDatabases()
+        deleteAllDatabases()
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.main_container) as NavHostFragment
         val navController = navHostFragment.navController
         binding.bottomNavigationView.setupWithNavController(navController)
