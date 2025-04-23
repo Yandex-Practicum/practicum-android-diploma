@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.data.dto.response
 
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import ru.practicum.android.diploma.data.dto.main.VacancyShortDto
 
 @Serializable

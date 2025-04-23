@@ -1,5 +1,7 @@
 package ru.practicum.android.diploma.data.dto.main
 
+import kotlinx.serialization.Serializable
+
 @Serializable
 data class SalaryDto(
     val from: Int? = null,
