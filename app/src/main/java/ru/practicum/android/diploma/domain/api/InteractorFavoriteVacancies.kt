@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.domain.api
 
 import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.domain.models.main.VacancyShort
+import ru.practicum.android.diploma.domain.models.ResponseDb
 
 interface InteractorFavoriteVacancies {
     suspend fun insertVacancy(vacancy: VacancyShort): Result<Unit>
@@ -12,7 +13,7 @@ interface InteractorFavoriteVacancies {
 
     suspend fun deleteById(vacancyId: Int): Result<Unit>
 
-    fun getVacanciesFlow(): Flow<List<VacancyShort>>
+    fun getVacanciesFlow(): Flow<ResponseDb<List<VacancyShort>>>
 
     suspend fun clearDatabase(): Result<Unit>
 }

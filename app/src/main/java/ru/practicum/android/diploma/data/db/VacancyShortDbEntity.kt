@@ -26,5 +26,8 @@ data class VacancyShortDbEntity(
     val salary: String,
 
     @ColumnInfo(name = "postedAt", defaultValue = "unknown")
-    val postedAt: String
+    val postedAt: String,
+
+    @ColumnInfo(name = "date_of_adding")
+    val createdAt: Long
 )
