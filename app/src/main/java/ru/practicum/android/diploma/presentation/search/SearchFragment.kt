@@ -177,24 +177,26 @@ class SearchFragment : Fragment() {
             }
         }
         binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
             override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(rv, dx, dy)
+
                 val state = searchViewModel.searchState.value
                 val layoutManager = rv.layoutManager as? LinearLayoutManager ?: return
                 val lastVisible = layoutManager.findLastVisibleItemPosition()
                 val firstVisible = layoutManager.findFirstCompletelyVisibleItemPosition()
                 val totalItems = adapter.itemCount
-                val threshold = THRESHOLD
 
-                if (lastVisible >= totalItems - threshold) {
+                if (lastVisible >= totalItems - THRESHOLD) {
                     searchViewModel.loadNextPage()
                 }
-                if (dy < 0 &&
-                    firstVisible == 0 &&
-                    !state.isRefreshing &&
-                    !state.isInitialLoading &&
-                    !state.isLoading
-                ) {
+
+                val isPullDown = dy < 0 && firstVisible == 0
+                val isStateIdle = !state.isRefreshing
+                    && !state.isInitialLoading
+                    && !state.isLoading
+
+                if (isPullDown && isStateIdle) {
                     searchViewModel.refreshSearch()
                 }
             }

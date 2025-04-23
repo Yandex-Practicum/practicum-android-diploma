@@ -102,7 +102,7 @@ class SearchViewModel(
             isLoading = false,
             content = result.vacancies,
             currentPage = 0,
-            totalPages = (result.found / PER_PAGE) + ROUND_UP_OFFSET,
+            totalPages = result.found / PER_PAGE + ROUND_UP_OFFSET,
             showResultText = true,
             resultText = text,
             query = query
