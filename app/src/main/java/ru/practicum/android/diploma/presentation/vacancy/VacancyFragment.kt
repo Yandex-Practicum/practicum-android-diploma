@@ -55,16 +55,10 @@ class VacancyFragment : Fragment() {
         }
 
         binding.bFavorite.setOnClickListener {
-
-        }
-
-        binding.bFavorite.setOnClickListener {
             viewLifecycleOwner.lifecycleScope.launch {
                 viewModel.addVacancyToFavorite()
             }
         }
-
-
     }
 
     private fun render(state: VacancyState) {
