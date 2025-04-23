@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorPrimary"
     tools:context=".presentation.vacancy.VacancyFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -41,8 +42,8 @@
             android:id="@+id/bFavorite"
             android:layout_width="@dimen/icon_size_48"
             android:layout_height="@dimen/icon_size_48"
-            android:backgroundTint="@color/white"
             android:src="@drawable/ic_favorites_off"
+            android:background="?attr/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

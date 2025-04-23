@@ -55,12 +55,9 @@ class VacancyFragment : Fragment() {
         }
 
         binding.bFavorite.setOnClickListener {
-            Toast.makeText(
-                requireContext(),
-                "ADDING TO DB....",
-                Toast.LENGTH_SHORT
-            ).show()
+            viewModel.reactOnLikeButton()
         }
+        viewModel.isLiked.observe(viewLifecycleOwner) { updateIsLiked(it) }
     }
 
     private fun render(state: VacancyState) {
@@ -73,6 +70,7 @@ class VacancyFragment : Fragment() {
 
     private fun renderContent(vacancy: VacancyLong) = with(binding) {
         toggleVacancyVisibility(true)
+        renderIsLiked(vacancy.vacancyId)
         renderTextFields(vacancy)
         renderLogo(vacancy)
         renderSkills(vacancy)
@@ -140,6 +138,12 @@ class VacancyFragment : Fragment() {
         progressBar.visibility = View.VISIBLE
     }
 
+    private fun renderIsLiked(vacancyId: String){
+        lifecycleScope.launch {
+            viewModel.checkInLiked(vacancyId)
+        }
+    }
+
     private fun FragmentVacancyBinding.toggleVacancyVisibility(show: Boolean) {
         val views = listOf(
             vacancyName,
@@ -155,5 +159,11 @@ class VacancyFragment : Fragment() {
         )
 
         views.forEach { it.visibility = if (show) View.VISIBLE else View.GONE }
+    }
+
+    private fun updateIsLiked(isLiked: Boolean){
+        binding.bFavorite.setImageResource(
+            if (isLiked) R.drawable.ic_favorites_on else R.drawable.ic_favorites_off
+        )
     }
 }
