@@ -6,7 +6,6 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -54,16 +53,11 @@ class VacancyFragment : Fragment() {
             findNavController().navigateUp()
         }
 
-
         binding.bFavorite.setOnClickListener {
-            Toast.makeText(
-                requireContext(),
-                "ADDING TO DB....",
-                Toast.LENGTH_SHORT
-            ).show()
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewModel.addVacancyToFavorite()
+            }
         }
-
-
     }
 
     private fun render(state: VacancyState) {
@@ -82,7 +76,11 @@ class VacancyFragment : Fragment() {
                 binding.nameCompany.text = vacancy.employer?.name
                 binding.placeCompany.text = vacancy.address?.city ?: vacancy.areaName
                 binding.experience.text = viewModel.getExperienceLabelById(vacancy.experience?.id)
-                binding.employmentFormSchedule.text = viewModel.formatEmploymentAndSchedule(vacancy.employmentForm?.id, vacancy.schedule?.id, requireContext())
+                binding.employmentFormSchedule.text = viewModel.formatEmploymentAndSchedule(
+                    vacancy.employmentForm?.id,
+                    vacancy.schedule?.id,
+                    requireContext()
+                )
                 binding.vacancyDescription.text = Html.fromHtml(vacancy.description, Html.FROM_HTML_MODE_LEGACY)
 
                 binding.emptyPlaceholder.placeholder.visibility = View.GONE
