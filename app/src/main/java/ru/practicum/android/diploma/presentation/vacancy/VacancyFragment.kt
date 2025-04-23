@@ -18,6 +18,7 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
+import ru.practicum.android.diploma.domain.models.main.VacancyLong
 
 class VacancyFragment : Fragment() {
 
@@ -37,7 +38,6 @@ class VacancyFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.vacancyState.collect { state ->
@@ -54,7 +54,6 @@ class VacancyFragment : Fragment() {
             findNavController().navigateUp()
         }
 
-
         binding.bFavorite.setOnClickListener {
             Toast.makeText(
                 requireContext(),
@@ -62,65 +61,83 @@ class VacancyFragment : Fragment() {
                 Toast.LENGTH_SHORT
             ).show()
         }
-
-
     }
 
     private fun render(state: VacancyState) {
         when (state) {
-            is VacancyState.Content -> {
-                val vacancy = state.vacancy
-
-                binding.nameCompany.text = vacancy.name
-                binding.salary.text = viewModel.formatSalary(vacancy.salary)
-                Glide.with(binding.icCompany)
-                    .load(vacancy.logoUrl)
-                    .centerCrop()
-                    .placeholder(R.drawable.ic_placeholder)
-                    .transform(RoundedCorners(12))
-                    .into(binding.icCompany)
-                binding.nameCompany.text = vacancy.employer?.name
-                binding.placeCompany.text = vacancy.address?.city ?: vacancy.areaName
-                binding.experience.text = viewModel.getExperienceLabelById(vacancy.experience?.id)
-                binding.employmentFormSchedule.text = viewModel.formatEmploymentAndSchedule(vacancy.employmentForm?.id, vacancy.schedule?.id, requireContext())
-                binding.vacancyDescription.text = Html.fromHtml(vacancy.description, Html.FROM_HTML_MODE_LEGACY)
-
-                binding.emptyPlaceholder.placeholder.visibility = View.GONE
-                binding.progressBar.visibility = View.GONE
-
-                binding.toggleVacancyVisibility(true)
-
-                if (vacancy.keySkills.isEmpty()) {
-                    binding.headerKeySkills.visibility = View.GONE
-                    binding.listKeySkills.visibility = View.GONE
-                } else {
-                    binding.listKeySkills.text = vacancy.keySkills.joinToString("\n") { "• $it" }
-                }
-
-                binding.bShare.setOnClickListener {
-                    val context = requireContext()
-                    val shareIntent = Intent(Intent.ACTION_SEND)
-                    shareIntent.type = context.getString(R.string.intent_sharing_type)
-                    val message = vacancy.url
-                    shareIntent.putExtra(Intent.EXTRA_TEXT, message)
-                    shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-
-                    context.startActivity(shareIntent)
-                }
-            }
-
-            VacancyState.Empty -> {
-                binding.toggleVacancyVisibility(false)
-                binding.emptyPlaceholder.placeholder.visibility = View.VISIBLE
-                binding.progressBar.visibility = View.GONE
-            }
-
-            VacancyState.Loading -> {
-                binding.toggleVacancyVisibility(false)
-                binding.emptyPlaceholder.placeholder.visibility = View.GONE
-                binding.progressBar.visibility = View.VISIBLE
-            }
+            is VacancyState.Content -> renderContent(state.vacancy)
+            VacancyState.Empty -> renderEmpty()
+            VacancyState.Loading -> renderLoading()
         }
+    }
+
+    private fun renderContent(vacancy: VacancyLong) = with(binding) {
+        toggleVacancyVisibility(true)
+        renderTextFields(vacancy)
+        renderLogo(vacancy)
+        renderSkills(vacancy)
+        renderShare(vacancy)
+        emptyPlaceholder.placeholder.visibility = View.GONE
+        progressBar.visibility = View.GONE
+    }
+
+    private fun renderTextFields(vacancy: VacancyLong) = with(binding) {
+        nameCompany.text = vacancy.name
+        salary.text = viewModel.formatSalary(vacancy.salary)
+        nameCompany.text = vacancy.employer?.name
+        placeCompany.text = vacancy.address?.city ?: vacancy.areaName
+        experience.text = viewModel.getExperienceLabelById(vacancy.experience?.id)
+        employmentFormSchedule.text = viewModel.formatEmploymentAndSchedule(
+            vacancy.employmentForm?.id,
+            vacancy.schedule?.id,
+            requireContext()
+        )
+        vacancyDescription.text = Html.fromHtml(vacancy.description, Html.FROM_HTML_MODE_LEGACY)
+    }
+
+    private fun renderLogo(vacancy: VacancyLong) = with(binding.icCompany) {
+        val radius = resources.getDimensionPixelSize(R.dimen.radius_12)
+        Glide.with(this)
+            .load(vacancy.logoUrl)
+            .centerCrop()
+            .placeholder(R.drawable.ic_placeholder)
+            .transform(RoundedCorners(radius))
+            .into(this)
+    }
+
+    private fun renderSkills(vacancy: VacancyLong) = with(binding) {
+        if (vacancy.keySkills.isEmpty()) {
+            headerKeySkills.visibility = View.GONE
+            listKeySkills.visibility = View.GONE
+        } else {
+            headerKeySkills.visibility = View.VISIBLE
+            listKeySkills.visibility = View.VISIBLE
+            listKeySkills.text = vacancy.keySkills.joinToString("\n") { "• $it" }
+        }
+    }
+
+    private fun renderShare(vacancy: VacancyLong) = with(binding.bShare) {
+        setOnClickListener {
+            val context = requireContext()
+            val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                type = context.getString(R.string.intent_sharing_type)
+                putExtra(Intent.EXTRA_TEXT, vacancy.url)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+            context.startActivity(shareIntent)
+        }
+    }
+
+    private fun renderEmpty() = with(binding) {
+        toggleVacancyVisibility(false)
+        emptyPlaceholder.placeholder.visibility = View.VISIBLE
+        progressBar.visibility = View.GONE
+    }
+
+    private fun renderLoading() = with(binding) {
+        toggleVacancyVisibility(false)
+        emptyPlaceholder.placeholder.visibility = View.GONE
+        progressBar.visibility = View.VISIBLE
     }
 
     private fun FragmentVacancyBinding.toggleVacancyVisibility(show: Boolean) {
@@ -139,5 +156,4 @@ class VacancyFragment : Fragment() {
 
         views.forEach { it.visibility = if (show) View.VISIBLE else View.GONE }
     }
-
 }

@@ -33,9 +33,7 @@ class VacancyViewModel(private val searchVacancyInteractor: SearchVacancyInterac
         }
     }
 
-
     fun formatSalary(salary: Salary?): String {
-
         val numberFormat = (NumberFormat.getNumberInstance(Locale("ru")) as DecimalFormat).apply {
             isGroupingUsed = true
             maximumFractionDigits = 0
@@ -76,7 +74,6 @@ class VacancyViewModel(private val searchVacancyInteractor: SearchVacancyInterac
         }
     }
 
-
     fun formatEmploymentAndSchedule(
         employmentId: String?,
         scheduleId: String?,
@@ -94,5 +91,4 @@ class VacancyViewModel(private val searchVacancyInteractor: SearchVacancyInterac
             else -> defaultText
         }
     }
-
 }

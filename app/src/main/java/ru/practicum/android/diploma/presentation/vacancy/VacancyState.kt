@@ -2,7 +2,7 @@ package ru.practicum.android.diploma.presentation.vacancy
 
 import ru.practicum.android.diploma.domain.models.main.VacancyLong
 
-sealed class VacancyState() {
+sealed class VacancyState {
     data object Empty : VacancyState()
 
     data object Loading : VacancyState()
