@@ -47,7 +47,7 @@ class VacancyFragment : Fragment() {
         }
 
         if (arguments != null) {
-            viewModel.getLongVacancy(requireArguments().getInt("id"))
+            viewModel.getLongVacancy(requireArguments().getString("vacancyId") ?: "")
         }
 
         binding.bToSearch.setOnClickListener {
@@ -82,7 +82,7 @@ class VacancyFragment : Fragment() {
     }
 
     private fun renderTextFields(vacancy: VacancyLong) = with(binding) {
-        nameCompany.text = vacancy.name
+        vacancyName.text = vacancy.name
         salary.text = viewModel.formatSalary(vacancy.salary)
         nameCompany.text = vacancy.employer?.name
         placeCompany.text = vacancy.address?.city ?: vacancy.areaName
@@ -98,7 +98,7 @@ class VacancyFragment : Fragment() {
     private fun renderLogo(vacancy: VacancyLong) = with(binding.icCompany) {
         val radius = resources.getDimensionPixelSize(R.dimen.radius_12)
         Glide.with(this)
-            .load(vacancy.logoUrl)
+            .load(vacancy.logoUrl?.logo240)
             .centerCrop()
             .placeholder(R.drawable.ic_placeholder)
             .transform(RoundedCorners(radius))

@@ -103,6 +103,7 @@
             android:id="@+id/box_company"
             android:layout_width="match_parent"
             android:layout_height="80dp"
+            android:layout_marginTop="@dimen/margin_24"
             android:background="@drawable/shape_vacancy_company"
             android:padding="@dimen/margin_16"
             app:layout_constraintStart_toStartOf="parent"
