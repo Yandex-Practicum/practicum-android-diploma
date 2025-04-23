@@ -92,6 +92,7 @@ class FavoritesFragment : Fragment() {
         binding.recyclerView.isVisible = false
         binding.errorView.isVisible = false
     }
+
     private fun showError() {
         binding.loadingView.isVisible = false
         binding.emptyView.isVisible = false

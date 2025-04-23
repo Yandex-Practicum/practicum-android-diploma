@@ -63,11 +63,11 @@
         android:clipToPadding="false"
         android:padding="16dp"
         android:scrollbars="vertical"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/header_title" Of="parent" />
 
     <TextView
         android:id="@+id/header_title"

@@ -1,12 +1,20 @@
 package ru.practicum.android.diploma.presentation.favorites
 
+import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.FitCenter
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.ElementVacancyShortBinding
+import ru.practicum.android.diploma.domain.models.main.LogoUrls
 import ru.practicum.android.diploma.domain.models.main.VacancyShort
+import ru.practicum.android.diploma.util.Constants
 import ru.practicum.android.diploma.util.extensions.toFormattedString
 
 class FavoritesAdapter(
@@ -30,7 +38,14 @@ class FavoritesAdapter(
             binding.textJobNameAndCity.text = "${item.name}, ${item.area}"
             binding.textEmployerName.text = item.employer
             binding.textSalary.text = item.salary.toFormattedString(root.context)
-
+            Glide.with(itemView.context)
+                .load(item.logoUrl?.logo90)
+                .placeholder(R.drawable.ic_placeholder)
+                .transform(
+                    FitCenter(),
+                    RoundedCorners(itemView.resources.getDimensionPixelSize(R.dimen.radius_12))
+                )
+                .into(binding.imageEmployer)
             root.setOnClickListener { onClick(item) }
         }
     }

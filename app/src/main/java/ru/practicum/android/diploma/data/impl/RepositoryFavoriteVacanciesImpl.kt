@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.data.impl
 
+import android.util.Log
 import androidx.sqlite.SQLiteException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -78,23 +79,24 @@ class RepositoryFavoriteVacanciesImpl(
     }
 
     private fun domainToData(vacancy: VacancyShort): VacancyShortDbEntity {
+        Log.d("logoURL", "domainToData: ${vacancy.logoUrl?.logo90}")
         return VacancyShortDbEntity(
             vacancyId = vacancy.vacancyId,
-            logoUrl = vacancy.logoUrl?.original,
+            logoUrl = vacancy.logoUrl?.logo90,
             name = vacancy.name,
             areaName = vacancy.area,
             employerName = vacancy.employer,
             salary = salaryToString(vacancy.salary),
             postedAt = vacancy.postedAt,
             createdAt = System.currentTimeMillis()
-
         )
     }
 
     private fun dataToDomain(vacancy: VacancyShortDbEntity): VacancyShort {
+        Log.d("logoURL", "domainToData: ${LogoUrls(logo90 = vacancy.logoUrl)}")
         return VacancyShort(
             vacancyId = vacancy.vacancyId,
-            logoUrl = LogoUrls(original = vacancy.logoUrl),
+            logoUrl = LogoUrls(logo90 = vacancy.logoUrl),
             name = vacancy.name,
             area = vacancy.areaName,
             employer = vacancy.employerName,
