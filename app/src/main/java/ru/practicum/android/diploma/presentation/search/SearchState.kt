@@ -8,5 +8,10 @@ data class SearchState(
     val error: UiError? = null,
     val query: String = "",
     val showResultText: Boolean = false,
-    val resultText: String = ""
+    val resultText: String = "",
+    val currentPage: Int = 0,
+    val totalPages: Int = 0,
+    val isNextPageLoading: Boolean = false,
+    val isRefreshing: Boolean = false,
+    val isInitialLoading: Boolean = false
 )
