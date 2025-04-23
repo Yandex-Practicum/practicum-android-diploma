@@ -54,13 +54,14 @@ class VacancyFragment : Fragment() {
             findNavController().navigateUp()
         }
 
+        binding.bFavorite.setOnClickListener {
+
+        }
 
         binding.bFavorite.setOnClickListener {
-            Toast.makeText(
-                requireContext(),
-                "ADDING TO DB....",
-                Toast.LENGTH_SHORT
-            ).show()
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewModel.addVacancyToFavorite()
+            }
         }
 
 

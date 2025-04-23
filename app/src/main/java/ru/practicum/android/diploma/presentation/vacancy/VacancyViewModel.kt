@@ -1,23 +1,29 @@
 package ru.practicum.android.diploma.presentation.vacancy
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.domain.api.InteractorFavoriteVacancies
 import ru.practicum.android.diploma.domain.interactor.SearchVacancyInteractor
 import ru.practicum.android.diploma.domain.models.additional.Employment
 import ru.practicum.android.diploma.domain.models.additional.Experience
 import ru.practicum.android.diploma.domain.models.additional.Schedule
 import ru.practicum.android.diploma.domain.models.main.Salary
 import ru.practicum.android.diploma.util.Currency
+import ru.practicum.android.diploma.util.extensions.toVacancyShort
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.Locale
 
-class VacancyViewModel(private val searchVacancyInteractor: SearchVacancyInteractor) : ViewModel() {
+class VacancyViewModel(
+    private val searchVacancyInteractor: SearchVacancyInteractor,
+    private val favoriteVacancyInteractor: InteractorFavoriteVacancies
+) : ViewModel() {
 
     private val _vacancyState = MutableStateFlow<VacancyState>(
         value = VacancyState.Loading
@@ -89,10 +95,17 @@ class VacancyViewModel(private val searchVacancyInteractor: SearchVacancyInterac
         return when {
             employment != null && schedule != null ->
                 "${employment.label}, ${context.getString(schedule.labelResId)}"
+
             employment != null -> employment.label
             schedule != null -> context.getString(schedule.labelResId)
             else -> defaultText
         }
     }
 
+    suspend fun addVacancyToFavorite() {
+        val vacancy = (_vacancyState.value as? VacancyState.Content)?.vacancy
+        if (vacancy != null) {
+            favoriteVacancyInteractor.insertVacancy(vacancy.toVacancyShort())
+        }
+    }
 }
