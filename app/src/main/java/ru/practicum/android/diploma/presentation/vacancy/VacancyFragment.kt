@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.presentation.vacancy
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Html
 import android.view.LayoutInflater
@@ -54,13 +55,6 @@ class VacancyFragment : Fragment() {
             findNavController().navigateUp()
         }
 
-        binding.bShare.setOnClickListener {
-            Toast.makeText(
-                requireContext(),
-                "SHARING....",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
 
         binding.bFavorite.setOnClickListener {
             Toast.makeText(
@@ -103,6 +97,16 @@ class VacancyFragment : Fragment() {
 
                 binding.toggleVacancyVisibility(true)
 
+                binding.bShare.setOnClickListener {
+                    val context = requireContext()
+                    val shareIntent = Intent(Intent.ACTION_SEND)
+                    shareIntent.type = context.getString(R.string.intent_sharing_type)
+                    val message = vacancy.url
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, message)
+                    shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
+                    context.startActivity(shareIntent)
+                }
             }
 
             VacancyState.Empty -> {

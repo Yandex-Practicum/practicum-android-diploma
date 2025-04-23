@@ -96,6 +96,9 @@
     <string name="navigation_Back">Вернуться назад</string>
     <string name="navigation_AddToFavorite">Добавить в избранное</string>
 
+    <!--INTENTS-->
+    <string name="intent_sharing_type">text/plain</string>
+
     <!--ССЫЛКИ-->
     <string name="api_link">https://api.hh.ru</string>
 

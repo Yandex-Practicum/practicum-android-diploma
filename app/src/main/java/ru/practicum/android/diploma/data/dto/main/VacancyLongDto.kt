@@ -28,5 +28,6 @@ data class VacancyLongDto(
     val industries: List<IndustryDto> = emptyList(),
     @SerialName("published_at") val publishedAt: String? = null,
     @SerialName("created_at") val createdAt: String? = null,
-    @SerialName("archived") val archived: Boolean? = null
+    @SerialName("archived") val archived: Boolean? = null,
+    @SerialName("alternate_url") val url: String = ""
 )

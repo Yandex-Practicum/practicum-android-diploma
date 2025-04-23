@@ -62,7 +62,8 @@ fun VacancyLongDto.toDomain(): VacancyLong = VacancyLong(
     industries = this.industries.map { it.toDomain() },
     publishedAt = this.publishedAt.orEmpty(),
     createdAt = this.createdAt.orEmpty(),
-    archived = this.archived
+    archived = this.archived,
+    url = this.url
 )
 
 fun AddressDto.toDomain(): Address = Address(
