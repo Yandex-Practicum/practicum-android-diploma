@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.data.dto.additional
 
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 @Serializable
 data class MetroStationDto(
