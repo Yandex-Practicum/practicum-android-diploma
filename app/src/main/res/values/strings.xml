@@ -80,7 +80,7 @@
     <string name="messages_List_is_empty">Список пуст</string>
 
     <!--ВАКАНСИЯ-->
-    <string name="vacancy_Expiriense">Требуемый опыт</string>
+    <string name="vacancy_Experience">Требуемый опыт</string>
     <string name="vacancy_Description">Описание вакансии</string>
     <string name="vacancy_Skills">Ключевые навыки</string>
 
@@ -97,6 +97,9 @@
     <string name="navigation_Share">Поделиться</string>
     <string name="navigation_Back">Вернуться назад</string>
     <string name="navigation_AddToFavorite">Добавить в избранное</string>
+
+    <!--INTENTS-->
+    <string name="intent_sharing_type">text/plain</string>
 
     <!--ССЫЛКИ-->
     <string name="api_link">https://api.hh.ru</string>
