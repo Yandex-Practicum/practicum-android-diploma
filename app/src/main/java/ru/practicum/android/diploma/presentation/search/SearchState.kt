@@ -7,7 +7,6 @@ data class SearchState(
     val content: List<VacancyShort>? = null,
     val error: UiError? = null,
     val query: String = "",
-    val resultCount: Int? = 0,
     val showResultText: Boolean = false,
     val resultText: String = ""
 )

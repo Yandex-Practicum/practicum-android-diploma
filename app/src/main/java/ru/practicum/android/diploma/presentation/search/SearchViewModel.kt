@@ -46,7 +46,6 @@ class SearchViewModel(
         return SearchState(
             isLoading = false,
             content = content,
-            resultCount = count,
             showResultText = true,
             resultText = text,
             query = query
