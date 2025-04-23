@@ -6,11 +6,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.data.db.VacancyDao
 import ru.practicum.android.diploma.data.db.VacancyShortDbEntity
+import ru.practicum.android.diploma.domain.models.ResponseDb
 import ru.practicum.android.diploma.domain.models.main.LogoUrls
 import ru.practicum.android.diploma.domain.models.main.Salary
 import ru.practicum.android.diploma.domain.models.main.VacancyShort
 import ru.practicum.android.diploma.domain.repositories.RepositoryFavoriteVacancies
-import ru.practicum.android.diploma.domain.models.ResponseDb
 
 class RepositoryFavoriteVacanciesImpl(
     private val vacancyDao: VacancyDao,
