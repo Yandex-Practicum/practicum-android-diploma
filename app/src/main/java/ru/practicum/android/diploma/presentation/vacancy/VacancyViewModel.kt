@@ -24,9 +24,9 @@ class VacancyViewModel(private val searchVacancyInteractor: SearchVacancyInterac
     )
     val vacancyState: StateFlow<VacancyState> = _vacancyState
 
-    fun getLongVacancy(id: Int) {
+    fun getLongVacancy(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            searchVacancyInteractor.searchVacancyDetails(id.toString()).collect { pair ->
+            searchVacancyInteractor.searchVacancyDetails(id).collect { pair ->
 
                 _vacancyState.value = if (pair.first == null) VacancyState.Empty else VacancyState.Content(pair.first!!)
             }
