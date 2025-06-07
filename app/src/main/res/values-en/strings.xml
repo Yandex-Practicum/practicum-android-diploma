@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="team">Team</string>
+    <string name="team_head">We\'ve been working on the app</string>
+    <string name="team_body">Vlad Zakharov\nEkaterina Kikot\nAlexander Lyubchansky\nMikhail Makiev\nDmitry Tetchenko</string>
+</resources>
