@@ -11,13 +11,14 @@ object NetworkUtils {
             Context.CONNECTIVITY_SERVICE
         ) as ConnectivityManager
         val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        var result = false
         if (capabilities != null) {
             when {
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> return true
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> return true
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> return true
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> result = true
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> result = true
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> result = true
             }
         }
-        return false
+        return result
     }
 }
