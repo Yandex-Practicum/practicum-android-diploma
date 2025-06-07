@@ -8,11 +8,12 @@ import ru.practicum.android.diploma.databinding.ActivityRootBinding
 import ru.practicum.android.diploma.ui.team.TeamFragment
 
 class RootActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityRootBinding
+    private var _binding: ActivityRootBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityRootBinding.inflate(layoutInflater)
+        _binding = ActivityRootBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // Пример использования access token для HeadHunter API
