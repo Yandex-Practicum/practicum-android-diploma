@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="text_font_xl">
+        <item name="android:fontFamily">@font/ys_display_bold</item>
+        <item name="android:textSize">@dimen/text_size_lx</item>
+        <item name="android:textFontWeight">700</item>
+        <item name="android:lineHeight">@dimen/line_height_lx</item>
+    </style>
+
+    <style name="text_font_l">
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/text_size_l</item>
+        <item name="android:textFontWeight">500</item>
+        <item name="android:lineHeight">@dimen/line_height_l</item>
+    </style>
+
+    <style name="text_font_m">
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/text_size_m</item>
+        <item name="android:textFontWeight">500</item>
+        <item name="android:lineHeight">@dimen/line_height_m</item>
+    </style>
+
+    <style name="text_font_s">
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/text_size_s</item>
+        <item name="android:textFontWeight">400</item>
+        <item name="android:lineHeight">@dimen/line_height_s</item>
+    </style>
+
+    <style name="text_font_xs">
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/text_size_xs</item>
+        <item name="android:textFontWeight">400</item>
+        <item name="android:lineHeight">@dimen/line_height_xs</item>
+    </style>
+</resources>
