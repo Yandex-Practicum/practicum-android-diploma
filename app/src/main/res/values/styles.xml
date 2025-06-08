@@ -21,7 +21,7 @@
         <item name="android:lineHeight">@dimen/line_height_m</item>
     </style>
 
-    <style name="text_font_s">
+    <style name="text_font_s" >
         <item name="android:fontFamily">@font/ys_display_regular</item>
         <item name="android:textSize">@dimen/text_size_s</item>
         <item name="android:textFontWeight">400</item>
@@ -33,5 +33,17 @@
         <item name="android:textSize">@dimen/text_size_xs</item>
         <item name="android:textFontWeight">400</item>
         <item name="android:lineHeight">@dimen/line_height_xs</item>
+    </style>
+
+    <style name="BottomNavMenuStyle" parent="Widget.Material3.BottomNavigationView">
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/text_size_s</item>
+        <item name="android:textFontWeight">400</item>
+        <item name="android:lineHeight">@dimen/line_height_s</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="itemTextColor">@color/bottom_navigation_selector</item>
+        <item name="itemIconTint">@color/bottom_navigation_selector</item>
+        <item name="itemActiveIndicatorStyle">?android:attr/colorBackground</item>
+        <item name="android:background">?android:attr/colorBackground</item>
     </style>
 </resources>

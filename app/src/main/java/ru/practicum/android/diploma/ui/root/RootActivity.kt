@@ -5,16 +5,48 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsetsController
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.databinding.ActivityRootBinding
 
 class RootActivity : AppCompatActivity() {
+    @Suppress("LateinitUsage")
+    private lateinit var binding: ActivityRootBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_root)
+        binding = ActivityRootBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         setupThemeAndStatusBar()
+
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment
+        val navController = navHostFragment.navController
+
+        binding.bottomNavigationView.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.mainFragment -> binding.bottomNavigationView.visibility = View.VISIBLE
+                R.id.favoriteFragment -> binding.bottomNavigationView.visibility = View.VISIBLE
+                R.id.teamFragment -> binding.bottomNavigationView.visibility = View.VISIBLE
+                R.id.filterFragment -> binding.bottomNavigationView.visibility = View.GONE
+            }
+        }
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (navController.currentDestination?.id == navController.graph.startDestinationId) {
+                    showExitConfirmationDialog()
+                } else {
+                    navController.navigateUp()
+                }
+            }
+        })
 
         // Пример использования access token для HeadHunter API
         networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
@@ -22,6 +54,21 @@ class RootActivity : AppCompatActivity() {
 
     private fun networkRequestExample(accessToken: String) {
         // ...
+    }
+
+    private fun showExitConfirmationDialog() {
+        AlertDialog.Builder(this)
+            .setTitle(R.string.exit_confirmation)
+            .setMessage(R.string.are_you_sure_you_want_to_exit)
+            .setPositiveButton(R.string.yes) { dialog, _ ->
+                dialog.dismiss()
+                finish()
+            }
+            .setNegativeButton(R.string.no) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+            .show()
     }
 
     private fun setupThemeAndStatusBar() {
