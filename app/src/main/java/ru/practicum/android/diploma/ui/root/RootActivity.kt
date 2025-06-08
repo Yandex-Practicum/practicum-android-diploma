@@ -5,8 +5,6 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsetsController
-import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
@@ -25,7 +23,7 @@ class RootActivity : AppCompatActivity() {
         setContentView(binding.root)
         setupThemeAndStatusBar()
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment
+        val navHostFragment = binding.fragmentContainerView.getFragment<NavHostFragment>()
         val navController = navHostFragment.navController
 
         binding.bottomNavigationView.setupWithNavController(navController)
@@ -39,55 +37,12 @@ class RootActivity : AppCompatActivity() {
             }
         }
 
-        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                if (navController.currentDestination?.id == navController.graph.startDestinationId) {
-                    showExitConfirmationDialog()
-                } else {
-                    navController.navigateUp()
-                }
-            }
-        })
-
-        binding.bottomNavigationView.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.mainFragment -> {
-                    navController.navigate(R.id.mainFragment)
-                    true
-                }
-                R.id.favoriteFragment -> {
-                    navController.navigate(R.id.favoriteFragment)
-                    true
-                }
-                R.id.teamFragment -> {
-                    navController.navigate(R.id.teamFragment)
-                    true
-                }
-                else -> false
-            }
-        }
-
         // Пример использования access token для HeadHunter API
         networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
     }
 
     private fun networkRequestExample(accessToken: String) {
         // ...
-    }
-
-    private fun showExitConfirmationDialog() {
-        AlertDialog.Builder(this)
-            .setTitle(R.string.exit_confirmation)
-            .setMessage(R.string.are_you_sure_you_want_to_exit)
-            .setPositiveButton(R.string.yes) { dialog, _ ->
-                dialog.dismiss()
-                finish()
-            }
-            .setNegativeButton(R.string.no) { dialog, _ ->
-                dialog.dismiss()
-            }
-            .create()
-            .show()
     }
 
     private fun setupThemeAndStatusBar() {
