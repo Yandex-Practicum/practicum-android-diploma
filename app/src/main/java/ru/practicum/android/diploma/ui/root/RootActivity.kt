@@ -1,6 +1,10 @@
 package ru.practicum.android.diploma.ui.root
 
+import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
+import android.view.View
+import android.view.WindowInsetsController
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import ru.practicum.android.diploma.BuildConfig
@@ -51,7 +55,7 @@ class RootActivity : AppCompatActivity() {
                 }
             }
             // For Android 6+ (API 23+)
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> {
+            else -> {
                 window.decorView.systemUiVisibility = if (isDarkTheme) {
                     window.decorView.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
                 } else {

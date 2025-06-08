@@ -2,5 +2,11 @@
 <resources>
     <string name="team">Team</string>
     <string name="team_head">We\'ve been working on the app</string>
-    <string name="team_body">Vlad Zakharov\nEkaterina Kikot\nAlexander Lyubchansky\nMikhail Makiev\nDmitry Tetchenko</string>
+    <string-array name="team_body">
+        <item>Vlad Zakharov</item>
+        <item>Ekaterina Kikot</item>
+        <item>Alexander Lyubchansky</item>
+        <item>Mikhail Makiev</item>
+        <item>Dmitry Tetchenko</item>
+    </string-array>
 </resources>
