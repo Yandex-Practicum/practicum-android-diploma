@@ -50,7 +50,7 @@ class RootActivity : AppCompatActivity() {
         })
 
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
-            when(item.itemId) {
+            when (item.itemId) {
                 R.id.mainFragment -> {
                     navController.navigate(R.id.mainFragment)
                     true
