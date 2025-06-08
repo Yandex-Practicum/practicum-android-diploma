@@ -27,7 +27,11 @@ class TeamFragment : BindingFragment<FragmentTeamBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = ArrayAdapter.createFromResource(requireContext(), R.array.team_body, android.R.layout.simple_list_item_1)
+        val adapter = ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.team_body,
+            android.R.layout.simple_list_item_1
+        )
         binding.teamList.adapter = adapter
     }
 }
