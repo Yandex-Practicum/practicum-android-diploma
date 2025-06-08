@@ -49,6 +49,24 @@ class RootActivity : AppCompatActivity() {
             }
         })
 
+        binding.bottomNavigationView.setOnItemSelectedListener { item ->
+            when(item.itemId) {
+                R.id.mainFragment -> {
+                    navController.navigate(R.id.mainFragment)
+                    true
+                }
+                R.id.favoriteFragment -> {
+                    navController.navigate(R.id.favoriteFragment)
+                    true
+                }
+                R.id.teamFragment -> {
+                    navController.navigate(R.id.teamFragment)
+                    true
+                }
+                else -> false
+            }
+        }
+
         // Пример использования access token для HeadHunter API
         networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
     }
