@@ -5,7 +5,7 @@ import ru.practicum.android.diploma.domain.vacancy.models.Vacancy
 
 class SearchVacanciesRepositoryImpl(
     private val searchVacanciesNetworkDataSource: SearchVacanciesNetworkDataSource,
-): SearchVacanciesRepository {
+) : SearchVacanciesRepository {
     override suspend fun search(text: String): Result<List<Vacancy>> {
         val result = kotlin.runCatching {
             searchVacanciesNetworkDataSource.getSearchResults(text)

@@ -1,10 +1,12 @@
 package ru.practicum.android.diploma.data.vacancy.models
 
+import com.google.gson.annotations.SerializedName
+
 data class VacancyDto(
     val id: String,
     val name: String,
     val area: VacancyAreaDto,
-    val salary_range: VacancySalaryRangeDto,
+    @SerializedName("salary_range") val salaryRange: VacancySalaryRangeDto,
     val employer: VacancyEmployerDto,
 ) {
     data class VacancyAreaDto(
@@ -27,19 +29,18 @@ data class VacancyDto(
     }
 
     data class VacancyEmployerDto(
-        val accredited_it_employer: Boolean,
-        val alternate_url: String?,
+        @SerializedName("accredited_it_employer") val accreditedItEmployer: Boolean,
+        @SerializedName("alternate_url") val alternateUrl: String?,
         val id: String,
-        val logo_urls: VacancyEmployerLogoUrlDto?,
+        @SerializedName("logo_urls") val logoUrls: VacancyEmployerLogoUrlDto?,
         val name: String,
         val trusted: Boolean,
         val url: String?,
-        val vacancies_url: String?,
-
+        @SerializedName("vacancies_url") val vacanciesUrl: String?,
     ) {
         data class VacancyEmployerLogoUrlDto(
-            val `90`: String,
-            val `240`: String,
+            @SerializedName("90") val size90: String,
+            @SerializedName("240") val size240: String,
             val original: String,
         )
     }
