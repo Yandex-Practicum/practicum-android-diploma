@@ -9,6 +9,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import ru.practicum.android.diploma.BuildConfig
@@ -107,6 +108,7 @@ class RootActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         syncStatusBarWithAppTheme()
+        binding.bottomNavigationView.isVisible = true
     }
 
 }
