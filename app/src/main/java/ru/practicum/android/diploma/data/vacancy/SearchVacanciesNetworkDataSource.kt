@@ -1,13 +1,10 @@
 package ru.practicum.android.diploma.data.vacancy
 
-import retrofit2.http.GET
-import retrofit2.http.Query
-import ru.practicum.android.diploma.data.vacancy.models.SearchVacanciesDto
 import ru.practicum.android.diploma.data.vacancy.models.VacancyDto
 import ru.practicum.android.diploma.domain.vacancy.models.Vacancy
 
 class SearchVacanciesNetworkDataSource(
-    private val hhApi: HHApi,
+    private val hhApi: HhApi,
 ) {
     suspend fun getSearchResults(text: String): List<Vacancy> {
         val result = hhApi.searchVacancies(text)
@@ -20,10 +17,5 @@ class SearchVacanciesNetworkDataSource(
             id = data.id,
             name = data.name,
         )
-    }
-
-    interface HHApi {
-        @GET("/vacancies")
-        suspend fun searchVacancies(@Query("text") text: String): SearchVacanciesDto
     }
 }

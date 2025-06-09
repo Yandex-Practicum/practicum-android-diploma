@@ -15,6 +15,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.data.vacancy.HhApi
 import ru.practicum.android.diploma.data.vacancy.SearchVacanciesNetworkDataSource
 import ru.practicum.android.diploma.data.vacancy.SearchVacanciesRepositoryImpl
 import ru.practicum.android.diploma.databinding.ActivityRootBinding
@@ -26,7 +27,7 @@ class RootActivity : AppCompatActivity() {
             .baseUrl("https://api.hh.ru")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(SearchVacanciesNetworkDataSource.HHApi::class.java)
+            .create(HhApi::class.java)
     )
 
     private val searchVacanciesRepository: SearchVacanciesRepository = SearchVacanciesRepositoryImpl(
