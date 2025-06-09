@@ -10,7 +10,6 @@ import ru.practicum.android.diploma.di.interactorModule
 import ru.practicum.android.diploma.di.repositoryModule
 import ru.practicum.android.diploma.di.viewModelModule
 
-
 class App : Application() {
 
     override fun onCreate() {
@@ -24,7 +23,8 @@ class App : Application() {
                 interactorModule,
                 viewModelModule
             )
-        }        // Dependency Injection
+        }
+        // Dependency Injection
         /**** подкл библиотеки в gradle добавить модули di****/
 //        startKoin {
 //            androidLogger(Level.DEBUG)

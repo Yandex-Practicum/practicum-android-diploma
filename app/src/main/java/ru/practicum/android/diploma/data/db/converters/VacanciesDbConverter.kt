@@ -13,7 +13,7 @@ class VacanciesDbConverter {
         return VacanciesEntity(
             id = vacancy.id,
             name = "Не пыльная работа",
-            salaryFrom = 102000,
+            salaryFrom = 102_000,
             salaryTo = null,
             salaryCurr = "RUR",
             areaName = "Москва",
