@@ -49,4 +49,4 @@ google-services.json
 .DS_Store
 *.log
 /gradle/wrapper/
-/.idea/
+.kotlin

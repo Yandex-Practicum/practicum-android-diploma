@@ -1,8 +1,12 @@
 package ru.practicum.android.diploma.data.db.entity
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import ru.practicum.android.diploma.data.db.converters.DateConverter
+import ru.practicum.android.diploma.data.db.converters.StringListConverter
+import java.util.Date
 
 /**
  * @param [id] Идентификатор вакансии
@@ -10,31 +14,31 @@ import androidx.room.PrimaryKey
  * @param [salaryFrom] Зарплата от
  * @param [salaryTo] Зарплата до
  * @param [salaryCurr] Валюта
- * @param [area] Регион ForeignKey
- * @param [employer] Работодатель
+ * @param [areaName] Регион
+ * @param [employerName] Работодатель
+ * @param [employerLogoUrl] Лого работодателя
  * @param [keySkills] Ключевые навыки
  * @param [employmentForm] Типы занятости
- * @param [professionalRoles] Проффесиональные роли
+ * @param [professionalRoles] Профессиональные роли
  * @param [experience] Опыт работы
+ * @param [description] Описание вакансии
  */
-@Entity(
-    tableName = "vacancies",
-    foreignKeys = [
-        ForeignKey(AreaEntity::class, ["id"], ["area"], onDelete = ForeignKey.CASCADE),
-        ForeignKey(EmployerEntity::class, ["id"], ["employer"])
-    ]
-)
+@Entity(tableName = "vacancies")
+@TypeConverters(StringListConverter::class, DateConverter::class)
 data class VacanciesEntity(
-    @PrimaryKey()
+    @PrimaryKey(autoGenerate = false)
     val id: String,
     val name: String,
-    val salaryFrom: Int?,
-    val salaryTo: Int?,
-    val salaryCurr: String?,
-    val area: String,
-    val employer: String?,
-    val keySkills: List<String>,
-    val employmentForm: List<String>,
-    val professionalRoles: List<String>,
+    @ColumnInfo(name = "salary_from") val salaryFrom: Int?,
+    @ColumnInfo(name = "salary_to") val salaryTo: Int?,
+    @ColumnInfo(name = "salary_curr") val salaryCurr: String?,
+    @ColumnInfo(name = "area_name") val areaName: String,
+    @ColumnInfo(name = "employer_name") val employerName: String?,
+    @ColumnInfo(name = "employer_logo_url") val employerLogoUrl: String?,
+    @ColumnInfo(name = "key_skills") val keySkills: List<String>,
+    @ColumnInfo(name = "employment_form") val employmentForm: List<String>,
+    @ColumnInfo(name = "professional_roles") val professionalRoles: List<String>,
     val experience: String,
+    val description: String,
+    val dateAdd: Date
 )
