@@ -14,13 +14,22 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
-        // Dependency Injection
-        /**** подкл библиотеки в gradle добавить модули di****/
         startKoin {
             androidLogger(Level.DEBUG)
             androidContext(this@App)
-            modules(dataModule, repositoryModule, interactorModule, viewModelModule)
+            modules(
+                dataModule,
+                repositoryModule,
+                interactorModule,
+                viewModelModule
+            )
         }
+        // Dependency Injection
+        /**** подкл библиотеки в gradle добавить модули di****/
+//        startKoin {
+//            androidLogger(Level.DEBUG)
+//            androidContext(this@App)
+//            modules(listOf())
+//        }
     }
 }
