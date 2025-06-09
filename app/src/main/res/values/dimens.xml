@@ -23,6 +23,12 @@
     <dimen name="margin22">22dp</dimen>
     <dimen name="margin24">24dp</dimen>
     <dimen name="margin32">32dp</dimen>
+    <dimen name="margin46">46dp</dimen>
     <dimen name="margin56">56dp</dimen>
     <dimen name="margin59">59dp</dimen>
+
+    <dimen name="corner_radius_l">16dp</dimen>
+    <dimen name="corner_radius_m">12dp</dimen>
+    <dimen name="corner_radius_s">8dp</dimen>
+    <dimen name="corner_radius_xs">4dp</dimen>
 </resources>

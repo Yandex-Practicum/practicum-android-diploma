@@ -9,6 +9,7 @@
     <string name="are_you_sure_you_want_to_exit">Вы действительно хотите выйти?</string>
     <string name="yes">Да</string>
     <string name="no">Нет</string>
+
     <string name="team">Команда</string>
     <string name="team_head">Над приложением работали</string>
     <string-array name="team_body">
@@ -18,4 +19,26 @@
         <item>Михаил Макиев</item>
         <item>Дмитрий Тетченко</item>
     </string-array>
+
+    <string name="enter_request">Введите запрос</string>
+    <string name="no_internet">Нет интернета</string>
+    <string name="cant_get_vacations_list">Не удалось получить список вакансий</string>
+
+    <!-- Шаблоны для вывода зарплаты -->
+    <string name="salary_from">От %1$s %2$s</string>
+    <string name="salary_to">До %1$s %2$s</string>
+    <string name="salary_range">От %1$s до %2$s %3$s</string>
+    <string name="salary_not_specified">Зарплата не указана</string>
+
+    <!-- Валюты -->
+    <string name="currency_rub">₽</string>
+    <string name="currency_byr">Br</string>
+    <string name="currency_usd">$</string>
+    <string name="currency_eur">€</string>
+    <string name="currency_kzt">₸</string>
+    <string name="currency_uah">₴</string>
+    <string name="currency_azn">₼</string>
+    <string name="currency_uzs">сум</string>
+    <string name="currency_gel">₾</string>
+    <string name="currency_kgt">сом</string>
 </resources>
