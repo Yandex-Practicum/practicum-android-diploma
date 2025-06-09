@@ -10,11 +10,30 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import kotlinx.coroutines.runBlocking
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.data.vacancy.HhApi
+import ru.practicum.android.diploma.data.vacancy.SearchVacanciesNetworkDataSource
+import ru.practicum.android.diploma.data.vacancy.SearchVacanciesRepositoryImpl
 import ru.practicum.android.diploma.databinding.ActivityRootBinding
+import ru.practicum.android.diploma.domain.vacancy.api.SearchVacanciesRepository
 
 class RootActivity : AppCompatActivity() {
+    private val searchVacanciesNetworkDataSource = SearchVacanciesNetworkDataSource(
+        Retrofit.Builder()
+            .baseUrl("https://api.hh.ru")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(HhApi::class.java)
+    )
+
+    private val searchVacanciesRepository: SearchVacanciesRepository = SearchVacanciesRepositoryImpl(
+        searchVacanciesNetworkDataSource,
+    )
+
     @Suppress("LateinitUsage")
     private lateinit var binding: ActivityRootBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +58,11 @@ class RootActivity : AppCompatActivity() {
 
         // Пример использования access token для HeadHunter API
         networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
+
+        // Пример запроса (конечно тут будет интерактор и все пироги)
+        runBlocking {
+            val result = searchVacanciesRepository.search("android")
+        }
     }
 
     private fun networkRequestExample(accessToken: String) {

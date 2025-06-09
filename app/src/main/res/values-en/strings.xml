@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="no">No</string>
+    <string name="team">Team</string>
+    <string name="team_head">We\'ve been working on the app</string>
+    <string-array name="team_body">
+        <item>Vlad Zakharov</item>
+        <item>Ekaterina Kikot</item>
+        <item>Alexander Lyubchansky</item>
+        <item>Mikhail Makiev</item>
+        <item>Dmitry Tetchenko</item>
+    </string-array>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="main_button_text">Main</string>
+    <string name="favorite_button_text">Favourites</string>
+    <string name="team_button_text">Team</string>
+    <string name="exit_confirmation">Confirmation of exit</string>
+    <string name="are_you_sure_you_want_to_exit">Do you really want to get out?</string>
+    <string name="yes">Yes</string>
+</resources>

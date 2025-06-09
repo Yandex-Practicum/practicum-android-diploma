@@ -21,6 +21,7 @@
     <dimen name="margin19">19dp</dimen>
     <dimen name="margin20">20dp</dimen>
     <dimen name="margin22">22dp</dimen>
+    <dimen name="margin24">24dp</dimen>
     <dimen name="margin32">32dp</dimen>
     <dimen name="margin56">56dp</dimen>
     <dimen name="margin59">59dp</dimen>

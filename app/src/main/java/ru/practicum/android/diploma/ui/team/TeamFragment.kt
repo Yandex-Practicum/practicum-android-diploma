@@ -4,29 +4,34 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import android.widget.ArrayAdapter
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentTeamBinding
+import ru.practicum.android.diploma.ui.root.BindingFragment
 
-class TeamFragment : Fragment() {
-    private var _binding: FragmentTeamBinding? = null
-    private val binding get() = _binding!!
+class TeamFragment : BindingFragment<FragmentTeamBinding>() {
+    override fun createBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentTeamBinding {
+        return FragmentTeamBinding.inflate(inflater, container, false)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentTeamBinding.inflate(inflater, container, false)
-        return binding.root
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        /* Пока здесь ничего нет */
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+        val adapter = ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.team_body,
+            android.R.layout.simple_list_item_1
+        )
+        binding.teamList.adapter = adapter
     }
 }
