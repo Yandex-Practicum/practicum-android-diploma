@@ -7,30 +7,38 @@ import android.view.View
 import android.view.WindowInsetsController
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.isVisible
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.ActivityRootBinding
-import ru.practicum.android.diploma.ui.team.TeamFragment
 
 class RootActivity : AppCompatActivity() {
-    private var _binding: ActivityRootBinding? = null
-    private val binding get() = _binding!!
-
+    @Suppress("LateinitUsage")
+    private lateinit var binding: ActivityRootBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivityRootBinding.inflate(layoutInflater)
+        binding = ActivityRootBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setupThemeAndStatusBar()
+
+        val navHostFragment = binding.fragmentContainerView.getFragment<NavHostFragment>()
+        val navController = navHostFragment.navController
+
+        binding.bottomNavigationView.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.mainFragment -> binding.bottomNavigationView.visibility = View.VISIBLE
+                R.id.favoriteFragment -> binding.bottomNavigationView.visibility = View.VISIBLE
+                R.id.teamFragment -> binding.bottomNavigationView.visibility = View.VISIBLE
+                R.id.filterFragment -> binding.bottomNavigationView.visibility = View.GONE
+            }
+        }
+
         // Пример использования access token для HeadHunter API
         networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
-
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .add(R.id.fragment_container, TeamFragment())
-                .commit()
-
-        }
     }
 
     private fun networkRequestExample(accessToken: String) {
@@ -55,7 +63,7 @@ class RootActivity : AppCompatActivity() {
                 }
             }
             // For Android 6+ (API 23+)
-            else -> {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> {
                 window.decorView.systemUiVisibility = if (isDarkTheme) {
                     window.decorView.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
                 } else {
@@ -73,6 +81,7 @@ class RootActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         syncStatusBarWithAppTheme()
+        binding.bottomNavigationView.isVisible = true
     }
 
 }

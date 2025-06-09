@@ -1,5 +1,14 @@
 <resources>
-    <string name="app_name" translatable="false">Practicum-Android-Diploma</string>
+    <string name="app_name">Practicum-Android-Diploma</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="main_button_text">Главная</string>
+    <string name="favorite_button_text">Избранное</string>
+    <string name="team_button_text">Команда</string>
+    <string name="exit_confirmation">Подтверждение выхода</string>
+    <string name="are_you_sure_you_want_to_exit">Вы действительно хотите выйти?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
     <string name="team">Команда</string>
     <string name="team_head">Над приложением работали</string>
     <string-array name="team_body">
@@ -9,5 +18,4 @@
         <item>Михаил Макиев</item>
         <item>Дмитрий Тетченко</item>
     </string-array>
-    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
 </resources>
