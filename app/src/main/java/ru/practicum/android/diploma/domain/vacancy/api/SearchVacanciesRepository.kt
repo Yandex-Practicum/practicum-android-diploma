@@ -1,7 +1,7 @@
 package ru.practicum.android.diploma.domain.vacancy.api
 
-import ru.practicum.android.diploma.domain.vacancy.models.Vacancy
+import ru.practicum.android.diploma.domain.vacancy.models.VacancyDetail
 
 interface SearchVacanciesRepository {
-    suspend fun search(text: String): Result<List<Vacancy>>
+    suspend fun search(text: String): Result<List<VacancyDetail>>
 }

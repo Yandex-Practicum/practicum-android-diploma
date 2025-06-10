@@ -20,7 +20,7 @@ class VacanciesDbConverter {
             employerName = "",
             employerLogoUrl = null,
             keySkills = listOf("уметь фсё"),
-            employmentForm = listOf("нет"),
+            employmentForm = "нет",
             professionalRoles = listOf("Уборка помещений", "Протирать окна"),
             experience = "",
             description = "Описание",
@@ -30,7 +30,14 @@ class VacanciesDbConverter {
 
     fun map(vacanciesEntity: VacanciesEntity): Vacancy {
         return Vacancy(
-            id = vacanciesEntity.id
+            id = vacanciesEntity.id,
+            name = vacanciesEntity.name,
+            areaName = vacanciesEntity.areaName,
+            employerName = vacanciesEntity.employerName ?: "",
+            employerUrls = vacanciesEntity.employerLogoUrl,
+            salaryFrom = vacanciesEntity.salaryFrom,
+            salaryTo = vacanciesEntity.salaryTo,
+            salaryCurr = vacanciesEntity.salaryCurr ?: "RUR",
         )
     }
 }
