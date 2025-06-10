@@ -20,10 +20,7 @@ import ru.practicum.android.diploma.util.Resource
 class VacanciesRepositoryImpl(
     private val networkClient: NetworkClient
 ) : VacanciesRepository {
-    override fun searchVacancies(
-        searchText: String,
-        options: FilterOptions
-    ): Flow<Resource<List<Vacancy>>> = flow {
+    override fun searchVacancies(options: FilterOptions): Flow<Resource<List<Vacancy>>> = flow {
         val searchRequest = VacanciesSearchRequest(
             BuildConfig.HH_ACCESS_TOKEN,
             BuildConfig.APPLICATION_ID,
@@ -40,9 +37,7 @@ class VacanciesRepositoryImpl(
                             name = it.name,
                             areaName = it.area.name,
                             employerName = it.employer.name,
-                            employerUrls = it.employer.logo_urls.let {
-                                it?.original
-                            },
+                            employerUrls = it.employer.logo_urls?.original,
                             salaryFrom = it.salary_range.from,
                             salaryTo = it.salary_range.to,
                             salaryCurr = it.salary_range.currency

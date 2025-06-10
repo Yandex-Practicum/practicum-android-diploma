@@ -16,6 +16,17 @@ class SearchVacanciesNetworkDataSource(
         return VacancyDetail(
             id = data.id,
             name = data.name,
+            areaName = data.area.name,
+            employerName = data.employer.name,
+            employerUrls = data.employer.url,
+            salaryFrom = data.salaryRange.from,
+            salaryTo = data.salaryRange.to,
+            salaryCurr = data.salaryRange.currency,
+            keySkills = listOf(),
+            employmentForm = "",
+            professionalRoles = listOf(),
+            experience = "",
+            description = "",
         )
     }
 }
