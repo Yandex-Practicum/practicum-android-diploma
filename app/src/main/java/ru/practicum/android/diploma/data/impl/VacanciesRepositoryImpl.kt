@@ -62,14 +62,14 @@ class VacanciesRepositoryImpl(
                         areaName = area.name,
                         employerName = employer.name,
                         employerUrls = employer.logoUrls?.original,
-                        salaryFrom = salary_range.from,
-                        salaryTo = salary_range.to,
-                        salaryCurr = salary_range.currency,
-                        keySkills = key_skills.map {
+                        salaryFrom = salaryRange.from,
+                        salaryTo = salaryRange.to,
+                        salaryCurr = salaryRange.currency,
+                        keySkills = keySkills.map {
                             infoNameToString(it)
                         },
-                        employmentForm = employment_form?.name.toString(),
-                        professionalRoles = professional_roles,
+                        employmentForm = employmentForm?.name.toString(),
+                        professionalRoles = professionalRoles,
                         experience = experience.toString(),
                         description = description
                     )

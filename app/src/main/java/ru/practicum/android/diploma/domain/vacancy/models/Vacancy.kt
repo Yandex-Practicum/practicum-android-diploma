@@ -11,4 +11,17 @@ data class Vacancy(
     override val salaryFrom: Int?,
     override val salaryTo: Int?,
     override val salaryCurr: String
-) : AbstractVacancy()
+) : AbstractVacancy() {
+    override fun equals(other: Any?): Boolean {
+        if (other == null || other !is Vacancy) {
+            return false
+        }
+        with(other) {
+            return other.name == this.name &&
+                other.areaName == this.areaName &&
+                other.employerName == this.employerName &&
+                other.salaryFrom == this.salaryFrom &&
+                other.salaryTo == this.salaryTo
+        }
+    }
+}
