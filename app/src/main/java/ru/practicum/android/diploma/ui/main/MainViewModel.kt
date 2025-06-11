@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.vacancy
+package ru.practicum.android.diploma.ui.main
 
 import android.app.Application
 import android.util.Log
@@ -9,13 +9,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.domain.models.FilterOptions
 import ru.practicum.android.diploma.domain.vacancy.VacanciesInteractor
 import ru.practicum.android.diploma.domain.vacancy.models.VacanciesWithPage
 import ru.practicum.android.diploma.domain.vacancy.models.Vacancy
 import ru.practicum.android.diploma.ui.vacancy.model.VacancySearchState
 import ru.practicum.android.diploma.util.debounce
 
-class VacancyViewModel(
+class MainViewModel(
     application: Application,
     private val vacancyInteractor: VacanciesInteractor,
 ) : AndroidViewModel(application) {
@@ -65,8 +66,18 @@ class VacancyViewModel(
         if (currentPage <= allPages) {
             viewModelScope.launch {
                 vacancyInteractor
-                    // Добавить фильтры TODO
-                    .searchVacancies(text, "", "", "", null, false, currentPage)
+                    // Добавить фильтры
+                    .searchVacancies(
+                        FilterOptions(
+                            searchText = text,
+                            area = "",
+                            industry = "",
+                            currency = "RUR",
+                            salary = null,
+                            onlyWithSalary = true,
+                            currentPage
+                        )
+                    )
                     .collect { pair -> processResult(pair.first, pair.second) }
             }
         }
@@ -95,7 +106,7 @@ class VacancyViewModel(
                 renderState(
                     VacancySearchState.Empty(
                         message = getApplication<Application>().getString(
-                            R.string.no // Тут сообщение из strings (другая ветка) TODO
+                            R.string.no // Тут сообщение из strings (другая ветка)
                         )
                     )
                 )

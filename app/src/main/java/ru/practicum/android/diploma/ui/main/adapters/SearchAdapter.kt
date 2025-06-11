@@ -1,16 +1,16 @@
-package ru.practicum.android.diploma.ui.vacancy.adapters
+package ru.practicum.android.diploma.ui.main.adapters
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.domain.vacancy.models.Vacancy
 
-class VacancyAdapter(private val clickListener: VacancyClickListener) : RecyclerView.Adapter<VacancyViewHolder>() {
+class SearchAdapter(private val clickListener: VacancyClickListener) : RecyclerView.Adapter<SearchViewHolder>() {
     val vacancies: MutableList<Vacancy> = mutableListOf()
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VacancyViewHolder {
-        return VacancyViewHolder(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
+        return SearchViewHolder(parent)
     }
 
-    override fun onBindViewHolder(holder: VacancyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
         holder.bind(vacancies[position])
         holder.itemView.setOnClickListener { clickListener.onVacancyClick(vacancies[position]) }
     }

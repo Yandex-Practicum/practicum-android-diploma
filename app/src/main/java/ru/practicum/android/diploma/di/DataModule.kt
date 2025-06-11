@@ -43,12 +43,7 @@ val dataModule = module {
 }
 
 private fun getHttpClient(): OkHttpClient {
-    val interceptor = HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
-        override fun log(message: String) {
-            Log.d("VACANCY_TEST", message)
-        }
-    }
-    ).setLevel(HttpLoggingInterceptor.Level.HEADERS)
+    val interceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.HEADERS)
 
     return OkHttpClient.Builder()
         .addInterceptor(interceptor)

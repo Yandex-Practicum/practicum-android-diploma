@@ -6,3 +6,8 @@ const val ERR_SERVER = "Ошибка сервера"
 const val API_BASE = "https://api.hh.ru/"
 
 const val VACANCY_PER_PAGE = "20"
+
+const val HTTP_NO_CONNECTION = -1
+const val HTTP_200_OK = 200
+const val HTTP_400_BAD_REQUEST = 400
+const val HTTP_500_INTERNAL_SERVER_ERROR = 500

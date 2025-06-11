@@ -5,50 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".ui.vacancy.VacancyFragment">
 
-    <LinearLayout
-        android:id="@+id/main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-
-        >
-
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:text="Vacancy"
             android:textSize="60sp" />
-
-        <Button
-            android:id="@+id/test_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="поиск" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/searching_list"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/margin16"
-            android:layout_weight="1" />
-
-    </LinearLayout>
-
-    <FrameLayout
-        android:id="@+id/loader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:visibility="gone" >
-
-        <include
-            layout="@layout/loader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            />
-
-    </FrameLayout>
 </FrameLayout>
 

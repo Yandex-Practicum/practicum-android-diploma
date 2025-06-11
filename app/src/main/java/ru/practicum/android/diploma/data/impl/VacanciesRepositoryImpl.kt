@@ -14,6 +14,8 @@ import ru.practicum.android.diploma.domain.vacancy.models.Vacancy
 import ru.practicum.android.diploma.domain.vacancy.models.VacancyDetail
 import ru.practicum.android.diploma.util.ERR_SERVER
 import ru.practicum.android.diploma.util.ERR_SERVER_CONNECT
+import ru.practicum.android.diploma.util.HTTP_200_OK
+import ru.practicum.android.diploma.util.HTTP_NO_CONNECTION
 import ru.practicum.android.diploma.util.Resource
 import ru.practicum.android.diploma.util.VACANCY_PER_PAGE
 
@@ -24,8 +26,8 @@ class VacanciesRepositoryImpl(
         val searchRequest = VacanciesSearchRequest(getOptions(options))
         val response = networkClient.doRequest(searchRequest)
         when (response.resultCode) {
-            -1 -> emit(Resource.Error(ERR_SERVER_CONNECT))
-            200 -> {
+            HTTP_NO_CONNECTION -> emit(Resource.Error(ERR_SERVER_CONNECT))
+            HTTP_200_OK -> {
                 with(response as VacanciesSearchResponse) {
                     val data = items.map {
                         Vacancy(
@@ -33,10 +35,10 @@ class VacanciesRepositoryImpl(
                             name = it.name,
                             areaName = it.area.name,
                             employerName = it.employer.name,
-                            employerUrls = it.employer.logo_urls?.original,
-                            salaryFrom = it.salary_range?.from,
-                            salaryTo = it.salary_range?.to,
-                            salaryCurr = it.salary_range?.currency ?: "RUR"
+                            employerUrls = it.employer.logoUrls?.original,
+                            salaryFrom = it.salaryRange?.from,
+                            salaryTo = it.salaryRange?.to,
+                            salaryCurr = it.salaryRange?.currency ?: "RUR"
                         )
                     }
                     emit(Resource.Success(data, response.page, response.pages))
@@ -51,15 +53,15 @@ class VacanciesRepositoryImpl(
         val searchRequest = VacancyDetailRequest(vacancyId)
         val response = networkClient.doRequest(searchRequest)
         when (response.resultCode) {
-            -1 -> emit(Resource.Error(ERR_SERVER_CONNECT))
-            200 -> {
+            HTTP_NO_CONNECTION -> emit(Resource.Error(ERR_SERVER_CONNECT))
+            HTTP_200_OK -> {
                 with(response as VacancyDetailDto) {
                     val data = VacancyDetail(
                         id = id,
                         name = name,
                         areaName = area.name,
                         employerName = employer.name,
-                        employerUrls = employer.logo_urls?.original,
+                        employerUrls = employer.logoUrls?.original,
                         salaryFrom = salary_range.from,
                         salaryTo = salary_range.to,
                         salaryCurr = salary_range.currency,
@@ -86,20 +88,16 @@ class VacanciesRepositoryImpl(
     private fun getOptions(options: FilterOptions): HashMap<String, String> {
         val hhOptions: HashMap<String, String> = HashMap()
         hhOptions["per_page"] = VACANCY_PER_PAGE
-        hhOptions["text"] = options.text
-        if (options.page.isNotEmpty()) {
-            hhOptions["page"] = options.page
-        }
+        hhOptions["text"] = options.searchText
+        hhOptions["page"] = options.page.toString()
         if (options.area.isNotEmpty()) {
             hhOptions["area"] = options.area
         }
-        if (options.currency.isEmpty() && options.salary.isNotEmpty()) {
+        if (options.currency.isEmpty()) {
             hhOptions["currency"] = "RUR"
-        } else if (options.currency.isNotEmpty()) {
-            hhOptions["currency"] = options.currency
         }
-        if (options.salary.isNotEmpty()) {
-            hhOptions["salary"] = options.salary
+        if (options.salary != null) {
+            hhOptions["currency"] = options.currency
         }
         if (options.industry.isNotEmpty()) {
             hhOptions["industry"] = options.industry

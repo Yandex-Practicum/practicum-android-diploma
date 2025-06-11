@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.vacancy.adapters
+package ru.practicum.android.diploma.ui.main.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +13,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.vacancy.models.Vacancy
 import ru.practicum.android.diploma.util.pxToDp
 
-class VacancyViewHolder private constructor(itemView: View) : ViewHolder(itemView) {
+class SearchViewHolder private constructor(itemView: View) : ViewHolder(itemView) {
     private val imageEmployer: ImageView = itemView.findViewById(R.id.image_employer)
     private val nameVacancy: TextView = itemView.findViewById(R.id.text_name)
     private val nameEmployer: TextView = itemView.findViewById(R.id.text_employer)

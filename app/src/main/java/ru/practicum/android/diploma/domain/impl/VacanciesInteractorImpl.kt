@@ -12,27 +12,10 @@ import ru.practicum.android.diploma.util.Resource
 
 class VacanciesInteractorImpl(
     private val repository: VacanciesRepository
-) : VacanciesInteractor{
-    override fun searchVacancies(
-        searchText: String,
-        area: String,
-        industry: String,
-        currency: String,
-        salary: Int?,
-        onlyWithSalary: Boolean,
-        page: Int
-    ): Flow<Pair<VacanciesWithPage?, String?>> {
-        val options = FilterOptions(
-            text = searchText,
-            area = area,
-            industry = industry,
-            currency = currency,
-            salary = salary?.toString() ?: "",
-            onlyWithSalary = onlyWithSalary.toString(),
-            page = page.toString(),
-        )
-        return repository.searchVacancies(options).map { result ->
-            when(result) {
+) : VacanciesInteractor {
+    override fun searchVacancies(filter: FilterOptions): Flow<Pair<VacanciesWithPage?, String?>> {
+        return repository.searchVacancies(filter).map { result ->
+            when (result) {
                 is Resource.Success -> Pair(convertToPaginator(result.page, result.pages, result.data), null)
                 is Resource.Error -> Pair(null, result.errorMessage)
             }
@@ -41,7 +24,7 @@ class VacanciesInteractorImpl(
 
     override fun getVacancy(vacancyId: String): Flow<Pair<VacancyDetail?, String?>> {
         return repository.getVacancy(vacancyId).map { result ->
-            when(result) {
+            when (result) {
                 is Resource.Success -> Pair(result.data, null)
                 is Resource.Error -> Pair(null, result.errorMessage)
             }

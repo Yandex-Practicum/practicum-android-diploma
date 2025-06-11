@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.vacancy.utils
+package ru.practicum.android.diploma.ui.main.utils
 
 import androidx.recyclerview.widget.DiffUtil
 import ru.practicum.android.diploma.domain.vacancy.models.Vacancy
