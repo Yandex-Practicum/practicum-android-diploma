@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.di
 
-import android.util.Log
 import androidx.room.Room
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

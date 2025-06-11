@@ -22,15 +22,11 @@ class VacancyCallback(
         oldItemPosition: Int,
         newItemPosition: Int
     ): Boolean {
-        val (_, name, areaName, employerName, employerUrls, salaryFrom, salaryTo, salaryCurr) = oldList[oldItemPosition]
-        val (_, name1, areaName1, employerName1, employerUrls1, salaryFrom1, salaryTo1, salaryCurr1) = newList[newItemPosition]
+        val (_, name, areaName, employerName, _, _, _, _) = oldList[oldItemPosition]
+        val (_, name1, areaName1, employerName1, _, _, _, _) = newList[newItemPosition]
         return name == name1 &&
             areaName == areaName1 &&
-            employerName == employerName1 &&
-            employerUrls == employerUrls1 &&
-            salaryFrom == salaryFrom1 &&
-            salaryTo == salaryTo1 &&
-            salaryCurr == salaryCurr1
+            employerName == employerName1
     }
 
     override fun getChangePayload(

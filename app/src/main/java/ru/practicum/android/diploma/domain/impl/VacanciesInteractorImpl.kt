@@ -4,10 +4,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import ru.practicum.android.diploma.domain.VacanciesRepository
 import ru.practicum.android.diploma.domain.models.FilterOptions
-import ru.practicum.android.diploma.domain.vacancy.models.Vacancy
 import ru.practicum.android.diploma.domain.vacancy.VacanciesInteractor
-import ru.practicum.android.diploma.domain.vacancy.models.VacancyDetail
 import ru.practicum.android.diploma.domain.vacancy.models.VacanciesWithPage
+import ru.practicum.android.diploma.domain.vacancy.models.Vacancy
+import ru.practicum.android.diploma.domain.vacancy.models.VacancyDetail
 import ru.practicum.android.diploma.util.Resource
 
 class VacanciesInteractorImpl(

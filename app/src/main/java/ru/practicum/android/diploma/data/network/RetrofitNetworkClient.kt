@@ -30,7 +30,7 @@ class RetrofitNetworkClient(
 
                     is VacancyDetailRequest -> {
                         val response = apiService.getVacancy(dto.id)
-                        response.apply { resultCode =  HTTP_200_OK }
+                        response.apply { resultCode = HTTP_200_OK }
                     }
 
                     else -> {
