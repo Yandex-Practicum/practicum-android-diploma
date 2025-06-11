@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.data
 
-import ru.practicum.android.diploma.data.models.VacanyItemDto
+import ru.practicum.android.diploma.data.dto.VacanyItemDto
 
 class VacanciesSearchResponse(
     val page: Int,

@@ -1,0 +1,42 @@
+package ru.practicum.android.diploma.ui.vacancy.utils
+
+import androidx.recyclerview.widget.DiffUtil
+import ru.practicum.android.diploma.domain.vacancy.models.Vacancy
+
+class VacancyCallback(
+    private val oldList: List<Vacancy>,
+    private val newList: List<Vacancy>
+) : DiffUtil.Callback() {
+    override fun getOldListSize(): Int = oldList.size
+
+    override fun getNewListSize(): Int = newList.size
+
+    override fun areItemsTheSame(
+        oldItemPosition: Int,
+        newItemPosition: Int
+    ): Boolean {
+        return oldList[oldItemPosition].id == newList[newItemPosition].id
+    }
+
+    override fun areContentsTheSame(
+        oldItemPosition: Int,
+        newItemPosition: Int
+    ): Boolean {
+        val (_, name, areaName, employerName, employerUrls, salaryFrom, salaryTo, salaryCurr) = oldList[oldItemPosition]
+        val (_, name1, areaName1, employerName1, employerUrls1, salaryFrom1, salaryTo1, salaryCurr1) = newList[newItemPosition]
+        return name == name1 &&
+            areaName == areaName1 &&
+            employerName == employerName1 &&
+            employerUrls == employerUrls1 &&
+            salaryFrom == salaryFrom1 &&
+            salaryTo == salaryTo1 &&
+            salaryCurr == salaryCurr1
+    }
+
+    override fun getChangePayload(
+        oldItemPosition: Int,
+        newItemPosition: Int
+    ): Any? {
+        return super.getChangePayload(oldItemPosition, newItemPosition)
+    }
+}

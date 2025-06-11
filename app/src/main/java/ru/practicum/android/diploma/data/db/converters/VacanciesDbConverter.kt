@@ -8,18 +8,18 @@ class VacanciesDbConverter {
     fun map(vacancy: VacancyDetail): VacanciesEntity {
         return VacanciesEntity(
             id = vacancy.id,
-            name = "Не пыльная работа",
-            salaryFrom = 102_000,
-            salaryTo = null,
-            salaryCurr = "RUR",
-            areaName = "Москва",
-            employerName = "",
-            employerLogoUrl = null,
-            keySkills = listOf("уметь фсё"),
-            employmentForm = "нет",
-            professionalRoles = listOf("Уборка помещений", "Протирать окна"),
-            experience = "",
-            description = "Описание",
+            name = vacancy.name,
+            salaryFrom = vacancy.salaryFrom,
+            salaryTo = vacancy.salaryTo,
+            salaryCurr = vacancy.salaryCurr,
+            areaName = vacancy.areaName,
+            employerName = vacancy.employerName,
+            employerLogoUrl = vacancy.employerUrls,
+            keySkills = vacancy.keySkills,
+            employmentForm = vacancy.employmentForm,
+            professionalRoles = vacancy.professionalRoles,
+            experience = vacancy.experience,
+            description = vacancy.description,
             dateAdd = Date()
         )
     }

@@ -11,6 +11,7 @@
     <dimen name="line_height_m">18sp</dimen>
     <dimen name="line_height_s">18sp</dimen>
     <dimen name="line_height_xs">16sp</dimen>
+    <dimen name="icon_vac_size">48dp</dimen>
 
 
     <dimen name="margin2">2dp</dimen>

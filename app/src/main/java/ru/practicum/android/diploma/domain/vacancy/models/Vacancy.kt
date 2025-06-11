@@ -1,4 +1,6 @@
-package ru.practicum.android.diploma.domain.models
+package ru.practicum.android.diploma.domain.vacancy.models
+
+import ru.practicum.android.diploma.domain.models.AbstractVacancy
 
 data class Vacancy(
     override val id: String,

@@ -27,8 +27,11 @@ kotlin = "1.9.0"
 activity = "1.10.1"
 viewpager2 = "1.1.0"
 
-[libraries]
+# Http logging
+okhttp = "4.9.3"
 
+[libraries]
+okhttp3 = {group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp"}
 # Detekt
 appcompat-v170 = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }

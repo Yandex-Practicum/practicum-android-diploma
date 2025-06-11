@@ -1,6 +1,7 @@
-package ru.practicum.android.diploma.data.models
+package ru.practicum.android.diploma.data.dto
 
 import ru.practicum.android.diploma.data.Response
+import ru.practicum.android.diploma.data.models.InfoClass
 
 data class VacancyDetailDto(
     val id: String,

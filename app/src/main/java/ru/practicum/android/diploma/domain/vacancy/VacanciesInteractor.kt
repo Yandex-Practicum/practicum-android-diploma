@@ -1,9 +1,8 @@
 package ru.practicum.android.diploma.domain.vacancy
 
 import kotlinx.coroutines.flow.Flow
-import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.vacancy.models.VacancyDetail
-import ru.practicum.android.diploma.util.Resource
+import ru.practicum.android.diploma.domain.vacancy.models.VacanciesWithPage
 
 interface VacanciesInteractor {
     fun searchVacancies(
@@ -12,8 +11,9 @@ interface VacanciesInteractor {
         industry: String,
         currency: String,
         salary: Int?,
-        onlyWithSalary: Boolean
-    ): Flow<Resource<List<Vacancy>>>
+        onlyWithSalary: Boolean,
+        page: Int
+    ): Flow<Pair<VacanciesWithPage?, String?>>
 
-    fun getVacancy(vacancyId: String): Flow<Resource<VacancyDetail>>
+    fun getVacancy(vacancyId: String): Flow<Pair<VacancyDetail?, String?>>
 }
