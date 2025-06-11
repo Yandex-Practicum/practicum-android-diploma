@@ -37,7 +37,7 @@ class RetrofitNetworkClient(
                         Response().apply { resultCode = HTTP_400_BAD_REQUEST }
                     }
                 }
-            } catch (e: Throwable) {
+            } catch (_: Throwable) {
                 Response().apply { resultCode = HTTP_500_INTERNAL_SERVER_ERROR }
             }
         }
