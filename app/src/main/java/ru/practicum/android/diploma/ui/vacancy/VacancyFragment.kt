@@ -9,6 +9,8 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
 import ru.practicum.android.diploma.domain.vacancy.models.Vacancy
@@ -33,11 +35,11 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        onVacancyClickDebounce = debounce<Vacancy> (
+        onVacancyClickDebounce = debounce<Vacancy>(
             CLICK_DEBOUNCE_DELAY,
             viewLifecycleOwner.lifecycleScope,
             false
-        ) { vacancy -> clickToVacancy(vacancy)}
+        ) { vacancy -> clickToVacancy(vacancy) }
 
         searchAdapter = VacancyAdapter(
             object : VacancyAdapter.VacancyClickListener {
@@ -51,17 +53,29 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
         }
         binding.testSearch.setOnClickListener {
             viewModel.searchVacancies("Java разработчик")
-            binding.testNext.isVisible = true
-        }
-        binding.testNext.setOnClickListener {
-            viewModel.nextSearch()
         }
         binding.searchingList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.searchingList.adapter = searchAdapter
+        binding.searchingList.addOnScrollListener(object : OnScrollListener() {
+            override fun onScrolled(
+                recyclerView: RecyclerView,
+                dx: Int,
+                dy: Int
+            ) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0) {
+                    val pos = (binding.searchingList.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                    val itemCount = searchAdapter?.itemCount ?: 0
+                    if (pos >= itemCount - 1) {
+                        viewModel.nextSearch()
+                    }
+                }
+            }
+        })
     }
 
     private fun render(vacanciesState: VacancySearchState) {
-        when(vacanciesState) {
+        when (vacanciesState) {
             is VacancySearchState.Content -> showContent(vacanciesState.vacancies)
             is VacancySearchState.Empty -> showEmpty(vacanciesState.message)
             is VacancySearchState.Error -> showError(vacanciesState.errorMessage)
@@ -103,7 +117,7 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
     }
 
     private fun enabledControls(enable: Boolean) {
-        for (i in 0..< binding.main.childCount) {
+        for (i in 0..<binding.main.childCount) {
             val child: View = binding.main.getChildAt(i)
             child.setEnabled(enable)
         }
