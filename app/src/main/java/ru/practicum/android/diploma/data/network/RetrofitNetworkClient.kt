@@ -23,16 +23,8 @@ class RetrofitNetworkClient(
         return withContext(Dispatchers.IO) {
             try {
                 when (dto) {
-                    is VacanciesSearchRequest -> {
-                        val response = apiService.searchVacancies(dto.searchOptions)
-                        response.apply { resultCode = HTTP_200_OK }
-                    }
-
-                    is VacancyDetailRequest -> {
-                        val response = apiService.getVacancy(dto.id)
-                        response.apply { resultCode = HTTP_200_OK }
-                    }
-
+                    is VacanciesSearchRequest -> responseSearch(dto)
+                    is VacancyDetailRequest -> responseDetail(dto)
                     else -> {
                         Response().apply { resultCode = HTTP_400_BAD_REQUEST }
                     }
@@ -41,5 +33,17 @@ class RetrofitNetworkClient(
                 Response().apply { resultCode = HTTP_500_INTERNAL_SERVER_ERROR }
             }
         }
+    }
+
+    private suspend fun responseSearch(dto: VacanciesSearchRequest): Response {
+        val response = apiService.searchVacancies(dto.searchOptions)
+        response.apply { resultCode = HTTP_200_OK }
+        return response
+    }
+
+    private suspend fun responseDetail(dto: VacancyDetailRequest): Response {
+        val response = apiService.getVacancy(dto.id)
+        response.apply { resultCode = HTTP_200_OK }
+        return response
     }
 }

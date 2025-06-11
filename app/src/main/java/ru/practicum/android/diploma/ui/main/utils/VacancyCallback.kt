@@ -22,8 +22,8 @@ class VacancyCallback(
         oldItemPosition: Int,
         newItemPosition: Int
     ): Boolean {
-        val (_, name, areaName, employerName, _, _, _, _) = oldList[oldItemPosition]
-        val (_, name1, areaName1, employerName1, _, _, _, _) = newList[newItemPosition]
+        val (_, name, areaName, employerName) = oldList[oldItemPosition]
+        val (_, name1, areaName1, employerName1) = newList[newItemPosition]
         return name == name1 &&
             areaName == areaName1 &&
             employerName == employerName1
