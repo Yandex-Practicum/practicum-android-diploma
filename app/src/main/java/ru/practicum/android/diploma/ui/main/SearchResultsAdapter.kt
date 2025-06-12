@@ -3,7 +3,8 @@ package ru.practicum.android.diploma.ui.main
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.practicum.android.diploma.R
@@ -13,32 +14,22 @@ import ru.practicum.android.diploma.ui.common.dpToPx
 
 class SearchResultsAdapter(
     private val clickListener: VacancyClickListener,
-    private val context: Context,
-) : RecyclerView.Adapter<SearchResultsAdapter.SearchResultsItemViewHolder>() {
-    val vacancies = ArrayList<Vacancy>()
+    private val context: Context
+) : ListAdapter<Vacancy, SearchResultsAdapter.SearchResultsItemViewHolder>(VacancyDiffCallback()) {
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): SearchResultsItemViewHolder {
-        val layoutInspector = LayoutInflater.from(parent.context)
-
-        return SearchResultsItemViewHolder(
-            VacancyViewBinding.inflate(layoutInspector, parent, false)
-        )
-    }
-
-    override fun getItemCount(): Int {
-        return vacancies.size
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchResultsItemViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = VacancyViewBinding.inflate(inflater, parent, false)
+        return SearchResultsItemViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: SearchResultsItemViewHolder, position: Int) {
-        holder.bind(vacancies[position])
+        holder.bind(getItem(position))
     }
 
-    inner class SearchResultsItemViewHolder(private val binding: VacancyViewBinding) : RecyclerView.ViewHolder(
-        binding.root
-    ) {
+    inner class SearchResultsItemViewHolder(private val binding: VacancyViewBinding) :
+        androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root) {
+
         fun bind(vacancy: Vacancy) {
             binding.title.text = vacancy.title
             binding.employeeTitle.text = vacancy.employerTitle
@@ -48,8 +39,7 @@ class SearchResultsAdapter(
                 clickListener.onVacancyClick(vacancy)
             }
 
-            Glide
-                .with(itemView)
+            Glide.with(itemView)
                 .load(vacancy.logoUrl)
                 .placeholder(R.drawable.vacancy_artwork_placeholder)
                 .error(R.drawable.vacancy_artwork_placeholder)
@@ -59,8 +49,8 @@ class SearchResultsAdapter(
         }
     }
 
-    fun formatSalary(salaryRange: Vacancy.VacancySalaryRange?): String {
-        if (salaryRange == null || salaryRange.from == null && salaryRange.to == null) {
+    private fun formatSalary(salaryRange: Vacancy.VacancySalaryRange?): String {
+        if (salaryRange == null || (salaryRange.from == null && salaryRange.to == null)) {
             return context.getString(R.string.salary_not_specified)
         }
 
@@ -94,5 +84,15 @@ class SearchResultsAdapter(
 
     fun interface VacancyClickListener {
         fun onVacancyClick(vacancy: Vacancy)
+    }
+
+    class VacancyDiffCallback : DiffUtil.ItemCallback<Vacancy>() {
+        override fun areItemsTheSame(oldItem: Vacancy, newItem: Vacancy): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: Vacancy, newItem: Vacancy): Boolean {
+            return oldItem == newItem
+        }
     }
 }

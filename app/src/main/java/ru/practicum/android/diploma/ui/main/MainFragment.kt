@@ -11,28 +11,21 @@ import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentMainBinding
 import ru.practicum.android.diploma.domain.vacancy.models.Vacancy
 import ru.practicum.android.diploma.ui.main.models.SearchContentStateVO
+import ru.practicum.android.diploma.ui.root.BindingFragment
 
-class MainFragment : Fragment() {
-    private var _binding: FragmentMainBinding? = null
-    private val binding get() = _binding!!
+class MainFragment : BindingFragment<FragmentMainBinding>() {
 
     private val viewModel by viewModel<MainViewModel>()
 
     private var vacanciesAdapter: SearchResultsAdapter? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentMainBinding.inflate(inflater, container, false)
-        return binding.root
+    override fun createBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentMainBinding {
+        return FragmentMainBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -69,18 +62,13 @@ class MainFragment : Fragment() {
         binding.searchResults.adapter = vacanciesAdapter
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
     @SuppressLint("ClickableViewAccessibility")
     private fun initSearch() {
         binding.searchEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { return }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                viewModel.onTextChange(s.toString())
+                viewModel.onTextChange((s ?: "").toString())
             }
 
             override fun afterTextChanged(s: Editable?) { return }
@@ -140,9 +128,7 @@ class MainFragment : Fragment() {
         binding.unknownError.visibility = INVISIBLE
         binding.searchResults.visibility = VISIBLE
 
-        vacanciesAdapter?.vacancies?.clear()
-        vacanciesAdapter?.vacancies?.addAll(newVacancies)
-        vacanciesAdapter?.notifyDataSetChanged()
+        vacanciesAdapter?.submitList(newVacancies)
     }
 
     private fun showErrorState(isNoInternetError: Boolean) {
