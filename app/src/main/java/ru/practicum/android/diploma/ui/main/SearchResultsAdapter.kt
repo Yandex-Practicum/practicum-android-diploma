@@ -50,7 +50,7 @@ class SearchResultsAdapter(
     }
 
     private fun formatSalary(salaryRange: Vacancy.VacancySalaryRange?): String {
-        if (salaryRange == null || (salaryRange.from == null && salaryRange.to == null)) {
+        if (salaryRange == null || salaryRange.from == null && salaryRange.to == null) {
             return context.getString(R.string.salary_not_specified)
         }
 
