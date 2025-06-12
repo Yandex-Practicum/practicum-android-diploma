@@ -3,6 +3,8 @@
     <string name="no">No</string>
     <string name="team">Team</string>
     <string name="team_head">We\'ve been working on the app</string>
+    <string name="btn_text_select">Select</string>
+    <string name="btn_text_reset">Reset</string>
     <string-array name="team_body">
         <item>Vlad Zakharov</item>
         <item>Ekaterina Kikot</item>

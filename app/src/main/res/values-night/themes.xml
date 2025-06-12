@@ -17,5 +17,9 @@
         <item name="colorOnSecondary">@color/white</item>
 
         <item name="android:statusBarColor">?attr/colorPrimary</item>
+
+        <item name="colorResetButtonBackground">@color/black</item>
+
+        <item name="colorResetButtonText">@color/red</item>
     </style>
 </resources>
