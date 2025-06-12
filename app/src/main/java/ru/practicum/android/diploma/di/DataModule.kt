@@ -16,11 +16,16 @@ import ru.practicum.android.diploma.data.network.HHApiService
 import ru.practicum.android.diploma.data.network.NetworkClient
 import ru.practicum.android.diploma.data.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.util.API_BASE
+import ru.practicum.android.diploma.data.db.dao.VacanciesDao
 
 val dataModule = module {
     single {
         Room.databaseBuilder(androidContext(), AppDatabase::class.java, "hh_database.db")
             .build()
+    }
+
+    single<VacanciesDao> {
+        get<AppDatabase>().vacanciesDao()
     }
 
     single {

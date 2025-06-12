@@ -2,33 +2,33 @@ package ru.practicum.android.diploma.data.db.impl
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.data.db.converters.VacanciesDbConverter
+import ru.practicum.android.diploma.data.db.dao.VacanciesDao
 import ru.practicum.android.diploma.data.db.entity.VacanciesEntity
 import ru.practicum.android.diploma.domain.db.FavoriteRepository
 import ru.practicum.android.diploma.domain.vacancy.models.VacancyDetail
 
 class FavoriteRepositoryImpl(
-    val appDatabase: AppDatabase,
+    val vacancyDao: VacanciesDao,
     val converter: VacanciesDbConverter
 ) : FavoriteRepository {
     override suspend fun addToFavorite(vacancy: VacancyDetail) {
         val entity = converter.map(vacancy)
-        appDatabase.vacanciesDao().insertToFavorite(entity)
+        vacancyDao.insertToFavorite(entity)
     }
 
     override suspend fun delFromFavorite(vacancy: VacancyDetail) {
         val entity = converter.map(vacancy)
-        appDatabase.vacanciesDao().deleteFromFavorite(entity)
+        vacancyDao.deleteFromFavorite(entity)
     }
 
-    override fun getFavorites(): Flow<List<VacancyDetail>> = flow {
-        val vacancies = appDatabase.vacanciesDao().getFavoritesVacancies()
+    override fun getFavorites(): Flow<List<Vacancy>> = flow {
+        val vacancies = vacancyDao.getFavoritesVacancies()
         emit(convertFromEntities(vacancies))
     }
 
-    override fun getFavoriteById(vacId: String): Flow<VacancyDetail> = flow {
-        val vacancy = appDatabase.vacanciesDao().getFavoriteVacancieById(vacId)
+    override fun getFavoriteById(vacId: String): Flow<Vacancy> = flow {
+        val vacancy = vacancyDao.getFavoriteVacancieById(vacId)
         emit(converter.map(vacancy))
     }
 
