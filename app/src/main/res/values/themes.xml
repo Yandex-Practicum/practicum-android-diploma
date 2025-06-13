@@ -17,6 +17,10 @@
         <item name="colorOnSecondary">@color/gray</item>
 
         <item name="android:statusBarColor">?attr/colorPrimary</item>
+
+        <item name="colorResetButtonBackground">@color/white</item>
+
+        <item name="colorResetButtonText">@color/red</item>
     </style>
 
     <style name="Theme.PracticumAndroidDiploma" parent="Base.Theme.PracticumAndroidDiploma" />

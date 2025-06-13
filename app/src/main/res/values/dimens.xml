@@ -31,4 +31,5 @@
     <dimen name="corner_radius_m">12dp</dimen>
     <dimen name="corner_radius_s">8dp</dimen>
     <dimen name="corner_radius_xs">4dp</dimen>
+    <dimen name="corner12">12dp</dimen>
 </resources>

@@ -12,6 +12,8 @@
 
     <string name="team">Команда</string>
     <string name="team_head">Над приложением работали</string>
+    <string name="btn_text_select">Выбрать</string>
+    <string name="btn_text_reset">Сбросить</string>
     <string-array name="team_body">
         <item>Влад Захаров</item>
         <item>Екатерина Кикоть</item>
