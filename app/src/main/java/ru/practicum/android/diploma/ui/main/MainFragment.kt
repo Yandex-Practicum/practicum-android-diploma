@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import ru.practicum.android.diploma.databinding.FragmentMainBinding
-import ru.practicum.android.diploma.ui.components.CustomToolbar
 import ru.practicum.android.diploma.R
 import androidx.navigation.fragment.findNavController
 
@@ -35,7 +34,7 @@ class MainFragment : Fragment() {
         )
     }
 
-    private fun initUiToolbar(){
+    private fun initUiToolbar() {
         // настройка кастомного топбара
         val toolbar = binding.toolbar
         toolbar.setupToolbarForSearchScreen()
