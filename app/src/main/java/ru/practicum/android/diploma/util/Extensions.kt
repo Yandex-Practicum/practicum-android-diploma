@@ -1,8 +1,8 @@
 package ru.practicum.android.diploma.util
 
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.activity.OnBackPressedCallback
 
 // системная кн Назад для всех фрагментов кроме mainFragment
 fun Fragment.handleBackPress(popTo: Int? = null) {

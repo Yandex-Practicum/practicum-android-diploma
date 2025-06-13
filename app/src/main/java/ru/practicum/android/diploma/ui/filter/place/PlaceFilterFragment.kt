@@ -32,7 +32,6 @@ class PlaceFilterFragment : Fragment() {
     }
 
     private fun initUiToolbar() {
-
         // настройка кастомного топбара
         val toolbar = binding.toolbar
         toolbar.setupToolbarForFilterScreen()

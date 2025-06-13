@@ -32,7 +32,6 @@ class VacancyFragment : Fragment() {
     }
 
     private fun initUiToolbar() {
-
         // настройка кастомного топбара
         val toolbar = binding.toolbar
         toolbar.setupToolbarForVacancyDetailScreen()
@@ -41,13 +40,11 @@ class VacancyFragment : Fragment() {
 
         // Поделиться
         toolbar.setOnToolbarShareClickListener {
-
             /* !!! Здесь будет Intent */
         }
 
         // Избранное
         toolbar.setOnToolbarFavoriteClickListener {
-
             /* !!! Реализация добавления в избранное */
         }
     }
