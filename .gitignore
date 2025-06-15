@@ -12,6 +12,8 @@
 /.idea/compiler.xml
 /.idea/misc.xml
 
+app/detekt-config.yml
+
 # Gradle files
 .gradle/
 build/
