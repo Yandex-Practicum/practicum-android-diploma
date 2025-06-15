@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ru.practicum.android.diploma.databinding.FragmentFavoriteBinding
+import ru.practicum.android.diploma.util.handleBackPress
 
 class FavoriteFragment : Fragment() {
 
@@ -23,7 +24,9 @@ class FavoriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        /* Пока здесь ничего нет */
+
+        // сист кн Назад
+        handleBackPress()
     }
 
     override fun onDestroyView() {

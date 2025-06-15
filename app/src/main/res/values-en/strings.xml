@@ -20,8 +20,15 @@
     <string name="are_you_sure_you_want_to_exit">Do you really want to get out?</string>
     <string name="yes">Yes</string>
 
+    <string name="vacancy_search">Vacancy search</string>
+    <string name="filter_settings">Filter settings</string>
+    <string name="place_of_work">Select a place of work</string>
+    <string name="country">Select country</string>
+    <string name="region">Select region</string>
+    <string name="area">Select area</string>
+    <string name="vacancy">Vacancy</string>
+
     <string name="enter_request">Enter a query</string>
-    <string name="no_internet">No internet connection</string>
     <string name="cant_get_vacations_list">Failed to retrieve the list of vacancies</string>
 
     <!-- Templates for displaying salary -->
@@ -29,6 +36,14 @@
     <string name="salary_to">Up to %1$s %2$s</string>
     <string name="salary_range">From %1$s to %2$s %3$s</string>
     <string name="salary_not_specified">Salary not specified</string>
+
+    <string name="no_internet">No internet connection</string>
+    <string name="no_list_vacancy">Не удалось получить список вакансий</string>
+    <string name="no_region">Такого региона нет</string>
+    <string name="no_get_list">Не удалось получить список</string>
+    <string name="no_find_vacancy">Вакансия не найдена или удалена</string>
+    <string name="server_error">Ошибка сервера</string>
+    <string name="list_empty">Список пуст</string>
 
     <!-- Currencies -->
     <string name="currency_rub">₽</string>
@@ -41,5 +56,4 @@
     <string name="currency_uzs">sum</string>
     <string name="currency_gel">₾</string>
     <string name="currency_kgt">som</string>
-
 </resources>

@@ -6,6 +6,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.vacancy.VacancyFragment">
 
+    <ru.practicum.android.diploma.ui.components.CustomToolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbar"/>
+
     <TextView
         android:id="@+id/vacancy"
         android:layout_width="match_parent"
