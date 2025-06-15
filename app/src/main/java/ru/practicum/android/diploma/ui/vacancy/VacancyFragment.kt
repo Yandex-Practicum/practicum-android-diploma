@@ -4,29 +4,43 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import ru.practicum.android.diploma.databinding.FragmentTeamBinding
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.navArgs
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
+import ru.practicum.android.diploma.ui.root.BindingFragment
 
-class VacancyFragment : Fragment() {
-    private var _binding: FragmentTeamBinding? = null
-    private val binding get() = _binding!!
+class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
+    private val args: VacancyFragmentArgs by navArgs()
+    private val viewModel by viewModel<VacancyViewModel>()
 
-    override fun onCreateView(
+    override fun createBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentTeamBinding.inflate(inflater, container, false)
-        return binding.root
+        container: ViewGroup?
+    ): FragmentVacancyBinding {
+        return FragmentVacancyBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        /* Пока здесь ничего нет */
+
+        viewModel.loadVacancyDetails(args.vacancyId)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.vacancyDetails.collect { vacancy ->
+                    if (vacancy != null) {
+                        binding.vacancy.text =
+                            "${vacancy.title}\n${vacancy.salaryFrom}\n${vacancy.experience}\n${vacancy.employment}\n${vacancy.schedule}"
+                    } else {
+                        binding.vacancy.text = "Нет данных"
+                    }
+                }
+            }
+        }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }

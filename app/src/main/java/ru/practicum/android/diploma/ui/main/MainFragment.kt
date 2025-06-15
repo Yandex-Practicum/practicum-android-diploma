@@ -11,6 +11,7 @@ import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentMainBinding
@@ -32,7 +33,10 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         vacanciesAdapter = SearchResultsAdapter(
-            clickListener = { viewModel.onVacancyClick(it) },
+            clickListener = { vacancy ->
+                val action = MainFragmentDirections.actionMainFragmentToVacancyFragment(vacancy.id)
+                findNavController().navigate(action)
+            },
             requireContext(),
         )
 
