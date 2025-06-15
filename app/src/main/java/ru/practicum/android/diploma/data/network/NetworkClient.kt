@@ -1,8 +1,6 @@
 package ru.practicum.android.diploma.data.network
 
 import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.data.Response
@@ -12,13 +10,14 @@ import ru.practicum.android.diploma.util.HTTP_200_OK
 import ru.practicum.android.diploma.util.HTTP_400_BAD_REQUEST
 import ru.practicum.android.diploma.util.HTTP_500_INTERNAL_SERVER_ERROR
 import ru.practicum.android.diploma.util.HTTP_NO_CONNECTION
+import ru.practicum.android.diploma.util.NetworkUtils
 
 class NetworkClient(
     private val context: Context,
     private val hhApi: HhApi,
 ) {
     suspend fun doRequest(dto: Any): Response {
-        if (!isConnected()) {
+        if (!NetworkUtils.isConnected(context)) {
             return Response().apply { resultCode = HTTP_NO_CONNECTION }
         }
 
@@ -40,15 +39,5 @@ class NetworkClient(
         val response = hhApi.searchVacancies(dto.searchOptions)
         response.apply { resultCode = HTTP_200_OK }
         return response
-    }
-
-    private fun isConnected(): Boolean {
-        val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        return connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)?.run {
-            hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
-                    hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
-                    hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
-        } == true
     }
 }
