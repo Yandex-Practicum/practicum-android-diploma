@@ -20,6 +20,14 @@
     <string name="are_you_sure_you_want_to_exit">Do you really want to get out?</string>
     <string name="yes">Yes</string>
 
+    <string name="vacancy_search">Vacancy search</string>
+    <string name="filter_settings">Filter settings</string>
+    <string name="place_of_work">Select a place of work</string>
+    <string name="country">Select country</string>
+    <string name="region">Select region</string>
+    <string name="area">Select area</string>
+    <string name="vacancy">Vacancy</string>
+
     <string name="enter_request">Enter a query</string>
     <string name="cant_get_vacations_list">Failed to retrieve the list of vacancies</string>
 
@@ -48,5 +56,4 @@
     <string name="currency_uzs">sum</string>
     <string name="currency_gel">₾</string>
     <string name="currency_kgt">som</string>
-
 </resources>

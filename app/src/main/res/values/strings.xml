@@ -29,6 +29,14 @@
         <item>Дмитрий Тетченко</item>
     </string-array>
 
+    <string name="vacancy_search">Поиск вакансий</string>
+    <string name="filter_settings">Настройки фильтрации</string>
+    <string name="place_of_work">Выбор места работы</string>
+    <string name="country">Выбор страны</string>
+    <string name="region">Выбор региона</string>
+    <string name="area">Выбор отрасли</string>
+    <string name="vacancy">Вакансия</string>
+
     <string name="enter_request">Введите запрос</string>
     <string name="cant_get_vacations_list">Не удалось получить список вакансий</string>
 
