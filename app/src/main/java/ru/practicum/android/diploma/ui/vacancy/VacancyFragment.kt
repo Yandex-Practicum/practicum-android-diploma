@@ -4,27 +4,29 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
-import ru.practicum.android.diploma.ui.root.BindingFragment
+import androidx.fragment.app.Fragment
+import ru.practicum.android.diploma.databinding.FragmentTeamBinding
 
-class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
-    override fun createBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentVacancyBinding {
-        return FragmentVacancyBinding.inflate(inflater, container, false)
-    }
+class VacancyFragment : Fragment() {
+    private var _binding: FragmentTeamBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
+        _binding = FragmentTeamBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         /* Пока здесь ничего нет */
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
