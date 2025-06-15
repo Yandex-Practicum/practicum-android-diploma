@@ -17,6 +17,7 @@ class VacancyDetailsMapper(private val htmlParser: HtmlParser) {
         return buildList {
             if (salaryFrom != null) add("от $salaryFrom")
             if (salaryTo != null) add("до $salaryTo")
-        }.joinToString(" ") + if ((salaryFrom != null || salaryTo != null) && currency.isNotEmpty()) " $currency" else ""
+        }.joinToString(" ") +
+            if ((salaryFrom != null || salaryTo != null) && currency.isNotEmpty()) " $currency" else ""
     }
 }

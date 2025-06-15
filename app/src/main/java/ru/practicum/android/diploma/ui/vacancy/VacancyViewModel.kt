@@ -18,7 +18,7 @@ class VacancyViewModel(
     val vacancyState: StateFlow<VacancyContentStateVO> = _vacancyState.asStateFlow()
 
     fun loadVacancyDetails(id: String) {
-        _vacancyState.value = (VacancyContentStateVO.Loading)
+        _vacancyState.value = VacancyContentStateVO.Loading
 
         viewModelScope.launch {
             when (val result = repository.getVacancyDetails(id)) {
