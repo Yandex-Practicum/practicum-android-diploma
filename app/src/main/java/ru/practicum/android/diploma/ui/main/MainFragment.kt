@@ -12,6 +12,7 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.navigation.fragment.findNavController
+import androidx.activity.OnBackPressedCallback
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentMainBinding
@@ -31,6 +32,13 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initUiToolbar()
+        // системная кн назад
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            backPressedCallback
+        )
 
         vacanciesAdapter = SearchResultsAdapter(
             clickListener = { vacancy ->
@@ -64,6 +72,28 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
         initSearch()
 
         binding.searchResults.adapter = vacanciesAdapter
+    }
+
+    private fun initUiToolbar() {
+        // настройка кастомного топбара
+        val toolbar = binding.toolbar
+        toolbar.setupToolbarForSearchScreen()
+        toolbar.setToolbarTitle(getString(R.string.vacancy_search))
+        toolbar.setOnToolbarFilterClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_filterFragment)
+        }
+        /*
+        * !!! после того, как настроены все фильтры
+        * применить toolbar.setFilterState(true) для изменения иконки кнопки
+        */
+
+    }
+
+    //  callback для системной кн назад - выход из приложения
+    private val backPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            requireActivity().finish()
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
