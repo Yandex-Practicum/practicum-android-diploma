@@ -2,10 +2,8 @@ package ru.practicum.android.diploma.data.vacancy
 
 import ru.practicum.android.diploma.data.network.ApiResponse
 import ru.practicum.android.diploma.data.network.NetworkClient
-import ru.practicum.android.diploma.data.vacancy.models.VacancyDetailsDto
 import ru.practicum.android.diploma.data.vacancy.models.VacancyDto
 import ru.practicum.android.diploma.domain.vacancy.models.Vacancy
-import ru.practicum.android.diploma.domain.vacancy.models.VacancyDetails
 
 class SearchVacanciesNetworkDataSource(
     private val hhApi: HhApi,

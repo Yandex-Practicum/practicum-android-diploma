@@ -55,4 +55,3 @@ data class ScheduleDto(
 data class SkillDto(
     val name: String?
 )
-

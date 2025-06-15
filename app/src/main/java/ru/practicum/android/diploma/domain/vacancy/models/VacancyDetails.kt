@@ -16,4 +16,3 @@ data class VacancyDetails(
     val address: String?,
     val areaName: String?
 )
-

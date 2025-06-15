@@ -17,14 +17,13 @@ class VacancyViewModel(
     private val _vacancyState = MutableStateFlow<VacancyContentStateVO>(VacancyContentStateVO.Base)
     val vacancyState: StateFlow<VacancyContentStateVO> = _vacancyState.asStateFlow()
 
-
     fun loadVacancyDetails(id: String) {
         _vacancyState.value = (VacancyContentStateVO.Loading)
 
         viewModelScope.launch {
             when (val result = repository.getVacancyDetails(id)) {
                 is ApiResponse.Success -> {
-                    val vo = result.data.let{
+                    val vo = result.data.let {
                         mapper.run { it.toVO() }
                     }
                     _vacancyState.value = VacancyContentStateVO.Success(vo)

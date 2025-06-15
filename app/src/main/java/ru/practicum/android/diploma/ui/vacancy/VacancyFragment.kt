@@ -77,5 +77,3 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
         binding.vacancy.text = text
     }
 }
-
-
