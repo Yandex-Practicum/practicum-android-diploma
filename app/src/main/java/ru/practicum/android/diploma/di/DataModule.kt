@@ -18,6 +18,7 @@ import ru.practicum.android.diploma.data.vacancy.SearchVacanciesNetworkDataSourc
 import ru.practicum.android.diploma.data.vacancy.SearchVacanciesRepositoryImpl
 import ru.practicum.android.diploma.domain.vacancy.api.SearchVacanciesRepository
 import ru.practicum.android.diploma.data.db.dao.VacanciesDao
+import ru.practicum.android.diploma.data.vacancy.VacancyDetailsNetworkDataSource
 
 val dataModule = module {
     single {
@@ -73,7 +74,7 @@ val dataModule = module {
         SearchVacanciesNetworkDataSource(get(), get())
     }
 
-    single<SearchVacanciesRepository> {
-        SearchVacanciesRepositoryImpl(get())
+    single {
+        VacancyDetailsNetworkDataSource(get(), get())
     }
 }

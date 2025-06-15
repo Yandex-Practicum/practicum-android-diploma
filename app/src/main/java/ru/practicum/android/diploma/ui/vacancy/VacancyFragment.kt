@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.ui.vacancy
 
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,8 +34,9 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.vacancyDetails.collect { vacancy ->
                     if (vacancy != null) {
-                        binding.vacancy.text =
-                            "${vacancy.title}\n${vacancy.salaryFrom}\n${vacancy.experience}\n${vacancy.employment}\n${vacancy.schedule}"
+                        binding.vacancy.setText(Html.fromHtml("${vacancy.title}\n${vacancy.salaryFrom}\n${vacancy.experience}\n${vacancy.employment}\n${vacancy.schedule}\n" +
+                            "${vacancy.descriptionHtml}", Html.FROM_HTML_MODE_COMPACT))
+
                     } else {
                         binding.vacancy.text = "Нет данных"
                     }
@@ -42,5 +44,6 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
             }
         }
     }
+
 
 }
