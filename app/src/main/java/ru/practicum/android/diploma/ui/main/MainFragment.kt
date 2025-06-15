@@ -1,133 +1,172 @@
 package ru.practicum.android.diploma.ui.main
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
-import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
+import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentMainBinding
 import ru.practicum.android.diploma.domain.vacancy.models.Vacancy
-import ru.practicum.android.diploma.ui.main.adapters.SearchAdapter
+import ru.practicum.android.diploma.ui.main.models.SearchContentStateVO
 import ru.practicum.android.diploma.ui.root.BindingFragment
-import ru.practicum.android.diploma.ui.vacancy.VacancyFragment
-import ru.practicum.android.diploma.ui.vacancy.model.VacancySearchState
-import ru.practicum.android.diploma.ui.main.utils.VacancyCallback
-import ru.practicum.android.diploma.util.debounce
 
 class MainFragment : BindingFragment<FragmentMainBinding>() {
-    private val viewModel: MainViewModel by viewModel()
-    private var searchAdapter: SearchAdapter? = null
 
-    override fun createBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentMainBinding {
+    private val viewModel by viewModel<MainViewModel>()
+
+    private var vacanciesAdapter: SearchResultsAdapter? = null
+
+    override fun createBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentMainBinding {
         return FragmentMainBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val onVacancyClickDebounce = debounce<Vacancy>(
-            CLICK_DEBOUNCE_DELAY,
-            viewLifecycleOwner.lifecycleScope,
-            false
-        ) { vacancy -> clickToVacancy(vacancy) }
 
-        searchAdapter = SearchAdapter(
-            object : SearchAdapter.VacancyClickListener {
-                override fun onVacancyClick(vacancy: Vacancy) {
-                    onVacancyClickDebounce(vacancy)
-                }
-            }
+        initUiToolbar()
+        // системная кн назад
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            backPressedCallback
         )
-        viewModel.observeState().observe(viewLifecycleOwner) {
-            render(it)
+
+        vacanciesAdapter = SearchResultsAdapter(
+            clickListener = { viewModel.onVacancyClick(it) },
+            requireContext(),
+        )
+
+        viewModel.contentState.observe(viewLifecycleOwner) {
+            renderContent(it)
         }
-        binding.testSearch.setOnClickListener {
-            viewModel.searchVacancies("Java разработчик")
+
+        viewModel.text.observe(viewLifecycleOwner) {
+            val withClose = it.isNotEmpty()
+
+            binding.searchEditText.setCompoundDrawablesWithIntrinsicBounds(
+                null,
+                null,
+                requireContext().getDrawable(
+                    if (withClose) R.drawable.close_24px else R.drawable.search_24px
+                ),
+                null
+            )
         }
-        binding.searchingList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.searchingList.adapter = searchAdapter
-        binding.searchingList.addOnScrollListener(object : OnScrollListener() {
-            override fun onScrolled(
-                recyclerView: RecyclerView,
-                dx: Int,
-                dy: Int
-            ) {
-                super.onScrolled(recyclerView, dx, dy)
-                if (dy > 0) {
-                    val pos = (binding.searchingList.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
-                    val itemCount = searchAdapter?.itemCount ?: 0
-                    if (pos >= itemCount - 1) {
-                        viewModel.nextSearch()
-                    }
-                }
+
+        viewModel.observeClearSearchInput().observe(viewLifecycleOwner) {
+            binding.searchEditText.setText("")
+        }
+
+        initSearch()
+
+        binding.searchResults.adapter = vacanciesAdapter
+    }
+
+    private fun initUiToolbar() {
+        // настройка кастомного топбара
+        val toolbar = binding.toolbar
+        toolbar.setupToolbarForSearchScreen()
+        toolbar.setToolbarTitle(getString(R.string.vacancy_search))
+        toolbar.setOnToolbarFilterClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_filterFragment)
+        }
+        /*
+        * !!! после того, как настроены все фильтры
+        * применить toolbar.setFilterState(true) для изменения иконки кнопки
+        */
+
+    }
+
+    //  callback для системной кн назад - выход из приложения
+    private val backPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            requireActivity().finish()
+        }
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun initSearch() {
+        binding.searchEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { return }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                viewModel.onTextChange((s ?: "").toString())
             }
+
+            override fun afterTextChanged(s: Editable?) { return }
         })
-    }
 
-    private fun render(vacanciesState: VacancySearchState) {
-        when (vacanciesState) {
-            is VacancySearchState.Content -> showContent(vacanciesState.vacancies)
-            is VacancySearchState.Empty -> showEmpty(vacanciesState.message)
-            is VacancySearchState.Error -> showError(vacanciesState.errorMessage)
-            is VacancySearchState.Loading -> loading()
+        binding.searchEditText.setOnTouchListener { v, event ->
+            handleSearchTouch(v, event)
         }
     }
 
-    private fun loading() {
-        binding.loader.isVisible = true
-        enabledControls(false)
+    private fun handleSearchTouch(v: View, event: MotionEvent): Boolean {
+        if (event.action == MotionEvent.ACTION_UP) {
+            val textView = v as TextView
+            if (event.x >= textView.width - textView.compoundPaddingEnd) {
+                onSearchClear()
+                return true
+            }
+        }
+        return false
     }
 
-    private fun showEmpty(message: String) {
-        binding.loader.isVisible = false
-        enabledControls(true)
-        Log.i("VACANCY_TEST", "Empty $message")
+    private fun onSearchClear() {
+        binding.searchEditText.clearFocus()
+
+        viewModel.onSearchClear()
     }
 
-    private fun showError(message: String) {
-        binding.loader.isVisible = false
-        enabledControls(true)
-        Log.e("VACANCY_TEST", "Error $message")
-    }
-
-    private fun showContent(vacanciesList: List<Vacancy>) {
-        binding.loader.isVisible = false
-        enabledControls(true)
-        searchAdapter?.let {
-            val diffVacancyCallback = VacancyCallback(it.vacancies.toList(), vacanciesList)
-            val diffVacancy = DiffUtil.calculateDiff(diffVacancyCallback)
-            it.vacancies.clear()
-            it.vacancies.addAll(vacanciesList)
-            diffVacancy.dispatchUpdatesTo(it)
+    private fun renderContent(state: SearchContentStateVO) {
+        when (state) {
+            is SearchContentStateVO.Base -> showBaseView()
+            is SearchContentStateVO.Loading -> showLoadingState()
+            is SearchContentStateVO.Error -> showErrorState(state.noInternet)
+            is SearchContentStateVO.Success -> showSearchResults(state.tracks)
         }
     }
 
-    private fun clickToVacancy(vacancy: Vacancy) {
-        findNavController().navigate(
-            R.id.action_mainFragment_to_vacancyFragment,
-            VacancyFragment.createArgs(vacancy.id)
-        )
+    private fun showBaseView() {
+        binding.searchBaseState.visibility = VISIBLE
+        binding.progress.visibility = INVISIBLE
+        binding.noInternetError.visibility = INVISIBLE
+        binding.unknownError.visibility = INVISIBLE
+        binding.searchResults.visibility = INVISIBLE
     }
 
-    private fun enabledControls(enable: Boolean) {
-        for (i in 0..<binding.main.childCount) {
-            val child: View = binding.main.getChildAt(i)
-            child.setEnabled(enable)
-        }
+    private fun showLoadingState() {
+        binding.searchBaseState.visibility = INVISIBLE
+        binding.progress.visibility = VISIBLE
+        binding.noInternetError.visibility = INVISIBLE
+        binding.unknownError.visibility = INVISIBLE
+        binding.searchResults.visibility = INVISIBLE
     }
 
-    companion object {
-        private const val CLICK_DEBOUNCE_DELAY = 1_000L
+    private fun showSearchResults(newVacancies: List<Vacancy>) {
+        binding.searchBaseState.visibility = INVISIBLE
+        binding.progress.visibility = INVISIBLE
+        binding.noInternetError.visibility = INVISIBLE
+        binding.unknownError.visibility = INVISIBLE
+        binding.searchResults.visibility = VISIBLE
+
+        vacanciesAdapter?.submitList(newVacancies)
+    }
+
+    private fun showErrorState(isNoInternetError: Boolean) {
+        binding.searchBaseState.visibility = INVISIBLE
+        binding.progress.visibility = INVISIBLE
+        binding.noInternetError.visibility = if (isNoInternetError) VISIBLE else INVISIBLE
+        binding.unknownError.visibility = if (isNoInternetError) INVISIBLE else VISIBLE
+        binding.searchResults.visibility = INVISIBLE
     }
 }

@@ -46,4 +46,30 @@
         <item name="itemActiveIndicatorStyle">?android:attr/colorBackground</item>
         <item name="android:background">?android:attr/colorBackground</item>
     </style>
+
+
+    <style name="TopBarIconStyle">
+        <item name="android:padding">@dimen/margin16</item>
+        <item name="layout_constraintDimensionRatio">1:1</item>
+    </style>
+
+    <style name="TopBarHeaderTextStyle">
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/text_size_l</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="CustomOutlineBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="shapeAppearanceOverlay">@style/RoundedShape</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/text_size_s</item>
+        <item name="android:textFontWeight">400</item>
+        <item name="android:lineHeight">@dimen/line_height_s</item>
+        <item name="hintTextColor">@color/gray</item>
+    </style>
+
+    <style name="RoundedShape">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
 </resources>

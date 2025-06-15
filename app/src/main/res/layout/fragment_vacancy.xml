@@ -5,11 +5,16 @@
     android:layout_height="match_parent"
     tools:context=".ui.vacancy.VacancyFragment">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="Vacancy"
-            android:textSize="60sp" />
-</FrameLayout>
+    <ru.practicum.android.diploma.ui.components.CustomToolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbar"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Vacancy"
+        android:gravity="center"
+        android:textSize="60sp"/>
+
+</FrameLayout>

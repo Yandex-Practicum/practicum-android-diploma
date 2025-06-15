@@ -1,54 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.main.MainFragment">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/left_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/margin16" />
 
-        >
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/right_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/margin16" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Поиск"
-            android:textSize="60sp" />
-
-        <Button
-            android:id="@+id/test_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="поиск" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/searching_list"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/margin16"
-            android:layout_weight="1" />
-
-    </LinearLayout>
-
-    <FrameLayout
-        android:id="@+id/loader"
+    <ru.practicum.android.diploma.ui.components.CustomToolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:visibility="gone" >
+        android:id="@+id/toolbar"
 
-        <include
-            layout="@layout/loader"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <EditText
+        android:id="@+id/search_edit_text"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintStart_toEndOf="@+id/left_guideline"
+        app:layout_constraintEnd_toStartOf="@id/right_guideline"
+        android:layout_height="wrap_content"
+        android:layout_width="0.dp"
+        android:layout_marginVertical="@dimen/margin16"
+        android:hint="@string/enter_request"
+        android:maxLines="1"
+        android:inputType="text"
+        android:drawablePadding="@dimen/margin16"
+        android:drawableTint="@color/black"
+        android:background="@drawable/rounded_edittext"
+        android:padding="@dimen/margin16"
+        android:textSize="@dimen/text_size_m"
+        android:backgroundTint="?attr/colorSecondary"
+        android:textCursorDrawable="@drawable/edit_text_cursor"
+        android:textColor="@color/black"
+        android:textColorHint="?attr/colorOnSecondary"
+        android:imeOptions="actionDone"
+        android:singleLine="true" />
+
+    <ImageView
+        android:id="@+id/search_base_state"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="@id/right_guideline"
+        app:layout_constraintStart_toStartOf="@id/left_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/search_edit_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:srcCompat="@drawable/search_base_state" />
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:indeterminateTint="@color/blue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:layout_constraintEnd_toEndOf="@id/right_guideline"
+        app:layout_constraintStart_toStartOf="@id/left_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/search_edit_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="invisible" />
+
+    <LinearLayout
+        android:id="@+id/no_internet_error"
+        app:layout_constraintEnd_toEndOf="@id/right_guideline"
+        app:layout_constraintStart_toStartOf="@id/left_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/search_edit_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
+        android:layout_width="0.dp"
+        android:gravity="center"
+        android:visibility="invisible"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:srcCompat="@drawable/no_internet_error" />
+        <TextView
+            style="@style/text_font_l"
+            android:textAlignment="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            />
+            android:layout_marginTop="@dimen/margin16"
+            android:textColor="?attr/colorOnSecondary"
+            android:text="@string/no_internet"/>
+    </LinearLayout>
 
-    </FrameLayout>
+    <LinearLayout
+        android:id="@+id/unknown_error"
+        app:layout_constraintEnd_toEndOf="@id/right_guideline"
+        app:layout_constraintStart_toStartOf="@id/left_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/search_edit_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
+        android:layout_width="0.dp"
+        android:gravity="center"
+        android:visibility="invisible"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:srcCompat="@drawable/cat" />
+        <TextView
+            style="@style/text_font_l"
+            android:textAlignment="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin16"
+            android:textColor="?attr/colorOnSecondary"
+            android:text="@string/cant_get_vacations_list"/>
+    </LinearLayout>
 
-</FrameLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_results"
+        app:layout_constraintEnd_toEndOf="@id/right_guideline"
+        app:layout_constraintStart_toStartOf="@id/left_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/search_edit_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/margin46"
+        android:layout_width="match_parent"
+        android:layout_height="0.dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

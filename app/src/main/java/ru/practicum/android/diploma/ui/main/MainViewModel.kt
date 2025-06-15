@@ -1,128 +1,78 @@
 package ru.practicum.android.diploma.ui.main
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.domain.models.FilterOptions
-import ru.practicum.android.diploma.domain.vacancy.VacanciesInteractor
-import ru.practicum.android.diploma.domain.vacancy.models.VacanciesWithPage
+import ru.practicum.android.diploma.data.network.ApiResponse
+import ru.practicum.android.diploma.domain.vacancy.api.SearchVacanciesRepository
 import ru.practicum.android.diploma.domain.vacancy.models.Vacancy
-import ru.practicum.android.diploma.ui.vacancy.model.VacancySearchState
+import ru.practicum.android.diploma.ui.common.SingleLiveEvent
+import ru.practicum.android.diploma.ui.main.models.SearchContentStateVO
 import ru.practicum.android.diploma.util.debounce
 
 class MainViewModel(
     application: Application,
-    private val vacancyInteractor: VacanciesInteractor,
+    private val searchVacanciesRepository: SearchVacanciesRepository,
 ) : AndroidViewModel(application) {
-    private val vacanciesList = ArrayList<Vacancy>()
-    private var currentPage = -1
-    private var allPages = 0
-    private var latestSearchText: String? = null
+    private val textLiveData = MutableLiveData("")
+    val text: LiveData<String> = textLiveData
 
-    private val onVacancySearchDebounce = debounce<String>(
-        SEARCH_DEBOUNCE_DELAY,
+    private val clearSearchInput = SingleLiveEvent<Unit>()
+    fun observeClearSearchInput(): LiveData<Unit> = clearSearchInput
+
+    private val contentStateLiveData = MutableLiveData<SearchContentStateVO>(SearchContentStateVO.Base)
+    val contentState: LiveData<SearchContentStateVO> = contentStateLiveData
+
+    fun onTextChange(value: String) {
+        textLiveData.postValue(value)
+
+        doSearchDebounced(Unit)
+    }
+
+    fun onSearchClear() {
+        textLiveData.postValue("")
+        clearSearchInput.postValue(Unit)
+        contentStateLiveData.postValue(SearchContentStateVO.Base)
+    }
+
+    fun onVacancyClick(vacancy: Vacancy) {
+        return
+    }
+
+    private val doSearchDebounced = debounce<Unit>(
+        SEARCH_DEBOUNCE_DELAY_MS,
         viewModelScope,
-        true
-    ) { searchString ->
-        currentPage = -1
-        allPages = 0
-        startSearch(searchString)
+        true,
+    ) {
+        doSearch()
     }
 
-    private val stateLiveData = MutableLiveData<VacancySearchState>()
-    private val mediatorVacanciesStateLiveData = MediatorLiveData<VacancySearchState>().also { liveData ->
-        liveData.addSource(stateLiveData) { vacancyState ->
-            liveData.value = when (vacancyState) {
-                is VacancySearchState.Loading -> VacancySearchState.Loading(vacancyState.message)
-                is VacancySearchState.Error -> VacancySearchState.Error(vacancyState.errorMessage)
-                is VacancySearchState.Empty -> VacancySearchState.Empty(vacancyState.message)
-                is VacancySearchState.Content -> VacancySearchState.Content(vacancyState.vacancies)
-            }
+    private fun doSearch() {
+        val text = text.value ?: ""
+        if (text.isEmpty()) {
+            return
         }
-    }
 
-    fun observeState(): LiveData<VacancySearchState> = mediatorVacanciesStateLiveData
+        contentStateLiveData.postValue(SearchContentStateVO.Loading)
 
-    fun searchVacancies(searchText: String) {
-        if (searchText.isNotEmpty() && latestSearchText != searchText) {
-            latestSearchText = searchText
-            onVacancySearchDebounce(searchText)
-        }
-    }
+        viewModelScope.launch {
+            val searchResponse = searchVacanciesRepository.search(text)
 
-    fun nextSearch() {
-        latestSearchText?.let { startSearch(it) }
-    }
-
-    private fun startSearch(text: String) {
-        renderState(VacancySearchState.Loading("Поиск"))
-        currentPage += 1
-        if (currentPage <= allPages) {
-            viewModelScope.launch {
-                vacancyInteractor
-                    // Добавить фильтры
-                    .searchVacancies(
-                        FilterOptions(
-                            searchText = text,
-                            area = "",
-                            industry = "",
-                            currency = "RUR",
-                            salary = null,
-                            onlyWithSalary = true,
-                            currentPage
-                        )
-                    )
-                    .collect { pair -> processResult(pair.first, pair.second) }
-            }
-        }
-    }
-
-    private fun processResult(vacancies: VacanciesWithPage?, errorMessage: String?) {
-        if (vacancies != null) {
-            if (vacancies.page == 0) {
-                vacanciesList.clear()
-            }
-            vacanciesList.addAll(vacancies.items)
-            currentPage = vacancies.page
-            allPages = vacancies.pages
-            Log.i("VACANCY_TEST", "CurrPage: $currentPage | AllPage: $allPages")
-        }
-        when {
-            errorMessage != null -> {
-                renderState(
-                    VacancySearchState.Error(
-                        errorMessage = errorMessage
-                    )
-                )
-            }
-
-            vacancies?.items?.isEmpty() == true -> {
-                renderState(
-                    VacancySearchState.Empty(
-                        message = getApplication<Application>().getString(
-                            R.string.no // Тут сообщение из strings (другая ветка)
-                        )
-                    )
-                )
-            }
-
-            else -> renderState(
-                VacancySearchState.Content(vacancies = vacanciesList)
+            contentStateLiveData.postValue(
+                when (searchResponse) {
+                    is ApiResponse.Success ->
+                        SearchContentStateVO.Success(searchResponse.data)
+                    is ApiResponse.Error ->
+                        SearchContentStateVO.Error(noInternet = searchResponse.statusCode == -1)
+                }
             )
         }
     }
 
-    private fun renderState(state: VacancySearchState) {
-        stateLiveData.postValue(state)
-    }
-
     companion object {
-        private const val SEARCH_DEBOUNCE_DELAY = 1_000L
+        private const val SEARCH_DEBOUNCE_DELAY_MS = 2000L
     }
 }

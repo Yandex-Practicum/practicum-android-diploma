@@ -10,17 +10,16 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import kotlinx.coroutines.runBlocking
 import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.ActivityRootBinding
 
 class RootActivity : AppCompatActivity() {
-    private var _binding: ActivityRootBinding? = null
-    private val binding get() = _binding!!
+    @Suppress("LateinitUsage")
+    private lateinit var binding: ActivityRootBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivityRootBinding.inflate(layoutInflater)
+        binding = ActivityRootBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupThemeAndStatusBar()
 
@@ -40,11 +39,6 @@ class RootActivity : AppCompatActivity() {
 
         // Пример использования access token для HeadHunter API
         networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
-
-        // Пример запроса (конечно тут будет интерактор и все пироги)
-        runBlocking {
-            //   val result = searchVacanciesRepository.search("android")
-        }
     }
 
     private fun networkRequestExample(accessToken: String) {

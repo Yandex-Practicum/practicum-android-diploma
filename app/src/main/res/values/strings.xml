@@ -9,8 +9,18 @@
     <string name="are_you_sure_you_want_to_exit">Вы действительно хотите выйти?</string>
     <string name="yes">Да</string>
     <string name="no">Нет</string>
+
     <string name="team">Команда</string>
     <string name="team_head">Над приложением работали</string>
+    <string name="no_internet">Нет интернета</string>
+    <string name="no_list_vacancy">Не удалось получить список вакансий</string>
+    <string name="no_region">Такого региона нет</string>
+    <string name="no_get_list">Не удалось получить список</string>
+    <string name="no_find_vacancy">Вакансия не найдена или удалена</string>
+    <string name="server_error">Ошибка сервера</string>
+    <string name="list_empty">Список пуст</string>
+    <string name="btn_text_select">Выбрать</string>
+    <string name="btn_text_reset">Сбросить</string>
     <string-array name="team_body">
         <item>Влад Захаров</item>
         <item>Екатерина Кикоть</item>
@@ -18,4 +28,33 @@
         <item>Михаил Макиев</item>
         <item>Дмитрий Тетченко</item>
     </string-array>
+
+    <string name="vacancy_search">Поиск вакансий</string>
+    <string name="filter_settings">Настройки фильтрации</string>
+    <string name="place_of_work">Выбор места работы</string>
+    <string name="country">Выбор страны</string>
+    <string name="region">Выбор региона</string>
+    <string name="area">Выбор отрасли</string>
+    <string name="vacancy">Вакансия</string>
+
+    <string name="enter_request">Введите запрос</string>
+    <string name="cant_get_vacations_list">Не удалось получить список вакансий</string>
+
+    <!-- Шаблоны для вывода зарплаты -->
+    <string name="salary_from">От %1$s %2$s</string>
+    <string name="salary_to">До %1$s %2$s</string>
+    <string name="salary_range">От %1$s до %2$s %3$s</string>
+    <string name="salary_not_specified">Зарплата не указана</string>
+
+    <!-- Валюты -->
+    <string name="currency_rub">₽</string>
+    <string name="currency_byr">Br</string>
+    <string name="currency_usd">$</string>
+    <string name="currency_eur">€</string>
+    <string name="currency_kzt">₸</string>
+    <string name="currency_uah">₴</string>
+    <string name="currency_azn">₼</string>
+    <string name="currency_uzs">сум</string>
+    <string name="currency_gel">₾</string>
+    <string name="currency_kgt">сом</string>
 </resources>

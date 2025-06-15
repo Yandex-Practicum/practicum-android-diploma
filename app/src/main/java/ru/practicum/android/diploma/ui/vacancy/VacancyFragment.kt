@@ -4,28 +4,53 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
-import ru.practicum.android.diploma.ui.root.BindingFragment
+import ru.practicum.android.diploma.util.handleBackPress
 
-class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
-    override fun createBinding(
+class VacancyFragment : Fragment() {
+    private var _binding: FragmentVacancyBinding? = null
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
         inflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentVacancyBinding {
-        return FragmentVacancyBinding.inflate(inflater, container, false)
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentVacancyBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val vacancyId = requireArguments().getString(ARGS_VACANCY_ID) ?: ""
+
+        initUiToolbar()
+
+        // системная кн назад
+        handleBackPress()
     }
 
-    companion object {
-        private const val ARGS_VACANCY_ID = "vac_id"
+    private fun initUiToolbar() {
+        // настройка кастомного топбара
+        val toolbar = binding.toolbar
+        toolbar.setupToolbarForVacancyDetailScreen()
+        toolbar.setToolbarTitle(getString(R.string.vacancy))
+        toolbar.setupToolbarBackButton(this)
 
-        fun createArgs(vacancyId: String): Bundle = bundleOf(
-            ARGS_VACANCY_ID to vacancyId
-        )
+        // Поделиться
+        toolbar.setOnToolbarShareClickListener {
+            /* !!! Здесь будет Intent */
+        }
+
+        // Избранное
+        toolbar.setOnToolbarFavoriteClickListener {
+            /* !!! Реализация добавления в избранное */
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
