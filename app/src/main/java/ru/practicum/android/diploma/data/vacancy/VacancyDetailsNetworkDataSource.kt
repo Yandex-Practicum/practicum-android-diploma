@@ -29,7 +29,9 @@ class VacancyDetailsNetworkDataSource(
             employment = dto.employment?.name,
             schedule = dto.schedule?.name,
             descriptionHtml = dto.description ?: "",
-            keySkills = dto.keySkills?.mapNotNull { it.name } ?: emptyList()
+            keySkills = dto.keySkills?.mapNotNull { it.name } ?: emptyList(),
+            address = dto.address?.raw,
+            areaName = dto.area?.name
         )
     }
 }

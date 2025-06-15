@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.ui.vacancy
 
 import android.os.Bundle
-import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,18 +31,51 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.vacancyDetails.collect { vacancy ->
-                    if (vacancy != null) {
-                        binding.vacancy.setText(Html.fromHtml("${vacancy.title}\n${vacancy.salaryFrom}\n${vacancy.experience}\n${vacancy.employment}\n${vacancy.schedule}\n" +
-                            "${vacancy.descriptionHtml}", Html.FROM_HTML_MODE_COMPACT))
-
-                    } else {
-                        binding.vacancy.text = "Нет данных"
-                    }
+                viewModel.vacancyState.collect { state ->
+                    render(state)
                 }
             }
         }
     }
 
+    private fun render(state: VacancyContentStateVO) {
+        when (state) {
+            is VacancyContentStateVO.Base -> showBase()
+            is VacancyContentStateVO.Loading -> showLoading()
+            is VacancyContentStateVO.Error -> showError()
+            is VacancyContentStateVO.Success -> showVacancyDetails(state.vacancy)
+        }
+    }
 
+    private fun showBase() {
+        binding.vacancy.text = ""
+    }
+
+    private fun showLoading() {
+        binding.vacancy.text = "Загрузка..."
+        // Позже можно добавить прогресс-бар
+    }
+
+    private fun showError() {
+        binding.vacancy.text = "Ошибка загрузки данных"
+        // изображение ошибки
+    }
+
+    private fun showVacancyDetails(vacancy: VacancyDetailsVO) {
+        val text = buildString {
+            appendLine(vacancy.title)
+            vacancy.salary?.let { appendLine(it) }
+            vacancy.experience?.let { appendLine(it) }
+            vacancy.employment?.let { appendLine(it) }
+            vacancy.schedule?.let { appendLine(it) }
+            appendLine()
+            vacancy.addressOrRegion.let { appendLine(it) }
+            appendLine()
+            vacancy.description?.let { appendLine(it) }
+        }
+
+        binding.vacancy.text = text
+    }
 }
+
+

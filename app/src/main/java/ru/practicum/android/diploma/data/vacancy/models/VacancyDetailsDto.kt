@@ -11,7 +11,18 @@ data class VacancyDetailsDto(
     val employment: EmploymentDto?,
     val schedule: ScheduleDto?,
     val description: String?,
-    val keySkills: List<SkillDto>?
+    val keySkills: List<SkillDto>?,
+    val address: Address?,
+    val area: AreaDto?
+)
+
+data class Address(
+    val raw: String?
+    // другие поля по необходимости
+)
+
+data class AreaDto(
+    val name: String?
 )
 
 data class SalaryDto(

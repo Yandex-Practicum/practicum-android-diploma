@@ -12,6 +12,8 @@ data class VacancyDetails(
     val employment: String?,
     val schedule: String?,
     val descriptionHtml: String?,
-    val keySkills: List<String>?
+    val keySkills: List<String>?,
+    val address: String?,
+    val areaName: String?
 )
 
