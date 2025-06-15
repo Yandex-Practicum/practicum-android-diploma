@@ -30,7 +30,6 @@
     </string-array>
 
     <string name="enter_request">Введите запрос</string>
-    <string name="no_internet">Нет интернета</string>
     <string name="cant_get_vacations_list">Не удалось получить список вакансий</string>
 
     <!-- Шаблоны для вывода зарплаты -->
