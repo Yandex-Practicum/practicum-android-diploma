@@ -124,8 +124,22 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin16"
             android:textColor="?attr/colorOnSecondary"
-            android:text="@string/cant_get_vacations_list"/>
+            android:text="@string/cant_get_vacations_list" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/vacancies_count"
+        android:background="@drawable/rounded_text_background"
+        style="@style/text_font_m"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@id/right_guideline"
+        app:layout_constraintStart_toStartOf="@id/left_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/search_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin8"
+        android:textColor="?attr/colorOnSecondary"
+        android:text=""/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_results"
@@ -133,7 +147,7 @@
         app:layout_constraintStart_toStartOf="@id/left_guideline"
         app:layout_constraintTop_toBottomOf="@+id/search_edit_text"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="@dimen/margin46"
+        android:layout_marginTop="@dimen/margin44"
         android:layout_width="match_parent"
         android:layout_height="0.dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>

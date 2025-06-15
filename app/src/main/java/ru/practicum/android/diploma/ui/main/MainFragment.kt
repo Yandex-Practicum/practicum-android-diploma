@@ -142,6 +142,7 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
         binding.noInternetError.visibility = INVISIBLE
         binding.unknownError.visibility = INVISIBLE
         binding.searchResults.visibility = INVISIBLE
+        binding.vacanciesCount.visibility = INVISIBLE
     }
 
     private fun showLoadingState() {
@@ -150,6 +151,7 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
         binding.noInternetError.visibility = INVISIBLE
         binding.unknownError.visibility = INVISIBLE
         binding.searchResults.visibility = INVISIBLE
+        binding.vacanciesCount.visibility = INVISIBLE
     }
 
     private fun showSearchResults(newVacancies: List<Vacancy>) {
@@ -158,8 +160,14 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
         binding.noInternetError.visibility = INVISIBLE
         binding.unknownError.visibility = INVISIBLE
         binding.searchResults.visibility = VISIBLE
+        binding.vacanciesCount.visibility = VISIBLE
 
         vacanciesAdapter?.submitList(newVacancies)
+        binding.vacanciesCount.text = resources.getQuantityString(
+            R.plurals.vacancies_found,
+            newVacancies.size,
+            newVacancies.size,
+        )
     }
 
     private fun showErrorState(isNoInternetError: Boolean) {
@@ -168,5 +176,6 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
         binding.noInternetError.visibility = if (isNoInternetError) VISIBLE else INVISIBLE
         binding.unknownError.visibility = if (isNoInternetError) INVISIBLE else VISIBLE
         binding.searchResults.visibility = INVISIBLE
+        binding.vacanciesCount.visibility = INVISIBLE
     }
 }
