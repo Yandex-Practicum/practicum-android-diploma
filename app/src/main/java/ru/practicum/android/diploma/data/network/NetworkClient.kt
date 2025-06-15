@@ -3,49 +3,52 @@ package ru.practicum.android.diploma.data.network
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.util.Log
-import com.google.gson.JsonParseException
-import retrofit2.HttpException
-import java.io.IOException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import ru.practicum.android.diploma.data.Response
+import ru.practicum.android.diploma.data.VacanciesSearchRequest
+import ru.practicum.android.diploma.data.vacancy.HhApi
+import ru.practicum.android.diploma.util.HTTP_200_OK
+import ru.practicum.android.diploma.util.HTTP_400_BAD_REQUEST
+import ru.practicum.android.diploma.util.HTTP_500_INTERNAL_SERVER_ERROR
+import ru.practicum.android.diploma.util.HTTP_NO_CONNECTION
 
 class NetworkClient(
     private val context: Context,
+    private val hhApi: HhApi,
 ) {
-    suspend fun <T> execute(block: suspend () -> T): ApiResponse<T> {
+    suspend fun doRequest(dto: Any): Response {
         if (!isConnected()) {
-            return ApiResponse.Error(STATUS_CODE_NO_INTERNET)
+            return Response().apply { resultCode = HTTP_NO_CONNECTION }
         }
 
-        return try {
-            val result = block()
-            ApiResponse.Success(result)
-        } catch (e: IOException) {
-            Log.e(TAG, "IOException caught", e)
-            ApiResponse.Error(STATUS_CODE_NO_INTERNET)
-        } catch (e: HttpException) {
-            Log.e(TAG, "HttpException caught", e)
-            ApiResponse.Error(e.code())
-        } catch (e: JsonParseException) {
-            Log.e(TAG, "Json parsing error", e)
-            ApiResponse.Error(STATUS_CODE_500)
-        } catch (e: IllegalStateException) {
-            Log.e(TAG, "Illegal state", e)
-            ApiResponse.Error(STATUS_CODE_500)
+        return withContext(Dispatchers.IO) {
+            try {
+                when (dto) {
+                    is VacanciesSearchRequest -> responseSearch(dto)
+                    else -> {
+                        Response().apply { resultCode = HTTP_400_BAD_REQUEST }
+                    }
+                }
+            } catch (_: Throwable) {
+                Response().apply { resultCode = HTTP_500_INTERNAL_SERVER_ERROR }
+            }
         }
+    }
+
+    private suspend fun responseSearch(dto: VacanciesSearchRequest): Response {
+        val response = hhApi.searchVacancies(dto.searchOptions)
+        response.apply { resultCode = HTTP_200_OK }
+        return response
     }
 
     private fun isConnected(): Boolean {
-        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         return connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)?.run {
             hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
-                hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
-                hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
-        } ?: false
-    }
-
-    companion object {
-        private const val STATUS_CODE_500 = 500
-        private const val STATUS_CODE_NO_INTERNET = -1
-        private const val TAG = "NetworkClient"
+                    hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                    hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
+        } == true
     }
 }

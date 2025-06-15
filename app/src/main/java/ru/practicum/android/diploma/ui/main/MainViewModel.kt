@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.data.network.ApiResponse
+import ru.practicum.android.diploma.domain.models.FilterOptions
 import ru.practicum.android.diploma.domain.vacancy.api.SearchVacanciesRepository
 import ru.practicum.android.diploma.domain.vacancy.models.Vacancy
 import ru.practicum.android.diploma.ui.common.SingleLiveEvent
@@ -19,6 +20,9 @@ class MainViewModel(
 ) : AndroidViewModel(application) {
     private val textLiveData = MutableLiveData("")
     val text: LiveData<String> = textLiveData
+
+    private var pages = 0
+    private var page = 0
 
     private val clearSearchInput = SingleLiveEvent<Unit>()
     fun observeClearSearchInput(): LiveData<Unit> = clearSearchInput
@@ -47,6 +51,7 @@ class MainViewModel(
         viewModelScope,
         true,
     ) {
+        page = 0
         doSearch()
     }
 
@@ -57,14 +62,38 @@ class MainViewModel(
         }
 
         contentStateLiveData.postValue(SearchContentStateVO.Loading)
+        search(
+            FilterOptions(
+                searchText = text,
+                area = "",
+                industry = "",
+                currency = "",
+                salary = null,
+                onlyWithSalary = true,
+                page = page
+            )
+        )
+    }
 
+    fun doNextSearch() {
+        page += 1
+        if (page <= pages) {
+            doSearch()
+        }
+    }
+
+    private fun search(options: FilterOptions) {
         viewModelScope.launch {
-            val searchResponse = searchVacanciesRepository.search(text)
+            val searchResponse = searchVacanciesRepository.search(options)
 
             contentStateLiveData.postValue(
                 when (searchResponse) {
-                    is ApiResponse.Success ->
-                        SearchContentStateVO.Success(searchResponse.data)
+                    is ApiResponse.Success -> {
+                        pages = searchResponse.pages
+                        page = searchResponse.page
+                        searchResponse.data?.let { SearchContentStateVO.Success(it) }
+                    }
+
                     is ApiResponse.Error ->
                         SearchContentStateVO.Error(noInternet = searchResponse.statusCode == -1)
                 }

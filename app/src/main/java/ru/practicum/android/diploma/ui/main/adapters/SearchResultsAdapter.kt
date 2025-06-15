@@ -1,10 +1,11 @@
-package ru.practicum.android.diploma.ui.main
+package ru.practicum.android.diploma.ui.main.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.practicum.android.diploma.R
@@ -28,7 +29,7 @@ class SearchResultsAdapter(
     }
 
     inner class SearchResultsItemViewHolder(private val binding: VacancyViewBinding) :
-        androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root) {
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(vacancy: Vacancy) {
             binding.title.text = vacancy.title
@@ -76,9 +77,8 @@ class SearchResultsAdapter(
                 context.getString(R.string.salary_range, formattedFrom, formattedTo, currencySymbol)
             salaryRange.from != null ->
                 context.getString(R.string.salary_from, formattedFrom, currencySymbol)
-            salaryRange.to != null ->
+            else ->
                 context.getString(R.string.salary_to, formattedTo, currencySymbol)
-            else -> context.getString(R.string.salary_not_specified)
         }
     }
 

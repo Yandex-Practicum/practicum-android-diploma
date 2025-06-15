@@ -11,7 +11,7 @@ import ru.practicum.android.diploma.data.db.converters.VacanciesDbConverter
 import ru.practicum.android.diploma.data.network.AuthInterceptor
 import ru.practicum.android.diploma.data.network.NetworkClient
 import ru.practicum.android.diploma.data.network.TokenProvider
-import ru.practicum.android.diploma.data.network.TokenProviderImpl
+import ru.practicum.android.diploma.data.impl.TokenProviderImpl
 import ru.practicum.android.diploma.data.vacancy.HhApi
 import ru.practicum.android.diploma.data.vacancy.SearchVacanciesNetworkDataSource
 import ru.practicum.android.diploma.data.vacancy.SearchVacanciesRepositoryImpl
@@ -33,7 +33,7 @@ val dataModule = module {
     }
 
     single {
-        NetworkClient(androidContext())
+        NetworkClient(androidContext(), get())
     }
 
     single<TokenProvider> {
@@ -63,7 +63,7 @@ val dataModule = module {
     }
 
     single {
-        SearchVacanciesNetworkDataSource(get(), get())
+        SearchVacanciesNetworkDataSource(get())
     }
 
     single<SearchVacanciesRepository> {

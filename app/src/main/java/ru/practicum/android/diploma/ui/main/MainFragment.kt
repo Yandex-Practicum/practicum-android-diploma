@@ -13,10 +13,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentMainBinding
 import ru.practicum.android.diploma.domain.vacancy.models.Vacancy
+import ru.practicum.android.diploma.ui.main.adapters.SearchResultsAdapter
 import ru.practicum.android.diploma.ui.main.models.SearchContentStateVO
 import ru.practicum.android.diploma.ui.root.BindingFragment
 
@@ -69,6 +73,22 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
         initSearch()
 
         binding.searchResults.adapter = vacanciesAdapter
+        binding.searchResults.addOnScrollListener(object : OnScrollListener() {
+            override fun onScrolled(
+                recyclerView: RecyclerView,
+                dx: Int,
+                dy: Int
+            ) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0) {
+                    val pos = (binding.searchResults.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                    val itemCount = vacanciesAdapter?.itemCount ?: 0
+                    if (pos >= itemCount - 1) {
+                        viewModel.doNextSearch()
+                    }
+                }
+            }
+        })
     }
 
     private fun initUiToolbar() {
@@ -96,13 +116,17 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
     @SuppressLint("ClickableViewAccessibility")
     private fun initSearch() {
         binding.searchEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { return }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                return
+            }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 viewModel.onTextChange((s ?: "").toString())
             }
 
-            override fun afterTextChanged(s: Editable?) { return }
+            override fun afterTextChanged(s: Editable?) {
+                return
+            }
         })
 
         binding.searchEditText.setOnTouchListener { v, event ->

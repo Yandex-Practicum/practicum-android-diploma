@@ -22,12 +22,12 @@ class FavoriteRepositoryImpl(
         vacancyDao.deleteFromFavorite(entity)
     }
 
-    override fun getFavorites(): Flow<List<Vacancy>> = flow {
+    override fun getFavorites(): Flow<List<VacancyDetail>> = flow {
         val vacancies = vacancyDao.getFavoritesVacancies()
         emit(convertFromEntities(vacancies))
     }
 
-    override fun getFavoriteById(vacId: String): Flow<Vacancy> = flow {
+    override fun getFavoriteById(vacId: String): Flow<VacancyDetail> = flow {
         val vacancy = vacancyDao.getFavoriteVacancieById(vacId)
         emit(converter.map(vacancy))
     }
