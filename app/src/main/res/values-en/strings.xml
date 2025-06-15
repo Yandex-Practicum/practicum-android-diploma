@@ -3,6 +3,8 @@
     <string name="no">No</string>
     <string name="team">Team</string>
     <string name="team_head">We\'ve been working on the app</string>
+    <string name="btn_text_select">Select</string>
+    <string name="btn_text_reset">Reset</string>
     <string-array name="team_body">
         <item>Vlad Zakharov</item>
         <item>Ekaterina Kikot</item>
@@ -17,4 +19,27 @@
     <string name="exit_confirmation">Confirmation of exit</string>
     <string name="are_you_sure_you_want_to_exit">Do you really want to get out?</string>
     <string name="yes">Yes</string>
+
+    <string name="enter_request">Enter a query</string>
+    <string name="no_internet">No internet connection</string>
+    <string name="cant_get_vacations_list">Failed to retrieve the list of vacancies</string>
+
+    <!-- Templates for displaying salary -->
+    <string name="salary_from">From %1$s %2$s</string>
+    <string name="salary_to">Up to %1$s %2$s</string>
+    <string name="salary_range">From %1$s to %2$s %3$s</string>
+    <string name="salary_not_specified">Salary not specified</string>
+
+    <!-- Currencies -->
+    <string name="currency_rub">₽</string>
+    <string name="currency_byr">Br</string>
+    <string name="currency_usd">$</string>
+    <string name="currency_eur">€</string>
+    <string name="currency_kzt">₸</string>
+    <string name="currency_uah">₴</string>
+    <string name="currency_azn">₼</string>
+    <string name="currency_uzs">sum</string>
+    <string name="currency_gel">₾</string>
+    <string name="currency_kgt">som</string>
+
 </resources>
