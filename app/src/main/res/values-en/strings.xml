@@ -15,6 +15,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="main_button_text">Main</string>
     <string name="favorite_button_text">Favourites</string>
+    <string name="favorite_head_text">Favourites</string>
+    <string name="empty_list">The list is empty</string>
     <string name="team_button_text">Team</string>
     <string name="exit_confirmation">Confirmation of exit</string>
     <string name="are_you_sure_you_want_to_exit">Do you really want to get out?</string>
