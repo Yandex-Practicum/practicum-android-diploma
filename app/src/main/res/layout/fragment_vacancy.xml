@@ -75,7 +75,7 @@
 
             <include
                 android:id="@+id/included_vacancy_card"
-                layout="@layout/vacancy_card"
+                layout="@layout/vacancy_card_details"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
 
