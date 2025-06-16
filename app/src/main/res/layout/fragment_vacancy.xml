@@ -1,24 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.vacancy.VacancyFragment">
+    tools:context=".ui.vacancy.VacancyFragment"
+    android:orientation="vertical"
+    android:paddingBottom="24dp">
 
     <ru.practicum.android.diploma.ui.components.CustomToolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/toolbar"/>
 
-    <TextView
-        android:id="@+id/vacancy"
-        android:layout_width="match_parent"
+    <include
+        android:id="@+id/included_progress_bar"
+        layout="@layout/loader"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="Vacancy"
-        android:gravity="center"
-        android:textSize="12sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        android:layout_gravity="center"
+        android:visibility="gone"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ScrollView
+        android:id="@+id/content_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/leftGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.05" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/rightGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.95" />
+
+            <TextView
+                android:id="@+id/vacancy_name"
+                style="@style/text_font_xl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorOnPrimary"
+                android:paddingTop="@dimen/margin8"
+                tools:text="[Vacancy name]"
+
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="@id/leftGuideline"
+                app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/vacancy_salary"/>
+
+            <TextView
+                android:id="@+id/vacancy_salary"
+                style="@style/text_font_l"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorOnPrimary"
+                android:paddingBottom="@dimen/margin8"
+                tools:text="[Salary]"
+
+                app:layout_constraintStart_toStartOf="@id/leftGuideline"
+                app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+                app:layout_constraintTop_toBottomOf="@id/vacancy_name"/>
+
+            <include
+                android:id="@+id/included_vacancy_card"
+                layout="@layout/vacancy_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                app:layout_constraintStart_toStartOf="@id/leftGuideline"
+                app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+                app:layout_constraintTop_toBottomOf="@id/vacancy_salary"/>
+
+            <TextView
+                android:id="@+id/header_exp"
+                style="@style/text_font_m"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/vacancy_header_exp"
+                android:textColor="?attr/colorOnPrimary"
+                android:layout_marginTop="24dp"
+
+                app:layout_constraintStart_toStartOf="@id/leftGuideline"
+                app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+                app:layout_constraintTop_toBottomOf="@id/included_vacancy_card"/>
+
+            <TextView
+                android:id="@+id/value_exp"
+                style="@style/text_font_s"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:text="[Exp]"
+                android:textColor="?attr/colorOnPrimary"
+
+                app:layout_constraintStart_toStartOf="@id/leftGuideline"
+                app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+                app:layout_constraintTop_toBottomOf="@id/header_exp"/>
+
+            <TextView
+                android:id="@+id/value_work_format"
+                style="@style/text_font_s"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:text="[work format]"
+                android:textColor="?attr/colorOnPrimary"
+                android:layout_marginTop="@dimen/margin8"
+
+                app:layout_constraintStart_toStartOf="@id/leftGuideline"
+                app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+                app:layout_constraintTop_toBottomOf="@id/value_exp"/>
+
+            <TextView
+                android:id="@+id/header_description_title"
+                style="@style/text_font_l"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/vacancy_header_description"
+                android:textColor="?attr/colorOnPrimary"
+                android:layout_marginTop="@dimen/margin32"
+
+                app:layout_constraintStart_toStartOf="@id/leftGuideline"
+                app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+                app:layout_constraintTop_toBottomOf="@id/value_work_format"/>
+
+            <TextView
+                android:id="@+id/value_description"
+                style="@style/text_font_s"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:text="[description]"
+                android:textColor="?attr/colorOnPrimary"
+
+                app:layout_constraintStart_toStartOf="@id/leftGuideline"
+                app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+                app:layout_constraintTop_toBottomOf="@id/header_description_title"/>
+
+            <TextView
+                android:id="@+id/header_skills"
+                style="@style/text_font_l"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/vacancy_header_skills"
+                android:textColor="?attr/colorOnPrimary"
+                android:layout_marginTop="24dp"
+                android:visibility="gone"
+
+                app:layout_constraintStart_toStartOf="@id/leftGuideline"
+                app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+                app:layout_constraintTop_toBottomOf="@id/value_description"/>
+
+            <TextView
+                android:id="@+id/value_skills"
+                style="@style/text_font_s"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:text="[skills]"
+                android:textColor="?attr/colorOnPrimary"
+                android:layout_marginTop="@dimen/margin16"
+                android:visibility="gone"
+
+                app:layout_constraintStart_toStartOf="@id/leftGuideline"
+                app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+                app:layout_constraintTop_toBottomOf="@id/header_skills"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <include
+        android:id="@+id/included_err"
+        layout="@layout/screen_placeholder"
+        android:visibility="gone"/>
+</LinearLayout>
