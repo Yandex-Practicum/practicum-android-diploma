@@ -4,13 +4,15 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.db.FavoriteInteractor
 import ru.practicum.android.diploma.domain.models.VacancyDetail
 import ru.practicum.android.diploma.ui.favorite.models.FavoriteState
 
 class FavoriteViewModel(
     application: Application,
-    favoriteInteractor: FavoriteInteractor
+    val favoriteInteractor: FavoriteInteractor
 ) : AndroidViewModel(application) {
     private val favoriteList = ArrayList<VacancyDetail>()
 
@@ -18,7 +20,20 @@ class FavoriteViewModel(
     fun observeState(): LiveData<FavoriteState> = stateLiveData
 
     fun getFavoriteList() {
-        renderState(FavoriteState.EmptyList)
+        renderState(FavoriteState.Loading)
+        favoriteList.clear()
+        viewModelScope.launch {
+            favoriteInteractor.getFavorites()
+                .collect { list ->
+                    favoriteList.addAll(list)
+                }
+            if (favoriteList.isEmpty()) {
+                renderState(FavoriteState.EmptyList)
+            } else {
+                renderState(FavoriteState.Context(favoriteList))
+            }
+        }
+
     }
 
     private fun renderState(state: FavoriteState) {

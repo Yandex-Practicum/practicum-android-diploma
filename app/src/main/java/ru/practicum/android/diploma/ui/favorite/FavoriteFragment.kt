@@ -1,18 +1,22 @@
 package ru.practicum.android.diploma.ui.favorite
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DiffUtil
+import com.bumptech.glide.Glide
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFavoriteBinding
 import ru.practicum.android.diploma.domain.models.VacancyDetail
 import ru.practicum.android.diploma.ui.favorite.adapters.FavoriteAdapter
 import ru.practicum.android.diploma.ui.favorite.models.FavoriteState
+import ru.practicum.android.diploma.ui.favorite.utils.VacanciesCallback
 import ru.practicum.android.diploma.ui.favorite.viewmodel.FavoriteViewModel
 import ru.practicum.android.diploma.ui.root.BindingFragment
 import ru.practicum.android.diploma.util.debounce
@@ -68,21 +72,46 @@ class FavoriteFragment : BindingFragment<FragmentFavoriteBinding>() {
     }
 
     private fun showContext(vacancies: List<VacancyDetail>) {
-        return
+        Log.d("HH_LOG", "Show context")
+        binding.favoriteResults.isVisible = true
+        favoriteAdapter?.let {
+            val diffCallback = VacanciesCallback(it.vacancies.toList(), vacancies)
+            val diffVacancies = DiffUtil.calculateDiff(diffCallback)
+            it.vacancies.clear()
+            it.vacancies.addAll(vacancies)
+            diffVacancies.dispatchUpdatesTo(it)
+        }
     }
 
     private fun showEmpty() {
+        Log.d("HH_LOG", "Empty")
+        binding.favoriteResults.isVisible = false
+        Glide.with(requireContext())
+            .load(R.drawable.favorite_empty)
+            .placeholder(R.drawable.placeholder_32px)
+            .into(binding.placeHolderImg)
+        binding.placeHolderText.text = resources.getString(R.string.empty_list)
         binding.placeholder.isVisible = true
         binding.progress.isVisible = false
     }
 
     private fun loading() {
+        Log.d("HH_LOG", "Loading")
+        binding.favoriteResults.isVisible = false
         binding.placeholder.isVisible = false
         binding.progress.isVisible = true
     }
 
     private fun error(message: String) {
-        return
+        Log.d("HH_LOG", "Error")
+        binding.favoriteResults.isVisible = false
+        Glide.with(requireContext())
+            .load(R.drawable.placeholder_not_find)
+            .placeholder(R.drawable.placeholder_32px)
+            .into(binding.placeHolderImg)
+        binding.placeHolderText.text = resources.getString(R.string.cant_get_vacations_list)
+        binding.placeholder.isVisible = true
+        binding.progress.isVisible = false
     }
 
     companion object {

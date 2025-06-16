@@ -1,5 +1,7 @@
 package ru.practicum.android.diploma.domain.models
 
+import java.util.Objects
+
 data class VacancyDetail(
     override val id: String,
     override val name: String,
@@ -14,4 +16,16 @@ data class VacancyDetail(
     val professionalRoles: List<String>,
     val experience: String,
     val description: String,
-) : AbstractVacancy()
+) : AbstractVacancy() {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is VacancyDetail) {
+            return false
+        } else {
+            if(other.id == this.id && other.name == this.name) return true
+        }
+        return false
+    }
+
+    override fun hashCode() = Objects.hash(id, name)
+}
