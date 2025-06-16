@@ -64,4 +64,9 @@
     <string name="vacancy_header_requirements">Требования</string>
     <string name="vacancy_header_conditions">Условия</string>
     <string name="vacancy_header_skills">Ключевые навыки</string>
+
+    <plurals name="vacancies_found">
+        <item quantity="one">%d vacancy found</item>
+        <item quantity="other">%d vacancies found</item>
+    </plurals>
 </resources>
