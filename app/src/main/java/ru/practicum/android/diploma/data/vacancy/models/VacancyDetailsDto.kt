@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.data.vacancy.models
 
 import com.google.gson.annotations.SerializedName
+import ru.practicum.android.diploma.data.Response
 
 data class VacancyDetailsDto(
     val id: String,
@@ -14,7 +15,7 @@ data class VacancyDetailsDto(
     val keySkills: List<SkillDto>?,
     val address: Address?,
     val area: AreaDto?
-)
+) : Response()
 
 data class Address(
     val raw: String?

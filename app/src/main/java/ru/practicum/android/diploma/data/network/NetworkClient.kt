@@ -5,6 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.data.Response
 import ru.practicum.android.diploma.data.VacanciesSearchRequest
+import ru.practicum.android.diploma.data.VacancyDetailRequest
 import ru.practicum.android.diploma.data.vacancy.HhApi
 import ru.practicum.android.diploma.util.HTTP_200_OK
 import ru.practicum.android.diploma.util.HTTP_400_BAD_REQUEST
@@ -25,6 +26,7 @@ class NetworkClient(
             try {
                 when (dto) {
                     is VacanciesSearchRequest -> responseSearch(dto)
+                    is VacancyDetailRequest -> responseDetail(dto)
                     else -> {
                         Response().apply { resultCode = HTTP_400_BAD_REQUEST }
                     }
@@ -37,6 +39,12 @@ class NetworkClient(
 
     private suspend fun responseSearch(dto: VacanciesSearchRequest): Response {
         val response = hhApi.searchVacancies(dto.searchOptions)
+        response.apply { resultCode = HTTP_200_OK }
+        return response
+    }
+
+    private suspend fun responseDetail(dto: VacancyDetailRequest): Response {
+        val response = hhApi.getVacancyDetails(dto.id)
         response.apply { resultCode = HTTP_200_OK }
         return response
     }

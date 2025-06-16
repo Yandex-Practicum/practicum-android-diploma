@@ -4,17 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.navArgs
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
 import ru.practicum.android.diploma.ui.root.BindingFragment
 
 class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
-    private val args: VacancyFragmentArgs by navArgs()
     private val viewModel by viewModel<VacancyViewModel>()
 
     override fun createBinding(
@@ -26,9 +25,7 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel.loadVacancyDetails(args.vacancyId)
-
+        val vacancyId = requireArguments().getString(ARGS_ID) ?: ""
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.vacancyState.collect { state ->
@@ -36,6 +33,7 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
                 }
             }
         }
+        viewModel.loadVacancyDetails(vacancyId)
     }
 
     private fun render(state: VacancyContentStateVO) {
@@ -48,16 +46,16 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
     }
 
     private fun showBase() {
-        binding.vacancy.text = ""
+        binding.vacancyName.text = ""
     }
 
     private fun showLoading() {
-        binding.vacancy.text = "Загрузка..."
+        binding.vacancyName.text = "Загрузка..."
         // Позже можно добавить прогресс-бар
     }
 
     private fun showError() {
-        binding.vacancy.text = "Ошибка загрузки данных"
+        binding.vacancyName.text = "Ошибка загрузки данных"
         // изображение ошибки
     }
 
@@ -74,6 +72,12 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
             vacancy.description?.let { appendLine(it) }
         }
 
-        binding.vacancy.text = text
+        binding.vacancyName.text = text
+    }
+
+    companion object {
+        private const val ARGS_ID = "vacancy_id"
+
+        fun createArgs(vacancyId: String): Bundle = bundleOf(ARGS_ID to vacancyId)
     }
 }

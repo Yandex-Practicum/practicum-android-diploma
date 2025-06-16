@@ -23,6 +23,7 @@ import ru.practicum.android.diploma.domain.vacancy.models.Vacancy
 import ru.practicum.android.diploma.ui.main.adapters.SearchResultsAdapter
 import ru.practicum.android.diploma.ui.main.models.SearchContentStateVO
 import ru.practicum.android.diploma.ui.root.BindingFragment
+import ru.practicum.android.diploma.ui.vacancy.VacancyFragment
 
 class MainFragment : BindingFragment<FragmentMainBinding>() {
 
@@ -46,8 +47,11 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
 
         vacanciesAdapter = SearchResultsAdapter(
             clickListener = { vacancy ->
-                val action = MainFragmentDirections.actionMainFragmentToVacancyFragment(vacancy.id)
-                findNavController().navigate(action)
+                //val action = MainFragmentDirections.actionMainFragmentToVacancyFragment(vacancy.id)
+                findNavController().navigate(
+                    R.id.action_mainFragment_to_vacancyFragment,
+                    VacancyFragment.createArgs(vacancy.id)
+                )
             },
             requireContext(),
         )

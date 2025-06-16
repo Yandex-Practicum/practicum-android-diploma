@@ -1,18 +1,29 @@
 package ru.practicum.android.diploma.data.vacancy
 
+import ru.practicum.android.diploma.data.VacancyDetailRequest
 import ru.practicum.android.diploma.data.network.ApiResponse
 import ru.practicum.android.diploma.data.network.NetworkClient
 import ru.practicum.android.diploma.data.vacancy.models.VacancyDetailsDto
 import ru.practicum.android.diploma.domain.vacancy.models.VacancyDetails
+import ru.practicum.android.diploma.util.*
 
 class VacancyDetailsNetworkDataSource(
-    private val hhApi: HhApi,
     private val networkClient: NetworkClient,
 ) {
     suspend fun getVacancyDetails(id: String): ApiResponse<VacancyDetails> {
-        return networkClient.execute {
-            val dto = hhApi.getVacancyDetails(id)
-            formatDetails(dto)
+        val request = VacancyDetailRequest(id)
+        val response = networkClient.doRequest(request)
+        return when (response.resultCode) {
+            HTTP_NO_CONNECTION -> ApiResponse.Error(HTTP_NO_CONNECTION)
+            HTTP_200_OK -> {
+                with(response as VacancyDetailsDto) {
+                    val data = formatDetails(response)
+                    ApiResponse.Success(data, 0, 0)
+                }
+            }
+
+            HTTP_400_BAD_REQUEST -> ApiResponse.Error(HTTP_400_BAD_REQUEST)
+            else -> ApiResponse.Error(HTTP_500_INTERNAL_SERVER_ERROR)
         }
     }
 

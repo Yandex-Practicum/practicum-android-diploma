@@ -24,9 +24,13 @@ class VacancyViewModel(
             when (val result = repository.getVacancyDetails(id)) {
                 is ApiResponse.Success -> {
                     val vo = result.data.let {
-                        mapper.run { it.toVO() }
+                        mapper.run { it?.toVO() }
                     }
-                    _vacancyState.value = VacancyContentStateVO.Success(vo)
+                    if (vo != null) {
+                        _vacancyState.value = VacancyContentStateVO.Success(vo)
+                    } else {
+                        _vacancyState.value = VacancyContentStateVO.Error
+                    }
                 }
 
                 is ApiResponse.Error -> {
