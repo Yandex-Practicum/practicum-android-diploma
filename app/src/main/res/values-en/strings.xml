@@ -56,4 +56,9 @@
     <string name="currency_uzs">sum</string>
     <string name="currency_gel">₾</string>
     <string name="currency_kgt">som</string>
+
+    <plurals name="vacancies_found">
+        <item quantity="one">%d vacancy found</item>
+        <item quantity="other">%d vacancies found</item>
+    </plurals>
 </resources>
