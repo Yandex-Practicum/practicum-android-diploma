@@ -56,4 +56,17 @@
     <string name="currency_uzs">sum</string>
     <string name="currency_gel">₾</string>
     <string name="currency_kgt">som</string>
+
+    <string name="vacancy_screen_header">Вакансия</string>
+    <string name="vacancy_header_exp">Требуемый опыт</string>
+    <string name="vacancy_header_description">Описание вакансии</string>
+    <string name="vacancy_header_responsibilities">Обязанности</string>
+    <string name="vacancy_header_requirements">Требования</string>
+    <string name="vacancy_header_conditions">Условия</string>
+    <string name="vacancy_header_skills">Ключевые навыки</string>
+
+    <plurals name="vacancies_found">
+        <item quantity="one">%d vacancy found</item>
+        <item quantity="other">%d vacancies found</item>
+    </plurals>
 </resources>
