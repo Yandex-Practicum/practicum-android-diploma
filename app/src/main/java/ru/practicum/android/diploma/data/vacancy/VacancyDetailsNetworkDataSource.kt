@@ -5,7 +5,10 @@ import ru.practicum.android.diploma.data.network.ApiResponse
 import ru.practicum.android.diploma.data.network.NetworkClient
 import ru.practicum.android.diploma.data.vacancy.models.VacancyDetailsDto
 import ru.practicum.android.diploma.domain.vacancy.models.VacancyDetails
-import ru.practicum.android.diploma.util.*
+import ru.practicum.android.diploma.util.HTTP_200_OK
+import ru.practicum.android.diploma.util.HTTP_400_BAD_REQUEST
+import ru.practicum.android.diploma.util.HTTP_500_INTERNAL_SERVER_ERROR
+import ru.practicum.android.diploma.util.HTTP_NO_CONNECTION
 
 class VacancyDetailsNetworkDataSource(
     private val networkClient: NetworkClient,

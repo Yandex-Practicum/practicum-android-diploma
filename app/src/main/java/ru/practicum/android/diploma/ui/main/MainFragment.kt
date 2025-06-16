@@ -47,7 +47,6 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
 
         vacanciesAdapter = SearchResultsAdapter(
             clickListener = { vacancy ->
-                //val action = MainFragmentDirections.actionMainFragmentToVacancyFragment(vacancy.id)
                 findNavController().navigate(
                     R.id.action_mainFragment_to_vacancyFragment,
                     VacancyFragment.createArgs(vacancy.id)
