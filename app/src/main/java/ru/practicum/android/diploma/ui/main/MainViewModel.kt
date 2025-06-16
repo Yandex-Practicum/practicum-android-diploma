@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.data.network.ApiResponse
 import ru.practicum.android.diploma.domain.vacancy.api.SearchVacanciesRepository
-import ru.practicum.android.diploma.domain.vacancy.models.Vacancy
 import ru.practicum.android.diploma.ui.common.SingleLiveEvent
 import ru.practicum.android.diploma.ui.main.models.SearchContentStateVO
 import ru.practicum.android.diploma.util.debounce
@@ -36,10 +35,6 @@ class MainViewModel(
         textLiveData.postValue("")
         clearSearchInput.postValue(Unit)
         contentStateLiveData.postValue(SearchContentStateVO.Base)
-    }
-
-    fun onVacancyClick(vacancy: Vacancy) {
-        return
     }
 
     private val doSearchDebounced = debounce<Unit>(

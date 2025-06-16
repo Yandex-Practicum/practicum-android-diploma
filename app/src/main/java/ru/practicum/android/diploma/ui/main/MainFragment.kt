@@ -41,7 +41,10 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
         )
 
         vacanciesAdapter = SearchResultsAdapter(
-            clickListener = { viewModel.onVacancyClick(it) },
+            clickListener = { vacancy ->
+                val action = MainFragmentDirections.actionMainFragmentToVacancyFragment(vacancy.id)
+                findNavController().navigate(action)
+            },
             requireContext(),
         )
 

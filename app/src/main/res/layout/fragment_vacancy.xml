@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.vacancy.VacancyFragment">
 
     <ru.practicum.android.diploma.ui.components.CustomToolbar
@@ -11,10 +12,13 @@
         android:id="@+id/toolbar"/>
 
     <TextView
+        android:id="@+id/vacancy"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Vacancy"
         android:gravity="center"
-        android:textSize="60sp"/>
+        android:textSize="12sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
