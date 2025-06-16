@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/list_location_item"
+        style="@style/text_font_s"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:paddingVertical="@dimen/margin15"
+        tools:text="Text"
+        android:textColor="?attr/colorOnPrimary"
+        android:paddingHorizontal="@dimen/margin16"
+        app:drawableEndCompat="@drawable/arrow_forward_24px"/>
+</LinearLayout>

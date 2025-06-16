@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:paddingStart="@dimen/margin16">
+
+    <TextView
+        android:id="@+id/show_salary_item"
+        style="@style/text_font_s"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:paddingVertical="@dimen/margin15"
+        android:paddingEnd="@dimen/margin4"
+        android:text="@string/dont_show_without_salary"
+        android:textColor="?attr/colorOnPrimary" />
+
+    <ImageView
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin16"
+        android:src="@drawable/check_box_off__24px" />
+</LinearLayout>

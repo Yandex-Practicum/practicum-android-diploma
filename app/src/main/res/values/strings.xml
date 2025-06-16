@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name" translatable="false">Practicum-Android-Diploma</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="main_button_text">Главная</string>
     <string name="favorite_button_text">Избранное</string>
     <string name="team_button_text">Команда</string>
@@ -72,4 +70,6 @@
         <item quantity="many">Найдено %d вакансий</item>
         <item quantity="other">Найдено %d вакансий</item>
     </plurals>
+
+    <string name="dont_show_without_salary">Не показывать без зарплаты</string>
 </resources>
