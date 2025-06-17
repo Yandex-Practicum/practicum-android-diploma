@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("ru.practicum.android.diploma.plugins.developproperties")
     id("com.google.devtools.ksp")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -76,6 +77,7 @@ dependencies {
     implementation(libs.viewpager2)
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.navigation.ui.ktx)
+    implementation(libs.logging.interceptor)
     implementation(libs.fragment.ktx)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.room.runtime)

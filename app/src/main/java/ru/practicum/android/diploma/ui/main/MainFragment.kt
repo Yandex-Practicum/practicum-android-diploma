@@ -11,6 +11,8 @@ import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
+import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentMainBinding
@@ -31,8 +33,18 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initUiToolbar()
+        // системная кн назад
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            backPressedCallback
+        )
+
         vacanciesAdapter = SearchResultsAdapter(
-            clickListener = { viewModel.onVacancyClick(it) },
+            clickListener = { vacancy ->
+                val action = MainFragmentDirections.actionMainFragmentToVacancyFragment(vacancy.id)
+                findNavController().navigate(action)
+            },
             requireContext(),
         )
 
@@ -60,6 +72,28 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
         initSearch()
 
         binding.searchResults.adapter = vacanciesAdapter
+    }
+
+    private fun initUiToolbar() {
+        // настройка кастомного топбара
+        val toolbar = binding.toolbar
+        toolbar.setupToolbarForSearchScreen()
+        toolbar.setToolbarTitle(getString(R.string.vacancy_search))
+        toolbar.setOnToolbarFilterClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_filterFragment)
+        }
+        /*
+        * !!! после того, как настроены все фильтры
+        * применить toolbar.setFilterState(true) для изменения иконки кнопки
+        */
+
+    }
+
+    //  callback для системной кн назад - выход из приложения
+    private val backPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            requireActivity().finish()
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -111,6 +145,7 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
         binding.noInternetError.visibility = INVISIBLE
         binding.unknownError.visibility = INVISIBLE
         binding.searchResults.visibility = INVISIBLE
+        binding.vacanciesCount.visibility = INVISIBLE
     }
 
     private fun showLoadingState() {
@@ -119,6 +154,7 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
         binding.noInternetError.visibility = INVISIBLE
         binding.unknownError.visibility = INVISIBLE
         binding.searchResults.visibility = INVISIBLE
+        binding.vacanciesCount.visibility = INVISIBLE
     }
 
     private fun showSearchResults(newVacancies: List<Vacancy>) {
@@ -127,8 +163,14 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
         binding.noInternetError.visibility = INVISIBLE
         binding.unknownError.visibility = INVISIBLE
         binding.searchResults.visibility = VISIBLE
+        binding.vacanciesCount.visibility = VISIBLE
 
         vacanciesAdapter?.submitList(newVacancies)
+        binding.vacanciesCount.text = resources.getQuantityString(
+            R.plurals.vacancies_found,
+            newVacancies.size,
+            newVacancies.size,
+        )
     }
 
     private fun showErrorState(isNoInternetError: Boolean) {
@@ -137,5 +179,6 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
         binding.noInternetError.visibility = if (isNoInternetError) VISIBLE else INVISIBLE
         binding.unknownError.visibility = if (isNoInternetError) INVISIBLE else VISIBLE
         binding.searchResults.visibility = INVISIBLE
+        binding.vacanciesCount.visibility = INVISIBLE
     }
 }

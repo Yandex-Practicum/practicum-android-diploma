@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentRegionFilterBinding
+import ru.practicum.android.diploma.util.handleBackPress
 
 class RegionFilterFragment : Fragment() {
     private var _binding: FragmentRegionFilterBinding? = null
@@ -22,7 +24,19 @@ class RegionFilterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        /* Пока здесь ничего нет */
+
+        initUiToolbar()
+
+        // системная кн назад
+        handleBackPress()
+    }
+
+    private fun initUiToolbar() {
+        // настройка кастомного топбара
+        val toolbar = binding.toolbar
+        toolbar.setupToolbarForFilterScreen()
+        toolbar.setToolbarTitle(getString(R.string.region))
+        toolbar.setupToolbarBackButton(this)
     }
 
     override fun onDestroyView() {

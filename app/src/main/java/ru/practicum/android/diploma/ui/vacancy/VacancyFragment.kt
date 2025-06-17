@@ -4,29 +4,76 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import ru.practicum.android.diploma.databinding.FragmentTeamBinding
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.navArgs
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
+import ru.practicum.android.diploma.ui.root.BindingFragment
 
-class VacancyFragment : Fragment() {
-    private var _binding: FragmentTeamBinding? = null
-    private val binding get() = _binding!!
+class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
+    private val args: VacancyFragmentArgs by navArgs()
+    private val viewModel by viewModel<VacancyViewModel>()
 
-    override fun onCreateView(
+    override fun createBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentTeamBinding.inflate(inflater, container, false)
-        return binding.root
+        container: ViewGroup?
+    ): FragmentVacancyBinding {
+        return FragmentVacancyBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        /* Пока здесь ничего нет */
+
+        viewModel.loadVacancyDetails(args.vacancyId)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.vacancyState.collect { state ->
+                    render(state)
+                }
+            }
+        }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun render(state: VacancyContentStateVO) {
+        when (state) {
+            is VacancyContentStateVO.Base -> showBase()
+            is VacancyContentStateVO.Loading -> showLoading()
+            is VacancyContentStateVO.Error -> showError()
+            is VacancyContentStateVO.Success -> showVacancyDetails(state.vacancy)
+        }
+    }
+
+    private fun showBase() {
+        binding.vacancy.text = ""
+    }
+
+    private fun showLoading() {
+        binding.vacancy.text = "Загрузка..."
+        // Позже можно добавить прогресс-бар
+    }
+
+    private fun showError() {
+        binding.vacancy.text = "Ошибка загрузки данных"
+        // изображение ошибки
+    }
+
+    private fun showVacancyDetails(vacancy: VacancyDetailsVO) {
+        val text = buildString {
+            appendLine(vacancy.title)
+            vacancy.salary?.let { appendLine(it) }
+            vacancy.experience?.let { appendLine(it) }
+            vacancy.employment?.let { appendLine(it) }
+            vacancy.schedule?.let { appendLine(it) }
+            appendLine()
+            vacancy.addressOrRegion.let { appendLine(it) }
+            appendLine()
+            vacancy.description?.let { appendLine(it) }
+        }
+
+        binding.vacancy.text = text
     }
 }

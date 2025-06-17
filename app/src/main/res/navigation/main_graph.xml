@@ -14,7 +14,7 @@
         android:id="@+id/favoriteFragment"
         android:name="ru.practicum.android.diploma.ui.favorite.FavoriteFragment"
         android:label="fragment_favorite"
-        tools:layout="@layout/fragment_favorite" >
+        tools:layout="@layout/fragment_favorite">
         <action
             android:id="@+id/action_favoriteFragment_to_vacancyFragment"
             app:destination="@id/vacancyFragment" />
@@ -23,7 +23,7 @@
         android:id="@+id/filterFragment"
         android:name="ru.practicum.android.diploma.ui.filter.FilterFragment"
         android:label="fragment_filter"
-        tools:layout="@layout/fragment_filter" >
+        tools:layout="@layout/fragment_filter">
         <action
             android:id="@+id/action_filterFragment_to_industryFilterFragment"
             app:destination="@id/industryFilterFragment" />
@@ -40,19 +40,19 @@
         android:id="@+id/mainFragment"
         android:name="ru.practicum.android.diploma.ui.main.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
-        <action
-            android:id="@+id/action_mainFragment_to_vacancyFragment"
-            app:destination="@id/vacancyFragment" />
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_filterFragment"
             app:destination="@id/filterFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_vacancyFragment"
+            app:destination="@id/vacancyFragment" />
     </fragment>
     <fragment
         android:id="@+id/placeFilterFragment"
         android:name="ru.practicum.android.diploma.ui.filter.place.PlaceFilterFragment"
         android:label="fragment_place_filter"
-        tools:layout="@layout/fragment_place_filter" >
+        tools:layout="@layout/fragment_place_filter">
         <action
             android:id="@+id/action_placeFilterFragment_to_regionFilterFragment"
             app:destination="@id/regionFilterFragment" />
@@ -74,5 +74,10 @@
         android:id="@+id/vacancyFragment"
         android:name="ru.practicum.android.diploma.ui.vacancy.VacancyFragment"
         android:label="fragment_vacancy"
-        tools:layout="@layout/fragment_vacancy" />
+        tools:layout="@layout/fragment_vacancy">
+        <argument
+            android:name="vacancyId"
+            android:defaultValue=""
+            app:argType="string" />
+    </fragment>
 </navigation>
