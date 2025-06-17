@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.ui.favorite
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -78,7 +77,6 @@ class FavoriteFragment : BindingFragment<FragmentFavoriteBinding>() {
     }
 
     private fun showContext(vacancies: List<VacancyDetail>) {
-        Log.d("HH_LOG", "Show context")
         binding.favoriteResults.isVisible = true
         favoriteAdapter?.let {
             val diffCallback = VacanciesCallback(it.vacancies.toList(), vacancies)
@@ -90,7 +88,6 @@ class FavoriteFragment : BindingFragment<FragmentFavoriteBinding>() {
     }
 
     private fun showEmpty() {
-        Log.d("HH_LOG", "Empty")
         binding.favoriteResults.isVisible = false
         loadPlaceholder(R.drawable.err_empty_list, R.string.empty_list)
         binding.placeholder.isVisible = true
@@ -98,14 +95,12 @@ class FavoriteFragment : BindingFragment<FragmentFavoriteBinding>() {
     }
 
     private fun loading() {
-        Log.d("HH_LOG", "Loading")
         binding.favoriteResults.isVisible = false
         binding.placeholder.isVisible = false
         binding.progress.isVisible = true
     }
 
     private fun error(message: String) {
-        Log.d("HH_LOG", "Error")
         binding.favoriteResults.isVisible = false
         loadPlaceholder(R.drawable.err_wtf_cat, R.string.cant_get_vacations_list)
         binding.placeholder.isVisible = true

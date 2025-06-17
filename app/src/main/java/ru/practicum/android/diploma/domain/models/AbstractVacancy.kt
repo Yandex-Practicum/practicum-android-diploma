@@ -17,7 +17,7 @@ abstract class AbstractVacancy {
         if (other !is VacancyDetail) {
             return false
         } else {
-            if(other.id == this.id && other.name == this.name) return true
+            if (other.id == this.id && other.name == this.name) return true
         }
         return false
     }

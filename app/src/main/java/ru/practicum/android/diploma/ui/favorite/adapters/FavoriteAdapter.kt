@@ -6,7 +6,7 @@ import ru.practicum.android.diploma.domain.models.VacancyDetail
 
 class FavoriteAdapter(private val clickListener: FavoriteClickListener) : RecyclerView.Adapter<FavoriteViewHolder>() {
     val vacancies: MutableList<VacancyDetail> = mutableListOf()
-    
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
