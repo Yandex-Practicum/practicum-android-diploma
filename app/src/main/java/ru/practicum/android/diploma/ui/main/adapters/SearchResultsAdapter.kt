@@ -2,39 +2,51 @@ package ru.practicum.android.diploma.ui.main.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.databinding.VacancyViewBinding
 import ru.practicum.android.diploma.domain.vacancy.models.Vacancy
 import ru.practicum.android.diploma.ui.common.dpToPx
 
 class SearchResultsAdapter(
     private val clickListener: VacancyClickListener,
-    private val context: Context
-) : ListAdapter<Vacancy, SearchResultsAdapter.SearchResultsItemViewHolder>(VacancyDiffCallback()) {
+) : RecyclerView.Adapter<SearchResultsAdapter.SearchResultsItemViewHolder>() {
+    val vacancies: MutableList<Vacancy> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchResultsItemViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val binding = VacancyViewBinding.inflate(inflater, parent, false)
-        return SearchResultsItemViewHolder(binding)
+        return SearchResultsItemViewHolder(parent)
     }
 
     override fun onBindViewHolder(holder: SearchResultsItemViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(vacancies[position])
     }
 
-    inner class SearchResultsItemViewHolder(private val binding: VacancyViewBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    override fun getItemCount(): Int {
+        return vacancies.size
+    }
+
+    inner class SearchResultsItemViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val title: TextView = itemView.findViewById(R.id.title)
+        private val employeTitle: TextView = itemView.findViewById(R.id.employee_title)
+        private val salary: TextView = itemView.findViewById(R.id.salary)
+        private val artwork: ImageView = itemView.findViewById(R.id.artwork)
+
+        constructor(
+            parent: ViewGroup
+        ) : this(
+            LayoutInflater.from(parent.context).inflate(R.layout.vacancy_view, parent, false)
+        )
+
 
         fun bind(vacancy: Vacancy) {
-            binding.title.text = vacancy.title
-            binding.employeeTitle.text = vacancy.employerTitle
-            binding.salary.text = formatSalary(vacancy.salaryRange)
+            title.text = vacancy.title
+            employeTitle.text = vacancy.employerTitle
+            salary.text = formatSalary(itemView.context, vacancy.salaryRange)
 
             itemView.setOnClickListener {
                 clickListener.onVacancyClick(vacancy)
@@ -46,11 +58,11 @@ class SearchResultsAdapter(
                 .error(R.drawable.vacancy_artwork_placeholder)
                 .fitCenter()
                 .transform(RoundedCorners(dpToPx(2F, itemView.context)))
-                .into(binding.artwork)
+                .into(artwork)
         }
     }
 
-    private fun formatSalary(salaryRange: Vacancy.VacancySalaryRange?): String {
+    private fun formatSalary(context: Context, salaryRange: Vacancy.VacancySalaryRange?): String {
         if (salaryRange == null || salaryRange.from == null && salaryRange.to == null) {
             return context.getString(R.string.salary_not_specified)
         }
@@ -75,8 +87,10 @@ class SearchResultsAdapter(
         return when {
             salaryRange.from != null && salaryRange.to != null ->
                 context.getString(R.string.salary_range, formattedFrom, formattedTo, currencySymbol)
+
             salaryRange.from != null ->
                 context.getString(R.string.salary_from, formattedFrom, currencySymbol)
+
             else ->
                 context.getString(R.string.salary_to, formattedTo, currencySymbol)
         }
@@ -84,15 +98,5 @@ class SearchResultsAdapter(
 
     fun interface VacancyClickListener {
         fun onVacancyClick(vacancy: Vacancy)
-    }
-
-    class VacancyDiffCallback : DiffUtil.ItemCallback<Vacancy>() {
-        override fun areItemsTheSame(oldItem: Vacancy, newItem: Vacancy): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: Vacancy, newItem: Vacancy): Boolean {
-            return oldItem == newItem
-        }
     }
 }

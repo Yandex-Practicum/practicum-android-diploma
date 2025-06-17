@@ -6,5 +6,5 @@ sealed interface SearchContentStateVO {
     object Base : SearchContentStateVO
     object Loading : SearchContentStateVO
     data class Error(val noInternet: Boolean) : SearchContentStateVO
-    data class Success(val tracks: List<Vacancy>) : SearchContentStateVO
+    data class Success(val vacancies: List<Vacancy>, val found: Int) : SearchContentStateVO
 }

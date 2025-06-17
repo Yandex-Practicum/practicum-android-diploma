@@ -24,7 +24,7 @@ class SearchVacanciesNetworkDataSource(
             HTTP_200_OK -> {
                 with(response as SearchVacanciesDto) {
                     val data = items.map { formatVacancy(it) }
-                    ApiResponse.Success(data, response.page, response.pages)
+                    ApiResponse.Success(data, response.page, response.pages, response.found)
                 }
             }
 

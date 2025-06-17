@@ -21,7 +21,7 @@ class VacancyDetailsNetworkDataSource(
             HTTP_200_OK -> {
                 with(response as VacancyDetailsDto) {
                     val data = formatDetails(response)
-                    ApiResponse.Success(data, 0, 0)
+                    ApiResponse.Success(data, 0, 0, 0)
                 }
             }
 

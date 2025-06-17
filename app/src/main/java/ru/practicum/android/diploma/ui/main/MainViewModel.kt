@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.data.network.ApiResponse
 import ru.practicum.android.diploma.domain.models.FilterOptions
 import ru.practicum.android.diploma.domain.vacancy.api.SearchVacanciesRepository
+import ru.practicum.android.diploma.domain.vacancy.models.Vacancy
 import ru.practicum.android.diploma.ui.common.SingleLiveEvent
 import ru.practicum.android.diploma.ui.main.models.SearchContentStateVO
 import ru.practicum.android.diploma.util.debounce
@@ -20,13 +21,15 @@ class MainViewModel(
     private val textLiveData = MutableLiveData("")
     val text: LiveData<String> = textLiveData
 
+    private val vacanciesList = ArrayList<Vacancy>()
     private var pages = 0
     private var page = 0
 
     private val clearSearchInput = SingleLiveEvent<Unit>()
     fun observeClearSearchInput(): LiveData<Unit> = clearSearchInput
 
-    private val contentStateLiveData = MutableLiveData<SearchContentStateVO>(SearchContentStateVO.Base)
+    private val contentStateLiveData =
+        MutableLiveData<SearchContentStateVO>(SearchContentStateVO.Base)
     val contentState: LiveData<SearchContentStateVO> = contentStateLiveData
 
     fun onTextChange(value: String) {
@@ -50,6 +53,17 @@ class MainViewModel(
         doSearch()
     }
 
+    private val doSearchNext = debounce<Unit>(
+        NEXT_DEBOUNCE_DELAY_MS,
+        viewModelScope,
+        true,
+    ) {
+        page += 1
+        if (page <= pages) {
+            doSearch()
+        }
+    }
+
     private fun doSearch() {
         val text = text.value ?: ""
         if (text.isEmpty()) {
@@ -71,10 +85,7 @@ class MainViewModel(
     }
 
     fun doNextSearch() {
-        page += 1
-        if (page <= pages) {
-            doSearch()
-        }
+        doSearchNext(Unit)
     }
 
     private fun search(options: FilterOptions) {
@@ -84,9 +95,15 @@ class MainViewModel(
             contentStateLiveData.postValue(
                 when (searchResponse) {
                     is ApiResponse.Success -> {
-                        pages = searchResponse.pages
-                        page = searchResponse.page
-                        searchResponse.data?.let { SearchContentStateVO.Success(it) }
+                        if (page == 0) {
+                            vacanciesList.clear()
+                            pages = searchResponse.pages
+                            page = searchResponse.page
+                        }
+                        searchResponse.data?.let {
+                            vacanciesList.addAll(it)
+                            SearchContentStateVO.Success(vacanciesList, searchResponse.found)
+                        }
                     }
 
                     is ApiResponse.Error ->
@@ -98,5 +115,6 @@ class MainViewModel(
 
     companion object {
         private const val SEARCH_DEBOUNCE_DELAY_MS = 2000L
+        private const val NEXT_DEBOUNCE_DELAY_MS = 300L
     }
 }

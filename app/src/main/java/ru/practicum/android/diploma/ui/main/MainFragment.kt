@@ -12,7 +12,9 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
@@ -22,6 +24,7 @@ import ru.practicum.android.diploma.databinding.FragmentMainBinding
 import ru.practicum.android.diploma.domain.vacancy.models.Vacancy
 import ru.practicum.android.diploma.ui.main.adapters.SearchResultsAdapter
 import ru.practicum.android.diploma.ui.main.models.SearchContentStateVO
+import ru.practicum.android.diploma.ui.main.utils.VacancyCallback
 import ru.practicum.android.diploma.ui.root.BindingFragment
 import ru.practicum.android.diploma.ui.vacancy.VacancyFragment
 
@@ -35,6 +38,7 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
         return FragmentMainBinding.inflate(inflater, container, false)
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -52,7 +56,6 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
                     VacancyFragment.createArgs(vacancy.id)
                 )
             },
-            requireContext(),
         )
 
         viewModel.contentState.observe(viewLifecycleOwner) {
@@ -162,7 +165,7 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
             is SearchContentStateVO.Base -> showBaseView()
             is SearchContentStateVO.Loading -> showLoadingState()
             is SearchContentStateVO.Error -> showErrorState(state.noInternet)
-            is SearchContentStateVO.Success -> showSearchResults(state.tracks)
+            is SearchContentStateVO.Success -> showSearchResults(state.vacancies, state.found)
         }
     }
 
@@ -180,23 +183,29 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
         binding.progress.visibility = VISIBLE
         binding.noInternetError.visibility = INVISIBLE
         binding.unknownError.visibility = INVISIBLE
-        binding.searchResults.visibility = INVISIBLE
-        binding.vacanciesCount.visibility = INVISIBLE
+        binding.searchResults.visibility = VISIBLE
     }
 
-    private fun showSearchResults(newVacancies: List<Vacancy>) {
+    private fun showSearchResults(newVacancies: List<Vacancy>, found: Int) {
         binding.searchBaseState.visibility = INVISIBLE
         binding.progress.visibility = INVISIBLE
         binding.noInternetError.visibility = INVISIBLE
         binding.unknownError.visibility = INVISIBLE
-        binding.searchResults.visibility = VISIBLE
+        binding.searchResults.isVisible = found > 0
         binding.vacanciesCount.visibility = VISIBLE
 
-        vacanciesAdapter?.submitList(newVacancies)
+        vacanciesAdapter?.let {
+            val diffVacanciesCallback = VacancyCallback(it.vacancies, newVacancies)
+            val diffVacancies = DiffUtil.calculateDiff(diffVacanciesCallback)
+            it.vacancies.clear()
+            it.vacancies.addAll(newVacancies)
+            diffVacancies.dispatchUpdatesTo(it)
+        }
+
         binding.vacanciesCount.text = resources.getQuantityString(
             R.plurals.vacancies_found,
-            newVacancies.size,
-            newVacancies.size,
+            found,
+            found,
         )
     }
 
