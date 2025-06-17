@@ -39,6 +39,7 @@ class VacanciesDbConverter {
             professionalRoles = vacanciesEntity.professionalRoles,
             experience = vacanciesEntity.experience,
             description = vacanciesEntity.description,
+            isFavorite = true
         )
     }
 }

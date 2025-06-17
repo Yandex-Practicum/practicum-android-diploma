@@ -19,6 +19,7 @@ import ru.practicum.android.diploma.ui.favorite.models.FavoriteState
 import ru.practicum.android.diploma.ui.favorite.utils.VacanciesCallback
 import ru.practicum.android.diploma.ui.favorite.viewmodel.FavoriteViewModel
 import ru.practicum.android.diploma.ui.root.BindingFragment
+import ru.practicum.android.diploma.ui.vacancy.VacancyFragment
 import ru.practicum.android.diploma.util.debounce
 
 class FavoriteFragment : BindingFragment<FragmentFavoriteBinding>() {
@@ -55,10 +56,15 @@ class FavoriteFragment : BindingFragment<FragmentFavoriteBinding>() {
         viewModel.getFavoriteList()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getFavoriteList()
+    }
+
     private fun clickToFavorite(vacancy: VacancyDetail) {
         findNavController().navigate(
             R.id.action_favoriteFragment_to_vacancyFragment,
-            // VacancyFragment.createArgs(vacancy.id)
+            VacancyFragment.createArgs(vacancy.id)
         )
     }
 
@@ -86,7 +92,7 @@ class FavoriteFragment : BindingFragment<FragmentFavoriteBinding>() {
     private fun showEmpty() {
         Log.d("HH_LOG", "Empty")
         binding.favoriteResults.isVisible = false
-        loadPlaceholder(R.drawable.favorite_empty, R.string.empty_list)
+        loadPlaceholder(R.drawable.err_empty_list, R.string.empty_list)
         binding.placeholder.isVisible = true
         binding.progress.isVisible = false
     }
@@ -101,7 +107,7 @@ class FavoriteFragment : BindingFragment<FragmentFavoriteBinding>() {
     private fun error(message: String) {
         Log.d("HH_LOG", "Error")
         binding.favoriteResults.isVisible = false
-        loadPlaceholder(R.drawable.placeholder_not_find, R.string.cant_get_vacations_list)
+        loadPlaceholder(R.drawable.err_wtf_cat, R.string.cant_get_vacations_list)
         binding.placeholder.isVisible = true
         binding.progress.isVisible = false
     }
@@ -109,7 +115,7 @@ class FavoriteFragment : BindingFragment<FragmentFavoriteBinding>() {
     private fun loadPlaceholder(resourceIdImage: Int, resourceIdText: Int) {
         Glide.with(requireContext())
             .load(resourceIdImage)
-            .placeholder(R.drawable.placeholder_32px)
+            .placeholder(R.drawable.err_empty_list)
             .into(binding.placeHolderImg)
         binding.placeHolderText.text = resources.getString(resourceIdText)
     }

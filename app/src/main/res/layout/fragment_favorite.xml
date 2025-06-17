@@ -20,7 +20,7 @@
 
     <TextView
         android:id="@+id/favorite_head"
-        style="@style/text_font_m"
+        style="@style/text_font_l"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin19"
@@ -56,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="223dp"
             android:contentDescription="@string/favorite_head_text"
-            tools:src="@drawable/favorite_empty" />
+            tools:src="@drawable/err_empty_list" />
 
         <TextView
             android:id="@+id/place_holder_text"
