@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
 import ru.practicum.android.diploma.ui.root.BindingFragment
 
@@ -26,6 +29,8 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initUiToolbar()
 
         viewModel.loadVacancyDetails(args.vacancyId)
 
@@ -52,28 +57,58 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
     }
 
     private fun showLoading() {
-        binding.vacancyName.text = "Загрузка..."
-        // Позже можно добавить прогресс-бар
+        binding.includedProgressBar.porgressBar.isVisible = true
+        binding.includedErr.placeholderImage.isVisible = false
+        binding.includedErr.placeholderText.isVisible = false
     }
 
     private fun showError() {
-        binding.vacancyName.text = "Ошибка загрузки данных"
-        // изображение ошибки
+        binding.includedErr.placeholderImage.isVisible = true
+        binding.includedErr.placeholderText.isVisible = true
     }
 
     private fun showVacancyDetails(vacancy: VacancyDetailsVO) {
-        val text = buildString {
-            appendLine(vacancy.title)
-            vacancy.salary?.let { appendLine(it) }
-            vacancy.experience?.let { appendLine(it) }
-            vacancy.employment?.let { appendLine(it) }
-            vacancy.schedule?.let { appendLine(it) }
-            appendLine()
-            vacancy.addressOrRegion.let { appendLine(it) }
-            appendLine()
-            vacancy.description?.let { appendLine(it) }
+        binding.apply {
+            includedProgressBar.porgressBar.isVisible = false
+            binding.includedErr.placeholderImage.isVisible = false
+            binding.includedErr.placeholderText.isVisible = false
+            vacancyName.text = vacancy.title
+            vacancySalary.text = vacancy.salary
+
+            if (!vacancy.logoUrl.isNullOrBlank()) {
+                Glide.with(requireContext())
+                    .load(vacancy.logoUrl)
+                    .placeholder(R.drawable.vacancy_artwork_placeholder)
+                    .error(R.drawable.vacancy_artwork_placeholder)
+                    .fitCenter()
+                    .into(binding.includedVacancyCard.imageVacancyCard)
+            } else {
+                binding.includedVacancyCard.imageVacancyCard.setImageResource(R.drawable.vacancy_artwork_placeholder)
+            }
+
+            includedVacancyCard.titleVacancyCard.text = vacancy.employerName
+            includedVacancyCard.cityVacancyCard.text = vacancy.addressOrRegion
+            valueExp.text = vacancy.experience
+            valueWorkFormat.text = vacancy.employment
+            valueDescription.text = vacancy.description
+        }
+    }
+
+    private fun initUiToolbar() {
+        // настройка кастомного топбара
+        val toolbar = binding.toolbar
+        toolbar.setupToolbarForVacancyDetailScreen()
+        toolbar.setToolbarTitle(getString(R.string.vacancy))
+        toolbar.setupToolbarBackButton(this)
+
+        // Поделиться
+        toolbar.setOnToolbarShareClickListener {
+            /* !!! Здесь будет Intent */
         }
 
-        binding.vacancyName.text = text
+        // Избранное
+        toolbar.setOnToolbarFavoriteClickListener {
+            /* !!! Реализация добавления в избранное */
+        }
     }
 }

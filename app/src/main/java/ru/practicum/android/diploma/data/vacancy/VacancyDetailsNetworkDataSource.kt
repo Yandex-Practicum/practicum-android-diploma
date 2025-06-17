@@ -21,7 +21,7 @@ class VacancyDetailsNetworkDataSource(
             id = dto.id,
             title = dto.name,
             employerName = dto.employer?.name ?: "",
-            logoUrl = dto.employer?.logoUrls?.size90,
+            logoUrl = dto.employer?.logoUrls?.size90?.takeIf { it.isNotBlank() },
             salaryFrom = dto.salary?.from,
             salaryTo = dto.salary?.to,
             salaryCurrency = dto.salary?.currency,

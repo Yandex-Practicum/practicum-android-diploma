@@ -10,7 +10,9 @@ class VacancyDetailsMapper(private val htmlParser: HtmlParser) {
         employment = this.employment,
         schedule = this.schedule,
         description = htmlParser.fromHtml(this.descriptionHtml ?: ""),
-        addressOrRegion = this.address?.ifBlank { null } ?: this.areaName.orEmpty()
+        addressOrRegion = this.address?.ifBlank { null } ?: this.areaName.orEmpty(),
+        logoUrl = this.logoUrl,
+        employerName = this.employerName
     )
 
     private fun buildSalaryString(salaryFrom: Int?, salaryTo: Int?, currency: String): String {

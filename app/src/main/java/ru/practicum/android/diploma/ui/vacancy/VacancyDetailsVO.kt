@@ -7,5 +7,7 @@ data class VacancyDetailsVO(
     val employment: String?,
     val schedule: String?,
     val description: String?,
-    val addressOrRegion: String
+    val addressOrRegion: String,
+    val logoUrl: String?,
+    val employerName: String
 )

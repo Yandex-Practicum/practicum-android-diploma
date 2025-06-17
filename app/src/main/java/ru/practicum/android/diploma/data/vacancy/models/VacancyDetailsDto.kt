@@ -33,7 +33,7 @@ data class SalaryDto(
 
 data class EmployerDto(
     val name: String?,
-    val logoUrls: LogoUrlsDto?
+    @SerializedName("logo_urls") val logoUrls: LogoUrlsDto?
 )
 
 data class LogoUrlsDto(
