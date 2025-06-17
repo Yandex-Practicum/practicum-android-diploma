@@ -58,7 +58,7 @@ class FavoriteFragment : BindingFragment<FragmentFavoriteBinding>() {
     private fun clickToFavorite(vacancy: VacancyDetail) {
         findNavController().navigate(
             R.id.action_favoriteFragment_to_vacancyFragment,
-            //VacancyFragment.createArgs(vacancy.id)
+            // VacancyFragment.createArgs(vacancy.id)
         )
     }
 
@@ -86,11 +86,7 @@ class FavoriteFragment : BindingFragment<FragmentFavoriteBinding>() {
     private fun showEmpty() {
         Log.d("HH_LOG", "Empty")
         binding.favoriteResults.isVisible = false
-        Glide.with(requireContext())
-            .load(R.drawable.favorite_empty)
-            .placeholder(R.drawable.placeholder_32px)
-            .into(binding.placeHolderImg)
-        binding.placeHolderText.text = resources.getString(R.string.empty_list)
+        loadPlaceholder(R.drawable.favorite_empty, R.string.empty_list)
         binding.placeholder.isVisible = true
         binding.progress.isVisible = false
     }
@@ -105,13 +101,17 @@ class FavoriteFragment : BindingFragment<FragmentFavoriteBinding>() {
     private fun error(message: String) {
         Log.d("HH_LOG", "Error")
         binding.favoriteResults.isVisible = false
-        Glide.with(requireContext())
-            .load(R.drawable.placeholder_not_find)
-            .placeholder(R.drawable.placeholder_32px)
-            .into(binding.placeHolderImg)
-        binding.placeHolderText.text = resources.getString(R.string.cant_get_vacations_list)
+        loadPlaceholder(R.drawable.placeholder_not_find, R.string.cant_get_vacations_list)
         binding.placeholder.isVisible = true
         binding.progress.isVisible = false
+    }
+
+    private fun loadPlaceholder(resourceIdImage: Int, resourceIdText: Int) {
+        Glide.with(requireContext())
+            .load(resourceIdImage)
+            .placeholder(R.drawable.placeholder_32px)
+            .into(binding.placeHolderImg)
+        binding.placeHolderText.text = resources.getString(resourceIdText)
     }
 
     companion object {
