@@ -48,16 +48,16 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
     }
 
     private fun showBase() {
-        binding.vacancy.text = ""
+        binding.vacancyName.text = ""
     }
 
     private fun showLoading() {
-        binding.vacancy.text = "Загрузка..."
+        binding.vacancyName.text = "Загрузка..."
         // Позже можно добавить прогресс-бар
     }
 
     private fun showError() {
-        binding.vacancy.text = "Ошибка загрузки данных"
+        binding.vacancyName.text = "Ошибка загрузки данных"
         // изображение ошибки
     }
 
@@ -74,6 +74,6 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
             vacancy.description?.let { appendLine(it) }
         }
 
-        binding.vacancy.text = text
+        binding.vacancyName.text = text
     }
 }
