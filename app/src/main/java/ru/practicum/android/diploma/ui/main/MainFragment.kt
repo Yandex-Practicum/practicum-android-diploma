@@ -7,8 +7,6 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
-import android.view.View.INVISIBLE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
@@ -163,36 +161,38 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
     private fun renderContent(state: SearchContentStateVO) {
         when (state) {
             is SearchContentStateVO.Base -> showBaseView()
-            is SearchContentStateVO.Loading -> showLoadingState()
+            is SearchContentStateVO.Loading -> showLoadingState(state.firstSearch)
             is SearchContentStateVO.Error -> showErrorState(state.noInternet)
             is SearchContentStateVO.Success -> showSearchResults(state.vacancies, state.found)
         }
     }
 
     private fun showBaseView() {
-        binding.searchBaseState.visibility = VISIBLE
-        binding.progress.visibility = INVISIBLE
-        binding.noInternetError.visibility = INVISIBLE
-        binding.unknownError.visibility = INVISIBLE
-        binding.searchResults.visibility = INVISIBLE
-        binding.vacanciesCount.visibility = INVISIBLE
+        binding.searchBaseState.isVisible = true
+        binding.progress.isVisible = false
+        binding.progressPages.isVisible = false
+        binding.noInternetError.isVisible = false
+        binding.unknownError.isVisible = false
+        binding.searchResults.isVisible = false
+        binding.vacanciesCount.isVisible = false
     }
 
-    private fun showLoadingState() {
-        binding.searchBaseState.visibility = INVISIBLE
-        binding.progress.visibility = VISIBLE
-        binding.noInternetError.visibility = INVISIBLE
-        binding.unknownError.visibility = INVISIBLE
-        binding.searchResults.visibility = VISIBLE
+    private fun showLoadingState(firstSearch: Boolean) {
+        binding.searchBaseState.isVisible = false
+        binding.noInternetError.isVisible = false
+        binding.unknownError.isVisible = false
+        binding.searchResults.isVisible = true
+        binding.progress.isVisible = firstSearch
+        binding.progressPages.isVisible = !firstSearch
     }
 
     private fun showSearchResults(newVacancies: List<Vacancy>, found: Int) {
-        binding.searchBaseState.visibility = INVISIBLE
-        binding.progress.visibility = INVISIBLE
-        binding.noInternetError.visibility = INVISIBLE
-        binding.unknownError.visibility = INVISIBLE
-        binding.searchResults.isVisible = found > 0
-        binding.vacanciesCount.visibility = VISIBLE
+        binding.searchBaseState.isVisible = false
+        binding.progress.isVisible = false
+        binding.progressPages.isVisible = false
+        binding.noInternetError.isVisible = false
+        binding.unknownError.isVisible = false
+        binding.vacanciesCount.isVisible = true
 
         vacanciesAdapter?.let {
             val diffVacanciesCallback = VacancyCallback(it.vacancies, newVacancies)
@@ -207,14 +207,16 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
             found,
             found,
         )
+        binding.searchResults.isVisible = found > 0
     }
 
     private fun showErrorState(isNoInternetError: Boolean) {
-        binding.searchBaseState.visibility = INVISIBLE
-        binding.progress.visibility = INVISIBLE
-        binding.noInternetError.visibility = if (isNoInternetError) VISIBLE else INVISIBLE
-        binding.unknownError.visibility = if (isNoInternetError) INVISIBLE else VISIBLE
-        binding.searchResults.visibility = INVISIBLE
-        binding.vacanciesCount.visibility = INVISIBLE
+        binding.searchBaseState.isVisible = false
+        binding.progress.isVisible = false
+        binding.progressPages.isVisible = false
+        binding.noInternetError.isVisible = isNoInternetError
+        binding.unknownError.isVisible = !isNoInternetError
+        binding.searchResults.isVisible = false
+        binding.vacanciesCount.isVisible = false
     }
 }

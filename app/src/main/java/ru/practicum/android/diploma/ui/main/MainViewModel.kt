@@ -70,7 +70,7 @@ class MainViewModel(
             return
         }
 
-        contentStateLiveData.postValue(SearchContentStateVO.Loading)
+        contentStateLiveData.postValue(SearchContentStateVO.Loading(page == 0))
         search(
             FilterOptions(
                 searchText = text,
@@ -102,7 +102,11 @@ class MainViewModel(
                         }
                         searchResponse.data?.let {
                             vacanciesList.addAll(it)
-                            SearchContentStateVO.Success(vacanciesList, searchResponse.found)
+                            if (vacanciesList.isEmpty()) {
+                                SearchContentStateVO.Error(false)
+                            } else {
+                                SearchContentStateVO.Success(vacanciesList, searchResponse.found)
+                            }
                         }
                     }
 
