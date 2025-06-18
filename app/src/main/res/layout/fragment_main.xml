@@ -139,7 +139,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin8"
-        android:textColor="?attr/colorOnSecondary"
+        android:textColor="@color/white"
         android:text=""/>
 
     <androidx.recyclerview.widget.RecyclerView
