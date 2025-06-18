@@ -6,28 +6,28 @@ import ru.practicum.android.diploma.data.db.converters.VacanciesDbConverter
 import ru.practicum.android.diploma.data.db.dao.VacanciesDao
 import ru.practicum.android.diploma.data.db.entity.VacanciesEntity
 import ru.practicum.android.diploma.domain.db.FavoriteRepository
-import ru.practicum.android.diploma.domain.models.VacancyDetail
+import ru.practicum.android.diploma.domain.models.VacancyDetails
 
 class FavoriteRepositoryImpl(
     val vacancyDao: VacanciesDao,
     val converter: VacanciesDbConverter
 ) : FavoriteRepository {
-    override suspend fun addToFavorite(vacancy: VacancyDetail) {
+    override suspend fun addToFavorite(vacancy: VacancyDetails) {
         val entity = converter.map(vacancy)
         vacancyDao.insertToFavorite(entity)
     }
 
-    override suspend fun delFromFavorite(vacancy: VacancyDetail) {
+    override suspend fun delFromFavorite(vacancy: VacancyDetails) {
         val entity = converter.map(vacancy)
         vacancyDao.deleteFromFavorite(entity)
     }
 
-    override fun getFavorites(): Flow<List<VacancyDetail>> = flow {
+    override fun getFavorites(): Flow<List<VacancyDetails>> = flow {
         val vacancies = vacancyDao.getFavoritesVacancies()
         emit(convertFromEntities(vacancies))
     }
 
-    override fun getFavoriteById(vacId: String): Flow<VacancyDetail?> = flow {
+    override fun getFavoriteById(vacId: String): Flow<VacancyDetails?> = flow {
         val vacancy = vacancyDao.getFavoriteVacancieById(vacId)
         if (vacancy != null) {
             emit(converter.map(vacancy))
@@ -36,7 +36,7 @@ class FavoriteRepositoryImpl(
         }
     }
 
-    private fun convertFromEntities(vacancies: List<VacanciesEntity>): List<VacancyDetail> {
+    private fun convertFromEntities(vacancies: List<VacanciesEntity>): List<VacancyDetails> {
         return vacancies.map { vacancy ->
             converter.map(vacancy)
         }

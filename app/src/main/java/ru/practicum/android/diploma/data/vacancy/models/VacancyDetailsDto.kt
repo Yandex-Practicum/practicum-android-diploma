@@ -8,6 +8,7 @@ data class VacancyDetailsDto(
     val name: String,
     @SerializedName("salary_range") val salary: SalaryDto?,
     val employer: EmployerDto?,
+    val employment: EmploymentDto?,
     val experience: InfoIdName,
     @SerializedName("employment_form") val employmentForm: InfoIdName?,
     @SerializedName("work_schedule_by_days") val schedule: List<InfoIdName>?,
@@ -15,11 +16,16 @@ data class VacancyDetailsDto(
     val description: String,
     @SerializedName("key_skills") val keySkills: List<InfoName>,
     val area: InfoIdName,
-    val address: AdressInfo?
+    val address: AdressInfo?,
+    @SerializedName("alternate_url") val alternateUrl: String?,
 ) : Response()
 
 data class AdressInfo(
     val city: String?
+)
+
+data class EmploymentDto(
+    val name: String?
 )
 
 data class SalaryDto(

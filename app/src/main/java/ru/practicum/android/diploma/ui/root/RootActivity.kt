@@ -84,4 +84,10 @@ class RootActivity : AppCompatActivity() {
         binding.bottomNavigationView.isVisible = true
     }
 
+    fun setNavBarVisibility(value: Boolean) {
+        binding.apply {
+            bottomNavigationView.isVisible = value
+            divider.isVisible = value
+        }
+    }
 }

@@ -79,6 +79,10 @@ class CustomToolbar @JvmOverloads constructor(
         }
     }
 
+    fun setupToolbarBackButtonCustom(listener: () -> Unit) {
+        binding.backBtn.setOnClickListener { listener() }
+    }
+
     // обработка кнопки поделиться
     fun setOnToolbarShareClickListener(listener: () -> Unit) {
         binding.shareBtn.setOnClickListener { listener() }
@@ -109,5 +113,9 @@ class CustomToolbar @JvmOverloads constructor(
                 R.drawable.filter_off__24px
             }
         )
+    }
+
+    fun setFavoriteIcon(resource: Int) {
+        binding.favoriteBtn.setImageResource(resource)
     }
 }

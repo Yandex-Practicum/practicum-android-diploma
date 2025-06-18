@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.domain.models
 
-data class VacancyDetail(
+data class VacancyDetails(
     override val id: String,
     override val name: String,
     override val areaName: String,
@@ -9,6 +9,7 @@ data class VacancyDetail(
     override val salaryFrom: Int?,
     override val salaryTo: Int?,
     override val salaryCurr: String,
+    val employment: String?,
     val keySkills: List<String>,
     val employmentForm: String,
     val experience: String,
@@ -16,5 +17,6 @@ data class VacancyDetail(
     val description: String,
     val schedule: List<String>,
     val address: String,
-    val isFavorite: Boolean
+    val isFavorite: Boolean,
+    val url: String?
 ) : AbstractVacancy()

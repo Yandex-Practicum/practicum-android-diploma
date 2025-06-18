@@ -14,7 +14,7 @@ abstract class AbstractVacancy {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is VacancyDetail) {
+        if (other !is VacancyDetails) {
             return false
         } else {
             if (other.id == this.id && other.name == this.name) return true

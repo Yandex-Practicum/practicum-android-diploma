@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.ui.favorite.models
 
-import ru.practicum.android.diploma.domain.models.VacancyDetail
+import ru.practicum.android.diploma.domain.models.VacancyDetails
 
 sealed interface FavoriteState {
     object Loading : FavoriteState
@@ -10,6 +10,6 @@ sealed interface FavoriteState {
     ) : FavoriteState
 
     data class Context(
-        val vacancies: List<VacancyDetail>
+        val vacancies: List<VacancyDetails>
     ) : FavoriteState
 }

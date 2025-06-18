@@ -16,7 +16,7 @@
     <string name="no_list_vacancy">Не удалось получить список вакансий</string>
     <string name="no_region">Такого региона нет</string>
     <string name="no_get_list">Не удалось получить список</string>
-    <string name="no_find_vacancy">Вакансия не найдена или удалена</string>
+    <string name="no_find_vacancy">Вакансия не найдена или\nудалена</string>
     <string name="server_error">Ошибка сервера</string>
     <string name="list_empty">Список пуст</string>
     <string name="btn_text_select">Выбрать</string>
