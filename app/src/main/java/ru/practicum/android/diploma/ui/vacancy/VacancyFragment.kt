@@ -4,18 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
 import ru.practicum.android.diploma.ui.root.BindingFragment
+import ru.practicum.android.diploma.ui.root.RootActivity
 
 class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
     private val viewModel by viewModel<VacancyViewModel>()
     private var vacancyId: String = ""
+    private var currentVacancy: VacancyDetailsVO? = null
 
     override fun createBinding(
         inflater: LayoutInflater,
@@ -37,11 +42,38 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
             }
         }
 
-        binding.toolbar.setOnToolbarFavoriteClickListener {
-            viewModel.changeFavorite()
+        initUiToolbar()
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            closeFragment(true)
         }
 
         viewModel.loadVacancyDetails(vacancyId)
+    }
+
+    private fun initUiToolbar() {
+        // настройка кастомного топбара
+        val toolbar = binding.toolbar
+        toolbar.setupToolbarForVacancyDetailScreen()
+        toolbar.setToolbarTitle(getString(R.string.vacancy))
+        toolbar.setupToolbarBackButtonCustom {
+            closeFragment(true)
+        }
+
+        // Поделиться
+        toolbar.setOnToolbarShareClickListener {
+            /* !!! Здесь будет Intent */
+        }
+
+        // Избранное
+        toolbar.setOnToolbarFavoriteClickListener {
+            viewModel.changeFavorite()
+        }
+    }
+
+    private fun closeFragment(barVisibility: Boolean) {
+        (activity as RootActivity).setNavBarVisibility(barVisibility)
+        findNavController().popBackStack()
     }
 
     private fun render(state: VacancyContentStateVO) {
@@ -69,6 +101,7 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
     }
 
     private fun showVacancyDetails(vacancy: VacancyDetailsVO) {
+        currentVacancy = vacancy
         val text = buildString {
             appendLine(vacancy.title)
             appendLine(vacancy.salary)

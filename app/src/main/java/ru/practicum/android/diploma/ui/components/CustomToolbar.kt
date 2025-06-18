@@ -79,6 +79,10 @@ class CustomToolbar @JvmOverloads constructor(
         }
     }
 
+    fun setupToolbarBackButtonCustom(listener: () -> Unit) {
+        binding.backBtn.setOnClickListener { listener() }
+    }
+
     // обработка кнопки поделиться
     fun setOnToolbarShareClickListener(listener: () -> Unit) {
         binding.shareBtn.setOnClickListener { listener() }

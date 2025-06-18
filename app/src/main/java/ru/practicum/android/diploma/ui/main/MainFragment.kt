@@ -24,6 +24,7 @@ import ru.practicum.android.diploma.ui.main.adapters.SearchResultsAdapter
 import ru.practicum.android.diploma.ui.main.models.SearchContentStateVO
 import ru.practicum.android.diploma.ui.main.utils.VacancyCallback
 import ru.practicum.android.diploma.ui.root.BindingFragment
+import ru.practicum.android.diploma.ui.root.RootActivity
 import ru.practicum.android.diploma.ui.vacancy.VacancyFragment
 
 class MainFragment : BindingFragment<FragmentMainBinding>() {
@@ -49,6 +50,7 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
 
         vacanciesAdapter = SearchResultsAdapter(
             clickListener = { vacancy ->
+                (activity as RootActivity).setNavBarVisibility(false)
                 findNavController().navigate(
                     R.id.action_mainFragment_to_vacancyFragment,
                     VacancyFragment.createArgs(vacancy.id)
@@ -104,6 +106,7 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
         toolbar.setupToolbarForSearchScreen()
         toolbar.setToolbarTitle(getString(R.string.vacancy_search))
         toolbar.setOnToolbarFilterClickListener {
+            (activity as RootActivity).setNavBarVisibility(false)
             findNavController().navigate(R.id.action_mainFragment_to_filterFragment)
         }
         /*

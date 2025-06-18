@@ -19,6 +19,7 @@ import ru.practicum.android.diploma.ui.favorite.models.FavoriteState
 import ru.practicum.android.diploma.ui.favorite.utils.VacanciesCallback
 import ru.practicum.android.diploma.ui.favorite.viewmodel.FavoriteViewModel
 import ru.practicum.android.diploma.ui.root.BindingFragment
+import ru.practicum.android.diploma.ui.root.RootActivity
 import ru.practicum.android.diploma.ui.vacancy.VacancyFragment
 import ru.practicum.android.diploma.util.debounce
 
@@ -64,6 +65,7 @@ class FavoriteFragment : BindingFragment<FragmentFavoriteBinding>() {
     }
 
     private fun clickToFavorite(vacancy: VacancyDetail) {
+        (activity as RootActivity).setNavBarVisibility(false)
         findNavController().navigate(
             R.id.action_favoriteFragment_to_vacancyFragment,
             VacancyFragment.createArgs(vacancy.id)
