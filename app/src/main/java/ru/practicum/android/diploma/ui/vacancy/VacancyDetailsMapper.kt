@@ -19,10 +19,23 @@ class VacancyDetailsMapper(private val htmlParser: HtmlParser) {
     )
 
     private fun buildSalaryString(salaryFrom: Int?, salaryTo: Int?, currency: String): String {
+        val currencySymbol = when (currency.uppercase()) {
+            "RUB", "RUR" -> "₽"
+            "BYR" -> "Br"
+            "USD" -> "$"
+            "EUR" -> "€"
+            "KZT" -> "₸"
+            "UAH" -> "₴"
+            "AZN" -> "₼"
+            "UZS" -> "сум"
+            "GEL" -> "₾"
+            "KGT" -> "сом"
+            else -> currency
+        }
         return buildList {
             if (salaryFrom != null) add("от $salaryFrom")
             if (salaryTo != null) add("до $salaryTo")
         }.joinToString(" ") +
-            if ((salaryFrom != null || salaryTo != null) && currency.isNotEmpty()) " $currency" else ""
+            if ((salaryFrom != null || salaryTo != null) && currency.isNotEmpty()) " $currencySymbol" else ""
     }
 }
