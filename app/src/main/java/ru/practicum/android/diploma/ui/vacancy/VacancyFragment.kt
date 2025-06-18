@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.ui.vacancy
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -62,7 +63,12 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
 
         // Поделиться
         toolbar.setOnToolbarShareClickListener {
-            /* !!! Здесь будет Intent */
+            requireContext().startActivity(
+                Intent(Intent.ACTION_SEND).apply {
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_TEXT, "вот тут типо ссылка"/* currentVacancy?.url */)
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                })
         }
 
         // Избранное
