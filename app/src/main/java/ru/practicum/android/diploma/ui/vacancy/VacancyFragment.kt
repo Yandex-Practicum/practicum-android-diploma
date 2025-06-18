@@ -93,18 +93,20 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
         }
     }
 
+
     private fun showBase() {
         binding.vacancyName.text = ""
     }
 
     private fun showLoading() {
-        binding.vacancyName.text = "Загрузка..."
-        // Позже можно добавить прогресс-бар
+        binding.includedProgressBar.porgressBar.isVisible = true
+        binding.includedErr.placeholderImage.isVisible = false
+        binding.includedErr.placeholderText.isVisible = false
     }
 
     private fun showError() {
-        binding.vacancyName.text = "Ошибка загрузки данных"
-        // изображение ошибки
+        binding.includedErr.placeholderImage.isVisible = true
+        binding.includedErr.placeholderText.isVisible = true
     }
 
     private fun showVacancyDetails(vacancy: VacancyDetailsVO) {
