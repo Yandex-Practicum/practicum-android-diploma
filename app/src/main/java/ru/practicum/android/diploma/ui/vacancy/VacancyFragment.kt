@@ -141,7 +141,7 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
             includedVacancyCard.titleVacancyCard.text = vacancy.employerName
             includedVacancyCard.cityVacancyCard.text = vacancy.addressOrRegion
             valueExp.text = vacancy.experience
-            valueWorkFormat.text = vacancy.schedule
+            valueWorkFormat.text = vacancy.employment
             valueDescription.text = vacancy.description
             if (vacancy.keySkills != null) {
                 valueSkills.text = vacancy.keySkills.joinToString("\n") { "• $it" }
