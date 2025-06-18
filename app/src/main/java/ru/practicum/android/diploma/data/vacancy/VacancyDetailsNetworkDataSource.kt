@@ -33,8 +33,7 @@ class VacancyDetailsNetworkDataSource(
     }
 
     private suspend fun formatDetails(dto: VacancyDetailsDto): VacancyDetail {
-        val favoriteData = appData.vacanciesDao().getFavoriteVacancieById(dto.id)
-        val isFavorite = (favoriteData != null)
+        val isFavorite = appData.vacanciesDao().getFavoriteVacancieById(dto.id) != null
         return VacancyDetail(
             id = dto.id,
             name = dto.name,
