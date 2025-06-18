@@ -12,6 +12,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
@@ -114,14 +115,28 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
 
         setFavoriteIcon(vacancy.isFavorite)
         binding.apply {
+            includedProgressBar.porgressBar.isVisible = false
+            binding.includedErr.placeholderImage.isVisible = false
+            binding.includedErr.placeholderText.isVisible = false
             vacancyName.text = vacancy.title
             vacancySalary.text = vacancy.salary
-            includedVacancyCard.titleVacancyCard.text = vacancy.employment
+
+            if (!vacancy.logoUrl.isNullOrBlank()) {
+                Glide.with(requireContext())
+                    .load(vacancy.logoUrl)
+                    .placeholder(R.drawable.vacancy_artwork_placeholder)
+                    .error(R.drawable.vacancy_artwork_placeholder)
+                    .fitCenter()
+                    .into(binding.includedVacancyCard.imageVacancyCard)
+            } else {
+                binding.includedVacancyCard.imageVacancyCard.setImageResource(R.drawable.vacancy_artwork_placeholder)
+            }
+
+            includedVacancyCard.titleVacancyCard.text = vacancy.employerName
             includedVacancyCard.cityVacancyCard.text = vacancy.addressOrRegion
-            // includedVacancyCard.imageVacancyCard ?????????
             valueExp.text = vacancy.experience
-            valueWorkFormat.text = vacancy.schedule.joinToString(", ")
-            binding.valueDescription.text = vacancy.description
+            valueWorkFormat.text = vacancy.employment
+            valueDescription.text = vacancy.description
             if (vacancy.keySkills != null) {
                 binding.valueSkills.text = vacancy.keySkills.joinToString("\n") { "• $it" }
                 binding.headerSkills.isVisible = vacancy.keySkills.isNotEmpty()
