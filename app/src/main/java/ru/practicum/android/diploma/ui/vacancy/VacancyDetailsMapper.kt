@@ -11,7 +11,8 @@ class VacancyDetailsMapper(private val htmlParser: HtmlParser) {
         schedule = this.schedule,
         description = htmlParser.fromHtml(this.description),
         addressOrRegion = this.address.ifBlank { null } ?: this.areaName,
-        isFavorite = this.isFavorite
+        isFavorite = this.isFavorite,
+        keySkills = this.keySkills
     )
 
     private fun buildSalaryString(salaryFrom: Int?, salaryTo: Int?, currency: String): String {
