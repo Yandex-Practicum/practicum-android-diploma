@@ -7,7 +7,7 @@
 
     <item
         android:id="@+id/favoriteFragment"
-        android:icon="@drawable/favorites_on__24px"
+        android:icon="@drawable/favorite_24px"
         android:title="@string/favorite_button_text" />
 
     <item

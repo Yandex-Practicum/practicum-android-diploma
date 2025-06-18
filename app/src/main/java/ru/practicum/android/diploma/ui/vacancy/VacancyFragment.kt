@@ -14,6 +14,7 @@ import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
 import ru.practicum.android.diploma.ui.root.BindingFragment
 
 class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
+    private val args: VacancyFragmentArgs by navArgs()
     private val viewModel by viewModel<VacancyViewModel>()
 
     override fun createBinding(

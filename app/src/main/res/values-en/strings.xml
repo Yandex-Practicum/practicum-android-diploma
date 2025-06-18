@@ -12,7 +12,6 @@
         <item>Mikhail Makiev</item>
         <item>Dmitry Tetchenko</item>
     </string-array>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="main_button_text">Main</string>
     <string name="favorite_button_text">Favourites</string>
     <string name="team_button_text">Team</string>
@@ -69,4 +68,6 @@
         <item quantity="one">%d vacancy found</item>
         <item quantity="other">%d vacancies found</item>
     </plurals>
+
+    <string name="dont_show_without_salary">Do not show without salary</string>
 </resources>
