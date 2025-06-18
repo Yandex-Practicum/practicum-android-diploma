@@ -11,8 +11,10 @@ data class VacancyDetail(
     override val salaryCurr: String,
     val keySkills: List<String>,
     val employmentForm: String,
-    val professionalRoles: List<String>,
     val experience: String,
+    val professionalRoles: List<String>,
     val description: String,
-    val isFavorite: Boolean
+    val schedule: List<String>,
+    val address: String,
+    var isFavorite: Boolean
 ) : AbstractVacancy()

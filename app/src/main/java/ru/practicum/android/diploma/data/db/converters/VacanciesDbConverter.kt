@@ -20,6 +20,8 @@ class VacanciesDbConverter {
             professionalRoles = vacancy.professionalRoles,
             experience = vacancy.experience,
             description = vacancy.description,
+            schedule = vacancy.schedule,
+            address = vacancy.address,
             dateAdd = Date()
         )
     }
@@ -39,7 +41,9 @@ class VacanciesDbConverter {
             professionalRoles = vacanciesEntity.professionalRoles,
             experience = vacanciesEntity.experience,
             description = vacanciesEntity.description,
-            isFavorite = true
+            schedule = vacanciesEntity.schedule,
+            address = vacanciesEntity.address,
+            isFavorite = false
         )
     }
 }

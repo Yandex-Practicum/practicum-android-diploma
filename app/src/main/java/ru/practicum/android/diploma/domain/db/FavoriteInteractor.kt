@@ -7,5 +7,5 @@ interface FavoriteInteractor {
     suspend fun addToFavorite(vacancy: VacancyDetail)
     suspend fun delFromFavorite(vacancy: VacancyDetail)
     fun getFavorites(): Flow<List<VacancyDetail>>
-    fun getFavoriteById(vacId: String): Flow<VacancyDetail>
+    fun getFavoriteById(vacId: String): Flow<VacancyDetail?>
 }

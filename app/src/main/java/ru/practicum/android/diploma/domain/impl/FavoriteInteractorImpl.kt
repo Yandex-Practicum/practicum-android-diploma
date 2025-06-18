@@ -20,7 +20,7 @@ class FavoriteInteractorImpl(
         return repository.getFavorites()
     }
 
-    override fun getFavoriteById(vacId: String): Flow<VacancyDetail> {
+    override fun getFavoriteById(vacId: String): Flow<VacancyDetail?> {
         return repository.getFavoriteById(vacId)
     }
 }

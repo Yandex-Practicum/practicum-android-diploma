@@ -15,6 +15,7 @@ import ru.practicum.android.diploma.ui.root.BindingFragment
 
 class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
     private val viewModel by viewModel<VacancyViewModel>()
+    private var vacancyId: String = ""
 
     override fun createBinding(
         inflater: LayoutInflater,
@@ -26,7 +27,7 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val vacancyId = requireArguments().getString(ARGS_ID) ?: ""
+        vacancyId = requireArguments().getString(ARGS_ID) ?: ""
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -34,6 +35,10 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
                     render(state)
                 }
             }
+        }
+
+        binding.toolbar.setOnToolbarFavoriteClickListener {
+            viewModel.changeFavorite()
         }
 
         viewModel.loadVacancyDetails(vacancyId)
@@ -45,6 +50,7 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
             is VacancyContentStateVO.Loading -> showLoading()
             is VacancyContentStateVO.Error -> showError()
             is VacancyContentStateVO.Success -> showVacancyDetails(state.vacancy)
+            is VacancyContentStateVO.Refresh -> viewModel.loadVacancyDetails(vacancyId)
         }
     }
 
@@ -65,14 +71,17 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
     private fun showVacancyDetails(vacancy: VacancyDetailsVO) {
         val text = buildString {
             appendLine(vacancy.title)
-            vacancy.salary?.let { appendLine(it) }
-            vacancy.experience?.let { appendLine(it) }
+            appendLine(vacancy.salary)
+            appendLine(vacancy.experience)
             vacancy.employment?.let { appendLine(it) }
-            vacancy.schedule?.let { appendLine(it) }
+            appendLine(vacancy.schedule)
             appendLine()
-            vacancy.addressOrRegion.let { appendLine(it) }
+            appendLine(vacancy.addressOrRegion)
             appendLine()
-            vacancy.description?.let { appendLine(it) }
+            appendLine(vacancy.description)
+//            if (vacancy.isFavorite) {
+//                binding.toolbar.resources
+//            }
         }
 
         binding.vacancyName.text = text

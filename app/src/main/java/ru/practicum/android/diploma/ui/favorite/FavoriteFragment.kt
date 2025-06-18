@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
@@ -48,11 +49,12 @@ class FavoriteFragment : BindingFragment<FragmentFavoriteBinding>() {
             }
         )
 
+        binding.favoriteResults.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.favoriteResults.adapter = favoriteAdapter
+
         viewModel.observeState().observe(viewLifecycleOwner) {
             render(it)
         }
-
-        viewModel.getFavoriteList()
     }
 
     override fun onResume() {
@@ -78,6 +80,8 @@ class FavoriteFragment : BindingFragment<FragmentFavoriteBinding>() {
 
     private fun showContext(vacancies: List<VacancyDetail>) {
         binding.favoriteResults.isVisible = true
+        binding.placeholder.isVisible = false
+        binding.progress.isVisible = false
         favoriteAdapter?.let {
             val diffCallback = VacanciesCallback(it.vacancies.toList(), vacancies)
             val diffVacancies = DiffUtil.calculateDiff(diffCallback)
