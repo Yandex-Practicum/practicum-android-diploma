@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -119,11 +120,11 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
             valueExp.text = vacancy.experience
             valueWorkFormat.text = vacancy.schedule.joinToString(", ")
             binding.valueDescription.text = vacancy.description
-//            if (vacancy.keySkills != null) {
-//                binding.valueSkills.text = vacancy.keySkills.joinToString("\n") { "• $it" }
-//                binding.headerSkills.isVisible = vacancy.keySkills.isNotEmpty()
-//                binding.valueSkills.isVisible = true
-//            }
+            if (vacancy.keySkills != null) {
+                binding.valueSkills.text = vacancy.keySkills.joinToString("\n") { "• $it" }
+                binding.headerSkills.isVisible = vacancy.keySkills.isNotEmpty()
+                binding.valueSkills.isVisible = true
+            }
         }
     }
 
