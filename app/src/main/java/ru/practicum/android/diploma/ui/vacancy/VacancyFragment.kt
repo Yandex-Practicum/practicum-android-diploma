@@ -106,8 +106,7 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
     }
 
     private fun showError() {
-        binding.includedErr.placeholderImage.isVisible = true
-        binding.includedErr.placeholderText.isVisible = true
+        binding.includedErr.root.isVisible = false
     }
 
     private fun showVacancyDetails(vacancy: VacancyDetailsVO) {
