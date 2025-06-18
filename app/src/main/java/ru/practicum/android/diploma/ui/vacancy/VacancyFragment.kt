@@ -108,22 +108,30 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
 
     private fun showVacancyDetails(vacancy: VacancyDetailsVO) {
         currentVacancy = vacancy
-        val text = buildString {
-            appendLine(vacancy.title)
-            appendLine(vacancy.salary)
-            appendLine(vacancy.experience)
-            vacancy.employment?.let { appendLine(it) }
-            appendLine(vacancy.schedule)
-            appendLine()
-            appendLine(vacancy.addressOrRegion)
-            appendLine()
-            appendLine(vacancy.description)
-//            if (vacancy.isFavorite) {
-//                binding.toolbar.resources
+
+        setFavoriteIcon(vacancy.isFavorite)
+        binding.apply {
+            vacancyName.text = vacancy.title
+            vacancySalary.text = vacancy.salary
+            includedVacancyCard.titleVacancyCard.text = vacancy.employment
+            includedVacancyCard.cityVacancyCard.text = vacancy.addressOrRegion
+            // includedVacancyCard.imageVacancyCard ?????????
+            valueExp.text = vacancy.experience
+            valueWorkFormat.text = vacancy.schedule.joinToString(", ")
+            binding.valueDescription.text = vacancy.description
+//            if (vacancy.keySkills != null) {
+//                binding.valueSkills.text = vacancy.keySkills.joinToString("\n") { "• $it" }
+//                binding.headerSkills.isVisible = vacancy.keySkills.isNotEmpty()
+//                binding.valueSkills.isVisible = true
 //            }
         }
+    }
 
-        binding.vacancyName.text = text
+    private fun setFavoriteIcon(state: Boolean) {
+        when (state) {
+            true -> binding.toolbar.setFavoriteIcon(R.drawable.favorites_on__24px)
+            false -> binding.toolbar.setFavoriteIcon(R.drawable.favorites_off__24px)
+        }
     }
 
     companion object {

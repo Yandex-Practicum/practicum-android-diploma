@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.CustomToolbarBinding
+import ru.practicum.android.diploma.util.Resource
 
 /**
  * CustomToolbar представляет собой расширение,которое предоставляет
@@ -113,5 +114,9 @@ class CustomToolbar @JvmOverloads constructor(
                 R.drawable.filter_off__24px
             }
         )
+    }
+
+    fun setFavoriteIcon(resource: Int) {
+        binding.favoriteBtn.setImageResource(resource)
     }
 }
