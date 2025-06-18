@@ -1,7 +1,7 @@
 package ru.practicum.android.diploma.data.db.converters
 
 import ru.practicum.android.diploma.data.db.entity.VacanciesEntity
-import ru.practicum.android.diploma.domain.vacancy.models.VacancyDetail
+import ru.practicum.android.diploma.domain.models.VacancyDetail
 import java.util.Date
 
 class VacanciesDbConverter {
@@ -33,12 +33,13 @@ class VacanciesDbConverter {
             employerUrls = vacanciesEntity.employerLogoUrl,
             salaryFrom = vacanciesEntity.salaryFrom,
             salaryTo = vacanciesEntity.salaryTo,
-            salaryCurr = vacanciesEntity.salaryCurr ?: "RUR",
+            salaryCurr = vacanciesEntity.salaryCurr,
             keySkills = vacanciesEntity.keySkills,
             employmentForm = vacanciesEntity.employmentForm,
             professionalRoles = vacanciesEntity.professionalRoles,
             experience = vacanciesEntity.experience,
             description = vacanciesEntity.description,
+            isFavorite = true
         )
     }
 }

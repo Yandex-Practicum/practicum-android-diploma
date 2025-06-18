@@ -31,7 +31,7 @@ data class VacanciesEntity(
     val name: String,
     @ColumnInfo(name = "salary_from") val salaryFrom: Int?,
     @ColumnInfo(name = "salary_to") val salaryTo: Int?,
-    @ColumnInfo(name = "salary_curr") val salaryCurr: String?,
+    @ColumnInfo(name = "salary_curr") val salaryCurr: String,
     @ColumnInfo(name = "area_name") val areaName: String,
     @ColumnInfo(name = "employer_name") val employerName: String?,
     @ColumnInfo(name = "employer_logo_url") val employerLogoUrl: String?,

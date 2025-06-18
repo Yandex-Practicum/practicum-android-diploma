@@ -14,7 +14,6 @@ import ru.practicum.android.diploma.databinding.FragmentVacancyBinding
 import ru.practicum.android.diploma.ui.root.BindingFragment
 
 class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
-    private val args: VacancyFragmentArgs by navArgs()
     private val viewModel by viewModel<VacancyViewModel>()
 
     override fun createBinding(
@@ -26,7 +25,9 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val vacancyId = requireArguments().getString(ARGS_ID) ?: ""
+
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.vacancyState.collect { state ->
@@ -34,6 +35,7 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
                 }
             }
         }
+
         viewModel.loadVacancyDetails(vacancyId)
     }
 

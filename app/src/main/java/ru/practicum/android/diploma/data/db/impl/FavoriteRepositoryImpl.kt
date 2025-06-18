@@ -6,7 +6,7 @@ import ru.practicum.android.diploma.data.db.converters.VacanciesDbConverter
 import ru.practicum.android.diploma.data.db.dao.VacanciesDao
 import ru.practicum.android.diploma.data.db.entity.VacanciesEntity
 import ru.practicum.android.diploma.domain.db.FavoriteRepository
-import ru.practicum.android.diploma.domain.vacancy.models.VacancyDetail
+import ru.practicum.android.diploma.domain.models.VacancyDetail
 
 class FavoriteRepositoryImpl(
     val vacancyDao: VacanciesDao,

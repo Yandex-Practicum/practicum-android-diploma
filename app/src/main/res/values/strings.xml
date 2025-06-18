@@ -2,6 +2,8 @@
     <string name="app_name" translatable="false">Practicum-Android-Diploma</string>
     <string name="main_button_text">Главная</string>
     <string name="favorite_button_text">Избранное</string>
+    <string name="favorite_head_text">Избранное</string>
+    <string name="empty_list">Список пуст</string>
     <string name="team_button_text">Команда</string>
     <string name="exit_confirmation">Подтверждение выхода</string>
     <string name="are_you_sure_you_want_to_exit">Вы действительно хотите выйти?</string>
