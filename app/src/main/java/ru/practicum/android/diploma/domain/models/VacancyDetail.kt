@@ -16,5 +16,5 @@ data class VacancyDetail(
     val description: String,
     val schedule: List<String>,
     val address: String,
-    var isFavorite: Boolean
+    val isFavorite: Boolean
 ) : AbstractVacancy()

@@ -1,7 +1,7 @@
 package ru.practicum.android.diploma.data.vacancy
 
-import android.util.Log
 import ru.practicum.android.diploma.data.VacancyDetailRequest
+import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.data.network.ApiResponse
 import ru.practicum.android.diploma.data.network.NetworkClient
 import ru.practicum.android.diploma.data.vacancy.models.VacancyDetailsDto
@@ -13,6 +13,7 @@ import ru.practicum.android.diploma.util.HTTP_NO_CONNECTION
 
 class VacancyDetailsNetworkDataSource(
     private val networkClient: NetworkClient,
+    private val appData: AppDatabase
 ) {
     suspend fun getVacancyDetails(id: String): ApiResponse<VacancyDetail> {
         val request = VacancyDetailRequest(id)
@@ -31,8 +32,9 @@ class VacancyDetailsNetworkDataSource(
         }
     }
 
-    private fun formatDetails(dto: VacancyDetailsDto): VacancyDetail {
-        Log.d("HH_TEST", dto.toString())
+    private suspend fun formatDetails(dto: VacancyDetailsDto): VacancyDetail {
+        val favoriteData = appData.vacanciesDao().getFavoriteVacancieById(dto.id)
+        val isFavorite = (favoriteData != null)
         return VacancyDetail(
             id = dto.id,
             name = dto.name,
@@ -49,7 +51,7 @@ class VacancyDetailsNetworkDataSource(
             schedule = dto.schedule?.map { it.name } ?: emptyList(),
             professionalRoles = dto.professionalRoles.map { it.name },
             address = dto.address?.city ?: "",
-            isFavorite = false,
+            isFavorite = isFavorite,
         )
     }
 }

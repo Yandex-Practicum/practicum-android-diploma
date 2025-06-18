@@ -45,19 +45,3 @@ data class InfoIdName(
 data class InfoName(
     val name: String
 )
-
-//data class ExperienceDto(
-//    val name: String?
-//)
-//
-//data class EmploymentDto(
-//    val name: String?
-//)
-//
-//data class ScheduleDto(
-//    val name: String?
-//)
-//
-//data class SkillDto(
-//    val name: String?
-//)

@@ -49,7 +49,8 @@ class FavoriteFragment : BindingFragment<FragmentFavoriteBinding>() {
             }
         )
 
-        binding.favoriteResults.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.favoriteResults.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.favoriteResults.adapter = favoriteAdapter
 
         viewModel.observeState().observe(viewLifecycleOwner) {

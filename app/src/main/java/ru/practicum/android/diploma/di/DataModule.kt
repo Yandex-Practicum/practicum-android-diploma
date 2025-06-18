@@ -75,7 +75,7 @@ val dataModule = module {
     }
 
     single {
-        VacancyDetailsNetworkDataSource(get())
+        VacancyDetailsNetworkDataSource(get(), get())
     }
 
     single { HtmlParser() }

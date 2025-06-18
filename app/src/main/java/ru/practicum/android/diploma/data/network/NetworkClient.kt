@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.data.network
 
 import android.content.Context
-import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.data.Response
@@ -31,8 +30,7 @@ class NetworkClient(
                         Response().apply { resultCode = HTTP_400_BAD_REQUEST }
                     }
                 }
-            } catch (e: Throwable) {
-                Log.e("HH_TEST", e.message ?: "Empty")
+            } catch (_: Throwable) {
                 Response().apply { resultCode = HTTP_500_INTERNAL_SERVER_ERROR }
             }
         }

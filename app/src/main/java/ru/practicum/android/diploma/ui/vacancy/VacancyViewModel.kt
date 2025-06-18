@@ -16,7 +16,6 @@ class VacancyViewModel(
     private val mapper: VacancyDetailsMapper,
     private val favoriteInteractor: FavoriteInteractor
 ) : ViewModel() {
-    private var isFavorite = false
     private var vacancy: VacancyDetail? = null
 
     private val _vacancyState = MutableStateFlow<VacancyContentStateVO>(VacancyContentStateVO.Base)
@@ -30,13 +29,7 @@ class VacancyViewModel(
                 is ApiResponse.Success -> {
                     vacancy = result.data
                     val vo = result.data?.let {
-                        favoriteInteractor.getFavoriteById(it.id).collect { vacancy ->
-                            if (vacancy != null) {
-                                isFavorite = true
-                            }
-                        }
-                        it.isFavorite = isFavorite
-                        mapper.run { it.toVO() }
+                    mapper.run { it.toVO() }
                     }
                     if (vo != null) {
                         _vacancyState.value = VacancyContentStateVO.Success(vo)
@@ -44,6 +37,7 @@ class VacancyViewModel(
                         _vacancyState.value = VacancyContentStateVO.Error
                     }
                 }
+
                 is ApiResponse.Error -> {
                     _vacancyState.value = VacancyContentStateVO.Error
                 }
@@ -54,7 +48,7 @@ class VacancyViewModel(
     fun changeFavorite() {
         vacancy?.let {
             viewModelScope.launch {
-                if (isFavorite) {
+                if (it.isFavorite) {
                     favoriteInteractor.delFromFavorite(it)
                 } else {
                     favoriteInteractor.addToFavorite(it)

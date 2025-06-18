@@ -8,5 +8,5 @@ data class VacancyDetailsVO(
     val schedule: List<String>,
     val description: String,
     val addressOrRegion: String,
-    var isFavorite: Boolean
+    val isFavorite: Boolean
 )
