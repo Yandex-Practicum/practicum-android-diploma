@@ -1,9 +1,9 @@
 package ru.practicum.android.diploma.ui.vacancy
 
-import ru.practicum.android.diploma.domain.models.VacancyDetail
+import ru.practicum.android.diploma.domain.models.VacancyDetails
 
 class VacancyDetailsMapper(private val htmlParser: HtmlParser) {
-    fun VacancyDetail.toVO(): VacancyDetailsVO = VacancyDetailsVO(
+    fun VacancyDetails.toVO(): VacancyDetailsVO = VacancyDetailsVO(
         title = this.name,
         salary = buildSalaryString(this.salaryFrom, this.salaryTo, this.salaryCurr),
         experience = this.experience,
