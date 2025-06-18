@@ -8,14 +8,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.db.FavoriteInteractor
-import ru.practicum.android.diploma.domain.models.VacancyDetail
+import ru.practicum.android.diploma.domain.models.VacancyDetails
 import ru.practicum.android.diploma.ui.favorite.models.FavoriteState
 
 class FavoriteViewModel(
     application: Application,
     val favoriteInteractor: FavoriteInteractor
 ) : AndroidViewModel(application) {
-    private val favoriteList = ArrayList<VacancyDetail>()
+    private val favoriteList = ArrayList<VacancyDetails>()
 
     private val stateLiveData = MutableLiveData<FavoriteState>()
     fun observeState(): LiveData<FavoriteState> = stateLiveData

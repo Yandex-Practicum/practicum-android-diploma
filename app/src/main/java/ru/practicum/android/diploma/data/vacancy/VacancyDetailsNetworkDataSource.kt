@@ -5,7 +5,7 @@ import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.data.network.ApiResponse
 import ru.practicum.android.diploma.data.network.NetworkClient
 import ru.practicum.android.diploma.data.vacancy.models.VacancyDetailsDto
-import ru.practicum.android.diploma.domain.models.VacancyDetail
+import ru.practicum.android.diploma.domain.models.VacancyDetails
 import ru.practicum.android.diploma.util.HTTP_200_OK
 import ru.practicum.android.diploma.util.HTTP_400_BAD_REQUEST
 import ru.practicum.android.diploma.util.HTTP_500_INTERNAL_SERVER_ERROR
@@ -15,7 +15,7 @@ class VacancyDetailsNetworkDataSource(
     private val networkClient: NetworkClient,
     private val appData: AppDatabase
 ) {
-    suspend fun getVacancyDetails(id: String): ApiResponse<VacancyDetail> {
+    suspend fun getVacancyDetails(id: String): ApiResponse<VacancyDetails> {
         val request = VacancyDetailRequest(id)
         val response = networkClient.doRequest(request)
         return when (response.resultCode) {
@@ -32,9 +32,9 @@ class VacancyDetailsNetworkDataSource(
         }
     }
 
-    private suspend fun formatDetails(dto: VacancyDetailsDto): VacancyDetail {
+    private suspend fun formatDetails(dto: VacancyDetailsDto): VacancyDetails {
         val isFavorite = appData.vacanciesDao().getFavoriteVacancieById(dto.id) != null
-        return VacancyDetail(
+        return VacancyDetails(
             id = dto.id,
             name = dto.name,
             employerName = dto.employer?.name ?: "",

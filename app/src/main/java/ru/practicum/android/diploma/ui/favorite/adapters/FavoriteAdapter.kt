@@ -2,10 +2,10 @@ package ru.practicum.android.diploma.ui.favorite.adapters
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ru.practicum.android.diploma.domain.models.VacancyDetail
+import ru.practicum.android.diploma.domain.models.VacancyDetails
 
 class FavoriteAdapter(private val clickListener: FavoriteClickListener) : RecyclerView.Adapter<FavoriteViewHolder>() {
-    val vacancies: MutableList<VacancyDetail> = mutableListOf()
+    val vacancies: MutableList<VacancyDetails> = mutableListOf()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -27,6 +27,6 @@ class FavoriteAdapter(private val clickListener: FavoriteClickListener) : Recycl
     }
 
     interface FavoriteClickListener {
-        fun onFavoriteClick(vacancy: VacancyDetail)
+        fun onFavoriteClick(vacancy: VacancyDetails)
     }
 }

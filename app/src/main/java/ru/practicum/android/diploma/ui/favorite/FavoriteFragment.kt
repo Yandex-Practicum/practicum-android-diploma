@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFavoriteBinding
-import ru.practicum.android.diploma.domain.models.VacancyDetail
+import ru.practicum.android.diploma.domain.models.VacancyDetails
 import ru.practicum.android.diploma.ui.favorite.adapters.FavoriteAdapter
 import ru.practicum.android.diploma.ui.favorite.models.FavoriteState
 import ru.practicum.android.diploma.ui.favorite.utils.VacanciesCallback
@@ -36,7 +36,7 @@ class FavoriteFragment : BindingFragment<FragmentFavoriteBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val onFavoriteClickDebounce = debounce<VacancyDetail>(
+        val onFavoriteClickDebounce = debounce<VacancyDetails>(
             CLICK_DEBOUNCE_DELAY,
             viewLifecycleOwner.lifecycleScope,
             false
@@ -44,7 +44,7 @@ class FavoriteFragment : BindingFragment<FragmentFavoriteBinding>() {
 
         favoriteAdapter = FavoriteAdapter(
             object : FavoriteAdapter.FavoriteClickListener {
-                override fun onFavoriteClick(vacancy: VacancyDetail) {
+                override fun onFavoriteClick(vacancy: VacancyDetails) {
                     onFavoriteClickDebounce(vacancy)
                 }
             }
@@ -64,7 +64,7 @@ class FavoriteFragment : BindingFragment<FragmentFavoriteBinding>() {
         viewModel.getFavoriteList()
     }
 
-    private fun clickToFavorite(vacancy: VacancyDetail) {
+    private fun clickToFavorite(vacancy: VacancyDetails) {
         (activity as RootActivity).setNavBarVisibility(false)
         findNavController().navigate(
             R.id.action_favoriteFragment_to_vacancyFragment,
@@ -81,7 +81,7 @@ class FavoriteFragment : BindingFragment<FragmentFavoriteBinding>() {
         }
     }
 
-    private fun showContext(vacancies: List<VacancyDetail>) {
+    private fun showContext(vacancies: List<VacancyDetails>) {
         binding.favoriteResults.isVisible = true
         binding.placeholder.isVisible = false
         binding.progress.isVisible = false

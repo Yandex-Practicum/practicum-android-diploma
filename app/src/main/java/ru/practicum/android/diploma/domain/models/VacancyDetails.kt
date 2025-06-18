@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.domain.models
 
-data class VacancyDetail(
+data class VacancyDetails(
     override val id: String,
     override val name: String,
     override val areaName: String,

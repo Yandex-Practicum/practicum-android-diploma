@@ -1,11 +1,11 @@
 package ru.practicum.android.diploma.data.db.converters
 
 import ru.practicum.android.diploma.data.db.entity.VacanciesEntity
-import ru.practicum.android.diploma.domain.models.VacancyDetail
+import ru.practicum.android.diploma.domain.models.VacancyDetails
 import java.util.Date
 
 class VacanciesDbConverter {
-    fun map(vacancy: VacancyDetail): VacanciesEntity {
+    fun map(vacancy: VacancyDetails): VacanciesEntity {
         return VacanciesEntity(
             id = vacancy.id,
             name = vacancy.name,
@@ -26,8 +26,8 @@ class VacanciesDbConverter {
         )
     }
 
-    fun map(vacanciesEntity: VacanciesEntity): VacancyDetail {
-        return VacancyDetail(
+    fun map(vacanciesEntity: VacanciesEntity): VacancyDetails {
+        return VacancyDetails(
             id = vacanciesEntity.id,
             name = vacanciesEntity.name,
             areaName = vacanciesEntity.areaName,

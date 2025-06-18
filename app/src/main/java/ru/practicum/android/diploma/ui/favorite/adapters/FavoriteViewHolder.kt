@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.domain.models.VacancyDetail
+import ru.practicum.android.diploma.domain.models.VacancyDetails
 import ru.practicum.android.diploma.util.pxToDp
 
 class FavoriteViewHolder private constructor(itemView: View) : ViewHolder(itemView) {
@@ -22,7 +22,7 @@ class FavoriteViewHolder private constructor(itemView: View) : ViewHolder(itemVi
         LayoutInflater.from(parent.context).inflate(R.layout.favorite_card, parent, false)
     )
 
-    fun bind(vacancy: VacancyDetail) {
+    fun bind(vacancy: VacancyDetails) {
         nameVacancy.text = vacancy.name
         nameEmployer.text = vacancy.employerName
         salary.text = formatSalary(vacancy.salaryFrom, vacancy.salaryTo, vacancy.salaryCurr)

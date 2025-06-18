@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.data.network.ApiResponse
 import ru.practicum.android.diploma.domain.db.FavoriteInteractor
-import ru.practicum.android.diploma.domain.models.VacancyDetail
+import ru.practicum.android.diploma.domain.models.VacancyDetails
 import ru.practicum.android.diploma.domain.vacancy.api.VacancyDetailsRepository
 
 class VacancyViewModel(
@@ -16,7 +16,7 @@ class VacancyViewModel(
     private val mapper: VacancyDetailsMapper,
     private val favoriteInteractor: FavoriteInteractor
 ) : ViewModel() {
-    private var vacancy: VacancyDetail? = null
+    private var vacancy: VacancyDetails? = null
 
     private val _vacancyState = MutableStateFlow<VacancyContentStateVO>(VacancyContentStateVO.Base)
     val vacancyState: StateFlow<VacancyContentStateVO> = _vacancyState.asStateFlow()
