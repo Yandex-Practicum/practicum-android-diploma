@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin4"
         android:src="@drawable/sharing_24px"
-        android:visibility="gone"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/favoriteBtn"
         app:layout_constraintTop_toTopOf="parent" />
@@ -53,8 +53,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin4"
-        android:src="@drawable/favorites_on__24px"
-        android:visibility="gone"
+        android:src="@drawable/favorites_off__24px"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -67,7 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin4"
         android:src="@drawable/filter_off__24px"
-
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -85,4 +85,5 @@ dependencies {
     implementation(libs.room.ktx)
     implementation(libs.peko)
     implementation(libs.material.v1120)
+    implementation(libs.okhttp3)
 }

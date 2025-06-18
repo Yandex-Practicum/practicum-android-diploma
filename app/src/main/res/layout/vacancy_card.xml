@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="horizontal"
+    app:cardElevation="0dp">
+
+    <LinearLayout
+        android:id="@+id/layout_search_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/image_employer"
+            android:layout_width="@dimen/icon_vac_size"
+            android:layout_height="@dimen/icon_vac_size"
+            android:layout_gravity="top"
+            android:layout_marginTop="@dimen/margin8"
+            android:layout_marginStart="@dimen/margin16"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:importantForAccessibility="no"
+            android:src="@drawable/placeholder_32px" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_name"
+                style="@style/text_font_l"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin12"
+                android:layout_marginTop="@dimen/margin8"
+                android:layout_marginEnd="@dimen/margin16"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:maxLines="2"
+                android:paddingBottom="@dimen/margin2"
+                tools:text="Андроид разработчик, Москва увудуа" />
+
+            <TextView
+                android:id="@+id/text_employer"
+                style="@style/text_font_s"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin12"
+                android:layout_marginEnd="@dimen/margin16"
+                android:ellipsize="end"
+                android:fallbackLineSpacing="true"
+                android:maxLines="1"
+                tools:text="Авто.ру" />
+
+            <TextView
+                android:id="@+id/text_salary"
+                style="@style/text_font_s"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin12"
+                android:layout_marginEnd="@dimen/margin16"
+                android:ellipsize="end"
+                android:fallbackLineSpacing="true"
+                android:maxLines="1"
+                tools:text="от 50`000$" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

@@ -24,12 +24,5 @@ class App : Application() {
                 viewModelModule
             )
         }
-        // Dependency Injection
-        /**** подкл библиотеки в gradle добавить модули di****/
-//        startKoin {
-//            androidLogger(Level.DEBUG)
-//            androidContext(this@App)
-//            modules(listOf())
-//        }
     }
 }

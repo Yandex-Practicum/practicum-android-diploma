@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingHorizontal="@dimen/margin16"
+    android:paddingVertical="@dimen/margin8">
+
+    <ImageView
+        android:id="@+id/artwork"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="@dimen/margin12"
+        android:contentDescription="@string/salary_not_specified"
+        tools:src="@tools:sample/avatars" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/text_font_l"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="?attr/colorOnPrimary"
+            tools:text="Разработчик всего на свете, Москва" />
+
+        <TextView
+            android:id="@+id/employee_title"
+            style="@style/text_font_s"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="?attr/colorOnPrimary"
+            tools:text="Рога и копыта" />
+
+        <TextView
+            android:id="@+id/salary_title"
+            style="@style/text_font_s"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="?attr/colorOnPrimary"
+            tools:text="Зарплата очень большая" />
+    </LinearLayout>
+</LinearLayout>

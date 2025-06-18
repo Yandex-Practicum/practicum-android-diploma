@@ -31,14 +31,16 @@ data class VacanciesEntity(
     val name: String,
     @ColumnInfo(name = "salary_from") val salaryFrom: Int?,
     @ColumnInfo(name = "salary_to") val salaryTo: Int?,
-    @ColumnInfo(name = "salary_curr") val salaryCurr: String?,
+    @ColumnInfo(name = "salary_curr") val salaryCurr: String,
     @ColumnInfo(name = "area_name") val areaName: String,
     @ColumnInfo(name = "employer_name") val employerName: String?,
     @ColumnInfo(name = "employer_logo_url") val employerLogoUrl: String?,
     @ColumnInfo(name = "key_skills") val keySkills: List<String>,
-    @ColumnInfo(name = "employment_form") val employmentForm: List<String>,
+    @ColumnInfo(name = "employment_form") val employmentForm: String,
     @ColumnInfo(name = "professional_roles") val professionalRoles: List<String>,
+    val schedule: List<String>,
     val experience: String,
     val description: String,
+    @ColumnInfo(defaultValue = "") val address: String,
     val dateAdd: Date
 )

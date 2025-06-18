@@ -1,16 +1,17 @@
 package ru.practicum.android.diploma.ui.vacancy
 
-import ru.practicum.android.diploma.domain.vacancy.models.VacancyDetails
+import ru.practicum.android.diploma.domain.models.VacancyDetail
 
 class VacancyDetailsMapper(private val htmlParser: HtmlParser) {
-    fun VacancyDetails.toVO(): VacancyDetailsVO = VacancyDetailsVO(
-        title = this.title,
-        salary = buildSalaryString(this.salaryFrom, this.salaryTo, this.salaryCurrency ?: ""),
+    fun VacancyDetail.toVO(): VacancyDetailsVO = VacancyDetailsVO(
+        title = this.name,
+        salary = buildSalaryString(this.salaryFrom, this.salaryTo, this.salaryCurr),
         experience = this.experience,
-        employment = this.employment,
+        employment = this.employerName,
         schedule = this.schedule,
-        description = htmlParser.fromHtml(this.descriptionHtml ?: ""),
-        addressOrRegion = this.address?.ifBlank { null } ?: this.areaName.orEmpty()
+        description = htmlParser.fromHtml(this.description),
+        addressOrRegion = this.address.ifBlank { null } ?: this.areaName,
+        isFavorite = this.isFavorite
     )
 
     private fun buildSalaryString(salaryFrom: Int?, salaryTo: Int?, currency: String): String {
