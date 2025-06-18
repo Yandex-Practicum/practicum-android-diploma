@@ -29,7 +29,7 @@ class VacancyViewModel(
                 is ApiResponse.Success -> {
                     vacancy = result.data
                     val vo = result.data?.let {
-                    mapper.run { it.toVO() }
+                        mapper.run { it.toVO() }
                     }
                     if (vo != null) {
                         _vacancyState.value = VacancyContentStateVO.Success(vo)
