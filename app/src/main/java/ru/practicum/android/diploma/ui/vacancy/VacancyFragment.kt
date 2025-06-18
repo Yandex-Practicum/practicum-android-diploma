@@ -46,12 +46,20 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
         }
 
         initUiToolbar()
+        initPlaceholder()
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             closeFragment(true)
         }
 
         viewModel.loadVacancyDetails(vacancyId)
+    }
+
+    private fun initPlaceholder() {
+        binding.includedErr.apply {
+            placeholderText.text = requireContext().getString(R.string.no_find_vacancy)
+            placeholderImage.setImageResource(R.drawable.err_no_vacancy)
+        }
     }
 
     private fun initUiToolbar() {
@@ -68,7 +76,7 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
             requireContext().startActivity(
                 Intent(Intent.ACTION_SEND).apply {
                     type = "text/plain"
-                    putExtra(Intent.EXTRA_TEXT, "вот тут типо ссылка"/* currentVacancy?.url */)
+                    putExtra(Intent.EXTRA_TEXT, currentVacancy?.url)
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 }
             )
@@ -100,13 +108,15 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
     }
 
     private fun showLoading() {
+        binding.contentView.isVisible = false
         binding.includedProgressBar.porgressBar.isVisible = true
-        binding.includedErr.placeholderImage.isVisible = false
-        binding.includedErr.placeholderText.isVisible = false
+        binding.includedErr.root.isVisible = false
     }
 
     private fun showError() {
-        binding.includedErr.root.isVisible = false
+        binding.contentView.isVisible = false
+        binding.includedProgressBar.root.isVisible = false
+        binding.includedErr.root.isVisible = true
     }
 
     private fun showVacancyDetails(vacancy: VacancyDetailsVO) {
@@ -114,9 +124,6 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
 
         setFavoriteIcon(vacancy.isFavorite)
         binding.apply {
-            includedProgressBar.porgressBar.isVisible = false
-            binding.includedErr.placeholderImage.isVisible = false
-            binding.includedErr.placeholderText.isVisible = false
             vacancyName.text = vacancy.title
             vacancySalary.text = vacancy.salary
 
@@ -134,13 +141,17 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
             includedVacancyCard.titleVacancyCard.text = vacancy.employerName
             includedVacancyCard.cityVacancyCard.text = vacancy.addressOrRegion
             valueExp.text = vacancy.experience
-            valueWorkFormat.text = vacancy.employment
+            valueWorkFormat.text = vacancy.schedule
             valueDescription.text = vacancy.description
             if (vacancy.keySkills != null) {
-                binding.valueSkills.text = vacancy.keySkills.joinToString("\n") { "• $it" }
-                binding.headerSkills.isVisible = vacancy.keySkills.isNotEmpty()
-                binding.valueSkills.isVisible = true
+                valueSkills.text = vacancy.keySkills.joinToString("\n") { "• $it" }
+                headerSkills.isVisible = true
+                valueSkills.isVisible = true
             }
+
+            includedProgressBar.root.isVisible = false
+            includedErr.root.isVisible = false
+            contentView.isVisible = true
         }
     }
 
