@@ -70,7 +70,8 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
                     type = "text/plain"
                     putExtra(Intent.EXTRA_TEXT, "вот тут типо ссылка"/* currentVacancy?.url */)
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                })
+                }
+            )
         }
 
         // Избранное
@@ -93,7 +94,6 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
             is VacancyContentStateVO.Refresh -> viewModel.loadVacancyDetails(vacancyId)
         }
     }
-
 
     private fun showBase() {
         binding.vacancyName.text = ""

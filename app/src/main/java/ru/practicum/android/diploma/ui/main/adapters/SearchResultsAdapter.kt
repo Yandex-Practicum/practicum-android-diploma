@@ -42,7 +42,6 @@ class SearchResultsAdapter(
             LayoutInflater.from(parent.context).inflate(R.layout.vacancy_view, parent, false)
         )
 
-
         fun bind(vacancy: Vacancy) {
             title.text = vacancy.title
             employeTitle.text = vacancy.employerTitle

@@ -51,6 +51,8 @@ class VacancyDetailsNetworkDataSource(
             professionalRoles = dto.professionalRoles.map { it.name },
             address = dto.address?.city ?: "",
             isFavorite = isFavorite,
+            employment = dto.employment?.name,
+            url = dto.alternateUrl
         )
     }
 }

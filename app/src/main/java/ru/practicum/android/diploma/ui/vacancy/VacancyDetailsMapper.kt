@@ -7,14 +7,15 @@ class VacancyDetailsMapper(private val htmlParser: HtmlParser) {
         title = this.name,
         salary = buildSalaryString(this.salaryFrom, this.salaryTo, this.salaryCurr),
         experience = this.experience,
-        employment = this.employerName,
+        employment = this.employment,
         schedule = this.schedule.toString(),
         description = htmlParser.fromHtml(this.description),
         addressOrRegion = this.address.ifBlank { null } ?: this.areaName,
         isFavorite = this.isFavorite,
         keySkills = this.keySkills,
         logoUrl = this.employerUrls,
-        employerName = this.employerName
+        employerName = this.employerName,
+        url = this.url
     )
 
     private fun buildSalaryString(salaryFrom: Int?, salaryTo: Int?, currency: String): String {
@@ -25,7 +26,3 @@ class VacancyDetailsMapper(private val htmlParser: HtmlParser) {
             if ((salaryFrom != null || salaryTo != null) && currency.isNotEmpty()) " $currency" else ""
     }
 }
-
-
-
-

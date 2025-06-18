@@ -12,4 +12,5 @@ data class VacancyDetailsVO(
     val employerName: String,
     val keySkills: List<String>,
     val isFavorite: Boolean,
+    val url: String?
 )

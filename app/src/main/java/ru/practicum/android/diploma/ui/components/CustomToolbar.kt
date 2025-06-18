@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.CustomToolbarBinding
-import ru.practicum.android.diploma.util.Resource
 
 /**
  * CustomToolbar представляет собой расширение,которое предоставляет

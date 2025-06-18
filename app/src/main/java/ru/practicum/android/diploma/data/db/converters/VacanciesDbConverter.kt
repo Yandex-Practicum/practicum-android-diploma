@@ -22,7 +22,10 @@ class VacanciesDbConverter {
             description = vacancy.description,
             schedule = vacancy.schedule,
             address = vacancy.address,
-            dateAdd = Date()
+            dateAdd = Date(),
+            url = vacancy.url,
+            employment = vacancy.employment,
+            isFavorite = vacancy.isFavorite
         )
     }
 
@@ -43,7 +46,9 @@ class VacanciesDbConverter {
             description = vacanciesEntity.description,
             schedule = vacanciesEntity.schedule,
             address = vacanciesEntity.address,
-            isFavorite = false
+            employment = vacanciesEntity.employment,
+            isFavorite = vacanciesEntity.isFavorite,
+            url = vacanciesEntity.url
         )
     }
 }

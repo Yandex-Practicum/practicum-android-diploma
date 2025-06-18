@@ -72,4 +72,3 @@ class FavoriteViewHolder private constructor(itemView: View) : ViewHolder(itemVi
 
     }
 }
-
