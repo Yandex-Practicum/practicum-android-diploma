@@ -1,0 +1,128 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 3,
+    "identityHash": "f0afb3ff6a033dd8322a3b70df0cd94d",
+    "entities": [
+      {
+        "tableName": "vacancies",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `salary_from` INTEGER, `salary_to` INTEGER, `salary_curr` TEXT NOT NULL, `area_name` TEXT NOT NULL, `employer_name` TEXT, `employer_logo_url` TEXT, `key_skills` TEXT NOT NULL, `employment_form` TEXT NOT NULL, `professional_roles` TEXT NOT NULL, `schedule` TEXT NOT NULL, `experience` TEXT NOT NULL, `description` TEXT NOT NULL, `address` TEXT NOT NULL DEFAULT '', `dateAdd` INTEGER NOT NULL, `url` TEXT, `employment` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "salaryFrom",
+            "columnName": "salary_from",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "salaryTo",
+            "columnName": "salary_to",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "salaryCurr",
+            "columnName": "salary_curr",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "areaName",
+            "columnName": "area_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "employerName",
+            "columnName": "employer_name",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "employerLogoUrl",
+            "columnName": "employer_logo_url",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "keySkills",
+            "columnName": "key_skills",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "employmentForm",
+            "columnName": "employment_form",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "professionalRoles",
+            "columnName": "professional_roles",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "schedule",
+            "columnName": "schedule",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "experience",
+            "columnName": "experience",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "address",
+            "columnName": "address",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
+          },
+          {
+            "fieldPath": "dateAdd",
+            "columnName": "dateAdd",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "url",
+            "columnName": "url",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "employment",
+            "columnName": "employment",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f0afb3ff6a033dd8322a3b70df0cd94d')"
+    ]
+  }
+}
