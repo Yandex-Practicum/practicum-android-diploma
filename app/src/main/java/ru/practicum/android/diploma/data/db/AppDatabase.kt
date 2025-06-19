@@ -23,4 +23,4 @@ abstract class AppDatabase : RoomDatabase() {
 }
 
 @DeleteColumn(tableName = "vacancies", columnName = "is_favorite")
-class DeleteOldColumn: AutoMigrationSpec
+class DeleteOldColumn : AutoMigrationSpec
