@@ -5,7 +5,7 @@ import ru.practicum.android.diploma.domain.models.VacancyDetails
 import java.util.Date
 
 class VacanciesDbConverter {
-    fun map(vacancy: VacancyDetails): VacanciesEntity {
+    fun map(vacancy: VacancyDetails, dateAdd: Date): VacanciesEntity {
         return VacanciesEntity(
             id = vacancy.id,
             name = vacancy.name,
@@ -22,10 +22,9 @@ class VacanciesDbConverter {
             description = vacancy.description,
             schedule = vacancy.schedule,
             address = vacancy.address,
-            dateAdd = Date(),
+            dateAdd = dateAdd,
             url = vacancy.url,
             employment = vacancy.employment,
-            isFavorite = vacancy.isFavorite
         )
     }
 
@@ -47,7 +46,7 @@ class VacanciesDbConverter {
             schedule = vacanciesEntity.schedule,
             address = vacanciesEntity.address,
             employment = vacanciesEntity.employment,
-            isFavorite = vacanciesEntity.isFavorite,
+            isFavorite = true,
             url = vacanciesEntity.url
         )
     }

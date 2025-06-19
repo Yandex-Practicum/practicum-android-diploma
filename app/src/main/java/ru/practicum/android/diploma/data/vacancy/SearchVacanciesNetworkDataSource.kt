@@ -2,7 +2,7 @@ package ru.practicum.android.diploma.data.vacancy
 
 import ru.practicum.android.diploma.data.VacanciesSearchRequest
 import ru.practicum.android.diploma.data.network.ApiResponse
-import ru.practicum.android.diploma.data.network.NetworkClient
+import ru.practicum.android.diploma.data.network.NetworkClientInterface
 import ru.practicum.android.diploma.data.vacancy.models.SearchVacanciesDto
 import ru.practicum.android.diploma.data.vacancy.models.VacancyDto
 import ru.practicum.android.diploma.domain.models.FilterOptions
@@ -14,7 +14,7 @@ import ru.practicum.android.diploma.util.HTTP_NO_CONNECTION
 import ru.practicum.android.diploma.util.VACANCY_PER_PAGE
 
 class SearchVacanciesNetworkDataSource(
-    private val networkClient: NetworkClient,
+    private val networkClient: NetworkClientInterface,
 ) {
     suspend fun getSearchResults(options: FilterOptions): ApiResponse<List<Vacancy>> {
         val request = VacanciesSearchRequest(getOptions(options))
@@ -49,24 +49,25 @@ class SearchVacanciesNetworkDataSource(
         )
     }
 
-    private fun getOptions(options: FilterOptions): HashMap<String, String> {
-        val hhOptions: HashMap<String, String> = HashMap()
-        hhOptions["per_page"] = VACANCY_PER_PAGE
-        hhOptions["text"] = options.searchText
-        hhOptions["page"] = options.page.toString()
-        if (options.area.isNotEmpty()) {
-            hhOptions["area"] = options.area
+    private fun getOptions(options: FilterOptions): Map<String, String> {
+        val hhOptions = buildMap<String, String>() {
+            put("per_page", VACANCY_PER_PAGE)
+            put("text", options.searchText)
+            put("page", options.page.toString())
+            if (options.area.isNotEmpty()) {
+                put("area", options.area)
+            }
+            if (options.currency.isEmpty()) {
+                put("currency", "RUR")
+            }
+            if (options.salary != null) {
+                put("currency", options.currency)
+            }
+            if (options.industry.isNotEmpty()) {
+                put("industry", options.industry)
+            }
+            put("only_with_salary", options.onlyWithSalary.toString())
         }
-        if (options.currency.isEmpty()) {
-            hhOptions["currency"] = "RUR"
-        }
-        if (options.salary != null) {
-            hhOptions["currency"] = options.currency
-        }
-        if (options.industry.isNotEmpty()) {
-            hhOptions["industry"] = options.industry
-        }
-        hhOptions["only_with_salary"] = options.onlyWithSalary.toString()
         return hhOptions
     }
 }

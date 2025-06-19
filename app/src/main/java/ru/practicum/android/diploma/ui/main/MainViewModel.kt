@@ -1,9 +1,8 @@
 package ru.practicum.android.diploma.ui.main
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.data.network.ApiResponse
@@ -15,9 +14,8 @@ import ru.practicum.android.diploma.ui.main.models.SearchContentStateVO
 import ru.practicum.android.diploma.util.debounce
 
 class MainViewModel(
-    application: Application,
     private val searchVacanciesRepository: SearchVacanciesRepository,
-) : AndroidViewModel(application) {
+) : ViewModel() {
     private val textLiveData = MutableLiveData("")
     val text: LiveData<String> = textLiveData
 

@@ -26,7 +26,7 @@ class FavoriteAdapter(private val clickListener: FavoriteClickListener) : Recycl
         return vacancies.size
     }
 
-    interface FavoriteClickListener {
+    fun interface FavoriteClickListener {
         fun onFavoriteClick(vacancy: VacancyDetails)
     }
 }

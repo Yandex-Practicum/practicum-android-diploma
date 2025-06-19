@@ -44,6 +44,5 @@ data class VacanciesEntity(
     @ColumnInfo(defaultValue = "") val address: String,
     val dateAdd: Date,
     val url: String?,
-    val employment: String?,
-    @ColumnInfo(name = "is_favorite", defaultValue = "0") val isFavorite: Boolean = false
+    val employment: String?
 )

@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.VacancyDetails
+import ru.practicum.android.diploma.util.getCurrSymbol
 import ru.practicum.android.diploma.util.pxToDp
 
 class FavoriteViewHolder private constructor(itemView: View) : ViewHolder(itemView) {
@@ -43,32 +44,26 @@ class FavoriteViewHolder private constructor(itemView: View) : ViewHolder(itemVi
 
         return when {
             formattedFrom != null && formattedTo != null ->
-                itemView.context.getString(R.string.salary_range, formattedFrom, formattedTo, getCurrSymbol(salaryCurr))
+                itemView.context.getString(
+                    R.string.salary_range,
+                    formattedFrom,
+                    formattedTo,
+                    getCurrSymbol(itemView.context, salaryCurr)
+                )
 
             formattedFrom != null ->
-                itemView.context.getString(R.string.salary_from, formattedFrom, getCurrSymbol(salaryCurr))
+                itemView.context.getString(
+                    R.string.salary_from,
+                    formattedFrom,
+                    getCurrSymbol(itemView.context, salaryCurr)
+                )
 
             else ->
-                itemView.context.getString(R.string.salary_to, formattedTo, getCurrSymbol(salaryCurr))
+                itemView.context.getString(
+                    R.string.salary_to,
+                    formattedTo,
+                    getCurrSymbol(itemView.context, salaryCurr)
+                )
         }
-    }
-
-    private fun getCurrSymbol(codeSymbol: String): String {
-        return with(itemView.context) {
-            when (codeSymbol.uppercase()) {
-                "RUB", "RUR" -> getString(R.string.currency_rub)
-                "BYR" -> getString(R.string.currency_byr)
-                "USD" -> getString(R.string.currency_usd)
-                "EUR" -> getString(R.string.currency_eur)
-                "KZT" -> getString(R.string.currency_kzt)
-                "UAH" -> getString(R.string.currency_uah)
-                "AZN" -> getString(R.string.currency_azn)
-                "UZS" -> getString(R.string.currency_uzs)
-                "GEL" -> getString(R.string.currency_gel)
-                "KGT" -> getString(R.string.currency_kgt)
-                else -> codeSymbol
-            }
-        }
-
     }
 }

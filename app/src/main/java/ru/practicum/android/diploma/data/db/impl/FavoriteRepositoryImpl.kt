@@ -7,18 +7,19 @@ import ru.practicum.android.diploma.data.db.dao.VacanciesDao
 import ru.practicum.android.diploma.data.db.entity.VacanciesEntity
 import ru.practicum.android.diploma.domain.db.FavoriteRepository
 import ru.practicum.android.diploma.domain.models.VacancyDetails
+import java.util.Date
 
 class FavoriteRepositoryImpl(
     val vacancyDao: VacanciesDao,
     val converter: VacanciesDbConverter
 ) : FavoriteRepository {
     override suspend fun addToFavorite(vacancy: VacancyDetails) {
-        val entity = converter.map(vacancy)
+        val entity = converter.map(vacancy, Date())
         vacancyDao.insertToFavorite(entity)
     }
 
     override suspend fun delFromFavorite(vacancy: VacancyDetails) {
-        val entity = converter.map(vacancy)
+        val entity = converter.map(vacancy, Date())
         vacancyDao.deleteFromFavorite(entity)
     }
 
