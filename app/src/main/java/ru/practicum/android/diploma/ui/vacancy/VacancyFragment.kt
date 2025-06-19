@@ -143,11 +143,9 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
             valueExp.text = vacancy.experience
             valueWorkFormat.text = vacancy.employment
             valueDescription.text = vacancy.description
-            if (vacancy.keySkills != null) {
-                valueSkills.text = vacancy.keySkills.joinToString("\n") { "• $it" }
-                headerSkills.isVisible = true
-                valueSkills.isVisible = true
-            }
+            valueSkills.text = vacancy.keySkills.joinToString("\n") { "• $it" }
+            headerSkills.isVisible = true
+            valueSkills.isVisible = true
 
             includedProgressBar.root.isVisible = false
             includedErr.root.isVisible = false
@@ -156,9 +154,10 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
     }
 
     private fun setFavoriteIcon(state: Boolean) {
-        when (state) {
-            true -> binding.toolbar.setFavoriteIcon(R.drawable.favorites_on__24px)
-            false -> binding.toolbar.setFavoriteIcon(R.drawable.favorites_off__24px)
+        if (state) {
+            binding.toolbar.setFavoriteIcon(R.drawable.favorites_on__24px)
+        } else {
+            binding.toolbar.setFavoriteIcon(R.drawable.favorites_off__24px)
         }
     }
 
