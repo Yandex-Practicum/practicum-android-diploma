@@ -57,10 +57,6 @@ class FavoriteFragment : BindingFragment<FragmentFavoriteBinding>() {
         viewModel.observeState().observe(viewLifecycleOwner) {
             render(it)
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
         viewModel.getFavoriteList()
     }
 
