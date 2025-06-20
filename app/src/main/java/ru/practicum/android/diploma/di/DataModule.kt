@@ -13,12 +13,14 @@ import ru.practicum.android.diploma.data.db.dao.VacanciesDao
 import ru.practicum.android.diploma.data.impl.TokenProviderImpl
 import ru.practicum.android.diploma.data.network.AuthInterceptor
 import ru.practicum.android.diploma.data.network.NetworkClient
+import ru.practicum.android.diploma.data.network.NetworkClientInterface
 import ru.practicum.android.diploma.data.network.TokenProvider
 import ru.practicum.android.diploma.data.vacancy.HhApi
 import ru.practicum.android.diploma.data.vacancy.SearchVacanciesNetworkDataSource
 import ru.practicum.android.diploma.data.vacancy.VacancyDetailsNetworkDataSource
 import ru.practicum.android.diploma.ui.vacancy.HtmlParser
 import ru.practicum.android.diploma.ui.vacancy.VacancyDetailsMapper
+import ru.practicum.android.diploma.util.API_BASE
 
 val dataModule = module {
     single {
@@ -34,7 +36,7 @@ val dataModule = module {
         VacanciesDbConverter()
     }
 
-    single {
+    single<NetworkClientInterface> {
         NetworkClient(androidContext(), get())
     }
 
@@ -60,7 +62,7 @@ val dataModule = module {
 
     single<Retrofit> {
         Retrofit.Builder()
-            .baseUrl("https://api.hh.ru")
+            .baseUrl(API_BASE)
             .client(get())
             .addConverterFactory(GsonConverterFactory.create())
             .build()

@@ -1,5 +1,5 @@
 package ru.practicum.android.diploma.data
 
 data class VacanciesSearchRequest(
-    val searchOptions: HashMap<String, String>
+    val searchOptions: Map<String, String>
 ) : Request

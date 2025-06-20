@@ -16,8 +16,8 @@ import ru.practicum.android.diploma.util.NetworkUtils
 class NetworkClient(
     private val context: Context,
     private val hhApi: HhApi,
-) {
-    suspend fun doRequest(dto: Any): Response {
+) : NetworkClientInterface {
+    override suspend fun doRequest(dto: Any): Response {
         if (!NetworkUtils.isConnected(context)) {
             return Response().apply { resultCode = HTTP_NO_CONNECTION }
         }

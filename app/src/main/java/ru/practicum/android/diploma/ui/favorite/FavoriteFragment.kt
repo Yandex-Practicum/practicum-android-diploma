@@ -68,7 +68,7 @@ class FavoriteFragment : BindingFragment<FragmentFavoriteBinding>() {
         (activity as RootActivity).setNavBarVisibility(false)
         findNavController().navigate(
             R.id.action_favoriteFragment_to_vacancyFragment,
-            VacancyFragment.createArgs(vacancy.id)
+            VacancyFragment.createArgs(vacancy.vacancy.id)
         )
     }
 
