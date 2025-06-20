@@ -4,17 +4,17 @@ import ru.practicum.android.diploma.domain.models.VacancyDetails
 
 class VacancyDetailsMapper(private val htmlParser: HtmlParser) {
     fun VacancyDetails.toVO(): VacancyDetailsVO = VacancyDetailsVO(
-        title = this.name,
-        salary = buildSalaryString(this.salaryFrom, this.salaryTo, this.salaryCurr),
+        title = this.vacancy.name,
+        salary = buildSalaryString(this.vacancy.salaryFrom, this.vacancy.salaryTo, this.vacancy.salaryCurr),
         experience = this.experience,
         employment = this.employment,
         schedule = this.schedule.toString(),
         description = htmlParser.fromHtml(this.description),
-        addressOrRegion = this.address.ifBlank { null } ?: this.areaName,
+        addressOrRegion = this.address.ifBlank { null } ?: this.vacancy.areaName,
         isFavorite = this.isFavorite,
         keySkills = this.keySkills,
-        logoUrl = this.employerUrls,
-        employerName = this.employerName,
+        logoUrl = this.vacancy.employerUrls,
+        employerName = this.vacancy.employerName,
         url = this.url
     )
 

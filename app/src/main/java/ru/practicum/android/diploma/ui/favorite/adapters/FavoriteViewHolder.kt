@@ -24,11 +24,11 @@ class FavoriteViewHolder private constructor(itemView: View) : ViewHolder(itemVi
     )
 
     fun bind(vacancy: VacancyDetails) {
-        nameVacancy.text = vacancy.name
-        nameEmployer.text = vacancy.employerName
-        salary.text = formatSalary(vacancy.salaryFrom, vacancy.salaryTo, vacancy.salaryCurr)
+        nameVacancy.text = vacancy.vacancy.name
+        nameEmployer.text = vacancy.vacancy.employerName
+        salary.text = formatSalary(vacancy.vacancy.salaryFrom, vacancy.vacancy.salaryTo, vacancy.vacancy.salaryCurr)
         Glide.with(itemView.context)
-            .load(vacancy.employerUrls)
+            .load(vacancy.vacancy.employerUrls)
             .placeholder(R.drawable.placeholder_32px)
             .transform(RoundedCorners(pxToDp(2f, itemView.context)))
             .into(imageEmployer)

@@ -1,20 +1,21 @@
 package ru.practicum.android.diploma.data.db.converters
 
 import ru.practicum.android.diploma.data.db.entity.VacanciesEntity
+import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.models.VacancyDetails
 import java.util.Date
 
 class VacanciesDbConverter {
     fun map(vacancy: VacancyDetails, dateAdd: Date): VacanciesEntity {
         return VacanciesEntity(
-            id = vacancy.id,
-            name = vacancy.name,
-            salaryFrom = vacancy.salaryFrom,
-            salaryTo = vacancy.salaryTo,
-            salaryCurr = vacancy.salaryCurr,
-            areaName = vacancy.areaName,
-            employerName = vacancy.employerName,
-            employerLogoUrl = vacancy.employerUrls,
+            id = vacancy.vacancy.id,
+            name = vacancy.vacancy.name,
+            salaryFrom = vacancy.vacancy.salaryFrom,
+            salaryTo = vacancy.vacancy.salaryTo,
+            salaryCurr = vacancy.vacancy.salaryCurr,
+            areaName = vacancy.vacancy.areaName,
+            employerName = vacancy.vacancy.employerName,
+            employerLogoUrl = vacancy.vacancy.employerUrls,
             keySkills = vacancy.keySkills,
             employmentForm = vacancy.employmentForm,
             professionalRoles = vacancy.professionalRoles,
@@ -30,14 +31,16 @@ class VacanciesDbConverter {
 
     fun map(vacanciesEntity: VacanciesEntity): VacancyDetails {
         return VacancyDetails(
-            id = vacanciesEntity.id,
-            name = vacanciesEntity.name,
-            areaName = vacanciesEntity.areaName,
-            employerName = vacanciesEntity.employerName ?: "",
-            employerUrls = vacanciesEntity.employerLogoUrl,
-            salaryFrom = vacanciesEntity.salaryFrom,
-            salaryTo = vacanciesEntity.salaryTo,
-            salaryCurr = vacanciesEntity.salaryCurr,
+            vacancy = Vacancy(
+                id = vacanciesEntity.id,
+                name = vacanciesEntity.name,
+                areaName = vacanciesEntity.areaName,
+                employerName = vacanciesEntity.employerName ?: "",
+                employerUrls = vacanciesEntity.employerLogoUrl,
+                salaryFrom = vacanciesEntity.salaryFrom,
+                salaryTo = vacanciesEntity.salaryTo,
+                salaryCurr = vacanciesEntity.salaryCurr,
+            ),
             keySkills = vacanciesEntity.keySkills,
             employmentForm = vacanciesEntity.employmentForm,
             professionalRoles = vacanciesEntity.professionalRoles,

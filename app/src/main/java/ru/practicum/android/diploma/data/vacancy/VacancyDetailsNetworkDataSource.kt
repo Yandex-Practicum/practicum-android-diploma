@@ -5,6 +5,7 @@ import ru.practicum.android.diploma.data.db.dao.VacanciesDao
 import ru.practicum.android.diploma.data.network.ApiResponse
 import ru.practicum.android.diploma.data.network.NetworkClientInterface
 import ru.practicum.android.diploma.data.vacancy.models.VacancyDetailsDto
+import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.models.VacancyDetails
 import ru.practicum.android.diploma.util.HTTP_200_OK
 import ru.practicum.android.diploma.util.HTTP_400_BAD_REQUEST
@@ -35,18 +36,20 @@ class VacancyDetailsNetworkDataSource(
     private suspend fun formatDetails(dto: VacancyDetailsDto): VacancyDetails {
         val isFavorite = appDataDao.getFavoriteVacancieById(dto.id) != null
         return VacancyDetails(
-            id = dto.id,
-            name = dto.name,
-            employerName = dto.employer?.name ?: "",
-            employerUrls = dto.employer?.logoUrls?.size90,
-            salaryFrom = dto.salary?.from,
-            salaryTo = dto.salary?.to,
-            salaryCurr = dto.salary?.currency ?: "RUR",
+            vacancy = Vacancy(
+                id = dto.id,
+                name = dto.name,
+                areaName = dto.area.name,
+                employerName = dto.employer?.name ?: "",
+                employerUrls = dto.employer?.logoUrls?.size90,
+                salaryFrom = dto.salary?.from,
+                salaryTo = dto.salary?.to,
+                salaryCurr = dto.salary?.currency ?: "RUR",
+            ),
             experience = dto.experience.name,
             employmentForm = dto.employmentForm?.name ?: "",
             description = dto.description,
             keySkills = dto.keySkills.map { it.name },
-            areaName = dto.area.name,
             schedule = dto.schedule?.map { it.name } ?: emptyList(),
             professionalRoles = dto.professionalRoles.map { it.name },
             address = dto.address?.city ?: "",
