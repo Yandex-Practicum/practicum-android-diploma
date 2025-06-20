@@ -12,7 +12,6 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
@@ -22,7 +21,6 @@ import ru.practicum.android.diploma.databinding.FragmentMainBinding
 import ru.practicum.android.diploma.domain.vacancy.models.Vacancy
 import ru.practicum.android.diploma.ui.main.adapters.SearchResultsAdapter
 import ru.practicum.android.diploma.ui.main.models.SearchContentStateVO
-import ru.practicum.android.diploma.ui.main.utils.VacancyCallback
 import ru.practicum.android.diploma.ui.root.BindingFragment
 import ru.practicum.android.diploma.ui.root.RootActivity
 import ru.practicum.android.diploma.ui.vacancy.VacancyFragment
@@ -184,12 +182,17 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
         binding.searchBaseState.isVisible = false
         binding.noInternetError.isVisible = false
         binding.unknownError.isVisible = false
-        binding.searchResults.isVisible = true
+        binding.searchResults.isVisible = !firstSearch
         binding.progress.isVisible = firstSearch
         binding.progressPages.isVisible = !firstSearch
     }
 
     private fun showSearchResults(newVacancies: List<Vacancy>, found: Int) {
+        vacanciesAdapter?.submitList(newVacancies) {
+            // Будет вызван после завершения диффа и обновления UI
+            binding.searchResults.isVisible = found > 0
+        }
+
         binding.searchBaseState.isVisible = false
         binding.progress.isVisible = false
         binding.progressPages.isVisible = false
@@ -197,20 +200,11 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
         binding.unknownError.isVisible = false
         binding.vacanciesCount.isVisible = true
 
-        vacanciesAdapter?.let {
-            val diffVacanciesCallback = VacancyCallback(it.vacancies, newVacancies)
-            val diffVacancies = DiffUtil.calculateDiff(diffVacanciesCallback)
-            it.vacancies.clear()
-            it.vacancies.addAll(newVacancies)
-            diffVacancies.dispatchUpdatesTo(it)
-        }
-
         binding.vacanciesCount.text = resources.getQuantityString(
             R.plurals.vacancies_found,
             found,
             found,
         )
-        binding.searchResults.isVisible = found > 0
     }
 
     private fun showErrorState(isNoInternetError: Boolean) {
