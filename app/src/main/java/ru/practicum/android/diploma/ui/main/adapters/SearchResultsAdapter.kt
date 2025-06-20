@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -13,21 +15,27 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.vacancy.models.Vacancy
 import ru.practicum.android.diploma.ui.common.dpToPx
 
+class VacancyDiffCallback : DiffUtil.ItemCallback<Vacancy>() {
+    override fun areItemsTheSame(oldItem: Vacancy, newItem: Vacancy): Boolean {
+        // Например, по ID
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: Vacancy, newItem: Vacancy): Boolean {
+        return oldItem == newItem
+    }
+}
+
 class SearchResultsAdapter(
-    private val clickListener: VacancyClickListener,
-) : RecyclerView.Adapter<SearchResultsAdapter.SearchResultsItemViewHolder>() {
-    val vacancies: MutableList<Vacancy> = mutableListOf()
+    private val clickListener: VacancyClickListener
+) : ListAdapter<Vacancy, SearchResultsAdapter.SearchResultsItemViewHolder>(VacancyDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchResultsItemViewHolder {
         return SearchResultsItemViewHolder(parent)
     }
 
     override fun onBindViewHolder(holder: SearchResultsItemViewHolder, position: Int) {
-        holder.bind(vacancies[position])
-    }
-
-    override fun getItemCount(): Int {
-        return vacancies.size
+        holder.bind(getItem(position))
     }
 
     inner class SearchResultsItemViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -36,9 +44,7 @@ class SearchResultsAdapter(
         private val salary: TextView = itemView.findViewById(R.id.salary)
         private val artwork: ImageView = itemView.findViewById(R.id.artwork)
 
-        constructor(
-            parent: ViewGroup
-        ) : this(
+        constructor(parent: ViewGroup) : this(
             LayoutInflater.from(parent.context).inflate(R.layout.vacancy_view, parent, false)
         )
 
