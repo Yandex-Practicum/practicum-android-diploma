@@ -109,7 +109,7 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
 
     private fun showLoading() {
         binding.contentView.isVisible = false
-        binding.includedProgressBar.porgressBar.isVisible = true
+        binding.includedProgressBar.progressBar.isVisible = true
         binding.includedErr.root.isVisible = false
     }
 
