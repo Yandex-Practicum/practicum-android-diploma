@@ -12,7 +12,7 @@ class IndustriesInteractorImpl(
 ) : IndustriesInteractor {
     override fun getIndustries(): Flow<Pair<List<Industries>?, Int?>> {
         return repository.getIndustries().map { result ->
-            when(result) {
+            when (result) {
                 is Resource.Success -> Pair(result.data, null)
                 is Resource.Error -> Pair(null, result.error)
             }
