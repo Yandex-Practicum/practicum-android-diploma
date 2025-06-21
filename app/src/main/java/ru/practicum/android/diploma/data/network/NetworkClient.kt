@@ -1,12 +1,14 @@
 package ru.practicum.android.diploma.data.network
 
 import android.content.Context
+import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.data.Response
 import ru.practicum.android.diploma.data.VacanciesSearchRequest
 import ru.practicum.android.diploma.data.VacancyDetailRequest
 import ru.practicum.android.diploma.data.filters.IndustriesRequest
+import ru.practicum.android.diploma.data.filters.IndustriesResponse
 import ru.practicum.android.diploma.data.vacancy.HhApi
 import ru.practicum.android.diploma.util.HTTP_200_OK
 import ru.practicum.android.diploma.util.HTTP_400_BAD_REQUEST
@@ -51,8 +53,10 @@ class NetworkClient(
     }
 
     private suspend fun responseIndustries(): Response {
-        val response = hhApi.getIndustries()
-        response.apply { resultCode = HTTP_200_OK }
-        return response
+        val responselist = hhApi.getIndustries()
+        Log.d("HH_TEST", "Response: ")
+        return IndustriesResponse(
+            industries = responselist
+        ).apply { resultCode = HTTP_200_OK }
     }
 }
