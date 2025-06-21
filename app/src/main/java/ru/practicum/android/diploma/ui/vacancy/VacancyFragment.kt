@@ -23,6 +23,7 @@ import ru.practicum.android.diploma.ui.root.RootActivity
 class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
     private val viewModel by viewModel<VacancyViewModel>()
     private var vacancyId: String = ""
+    private var vacancyIsFavorite: Boolean = false
     private var currentVacancy: VacancyDetailsVO? = null
 
     override fun createBinding(
@@ -36,6 +37,8 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         vacancyId = requireArguments().getString(ARGS_ID) ?: ""
+        vacancyIsFavorite = requireArguments().getBoolean(ARGS_FAVORITE)
+
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -51,7 +54,7 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             closeFragment(true)
         }
-        viewModel.loadVacancyDetails(vacancyId)
+        viewModel.loadVacancyDetails(vacancyId, vacancyIsFavorite)
     }
 
     private fun initPlaceholder() {
@@ -162,7 +165,11 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
 
     companion object {
         private const val ARGS_ID = "vacancy_id"
+        private const val ARGS_FAVORITE = "is_favorite"
 
-        fun createArgs(vacancyId: String): Bundle = bundleOf(ARGS_ID to vacancyId)
+        fun createArgs(vacancyId: String, favorite: Boolean): Bundle = bundleOf(
+            ARGS_ID to vacancyId,
+            ARGS_FAVORITE to favorite
+        )
     }
 }

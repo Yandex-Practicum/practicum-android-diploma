@@ -21,9 +21,12 @@ class VacancyViewModel(
     private val _vacancyState = MutableStateFlow<VacancyContentStateVO>(VacancyContentStateVO.Base)
     val vacancyState: StateFlow<VacancyContentStateVO> = _vacancyState.asStateFlow()
 
-    fun loadVacancyDetails(id: String) {
+    fun loadVacancyDetails(id: String, isFavorite: Boolean) {
         _vacancyState.value = VacancyContentStateVO.Loading
-
+        if (isFavorite) {
+            loadingFromFavorite(id)
+            return
+        }
         viewModelScope.launch {
             when (val result = repository.getVacancyDetails(id)) {
                 is ApiResponse.Success -> {
@@ -55,6 +58,23 @@ class VacancyViewModel(
                 }
                 _vacancyState.value = VacancyContentStateVO.SetFavorite(!it.isFavorite)
             }
+        }
+    }
+
+    private fun loadingFromFavorite(id: String) {
+        viewModelScope.launch {
+            favoriteInteractor.getFavoriteById(id).collect { vacancy ->
+                processResult(vacancy)
+            }
+        }
+    }
+
+    private fun processResult(vacancy: VacancyDetails?) {
+        if (vacancy != null) {
+            val vo = mapper.run { vacancy.toVO() }
+            _vacancyState.value = VacancyContentStateVO.Success(vo)
+        } else {
+            _vacancyState.value = VacancyContentStateVO.Error
         }
     }
 }
