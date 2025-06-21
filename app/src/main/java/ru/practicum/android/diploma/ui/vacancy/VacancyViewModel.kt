@@ -53,7 +53,7 @@ class VacancyViewModel(
                 } else {
                     favoriteInteractor.addToFavorite(it)
                 }
-                _vacancyState.value = VacancyContentStateVO.Refresh
+                _vacancyState.value = VacancyContentStateVO.SetFavorite(!it.isFavorite)
             }
         }
     }
