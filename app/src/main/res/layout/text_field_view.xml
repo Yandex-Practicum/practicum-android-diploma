@@ -1,0 +1,27 @@
+<!-- res/layout/view_search.xml -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/search_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/margin16"
+        android:background="@drawable/rounded_edittext"
+        android:backgroundTint="?attr/colorSecondary"
+        android:drawablePadding="@dimen/margin16"
+        android:drawableTint="@color/black"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:maxLines="1"
+        android:padding="@dimen/margin16"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textColorHint="?attr/colorOnSecondary"
+        android:textCursorDrawable="@drawable/edit_text_cursor"
+        android:drawableEnd="@drawable/search_24px"
+        android:textSize="@dimen/text_size_m" />
+</FrameLayout>

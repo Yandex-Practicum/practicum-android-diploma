@@ -31,6 +31,7 @@
 
     <string name="enter_request">Enter a query</string>
     <string name="cant_get_vacations_list">Failed to retrieve the list of vacancies</string>
+    <string name="no_industry">There is no such industry</string>
 
     <!-- Templates for displaying salary -->
     <string name="salary_from">From %1$s %2$s</string>
@@ -72,4 +73,5 @@
     </plurals>
 
     <string name="dont_show_without_salary">Do not show without salary</string>
+    <string name="enter_industry">Enter industry</string>
 </resources>

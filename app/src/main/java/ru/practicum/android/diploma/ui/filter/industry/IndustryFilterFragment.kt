@@ -25,18 +25,8 @@ class IndustryFilterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initUiToolbar()
-
         // системная кн назад
         handleBackPress()
-    }
-
-    private fun initUiToolbar() {
-        // настройка кастомного топбара
-        val toolbar = binding.toolbar
-        toolbar.setupToolbarForFilterScreen()
-        toolbar.setToolbarTitle(getString(R.string.area))
-        toolbar.setupToolbarBackButton(this)
     }
 
     override fun onDestroyView() {
