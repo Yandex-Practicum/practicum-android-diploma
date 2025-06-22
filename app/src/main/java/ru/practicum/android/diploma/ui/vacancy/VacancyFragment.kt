@@ -163,6 +163,8 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
     companion object {
         private const val ARGS_ID = "vacancy_id"
 
-        fun createArgs(vacancyId: String): Bundle = bundleOf(ARGS_ID to vacancyId)
+        fun createArgs(vacancyId: String): Bundle = bundleOf(
+            ARGS_ID to vacancyId
+        )
     }
 }
