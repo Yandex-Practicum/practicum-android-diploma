@@ -106,32 +106,26 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
 
     private fun initListenersSalary() {
         binding.includedSalary.apply {
-            textFieldEdit.apply {
-                setOnEditorActionListener { v, actionId, _ ->
-                    if (actionId == EditorInfo.IME_ACTION_DONE) {
-                        v.clearFocus()
-                        val imm = v.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                        imm.hideSoftInputFromWindow(v.windowToken, 0)
-                        true
-                    } else {
-                        false
-                    }
+            textFieldEdit.setOnEditorActionListener { v, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    v.clearFocus()
+                    val imm = v.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow(v.windowToken, 0)
+                    true
+                } else {
+                    false
                 }
+            }
 
-                setOnFocusChangeListener { _, hasFocus ->
-                    if (hasFocus) {
-                        textFieldHeader.apply {
-                            text = requireContext().getString(R.string.expected_salary)
-                            setTextColor(requireContext().getColor(R.color.blue))
-                        }
-                    } else {
-                        textFieldHeader.apply {
-                            if (textFieldEdit.text.isEmpty()) {
-                                text = ""
-                            }
-                            setTextColor(requireContext().getColor(R.color.black))
-                        }
+            textFieldEdit.setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    textFieldHeader.text = requireContext().getString(R.string.expected_salary)
+                    textFieldHeader.setTextColor(requireContext().getColor(R.color.blue))
+                } else {
+                    if (textFieldEdit.text.isEmpty()) {
+                        textFieldHeader.text = ""
                     }
+                    textFieldHeader.setTextColor(requireContext().getColor(R.color.black))
                 }
             }
 
