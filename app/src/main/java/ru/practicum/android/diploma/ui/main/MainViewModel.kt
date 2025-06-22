@@ -94,42 +94,46 @@ class MainViewModel(
 
     private fun search(options: FilterOptions) {
         viewModelScope.launch {
-            val searchResponse = searchVacanciesRepository.search(options)
-
-            if (searchResponse is ApiResponse.Error && options.page != 0) {
-                if (searchResponse.statusCode == -1) {
-                    showNoInternetToast.postValue(Unit)
-                } else {
-                    showErrorToast.postValue(Unit)
-                }
-
-                return@launch
-            }
-
-            contentStateLiveData.postValue(
-                when (searchResponse) {
-                    is ApiResponse.Success -> {
-                        if (page == 0) {
-                            vacanciesList.clear()
-                            pages = searchResponse.pages
-                            page = searchResponse.page
-                        }
-                        searchResponse.data?.let {
-                            vacanciesList.addAll(it)
-                            if (vacanciesList.isEmpty()) {
-                                SearchContentStateVO.Error(false)
-                            } else {
-                                SearchContentStateVO.Success(vacanciesList, searchResponse.found)
-                            }
-                        }
-                    }
-
-                    is ApiResponse.Error ->
-                        SearchContentStateVO.Error(noInternet = searchResponse.statusCode == -1)
-                }
-            )
+            handleSearch(options)
         }
     }
+
+    private suspend fun handleSearch(options: FilterOptions) {
+        val searchResponse = searchVacanciesRepository.search(options)
+
+        if (searchResponse is ApiResponse.Error && options.page != 0) {
+            if (searchResponse.statusCode == -1) {
+                showNoInternetToast.postValue(Unit)
+            } else {
+                showErrorToast.postValue(Unit)
+            }
+            return
+        }
+
+        contentStateLiveData.postValue(
+            when (searchResponse) {
+                is ApiResponse.Success -> {
+                    if (page == 0) {
+                        vacanciesList.clear()
+                        pages = searchResponse.pages
+                        page = searchResponse.page
+                    }
+                    searchResponse.data?.let {
+                        vacanciesList.addAll(it)
+                        if (vacanciesList.isEmpty()) {
+                            SearchContentStateVO.Error(false)
+                        } else {
+                            SearchContentStateVO.Success(vacanciesList, searchResponse.found)
+                        }
+                    }
+                }
+
+                is ApiResponse.Error ->
+                    SearchContentStateVO.Error(noInternet = searchResponse.statusCode == -1)
+            }
+        )
+    }
+
 
     companion object {
         private const val SEARCH_DEBOUNCE_DELAY_MS = 2000L
