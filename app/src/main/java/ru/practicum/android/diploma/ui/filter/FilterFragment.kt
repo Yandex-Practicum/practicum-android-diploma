@@ -24,7 +24,10 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
         initUiToolbar()
         // системная кн назад
         handleBackPress()
+
         viewModel.getAreas()
+
+        viewModel.getIndustries()
     }
 
     private fun initUiToolbar() {

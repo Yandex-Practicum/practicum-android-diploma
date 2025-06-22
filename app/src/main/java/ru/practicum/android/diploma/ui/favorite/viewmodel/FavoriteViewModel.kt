@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.ui.favorite.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -24,7 +23,6 @@ class FavoriteViewModel(
         viewModelScope.launch {
             favoriteInteractor.getFavorites()
                 .collect { list ->
-                    Log.d("HH_TEST", "List: $list")
                     favoriteList.addAll(list)
                 }
             if (favoriteList.isEmpty()) {

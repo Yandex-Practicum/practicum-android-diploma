@@ -51,7 +51,6 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             closeFragment(true)
         }
-
         viewModel.loadVacancyDetails(vacancyId)
     }
 
@@ -99,7 +98,7 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
             is VacancyContentStateVO.Loading -> showLoading()
             is VacancyContentStateVO.Error -> showError()
             is VacancyContentStateVO.Success -> showVacancyDetails(state.vacancy)
-            is VacancyContentStateVO.Refresh -> viewModel.loadVacancyDetails(vacancyId)
+            is VacancyContentStateVO.SetFavorite -> setFavoriteIcon(state.isFavorite)
         }
     }
 
@@ -109,7 +108,7 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
 
     private fun showLoading() {
         binding.contentView.isVisible = false
-        binding.includedProgressBar.porgressBar.isVisible = true
+        binding.includedProgressBar.progressBar.isVisible = true
         binding.includedErr.root.isVisible = false
     }
 
