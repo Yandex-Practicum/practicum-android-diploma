@@ -51,7 +51,7 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
                 (activity as RootActivity).setNavBarVisibility(false)
                 findNavController().navigate(
                     R.id.action_mainFragment_to_vacancyFragment,
-                    VacancyFragment.createArgs(vacancy.id, false)
+                    VacancyFragment.createArgs(vacancy.id)
                 )
             },
         )
