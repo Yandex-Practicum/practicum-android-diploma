@@ -74,4 +74,7 @@
 
     <string name="dont_show_without_salary">Do not show without salary</string>
     <string name="enter_industry">Enter industry</string>
+
+    <string name="toast_no_internet">Check internet connection</string>
+    <string name="toast_api_error">An error has occurred</string>
 </resources>

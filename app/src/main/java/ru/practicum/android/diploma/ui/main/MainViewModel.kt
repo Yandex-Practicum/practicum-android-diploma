@@ -30,6 +30,12 @@ class MainViewModel(
         MutableLiveData<SearchContentStateVO>(SearchContentStateVO.Base)
     val contentState: LiveData<SearchContentStateVO> = contentStateLiveData
 
+    private val showErrorToast = SingleLiveEvent<Unit>()
+    fun observeShowErrorToast(): LiveData<Unit> = showErrorToast
+
+    private val showNoInternetToast = SingleLiveEvent<Unit>()
+    fun observeShowNoInternetToast(): LiveData<Unit> = showNoInternetToast
+
     fun onTextChange(value: String) {
         textLiveData.postValue(value)
 
@@ -89,6 +95,16 @@ class MainViewModel(
     private fun search(options: FilterOptions) {
         viewModelScope.launch {
             val searchResponse = searchVacanciesRepository.search(options)
+
+            if (searchResponse is ApiResponse.Error && options.page != 0) {
+                if (searchResponse.statusCode == -1) {
+                    showNoInternetToast.postValue(Unit)
+                } else {
+                    showErrorToast.postValue(Unit)
+                }
+
+                return@launch
+            }
 
             contentStateLiveData.postValue(
                 when (searchResponse) {
