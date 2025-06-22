@@ -37,7 +37,6 @@ class VacancyFragment : BindingFragment<FragmentVacancyBinding>() {
 
         vacancyId = requireArguments().getString(ARGS_ID) ?: ""
 
-
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.vacancyState.collect { state ->
