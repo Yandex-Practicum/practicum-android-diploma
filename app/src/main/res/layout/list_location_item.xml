@@ -17,7 +17,7 @@
         android:maxLines="1"
         android:paddingVertical="@dimen/margin15"
         tools:text="Text"
-        android:textColor="?attr/colorOnPrimary"
+        android:textColor="@color/gray"
         android:paddingHorizontal="@dimen/margin16"
         app:drawableEndCompat="@drawable/arrow_forward_24px"/>
 </LinearLayout>

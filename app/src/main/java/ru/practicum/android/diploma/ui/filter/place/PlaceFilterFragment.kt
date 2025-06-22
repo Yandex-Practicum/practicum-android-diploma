@@ -4,43 +4,33 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.databinding.FragmentIndustryFilterBinding
 import ru.practicum.android.diploma.databinding.FragmentPlaceFilterBinding
+import ru.practicum.android.diploma.ui.root.BindingFragment
 import ru.practicum.android.diploma.util.handleBackPress
 
-class PlaceFilterFragment : Fragment() {
-    private var _binding: FragmentPlaceFilterBinding? = null
-    private val binding get() = _binding!!
+class PlaceFilterFragment : BindingFragment<FragmentPlaceFilterBinding>() {
 
-    override fun onCreateView(
+    override fun createBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentPlaceFilterBinding.inflate(inflater, container, false)
-        return binding.root
+        container: ViewGroup?
+    ): FragmentPlaceFilterBinding {
+        return FragmentPlaceFilterBinding.inflate(inflater,container,false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initUiToolbar()
-
         // системная кн назад
         handleBackPress()
-    }
 
-    private fun initUiToolbar() {
-        // настройка кастомного топбара
-        val toolbar = binding.toolbar
-        toolbar.setupToolbarForFilterScreen()
-        toolbar.setToolbarTitle(getString(R.string.place_of_work))
-        toolbar.setupToolbarBackButton(this)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+        //настройка текста для include items
+        binding.countryItem.listLocationItem.text = getString(R.string.country_text)
+        binding.regionItem.listLocationItem.text = getString(R.string.region_text)
+        binding.selectedCountry.selectedItem.findViewById<TextView>(R.id.name_of_selected).text = getString(R.string.country_text)
+        binding.selectedRegion.selectedItem.findViewById<TextView>(R.id.name_of_selected).text = getString(R.string.region_text)
     }
 }

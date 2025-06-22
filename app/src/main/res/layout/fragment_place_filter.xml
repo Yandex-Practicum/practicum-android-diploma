@@ -1,20 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.filter.place.PlaceFilterFragment">
 
-    <ru.practicum.android.diploma.ui.components.CustomToolbar
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/left_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/margin16" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/right_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/margin16" />
+
+    <!-- заменить на тулбар -->
+    <View
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin56"
+
+        app:layout_constraintBottom_toTopOf="@id/country_item"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- items для еще не выбранных пунктов -->
+    <include
+        android:id="@+id/country_item"
+        layout="@layout/list_location_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/toolbar"/>
+        android:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@id/empty_view"
+        />
 
-    <TextView
+    <include
+        android:id="@+id/region_item"
+        layout="@layout/list_location_item"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="PlaceFilter"
-        android:gravity="center"
-        android:textSize="60sp"/>
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@id/country_item"/>
 
-</FrameLayout>
+    <!-- items для уже выбранных пунктов-->
+    <include
+        android:id="@+id/selected_country"
+        layout="@layout/selected_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@id/empty_view"
+        />
+
+    <include
+        android:id="@+id/selected_region"
+        layout="@layout/selected_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@id/selected_country"/>
+
+    <include
+        android:id="@+id/button_action_industry"
+        layout="@layout/button_action"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin24"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/right_guideline"
+        app:layout_constraintStart_toStartOf="@id/left_guideline" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
