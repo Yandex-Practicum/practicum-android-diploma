@@ -4,30 +4,30 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterBinding
+import ru.practicum.android.diploma.ui.root.BindingFragment
 import ru.practicum.android.diploma.util.handleBackPress
 
-class FilterFragment : Fragment() {
-    private var _binding: FragmentFilterBinding? = null
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
+class FilterFragment : BindingFragment<FragmentFilterBinding>() {
+    private val viewModel: FilterViewModel by viewModel()
+    override fun createBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentFilterBinding.inflate(inflater, container, false)
-        return binding.root
+        container: ViewGroup?
+    ): FragmentFilterBinding {
+        return FragmentFilterBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initUiToolbar()
         // системная кн назад
         handleBackPress()
+
+        viewModel.getAreas()
+
+        viewModel.getIndustries()
     }
 
     private fun initUiToolbar() {
@@ -36,10 +36,5 @@ class FilterFragment : Fragment() {
         toolbar.setupToolbarForFilterScreen()
         toolbar.setToolbarTitle(getString(R.string.filter_settings))
         toolbar.setupToolbarBackButton(this)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

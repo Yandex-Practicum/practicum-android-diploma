@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentIndustryFilterBinding
 import ru.practicum.android.diploma.util.handleBackPress
 
@@ -25,18 +24,8 @@ class IndustryFilterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initUiToolbar()
-
         // системная кн назад
         handleBackPress()
-    }
-
-    private fun initUiToolbar() {
-        // настройка кастомного топбара
-        val toolbar = binding.toolbar
-        toolbar.setupToolbarForFilterScreen()
-        toolbar.setToolbarTitle(getString(R.string.area))
-        toolbar.setupToolbarBackButton(this)
     }
 
     override fun onDestroyView() {
