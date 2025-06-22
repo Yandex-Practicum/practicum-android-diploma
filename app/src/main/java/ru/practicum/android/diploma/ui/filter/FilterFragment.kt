@@ -2,8 +2,6 @@ package ru.practicum.android.diploma.ui.filter
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +9,6 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
-import androidx.transition.Visibility
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterBinding
@@ -159,7 +156,6 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
     }
 
     private fun showContent(filters: SelectedFilters) {
-
         fillPlace(filters.place)
         fillIndustry(filters.industry)
         fillSalary(filters.salary)
@@ -234,7 +230,7 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
         )
     }
 
-    private fun setButtonsVisibility(visibility: Boolean){
+    private fun setButtonsVisibility(visibility: Boolean) {
         binding.includedBtnSet.root.isVisible = visibility
         binding.includedBtnCancel.root.isVisible = visibility
     }

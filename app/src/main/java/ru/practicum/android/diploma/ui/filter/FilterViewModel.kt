@@ -24,7 +24,7 @@ class FilterViewModel(
 
     var testModel = SelectedFilters("Россия, Москва", "IT", 999999, true)
 
-    fun getFilters(){
+    fun getFilters() {
         // Тут мы достаем сохраненные в SP фильры
         state.postValue(FilterScreenState.CONTENT(testModel))
     }
