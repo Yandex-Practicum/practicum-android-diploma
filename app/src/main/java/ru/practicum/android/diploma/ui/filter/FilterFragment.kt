@@ -21,10 +21,12 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initUiToolbar()
         // системная кн назад
         handleBackPress()
+
+        viewModel.getAreas()
+
         viewModel.getIndustries()
     }
 
