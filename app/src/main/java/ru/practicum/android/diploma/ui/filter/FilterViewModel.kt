@@ -11,15 +11,15 @@ import ru.practicum.android.diploma.domain.models.Industries
 import ru.practicum.android.diploma.util.HH_LOG
 
 class FilterViewModel(
-    private val interactor: AreasInteractor,
-    private val interactor: IndustriesInteractor
+    private val interactorAreas: AreasInteractor,
+    private val interactorIndustries: IndustriesInteractor
 ) : ViewModel() {
   
     // Это тестовый запрос
     fun getAreas() {
         viewModelScope.launch {
-            interactor.getAreas().collect { pair ->
-                processResult(pair.first, pair.second)
+            interactorAreas.getAreas().collect { pair ->
+                processAreasResult(pair.first, pair.second)
             }
         }
     }
@@ -27,15 +27,15 @@ class FilterViewModel(
     // Это тестовый запрос
     fun getIndustries() {
         viewModelScope.launch {
-            interactor.getIndustries().collect { pair ->
+            interactorIndustries.getIndustries().collect { pair ->
 
-                processResult(pair.first, pair.second)
+                processIndustriesResult(pair.first, pair.second)
             }
         }
     }
     
     // Обработка ответа
-    private fun processResult(areas: List<Areas>?, error: Int?) {
+    private fun processAreasResult(areas: List<Areas>?, error: Int?) {
         if (areas != null) {
             printAreas(areas)
         }
@@ -45,7 +45,7 @@ class FilterViewModel(
     }
     
     // Это тестовый вывод в лог!
-    private fun processResult(industries: List<Industries>?, error: Int?) {
+    private fun processIndustriesResult(industries: List<Industries>?, error: Int?) {
         if (industries != null) {
             Log.d(HH_LOG, "Industries count: ${industries.size}")
             for (indus in industries) {
