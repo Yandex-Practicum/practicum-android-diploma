@@ -16,7 +16,7 @@ class CountryFilterFragment : BindingFragment<FragmentCountryFilterBinding>() {
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentCountryFilterBinding {
-        return FragmentCountryFilterBinding.inflate(inflater,container,false)
+        return FragmentCountryFilterBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

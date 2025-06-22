@@ -16,13 +16,13 @@ class RegionFilterFragment : BindingFragment<FragmentRegionFilterBinding>() {
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentRegionFilterBinding {
-        return FragmentRegionFilterBinding.inflate(inflater,container,false)
+        return FragmentRegionFilterBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //подсказка Введите регион
+        // подсказка Введите регион
         binding.regionSearch.searchEditText.hint = getString(R.string.enter_region)
 
         // системная кн назад

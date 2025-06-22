@@ -15,13 +15,13 @@ class IndustryFilterFragment : BindingFragment<FragmentIndustryFilterBinding>() 
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentIndustryFilterBinding {
-        return FragmentIndustryFilterBinding.inflate(inflater,container,false)
+        return FragmentIndustryFilterBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //подсказка Введите отрасль
+        // подсказка Введите отрасль
         binding.industrySearch.searchEditText.hint = getString(R.string.enter_industry)
 
         // системная кн назад
