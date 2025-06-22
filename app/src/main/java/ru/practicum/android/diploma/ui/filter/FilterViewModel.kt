@@ -14,7 +14,7 @@ class FilterViewModel(
     private val interactorAreas: AreasInteractor,
     private val interactorIndustries: IndustriesInteractor
 ) : ViewModel() {
-  
+
     // Это тестовый запрос
     fun getAreas() {
         viewModelScope.launch {
@@ -23,7 +23,7 @@ class FilterViewModel(
             }
         }
     }
-    
+
     // Это тестовый запрос
     fun getIndustries() {
         viewModelScope.launch {
@@ -33,7 +33,7 @@ class FilterViewModel(
             }
         }
     }
-    
+
     // Обработка ответа
     private fun processAreasResult(areas: List<Areas>?, error: Int?) {
         if (areas != null) {
@@ -43,7 +43,7 @@ class FilterViewModel(
             Log.d(HH_LOG, "Error: $error")
         }
     }
-    
+
     // Это тестовый вывод в лог!
     private fun processIndustriesResult(industries: List<Industries>?, error: Int?) {
         if (industries != null) {

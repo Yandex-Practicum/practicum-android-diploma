@@ -62,7 +62,7 @@ class NetworkClient(
             resultCode = HTTP_200_OK
         }
     }
-    
+
     private suspend fun responseIndustries(): Response {
         val responselist = hhApi.getIndustries()
         Log.d("HH_TEST", "Response: ")

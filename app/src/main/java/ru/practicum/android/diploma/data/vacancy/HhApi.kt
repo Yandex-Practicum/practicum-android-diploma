@@ -17,7 +17,7 @@ interface HhApi {
 
     @GET("areas")
     suspend fun getAreas(): List<AreasDto>
-  
+
     @GET("industries")
     suspend fun getIndustries(): List<IndustriesDto>
 }
