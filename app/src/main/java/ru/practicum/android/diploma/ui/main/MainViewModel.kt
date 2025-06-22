@@ -134,7 +134,6 @@ class MainViewModel(
         )
     }
 
-
     companion object {
         private const val SEARCH_DEBOUNCE_DELAY_MS = 2000L
         private const val NEXT_DEBOUNCE_DELAY_MS = 300L
