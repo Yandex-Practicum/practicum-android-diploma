@@ -76,6 +76,10 @@
 
     <string name="dont_show_without_salary">Не показывать без зарплаты</string>
     <string name="enter_industry">Введите отрасль</string>
+    <string name="enter_region">Введите регион</string>
+
+    <string name="country_text">Страна</string>
+    <string name="region_text">Регион</string>
 
     <string name="place">Место работы</string>
     <string name="industry">Отрасль</string>

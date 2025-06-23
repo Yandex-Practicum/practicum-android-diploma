@@ -31,7 +31,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- добавить hint в коде -->
     <include
         android:id="@+id/industry_search"
         layout="@layout/text_field_view"

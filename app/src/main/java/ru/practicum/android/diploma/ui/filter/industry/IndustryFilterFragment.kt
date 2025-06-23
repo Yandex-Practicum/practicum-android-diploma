@@ -4,32 +4,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import ru.practicum.android.diploma.databinding.FragmentIndustryFilterBinding
+import ru.practicum.android.diploma.ui.root.BindingFragment
 import ru.practicum.android.diploma.util.handleBackPress
+import ru.practicum.android.diploma.R
 
-class IndustryFilterFragment : Fragment() {
-    private var _binding: FragmentIndustryFilterBinding? = null
-    private val binding get() = _binding!!
+class IndustryFilterFragment : BindingFragment<FragmentIndustryFilterBinding>() {
 
-    override fun onCreateView(
+    override fun createBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentIndustryFilterBinding.inflate(inflater, container, false)
-        return binding.root
+        container: ViewGroup?
+    ): FragmentIndustryFilterBinding {
+        return FragmentIndustryFilterBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // подсказка Введите отрасль
+        binding.industrySearch.searchEditText.hint = getString(R.string.enter_industry)
+
         // системная кн назад
         handleBackPress()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

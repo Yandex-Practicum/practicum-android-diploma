@@ -7,39 +7,22 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentCountryFilterBinding
+import ru.practicum.android.diploma.ui.root.BindingFragment
 import ru.practicum.android.diploma.util.handleBackPress
 
-class CountryFilterFragment : Fragment() {
-    private var _binding: FragmentCountryFilterBinding? = null
-    private val binding get() = _binding!!
+class CountryFilterFragment : BindingFragment<FragmentCountryFilterBinding>() {
 
-    override fun onCreateView(
+    override fun createBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentCountryFilterBinding.inflate(inflater, container, false)
-        return binding.root
+        container: ViewGroup?
+    ): FragmentCountryFilterBinding {
+        return FragmentCountryFilterBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initUiToolbar()
         // системная кн назад
         handleBackPress()
-    }
-
-    private fun initUiToolbar() {
-        // настройка кастомного топбара
-        val toolbar = binding.toolbar
-        toolbar.setupToolbarForFilterScreen()
-        toolbar.setToolbarTitle(getString(R.string.country))
-        toolbar.setupToolbarBackButton(this)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
