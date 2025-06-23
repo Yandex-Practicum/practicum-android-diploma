@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentIndustryFilterBinding
 import ru.practicum.android.diploma.ui.root.BindingFragment
 import ru.practicum.android.diploma.util.handleBackPress
-import ru.practicum.android.diploma.R
 
 class IndustryFilterFragment : BindingFragment<FragmentIndustryFilterBinding>() {
 
