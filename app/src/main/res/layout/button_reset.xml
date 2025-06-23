@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <Button
-        android:id="@+id/btn_action"
-        style="@style/text_font_m"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="?attr/colorResetButtonBackground"
-        android:textColor="?attr/colorResetButtonText"
-        android:text="@string/btn_text_reset"
-        app:cornerRadius="@dimen/corner12"/>
-</merge>
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/btn_action"
+    style="@style/text_font_m"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="?attr/colorResetButtonBackground"
+    android:textColor="?attr/colorResetButtonText"
+    android:text="@string/btn_text_reset"
+    app:cornerRadius="@dimen/corner12"/>
