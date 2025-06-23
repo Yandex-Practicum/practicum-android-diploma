@@ -76,6 +76,10 @@
 
     <string name="dont_show_without_salary">Не показывать без зарплаты</string>
     <string name="enter_industry">Введите отрасль</string>
+
+    <string name="toast_no_internet">Проверьте подключение к интернету</string>
+    <string name="toast_api_error">Произошла ошибка</string>
+
     <string name="enter_region">Введите регион</string>
 
     <string name="country_text">Страна</string>

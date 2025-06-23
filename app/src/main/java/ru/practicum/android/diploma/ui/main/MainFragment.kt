@@ -9,6 +9,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
@@ -75,6 +76,22 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
 
         viewModel.observeClearSearchInput().observe(viewLifecycleOwner) {
             binding.searchEditText.setText("")
+        }
+
+        viewModel.observeShowErrorToast().observe(viewLifecycleOwner) { message ->
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.toast_api_error),
+                Toast.LENGTH_LONG,
+            ).show()
+        }
+
+        viewModel.observeShowNoInternetToast().observe(viewLifecycleOwner) { message ->
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.toast_no_internet),
+                Toast.LENGTH_LONG,
+            ).show()
         }
 
         initSearch()
