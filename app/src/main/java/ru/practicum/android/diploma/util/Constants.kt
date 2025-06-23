@@ -10,3 +10,6 @@ const val HTTP_400_BAD_REQUEST = 400
 const val HTTP_500_INTERNAL_SERVER_ERROR = 500
 
 const val HH_LOG = "HH_TEST"
+
+const val FILTER_PREFS_NAME = "filter_prefs"
+const val FILTER_SETTINGS = "filters"

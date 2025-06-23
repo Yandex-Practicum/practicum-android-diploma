@@ -5,6 +5,7 @@ import androidx.core.content.edit
 import com.google.gson.Gson
 import ru.practicum.android.diploma.domain.api.FilterPreferences
 import ru.practicum.android.diploma.ui.filter.model.SelectedFilters
+import ru.practicum.android.diploma.util.FILTER_SETTINGS
 
 class FilterPreferencesImpl (private val prefs: SharedPreferences) : FilterPreferences {
     override fun saveFilters(options: SelectedFilters) {
