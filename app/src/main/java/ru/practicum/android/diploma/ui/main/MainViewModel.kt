@@ -20,6 +20,7 @@ class MainViewModel(
     val text: LiveData<String> = textLiveData
 
     private val vacanciesList = ArrayList<Vacancy>()
+    private var found = 0
     private var pages = 0
     private var page = 0
 
@@ -107,12 +108,16 @@ class MainViewModel(
             } else {
                 showErrorToast.postValue(Unit)
             }
+
+            contentStateLiveData.postValue(SearchContentStateVO.Success(vacanciesList, found))
+
             return
         }
 
         contentStateLiveData.postValue(
             when (searchResponse) {
                 is ApiResponse.Success -> {
+                    found = searchResponse.found
                     if (page == 0) {
                         vacanciesList.clear()
                         pages = searchResponse.pages
