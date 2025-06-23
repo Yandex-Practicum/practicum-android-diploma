@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/field_background"
+    android:backgroundTint="?attr/colorSecondary"
+    android:paddingHorizontal="@dimen/margin16"
+    android:paddingVertical="@dimen/margin8">
+
+    <TextView
+        android:id="@+id/text_field_header"
+        style="@style/text_font_xs"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textColorHint="?attr/colorOnSecondary"
+        android:hint="@string/expected_salary"
+
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/text_field_clear"
+        app:layout_constraintBottom_toTopOf="@id/text_field_edit"/>
+
+    <EditText
+        android:id="@+id/text_field_edit"
+        style="@style/text_font_s"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#00000000"
+        android:textColor="@color/black"
+        android:textColorHint="?attr/colorOnSecondary"
+        android:hint="@string/enter_value"
+        android:inputType="number"
+        android:padding="0dp"
+        android:textCursorDrawable="@drawable/edit_text_cursor"
+        android:maxLines="1"
+        android:imeOptions="actionDone"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/text_field_clear"
+        app:layout_constraintTop_toBottomOf="@id/text_field_header"/>
+
+    <ImageView
+        android:id="@+id/text_field_clear"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/close_24px"
+        android:visibility="gone"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

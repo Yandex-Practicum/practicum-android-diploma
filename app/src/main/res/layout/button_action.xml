@@ -1,20 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <Button
-        android:id="@+id/btn_action"
-        style="@style/text_font_m"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/blue"
-        android:textColor="@color/white"
-        android:paddingVertical="@dimen/margin20"
-        tools:text="@string/btn_text_select"
-        app:cornerRadius="@dimen/corner12"
-        tools:ignore="MissingConstraints" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    android:id="@+id/button_blue"
+    style="@style/text_font_m"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:minHeight="60dp"
+    android:backgroundTint="@color/blue"
+    app:cornerRadius="@dimen/margin12"
+    android:text="@string/set"
+    android:textColor="@color/white"/>

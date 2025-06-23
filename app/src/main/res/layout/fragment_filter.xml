@@ -1,20 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.filter.FilterFragment">
 
     <ru.practicum.android.diploma.ui.components.CustomToolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/toolbar"/>
+        android:id="@+id/toolbar"
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Filter"
-        android:gravity="center"
-        android:textSize="60sp"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-</FrameLayout>
+    <include
+        android:id="@+id/included_place"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        layout="@layout/selected_filters"
+        android:layout_marginTop="@dimen/margin16"
+
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <include
+        android:id="@+id/included_industry"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        layout="@layout/selected_filters"
+
+        app:layout_constraintTop_toBottomOf="@id/included_place"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <include
+        android:id="@+id/included_salary"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        layout="@layout/field_salary"
+        android:layout_marginVertical="24dp"
+        android:layout_marginHorizontal="@dimen/margin16"
+
+        app:layout_constraintTop_toBottomOf="@id/included_industry"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <include
+        android:id="@+id/included_show_no_salary"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        layout="@layout/show_salary_item"
+        android:layout_marginTop="@dimen/margin16"
+
+        app:layout_constraintTop_toBottomOf="@id/included_salary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <include
+        android:id="@+id/included_btn_set"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        layout="@layout/button_action"
+        android:layout_marginHorizontal="@dimen/margin16"
+        android:layout_marginVertical="@dimen/margin8"
+        android:visibility="visible"
+
+        app:layout_constraintBottom_toTopOf="@id/included_btn_cancel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <include
+        android:id="@+id/included_btn_cancel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        layout="@layout/button_reset"
+        android:layout_marginHorizontal="@dimen/margin16"
+        android:layout_marginBottom="24dp"
+        android:visibility="visible"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

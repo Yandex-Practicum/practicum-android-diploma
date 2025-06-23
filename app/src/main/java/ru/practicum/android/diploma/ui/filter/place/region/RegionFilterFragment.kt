@@ -7,40 +7,25 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentRegionFilterBinding
+import ru.practicum.android.diploma.ui.root.BindingFragment
 import ru.practicum.android.diploma.util.handleBackPress
 
-class RegionFilterFragment : Fragment() {
-    private var _binding: FragmentRegionFilterBinding? = null
-    private val binding get() = _binding!!
+class RegionFilterFragment : BindingFragment<FragmentRegionFilterBinding>() {
 
-    override fun onCreateView(
+    override fun createBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentRegionFilterBinding.inflate(inflater, container, false)
-        return binding.root
+        container: ViewGroup?
+    ): FragmentRegionFilterBinding {
+        return FragmentRegionFilterBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initUiToolbar()
+        // подсказка Введите регион
+        binding.regionSearch.searchEditText.hint = getString(R.string.enter_region)
 
         // системная кн назад
         handleBackPress()
-    }
-
-    private fun initUiToolbar() {
-        // настройка кастомного топбара
-        val toolbar = binding.toolbar
-        toolbar.setupToolbarForFilterScreen()
-        toolbar.setToolbarTitle(getString(R.string.region))
-        toolbar.setupToolbarBackButton(this)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
