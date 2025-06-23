@@ -37,9 +37,8 @@
         layout="@layout/list_location_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
-        app:layout_constraintTop_toBottomOf="@id/empty_view"
-        />
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@id/empty_view" />
 
     <include
         android:id="@+id/region_item"
@@ -47,7 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="visible"
-        app:layout_constraintTop_toBottomOf="@id/country_item"/>
+        app:layout_constraintTop_toBottomOf="@id/country_item" />
 
     <!-- items для уже выбранных пунктов-->
     <include
@@ -55,9 +54,8 @@
         layout="@layout/selected_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible"
-        app:layout_constraintTop_toBottomOf="@id/empty_view"
-        />
+        android:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@id/empty_view" />
 
     <include
         android:id="@+id/selected_region"
@@ -65,15 +63,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="invisible"
-        app:layout_constraintTop_toBottomOf="@id/selected_country"/>
+        app:layout_constraintTop_toBottomOf="@id/selected_country" />
 
     <include
-        android:id="@+id/button_action_industry"
+        android:id="@+id/button_action_place"
         layout="@layout/button_action"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin24"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/right_guideline"
         app:layout_constraintStart_toStartOf="@id/left_guideline" />

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentPlaceFilterBinding
 import ru.practicum.android.diploma.ui.root.BindingFragment
@@ -26,12 +27,35 @@ class PlaceFilterFragment : BindingFragment<FragmentPlaceFilterBinding>() {
         handleBackPress()
 
         // настройка текста для include items
+        textSetupForInclude()
+
+        initListenersCountry()
+        initListenersRegion()
+    }
+
+    private fun initListenersCountry() {
+        binding.countryItem.apply {
+            root.setOnClickListener {
+                findNavController().navigate(R.id.action_placeFilterFragment_to_countryFilterFragment)
+            }
+        }
+    }
+
+    private fun initListenersRegion() {
+        binding.regionItem.apply {
+            root.setOnClickListener {
+                findNavController().navigate(R.id.action_placeFilterFragment_to_regionFilterFragment)
+            }
+        }
+    }
+
+    private fun textSetupForInclude() {
         binding.countryItem.listLocationItem.text = getString(R.string.country_text)
         binding.regionItem.listLocationItem.text = getString(R.string.region_text)
-        binding.selectedCountry.selectedItem.findViewById<TextView>(
+        binding.selectedCountry.root.findViewById<TextView>(
             R.id.name_of_selected
         ).text = getString(R.string.country_text)
-        binding.selectedRegion.selectedItem.findViewById<TextView>(
+        binding.selectedRegion.root.findViewById<TextView>(
             R.id.name_of_selected
         ).text = getString(R.string.region_text)
     }
