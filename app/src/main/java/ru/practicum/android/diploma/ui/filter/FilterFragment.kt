@@ -141,6 +141,7 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
         }
 
         binding.includedBtnSet.root.setOnClickListener {
+            viewModel.saveFilters()
             findNavController().popBackStack()
         }
 
@@ -153,12 +154,12 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
         fillPlace(filters.place)
         fillIndustry(filters.industry)
         fillSalary(filters.salary)
-        setShowNoSalary(filters.showNoSalary)
+        setShowNoSalary(filters.onlyWithSalary)
         setButtonsVisibility(
             !filters.place.isNullOrEmpty()
                 || !filters.industry.isNullOrEmpty()
                 || filters.salary != null
-                || filters.showNoSalary
+                || filters.onlyWithSalary
         )
     }
 

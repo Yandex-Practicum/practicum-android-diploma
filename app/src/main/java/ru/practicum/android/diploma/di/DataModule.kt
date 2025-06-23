@@ -19,6 +19,7 @@ import ru.practicum.android.diploma.data.network.TokenProvider
 import ru.practicum.android.diploma.data.vacancy.HhApi
 import ru.practicum.android.diploma.data.vacancy.SearchVacanciesNetworkDataSource
 import ru.practicum.android.diploma.data.vacancy.VacancyDetailsNetworkDataSource
+import ru.practicum.android.diploma.domain.api.FilterPreferences
 import ru.practicum.android.diploma.ui.vacancy.HtmlParser
 import ru.practicum.android.diploma.ui.vacancy.VacancyDetailsMapper
 import ru.practicum.android.diploma.util.API_BASE
@@ -90,7 +91,7 @@ val dataModule = module {
         androidContext().getSharedPreferences(FILTER_PREFS_NAME, android.content.Context.MODE_PRIVATE)
     }
 
-    single {
+    single<FilterPreferences> {
         FilterPreferencesImpl(get())
     }
 }

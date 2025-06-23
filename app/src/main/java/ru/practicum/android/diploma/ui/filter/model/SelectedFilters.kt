@@ -4,5 +4,5 @@ data class SelectedFilters(
     val place: String?,
     val industry: String?,
     val salary: Int?,
-    val showNoSalary: Boolean
+    val onlyWithSalary: Boolean
 )
