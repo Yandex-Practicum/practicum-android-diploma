@@ -4,7 +4,6 @@ import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.google.gson.Gson
 import ru.practicum.android.diploma.domain.api.FilterPreferences
-import ru.practicum.android.diploma.domain.models.FilterOptions
 import ru.practicum.android.diploma.ui.filter.model.SelectedFilters
 
 class FilterPreferencesImpl (private val prefs: SharedPreferences) : FilterPreferences {
