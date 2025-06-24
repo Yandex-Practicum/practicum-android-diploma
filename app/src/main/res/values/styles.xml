@@ -72,4 +72,10 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">8dp</item>
     </style>
+
+    <style name="TopBarButton">
+        <item name="android:padding">@dimen/margin16</item>
+        <item name="android:src">@drawable/arrow_back_24px</item>
+        <item name="layout_constraintDimensionRatio">1:1</item>
+    </style>
 </resources>

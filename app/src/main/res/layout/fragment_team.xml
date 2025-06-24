@@ -6,14 +6,12 @@
     android:orientation="vertical"
     tools:context=".ui.team.TeamFragment">
 
-    <TextView
-        style="@style/text_font_l"
+    <include
+        android:id="@+id/topbar"
+        layout="@layout/topbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin16"
-        android:paddingVertical="@dimen/margin19"
-        android:layout_marginStart="@dimen/margin16"
-        android:text="@string/team" />
+        android:layout_marginBottom="@dimen/margin16"/>
 
     <TextView
         style="@style/text_font_xl"
