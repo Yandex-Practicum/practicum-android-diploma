@@ -5,17 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentIndustryFilterBinding
-import ru.practicum.android.diploma.ui.filter.FilterViewModel
 import ru.practicum.android.diploma.ui.root.BindingFragment
 import ru.practicum.android.diploma.util.handleBackPress
 
 class IndustryFilterFragment : BindingFragment<FragmentIndustryFilterBinding>() {
 
-    private val viewModel by activityViewModel<FilterViewModel>()
+    private val viewModel by viewModels<IndustryViewModel>()
     private var industryAdapter: IndustryAdapter? = null
 
     override fun createBinding(
@@ -65,8 +64,13 @@ class IndustryFilterFragment : BindingFragment<FragmentIndustryFilterBinding>() 
         }
 
         binding.buttonActionIndustry.buttonBlue.setOnClickListener {
-            viewModel.saveSelectedIndustry()
-            findNavController().popBackStack()
+            viewModel.getSelectedIndustry()?.let { selected ->
+                val action = IndustryFilterFragmentDirections.actionIndustryFilterFragmentToFilterFragment(
+                    selectedIndustryId = selected.id,
+                    selectedIndustryName = selected.name
+                )
+                findNavController().navigate(action)
+            }
         }
 
         // системная кн назад

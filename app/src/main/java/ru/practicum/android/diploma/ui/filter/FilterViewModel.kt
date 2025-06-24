@@ -24,13 +24,10 @@ class FilterViewModel(
     private val filterPreferences: FilterPreferences
 ) : ViewModel() {
 
-    private val _industryState = MutableLiveData<IndustryState>()
-    val industryState: LiveData<IndustryState> = _industryState
-
     private val state = MutableLiveData<FilterScreenState>()
     fun getState(): LiveData<FilterScreenState> = state
 
-    private var fullIndustryList: List<IndustryListItem> = emptyList()
+
 
     var testModel = SelectedFilters("Россия, Москва", "IT", 999999, true)
 
@@ -84,16 +81,6 @@ class FilterViewModel(
         }
     }
 
-    // Это тестовый запрос
-    fun getIndustries() {
-        _industryState.postValue(IndustryState.LOADING)
-        viewModelScope.launch {
-            interactorIndustries.getIndustries().collect { pair ->
-
-                processIndustriesResult(pair.first, pair.second)
-            }
-        }
-    }
 
     // Обработка ответа
     private fun processAreasResult(areas: List<Areas>?, error: Int?) {
@@ -102,56 +89,6 @@ class FilterViewModel(
         }
         if (error != null) {
             Log.d(HH_LOG, "Error: $error")
-        }
-    }
-
-    // Это тестовый вывод в лог!
-    private fun processIndustriesResult(industries: List<Industries>?, error: Int?) {
-        if (industries != null) {
-            val industryListItems = industries.toIndustryListItems()
-            fullIndustryList = industryListItems
-            _industryState.postValue(IndustryState.CONTENT(industryListItems))
-        } else {
-            _industryState.postValue(IndustryState.EMPTY)
-        }
-        if (error != null) {
-            _industryState.postValue(IndustryState.ERROR(error))
-        }
-    }
-
-    fun selectIndustry(industryId: String, currentQuery: String) {
-        fullIndustryList = fullIndustryList.map {
-            if (it.id == industryId) {
-                it.copy(isSelected = true)
-            } else {
-                it.copy(isSelected = false)
-            }
-        }
-
-        filterIndustries(currentQuery)
-    }
-
-    fun filterIndustries(query: String) {
-        val filteredList = fullIndustryList.filter { item ->
-            item.name.contains(query.trim(), ignoreCase = true)
-        }
-        _industryState.postValue(IndustryState.CONTENT(filteredList))
-    }
-
-    fun saveSelectedIndustry() {
-        val selectedIndustry = industryState.value?.let { state ->
-            (state as? IndustryState.CONTENT)?.industryListItems?.find { it.isSelected }
-        }
-        // в этом методе обновляем состояние экрана или модели или того и другого
-        selectedIndustry?.let {
-            testModel = testModel.copy(industry = it.name)
-            Log.d("Industry", "testmodel.industry: ${testModel.industry}")
-            state.postValue(FilterScreenState.CONTENT(testModel))
-            filterPreferences.saveFilters(testModel)
-        }
-
-        selectedIndustry?.let {
-            Log.d("Industry", "Selected Industry: ${it.name}")
         }
     }
 
