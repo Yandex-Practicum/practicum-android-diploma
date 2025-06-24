@@ -16,7 +16,7 @@ import ru.practicum.android.diploma.util.handleBackPress
 class IndustryFilterFragment : BindingFragment<FragmentIndustryFilterBinding>() {
 
     private val viewModel by activityViewModel<FilterViewModel>()
-    private lateinit var industryAdapter: IndustryAdapter
+    private var industryAdapter: IndustryAdapter? = null
 
     override fun createBinding(
         inflater: LayoutInflater,
@@ -77,7 +77,7 @@ class IndustryFilterFragment : BindingFragment<FragmentIndustryFilterBinding>() 
         binding.includedProgressBar.root.visibility = View.GONE
         binding.placeholderNoList.visibility = View.GONE
         binding.placeholderNoIndustry.visibility = View.GONE
-        industryAdapter.submitList(state.industryListItems)
+        industryAdapter?.submitList(state.industryListItems)
     }
 
     private fun showError(state: IndustryState.ERROR) {

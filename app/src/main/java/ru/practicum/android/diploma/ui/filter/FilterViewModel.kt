@@ -121,8 +121,11 @@ class FilterViewModel(
 
     fun selectIndustry(industryId: String, currentQuery: String) {
         fullIndustryList = fullIndustryList.map {
-            if (it.id == industryId) it.copy(isSelected = true)
-            else it.copy(isSelected = false)
+            if (it.id == industryId) {
+                it.copy(isSelected = true)
+            } else {
+                it.copy(isSelected = false)
+            }
         }
 
         filterIndustries(currentQuery)
@@ -134,7 +137,6 @@ class FilterViewModel(
         }
         _industryState.postValue(IndustryState.CONTENT(filteredList))
     }
-
 
     fun saveSelectedIndustry() {
         val selectedIndustry = industryState.value?.let { state ->
