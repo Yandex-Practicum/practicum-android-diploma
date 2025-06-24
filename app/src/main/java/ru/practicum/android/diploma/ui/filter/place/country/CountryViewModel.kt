@@ -28,7 +28,7 @@ class CountryViewModel(
     }
 
     private fun processAreas(areas: List<Areas>?, error: Int?) {
-        if (areas != null ) {
+        if (areas != null) {
             countryList.clear()
             fillCountryList(areas)
             render(CountryState.Content(countryList.toList()))

@@ -6,5 +6,5 @@ data class Region(
     val id: String,
     val name: String,
     val country: Country?,
-    private val serialVersionID : Long = 1L,
+    private val serialVersionUID: Long = 1L,
 ) : Serializable
