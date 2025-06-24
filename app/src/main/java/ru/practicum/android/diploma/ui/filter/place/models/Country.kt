@@ -4,6 +4,9 @@ import java.io.Serializable
 
 data class Country(
     val id: String,
-    val name: String,
-    private val serialVersionUID: Long = 1L,
-) : Serializable
+    val name: String
+) : Serializable {
+    companion object {
+        private const val serialVersionUID: Long = 122
+    }
+}
