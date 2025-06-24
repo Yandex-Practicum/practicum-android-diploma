@@ -15,6 +15,7 @@ import ru.practicum.android.diploma.databinding.FragmentFilterBinding
 import ru.practicum.android.diploma.ui.filter.model.FilterScreenState
 import ru.practicum.android.diploma.ui.filter.model.SelectedFilters
 import ru.practicum.android.diploma.ui.root.BindingFragment
+import ru.practicum.android.diploma.ui.root.RootActivity
 import ru.practicum.android.diploma.util.handleBackPress
 
 class FilterFragment : BindingFragment<FragmentFilterBinding>() {
@@ -45,11 +46,21 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
     }
 
     private fun initUiToolbar() {
-        // настройка кастомного топбара
-        val toolbar = binding.toolbar
-        toolbar.setupToolbarForFilterScreen()
-        toolbar.setToolbarTitle(getString(R.string.filter_settings))
-        toolbar.setupToolbarBackButton(this)
+        binding.topbar.apply {
+            btnFirst.setImageResource(R.drawable.arrow_back_24px)
+            btnSecond.isVisible = false
+            btnThird.isVisible = false
+            header.text = requireContext().getString(R.string.filter_settings)
+        }
+
+        binding.topbar.btnFirst.setOnClickListener {
+            closeFragment(true)
+        }
+    }
+
+    private fun closeFragment(barVisibility: Boolean) {
+        (activity as RootActivity).setNavBarVisibility(barVisibility)
+        findNavController().popBackStack()
     }
 
     private fun initScreen() {

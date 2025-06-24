@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentPlaceFilterBinding
 import ru.practicum.android.diploma.ui.root.BindingFragment
+import ru.practicum.android.diploma.ui.root.RootActivity
 import ru.practicum.android.diploma.util.handleBackPress
 
 class PlaceFilterFragment : BindingFragment<FragmentPlaceFilterBinding>() {
@@ -28,9 +30,27 @@ class PlaceFilterFragment : BindingFragment<FragmentPlaceFilterBinding>() {
 
         // настройка текста для include items
         textSetupForInclude()
-
+        initTopbar()
         initListenersCountry()
         initListenersRegion()
+    }
+
+    private fun initTopbar() {
+        binding.topbar.apply {
+            btnFirst.setImageResource(R.drawable.arrow_back_24px)
+            btnSecond.isVisible = false
+            btnThird.isVisible = false
+            header.text = requireContext().getString(R.string.place_of_work)
+        }
+
+        binding.topbar.btnFirst.setOnClickListener {
+            closeFragment(false)
+        }
+    }
+
+    private fun closeFragment(barVisibility: Boolean) {
+        (activity as RootActivity).setNavBarVisibility(barVisibility)
+        findNavController().popBackStack()
     }
 
     private fun initListenersCountry() {
