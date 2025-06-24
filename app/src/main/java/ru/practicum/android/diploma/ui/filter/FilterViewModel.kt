@@ -11,6 +11,8 @@ import ru.practicum.android.diploma.domain.filters.AreasInteractor
 import ru.practicum.android.diploma.domain.filters.IndustriesInteractor
 import ru.practicum.android.diploma.domain.models.Areas
 import ru.practicum.android.diploma.domain.models.Industries
+import ru.practicum.android.diploma.ui.filter.industry.IndustryState
+import ru.practicum.android.diploma.ui.filter.industry.toIndustryListItems
 import ru.practicum.android.diploma.ui.filter.model.FilterScreenState
 import ru.practicum.android.diploma.ui.filter.model.SelectedFilters
 import ru.practicum.android.diploma.util.HH_LOG
@@ -20,6 +22,9 @@ class FilterViewModel(
     private val interactorIndustries: IndustriesInteractor,
     private val filterPreferences: FilterPreferences
 ) : ViewModel() {
+
+    private val _industryState = MutableLiveData<IndustryState>()
+    val industryState: LiveData<IndustryState> = _industryState
 
     private val state = MutableLiveData<FilterScreenState>()
     fun getState(): LiveData<FilterScreenState> = state
@@ -106,9 +111,31 @@ class FilterViewModel(
                     Log.d(HH_LOG, "    IndustriesDetail: ${detail.id} - ${detail.name}")
                 }
             }
+            val industryListItems = industries.toIndustryListItems()
+            _industryState.postValue(IndustryState.CONTENT(industryListItems))
+        } else {
+            _industryState.postValue(IndustryState.EMPTY)
         }
         if (error != null) {
             Log.d(HH_LOG, "Error: $error")
+            _industryState.postValue(IndustryState.ERROR(error))
+        }
+    }
+
+    fun selectIndustry(industryId: String) {
+        _industryState.value?.let { state ->
+            if (state is IndustryState.CONTENT) {
+                val updatedItems = state.industryListItems.map {
+                    if (it.id == industryId) {
+                        it.copy(isSelected = !it.isSelected)
+                    } else {
+                        it.copy(isSelected = false)
+                    }
+                }
+
+                // Обновляем экран с новым состоянием
+                _industryState.postValue(IndustryState.CONTENT(updatedItems))
+            }
         }
     }
 
