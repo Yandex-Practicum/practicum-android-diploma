@@ -21,11 +21,11 @@ class FilterViewModel(
     private val state = MutableLiveData<FilterScreenState>()
     fun getState(): LiveData<FilterScreenState> = state
 
-    var testModel = SelectedFilters("1","Россия, Москва", "1","IT", 999999, true)
+    var testModel = SelectedFilters("1", "Россия, Москва", "1", "IT", 999999, true)
 
     fun getFilters() {
         // Тут мы достаем сохраненные в SP фильтры
-        testModel = filterPreferences.loadFilters() ?: SelectedFilters("1","Россия, Москва", "1","IT", 999999, true)
+        testModel = filterPreferences.loadFilters() ?: SelectedFilters("1", "Россия, Москва", "1", "IT", 999999, true)
         state.postValue(FilterScreenState.CONTENT(testModel))
     }
 
@@ -37,7 +37,7 @@ class FilterViewModel(
 
     fun clearIndustry() {
         // TODO
-        testModel = SelectedFilters(testModel.placeId,testModel.place, null, null, testModel.salary, testModel.onlyWithSalary)
+        testModel = SelectedFilters(testModel.placeId, testModel.place, null, null, testModel.salary, testModel.onlyWithSalary)
         state.postValue(FilterScreenState.CONTENT(testModel))
     }
 
@@ -72,7 +72,6 @@ class FilterViewModel(
             }
         }
     }
-
 
     // Обработка ответа
     private fun processAreasResult(areas: List<Areas>?, error: Int?) {

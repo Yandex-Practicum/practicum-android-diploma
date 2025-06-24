@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentIndustryFilterBinding
 import ru.practicum.android.diploma.ui.root.BindingFragment
@@ -14,7 +14,7 @@ import ru.practicum.android.diploma.util.handleBackPress
 
 class IndustryFilterFragment : BindingFragment<FragmentIndustryFilterBinding>() {
 
-    private val viewModel by viewModels<IndustryViewModel>()
+    private val viewModel: IndustryViewModel by viewModel()
     private var industryAdapter: IndustryAdapter? = null
 
     override fun createBinding(
