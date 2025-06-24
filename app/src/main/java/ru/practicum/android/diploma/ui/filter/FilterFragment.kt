@@ -9,18 +9,20 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterBinding
 import ru.practicum.android.diploma.ui.filter.model.FilterScreenState
 import ru.practicum.android.diploma.ui.filter.model.SelectedFilters
 import ru.practicum.android.diploma.ui.root.BindingFragment
 import ru.practicum.android.diploma.util.handleBackPress
-import kotlin.getValue
 
 class FilterFragment : BindingFragment<FragmentFilterBinding>() {
+
     private val viewModel by activityViewModel<FilterViewModel>()
+    private val args by navArgs<FilterFragmentArgs>() //здесь сохранил industryId и industryName
+
     override fun createBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -30,6 +32,14 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        args.selectedIndustryId?.let { id ->
+            val name = args.selectedIndustryName
+            if (name != null) {
+                viewModel.setIndustry(id, name)
+            }
+        }
+
         initUiToolbar()
         // системная кн назад
         handleBackPress()

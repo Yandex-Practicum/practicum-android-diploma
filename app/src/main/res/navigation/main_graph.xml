@@ -34,12 +34,14 @@
         <argument
             android:name="selectedIndustryId"
             android:defaultValue="@null"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="true"/>
 
         <argument
             android:name="selectedIndustryName"
             android:defaultValue="@null"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="true"/>
     </fragment>
     <fragment
         android:id="@+id/industryFilterFragment"

@@ -1,19 +1,15 @@
 package ru.practicum.android.diploma.ui.filter.industry
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.domain.api.FilterPreferences
 import ru.practicum.android.diploma.domain.filters.IndustriesInteractor
 import ru.practicum.android.diploma.domain.models.Industries
-import ru.practicum.android.diploma.ui.filter.model.FilterScreenState
 
 class IndustryViewModel(
     private val interactorIndustries: IndustriesInteractor,
-    private val preferences: FilterPreferences
 ) : ViewModel() {
     private val _industryState = MutableLiveData<IndustryState>()
     val industryState: LiveData<IndustryState> = _industryState
