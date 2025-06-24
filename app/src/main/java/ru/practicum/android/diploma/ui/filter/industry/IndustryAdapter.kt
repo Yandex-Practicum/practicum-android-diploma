@@ -39,6 +39,10 @@ class IndustryAdapter(
     override fun onBindViewHolder(holder: IndustryViewHolder, position: Int) {
         var item = getItem(position)
         holder.bind(item)
+
+        holder.itemView.setOnClickListener {
+            clickListener.onIndustryClick(item)
+        }
     }
 
     inner class IndustryViewHolder(private val binding: IndustryItemBinding) : RecyclerView.ViewHolder(binding.root) {

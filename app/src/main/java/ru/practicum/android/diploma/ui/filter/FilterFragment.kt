@@ -9,6 +9,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterBinding
@@ -16,9 +17,10 @@ import ru.practicum.android.diploma.ui.filter.model.FilterScreenState
 import ru.practicum.android.diploma.ui.filter.model.SelectedFilters
 import ru.practicum.android.diploma.ui.root.BindingFragment
 import ru.practicum.android.diploma.util.handleBackPress
+import kotlin.getValue
 
 class FilterFragment : BindingFragment<FragmentFilterBinding>() {
-    private val viewModel: FilterViewModel by viewModel()
+    private val viewModel by activityViewModel<FilterViewModel>()
     override fun createBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
