@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.ui.filter.place.region
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,6 +10,7 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -20,6 +20,7 @@ import ru.practicum.android.diploma.databinding.FragmentRegionFilterBinding
 import ru.practicum.android.diploma.ui.filter.place.models.Country
 import ru.practicum.android.diploma.ui.filter.place.models.Region
 import ru.practicum.android.diploma.ui.filter.place.models.RegionState
+import ru.practicum.android.diploma.ui.filter.place.region.adapters.RegionListCallback
 import ru.practicum.android.diploma.ui.filter.place.region.adapters.RegionsAdapter
 import ru.practicum.android.diploma.ui.root.BindingFragment
 import ru.practicum.android.diploma.util.COUNTRY_KEY
@@ -59,7 +60,6 @@ class RegionFilterFragment : BindingFragment<FragmentRegionFilterBinding>() {
                 is RegionState.Error -> showError()
                 is RegionState.Loading -> showLoading()
                 is RegionState.NotFound -> showNotFound()
-                is RegionState.SaveRegion -> onSaveRegion(it.region)
             }
         }
 
@@ -108,13 +108,16 @@ class RegionFilterFragment : BindingFragment<FragmentRegionFilterBinding>() {
         binding.regionSearch.searchEditText.addTextChangedListener(textWatcher)
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private fun showContent(regions: List<Region>) {
         binding.includedProgressBar.progressBar.isVisible = false
         binding.placeholder.isVisible = false
-        adapter?.regions?.clear()
-        adapter?.regions?.addAll(regions)
-        adapter?.notifyDataSetChanged()
+        adapter?.let {
+            val diffRegionsCallback = RegionListCallback(it.regions.toList(), regions)
+            val diffRegions = DiffUtil.calculateDiff(diffRegionsCallback)
+            it.regions.clear()
+            it.regions.addAll(regions)
+            diffRegions.dispatchUpdatesTo(it)
+        }
         binding.regionRecyclerView.isVisible = true
     }
 
@@ -153,16 +156,12 @@ class RegionFilterFragment : BindingFragment<FragmentRegionFilterBinding>() {
         binding.placeholderText.text = resources.getString(resourceIdText)
     }
 
-    private fun onSaveRegion(region: Region) {
+    private fun onClickRegion(region: Region) {
         if (region.country != null) {
             findNavController().previousBackStackEntry?.savedStateHandle?.set(COUNTRY_KEY, region.country)
         }
         findNavController().previousBackStackEntry?.savedStateHandle?.set(REGION_KEY, region)
         findNavController().popBackStack()
-    }
-
-    private fun onClickRegion(region: Region) {
-        regionViewModel.checkToSave(region)
     }
 
     companion object {

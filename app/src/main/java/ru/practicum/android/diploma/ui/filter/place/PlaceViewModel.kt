@@ -24,6 +24,7 @@ class PlaceViewModel(
 
     fun changeCountry(countryChange: Country?) {
         countryLocal = countryChange
+        regionLocal = null
         stateLiveData.postValue(PlaceState.Content(countryLocal, regionLocal))
     }
 
@@ -38,5 +39,9 @@ class PlaceViewModel(
 
     fun saveChanged() {
         stateLiveData.postValue(PlaceState.Save(countryLocal, regionLocal))
+    }
+
+    fun clearLiveData() {
+        stateLiveData.postValue(PlaceState.Loading)
     }
 }

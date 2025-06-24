@@ -15,7 +15,11 @@ import ru.practicum.android.diploma.databinding.FragmentFilterBinding
 import ru.practicum.android.diploma.ui.filter.model.FilterScreenState
 import ru.practicum.android.diploma.ui.filter.model.SelectedFilters
 import ru.practicum.android.diploma.ui.filter.place.PlaceFilterFragment
+import ru.practicum.android.diploma.ui.filter.place.models.Country
+import ru.practicum.android.diploma.ui.filter.place.models.Region
 import ru.practicum.android.diploma.ui.root.BindingFragment
+import ru.practicum.android.diploma.util.COUNTRY_KEY
+import ru.practicum.android.diploma.util.REGION_KEY
 import ru.practicum.android.diploma.util.handleBackPress
 
 class FilterFragment : BindingFragment<FragmentFilterBinding>() {
@@ -34,6 +38,15 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
         handleBackPress()
         // viewModel.getAreas()
         // viewModel.getIndustries()
+
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Country>(COUNTRY_KEY)
+            ?.observe(viewLifecycleOwner) { data ->
+                // получаем фильтр по стране
+            }
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Region>(REGION_KEY)
+            ?.observe(viewLifecycleOwner) { data ->
+                // получаем фильтр по региону
+            }
 
         initScreen()
         viewModel.getFilters()

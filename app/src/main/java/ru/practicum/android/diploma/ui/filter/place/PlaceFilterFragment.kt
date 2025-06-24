@@ -45,6 +45,7 @@ class PlaceFilterFragment : BindingFragment<FragmentPlaceFilterBinding>() {
                 is PlaceState.Content -> changeContent(it.country, it.region)
                 is PlaceState.Save -> saveAndExit(it.country, it.region)
                 is PlaceState.ResponseRegion -> setOfRegion(it.country)
+                is PlaceState.Loading -> loading()
             }
         }
 
@@ -83,6 +84,7 @@ class PlaceFilterFragment : BindingFragment<FragmentPlaceFilterBinding>() {
     }
 
     private fun setOfRegion(country: Country?) {
+        placeViewModel.clearLiveData()
         findNavController().navigate(
             R.id.action_placeFilterFragment_to_regionFilterFragment,
             RegionFilterFragment.createArgs(country)
@@ -137,6 +139,10 @@ class PlaceFilterFragment : BindingFragment<FragmentPlaceFilterBinding>() {
         binding.regionItem.listLocationItem.text = getString(R.string.region_text)
         binding.selectedCountry.nameOfSelected.text = getString(R.string.country_text)
         binding.selectedRegion.nameOfSelected.text = getString(R.string.region_text)
+    }
+
+    private fun loading() {
+        return
     }
 
     companion object {

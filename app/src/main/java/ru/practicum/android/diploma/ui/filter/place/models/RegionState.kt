@@ -5,10 +5,6 @@ sealed interface RegionState {
     object Empty : RegionState
     object NotFound : RegionState
 
-    data class SaveRegion(
-        val region: Region
-    ) : RegionState
-
     data class Error(
         val error: Int
     ) : RegionState

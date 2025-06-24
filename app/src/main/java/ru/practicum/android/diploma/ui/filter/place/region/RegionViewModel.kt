@@ -19,7 +19,6 @@ class RegionViewModel(
     fun observeState(): LiveData<RegionState> = regionsFilterState
 
     private val regionList: ArrayList<Region> = arrayListOf()
-    private val areasList: ArrayList<Areas> = arrayListOf()
     private var parentCountry: Country? = null
 
     init {
@@ -35,9 +34,8 @@ class RegionViewModel(
     private fun processAreas(areas: List<Areas>?, error: Int?) {
         if (areas != null) {
             regionList.clear()
-            areasList.clear()
-            areasList.addAll(areas)
             fillRegionsList(areas)
+            regionList.sortBy { it.name }
             if (regionList.isEmpty()) {
                 render(RegionState.Empty)
             } else {
@@ -91,10 +89,6 @@ class RegionViewModel(
         } else {
             render(RegionState.Content(filteredList))
         }
-    }
-
-    fun checkToSave(region: Region) {
-        render(RegionState.SaveRegion(region))
     }
 
     private fun render(state: RegionState) {

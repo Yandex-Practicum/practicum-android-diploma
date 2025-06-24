@@ -18,6 +18,7 @@ import ru.practicum.android.diploma.ui.filter.place.models.Country
 import ru.practicum.android.diploma.ui.filter.place.models.CountryState
 import ru.practicum.android.diploma.ui.root.BindingFragment
 import ru.practicum.android.diploma.util.COUNTRY_KEY
+import ru.practicum.android.diploma.util.REGION_KEY
 import ru.practicum.android.diploma.util.debounce
 import ru.practicum.android.diploma.util.handleBackPress
 
@@ -71,6 +72,7 @@ class CountryFilterFragment : BindingFragment<FragmentCountryFilterBinding>() {
 
     private fun onClickCountry(country: Country) {
         findNavController().previousBackStackEntry?.savedStateHandle?.set(COUNTRY_KEY, country)
+        findNavController().previousBackStackEntry?.savedStateHandle?.set(REGION_KEY, null)
         findNavController().popBackStack()
     }
 
