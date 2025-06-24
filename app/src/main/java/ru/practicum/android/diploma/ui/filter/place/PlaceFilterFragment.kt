@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentPlaceFilterBinding
 import ru.practicum.android.diploma.ui.root.BindingFragment
 import ru.practicum.android.diploma.ui.root.RootActivity
-import ru.practicum.android.diploma.util.handleBackPress
 
 class PlaceFilterFragment : BindingFragment<FragmentPlaceFilterBinding>() {
 
@@ -25,8 +25,10 @@ class PlaceFilterFragment : BindingFragment<FragmentPlaceFilterBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // системная кн назад
-        handleBackPress()
+        // Системная кнопка или жест назад
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            closeFragment(false)
+        }
 
         // настройка текста для include items
         textSetupForInclude()

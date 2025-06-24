@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -16,7 +17,6 @@ import ru.practicum.android.diploma.ui.filter.model.FilterScreenState
 import ru.practicum.android.diploma.ui.filter.model.SelectedFilters
 import ru.practicum.android.diploma.ui.root.BindingFragment
 import ru.practicum.android.diploma.ui.root.RootActivity
-import ru.practicum.android.diploma.util.handleBackPress
 
 class FilterFragment : BindingFragment<FragmentFilterBinding>() {
     private val viewModel: FilterViewModel by viewModel()
@@ -30,8 +30,11 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUiToolbar()
-        // системная кн назад
-        handleBackPress()
+        // Системная кнопка или жест назад
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            closeFragment(true)
+        }
+
         // viewModel.getAreas()
         // viewModel.getIndustries()
 
