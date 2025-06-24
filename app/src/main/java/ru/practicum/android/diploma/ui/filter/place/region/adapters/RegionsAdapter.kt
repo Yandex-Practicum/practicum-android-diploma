@@ -18,8 +18,9 @@ class RegionsAdapter(private val clickListener: RegionClickListener) : RecyclerV
         holder: RegionsViewHolder,
         position: Int
     ) {
-        holder.bind(regions[position])
-        holder.itemView.setOnClickListener { clickListener.onCountryClick(regions[position]) }
+        val region = regions[position]
+        holder.itemView.setOnClickListener { clickListener.onCountryClick(region) }
+        holder.bind(region)
     }
 
     override fun getItemCount(): Int {

@@ -5,26 +5,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import androidx.activity.addCallback
-import androidx.core.view.isVisible
-import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentCountryFilterBinding
 import ru.practicum.android.diploma.ui.filter.place.country.adapters.CountryAdapter
 import ru.practicum.android.diploma.ui.filter.place.models.Country
 import ru.practicum.android.diploma.ui.filter.place.models.CountryState
 import ru.practicum.android.diploma.ui.root.BindingFragment
+import ru.practicum.android.diploma.ui.root.RootActivity
 import ru.practicum.android.diploma.util.COUNTRY_KEY
 import ru.practicum.android.diploma.util.REGION_KEY
 import ru.practicum.android.diploma.util.debounce
 import ru.practicum.android.diploma.util.handleBackPress
-import ru.practicum.android.diploma.ui.root.RootActivity
 
 class CountryFilterFragment : BindingFragment<FragmentCountryFilterBinding>() {
     private val viewModel: CountryViewModel by viewModel()

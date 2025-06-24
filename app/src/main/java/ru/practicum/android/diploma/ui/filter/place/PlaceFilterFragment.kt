@@ -78,7 +78,7 @@ class PlaceFilterFragment : BindingFragment<FragmentPlaceFilterBinding>() {
             placeViewModel.changeRegion(null)
         }
 
-        binding.buttonActionIndustry.buttonBlue.setOnClickListener {
+        binding.buttonActionPlace.buttonBlue.setOnClickListener {
             placeViewModel.saveChanged()
         }
     }

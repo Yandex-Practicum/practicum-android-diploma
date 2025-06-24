@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
@@ -15,9 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
-import androidx.activity.addCallback
-import androidx.core.view.isVisible
-import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentRegionFilterBinding
 import ru.practicum.android.diploma.ui.filter.place.models.Country
@@ -26,12 +24,12 @@ import ru.practicum.android.diploma.ui.filter.place.models.RegionState
 import ru.practicum.android.diploma.ui.filter.place.region.adapters.RegionListCallback
 import ru.practicum.android.diploma.ui.filter.place.region.adapters.RegionsAdapter
 import ru.practicum.android.diploma.ui.root.BindingFragment
+import ru.practicum.android.diploma.ui.root.RootActivity
 import ru.practicum.android.diploma.util.COUNTRY_KEY
 import ru.practicum.android.diploma.util.REGION_KEY
 import ru.practicum.android.diploma.util.debounce
 import ru.practicum.android.diploma.util.getSerializable
 import ru.practicum.android.diploma.util.handleBackPress
-import ru.practicum.android.diploma.ui.root.RootActivity
 
 class RegionFilterFragment : BindingFragment<FragmentRegionFilterBinding>() {
     private val regionViewModel: RegionViewModel by viewModel {
@@ -110,19 +108,19 @@ class RegionFilterFragment : BindingFragment<FragmentRegionFilterBinding>() {
             }
         }
         binding.regionSearch.searchEditText.addTextChangedListener(textWatcher)
-         // Системная кнопка или жест назад
+        // Системная кнопка или жест назад
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             closeFragment(false)
         }
 
         initUiTopbar()
-   }
+    }
 
     private fun showContent(regions: List<Region>) {
         binding.includedProgressBar.progressBar.isVisible = false
         binding.placeholder.isVisible = false
         adapter?.let {
-            val diffRegionsCallback = RegionListCallback(it.regions.toList(), regions)
+            val diffRegionsCallback = RegionListCallback(it.regions, regions)
             val diffRegions = DiffUtil.calculateDiff(diffRegionsCallback)
             it.regions.clear()
             it.regions.addAll(regions)
@@ -174,15 +172,6 @@ class RegionFilterFragment : BindingFragment<FragmentRegionFilterBinding>() {
         findNavController().popBackStack()
     }
 
-    companion object {
-        private const val ARG_COUNTRY = "country"
-        private const val CLICK_DEBOUNCE_DELAY = 500L
-
-        fun createArgs(country: Country?): Bundle = bundleOf(
-            ARG_COUNTRY to country
-        )
-    }
-
     private fun initUiTopbar() {
         binding.topbar.apply {
             btnFirst.setImageResource(R.drawable.arrow_back_24px)
@@ -199,5 +188,14 @@ class RegionFilterFragment : BindingFragment<FragmentRegionFilterBinding>() {
     private fun closeFragment(barVisibility: Boolean) {
         (activity as RootActivity).setNavBarVisibility(barVisibility)
         findNavController().popBackStack()
+    }
+
+    companion object {
+        private const val ARG_COUNTRY = "country"
+        private const val CLICK_DEBOUNCE_DELAY = 500L
+
+        fun createArgs(country: Country?): Bundle = bundleOf(
+            ARG_COUNTRY to country
+        )
     }
 }

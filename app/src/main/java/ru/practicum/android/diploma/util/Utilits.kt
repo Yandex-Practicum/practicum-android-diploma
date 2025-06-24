@@ -35,10 +35,11 @@ internal fun getCurrSymbol(context: Context, codeSymbol: String): String {
 
 fun <T : Serializable?> getSerializable(bundle: Bundle, name: String, clazz: Class<T>): T? {
     return try {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             bundle.getSerializable(name, clazz)!!
-        else
+        } else {
             bundle.getSerializable(name) as T
+        }
     } catch (_: NullPointerException) {
         null
     }

@@ -5,5 +5,6 @@ import java.io.Serializable
 data class Region(
     val id: String,
     val name: String,
-    val country: Country?
+    val country: Country?,
+    private val serialVersionID : Long = 1L,
 ) : Serializable
