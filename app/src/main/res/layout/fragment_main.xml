@@ -19,10 +19,11 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="@dimen/margin16" />
 
-    <ru.practicum.android.diploma.ui.components.CustomToolbar
+    <include
+        android:id="@+id/topbar"
+        layout="@layout/topbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/toolbar"
 
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,12 +31,12 @@
 
     <EditText
         android:id="@+id/search_edit_text"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintTop_toBottomOf="@id/topbar"
         app:layout_constraintStart_toEndOf="@+id/left_guideline"
         app:layout_constraintEnd_toStartOf="@id/right_guideline"
         android:layout_height="wrap_content"
         android:layout_width="0.dp"
-        android:layout_marginVertical="@dimen/margin16"
+        android:layout_marginVertical="@dimen/margin8"
         android:hint="@string/enter_request"
         android:maxLines="1"
         android:inputType="text"

@@ -20,16 +20,16 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="@dimen/margin16" />
 
-    <!-- заменить на тулбар -->
-    <View
-        android:id="@+id/empty_view"
+    <include
+        android:id="@+id/topbar"
+        layout="@layout/topbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/margin56"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin16"
 
-        app:layout_constraintBottom_toTopOf="@id/country_item"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <!-- items для еще не выбранных пунктов -->
     <include
@@ -38,7 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="visible"
-        app:layout_constraintTop_toBottomOf="@id/empty_view" />
+        app:layout_constraintTop_toBottomOf="@id/topbar" />
 
     <include
         android:id="@+id/region_item"
@@ -55,7 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="invisible"
-        app:layout_constraintTop_toBottomOf="@id/empty_view" />
+        app:layout_constraintTop_toBottomOf="@id/topbar" />
 
     <include
         android:id="@+id/selected_region"

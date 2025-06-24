@@ -6,16 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".ui.filter.place.country.CountryFilterFragment">
 
-    <!-- заменить на тулбар -->
-    <View
-        android:id="@+id/empty_view"
+    <include
+        android:id="@+id/topbar"
+        layout="@layout/topbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/margin56"
+        android:layout_height="wrap_content"
 
-        app:layout_constraintBottom_toTopOf="@id/country_recycler_view"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/country_recycler_view"
@@ -26,7 +25,7 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/empty_view"
+        app:layout_constraintTop_toBottomOf="@+id/topbar"
         tools:itemCount="10"
         android:visibility="visible"
         tools:listitem="@layout/list_location_item" />
