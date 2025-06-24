@@ -124,6 +124,12 @@ class PlaceFilterFragment : BindingFragment<FragmentPlaceFilterBinding>() {
         } else {
             clearRegion()
         }
+        updateButtonVisibility(country, region)
+    }
+
+    private fun updateButtonVisibility(country: Country?, region: Region?) {
+        val isAnyFilterSelected = country != null || region != null
+        binding.buttonActionPlace.root.isVisible = isAnyFilterSelected
     }
 
     private fun saveAndExit(country: Country?, region: Region?) {
