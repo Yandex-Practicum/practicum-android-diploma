@@ -11,6 +11,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import androidx.activity.addCallback
+import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentCountryFilterBinding
 import ru.practicum.android.diploma.ui.filter.place.country.adapters.CountryAdapter
@@ -21,6 +24,7 @@ import ru.practicum.android.diploma.util.COUNTRY_KEY
 import ru.practicum.android.diploma.util.REGION_KEY
 import ru.practicum.android.diploma.util.debounce
 import ru.practicum.android.diploma.util.handleBackPress
+import ru.practicum.android.diploma.ui.root.RootActivity
 
 class CountryFilterFragment : BindingFragment<FragmentCountryFilterBinding>() {
     private val viewModel: CountryViewModel by viewModel()
@@ -68,6 +72,32 @@ class CountryFilterFragment : BindingFragment<FragmentCountryFilterBinding>() {
 
         // системная кн назад
         handleBackPress()
+
+        // Системная кнопка или жест назад
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            closeFragment(false)
+        }
+
+        initUiTopbar()
+    }
+
+    private fun initUiTopbar() {
+        binding.topbar.apply {
+            btnFirst.setImageResource(R.drawable.arrow_back_24px)
+            btnSecond.isVisible = false
+            btnThird.isVisible = false
+            header.text = requireContext().getString(R.string.country)
+        }
+
+        binding.topbar.btnFirst.setOnClickListener {
+            closeFragment(false)
+        }
+    }
+
+    private fun closeFragment(barVisibility: Boolean) {
+        (activity as RootActivity).setNavBarVisibility(barVisibility)
+        findNavController().popBackStack()
+
     }
 
     private fun onClickCountry(country: Country) {

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -21,6 +22,8 @@ import ru.practicum.android.diploma.ui.root.BindingFragment
 import ru.practicum.android.diploma.util.COUNTRY_KEY
 import ru.practicum.android.diploma.util.REGION_KEY
 import ru.practicum.android.diploma.util.handleBackPress
+import ru.practicum.android.diploma.ui.root.RootActivity
+
 
 class FilterFragment : BindingFragment<FragmentFilterBinding>() {
     private val viewModel: FilterViewModel by viewModel()
@@ -34,8 +37,11 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUiToolbar()
-        // системная кн назад
-        handleBackPress()
+        // Системная кнопка или жест назад
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            closeFragment(true)
+        }
+
         // viewModel.getAreas()
         // viewModel.getIndustries()
 
@@ -59,11 +65,21 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
     }
 
     private fun initUiToolbar() {
-        // настройка кастомного топбара
-        val toolbar = binding.toolbar
-        toolbar.setupToolbarForFilterScreen()
-        toolbar.setToolbarTitle(getString(R.string.filter_settings))
-        toolbar.setupToolbarBackButton(this)
+        binding.topbar.apply {
+            btnFirst.setImageResource(R.drawable.arrow_back_24px)
+            btnSecond.isVisible = false
+            btnThird.isVisible = false
+            header.text = requireContext().getString(R.string.filter_settings)
+        }
+
+        binding.topbar.btnFirst.setOnClickListener {
+            closeFragment(true)
+        }
+    }
+
+    private fun closeFragment(barVisibility: Boolean) {
+        (activity as RootActivity).setNavBarVisibility(barVisibility)
+        findNavController().popBackStack()
     }
 
     private fun initScreen() {

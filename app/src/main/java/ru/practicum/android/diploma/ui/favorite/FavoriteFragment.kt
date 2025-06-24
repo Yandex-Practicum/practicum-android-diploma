@@ -36,6 +36,7 @@ class FavoriteFragment : BindingFragment<FragmentFavoriteBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initTopbar()
         val onFavoriteClickDebounce = debounce<VacancyDetails>(
             CLICK_DEBOUNCE_DELAY,
             viewLifecycleOwner.lifecycleScope,
@@ -58,6 +59,15 @@ class FavoriteFragment : BindingFragment<FragmentFavoriteBinding>() {
             render(it)
         }
         viewModel.getFavoriteList()
+    }
+
+    private fun initTopbar() {
+        binding.topbar.apply {
+            btnFirst.isVisible = false
+            btnSecond.isVisible = false
+            btnThird.isVisible = false
+            header.text = requireContext().getString(R.string.favorite_head_text)
+        }
     }
 
     private fun clickToFavorite(vacancy: VacancyDetails) {

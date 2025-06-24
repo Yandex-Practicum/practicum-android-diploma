@@ -116,19 +116,17 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
     }
 
     private fun initUiToolbar() {
-        // настройка кастомного топбара
-        val toolbar = binding.toolbar
-        toolbar.setupToolbarForSearchScreen()
-        toolbar.setToolbarTitle(getString(R.string.vacancy_search))
-        toolbar.setOnToolbarFilterClickListener {
+        binding.topbar.apply {
+            btnFirst.isVisible = false
+            btnSecond.isVisible = false
+            btnThird.setImageResource(R.drawable.filter_off__24px)
+            header.text = requireContext().getString(R.string.vacancy_search)
+        }
+
+        binding.topbar.btnThird.setOnClickListener {
             (activity as RootActivity).setNavBarVisibility(false)
             findNavController().navigate(R.id.action_mainFragment_to_filterFragment)
         }
-        /*
-        * !!! после того, как настроены все фильтры
-        * применить toolbar.setFilterState(true) для изменения иконки кнопки
-        */
-
     }
 
     //  callback для системной кн назад - выход из приложения

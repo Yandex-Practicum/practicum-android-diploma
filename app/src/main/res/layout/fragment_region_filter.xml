@@ -20,16 +20,15 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="@dimen/margin16" />
 
-    <!-- заменить на тулбар -->
-    <View
-        android:id="@+id/empty_view"
+    <include
+        android:id="@+id/topbar"
+        layout="@layout/topbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/margin56"
+        android:layout_height="wrap_content"
 
-        app:layout_constraintBottom_toTopOf="@id/region_search"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <include
         android:id="@+id/region_search"
@@ -38,7 +37,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toStartOf="@id/right_guideline"
         app:layout_constraintStart_toEndOf="@id/left_guideline"
-        app:layout_constraintTop_toBottomOf="@id/empty_view" />
+        app:layout_constraintTop_toBottomOf="@id/topbar" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/region_recycler_view"
@@ -75,7 +74,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/right_guideline"
         app:layout_constraintStart_toStartOf="@id/left_guideline"
-        app:layout_constraintTop_toBottomOf="@id/empty_view">
+        app:layout_constraintTop_toBottomOf="@id/topbar">
 
         <ImageView
             android:id="@+id/placeholder_img"

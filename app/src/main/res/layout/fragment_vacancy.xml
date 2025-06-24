@@ -8,10 +8,15 @@
     android:orientation="vertical"
     android:paddingBottom="24dp">
 
-    <ru.practicum.android.diploma.ui.components.CustomToolbar
+    <include
+        android:id="@+id/topbar"
+        layout="@layout/topbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/toolbar"/>
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <include
         android:id="@+id/included_progress_bar"
@@ -53,6 +58,7 @@
                 android:textColor="?attr/colorOnPrimary"
                 android:paddingTop="@dimen/margin8"
                 tools:text="[Vacancy name]"
+                android:layout_marginTop="@dimen/margin16"
 
                 app:layout_constraintVertical_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="@id/leftGuideline"
