@@ -2,10 +2,10 @@ package ru.practicum.android.diploma.ui.filter.place.country.adapters
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ru.practicum.android.diploma.domain.models.Areas
+import ru.practicum.android.diploma.ui.filter.place.models.Country
 
 class CountryAdapter(private val clickListener: CountryClickListener) : RecyclerView.Adapter<CountryViewHolder>() {
-    val countries: MutableList<Areas> = mutableListOf()
+    val countries: MutableList<Country> = mutableListOf()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -27,6 +27,6 @@ class CountryAdapter(private val clickListener: CountryClickListener) : Recycler
     }
 
     fun interface CountryClickListener {
-        fun onCountryClick(country: Areas)
+        fun onCountryClick(country: Country)
     }
 }

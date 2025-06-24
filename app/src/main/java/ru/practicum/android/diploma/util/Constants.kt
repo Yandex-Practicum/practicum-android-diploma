@@ -13,3 +13,5 @@ const val HH_LOG = "HH_TEST"
 
 const val FILTER_PREFS_NAME = "filter_prefs"
 const val FILTER_SETTINGS = "filters"
+const val COUNTRY_KEY = "country_key"
+const val REGION_KEY = "region_key"

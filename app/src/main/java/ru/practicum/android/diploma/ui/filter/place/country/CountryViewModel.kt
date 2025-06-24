@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.filters.AreasInteractor
 import ru.practicum.android.diploma.domain.models.Areas
+import ru.practicum.android.diploma.ui.filter.place.models.Country
 import ru.practicum.android.diploma.ui.filter.place.models.CountryState
 
 class CountryViewModel(
@@ -15,7 +16,7 @@ class CountryViewModel(
     private val countryFilterState = MutableLiveData<CountryState>()
     val observeState: LiveData<CountryState> = countryFilterState
 
-    private val countryList: ArrayList<Areas> = arrayListOf()
+    private val countryList: ArrayList<Country> = arrayListOf()
 
     init {
         render(CountryState.Loading)
@@ -40,7 +41,12 @@ class CountryViewModel(
     private fun fillCountryList(areas: List<Areas>) {
         for (country in areas) {
             if (country.parentId == null) {
-                countryList.add(country)
+                countryList.add(
+                    Country(
+                        id = country.id,
+                        name = country.name
+                    )
+                )
             }
         }
     }

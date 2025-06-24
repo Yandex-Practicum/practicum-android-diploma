@@ -14,6 +14,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterBinding
 import ru.practicum.android.diploma.ui.filter.model.FilterScreenState
 import ru.practicum.android.diploma.ui.filter.model.SelectedFilters
+import ru.practicum.android.diploma.ui.filter.place.PlaceFilterFragment
 import ru.practicum.android.diploma.ui.root.BindingFragment
 import ru.practicum.android.diploma.util.handleBackPress
 
@@ -79,7 +80,10 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
     private fun initListenersPlace() {
         binding.includedPlace.apply {
             root.setOnClickListener {
-                findNavController().navigate(R.id.action_filterFragment_to_placeFilterFragment)
+                findNavController().navigate(
+                    R.id.action_filterFragment_to_placeFilterFragment,
+                    PlaceFilterFragment.createArgs(null, null)
+                )
             }
 
             itemIcon.setOnClickListener {

@@ -26,46 +26,53 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin56"
 
-        app:layout_constraintBottom_toTopOf="@id/country_item"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- items для еще не выбранных пунктов -->
-    <include
-        android:id="@+id/country_item"
-        layout="@layout/list_location_item"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
         app:layout_constraintTop_toBottomOf="@id/empty_view"
-        />
+        android:orientation="vertical">
 
-    <include
-        android:id="@+id/region_item"
-        layout="@layout/list_location_item"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="visible"
-        app:layout_constraintTop_toBottomOf="@id/country_item"/>
+        <!-- items для еще не выбранных пунктов -->
+        <include
+            android:id="@+id/country_item"
+            layout="@layout/list_location_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="@id/empty_view"
+            />
 
-    <!-- items для уже выбранных пунктов-->
-    <include
-        android:id="@+id/selected_country"
-        layout="@layout/selected_item"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="visible"
-        app:layout_constraintTop_toBottomOf="@id/empty_view"
-        />
+        <!-- items для уже выбранных пунктов-->
+        <include
+            android:id="@+id/selected_country"
+            layout="@layout/selected_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/empty_view"
+            />
 
-    <include
-        android:id="@+id/selected_region"
-        layout="@layout/selected_item"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        app:layout_constraintTop_toBottomOf="@id/selected_country"/>
+        <include
+            android:id="@+id/region_item"
+            layout="@layout/list_location_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="@id/country_item"/>
+
+        <include
+            android:id="@+id/selected_region"
+            layout="@layout/selected_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/selected_country"/>
+
+    </LinearLayout>
 
     <include
         android:id="@+id/button_action_industry"
