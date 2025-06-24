@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
@@ -16,10 +17,10 @@ import ru.practicum.android.diploma.ui.filter.place.models.PlaceState
 import ru.practicum.android.diploma.ui.filter.place.models.Region
 import ru.practicum.android.diploma.ui.filter.place.region.RegionFilterFragment
 import ru.practicum.android.diploma.ui.root.BindingFragment
+import ru.practicum.android.diploma.ui.root.RootActivity
 import ru.practicum.android.diploma.util.COUNTRY_KEY
 import ru.practicum.android.diploma.util.REGION_KEY
 import ru.practicum.android.diploma.util.getSerializable
-import ru.practicum.android.diploma.util.handleBackPress
 
 class PlaceFilterFragment : BindingFragment<FragmentPlaceFilterBinding>() {
     private val placeViewModel: PlaceViewModel by viewModel {
@@ -57,8 +58,11 @@ class PlaceFilterFragment : BindingFragment<FragmentPlaceFilterBinding>() {
             ?.observe(viewLifecycleOwner) { data ->
                 placeViewModel.changeRegion(data)
             }
-        // системная кн назад
-        handleBackPress()
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            closeFragment(false)
+        }
+        initTopbar()
 
         binding.countryItem.listLocationItem.setOnClickListener {
             findNavController().navigate(
@@ -81,6 +85,24 @@ class PlaceFilterFragment : BindingFragment<FragmentPlaceFilterBinding>() {
         binding.buttonActionPlace.buttonBlue.setOnClickListener {
             placeViewModel.saveChanged()
         }
+    }
+
+    private fun initTopbar() {
+        binding.topbar.apply {
+            btnFirst.setImageResource(R.drawable.arrow_back_24px)
+            btnSecond.isVisible = false
+            btnThird.isVisible = false
+            header.text = requireContext().getString(R.string.place_of_work)
+        }
+
+        binding.topbar.btnFirst.setOnClickListener {
+            closeFragment(false)
+        }
+    }
+
+    private fun closeFragment(barVisibility: Boolean) {
+        (activity as RootActivity).setNavBarVisibility(barVisibility)
+        findNavController().popBackStack()
     }
 
     private fun setOfRegion(country: Country?) {

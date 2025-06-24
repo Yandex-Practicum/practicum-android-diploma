@@ -29,7 +29,6 @@ import ru.practicum.android.diploma.util.COUNTRY_KEY
 import ru.practicum.android.diploma.util.REGION_KEY
 import ru.practicum.android.diploma.util.debounce
 import ru.practicum.android.diploma.util.getSerializable
-import ru.practicum.android.diploma.util.handleBackPress
 
 class RegionFilterFragment : BindingFragment<FragmentRegionFilterBinding>() {
     private val regionViewModel: RegionViewModel by viewModel {
@@ -53,8 +52,6 @@ class RegionFilterFragment : BindingFragment<FragmentRegionFilterBinding>() {
         // подсказка Введите регион
         binding.regionSearch.searchEditText.hint = getString(R.string.enter_region)
 
-        // системная кн назад
-        handleBackPress()
         regionViewModel.observeState().observe(viewLifecycleOwner) {
             when (it) {
                 is RegionState.Content -> showContent(it.regions)
@@ -108,6 +105,7 @@ class RegionFilterFragment : BindingFragment<FragmentRegionFilterBinding>() {
             }
         }
         binding.regionSearch.searchEditText.addTextChangedListener(textWatcher)
+
         // Системная кнопка или жест назад
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             closeFragment(false)

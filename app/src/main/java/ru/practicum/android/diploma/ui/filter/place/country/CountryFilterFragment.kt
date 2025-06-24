@@ -22,7 +22,6 @@ import ru.practicum.android.diploma.ui.root.RootActivity
 import ru.practicum.android.diploma.util.COUNTRY_KEY
 import ru.practicum.android.diploma.util.REGION_KEY
 import ru.practicum.android.diploma.util.debounce
-import ru.practicum.android.diploma.util.handleBackPress
 
 class CountryFilterFragment : BindingFragment<FragmentCountryFilterBinding>() {
     private val viewModel: CountryViewModel by viewModel()
@@ -67,9 +66,6 @@ class CountryFilterFragment : BindingFragment<FragmentCountryFilterBinding>() {
                 is CountryState.Loading -> showLoading()
             }
         }
-
-        // системная кн назад
-        handleBackPress()
 
         // Системная кнопка или жест назад
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
