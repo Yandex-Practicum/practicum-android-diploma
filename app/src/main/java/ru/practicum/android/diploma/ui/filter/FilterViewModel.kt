@@ -27,30 +27,35 @@ class FilterViewModel(
 
     fun getFilters() {
         // Тут мы достаем сохраненные в SP фильтры
-        testModel = filterPreferences.loadFilters() ?: SelectedFilters(DEFAULT_COUNTRY, DEFAULT_REGION, "1", "IT", 999999, true)
+        testModel = filterPreferences.loadFilters() ?:
+            SelectedFilters(DEFAULT_COUNTRY, DEFAULT_REGION, "1", "IT", 999999, true)
         state.postValue(FilterScreenState.CONTENT(testModel))
     }
 
     fun clearPlace() {
         // TODO
-        testModel = SelectedFilters(null, null, testModel.industryId, testModel.industry, testModel.salary, testModel.onlyWithSalary)
+        testModel =
+            SelectedFilters(null, null, testModel.industryId, testModel.industry, testModel.salary, testModel.onlyWithSalary)
         state.postValue(FilterScreenState.CONTENT(testModel))
     }
 
     fun clearIndustry() {
         // TODO
-        testModel = SelectedFilters(testModel.country, testModel.region, null, null, testModel.salary, testModel.onlyWithSalary)
+        testModel =
+            SelectedFilters(testModel.country, testModel.region, null, null, testModel.salary, testModel.onlyWithSalary)
         state.postValue(FilterScreenState.CONTENT(testModel))
     }
 
     fun clearSalary() {
         // TODO
-        testModel = SelectedFilters(testModel.country, testModel.region, testModel.industryId, testModel.industry, null, testModel.onlyWithSalary)
+        testModel =
+            SelectedFilters(testModel.country, testModel.region, testModel.industryId, testModel.industry, null, testModel.onlyWithSalary)
         state.postValue(FilterScreenState.CONTENT(testModel))
     }
 
     fun setShowNoSalary() {
-        testModel = SelectedFilters(testModel.country, testModel.region, testModel.industryId, testModel.industry, testModel.salary, !testModel.onlyWithSalary)
+        testModel =
+            SelectedFilters(testModel.country, testModel.region, testModel.industryId, testModel.industry, testModel.salary, !testModel.onlyWithSalary)
         state.postValue(FilterScreenState.CONTENT(testModel))
     }
 
