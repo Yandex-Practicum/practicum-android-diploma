@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.TypedValue
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.ui.filter.model.SelectedFilters
 import java.io.Serializable
 
 fun pxToDp(dp: Float, context: Context): Int {
@@ -31,6 +32,20 @@ internal fun getCurrSymbol(context: Context, codeSymbol: String): String {
             else -> codeSymbol
         }
     }
+}
+
+fun formatPlace(filters: SelectedFilters): String? {
+    if (filters.country == null && filters.region == null) {
+        return null
+    }
+
+    var result = "${filters.country?.name}"
+
+    if (filters.region != null) {
+        result += ", ${filters.region.name}"
+    }
+
+    return result
 }
 
 fun <T : Serializable?> getSerializable(bundle: Bundle, name: String, clazz: Class<T>): T? {

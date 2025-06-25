@@ -7,4 +7,8 @@ data class Areas(
     val name: String,
     val parentId: String?,
     val areas: List<Areas>
-) : Serializable
+) : Serializable {
+    companion object {
+        private const val serialVersionUID = 1L
+    }
+}

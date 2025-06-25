@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
@@ -24,6 +23,7 @@ import ru.practicum.android.diploma.ui.root.BindingFragment
 import ru.practicum.android.diploma.ui.root.RootActivity
 import ru.practicum.android.diploma.util.COUNTRY_KEY
 import ru.practicum.android.diploma.util.REGION_KEY
+import ru.practicum.android.diploma.util.formatPlace
 
 class FilterFragment : BindingFragment<FragmentFilterBinding>() {
 
@@ -220,25 +220,8 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
         fillSalary(filters.salary)
         setShowNoSalary(filters.onlyWithSalary)
         setButtonsVisibility(
-            !place.isNullOrEmpty()
-                || !filters.industry.isNullOrEmpty()
-                || filters.salary != null
-                || filters.onlyWithSalary
+            !place.isNullOrEmpty() || !filters.industry.isNullOrEmpty() || filters.salary != null || filters.onlyWithSalary
         )
-    }
-
-    private fun formatPlace(filters: SelectedFilters): String? {
-        if (filters.country == null && filters.region == null) {
-            return null
-        }
-
-        var result = "${filters.country?.name}"
-
-        if (filters.region != null) {
-            result += ", ${filters.region.name}"
-        }
-
-        return result
     }
 
     private fun fillPlace(place: String?) {
