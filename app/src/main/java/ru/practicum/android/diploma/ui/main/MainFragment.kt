@@ -74,13 +74,14 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
             )
         }
 
-        val iconRes = if (viewModel.hasActiveFilters()) {
-            R.drawable.filter_on__24px
-        } else {
-            R.drawable.filter_off__24px
+        viewModel.observeFiltersState().observe(viewLifecycleOwner) { hasFilters ->
+            val iconRes = if (hasFilters) {
+                R.drawable.filter_on__24px
+            } else {
+                R.drawable.filter_off__24px
+            }
+            binding.topbar.btnThird.setImageResource(iconRes)
         }
-
-        binding.topbar.btnThird.setImageResource(iconRes)
 
         viewModel.observeClearSearchInput().observe(viewLifecycleOwner) {
             binding.searchEditText.setText("")
@@ -238,5 +239,10 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
         binding.unknownError.isVisible = !isNoInternetError
         binding.searchResults.isVisible = false
         binding.vacanciesCount.isVisible = false
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.updateFiltersState()
     }
 }

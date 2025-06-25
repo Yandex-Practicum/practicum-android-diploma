@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.ui.main
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -42,6 +41,9 @@ class MainViewModel(
         MutableLiveData<SearchContentStateVO>(SearchContentStateVO.Base)
     val contentState: LiveData<SearchContentStateVO> = contentStateLiveData
 
+    private val filtersState = MutableLiveData<Boolean>()
+    fun observeFiltersState(): LiveData<Boolean> = filtersState
+
     private val showErrorToast = SingleLiveEvent<Unit>()
     fun observeShowErrorToast(): LiveData<Unit> = showErrorToast
 
@@ -80,13 +82,6 @@ class MainViewModel(
         }
     }
 
-    fun hasActiveFilters(): Boolean {
-        val filters = selectedFilters ?: return false
-        Log.d("FILTERS", "filters ${selectedFilters?.country?.name}")
-        return filters.country != null || filters.region != null || filters.industryId != null ||
-            filters.salary != null || filters.onlyWithSalary
-    }
-
     private fun doSearch() {
         val text = text.value ?: ""
         if (text.isEmpty()) {
@@ -123,6 +118,20 @@ class MainViewModel(
         viewModelScope.launch {
             handleSearch(options)
         }
+    }
+
+    fun updateFiltersState() {
+        val filters = filterPreferences.loadFilters()
+        selectedFilters = filters
+        filtersState.postValue(
+            filters != null && (
+                filters.country != null ||
+                    filters.region != null ||
+                    filters.industryId != null ||
+                    filters.salary != null ||
+                    filters.onlyWithSalary
+                )
+        )
     }
 
     private suspend fun handleSearch(options: FilterOptions) {
