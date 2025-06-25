@@ -60,7 +60,6 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
                 viewModel.setIndustry(id, name)
             }
         }
-
         viewModel.getState().observe(viewLifecycleOwner) { state ->
             when (state) {
                 is FilterScreenState.CONTENT -> showContent(state.value)
@@ -85,69 +84,63 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
     }
 
     private fun initListeners() {
-        binding.includedPlace.apply {
-            root.setOnClickListener {
-                val state = viewModel.getState().value
-                viewModel.saveFilters()
-                if (state is FilterScreenState.CONTENT) {
-                    findNavController().navigate(
-                        R.id.action_filterFragment_to_placeFilterFragment,
-                        PlaceFilterFragment.createArgs(state.value.country, state.value.region)
-                    )
-                } else {
-                    findNavController().navigate(
-                        R.id.action_filterFragment_to_placeFilterFragment,
-                        PlaceFilterFragment.createArgs(null, null)
-                    )
-                }
-            }
-            itemIcon.setOnClickListener {
-                if (itemText.text.isNotEmpty()) {
-                    viewModel.clearPlace()
-                }
+        binding.includedPlace.root.setOnClickListener {
+            val state = viewModel.getState().value
+            viewModel.saveFilters()
+            if (state is FilterScreenState.CONTENT) {
+                findNavController().navigate(
+                    R.id.action_filterFragment_to_placeFilterFragment,
+                    PlaceFilterFragment.createArgs(state.value.country, state.value.region)
+                )
+            } else {
+                findNavController().navigate(
+                    R.id.action_filterFragment_to_placeFilterFragment,
+                    PlaceFilterFragment.createArgs(null, null)
+                )
             }
         }
-        binding.includedIndustry.apply {
-            root.setOnClickListener {
-                viewModel.saveFilters()
-                findNavController().navigate(R.id.action_filterFragment_to_industryFilterFragment)
+        binding.includedPlace.itemIcon.setOnClickListener {
+            if (binding.includedPlace.itemText.text.isNotEmpty()) {
+                viewModel.clearPlace()
             }
-            itemIcon.setOnClickListener {
-                if (itemText.text.isNotEmpty()) {
-                    viewModel.clearIndustry()
-                }
+        }
+        binding.includedIndustry.root.setOnClickListener {
+            viewModel.saveFilters()
+            findNavController().navigate(R.id.action_filterFragment_to_industryFilterFragment)
+        }
+        binding.includedIndustry.itemIcon.setOnClickListener {
+            if (binding.includedIndustry.itemText.text.isNotEmpty()) {
+                viewModel.clearIndustry()
             }
         }
     }
 
     private fun initListenersSalaryAndBtns() {
-        binding.includedSalary.apply {
-            textFieldEdit.setOnEditorActionListener { v, actionId, _ ->
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    v.clearFocus()
-                    val imm = v.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                    imm.hideSoftInputFromWindow(v.windowToken, 0)
-                    val input = textFieldEdit.text.toString().toIntOrNull()
-                    viewModel.setSalary(input)
-                    true
-                } else {
-                    false
+        binding.includedSalary.textFieldEdit.setOnEditorActionListener { v, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                v.clearFocus()
+                val imm = v.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(v.windowToken, 0)
+                val input = binding.includedSalary.textFieldEdit.text.toString().toIntOrNull()
+                viewModel.setSalary(input)
+                true
+            } else {
+                false
+            }
+        }
+        binding.includedSalary.textFieldEdit.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                binding.includedSalary.textFieldHeader.text = requireContext().getString(R.string.expected_salary)
+                binding.includedSalary.textFieldHeader.setTextColor(requireContext().getColor(R.color.blue))
+            } else {
+                if (binding.includedSalary.textFieldEdit.text.isEmpty()) {
+                    binding.includedSalary.textFieldHeader.text = ""
                 }
+                binding.includedSalary.textFieldHeader.setTextColor(requireContext().getColor(R.color.black))
             }
-            textFieldEdit.setOnFocusChangeListener { _, hasFocus ->
-                if (hasFocus) {
-                    textFieldHeader.text = requireContext().getString(R.string.expected_salary)
-                    textFieldHeader.setTextColor(requireContext().getColor(R.color.blue))
-                } else {
-                    if (textFieldEdit.text.isEmpty()) {
-                        textFieldHeader.text = ""
-                    }
-                    textFieldHeader.setTextColor(requireContext().getColor(R.color.black))
-                }
-            }
-            textFieldClear.setOnClickListener {
-                viewModel.clearSalary()
-            }
+        }
+        binding.includedSalary.textFieldClear.setOnClickListener {
+            viewModel.clearSalary()
         }
         binding.includedShowNoSalary.checkbox.setOnClickListener {
             viewModel.setShowNoSalary()
