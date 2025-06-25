@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentIndustryFilterBinding
 import ru.practicum.android.diploma.ui.root.BindingFragment
+import ru.practicum.android.diploma.ui.root.RootActivity
 import ru.practicum.android.diploma.util.handleBackPress
 
 class IndustryFilterFragment : BindingFragment<FragmentIndustryFilterBinding>() {
@@ -73,9 +76,32 @@ class IndustryFilterFragment : BindingFragment<FragmentIndustryFilterBinding>() 
             }
         }
 
-        // системная кн назад
-        handleBackPress()
+        // Системная кнопка или жест назад
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            closeFragment(false)
+        }
+
+        initUiTopbar()
     }
+
+    private fun initUiTopbar() {
+        binding.topbar.apply {
+            btnFirst.setImageResource(R.drawable.arrow_back_24px)
+            btnSecond.isVisible = false
+            btnThird.isVisible = false
+            header.text = requireContext().getString(R.string.area)
+        }
+
+        binding.topbar.btnFirst.setOnClickListener {
+            closeFragment(false)
+        }
+    }
+
+    private fun closeFragment(barVisibility: Boolean) {
+        (activity as RootActivity).setNavBarVisibility(barVisibility)
+        findNavController().popBackStack()
+    }
+
     private fun showContent(state: IndustryState.CONTENT) {
         binding.industryRecyclerView.visibility = View.VISIBLE
         binding.includedProgressBar.root.visibility = View.GONE

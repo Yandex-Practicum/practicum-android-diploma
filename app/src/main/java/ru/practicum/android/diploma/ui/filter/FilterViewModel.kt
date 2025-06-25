@@ -48,7 +48,7 @@ class FilterViewModel(
     }
 
     fun setShowNoSalary() {
-        testModel = SelectedFilters(testModel.placeId, testModel.place, testModel.industryId, testModel.industry, null, !testModel.onlyWithSalary)
+        testModel = SelectedFilters(testModel.placeId, testModel.place, testModel.industryId, testModel.industry, testModel.salary, !testModel.onlyWithSalary)
         state.postValue(FilterScreenState.CONTENT(testModel))
     }
 
