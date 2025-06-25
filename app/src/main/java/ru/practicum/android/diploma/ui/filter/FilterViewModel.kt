@@ -1,8 +1,12 @@
 package ru.practicum.android.diploma.ui.filter
 
+import android.content.Context
+import androidx.core.view.isVisible
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.databinding.FragmentFilterBinding
 import ru.practicum.android.diploma.domain.api.FilterPreferences
 import ru.practicum.android.diploma.ui.filter.model.FilterScreenState
 import ru.practicum.android.diploma.ui.filter.model.SelectedFilters
@@ -118,5 +122,28 @@ class FilterViewModel(
             null,
             false
         )
+    }
+
+    fun screenInit(binding: FragmentFilterBinding, context: Context) {
+        binding.topbar.apply {
+            btnFirst.setImageResource(R.drawable.arrow_back_24px)
+            btnSecond.isVisible = false
+            btnThird.isVisible = false
+            header.text = context.getString(R.string.filter_settings)
+        }
+        binding.includedPlace.apply {
+            itemTextTop.text = context.getString(R.string.place)
+            itemTextTop.isVisible = false
+            itemText.hint = itemTextTop.text
+            itemIcon.setImageResource(R.drawable.arrow_forward_24px)
+        }
+        binding.includedIndustry.apply {
+            itemTextTop.text = context.getString(R.string.industry)
+            itemTextTop.isVisible = false
+            itemText.hint = itemTextTop.text
+            itemIcon.setImageResource(R.drawable.arrow_forward_24px)
+        }
+        binding.includedBtnSet.root.isVisible = false
+        binding.includedBtnCancel.root.isVisible = false
     }
 }

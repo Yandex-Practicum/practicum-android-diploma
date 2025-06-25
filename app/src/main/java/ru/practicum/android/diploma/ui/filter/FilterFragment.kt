@@ -39,13 +39,10 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initUiToolbar()
-
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             closeFragment(true)
         }
-
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Country?>(COUNTRY_KEY)
             ?.observe(viewLifecycleOwner) { country ->
                 viewModel.setCountry(country)
@@ -54,10 +51,9 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
             ?.observe(viewLifecycleOwner) { region ->
                 viewModel.setRegion(region)
             }
-
         initScreen()
+        viewModel.screenInit(binding, requireContext())
         viewModel.getFilters()
-
         args.selectedIndustryId?.let { id ->
             val name = args.selectedIndustryName
             if (name != null) {
@@ -73,13 +69,6 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
     }
 
     private fun initUiToolbar() {
-        binding.topbar.apply {
-            btnFirst.setImageResource(R.drawable.arrow_back_24px)
-            btnSecond.isVisible = false
-            btnThird.isVisible = false
-            header.text = requireContext().getString(R.string.filter_settings)
-        }
-
         binding.topbar.btnFirst.setOnClickListener {
             closeFragment(true)
         }
@@ -91,23 +80,6 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
     }
 
     private fun initScreen() {
-        binding.includedPlace.apply {
-            itemTextTop.text = requireContext().getString(R.string.place)
-            itemTextTop.isVisible = false
-            itemText.hint = itemTextTop.text
-            itemIcon.setImageResource(R.drawable.arrow_forward_24px)
-        }
-
-        binding.includedIndustry.apply {
-            itemTextTop.text = requireContext().getString(R.string.industry)
-            itemTextTop.isVisible = false
-            itemText.hint = itemTextTop.text
-            itemIcon.setImageResource(R.drawable.arrow_forward_24px)
-        }
-
-        binding.includedBtnSet.root.isVisible = false
-        binding.includedBtnCancel.root.isVisible = false
-
         initListenersPlace()
         initListenersIndustry()
         initListenersSalary()
@@ -118,9 +90,7 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
         binding.includedPlace.apply {
             root.setOnClickListener {
                 val state = viewModel.getState().value
-
                 viewModel.saveFilters()
-
                 if (state is FilterScreenState.CONTENT) {
                     findNavController().navigate(
                         R.id.action_filterFragment_to_placeFilterFragment,
@@ -133,7 +103,6 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
                     )
                 }
             }
-
             itemIcon.setOnClickListener {
                 if (itemText.text.isNotEmpty()) {
                     viewModel.clearPlace()
@@ -148,7 +117,6 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
                 viewModel.saveFilters()
                 findNavController().navigate(R.id.action_filterFragment_to_industryFilterFragment)
             }
-
             itemIcon.setOnClickListener {
                 if (itemText.text.isNotEmpty()) {
                     viewModel.clearIndustry()
@@ -164,10 +132,8 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
                     v.clearFocus()
                     val imm = v.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                     imm.hideSoftInputFromWindow(v.windowToken, 0)
-
                     val input = textFieldEdit.text.toString().toIntOrNull()
                     viewModel.setSalary(input)
-
                     true
                 } else {
                     false
@@ -185,7 +151,6 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
                     textFieldHeader.setTextColor(requireContext().getColor(R.color.black))
                 }
             }
-
             textFieldClear.setOnClickListener {
                 viewModel.clearSalary()
             }
@@ -196,15 +161,12 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
         binding.includedShowNoSalary.checkbox.setOnClickListener {
             viewModel.setShowNoSalary()
         }
-
         binding.includedBtnSet.root.setOnClickListener {
             val input = binding.includedSalary.textFieldEdit.text.toString().toIntOrNull()
-
             viewModel.setSalary(input)
             viewModel.saveFilters()
             findNavController().popBackStack()
         }
-
         binding.includedBtnCancel.root.setOnClickListener {
             viewModel.clearFilters()
             viewModel.saveFilters()
@@ -214,19 +176,18 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
 
     private fun showContent(filters: SelectedFilters) {
         val place = formatPlace(filters)
-
         fillPlace(place)
         fillIndustry(filters.industry)
         fillSalary(filters.salary)
         setShowNoSalary(filters.onlyWithSalary)
         setButtonsVisibility(
-            !place.isNullOrEmpty() || !filters.industry.isNullOrEmpty() || filters.salary != null || filters.onlyWithSalary
+            !place.isNullOrEmpty()
+                || !filters.industry.isNullOrEmpty() || filters.salary != null || filters.onlyWithSalary
         )
     }
 
     private fun fillPlace(place: String?) {
         val hasValue = !place.isNullOrEmpty()
-
         binding.includedPlace.apply {
             itemTextTop.isVisible = hasValue
             itemIcon.setImageResource(
