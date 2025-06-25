@@ -10,6 +10,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterBinding
@@ -19,7 +20,10 @@ import ru.practicum.android.diploma.ui.root.BindingFragment
 import ru.practicum.android.diploma.ui.root.RootActivity
 
 class FilterFragment : BindingFragment<FragmentFilterBinding>() {
+
     private val viewModel: FilterViewModel by viewModel()
+    private val args by navArgs<FilterFragmentArgs>() // здесь сохранил industryId и industryName
+
     override fun createBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -29,6 +33,14 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        args.selectedIndustryId?.let { id ->
+            val name = args.selectedIndustryName
+            if (name != null) {
+                viewModel.setIndustry(id, name)
+            }
+        }
+
         initUiToolbar()
         // Системная кнопка или жест назад
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
