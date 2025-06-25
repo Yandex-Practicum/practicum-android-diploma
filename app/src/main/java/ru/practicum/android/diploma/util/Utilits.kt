@@ -1,8 +1,11 @@
 package ru.practicum.android.diploma.util
 
 import android.content.Context
+import android.os.Build
+import android.os.Bundle
 import android.util.TypedValue
 import ru.practicum.android.diploma.R
+import java.io.Serializable
 
 fun pxToDp(dp: Float, context: Context): Int {
     return TypedValue.applyDimension(
@@ -27,5 +30,17 @@ internal fun getCurrSymbol(context: Context, codeSymbol: String): String {
             "KGT" -> getString(R.string.currency_kgt)
             else -> codeSymbol
         }
+    }
+}
+
+fun <T : Serializable?> getSerializable(bundle: Bundle, name: String, clazz: Class<T>): T? {
+    return try {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            bundle.getSerializable(name, clazz)!!
+        } else {
+            bundle.getSerializable(name) as T
+        }
+    } catch (_: NullPointerException) {
+        null
     }
 }

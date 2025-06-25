@@ -41,7 +41,7 @@ class AreasRepositoryImpl(
             areas = if (dto.areas.isEmpty()) {
                 emptyList<Areas>()
             } else {
-                dto.areas.map {
+                dto.areas.sortedBy { it.name }.map {
                     dtoToModel(it)
                 }
             }

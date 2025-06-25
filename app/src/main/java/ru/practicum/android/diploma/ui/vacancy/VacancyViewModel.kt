@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.ui.vacancy
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -40,7 +39,6 @@ class VacancyViewModel(
     }
 
     fun changeFavorite() {
-        Log.d("HH_TEST", "vacancyLocal: $vacancyLocal")
         vacancyLocal?.let { vacancy ->
             viewModelScope.launch {
                 val isFavorite = vacancy.isFavorite

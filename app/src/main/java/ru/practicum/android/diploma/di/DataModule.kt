@@ -59,7 +59,7 @@ val dataModule = module {
     single {
         OkHttpClient.Builder()
             .addInterceptor(get<AuthInterceptor>())
-            .addInterceptor(get<HttpLoggingInterceptor>())
+            // .addInterceptor(get<HttpLoggingInterceptor>())
             .build()
     }
 

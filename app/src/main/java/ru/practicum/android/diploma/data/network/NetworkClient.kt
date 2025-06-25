@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.data.network
 
 import android.content.Context
-import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.data.Response
@@ -64,10 +63,8 @@ class NetworkClient(
     }
 
     private suspend fun responseIndustries(): Response {
-        val responselist = hhApi.getIndustries()
-        Log.d("HH_TEST", "Response: ")
         return IndustriesResponse(
-            industries = responselist
+            industries = hhApi.getIndustries()
         ).apply { resultCode = HTTP_200_OK }
     }
 }
