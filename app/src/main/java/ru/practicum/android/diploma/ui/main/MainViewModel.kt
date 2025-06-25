@@ -101,7 +101,7 @@ class MainViewModel(
         search(
             FilterOptions(
                 searchText = text,
-                area = filters.region?.id ?: "",
+                area = filters.region?.id ?: filters.country?.id ?: "",
                 industry = filters.industry ?: "",
                 salary = filters.salary,
                 onlyWithSalary = filters.onlyWithSalary,

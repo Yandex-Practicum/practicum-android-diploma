@@ -16,26 +16,11 @@ class FilterViewModel(
     private val state = MutableLiveData<FilterScreenState>()
     fun getState(): LiveData<FilterScreenState> = state
 
-    private var selectedFilters = SelectedFilters(
-        null,
-        null,
-        DEFAUlT_INDUSTRY_ID,
-        DEFAULT_INDUSTRY_NAME,
-        DEFAULT_SALARY,
-        false
-    )
+    private var selectedFilters = DEFAULT_FILTERS
 
     fun getFilters() {
         // Тут мы достаем сохраненные в SP фильтры
-        selectedFilters = filterPreferences.loadFilters() ?:
-            SelectedFilters(
-                null,
-                null,
-                DEFAUlT_INDUSTRY_ID,
-                DEFAULT_INDUSTRY_NAME,
-                DEFAULT_SALARY,
-                true,
-            )
+        selectedFilters = filterPreferences.loadFilters() ?: DEFAULT_FILTERS
         state.postValue(FilterScreenState.CONTENT(selectedFilters))
     }
 
@@ -124,6 +109,14 @@ class FilterViewModel(
     companion object {
         private const val DEFAUlT_INDUSTRY_ID = ""
         private const val DEFAULT_INDUSTRY_NAME = ""
-        private const val DEFAULT_SALARY = 0
+
+        private val DEFAULT_FILTERS = SelectedFilters(
+            null,
+            null,
+            DEFAUlT_INDUSTRY_ID,
+            DEFAULT_INDUSTRY_NAME,
+            null,
+            false
+        )
     }
 }
