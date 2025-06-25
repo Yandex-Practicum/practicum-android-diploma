@@ -79,6 +79,11 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
     }
 
     private fun initScreen() {
+        initListeners()
+        initListenersSalaryAndBtns()
+    }
+
+    private fun initListeners() {
         binding.includedPlace.root.setOnClickListener {
             val state = viewModel.getState().value
             viewModel.saveFilters()
@@ -108,7 +113,12 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
                 viewModel.clearIndustry()
             }
         }
-        initListenersSalaryAndBtns()
+        binding.includedSalary.textFieldClear.setOnClickListener {
+            viewModel.clearSalary()
+        }
+        binding.includedShowNoSalary.checkbox.setOnClickListener {
+            viewModel.setShowNoSalary()
+        }
     }
 
     private fun initListenersSalaryAndBtns() {
@@ -133,12 +143,6 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
                 }
                 binding.includedSalary.textFieldHeader.setTextColor(requireContext().getColor(R.color.black))
             }
-        }
-        binding.includedSalary.textFieldClear.setOnClickListener {
-            viewModel.clearSalary()
-        }
-        binding.includedShowNoSalary.checkbox.setOnClickListener {
-            viewModel.setShowNoSalary()
         }
         binding.includedBtnSet.root.setOnClickListener {
             viewModel.setSalary(binding.includedSalary.textFieldEdit.text.toString().toIntOrNull())
