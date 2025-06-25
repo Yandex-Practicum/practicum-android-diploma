@@ -121,8 +121,7 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
                 v.clearFocus()
                 val imm = v.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(v.windowToken, 0)
-                val input = binding.includedSalary.textFieldEdit.text.toString().toIntOrNull()
-                viewModel.setSalary(input)
+                viewModel.setSalary(binding.includedSalary.textFieldEdit.text.toString().toIntOrNull())
                 true
             } else {
                 false
@@ -146,8 +145,7 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
             viewModel.setShowNoSalary()
         }
         binding.includedBtnSet.root.setOnClickListener {
-            val input = binding.includedSalary.textFieldEdit.text.toString().toIntOrNull()
-            viewModel.setSalary(input)
+            viewModel.setSalary(binding.includedSalary.textFieldEdit.text.toString().toIntOrNull())
             viewModel.saveFilters()
             findNavController().popBackStack()
         }
