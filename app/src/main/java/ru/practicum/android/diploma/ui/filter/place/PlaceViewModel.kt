@@ -8,19 +8,21 @@ import ru.practicum.android.diploma.ui.filter.place.models.PlaceState
 import ru.practicum.android.diploma.ui.filter.place.models.Region
 
 class PlaceViewModel(
-    country: Country?,
-    region: Region?
+    private val country: Country?,
+    private val region: Region?
 ) : ViewModel() {
     private var countryLocal: Country? = null
     private var regionLocal: Region? = null
 
+    private val stateLiveData = MutableLiveData<PlaceState>()
+    fun observeState(): LiveData<PlaceState> = stateLiveData
+
     init {
         countryLocal = country
         regionLocal = region
-    }
 
-    private val stateLiveData = MutableLiveData<PlaceState>()
-    fun observeState(): LiveData<PlaceState> = stateLiveData
+        stateLiveData.postValue(PlaceState.Content(country, region))
+    }
 
     fun changeCountry(countryChange: Country?) {
         countryLocal = countryChange
