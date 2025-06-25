@@ -23,12 +23,26 @@ class FilterViewModel(
     private val state = MutableLiveData<FilterScreenState>()
     fun getState(): LiveData<FilterScreenState> = state
 
-    private var testModel = SelectedFilters(DEFAULT_COUNTRY, DEFAULT_REGION, DEFAUlT_INDUSTRY_ID, DEFAULT_INDUSTRY_NAME, 999999, true)
+    private var testModel = SelectedFilters(
+        DEFAULT_COUNTRY,
+        DEFAULT_REGION,
+        DEFAUlT_INDUSTRY_ID,
+        DEFAULT_INDUSTRY_NAME,
+        DEFAULT_SALARY,
+        true
+    )
 
     fun getFilters() {
         // Тут мы достаем сохраненные в SP фильтры
         testModel = filterPreferences.loadFilters() ?:
-            SelectedFilters(DEFAULT_COUNTRY, DEFAULT_REGION, DEFAUlT_INDUSTRY_ID, DEFAULT_INDUSTRY_NAME, 999999, true)
+            SelectedFilters(
+                DEFAULT_COUNTRY,
+                DEFAULT_REGION,
+                DEFAUlT_INDUSTRY_ID,
+                DEFAULT_INDUSTRY_NAME,
+                DEFAULT_SALARY,
+                true,
+            )
         state.postValue(FilterScreenState.CONTENT(testModel))
     }
 
@@ -145,5 +159,6 @@ class FilterViewModel(
         private val DEFAULT_REGION = Region("2", "Москва", country = DEFAULT_COUNTRY)
         private const val DEFAUlT_INDUSTRY_ID = "1"
         private const val DEFAULT_INDUSTRY_NAME = "IT"
+        private const val DEFAULT_SALARY = 999_999
     }
 }
