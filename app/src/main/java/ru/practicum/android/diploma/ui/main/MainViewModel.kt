@@ -85,13 +85,13 @@ class MainViewModel(
             return
         }
 
-        //добавил метод, который должен собирать filterOptions. Нужно теперь его скорректировать
+        // добавил метод, который должен собирать filterOptions. Нужно теперь его скорректировать
         val filters = selectedFilters ?: SelectedFilters(null, null, null, null, null, false)
         val filterOptions = filters.toFilterOptions(
             searchText = text,
             currency = "",
             page = page
-            )
+        )
 
         contentStateLiveData.postValue(SearchContentStateVO.Loading(page == 0))
         search(

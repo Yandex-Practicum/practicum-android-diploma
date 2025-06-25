@@ -122,7 +122,6 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
                 viewModel.saveFilters()
 
                 if (state is FilterScreenState.CONTENT) {
-
                     findNavController().navigate(
                         R.id.action_filterFragment_to_placeFilterFragment,
                         PlaceFilterFragment.createArgs(state.value.country, state.value.region)
