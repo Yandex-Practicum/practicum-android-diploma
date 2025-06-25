@@ -79,11 +79,6 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
     }
 
     private fun initScreen() {
-        initListeners()
-        initListenersSalaryAndBtns()
-    }
-
-    private fun initListeners() {
         binding.includedPlace.root.setOnClickListener {
             val state = viewModel.getState().value
             viewModel.saveFilters()
@@ -113,6 +108,7 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
                 viewModel.clearIndustry()
             }
         }
+        initListenersSalaryAndBtns()
     }
 
     private fun initListenersSalaryAndBtns() {
