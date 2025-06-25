@@ -116,7 +116,7 @@ class FilterViewModel(
         state.postValue(FilterScreenState.CONTENT(selectedFilters))
     }
 
-    fun setSalary(salary: Int) {
+    fun setSalary(salary: Int?) {
         selectedFilters = selectedFilters.copy(salary = salary)
         state.postValue(FilterScreenState.CONTENT(selectedFilters))
     }
