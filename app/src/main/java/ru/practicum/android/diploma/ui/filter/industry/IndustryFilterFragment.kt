@@ -13,7 +13,6 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentIndustryFilterBinding
 import ru.practicum.android.diploma.ui.root.BindingFragment
 import ru.practicum.android.diploma.ui.root.RootActivity
-import ru.practicum.android.diploma.util.handleBackPress
 
 class IndustryFilterFragment : BindingFragment<FragmentIndustryFilterBinding>() {
 

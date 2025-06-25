@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.ui.filter
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,13 +56,13 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
         // viewModel.getAreas()
         // viewModel.getIndustries()
 
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Country>(COUNTRY_KEY)
-            ?.observe(viewLifecycleOwner) { data ->
-                // получаем фильтр по стране
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Country?>(COUNTRY_KEY)
+            ?.observe(viewLifecycleOwner) { country ->
+                viewModel.setCountry(country)
             }
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Region>(REGION_KEY)
-            ?.observe(viewLifecycleOwner) { data ->
-                // получаем фильтр по региону
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Region?>(REGION_KEY)
+            ?.observe(viewLifecycleOwner) { region ->
+                viewModel.setRegion(region)
             }
 
         initScreen()
@@ -119,10 +120,21 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
     private fun initListenersPlace() {
         binding.includedPlace.apply {
             root.setOnClickListener {
-                findNavController().navigate(
-                    R.id.action_filterFragment_to_placeFilterFragment,
-                    PlaceFilterFragment.createArgs(null, null)
-                )
+                val state = viewModel.getState().value
+
+                if (state is FilterScreenState.CONTENT) {
+                    Log.i("GGWP", "state ${state.value}")
+
+                    findNavController().navigate(
+                        R.id.action_filterFragment_to_placeFilterFragment,
+                        PlaceFilterFragment.createArgs(state.value.country, state.value.region)
+                    )
+                } else {
+                    findNavController().navigate(
+                        R.id.action_filterFragment_to_placeFilterFragment,
+                        PlaceFilterFragment.createArgs(null, null)
+                    )
+                }
             }
 
             itemIcon.setOnClickListener {
@@ -194,20 +206,37 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
     }
 
     private fun showContent(filters: SelectedFilters) {
-        fillPlace(filters.place)
+        val place = formatPlace(filters)
+
+        fillPlace(place)
         fillIndustry(filters.industry)
         fillSalary(filters.salary)
         setShowNoSalary(filters.onlyWithSalary)
         setButtonsVisibility(
-            !filters.place.isNullOrEmpty()
+            !place.isNullOrEmpty()
                 || !filters.industry.isNullOrEmpty()
                 || filters.salary != null
                 || filters.onlyWithSalary
         )
     }
 
+    private fun formatPlace(filters: SelectedFilters): String? {
+        if (filters.country == null && filters.region == null) {
+            return null
+        }
+
+        var result = "${filters.country?.name}"
+
+        if (filters.region != null) {
+            result += ", ${filters.region.name}"
+        }
+
+        return result
+    }
+
     private fun fillPlace(place: String?) {
         val hasValue = !place.isNullOrEmpty()
+
         binding.includedPlace.apply {
             itemTextTop.isVisible = hasValue
             itemIcon.setImageResource(
