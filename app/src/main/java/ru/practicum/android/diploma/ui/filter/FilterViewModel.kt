@@ -1,29 +1,22 @@
 package ru.practicum.android.diploma.ui.filter
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.FilterPreferences
-import ru.practicum.android.diploma.domain.filters.AreasInteractor
-import ru.practicum.android.diploma.domain.models.Areas
 import ru.practicum.android.diploma.ui.filter.model.FilterScreenState
 import ru.practicum.android.diploma.ui.filter.model.SelectedFilters
 import ru.practicum.android.diploma.ui.filter.place.models.Country
 import ru.practicum.android.diploma.ui.filter.place.models.Region
-import ru.practicum.android.diploma.util.HH_LOG
 
 class FilterViewModel(
-    private val interactorAreas: AreasInteractor,
     private val filterPreferences: FilterPreferences
 ) : ViewModel() {
 
     private val state = MutableLiveData<FilterScreenState>()
     fun getState(): LiveData<FilterScreenState> = state
 
-    private var testModel = SelectedFilters(
+    private var selectedFilters = SelectedFilters(
         DEFAULT_COUNTRY,
         DEFAULT_REGION,
         DEFAUlT_INDUSTRY_ID,
@@ -34,7 +27,7 @@ class FilterViewModel(
 
     fun getFilters() {
         // Тут мы достаем сохраненные в SP фильтры
-        testModel = filterPreferences.loadFilters() ?:
+        selectedFilters = filterPreferences.loadFilters() ?:
             SelectedFilters(
                 DEFAULT_COUNTRY,
                 DEFAULT_REGION,
@@ -43,122 +36,96 @@ class FilterViewModel(
                 DEFAULT_SALARY,
                 true,
             )
-        state.postValue(FilterScreenState.CONTENT(testModel))
+        state.postValue(FilterScreenState.CONTENT(selectedFilters))
     }
 
     fun clearPlace() {
-        // TODO
-        testModel =
+        selectedFilters =
             SelectedFilters(
                 null,
                 null,
-                testModel.industryId,
-                testModel.industry,
-                testModel.salary,
-                testModel.onlyWithSalary
+                selectedFilters.industryId,
+                selectedFilters.industry,
+                selectedFilters.salary,
+                selectedFilters.onlyWithSalary
             )
-        state.postValue(FilterScreenState.CONTENT(testModel))
+        state.postValue(FilterScreenState.CONTENT(selectedFilters))
     }
 
     fun clearIndustry() {
-        // TODO
-        testModel =
+        selectedFilters =
             SelectedFilters(
-                testModel.country,
-                testModel.region,
+                selectedFilters.country,
+                selectedFilters.region,
                 null,
                 null,
-                testModel.salary,
-                testModel.onlyWithSalary
+                selectedFilters.salary,
+                selectedFilters.onlyWithSalary
             )
-        state.postValue(FilterScreenState.CONTENT(testModel))
+        state.postValue(FilterScreenState.CONTENT(selectedFilters))
     }
 
     fun clearSalary() {
-        // TODO
-        testModel =
+        selectedFilters =
             SelectedFilters(
-                testModel.country,
-                testModel.region,
-                testModel.industryId,
-                testModel.industry,
+                selectedFilters.country,
+                selectedFilters.region,
+                selectedFilters.industryId,
+                selectedFilters.industry,
                 null,
-                testModel.onlyWithSalary
+                selectedFilters.onlyWithSalary
             )
-        state.postValue(FilterScreenState.CONTENT(testModel))
+        state.postValue(FilterScreenState.CONTENT(selectedFilters))
     }
 
     fun setShowNoSalary() {
-        testModel =
+        selectedFilters =
             SelectedFilters(
-                testModel.country,
-                testModel.region,
-                testModel.industryId,
-                testModel.industry,
-                testModel.salary,
-                !testModel.onlyWithSalary
+                selectedFilters.country,
+                selectedFilters.region,
+                selectedFilters.industryId,
+                selectedFilters.industry,
+                selectedFilters.salary,
+                !selectedFilters.onlyWithSalary
             )
-        state.postValue(FilterScreenState.CONTENT(testModel))
+        state.postValue(FilterScreenState.CONTENT(selectedFilters))
     }
 
     fun clearFilters() {
-        // временно - проверить работу шП
         filterPreferences.clearFilters()
-        testModel = SelectedFilters(null, null, null, null, null, false)
-        state.postValue(FilterScreenState.CONTENT(testModel))
+        selectedFilters = SelectedFilters(null, null, null, null, null, false)
+        state.postValue(FilterScreenState.CONTENT(selectedFilters))
     }
 
     fun saveFilters() {
-        // временно - проверить работу шП
-        filterPreferences.saveFilters(testModel)
-    }
-
-    // Это тестовый запрос
-    fun getAreas() {
-        viewModelScope.launch {
-            interactorAreas.getAreas().collect { pair ->
-                processAreasResult(pair.first, pair.second)
-            }
-        }
-    }
-
-    // Обработка ответа
-    private fun processAreasResult(areas: List<Areas>?, error: Int?) {
-        if (areas != null) {
-            printAreas(areas)
-        }
-        if (error != null) {
-            Log.d(HH_LOG, "Error: $error")
-        }
-    }
-
-    private fun printAreas(areas: List<Areas>, sep: String = "") {
-        for (area in areas) {
-            Log.d(HH_LOG, "$sep Areas ID: ${area.id}; Areas name: ${area.name}")
-            printAreas(area.areas, "$sep    ")
-        }
+        filterPreferences.saveFilters(selectedFilters)
     }
 
     fun setIndustry(id: String, name: String) {
-        testModel = testModel.copy(industryId = id, industry = name)
-        state.postValue(FilterScreenState.CONTENT(testModel))
+        selectedFilters = selectedFilters.copy(industryId = id, industry = name)
+        state.postValue(FilterScreenState.CONTENT(selectedFilters))
     }
 
     fun setCountry(country: Country?) {
-        testModel = testModel.copy(country = country)
-        state.postValue(FilterScreenState.CONTENT(testModel))
+        selectedFilters = selectedFilters.copy(country = country)
+        state.postValue(FilterScreenState.CONTENT(selectedFilters))
     }
 
     fun setRegion(region: Region?) {
-        testModel = testModel.copy(region = region)
-        state.postValue(FilterScreenState.CONTENT(testModel))
+        selectedFilters = selectedFilters.copy(region = region)
+        state.postValue(FilterScreenState.CONTENT(selectedFilters))
+    }
+
+    fun setSalary(salary: Int) {
+        selectedFilters = selectedFilters.copy(salary = salary)
+        state.postValue(FilterScreenState.CONTENT(selectedFilters))
     }
 
     companion object {
-        private val DEFAULT_COUNTRY = Country("1", "Россия")
-        private val DEFAULT_REGION = Region("2", "Москва", country = DEFAULT_COUNTRY)
-        private const val DEFAUlT_INDUSTRY_ID = "1"
-        private const val DEFAULT_INDUSTRY_NAME = "IT"
-        private const val DEFAULT_SALARY = 999_999
+        private val DEFAULT_COUNTRY = Country("", "")
+        private val DEFAULT_REGION = Region("", "", country = DEFAULT_COUNTRY)
+        private const val DEFAUlT_INDUSTRY_ID = ""
+        private const val DEFAULT_INDUSTRY_NAME = ""
+        private const val DEFAULT_SALARY = 0
     }
 }

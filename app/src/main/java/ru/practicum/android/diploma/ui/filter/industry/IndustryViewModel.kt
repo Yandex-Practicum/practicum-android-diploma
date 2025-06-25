@@ -58,22 +58,4 @@ class IndustryViewModel(
     fun getSelectedIndustry(): IndustryListItem? {
         return fullIndustryList.find { it.isSelected }
     }
-
-    fun saveSelectedIndustry() {
-        val selectedIndustry = industryState.value?.let { state ->
-            (state as? IndustryState.CONTENT)?.industryListItems?.find { it.isSelected }
-        }
-
-        // в этом методе обновляем состояние экрана или модели или того и другого
-//        selectedIndustry?.let {
-//            testModel = testModel.copy(industry = it.name)
-//            Log.d("Industry", "testmodel.industry: ${testModel.industry}")
-//            state.postValue(FilterScreenState.CONTENT(testModel))
-//            filterPreferences.saveFilters(testModel)
-//        }
-//
-//        selectedIndustry?.let {
-//            Log.d("Industry", "Selected Industry: ${it.name}")
-//        }
-    }
 }

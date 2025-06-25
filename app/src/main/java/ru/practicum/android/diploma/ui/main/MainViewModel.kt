@@ -6,18 +6,28 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.data.network.ApiResponse
+import ru.practicum.android.diploma.domain.api.FilterPreferences
 import ru.practicum.android.diploma.domain.models.FilterOptions
 import ru.practicum.android.diploma.domain.vacancy.api.SearchVacanciesRepository
 import ru.practicum.android.diploma.domain.vacancy.models.Vacancy
 import ru.practicum.android.diploma.ui.common.SingleLiveEvent
+import ru.practicum.android.diploma.ui.filter.model.SelectedFilters
 import ru.practicum.android.diploma.ui.main.models.SearchContentStateVO
+import ru.practicum.android.diploma.ui.main.utils.toFilterOptions
 import ru.practicum.android.diploma.util.debounce
 
 class MainViewModel(
     private val searchVacanciesRepository: SearchVacanciesRepository,
+    private val filterPreferences: FilterPreferences
 ) : ViewModel() {
+    private var selectedFilters: SelectedFilters? = null
+
     private val textLiveData = MutableLiveData("")
     val text: LiveData<String> = textLiveData
+
+    init {
+        selectedFilters = filterPreferences.loadFilters()
+    }
 
     private val vacanciesList = ArrayList<Vacancy>()
     private var found = 0
@@ -74,6 +84,14 @@ class MainViewModel(
         if (text.isEmpty()) {
             return
         }
+
+        //добавил метод, который должен собирать filterOptions. Нужно теперь его скорректировать
+        val filters = selectedFilters ?: SelectedFilters(null, null, null, null, null, false)
+        val filterOptions = filters.toFilterOptions(
+            searchText = text,
+            currency = "",
+            page = page
+            )
 
         contentStateLiveData.postValue(SearchContentStateVO.Loading(page == 0))
         search(

@@ -41,7 +41,7 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         initUiToolbar()
-        // системная кн назад
+
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
             backPressedCallback

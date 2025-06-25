@@ -2,12 +2,12 @@ package ru.practicum.android.diploma.ui.filter
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
@@ -28,7 +28,7 @@ import ru.practicum.android.diploma.util.REGION_KEY
 class FilterFragment : BindingFragment<FragmentFilterBinding>() {
 
     private val viewModel: FilterViewModel by viewModel()
-    private val args by navArgs<FilterFragmentArgs>() // здесь сохранил industryId и industryName
+    private val args by navArgs<FilterFragmentArgs>()
 
     override fun createBinding(
         inflater: LayoutInflater,
@@ -40,21 +40,11 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        args.selectedIndustryId?.let { id ->
-            val name = args.selectedIndustryName
-            if (name != null) {
-                viewModel.setIndustry(id, name)
-            }
-        }
-
         initUiToolbar()
-        // Системная кнопка или жест назад
+
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             closeFragment(true)
         }
-
-        // viewModel.getAreas()
-        // viewModel.getIndustries()
 
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Country?>(COUNTRY_KEY)
             ?.observe(viewLifecycleOwner) { country ->
@@ -67,6 +57,13 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
 
         initScreen()
         viewModel.getFilters()
+
+        args.selectedIndustryId?.let { id ->
+            val name = args.selectedIndustryName
+            if (name != null) {
+                viewModel.setIndustry(id, name)
+            }
+        }
 
         viewModel.getState().observe(viewLifecycleOwner) { state ->
             when (state) {
@@ -122,8 +119,9 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
             root.setOnClickListener {
                 val state = viewModel.getState().value
 
+                viewModel.saveFilters()
+
                 if (state is FilterScreenState.CONTENT) {
-                    Log.i("GGWP", "state ${state.value}")
 
                     findNavController().navigate(
                         R.id.action_filterFragment_to_placeFilterFragment,
@@ -148,6 +146,7 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
     private fun initListenersIndustry() {
         binding.includedIndustry.apply {
             root.setOnClickListener {
+                viewModel.saveFilters()
                 findNavController().navigate(R.id.action_filterFragment_to_industryFilterFragment)
             }
 
@@ -166,6 +165,10 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
                     v.clearFocus()
                     val imm = v.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                     imm.hideSoftInputFromWindow(v.windowToken, 0)
+
+                    val input = textFieldEdit.text.toString().toIntOrNull()
+                    checkAndSetSalary(input)
+
                     true
                 } else {
                     false
@@ -190,12 +193,25 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
         }
     }
 
+    private fun checkAndSetSalary(input: Int?) {
+        if (input == null) {
+            Toast.makeText(requireContext(), "Введите корректное число", Toast.LENGTH_SHORT).show()
+        } else if (input < 0) {
+            Toast.makeText(requireContext(), "Зарплата не может быть отрицательной", Toast.LENGTH_SHORT).show()
+        } else {
+            viewModel.setSalary(input)
+        }
+    }
+
     private fun initListenersButtons() {
         binding.includedShowNoSalary.checkbox.setOnClickListener {
             viewModel.setShowNoSalary()
         }
 
         binding.includedBtnSet.root.setOnClickListener {
+            val input = binding.includedSalary.textFieldEdit.text.toString().toIntOrNull()
+
+            checkAndSetSalary(input)
             viewModel.saveFilters()
             findNavController().popBackStack()
         }
