@@ -17,8 +17,8 @@ class FilterViewModel(
     fun getState(): LiveData<FilterScreenState> = state
 
     private var selectedFilters = SelectedFilters(
-        DEFAULT_COUNTRY,
-        DEFAULT_REGION,
+        null,
+        null,
         DEFAUlT_INDUSTRY_ID,
         DEFAULT_INDUSTRY_NAME,
         DEFAULT_SALARY,
@@ -29,8 +29,8 @@ class FilterViewModel(
         // Тут мы достаем сохраненные в SP фильтры
         selectedFilters = filterPreferences.loadFilters() ?:
             SelectedFilters(
-                DEFAULT_COUNTRY,
-                DEFAULT_REGION,
+                null,
+                null,
                 DEFAUlT_INDUSTRY_ID,
                 DEFAULT_INDUSTRY_NAME,
                 DEFAULT_SALARY,
@@ -122,8 +122,6 @@ class FilterViewModel(
     }
 
     companion object {
-        private val DEFAULT_COUNTRY = Country("", "")
-        private val DEFAULT_REGION = Region("", "", country = DEFAULT_COUNTRY)
         private const val DEFAUlT_INDUSTRY_ID = ""
         private const val DEFAULT_INDUSTRY_NAME = ""
         private const val DEFAULT_SALARY = 0

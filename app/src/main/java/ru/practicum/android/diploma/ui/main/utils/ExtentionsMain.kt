@@ -8,7 +8,6 @@ fun SelectedFilters.toFilterOptions(searchText: String, currency: String?, page:
         searchText = searchText,
         area = region?.id ?: country?.id.orEmpty(),
         industry = industryId.orEmpty(),
-        currency = currency ?: "RUR",
         salary = salary,
         onlyWithSalary = onlyWithSalary,
         page = page

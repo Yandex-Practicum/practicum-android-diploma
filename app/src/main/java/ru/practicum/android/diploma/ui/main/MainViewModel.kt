@@ -97,14 +97,14 @@ class MainViewModel(
         )
 
         contentStateLiveData.postValue(SearchContentStateVO.Loading(page == 0))
+
         search(
             FilterOptions(
                 searchText = text,
-                area = "",
-                industry = "",
-                currency = "",
-                salary = null,
-                onlyWithSalary = true,
+                area = filters.region?.id ?: "",
+                industry = filters.industry ?: "",
+                salary = filters.salary,
+                onlyWithSalary = filters.onlyWithSalary,
                 page = page
             )
         )
@@ -120,7 +120,7 @@ class MainViewModel(
         }
     }
 
-    fun updateFiltersState() {
+    fun onResume() {
         val filters = filterPreferences.loadFilters()
         selectedFilters = filters
         filtersState.postValue(
@@ -132,6 +132,8 @@ class MainViewModel(
                     filters.onlyWithSalary
                 )
         )
+
+        doSearch()
     }
 
     private suspend fun handleSearch(options: FilterOptions) {

@@ -57,12 +57,6 @@ class SearchVacanciesNetworkDataSource(
             if (options.area.isNotEmpty()) {
                 put("area", options.area)
             }
-            if (options.currency.isEmpty()) {
-                put("currency", "RUR")
-            }
-            if (options.salary != null) {
-                put("currency", options.currency)
-            }
             if (options.industry.isNotEmpty()) {
                 put("industry", options.industry)
             }
