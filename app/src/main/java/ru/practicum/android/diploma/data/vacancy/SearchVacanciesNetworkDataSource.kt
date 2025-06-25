@@ -60,6 +60,9 @@ class SearchVacanciesNetworkDataSource(
             if (options.industry.isNotEmpty()) {
                 put("industry", options.industry)
             }
+            if (options.salary != null) {
+                put("salary", options.salary.toString())
+            }
             put("only_with_salary", options.onlyWithSalary.toString())
         }
         return hhOptions

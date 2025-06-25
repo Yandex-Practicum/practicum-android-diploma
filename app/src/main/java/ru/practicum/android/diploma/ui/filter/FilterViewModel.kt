@@ -22,7 +22,7 @@ class FilterViewModel(
         DEFAUlT_INDUSTRY_ID,
         DEFAULT_INDUSTRY_NAME,
         DEFAULT_SALARY,
-        true
+        false
     )
 
     fun getFilters() {
