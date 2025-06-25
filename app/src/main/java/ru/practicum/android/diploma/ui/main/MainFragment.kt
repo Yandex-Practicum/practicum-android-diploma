@@ -243,6 +243,7 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.updateFiltersState()
+
+        viewModel.onResume()
     }
 }

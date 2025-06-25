@@ -166,7 +166,7 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
                     imm.hideSoftInputFromWindow(v.windowToken, 0)
 
                     val input = textFieldEdit.text.toString().toIntOrNull()
-                    checkAndSetSalary(input)
+                    viewModel.setSalary(input)
 
                     true
                 } else {
@@ -192,16 +192,6 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
         }
     }
 
-    private fun checkAndSetSalary(input: Int?) {
-        if (input == null) {
-            Toast.makeText(requireContext(), "Введите корректное число", Toast.LENGTH_SHORT).show()
-        } else if (input < 0) {
-            Toast.makeText(requireContext(), "Зарплата не может быть отрицательной", Toast.LENGTH_SHORT).show()
-        } else {
-            viewModel.setSalary(input)
-        }
-    }
-
     private fun initListenersButtons() {
         binding.includedShowNoSalary.checkbox.setOnClickListener {
             viewModel.setShowNoSalary()
@@ -210,7 +200,7 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
         binding.includedBtnSet.root.setOnClickListener {
             val input = binding.includedSalary.textFieldEdit.text.toString().toIntOrNull()
 
-            checkAndSetSalary(input)
+            viewModel.setSalary(input)
             viewModel.saveFilters()
             findNavController().popBackStack()
         }
