@@ -74,6 +74,14 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
             )
         }
 
+        val iconRes = if (viewModel.hasActiveFilters()) {
+            R.drawable.filter_on__24px
+        } else {
+            R.drawable.filter_off__24px
+        }
+
+        binding.topbar.btnThird.setImageResource(iconRes)
+
         viewModel.observeClearSearchInput().observe(viewLifecycleOwner) {
             binding.searchEditText.setText("")
         }

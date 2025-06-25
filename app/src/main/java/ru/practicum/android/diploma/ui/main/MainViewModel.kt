@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.ui.main
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -77,6 +78,13 @@ class MainViewModel(
         if (page <= pages) {
             doSearch()
         }
+    }
+
+    fun hasActiveFilters(): Boolean {
+        val filters = selectedFilters ?: return false
+        Log.d("FILTERS", "filters ${selectedFilters?.country?.name}")
+        return filters.country != null || filters.region != null || filters.industryId != null ||
+            filters.salary != null || filters.onlyWithSalary
     }
 
     private fun doSearch() {
