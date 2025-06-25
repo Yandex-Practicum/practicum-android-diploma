@@ -9,6 +9,7 @@ import ru.practicum.android.diploma.ui.filter.place.country.CountryViewModel
 import ru.practicum.android.diploma.ui.filter.place.models.Country
 import ru.practicum.android.diploma.ui.filter.place.models.Region
 import ru.practicum.android.diploma.ui.filter.place.region.RegionViewModel
+import ru.practicum.android.diploma.ui.filter.industry.IndustryViewModel
 import ru.practicum.android.diploma.ui.main.MainViewModel
 import ru.practicum.android.diploma.ui.vacancy.VacancyViewModel
 
@@ -26,7 +27,11 @@ val viewModelModule = module {
     }
 
     viewModel {
-        FilterViewModel(get(), get(), get())
+        FilterViewModel(get(), get())
+    }
+
+    viewModel {
+        IndustryViewModel(get())
     }
 
     viewModel {
