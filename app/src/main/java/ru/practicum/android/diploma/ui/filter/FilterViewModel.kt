@@ -23,39 +23,67 @@ class FilterViewModel(
     private val state = MutableLiveData<FilterScreenState>()
     fun getState(): LiveData<FilterScreenState> = state
 
-    private var testModel = SelectedFilters(DEFAULT_COUNTRY, DEFAULT_REGION, "1", "IT", 999999, true)
+    private var testModel = SelectedFilters(DEFAULT_COUNTRY, DEFAULT_REGION, DEFAUlT_INDUSTRY_ID, DEFAULT_INDUSTRY_NAME, 999999, true)
 
     fun getFilters() {
         // Тут мы достаем сохраненные в SP фильтры
         testModel = filterPreferences.loadFilters() ?:
-            SelectedFilters(DEFAULT_COUNTRY, DEFAULT_REGION, "1", "IT", 999999, true)
+            SelectedFilters(DEFAULT_COUNTRY, DEFAULT_REGION, DEFAUlT_INDUSTRY_ID, DEFAULT_INDUSTRY_NAME, 999999, true)
         state.postValue(FilterScreenState.CONTENT(testModel))
     }
 
     fun clearPlace() {
         // TODO
         testModel =
-            SelectedFilters(null, null, testModel.industryId, testModel.industry, testModel.salary, testModel.onlyWithSalary)
+            SelectedFilters(
+                null,
+                null,
+                testModel.industryId,
+                testModel.industry,
+                testModel.salary,
+                testModel.onlyWithSalary
+            )
         state.postValue(FilterScreenState.CONTENT(testModel))
     }
 
     fun clearIndustry() {
         // TODO
         testModel =
-            SelectedFilters(testModel.country, testModel.region, null, null, testModel.salary, testModel.onlyWithSalary)
+            SelectedFilters(
+                testModel.country,
+                testModel.region,
+                null,
+                null,
+                testModel.salary,
+                testModel.onlyWithSalary
+            )
         state.postValue(FilterScreenState.CONTENT(testModel))
     }
 
     fun clearSalary() {
         // TODO
         testModel =
-            SelectedFilters(testModel.country, testModel.region, testModel.industryId, testModel.industry, null, testModel.onlyWithSalary)
+            SelectedFilters(
+                testModel.country,
+                testModel.region,
+                testModel.industryId,
+                testModel.industry,
+                null,
+                testModel.onlyWithSalary
+            )
         state.postValue(FilterScreenState.CONTENT(testModel))
     }
 
     fun setShowNoSalary() {
         testModel =
-            SelectedFilters(testModel.country, testModel.region, testModel.industryId, testModel.industry, testModel.salary, !testModel.onlyWithSalary)
+            SelectedFilters(
+                testModel.country,
+                testModel.region,
+                testModel.industryId,
+                testModel.industry,
+                testModel.salary,
+                !testModel.onlyWithSalary
+            )
         state.postValue(FilterScreenState.CONTENT(testModel))
     }
 
@@ -115,6 +143,7 @@ class FilterViewModel(
     companion object {
         private val DEFAULT_COUNTRY = Country("1", "Россия")
         private val DEFAULT_REGION = Region("2", "Москва", country = DEFAULT_COUNTRY)
-
+        private const val DEFAUlT_INDUSTRY_ID = "1"
+        private const val DEFAULT_INDUSTRY_NAME = "IT"
     }
 }
