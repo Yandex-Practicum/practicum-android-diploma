@@ -80,13 +80,11 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
     }
 
     private fun initScreen() {
-        initListenersPlace()
-        initListenersIndustry()
-        initListenersSalary()
-        initListenersButtons()
+        initListeners()
+        initListenersSalaryAndBtns()
     }
 
-    private fun initListenersPlace() {
+    private fun initListeners() {
         binding.includedPlace.apply {
             root.setOnClickListener {
                 val state = viewModel.getState().value
@@ -109,9 +107,6 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
                 }
             }
         }
-    }
-
-    private fun initListenersIndustry() {
         binding.includedIndustry.apply {
             root.setOnClickListener {
                 viewModel.saveFilters()
@@ -125,7 +120,7 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
         }
     }
 
-    private fun initListenersSalary() {
+    private fun initListenersSalaryAndBtns() {
         binding.includedSalary.apply {
             textFieldEdit.setOnEditorActionListener { v, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -139,7 +134,6 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
                     false
                 }
             }
-
             textFieldEdit.setOnFocusChangeListener { _, hasFocus ->
                 if (hasFocus) {
                     textFieldHeader.text = requireContext().getString(R.string.expected_salary)
@@ -155,9 +149,6 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
                 viewModel.clearSalary()
             }
         }
-    }
-
-    private fun initListenersButtons() {
         binding.includedShowNoSalary.checkbox.setOnClickListener {
             viewModel.setShowNoSalary()
         }
