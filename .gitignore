@@ -1,4 +1,5 @@
 # IntelliJ
+.idea
 *.iml
 /.idea/caches
 /.idea/libraries
@@ -10,6 +11,8 @@
 /.idea/gradle.xml
 /.idea/compiler.xml
 /.idea/misc.xml
+
+app/detekt-config.yml
 
 # Gradle files
 .gradle/
@@ -47,3 +50,6 @@ google-services.json
 # OS specific
 .DS_Store
 *.log
+/gradle/wrapper/
+/.idea/
+.kotlin

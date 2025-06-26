@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.team.TeamFragment">
+
+    <TextView
+        style="@style/text_font_l"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin16"
+        android:paddingVertical="@dimen/margin19"
+        android:layout_marginStart="@dimen/margin16"
+        android:text="@string/team" />
+
+    <TextView
+        style="@style/text_font_xl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin24"
+        android:paddingVertical="@dimen/margin8"
+        android:layout_marginStart="@dimen/margin16"
+        android:text="@string/team_head" />
+
+    <ListView
+        android:id="@+id/team_list"
+        style="@style/text_font_m"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@null" />
+
+</LinearLayout>
