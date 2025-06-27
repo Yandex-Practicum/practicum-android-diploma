@@ -6,5 +6,5 @@ data class IndustryListItem(
     val id: String,
     val name: String,
     val details: List<IndustriesDetails>? = null,
-    var isSelected: Boolean = false
+    val isSelected: Boolean = false
 )
