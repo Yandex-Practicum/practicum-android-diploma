@@ -5,9 +5,7 @@ import ru.practicum.android.diploma.ui.filter.model.*
 
 class FilterPreferencesInteractorImpl(
     private val filterPreferences: FilterPreferences,
-) : FilterPreferencesInteractor
-
-{
+) : FilterPreferencesInteractor {
     override fun saveFilters(options: SelectedFilters) {
         filterPreferences.saveFilters(options)
     }

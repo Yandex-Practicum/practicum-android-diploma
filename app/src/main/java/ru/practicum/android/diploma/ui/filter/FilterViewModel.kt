@@ -86,25 +86,25 @@ class FilterViewModel(
         filterPreferences.saveFilters(selectedFilters)
     }
 
-        fun setIndustry(id: String, name: String) {
-            selectedFilters = selectedFilters.copy(industryId = id, industry = name)
-            state.postValue(FilterScreenState.CONTENT(selectedFilters))
-        }
+    fun setIndustry(id: String, name: String) {
+        selectedFilters = selectedFilters.copy(industryId = id, industry = name)
+        state.postValue(FilterScreenState.CONTENT(selectedFilters))
+    }
 
-        fun setCountry(country: Country?) {
-            selectedFilters = selectedFilters.copy(country = country)
-            state.postValue(FilterScreenState.CONTENT(selectedFilters))
-        }
+    fun setCountry(country: Country?) {
+        selectedFilters = selectedFilters.copy(country = country)
+        state.postValue(FilterScreenState.CONTENT(selectedFilters))
+    }
 
-        fun setRegion(region: Region?) {
-            selectedFilters = selectedFilters.copy(region = region)
-            state.postValue(FilterScreenState.CONTENT(selectedFilters))
-        }
+    fun setRegion(region: Region?) {
+        selectedFilters = selectedFilters.copy(region = region)
+        state.postValue(FilterScreenState.CONTENT(selectedFilters))
+    }
 
-        fun setSalary(salary: Int?) {
-            selectedFilters = selectedFilters.copy(salary = salary)
-            state.value = FilterScreenState.CONTENT(selectedFilters)
-        }
+    fun setSalary(salary: Int?) {
+        selectedFilters = selectedFilters.copy(salary = salary)
+        state.value = FilterScreenState.CONTENT(selectedFilters)
+    }
 
     companion object {
         private const val DEFAUlT_INDUSTRY_ID = ""

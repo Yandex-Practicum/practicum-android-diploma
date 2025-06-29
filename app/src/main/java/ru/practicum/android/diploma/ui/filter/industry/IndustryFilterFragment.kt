@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
-import androidx.navigation.NavArgs
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -61,7 +60,7 @@ class IndustryFilterFragment : BindingFragment<FragmentIndustryFilterBinding>() 
                     binding.buttonActionIndustry.buttonBlue.isVisible = anySelected
                 }
                 is IndustryState.ERROR -> {
-                    showError(state)
+                    showError()
                 }
                 is IndustryState.EMPTY -> {
                     showEmpty()
@@ -116,7 +115,7 @@ class IndustryFilterFragment : BindingFragment<FragmentIndustryFilterBinding>() 
         industryAdapter?.submitList(state.industryListItems)
     }
 
-    private fun showError(state: IndustryState.ERROR) {
+    private fun showError() {
         binding.industryRecyclerView.visibility = View.GONE
         binding.includedProgressBar.root.visibility = View.GONE
         binding.placeholderNoList.visibility = View.VISIBLE
