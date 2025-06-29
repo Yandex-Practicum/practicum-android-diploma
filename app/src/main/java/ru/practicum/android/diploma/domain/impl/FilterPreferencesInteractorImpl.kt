@@ -1,7 +1,8 @@
 package ru.practicum.android.diploma.domain.impl
 
-import ru.practicum.android.diploma.domain.api.*
-import ru.practicum.android.diploma.ui.filter.model.*
+import ru.practicum.android.diploma.domain.api.FilterPreferences
+import ru.practicum.android.diploma.domain.api.FilterPreferencesInteractor
+import ru.practicum.android.diploma.ui.filter.model.SelectedFilters
 
 class FilterPreferencesInteractorImpl(
     private val filterPreferences: FilterPreferences,

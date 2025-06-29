@@ -52,6 +52,27 @@ class IndustryFilterFragment : BindingFragment<FragmentIndustryFilterBinding>() 
 
         binding.industryRecyclerView.adapter = industryAdapter
 
+        setObservers()
+
+        binding.buttonActionIndustry.buttonBlue.setOnClickListener {
+            viewModel.getSelectedIndustry()?.let { selected ->
+                val action = IndustryFilterFragmentDirections.actionIndustryFilterFragmentToFilterFragment(
+                    selectedIndustryId = selected.id,
+                    selectedIndustryName = selected.name
+                )
+                findNavController().navigate(action)
+            }
+        }
+
+        // Системная кнопка или жест назад
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            closeFragment(false)
+        }
+
+        initUiTopbar()
+    }
+
+    private fun setObservers() {
         viewModel.industryState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is IndustryState.CONTENT -> {
@@ -70,23 +91,6 @@ class IndustryFilterFragment : BindingFragment<FragmentIndustryFilterBinding>() 
                 }
             }
         }
-
-        binding.buttonActionIndustry.buttonBlue.setOnClickListener {
-            viewModel.getSelectedIndustry()?.let { selected ->
-                val action = IndustryFilterFragmentDirections.actionIndustryFilterFragmentToFilterFragment(
-                    selectedIndustryId = selected.id,
-                    selectedIndustryName = selected.name
-                )
-                findNavController().navigate(action)
-            }
-        }
-
-        // Системная кнопка или жест назад
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            closeFragment(false)
-        }
-
-        initUiTopbar()
     }
 
     private fun initUiTopbar() {

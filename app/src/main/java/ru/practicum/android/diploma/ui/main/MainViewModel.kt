@@ -1,17 +1,19 @@
 package ru.practicum.android.diploma.ui.main
 
-import android.util.*
-import androidx.lifecycle.*
-import kotlinx.coroutines.*
-import ru.practicum.android.diploma.data.network.*
-import ru.practicum.android.diploma.domain.api.*
-import ru.practicum.android.diploma.domain.models.*
-import ru.practicum.android.diploma.domain.vacancy.api.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.data.network.ApiResponse
+import ru.practicum.android.diploma.domain.api.FilterPreferencesInteractor
+import ru.practicum.android.diploma.domain.models.FilterOptions
+import ru.practicum.android.diploma.domain.vacancy.api.SearchVacanciesRepository
 import ru.practicum.android.diploma.domain.vacancy.models.Vacancy
-import ru.practicum.android.diploma.ui.common.*
-import ru.practicum.android.diploma.ui.filter.model.*
-import ru.practicum.android.diploma.ui.main.models.*
-import ru.practicum.android.diploma.util.*
+import ru.practicum.android.diploma.ui.common.SingleLiveEvent
+import ru.practicum.android.diploma.ui.filter.model.SelectedFilters
+import ru.practicum.android.diploma.ui.main.models.SearchContentStateVO
+import ru.practicum.android.diploma.util.debounce
 
 class MainViewModel(
     private val searchVacanciesRepository: SearchVacanciesRepository,
@@ -24,7 +26,6 @@ class MainViewModel(
 
     init {
         selectedFilters = filterPreferences.loadFilters()
-        Log.d("MainViewModel", "selectedFilters: $selectedFilters")
     }
 
     private val vacanciesList = ArrayList<Vacancy>()

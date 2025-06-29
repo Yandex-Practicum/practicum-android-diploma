@@ -61,6 +61,12 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
             renderContent(it)
         }
 
+        setObservers()
+        initSearch()
+        setAdapter()
+    }
+
+    private fun setObservers() {
         viewModel.text.observe(viewLifecycleOwner) {
             val withClose = it.isNotEmpty()
 
@@ -102,9 +108,9 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
                 Toast.LENGTH_LONG,
             ).show()
         }
+    }
 
-        initSearch()
-
+    private fun setAdapter() {
         binding.searchResults.adapter = vacanciesAdapter
         binding.searchResults.addOnScrollListener(object : OnScrollListener() {
             override fun onScrolled(
