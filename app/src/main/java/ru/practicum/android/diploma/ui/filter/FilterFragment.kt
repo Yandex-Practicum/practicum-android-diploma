@@ -106,7 +106,11 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
         }
         binding.includedIndustry.root.setOnClickListener {
             viewModel.saveFilters()
-            findNavController().navigate(R.id.action_filterFragment_to_industryFilterFragment)
+            val currentIndustryId = viewModel.getState().value?.let {
+                (it as? FilterScreenState.CONTENT)?.value?.industryId
+            }
+            val action = FilterFragmentDirections.actionFilterFragmentToIndustryFilterFragment(currentIndustryId)
+            findNavController().navigate(action)
         }
         binding.includedIndustry.itemIcon.setOnClickListener {
             if (binding.includedIndustry.itemText.text.isNotEmpty()) {

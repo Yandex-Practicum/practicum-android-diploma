@@ -14,6 +14,11 @@ class IndustryViewModel(
     private val _industryState = MutableLiveData<IndustryState>()
     val industryState: LiveData<IndustryState> = _industryState
 
+    private var preselectedIndustryId: String? = null
+    fun setPreselectedIndustryId(id: String) {
+        preselectedIndustryId = id
+    }
+
     private var fullIndustryList: List<IndustryListItem> = emptyList()
 
     fun getIndustries() {
@@ -29,7 +34,14 @@ class IndustryViewModel(
         if (industries != null) {
             val industryListItems = industries.toIndustryListItems()
             fullIndustryList = industryListItems
-            _industryState.postValue(IndustryState.CONTENT(industryListItems))
+            val listItems = industryListItems.map { item ->
+                IndustryListItem(
+                    id = item.id,
+                    name = item.name,
+                    isSelected = item.id == preselectedIndustryId
+                )
+            }
+            _industryState.postValue(IndustryState.CONTENT(listItems))
         } else if (error != null) {
             _industryState.postValue(IndustryState.ERROR(error))
         } else {

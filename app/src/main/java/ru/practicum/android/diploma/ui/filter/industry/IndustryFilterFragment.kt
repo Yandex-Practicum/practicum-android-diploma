@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
+import androidx.navigation.NavArgs
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentIndustryFilterBinding
@@ -18,6 +20,7 @@ class IndustryFilterFragment : BindingFragment<FragmentIndustryFilterBinding>() 
 
     private val viewModel: IndustryViewModel by viewModel()
     private var industryAdapter: IndustryAdapter? = null
+    private val args by navArgs<IndustryFilterFragmentArgs>()
 
     override fun createBinding(
         inflater: LayoutInflater,
@@ -38,6 +41,7 @@ class IndustryFilterFragment : BindingFragment<FragmentIndustryFilterBinding>() 
             }
         )
 
+        args.selectedIndustryId?.let { viewModel.setPreselectedIndustryId(it) }
         viewModel.getIndustries()
 
         industryAdapter = IndustryAdapter(object : IndustryClickListener {
