@@ -1,24 +1,21 @@
 package ru.practicum.android.diploma.ui.main
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.data.network.ApiResponse
-import ru.practicum.android.diploma.domain.api.FilterPreferences
-import ru.practicum.android.diploma.domain.models.FilterOptions
-import ru.practicum.android.diploma.domain.vacancy.api.SearchVacanciesRepository
+import android.util.*
+import androidx.lifecycle.*
+import kotlinx.coroutines.*
+import ru.practicum.android.diploma.data.network.*
+import ru.practicum.android.diploma.domain.api.*
+import ru.practicum.android.diploma.domain.models.*
+import ru.practicum.android.diploma.domain.vacancy.api.*
 import ru.practicum.android.diploma.domain.vacancy.models.Vacancy
-import ru.practicum.android.diploma.ui.common.SingleLiveEvent
-import ru.practicum.android.diploma.ui.filter.model.SelectedFilters
-import ru.practicum.android.diploma.ui.main.models.SearchContentStateVO
-import ru.practicum.android.diploma.ui.main.utils.toFilterOptions
-import ru.practicum.android.diploma.util.debounce
+import ru.practicum.android.diploma.ui.common.*
+import ru.practicum.android.diploma.ui.filter.model.*
+import ru.practicum.android.diploma.ui.main.models.*
+import ru.practicum.android.diploma.util.*
 
 class MainViewModel(
     private val searchVacanciesRepository: SearchVacanciesRepository,
-    private val filterPreferences: FilterPreferences
+    private val filterPreferences: FilterPreferencesInteractor
 ) : ViewModel() {
     private var selectedFilters: SelectedFilters? = null
 
@@ -27,6 +24,7 @@ class MainViewModel(
 
     init {
         selectedFilters = filterPreferences.loadFilters()
+        Log.d("MainViewModel", "selectedFilters: $selectedFilters")
     }
 
     private val vacanciesList = ArrayList<Vacancy>()
@@ -88,13 +86,7 @@ class MainViewModel(
             return
         }
 
-        // добавил метод, который должен собирать filterOptions. Нужно теперь его скорректировать
         val filters = selectedFilters ?: SelectedFilters(null, null, null, null, null, false)
-        val filterOptions = filters.toFilterOptions(
-            searchText = text,
-            currency = "",
-            page = page
-        )
 
         contentStateLiveData.postValue(SearchContentStateVO.Loading(page == 0))
 

@@ -1,20 +1,16 @@
 package ru.practicum.android.diploma.ui.filter
 
-import android.content.Context
-import androidx.core.view.isVisible
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.databinding.FragmentFilterBinding
-import ru.practicum.android.diploma.domain.api.FilterPreferences
-import ru.practicum.android.diploma.ui.filter.model.FilterScreenState
-import ru.practicum.android.diploma.ui.filter.model.SelectedFilters
-import ru.practicum.android.diploma.ui.filter.place.models.Country
-import ru.practicum.android.diploma.ui.filter.place.models.Region
+import android.content.*
+import androidx.core.view.*
+import androidx.lifecycle.*
+import ru.practicum.android.diploma.*
+import ru.practicum.android.diploma.databinding.*
+import ru.practicum.android.diploma.domain.api.*
+import ru.practicum.android.diploma.ui.filter.model.*
+import ru.practicum.android.diploma.ui.filter.place.models.*
 
 class FilterViewModel(
-    private val filterPreferences: FilterPreferences
+    private val filterPreferences: FilterPreferencesInteractor
 ) : ViewModel() {
 
     private val state = MutableLiveData<FilterScreenState>()

@@ -1,11 +1,13 @@
 package ru.practicum.android.diploma.di
 
 import org.koin.dsl.module
+import ru.practicum.android.diploma.domain.api.FilterPreferencesInteractor
 import ru.practicum.android.diploma.domain.db.FavoriteInteractor
 import ru.practicum.android.diploma.domain.filters.AreasInteractor
 import ru.practicum.android.diploma.domain.filters.IndustriesInteractor
 import ru.practicum.android.diploma.domain.impl.AreasInteractorImpl
 import ru.practicum.android.diploma.domain.impl.FavoriteInteractorImpl
+import ru.practicum.android.diploma.domain.impl.FilterPreferencesInteractorImpl
 import ru.practicum.android.diploma.domain.impl.IndustriesInteractorImpl
 
 val interactorModule = module {
@@ -19,5 +21,8 @@ val interactorModule = module {
 
     factory<IndustriesInteractor> {
         IndustriesInteractorImpl(get())
+    }
+    single<FilterPreferencesInteractor> {
+        FilterPreferencesInteractorImpl(get())
     }
 }
