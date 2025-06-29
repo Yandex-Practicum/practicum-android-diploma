@@ -30,6 +30,7 @@ class IndustryFilterFragment : BindingFragment<FragmentIndustryFilterBinding>() 
         super.onViewCreated(view, savedInstanceState)
 
         binding.industrySearch.searchEditText.hint = getString(R.string.enter_industry)
+        binding.buttonActionIndustry.buttonBlue.text = getString(R.string.select)
 
         binding.industrySearch.searchEditText.addTextChangedListener(
             onTextChanged = { text, _, _, _ ->
@@ -52,6 +53,8 @@ class IndustryFilterFragment : BindingFragment<FragmentIndustryFilterBinding>() 
             when (state) {
                 is IndustryState.CONTENT -> {
                     showContent(state)
+                    val anySelected = state.industryListItems.any { it.isSelected }
+                    binding.buttonActionIndustry.buttonBlue.isVisible = anySelected
                 }
                 is IndustryState.ERROR -> {
                     showError(state)
@@ -114,6 +117,7 @@ class IndustryFilterFragment : BindingFragment<FragmentIndustryFilterBinding>() 
         binding.includedProgressBar.root.visibility = View.GONE
         binding.placeholderNoList.visibility = View.VISIBLE
         binding.placeholderNoIndustry.visibility = View.GONE
+        binding.buttonActionIndustry.buttonBlue.isVisible = false
     }
 
     private fun showEmpty() {
@@ -121,10 +125,12 @@ class IndustryFilterFragment : BindingFragment<FragmentIndustryFilterBinding>() 
         binding.includedProgressBar.root.visibility = View.GONE
         binding.placeholderNoList.visibility = View.GONE
         binding.placeholderNoIndustry.visibility = View.VISIBLE
+        binding.buttonActionIndustry.buttonBlue.isVisible = false
     }
 
     private fun showLoading() {
         binding.industryRecyclerView.visibility = View.GONE
         binding.includedProgressBar.root.visibility = View.VISIBLE
+        binding.buttonActionIndustry.buttonBlue.isVisible = false
     }
 }

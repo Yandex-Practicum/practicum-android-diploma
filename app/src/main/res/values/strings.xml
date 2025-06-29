@@ -90,4 +90,5 @@
     <string name="expected_salary">Ожидаемая зарплата</string>
     <string name="enter_value">Введите сумму</string>
     <string name="set">Применить</string>
+    <string name="select">Выбрать</string>
 </resources>
