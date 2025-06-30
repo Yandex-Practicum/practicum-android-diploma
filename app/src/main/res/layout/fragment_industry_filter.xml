@@ -64,7 +64,7 @@
             android:id="@+id/no_list_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:src="@drawable/err_load_list" />
+            android:src="@drawable/err_load_list" />
 
         <TextView
             android:id="@+id/no_list_text"
@@ -74,7 +74,7 @@
             android:fontFamily="@font/ys_display_medium"
             android:gravity="center"
             android:textSize="@dimen/text_size_l"
-            tools:text="@string/no_get_list" />
+            android:text="@string/no_get_list" />
     </LinearLayout>
 
     <LinearLayout
@@ -92,7 +92,7 @@
             android:id="@+id/no_industry_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:src="@drawable/err_wtf_cat" />
+            android:src="@drawable/err_wtf_cat" />
 
         <TextView
             android:id="@+id/no_industry_text"
@@ -102,7 +102,7 @@
             android:fontFamily="@font/ys_display_medium"
             android:gravity="center"
             android:textSize="@dimen/text_size_l"
-            tools:text="@string/no_industry" />
+            android:text="@string/no_industry" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

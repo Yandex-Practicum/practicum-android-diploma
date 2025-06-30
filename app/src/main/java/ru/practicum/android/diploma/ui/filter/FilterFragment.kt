@@ -46,10 +46,12 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Country?>(COUNTRY_KEY)
             ?.observe(viewLifecycleOwner) { country ->
                 viewModel.setCountry(country)
+                viewModel.saveFilters()
             }
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Region?>(REGION_KEY)
             ?.observe(viewLifecycleOwner) { region ->
                 viewModel.setRegion(region)
+                viewModel.saveFilters()
             }
         initScreen()
         viewModel.screenInit(binding, requireContext())
@@ -59,6 +61,7 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
             if (name != null) {
                 viewModel.setIndustry(id, name)
             }
+            viewModel.saveFilters()
         }
         viewModel.getState().observe(viewLifecycleOwner) { state ->
             when (state) {
@@ -102,22 +105,30 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
         binding.includedPlace.itemIcon.setOnClickListener {
             if (binding.includedPlace.itemText.text.isNotEmpty()) {
                 viewModel.clearPlace()
+                viewModel.saveFilters()
             }
         }
         binding.includedIndustry.root.setOnClickListener {
             viewModel.saveFilters()
-            findNavController().navigate(R.id.action_filterFragment_to_industryFilterFragment)
+            val currentIndustryId = viewModel.getState().value?.let {
+                (it as? FilterScreenState.CONTENT)?.value?.industryId
+            }
+            val action = FilterFragmentDirections.actionFilterFragmentToIndustryFilterFragment(currentIndustryId)
+            findNavController().navigate(action)
         }
         binding.includedIndustry.itemIcon.setOnClickListener {
             if (binding.includedIndustry.itemText.text.isNotEmpty()) {
                 viewModel.clearIndustry()
+                viewModel.saveFilters()
             }
         }
         binding.includedSalary.textFieldClear.setOnClickListener {
             viewModel.clearSalary()
+            viewModel.saveFilters()
         }
         binding.includedShowNoSalary.checkbox.setOnClickListener {
             viewModel.setShowNoSalary()
+            viewModel.saveFilters()
         }
     }
 
@@ -128,6 +139,7 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
                 val imm = v.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(v.windowToken, 0)
                 viewModel.setSalary(binding.includedSalary.textFieldEdit.text.toString().toIntOrNull())
+                viewModel.saveFilters()
                 true
             } else {
                 false

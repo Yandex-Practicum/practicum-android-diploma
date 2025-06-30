@@ -8,6 +8,7 @@ import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentIndustryFilterBinding
@@ -18,6 +19,7 @@ class IndustryFilterFragment : BindingFragment<FragmentIndustryFilterBinding>() 
 
     private val viewModel: IndustryViewModel by viewModel()
     private var industryAdapter: IndustryAdapter? = null
+    private val args by navArgs<IndustryFilterFragmentArgs>()
 
     override fun createBinding(
         inflater: LayoutInflater,
@@ -30,6 +32,7 @@ class IndustryFilterFragment : BindingFragment<FragmentIndustryFilterBinding>() 
         super.onViewCreated(view, savedInstanceState)
 
         binding.industrySearch.searchEditText.hint = getString(R.string.enter_industry)
+        binding.buttonActionIndustry.buttonBlue.text = getString(R.string.select)
 
         binding.industrySearch.searchEditText.addTextChangedListener(
             onTextChanged = { text, _, _, _ ->
@@ -37,6 +40,7 @@ class IndustryFilterFragment : BindingFragment<FragmentIndustryFilterBinding>() 
             }
         )
 
+        args.selectedIndustryId?.let { viewModel.setPreselectedIndustryId(it) }
         viewModel.getIndustries()
 
         industryAdapter = IndustryAdapter(object : IndustryClickListener {
@@ -48,22 +52,7 @@ class IndustryFilterFragment : BindingFragment<FragmentIndustryFilterBinding>() 
 
         binding.industryRecyclerView.adapter = industryAdapter
 
-        viewModel.industryState.observe(viewLifecycleOwner) { state ->
-            when (state) {
-                is IndustryState.CONTENT -> {
-                    showContent(state)
-                }
-                is IndustryState.ERROR -> {
-                    showError(state)
-                }
-                is IndustryState.EMPTY -> {
-                    showEmpty()
-                }
-                is IndustryState.LOADING -> {
-                    showLoading()
-                }
-            }
-        }
+        setObservers()
 
         binding.buttonActionIndustry.buttonBlue.setOnClickListener {
             viewModel.getSelectedIndustry()?.let { selected ->
@@ -81,6 +70,27 @@ class IndustryFilterFragment : BindingFragment<FragmentIndustryFilterBinding>() 
         }
 
         initUiTopbar()
+    }
+
+    private fun setObservers() {
+        viewModel.industryState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is IndustryState.CONTENT -> {
+                    showContent(state)
+                    val anySelected = state.industryListItems.any { it.isSelected }
+                    binding.buttonActionIndustry.buttonBlue.isVisible = anySelected
+                }
+                is IndustryState.ERROR -> {
+                    showError()
+                }
+                is IndustryState.EMPTY -> {
+                    showEmpty()
+                }
+                is IndustryState.LOADING -> {
+                    showLoading()
+                }
+            }
+        }
     }
 
     private fun initUiTopbar() {
@@ -109,11 +119,12 @@ class IndustryFilterFragment : BindingFragment<FragmentIndustryFilterBinding>() 
         industryAdapter?.submitList(state.industryListItems)
     }
 
-    private fun showError(state: IndustryState.ERROR) {
+    private fun showError() {
         binding.industryRecyclerView.visibility = View.GONE
         binding.includedProgressBar.root.visibility = View.GONE
         binding.placeholderNoList.visibility = View.VISIBLE
         binding.placeholderNoIndustry.visibility = View.GONE
+        binding.buttonActionIndustry.buttonBlue.isVisible = false
     }
 
     private fun showEmpty() {
@@ -121,10 +132,12 @@ class IndustryFilterFragment : BindingFragment<FragmentIndustryFilterBinding>() 
         binding.includedProgressBar.root.visibility = View.GONE
         binding.placeholderNoList.visibility = View.GONE
         binding.placeholderNoIndustry.visibility = View.VISIBLE
+        binding.buttonActionIndustry.buttonBlue.isVisible = false
     }
 
     private fun showLoading() {
         binding.industryRecyclerView.visibility = View.GONE
         binding.includedProgressBar.root.visibility = View.VISIBLE
+        binding.buttonActionIndustry.buttonBlue.isVisible = false
     }
 }

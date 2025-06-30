@@ -63,7 +63,10 @@ class PlaceFilterFragment : BindingFragment<FragmentPlaceFilterBinding>() {
             closeFragment(false)
         }
         initTopbar()
+        setListeners()
+    }
 
+    private fun setListeners() {
         binding.countryItem.listLocationItem.setOnClickListener {
             findNavController().navigate(
                 R.id.action_placeFilterFragment_to_countryFilterFragment

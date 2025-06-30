@@ -7,14 +7,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterBinding
-import ru.practicum.android.diploma.domain.api.FilterPreferences
+import ru.practicum.android.diploma.domain.api.FilterPreferencesInteractor
 import ru.practicum.android.diploma.ui.filter.model.FilterScreenState
 import ru.practicum.android.diploma.ui.filter.model.SelectedFilters
 import ru.practicum.android.diploma.ui.filter.place.models.Country
 import ru.practicum.android.diploma.ui.filter.place.models.Region
 
 class FilterViewModel(
-    private val filterPreferences: FilterPreferences
+    private val filterPreferences: FilterPreferencesInteractor
 ) : ViewModel() {
 
     private val state = MutableLiveData<FilterScreenState>()
@@ -107,7 +107,7 @@ class FilterViewModel(
 
     fun setSalary(salary: Int?) {
         selectedFilters = selectedFilters.copy(salary = salary)
-        state.postValue(FilterScreenState.CONTENT(selectedFilters))
+        state.value = FilterScreenState.CONTENT(selectedFilters)
     }
 
     companion object {
