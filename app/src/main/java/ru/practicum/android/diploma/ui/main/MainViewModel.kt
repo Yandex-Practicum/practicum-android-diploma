@@ -20,6 +20,7 @@ class MainViewModel(
     private val filterPreferences: FilterPreferencesInteractor
 ) : ViewModel() {
     private var selectedFilters: SelectedFilters? = null
+    private var textSearching: String? = null
 
     private val textLiveData = MutableLiveData("")
     val text: LiveData<String> = textLiveData
@@ -50,9 +51,12 @@ class MainViewModel(
     fun observeShowNoInternetToast(): LiveData<Unit> = showNoInternetToast
 
     fun onTextChange(value: String) {
-        textLiveData.postValue(value)
+        if (textSearching != value && value.isNotEmpty()) {
+            textSearching = value
+            textLiveData.postValue(value)
 
-        doSearchDebounced(Unit)
+            doSearchDebounced(Unit)
+        }
     }
 
     fun onSearchClear() {
@@ -95,7 +99,7 @@ class MainViewModel(
             FilterOptions(
                 searchText = text,
                 area = filters.region?.id ?: filters.country?.id ?: "",
-                industry = filters.industry ?: "",
+                industry = filters.industryId ?: "",
                 salary = filters.salary,
                 onlyWithSalary = filters.onlyWithSalary,
                 page = page

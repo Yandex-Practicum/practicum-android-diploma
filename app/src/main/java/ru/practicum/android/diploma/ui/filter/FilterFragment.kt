@@ -104,6 +104,7 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
         }
         binding.includedPlace.itemIcon.setOnClickListener {
             if (binding.includedPlace.itemText.text.isNotEmpty()) {
+                binding.includedSalary.textFieldEdit.clearFocus()
                 viewModel.clearPlace()
                 viewModel.saveFilters()
             }
@@ -118,6 +119,7 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
         }
         binding.includedIndustry.itemIcon.setOnClickListener {
             if (binding.includedIndustry.itemText.text.isNotEmpty()) {
+                binding.includedSalary.textFieldEdit.clearFocus()
                 viewModel.clearIndustry()
                 viewModel.saveFilters()
             }
@@ -127,6 +129,7 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
             viewModel.saveFilters()
         }
         binding.includedShowNoSalary.checkbox.setOnClickListener {
+            binding.includedSalary.textFieldEdit.clearFocus()
             viewModel.setShowNoSalary()
             viewModel.saveFilters()
         }
@@ -153,6 +156,8 @@ class FilterFragment : BindingFragment<FragmentFilterBinding>() {
                 if (binding.includedSalary.textFieldEdit.text.isEmpty()) {
                     binding.includedSalary.textFieldHeader.text = ""
                 }
+                viewModel.setSalary(binding.includedSalary.textFieldEdit.text.toString().toIntOrNull())
+                viewModel.saveFilters()
                 binding.includedSalary.textFieldHeader.setTextColor(requireContext().getColor(R.color.black))
             }
         }

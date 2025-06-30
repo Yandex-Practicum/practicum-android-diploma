@@ -66,6 +66,7 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
         setAdapter()
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private fun setObservers() {
         viewModel.text.observe(viewLifecycleOwner) {
             val withClose = it.isNotEmpty()
@@ -249,7 +250,6 @@ class MainFragment : BindingFragment<FragmentMainBinding>() {
 
     override fun onResume() {
         super.onResume()
-
         viewModel.onResume()
     }
 }
