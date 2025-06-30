@@ -16,13 +16,16 @@ import ru.practicum.android.diploma.util.Resource
 class AreasRepositoryImpl(
     private val network: NetworkClientInterface
 ) : AreasRepository {
+    private var cacheAreas: AreasResponse? = null
+
     override fun getAreas(): Flow<Resource<List<Areas>>> = flow {
-        val response = network.doRequest(AreasRequest())
+        val response = cacheAreas ?: network.doRequest(AreasRequest())
         when (response.resultCode) {
             HTTP_NO_CONNECTION -> emit(Resource.Error(HTTP_NO_CONNECTION))
             HTTP_200_OK -> {
-                with(response as AreasResponse) {
-                    val data = areas.map {
+                cacheAreas = response as AreasResponse
+                cacheAreas?.let { areasResponse ->
+                    val data = areasResponse.areas.map {
                         dtoToModel(it)
                     }
                     emit(Resource.Success(data))
@@ -39,7 +42,7 @@ class AreasRepositoryImpl(
             name = dto.name,
             parentId = dto.parentId,
             areas = if (dto.areas.isEmpty()) {
-                emptyList<Areas>()
+                emptyList()
             } else {
                 dto.areas.sortedBy { it.name }.map {
                     dtoToModel(it)

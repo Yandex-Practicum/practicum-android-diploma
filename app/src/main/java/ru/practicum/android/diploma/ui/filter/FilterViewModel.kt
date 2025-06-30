@@ -110,20 +110,6 @@ class FilterViewModel(
         state.value = FilterScreenState.CONTENT(selectedFilters)
     }
 
-    companion object {
-        private const val DEFAUlT_INDUSTRY_ID = ""
-        private const val DEFAULT_INDUSTRY_NAME = ""
-
-        private val DEFAULT_FILTERS = SelectedFilters(
-            null,
-            null,
-            DEFAUlT_INDUSTRY_ID,
-            DEFAULT_INDUSTRY_NAME,
-            null,
-            false
-        )
-    }
-
     fun screenInit(binding: FragmentFilterBinding, context: Context) {
         binding.topbar.apply {
             btnFirst.setImageResource(R.drawable.arrow_back_24px)
@@ -145,5 +131,19 @@ class FilterViewModel(
         }
         binding.includedBtnSet.root.isVisible = false
         binding.includedBtnCancel.root.isVisible = false
+    }
+
+    companion object {
+        private const val DEFAUlT_INDUSTRY_ID = ""
+        private const val DEFAULT_INDUSTRY_NAME = ""
+
+        private val DEFAULT_FILTERS = SelectedFilters(
+            null,
+            null,
+            DEFAUlT_INDUSTRY_ID,
+            DEFAULT_INDUSTRY_NAME,
+            null,
+            false
+        )
     }
 }

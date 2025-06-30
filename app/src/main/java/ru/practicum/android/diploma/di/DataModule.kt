@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.di
 
 import androidx.room.Room
+import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -36,6 +37,10 @@ val dataModule = module {
     }
 
     single {
+        Gson()
+    }
+
+    single {
         VacanciesDbConverter()
     }
 
@@ -59,7 +64,6 @@ val dataModule = module {
     single {
         OkHttpClient.Builder()
             .addInterceptor(get<AuthInterceptor>())
-            // .addInterceptor(get<HttpLoggingInterceptor>())
             .build()
     }
 
@@ -92,6 +96,6 @@ val dataModule = module {
     }
 
     single<FilterPreferences> {
-        FilterPreferencesImpl(get())
+        FilterPreferencesImpl(get(), get())
     }
 }
