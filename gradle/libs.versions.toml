@@ -9,11 +9,11 @@ java = "VERSION_1_8"
 koinAndroid = "4.1.0"
 kotlinxCoroutinesCore = "1.10.2"
 minSdk = "26"
-compileSdk = "34"
+compileSdk = "35"
 navigationFragmentKtx = "2.9.1"
 retrofit = "3.0.0"
 roomRuntime = "2.7.2"
-targetSdk = "33"
+targetSdk = "34"
 
 # Detekt
 detekt = "1.23.3"
