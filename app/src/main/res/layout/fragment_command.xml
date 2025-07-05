@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/hh_back_theme"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".command.ui.CommandFragment">
+
+    <TextView
+        android:id="@+id/titleId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/CommandTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/ys_text_medium"
+        android:textSize="@dimen/title_size_22"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/hh_mode_text"
+        >
+    </TextView>
+
+    <TextView
+        android:id="@+id/mainText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/titleId"
+        app:layout_constraintTop_toBottomOf="@id/titleId"
+        android:text="@string/CommandTextFirst"
+        android:textColor="@color/hh_mode_text"
+        android:textSize="@dimen/huge_text_size_32"
+        android:textStyle="bold"
+        android:layout_marginTop="44dp">
+    </TextView>
+
+    <TextView
+        android:id="@+id/mainText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/mainText1"
+        app:layout_constraintTop_toBottomOf="@id/mainText1"
+        android:text="@string/CommandTextSecond"
+        android:textColor="@color/hh_mode_text"
+        android:textSize="@dimen/huge_text_size_32"
+        android:textStyle="bold">
+    </TextView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="start"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toBottomOf="@id/mainText2"
+        app:layout_constraintStart_toStartOf="@id/mainText2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/main_text_size_16"
+            android:fontFamily="@font/ys_text_medium"
+            android:textColor="@color/hh_mode_text"
+            android:text="@string/dev1">
+        </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/main_text_size_16"
+            android:layout_marginVertical="16dp"
+            android:fontFamily="@font/ys_text_medium"
+            android:textColor="@color/hh_mode_text"
+            android:text="@string/dev2">
+        </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/main_text_size_16"
+            android:fontFamily="@font/ys_text_medium"
+            android:textColor="@color/hh_mode_text"
+            android:text="@string/dev3">
+        </TextView>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
