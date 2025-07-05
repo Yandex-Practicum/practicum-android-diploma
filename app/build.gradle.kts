@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("ru.practicum.android.diploma.plugins.developproperties")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -36,7 +37,9 @@ android {
 
     buildFeatures {
         buildConfig = true
+        viewBinding = true
     }
+
 }
 
 dependencies {
@@ -55,4 +58,30 @@ dependencies {
     androidTestImplementation(libs.uiTests.junitExt)
     androidTestImplementation(libs.uiTests.espressoCore)
     // endregion
+
+    //network
+    implementation(libs.gson)
+    implementation(libs.retrofit)
+
+    //glide
+    implementation(libs.glide)
+
+    //koin
+    implementation(libs.koin.android)
+
+    //coroutines
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+
+    //room
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
+
+    //fragment
+    implementation(libs.fragment.ktx)
+
+    //navigation
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.navigation.ui.ktx)
 }
