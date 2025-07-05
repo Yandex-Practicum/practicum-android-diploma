@@ -59,29 +59,29 @@ dependencies {
     androidTestImplementation(libs.uiTests.espressoCore)
     // endregion
 
-    //network
+    // network
     implementation(libs.gson)
     implementation(libs.retrofit)
 
-    //glide
+    // glide
     implementation(libs.glide)
 
-    //koin
+    // koin
     implementation(libs.koin.android)
 
-    //coroutines
+    // coroutines
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
 
-    //room
+    // room
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
 
-    //fragment
+    // fragment
     implementation(libs.fragment.ktx)
 
-    //navigation
+    // navigation
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.navigation.ui.ktx)
 }
