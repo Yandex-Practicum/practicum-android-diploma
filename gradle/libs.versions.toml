@@ -2,7 +2,7 @@
 
 fragmentKtx = "1.8.8"
 glide = "4.16.0"
-gson = "2.13.1"
+gson = "2.9.0"
 java = "VERSION_1_8"
 
 # Build constants
@@ -11,7 +11,7 @@ kotlinxCoroutinesCore = "1.10.2"
 minSdk = "26"
 compileSdk = "35"
 navigationFragmentKtx = "2.9.1"
-retrofit = "3.0.0"
+retrofit = "2.9.0"
 roomRuntime = "2.7.2"
 targetSdk = "34"
 
