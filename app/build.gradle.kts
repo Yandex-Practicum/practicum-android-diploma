@@ -43,7 +43,7 @@ dependencies {
     implementation(libs.androidX.core)
     implementation(libs.androidX.appCompat)
 
-    //DI
+    // DI
     implementation(libs.koin.core)
     implementation(libs.koin.android)
 
