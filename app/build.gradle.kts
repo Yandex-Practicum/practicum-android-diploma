@@ -43,6 +43,10 @@ dependencies {
     implementation(libs.androidX.core)
     implementation(libs.androidX.appCompat)
 
+    // DI
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+
     // UI layer libraries
     implementation(libs.ui.material)
     implementation(libs.ui.constraintLayout)
