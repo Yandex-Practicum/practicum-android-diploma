@@ -1,3 +1,18 @@
 <resources>
+
     <string name="app_name">Practicum-Android-Diploma</string>
+
+    <string name="team">Команда</string>
+    <string name="main">Главная</string>
+    <string name="favorite">Избранное</string>
+
+    <string name="working_on_app">Над приложением работали</string>
+    <string name="kristina">Гаффарова Кристина</string>
+    <string name="arkady">Данилов Аркадий</string>
+    <string name="victoria">Кан Виктория</string>
+
+    <string name="search_vacancy">Поиск вакансий</string>
+
+    <string name="empty_list">Список пуст</string>
+
 </resources>
