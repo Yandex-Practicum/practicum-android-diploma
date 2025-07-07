@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data.models.vacancyDetails
+package ru.practicum.android.diploma.data.models.vacancydetails
 
 import retrofit2.http.GET
 import retrofit2.http.Headers

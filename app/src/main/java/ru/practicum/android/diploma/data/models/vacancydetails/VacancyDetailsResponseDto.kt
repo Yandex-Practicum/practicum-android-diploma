@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data.models.vacancyDetails
+package ru.practicum.android.diploma.data.models.vacancydetails
 
 import com.google.gson.annotations.SerializedName
 

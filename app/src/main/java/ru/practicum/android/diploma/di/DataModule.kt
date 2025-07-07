@@ -9,7 +9,7 @@ import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.data.models.areas.AreasApi
 import ru.practicum.android.diploma.data.models.industries.IndustriesApi
 import ru.practicum.android.diploma.data.models.vacancies.VacanciesApi
-import ru.practicum.android.diploma.data.models.vacancyDetails.VacancyDetailsApi
+import ru.practicum.android.diploma.data.models.vacancydetails.VacancyDetailsApi
 
 val dataModule = module {
     // retrofit
