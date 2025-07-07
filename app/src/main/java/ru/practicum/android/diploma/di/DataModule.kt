@@ -4,6 +4,7 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.data.models.areas.AreasApi
+import ru.practicum.android.diploma.data.models.industries.IndustriesApi
 import ru.practicum.android.diploma.data.models.vacancies.VacanciesApi
 import ru.practicum.android.diploma.data.models.vacancyDetails.VacancyDetailsApi
 
@@ -28,5 +29,10 @@ val dataModule = module {
     // areasApi
     single<AreasApi> {
         get<Retrofit>().create(AreasApi::class.java)
+    }
+
+    // industriesApi
+    single<IndustriesApi> {
+        get<Retrofit>().create(IndustriesApi::class.java)
     }
 }
