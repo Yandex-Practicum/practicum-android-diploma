@@ -6,7 +6,7 @@ import retrofit2.http.Path
 
 interface VacancyDetailsApi {
     @Headers("HH-User-Agent: WorkNest/1.0 (danilov-av2004@mail.ru)")
-    @GET("/vacancies/{vacancy_id}")
+    @GET("vacancies/{vacancy_id}")
     suspend fun getVacancyDetails(
         @Path("vacancy_id") id: String
     ): VacancyDetailsResponseDto
