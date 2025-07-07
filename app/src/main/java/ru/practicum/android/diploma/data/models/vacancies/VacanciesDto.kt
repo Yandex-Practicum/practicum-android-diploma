@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName
 data class VacanciesDto(
     @SerializedName("name") val name: String,
     @SerializedName("alternate_url") val alternateUrl: String,
+    @SerializedName("id") val id: String,
     @SerializedName("employer") val employer: EmployerDto?,
     @SerializedName("salary_range") val salaryRange: SalaryRangeDto?
 )
