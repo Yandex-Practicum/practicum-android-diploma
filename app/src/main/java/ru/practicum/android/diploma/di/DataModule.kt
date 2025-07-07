@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.di
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import ru.practicum.android.diploma.data.models.vacancies.VacanciesApi
 
 val dataModule = module {
     single<Retrofit> {
@@ -12,4 +13,8 @@ val dataModule = module {
             .build()
     }
 
+    // vacanciesApi
+    single<VacanciesApi> {
+        get<Retrofit>().create(VacanciesApi::class.java)
+    }
 }
