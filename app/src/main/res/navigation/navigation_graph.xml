@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/vacancySearchFragment">
+
+    <fragment
+        android:id="@+id/searchFiltersFragment"
+        android:name="ru.practicum.android.diploma.ui.searchfilters.SearchFiltersFragment"
+        android:label="SearchFiltersFragment" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="ru.practicum.android.diploma.ui.about.AboutFragment"
+        android:label="AboutFragment" />
+    <fragment
+        android:id="@+id/vacancySearchFragment"
+        android:name="ru.practicum.android.diploma.ui.vacancysearch.VacancySearchFragment"
+        android:label="VacancySearchFragment" >
+        <action
+            android:id="@+id/action_vacancySearchFragment_to_vacancyDetailsFragment"
+            app:destination="@id/vacancyDetailsFragment" />
+        <action
+            android:id="@+id/action_vacancySearchFragment_to_searchFiltersFragment"
+            app:destination="@id/searchFiltersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favouriteVacanciesFragment"
+        android:name="ru.practicum.android.diploma.ui.favouritevacancies.FavouriteVacanciesFragment"
+        android:label="FavouriteVacanciesFragment" >
+        <action
+            android:id="@+id/action_favouriteVacanciesFragment_to_vacancyDetailsFragment"
+            app:destination="@id/vacancyDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/vacancyDetailsFragment"
+        android:name="ru.practicum.android.diploma.ui.vacancydetails.VacancyDetailsFragment"
+        android:label="VacancyDetailsFragment" />
+</navigation>
