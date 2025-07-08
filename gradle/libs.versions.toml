@@ -8,6 +8,8 @@ compileSdk = "34"
 targetSdk = "33"
 koin = "3.5.0"
 room = "2.6.1"
+retrofit = "2.9.0"
+
 
 # Detekt
 detekt = "1.23.3"
@@ -47,6 +49,11 @@ koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+
+#Retrofit
+retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-gson-converter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
+
 
 
 

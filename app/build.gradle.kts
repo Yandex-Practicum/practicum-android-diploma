@@ -53,6 +53,10 @@ dependencies {
     implementation(libs.room.ktx)
     kapt(libs.room.compiler)
 
+    // Retrofit
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.gson.converter)
+
     // UI layer libraries
     implementation(libs.ui.material)
     implementation(libs.ui.constraintLayout)
