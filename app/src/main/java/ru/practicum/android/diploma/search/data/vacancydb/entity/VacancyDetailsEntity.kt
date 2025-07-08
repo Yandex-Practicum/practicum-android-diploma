@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.search.db
+package ru.practicum.android.diploma.search.data.vacancydb.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
