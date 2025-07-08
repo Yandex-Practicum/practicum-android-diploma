@@ -2,6 +2,9 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("ru.practicum.android.diploma.plugins.developproperties")
+    id("kotlin-kapt")
+    alias(libs.plugins.ksp)
+
 }
 
 android {
@@ -47,6 +50,15 @@ dependencies {
     // DI
     implementation(libs.koin.core)
     implementation(libs.koin.android)
+
+    // Room
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.androidx.room.compiler)
+
+    // Retrofit
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.gson.converter)
 
     // UI layer libraries
     implementation(libs.ui.material)
