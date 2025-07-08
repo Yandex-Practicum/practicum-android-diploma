@@ -31,7 +31,7 @@
         <item name="android:fontWeight">400</item>
     </style>
 
-    <style name="BottomNavigationMenu">
+    <style name="BottomNavigationMenu" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="itemIconTint">@color/nav_item_color</item>
         <item name="itemTextColor">@color/nav_item_color</item>
         <item name="itemTextAppearanceActive">@style/TextRegular12</item>
