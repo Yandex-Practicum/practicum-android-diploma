@@ -8,6 +8,6 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "filter_table")
 data class FilterEntity(
     @PrimaryKey(autoGenerate = true)
-    val id : Int,
+    val id: Int,
     val name: String
 )
