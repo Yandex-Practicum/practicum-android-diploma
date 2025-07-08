@@ -15,4 +15,9 @@
 
     <string name="empty_list">Список пуст</string>
 
+    <string name="favourite_vacancies">Избранное</string>
+    <string name="search_filters">Фильтрация</string>
+    <string name="vacancy_details">О вакансии</string>
+
+
 </resources>
