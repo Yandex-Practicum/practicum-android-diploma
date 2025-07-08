@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/vacancySearchFragment"
+        android:icon="@drawable/main_24px"
+        android:title="@string/main"/>
+
+    <item
+        android:id="@+id/favouriteVacanciesFragment"
+        android:icon="@drawable/favorites_off_24px"
+        android:title="@string/favorite"/>
+
+    <item
+        android:id="@+id/aboutFragment"
+        android:icon="@drawable/team_24px"
+        android:title="@string/team"/>
+</menu>
