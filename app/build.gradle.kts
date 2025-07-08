@@ -3,6 +3,8 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("ru.practicum.android.diploma.plugins.developproperties")
     id("kotlin-kapt")
+    alias(libs.plugins.ksp)
+
 }
 
 android {
@@ -51,7 +53,7 @@ dependencies {
     // Room
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
-    kapt(libs.room.compiler)
+    ksp(libs.androidx.room.compiler)
 
     // Retrofit
     implementation(libs.retrofit.core)
