@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.vacancySearch
+package ru.practicum.android.diploma.ui.vacancy_search
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,20 +11,20 @@ import ru.practicum.android.diploma.databinding.VacancySearchFragmentBinding
 
 class VacancySearchFragment : Fragment() {
 
-    private lateinit var binding: VacancySearchFragmentBinding
+    private var binding: VacancySearchFragmentBinding? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = VacancySearchFragmentBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.details.setOnClickListener {
+        binding?.details?.setOnClickListener {
             findNavController().navigate(R.id.action_vacancySearchFragment_to_vacancyDetailsFragment)
         }
-        binding.filter.setOnClickListener {
+        binding?.filter?.setOnClickListener {
             findNavController().navigate(R.id.action_vacancySearchFragment_to_searchFiltersFragment)
         }
     }

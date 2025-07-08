@@ -9,11 +9,11 @@ import ru.practicum.android.diploma.databinding.AboutFragmentBinding
 
 class AboutFragment : Fragment() {
 
-    private lateinit var binding: AboutFragmentBinding
+    private var binding: AboutFragmentBinding? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = AboutFragmentBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
 }

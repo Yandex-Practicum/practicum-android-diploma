@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.favouriteVacancies
+package ru.practicum.android.diploma.ui.favourite_vacancies
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,17 +11,17 @@ import ru.practicum.android.diploma.databinding.FavouriteVacanciesFragmentBindin
 
 class FavouriteVacanciesFragment : Fragment() {
 
-    private lateinit var binding: FavouriteVacanciesFragmentBinding
+    private var binding: FavouriteVacanciesFragmentBinding? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FavouriteVacanciesFragmentBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.details.setOnClickListener {
+        binding?.details?.setOnClickListener {
             findNavController().navigate(R.id.action_favouriteVacanciesFragment_to_vacancyDetailsFragment)
         }
     }
