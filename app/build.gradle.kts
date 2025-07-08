@@ -64,6 +64,9 @@ dependencies {
     implementation(libs.ui.material)
     implementation(libs.ui.constraintLayout)
 
+    //lifecycle
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+
     // region Unit tests
     testImplementation(libs.unitTests.junit)
     // endregion

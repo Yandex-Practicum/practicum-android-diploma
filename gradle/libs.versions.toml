@@ -9,7 +9,7 @@ targetSdk = "33"
 koin = "3.5.0"
 room = "2.6.1"
 retrofit = "2.9.0"
-
+lifecycle = "2.8.3"
 
 # Detekt
 detekt = "1.23.3"
@@ -29,6 +29,7 @@ staticAnalysis-detektTwitterComposeRules = { module = "com.twitter.compose.rules
 # AndroidX
 androidX-core = "androidx.core:core-ktx:1.12.0"
 androidX-appCompat = "androidx.appcompat:appcompat:1.6.1"
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
 
 # UI layer libraries
 ui-material = "com.google.android.material:material:1.10.0"
