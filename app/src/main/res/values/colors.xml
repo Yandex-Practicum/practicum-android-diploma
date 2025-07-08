@@ -2,4 +2,6 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="hh_mode_text">#1A1B22</color>
+    <color name="hh_back_theme">#FDFDFD</color>
 </resources>
