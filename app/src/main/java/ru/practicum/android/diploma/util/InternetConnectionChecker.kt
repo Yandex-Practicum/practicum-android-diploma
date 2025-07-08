@@ -9,20 +9,7 @@ import kotlinx.coroutines.withContext
 
 class InternetConnectionChecker {
 
-    suspend fun checkConnectionAndShowToast(context: Context) {
-        val isConnected = withContext(Dispatchers.IO) {
-            isInternetAvailable(context)
-        }
-
-        val message = if (isConnected) {
-            "подключение к интернету есть"
-        } else {
-            "подключение к интернету нет"
-        }
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun isInternetAvailable(context: Context): Boolean {
+    fun isInternetAvailable(context: Context): Boolean {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
         return connectivityManager.activeNetwork?.let { network ->
