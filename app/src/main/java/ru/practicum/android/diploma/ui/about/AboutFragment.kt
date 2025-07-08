@@ -9,11 +9,17 @@ import ru.practicum.android.diploma.databinding.AboutFragmentBinding
 
 class AboutFragment : Fragment() {
 
-    private var binding: AboutFragmentBinding? = null
+    private var _binding: AboutFragmentBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = AboutFragmentBinding.inflate(inflater, container, false)
-        return binding?.root
+        _binding = AboutFragmentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

@@ -2,20 +2,16 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="?attr/android:colorBackground"
-    android:theme="@style/Base.Theme.PracticumAndroidDiploma">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/searchVacancy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/ys_display_medium"
         android:text="@string/search_vacancy"
+        style="@style/TextMedium22"
         android:textAlignment="center"
         android:textColor="?attr/colorOnPrimary"
-        android:textFontWeight="500"
-        android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,8 +26,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/searchVacancy"
         android:text="@string/search_filters"
-        android:textSize="22sp"
-        android:fontFamily="@font/ys_display_medium"/>
+        style="@style/TextMedium22"/>
 
     <Button
         android:id="@+id/details"
@@ -42,7 +37,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/filter"
         android:text="@string/vacancy_details"
-        android:textSize="22sp"
-        android:fontFamily="@font/ys_display_medium"/>
+        style="@style/TextMedium22"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

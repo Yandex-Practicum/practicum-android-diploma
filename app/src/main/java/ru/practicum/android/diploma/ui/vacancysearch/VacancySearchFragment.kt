@@ -11,21 +11,27 @@ import ru.practicum.android.diploma.databinding.VacancySearchFragmentBinding
 
 class VacancySearchFragment : Fragment() {
 
-    private var binding: VacancySearchFragmentBinding? = null
+    private var _binding: VacancySearchFragmentBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = VacancySearchFragmentBinding.inflate(inflater, container, false)
-        return binding?.root
+        _binding = VacancySearchFragmentBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding?.details?.setOnClickListener {
+        binding.details.setOnClickListener {
             findNavController().navigate(R.id.action_vacancySearchFragment_to_vacancyDetailsFragment)
         }
-        binding?.filter?.setOnClickListener {
+        binding.filter.setOnClickListener {
             findNavController().navigate(R.id.action_vacancySearchFragment_to_searchFiltersFragment)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
