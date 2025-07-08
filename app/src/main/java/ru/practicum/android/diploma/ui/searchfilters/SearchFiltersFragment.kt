@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.search_filters
+package ru.practicum.android.diploma.ui.searchfilters
 
 import android.os.Bundle
 import android.view.LayoutInflater
