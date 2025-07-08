@@ -2,9 +2,8 @@ package ru.practicum.android.diploma.search.data.filtersbd.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.nio.charset.StandardCharsets
 
-// TODO: этот класс пока в разработке, поля могут быть добавлены/изменены
+// Этот класс пока в разработке, поля могут быть добавлены/изменены
 
 @Entity(tableName = "filter_table")
 data class FilterEntity(

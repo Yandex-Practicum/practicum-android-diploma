@@ -3,7 +3,7 @@ package ru.practicum.android.diploma.search.data.vacancydb.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-// TODO: этот класс пока в разработке, поля могут быть добавлены/изменены
+// Этот класс пока в разработке, поля могут быть добавлены/изменены
 @Entity(tableName = "vacancy_details_table")
 data class VacancyDetailsEntity(
     @PrimaryKey val id: String,
