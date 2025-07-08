@@ -16,7 +16,9 @@
     <string name="empty_list">Список пуст</string>
 
     <string name="search_filters">Фильтрация</string>
-    <string name="vacancy_details">О вакансии</string>
+    <string name="vacancy_details">Вакансия</string>
+
+    <string name="filter_settings">Настройки фильтрации</string>
 
 
 </resources>
