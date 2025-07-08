@@ -3,9 +3,6 @@ package ru.practicum.android.diploma.util
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.widget.Toast
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 class InternetConnectionChecker {
 
