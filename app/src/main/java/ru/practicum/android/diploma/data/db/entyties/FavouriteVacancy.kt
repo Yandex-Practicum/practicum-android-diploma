@@ -7,5 +7,6 @@ import androidx.room.PrimaryKey
 data class FavouriteVacancy(
     @PrimaryKey
     val id: String,
-    val name: String
+    val name: String,
+    val timestamp: Long
 )
