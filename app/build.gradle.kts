@@ -60,7 +60,7 @@ dependencies {
     // endregion
 
     // network
-    implementation(libs.gson)
+    implementation(libs.converter.gson)
     implementation(libs.retrofit)
 
     // glide

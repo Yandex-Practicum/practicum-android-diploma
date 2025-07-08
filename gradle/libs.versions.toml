@@ -2,7 +2,6 @@
 
 fragmentKtx = "1.8.8"
 glide = "4.16.0"
-gson = "2.9.0"
 java = "VERSION_1_8"
 
 # Build constants
@@ -22,9 +21,9 @@ detektTwitterComposeRules ="0.0.26"
 [libraries]
 
 # Detekt
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
-gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinAndroid" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesCore" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
