@@ -22,8 +22,6 @@ class FavouriteVacanciesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.header.toolbarTitle.text = getString(R.string.favorite)
-
         binding.details.setOnClickListener {
             findNavController().navigate(R.id.action_favouriteVacanciesFragment_to_vacancyDetailsFragment)
         }

@@ -22,8 +22,6 @@ class VacancySearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.header.toolbarTitle.text = getString(R.string.search_vacancy)
-
         binding.details.setOnClickListener {
             findNavController().navigate(R.id.action_vacancySearchFragment_to_vacancyDetailsFragment)
         }

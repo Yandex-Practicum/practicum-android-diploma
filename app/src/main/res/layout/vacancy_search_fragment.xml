@@ -4,10 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
-        layout="@layout/toolbar_header"
-        android:id="@+id/header"/>
-
     <TextView
         android:id="@+id/searchVacancy"
         android:layout_width="match_parent"
@@ -19,7 +15,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/filter"
