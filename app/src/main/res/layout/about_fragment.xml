@@ -4,16 +4,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include
+        layout="@layout/toolbar_header"
+        android:id="@+id/header"/>
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/working_on_app"
         android:text="@string/working_on_app"
-        style="@style/TextMedium22"
-        android:textAlignment="center"
-        android:textColor="?attr/colorOnPrimary"
-        app:layout_constraintBottom_toBottomOf="parent"
+        style="@style/HeadStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/header"/>
+
+    <TextView
+        android:id="@+id/Arkady"
+        android:text="@string/arkady"
+        style="@style/NamesStyle"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/working_on_app"/>
+
+    <TextView
+        android:id="@+id/Kris"
+        style="@style/NamesStyle"
+        android:text="@string/kristina"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Arkady"/>
+
+    <TextView
+        android:text="@string/victoria"
+        style="@style/NamesStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Kris"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
