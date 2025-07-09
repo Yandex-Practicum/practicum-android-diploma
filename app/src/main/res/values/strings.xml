@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Practicum-Android-Diploma</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="CommandTitle">Команда</string>
+    <string name="CommandTextFirst">Над приложением</string>
+    <string name="CommandTextSecond">работали</string>
+    <string name="dev1">Anastasiyatarazevich</string>
+    <string name="dev2">MaxxySe</string>
+    <string name="dev3">papcha07</string>
 </resources>

@@ -37,6 +37,7 @@ android {
 
     buildFeatures {
         buildConfig = true
+        viewBinding = true
     }
 }
 
@@ -55,6 +56,7 @@ dependencies {
     // Coroutines
     implementation(libs.kotlinx.coroutines.android)
 
+
     // Retrofit
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.gson.converter)
@@ -71,6 +73,9 @@ dependencies {
     // UI layer libraries
     implementation(libs.ui.material)
     implementation(libs.ui.constraintLayout)
+
+    // lifecycle
+    implementation(libs.androidx.lifecycle.runtime.ktx)
 
     // region Unit tests
     testImplementation(libs.unitTests.junit)

@@ -14,6 +14,10 @@ coroutines = "1.6.4"
 retrofit = "2.9.0"
 glide = "4.12.0"
 room = "2.6.1"
+room = "2.6.1"
+retrofit = "2.9.0"
+lifecycle = "2.8.3"
+
 
 # Detekt
 detekt = "1.23.3"
@@ -36,6 +40,7 @@ staticAnalysis-detektTwitterComposeRules = { module = "com.twitter.compose.rules
 # AndroidX
 androidX-core = "androidx.core:core-ktx:1.12.0"
 androidX-appCompat = "androidx.appcompat:appcompat:1.6.1"
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
 
 # UI layer libraries
 ui-material = "com.google.android.material:material:1.10.0"
@@ -59,9 +64,11 @@ androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation
 #Coroutines
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
 
+
 #Retrofit
 retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-gson-converter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
+
 
 #Glide
 glide-lib = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
@@ -71,6 +78,7 @@ glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", versi
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+
 
 
 [bundles]
