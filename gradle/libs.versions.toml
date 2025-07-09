@@ -7,13 +7,22 @@ minSdk = "26"
 compileSdk = "34"
 targetSdk = "33"
 koin = "3.5.0"
-room = "2.6.1"
+fragmentKtx = "1.8.6"
+navigationFragmentKtx = "2.8.9"
+navigationUiKtx = "2.8.9"
+coroutines = "1.6.4"
 retrofit = "2.9.0"
+glide = "4.12.0"
+room = "2.6.1"
 lifecycle = "2.8.3"
+
 
 # Detekt
 detekt = "1.23.3"
 detektTwitterComposeRules ="0.0.26"
+
+[plugins]
+ksp = { id = "com.google.devtools.ksp", version = "1.9.0-1.0.13"  }
 
 [libraries]
 
@@ -46,17 +55,27 @@ uiTests-espressoCore = "androidx.test.espresso:espresso-core:3.5.1"
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 
-#Room
-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
-androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+#Navigation
+androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
+
+#Coroutines
+kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
+
 
 #Retrofit
 retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-gson-converter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
 
-[plugins]
-ksp = { id = "com.google.devtools.ksp", version = "1.9.0-1.0.13"  }
+
+#Glide
+glide-lib = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glide" }
+
+#Room
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 
 
 

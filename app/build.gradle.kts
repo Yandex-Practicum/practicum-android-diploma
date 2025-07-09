@@ -2,9 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("ru.practicum.android.diploma.plugins.developproperties")
-    id("kotlin-kapt")
     alias(libs.plugins.ksp)
-
 }
 
 android {
@@ -51,14 +49,26 @@ dependencies {
     implementation(libs.koin.core)
     implementation(libs.koin.android)
 
-    // Room
-    implementation(libs.room.runtime)
-    implementation(libs.room.ktx)
-    ksp(libs.androidx.room.compiler)
+    // Navigation
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+
+    // Coroutines
+    implementation(libs.kotlinx.coroutines.android)
+
 
     // Retrofit
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.gson.converter)
+
+    // Glide
+    implementation(libs.glide.lib)
+    annotationProcessor(libs.glide.compiler)
+
+    // Room
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
 
     // UI layer libraries
     implementation(libs.ui.material)
