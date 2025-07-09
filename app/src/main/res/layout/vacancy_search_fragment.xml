@@ -8,29 +8,55 @@
         layout="@layout/toolbar_header"
         android:id="@+id/header"/>
 
-    <TextView
-        android:id="@+id/searchVacancy"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/search_vacancy"
-        style="@style/TextMedium22"
-        android:textAlignment="center"
-        android:textColor="?attr/colorOnPrimary"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/header"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header" />
+        app:layout_constraintStart_toStartOf="parent">
 
-    <Button
-        android:id="@+id/filter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/details"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchVacancy"
-        android:text="@string/search_filters"
-        style="@style/TextMedium22"/>
+        <LinearLayout
+            android:id="@+id/layout_search_line"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="8dp"
+            android:background="@drawable/background_searchline"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/inputEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:backgroundTint="?attr/colorPrimary"
+                android:hint="@string/input_search"
+                android:inputType="text"
+                android:maxLength="25"
+                android:maxLines="1"
+                android:layout_marginStart="16dp"
+                android:textColor="@color/black"
+                android:textColorHint="?attr/colorOnContainer"
+                style="@style/TextRegular16"
+                android:textCursorDrawable="@drawable/text_cursor"
+                android:imeOptions="actionDone"
+                android:singleLine="true"/>
+
+            <ImageView
+                android:id="@+id/icon"
+                android:clickable="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginVertical="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/search_24px"/>
+
+        </LinearLayout>
+    </FrameLayout>
 
     <Button
         android:id="@+id/details"
@@ -39,7 +65,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/filter"
+        android:layout_marginBottom="50dp"
         android:text="@string/vacancy_details"
         style="@style/TextMedium22"/>
 

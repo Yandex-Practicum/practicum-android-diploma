@@ -20,5 +20,7 @@
 
     <string name="filter_settings">Настройки фильтрации</string>
 
+    <string name="input_search">Введите запрос</string>
+
 
 </resources>
