@@ -5,16 +5,17 @@
     android:layout_height="match_parent">
 
     <include
-        layout="@layout/toolbar_header"
-        android:id="@+id/header"/>
+        android:id="@+id/header"
+        layout="@layout/toolbar_header" />
 
     <FrameLayout
+        android:id="@+id/search_zone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/header"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header">
 
         <LinearLayout
             android:id="@+id/layout_search_line"
@@ -27,46 +28,57 @@
 
             <EditText
                 android:id="@+id/inputEditText"
+                style="@style/TextRegular16"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginStart="16dp"
                 android:layout_weight="1"
                 android:backgroundTint="?attr/colorPrimary"
                 android:hint="@string/input_search"
+                android:imeOptions="actionDone"
                 android:inputType="text"
                 android:maxLength="25"
                 android:maxLines="1"
-                android:layout_marginStart="16dp"
+                android:singleLine="true"
                 android:textColor="@color/black"
                 android:textColorHint="?attr/colorOnContainer"
-                style="@style/TextRegular16"
-                android:textCursorDrawable="@drawable/text_cursor"
-                android:imeOptions="actionDone"
-                android:singleLine="true"/>
+                android:textCursorDrawable="@drawable/text_cursor" />
 
             <ImageView
                 android:id="@+id/icon"
-                android:clickable="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginVertical="16dp"
-                android:layout_marginEnd="16dp"
                 android:layout_marginStart="8dp"
-                android:src="@drawable/search_24px"/>
+                android:layout_marginEnd="16dp"
+                android:clickable="false"
+                android:src="@drawable/search_24px" />
 
         </LinearLayout>
     </FrameLayout>
 
-    <Button
-        android:id="@+id/details"
+    <ImageView
+        android:id="@+id/search_main_placeholder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:src="@drawable/search_main_placeholder"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_zone" />
+
+    <Button
+        android:id="@+id/details"
+        style="@style/TextMedium22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
         android:text="@string/vacancy_details"
-        style="@style/TextMedium22"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

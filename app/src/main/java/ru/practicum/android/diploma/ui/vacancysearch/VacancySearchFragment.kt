@@ -43,6 +43,7 @@ class VacancySearchFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s?.isNotEmpty() == true) {
                     binding.icon.setImageResource(R.drawable.close_24px)
+                    binding.searchMainPlaceholder.visibility = View.GONE
                     binding.icon.isClickable = true
                     binding.icon.setOnClickListener {
                         binding.inputEditText.setText("")
@@ -51,6 +52,7 @@ class VacancySearchFragment : Fragment() {
                         inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
                     }
                 } else {
+                    binding.searchMainPlaceholder.visibility = View.VISIBLE
                     binding.icon.setImageResource(R.drawable.search_24px)
                     binding.icon.isClickable = false
                 }
