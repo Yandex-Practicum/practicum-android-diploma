@@ -11,4 +11,6 @@
     <color name="gray">#AEAFB4</color>
     <color name="light_gray">#E6E8EB</color>
     <color name="black_alpha50">#1A1B2280</color>
+
+    <color name="divider_color">#FDFDFD</color>
 </resources>

@@ -63,6 +63,7 @@ dependencies {
 
     // Glide
     implementation(libs.glide.lib)
+    implementation(libs.androidx.navigation.fragment)
     annotationProcessor(libs.glide.compiler)
 
     // Room
