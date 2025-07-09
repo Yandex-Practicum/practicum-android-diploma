@@ -31,5 +31,6 @@ class RootActivity : AppCompatActivity() {
     }
 
     private fun networkRequestExample(accessToken: String) {
+        // ... ваш код для сетевого запроса
     }
 }
