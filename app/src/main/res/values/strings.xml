@@ -49,7 +49,7 @@
     <string name="favorite_title">Избранное</string>
     <string name="favorite_empty_error">Список пуст</string>
     <string name="favorite_nointernet_error">Не удалось получить\nсписок вакансий</string>
-
+    <string name="main_title">Главная</string>
 
 
 </resources>
