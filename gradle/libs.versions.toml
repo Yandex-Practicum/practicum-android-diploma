@@ -14,8 +14,6 @@ coroutines = "1.6.4"
 retrofit = "2.9.0"
 glide = "4.12.0"
 room = "2.6.1"
-room = "2.6.1"
-retrofit = "2.9.0"
 lifecycle = "2.8.3"
 
 
