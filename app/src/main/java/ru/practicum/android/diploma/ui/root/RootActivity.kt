@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.ActivityRootBinding
@@ -21,6 +22,7 @@ class RootActivity : AppCompatActivity() {
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.root_fragment_container) as NavHostFragment
         val navController: NavController = navHostFragment.navController
+        binding.bottomNavigationView.setupWithNavController(navController)
 
         networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
     }
@@ -30,4 +32,7 @@ class RootActivity : AppCompatActivity() {
         _binding = null
     }
 
+    private fun networkRequestExample(accessToken: String) {
+        // ... ваш код для сетевого запроса
+    }
 }

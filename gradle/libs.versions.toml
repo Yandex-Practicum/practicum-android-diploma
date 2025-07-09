@@ -20,6 +20,7 @@ lifecycle = "2.8.3"
 # Detekt
 detekt = "1.23.3"
 detektTwitterComposeRules ="0.0.26"
+navigationFragment = "2.9.1"
 
 [plugins]
 ksp = { id = "com.google.devtools.ksp", version = "1.9.0-1.0.13"  }
@@ -76,6 +77,7 @@ glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", versi
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+androidx-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
 
 
 
