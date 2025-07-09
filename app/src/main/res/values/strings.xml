@@ -8,4 +8,48 @@
     <string name="dev1">Anastasiyatarazevich</string>
     <string name="dev2">MaxxySe</string>
     <string name="dev3">papcha07</string>
+
+    <string name="searchvacancy_title">Поиск вакансий</string>
+    <string name="searchvacancy_search">Введите запрос</string>
+    <string name="searchvacancy_notfound">Таких вакансий нет</string>
+    <string name="searchvacancy_founded_placeholder">Найдено 286 вакансий</string>
+    <string name="searchvacancy_nointernet_error">Нет интернета</string>
+    <string name="searchvacancy_notfound_error">Не удалось получить\nсписок вакансий</string>
+    <string name="searchvacancy_server_error">Ошибка сервера</string>
+
+    <string name="filter_title">Настройки фильтрации</string>
+    <string name="filter_work">Место работы</string>
+    <string name="filter_field">Отрасль</string>
+    <string name="filter_expectprice">Ожидаемая зарплата</string>
+    <string name="filter_entersum">Введите сумму</string>
+    <string name="filter_nosumhidden">Не показывать без зарплаты</string>
+    <string name="filter_acceptbtn">Применить</string>
+    <string name="filter_resetbtn">Сбросить</string>
+
+    <string name="work_title">Выбор места работы</string>
+    <string name="work_country">Страна</string>
+    <string name="work_region">Регион</string>
+    <string name="work_choosebtn">Выбрать</string>
+
+    <string name="country_title">Выбор страны</string>
+
+    <string name="region_title">Выбор региона</string>
+    <string name="region_search">Введите регион</string>
+    <string name="region_notfound_error">Такого региона нет</string>
+    <string name="region_nointernet_error">Не удалось получить\nсписок</string>
+
+    <string name="field_title">Выбор отрасли</string>
+    <string name="field_search">Введите отрасль</string>
+    <string name="field_choosebtn">Выбрать</string>
+
+    <string name="vacancy_title">Вакансия</string>
+    <string name="vacancy_notfound_error">Вакансия не найдена или\nудалена</string>
+    <string name="vacancy_server_error">Ошибка сервера</string>
+
+    <string name="favorite_title">Избранное</string>
+    <string name="favorite_empty_error">Список пуст</string>
+    <string name="favorite_nointernet_error">Не удалось получить\nсписок вакансий</string>
+
+
+
 </resources>

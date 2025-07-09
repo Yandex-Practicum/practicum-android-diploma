@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/hh_back_theme"
+    style="@style/Screen.Background"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".command.ui.CommandFragment">
 
@@ -15,12 +15,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="16dp"
-        android:fontFamily="@font/ys_text_medium"
-        android:textSize="@dimen/title_size_22"
         android:layout_marginTop="20dp"
-        android:textColor="@color/hh_mode_text"
-        >
-    </TextView>
+        style="@style/Text.Title"
+        />
 
     <TextView
         android:id="@+id/mainText1"
@@ -29,11 +26,9 @@
         app:layout_constraintStart_toStartOf="@id/titleId"
         app:layout_constraintTop_toBottomOf="@id/titleId"
         android:text="@string/CommandTextFirst"
-        android:textColor="@color/hh_mode_text"
-        android:textSize="@dimen/huge_text_size_32"
-        android:textStyle="bold"
-        android:layout_marginTop="44dp">
-    </TextView>
+        android:layout_marginTop="44dp"
+        style="@style/Text.Main.Bold"
+        />
 
     <TextView
         android:id="@+id/mainText2"
@@ -42,10 +37,8 @@
         app:layout_constraintStart_toStartOf="@id/mainText1"
         app:layout_constraintTop_toBottomOf="@id/mainText1"
         android:text="@string/CommandTextSecond"
-        android:textColor="@color/hh_mode_text"
-        android:textSize="@dimen/huge_text_size_32"
-        android:textStyle="bold">
-    </TextView>
+        style="@style/Text.Main.Bold"
+        />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -59,29 +52,23 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/main_text_size_16"
-            android:fontFamily="@font/ys_text_medium"
-            android:textColor="@color/hh_mode_text"
-            android:text="@string/dev1">
-        </TextView>
+            android:text="@string/dev1"
+            style="@style/Text.DevInfo"
+            />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/main_text_size_16"
             android:layout_marginVertical="16dp"
-            android:fontFamily="@font/ys_text_medium"
-            android:textColor="@color/hh_mode_text"
-            android:text="@string/dev2">
-        </TextView>
+            android:text="@string/dev2"
+            style="@style/Text.DevInfo"
+            />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/main_text_size_16"
-            android:fontFamily="@font/ys_text_medium"
-            android:textColor="@color/hh_mode_text"
-            android:text="@string/dev3">
-        </TextView>
+            android:text="@string/dev3"
+            style="@style/Text.DevInfo"
+            />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
