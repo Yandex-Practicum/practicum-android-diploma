@@ -59,6 +59,21 @@
         </LinearLayout>
     </FrameLayout>
 
+    <TextView
+        android:id="@+id/search_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/top_btn"
+        android:text="@string/no_vacancies"
+        style="@style/TextRegular16"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_marginTop="3dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_zone"/>
+
     <ImageView
         android:id="@+id/search_main_placeholder"
         android:layout_width="wrap_content"
@@ -70,15 +85,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_zone" />
 
-    <Button
-        android:id="@+id/details"
-        style="@style/TextMedium22"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:text="@string/vacancy_details"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_search"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="38dp"
+        android:layout_weight="1"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_zone" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:indeterminateTint="@color/blue"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_zone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

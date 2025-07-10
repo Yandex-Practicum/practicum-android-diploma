@@ -9,14 +9,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.VacancySearchFragmentBinding
+import ru.practicum.android.diploma.presentation.models.vacancies.VacancyUiModel
+import ru.practicum.android.diploma.ui.vacancysearch.recyclerview.VacancyItemAdapter
+import ru.practicum.android.diploma.util.Debouncer
 
 class VacancySearchFragment : Fragment() {
 
     private var _binding: VacancySearchFragmentBinding? = null
     private val binding get() = _binding!!
+
+    private val vacancies = ArrayList<VacancyUiModel>()
+    private val adapter = VacancyItemAdapter(vacancies)
+
+    private val debouncer by lazy {
+        Debouncer(viewLifecycleOwner.lifecycleScope, SEARCH_DEBOUNCE_DELAY)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = VacancySearchFragmentBinding.inflate(inflater, container, false)
@@ -29,9 +41,6 @@ class VacancySearchFragment : Fragment() {
         binding.header.toolbarTitle.text = getString(R.string.search_vacancy)
         binding.header.iconFilter.visibility = View.VISIBLE
 
-        binding.details.setOnClickListener {
-            findNavController().navigate(R.id.action_vacancySearchFragment_to_vacancyDetailsFragment)
-        }
         binding.header.iconFilter.setOnClickListener {
             findNavController().navigate(R.id.action_vacancySearchFragment_to_searchFiltersFragment)
         }
@@ -51,10 +60,16 @@ class VacancySearchFragment : Fragment() {
                             requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                         inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
                     }
+                    debouncer.submit {
+                        activity?.runOnUiThread {
+                            binding.progressBar.visibility = View.VISIBLE
+                        }
+                    }
                 } else {
                     binding.searchMainPlaceholder.visibility = View.VISIBLE
                     binding.icon.setImageResource(R.drawable.search_24px)
                     binding.icon.isClickable = false
+                    binding.progressBar.visibility = View.GONE
                 }
             }
 
@@ -62,10 +77,17 @@ class VacancySearchFragment : Fragment() {
             }
         }
         binding.inputEditText.addTextChangedListener(simpleTextWatcher)
+
+        binding.recyclerViewSearch.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerViewSearch.adapter = adapter
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object{
+        private const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
 }
