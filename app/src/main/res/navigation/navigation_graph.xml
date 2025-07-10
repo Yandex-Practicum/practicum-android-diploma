@@ -14,7 +14,7 @@
         android:label="AboutFragment" />
     <fragment
         android:id="@+id/vacancySearchFragment"
-        android:name="ru.practicum.android.diploma.ui.vacancysearch.VacancySearchFragment"
+        android:name="ru.practicum.android.diploma.ui.vacancysearch.fragment.VacancySearchFragment"
         android:label="VacancySearchFragment" >
         <action
             android:id="@+id/action_vacancySearchFragment_to_vacancyDetailsFragment"

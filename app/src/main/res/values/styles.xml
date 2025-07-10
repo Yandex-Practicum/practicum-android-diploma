@@ -46,8 +46,8 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">?attr/colorOnPrimary</item>
-        <item name="android:layout_marginHorizontal">16dp</item>
-        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginHorizontal">@dimen/dimen_16dp</item>
+        <item name="android:layout_marginTop">@dimen/dimen_16dp</item>
     </style>
 
     <style name="HeadStyle" parent="NamesStyle">
@@ -55,6 +55,19 @@
         <item name="android:textSize">@dimen/dimen_32sp</item>
         <item name="android:layout_marginTop">24dp</item>
         <item name="android:fontWeight">700</item>
+    </style>
+
+    <style name="ItemVacancyTypeSalaryStyle" parent="TextRegular16">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">12dp</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="ItemVacancyNameStyle" parent="ItemVacancyTypeSalaryStyle">
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/dimen_22sp</item>
+        <item name="android:fontWeight">500</item>
     </style>
 
 </resources>

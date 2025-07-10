@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.vacancysearch
+package ru.practicum.android.diploma.ui.vacancysearch.fragment
 
 import android.content.Context
 import android.os.Bundle

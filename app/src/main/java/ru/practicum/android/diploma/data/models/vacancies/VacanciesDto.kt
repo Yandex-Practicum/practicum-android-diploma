@@ -7,7 +7,8 @@ data class VacanciesDto(
     @SerializedName("alternate_url") val alternateUrl: String,
     @SerializedName("id") val id: String,
     @SerializedName("employer") val employer: EmployerDto?,
-    @SerializedName("salary_range") val salaryRange: SalaryRangeDto?
+    @SerializedName("salary_range") val salaryRange: SalaryRangeDto?,
+    @SerializedName("address") val address: AddressDto?
 )
 
 data class EmployerDto(
@@ -23,4 +24,8 @@ data class SalaryRangeDto(
     @SerializedName("currency") val currency: String,
     @SerializedName("from") val from: Int?,
     @SerializedName("to") val to: Int?
+)
+
+data class AddressDto(
+    @SerializedName("city") val city: String?
 )
