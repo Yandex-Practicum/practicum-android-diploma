@@ -24,12 +24,16 @@ class VacancyItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
     }
 
     private fun loadImage(url: String) {
-        val cornerRadius = dpToPx(12f, itemView.context)
+        val cornerRadius = dpToPx(COVER_ROUND, itemView.context)
 
         Glide.with(itemView)
             .load(url)
             .transform(RoundedCorners(cornerRadius))
             .placeholder(R.drawable.vacancy_placeholder)
             .into(coverVacancy)
+    }
+
+    companion object {
+        private const val COVER_ROUND = 12f
     }
 }
