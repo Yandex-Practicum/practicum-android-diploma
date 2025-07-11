@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.di
 
 import androidx.room.Room
+import com.google.gson.Gson
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -10,6 +11,8 @@ import ru.practicum.android.diploma.data.models.areas.AreasApi
 import ru.practicum.android.diploma.data.models.industries.IndustriesApi
 import ru.practicum.android.diploma.data.models.vacancies.VacanciesApi
 import ru.practicum.android.diploma.data.models.vacancydetails.VacancyDetailsApi
+import ru.practicum.android.diploma.data.network.RetrofitNetworkClient
+import ru.practicum.android.diploma.data.network.SearchNetworkClient
 
 val dataModule = module {
     // retrofit
@@ -18,6 +21,12 @@ val dataModule = module {
             .baseUrl("https://api.hh.ru/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+    }
+
+    factory { Gson() }
+
+    single<SearchNetworkClient> {
+        RetrofitNetworkClient(get(), get())
     }
 
     // room

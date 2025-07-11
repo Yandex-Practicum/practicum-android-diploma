@@ -62,6 +62,7 @@ dependencies {
     // network
     implementation(libs.converter.gson)
     implementation(libs.retrofit)
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
     // glide
     implementation(libs.glide)
