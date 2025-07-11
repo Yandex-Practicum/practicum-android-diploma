@@ -7,4 +7,4 @@ data class VacanciesResponseDto(
     @SerializedName("items") val items: List<VacanciesDto>,
     @SerializedName("page") val page: Int,
     @SerializedName("per_page") val perPage: Int
-): Response()
+) : Response()

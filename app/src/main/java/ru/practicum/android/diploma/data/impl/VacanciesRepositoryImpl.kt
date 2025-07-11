@@ -29,7 +29,7 @@ class VacanciesRepositoryImpl(private val networkClient: SearchNetworkClient) : 
                 SEARCH_FAILED -> throw IOException("API error: $code")
                 SERVER_ERROR -> throw IOException("API error: $code")
             }
-        } catch (e: Exception) {
+        } catch (e: retrofit2.HttpException) {
             Log.e("Repository", "Search error", e)
             throw e
         }

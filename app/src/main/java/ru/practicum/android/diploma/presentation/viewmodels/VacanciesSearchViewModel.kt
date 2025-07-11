@@ -11,7 +11,7 @@ import ru.practicum.android.diploma.domain.models.api.VacanciesInteractor
 import ru.practicum.android.diploma.domain.models.vacancies.Vacancy
 import ru.practicum.android.diploma.util.Resource
 
-class VacanciesSearchViewModel(private val interactor: VacanciesInteractor): ViewModel() {
+class VacanciesSearchViewModel(private val interactor: VacanciesInteractor) : ViewModel() {
 
     private val _vacancies = MutableLiveData<List<Vacancy>>()
     val vacancies: LiveData<List<Vacancy>> = _vacancies
@@ -26,6 +26,7 @@ class VacanciesSearchViewModel(private val interactor: VacanciesInteractor): Vie
                             val results = data.data ?: emptyList()
                             _vacancies.value = results
                         }
+
                         is Resource.Error -> {
                             _vacancies.value = emptyList()
                         }

@@ -2,9 +2,9 @@ package ru.practicum.android.diploma.ui.vacancysearch.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,12 +12,12 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.recyclerview.widget.LinearLayoutManager
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.VacancySearchFragmentBinding
-import ru.practicum.android.diploma.presentation.viewmodels.VacanciesSearchViewModel
 import ru.practicum.android.diploma.presentation.models.vacancies.VacancyUiModel
+import ru.practicum.android.diploma.presentation.viewmodels.VacanciesSearchViewModel
 import ru.practicum.android.diploma.ui.vacancysearch.recyclerview.VacancyItemAdapter
 import ru.practicum.android.diploma.util.Debouncer
 
@@ -49,7 +49,7 @@ class VacancySearchFragment : Fragment() {
             findNavController().navigate(R.id.action_vacancySearchFragment_to_searchFiltersFragment)
         }
 
-        searchViewModel.vacancies.observe(viewLifecycleOwner){ vacancies ->
+        searchViewModel.vacancies.observe(viewLifecycleOwner) { vacancies ->
             Log.d("Vacancies", vacancies.toString())
         }
 
@@ -57,6 +57,7 @@ class VacancySearchFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 // ...
             }
+
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s?.isNotEmpty() == true) {
                     binding.icon.setImageResource(R.drawable.close_24px)
