@@ -12,9 +12,9 @@ import ru.practicum.android.diploma.util.dpToPx
 
 class VacancyItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val coverVacancy = itemView.findViewById<ImageView>(R.id.cover_vacancy)
-    private val nameVacancy = itemView.findViewById<TextView>(R.id.name_vacancy)
+    private val nameVacancy = itemView.findViewById<TextView>(R.id.tv_name_vacancy)
     private val employeeName = itemView.findViewById<TextView>(R.id.employee_name)
-    private val salaryVacancy = itemView.findViewById<TextView>(R.id.salary_vacancy)
+    private val salaryVacancy = itemView.findViewById<TextView>(R.id.tv_salary_vacancy)
 
     fun bind(vacancy: VacancyUiModel) {
         nameVacancy.text = vacancy.nameVacancy
