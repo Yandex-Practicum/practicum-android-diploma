@@ -11,7 +11,6 @@ import ru.practicum.android.diploma.util.NetworkHelper.isConnected
 
 class RetrofitNetworkClient(private val service: VacanciesApi, private val context: Context) : SearchNetworkClient {
     override suspend fun doRequest(dto: Any): Response {
-
         return withContext(Dispatchers.IO) {
             when {
                 !isConnected(context) -> Response().apply { resultCode = -1 }
@@ -25,7 +24,6 @@ class RetrofitNetworkClient(private val service: VacanciesApi, private val conte
                 }
             }
         }
-
     }
 
     companion object {
